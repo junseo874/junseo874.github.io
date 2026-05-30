@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUNA: Bartender — Test Tool</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d0e12;
+  --bg2:#15171d;
+  --bg3:#1c1f27;
+  --bg4:#262a35;
+  --border:#2e323d;
+  --border-hi:#3d4250;
+  --txt:#e4e6ea;
+  --dim:#7d8290;
+  --dim2:#9aa0ac;
+  --amber:#FF9B45;
+  --red:#FF6B6B;
+  --blue:#88CCFF;
+  --green:#7CE38B;
+  --purple:#B392F0;
+  --warn:#FFC857;
+}
+html,body{height:100%;background:#05060a;color:var(--txt);font-family:'Noto Sans KR',sans-serif;overflow:hidden}
+body{
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at center,#0a0c12 0%,#05060a 100%);
+}
+/* ───── OUTER FRAME ───── */
+#app-frame{
+  width:1280px;height:800px;max-width:98vw;max-height:96vh;
+  display:flex;flex-direction:column;
+  background:var(--bg);
+  border:1px solid var(--border-hi);
+  border-radius:10px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+  overflow:hidden;position:relative;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+
+/* ───── HEADER ───── */
+#topbar{
+  flex:0 0 auto;height:42px;display:flex;align-items:center;padding:0 16px;gap:14px;
+  background:linear-gradient(180deg,#16181f,#0e1015);
+  border-bottom:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;font-size:12px;
+}
+#topbar .logo{font-weight:700;letter-spacing:1px;color:var(--amber)}
+#topbar .logo::before{content:"▸ ";color:var(--dim)}
+#topbar .tag{padding:3px 8px;border:1px solid var(--border);border-radius:3px;color:var(--dim2);font-size:11px}
+#topbar .tag b{color:var(--blue);font-weight:500}
+#topbar .spacer{flex:1}
+#topbar .stat{color:var(--dim);font-size:11px}
+#topbar .stat b{color:var(--green)}
+
+/* ───── MAIN LAYOUT ───── */
+#main{flex:1 1 auto;display:flex;min-height:0}
+#left-pane{flex:1 1 auto;display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--border)}
+#right-pane{flex:0 0 360px;display:flex;flex-direction:column;background:var(--bg2)}
+
+/* ───── GAME SCREENS ───── */
+#screen-host{flex:1 1 auto;position:relative;background:radial-gradient(ellipse at center,#1a1d26 0%,#0a0b10 100%);overflow:hidden}
+.screen{position:absolute;inset:0;display:none;flex-direction:column}
+.screen.active{display:flex}
+
+/* ── DIALOGUE SCREEN ── */
+#scene{flex:1 1 auto;position:relative;display:flex;align-items:flex-end;justify-content:center;padding:30px 40px 200px;overflow:hidden;gap:40px}
+#scene::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,155,69,0.04) 0%,transparent 50%),
+    radial-gradient(circle at 80% 70%,rgba(136,204,255,0.03) 0%,transparent 50%);
+  pointer-events:none;
+}
+#scene::after{
+  content:"";position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,0.008) 2px,rgba(255,255,255,0.008) 3px);
+  pointer-events:none;
+}
+.slot{
+  width:240px;height:340px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  position:relative;transition:opacity .4s,transform .4s;
+}
+.slot.empty{opacity:0;transform:translateY(20px)}
+.slot.empty:not(.entering):not(.exiting){
+  display:none;
+}
+.slot.entering{animation:enterAnim .8s cubic-bezier(.25,.8,.25,1)}
+.slot.exiting{animation:exitAnim .5s ease-out forwards}
+@keyframes enterAnim{
+  0%{opacity:0;transform:translateY(40px) scale(.95);filter:brightness(0)}
+  60%{filter:brightness(0)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}
+}
+@keyframes exitAnim{
+  to{opacity:0;transform:translateY(20px)}
+}
+.silhouette-reveal{position:relative}
+.silhouette-reveal::before{
+  content:"";position:absolute;inset:0;background:#000;opacity:1;
+  animation:silhFade 1s ease-out forwards;border-radius:8px;
+}
+@keyframes silhFade{
+  0%{opacity:1}
+  60%{opacity:1}
+  100%{opacity:0}
+}
+
+.char-box{
+  width:200px;height:280px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid var(--border);border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.char-box::before{
+  content:"";position:absolute;inset:-1px;border-radius:10px;padding:1px;
+  background:linear-gradient(180deg,var(--name-color,#666),transparent 60%);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:.4;
+}
+.cb-emoji{font-size:96px;line-height:1;filter:drop-shadow(0 4px 20px rgba(0,0,0,.6));margin-bottom:6px;animation:idle 3s ease-in-out infinite}
+@keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.cb-name{font-size:18px;font-weight:700;margin-top:8px;color:var(--name-color,#ccc);letter-spacing:1px}
+.cb-meta{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+.cb-expr-tag{
+  position:absolute;top:10px;right:10px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  padding:3px 6px;border:1px solid var(--border-hi);border-radius:3px;
+  background:rgba(0,0,0,.5);color:var(--dim2);text-transform:uppercase;
+}
+.slot-label{
+  position:absolute;top:8px;left:8px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;
+  color:var(--dim);letter-spacing:1px;
+  padding:2px 6px;border:1px solid var(--border);border-radius:3px;
+  background:rgba(0,0,0,.4);
+}
+
+#scene-empty-msg{
+  position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);
+  color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:13px;
+  letter-spacing:2px;opacity:.5;
+}
+#scene-empty-msg.hidden{display:none}
+
+/* fade-out overlay */
+#fade-overlay{
+  position:absolute;inset:0;background:#000;
+  opacity:0;pointer-events:none;z-index:50;transition:opacity .1s;
+}
+#fade-overlay.fade-active{transition:opacity var(--fade-dur,1.5s) ease;opacity:1}
+
+/* ── DIALOGUE BOX ── */
+#dlg-box{
+  position:absolute;left:24px;right:24px;bottom:24px;
+  background:linear-gradient(180deg,rgba(15,17,22,0.92),rgba(10,11,15,0.96));
+  backdrop-filter:blur(8px);
+  border:1px solid var(--border);border-radius:8px;
+  padding:16px 22px;min-height:140px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+#dlg-box::before{
+  content:"";position:absolute;top:0;left:18px;right:18px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:.4;
+}
+#spk-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#spk-name{font-size:18px;font-weight:700;letter-spacing:.5px}
+#spk-type{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:2px 7px;border:1px solid var(--border);border-radius:3px;
+  color:var(--dim2);text-transform:uppercase;letter-spacing:1px;
+}
+#spk-type.monologue{color:var(--purple);border-color:#3d3548}
+#spk-type.normal{color:var(--amber);border-color:#3a2f1f}
+#spk-type.system{color:var(--green);border-color:#1f3a26}
+#txt-area{
+  font-size:15px;line-height:1.65;letter-spacing:.2px;min-height:48px;
+  color:var(--txt);white-space:pre-wrap;
+}
+#txt-cursor{display:inline-block;width:8px;height:14px;background:var(--amber);margin-left:3px;vertical-align:-2px;animation:blink 0.6s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.kw-world{color:var(--red);font-weight:700}
+.kw-name{color:var(--blue);font-weight:500}
+.kw-order{color:var(--amber);font-weight:600}
+#adv-hint{
+  position:absolute;right:18px;bottom:10px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);
+  letter-spacing:2px;animation:pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{50%{opacity:.4}}
+#adv-hint.hidden{display:none}
+
+/* ── CHOICES ── */
+#choices-box{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;gap:10px;z-index:30;
+  min-width:380px;max-width:600px;
+}
+#choices-box.hidden{display:none}
+.choice-btn{
+  background:linear-gradient(180deg,rgba(30,32,40,0.95),rgba(20,22,28,0.95));
+  backdrop-filter:blur(8px);
+  border:1px solid var(--border-hi);border-radius:5px;
+  padding:14px 22px;font-family:inherit;font-size:14px;color:var(--txt);
+  cursor:pointer;text-align:left;transition:all .15s;
+  position:relative;overflow:hidden;
+}
+.choice-btn::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--amber);transform:scaleY(0);transform-origin:center;transition:transform .2s;
+}
+.choice-btn:hover{background:linear-gradient(180deg,rgba(40,43,52,0.95),rgba(25,28,35,0.95));border-color:var(--amber);transform:translateX(3px)}
+.choice-btn:hover::before{transform:scaleY(1)}
+.choice-btn .ck{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-right:10px}
+
+/* ── CRAFT SCREEN ── */
+#craft-screen{padding:0}
+#craft-header{
+  padding:14px 22px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:18px;
+  background:linear-gradient(180deg,#1a1d26,#13151c);
+}
+#craft-header h2{font-size:16px;font-weight:700;letter-spacing:1px}
+#craft-header h2::before{content:"🍸 ";font-size:14px}
+#craft-order{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);padding:4px 10px;border:1px solid #3a2f1f;border-radius:3px;background:rgba(255,155,69,0.06)}
+#craft-event-id{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-left:auto}
+
+#craft-body{flex:1;display:flex;min-height:0}
+#ingr-panel{flex:1;padding:18px;overflow-y:auto;border-right:1px solid var(--border)}
+#ingr-panel h3{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin:14px 0 8px;padding-bottom:4px;border-bottom:1px dashed var(--border)}
+#ingr-panel h3:first-child{margin-top:0}
+.ingr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.ingr-btn{
+  background:#1d2029;border:1px solid var(--border);border-radius:4px;
+  padding:9px 12px;font-family:inherit;font-size:13px;color:var(--txt);
+  cursor:pointer;transition:all .12s;text-align:left;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.ingr-btn:hover{border-color:var(--amber);background:#252834}
+.ingr-btn.has{border-color:var(--amber);background:rgba(255,155,69,0.08)}
+.ingr-btn .ic{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);font-weight:700}
+.ingr-btn.maxed{opacity:.5;cursor:not-allowed}
+
+#cart-panel{width:300px;padding:18px;display:flex;flex-direction:column;background:#13151c}
+#cart-panel h3{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim2);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+#cart-list{flex:1;min-height:0;overflow-y:auto;border:1px dashed var(--border);border-radius:4px;padding:10px;background:rgba(0,0,0,.2)}
+.cart-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 10px;margin-bottom:4px;border-radius:3px;background:#1d2029;
+  font-size:13px;
+}
+.cart-item .cnt{font-family:'JetBrains Mono',monospace;color:var(--amber);font-weight:700}
+.cart-item .rm{color:var(--dim);cursor:pointer;padding:0 6px;font-size:11px}
+.cart-item .rm:hover{color:var(--red)}
+#cart-empty{color:var(--dim);font-size:12px;text-align:center;padding:20px 0}
+
+#sel-recipe{margin-top:12px;padding:10px;border:1px solid #3a2f1f;background:rgba(255,155,69,0.05);border-radius:4px;font-size:12px;display:none}
+#sel-recipe.shown{display:block}
+#sel-recipe .sr-name{font-weight:700;color:var(--amber);margin-bottom:4px}
+#sel-recipe .sr-kw{color:var(--dim2);font-size:11px;margin-bottom:6px}
+#sel-recipe .sr-method,#sel-recipe .sr-ingr{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);margin-top:3px}
+
+#craft-footer{
+  padding:14px 22px;border-top:1px solid var(--border);
+  display:flex;gap:8px;align-items:center;
+  background:linear-gradient(0deg,#1a1d26,#13151c);
+}
+#craft-footer button{
+  background:#1d2029;border:1px solid var(--border);color:var(--txt);
+  padding:9px 16px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:13px;transition:all .12s;
+}
+#craft-footer button:hover{border-color:var(--amber);background:#252834}
+.method-btn{
+  background:linear-gradient(180deg,#2a2018,#1d1812)!important;
+  border-color:#4a3a25!important;color:var(--amber)!important;
+  font-weight:700;letter-spacing:1px;
+}
+.method-btn:hover{background:linear-gradient(180deg,#3a2c1f,#2a2018)!important;border-color:var(--amber)!important}
+
+/* ── MINI GAME ── */
+#mini-screen{padding:0;align-items:center;justify-content:center}
+#mini-inner{display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px;border:1px solid var(--border);border-radius:8px;background:rgba(0,0,0,.3);min-width:520px}
+#mini-title{font-size:13px;color:var(--dim);font-family:'JetBrains Mono',monospace;letter-spacing:3px;text-transform:uppercase}
+#mini-method{font-size:32px;font-weight:900;letter-spacing:2px;color:var(--amber)}
+#mini-keys{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;max-width:480px}
+.mk{
+  width:60px;height:60px;
+  border:2px solid var(--border-hi);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;
+  background:#1d2029;transition:all .15s;
+}
+.mk.current{border-color:var(--amber);background:rgba(255,155,69,0.15);box-shadow:0 0 20px rgba(255,155,69,0.3);transform:scale(1.1)}
+.mk.done{border-color:var(--green);background:rgba(124,227,139,0.15);color:var(--green)}
+.mk.fail{animation:miniFail .3s}
+@keyframes miniFail{0%,100%{transform:translateX(0);background:rgba(255,107,107,0.2)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+#mini-timer{font-family:'JetBrains Mono',monospace;font-size:42px;font-weight:700;color:var(--green)}
+#mini-timer.danger{color:var(--red);animation:pulse 0.5s ease-in-out infinite}
+#mini-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:2px}
+#mini-msg{color:var(--dim2);font-size:13px;text-align:center;min-height:40px}
+
+/* ───── PARAM CHANGE POPUP (top-left) ───── */
+#param-popup-stack{
+  position:absolute;top:14px;left:14px;
+  display:flex;flex-direction:column;gap:8px;
+  z-index:50;pointer-events:none;
+}
+.param-popup{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 14px 8px 8px;
+  background:linear-gradient(90deg,rgba(20,22,30,0.95),rgba(28,31,39,0.92));
+  border:1px solid var(--border-hi);border-radius:30px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03) inset;
+  font-size:13px;
+  animation:popupIn .35s cubic-bezier(.18,.89,.32,1.28) forwards, popupOut .4s ease-in 2.4s forwards;
+  opacity:0;transform:translateX(-30px);
+  min-width:200px;
+}
+@keyframes popupIn{to{opacity:1;transform:translateX(0)}}
+@keyframes popupOut{to{opacity:0;transform:translateX(-12px)}}
+.pp-avatar{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;background:rgba(255,255,255,0.04);
+  border:2px solid var(--ch-color,#888);
+  flex:0 0 40px;
+  box-shadow:0 0 0 1px rgba(0,0,0,0.4) inset;
+}
+.pp-text{display:flex;flex-direction:column;line-height:1.2;flex:1;min-width:0}
+.pp-name{font-size:11px;color:var(--dim2);font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.pp-param{font-size:14px;font-weight:600;color:var(--txt)}
+.pp-arrow{
+  font-size:22px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  width:26px;
+}
+.pp-arrow.up{color:var(--green);animation:arrUp .8s ease-in-out infinite alternate}
+.pp-arrow.down{color:var(--red);animation:arrDown .8s ease-in-out infinite alternate}
+@keyframes arrUp{
+  0%{transform:translateY(3px)}
+  100%{transform:translateY(-4px)}
+}
+@keyframes arrDown{
+  0%{transform:translateY(-3px)}
+  100%{transform:translateY(4px)}
+}
+
+/* ───── ECON / MASTERY TOAST (top-right of left-pane) ───── */
+#econ-toast-stack{
+  position:absolute;top:14px;right:14px;
+  display:flex;flex-direction:column;gap:6px;align-items:flex-end;
+  z-index:50;pointer-events:none;
+}
+.econ-toast{
+  padding:7px 14px;
+  background:linear-gradient(90deg,rgba(20,22,30,0.95),rgba(28,31,39,0.92));
+  border:1px solid var(--border-hi);border-radius:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;
+  animation:econIn .3s cubic-bezier(.18,.89,.32,1.28) forwards, econOut .4s ease-in 2.0s forwards;
+  opacity:0;transform:translateX(20px) scale(.9);
+  white-space:nowrap;
+}
+@keyframes econIn{to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes econOut{to{opacity:0;transform:translateX(10px) scale(.95)}}
+.econ-toast.money{color:var(--green)}
+.econ-toast.tip{color:var(--warn)}
+.econ-toast.mastery{color:var(--blue)}
+.econ-toast.neg{color:var(--red)}
+
+/* ───── HUD (money & mastery, persistent top-right of topbar) ───── */
+#hud-money,#hud-mastery{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  padding:3px 9px;border:1px solid var(--border);border-radius:3px;
+  display:flex;align-items:center;gap:6px;
+}
+#hud-money b{color:var(--green)}
+#hud-mastery b{color:var(--blue)}
+
+/* ───── TOOLBAR ───── */
+#toolbar{
+  flex:0 0 auto;height:46px;display:flex;align-items:center;padding:0 14px;gap:6px;
+  background:linear-gradient(0deg,#16181f,#0e1015);border-top:1px solid var(--border);
+}
+.tb{
+  background:#1d2029;border:1px solid var(--border);color:var(--txt);
+  padding:7px 13px;font-size:12px;border-radius:4px;cursor:pointer;
+  font-family:inherit;transition:all .12s;
+}
+.tb:hover{border-color:var(--amber);background:#252834}
+.tb:disabled{opacity:.4;cursor:not-allowed}
+.tb.danger:hover{border-color:var(--red);color:var(--red)}
+#prog{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim)}
+#prog b{color:var(--amber)}
+
+/* ── RIGHT DEBUG PANE ── */
+.dbg-section{border-bottom:1px solid var(--border)}
+.dbg-section h3{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--dim);text-transform:uppercase;letter-spacing:2px;
+  padding:10px 14px;background:#11131a;
+  display:flex;align-items:center;gap:8px;
+}
+.dbg-section h3 .badge{margin-left:auto;font-size:9px;padding:2px 6px;border:1px solid var(--border);border-radius:3px;color:var(--dim2);background:#1c1f27}
+.dbg-body{padding:10px 14px;font-size:12px;max-height:300px;overflow-y:auto}
+.dbg-body.scroll{max-height:none}
+
+/* Current Node */
+#dbg-node{font-family:'JetBrains Mono',monospace;font-size:11px}
+#dbg-node .row{display:flex;justify-content:space-between;padding:3px 0}
+#dbg-node .row span:first-child{color:var(--dim);text-transform:uppercase;font-size:10px;letter-spacing:1px}
+#dbg-node .row span:last-child{color:var(--txt);max-width:60%;text-align:right;word-break:break-word}
+#dbg-node .row.tr span:last-child{color:var(--blue)}
+#dbg-node .row.id span:last-child{color:var(--amber);font-weight:700}
+
+/* Slots */
+#dbg-slots{display:flex;gap:8px}
+.dbg-slot{
+  flex:1;padding:9px;border:1px solid var(--border);border-radius:4px;
+  background:#11131a;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+}
+.dbg-slot.occupied{border-color:var(--amber);background:rgba(255,155,69,0.04)}
+.dbg-slot .slot-name{font-size:9px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.dbg-slot .slot-char{font-weight:700;color:var(--txt)}
+.dbg-slot .slot-empty-tag{color:var(--dim)}
+.dbg-slot .slot-expr{color:var(--blue);font-size:10px;margin-top:3px}
+
+/* Affinity */
+.aff-card{
+  padding:10px;margin-bottom:7px;border:1px solid var(--border);border-radius:4px;background:#11131a;
+}
+.aff-card .ac-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.aff-card .ac-name{font-weight:700;font-size:13px}
+.aff-card .ac-val{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);font-weight:700}
+.aff-card .ac-tier{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.tier-very_low{background:rgba(255,107,107,0.15);color:var(--red);border:1px solid #4a2828}
+.tier-low{background:rgba(255,200,87,0.12);color:var(--warn);border:1px solid #4a3c1f}
+.tier-mid{background:rgba(154,160,172,0.12);color:var(--dim2);border:1px solid #3a3d44}
+.tier-high{background:rgba(136,204,255,0.12);color:var(--blue);border:1px solid #2a3d4a}
+.tier-very_high{background:rgba(124,227,139,0.15);color:var(--green);border:1px solid #1f3a26}
+.aff-bar{height:5px;background:#1c1f27;border-radius:3px;overflow:hidden;margin-top:5px}
+.aff-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--warn),var(--green));transition:width .4s}
+.aff-thresholds{display:flex;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--dim);margin-top:3px;justify-content:space-between}
+
+/* Trigger Log */
+#dbg-trigger-log{font-family:'JetBrains Mono',monospace;font-size:10px}
+.tr-entry{padding:5px 7px;margin-bottom:3px;background:#11131a;border-left:2px solid var(--blue);border-radius:0 3px 3px 0}
+.tr-entry.t-customer_enter{border-left-color:var(--green)}
+.tr-entry.t-customer_exit{border-left-color:var(--red)}
+.tr-entry.t-set_stat,.tr-entry.t-add_stat{border-left-color:var(--amber)}
+.tr-entry.t-start_craft{border-left-color:var(--purple)}
+.tr-entry.t-effect{border-left-color:var(--dim2)}
+.tr-entry .tr-name{color:var(--blue);font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px}
+.tr-entry.t-customer_enter .tr-name{color:var(--green)}
+.tr-entry.t-customer_exit .tr-name{color:var(--red)}
+.tr-entry.t-set_stat .tr-name,.tr-entry.t-add_stat .tr-name{color:var(--amber)}
+.tr-entry.t-start_craft .tr-name{color:var(--purple)}
+.tr-entry .tr-data{color:var(--dim2);margin-top:2px;line-height:1.4}
+.tr-entry .tr-step{color:var(--dim);font-size:9px;float:right}
+
+/* OVERLAYS */
+.overlay{
+  position:absolute;inset:0;background:rgba(5,6,10,0.85);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;z-index:100;
+}
+.overlay.open{display:flex}
+.ov-window{
+  width:90%;max-width:1000px;max-height:85vh;
+  background:linear-gradient(180deg,#15171d,#0e1015);
+  border:1px solid var(--border-hi);border-radius:8px;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 16px 48px rgba(0,0,0,.7);
+}
+.ov-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#191b22}
+.ov-header h2{font-size:15px;font-weight:700;letter-spacing:1px}
+.ov-close{background:none;border:1px solid var(--border);color:var(--dim);padding:5px 12px;border-radius:3px;cursor:pointer;font-family:inherit;font-size:12px}
+.ov-close:hover{color:var(--red);border-color:var(--red)}
+.ov-body{flex:1;overflow-y:auto;padding:18px 22px}
+
+/* Log overlay */
+.log-entry{padding:9px 14px;margin-bottom:6px;border-left:3px solid;background:#13151c;border-radius:0 4px 4px 0}
+.log-entry .ls{font-weight:700;font-size:12px;margin-bottom:3px}
+.log-entry .lt{color:var(--dim2);font-size:13px;line-height:1.5;white-space:pre-wrap}
+.log-entry .lex{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:3px}
+
+/* Recipe overlay (uses ov-window structure) */
+#recipe-body{display:flex;gap:0;flex:1;min-height:0}
+#recipe-list{width:280px;border-right:1px solid var(--border);overflow-y:auto;background:#11131a}
+.rl-item{padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:all .12s;position:relative}
+.rl-item:hover{background:#1c1f27}
+.rl-item.sel{background:rgba(255,155,69,0.08);border-left:3px solid var(--amber);padding-left:11px}
+.rl-item.locked{cursor:not-allowed;background:#0e1015}
+.rl-item.locked .rl-name,
+.rl-item.locked .rl-kw,
+.rl-item.locked .rl-m,
+.rl-item.locked .rl-price{filter:blur(5px);opacity:.6;user-select:none;color:var(--dim)}
+.rl-item.locked::after{
+  content:"🔒 숙련도 낮음 — 확인 불가";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--warn);background:rgba(13,14,18,0.55);
+  letter-spacing:.5px;pointer-events:none;
+}
+.rl-price{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green);margin-top:3px;font-weight:700}
+.rl-name{font-weight:700;font-size:14px}
+.rl-kw{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);margin-top:3px}
+.rl-m{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-top:2px}
+#recipe-detail{flex:1;padding:20px 24px;overflow-y:auto}
+#rd-empty{display:flex;align-items:center;justify-content:center;height:100%;color:var(--dim);font-size:13px}
+#rd-content{display:none}
+#rd-content.show{display:block}
+#rd-name{font-size:22px;font-weight:900;letter-spacing:1px}
+#rd-name-en{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:3px;letter-spacing:1px}
+#rd-kw{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+#rd-kw span{padding:3px 9px;border:1px solid var(--border-hi);border-radius:11px;font-size:11px;color:var(--dim2);background:#1c1f27}
+#rd-method-box{display:flex;gap:18px;padding:10px 14px;margin:10px 0;background:#11131a;border:1px solid var(--border);border-radius:4px;flex-wrap:wrap}
+#rd-method-box .label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px}
+#rd-method-box .val{font-size:13px;font-weight:700;color:var(--amber)}
+#rd-method-box .val.price{color:var(--green)}
+#rd-desc{font-size:12px;line-height:1.7;color:var(--dim2);padding:10px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);margin:12px 0}
+#rd-ingr h4{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+#rd-ingr-list{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.ri-chip{padding:5px 11px;background:#1c1f27;border:1px solid var(--border);border-radius:4px;font-size:12px}
+.ri-chip b{color:var(--amber);font-family:'JetBrains Mono',monospace;margin-left:6px}
+#rd-select-btn{
+  background:linear-gradient(180deg,#3a2c1f,#2a2018);
+  border:1px solid var(--amber);color:var(--amber);
+  padding:10px 22px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;
+}
+#rd-select-btn:hover{background:linear-gradient(180deg,#4a3a25,#3a2c1f)}
+
+#filter-box{padding:12px 16px;border-bottom:1px solid var(--border);background:#11131a}
+.filter-row{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px}
+.filter-row:last-child{margin-bottom:0}
+.fr-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);min-width:42px;text-transform:uppercase;letter-spacing:1px}
+.fb{background:#1c1f27;border:1px solid var(--border);color:var(--dim2);padding:3px 9px;border-radius:3px;cursor:pointer;font-family:inherit;font-size:11px;transition:all .1s}
+.fb:hover{border-color:var(--amber);color:var(--txt)}
+.fb.on{background:rgba(255,155,69,0.15);border-color:var(--amber);color:var(--amber)}
+
+/* End overlay */
+#end-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.92);
+  display:none;align-items:center;justify-content:center;
+  flex-direction:column;gap:14px;z-index:80;
+}
+#end-overlay.show{display:flex}
+#end-overlay h2{font-size:24px;font-weight:900;letter-spacing:3px;color:var(--amber)}
+#end-overlay p{color:var(--dim2);font-size:13px}
+
+/* SETTLEMENT */
+.stl-section{margin-bottom:18px}
+.stl-section h4{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--dim);text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:8px;padding-bottom:4px;border-bottom:1px dashed var(--border);
+}
+.stl-day-tabs{display:flex;gap:6px;margin-bottom:14px}
+.stl-day-tab{
+  flex:1;padding:8px 12px;background:#1c1f27;border:1px solid var(--border);
+  color:var(--dim2);border-radius:4px;cursor:pointer;font-family:inherit;
+  font-size:12px;transition:all .12s;
+}
+.stl-day-tab:hover{border-color:var(--amber);color:var(--txt)}
+.stl-day-tab.on{background:rgba(255,155,69,0.12);border-color:var(--amber);color:var(--amber);font-weight:700}
+.stl-flags{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.stl-flag-row{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;
+  background:#13151c;border:1px solid var(--border);border-radius:4px;font-size:12px;
+}
+.stl-flag-row label{display:flex;align-items:center;gap:8px;cursor:pointer;flex:1}
+.stl-flag-row input{cursor:pointer}
+.stl-flag-id{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim)}
+.stl-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;margin-bottom:5px;border-radius:4px;
+  background:#13151c;border:1px solid var(--border);font-size:13px;
+}
+.stl-row.skipped{opacity:.45}
+.stl-row .stl-label{flex:1}
+.stl-row .stl-id{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-right:10px}
+.stl-row .stl-amt{font-family:'JetBrains Mono',monospace;font-weight:700}
+.stl-row .stl-amt.neg{color:var(--red)}
+.stl-row .stl-amt.pos{color:var(--green)}
+.stl-summary{
+  margin-top:14px;padding:12px 14px;
+  background:rgba(255,155,69,0.06);border:1px solid #3a2f1f;border-radius:4px;
+}
+.stl-summary .stl-line{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px}
+.stl-summary .stl-line.total{margin-top:6px;padding-top:8px;border-top:1px dashed var(--border);font-size:14px;font-weight:700}
+.stl-summary .val{font-family:'JetBrains Mono',monospace;font-weight:700}
+.stl-summary .val.green{color:var(--green)} .stl-summary .val.red{color:var(--red)}
+.stl-apply-btn{
+  margin-top:14px;width:100%;
+  background:linear-gradient(180deg,#3a2c1f,#2a2018);
+  border:1px solid var(--amber);color:var(--amber);
+  padding:11px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;
+}
+.stl-apply-btn:hover{background:linear-gradient(180deg,#4a3a25,#3a2c1f)}
+.stl-apply-btn:disabled{opacity:.4;cursor:not-allowed;background:#1d2029;color:var(--dim)}
+
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#262a35;border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:#3d4250}
+</style>
+</head>
+<body>
+
+<div id="app-frame">
+
+<div id="topbar">
+  <div class="logo">LUNA · TEST TOOL</div>
+  <div class="tag">DAY <b id="tb-day">0</b></div>
+  <div class="tag">SCENE <b id="tb-scene">day_test</b></div>
+  <div class="tag">CUSTOMER <b id="tb-customer">port</b></div>
+  <div class="spacer"></div>
+  <div id="hud-money">💰 <b id="hud-money-val">€0</b></div>
+  <div id="hud-mastery">🛠 <b id="hud-mastery-val">Lv.0</b></div>
+  <div class="stat">NODE <b id="tb-node">—</b></div>
+  <div class="stat">STEP <b id="tb-step">0</b></div>
+</div>
+
+<div id="main">
+
+  <div id="left-pane">
+    <div id="screen-host">
+
+      <!-- TOP-LEFT: PARAM CHANGE POPUPS -->
+      <div id="param-popup-stack"></div>
+      <!-- TOP-RIGHT: ECON / MASTERY TOASTS -->
+      <div id="econ-toast-stack"></div>
+
+      <!-- DIALOGUE SCREEN -->
+      <div id="dlg-screen" class="screen active">
+        <div id="scene">
+          <div id="scene-empty-msg">— NO CHARACTER —</div>
+          <div class="slot empty" id="slot-left" data-slot="left">
+            <div class="slot-label">L</div>
+            <div class="char-box" id="cb-left">
+              <span class="cb-expr-tag" id="cb-left-expr">—</span>
+              <div class="cb-emoji" id="cb-left-emoji">😐</div>
+              <div class="cb-name" id="cb-left-name">—</div>
+              <div class="cb-meta" id="cb-left-meta">—</div>
+            </div>
+          </div>
+          <div class="slot empty" id="slot-right" data-slot="right">
+            <div class="slot-label">R</div>
+            <div class="char-box" id="cb-right">
+              <span class="cb-expr-tag" id="cb-right-expr">—</span>
+              <div class="cb-emoji" id="cb-right-emoji">😐</div>
+              <div class="cb-name" id="cb-right-name">—</div>
+              <div class="cb-meta" id="cb-right-meta">—</div>
+            </div>
+          </div>
+          <div id="fade-overlay"></div>
+        </div>
+        <div id="choices-box" class="hidden"></div>
+        <div id="dlg-box">
+          <div id="spk-bar"><span id="spk-name">…</span><span id="spk-type"></span></div>
+          <div id="txt-area"><span id="txt-content"></span><span id="txt-cursor"></span></div>
+          <div id="adv-hint" class="hidden">SPACE ▸ ENTER ▸ CLICK</div>
+        </div>
+        <div id="end-overlay"><h2>— END OF TEST —</h2><p>처음부터 다시 시작하려면 RESTART 버튼을 누르세요.</p></div>
+      </div>
+
+      <!-- CRAFT SCREEN -->
+      <div id="craft-screen" class="screen">
+        <div id="craft-header">
+          <h2>칵테일 제조</h2>
+          <div id="craft-order">주문: —</div>
+          <div id="craft-event-id">EVENT: —</div>
+        </div>
+        <div id="craft-body">
+          <div id="ingr-panel"></div>
+          <div id="cart-panel">
+            <h3>담은 재료</h3>
+            <div id="cart-list"><div id="cart-empty">재료를 선택하세요</div></div>
+            <div id="sel-recipe">
+              <div class="sr-name"></div>
+              <div class="sr-kw"></div>
+              <div class="sr-method"></div>
+              <div class="sr-ingr"></div>
+            </div>
+          </div>
+        </div>
+        <div id="craft-footer">
+          <button onclick="openRecipe()">📖 레시피 검색</button>
+          <button onclick="resetCart()">🗑 초기화</button>
+          <div style="flex:1"></div>
+          <button class="method-btn" onclick="startMini('shake')">쉐이킹</button>
+          <button class="method-btn" onclick="startMini('stir')">스터</button>
+          <button class="method-btn" onclick="startMini('build')">빌드</button>
+        </div>
+      </div>
+
+      <!-- MINI GAME SCREEN -->
+      <div id="mini-screen" class="screen">
+        <div id="mini-inner">
+          <div id="mini-title">제조 중</div>
+          <div id="mini-method"></div>
+          <div id="mini-keys"></div>
+          <div id="mini-timer">8.0</div>
+          <div id="mini-meta">PERFECT: 0 errors · NORMAL: 1-2 errors · FAIL: timeout</div>
+          <div id="mini-msg">표시된 W A S D 키를 순서대로 입력하세요</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="toolbar">
+      <button class="tb" id="btn-back" onclick="goBack()" disabled>◀ BACK</button>
+      <button class="tb" onclick="openLog()">📜 LOG</button>
+      <button class="tb" onclick="openTrigLog()">⚡ TRIGGERS</button>
+      <button class="tb" onclick="openSettlement()">💰 정산</button>
+      <button class="tb danger" onclick="restartGame()">🔄 RESTART</button>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-left:18px">SPACE/ENTER 진행 · BACKSPACE 뒤로</span>
+      <span id="prog">NODE <b>—</b></span>
+    </div>
+  </div>
+
+  <!-- RIGHT DEBUG PANE -->
+  <div id="right-pane">
+
+    <div class="dbg-section">
+      <h3>📍 CURRENT NODE <span class="badge" id="badge-type">—</span></h3>
+      <div class="dbg-body" id="dbg-node">
+        <div class="row id"><span>ID</span><span id="dn-id">—</span></div>
+        <div class="row"><span>SPEAKER</span><span id="dn-speaker">—</span></div>
+        <div class="row"><span>EXPRESSION</span><span id="dn-expr">—</span></div>
+        <div class="row"><span>NEXT</span><span id="dn-next">—</span></div>
+        <div class="row tr"><span>TRIGGER</span><span id="dn-trigger">—</span></div>
+      </div>
+    </div>
+
+    <div class="dbg-section">
+      <h3>👥 SLOTS</h3>
+      <div class="dbg-body">
+        <div id="dbg-slots">
+          <div class="dbg-slot" id="ds-left">
+            <div class="slot-name">LEFT</div>
+            <div class="slot-char"><span class="slot-empty-tag">empty</span></div>
+            <div class="slot-expr"></div>
+          </div>
+          <div class="dbg-slot" id="ds-right">
+            <div class="slot-name">RIGHT</div>
+            <div class="slot-char"><span class="slot-empty-tag">empty</span></div>
+            <div class="slot-expr"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dbg-section">
+      <h3>📊 STATS</h3>
+      <div class="dbg-body" id="dbg-affinity"></div>
+    </div>
+
+    <div class="dbg-section" style="flex:1;display:flex;flex-direction:column;min-height:0">
+      <h3>⚡ TRIGGER HISTORY <span class="badge" id="badge-trigs">0</span></h3>
+      <div class="dbg-body scroll" id="dbg-trigger-log" style="flex:1;overflow-y:auto">
+        <div style="color:var(--dim);font-size:11px;font-family:'JetBrains Mono',monospace">— No triggers yet —</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- DIALOGUE LOG OVERLAY -->
+<div id="log-ov" class="overlay">
+  <div class="ov-window">
+    <div class="ov-header"><h2>📜 대화 로그</h2><button class="ov-close" onclick="closeLog()">CLOSE ✕</button></div>
+    <div id="log-body" class="ov-body"></div>
+  </div>
+</div>
+
+<!-- TRIGGER LOG OVERLAY -->
+<div id="trig-ov" class="overlay">
+  <div class="ov-window">
+    <div class="ov-header"><h2>⚡ 트리거 실행 기록 (상세)</h2><button class="ov-close" onclick="closeTrigLog()">CLOSE ✕</button></div>
+    <div id="trig-body" class="ov-body" style="font-family:'JetBrains Mono',monospace;font-size:11px"></div>
+  </div>
+</div>
+
+<!-- RECIPE OVERLAY -->
+<div id="recipe-ov" class="overlay">
+  <div class="ov-window" style="max-width:1100px;height:90%">
+    <div class="ov-header"><h2>📖 레시피 검색</h2><button class="ov-close" onclick="closeRecipe()">CLOSE ✕</button></div>
+    <div id="filter-box"></div>
+    <div id="recipe-body">
+      <div id="recipe-list"></div>
+      <div id="recipe-detail">
+        <div id="rd-empty">← 좌측에서 칵테일을 선택하세요</div>
+        <div id="rd-content">
+          <div id="rd-name"></div>
+          <div id="rd-name-en"></div>
+          <div id="rd-kw"></div>
+          <div id="rd-method-box">
+            <div><span class="label">제조법</span><span class="val" id="rd-method"></span></div>
+            <div><span class="label">기주</span><span class="val" id="rd-base"></span></div>
+            <div><span class="label">가격</span><span class="val price" id="rd-price"></span></div>
+          </div>
+          <div id="rd-desc"></div>
+          <div id="rd-ingr"><h4>재료</h4><div id="rd-ingr-list"></div></div>
+          <button id="rd-select-btn" onclick="selectRecipe()">이 레시피 선택</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETTLEMENT OVERLAY -->
+<div id="settlement-ov" class="overlay">
+  <div class="ov-window" style="max-width:560px">
+    <div class="ov-header"><h2>💰 일일 정산</h2><button class="ov-close" onclick="closeSettlement()">CLOSE ✕</button></div>
+    <div class="ov-body" id="settlement-body"></div>
+  </div>
+</div>
+
+</div><!-- /app-frame -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//   DATA — 모든 JSON 데이터 임베드
+// ═══════════════════════════════════════════════════════════════
+
+const CHARACTERS = [
+  {id:"luna",display_name:"루나",name_color:"#4A90D9",expressions:["default","joy","sadness","anger","disgust","surprise","fear"],is_player:true,enter_sfx:null,exit_sfx:null},
+  {id:"chris",display_name:"크리스",name_color:"#A0866B",expressions:["default","joy","sadness","anger","worry","serious","smile"],is_player:false,enter_sfx:"SFX_chris_enter",exit_sfx:"SFX_chris_exit"},
+  {id:"port",display_name:"포트",name_color:"#C47A3A",expressions:["default","anger","joy","event_surprise","serious"],is_player:false,enter_sfx:"SFX_port_enter",exit_sfx:"SFX_port_exit"},
+  {id:"bubi",display_name:"부비",name_color:"#A0A0A0",expressions:["default"],is_player:false,enter_sfx:"SFX_cat_meow",exit_sfx:null},
+  {id:"aili",display_name:"아일리",name_color:"#7EB89A",expressions:["default"],is_player:false,enter_sfx:null,exit_sfx:null},
+  {id:"samho",display_name:"삼호",name_color:"#9B7EC8",expressions:["default"],is_player:false,enter_sfx:null,exit_sfx:null}
+];
+
+const CHARACTER_TIERS = {
+  port: {
+    affinity: [
+      {tier:"very_low",max:9},
+      {tier:"low",min:10,max:24},
+      {tier:"mid",min:25,max:49},
+      {tier:"high",min:50,max:74},
+      {tier:"very_high",min:75}
+    ]
+  },
+  chris: {
+    affinity: [
+      {tier:"very_low",max:4},
+      {tier:"low",min:5,max:19},
+      {tier:"mid",min:20,max:44},
+      {tier:"high",min:45,max:69},
+      {tier:"very_high",min:70}
+    ]
+  },
+  aili: { affinity: [
+    {tier:"very_low",max:9},{tier:"low",min:10,max:29},{tier:"mid",min:30,max:54},{tier:"high",min:55,max:79},{tier:"very_high",min:80}
+  ]},
+  samho: { affinity: [
+    {tier:"very_low",max:14},{tier:"low",min:15,max:34},{tier:"mid",min:35,max:59},{tier:"high",min:60,max:84},{tier:"very_high",min:85}
+  ]}
+};
+
+// 카르마(karma) 범위: -50 ~ +50, 초기값 0 (티어 없음 - 단순 누적 스탯)
+const KARMA_RANGE = {min:-50, max:50, initial:0};
+
+// 숙련도(mastery): 초기값 0, 잠금 해제 임계값 5
+const MASTERY_UNLOCK_THRESHOLD = 5;
+// 숙련도 0에서도 만들 수 있는 칵테일 id
+const STARTER_COCKTAILS = ["gin_fizz","dry_martini","kahlua_milk"];
+
+const TEXT_TAGS = {
+  world: {color:"#FF6B6B"},
+  name:  {color:"#88CCFF"},
+  order: {color:"#FF9B45"}
+};
+
+// 재료 카테고리 영문 → 한글 표시명 매핑
+const CATEGORY_NAMES = {
+  base:"기주", liqueur:"리큐어", juice:"주스", soda:"탄산",
+  syrup:"시럽", garnish:"가니쉬", etc:"기타"
+};
+// 카테고리 표시 순서
+const CATEGORY_ORDER = ["base","liqueur","juice","soda","syrup","garnish","etc"];
+
+const INGREDIENTS = [
+  {id:"gin",name:"진",name_en:"Gin",category:"base",sprite:"img_ingredient_gin",max_count:9},
+  {id:"whiskey",name:"위스키",name_en:"Whiskey",category:"base",sprite:"img_ingredient_whiskey",max_count:9},
+  {id:"rum",name:"럼",name_en:"Rum",category:"base",sprite:"img_ingredient_rum",max_count:9},
+  {id:"vodka",name:"보드카",name_en:"Vodka",category:"base",sprite:"img_ingredient_vodka",max_count:9},
+  {id:"triple_sec",name:"트리플 섹",name_en:"Triple Sec",category:"liqueur",sprite:"img_ingredient_triple_sec",max_count:9},
+  {id:"disaronno",name:"디사론노",name_en:"Disaronno",category:"liqueur",sprite:"img_ingredient_disaronno",max_count:9},
+  {id:"coffee_liqueur",name:"커피 리큐어",name_en:"Coffee Liqueur",category:"liqueur",sprite:"img_ingredient_coffee_liqueur",max_count:9},
+  {id:"dry_vermouth",name:"드라이 베르무트",name_en:"Dry Vermouth",category:"liqueur",sprite:"img_ingredient_dry_vermouth",max_count:9},
+  {id:"cranberry_juice",name:"크렌베리 주스",name_en:"Cranberry Juice",category:"juice",sprite:"img_ingredient_cranberry_juice",max_count:9},
+  {id:"lemon_juice",name:"레몬 주스",name_en:"Lemon Juice",category:"juice",sprite:"img_ingredient_lemon_juice",max_count:9},
+  {id:"lime_juice",name:"라임 주스",name_en:"Lime Juice",category:"juice",sprite:"img_ingredient_lime_juice",max_count:9},
+  {id:"milk",name:"우유",name_en:"Milk",category:"juice",sprite:"img_ingredient_milk",max_count:9},
+  {id:"soda_water",name:"탄산수",name_en:"Soda Water",category:"soda",sprite:"img_ingredient_soda_water",max_count:9},
+  {id:"sugar_syrup",name:"설탕 시럽",name_en:"Sugar Syrup",category:"syrup",sprite:"img_ingredient_sugar_syrup",max_count:9},
+  {id:"mint",name:"애플 민트",name_en:"Apple Mint",category:"garnish",sprite:"img_ingredient_mint",max_count:9},
+  {id:"lemon_garnish",name:"레몬 가니쉬",name_en:"Lemon Garnish",category:"garnish",sprite:"img_ingredient_lemon_garnish",max_count:9},
+  {id:"olive_garnish",name:"올리브 가니쉬",name_en:"Olive Garnish",category:"garnish",sprite:"img_ingredient_olive_garnish",max_count:9},
+  {id:"ice",name:"얼음",name_en:"Ice",category:"etc",sprite:"img_ingredient_ice",max_count:1}
+];
+
+const COCKTAILS = [
+  {id:"gin_fizz",name:"진피즈",name_en:"Gin Fizz",price:220,
+    keywords:["상큼한","클래식","청량한"],baseIngredient:"진",method:"shake",process:"쉐이킹",
+    recipe:[
+      {ingredient:"gin",count:4,display_name:"진"},
+      {ingredient:"sugar_syrup",count:1,display_name:"설탕 시럽"},
+      {ingredient:"lemon_juice",count:1,display_name:"레몬 주스"},
+      {ingredient:"lemon_garnish",count:1,display_name:"레몬 가니쉬"},
+      {ingredient:"soda_water",count:1,display_name:"탄산수"},
+      {ingredient:"ice",count:1,display_name:"얼음"}
+    ],
+    flavor_text:"진과 상큼한 레몬이 잘 어울리는 칵테일입니다.\n대부분의 손님이 호불호 없이 즐길 수 있는 메뉴죠.\n여담으로, 진 피즈에서 '피즈'는 탄산이 터지는 '피즈 피즈' 소리를 따서 만들어졌다는 속설이 있습니다.\n이상하죠. B-52 칵테일에서는 폭탄이 떨어지는 소리가 나지 않는데 말입니다.",
+    finish_animation:"Finished_GinFizz",serve_animation:"Serve_GinFizz",serve_sfx:"SFX_glass_slide"},
+  {id:"dry_martini",name:"드라이 마티니",name_en:"Dry Martini",price:300,
+    keywords:["씁쓸한","클래식","고급스러운"],baseIngredient:"진",method:"stir",process:"스터",
+    recipe:[
+      {ingredient:"gin",count:6,display_name:"진"},
+      {ingredient:"dry_vermouth",count:1,display_name:"드라이 베르무트"},
+      {ingredient:"olive_garnish",count:1,display_name:"올리브 가니쉬"}
+    ],
+    flavor_text:"진을 가장 제대로 즐길 수 있는 칵테일입니다.\n가끔 손님 중에 \"젓지 말고 흔들어서.\"라고 주문하는 사람이 있다면, 그 사람은 살인 면허가 있는 사람일 가능성이 높습니다.\n절대 자극하지 마세요.",
+    finish_animation:"Finished_DryMartini",serve_animation:"Serve_DryMartini",serve_sfx:"SFX_glass_slide"},
+  {id:"cosmopolitan",name:"코스모폴리탄",name_en:"Cosmopolitan",price:250,
+    keywords:["상큼한","부드러운","고급스러운"],baseIngredient:"보드카",method:"shake",process:"쉐이킹",
+    recipe:[
+      {ingredient:"vodka",count:4,display_name:"보드카"},
+      {ingredient:"triple_sec",count:1,display_name:"트리플 섹"},
+      {ingredient:"cranberry_juice",count:3,display_name:"크렌베리 주스"},
+      {ingredient:"lime_juice",count:1,display_name:"라임 주스"}
+    ],
+    flavor_text:"대표적인 레이디 킬러 술로 불립니다.\n물론 정말 이 술이 여자들을 죽이진 않겠죠.\n둘이 먹다 둘 다 죽을 맛이라는 뜻입니다.",
+    finish_animation:"Finished_Cosmopolitan",serve_animation:"Serve_Cosmopolitan",serve_sfx:"SFX_glass_slide"},
+  {id:"godfather",name:"갓파더",name_en:"Godfather",price:280,
+    keywords:["클래식","고급스러운","스모키"],baseIngredient:"위스키",method:"stir",process:"스터",
+    recipe:[
+      {ingredient:"whiskey",count:3,display_name:"위스키"},
+      {ingredient:"disaronno",count:2,display_name:"디사론노"},
+      {ingredient:"ice",count:1,display_name:"얼음"}
+    ],
+    flavor_text:"스모키, 위스키, 차이콥스키.\n이들의 공통점은 입에 담배를 문 건장한 마초들에게 더할 나위 없이 잘 어울린다는 겁니다.\n이걸 주문하는 대부들에게는 시가와 함께 즐길 친구를 제공하세요.",
+    finish_animation:"Finished_Godfather",serve_animation:"Serve_Godfather",serve_sfx:"SFX_glass_slide"},
+  {id:"mojito",name:"모히또",name_en:"Mojito",price:180,
+    keywords:["상큼한","부드러운","청량한"],baseIngredient:"럼",method:"build",process:"빌드",
+    recipe:[
+      {ingredient:"rum",count:4,display_name:"럼"},
+      {ingredient:"lime_juice",count:2,display_name:"라임 주스"},
+      {ingredient:"mint",count:2,display_name:"애플 민트"},
+      {ingredient:"sugar_syrup",count:1,display_name:"설탕 시럽"},
+      {ingredient:"soda_water",count:1,display_name:"탄산수"},
+      {ingredient:"ice",count:1,display_name:"얼음"}
+    ],
+    flavor_text:"과거 이 칵테일은 관광지의 이름으로 쓰였던 적이 있습니다.\n그만큼 유명하고, 누구나 부담 없이 즐길 수 있는 술이라는 뜻이죠.\n\"모히또에서 몰디브 한 잔.\"",
+    finish_animation:"Finished_Mojito",serve_animation:"Serve_Mojito",serve_sfx:"SFX_glass_slide"},
+  {id:"kahlua_milk",name:"깔루아 밀크",name_en:"Kahlua Milk",price:150,
+    keywords:["달콤한","부드러운"],baseIngredient:"커피 리큐어",method:"build",process:"빌드",
+    recipe:[
+      {ingredient:"coffee_liqueur",count:2,display_name:"커피 리큐어"},
+      {ingredient:"milk",count:5,display_name:"우유"}
+    ],
+    flavor_text:"예전부터 존재하던 칵테일이지만, 2054년 어떤 정신 나간 바텐더가 길고양이에게 깔루아 밀크를 주었습니다.\n그 이후 이 칵테일은 여성뿐만 아니라 고양이들의 마음까지 사로잡은 마성의 칵테일로 자리 잡게 되었죠.\n고양이가 술을 마실 수 있냐고요?\n길거리에 자기 몸에 동물 귀랑 꼬리를 달고 다니는 사람들도 있는데, 안 되는 게 어디 있습니까?",
+    finish_animation:"Finished_KahluaMilk",serve_animation:"Serve_KahluaMilk",serve_sfx:"SFX_glass_slide"}
+];
+
+// 알 수 없는 칵테일 — recipe와 매칭되지 않을 때 평가/표시에 사용
+const UNKNOWN_COCKTAIL = {
+  id:"unknown",name:"알 수 없는 칵테일",method:"None",keywords:["언노운"],
+  finish_animation:"day1_finish_failed",serve_animation:"Serve_Unknown",serve_sfx:"SFX_glass_slide_weak"
+};
+
+const CRAFT_EVENTS = [
+  {
+    id:"day_test_craft",
+    order:"[테스트] 진피즈 또는 드라이 마티니",
+    auto_open_recipe_ui:true,
+    tutorial:{enabled:false, steps:[]},
+    cutscenes:{
+      craft_enter:{shake:null, stir:null, build:null},
+      finish:{default:null, failed:null}
+    },
+    evaluation:{rules:[
+      {result:"perfect",match_type:"cocktail_id",match_values:["gin_fizz","dry_martini"],require_craft_success:"perfect",description:"주문 칵테일 ID 일치 + 미니게임 완벽"},
+      {result:"good",match_type:"cocktail_id",match_values:["gin_fizz","dry_martini"],require_craft_success:"normal",description:"주문 칵테일 ID 일치 + 미니게임 보통"},
+      {result:"miss",match_type:"cocktail_id",match_values:["gin_fizz","dry_martini"],require_craft_success:"fail",description:"주문 칵테일 ID 일치 + 미니게임 실패"},
+      {result:"normal_kw_perfect",match_type:"keyword",match_values:["청량한"],require_craft_success:"perfect",description:"키워드 청량한 일치 + 미니게임 완벽"},
+      {result:"normal_kw_normal",match_type:"keyword",match_values:["청량한"],require_craft_success:"normal",description:"키워드 청량한 일치 + 미니게임 보통"},
+      {result:"bad_kw_fail",match_type:"keyword",match_values:["청량한"],require_craft_success:"fail",description:"키워드 청량한 일치 + 미니게임 실패"},
+      {result:"normal_nm_perfect",match_type:"any",match_values:[],require_craft_success:"perfect",description:"불일치 + 미니게임 완벽"},
+      {result:"bad_nm_normal",match_type:"any",match_values:[],require_craft_success:"normal",description:"불일치 + 미니게임 보통"},
+      {result:"bad_nm_fail",match_type:"any",match_values:[],require_craft_success:"fail",description:"불일치 + 미니게임 실패"}
+    ]},
+    reactions:{
+      perfect:           {verdict:"perfect",dialogue_id:"dt_react_perfect",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:true,tip_rate:0.2}},
+      good:              {verdict:"good",dialogue_id:"dt_react_good",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:true,tip_rate:0.0}},
+      miss:              {verdict:"miss",dialogue_id:"dt_react_miss",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:false,tip_rate:0.0}},
+      normal_kw_perfect: {verdict:"normal",dialogue_id:"dt_react_normal_kw_perfect",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:true,tip_rate:0.1}},
+      normal_kw_normal:  {verdict:"normal",dialogue_id:"dt_react_normal_kw_normal",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:true,tip_rate:0.0}},
+      bad_kw_fail:       {verdict:"bad",dialogue_id:"dt_react_bad_kw_fail",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:false,tip_rate:0.0}},
+      normal_nm_perfect: {verdict:"normal",dialogue_id:"dt_react_normal_nm_perfect",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:false,tip_rate:0.0}},
+      bad_nm_normal:     {verdict:"bad",dialogue_id:"dt_react_bad_nm_normal",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:false,tip_rate:0.0}},
+      bad_nm_fail:       {verdict:"bad",dialogue_id:"dt_react_bad_nm_fail",cutscene_id:null,affinity:0,karma:0,payment:{pay_price:false,tip_rate:0.0}}
+    }
+  }
+];
+
+// ─── 일일 정산 데이터 (settlements.json) ───
+const DAILY_SETTLEMENTS = [
+  {day:0, expenses:[
+    {id:"bar_operations",label:"바 운영비",amount:-1000},
+    {id:"bubi_milk",label:"부비 우유값",amount:-50}
+  ]},
+  {day:1, expenses:[
+    {id:"bar_operations",label:"바 운영비",amount:-50000},
+    {id:"bubi_milk",label:"부비 우유값",amount:-5000},
+    {id:"event_repair_cost",label:"시설 수리비",amount:-30000,
+      condition:{type:"flag", flag_id:"bar_damaged_day1"}}
+  ]}
+];
+
+// 게임 플래그 (조건부 정산 등에 사용)
+let gameFlags = {};
+
+// day_test.json dialogue data
+const SCENE = {
+  day:0, scene_id:"day_test", customer:"port",
+  dialogues:[
+    {id:"dt_001",speaker:"system",type:"system",text:"",expression:null,next:"dt_002",choices:null,trigger:{type:"effect",data:{effect_type:"fade_out",duration:1.5}}},
+    {id:"dt_002",speaker:"luna",type:"monologue",text:"[테스트] 페이드 인 확인.",expression:null,next:"dt_start",choices:null,trigger:null},
+
+    // ─── MAIN MENU (2페이지) ───
+    {id:"dt_start",speaker:"luna",type:"normal",text:"[테스트] 테스트 항목을 선택하세요. (1/2)",expression:null,next:null,
+      choices:[
+        {text:"칵테일 제작 테스트",next:"dt_craft_001",choice_effect:null},
+        {text:"캐릭터 테스트",next:"dt_char_menu",choice_effect:null},
+        {text:"다음 →",next:"dt_start_002",choice_effect:null}
+      ],trigger:null},
+    {id:"dt_start_002",speaker:"luna",type:"normal",text:"[테스트] 테스트 항목을 선택하세요. (2/2)",expression:null,next:null,
+      choices:[
+        {text:"호감도 분기 테스트",next:"dt_affinity_001",choice_effect:null},
+        {text:"텍스트 태그 테스트",next:"dt_tag_001",choice_effect:null},
+        {text:"← 처음으로",next:"dt_start",choice_effect:null}
+      ],trigger:null},
+
+    // ─── CHARACTER TEST 서브메뉴 ───
+    {id:"dt_char_menu",speaker:"luna",type:"monologue",text:"[테스트] 캐릭터 테스트 항목을 선택하세요.",expression:null,next:null,
+      choices:[
+        {text:"포트 · 부비 테스트",next:"dt_char_001",choice_effect:null},
+        {text:"아일리 · 삼호 테스트",next:"dt_new_char_001",choice_effect:null}
+      ],trigger:null},
+
+    // ─── CRAFT TEST ───
+    {id:"dt_craft_001",speaker:"system",type:"system",text:"",expression:null,next:"dt_craft_002",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"port",slot:"right",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_craft_002",speaker:"luna",type:"monologue",text:"[테스트] 칵테일 제작 테스트 시작.",expression:null,next:"dt_craft_trigger",choices:null,trigger:null},
+    {id:"dt_craft_trigger",speaker:"system",type:"system",text:"",expression:null,next:null,choices:null,
+      trigger:{type:"start_craft",data:{craft_event_id:"day_test_craft"}}},
+
+    // Reactions (9개)
+    {id:"dt_react_perfect",speaker:"port",type:"normal",text:"내가 주문한 게 이거지. 실력도 좋군.",expression:"joy",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_good",speaker:"port",type:"normal",text:"내가 주문한 게 맞군. 괜찮게 만들었네.",expression:"default",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_miss",speaker:"port",type:"normal",text:"주문한 건 맞지만.. 잘못 만들었군.",expression:"serious",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_normal_kw_perfect",speaker:"port",type:"normal",text:"주문한 건 아니지만 좋은 <order>술</order>이군. 잘 만들었어.",expression:"default",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_normal_kw_normal",speaker:"port",type:"normal",text:"주문한 게 아니지만 나쁘지 않군.",expression:"default",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_bad_kw_fail",speaker:"port",type:"normal",text:"왜 나에게 이런 걸 주는거지?",expression:"anger",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_normal_nm_perfect",speaker:"port",type:"normal",text:"<order>술</order>은 괜찮아 보이는데 내 취향이 아니야.",expression:"default",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_bad_nm_normal",speaker:"port",type:"normal",text:"왜 나에게 이런 걸 주는거지?",expression:"anger",next:"dt_craft_exit",choices:null,trigger:null},
+    {id:"dt_react_bad_nm_fail",speaker:"port",type:"normal",text:"왜 나에게 이런 쓰레기를 주는거지?",expression:"anger",next:"dt_craft_exit",choices:null,trigger:null},
+
+    {id:"dt_craft_exit",speaker:"system",type:"system",text:"",expression:null,next:"dt_craft_end_choice",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"port",slot:"right",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_craft_end_choice",speaker:"luna",type:"monologue",text:"[테스트] 칵테일 제작 테스트 완료.",expression:null,next:null,
+      choices:[{text:"처음으로 돌아가기",next:"dt_start",choice_effect:null},{text:"테스트 종료",next:"dt_end",choice_effect:null}],trigger:null},
+
+    // ─── CHARACTER TEST (포트 · 부비) ───
+    {id:"dt_char_001",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_002",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"port",slot:"right",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_char_002",speaker:"luna",type:"monologue",text:"[테스트] 다음 손님 등장 확인 — 슬롯 초기화 후 진입.",expression:null,next:"dt_char_003",choices:null,trigger:null},
+    {id:"dt_char_003",speaker:"port",type:"normal",text:"다음 손님입니다.",expression:"default",next:"dt_char_004",choices:null,trigger:null},
+    {id:"dt_char_004",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_005",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"port",slot:"right",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_char_005",speaker:"luna",type:"monologue",text:"[테스트] 다음 손님 퇴장 확인.",expression:null,next:"dt_char_010",choices:null,trigger:null},
+
+    {id:"dt_char_010",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_011",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"port",slot:"right",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_char_011",speaker:"luna",type:"monologue",text:"[테스트] 오른쪽 슬롯 포트 등장 확인.",expression:null,next:"dt_char_012",choices:null,trigger:null},
+    {id:"dt_char_012",speaker:"port",type:"normal",text:"오른쪽 슬롯에서 말하는 중.",expression:"default",next:"dt_char_020",choices:null,trigger:null},
+
+    {id:"dt_char_020",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_021",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"bubi",slot:"left",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_char_021",speaker:"luna",type:"monologue",text:"[테스트] 왼쪽 슬롯 부비 등장 확인.",expression:null,next:"dt_char_022",choices:null,trigger:null},
+    {id:"dt_char_022",speaker:"bubi",type:"normal",text:"야옹.",expression:"default",next:"dt_char_023",choices:null,trigger:null},
+    {id:"dt_char_023",speaker:"port",type:"normal",text:"양쪽 슬롯 동시 점유 상태. 오른쪽.",expression:"default",next:"dt_char_024",choices:null,trigger:null},
+    {id:"dt_char_024",speaker:"bubi",type:"normal",text:"야옹.",expression:"default",next:"dt_char_030",choices:null,trigger:null},
+
+    {id:"dt_char_030",speaker:"port",type:"normal",text:"[테스트] 표정 전환 — default",expression:"default",next:"dt_char_031",choices:null,trigger:null},
+    {id:"dt_char_031",speaker:"port",type:"normal",text:"[테스트] 표정 전환 — anger",expression:"anger",next:"dt_char_032",choices:null,trigger:null},
+    {id:"dt_char_032",speaker:"port",type:"normal",text:"[테스트] 표정 전환 — joy",expression:"joy",next:"dt_char_033",choices:null,trigger:null},
+    {id:"dt_char_033",speaker:"port",type:"normal",text:"[테스트] 표정 전환 — serious",expression:"serious",next:"dt_char_034",choices:null,trigger:null},
+    {id:"dt_char_034",speaker:"port",type:"normal",text:"[테스트] 표정 전환 — event_surprise (once)",expression:"event_surprise",next:"dt_char_035",choices:null,trigger:null},
+    {id:"dt_char_035",speaker:"port",type:"normal",text:"event_surprise 이후 default 복귀.",expression:"default",next:"dt_char_exit_bubi",choices:null,trigger:null},
+
+    {id:"dt_char_exit_bubi",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_exit_bubi_confirm",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"bubi",slot:"left",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_char_exit_bubi_confirm",speaker:"luna",type:"monologue",text:"[테스트] 왼쪽 슬롯 부비 퇴장 확인.",expression:null,next:"dt_char_exit_port",choices:null,trigger:null},
+    {id:"dt_char_exit_port",speaker:"system",type:"system",text:"",expression:null,next:"dt_char_exit_port_confirm",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"port",slot:"right",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_char_exit_port_confirm",speaker:"luna",type:"monologue",text:"[테스트] 오른쪽 슬롯 포트 퇴장 확인.",expression:null,next:"dt_char_end_choice",choices:null,trigger:null},
+    {id:"dt_char_end_choice",speaker:"luna",type:"monologue",text:"[테스트] 캐릭터 테스트 완료.",expression:null,next:null,
+      choices:[{text:"처음으로 돌아가기",next:"dt_start",choice_effect:null},{text:"테스트 종료",next:"dt_end",choice_effect:null}],trigger:null},
+
+    // ─── AFFINITY TEST ───
+    {id:"dt_affinity_001",speaker:"luna",type:"monologue",text:"[테스트] <name>포트</name>의 호감도 단계를 설정하세요. (1/2)",expression:null,next:null,
+      choices:[
+        {text:"최저 — very_low (5)",next:"dt_affinity_set_very_low",choice_effect:null},
+        {text:"낮음 — low (15)",next:"dt_affinity_set_low",choice_effect:null},
+        {text:"다음 단계 보기 →",next:"dt_affinity_002",choice_effect:null}
+      ],trigger:null},
+    {id:"dt_affinity_002",speaker:"luna",type:"monologue",text:"[테스트] <name>포트</name>의 호감도 단계를 설정하세요. (2/2)",expression:null,next:null,
+      choices:[
+        {text:"보통 — mid (35)",next:"dt_affinity_set_mid",choice_effect:null},
+        {text:"높음 — high (60)",next:"dt_affinity_set_high",choice_effect:null},
+        {text:"최고 — very_high (80)",next:"dt_affinity_set_very_high",choice_effect:null}
+      ],trigger:null},
+
+    {id:"dt_affinity_set_very_low",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_enter",choices:null,
+      trigger:{type:"set_stat",data:{character_id:"port",stat:"affinity",value:5}}},
+    {id:"dt_affinity_set_low",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_enter",choices:null,
+      trigger:{type:"set_stat",data:{character_id:"port",stat:"affinity",value:15}}},
+    {id:"dt_affinity_set_mid",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_enter",choices:null,
+      trigger:{type:"set_stat",data:{character_id:"port",stat:"affinity",value:35}}},
+    {id:"dt_affinity_set_high",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_enter",choices:null,
+      trigger:{type:"set_stat",data:{character_id:"port",stat:"affinity",value:60}}},
+    {id:"dt_affinity_set_very_high",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_enter",choices:null,
+      trigger:{type:"set_stat",data:{character_id:"port",stat:"affinity",value:80}}},
+
+    {id:"dt_affinity_enter",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_branch",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"port",slot:"right",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_affinity_branch",speaker:"system",type:"condition_branch",text:"",expression:null,next:null,choices:null,trigger:null,
+      next_conditions:{character:"port",stat:"affinity",default:"dt_affinity_default",branches:[
+        {tier:"very_low",goto:"dt_affinity_very_low_001"},
+        {tier:"low",goto:"dt_affinity_low_001"},
+        {tier:"mid",goto:"dt_affinity_mid_001"},
+        {tier:"high",goto:"dt_affinity_high_001"},
+        {tier:"very_high",goto:"dt_affinity_very_high_001"}
+      ]}},
+
+    {id:"dt_affinity_very_low_001",speaker:"port",type:"normal",text:"[반응: 최저] 당신이 내 앞에 있다는 게 불쾌하군.",expression:"anger",next:"dt_affinity_adjust",choices:null,trigger:null},
+    {id:"dt_affinity_low_001",speaker:"port",type:"normal",text:"[반응: 낮음] 아직 낯설군요. 오래 보진 않았으니.",expression:"serious",next:"dt_affinity_adjust",choices:null,trigger:null},
+    {id:"dt_affinity_mid_001",speaker:"port",type:"normal",text:"[반응: 보통] 어, 왔어요.",expression:"default",next:"dt_affinity_adjust",choices:null,trigger:null},
+    {id:"dt_affinity_high_001",speaker:"port",type:"normal",text:"[반응: 높음] 오셨군요. 기다리고 있었는데.",expression:"joy",next:"dt_affinity_adjust",choices:null,trigger:null},
+    {id:"dt_affinity_very_high_001",speaker:"port",type:"normal",text:"[반응: 최고] 당신이 오면 하루가 달라지는군요.",expression:"joy",next:"dt_affinity_adjust",choices:null,trigger:null},
+    {id:"dt_affinity_default",speaker:"luna",type:"monologue",text:"[기본값] 분기 조건에 해당하지 않습니다.",expression:null,next:"dt_affinity_adjust",choices:null,trigger:null},
+
+    {id:"dt_affinity_adjust",speaker:"luna",type:"monologue",text:"[테스트] add_stat으로 호감도를 조정하겠습니까?",expression:null,next:null,
+      choices:[
+        {text:"+10 추가",next:"dt_affinity_add_pos",choice_effect:null},
+        {text:"-10 감소",next:"dt_affinity_add_neg",choice_effect:null},
+        {text:"확인 완료",next:"dt_affinity_exit",choice_effect:null}
+      ],trigger:null},
+    {id:"dt_affinity_add_pos",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_exit",choices:null,
+      trigger:{type:"add_stat",data:{character_id:"port",stat:"affinity",value:10}}},
+    {id:"dt_affinity_add_neg",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_exit",choices:null,
+      trigger:{type:"add_stat",data:{character_id:"port",stat:"affinity",value:-10}}},
+
+    {id:"dt_affinity_exit",speaker:"system",type:"system",text:"",expression:null,next:"dt_affinity_end_choice",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"port",slot:"right",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_affinity_end_choice",speaker:"luna",type:"monologue",text:"[테스트] 호감도 분기 테스트 완료.",expression:null,next:null,
+      choices:[{text:"처음으로 돌아가기",next:"dt_start",choice_effect:null},{text:"테스트 종료",next:"dt_end",choice_effect:null}],trigger:null},
+
+    // ─── NEW CHARACTER TEST (아일리 · 삼호) ───
+    {id:"dt_new_char_001",speaker:"luna",type:"monologue",text:"[테스트] 신규 캐릭터 등장/퇴장 테스트 시작.",expression:null,next:"dt_new_char_aili_enter",choices:null,trigger:null},
+    {id:"dt_new_char_aili_enter",speaker:"system",type:"system",text:"",expression:null,next:"dt_new_char_aili_speak",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"aili",slot:"left",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_new_char_aili_speak",speaker:"aili",type:"normal",text:"[테스트] 왼쪽 슬롯 아일리 등장 확인.",expression:"default",next:"dt_new_char_samho_enter",choices:null,trigger:null},
+    {id:"dt_new_char_samho_enter",speaker:"system",type:"system",text:"",expression:null,next:"dt_new_char_samho_speak",choices:null,
+      trigger:{type:"customer_enter",data:{character_id:"samho",slot:"right",enter_effect:"silhouette_reveal",enter_duration:1.0,sfx_mode:"default_only"}}},
+    {id:"dt_new_char_samho_speak",speaker:"samho",type:"normal",text:"[테스트] 오른쪽 슬롯 삼호 등장 확인.",expression:"default",next:"dt_new_char_both_confirm",choices:null,trigger:null},
+    {id:"dt_new_char_both_confirm",speaker:"luna",type:"monologue",text:"[테스트] 양쪽 슬롯 동시 점유 확인.",expression:null,next:"dt_new_char_aili_exit",choices:null,trigger:null},
+    {id:"dt_new_char_aili_exit",speaker:"system",type:"system",text:"",expression:null,next:"dt_new_char_aili_exit_confirm",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"aili",slot:"left",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_new_char_aili_exit_confirm",speaker:"luna",type:"monologue",text:"[테스트] 왼쪽 슬롯 아일리 퇴장 확인.",expression:null,next:"dt_new_char_samho_exit",choices:null,trigger:null},
+    {id:"dt_new_char_samho_exit",speaker:"system",type:"system",text:"",expression:null,next:"dt_new_char_samho_exit_confirm",choices:null,
+      trigger:{type:"customer_exit",data:{character_id:"samho",slot:"right",exit_effect:"fade_out",exit_duration:0.5,sfx_mode:"default_only"}}},
+    {id:"dt_new_char_samho_exit_confirm",speaker:"luna",type:"monologue",text:"[테스트] 오른쪽 슬롯 삼호 퇴장 확인.",expression:null,next:"dt_new_char_end_choice",choices:null,trigger:null},
+    {id:"dt_new_char_end_choice",speaker:"luna",type:"monologue",text:"[테스트] 신규 캐릭터 테스트 완료.",expression:null,next:null,
+      choices:[{text:"처음으로 돌아가기",next:"dt_start",choice_effect:null},{text:"테스트 종료",next:"dt_end",choice_effect:null}],trigger:null},
+
+    // ─── TEXT TAG TEST ───
+    {id:"dt_tag_001",speaker:"luna",type:"monologue",text:"[테스트] 텍스트 태그 색상 표시 확인을 시작합니다.",expression:null,next:"dt_tag_002",choices:null,trigger:null},
+    {id:"dt_tag_002",speaker:"port",type:"normal",text:"<world>월드 태그</world> — 중요 키워드 색상 확인.",expression:"default",next:"dt_tag_003",choices:null,trigger:null},
+    {id:"dt_tag_003",speaker:"port",type:"normal",text:"<name>네임 태그</name> — 인물 이름 색상 확인.",expression:"default",next:"dt_tag_004",choices:null,trigger:null},
+    {id:"dt_tag_004",speaker:"port",type:"normal",text:"<order>오더 태그</order> — 칵테일·주문 키워드 색상 확인.",expression:"default",next:"dt_tag_005",choices:null,trigger:null},
+    {id:"dt_tag_005",speaker:"port",type:"normal",text:"복합: <world>갱단원</world>이 <order>드라이 마티니</order>를 주문했다. <name>포트</name>가 마셨다.",expression:"default",next:"dt_tag_end_choice",choices:null,trigger:null},
+    {id:"dt_tag_end_choice",speaker:"luna",type:"monologue",text:"[테스트] 텍스트 태그 테스트 완료.",expression:null,next:null,
+      choices:[{text:"처음으로 돌아가기",next:"dt_start",choice_effect:null},{text:"테스트 종료",next:"dt_end",choice_effect:null}],trigger:null},
+
+    {id:"dt_end",speaker:"system",type:"system",text:"",expression:null,next:null,choices:null,
+      trigger:{type:"effect",data:{effect_type:"fade_out",duration:1.0}}}
+  ]
+};
+
+// 표정 → 이모지 매핑 (시각 표현용)
+const EXPR_EMOJI = {
+  default:{e:"😐",l:"DEFAULT"},
+  joy:{e:"😊",l:"JOY"},
+  sadness:{e:"😢",l:"SADNESS"},
+  anger:{e:"😠",l:"ANGER"},
+  disgust:{e:"😒",l:"DISGUST"},
+  surprise:{e:"😲",l:"SURPRISE"},
+  fear:{e:"😨",l:"FEAR"},
+  worry:{e:"😟",l:"WORRY"},
+  serious:{e:"🤨",l:"SERIOUS"},
+  smile:{e:"😏",l:"SMILE"},
+  event_surprise:{e:"😱",l:"EVENT_SURPRISE"}
+};
+// 부비(고양이) 전용 이모지
+const BUBI_EXPR = {default:{e:"🐱",l:"DEFAULT"}};
+
+const METHOD_NAME = {shake:"쉐이킹",stir:"스터",build:"빌드"};
+const METHOD_ICON = {shake:"🍸 쉐이킹",stir:"🥄 스터",build:"🧊 빌드"};
+
+// ═══════════════════════════════════════════════════════════════
+//   ENGINE STATE
+// ═══════════════════════════════════════════════════════════════
+
+const $ = id => document.getElementById(id);
+const charById = id => CHARACTERS.find(c => c.id === id);
+
+let dMap = {};
+let cId = null, cNode = null;
+let dialogueHist = [];      // 대화 로그 (UI용)
+let nodeHist = [];          // 노드 이동 기록 (back 기능)
+let triggerHist = [];       // 트리거 실행 기록
+let typing = false, tTimer = null, fText = "", cIdx = 0, step = 0;
+
+// 캐릭터 상태
+let charState = {};         // {charId: {affinity, karma, currentExpression, slot}}
+let slotState = {left:null, right:null};  // slot → charId
+
+// 경제 / 숙련도 (전역)
+let money = 0;
+let mastery = 0;
+
+// Craft 상태
+let currentCraftEvent = null;
+let cart = {};
+let selRecipe = null;
+let viewingCocktail = null;
+let activeFilters = new Set();
+let forcedFail = false;    // 숙련도 부족 칵테일을 만든 경우 강제 fail 플래그
+
+// 미니게임 상태
+let chosenMethod = "", miniKeys = [], miniPos = 0, miniErrors = 0;
+let miniTime = 0, miniTimer = null, miniCb = null;
+
+// ═══════════════════════════════════════════════════════════════
+//   TEXT MARKUP — <world>, <name>, <order> 태그 처리
+// ═══════════════════════════════════════════════════════════════
+
+const TAG_NAMES = ["world","name","order"];
+
+function stripMk(t){
+  let r = t;
+  TAG_NAMES.forEach(tg => {
+    r = r.replace(new RegExp(`<${tg}>([\\s\\S]*?)</${tg}>`,"g"),"$1");
+  });
+  return r;
+}
+function escH(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function parseMk(t){
+  // 태그 보존을 위해 escH 전에 마커로 치환 → escH → 마커를 span으로 복원
+  let r = t;
+  const segments = [];
+  let idx = 0;
+  // 태그 패턴 매칭
+  const re = /<(world|name|order)>([\s\S]*?)<\/\1>/g;
+  let lastIdx = 0, m;
+  let result = "";
+  while ((m = re.exec(t)) !== null) {
+    result += escH(t.substring(lastIdx, m.index));
+    result += `<span class="kw-${m[1]}">${escH(m[2])}</span>`;
+    lastIdx = m.index + m[0].length;
+  }
+  result += escH(t.substring(lastIdx));
+  return result;
+}
+function partialMk(txt, n){
+  // 타이핑 효과용 — n개의 visible char까지만 표시
+  const tks = [];
+  const re = /<(world|name|order)>([\s\S]*?)<\/\1>/g;
+  let lastIdx = 0, m;
+  while ((m = re.exec(txt)) !== null) {
+    if (m.index > lastIdx) tks.push({c:null, t:txt.substring(lastIdx, m.index)});
+    tks.push({c:m[1], t:m[2]});
+    lastIdx = m.index + m[0].length;
+  }
+  if (lastIdx < txt.length) tks.push({c:null, t:txt.substring(lastIdx)});
+
+  let out = "", cnt = 0;
+  for (const tk of tks) {
+    if (cnt >= n) break;
+    const remain = n - cnt;
+    const s = tk.t.substring(0, remain);
+    if (tk.c) out += `<span class="kw-${tk.c}">${escH(s)}</span>`;
+    else out += escH(s);
+    cnt += s.length;
+  }
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   PARAM-CHANGE POPUP (top-left) & ECON TOAST (top-right)
+// ═══════════════════════════════════════════════════════════════
+
+const PARAM_LABEL = {affinity:"호감도", karma:"카르마"};
+
+// 캐릭터 프로필 아이콘: 표정 이모지 + 캐릭터 색상 원형 테두리 (플레이스홀더)
+function makeAvatar(charId) {
+  const ch = charById(charId);
+  if (!ch) return "<div class='pp-avatar' style='--ch-color:#666'>?</div>";
+  const cs = charState[charId] || {};
+  const expr = cs.currentExpression || "default";
+  const em = getExprEmoji(charId, expr);
+  return `<div class="pp-avatar" style="--ch-color:${ch.name_color}">${em.e}</div>`;
+}
+
+function showParamPopup(charId, paramKey, delta) {
+  if (!delta) return;
+  const stack = $("param-popup-stack");
+  if (!stack) return;
+  const ch = charById(charId);
+  if (!ch) return;
+  const dir = delta > 0 ? "up" : "down";
+  const arrow = delta > 0 ? "▲" : "▼";
+  const paramName = PARAM_LABEL[paramKey] || paramKey;
+  const el = document.createElement("div");
+  el.className = "param-popup";
+  el.innerHTML = `
+    ${makeAvatar(charId)}
+    <div class="pp-text">
+      <div class="pp-name">${ch.display_name.toUpperCase()}</div>
+      <div class="pp-param">${paramName}</div>
+    </div>
+    <div class="pp-arrow ${dir}">${arrow}</div>`;
+  stack.appendChild(el);
+  // 자동 제거 (애니메이션 종료 후)
+  setTimeout(() => el.remove(), 3000);
+}
+
+function showEconToast(text, kind) {
+  const stack = $("econ-toast-stack");
+  if (!stack) return;
+  const el = document.createElement("div");
+  el.className = "econ-toast " + (kind || "");
+  el.textContent = text;
+  stack.appendChild(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   ECONOMY & MASTERY
+// ═══════════════════════════════════════════════════════════════
+
+function updateHUD() {
+  $("hud-money-val").textContent = "€" + money;
+  $("hud-mastery-val").textContent = "Lv." + mastery;
+}
+
+function addMoney(amount, kind) {
+  if (!amount) return;
+  money += amount;
+  updateHUD();
+  const sign = amount >= 0 ? "+" : "";
+  const symbol = amount >= 0 ? "💰" : "💸";
+  if (kind === "tip") {
+    showEconToast(`🪙 팁 +€${amount}`, "tip");
+  } else if (kind === "settlement") {
+    showEconToast(`📋 정산 ${sign}€${amount}`, amount >= 0 ? "money" : "neg");
+  } else {
+    showEconToast(`${symbol} ${sign}€${amount}`, amount >= 0 ? "money" : "neg");
+  }
+  logTrigger({type:"money_change",data:{amount,kind}}, `money: ${money - amount} → ${money} (${sign}${amount})`);
+}
+
+function addMastery(delta) {
+  if (!delta) return;
+  const old = mastery;
+  mastery += delta;
+  if (mastery < 0) mastery = 0;
+  updateHUD();
+  const sign = delta >= 0 ? "+" : "";
+  showEconToast(`🛠 숙련도 ${sign}${delta}  (Lv.${mastery})`, "mastery");
+  logTrigger({type:"mastery_change",data:{delta}}, `mastery: ${old} → ${mastery}`);
+}
+
+function isCocktailUnlocked(id) {
+  if (mastery >= MASTERY_UNLOCK_THRESHOLD) return true;
+  return STARTER_COCKTAILS.includes(id);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   CHARACTER & SLOT RENDERING
+// ═══════════════════════════════════════════════════════════════
+
+function getExprEmoji(charId, exprKey) {
+  if (charId === "bubi") return BUBI_EXPR[exprKey] || BUBI_EXPR.default;
+  return EXPR_EMOJI[exprKey] || EXPR_EMOJI.default;
+}
+
+function renderSlot(slotKey) {
+  const charId = slotState[slotKey];
+  const slotEl = $(`slot-${slotKey}`);
+  if (!charId) {
+    slotEl.classList.add("empty");
+    return;
+  }
+  const ch = charById(charId);
+  if (!ch) return;
+  const cs = charState[charId] || {};
+  const expr = cs.currentExpression || "default";
+  const em = getExprEmoji(charId, expr);
+
+  slotEl.classList.remove("empty");
+  slotEl.style.setProperty("--name-color", ch.name_color);
+  $(`cb-${slotKey}-emoji`).textContent = em.e;
+  $(`cb-${slotKey}-name`).textContent = ch.display_name;
+  $(`cb-${slotKey}-name`).style.color = ch.name_color;
+  $(`cb-${slotKey}-meta`).textContent = `${ch.id} · ${slotKey}`;
+  $(`cb-${slotKey}-expr`).textContent = em.l;
+}
+
+function updateSceneEmptyMsg() {
+  const any = slotState.left || slotState.right;
+  $("scene-empty-msg").classList.toggle("hidden", !!any);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   TRIGGERS
+// ═══════════════════════════════════════════════════════════════
+
+function logTrigger(trig, info) {
+  triggerHist.push({step, type:trig.type, data:trig.data, info: info || ""});
+  renderTriggerLog();
+  $("badge-trigs").textContent = triggerHist.length;
+}
+
+function executeTrigger(trig, onComplete) {
+  if (!trig) { onComplete && onComplete(); return; }
+  const t = trig.type;
+  const d = trig.data || {};
+
+  if (t === "effect") {
+    if (d.effect_type === "fade_out") {
+      const dur = d.duration || 1.0;
+      const ov = $("fade-overlay");
+      ov.style.setProperty("--fade-dur", dur + "s");
+      ov.classList.add("fade-active");
+      logTrigger(trig, `fade_out for ${dur}s, auto fade-in`);
+      setTimeout(() => {
+        ov.classList.remove("fade-active");
+        onComplete && onComplete();
+      }, dur * 1000 * 0.5); // 절반은 페이드아웃, 절반은 페이드인 (단축)
+    } else {
+      logTrigger(trig);
+      onComplete && onComplete();
+    }
+    return;
+  }
+
+  if (t === "customer_enter") {
+    const cid = d.character_id, slot = d.slot;
+    // 슬롯에 이미 다른 캐릭이 있다면 비움
+    if (slotState[slot] && slotState[slot] !== cid) {
+      const prev = slotState[slot];
+      slotState[slot] = null;
+      if (charState[prev]) charState[prev].slot = null;
+    }
+    slotState[slot] = cid;
+    if (!charState[cid]) charState[cid] = {affinity:0, karma:0, currentExpression:"default", slot:null};
+    charState[cid].slot = slot;
+    charState[cid].currentExpression = "default";
+    // 슬롯 표시 + 등장 애니메이션
+    renderSlot(slot);
+    const slotEl = $(`slot-${slot}`);
+    slotEl.classList.add("entering");
+    if (d.enter_effect === "silhouette_reveal") {
+      slotEl.classList.add("silhouette-reveal");
+      setTimeout(() => slotEl.classList.remove("silhouette-reveal"), 1000);
+    }
+    setTimeout(() => slotEl.classList.remove("entering"), 800);
+    updateSceneEmptyMsg();
+    refreshDebugPanel();
+    logTrigger(trig, `${charById(cid)?.display_name||cid} → ${slot}`);
+    setTimeout(() => onComplete && onComplete(), 500);
+    return;
+  }
+
+  if (t === "customer_exit") {
+    const cid = d.character_id, slot = d.slot;
+    const slotEl = $(`slot-${slot}`);
+    slotEl.classList.add("exiting");
+    const dur = (d.exit_duration || 0.5) * 1000;
+    logTrigger(trig, `${charById(cid)?.display_name||cid} ← ${slot}`);
+    setTimeout(() => {
+      slotState[slot] = null;
+      if (charState[cid]) charState[cid].slot = null;
+      slotEl.classList.remove("exiting");
+      slotEl.classList.add("empty");
+      renderSlot(slot);
+      updateSceneEmptyMsg();
+      refreshDebugPanel();
+      onComplete && onComplete();
+    }, dur);
+    return;
+  }
+
+  if (t === "set_stat") {
+    const cid = d.character_id, stat = d.stat, val = d.value;
+    if (!charState[cid]) charState[cid] = {affinity:0, karma:0, currentExpression:"default", slot:null};
+    const old = charState[cid][stat] || 0;
+    charState[cid][stat] = val;
+    refreshDebugPanel();
+    logTrigger(trig, `${cid}.${stat}: ${old} → ${val}`);
+    // 호감도/카르마 변동이면 좌상단 팝업 표시
+    if ((stat === "affinity" || stat === "karma") && val !== old) {
+      showParamPopup(cid, stat, val - old);
+    }
+    onComplete && onComplete();
+    return;
+  }
+
+  if (t === "add_stat") {
+    const cid = d.character_id, stat = d.stat, val = d.value;
+    if (!charState[cid]) charState[cid] = {affinity:0, karma:0, currentExpression:"default", slot:null};
+    const old = charState[cid][stat] || 0;
+    charState[cid][stat] = old + val;
+    refreshDebugPanel();
+    logTrigger(trig, `${cid}.${stat}: ${old} → ${charState[cid][stat]} (${val>=0?"+":""}${val})`);
+    if ((stat === "affinity" || stat === "karma") && val !== 0) {
+      showParamPopup(cid, stat, val);
+    }
+    onComplete && onComplete();
+    return;
+  }
+
+  if (t === "start_craft") {
+    currentCraftEvent = d.craft_event_id;
+    logTrigger(trig, `event: ${d.craft_event_id}`);
+    initCraft();
+    showScreen("craft-screen");
+    return; // craft will call back via endMini → react flow
+  }
+
+  // unknown trigger
+  logTrigger(trig, "unhandled");
+  onComplete && onComplete();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   CONDITION BRANCH
+// ═══════════════════════════════════════════════════════════════
+
+function getTier(charId, stat, value) {
+  const tiers = CHARACTER_TIERS[charId]?.[stat];
+  if (!tiers) return null;
+  for (const t of tiers) {
+    const min = t.min ?? -Infinity;
+    const max = t.max ?? Infinity;
+    if (value >= min && value <= max) return t.tier;
+  }
+  return null;
+}
+
+function resolveConditionBranch(node) {
+  const cond = node.next_conditions;
+  if (!cond) return node.next;
+  const cid = cond.character, stat = cond.stat;
+  const val = charState[cid]?.[stat] ?? 0;
+  const tier = getTier(cid, stat, val);
+  const br = cond.branches.find(b => b.tier === tier);
+  if (br) {
+    logTrigger({type:"condition_branch",data:cond}, `${cid}.${stat}=${val} → tier=${tier} → ${br.goto}`);
+    return br.goto;
+  }
+  logTrigger({type:"condition_branch",data:cond}, `${cid}.${stat}=${val} → no tier match → default=${cond.default}`);
+  return cond.default;
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   SCREEN SWITCH
+// ═══════════════════════════════════════════════════════════════
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  $(id).classList.add("active");
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   DIALOGUE FLOW
+// ═══════════════════════════════════════════════════════════════
+
+function startGame() {
+  showScreen("dlg-screen");
+  dMap = {};
+  SCENE.dialogues.forEach(d => dMap[d.id] = d);
+  dialogueHist = [];
+  nodeHist = [];
+  triggerHist = [];
+  step = 0;
+  charState = {};
+  slotState = {left:null, right:null};
+  // 경제/숙련도 초기화
+  money = 0;
+  mastery = 0;
+  forcedFail = false;
+  gameFlags = {};
+  updateHUD();
+  // 잔여 팝업/토스트 정리
+  $("param-popup-stack").innerHTML = "";
+  $("econ-toast-stack").innerHTML = "";
+  renderSlot("left"); renderSlot("right");
+  updateSceneEmptyMsg();
+  refreshDebugPanel();
+  renderTriggerLog();
+  $("end-overlay").classList.remove("show");
+  $("badge-trigs").textContent = "0";
+  showNode(SCENE.dialogues[0].id, false);
+}
+
+function restartGame() {
+  settlementApplied = {};
+  startGame();
+}
+
+function showNode(id, push = true) {
+  const n = dMap[id];
+  if (!n) {
+    $("end-overlay").classList.add("show");
+    cId = null; cNode = null;
+    refreshDebugPanel();
+    return;
+  }
+  if (push && cId) nodeHist.push(cId);
+  $("btn-back").disabled = nodeHist.length === 0;
+  cId = id; cNode = n; step++;
+  $("tb-node").textContent = id;
+  $("tb-step").textContent = step;
+  refreshDebugPanel();
+
+  // ─── SYSTEM NODE (trigger / condition_branch) ───
+  if (n.type === "system") {
+    addDialogueLog(n);
+    if (n.trigger) {
+      executeTrigger(n.trigger, () => {
+        if (n.trigger.type !== "start_craft" && n.next) {
+          setTimeout(() => showNode(n.next), 200);
+        } else if (!n.next && n.trigger.type !== "start_craft") {
+          $("end-overlay").classList.add("show");
+        }
+      });
+    } else if (n.next) {
+      setTimeout(() => showNode(n.next), 100);
+    } else {
+      $("end-overlay").classList.add("show");
+    }
+    return;
+  }
+
+  if (n.type === "condition_branch") {
+    addDialogueLog(n);
+    const next = resolveConditionBranch(n);
+    setTimeout(() => showNode(next), 200);
+    return;
+  }
+
+  // ─── DIALOGUE NODE ───
+  renderDialogue(n);
+}
+
+function renderDialogue(n) {
+  // 화자 정보 + 표정 갱신
+  const ch = charById(n.speaker);
+  const isPlayer = ch?.is_player;
+  $("spk-name").textContent = ch?.display_name || n.speaker;
+  $("spk-name").style.color = ch?.name_color || "#888";
+  const typeEl = $("spk-type");
+  typeEl.textContent = n.type.toUpperCase();
+  typeEl.className = "";
+  typeEl.classList.add(n.type);
+
+  // 비-플레이어 화자의 표정 갱신 + 슬롯 표시
+  if (ch && !isPlayer && n.expression) {
+    if (!charState[n.speaker]) charState[n.speaker] = {affinity:0,karma:0,currentExpression:"default",slot:null};
+    charState[n.speaker].currentExpression = n.expression;
+    const slot = charState[n.speaker].slot;
+    if (slot) renderSlot(slot);
+  }
+  refreshDebugPanel();
+
+  $("choices-box").classList.add("hidden");
+  $("adv-hint").classList.remove("hidden");
+
+  // 타이핑 효과
+  fText = n.text; cIdx = 0; typing = true;
+  $("txt-content").innerHTML = "";
+  $("txt-cursor").style.display = "inline-block";
+  clearInterval(tTimer);
+  const plain = stripMk(fText);
+  tTimer = setInterval(() => {
+    if (cIdx >= plain.length) { finishType(); return; }
+    cIdx++;
+    $("txt-content").innerHTML = partialMk(fText, cIdx);
+  }, 25);
+}
+
+function finishType() {
+  clearInterval(tTimer);
+  typing = false;
+  $("txt-content").innerHTML = parseMk(fText);
+  $("txt-cursor").style.display = "none";
+  addDialogueLog(cNode);
+  // 선택지가 있으면 표시
+  if (cNode.choices && cNode.choices.length) {
+    renderChoices(cNode.choices);
+  }
+}
+
+function advance() {
+  if (!$("dlg-screen").classList.contains("active")) return;
+  if (typing) {
+    cIdx = stripMk(fText).length;
+    finishType();
+    return;
+  }
+  if (cNode.choices && cNode.choices.length) return; // wait for choice
+  if (cNode.next) showNode(cNode.next);
+  else $("end-overlay").classList.add("show");
+}
+
+function goBack() {
+  if (!nodeHist.length) return;
+  const p = nodeHist.pop();
+  if (dialogueHist.length) dialogueHist.pop();
+  step = Math.max(0, step - 2);
+  showNode(p, false);
+}
+
+function renderChoices(choices) {
+  const box = $("choices-box");
+  box.innerHTML = "";
+  box.classList.remove("hidden");
+  $("adv-hint").classList.add("hidden");
+  choices.forEach((ch, i) => {
+    const b = document.createElement("button");
+    b.className = "choice-btn";
+    b.innerHTML = `<span class="ck">${(i+1)}</span>${escH(ch.text).replace(/&lt;(world|name|order)&gt;([\s\S]*?)&lt;\/\1&gt;/g,(_,t,c)=>`<span class="kw-${t}">${c}</span>`)}`;
+    b.onclick = () => {
+      box.classList.add("hidden");
+      showNode(ch.next);
+    };
+    box.appendChild(b);
+  });
+}
+
+function addDialogueLog(n) {
+  if (n.type === "system" || n.type === "condition_branch") return;
+  if (dialogueHist.length && dialogueHist[dialogueHist.length-1].id === n.id) return;
+  const ch = charById(n.speaker);
+  dialogueHist.push({
+    id:n.id,
+    speaker: ch?.display_name || n.speaker,
+    color: ch?.name_color || "#888",
+    text: n.text,
+    expression: n.expression,
+    nodeType: n.type
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   CRAFT
+// ═══════════════════════════════════════════════════════════════
+
+function initCraft() {
+  cart = {}; selRecipe = null; viewingCocktail = null;
+  renderIngredients(); renderCart();
+  $("sel-recipe").classList.remove("shown");
+  const ev = CRAFT_EVENTS.find(e => e.id === currentCraftEvent);
+  $("craft-event-id").textContent = `EVENT: ${currentCraftEvent}`;
+  // 주문 표시: ev.order 우선, 없으면 cocktail_id rules에서 추출
+  if (ev?.order) {
+    $("craft-order").textContent = `주문: ${ev.order}`;
+  } else {
+    const orderedIds = ev?.evaluation.rules.find(r => r.match_type === "cocktail_id")?.match_values || [];
+    if (orderedIds.length) {
+      const names = orderedIds.map(id => COCKTAILS.find(c => c.id === id)?.name || id);
+      $("craft-order").textContent = `주문: ${names.join(" 또는 ")}`;
+    } else {
+      $("craft-order").textContent = "주문: 자유";
+    }
+  }
+  // auto_open_recipe_ui: true이면 자동으로 레시피북 열기
+  if (ev?.auto_open_recipe_ui) {
+    setTimeout(() => openRecipe(), 300);
+  }
+}
+
+function renderIngredients() {
+  const p = $("ingr-panel");
+  p.innerHTML = "";
+  const cats = {};
+  INGREDIENTS.forEach(ig => {
+    if (!cats[ig.category]) cats[ig.category] = [];
+    cats[ig.category].push(ig);
+  });
+  // 카테고리 표시 순서: CATEGORY_ORDER 우선, 미정의 카테고리는 뒤에
+  const ordered = CATEGORY_ORDER.filter(c => cats[c]).concat(
+    Object.keys(cats).filter(c => !CATEGORY_ORDER.includes(c))
+  );
+  ordered.forEach(cat => {
+    const igs = cats[cat];
+    const h = document.createElement("h3");
+    h.textContent = CATEGORY_NAMES[cat] || cat;
+    p.appendChild(h);
+    const grid = document.createElement("div");
+    grid.className = "ingr-grid";
+    igs.forEach(ig => {
+      const b = document.createElement("button");
+      const cnt = cart[ig.id] || 0;
+      const maxed = cnt >= ig.max_count;
+      b.className = "ingr-btn" + (cnt > 0 ? " has" : "") + (maxed ? " maxed" : "");
+      b.innerHTML = `<span>${ig.name}</span>${cnt > 0 ? `<span class="ic">×${cnt}</span>` : ""}`;
+      b.onclick = () => {
+        if (maxed) return;
+        cart[ig.id] = (cart[ig.id] || 0) + 1;
+        renderIngredients(); renderCart();
+      };
+      grid.appendChild(b);
+    });
+    p.appendChild(grid);
+  });
+}
+
+function renderCart() {
+  const c = $("cart-list");
+  c.innerHTML = "";
+  const entries = Object.entries(cart).filter(([_, v]) => v > 0);
+  if (!entries.length) {
+    c.innerHTML = '<div id="cart-empty">재료를 선택하세요</div>';
+    return;
+  }
+  entries.forEach(([id, cnt]) => {
+    const ig = INGREDIENTS.find(i => i.id === id);
+    const d = document.createElement("div");
+    d.className = "cart-item";
+    d.innerHTML = `<span>${ig.name} <span class="cnt">×${cnt}</span></span><span class="rm" onclick="removeFromCart('${id}')">✕</span>`;
+    c.appendChild(d);
+  });
+}
+
+function removeFromCart(id) {
+  if (cart[id] > 1) cart[id]--;
+  else delete cart[id];
+  renderIngredients(); renderCart();
+}
+
+function resetCart() {
+  cart = {}; selRecipe = null; viewingCocktail = null;
+  $("sel-recipe").classList.remove("shown");
+  renderIngredients(); renderCart();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   RECIPE BOOK
+// ═══════════════════════════════════════════════════════════════
+
+const ALL_KW = [...new Set(COCKTAILS.flatMap(c => c.keywords))];
+const ALL_BASE = [...new Set(COCKTAILS.map(c => c.baseIngredient))];
+const CHOSUNG = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+function getCS(ch) {
+  const code = ch.charCodeAt(0);
+  if (code < 0xAC00 || code > 0xD7A3) return ch;
+  return CHOSUNG[Math.floor((code - 0xAC00) / 588)];
+}
+
+function openRecipe() {
+  activeFilters = new Set();
+  viewingCocktail = null;
+  const fb = $("filter-box");
+  fb.innerHTML = "";
+  fb.appendChild(mkFilterRow("맛", ALL_KW, "kw"));
+  fb.appendChild(mkFilterRow("기주", ALL_BASE, "base"));
+  fb.appendChild(mkFilterRow("초성", "ㄱㄴㄷㄹㅁㅂㅅㅇㅈㅊㅋㅌㅍㅎ".split(""), "cs"));
+  renderRecipeList();
+  $("rd-content").classList.remove("show");
+  $("rd-empty").style.display = "flex";
+  $("recipe-ov").classList.add("open");
+}
+function mkFilterRow(label, items, prefix) {
+  const row = document.createElement("div");
+  row.className = "filter-row";
+  const lbl = document.createElement("span");
+  lbl.className = "fr-label";
+  lbl.textContent = label;
+  row.appendChild(lbl);
+  items.forEach(k => {
+    const b = document.createElement("button");
+    b.className = "fb";
+    b.textContent = k;
+    b.dataset.f = prefix + ":" + k;
+    b.onclick = () => {
+      const f = b.dataset.f;
+      if (activeFilters.has(f)) { activeFilters.delete(f); b.classList.remove("on"); }
+      else { activeFilters.add(f); b.classList.add("on"); }
+      renderRecipeList();
+    };
+    row.appendChild(b);
+  });
+  return row;
+}
+function closeRecipe() { $("recipe-ov").classList.remove("open"); }
+
+function renderRecipeList() {
+  const list = $("recipe-list");
+  list.innerHTML = "";
+  let filtered = COCKTAILS;
+  const kwF = [...activeFilters].filter(f => f.startsWith("kw:")).map(f => f.slice(3));
+  const baseF = [...activeFilters].filter(f => f.startsWith("base:")).map(f => f.slice(5));
+  const csF = [...activeFilters].filter(f => f.startsWith("cs:")).map(f => f.slice(3));
+  if (kwF.length) filtered = filtered.filter(c => kwF.some(k => c.keywords.includes(k)));
+  if (baseF.length) filtered = filtered.filter(c => baseF.includes(c.baseIngredient));
+  if (csF.length) filtered = filtered.filter(c => csF.includes(getCS(c.name[0])));
+  filtered.forEach(c => {
+    const unlocked = isCocktailUnlocked(c.id);
+    const d = document.createElement("div");
+    d.className = "rl-item" + (viewingCocktail === c.id ? " sel" : "") + (unlocked ? "" : " locked");
+    d.innerHTML = `
+      <div class="rl-name">${c.name}</div>
+      <div class="rl-kw">${c.keywords.join(" · ")}</div>
+      <div class="rl-m">${METHOD_NAME[c.method]} | ${c.baseIngredient}</div>
+      <div class="rl-price">€${c.price}</div>`;
+    if (unlocked) {
+      d.onclick = () => { viewingCocktail = c.id; showDetail(c); renderRecipeList(); };
+    } else {
+      d.onclick = () => {
+        // 잠긴 항목 클릭 시 잠금 안내 표시
+        $("rd-content").classList.remove("show");
+        $("rd-empty").style.display = "flex";
+        $("rd-empty").innerHTML = `<div style="text-align:center;color:var(--warn);font-family:'JetBrains Mono',monospace;font-size:13px">🔒 숙련도 낮음<br><span style="color:var(--dim);font-size:11px;margin-top:8px;display:inline-block">데이터 확인 불가 (요구 Lv.${MASTERY_UNLOCK_THRESHOLD})</span></div>`;
+      };
+    }
+    list.appendChild(d);
+  });
+  if (!filtered.length) list.innerHTML = '<div style="color:var(--dim);text-align:center;padding:40px 0">조건에 맞는 칵테일이 없습니다.</div>';
+}
+
+function showDetail(c) {
+  $("rd-empty").style.display = "none";
+  $("rd-content").classList.add("show");
+  $("rd-name").textContent = c.name;
+  $("rd-name-en").textContent = c.name_en;
+  $("rd-kw").innerHTML = c.keywords.map(k => `<span>${k}</span>`).join("");
+  $("rd-method").textContent = METHOD_NAME[c.method];
+  $("rd-base").textContent = c.baseIngredient;
+  $("rd-price").textContent = "€" + c.price;
+  $("rd-desc").textContent = c.flavor_text;
+  const il = $("rd-ingr-list");
+  il.innerHTML = "";
+  c.recipe.forEach(r => {
+    const ig = INGREDIENTS.find(i => i.id === r.ingredient);
+    const s = document.createElement("span");
+    s.className = "ri-chip";
+    s.innerHTML = `${ig?.name || r.ingredient}<b>×${r.count}</b>`;
+    il.appendChild(s);
+  });
+}
+
+function selectRecipe() {
+  if (!viewingCocktail) return;
+  const c = COCKTAILS.find(x => x.id === viewingCocktail);
+  if (!c) return;
+  selRecipe = c;
+  const sr = $("sel-recipe");
+  sr.classList.add("shown");
+  sr.querySelector(".sr-name").textContent = "📌 " + c.name;
+  sr.querySelector(".sr-kw").textContent = c.keywords.join(" · ");
+  sr.querySelector(".sr-method").textContent = "제조: " + METHOD_NAME[c.method];
+  sr.querySelector(".sr-ingr").innerHTML = "재료: " + c.recipe.map(r => {
+    const ig = INGREDIENTS.find(i => i.id === r.ingredient);
+    return (ig?.name || r.ingredient) + "×" + r.count;
+  }).join(", ");
+  closeRecipe();
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   MINI GAME
+// ═══════════════════════════════════════════════════════════════
+
+function startMini(method) {
+  chosenMethod = method;
+  // 숙련도 부족 칵테일 사전 체크
+  forcedFail = false;
+  const preMade = identifyMadeCocktail();
+  let lockedWarning = "";
+  if (preMade && !isCocktailUnlocked(preMade.id)) {
+    forcedFail = true;
+    lockedWarning = `\n⚠️ 숙련도 부족 (${preMade.name} 요구 Lv.${MASTERY_UNLOCK_THRESHOLD}) — 실패 처리됩니다.`;
+  }
+  const count = 5 + Math.floor(Math.random() * 3);
+  miniKeys = [];
+  for (let i = 0; i < count; i++) miniKeys.push("WASD"[Math.floor(Math.random() * 4)]);
+  miniPos = 0; miniErrors = 0; miniTime = 8.0;
+  showScreen("mini-screen");
+  $("mini-method").textContent = METHOD_ICON[method];
+  renderMK();
+  $("mini-timer").textContent = miniTime.toFixed(1);
+  $("mini-timer").classList.remove("danger");
+  $("mini-msg").style.whiteSpace = "pre-line";
+  $("mini-msg").textContent = "W A S D 키를 순서대로 입력하세요" + lockedWarning;
+  clearInterval(miniTimer);
+  miniTimer = setInterval(() => {
+    miniTime -= 0.05;
+    $("mini-timer").textContent = Math.max(0, miniTime).toFixed(1);
+    if (miniTime <= 3) $("mini-timer").classList.add("danger");
+    if (miniTime <= 0) { clearInterval(miniTimer); endMini("fail"); }
+  }, 50);
+  miniCb = handleMK;
+}
+
+function renderMK() {
+  const c = $("mini-keys");
+  c.innerHTML = "";
+  miniKeys.forEach((k, i) => {
+    const d = document.createElement("div");
+    d.className = "mk" + (i < miniPos ? " done" : i === miniPos ? " current" : "");
+    d.textContent = k;
+    c.appendChild(d);
+  });
+}
+
+function handleMK(e) {
+  const key = e.key.toUpperCase();
+  if (!"WASD".includes(key)) return;
+  if (key === miniKeys[miniPos]) {
+    miniPos++;
+    renderMK();
+    if (miniPos >= miniKeys.length) {
+      clearInterval(miniTimer);
+      // perfect: 0 errors, normal: 1-2 errors
+      const success = miniErrors === 0 ? "perfect" : "normal";
+      endMini(success);
+    }
+  } else {
+    miniErrors++;
+    miniTime -= 1.0;
+    const els = $("mini-keys").children;
+    if (els[miniPos]) els[miniPos].classList.add("fail");
+    setTimeout(() => { if (els[miniPos]) els[miniPos].classList.remove("fail"); }, 300);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   COCKTAIL IDENTIFICATION & EVALUATION
+// ═══════════════════════════════════════════════════════════════
+
+function identifyMadeCocktail() {
+  // cart vs recipe 정확 매칭
+  for (const c of COCKTAILS) {
+    const recObj = {};
+    c.recipe.forEach(r => recObj[r.ingredient] = r.count);
+    const recKeys = Object.keys(recObj);
+    const cartKeys = Object.keys(cart).filter(k => cart[k] > 0);
+    if (recKeys.length !== cartKeys.length) continue;
+    if (recKeys.every(k => cart[k] === recObj[k])) return c;
+  }
+  return null;
+}
+
+function evaluateCraft(craftSuccess) {
+  const ev = CRAFT_EVENTS.find(e => e.id === currentCraftEvent);
+  if (!ev) return null;
+  const made = identifyMadeCocktail();
+
+  // 규칙을 순서대로 평가 (첫 매치)
+  for (const rule of ev.evaluation.rules) {
+    if (rule.require_craft_success !== craftSuccess) continue;
+
+    if (rule.match_type === "cocktail_id") {
+      if (made && rule.match_values.includes(made.id)) {
+        return { rule, made, reaction: ev.reactions[rule.result] };
+      }
+    } else if (rule.match_type === "keyword") {
+      if (made && rule.match_values.some(kw => made.keywords.includes(kw))) {
+        return { rule, made, reaction: ev.reactions[rule.result] };
+      }
+    } else if (rule.match_type === "any") {
+      return { rule, made, reaction: ev.reactions[rule.result] };
+    }
+  }
+  return null;
+}
+
+function endMini(craftSuccess) {
+  miniCb = null;
+  // 숙련도 부족 칵테일은 강제 fail
+  if (forcedFail) {
+    craftSuccess = "fail";
+    forcedFail = false;
+  }
+  const result = evaluateCraft(craftSuccess);
+
+  const labels = {perfect:"PERFECT", normal:"NORMAL", fail:"FAIL"};
+  const made = result?.made; // null이면 UNKNOWN_COCKTAIL로 표시
+  const rule = result?.rule;
+  const reaction = result?.reaction;
+  const displayMade = made || UNKNOWN_COCKTAIL;
+
+  // 결과 표시
+  $("mini-keys").innerHTML = `<div style="font-size:48px;margin:10px 0">${
+    craftSuccess === "perfect" ? "✅" : craftSuccess === "normal" ? "⚠️" : "❌"
+  }</div>`;
+  $("mini-timer").textContent = labels[craftSuccess];
+  let msg = `만든 칵테일: ${displayMade.name}`;
+  if (rule) msg += `\n매칭 규칙: ${rule.result} (${rule.description})`;
+  if (reaction) {
+    msg += `\n반응: ${reaction.verdict.toUpperCase()}`;
+    if (reaction.affinity) msg += ` · 호감도 ${reaction.affinity > 0 ? "+" : ""}${reaction.affinity}`;
+    if (reaction.karma) msg += ` · 카르마 ${reaction.karma > 0 ? "+" : ""}${reaction.karma}`;
+    // 결제 정보 표시
+    if (reaction.payment) {
+      const pay = reaction.payment;
+      if (pay.pay_price) {
+        const price = made?.price || 0;
+        const tip = Math.round(price * (pay.tip_rate || 0));
+        msg += `\n💰 가격 €${price}` + (tip > 0 ? ` + 팁 €${tip} (${(pay.tip_rate*100)|0}%)` : "");
+      } else {
+        msg += `\n💸 미지급`;
+      }
+    }
+  }
+  $("mini-msg").style.whiteSpace = "pre-line";
+  $("mini-msg").textContent = msg;
+
+  // 트리거 로그에도 기록
+  logTrigger(
+    {type:"craft_result", data:{craft_success:craftSuccess, made:made?.id||"unknown", rule_result:rule?.result, verdict:reaction?.verdict}},
+    `made=${made?.id||"unknown"} | ${craftSuccess} → ${rule?.result || "no-match"}`
+  );
+
+  // 1) 호감도 / 카르마 적용 (팝업과 함께)
+  if (reaction) {
+    const customerId = SCENE.customer;
+    if (!charState[customerId]) charState[customerId] = {affinity:0,karma:0,currentExpression:"default",slot:null};
+    if (reaction.affinity) {
+      charState[customerId].affinity += reaction.affinity;
+      showParamPopup(customerId, "affinity", reaction.affinity);
+    }
+    if (reaction.karma) {
+      charState[customerId].karma += reaction.karma;
+      setTimeout(() => showParamPopup(customerId, "karma", reaction.karma), 300);
+    }
+    refreshDebugPanel();
+  }
+
+  // 2) 숙련도 +1 (제조 자체에 대한 보상, 실패 여부와 무관하게 경험은 쌓임)
+  setTimeout(() => addMastery(1), 600);
+
+  // 3) 결제 — payment.pay_price + tip_rate 기반
+  if (reaction?.payment && made) {
+    const pay = reaction.payment;
+    const basePrice = made.price || 0;
+    if (pay.pay_price && basePrice > 0) {
+      setTimeout(() => addMoney(basePrice, "sale"), 900);
+      const tip = Math.round(basePrice * (pay.tip_rate || 0));
+      if (tip > 0) setTimeout(() => addMoney(tip, "tip"), 1300);
+    }
+  }
+
+  // 대화 노드로 이동
+  setTimeout(() => {
+    showScreen("dlg-screen");
+    if (reaction?.dialogue_id) showNode(reaction.dialogue_id, true);
+    else $("end-overlay").classList.add("show");
+  }, 2400);
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   DEBUG PANEL
+// ═══════════════════════════════════════════════════════════════
+
+function refreshDebugPanel() {
+  // Current Node info
+  if (cNode) {
+    $("dn-id").textContent = cNode.id;
+    $("dn-speaker").textContent = cNode.speaker;
+    $("dn-expr").textContent = cNode.expression || "—";
+    $("dn-next").textContent = cNode.next || (cNode.next_conditions ? "(branch)" : "—");
+    $("dn-trigger").textContent = cNode.trigger ? cNode.trigger.type : "—";
+    $("badge-type").textContent = cNode.type;
+    $("prog").innerHTML = `NODE <b>${cNode.id}</b>`;
+  }
+
+  // Slots
+  ["left","right"].forEach(slot => {
+    const ds = $(`ds-${slot}`);
+    const cid = slotState[slot];
+    if (cid) {
+      const ch = charById(cid);
+      const cs = charState[cid] || {};
+      ds.classList.add("occupied");
+      ds.querySelector(".slot-char").innerHTML = `<span style="color:${ch.name_color}">${ch.display_name}</span>`;
+      ds.querySelector(".slot-expr").textContent = "expr: " + (cs.currentExpression || "default");
+    } else {
+      ds.classList.remove("occupied");
+      ds.querySelector(".slot-char").innerHTML = '<span class="slot-empty-tag">empty</span>';
+      ds.querySelector(".slot-expr").textContent = "";
+    }
+  });
+
+  // Stats (호감도 + 카르마)
+  const af = $("dbg-affinity");
+  af.innerHTML = "";
+  const trackedChars = ["port","chris","aili","samho"]; // 티어가 정의된 캐릭터만 표시
+  trackedChars.forEach(cid => {
+    const ch = charById(cid);
+    const cs = charState[cid] || {affinity:0, karma:0};
+
+    // ── 캐릭터 헤더
+    const head = document.createElement("div");
+    head.style.cssText = "font-weight:700;font-size:12px;letter-spacing:.5px;margin:8px 0 4px;color:" + (ch?.name_color||"#fff");
+    head.textContent = ch?.display_name || cid;
+    af.appendChild(head);
+
+    // ── 호감도 카드 (티어 적용) + 카르마 카드 (티어 없음, 단순 누적)
+    [
+      {key:"affinity", label:"호감도", maxRef:100, signed:false, hasTier:true},
+      {key:"karma", label:"카르마", maxRef:50, signed:true, hasTier:false}
+    ].forEach(({key,label,maxRef,signed,hasTier}) => {
+      const val = cs[key] || 0;
+      const tier = hasTier ? (getTier(cid, key, val) || "—") : null;
+      const tiers = hasTier ? (CHARACTER_TIERS[cid]?.[key] || []) : [];
+      // 양방향(signed) 스탯은 시각화 보정
+      let pct;
+      if (signed) {
+        pct = Math.min(100, Math.max(0, ((val + maxRef) / (maxRef * 2)) * 100));
+      } else {
+        pct = Math.min(100, Math.max(0, (val / maxRef) * 100));
+      }
+      const card = document.createElement("div");
+      card.className = "aff-card";
+      const tierHTML = hasTier
+        ? `<span class="ac-tier tier-${tier}">${tier.replace("_"," ")}</span>`
+        : `<span class="ac-tier" style="background:#1c1f27;color:var(--dim2);border:1px solid var(--border)">no-tier</span>`;
+      const thresholdsHTML = hasTier
+        ? `<div class="aff-thresholds">${tiers.map(t=>`<span>${t.tier==='very_low'?'≤'+(t.max):'≥'+(t.min||0)}</span>`).join("")}</div>`
+        : `<div class="aff-thresholds"><span>-${maxRef}</span><span>0</span><span>+${maxRef}</span></div>`;
+      card.innerHTML = `
+        <div class="ac-head">
+          <div class="ac-name" style="font-size:11px;color:var(--dim2)">${label}</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${tierHTML}
+            <span class="ac-val">${val}</span>
+          </div>
+        </div>
+        <div class="aff-bar"><div class="aff-bar-fill" style="width:${pct}%"></div></div>
+        ${thresholdsHTML}
+      `;
+      af.appendChild(card);
+    });
+  });
+
+  if (!af.innerHTML.trim()) af.innerHTML = '<div style="color:var(--dim);font-size:11px">— No tracked stats —</div>';
+}
+
+function renderTriggerLog() {
+  const c = $("dbg-trigger-log");
+  if (!triggerHist.length) {
+    c.innerHTML = '<div style="color:var(--dim);font-size:11px;font-family:\'JetBrains Mono\',monospace">— No triggers yet —</div>';
+    return;
+  }
+  c.innerHTML = "";
+  // 최근 25개만 표시
+  const recent = triggerHist.slice(-25).reverse();
+  recent.forEach(t => {
+    const e = document.createElement("div");
+    e.className = "tr-entry t-" + t.type;
+    e.innerHTML = `<span class="tr-step">#${t.step}</span><span class="tr-name">${t.type}</span><div class="tr-data">${t.info || JSON.stringify(t.data)}</div>`;
+    c.appendChild(e);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   OVERLAYS
+// ═══════════════════════════════════════════════════════════════
+
+function openLog() {
+  const b = $("log-body");
+  b.innerHTML = "";
+  if (!dialogueHist.length) {
+    b.innerHTML = '<div style="color:var(--dim);text-align:center;padding:40px">대화 로그가 비어있습니다.</div>';
+  } else {
+    dialogueHist.forEach(e => {
+      const d = document.createElement("div");
+      d.className = "log-entry";
+      d.style.borderLeftColor = e.color;
+      d.innerHTML = `
+        <div class="ls" style="color:${e.color}">${e.speaker} <span style="color:var(--dim);font-size:10px;font-weight:400;margin-left:6px">[${e.nodeType}]</span></div>
+        <div class="lt">${parseMk(e.text)}</div>
+        ${e.expression ? `<div class="lex">expression: ${e.expression}</div>` : ""}
+      `;
+      b.appendChild(d);
+    });
+  }
+  $("log-ov").classList.add("open");
+  b.scrollTop = b.scrollHeight;
+}
+function closeLog() { $("log-ov").classList.remove("open"); }
+
+function openTrigLog() {
+  const b = $("trig-body");
+  b.innerHTML = "";
+  if (!triggerHist.length) {
+    b.innerHTML = '<div style="color:var(--dim);text-align:center;padding:40px">트리거 실행 기록이 없습니다.</div>';
+  } else {
+    triggerHist.forEach((t, i) => {
+      const e = document.createElement("div");
+      e.style.cssText = "padding:10px 14px;margin-bottom:6px;background:#13151c;border-left:3px solid var(--blue);border-radius:0 4px 4px 0";
+      const colors = {customer_enter:"var(--green)",customer_exit:"var(--red)",set_stat:"var(--amber)",add_stat:"var(--amber)",start_craft:"var(--purple)",effect:"var(--dim2)",condition_branch:"var(--blue)",craft_result:"var(--amber)",settlement:"var(--warn)",money_change:"var(--green)",mastery_change:"var(--blue)"};
+      e.style.borderLeftColor = colors[t.type] || "var(--blue)";
+      e.innerHTML = `
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+          <span style="color:${colors[t.type]||"var(--blue)"};font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:1px">${t.type}</span>
+          <span style="color:var(--dim);font-size:10px">#${i+1} · step ${t.step}</span>
+        </div>
+        <div style="color:var(--dim2);margin-bottom:5px">${t.info || ""}</div>
+        <div style="color:var(--dim);font-size:10px">data: ${JSON.stringify(t.data)}</div>
+      `;
+      b.appendChild(e);
+    });
+  }
+  $("trig-ov").classList.add("open");
+}
+function closeTrigLog() { $("trig-ov").classList.remove("open"); }
+
+// ═══════════════════════════════════════════════════════════════
+//   SETTLEMENT (일일 정산)
+// ═══════════════════════════════════════════════════════════════
+
+let settlementSelectedDay = 0;
+let settlementApplied = {}; // {day: true} — 이미 정산 적용한 일자 추적
+
+function openSettlement() {
+  // 기본은 현재 day, 없으면 첫 번째
+  if (!DAILY_SETTLEMENTS.some(s => s.day === settlementSelectedDay)) {
+    settlementSelectedDay = DAILY_SETTLEMENTS[0]?.day ?? 0;
+  }
+  renderSettlement();
+  $("settlement-ov").classList.add("open");
+}
+function closeSettlement() { $("settlement-ov").classList.remove("open"); }
+
+function evalExpenseCondition(cond) {
+  if (!cond) return true;
+  if (cond.type === "flag") return !!gameFlags[cond.flag_id];
+  return true;
+}
+
+function renderSettlement() {
+  const b = $("settlement-body");
+  const stl = DAILY_SETTLEMENTS.find(s => s.day === settlementSelectedDay);
+  if (!stl) { b.innerHTML = '<div style="color:var(--dim)">데이터 없음</div>'; return; }
+
+  // 조건부 항목에 필요한 플래그 모음
+  const condFlags = [...new Set(stl.expenses.filter(e => e.condition?.type === "flag").map(e => e.condition.flag_id))];
+
+  // 항목별 적용 여부 + 합계 계산
+  let total = 0;
+  const rows = stl.expenses.map(exp => {
+    const active = evalExpenseCondition(exp.condition);
+    if (active) total += exp.amount;
+    return {exp, active};
+  });
+
+  const applied = !!settlementApplied[settlementSelectedDay];
+
+  b.innerHTML = `
+    <div class="stl-day-tabs">
+      ${DAILY_SETTLEMENTS.map(s => `
+        <button class="stl-day-tab ${s.day === settlementSelectedDay ? "on":""}" data-day="${s.day}">
+          DAY ${s.day}${settlementApplied[s.day] ? " ✓" : ""}
+        </button>
+      `).join("")}
+    </div>
+
+    ${condFlags.length ? `
+      <div class="stl-section">
+        <h4>조건부 플래그</h4>
+        <div class="stl-flags">
+          ${condFlags.map(fid => `
+            <div class="stl-flag-row">
+              <label>
+                <input type="checkbox" data-flag="${fid}" ${gameFlags[fid] ? "checked":""}>
+                <span>${fid}</span>
+              </label>
+              <span class="stl-flag-id">flag</span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    ` : ""}
+
+    <div class="stl-section">
+      <h4>비용 항목 (${rows.filter(r => r.active).length}/${rows.length} 활성)</h4>
+      ${rows.map(r => `
+        <div class="stl-row ${r.active ? "" : "skipped"}">
+          <span class="stl-id">${r.exp.id}</span>
+          <span class="stl-label">${r.exp.label}${!r.active ? " (조건 미충족)" : ""}</span>
+          <span class="stl-amt ${r.exp.amount < 0 ? "neg":"pos"}">${r.exp.amount > 0 ? "+" : ""}€${r.exp.amount}</span>
+        </div>
+      `).join("")}
+    </div>
+
+    <div class="stl-summary">
+      <div class="stl-line">
+        <span>정산 전 보유</span>
+        <span class="val">€${money}</span>
+      </div>
+      <div class="stl-line">
+        <span>총 비용</span>
+        <span class="val ${total < 0 ? "red":"green"}">${total > 0 ? "+" : ""}€${total}</span>
+      </div>
+      <div class="stl-line total">
+        <span>정산 후 예상</span>
+        <span class="val ${(money + total) < 0 ? "red":"green"}">€${money + total}</span>
+      </div>
+    </div>
+
+    <button class="stl-apply-btn" id="stl-apply" ${applied ? "disabled" : ""}>
+      ${applied ? "✓ 이미 정산됨" : "정산 적용"}
+    </button>
+  `;
+
+  // 탭 클릭
+  b.querySelectorAll(".stl-day-tab").forEach(t => {
+    t.onclick = () => { settlementSelectedDay = parseInt(t.dataset.day); renderSettlement(); };
+  });
+  // 플래그 토글
+  b.querySelectorAll("input[data-flag]").forEach(cb => {
+    cb.onchange = () => {
+      gameFlags[cb.dataset.flag] = cb.checked;
+      renderSettlement();
+    };
+  });
+  // 정산 적용
+  const btn = $("stl-apply");
+  if (btn && !applied) {
+    btn.onclick = () => {
+      addMoney(total, "settlement");
+      settlementApplied[settlementSelectedDay] = true;
+      logTrigger(
+        {type:"settlement", data:{day:settlementSelectedDay, total, expenses:rows.filter(r=>r.active).map(r=>r.exp.id)}},
+        `day ${settlementSelectedDay} 정산: ${total > 0 ? "+":""}€${total}`
+      );
+      renderSettlement();
+    };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//   INPUT
+// ═══════════════════════════════════════════════════════════════
+
+document.addEventListener("keydown", e => {
+  if (miniCb) { miniCb(e); return; }
+  if ($("log-ov").classList.contains("open")) { if (e.key === "Escape") closeLog(); return; }
+  if ($("trig-ov").classList.contains("open")) { if (e.key === "Escape") closeTrigLog(); return; }
+  if ($("recipe-ov").classList.contains("open")) { if (e.key === "Escape") closeRecipe(); return; }
+  if ($("settlement-ov").classList.contains("open")) { if (e.key === "Escape") closeSettlement(); return; }
+  if (!$("dlg-screen").classList.contains("active")) return;
+  if (e.key === " " || e.key === "Enter") {
+    e.preventDefault();
+    // 선택지가 있고 숫자 키면 처리
+    if (cNode?.choices?.length) return;
+    advance();
+  }
+  if (e.key === "Backspace") { e.preventDefault(); goBack(); }
+  // 선택지 숫자키
+  if (cNode?.choices?.length && /^[1-9]$/.test(e.key)) {
+    const idx = parseInt(e.key) - 1;
+    if (idx < cNode.choices.length) {
+      $("choices-box").classList.add("hidden");
+      showNode(cNode.choices[idx].next);
+    }
+  }
+});
+
+document.addEventListener("click", e => {
+  if ($("dlg-screen").classList.contains("active") &&
+      !e.target.closest("#toolbar") &&
+      !e.target.closest(".overlay") &&
+      !e.target.closest(".choice-btn") &&
+      !e.target.closest("#right-pane") &&
+      !e.target.closest("#topbar") &&
+      !$("end-overlay").classList.contains("show")) {
+    advance();
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
+//   INIT
+// ═══════════════════════════════════════════════════════════════
+
+$("tb-day").textContent = SCENE.day;
+$("tb-scene").textContent = SCENE.scene_id;
+$("tb-customer").textContent = SCENE.customer;
+
+startGame();
+</script>
+</body>
+</html>
