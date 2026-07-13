@@ -24,6 +24,16 @@
     --grid: rgba(0, 229, 255, 0.06);
     --panel: rgba(0, 229, 255, 0.04);
     --panel-border: rgba(0, 229, 255, 0.25);
+    --neon-cyan-glow:
+      0 0 6px rgba(0,229,255,.9),
+      0 0 18px rgba(0,229,255,.75),
+      0 0 42px rgba(0,229,255,.5),
+      0 0 90px rgba(0,229,255,.35);
+    --neon-pink-glow:
+      0 0 6px rgba(255,46,136,.9),
+      0 0 18px rgba(255,46,136,.7),
+      0 0 42px rgba(255,46,136,.45);
+    --neon-off: #000;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -92,6 +102,13 @@
   .hud-top .spacer { flex: 1; }
   .hud-top a.gh { color: var(--dim); transition: color .2s; }
   .hud-top a.gh:hover { color: var(--cyan); }
+  .hud-top #sndBtn {
+    font-family: inherit; font-size: 11px; letter-spacing: .08em;
+    background: none; border: none; cursor: pointer;
+    color: var(--dim); transition: color .2s;
+  }
+  .hud-top #sndBtn:hover { color: var(--amber); }
+  .hud-top #sndBtn.on { color: var(--amber); text-shadow: 0 0 8px rgba(255,180,0,.5); }
 
   /* ========== BOOT OVERLAY ========== */
   #boot {
@@ -122,8 +139,18 @@
   .hero-media {
     position: absolute; inset: 0; z-index: 0;
   }
-  .hero-media video, .hero-media img {
+  .hero-media img.yt-fallback {
+    position: absolute; inset: 0;
     width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(.5) saturate(1.15);
+  }
+  /* background video covers hero at any aspect ratio */
+  .hero-media .bg-video {
+    position: absolute; top: 50%; left: 50%;
+    width: 100%; height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    pointer-events: none;
     filter: brightness(.5) saturate(1.15);
   }
   .hero-media::after {
@@ -145,39 +172,52 @@
     letter-spacing: .06em;
     line-height: 1;
     color: #eaffff;
-    text-shadow:
-      0 0 6px rgba(0,229,255,.9),
-      0 0 18px rgba(0,229,255,.75),
-      0 0 42px rgba(0,229,255,.5),
-      0 0 90px rgba(0,229,255,.35);
-    animation: neonOn 2.4s ease-out .3s both;
+    text-shadow: var(--neon-cyan-glow);
   }
-  .neon-title .dotchar { color: var(--pink);
-    text-shadow:
-      0 0 6px rgba(255,46,136,.9),
-      0 0 18px rgba(255,46,136,.7),
-      0 0 42px rgba(255,46,136,.45);
+  .neon-title .ch {
+    display: inline-block;
+    animation: neonOn 2.4s steps(1, end) .3s both;
   }
+  .neon-title .dotchar {
+    color: var(--pink);
+    text-shadow: var(--neon-pink-glow);
+    animation: dotOn 2.4s steps(1, end) .3s both;
+  }
+  /* boot-up flicker: dark tube → lit → dark → lit (broken sign warming up) */
   @keyframes neonOn {
-    0%   { opacity: 0; text-shadow: none; }
-    8%   { opacity: 1; }
-    12%  { opacity: .2; }
-    18%  { opacity: 1; }
-    24%  { opacity: .35; }
-    32%  { opacity: 1; }
-    100% { opacity: 1; }
+    0%   { color: var(--neon-off); text-shadow: none; }
+    8%   { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    12%  { color: var(--neon-off); text-shadow: none; }
+    18%  { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    24%  { color: var(--neon-off); text-shadow: none; }
+    32%  { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    100% { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+  }
+  @keyframes dotOn {
+    0%   { color: var(--neon-off); text-shadow: none; }
+    8%   { color: var(--pink);     text-shadow: var(--neon-pink-glow); }
+    12%  { color: var(--neon-off); text-shadow: none; }
+    18%  { color: var(--pink);     text-shadow: var(--neon-pink-glow); }
+    24%  { color: var(--neon-off); text-shadow: none; }
+    32%  { color: var(--pink);     text-shadow: var(--neon-pink-glow); }
+    100% { color: var(--pink);     text-shadow: var(--neon-pink-glow); }
   }
 
-  .hero .sub {
-    margin-top: 26px;
-    font-size: clamp(13px, 2vw, 17px);
-    color: var(--text);
-    letter-spacing: .28em;
+  /* ── billboard letter flicker (JS triggers .flick on a random letter) ── */
+  .neon-title .ch.flick { animation: signFlick 1.1s steps(1, end) 1; }
+  @keyframes signFlick {           /* 고장난 전광판: 튜브가 꺼지면 검게 */
+    0%, 100% { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    6%       { color: var(--neon-off); text-shadow: none; }
+    13%      { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    22%      { color: var(--neon-off); text-shadow: none; }
+    30%      { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    52%      { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
+    58%      { color: var(--neon-off); text-shadow: none; }
+    70%      { color: #eaffff;         text-shadow: var(--neon-cyan-glow); }
   }
-  .hero .sub .amber { color: var(--amber); }
 
   .hero .tagline {
-    margin-top: 14px;
+    margin-top: 26px;
     font-size: 12px; color: var(--dim); letter-spacing: .12em;
     line-height: 2;
   }
@@ -362,21 +402,22 @@
   <span>MAIN_LOBBY</span>
   <span class="spacer"></span>
   <span id="clock">--:--:--</span>
+  <button id="sndBtn" type="button" aria-pressed="false" title="배경 음악 켜기/끄기">[♪ SOUND OFF]</button>
   <a class="gh" href="https://github.com/junseo874/junseo874.github.io" target="_blank" rel="noopener">[GITHUB]</a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-media" aria-hidden="true">
-    <video autoplay muted loop playsinline poster="Background/background_0.png">
-      <source src="video/Intro.mp4" type="video/mp4" />
+    <img class="yt-fallback" src="Background/background_0.png" alt="" />
+    <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="Background/background_0.png">
+      <source src="video/Prototype.mp4" type="video/mp4" />
     </video>
   </div>
 
   <div class="hero-inner">
     <div class="eyebrow">CYBERPUNK <b>BARTENDER</b> PROJECT</div>
-    <h1 class="neon-title">L<span class="dotchar">.</span>U<span class="dotchar">.</span>N<span class="dotchar">.</span>A</h1>
-    <div class="sub">ONE BAR <span class="amber">/</span> ONE NIGHT <span class="amber">/</span> ONE DRINK</div>
+    <h1 class="neon-title"><span class="ch">L</span><span class="dotchar">.</span><span class="ch">U</span><span class="dotchar">.</span><span class="ch">N</span><span class="dotchar">.</span><span class="ch">A</span></h1>
     <div class="tagline">
       네온 도시의 끝, 작은 바 카운터.<br/>
       당신이 만든 한 잔이 손님의 이야기를 바꾼다.
@@ -488,6 +529,60 @@
       }
     })();
     boot.addEventListener('click', () => boot.classList.add('done'));
+  })();
+
+  // ===== background music =====
+  (function () {
+    const audio = new Audio('sound/LUNA_Track_02.mp3');
+    audio.loop = true;
+    audio.volume = 0.35;
+    audio.preload = 'none';
+    const btn = document.getElementById('sndBtn');
+    let armed = false;
+
+    function setUI(on) {
+      btn.textContent = on ? '[♪ SOUND ON]' : '[♪ SOUND OFF]';
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', String(on));
+    }
+    function toggle() {
+      if (audio.paused) audio.play().then(() => setUI(true)).catch(() => setUI(false));
+      else { audio.pause(); setUI(false); }
+    }
+    btn.addEventListener('click', e => { e.stopPropagation(); armed = true; toggle(); });
+
+    // 첫 상호작용(클릭/키입력) 시 자동 재생 시도 — 브라우저 자동재생 정책 대응
+    function firstPlay(e) {
+      if (armed) return;
+      if (e && e.target && e.target.closest && e.target.closest('#sndBtn')) return;
+      armed = true;
+      audio.play().then(() => setUI(true)).catch(() => {});
+      window.removeEventListener('pointerdown', firstPlay);
+      window.removeEventListener('keydown', firstPlay);
+    }
+    window.addEventListener('pointerdown', firstPlay);
+    window.addEventListener('keydown', firstPlay);
+  })();
+
+  // ===== billboard letter flicker (한두 글자가 가끔 깜빡) =====
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const chars = document.querySelectorAll('.neon-title .ch');
+    if (!chars.length) return;
+    function flickOnce() {
+      // 1글자 또는 2글자 랜덤 선택
+      const count = Math.random() < 0.35 ? 2 : 1;
+      const pool = [...chars];
+      for (let i = 0; i < count; i++) {
+        const el = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+        el.classList.remove('flick');
+        void el.offsetWidth;            // restart animation
+        el.classList.add('flick');
+      }
+      // 다음 깜빡임까지 5~11초 랜덤 대기
+      setTimeout(flickOnce, 5000 + Math.random() * 6000);
+    }
+    setTimeout(flickOnce, 3200);        // 네온 점등 연출이 끝난 뒤 시작
   })();
 
   // ===== card reveal on scroll =====
