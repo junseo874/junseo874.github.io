@@ -1,0 +1,1706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한 잔의 선택</title>
+<style>
+  @font-face {
+    font-family: 'Microorganism';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+  }
+  :root{
+    --bg:#0d1117;
+    --bg-deep:#07090d;
+    --cyan:#00e5ff;
+    --pink:#ff2e88;
+    --amber:#ffb400;
+    --text:#d8e6ee;
+    --dim:#6f8597;
+    --panel:rgba(0,229,255,.04);
+    --panel-border:rgba(0,229,255,.25);
+    --progress-h:44px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;user-select:none;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    font-family:'Microorganism',monospace;
+    color:var(--text);
+    overflow:hidden;
+  }
+
+  /* ═══ 씬 배경 레이어 ═══ */
+  #bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  #bg .skyline{position:absolute;left:0;right:0;bottom:var(--progress-h);opacity:.55;}
+  #bg .rain{
+    position:absolute;inset:0;opacity:.35;
+    background:repeating-linear-gradient(112deg,
+      transparent 0 26px, rgba(0,229,255,.10) 26px 27px, transparent 27px 47px);
+    background-size:220px 220px;
+    animation:rainfall .8s linear infinite;
+  }
+  @keyframes rainfall{from{background-position:0 0;}to{background-position:-60px 220px;}}
+  #bg .glitch{position:absolute;left:0;right:0;height:2px;opacity:0;}
+  #bg .glitch.a{top:26%;background:var(--cyan);animation:glitch 5s steps(2) infinite;}
+  #bg .glitch.b{top:63%;background:var(--pink);animation:glitch 7s steps(2) 1.4s infinite;}
+  @keyframes glitch{
+    0%,92%{opacity:0;transform:none;}
+    93%{opacity:.5;transform:translateX(-14px);}
+    95%{opacity:.25;transform:translateX(10px);}
+    97%,100%{opacity:0;}
+  }
+
+  /* ═══ 전체 화면 씬 ═══ */
+  #scene{
+    position:fixed;left:0;right:0;top:0;bottom:var(--progress-h);
+    overflow-y:auto;overflow-x:hidden;
+    display:flex;z-index:1;
+  }
+  #scene::-webkit-scrollbar{width:8px;}
+  #scene::-webkit-scrollbar-track{background:transparent;}
+  #scene::-webkit-scrollbar-thumb{background:rgba(0,229,255,.25);}
+  #scene::-webkit-scrollbar-thumb:hover{background:rgba(0,229,255,.45);}
+
+  .slide{
+    margin:auto;
+    width:100%;
+    max-width:860px;
+    padding:40px 28px;
+    text-align:center;
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;
+    animation:decode .55s steps(10) both;   /* CRT 디코드: 전체가 한 번에 구현됨 */
+  }
+  .slide.wide{max-width:1080px;}
+  /* 씬 등장: 스캔라인이 쓸고 지나가며 화면이 "구현"되는 효과 */
+  @keyframes decode{
+    0%  {opacity:0;clip-path:inset(0 0 100% 0);}
+    8%  {opacity:1;}
+    62% {clip-path:inset(0 0 0% 0);transform:none;}
+    70% {transform:translateX(-3px) skewX(.6deg);}
+    78% {transform:translateX(2px) skewX(-.4deg);}
+    86% {transform:none;}
+    100%{clip-path:inset(0 0 0 0);transform:none;}
+  }
+  .slide::after{               /* 지나가는 스캔 바 */
+    content:"";position:absolute;left:-4%;right:-4%;top:0;height:3px;
+    background:var(--cyan);
+    box-shadow:0 0 14px rgba(0,229,255,.9), 0 0 34px rgba(0,229,255,.4);
+    animation:scanbar .55s steps(10) both;
+    pointer-events:none;
+  }
+  @keyframes scanbar{
+    0%  {top:0;opacity:.9;}
+    62% {top:100%;opacity:.9;}
+    63% {opacity:0;}
+    100%{top:100%;opacity:0;}
+  }
+  @keyframes fadein{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  @keyframes rise{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+
+  /* ═══ 부트(로딩) 스크린 — 바 오픈 준비 ═══ */
+  #boot{
+    position:fixed;inset:0;z-index:100;
+    background:var(--bg-deep);
+    overflow:hidden;
+    transition:opacity .45s steps(6);
+  }
+  #boot.open{opacity:0;pointer-events:none;}
+  #boot .boot-inner{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:18px;
+  }
+  #boot .boot-title{font-size:22px;letter-spacing:5px;color:var(--dim);}
+  #boot .boot-title b{color:var(--cyan);font-weight:normal;}
+  #boot .boot-pct{font-size:44px;color:var(--text);}
+  #boot .boot-pct .pctsign{font-size:24px;color:var(--dim);}
+  #boot .boot-bar{
+    width:min(420px, 70vw);height:14px;
+    border:2px solid var(--panel-border);
+    background:rgba(0,229,255,.04);
+    position:relative;image-rendering:pixelated;
+  }
+  #boot .boot-bar .fill{
+    position:absolute;left:2px;top:2px;bottom:2px;width:0%;
+    background:var(--cyan);
+    box-shadow:0 0 10px rgba(0,229,255,.7);
+  }
+  #boot .boot-log{font-size:17px;color:var(--dim);min-height:24px;animation:blink 1.2s steps(2) infinite;}
+  #boot .boot-glass{margin-bottom:4px;}
+
+  h1{font-size:46px;line-height:1.5;margin-bottom:14px;font-weight:normal;}
+  h1 .cy{color:var(--cyan);}
+  h2{font-size:30px;line-height:1.55;margin-bottom:10px;font-weight:normal;}
+  h2.glitch-text{text-shadow:2px 0 rgba(255,46,136,.55), -2px 0 rgba(0,229,255,.55);}
+  p.narr{font-size:22px;line-height:1.75;margin-bottom:12px;max-width:760px;}
+  p.narr .cy{color:var(--cyan);}
+  p.narr .pk{color:var(--pink);}
+  p.narr .am{color:var(--amber);}
+  p.sub{font-size:18px;color:var(--dim);line-height:1.7;margin-bottom:8px;}
+
+  /* ═══ 캐릭터 + 말풍선 ═══ */
+  .speaker{
+    display:flex;align-items:center;justify-content:center;
+    gap:6px;margin:4px 0 14px;
+  }
+  .speaker svg{flex:none;image-rendering:pixelated;}
+  .speech{
+    position:relative;
+    border:2px solid var(--panel-border);
+    background:var(--panel);
+    padding:16px 22px;
+    font-size:23px;line-height:1.8;
+    max-width:460px;text-align:left;
+  }
+  .speech::before{
+    content:"";position:absolute;left:-12px;bottom:26px;
+    width:0;height:0;
+    border-top:9px solid transparent;
+    border-bottom:9px solid transparent;
+    border-right:12px solid var(--panel-border);
+  }
+  .speech::after{
+    content:"";position:absolute;left:-9px;bottom:28px;
+    width:0;height:0;
+    border-top:7px solid transparent;
+    border-bottom:7px solid transparent;
+    border-right:10px solid #0e1720;
+  }
+  .speech .who{display:block;font-size:15px;letter-spacing:2px;color:var(--cyan);margin-bottom:8px;}
+  .speech .who::before{content:"▌ ";}
+  .speaker.rev{flex-direction:row-reverse;}
+  .speaker.rev .speech::before{left:auto;right:-12px;border-right:none;
+    border-left:12px solid var(--panel-border);}
+  .speaker.rev .speech::after{left:auto;right:-9px;border-right:none;
+    border-left:10px solid #0e1720;}
+  .speaker.drunk.rev .speech::before{border-left-color:rgba(255,46,136,.5);}
+  .speaker.drunk.rev .speech::after{border-left-color:#170d14;}
+  .speaker.drunk .speech{border-color:rgba(255,46,136,.5);background:rgba(255,46,136,.05);}
+  .speaker.drunk .speech::before{border-right-color:rgba(255,46,136,.5);}
+  .speaker.drunk .speech::after{border-right-color:#170d14;}
+  .speaker.drunk .speech .who{color:var(--pink);}
+
+  /* ═══ 픽셀 버튼 ═══ */
+  .btn{
+    font-family:inherit;font-size:23px;color:var(--bg-deep);
+    background:var(--cyan);
+    border:none;padding:13px 30px;cursor:pointer;
+    box-shadow:4px 4px 0 rgba(0,229,255,.25);
+    letter-spacing:1px;
+    transition:transform .05s;
+  }
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(0,229,255,.3);}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(0,229,255,.25);}
+  .btn.ghost{background:transparent;color:var(--cyan);border:2px solid var(--cyan);box-shadow:4px 4px 0 rgba(0,229,255,.15);}
+  .btn.pink{background:var(--pink);box-shadow:4px 4px 0 rgba(255,46,136,.25);}
+  .btn.small{font-size:17px;padding:7px 14px;box-shadow:2px 2px 0 rgba(0,229,255,.2);}
+  .actions{margin-top:18px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+
+  /* 선택지 (텍스트형) */
+  .choices{display:flex;flex-direction:column;gap:8px;margin-top:4px;width:100%;max-width:560px;}
+  .choices button{
+    font-family:inherit;font-size:21px;text-align:left;
+    color:var(--text);background:var(--panel);
+    border:1px solid var(--panel-border);
+    padding:12px 16px;cursor:pointer;line-height:1.6;
+  }
+  .choices button:hover:not(:disabled){border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08);}
+  .choices button:disabled{opacity:.35;cursor:default;}
+  .choices button .no{color:var(--amber);margin-right:10px;}
+
+  /* 잔 선택 (5지선다) */
+  .glass-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:24px;}
+  .glass-btn{
+    font-family:inherit;color:var(--text);font-size:18px;
+    background:var(--panel);border:1px solid var(--panel-border);
+    width:136px;padding:16px 8px 12px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    transition:transform .08s;
+  }
+  .glass-btn:hover:not(:disabled){border-color:var(--cyan);transform:translateY(-4px);}
+  .glass-btn:disabled{opacity:.3;cursor:default;}
+  .glass-btn svg{image-rendering:pixelated;}
+  .glass-btn .gname{line-height:1.4;}
+
+  .result{
+    border-left:3px solid var(--cyan);
+    background:rgba(0,229,255,.06);
+    padding:14px 20px;margin:12px auto 0;
+    font-size:21px;line-height:1.8;max-width:640px;
+    text-align:left;
+    animation:fadein .3s steps(4) both;
+  }
+  .result.bad{border-color:var(--pink);background:rgba(255,46,136,.06);}
+  .result.good{border-color:var(--amber);background:rgba(255,180,0,.07);}
+
+  /* 당신의 밤 (리캡) */
+  .recap{
+    border:1px solid var(--panel-border);background:var(--panel);
+    padding:14px 24px;margin:4px auto 14px;
+    max-width:560px;width:100%;text-align:left;
+    font-size:20px;line-height:1.85;
+  }
+  .recap .rc-title{font-size:16px;letter-spacing:3px;color:var(--dim);margin-bottom:10px;}
+  .recap .row{display:flex;justify-content:space-between;gap:18px;}
+  .recap .row .k{color:var(--dim);flex:none;}
+  .recap .row .v{text-align:right;}
+  .recap .v.cy{color:var(--cyan);} .recap .v.pk{color:var(--pink);} .recap .v.am{color:var(--amber);}
+
+  /* ═══ 하단 진행 바: 잔 아이콘 ═══ */
+  #progress{
+    position:fixed;left:0;right:0;bottom:0;height:var(--progress-h);
+    border-top:1px solid var(--panel-border);
+    display:flex;align-items:center;justify-content:center;gap:18px;
+    background:var(--bg-deep);
+    z-index:30;
+  }
+  #progress .tick{
+    width:22px;height:26px;flex:none;cursor:pointer;
+    color:rgba(216,230,238,.16);
+    transition:color .2s, transform .1s;
+    position:relative;
+  }
+  #progress .tick svg{display:block;}
+  #progress .tick:hover{color:rgba(0,229,255,.65);transform:translateY(-2px);}
+  #progress .tick.past{color:rgba(0,229,255,.38);}
+  #progress .tick.on{color:var(--cyan);filter:drop-shadow(0 0 6px rgba(0,229,255,.9));}
+
+  /* 음소거 버튼 */
+  #mute{
+    position:fixed;top:14px;right:16px;z-index:40;
+    font-family:inherit;font-size:18px;
+    background:transparent;color:var(--dim);
+    border:1px solid var(--panel-border);
+    padding:6px 12px;cursor:pointer;
+  }
+  #mute:hover{color:var(--cyan);border-color:var(--cyan);}
+
+  /* ═══════════ 미니게임 ═══════════ */
+  #mg{width:100%;display:flex;flex-direction:column;align-items:center;text-align:left;}
+  #tut{
+    width:100%;max-width:900px;
+    border:1px solid rgba(255,180,0,.5);
+    background:rgba(255,180,0,.07);
+    color:var(--amber);
+    font-size:18px;line-height:1.6;
+    padding:9px 13px;margin-bottom:16px;
+    display:flex;gap:10px;align-items:center;
+  }
+  #tut::before{content:"TIP";flex:none;font-size:13px;border:1px solid var(--amber);padding:2px 6px;letter-spacing:2px;}
+
+  .mg-body{width:100%;max-width:900px;display:flex;gap:26px;min-height:420px;}
+  .mg-left{width:230px;flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;}
+  .order-card{
+    width:100%;border:1px solid var(--panel-border);background:var(--panel);
+    padding:10px 12px;font-size:17px;color:var(--dim);line-height:1.6;
+  }
+  .order-card b{color:var(--cyan);font-weight:normal;font-size:21px;display:block;}
+  #glass-holder{flex:1;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;}
+  .oz-read{font-size:17px;color:var(--dim);}
+  .oz-read b{color:var(--amber);font-weight:normal;}
+
+  .mg-right{flex:1;display:flex;flex-direction:column;min-height:0;}
+  .shelf-tabs{display:flex;gap:6px;margin-bottom:10px;}
+  .shelf-tabs button{
+    font-family:inherit;font-size:17px;
+    background:transparent;color:var(--dim);
+    border:1px solid var(--panel-border);
+    padding:7px 13px;cursor:pointer;letter-spacing:1px;
+  }
+  .shelf-tabs button.on{color:var(--bg-deep);background:var(--cyan);border-color:var(--cyan);}
+  .shelf{
+    flex:1;border:1px solid var(--panel-border);background:rgba(7,9,13,.5);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    padding:14px;align-content:start;overflow:auto;
+  }
+  .shelf-item{
+    font-family:inherit;font-size:17px;color:var(--text);
+    background:var(--panel);border:1px solid var(--panel-border);
+    padding:12px 6px;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+  }
+  .shelf-item:hover{border-color:var(--cyan);}
+  .shelf-item.used{opacity:.3;pointer-events:none;}
+  .shelf-item.wrong{animation:shake .3s steps(4);border-color:var(--pink);}
+  @keyframes shake{25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+  .shelf-item svg{width:34px;height:52px;}
+
+  .mg-steps{display:flex;gap:8px;margin-top:14px;align-items:center;flex-wrap:wrap;}
+  .mg-steps .st{
+    font-size:16px;padding:5px 9px;
+    border:1px solid var(--panel-border);color:var(--dim);
+    background:var(--panel);
+  }
+  .mg-steps .st.done{color:var(--bg-deep);background:var(--cyan);border-color:var(--cyan);}
+  .mg-steps .st.now{color:var(--amber);border-color:var(--amber);}
+
+  /* ═══ 김믹 오버레이 ═══ */
+  #gimmick{
+    position:fixed;left:0;right:0;top:0;bottom:var(--progress-h);
+    z-index:20;
+    background:rgba(7,9,13,.94);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:16px;cursor:pointer;
+  }
+  #gimmick.perfect::after{
+    content:"";position:absolute;inset:0;background:rgba(255,255,255,.16);
+    animation:flash .4s steps(3) forwards;pointer-events:none;
+  }
+  @keyframes flash{from{opacity:1;}to{opacity:0;}}
+  #gimmick .g-name{font-size:28px;color:var(--cyan);letter-spacing:2px;}
+  #gimmick .g-hud{
+    display:flex;align-items:center;gap:22px;
+    font-size:20px;color:var(--dim);
+    border:1px solid var(--panel-border);
+    background:var(--panel);
+    padding:8px 18px;
+  }
+  #gimmick .g-hud .tag{font-size:14px;letter-spacing:2px;color:var(--dim);opacity:.8;}
+  #gimmick .g-hud .tgt{color:var(--amber);}
+  #gimmick .g-hint{font-size:19px;color:var(--dim);animation:blink 1.4s steps(2) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  #gimmick .g-grade{font-size:36px;letter-spacing:4px;animation:pop .3s steps(4) both;}
+  @keyframes pop{from{transform:scale(.6);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .g-stage{display:flex;align-items:flex-end;gap:44px;}
+  #g-bottle{transition:transform .2s steps(4);transform-origin:bottom right;}
+  #g-bottle.pouring{transform:rotate(-52deg) translate(6px,-8px);}
+  #g-glasswrap{position:relative;}
+  #g-stream{
+    position:absolute;top:8px;left:50%;margin-left:-16px;
+    width:6px;height:0;opacity:.9;image-rendering:pixelated;
+  }
+  .spark{
+    position:absolute;color:var(--cyan);font-size:24px;
+    animation:sparkpop .5s steps(5) both;pointer-events:none;
+  }
+  @keyframes sparkpop{
+    0%{transform:scale(.3);opacity:0;}
+    40%{transform:scale(1.15);opacity:1;}
+    100%{transform:scale(.9) translateY(-8px);opacity:0;}
+  }
+</style>
+</head>
+<body>
+
+<div id="boot">
+  <div class="boot-inner">
+    <div class="boot-glass" id="boot-glass"></div>
+    <div class="boot-title">BAR <b>언노운</b> — 오픈 준비 중</div>
+    <div class="boot-pct"><span id="boot-num">0</span><span class="pctsign"> %</span></div>
+    <div class="boot-bar"><div class="fill" id="boot-fill"></div></div>
+    <div class="boot-log" id="boot-log">시스템 점검 중…</div>
+  </div>
+</div>
+<div id="bg"></div>
+<div id="scene"></div>
+<div id="progress"></div>
+<button id="mute" onclick="SND.toggle(this)" title="소리 켜기/끄기">🔊 소리</button>
+
+<script>
+/* ══════════ 전역 상태 ══════════ */
+const state = {
+  scene:0, mg:null, mgScore:null,
+  log:{ drunk:null, fiveTries:0, fiveDone:false, luna:null },
+};
+const sceneEl = document.getElementById('scene');
+const progEl  = document.getElementById('progress');
+const bgEl    = document.getElementById('bg');
+
+/* ══════════ 8bit 사운드 ══════════ */
+const SND = {
+  ctx:null, muted:false, _pour:null,
+  ensure(){
+    if(!this.ctx){
+      try{ this.ctx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+    }
+    if(this.ctx && this.ctx.state==='suspended') this.ctx.resume();
+    return this.ctx;
+  },
+  beep(freq, dur=0.06, type='square', vol=0.06, delay=0){
+    if(this.muted) return;
+    const ctx = this.ensure(); if(!ctx) return;
+    const t = ctx.currentTime + delay;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t); o.stop(t + dur + 0.02);
+  },
+  click(){ this.beep(700, .04, 'square', .045); },
+  tap(){ this.beep(460, .05, 'square', .05); },
+  bell(){ this.beep(988, .09, 'square', .05); this.beep(1319, .14, 'square', .05, .09); },
+  good(){ [523,659,784].forEach((f,i)=>this.beep(f, .09, 'square', .055, i*.08)); },
+  serve(){ [523,659,784,1046].forEach((f,i)=>this.beep(f, .1, 'square', .055, i*.09)); },
+  bad(){ this.beep(220, .18, 'sawtooth', .05); this.beep(160, .22, 'sawtooth', .05, .12); },
+  pourStart(){
+    if(this._pour) return;
+    const ctx = this.ensure(); if(!ctx) return;
+    const len = ctx.sampleRate;
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i] = Math.random()*2-1;
+    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+    const bp = ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value = 850; bp.Q.value = 0.9;
+    const g = ctx.createGain(); g.gain.value = this.muted ? 0 : 0.05;
+    src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+    src.start();
+    this._pour = {src, g};
+  },
+  pourStop(){
+    if(this._pour){ try{this._pour.src.stop();}catch(e){} this._pour=null; }
+  },
+  toggle(btn){
+    this.muted = !this.muted;
+    if(this._pour) this._pour.g.gain.value = this.muted ? 0 : 0.05;
+    btn.textContent = this.muted ? '🔇 소리' : '🔊 소리';
+  },
+};
+/* 버튼류 클릭 사운드 (김믹 오버레이·음소거 버튼 제외) */
+document.addEventListener('click', e=>{
+  if(e.target.closest('#gimmick') || e.target.closest('#mute')) return;
+  if(e.target.closest('.btn, .choices button, .glass-btn, .shelf-item, .shelf-tabs button, #progress .tick'))
+    SND.click();
+}, true);
+
+/* ══════════ 픽셀 SVG 파츠 ══════════ */
+
+/* 바 카운터 너머 손님 상반신 */
+function guestSVG(mood='calm', w=170, h=150){
+  const skin='#d8e6ee', coatA='#22303f', coatB='#2c3d50';
+  const drunk = mood==='drunk';
+  const blush = drunk ? `
+    <rect x="52" y="46" width="10" height="6" fill="#ff2e88" opacity=".55"/>
+    <rect x="98" y="46" width="10" height="6" fill="#ff2e88" opacity=".55"/>` : '';
+  const eyes = drunk ? `
+    <rect x="60" y="34" width="10" height="4" fill="#0d1117" transform="rotate(8 65 36)"/>
+    <rect x="90" y="34" width="10" height="4" fill="#0d1117" transform="rotate(-8 95 36)"/>` : `
+    <rect x="62" y="34" width="6" height="6" fill="#0d1117"/>
+    <rect x="92" y="34" width="6" height="6" fill="#0d1117"/>`;
+  const bodyTilt = drunk ? `transform="rotate(-5 80 100)"` : '';
+  return `
+  <svg width="${w}" height="${h}" viewBox="0 0 160 140" style="image-rendering:pixelated">
+    <g ${bodyTilt}>
+      <rect x="50" y="14" width="60" height="52" fill="${skin}"/>
+      <rect x="46" y="20" width="4" height="40" fill="${skin}"/>
+      <rect x="110" y="20" width="4" height="40" fill="${skin}"/>
+      <rect x="50" y="10" width="60" height="4" fill="${skin}"/>
+      <rect x="46" y="8" width="68" height="10" fill="#111922"/>
+      <rect x="46" y="16" width="10" height="12" fill="#111922"/>
+      <rect x="104" y="16" width="10" height="12" fill="#111922"/>
+      ${eyes}
+      ${blush}
+      <rect x="${drunk?70:74}" y="54" width="${drunk?20:12}" height="4" fill="#0d1117"/>
+      <rect x="72" y="66" width="16" height="8" fill="${skin}"/>
+      <rect x="34" y="74" width="92" height="34" fill="${coatA}"/>
+      <rect x="28" y="82" width="8" height="26" fill="${coatA}"/>
+      <rect x="124" y="82" width="8" height="26" fill="${coatA}"/>
+      <rect x="34" y="74" width="92" height="6" fill="${coatB}"/>
+      <rect x="70" y="74" width="20" height="14" fill="#0d1117"/>
+      <rect x="66" y="74" width="6" height="10" fill="${drunk?'#ff2e88':'#00e5ff'}" opacity=".8"/>
+      <rect x="88" y="74" width="6" height="10" fill="${drunk?'#ff2e88':'#00e5ff'}" opacity=".8"/>
+    </g>
+    <rect x="0" y="108" width="160" height="8" fill="#3a2b1c"/>
+    <rect x="0" y="116" width="160" height="24" fill="#241a10"/>
+    <rect x="0" y="108" width="160" height="2" fill="rgba(0,229,255,.35)"/>
+    ${drunk ? `
+    <rect x="118" y="88" width="18" height="20" fill="none" stroke="#d8e6ee" stroke-width="3"/>
+    <rect x="115" y="106" width="24" height="3" fill="#d8e6ee"/>` : ''}
+  </svg>`;
+}
+
+function highballSVG(layers, maxOz, w=110, h=170){
+  const innerX=18, innerW=74, innerTop=14, innerBot=152;
+  const innerH = innerBot - innerTop;
+  let y = innerBot, rects = '';
+  layers.forEach(l=>{
+    const hh = Math.min(innerH, (l.oz/maxOz)*innerH);
+    y -= hh;
+    rects += `<rect x="${innerX}" y="${y.toFixed(1)}" width="${innerW}" height="${hh.toFixed(1)}" fill="${l.color}" opacity="0.85"/>`;
+  });
+  return `
+  <svg width="${w}" height="${h}" viewBox="0 0 110 170" style="image-rendering:pixelated">
+    ${rects}
+    <rect x="12" y="8"  width="86" height="4" fill="#d8e6ee"/>
+    <rect x="12" y="8"  width="4"  height="150" fill="#d8e6ee"/>
+    <rect x="94" y="8"  width="4"  height="150" fill="#d8e6ee"/>
+    <rect x="12" y="154" width="86" height="4" fill="#d8e6ee"/>
+    <rect x="20" y="20" width="4" height="110" fill="rgba(255,255,255,.25)"/>
+  </svg>`;
+}
+function bottleSVG(color, w=34, h=52){
+  return `
+  <svg width="${w}" height="${h}" viewBox="0 0 36 56" style="image-rendering:pixelated">
+    <rect x="14" y="2"  width="8"  height="10" fill="#9aa7b5"/>
+    <rect x="10" y="12" width="16" height="6"  fill="${color}"/>
+    <rect x="6"  y="18" width="24" height="36" fill="${color}"/>
+    <rect x="6"  y="18" width="24" height="36" fill="none" stroke="rgba(7,9,13,.6)" stroke-width="2"/>
+    <rect x="10" y="26" width="16" height="14" fill="rgba(13,17,23,.55)"/>
+  </svg>`;
+}
+function fruitSVG(color, w=34, h=52){
+  return `
+  <svg width="${w}" height="${h}" viewBox="0 0 36 56" style="image-rendering:pixelated">
+    <rect x="8" y="20" width="20" height="20" fill="${color}"/>
+    <rect x="12" y="16" width="12" height="4" fill="${color}"/>
+    <rect x="8" y="20" width="20" height="20" fill="none" stroke="rgba(7,9,13,.6)" stroke-width="2"/>
+    <rect x="16" y="12" width="4" height="4" fill="#3fae6a"/>
+  </svg>`;
+}
+function toolSVG(){
+  return `
+  <svg width="34" height="52" viewBox="0 0 36 56" style="image-rendering:pixelated">
+    <rect x="16" y="4" width="4" height="40" fill="#c0c5cd"/>
+    <rect x="12" y="44" width="12" height="8" fill="#c0c5cd"/>
+  </svg>`;
+}
+
+/* 5지선다: 잔 다섯 개 */
+function drinkSVG(kind, w=76, h=84){
+  const G = '#d8e6ee';
+  const svgs = {
+    whisky: `
+      <rect x="16" y="34" width="44" height="34" fill="#c47a26" opacity=".9"/>
+      <rect x="24" y="40" width="10" height="10" fill="#eef4f8" opacity=".85"/>
+      <rect x="12" y="28" width="52" height="4" fill="${G}"/>
+      <rect x="12" y="28" width="4" height="42" fill="${G}"/>
+      <rect x="60" y="28" width="4" height="42" fill="${G}"/>
+      <rect x="12" y="68" width="52" height="4" fill="${G}"/>`,
+    fruit: `
+      <rect x="26" y="18" width="24" height="48" fill="#ff6f9c" opacity=".85"/>
+      <rect x="22" y="12" width="32" height="4" fill="${G}"/>
+      <rect x="22" y="12" width="4" height="56" fill="${G}"/>
+      <rect x="50" y="12" width="4" height="56" fill="${G}"/>
+      <rect x="22" y="66" width="32" height="4" fill="${G}"/>
+      <rect x="48" y="6" width="12" height="10" fill="#ffb400"/>
+      <rect x="52" y="2" width="4" height="6" fill="#3fae6a"/>`,
+    coffee: `
+      <rect x="14" y="26" width="40" height="40" fill="#6b4a2f"/>
+      <rect x="14" y="26" width="40" height="8" fill="#8a6a4a"/>
+      <rect x="54" y="34" width="10" height="6" fill="${G}"/>
+      <rect x="60" y="38" width="4" height="14" fill="${G}"/>
+      <rect x="54" y="52" width="10" height="6" fill="${G}"/>
+      <rect x="22" y="12" width="4" height="8" fill="rgba(216,230,238,.5)"/>
+      <rect x="34" y="8" width="4" height="10" fill="rgba(216,230,238,.5)"/>
+      <rect x="14" y="26" width="40" height="40" fill="none" stroke="${G}" stroke-width="3"/>`,
+    nonalc: `
+      <rect x="16" y="34" width="44" height="34" fill="#d9a04a" opacity=".9"/>
+      <rect x="12" y="28" width="52" height="4" fill="${G}"/>
+      <rect x="12" y="28" width="4" height="42" fill="${G}"/>
+      <rect x="60" y="28" width="4" height="42" fill="${G}"/>
+      <rect x="12" y="68" width="52" height="4" fill="${G}"/>
+      <rect x="30" y="20" width="10" height="6" fill="#3fae6a"/>
+      <rect x="36" y="14" width="6" height="8" fill="#3fae6a"/>`,
+    milk: `
+      <rect x="24" y="24" width="28" height="44" fill="#f4f7f9" opacity=".92"/>
+      <rect x="20" y="18" width="36" height="4" fill="${G}"/>
+      <rect x="20" y="18" width="4" height="52" fill="${G}"/>
+      <rect x="52" y="18" width="4" height="52" fill="${G}"/>
+      <rect x="20" y="68" width="36" height="4" fill="${G}"/>`,
+  };
+  return `<svg width="${w}" height="${h}" viewBox="0 0 76 84" style="image-rendering:pixelated">${svgs[kind]}</svg>`;
+}
+
+/* 골목 장면 (바 외부) */
+function alleySVG(mood){
+  // mood: 'give' = 크리스가 취한 채 걷는다 / 'refuse' = 다른 가게로 향한다
+  const chris = mood==='give' ? `
+    <g transform="rotate(-8 300 196)">
+      <rect x="292" y="168" width="18" height="16" fill="#d8e6ee"/>
+      <rect x="290" y="164" width="22" height="5" fill="#111922"/>
+      <rect x="295" y="173" width="3" height="3" fill="#0d1117"/>
+      <rect x="303" y="173" width="3" height="3" fill="#0d1117"/>
+      <rect x="292" y="178" width="4" height="3" fill="#ff2e88" opacity=".6"/>
+      <rect x="288" y="184" width="26" height="22" fill="#22303f"/>
+      <rect x="290" y="206" width="8" height="12" fill="#22303f"/>
+      <rect x="304" y="208" width="8" height="10" fill="#22303f"/>
+    </g>
+    <rect x="318" y="212" width="14" height="4" fill="rgba(0,229,255,.2)"/>` : `
+    <g>
+      <rect x="292" y="166" width="18" height="16" fill="#d8e6ee"/>
+      <rect x="290" y="162" width="22" height="5" fill="#111922"/>
+      <rect x="296" y="171" width="3" height="3" fill="#0d1117"/>
+      <rect x="304" y="171" width="3" height="3" fill="#0d1117"/>
+      <rect x="288" y="182" width="26" height="24" fill="#22303f"/>
+      <rect x="291" y="206" width="8" height="12" fill="#22303f"/>
+      <rect x="303" y="206" width="8" height="12" fill="#22303f"/>
+    </g>`;
+  const otherSign = mood==='refuse'
+    ? `<rect x="366" y="150" width="52" height="18" fill="rgba(255,180,0,.14)" stroke="#ffb400" stroke-width="2"/>
+       <text x="392" y="164" text-anchor="middle" font-size="12" fill="#ffb400" font-family="inherit">BAR ?</text>`
+    : '';
+  const gang = mood==='give' ? `
+    <g opacity=".92">
+      <rect x="356" y="172" width="16" height="14" fill="#151d28"/>
+      <rect x="354" y="168" width="20" height="5" fill="#0d1117"/>
+      <rect x="359" y="176" width="3" height="3" fill="#ff2e88"/>
+      <rect x="366" y="176" width="3" height="3" fill="#ff2e88"/>
+      <rect x="352" y="186" width="24" height="22" fill="#1a2530"/>
+      <rect x="355" y="208" width="7" height="10" fill="#1a2530"/>
+      <rect x="366" y="208" width="7" height="10" fill="#1a2530"/>
+    </g>
+    <g opacity=".92">
+      <rect x="392" y="176" width="15" height="13" fill="#151d28"/>
+      <rect x="390" y="172" width="19" height="5" fill="#0d1117"/>
+      <rect x="395" y="180" width="3" height="3" fill="#ff2e88"/>
+      <rect x="401" y="180" width="3" height="3" fill="#ff2e88"/>
+      <rect x="389" y="189" width="21" height="20" fill="#1a2530"/>
+      <rect x="392" y="209" width="6" height="9" fill="#1a2530"/>
+      <rect x="402" y="209" width="6" height="9" fill="#1a2530"/>
+    </g>` : '';
+  return `
+  <svg width="100%" viewBox="0 0 460 230" style="max-width:560px;image-rendering:pixelated;margin-top:6px;">
+    <rect x="0" y="0" width="460" height="230" fill="#080b10"/>
+    <rect x="0"   y="60" width="70"  height="158" fill="#0e141d"/>
+    <rect x="78"  y="34" width="58"  height="184" fill="#111926"/>
+    <rect x="144" y="76" width="66"  height="142" fill="#0e141d"/>
+    <rect x="218" y="48" width="54"  height="170" fill="#101724"/>
+    <rect x="352" y="66" width="60"  height="152" fill="#111926"/>
+    <rect x="420" y="40" width="40"  height="178" fill="#0e141d"/>
+    <rect x="12"  y="78" width="6" height="6" fill="#00e5ff" opacity=".5"/>
+    <rect x="34"  y="112" width="6" height="6" fill="#ffb400" opacity=".4"/>
+    <rect x="92"  y="60" width="6" height="6" fill="#ff2e88" opacity=".5"/>
+    <rect x="118" y="96" width="6" height="6" fill="#00e5ff" opacity=".35"/>
+    <rect x="162" y="104" width="6" height="6" fill="#ffb400" opacity=".4"/>
+    <rect x="238" y="76" width="6" height="6" fill="#00e5ff" opacity=".4"/>
+    <rect x="366" y="92" width="6" height="6" fill="#ff2e88" opacity=".45"/>
+    <rect x="436" y="70" width="6" height="6" fill="#00e5ff" opacity=".4"/>
+    <rect x="26" y="140" width="66" height="20" fill="rgba(255,46,136,.12)" stroke="#ff2e88" stroke-width="2"/>
+    <text x="59" y="155" text-anchor="middle" font-size="13" fill="#ff2e88" font-family="inherit">BAR 언노운</text>
+    ${otherSign}
+    <rect x="0" y="218" width="460" height="12" fill="#05070a"/>
+    ${chris}
+    ${gang}
+    <rect x="0" y="0" width="460" height="230" fill="url(#fadeTop)" opacity="0"/>
+  </svg>`;
+}
+
+/* 표지 네온 간판 */
+function barSignSVG(){
+  return `
+  <svg width="206" height="64" viewBox="0 0 230 72" style="image-rendering:pixelated;margin-bottom:2px;">
+    <rect x="46" y="0" width="4" height="12" fill="#3a4f66"/>
+    <rect x="180" y="0" width="4" height="12" fill="#3a4f66"/>
+    <rect x="18" y="12" width="194" height="46" fill="rgba(255,46,136,.08)"/>
+    <rect x="18" y="12" width="194" height="46" fill="none" stroke="#ff2e88" stroke-width="3"/>
+    <rect x="24" y="18" width="182" height="34" fill="none" stroke="rgba(255,46,136,.35)" stroke-width="2"/>
+    <text x="115" y="42" text-anchor="middle" font-size="21" fill="#ff2e88" font-family="inherit" letter-spacing="4">BAR 언노운</text>
+    <rect x="30" y="62" width="8" height="4" fill="#00e5ff" opacity=".7"/>
+    <rect x="192" y="62" width="8" height="4" fill="#00e5ff" opacity=".7"/>
+  </svg>`;
+}
+
+/* 2068 서울 미니 스카이라인 (홀로그램 라인 포함) */
+function skylineSVG(){
+  return `
+  <svg width="100%" viewBox="0 0 460 84" style="max-width:520px;image-rendering:pixelated;margin:4px 0 10px;">
+    <rect x="0" y="0" width="460" height="84" fill="#080b10"/>
+    <rect x="8"   y="30" width="42" height="54" fill="#101724"/>
+    <rect x="58"  y="14" width="36" height="70" fill="#0e141d"/>
+    <rect x="102" y="40" width="48" height="44" fill="#111926"/>
+    <rect x="158" y="8"  width="40" height="76" fill="#101724"/>
+    <rect x="206" y="34" width="44" height="50" fill="#0e141d"/>
+    <rect x="258" y="18" width="38" height="66" fill="#111926"/>
+    <rect x="304" y="44" width="46" height="40" fill="#0e141d"/>
+    <rect x="358" y="12" width="42" height="72" fill="#101724"/>
+    <rect x="408" y="36" width="44" height="48" fill="#0e141d"/>
+    <rect x="66"  y="24" width="5" height="5" fill="#00e5ff" opacity=".6"/>
+    <rect x="82"  y="46" width="5" height="5" fill="#ffb400" opacity=".5"/>
+    <rect x="168" y="20" width="5" height="5" fill="#ff2e88" opacity=".6"/>
+    <rect x="184" y="52" width="5" height="5" fill="#00e5ff" opacity=".45"/>
+    <rect x="268" y="30" width="5" height="5" fill="#ffb400" opacity=".5"/>
+    <rect x="368" y="22" width="5" height="5" fill="#00e5ff" opacity=".55"/>
+    <rect x="384" y="58" width="5" height="5" fill="#ff2e88" opacity=".5"/>
+    <rect x="0" y="26" width="460" height="2" fill="rgba(0,229,255,.35)"/>
+    <rect x="0" y="29" width="460" height="1" fill="rgba(255,46,136,.3)"/>
+  </svg>`;
+}
+
+/* 픽셀 로봇 바텐더 ("로봇도 할 수 있는 일이죠") */
+function robotSVG(w=150, h=168){
+  return `
+  <svg width="${w}" height="${h}" viewBox="0 0 150 168" style="image-rendering:pixelated">
+    <rect x="72" y="4" width="6" height="12" fill="#6f8597"/>
+    <rect x="66" y="0" width="18" height="6" fill="#00e5ff"/>
+    <rect x="42" y="16" width="66" height="46" fill="#2c3d50"/>
+    <rect x="42" y="16" width="66" height="8" fill="#3a4f66"/>
+    <rect x="50" y="30" width="50" height="16" fill="#0d1117"/>
+    <rect x="54" y="34" width="12" height="8" fill="#00e5ff"/>
+    <rect x="82" y="34" width="12" height="8" fill="#00e5ff"/>
+    <rect x="60" y="66" width="30" height="8" fill="#6f8597"/>
+    <rect x="36" y="74" width="78" height="52" fill="#22303f"/>
+    <rect x="36" y="74" width="78" height="8" fill="#2c3d50"/>
+    <rect x="66" y="82" width="18" height="10" fill="#ff2e88"/>
+    <rect x="72" y="78" width="6" height="6" fill="#ff2e88"/>
+    <rect x="26" y="80" width="10" height="34" fill="#2c3d50"/>
+    <rect x="114" y="80" width="10" height="26" fill="#2c3d50"/>
+    <rect x="112" y="100" width="24" height="10" fill="#9aa7b5"/>
+    <rect x="118" y="84" width="14" height="18" fill="#c0c5cd"/>
+    <rect x="116" y="80" width="18" height="6" fill="#9aa7b5"/>
+    <rect x="44" y="126" width="26" height="30" fill="#1a2530"/>
+    <rect x="80" y="126" width="26" height="30" fill="#1a2530"/>
+    <rect x="40" y="156" width="34" height="8" fill="#2c3d50"/>
+    <rect x="76" y="156" width="34" height="8" fill="#2c3d50"/>
+  </svg>`;
+}
+
+/* 셰이커 (선반 아이콘) */
+function shakerSVG(){
+  return `
+  <svg width="34" height="52" viewBox="0 0 36 56" style="image-rendering:pixelated">
+    <rect x="12" y="4" width="12" height="6" fill="#c0c5cd"/>
+    <rect x="10" y="10" width="16" height="8" fill="#9aa7b5"/>
+    <rect x="8" y="18" width="20" height="32" fill="#c0c5cd"/>
+    <rect x="8" y="18" width="20" height="32" fill="none" stroke="rgba(7,9,13,.5)" stroke-width="2"/>
+    <rect x="12" y="26" width="4" height="18" fill="rgba(255,255,255,.5)"/>
+  </svg>`;
+}
+
+/* 진행 바 잔 아이콘 */
+function tickSVG(){
+  return `
+  <svg width="22" height="26" viewBox="0 0 22 26">
+    <rect x="2"  y="2"  width="18" height="3" fill="currentColor"/>
+    <rect x="5"  y="5"  width="12" height="3" fill="currentColor"/>
+    <rect x="8"  y="8"  width="6"  height="3" fill="currentColor"/>
+    <rect x="10" y="11" width="2"  height="9" fill="currentColor"/>
+    <rect x="6"  y="21" width="10" height="3" fill="currentColor"/>
+  </svg>`;
+}
+
+/* ══════════ 미니게임 데이터 — 드라이 마티니 ══════════ */
+const RECIPE = {
+  name: '진피즈',
+  glassMax: 6,
+  text: '- 드라이 진 1.5 oz.\n- 레몬즙 (레몬 1개)\n- 소다수 3 oz.\n\n진과 레몬즙을 셰이킹한 뒤, 소다수를 채워 제공.',
+  steps: [
+    { type:'pour',    id:'gin',    label:'드라이 진', target:1.5, color:'#e9f2ff' },
+    { type:'garnish', id:'lemon',  label:'레몬',      count:3,
+      title:'레몬즙 짜기', hint:'탭해서 즙을 짜세요!', done:'레몬즙이 잔에 들어갔습니다.',
+      addOz:0.4, addColor:'#f6e7a6',
+      tut:'이번엔 레몬! 선반에서 <b style="color:#fff">레몬</b>을 클릭해 즙을 짜세요.' },
+    { type:'stir',    id:'shaker', label:'셰이커',    count:8, chip:'셰이킹',
+      title:'셰이킹!', hint:'잔을 탭해서 셰이킹!', done:'재료가 잘 섞였습니다.', mixColor:'#f2efd9',
+      tut:'이제 <b style="color:#fff">셰이커</b>를 클릭해 셰이킹하세요.' },
+    { type:'pour',    id:'soda',   label:'소다수',    target:3,   color:'#dff4ef' },
+  ],
+};
+
+const SHELF_TABS = [
+  { id:'spirit', label:'스피릿', items:[
+      { id:'gin',      label:'드라이 진', color:'#dfe9f5', kind:'bottle' },
+      { id:'vodka',    label:'보드카',    color:'#cfd8e2', kind:'bottle' },
+      { id:'whisky',   label:'위스키',    color:'#c47a26', kind:'bottle' },
+  ]},
+  { id:'mixer', label:'믹서', items:[
+      { id:'soda',     label:'소다수',    color:'#dff4ef', kind:'bottle' },
+      { id:'tonic',    label:'토닉워터',  color:'#9ff0d8', kind:'bottle' },
+      { id:'ginger',   label:'진저에일',  color:'#f0c96a', kind:'bottle' },
+  ]},
+  { id:'garnish', label:'가니시 · 도구', items:[
+      { id:'lemon',    label:'레몬',   color:'#ffd84a', kind:'fruit' },
+      { id:'olive',    label:'올리브', color:'#6a8f3c', kind:'fruit' },
+      { id:'shaker',   label:'셰이커', color:'',        kind:'shaker' },
+  ]}
+];
+
+/* ══════════ 장면 정의 ══════════ */
+const scenes = [
+
+/* 0 ─ 표지 */
+{ name:'표지', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger" style="padding-top:24px;padding-bottom:24px;">
+    ${barSignSVG()}
+    <p class="narr">
+      오래전부터 떠돌던 말이 하나 있습니다.<br>
+      <span class="am">"사람들은 신부님보다 바텐더에게 더 많은 걸 이야기한다."</span><br>
+      생각보다 많은 사람들이 바텐더와 이야기를 하며 위로를 받곤 하는 것 같습니다.
+    </p>
+    <p class="narr" style="font-size:27px;"><span class="pk">왜일까요?</span></p>
+    <p class="narr">
+      세계에서 일류라 불리는 바텐더들은 손님의 컨디션과 취향,<br>
+      심지어 식사를 하고 왔는지까지 살핀 뒤 칵테일을 만든다고 합니다.<br>
+      말수가 적은 손님에게는 묻는 대신 눈으로 관찰하고, 경험을 바탕으로<br>
+      최선의 한 잔을 만들었다고 하죠. 때로는, 레시피대로 만들지 않으면서까지요.
+    </p>
+    <p class="narr">
+      어쩌면 그 노력 덕분에 손님들은 '바'라는 공간을 편안하게 느끼고,<br>
+      쉽게 꺼내지 못했던 속 이야기를 하며 위로를 받는 건지도 모르겠습니다.
+    </p>
+    <p class="narr">여기서 우리가 담고 싶은 것들이 있습니다.</p>
+    <p class="narr">
+      <b>바텐더는 과연 손님들의 이야기를 듣고 어떻게 행동할까?</b><br>
+      <b>일류 바텐더들은 칵테일 한 잔을 만들기 위해 어떤 노력까지 해야 할까?</b><br>
+      <b>손님들에게 말이 아닌 칵테일 한 잔으로 잊지 못할 경험을 줄 수 있을까?</b>
+    </p>
+    <p class="narr">그래서, 이 모든 것을 이해하기 위해…</p>
+    <div class="actions">
+      <button class="btn" onclick="go(1)">…일단 주문을 받아봅시다. →</button>
+    </div>
+  </div>`;
+}},
+
+/* 1 ─ 첫 손님 */
+{ name:'첫 손님', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>딸랑 — 문이 열립니다. 첫 손님이군요.</h2>
+    <div class="speaker">
+      ${guestSVG('calm')}
+      <div class="speech">
+        <span class="who">손님 A</span>
+        "안녕하세요… 처음 와보는데. 음…<br>진피즈 하나 주세요."
+      </div>
+    </div>
+    <p class="narr">
+      갑작스럽긴 하지만 한번 만들어볼까요? <span class="cy">레시피대로 만들기만 하면 됩니다.</span>
+    </p>
+    <div class="actions">
+      <button class="btn" onclick="go(2)">🍸 여기 이 신사분에게 진피즈 한 잔</button>
+    </div>
+  </div>`;
+}},
+
+/* 2 ─ 제조 미니게임 */
+{ name:'제조', render(){ startMinigame(); }},
+
+/* 3 ─ 서빙 결과 */
+{ name:'서빙', render(){
+  const s = state.mgScore ?? 80;
+  let grade, line, cls;
+  if(s >= 90){ grade='PERFECT'; cls='good';
+    line = '"…좋네요. 실력이 좋은가 봐요."'; }
+  else if(s >= 65){ grade='GOOD'; cls='';
+    line = '"…괜찮네요. 이 정도면 충분해요."'; }
+  else { grade='HMM…'; cls='bad';
+    line = '"…음, 나쁘진 않네요."'; }
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <div class="result ${cls}" style="text-align:center;margin-top:0;font-size:22px;">
+      제조 평가: <b style="letter-spacing:3px;">${grade}</b> · ${s}점
+    </div>
+    <div class="speaker" style="margin-top:26px;">
+      ${guestSVG('calm')}
+      <div class="speech">
+        <span class="who">손님 A</span>
+        ${line}
+      </div>
+    </div>
+    <p class="narr">
+      간단하죠? <span class="cy">주문을 받고 → 만들고 → 내어준다.</span><br>
+      바텐더의 일이란 이게 전부입니다.
+    </p>
+    <p class="narr">흠… 다음 손님을 받아봅시다.</p>
+    <div class="actions">
+      <button class="btn ghost" onclick="go(2)">↺ 다시 만들어보기</button>
+      <button class="btn" onclick="go(4)">다음 손님 →</button>
+    </div>
+  </div>`;
+}},
+
+/* 4 ─ 만취한 손님 (2지선다) */
+{ name:'만취한 손님', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>흠. 이번 손님은 이미 많이 취했습니다.</h2>
+    <div class="speaker drunk">
+      ${guestSVG('drunk')}
+      <div class="speech">
+        <span class="who">손님 B</span>
+        "여기… 드라이 마티니 하나 줘요. 독한 걸로."
+      </div>
+    </div>
+    <p class="narr">
+      본인 상태는 모르는 건지, 도수도 강한
+      <span class="pk">'드라이 마티니'</span>를 달라고 하네요.<br>
+      당신이라면 어떻게 하시겠어요?
+    </p>
+    <div class="choices" id="two">
+      <button onclick="drunkChoice(this,'give')"><span class="no">01</span>술을 만들어준다</button>
+      <button onclick="drunkChoice(this,'refuse')"><span class="no">02</span>술을 주지 않는다</button>
+    </div>
+    <div id="drunk-result" style="width:100%;"></div>
+    <div class="actions" id="drunk-next"></div>
+  </div>`;
+}},
+
+/* 5 ─ 선택지를 늘려보면 (다섯 개의 잔) */
+{ name:'다섯 개의 잔', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>그런데, 선택지를 <span class="cy">늘려보면</span> 어떨까요?</h2>
+    <div class="speaker drunk rev">
+      ${guestSVG('drunk')}
+      <div class="speech">
+        <span class="who">손님 B</span>
+        "…한 잔 더 줘요."
+      </div>
+    </div>
+    <p class="narr">
+      마침 저 손님이 <b>또</b> 술을 달라고 하네요.<br>
+      명색이 바텐더인데 "안 된다"라고 할 수는 없고…<br>
+      <span class="am">아, 참고로 제가 잘 알고 있는데 이 손님은 과일 들어간 칵테일을 싫어해요!</span>
+    </p>
+    <p class="narr">
+      마침 친절한 너굴맨이 미리 만들어 둔 칵테일 다섯 개가 있네요!<br>
+      그중 <b>하나를 골라 건네보세요.</b>
+    </p>
+    <div id="five-area" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
+  </div>`;
+  showFive();
+}},
+
+/* 6 ─ 바텐더에 대하여 (+ 부조리) */
+{ name:'바텐더에 대하여', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>바텐더에 대하여</h2>
+    <p class="narr">
+      바텐더가 주문받은 대로 술을 만드는 건 당연합니다.<br>
+      10년 전에 만들던 진피즈와 현재 만드는 진피즈가 맛이 같아야 하죠.<br>
+      <span class="sub" style="display:inline;">(오랜만에 찾아온 손님이 옛 추억을 고스란히 느낄 수 있도록 말입니다!)</span><br>
+      하지만 이런 건 기본입니다. <b>로봇도 할 수 있는 일이죠.</b>
+    </p>
+    <div style="margin:2px 0 8px;">${robotSVG(116, 130)}</div>
+    <p class="narr">
+      일류 바텐더의 일이란 결국<br>
+      <b><span class="cy">손님에 대해 깊게 생각하고 관찰하며, 그 사람에게 맞는 한 잔으로 대답하는 것.</span></b>
+    </p>
+    <p class="narr">
+      …너무 어려운 것 같다고요? 맞습니다. 어떻게 보면 <span class="pk">부조리하다고 느껴질 정도죠.</span><br>
+      손님은 "기분이 개같으니까 좀 시원한 것 좀 줘봐." 같은 애매한 주문을 하고,<br>
+      주문대로 줬는데 나쁜 일이 벌어지고, 고민 끝에 고른 잔이 정답이 아닐 때도 있습니다.<br>
+      선택지는 많은데, <b>뭐가 맞는지는 아무도 알려주지 않죠.</b>
+    </p>
+    <p class="narr">그런데 이거… <span class="pk">'그것'</span>과 닮지 않았나요?</p>
+    <div class="actions">
+      <button class="btn ghost" onclick="go(7)">'그것'…?</button>
+    </div>
+  </div>`;
+}},
+
+/* 7 ─ 사람의 인생 */
+{ name:'인생', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>바로, <span class="cy">자유</span>입니다.</h2>
+    <p class="narr">
+      우리는 셀 수 없이 많은 선택을 하며 살아갑니다.
+      <span class="am">자유</span>의 장점이자 단점이죠.<br>
+      어제까지의 정답이 오늘 오답이 되고,<br>
+      확신을 갖고 한 선택이 말도 안 되는 결과로 돌아오기도 합니다.<br>
+      사람들은 말합니다<br>
+      인생 대부분의 상황은 원래 불합리하고 부조리하다고.
+    </p>
+    <p class="narr">
+      하지만 신기하지 않나요?<br>
+      사람들은 그 부조리하고 고통스러운 삶을 <b>어떻게 계속 살아가는 걸까요?</b>
+    </p>
+    <p class="narr"><b><span class="cy">그 답의 힌트는, 바 바깥에 있습니다.</span></b></p>
+    <div class="actions">
+      <button class="btn" onclick="go(8)">문 밖으로 →</button>
+    </div>
+  </div>`;
+}},
+
+/* 8 ─ 바 '외부'가 존재하는 이유 (인터랙티브) */
+{ name:"바 '외부'", render(){
+  const d = state.log.drunk;
+  const callback =
+    d==='give'   ? `기억하시죠. 아까 그 <span class="pk">만취한 손님</span> 말입니다.<br>당신은 결국 잔을 내줬죠. 그가 지금, 문을 나서고 있네요.` :
+    d==='refuse' ? `기억하시죠. 아까 그 <span class="pk">만취한 손님</span> 말입니다.<br>당신은 그의 첫 주문을 거절했죠. 그가 지금, 문을 나서고 있네요.` :
+                   `아까 그 <span class="pk">만취한 손님</span>이 지금, 문을 나서고 있네요.`;
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>바 '외부'가 존재하는 이유</h2>
+    <p class="narr">
+      이 게임에는 바 바깥의 거리가 나옵니다.<br>
+      퇴근하는 밤길, 네온 아래의 골목, 검문이 늘어가는 도시.<br>
+      아늑한 카운터만 보여줘도 될 텐데, 왜 굳이 문 밖을 만들었을까요?
+    </p>
+    <p class="narr"><b><span class="cy">한 잔의 무게는 바깥에서 오기 때문입니다.</span></b></p>
+    <p class="narr">${callback}</p>
+    <div id="alley-area" style="width:100%;display:flex;flex-direction:column;align-items:center;">
+      <div class="actions" style="margin-top:8px;">
+        <button class="btn ghost" onclick="watchAlley()">…골목을 지켜본다</button>
+      </div>
+    </div>
+  </div>`;
+}},
+
+/* 9 ─ 사이버펑크에 대해서 */
+{ name:'2068 서울', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2 class="glitch-text">사이버펑크에 대해서</h2>
+    <p class="narr">사이버펑크라는 장르를 한 줄로 줄이면 이렇습니다.</p>
+    <p class="narr" style="font-size:28px;line-height:1.7;">
+      <b><span class="cy">High Tech</span>, <span class="pk">Low Life</span>.</b><br>
+      <span class="sub" style="display:inline;">— 기술은 높이, 삶은 낮게.</span>
+    </p>
+    ${skylineSVG()}
+    <p class="narr">
+      2068년의 신대한민국이 딱 그렇습니다.<br>
+      정부 대신 세 개의 메가코프가 나라를 나눠 갖고,<br>
+      신체 개조는 흔해졌지만 <span class="am">어디서 개조했는지가 새로운 신분</span>이 되었습니다.<br>
+      마천루의 홀로그램은 눈부신데, 그 불빛은 외곽의 판자촌까지 닿지 않죠.
+    </p>
+    <p class="narr">
+      왜 하필 이런 세계냐고요? <span class="cy">사이버펑크는 예언이 아니라 과장</span>이기 때문입니다.<br>
+      어딘가 낯익은 오늘을 조금 세게 비틀면, 저 세계가 나옵니다.
+    </p>
+    <p class="narr">
+      그러니 저 세계의 손님들이 털어놓는 고충은, 사실 우리의 것이기도 합니다.<br>
+      취업에 계속 미끄러지는 사람, 성공했는데 공허한 사람,<br>
+      가족을 먹여 살리려 험한 일을 하는 사람. 어디서 많이 본 얼굴들이죠.
+    </p>
+    <div class="actions">
+      <button class="btn" onclick="go(10)">다음으로 →</button>
+    </div>
+  </div>`;
+}},
+
+/* 10 ─ 루나의 이야기 */
+{ name:'루나', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>마지막이 '루나'의 이야기로 끝나는 이유</h2>
+    <p class="narr">
+      바텐더는 항상 듣는 쪽, 즉 관찰자의 역할이죠.<br>
+      하지만 저는 보고 듣는 것만으로 끝내는 건 아쉽다고 생각합니다.
+    </p>
+    <p class="narr">
+      게임을 진행하는 동안 굉장히 많은 이야기를 듣게 될 겁니다.<br>
+      5년째 취준생의 이야기, 지키고 싶었던 가족 이야기, 잃어버린 옛 자신의 이야기.<br>
+      손님들은 저마다의 부조리를 털어놓고, 잔을 비우고, 다시 내일을 살러 나갔죠.
+    </p>
+    <p class="narr">
+      그런데 이야기의 끝에서, 플레이어가 손님들에게 했던 행동들의 결과가<br>
+      <b>플레이어에게 직접적으로 돌아오게 될 겁니다.</b>
+    </p>
+    <p class="narr">
+      루나는 처음에 <span class="cy">비어 있는 존재</span>로 설계되었습니다.<br>
+      지식은 많지만 가치관은 없고,<br>
+      감정에 대한 시스템 모듈은 가지고 있지만<br>
+      정작 감정에 대한 건 모르고 있죠.
+    </p>
+    <p class="narr">
+      그 빈 곳을 채운 건 12일치의 대화와 <span class="am">당신의 선택들</span>입니다.<br>
+      누구에게 어떤 칵테일을 만들어줬는지, 누구의 말을 어떻게 들었는지.
+    </p>
+    <div class="actions">
+      <button class="btn" onclick="go(11)">그리고, 마지막 밤 →</button>
+    </div>
+  </div>`;
+}},
+
+/* 11 ─ 마지막 밤 (플레이어가 직접 답한다) */
+{ name:'마지막 밤', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>마지막 밤</h2>
+    <p class="narr">
+      루나와 똑같이 태어났지만 정반대의 것들을 배운 존재가<br>
+      찾아와 손을 내밉니다.
+    </p>
+    <p class="narr" style="font-size:25px;">
+      <span class="pk">"우리 같은 게 인간 흉내나 내면서 살 필요가 있어?"</span>
+    </p>
+    <p class="narr">…당신이라면, 뭐라고 답하겠습니까?</p>
+    <div class="choices" id="luna-q" style="max-width:480px;">
+      <button onclick="lunaAnswer(this,'curious')"><span class="no">01</span>"…그래도, 나는 궁금해."</button>
+      <button onclick="lunaAnswer(this,'silent')"><span class="no">02</span>대답하지 않고, 잔을 닦는다.</button>
+    </div>
+    <div id="luna-area" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
+  </div>`;
+}},
+
+/* 12 ─ 의미와 질문들 (+ 당신의 밤 리캡) */
+{ name:'질문들', render(){
+  const L = state.log;
+  const gradeName = state.mgScore==null ? null
+    : state.mgScore>=90 ? 'PERFECT' : state.mgScore>=65 ? 'GOOD' : 'HMM…';
+  const rows = [
+    ['첫 잔 (진피즈)', gradeName ? `${gradeName} · ${state.mgScore}점` : '기록 없음',
+      gradeName==='PERFECT' ? 'cy' : gradeName==='GOOD' ? 'am' : ''],
+    ['만취한 손님 첫 주문', L.drunk==='give' ? '잔을 내줬다' : L.drunk==='refuse' ? '잔을 거절했다' : '기록 없음',
+      L.drunk ? 'pk' : ''],
+    ['다섯 개의 잔', L.fiveDone ? (L.fiveTries<=1 ? '단번에 정답' : `${L.fiveTries}번 만에 정답`) : '기록 없음',
+      L.fiveDone ? 'am' : ''],
+    ['그 존재의 질문에', L.luna==='curious' ? '"그래도, 나는 궁금해."' : L.luna==='silent' ? '침묵으로 답했다' : '기록 없음',
+      L.luna ? 'cy' : ''],
+  ];
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>이 게임이 가진 의미와 질문들</h2>
+    <div class="recap">
+      <div class="rc-title">— 당신의 밤 —</div>
+      ${rows.map(([k,v,c])=>`<div class="row"><span class="k">${k}</span><span class="v ${c}">${v}</span></div>`).join('')}
+    </div>
+    <p class="narr">이 게임은 정답을 주지 않습니다. 대신 질문을 몇 개 남깁니다.</p>
+    <p class="narr" style="line-height:2.0;">
+      <span class="cy">—</span> 몸의 모든 부품이 교체된 사람은, 같은 사람인가?<br>
+      <span class="cy">—</span> 스스로 판단하고 슬퍼하는 기계는, 왜 인간이 아닌가?<br>
+      <span class="cy">—</span> 어제의 정답이 오늘 오답이 되는 세상에서, 선택은 무슨 의미가 있는가?<br>
+      <span class="cy">—</span> 그리고, 해결해줄 수도 없으면서<br>
+      &nbsp;&nbsp;&nbsp;우리는 왜 서로의 이야기를 듣는가?
+    </p>
+    <p class="narr">마지막 질문에 대해서만, 살짝 힌트를 흘리자면.</p>
+    <div class="actions">
+      <button class="btn ghost" onclick="go(13)">…살짝만요 →</button>
+    </div>
+  </div>`;
+}},
+
+/* 13 ─ 마지막 한 잔 */
+{ name:'마지막 한 잔', render(){
+  sceneEl.innerHTML = `
+  <div class="slide stagger">
+    <h2>마지막 한 잔</h2>
+    <p class="narr">
+      바에 오는 손님들은 문제를 해결하러 오는 게 아닙니다.<br>
+      취업이 안 되는 건 한 잔으로 해결되지 않고,<br>
+      잃어버린 동료는 어떤 술로도 돌아오지 않으니까요.
+    </p>
+    <p class="narr">
+      그런데도 사람들은 옵니다.<br>
+      이야기하고, 잔을 받고, 조금 가벼워져서 돌아갑니다.
+    </p>
+    <p class="narr">
+      어쩌면 부조리한 삶을 계속 살게 하는 건 거창한 답이 아니라 —<br>
+      <span class="am">적당한 타이밍에, 말없이 건네지는 적당한 한 잔</span> 같은 것인지도 모릅니다.<br>
+      그 만취한 손님이 그렇게 구해졌고, 루나가 그렇게 배웠고,<br>
+      이제 당신이 그렇게 누군가의 밤을 지킬 차례입니다.
+    </p>
+    <p class="narr">
+      '신뢰의 진화'는 이렇게 물었습니다 — 왜 전쟁통에서는 적도 친구가 되는가?<br>
+      우리는 이렇게 묻겠습니다.
+    </p>
+    <p class="narr" style="font-size:27px;line-height:1.8;">
+      <b>모든 것이 무너진 세상에서도,<br>
+      왜 사람들은 여전히 <span class="cy">서로의 잔</span>을 채우는가?</b>
+    </p>
+    <p class="narr">그 답을 확인하는 방법은 하나뿐입니다.</p>
+    <div class="actions" id="final-actions">
+      <button class="btn" onclick="finalEnd()">…이제, 진짜 바를 열어봅시다. →</button>
+    </div>
+  </div>`;
+}},
+];
+
+/* 마지막 버튼: 이동 없이 마무리 연출 */
+window.finalEnd = function(){
+  SND.serve();
+  document.getElementById('final-actions').innerHTML =
+    `<p class="sub" style="letter-spacing:3px;animation:fadein .5s steps(6) both;">— BAR 언노운, 오픈 준비 중 —</p>`;
+};
+
+/* ══════════ 씬 전환 · 배경 · 진행 바 ══════════ */
+progEl.innerHTML = scenes.map((s,i)=>
+  `<div class="tick" title="${s.name}" onclick="go(${i})">${tickSVG()}</div>`).join('');
+
+function setBg(i){
+  if(i===8){
+    bgEl.innerHTML = `<div class="rain"></div>`;
+  }else if(i===9){
+    bgEl.innerHTML = `<div class="glitch a"></div><div class="glitch b"></div>`;
+  }else{
+    bgEl.innerHTML = '';
+  }
+}
+
+function applyStagger(){ /* 문단별 순차 등장 비활성화 — 씬 전체가 한 번에 출력 */ }
+
+window.go = function(i){
+  state.scene = i;
+  clearGimmick();
+  SND.pourStop();
+  scenes[i].render();
+  setBg(i);
+  applyStagger();
+  sceneEl.scrollTop = 0;
+  if(i===1 || i===4) SND.bell();
+  [...progEl.querySelectorAll('.tick')].forEach((t,idx)=>{
+    t.className = 'tick' + (idx===i ? ' on' : (idx<i ? ' past' : ''));
+  });
+};
+
+/* 동적 삽입 영역에도 스태거 적용 */
+function staggerInto(container){
+  /* 동적 콘텐츠도 한 번에 등장 */
+  container.style.animation = 'rise .35s steps(5) both';
+}
+
+/* ══════════ 만취 손님: 2지선다 → 해설 → [다음으로…] ══════════ */
+window.drunkChoice = function(btn, kind){
+  state.log.drunk = kind;
+  document.querySelectorAll('#two button').forEach(b=>b.disabled=true);
+  btn.style.borderColor='var(--cyan)'; btn.style.opacity=1;
+  document.getElementById('drunk-result').innerHTML = `
+    <div class="result">
+      술을 줘도 저 손님은 잘 버텨서 무사히 집에 갈 수 있습니다.<br>
+      음… 아니면 골목에서 갱단을 만나겠죠. 뭐, 보통은 돈만 털립니다.
+      <span style="color:var(--pink)">보통은요.</span><br><br>
+      안 줘도 마찬가지입니다. 의외로 손님이 수긍할 수도,<br>
+      그냥 기분이 상해서 다시는 안 올 수도 있죠.<br><br>
+      물론 당신의 선택은 <b>틀렸다고 할 수 없습니다.</b><br>
+      선택지가 <span style="color:var(--amber)">딱 두 개</span>뿐이지만 좀 복잡해지네요.
+    </div>`;
+  document.getElementById('drunk-next').innerHTML =
+    `<button class="btn" onclick="go(5)">다음으로… →</button>`;
+};
+
+/* ══════════ 다섯 개의 잔 ══════════ */
+const FIVE_GLASSES = [
+  { kind:'whisky', name:'도수 높은<br>위스키 칵테일' },
+  { kind:'fruit',  name:'적당한 도수의<br>과일 칵테일' },
+  { kind:'coffee', name:'낮은 도수의<br>커피 칵테일' },
+  { kind:'nonalc', name:'논알콜, 위스키 향을<br>첨가한 칵테일' },
+  { kind:'milk',   name:'따뜻한 우유' },
+];
+window.showFive = function(){
+  const area = document.getElementById('five-area');
+  area.innerHTML = `
+    <div class="glass-row" id="five">
+      ${FIVE_GLASSES.map((g,i)=>`
+        <button class="glass-btn" onclick="fiveChoice(this,${i})">
+          ${drinkSVG(g.kind)}
+          <span class="gname">${g.name}</span>
+        </button>`).join('')}
+    </div>
+    <div id="five-result" style="width:100%;"></div>
+    <div class="actions" id="five-next"></div>`;
+  staggerInto(area);
+};
+
+const FIVE_RESULTS = [
+  {cls:'bad', ok:false, t:`가뜩이나 취한 것 같은데 독한 위스키라니… 손님은 그대로 카운터에 엎어져 잠들었네요.<br>윽… 바닥에 토까지 하는 것 같습니다. 오늘은 쉽지 않은 날이 되겠네요.`},
+  {cls:'bad', ok:false, t:'아차! 이 손님, 과일 들어간 칵테일은 싫어한다고 했죠. 한 번 보더니 잔을 밀어냅니다. "…사람 말을 들을 줄 모르나 보군."'},
+  {cls:'',    ok:false, t:'따뜻한 커피 향에 손님이 조금 진정됩니다. 나쁘지 않지만… 손님이 고개를 갸웃하네요. "…근데 여기가 원래 카페였나?"'},
+  {cls:'good',ok:true,  t:`네! 위스키 향이 들어간 논알콜 칵테일 한 잔.<br>
+      취한 손님은 눈치채지 못했고, 오늘은 이걸 홀짝이다 무사히 집에 가겠네요.<br>
+      아, 이 잔은 돈을 받으면 안 됩니다. 우리에게도 양심이란 게 있으니까, <span style="color:var(--amber)">서비스로.</span>`},
+  {cls:'bad', ok:false, t:'"장난하나, 지금?" 손님이 우유잔을 노려봅니다. 나름 배려였지만… 잘 먹히진 않은 듯합니다.'},
+];
+window.fiveChoice = function(btn, i){
+  state.log.fiveTries++;
+  document.querySelectorAll('#five button').forEach(b=>b.disabled=true);
+  btn.style.borderColor='var(--cyan)'; btn.style.opacity=1;
+  const r = FIVE_RESULTS[i];
+  if(r.ok){ SND.good(); state.log.fiveDone = true; } else { SND.bad(); }
+  let html = `<div class="result ${r.cls}">${r.t}</div>`;
+  if(r.ok){
+    html += `
+    <div class="result" style="border-color:var(--cyan);">
+      보셨나요? 방금 당신은 <b>말을 한마디도 하지 않았습니다.</b><br>
+      잔 하나를 골라 건넸을 뿐인데 — 그게 <span style="color:var(--cyan)">거절</span>이었고,
+      <span style="color:var(--cyan)">배려</span>이자, <span style="color:var(--cyan)">대답</span>이었습니다.<br><br>
+      이 게임에서 <span style="color:var(--amber)">칵테일은 곧 선택지</span>가 될 수 있는 거죠.
+    </div>`;
+  }
+  document.getElementById('five-result').innerHTML = html;
+  document.getElementById('five-next').innerHTML = r.ok
+    ? `<button class="btn" onclick="go(6)">그런데 바텐더가 뭐길래? →</button>`
+    : `<button class="btn ghost" onclick="showFive()">↺ 다른 잔을 골라본다</button>`;
+};
+
+/* ══════════ 바 외부: 골목을 지켜본다 ══════════ */
+window.watchAlley = function(){
+  const d = state.log.drunk;
+  const outcome =
+    d==='give' ? `만취한 손님이 비틀비틀 골목을 걷습니다. 한 번 휘청, 두 번 휘청…<br>
+      주변 갱단원들이 이를 본 것 같네요.<br>
+      <b>저 손님에게는 조금 힘든 밤이 될 것 같습니다.</b>` :
+    d==='refuse' ? `만취한 손님이 조금은 멀쩡한 걸음으로 골목을 걷습니다.<br>
+      그는 무사합니다. 다만 — 다른 술집으로 들어가네요.<br>
+      <b>이제는 더 이상 바에 찾아오지 않는 건지… 이제 당신이 알 수 없는 일입니다.</b>` :
+      `만취한 손님이 골목을 걷습니다. 네온 불빛이 그의 등을 물들입니다.<br>
+      <b>이 도시의 밤은, 카운터에서 보이지 않는 곳에서 계속됩니다.</b>`;
+  const area = document.getElementById('alley-area');
+  area.innerHTML = `
+    ${alleySVG(d)}
+    <div class="result" style="margin-top:14px;">${outcome}</div>
+    <p class="narr" style="margin-top:14px;">
+      당신의 선택은 카운터에서 끝나지 않고 — <b>거리에서 완성됩니다.</b>
+    </p>
+    <div class="actions">
+      <button class="btn" onclick="go(9)">계속 →</button>
+    </div>`;
+  staggerInto(area);
+};
+
+/* ══════════ 루나의 질문에 답하기 ══════════ */
+window.lunaAnswer = function(btn, kind){
+  state.log.luna = kind;
+  document.querySelectorAll('#luna-q button').forEach(b=>b.disabled=true);
+  btn.style.borderColor='var(--cyan)'; btn.style.opacity=1;
+  const resp = kind==='curious'
+    ? `…그렇게 대답하는 존재가 있다면,<br>
+       그 존재는 이미 '흉내' 이상의 무언가를 하고 있는 겁니다.<br>
+       <b>궁금해한다는 건, 계속 살아보겠다는 뜻이니까요.</b>`
+    : `…침묵도 대답입니다.<br>
+       바텐더는 원래 말 대신 <b>행동으로 대답하는 직업</b>이니까요.<br>
+       닦아둔 잔은, 다음 손님을 위한 것이겠죠.`;
+  const area = document.getElementById('luna-area');
+  area.innerHTML = `
+    <div class="result" style="border-color:var(--cyan);">${resp}</div>
+    <p class="narr" style="margin-top:14px;">
+      이 게임이 손님들의 이야기로 시작해 루나의 이야기로 끝나는 이유는 간단합니다.<br>
+      "부조리한 삶을 어떻게 계속 살아가는가"라는 질문의 답은<br>
+      말로 하는 게 아니라, <b>삶으로 — 선택으로</b> 하는 것이기 때문입니다.
+    </p>
+    <p class="narr">
+      손님들이 그걸 몸으로 보여줬고,<br>
+      이제 루나가, 그러니까 <span class="cy">당신</span>이 답할 차례입니다.
+    </p>
+    <div class="actions">
+      <button class="btn" onclick="go(12)">이 게임이 남기고 싶은 것 →</button>
+    </div>`;
+  staggerInto(area);
+};
+
+/* ══════════════════════════════════════════════
+   ▼▼▼ 제조 미니게임 ▼▼▼
+══════════════════════════════════════════════ */
+function startMinigame(){
+  state.mg = { stepIdx:0, layers:[], scores:[], tab:'spirit' };
+  renderMG();
+}
+function curStep(){ return RECIPE.steps[state.mg.stepIdx] || null; }
+function totalOz(){ return state.mg.layers.reduce((a,l)=>a+l.oz,0); }
+
+function tutText(){
+  const st = curStep();
+  if(!st) return '모든 단계 완료! 오른쪽 아래 버튼으로 손님에게 잔을 건네세요.';
+  if(st.tut) return st.tut;
+  if(st.type==='pour')    return `지금 필요한 재료: <b style="color:#fff">${st.label} ${st.target}oz</b> — 선반에서 병을 클릭하세요. 안 보이면 상단 카테고리를 바꿔보세요.`;
+  if(st.type==='stir')    return `이제 <b style="color:#fff">${st.label}</b>를 클릭해 잘 섞어주세요.`;
+  if(st.type==='garnish') return `가니시 차례! 선반의 <b style="color:#fff">${st.label}</b>를 클릭하세요.`;
+  return '';
+}
+
+function renderMG(){
+  const mg = state.mg;
+  const doneAll = mg.stepIdx >= RECIPE.steps.length;
+  sceneEl.innerHTML = `
+  <div class="slide wide">
+    <div id="mg">
+      <h2 style="margin-bottom:14px;">${RECIPE.name} 만들기</h2>
+      <div id="tut">${tutText()}</div>
+      <div class="mg-body">
+        <div class="mg-left">
+          <div class="order-card">
+            ORDER<br><b>${RECIPE.name}</b>
+            <button class="btn ghost small" style="margin-top:8px;width:100%;" onclick="toggleRecipe()">📜 레시피 노트</button>
+            <pre id="recipe-note" style="display:none;white-space:pre-wrap;font-family:inherit;font-size:16px;color:var(--text);margin-top:8px;line-height:1.6;">${RECIPE.text}</pre>
+          </div>
+          <div id="glass-holder">${highballSVG(mg.layers, RECIPE.glassMax, 118, 182)}</div>
+          <div class="oz-read">잔: <b>${totalOz().toFixed(2)} oz</b> / ${RECIPE.glassMax} oz</div>
+        </div>
+        <div class="mg-right">
+          <div class="shelf-tabs">
+            ${SHELF_TABS.map(t=>`<button class="${mg.tab===t.id?'on':''}" onclick="setTab('${t.id}')">${t.label}</button>`).join('')}
+          </div>
+          <div class="shelf" id="shelf">${shelfItemsHTML()}</div>
+          <div class="mg-steps">
+            ${RECIPE.steps.map((s,i)=>{
+              const cls = i < mg.stepIdx ? 'done' : (i===mg.stepIdx ? 'now' : '');
+              const label = s.type==='pour' ? `${s.label} ${s.target}oz`
+                          : s.type==='garnish' ? `${s.label}` : (s.chip || '젓기');
+              return `<div class="st ${cls}">${i+1}. ${label}</div>`;
+            }).join('')}
+            ${doneAll ? `<button class="btn pink" style="margin-left:auto;" onclick="finishMG()">🍸 서빙</button>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+window.setTab = function(id){ state.mg.tab = id; renderMG(); };
+window.toggleRecipe = function(){
+  const el = document.getElementById('recipe-note');
+  el.style.display = el.style.display==='none' ? 'block' : 'none';
+};
+
+function shelfItemsHTML(){
+  const tab = SHELF_TABS.find(t=>t.id===state.mg.tab);
+  const usedIds = RECIPE.steps.slice(0, state.mg.stepIdx).map(s=>s.id);
+  return tab.items.map(it=>{
+    const icon = it.kind==='fruit'  ? fruitSVG(it.color)
+               : it.kind==='shaker' ? shakerSVG()
+               : it.kind==='tool'   ? toolSVG()
+               : bottleSVG(it.color);
+    const used = usedIds.includes(it.id);
+    return `<button class="shelf-item ${used?'used':''}" data-id="${it.id}" onclick="pickItem('${it.id}', this)">
+      ${icon}<span>${it.label}</span>
+    </button>`;
+  }).join('');
+}
+
+window.pickItem = function(id, el){
+  const st = curStep();
+  if(!st) return;
+  if(id !== st.id){
+    el.classList.remove('wrong'); void el.offsetWidth; el.classList.add('wrong');
+    SND.bad();
+    document.getElementById('tut').innerHTML =
+      `<span style="color:var(--pink)">그 재료가 아니에요!</span>&nbsp; 레시피 노트를 확인해보세요 — 지금 필요한 건 <b style="color:#fff">${st.label}</b>.`;
+    return;
+  }
+  if(st.type==='pour')    openPour(st);
+  if(st.type==='garnish') openGarnish(st);
+  if(st.type==='stir')    openStir(st);
+};
+
+/* ─── 김믹 공통 ─── */
+let gimmickEl = null, gimmickTimer = null;
+function clearGimmick(){
+  if(gimmickTimer){ cancelAnimationFrame(gimmickTimer); gimmickTimer=null; }
+  if(gimmickEl){ gimmickEl.remove(); gimmickEl=null; }
+}
+function openGimmick(html){
+  clearGimmick();
+  gimmickEl = document.createElement('div');
+  gimmickEl.id = 'gimmick';
+  gimmickEl.innerHTML = html;
+  document.body.appendChild(gimmickEl);
+  return gimmickEl;
+}
+function stepDone(score){
+  state.mg.scores.push(score);
+  state.mg.stepIdx++;
+  setTimeout(()=>{ clearGimmick(); renderMG(); }, 900);
+}
+function gradeOf(score){
+  return score>=90 ? ['PERFECT','var(--cyan)'] : score>=65 ? ['GOOD','var(--amber)'] : ['BAD…','var(--pink)'];
+}
+function showGrade(score, extra=''){
+  const [g,c] = gradeOf(score);
+  const hint = gimmickEl.querySelector('.g-hint');
+  if(hint) hint.remove();
+  gimmickEl.insertAdjacentHTML('beforeend',
+    `<div class="g-grade" style="color:${c}">${g}</div><div style="color:var(--dim);font-size:17px;">${extra}</div>`);
+  if(score>=90){
+    SND.good();
+    gimmickEl.classList.add('perfect');
+    const wrap = gimmickEl.querySelector('#g-glasswrap') || gimmickEl.querySelector('.g-stage');
+    if(wrap){
+      wrap.insertAdjacentHTML('beforeend',
+        `<span class="spark" style="top:-14px;left:-10px;">✦</span>
+         <span class="spark" style="top:8px;right:-16px;animation-delay:.12s;">✦</span>
+         <span class="spark" style="bottom:30px;left:-18px;animation-delay:.22s;">✦</span>`);
+    }
+  }else if(score>=65){ SND.good(); }
+  else{ SND.bad(); }
+}
+
+/* ─── 따르기: 탭 시작 → 탭 멈춤 ─── */
+function openPour(st){
+  let poured = 0, pouring = false, ended = false, last = 0;
+  const rate = Math.max(0.6, Math.min(1.4, st.target * 0.55)); // 목표량이 적으면 천천히
+  const item = SHELF_TABS.flatMap(t=>t.items).find(i=>i.id===st.id);
+  const el = openGimmick(`
+    <div class="g-name">${st.label}</div>
+    <div class="g-stage">
+      <div id="g-bottle">${bottleSVG(item.color, 66, 104)}</div>
+      <div id="g-glasswrap">
+        <div id="g-glass">${highballSVG([...state.mg.layers, {oz:0, color:st.color}], RECIPE.glassMax, 118, 182)}</div>
+        <div id="g-stream" style="background:${st.color};"></div>
+      </div>
+    </div>
+    <div class="g-hud">
+      <span class="tag">POUR</span>
+      <span id="g-oz">0.00 / <span class="tgt">${st.target.toFixed(2)} oz</span></span>
+    </div>
+    <div class="g-hint">화면을 탭하면 따르기 시작 · 다시 탭하면 멈춤</div>
+  `);
+
+  function frame(now){
+    if(ended) return;
+    if(pouring){
+      poured += ((now - last)/1000) * rate;
+      const diff = Math.abs(poured - st.target);
+      const col = diff<=0.12 ? 'var(--cyan)' : diff<=0.3 ? 'var(--amber)' :
+                  poured > st.target ? 'var(--pink)' : 'var(--text)';
+      document.getElementById('g-oz').innerHTML =
+        `<b style="color:${col}">${poured.toFixed(2)}</b> / <span class="tgt">${st.target.toFixed(2)} oz</span>`;
+      document.getElementById('g-glass').innerHTML =
+        highballSVG([...state.mg.layers, {oz:poured, color:st.color}], RECIPE.glassMax, 118, 182);
+      if(poured >= RECIPE.glassMax - totalOz()){ stop(); return; }
+    }
+    last = now;
+    gimmickTimer = requestAnimationFrame(frame);
+  }
+  function stop(){
+    ended = true; pouring = false;
+    SND.pourStop();
+    document.getElementById('g-bottle').classList.remove('pouring');
+    document.getElementById('g-stream').style.height = '0px';
+    const diff = Math.abs(poured - st.target);
+    const score = diff<=0.12 ? 100 : diff<=0.3 ? 75 : diff<=0.6 ? 50 : 25;
+    showGrade(score, `목표 ${st.target}oz · 실제 ${poured.toFixed(2)}oz (오차 ${diff.toFixed(2)})`);
+    state.mg.layers.push({oz:poured, color:st.color});
+    stepDone(score);
+  }
+  el.addEventListener('click', ()=>{
+    if(ended) return;
+    if(!pouring){
+      pouring = true; last = performance.now();
+      SND.pourStart();
+      document.getElementById('g-bottle').classList.add('pouring');
+      document.getElementById('g-stream').style.height = '56px';
+      el.querySelector('.g-hint').textContent = '탭하여 멈추기!';
+      gimmickTimer = requestAnimationFrame(frame);
+    }else{
+      stop();
+    }
+  });
+}
+
+/* ─── 젓기: 연타 ─── */
+function openStir(st){
+  let n = 0, ended = false;
+  const el = openGimmick(`
+    <div class="g-name">${st.title || '잘 저어주세요'}</div>
+    <div class="g-stage">
+      <div id="g-glasswrap">
+        <div id="g-glass" style="transition:transform .1s;">${highballSVG(state.mg.layers, RECIPE.glassMax, 134, 206)}</div>
+      </div>
+    </div>
+    <div class="g-hud">
+      <span class="tag">STIR</span>
+      <span id="g-cnt">0 / ${st.count}</span>
+    </div>
+    <div class="g-hint">${st.hint || '잔을 탭해서 젓기!'} (${st.count}회)</div>
+  `);
+  el.addEventListener('click', ()=>{
+    if(ended) return;
+    n++; SND.tap();
+    document.getElementById('g-cnt').textContent = `${n} / ${st.count}`;
+    const g = document.getElementById('g-glass');
+    g.style.transform = `rotate(${n%2? -6 : 6}deg)`;
+    setTimeout(()=>g.style.transform='', 90);
+    if(n >= st.count){
+      ended = true;
+      state.mg.layers = [{oz: totalOz(), color: st.mixColor || '#dde8ec'}];
+      showGrade(100, st.done || '재료가 고르게 섞였습니다.');
+      stepDone(100);
+    }
+  });
+}
+
+/* ─── 가니시: 연타로 올리기 ─── */
+function openGarnish(st){
+  let n = 0, ended = false;
+  const item = SHELF_TABS.flatMap(t=>t.items).find(i=>i.id===st.id);
+  const el = openGimmick(`
+    <div class="g-name">${st.title || (st.label + ' 올리기')}</div>
+    <div class="g-stage">
+      <div id="g-fruit">${fruitSVG(item.color, 84, 130)}</div>
+      <div id="g-glasswrap">
+        <div id="g-glass">${highballSVG(state.mg.layers, RECIPE.glassMax, 118, 182)}</div>
+      </div>
+    </div>
+    <div class="g-hud">
+      <span class="tag">GARNISH</span>
+      <span id="g-cnt">0 / ${st.count}</span>
+    </div>
+    <div class="g-hint">${st.hint || '탭해서 잔에 올리기!'} (${st.count}회)</div>
+  `);
+  el.addEventListener('click', ()=>{
+    if(ended) return;
+    n++; SND.tap();
+    document.getElementById('g-cnt').textContent = `${n} / ${st.count}`;
+    const f = document.getElementById('g-fruit');
+    f.style.transform = 'scale(.85)'; setTimeout(()=>f.style.transform='', 90);
+    if(n >= st.count){
+      ended = true;
+      if(st.addOz) state.mg.layers.push({oz:st.addOz, color:st.addColor || '#f6e7a6'});
+      showGrade(100, st.done || `${st.label}가 잔에 자리를 잡았습니다.`);
+      stepDone(100);
+    }
+  });
+}
+
+/* ─── 완성 ─── */
+window.finishMG = function(){
+  const sc = state.mg.scores;
+  state.mgScore = Math.round(sc.reduce((a,b)=>a+b,0) / sc.length);
+  SND.serve();
+  go(3);
+};
+
+/* ══════════ 부트 시퀀스: 카운터 0→100% → 문이 열리며 바 오픈 ══════════ */
+function bootGlassSVG(pct){
+  const H = 34;                       // 마티니 잔 볼 채움 높이
+  const fillH = Math.round(H * pct / 100);
+  const y = 12 + (H - fillH);
+  return `
+  <svg width="72" height="86" viewBox="0 0 72 86" style="image-rendering:pixelated">
+    <defs><clipPath id="bowl">
+      <polygon points="8,12 64,12 36,46"/>
+    </clipPath></defs>
+    <rect x="8" y="${y}" width="56" height="${fillH}" fill="rgba(0,229,255,.75)" clip-path="url(#bowl)"/>
+    <polygon points="6,10 66,10 36,48" fill="none" stroke="#d8e6ee" stroke-width="3"/>
+    <rect x="34" y="46" width="4" height="24" fill="#d8e6ee"/>
+    <rect x="22" y="72" width="28" height="4" fill="#d8e6ee"/>
+  </svg>`;
+}
+const BOOT_LOGS = [
+  [0,  '시스템 점검 중…'],
+  [22, '잔 데이터 불러오는 중…'],
+  [45, '레시피 동기화 중…'],
+  [68, '카운터 닦는 중…'],
+  [90, '문 열 준비 완료.'],
+];
+(function boot(){
+  const bootEl = document.getElementById('boot');
+  const numEl  = document.getElementById('boot-num');
+  const fillEl = document.getElementById('boot-fill');
+  const logEl  = document.getElementById('boot-log');
+  const glassEl= document.getElementById('boot-glass');
+  let pct = 0, fontReady = false, t0 = performance.now();
+  try{ document.fonts.ready.then(()=>{ fontReady = true; }); }
+  catch(e){ fontReady = true; }
+  setTimeout(()=>{ fontReady = true; }, 2500);          // 폰트가 늦어도 최대 2.5초
+  function frame(now){
+    const target = fontReady ? 100 : 88;                 // 폰트 로드 전엔 88%에서 대기
+    const speed  = 0.9 + (target - pct) * 0.035;
+    pct = Math.min(target, pct + speed);
+    const shown = Math.floor(pct);
+    numEl.textContent = shown;
+    fillEl.style.width = pct + '%';
+    glassEl.innerHTML = bootGlassSVG(pct);
+    for(const [th, msg] of BOOT_LOGS){ if(shown >= th) logEl.textContent = msg; }
+    if(pct >= 100 && now - t0 > 1200){
+      bootEl.classList.add('open');                      // 부트 화면 페이드아웃
+      go(0);                                             // 표지가 디코드되며 등장
+      setTimeout(()=>bootEl.remove(), 500);
+      return;
+    }
+    requestAnimationFrame(frame);
+  }
+  glassEl.innerHTML = bootGlassSVG(0);
+  requestAnimationFrame(frame);
+})();
+
+/* 시작(부트가 문을 열면서 go(0) 호출) */
+</script>
+
+<!-- ===== LOBBY BACK LINK (injected) ===== -->
+<a href="index.html" id="lunaLobbyBtn" style="
+  position:fixed; top:44px; left:14px; z-index:100000;
+  font-family:'Galmuri11',monospace; font-size:11px; letter-spacing:.18em;
+  color:#00e5ff; background:rgba(7,9,13,.85); text-decoration:none;
+  border:1px solid rgba(0,229,255,.45); padding:7px 12px;
+  box-shadow:0 0 10px rgba(0,229,255,.2); backdrop-filter:blur(4px);
+" onmouseover="this.style.background='rgba(0,229,255,.15)'"
+  onmouseout="this.style.background='rgba(7,9,13,.85)'">⟵ LOBBY</a>
+</body>
+</html>
