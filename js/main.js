@@ -2,9 +2,9 @@
 // 페이즈 순서(설계서 §1): commute_in → stock_in → bar(1부→2부) → settlement → commute_out → home → sleep
 "use strict";
 
-// ---------- 출퇴근 횡스크롤 ----------
-const SPOT_X = { home_door: 90, street_mid: 640, street_board: 1150, street_stall: 1650, alley_in: 2000, alley_deep: 2260, elevator: 2440, bar_door: 2540 };
-const STRIP_W = 2640;
+// ---------- 출퇴근 횡스크롤 (짧은 두 블록 — 26.07.17 피드백으로 축소) ----------
+const SPOT_X = { home_door: 80, street_mid: 430, street_board: 700, street_stall: 980, alley_in: 1210, alley_deep: 1360, elevator: 1480, bar_door: 1560 };
+const STRIP_W = 1640;
 
 const Commute = {
   phase: null, lunaX: 70, goal: null, resolveFn: null, keys: {}, rafHandle: null,
@@ -46,7 +46,7 @@ const Commute = {
     const strip = $("#commute-strip");
     strip.innerHTML = "";
     // 배경 건물 실루엣
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 10; i++) {
       const b = el("div", "bldg");
       b.style.left = (i * 168 + 10) + "px";
       b.style.height = (80 + ((i * 53) % 120)) + "px";

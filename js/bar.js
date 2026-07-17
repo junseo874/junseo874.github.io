@@ -32,6 +32,7 @@ const Bar = {
     this.mode = mode;
     if (mode === "story") {
       this.focus = 1;
+      this.renderSeats(); // 1부 실루엣(dim) 해제
       this.storyFrame();
       $("#slot-nav").style.display = "none";
     } else {

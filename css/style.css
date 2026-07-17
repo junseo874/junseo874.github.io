@@ -71,7 +71,7 @@ html, body {
 #screen-commute { background: linear-gradient(180deg, #0d0c1d 0%, #171430 66%, #0a0914 66%); }
 #commute-label { margin-top: 58px; }
 #commute-view { position: absolute; top: 100px; bottom: 130px; left: 0; right: 0; overflow: hidden; }
-#commute-strip { position: absolute; top: 0; bottom: 0; width: 2640px; transition: transform .08s linear; }
+#commute-strip { position: absolute; top: 0; bottom: 0; width: 1640px; transition: transform .08s linear; }
 .bldg {
   position: absolute; bottom: 116px; width: 128px;
   background: linear-gradient(180deg, #1c1836, #241f44);
