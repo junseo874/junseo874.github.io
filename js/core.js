@@ -43,7 +43,12 @@ function unlockedCocktails() {
     (c.unlock_day <= S.day || S.extraRecipes.includes(c.id)) &&
     (!c.unlock_when || evalWhen(c.unlock_when)));
 }
-function unlockedIngredients() { return DATA.master.ingredients.filter(i => i.unlock_day <= S.day); }
+function unlockedIngredients() {
+  // unlock_day(일차 해금) AND unlock_when(조건부 해금 — 퀘스트 전용 재료는 day 99 + when)
+  return DATA.master.ingredients.filter(i =>
+    (i.unlock_day <= S.day || (i.unlock_when && evalWhen(i.unlock_when))) &&
+    (!i.unlock_when || evalWhen(i.unlock_when)));
+}
 function scriptOf(day) { return DATA.scripts[String(day)]; }
 function scenesFor(day, phase, trigger) {
   const sc = scriptOf(day); if (!sc) return [];
@@ -130,17 +135,65 @@ function applyEffects(str) {
     } else if ((m = e.match(/^unlock_recipe\((\w+)\)$/))) {
       S.extraRecipes.push(m[1]);
     } else if ((m = e.match(/^quest\((\w+)\)\.advance$/))) {
-      const qid = m[1];
-      S.quests[qid] = (S.quests[qid] || 0) + 1;
-      const stages = DATA.quests.stages.filter(s => s.quest_id === qid);
-      if (S.quests[qid] >= stages.length && !S.questRewarded.has(qid)) {
-        S.questRewarded.add(qid);
-        const q = DATA.quests.quests.find(x => x.id === qid);
-        if (q) { toast(`✅ ${T(q.title)}`); applyEffects(q.reward_effects); }
-      }
+      advanceQuest(m[1]);
     }
   });
   updateHUD();
+}
+
+// ---------- 퀘스트 진행 ----------
+// 스테이지 +1 → 통과한 스테이지의 on_complete 발동 → 마지막 스테이지면 reward_effects 1회 발동
+function advanceQuest(qid) {
+  const stages = DATA.quests.stages.filter(s => s.quest_id === qid).sort((a, b) => a.stage - b.stage);
+  const cur = (S.quests[qid] || 0) + 1;
+  S.quests[qid] = cur;
+  const st = stages.find(s => s.stage === cur);
+  if (st && st.on_complete) applyEffects(st.on_complete);
+  if (cur >= stages.length && !S.questRewarded.has(qid)) {
+    S.questRewarded.add(qid);
+    const q = DATA.quests.quests.find(x => x.id === qid);
+    if (q) { toast(`✅ ${T(q.title)}`); if (q.reward_effects) applyEffects(q.reward_effects); }
+  }
+}
+
+// ---------- 취향(Tastes) — 서빙 호감 판정 ----------
+// first-match: 위에서부터 첫 일치 행의 tier, 없으면 ok. when에 flag 등을 쓰면 상황부 취향
+function tasteTier(charId, cocktail) {
+  const rows = (DATA.balance.tastes || []).filter(t => t.character_id === charId)
+    .sort((a, b) => a.seq - b.seq);
+  for (const t of rows) if (evalWhen(t.when, { cocktail })) return t.tier;
+  return "ok";
+}
+// 호감 대상(affinity=true) 캐릭터에게 정상 서빙 시: AffinityMatrix[취향][등급] 만큼 호감 반영
+function applyTasteAffinity(charId, cocktail, grade) {
+  const ch = charOf(charId);
+  if (!ch || !ch.affinity || !cocktail) return;
+  const row = DATA.balance.affinity_matrix.find(r => r.taste_tier === tasteTier(charId, cocktail));
+  const d = row ? (row[grade] || 0) : 0;
+  if (d) applyEffects(`affinity.${charId} ${d >= 0 ? "+=" : "-="} ${Math.abs(d)}`);
+}
+
+// serve:<칵테일> 목표 자동 진행 — '정상 제공'만 인정(오제조·Sewage 제외). 1부 서빙·2부 스토리 서빙 공통 훅
+function questOnServe(cocktailId, grade) {
+  if (!cocktailId || grade === "sewage") return;
+  DATA.quests.quests.forEach(q => {
+    if (S.questRewarded.has(q.id)) return;
+    const st = DATA.quests.stages.find(s =>
+      s.quest_id === q.id && s.stage === (S.quests[q.id] || 0) + 1);
+    if (!st || st.goal !== "serve:" + cocktailId) return;
+    if (st.when && !evalWhen(st.when)) return;
+    advanceQuest(q.id);
+  });
+}
+
+// ---------- 리치텍스트 태그 렌더 (구엔진 text_styles 대응 — Unity에선 TMP 스타일) ----------
+// <order>=주문 강조(앰버) / <name>=고유명사(시안) / <world>=세계관 용어(핑크)
+function fmtRich(text) {
+  const esc = String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return esc
+    .replace(/&lt;(order|name|world)&gt;/g, '<span class="rt-$1">')
+    .replace(/&lt;\/(order|name|world)&gt;/g, "</span>")
+    .replace(/\n/g, "<br>");
 }
 
 // ---------- 대사 풀 (Barks) ----------

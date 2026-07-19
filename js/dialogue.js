@@ -56,7 +56,13 @@ const Dlg = {
         if (st.arg === "order") target = this.currentOrder ? this.currentOrder.cocktailId : null;
         else if (st.arg && st.arg.startsWith("tutorial:")) { target = st.arg.slice(9); tutorial = true; }
         this.hideDialog();
-        const res = await Craft.open({ target, tutorial });
+        let res;
+        if (window.DEV_AUTOCRAFT && target) { // 개발용: 미니게임 생략, good 판정 합성
+          res = { cocktail: DATA.master.cocktails.find(c => c.id === target), grade: "good", pct: 0.8 };
+          await sleep(300);
+        } else {
+          res = await Craft.open({ target, tutorial });
+        }
         S.lastGrade = res.grade; S.lastPct = res.pct;
         this.lastCraft = res;
         return;
@@ -99,7 +105,7 @@ const Dlg = {
       box.querySelector(".dlg-name").textContent = name;
       box.querySelector(".dlg-name").style.color = color || "#eee";
       box.querySelector(".dlg-portrait").innerHTML = charChip(actorId || "luna", 52);
-      box.querySelector(".dlg-text").textContent = text;
+      box.querySelector(".dlg-text").innerHTML = fmtRich(text);
       const done = () => { box.removeEventListener("click", done); window.removeEventListener("keydown", onKey); resolve(); };
       const onKey = (e) => { if (e.code === "Space" || e.code === "Enter") done(); };
       box.addEventListener("click", done);
@@ -114,7 +120,8 @@ const Dlg = {
       const wrap = $("#choice-box");
       wrap.innerHTML = "";
       opts.forEach(o => {
-        const b = el("button", "choice-btn", T(o.text));
+        const b = el("button", "choice-btn", "");
+        b.innerHTML = fmtRich(T(o.text));
         b.addEventListener("click", () => { wrap.classList.remove("show"); resolve(o); });
         wrap.appendChild(b);
       });
@@ -153,6 +160,10 @@ const Dlg = {
         chip.remove();
         // 2부도 정가 매출 반영
         if (res && res.cocktail) { S.gold += res.cocktail.price; S.today.sales += res.cocktail.price; S.today.served++; updateHUD(); }
+        if (res && res.cocktail) {
+          questOnServe(res.cocktail.id, res.grade);            // serve:<칵테일> 퀘스트 목표
+          applyTasteAffinity(actorId, res.cocktail, res.grade); // 취향 × 등급 → 호감
+        }
         resolve();
       });
     });

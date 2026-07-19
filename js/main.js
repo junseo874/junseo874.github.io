@@ -152,7 +152,11 @@ function openShop() {
 // ---------- 입고 (stock_in — 그날 바 오픈 직전, 결정 H) ----------
 async function stockIn() {
   if (S.day === 1) return; // 초기 재고
-  const newIngs = DATA.master.ingredients.filter(i => i.unlock_day === S.day);
+  // 신규 입고 = 오늘 일차 해금 + 퀘스트/이벤트 해금(unlock_when, 아직 입고 연출 안 본 것)
+  const newIngs = DATA.master.ingredients.filter(i =>
+    i.unlock_day === S.day ||
+    (i.unlock_when && evalWhen(i.unlock_when) && !S.flags.has("stocked_" + i.id)));
+  newIngs.forEach(i => { if (i.unlock_when) S.flags.add("stocked_" + i.id); });
   if (!newIngs.length) return;
   const newCks = DATA.master.cocktails.filter(c => c.unlock_day === S.day);
   $("#stock-body").innerHTML = `
@@ -236,7 +240,7 @@ async function runDay() {
   showScreen("screen-bar");
   BarCam.apply(SLOT_X[1], 0.92, true); // 카메라 초기 위치 (가운데 슬롯)
   Dlg.castClear();
-  const hasSlots = DATA.schedule.guest_slots.some(g => g.day === S.day);
+  const hasSlots = !window.DEV_SKIPPART1 && DATA.schedule.guest_slots.some(g => g.day === S.day);
   if (hasSlots) {
     await phaseBanner(S.lang === "ko" ? "🍸 1부 — 일반 영업" : "🍸 Part 1 — Open Bar", S.lang === "ko" ? "◀▶로 슬롯 이동 · 코스터를 드래그해 주문" : "◀▶ to switch slots · drag coasters to take orders");
     await Bar.runPart1(S.day);
@@ -317,8 +321,11 @@ function boot() {
   window.addEventListener("resize", fit); fit();
 
   // 개발용: ?day=N 해당 일차 바로 시작 / &skipwalk 출퇴근 걷기 생략
+  //         &skippart1 1부 생략 / &autocraft 스토리 씬 제조 미니게임 생략(good 판정 합성)
   const params = new URLSearchParams(location.search);
   window.DEV_SKIPWALK = params.has("skipwalk");
+  window.DEV_SKIPPART1 = params.has("skippart1");
+  window.DEV_AUTOCRAFT = params.has("autocraft");
   const devDay = parseInt(params.get("day"), 10);
   if (devDay >= 1 && devDay <= 3) {
     clearSave(); S.day = devDay; showScreen("screen-bar"); runDay();

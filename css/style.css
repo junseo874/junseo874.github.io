@@ -466,3 +466,17 @@ html, body {
 #toast.show { opacity: 1; }
 #flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 99; transition: opacity .1s; }
 #flash.on { opacity: .9; }
+
+/* ===== 제조 선반(플레이어 주도) — v1.7 ===== */
+.craft-hist { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:6px 0 10px; min-height:26px; }
+.craft-hist .chip { font-size:12px; padding:3px 10px; border-radius:12px; background:#2c2640; border:1px solid #4a4168; color:#cfc8e8; }
+.craft-hist .chip.dim { opacity:.5; }
+.tool-cell .tool-icon { font-size:34px; line-height:1.2; height:52px; display:flex; align-items:center; justify-content:center; }
+.cork-dial.strain { box-shadow:0 0 0 3px rgba(255,120,80,.55), 0 0 18px rgba(255,80,60,.4); }
+.cork-dial .cork-crumbs { position:absolute; left:0; right:0; bottom:-26px; text-align:center; font-size:15px; letter-spacing:2px; }
+@keyframes corkShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.cork-dial.shake-fail { animation:corkShake .3s ease; }
+/* 리치텍스트 태그 (구엔진 text_styles 대응) */
+.rt-order { color:#ffb400; font-weight:600; }
+.rt-name  { color:#7fd8ff; }
+.rt-world { color:#ff8ab8; }

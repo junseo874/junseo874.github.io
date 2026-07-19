@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>한 잔의 선택</title>
+<title>L.U.N.A // DIRECTION — 한 잔의 선택</title>
+
+<!-- Galmuri11 (official quiple jsdelivr CDN) — 로비(index.html)와 동일 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css" />
+
 <style>
-  @font-face {
-    font-family: 'Microorganism';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SDMiSaeng.woff') format('woff');
-    font-weight: normal;
-    font-display: swap;
-  }
   :root{
     --bg:#0d1117;
     --bg-deep:#07090d;
@@ -26,11 +24,57 @@
   *{margin:0;padding:0;box-sizing:border-box;user-select:none;}
   html,body{height:100%;}
   body{
-    background:var(--bg);
-    font-family:'Microorganism',monospace;
+    background:var(--bg-deep);
+    font-family:'Galmuri11',monospace;
     color:var(--text);
     overflow:hidden;
+    cursor:crosshair;
+    background-image:
+      linear-gradient(rgba(0,229,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,.06) 1px, transparent 1px),
+      radial-gradient(ellipse at 20% 0%, rgba(0,229,255,.05), transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(255,46,136,.05), transparent 50%);
+    background-size:40px 40px, 40px 40px, 100% 100%, 100% 100%;
+    background-attachment:fixed;
   }
+
+  /* ═══ CRT 오버레이 스택 — 로비와 동일 ═══ */
+  .crt-overlay{
+    position:fixed;inset:0;pointer-events:none;z-index:9999;
+    background:repeating-linear-gradient(to bottom,
+      rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px,
+      rgba(0,0,0,.15) 3px, rgba(0,0,0,.15) 3px);
+    mix-blend-mode:multiply;
+  }
+  .vignette{
+    position:fixed;inset:0;pointer-events:none;z-index:9998;
+    background:radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,.68) 100%);
+  }
+  .noise{
+    position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ═══ HUD 상단바 — 로비와 동일 ═══ */
+  .hud-top{
+    position:fixed;top:0;left:0;right:0;height:36px;z-index:200;
+    background:rgba(7,9,13,.85);
+    backdrop-filter:blur(4px);
+    border-bottom:1px solid var(--panel-border);
+    display:flex;align-items:center;gap:16px;
+    padding:0 20px;font-size:11px;color:var(--dim);
+    letter-spacing:.08em;
+  }
+  .hud-top .sys{color:var(--cyan);}
+  .hud-top .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--cyan);box-shadow:0 0 6px var(--cyan);
+    animation:hudblink 2s steps(2) infinite;
+  }
+  @keyframes hudblink{50%{opacity:.25;}}
+  .hud-top .spacer{flex:1;}
+  .hud-top a.lobby{color:var(--dim);text-decoration:none;transition:color .2s;cursor:pointer;}
+  .hud-top a.lobby:hover{color:var(--cyan);}
 
   /* ═══ 씬 배경 레이어 ═══ */
   #bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
@@ -55,7 +99,7 @@
 
   /* ═══ 전체 화면 씬 ═══ */
   #scene{
-    position:fixed;left:0;right:0;top:0;bottom:var(--progress-h);
+    position:fixed;left:0;right:0;top:36px;bottom:var(--progress-h);
     overflow-y:auto;overflow-x:hidden;
     display:flex;z-index:1;
   }
@@ -103,7 +147,7 @@
 
   /* ═══ 부트(로딩) 스크린 — 바 오픈 준비 ═══ */
   #boot{
-    position:fixed;inset:0;z-index:100;
+    position:fixed;inset:0;z-index:10000;
     background:var(--bg-deep);
     overflow:hidden;
     transition:opacity .45s steps(6);
@@ -270,14 +314,15 @@
   #progress .tick.on{color:var(--cyan);filter:drop-shadow(0 0 6px rgba(0,229,255,.9));}
 
   /* 음소거 버튼 */
+  /* HUD 내 사운드 토글 — 로비 #sndBtn과 동일 톤 */
   #mute{
-    position:fixed;top:14px;right:16px;z-index:40;
-    font-family:inherit;font-size:18px;
-    background:transparent;color:var(--dim);
-    border:1px solid var(--panel-border);
-    padding:6px 12px;cursor:pointer;
+    font-family:inherit;font-size:11px;letter-spacing:.08em;
+    background:none;border:none;cursor:pointer;
+    color:var(--amber);text-shadow:0 0 8px rgba(255,180,0,.5);
+    transition:color .2s;
   }
-  #mute:hover{color:var(--cyan);border-color:var(--cyan);}
+  #mute.off{color:var(--dim);text-shadow:none;}
+  #mute:hover{color:var(--amber);}
 
   /* ═══════════ 미니게임 ═══════════ */
   #mg{width:100%;display:flex;flex-direction:column;align-items:center;text-align:left;}
@@ -386,6 +431,25 @@
 </head>
 <body>
 
+<!-- CRT stack — 로비와 동일 -->
+<div class="crt-overlay"></div>
+<div class="vignette"></div>
+<div class="noise"></div>
+
+<!-- HUD — 로비와 동일 -->
+<header class="hud-top">
+  <span class="dot"></span>
+  <span class="sys">L.U.N.A_OS</span>
+  <span>//</span>
+  <span>DIRECTION</span>
+  <span>—</span>
+  <span>한 잔의 선택</span>
+  <span class="spacer"></span>
+  <span id="hudClock">--:--:--</span>
+  <button id="mute" type="button" onclick="SND.toggle(this)" title="소리 켜기/끄기">[♪ SOUND ON]</button>
+  <a class="lobby" href="index.html">[⟵ LOBBY]</a>
+</header>
+
 <div id="boot">
   <div class="boot-inner">
     <div class="boot-glass" id="boot-glass"></div>
@@ -398,7 +462,6 @@
 <div id="bg"></div>
 <div id="scene"></div>
 <div id="progress"></div>
-<button id="mute" onclick="SND.toggle(this)" title="소리 켜기/끄기">🔊 소리</button>
 
 <script>
 /* ══════════ 전역 상태 ══════════ */
@@ -457,7 +520,8 @@ const SND = {
   toggle(btn){
     this.muted = !this.muted;
     if(this._pour) this._pour.g.gain.value = this.muted ? 0 : 0.05;
-    btn.textContent = this.muted ? '🔇 소리' : '🔊 소리';
+    btn.textContent = this.muted ? '[♪ SOUND OFF]' : '[♪ SOUND ON]';
+    btn.classList.toggle('off', this.muted);
   },
 };
 /* 버튼류 클릭 사운드 (김믹 오버레이·음소거 버튼 제외) */
@@ -1669,9 +1733,14 @@ const BOOT_LOGS = [
   try{ document.fonts.ready.then(()=>{ fontReady = true; }); }
   catch(e){ fontReady = true; }
   setTimeout(()=>{ fontReady = true; }, 2500);          // 폰트가 늦어도 최대 2.5초
-  function frame(now){
+  // RAF 대신 setInterval — 백그라운드 탭에서 RAF가 멈춰 부트가 끝나지 않는 문제 방지
+  let last = performance.now();
+  const timer = setInterval(()=>{
+    const now = performance.now();
+    const dt = Math.min((now - last) / 16.7, 4);         // 프레임 배수(스로틀 시 따라잡기)
+    last = now;
     const target = fontReady ? 100 : 88;                 // 폰트 로드 전엔 88%에서 대기
-    const speed  = 0.9 + (target - pct) * 0.035;
+    const speed  = (0.9 + (target - pct) * 0.035) * dt;
     pct = Math.min(target, pct + speed);
     const shown = Math.floor(pct);
     numEl.textContent = shown;
@@ -1679,28 +1748,28 @@ const BOOT_LOGS = [
     glassEl.innerHTML = bootGlassSVG(pct);
     for(const [th, msg] of BOOT_LOGS){ if(shown >= th) logEl.textContent = msg; }
     if(pct >= 100 && now - t0 > 1200){
+      clearInterval(timer);
       bootEl.classList.add('open');                      // 부트 화면 페이드아웃
       go(0);                                             // 표지가 디코드되며 등장
       setTimeout(()=>bootEl.remove(), 500);
-      return;
     }
-    requestAnimationFrame(frame);
-  }
+  }, 30);
   glassEl.innerHTML = bootGlassSVG(0);
-  requestAnimationFrame(frame);
 })();
 
 /* 시작(부트가 문을 열면서 go(0) 호출) */
 </script>
 
-<!-- ===== LOBBY BACK LINK (injected) ===== -->
-<a href="index.html" id="lunaLobbyBtn" style="
-  position:fixed; top:44px; left:14px; z-index:100000;
-  font-family:'Galmuri11',monospace; font-size:11px; letter-spacing:.18em;
-  color:#00e5ff; background:rgba(7,9,13,.85); text-decoration:none;
-  border:1px solid rgba(0,229,255,.45); padding:7px 12px;
-  box-shadow:0 0 10px rgba(0,229,255,.2); backdrop-filter:blur(4px);
-" onmouseover="this.style.background='rgba(0,229,255,.15)'"
-  onmouseout="this.style.background='rgba(7,9,13,.85)'">⟵ LOBBY</a>
+<!-- HUD clock -->
+<script>
+(function(){
+  const el = document.getElementById('hudClock');
+  function tick(){
+    const d = new Date(), p = n => String(n).padStart(2,'0');
+    el.textContent = p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
+  }
+  tick(); setInterval(tick, 1000);
+})();
+</script>
 </body>
 </html>

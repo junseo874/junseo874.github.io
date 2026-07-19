@@ -1,5 +1,7 @@
-// ===== 제조 미니게임 — 시뮬레이터 방식 계승 (메뉴→잔→재료→기믹 큐→가니시→판정) =====
-// 채점: 칵테일_등급_산출서 §2~3 그대로 — 항목 단순 평균, 컷은 balance.grade_cuts
+// ===== 제조 미니게임 — 플레이어 선택 주도 (메뉴→잔→선반: 집는 대로 기믹 즉시 실행→가니시→판정) =====
+// 레시피(RecipeLines/mix/prep)는 실행 순서가 아니라 '채점 정답'. 기믹은 선반에서 재료·도구를 집는 순간 발동.
+// 도구: 셰이커=셰이킹 / 믹싱글라스+바스푼=스터 / 따개=병뚜껑(cap)·코르크(cork — 천천히, 급하면 부스러짐)
+// 채점: 칵테일_등급_산출서 §2~3 — 항목 단순 평균, 컷은 balance.grade_cuts
 "use strict";
 const Craft = {
   resolveFn: null,
@@ -48,7 +50,10 @@ const Craft = {
     const wrap = el("div", "craft-menu");
     wrap.appendChild(el("h3", "", UI("ui_menu")));
     const list = el("div", "menu-list");
-    unlockedCocktails().forEach(c => {
+    // 대본 지정 제조(주문·튜토리얼)는 해금 무시 — 스토리가 시키는 잔은 항상 만들 수 있다
+    const pool = unlockedCocktails();
+    if (this.target && !pool.some(c => c.id === this.target)) pool.unshift(cocktailOf(this.target));
+    pool.forEach(c => {
       const row = el("div", "menu-row");
       row.innerHTML = `<div class="menu-glass">${glassSVG(c.glass, c.color, 0.75)}</div>
         <div class="menu-info"><b>${T(c.name)}</b><span>T${c.tier} · ${c.price}G · ${c.abv}%</span></div>`;
@@ -81,8 +86,12 @@ const Craft = {
     // §3.9 — 메뉴 확정 시점에 올바른/틀린 즉시 판정 (시뮬레이터 방식)
     this.chosen = c;
     this.isCorrect = this.target ? (c.id === this.target) : true;
-    this.attempt = { glass: null, pours: {}, fill: null, mixDone: false, capDone: false };
-    this.selPours = []; this.selSqueezes = []; this.selPowders = []; this.selFill = null;
+    this.attempt = {
+      glass: null, pours: {}, fill: null,
+      usedTool: null, stirTurns: 0, shakeStrokes: 0,   // 도구는 플레이어가 선반에서 집는다
+      prepDone: null, corkQuality: 1, opened: {},       // 병 개봉 상태 (cork 병은 따야 따를 수 있음)
+    };
+    this.pendingBottle = null;
     this.notePeeked = false; // 레시피 노트를 본 뒤에만 글로우 가이드 (시뮬레이터 방식)
     this.timeStart = performance.now();
     this.startTimer(c.time_limit_sec);
@@ -98,11 +107,19 @@ const Craft = {
     $$("#craft-stage .glass-cell").forEach(cell => {
       if (cell.dataset.id === String(c.glass)) cell.classList.add("glow");
     });
-    // 재료 스테이지
-    const needed = new Set(c.recipe.map(r => r.action + ":" + r.ingredient));
-    if (c.fill) needed.add("fill:" + c.fill);
+    // 선반 스테이지 — 재료 + 도구까지 안내
+    const a = this.attempt || {};
+    const needed = new Set();
+    c.recipe.forEach(r => {
+      const k = r.action + ":" + r.ingredient;
+      if (!((a.pours || {})[k])) needed.add(k);   // 아직 안 넣은 것만
+    });
+    if (c.fill && !a.fill) needed.add("fill:" + c.fill);
+    if (c.mix === "shake" && a.usedTool !== "shaker") needed.add("tool:shaker");
+    if ((c.mix === "stir" || c.mix === "build") && a.usedTool !== "mixing_glass") needed.add("tool:mixing_glass");
+    if (c.prep && !a.prepDone) needed.add("tool:opener");
     $$("#craft-stage .ing-cell").forEach(cell => {
-      if (needed.has(cell.dataset.key) && !cell.classList.contains("sel")) cell.classList.add("glow");
+      if (needed.has(cell.dataset.key)) cell.classList.add("glow");
     });
   },
 
@@ -127,14 +144,14 @@ const Craft = {
       const cell = el("div", "glass-cell");
       cell.dataset.id = g.id;
       cell.innerHTML = `${glassSVG(g.id, null, 0)}<span>${T(g.name)}</span>`;
-      cell.addEventListener("click", () => { this.attempt.glass = g.id; this.showIngredients(); });
+      cell.addEventListener("click", () => { this.attempt.glass = g.id; this.showShelf(); });
       grid.appendChild(cell);
     });
     // 병맥주(잔 없음) 대응 — "잔 없이(병째)" 선택지
     const none = el("div", "glass-cell");
     none.dataset.id = "null";
     none.innerHTML = `${glassSVG("bottle", null, 0)}<span>${S.lang === "ko" ? "병째로" : "In the bottle"}</span>`;
-    none.addEventListener("click", () => { this.attempt.glass = null; this.showIngredients(); });
+    none.addEventListener("click", () => { this.attempt.glass = null; this.showShelf(); });
     grid.appendChild(none);
     wrap.appendChild(grid);
     wrap.appendChild(this.noteButton());
@@ -155,100 +172,132 @@ const Craft = {
       const act = { pour: S.lang === "ko" ? "따르기" : "pour", squeeze: S.lang === "ko" ? "스퀴즈" : "squeeze", powder: S.lang === "ko" ? "파우더" : "powder" }[r.action];
       return `<li>${nm} — ${r.qty}${r.unit} <em>(${act})</em></li>`;
     }).join("");
-    const mixName = { none: "-", build: S.lang === "ko" ? "빌드" : "Build", stir: S.lang === "ko" ? "스터" : "Stir", shake: S.lang === "ko" ? "셰이크" : "Shake", bottle_open: S.lang === "ko" ? "병따기" : "Cap open" }[c.mix];
+    const mixName = {
+      none: "-",
+      build: S.lang === "ko" ? "빌드 — 바 스푼 1바퀴" : "Build — 1 stir",
+      stir: S.lang === "ko" ? "스터 — 믹싱 글라스 3바퀴" : "Stir — 3 turns",
+      shake: S.lang === "ko" ? "셰이크 — 셰이커 8회" : "Shake — 8 strokes",
+    }[c.mix];
+    const prepName = c.prep ? (c.prep === "cork"
+      ? (S.lang === "ko" ? " / 🍾 코르크는 천천히" : " / 🍾 cork — slowly")
+      : (S.lang === "ko" ? " / 🍺 병뚜껑 따기" : " / 🍺 pop the cap")) : "";
     const glassName = c.glass ? T(itemOf(c.glass).name) : (S.lang === "ko" ? "병째로" : "In the bottle");
     $("#note-body").innerHTML = `
       <h3>${T(c.name)}</h3>
       <ul>${lines || "<li>-</li>"}</ul>
-      <p>🥃 ${glassName} / 🔀 ${mixName}${c.fill ? ` / ⬆ ${T(ingOf(c.fill).name)}` : ""}${c.garnish ? ` / 🌿 ${T(itemOf(c.garnish).name)}` : ""}</p>`;
+      <p>🥃 ${glassName} / 🔀 ${mixName}${prepName}${c.fill ? ` / ⬆ ${T(ingOf(c.fill).name)}` : ""}${c.garnish ? ` / 🌿 ${T(itemOf(c.garnish).name)}` : ""}</p>`;
     $("#ov-note").classList.add("show");
     this.notePeeked = true; // 이후 필요한 아이템이 깜빡임
     this.applyGlow();
   },
 
-  // ---------- 4) 재료 선택 ----------
-  showIngredients() {
-    const c = this.chosen;
+  // ---------- 4) 선반 — 집는 대로 기믹이 즉시 실행된다 (플레이어 주도) ----------
+  CORK_BOTTLES: ["red_wine", "champagne"],   // 코르크 병 — 따개로 따야 따를 수 있음
+
+  lineFor(id, act) { return this.chosen.recipe.find(r => r.ingredient === id && r.action === act); },
+
+  showShelf() {
+    const c = this.chosen, a = this.attempt;
     const wrap = el("div", "craft-ing");
-    wrap.appendChild(el("h3", "", S.lang === "ko" ? "재료 담기" : "Pick Ingredients"));
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "선반 — 집는 대로 만든다" : "The Shelf — what you grab is what you do"));
+
+    // 지금까지 한 행동 이력
+    const hist = el("div", "craft-hist");
+    const chips = [];
+    Object.keys(a.pours).forEach(k => {
+      const [act, id] = k.split(":");
+      const icon = { pour: "🍾", squeeze: "🍋", powder: "🥄" }[act] || "";
+      chips.push(`${icon} ${T(ingOf(id).name)} ${a.pours[k]}${act === "powder" ? "tsp" : "oz"}`);
+    });
+    if (a.prepDone === "cap") chips.push(S.lang === "ko" ? "🍺 병뚜껑 ✓" : "🍺 cap ✓");
+    if (a.prepDone === "cork") chips.push((S.lang === "ko" ? "🍷 코르크 " : "🍷 cork ") + (a.corkQuality >= 1 ? "✓" : "💥"));
+    if (a.fill) chips.push("⬆ " + T(ingOf(a.fill).name));
+    if (a.usedTool === "shaker") chips.push(`🫨 ×${a.shakeStrokes}`);
+    if (a.usedTool === "mixing_glass") chips.push(`🌀 ×${a.stirTurns.toFixed(1)}`);
+    hist.innerHTML = chips.length ? chips.map(x => `<span class="chip">${x}</span>`).join("")
+      : `<span class="chip dim">${S.lang === "ko" ? "아직 아무것도 안 했다" : "Nothing yet"}</span>`;
+    wrap.appendChild(hist);
+
     const grid = el("div", "ing-grid");
-    const groups = [
-      { key: "pour", label: S.lang === "ko" ? "따르기" : "Pour", filter: i => ["base", "liqueur", "juice", "dairy", "wine_beer", "syrup"].includes(i.category), sel: this.selPours },
-      { key: "squeeze", label: S.lang === "ko" ? "스퀴즈" : "Squeeze", filter: i => i.category === "fruit", sel: this.selSqueezes },
-      { key: "powder", label: S.lang === "ko" ? "파우더" : "Powder", filter: i => i.category === "powder", sel: this.selPowders },
-    ];
-    groups.forEach(g => {
-      grid.appendChild(el("div", "ing-group-label", g.label));
-      const row = el("div", "ing-row");
-      unlockedIngredients().filter(g.filter).forEach(ing => {
-        const cell = el("div", "ing-cell");
-        cell.dataset.key = g.key + ":" + ing.id;
-        const color = ing.color ? `background:linear-gradient(180deg,transparent 30%,rgba(${ing.color},.75) 30%)` : "";
-        cell.innerHTML = `<div class="ing-bottle" style="${color}"></div><span>${T(ing.name)}</span>`;
-        cell.addEventListener("click", () => {
-          const i = g.sel.indexOf(ing.id);
-          if (i >= 0) g.sel.splice(i, 1); else g.sel.push(ing.id);
-          cell.classList.toggle("sel", i < 0);
-          this.applyGlow();
-        });
-        row.appendChild(cell);
-      });
-      grid.appendChild(row);
-    });
-    // 필업
-    grid.appendChild(el("div", "ing-group-label", S.lang === "ko" ? "필업 (잔 채우기)" : "Fill-up"));
-    const fillRow = el("div", "ing-row");
-    unlockedIngredients().filter(i => i.category === "mixer").forEach(ing => {
+    const ingCell = (ing, key, onClick) => {
       const cell = el("div", "ing-cell");
-      cell.dataset.key = "fill:" + ing.id;
-      cell.innerHTML = `<div class="ing-bottle" style="background:linear-gradient(180deg,transparent 30%,rgba(${ing.color},.75) 30%)"></div><span>${T(ing.name)}</span>`;
-      cell.addEventListener("click", () => {
-        this.selFill = this.selFill === ing.id ? null : ing.id;
-        fillRow.querySelectorAll(".ing-cell").forEach(x => x.classList.remove("sel"));
-        if (this.selFill) cell.classList.add("sel");
-        this.applyGlow();
+      cell.dataset.key = key;
+      const color = ing.color ? `background:linear-gradient(180deg,transparent 30%,rgba(${ing.color},.75) 30%)` : "";
+      cell.innerHTML = `<div class="ing-bottle" style="${color}"></div><span>${T(ing.name)}</span>`;
+      cell.addEventListener("click", onClick);
+      return cell;
+    };
+    const section = (label, ings, keyOf, onPick) => {
+      grid.appendChild(el("div", "ing-group-label", label));
+      const row = el("div", "ing-row");
+      ings.forEach(ing => row.appendChild(ingCell(ing, keyOf(ing), () => onPick(ing))));
+      grid.appendChild(row);
+      return row;
+    };
+
+    // 선반 재료 = 해금분 + 대본 지정 레시피의 잠긴 재료 (스토리가 시키는 잔은 재료도 꺼내준다)
+    const avail = unlockedIngredients();
+    const needIds = new Set(c.recipe.map(r => r.ingredient));
+    if (c.fill) needIds.add(c.fill);
+    const shelfIngs = avail.concat(
+      DATA.master.ingredients.filter(i => needIds.has(i.id) && !avail.some(x => x.id === i.id)));
+
+    // 따르기 재료 (코르크 병은 따기 전엔 잠김)
+    section(S.lang === "ko" ? "따르기" : "Pour",
+      shelfIngs.filter(i => ["base", "liqueur", "juice", "dairy", "wine_beer", "syrup"].includes(i.category)),
+      i => "pour:" + i.id,
+      ing => {
+        if (this.CORK_BOTTLES.includes(ing.id) && !a.opened[ing.id]) {
+          this.pendingBottle = ing.id;
+          toast(S.lang === "ko" ? "🔒 코르크가 닫혀 있다 — 따개를 집자" : "🔒 Corked — grab the opener");
+          this.applyGlow();
+          return;
+        }
+        this.pourGimmick({ id: ing.id, target: (this.lineFor(ing.id, "pour") || {}).qty || 0, unit: (this.lineFor(ing.id, "pour") || {}).unit || "oz" });
       });
-      fillRow.appendChild(cell);
+    section(S.lang === "ko" ? "스퀴즈" : "Squeeze",
+      shelfIngs.filter(i => i.category === "fruit"), i => "squeeze:" + i.id,
+      ing => this.squeezeGimmick({ id: ing.id, target: (this.lineFor(ing.id, "squeeze") || {}).qty || 0, unit: "oz" }));
+    section(S.lang === "ko" ? "파우더" : "Powder",
+      shelfIngs.filter(i => i.category === "powder"), i => "powder:" + i.id,
+      ing => this.tapGimmick({ id: ing.id, target: (this.lineFor(ing.id, "powder") || {}).qty || 0, unit: "tsp" }));
+    section(S.lang === "ko" ? "필업 (잔 채우기)" : "Fill-up",
+      shelfIngs.filter(i => i.category === "mixer"), i => "fill:" + i.id,
+      ing => this.fillGimmick({ id: ing.id }));
+
+    // 바텐더 도구 — 집는 순간 그 기믹
+    grid.appendChild(el("div", "ing-group-label", S.lang === "ko" ? "바텐더 도구" : "Bartender Tools"));
+    const toolRow = el("div", "ing-row");
+    const TOOL_ICON = { shaker: "🫨", mixing_glass: "🌀", opener: "🍾" };
+    DATA.master.items.filter(i => i.type === "tool").forEach(t => {
+      const cell = el("div", "ing-cell tool-cell");
+      cell.dataset.key = "tool:" + t.id;
+      cell.innerHTML = `<div class="tool-icon">${TOOL_ICON[t.id] || "🛠"}</div><span>${T(t.name)}</span>`;
+      cell.addEventListener("click", () => {
+        if (t.id === "shaker") this.shakeGimmick();
+        else if (t.id === "mixing_glass") this.stirGimmick();
+        else if (t.id === "opener") {
+          if (this.pendingBottle) this.corkGimmick(this.pendingBottle);
+          else this.capGimmick();
+        }
+      });
+      toolRow.appendChild(cell);
     });
-    grid.appendChild(fillRow);
+    grid.appendChild(toolRow);
     wrap.appendChild(grid);
 
     const btns = el("div", "btn-row");
     btns.appendChild(this.noteButton());
-    const start = el("button", "btn primary", S.lang === "ko" ? "기믹 시작 ▶" : "Start Gimmicks ▶");
-    start.addEventListener("click", () => this.beginGimmicks());
-    btns.appendChild(start);
+    const done = el("button", "btn primary", S.lang === "ko" ? "완성 ▶" : "Finish ▶");
+    done.addEventListener("click", () => this.garnishInfo());
+    btns.appendChild(done);
     wrap.appendChild(btns);
     this.setStage(wrap);
     this.applyGlow();
   },
 
-  // ---------- 5) 기믹 큐 ----------
-  beginGimmicks() {
-    const c = this.chosen;
-    this.gimmicks = [];
-    // 선택한 재료들이 레시피 순서대로 기믹 큐에 들어간다 (레시피에 없는 선택은 뒤에 붙음 — 시간 낭비 페널티)
-    const lineFor = (id, act) => c.recipe.find(r => r.ingredient === id && r.action === act);
-    this.selPours.forEach(id => this.gimmicks.push({ kind: "pour", id, target: (lineFor(id, "pour") || {}).qty || 0, unit: (lineFor(id, "pour") || {}).unit || "oz" }));
-    this.selSqueezes.forEach(id => this.gimmicks.push({ kind: "squeeze", id, target: (lineFor(id, "squeeze") || {}).qty || 0, unit: "oz" }));
-    this.selPowders.forEach(id => this.gimmicks.push({ kind: "powder", id, target: (lineFor(id, "powder") || {}).qty || 0, unit: "tsp" }));
-    if (c.mix === "bottle_open") this.gimmicks.push({ kind: "cap" });
-    if (this.selFill) this.gimmicks.push({ kind: "fill", id: this.selFill });
-    if (["build", "stir", "shake"].includes(c.mix)) this.gimmicks.push({ kind: "mix", mix: c.mix });
-    this.gi = 0;
-    this.nextGimmick();
-  },
-
-  nextGimmick() {
-    if (this.gi >= this.gimmicks.length) return this.garnishInfo();
-    const g = this.gimmicks[this.gi++];
-    if (g.kind === "pour") this.pourGimmick(g);
-    else if (g.kind === "squeeze") this.squeezeGimmick(g);
-    else if (g.kind === "powder") this.tapGimmick(g);
-    else if (g.kind === "cap") this.capGimmick(g);
-    else if (g.kind === "fill") this.fillGimmick(g);
-    else if (g.kind === "mix") this.mixGimmick(g);
-  },
+  // 기믹 하나가 끝나면 선반으로 복귀
+  afterGimmick() { this.showShelf(); },
 
   // 따르기 — 시뮬레이터 방식: 자동으로 흘러나오고, 타이밍에 맞춰 탭하면 딱 멈춤
   pourGimmick(g) {
@@ -291,8 +340,9 @@ const Craft = {
     wrap.querySelector(".stop-btn").addEventListener("click", () => {
       clearTimeout(startDelay); clearInterval(timer);
       stream.classList.remove("on"); bottle.classList.remove("tilt");
-      this.attempt.pours["pour:" + g.id] = Math.round(amount * 100) / 100;
-      setTimeout(() => this.nextGimmick(), 320);
+      const k = "pour:" + g.id; // 같은 재료를 또 집으면 누적
+      this.attempt.pours[k] = Math.round(((this.attempt.pours[k] || 0) + amount) * 100) / 100;
+      setTimeout(() => this.afterGimmick(), 320);
     });
   },
 
@@ -329,8 +379,9 @@ const Craft = {
       if (!touched || !holding) return;
       holding = false;
       clearInterval(timer); window.removeEventListener("pointerup", up);
-      this.attempt.pours["squeeze:" + g.id] = Math.round(amount * 100) / 100;
-      setTimeout(() => this.nextGimmick(), 320);
+      const k = "squeeze:" + g.id;
+      this.attempt.pours[k] = Math.round(((this.attempt.pours[k] || 0) + amount) * 100) / 100;
+      setTimeout(() => this.afterGimmick(), 320);
     };
     window.addEventListener("pointerup", up);
   },
@@ -350,12 +401,13 @@ const Craft = {
       count++; wrap.querySelector(".tap-count").textContent = count + " tsp";
     });
     wrap.querySelector(".done-btn").addEventListener("click", () => {
-      this.attempt.pours["powder:" + g.id] = count;
-      this.nextGimmick();
+      const k = "powder:" + g.id;
+      this.attempt.pours[k] = (this.attempt.pours[k] || 0) + count;
+      this.afterGimmick();
     });
   },
 
-  // 병따기 — 3연타
+  // 병따기(따개·cap) — 3연타
   capGimmick() {
     let taps = 0;
     const wrap = el("div", "gimmick");
@@ -367,8 +419,73 @@ const Craft = {
     btn.addEventListener("click", () => {
       taps++;
       btn.style.transform = `rotate(${taps * 12}deg)`;
-      if (taps >= 3) { btn.textContent = "🍺"; this.attempt.capDone = true; setTimeout(() => this.nextGimmick(), 450); }
+      if (taps >= 3) { btn.textContent = "🍺"; this.attempt.prepDone = "cap"; setTimeout(() => this.afterGimmick(), 450); }
     });
+  },
+
+  // 코르크 따기(따개·cork) — 조심조심 '천천히' 돌려야 한다. 급하게 돌리면 코르크가 부스러진다
+  corkGimmick(bottleId) {
+    const ing = ingOf(bottleId);
+    const NEED = 2;                 // 2바퀴를 천천히
+    const SPEED_LIMIT = 2.6;        // rad/s — 이보다 빠르면 무리가 감
+    let total = 0, lastAng = null, lastT = 0, dragging = false, strainMs = 0, breaks = 0, done = false;
+    const wrap = el("div", "gimmick");
+    wrap.innerHTML = `<h3>🍷 ${T(ing.name)} — ${S.lang === "ko" ? "코르크 따기" : "Pull the cork"}</h3>
+      <div class="stir-dial cork-dial"><div class="stir-rod"></div><div class="stir-center">🍾</div><div class="cork-crumbs"></div></div>
+      <div class="tap-count">0.0 / ${NEED}</div>
+      <p class="hint cork-hint">${S.lang === "ko" ? "천천히, 조심조심 돌려서 뽑는다 — 급하면 부스러진다!" : "Twist slowly and gently — rush it and it crumbles!"}</p>`;
+    this.setStage(wrap);
+    const dial = wrap.querySelector(".cork-dial"), rod = wrap.querySelector(".stir-rod"),
+      count = wrap.querySelector(".tap-count"), hint = wrap.querySelector(".cork-hint"),
+      crumbs = wrap.querySelector(".cork-crumbs");
+    const angleAt = (e) => {
+      const r = dial.getBoundingClientRect();
+      return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2));
+    };
+    const crumble = () => {
+      breaks++;
+      this.attempt.corkQuality = Math.max(0.2, 1 - 0.4 * breaks);
+      crumbs.innerHTML = "🍂".repeat(Math.min(breaks * 3, 9));
+      dial.classList.add("shake-fail");
+      hint.textContent = S.lang === "ko" ? "💥 코르크가 부스러졌다…! 더 천천히." : "💥 The cork crumbled...! Slower.";
+      setTimeout(() => dial.classList.remove("shake-fail"), 350);
+    };
+    const onDown = (e) => { dragging = true; lastAng = angleAt(e); lastT = performance.now(); };
+    const onMove = (e) => {
+      if (!dragging || done) return;
+      const now = performance.now(), a = angleAt(e);
+      let d = a - lastAng;
+      if (d > Math.PI) d -= Math.PI * 2;
+      if (d < -Math.PI) d += Math.PI * 2;
+      const dt = Math.max(1, now - lastT);
+      const speed = Math.abs(d) / (dt / 1000);
+      if (speed > SPEED_LIMIT) {                    // 너무 빠름 — 무리 누적
+        strainMs += dt;
+        dial.classList.add("strain");
+        if (strainMs > 420 && breaks < 2) { strainMs = 0; crumble(); }
+      } else { dial.classList.remove("strain"); strainMs = Math.max(0, strainMs - dt * 0.5); }
+      total += Math.abs(d);
+      lastAng = a; lastT = now;
+      rod.style.transform = `rotate(${a}rad)`;
+      const turns = total / (Math.PI * 2);
+      count.textContent = `${turns.toFixed(1)} / ${NEED}`;
+      if (turns >= NEED) {
+        done = true;
+        window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp);
+        this.attempt.prepDone = "cork";
+        this.attempt.opened[bottleId] = true;
+        this.pendingBottle = null;
+        count.textContent = this.attempt.corkQuality >= 1 ? "🍾 뽕!" : "🍾…💥";
+        hint.textContent = this.attempt.corkQuality >= 1
+          ? (S.lang === "ko" ? "깔끔하게 열렸다." : "A clean pull.")
+          : (S.lang === "ko" ? "열리긴 했는데… 부스러기가 들어갔을지도." : "It's open... but there may be crumbs.");
+        setTimeout(() => this.afterGimmick(), 700);
+      }
+    };
+    const onUp = () => { dragging = false; lastAng = null; };
+    dial.addEventListener("pointerdown", onDown);
+    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointerup", onUp);
   },
 
   // 필업 — 원클릭
@@ -382,71 +499,57 @@ const Craft = {
     wrap.querySelector(".fill-btn").addEventListener("click", () => {
       this.attempt.fill = g.id;
       wrap.querySelector(".pour-visual").innerHTML = glassSVG(this.attempt.glass || "highball", this.chosen.color, 0.9);
-      setTimeout(() => this.nextGimmick(), 420);
+      setTimeout(() => this.afterGimmick(), 420);
     });
   },
 
-  // 믹스 — 시뮬레이터 방식: 셰이크=위아래 드래그 스트로크 / 스터·빌드=원형 다이얼 드래그
-  mixGimmick(g) {
-    if (g.mix === "shake") return this.shakeGimmick();
-    return this.stirGimmick(g.mix);
-  },
-
-  // 셰이크 — 셰이커를 잡고 위아래로 흔든다 (방향 전환 8회)
+  // 셰이크(도구: 셰이커) — 자유형: 원하는 만큼 흔들고 스스로 멈춘다. 몇 번이 적당한지는 레시피 노트가 힌트
   shakeGimmick() {
-    const NEED = 8;
-    let strokes = 0, dragging = false, lastY = 0, dir = 0;
+    let strokes = 0, dragging = false, lastY = 0, dir = 0, travel = 0;
     const wrap = el("div", "gimmick");
-    wrap.innerHTML = `<h3>🍸 ${S.lang === "ko" ? "셰이킹! 위아래로 흔들어라" : "Shake! Drag up & down"}</h3>
+    wrap.innerHTML = `<h3>🫨 ${S.lang === "ko" ? "셰이킹! 위아래로 흔들어라" : "Shake! Drag up & down"}</h3>
       <div class="shake-track"><div class="shake-puck">🥤</div></div>
-      <div class="tap-count">0 / ${NEED}</div>`;
+      <div class="tap-count">0</div>
+      <button class="btn primary done-btn">${S.lang === "ko" ? "그만 흔들기 ✓" : "Enough ✓"}</button>
+      <p class="hint">${S.lang === "ko" ? "덜 흔들면 안 섞이고, 너무 흔들면 죽는 맛이 있다" : "Too little won't mix; too much kills the drink"}</p>`;
     this.setStage(wrap);
     const track = wrap.querySelector(".shake-track"), puck = wrap.querySelector(".shake-puck"),
       count = wrap.querySelector(".tap-count");
-    let travel = 0;
     const onDown = (e) => { dragging = true; lastY = e.clientY; dir = 0; travel = 0; };
     const onMove = (e) => {
       if (!dragging) return;
       const dy = e.clientY - lastY; lastY = e.clientY;
       if (!dy) return;
-      // 퍽이 포인터를 따라감
       const rect = track.getBoundingClientRect();
       const ratio = track.offsetHeight / rect.height || 1;
       const y = Math.min(Math.max((e.clientY - rect.top) * ratio, 24), track.offsetHeight - 24);
       puck.style.top = (y - 24) + "px";
-      // 한 스트로크 = 같은 방향으로 26px 이상 이동 후 방향 반전
       const nd = dy > 0 ? 1 : -1;
       if (nd === dir) { travel += Math.abs(dy); return; }
-      if (dir !== 0 && travel > 26) {
-        strokes++;
-        count.textContent = `${strokes} / ${NEED}`;
-        if (strokes >= NEED) {
-          this.attempt.mixDone = true;
-          window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp);
-          count.textContent = "✓";
-          setTimeout(() => this.nextGimmick(), 420);
-          return;
-        }
-      }
+      if (dir !== 0 && travel > 26) { strokes++; count.textContent = String(strokes); }
       dir = nd; travel = Math.abs(dy);
     };
     const onUp = () => dragging = false;
     track.addEventListener("pointerdown", onDown);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
+    wrap.querySelector(".done-btn").addEventListener("click", () => {
+      window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp);
+      this.attempt.usedTool = "shaker";
+      this.attempt.shakeStrokes = strokes;
+      this.afterGimmick();
+    });
   },
 
-  // 스터/빌드 — 다이얼을 원을 그리며 돌린다 (스터 3바퀴, 빌드 1바퀴)
-  stirGimmick(mix) {
-    const turnsNeed = mix === "stir" ? 3 : 1;
-    const label = mix === "stir"
-      ? (S.lang === "ko" ? "스터 — 원을 그리며 3바퀴" : "Stir — 3 smooth circles")
-      : (S.lang === "ko" ? "빌드 — 잔에서 1바퀴 젓기" : "Build — one circle in the glass");
+  // 스터(도구: 믹싱 글라스 & 바 스푼) — 자유형: 원하는 바퀴수만큼 젓고 스스로 멈춘다 (스터 3바퀴 / 빌드 1바퀴가 정답)
+  stirGimmick() {
     let total = 0, lastAng = null, dragging = false;
     const wrap = el("div", "gimmick");
-    wrap.innerHTML = `<h3>🥄 ${label}</h3>
+    wrap.innerHTML = `<h3>🌀 ${S.lang === "ko" ? "스터 — 원을 그리며 젓는다" : "Stir — draw smooth circles"}</h3>
       <div class="stir-dial"><div class="stir-rod"></div><div class="stir-center">🥄</div></div>
-      <div class="tap-count">0.0 / ${turnsNeed}</div>`;
+      <div class="tap-count">0.0</div>
+      <button class="btn primary done-btn">${S.lang === "ko" ? "그만 젓기 ✓" : "Enough ✓"}</button>
+      <p class="hint">${S.lang === "ko" ? "레시피마다 알맞은 바퀴 수가 있다" : "Each recipe has its right number of turns"}</p>`;
     this.setStage(wrap);
     const dial = wrap.querySelector(".stir-dial"), rod = wrap.querySelector(".stir-rod"),
       count = wrap.querySelector(".tap-count");
@@ -464,19 +567,18 @@ const Craft = {
       total += Math.abs(d);
       lastAng = a;
       rod.style.transform = `rotate(${a}rad)`;
-      const turns = total / (Math.PI * 2);
-      count.textContent = `${turns.toFixed(1)} / ${turnsNeed}`;
-      if (turns >= turnsNeed) {
-        this.attempt.mixDone = true;
-        window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp);
-        count.textContent = "✓";
-        setTimeout(() => this.nextGimmick(), 420);
-      }
+      count.textContent = (total / (Math.PI * 2)).toFixed(1);
     };
     const onUp = () => { dragging = false; lastAng = null; };
     dial.addEventListener("pointerdown", onDown);
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerup", onUp);
+    wrap.querySelector(".done-btn").addEventListener("click", () => {
+      window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp);
+      this.attempt.usedTool = "mixing_glass";
+      this.attempt.stirTurns = total / (Math.PI * 2);
+      this.afterGimmick();
+    });
   },
 
   // ---------- 6) 가니시 설명 화면 (비인터랙티브 — §3.6) ----------
@@ -512,10 +614,21 @@ const Craft = {
     // 잔
     const glassOk = a.glass === c.glass;
     add(S.lang === "ko" ? "잔 선택" : "Glass", glassOk ? 1 : 0, glassOk ? "✓" : "✗");
-    // 믹스
-    if (c.mix !== "none") {
-      const mixOk = c.mix === "bottle_open" ? a.capDone : a.mixDone;
-      add(S.lang === "ko" ? "믹스" : "Mix", mixOk ? 1 : 0, mixOk ? "✓" : "✗");
+    // 병 개봉(prep) — cap: 땄는가 / cork: 얼마나 조심스럽게 땄는가
+    if (c.prep) {
+      const s = a.prepDone !== c.prep ? 0 : (c.prep === "cork" ? a.corkQuality : 1);
+      add(c.prep === "cork" ? (S.lang === "ko" ? "코르크" : "Cork") : (S.lang === "ko" ? "병따기" : "Cap"),
+        s, a.prepDone !== c.prep ? "✗" : (s >= 1 ? "✓" : "💥"));
+    }
+    // 믹스 — 올바른 도구 + 알맞은 양 (shake 8회 / stir 3바퀴 / build 1바퀴)
+    if (c.mix === "shake") {
+      const s = a.usedTool === "shaker" ? scoreQty(8, a.shakeStrokes) : 0;
+      add(S.lang === "ko" ? "셰이킹" : "Shake", s, a.usedTool === "shaker" ? `×${a.shakeStrokes}` : "✗");
+    } else if (c.mix === "stir" || c.mix === "build") {
+      const need = c.mix === "stir" ? 3 : 1;
+      const s = a.usedTool === "mixing_glass" ? scoreQty(need, a.stirTurns) : 0;
+      add(c.mix === "stir" ? (S.lang === "ko" ? "스터" : "Stir") : (S.lang === "ko" ? "빌드(젓기)" : "Build"),
+        s, a.usedTool === "mixing_glass" ? `×${a.stirTurns.toFixed(1)}` : "✗");
     }
     // 레시피 라인
     c.recipe.forEach(r => {
@@ -528,6 +641,13 @@ const Craft = {
       const ok = a.fill === c.fill;
       add(S.lang === "ko" ? "필업" : "Fill", ok ? 1 : 0, ok ? "✓" : "✗");
     }
+    // 불필요 행동 — 레시피에 없는 투입 / 안 쓰는 도구 / 안 따도 되는 병 (건당 -50%)
+    const needKeys = new Set(c.recipe.map(r => r.action + ":" + r.ingredient));
+    let extras = Object.keys(a.pours).filter(k => !needKeys.has(k)).length;
+    if (c.mix === "none" && a.usedTool) extras++;
+    if (!c.prep && a.prepDone) extras++;
+    if (c.fill == null && a.fill) extras++;
+    if (extras) add(S.lang === "ko" ? "불필요한 행동" : "Extras", Math.max(0, 1 - 0.5 * extras), `×${extras}`);
     const pct = weight ? Math.round(total / weight * 100) : 0;
     const grade = gradeForPct(pct);
     this.showResult(pct, grade, rows);

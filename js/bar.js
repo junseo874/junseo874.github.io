@@ -125,6 +125,7 @@ const Bar = {
       name: isCameo ? T(ch.name) : pick(GUEST_NAMES),
       color: isCameo ? ch.name_color : pick(GUEST_COLORS),
       voice: isCameo ? slot.character : personality,
+      character: isCameo ? slot.character : null,
       personality,
       cameoScene: slot.cameo_scene || null,
       target: cocktail,
@@ -252,6 +253,10 @@ const Bar = {
     S.today.sales += revenue; S.today.tips += tip;
     const repD = positive ? (r.grade === "excellent" ? 2 : r.grade === "good" ? 1 : 0) : -2;
     S.rep += repD; S.today.repDelta += repD;
+    if (g.isCorrect) {
+      questOnServe(r.cocktail.id, r.grade);                             // serve:<칵테일> 퀘스트 목표
+      if (g.character) applyTasteAffinity(g.character, r.cocktail, r.grade); // 카메오 취향 호감
+    }
     updateHUD();
 
     // 다회 주문 — 코스터 없이 곧장 다음 잔 (§3.8)
