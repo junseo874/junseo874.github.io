@@ -50,7 +50,9 @@ const Bar = {
     this.updateIndicator();
   },
 
-  // 2부 — 스탠디가 있는 좌석들을 자동 프레이밍 (1명: 줌인 / 2명+: 줌아웃해 모두 보이게)
+  // 2부 — 스탠디 자동 프레이밍 (1명: 줌인 / 2명: '딱 2좌석 창'만 줌아웃)
+  // 좌석 배치가 인접 강제(dialogue.castAdd)라 3좌석 와이드는 절대 안 나온다 — 배경 리소스 절약.
+  TWO_SEAT_SPAN: 660 + 760,   // 인접 좌석 간격 + 좌우 손님 몸통 여유 → zoom ≈ 0.90
   storyFrame() {
     const occupied = this.seats.map(s => s.index).filter(i =>
       $(`.seat[data-seat="${i}"] .standee`));
@@ -58,10 +60,8 @@ const Bar = {
     if (!occupied.length) { BarCam.apply(SLOT_X[1], 0.92); return; }
     if (occupied.length === 1) { BarCam.apply(SLOT_X[occupied[0]], 1); return; }
     const xs = occupied.map(i => SLOT_X[i]);
-    const min = Math.min(...xs), max = Math.max(...xs);
-    const span = (max - min) + 760;                    // 좌우 손님 몸통 여유
-    const zoom = Math.min(1, VIEW_W / span);
-    BarCam.apply((min + max) / 2, zoom);
+    const zoom = VIEW_W / this.TWO_SEAT_SPAN;          // 항상 2좌석 고정 줌 (인접 전제)
+    BarCam.apply((Math.min(...xs) + Math.max(...xs)) / 2, zoom);
   },
 
   // ---------- 진입점: 그날의 1부 ----------

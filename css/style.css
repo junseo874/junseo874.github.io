@@ -325,7 +325,20 @@ html, body {
   padding: 8px 2px; text-align: center; cursor: pointer; font-size: 11px;
   display: flex; flex-direction: column; align-items: center; gap: 5px;
 }
-.ing-cell.sel { border-color: #ffd76a; background: #3a2f1e; }
+/* 담김/선택 표시 — 한눈에 보이게: 금색 발광 + ✓ 배지 + 살짝 확대 (v1.9 가시성 개선) */
+.ing-cell, .glass-cell { position: relative; }
+.ing-cell.sel, .glass-cell.sel {
+  border-color: #ffd76a; background: #46381c;
+  box-shadow: 0 0 0 2px #ffd76a66, 0 0 16px #ffd76a44;
+  transform: scale(1.05);
+}
+.ing-cell.sel::after, .glass-cell.sel::after {
+  content: "✓"; position: absolute; top: -8px; right: -8px;
+  width: 22px; height: 22px; line-height: 22px; border-radius: 50%;
+  background: #ffd76a; color: #2a2005; font-size: 14px; font-weight: 900;
+  box-shadow: 0 2px 6px #000a;
+}
+.ing-cell.sel span, .glass-cell.sel span { color: #ffe9a8; font-weight: bold; }
 .ing-bottle {
   width: 26px; height: 40px; border: 1px solid #cfe3ee55; border-radius: 6px 6px 3px 3px;
   background: #ffffff10;

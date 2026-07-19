@@ -130,9 +130,22 @@ const Dlg = {
   },
 
   // ---------- 바 스탠디(2부 등장인물) — 등장/퇴장 시 카메라 자동 프레이밍 ----------
+  // 좌석 규칙(v1.9): 2부 손님은 항상 '붙어' 앉는다. 둘째 손님이 대본상 반대편(L↔R)이라도
+  // 기존 손님의 옆자리로 스냅 — 카메라가 딱 2좌석 창만 비추면 되도록(3좌석 와이드 배경 불필요).
   castAdd(actorId, seatArg) {
     const seatMap = { L: 0, M: 1, R: 2 };
-    const idx = seatMap[seatArg] !== undefined ? seatMap[seatArg] : 1;
+    let idx = seatMap[seatArg] !== undefined ? seatMap[seatArg] : 1;
+    const occupied = Object.entries(this.cast)
+      .filter(([a]) => a !== actorId)               // 자기 자신의 재등장은 점유로 안 침
+      .map(([, d]) => +(d.closest(".seat")?.dataset.seat)).filter(n => !isNaN(n));
+    if (occupied.length) {
+      const base = occupied[0];
+      if (Math.abs(idx - base) !== 1) {           // 같은 칸이거나 한 칸 이상 떨어짐 → 옆자리로 스냅
+        const prefer = seatArg === "L" ? base - 1 : seatArg === "R" ? base + 1 : (base === 0 ? 1 : base - 1);
+        const cand = [prefer, base + 1, base - 1].filter(n => n >= 0 && n <= 2 && n !== base && !occupied.includes(n));
+        idx = cand.length ? cand[0] : idx;
+      }
+    }
     const host = $(`.seat[data-seat="${idx}"] .seat-guest`) || $("#screen-bar");
     this.castRemove(actorId);
     const c = charOf(actorId);
