@@ -99,6 +99,7 @@ const Dlg = {
 
   // ---------- 대화 UI ----------
   say(name, color, text, actorId) {
+    logDialog(name, fmtRich(text), color);   // 대화 히스토리 (v1.9.5)
     return new Promise(resolve => {
       const box = $("#dialog");
       box.classList.add("show");
@@ -149,6 +150,7 @@ const Dlg = {
     const host = $(`.seat[data-seat="${idx}"] .seat-guest`) || $("#screen-bar");
     this.castRemove(actorId);
     const c = charOf(actorId);
+    if (c && c.affinity) S.met.add(actorId);   // 단골 수첩 해금 (v1.9.5)
     const d = el("div", "standee");
     d.dataset.actor = actorId;
     d.innerHTML = `${charChip(actorId, 120)}<div class="standee-name" style="color:${c ? c.name_color : "#ccc"}">${T(c ? c.name : { ko: actorId })}</div>`;

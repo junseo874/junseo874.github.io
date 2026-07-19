@@ -18,7 +18,10 @@ const S = {
   extraRecipes: [],
   lastGrade: null,     // 소문자 등급 ('excellent'..)
   lastPct: 0,
-  usedPoints: new Set(), // "day:pointId"
+  met: new Set(),        // 만난 인물 (단골 수첩 해금 — 2부 등장·카메오 서빙 시)
+  dialogLog: [],         // 대화 백로그 (세션 전용 — 저장 안 함)
+  usedPoints: new Set(), // once 포인트 소진: "pointId"(영구) — v1.9.4 이전엔 "day:pointId"
+  groupProgress: {},     // sequential 그룹 진행 인덱스: group명 -> 다음에 볼 씬 순번
   stats: { servedTotal: 0, angryTotal: 0 },
   today: { sales: 0, tips: 0, served: 0, angry: 0, repDelta: 0 },
 };
@@ -127,6 +130,8 @@ function applyEffects(str) {
       toast(`💛 ${T(charOf(m[1])?.name) || m[1]} ${m[2] === "+=" ? "+" : "-"}${m[3]}`);
     } else if ((m = e.match(/^flag\.(\w+)\s*=\s*(true|false)$/))) {
       m[2] === "true" ? S.flags.add(m[1]) : S.flags.delete(m[1]);
+    } else if ((m = e.match(/^alive\.(\w+)\s*=\s*(true|false)$/))) {
+      S.alive[m[1]] = m[2] === "true";   // 생사 변경 (v1.9.6 — 삼호 데모 분기)
     } else if ((m = e.match(/^money\s*([+-]=)\s*(\d+)$/))) {
       S.gold += (m[1] === "+=" ? 1 : -1) * +m[2];
       toast(`💰 ${m[1] === "+=" ? "+" : "-"}${m[2]}G`);
@@ -232,6 +237,73 @@ async function phaseBanner(title, sub) {
   b.classList.remove("show");
   await sleep(300);
 }
+// ===== 단골 수첩 (Dossier) — 만난 인물만, 호감도 단계별 공개 (v1.9.5 PD 확정) =====
+// 규칙: 미만남=??? 실루엣 / 만남+호감도 10 이하=이름만 / 이후 min_affinity 단계마다 항목 해금
+// 잠긴 항목은 "🔒 호감도 N" 티저로 표시 — 호감도 시스템을 플레이어가 체감하는 장치
+const DOSSIER_ICON = { desc: "📋", taste: "🍸", history: "📖", secret: "🗝", recent: "💬" };
+function openDossier() {
+  document.querySelector(".ov-dossier")?.remove();
+  const ov = el("div", "ov-dossier show");
+  const chars = DATA.master.characters.filter(c => c.affinity);   // 호감 대상만 수첩에 실림
+  const listHtml = chars.map(c => {
+    const known = S.met.has(c.id);
+    return `<div class="dsr-row ${known ? "" : "unknown"}" data-id="${c.id}">
+      ${charChip(known ? c.id : null, 34)}<span>${known ? T(c.name) : "???"}</span></div>`;
+  }).join("");
+  ov.innerHTML = `<div class="dsr-panel">
+    <div class="dsr-head"><h3>📒 ${S.lang === "ko" ? "단골 수첩" : "Regulars"}</h3>
+      <button class="btn tiny dsr-close">✕</button></div>
+    <div class="dsr-body"><div class="dsr-list">${listHtml}</div>
+      <div class="dsr-detail"><p class="hint">${S.lang === "ko" ? "인물을 선택하세요" : "Select someone"}</p></div></div></div>`;
+  document.body.appendChild(ov);
+  ov.querySelector(".dsr-close").addEventListener("click", () => ov.remove());
+  ov.addEventListener("click", e => { if (e.target === ov) ov.remove(); });
+  ov.querySelectorAll(".dsr-row:not(.unknown)").forEach(row =>
+    row.addEventListener("click", () => {
+      ov.querySelectorAll(".dsr-row").forEach(r => r.classList.remove("on"));
+      row.classList.add("on");
+      renderDossierDetail(ov.querySelector(".dsr-detail"), row.dataset.id);
+    }));
+}
+function renderDossierDetail(host, cid) {
+  const c = charOf(cid);
+  const aff = S.affinity[cid] || 0;
+  const entries = DATA.master.dossier.filter(d => d.character_id === cid);
+  const rows = entries.map(d => {
+    if (aff >= d.min_affinity) {
+      if (!evalWhen(d.when)) return "";               // 조건부(근황)는 상황 맞을 때만
+      return `<div class="dsr-entry"><span class="dsr-ic">${DOSSIER_ICON[d.kind] || "·"}</span>${T(d.text)}</div>`;
+    }
+    return `<div class="dsr-entry locked"><span class="dsr-ic">🔒</span>${
+      S.lang === "ko" ? `호감도 ${d.min_affinity} 에 열림` : `Unlocks at affinity ${d.min_affinity}`}</div>`;
+  }).join("");
+  host.innerHTML = `
+    <div class="dsr-name" style="color:${c.name_color}">${T(c.name)}</div>
+    <div class="dsr-aff"><div class="dsr-aff-bar"><i style="width:${Math.min(100, aff)}%"></i></div>
+      <span>💛 ${aff}</span></div>
+    ${rows || `<p class="hint">${S.lang === "ko" ? "아직 아는 것이 없다" : "Nothing known yet"}</p>`}`;
+}
+
+// ===== 대화 히스토리 (백로그) — 재생된 대사를 세션 로그로 (v1.9.5, 데이터 변경 불필요) =====
+function logDialog(name, text, color) {
+  S.dialogLog.push({ name, text, color });
+  if (S.dialogLog.length > 200) S.dialogLog.shift();
+}
+function openBacklog() {
+  document.querySelector(".ov-backlog")?.remove();
+  const ov = el("div", "ov-dossier ov-backlog show");
+  const rows = S.dialogLog.map(l =>
+    `<div class="blg-row"><b style="color:${l.color || "#eee"}">${l.name}</b><span>${l.text}</span></div>`).join("");
+  ov.innerHTML = `<div class="dsr-panel">
+    <div class="dsr-head"><h3>💬 ${S.lang === "ko" ? "대화 기록" : "Backlog"}</h3>
+      <button class="btn tiny dsr-close">✕</button></div>
+    <div class="blg-body">${rows || `<p class="hint">${S.lang === "ko" ? "아직 대화가 없다" : "No dialogue yet"}</p>`}</div></div>`;
+  document.body.appendChild(ov);
+  ov.querySelector(".dsr-close").addEventListener("click", () => ov.remove());
+  ov.addEventListener("click", e => { if (e.target === ov) ov.remove(); });
+  const b = ov.querySelector(".blg-body"); b.scrollTop = b.scrollHeight;
+}
+
 // 개점 간판 — 플레이어가 직접 걸어야 1부가 시작된다 (v1.9)
 // 개점 전 대화가 끝난 뒤 호출. 간판을 누를 때까지 기다린다(자동 시작 금지).
 function openSign() {
@@ -309,7 +381,7 @@ function charChip(id, size) {
 // ---------- 세이브 (집 저장 오브젝트 + 크래시 복구는 프로토에선 일일 자동만) ----------
 const SAVE_KEY = "luna_proto_save_v1";
 function saveGame() {
-  const snap = { ...S, flags: [...S.flags], usedPoints: [...S.usedPoints], questRewarded: [...S.questRewarded] };
+  const snap = { ...S, flags: [...S.flags], usedPoints: [...S.usedPoints], questRewarded: [...S.questRewarded], met: [...S.met] };
   localStorage.setItem(SAVE_KEY, JSON.stringify(snap));
 }
 function loadGame() {
@@ -317,7 +389,7 @@ function loadGame() {
     const raw = localStorage.getItem(SAVE_KEY); if (!raw) return false;
     const snap = JSON.parse(raw);
     Object.assign(S, snap);
-    S.flags = new Set(snap.flags); S.usedPoints = new Set(snap.usedPoints); S.questRewarded = new Set(snap.questRewarded);
+    S.flags = new Set(snap.flags); S.usedPoints = new Set(snap.usedPoints); S.questRewarded = new Set(snap.questRewarded); S.met = new Set(snap.met || []);
     return true;
   } catch (e) { return false; }
 }

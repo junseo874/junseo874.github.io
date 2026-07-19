@@ -80,11 +80,12 @@
 
   <!-- 집 -->
   <section id="screen-home" class="screen">
-    <div class="home-inner">
-      <div class="home-window"></div>
-      <div class="home-bed">🛏</div>
-      <p id="home-hint" class="area-label"></p>
-      <button id="btn-end-day" class="btn primary big">🛏 하루 마치기</button>
+    <div id="home-label" class="area-label"></div>
+    <div id="home-view"><div id="home-strip"></div></div>
+    <div id="home-controls">
+      <button class="btn move" id="home-left">◀</button>
+      <button class="btn primary" id="btn-home-act" style="display:none">조사하기</button>
+      <button class="btn move" id="home-right">▶</button>
     </div>
   </section>
 

@@ -256,7 +256,7 @@ const Bar = {
     S.rep += repD; S.today.repDelta += repD;
     if (g.isCorrect) {
       questOnServe(r.cocktail.id, r.grade);                             // serve:<칵테일> 퀘스트 목표
-      if (g.character) applyTasteAffinity(g.character, r.cocktail, r.grade); // 카메오 취향 호감
+      if (g.character) { S.met.add(g.character); applyTasteAffinity(g.character, r.cocktail, r.grade); } // 카메오 취향 호감 + 수첩 해금
     }
     updateHUD();
 

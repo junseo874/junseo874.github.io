@@ -3,8 +3,9 @@
 "use strict";
 
 // ---------- 출퇴근 횡스크롤 (짧은 두 블록 — 26.07.17 피드백으로 축소) ----------
-const SPOT_X = { home_door: 80, street_mid: 430, street_board: 700, street_stall: 980, alley_in: 1210, alley_deep: 1360, elevator: 1480, bar_door: 1560 };
-const STRIP_W = 1640;
+// v1.9.6: 거리 축소(PD — 출퇴근이 너무 김) + Shift 달리기
+const SPOT_X = { home_door: 70, street_mid: 330, street_board: 500, street_stall: 690, alley_in: 850, alley_deep: 960, elevator: 1060, bar_door: 1150 };
+const STRIP_W = 1230;
 
 const Commute = {
   phase: null, lunaX: 70, goal: null, resolveFn: null, keys: {}, rafHandle: null,
@@ -12,6 +13,7 @@ const Commute = {
   async run(phase) {
     this.phase = phase;
     showScreen("screen-commute");
+    $("#screen-commute").classList.toggle("rain", S.day === 1);   // day1 = 비 오는 거리 (데모 연출, 행인 없음)
     const goingIn = phase === "commute_in";
     this.lunaX = goingIn ? SPOT_X.home_door : SPOT_X.bar_door;
     this.goal = goingIn ? "bar_door" : "home_door";
@@ -38,17 +40,42 @@ const Commute = {
   activePoints() {
     return DATA.schedule.points.filter(p =>
       (p.phase === this.phase || p.phase === "both") &&
-      !S.usedPoints.has(S.day + ":" + p.id) &&
-      evalWhen(p.when, { phase: this.phase }));
+      !S.usedPoints.has(p.id) &&                       // once 소진은 영구 (v1.9.4)
+      evalWhen(p.when, { phase: this.phase }) &&
+      this.resolvePointScene(p) !== null);             // conditional에 맞는 씬이 없으면 마커도 숨김
+  },
+
+  // ---------- 포인트 → 씬 해석 (Points.selection 4모드 — 구엔진 NPC flow 대응, v1.9.4) ----------
+  // scene_or_shop이 "group:이름"이면 그 그룹의 씬들(seq 순) 중에서 고른다:
+  //   once/repeat     : 그룹이면 when 통과한 첫 씬, 단일이면 그 씬
+  //   sequential      : 볼 때마다 다음 씬(1→2→3), 다 보면 마지막 씬 반복 (구엔진 revisit_repeat 패턴)
+  //   conditional     : when 통과한 첫 씬 = first-match (구엔진 시바 flow 패턴 — 1회성은 씬 when에 !flag, 폴백은 when 공란)
+  resolvePointScene(p, consume) {
+    const t = p.scene_or_shop;
+    if (t.startsWith("shop:")) return t;
+    if (!t.startsWith("group:")) return t;
+    const g = t.slice(6);
+    const pool = [];   // 전 스크립트에서 group 일치 + when 통과 씬 수집
+    Object.values(DATA.scripts).forEach(sc => (sc.scenes || []).forEach(s => {
+      if (s.group === g && evalWhen(s.when)) pool.push(s);
+    }));
+    pool.sort((a, b) => a.seq - b.seq);
+    if (!pool.length) return null;
+    if (p.selection === "sequential") {
+      const i = Math.min(S.groupProgress[g] || 0, pool.length - 1);
+      if (consume) S.groupProgress[g] = Math.min((S.groupProgress[g] || 0) + 1, pool.length - 1);
+      return pool[i].id;
+    }
+    return pool[0].id;   // conditional/once/repeat: first-match
   },
 
   renderStrip() {
     const strip = $("#commute-strip");
     strip.innerHTML = "";
     // 배경 건물 실루엣
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
       const b = el("div", "bldg");
-      b.style.left = (i * 168 + 10) + "px";
+      b.style.left = (i * 158 + 10) + "px";
       b.style.height = (80 + ((i * 53) % 120)) + "px";
       strip.appendChild(b);
     }
@@ -72,7 +99,7 @@ const Commute = {
 
   loop() { // setInterval — 백그라운드 탭에서도 동작 (RAF는 hidden에서 정지)
     const step = () => {
-      const spd = 4.4;
+      const spd = this.keys.shift ? 8.6 : 4.4;   // Shift = 달리기 (v1.9.6)
       if (this.keys.left) this.lunaX = Math.max(30, this.lunaX - spd);
       if (this.keys.right) this.lunaX = Math.min(STRIP_W - 40, this.lunaX + spd);
       const luna = $("#luna-fig");
@@ -106,10 +133,12 @@ const Commute = {
     if (!pointId) { this.finish(); return; }
     const p = DATA.schedule.points.find(x => x.id === pointId);
     if (!p) return;
-    if (p.scene_or_shop.startsWith("shop:")) { openShop(); return; }
-    if (!p.repeatable) S.usedPoints.add(S.day + ":" + p.id);
+    const target = this.resolvePointScene(p, true);   // consume=true → sequential 진행
+    if (!target) return;
+    if (target.startsWith("shop:")) { openShop(); return; }
+    if (p.selection === "once") S.usedPoints.add(p.id);   // once만 소진 (영구)
     this.renderStrip();
-    await Dlg.runScene(p.scene_or_shop);
+    await Dlg.runScene(target);
     this.renderStrip();
   },
 
@@ -124,6 +153,138 @@ const Commute = {
         if (luna) { luna.style.left = this.lunaX + "px"; luna.classList.add("walking"); luna.classList.toggle("flip", d < 0); }
       }, 28);
     });
+  },
+};
+
+// ---------- 집 내부 (v1.9.6 — PDF 배치도: 침실|문|TV|소파|창|테라스, 테라스는 우측 가려짐) ----------
+const HOME_X = { bed: 190, door: 470, tv: 700, photo: 880, sofa: 1060, note: 1180, window: 1330, terrace: 1580 };
+const HOME_W = 1760;
+
+const Home = {
+  mode: null, lunaX: 0, keys: {}, handle: null, resolveFn: null,
+
+  // mode: "morning"(소파 기상→쪽지→현관 출근) / "evening"(현관 귀가→소파 '하루 마치기')
+  run(mode) {
+    this.mode = mode;
+    showScreen("screen-home");
+    $("#home-label").textContent = mode === "morning"
+      ? (S.lang === "ko" ? "🏠 집 — 아침" : "🏠 Home — Morning")
+      : (S.lang === "ko" ? "🏠 집 — 밤" : "🏠 Home — Night");
+    this.lunaX = mode === "morning" ? HOME_X.sofa : HOME_X.door + 60;
+    this.render();
+    return new Promise(resolve => { this.resolveFn = resolve; this.loop(); });
+  },
+
+  finish() { clearInterval(this.handle); this.keys = {}; const fn = this.resolveFn; this.resolveFn = null; if (fn) fn(); },
+
+  render() {
+    const strip = $("#home-strip");
+    strip.innerHTML = "";
+    const put = (cls, x, label, extraCls) => {
+      const d = el("div", "hm-obj " + (extraCls || ""), `<div class="${cls}"></div>${label ? `<span>${label}</span>` : ""}`);
+      d.style.left = x + "px"; strip.appendChild(d); return d;
+    };
+    put("hm-bed", HOME_X.bed - 95, S.lang === "ko" ? "크리스의 침대" : "CHRIS");
+    const wall = el("div", "hm-wall"); wall.style.left = "380px"; strip.appendChild(wall);
+    put("hm-door", HOME_X.door - 42, S.lang === "ko" ? "현관" : "DOOR");
+    put("hm-tv", HOME_X.tv - 75, "TV").querySelector(".hm-tv") && null;
+    // TV 구조가 중첩이라 직접 구성
+    strip.lastChild.innerHTML = `<div class="hm-tv"><div class="tv-screen"></div><div class="tv-base"></div></div><span>TV</span>`;
+    put("hm-photo", HOME_X.photo - 30, "");
+    put("hm-sofa", HOME_X.sofa - 100, S.lang === "ko" ? "소파" : "SOFA");
+    const tbl = put("hm-table", HOME_X.note - 37, "");
+    if (this.mode === "morning" && S.day === 1 && !S.flags.has("d1_note_read"))
+      tbl.firstChild.innerHTML = '<div class="hm-note">📄</div>';
+    put("hm-window", HOME_X.window - 48, "");
+    // 테라스 존
+    const terr = el("div", "hm-terrace",
+      `<div class="hm-rail"></div>
+       <div class="hm-tstool" style="left:60px"></div>
+       <div class="hm-ttable" style="left:130px"></div>
+       <div class="hm-tstool" style="left:220px"></div>`);
+    strip.appendChild(terr);
+    // 루나
+    const luna = el("div", "luna-fig", `<div class="luna-body"></div><span>LUNA</span>`);
+    luna.id = "home-luna"; luna.style.left = this.lunaX + "px";
+    luna.style.bottom = "104px"; luna.style.position = "absolute";
+    strip.appendChild(luna);
+  },
+
+  // 근처 상호작용 대상 계산 — 모드별로 다르다
+  nearTarget() {
+    const near = (x, r) => Math.abs(x - this.lunaX) < (r || 70);
+    if (this.mode === "morning") {
+      if (S.day === 1 && !S.flags.has("d1_note_read") && near(HOME_X.note)) return { key: "note", label: S.lang === "ko" ? "📄 쪽지 읽기" : "📄 Read note" };
+      if (near(HOME_X.tv)) return { key: "tv", label: S.lang === "ko" ? "📺 TV 보기" : "📺 Watch TV" };
+      if (near(HOME_X.door, 60)) return { key: "exit", label: S.lang === "ko" ? "🚪 출근하기" : "🚪 Head to work" };
+    } else {
+      if (near(HOME_X.tv)) return { key: "tv", label: S.lang === "ko" ? "📺 TV 보기" : "📺 Watch TV" };
+      if (near(HOME_X.sofa, 90)) return { key: "sofa", label: "🛏 " + UI("ui_end_day") };
+    }
+    return null;
+  },
+
+  loop() {
+    const step = () => {
+      const spd = this.keys.shift ? 8.6 : 4.4;
+      if (this.keys.left) this.lunaX = Math.max(60, this.lunaX - spd);
+      if (this.keys.right) this.lunaX = Math.min(HOME_W - 60, this.lunaX + spd);
+      const luna = $("#home-luna");
+      if (luna) {
+        luna.style.left = this.lunaX + "px";
+        luna.classList.toggle("walking", !!(this.keys.left || this.keys.right));
+        luna.classList.toggle("flip", !!this.keys.left);
+      }
+      const view = $("#home-view");
+      const target = Math.max(0, Math.min(HOME_W - view.clientWidth, this.lunaX - view.clientWidth / 2));
+      $("#home-strip").style.transform = `translateX(${-target}px)`;
+      const near = this.nearTarget();
+      const act = $("#btn-home-act");
+      if (near && !Dlg.running) { act.style.display = "block"; act.textContent = near.label; act.dataset.key = near.key; }
+      else act.style.display = "none";
+    };
+    this.handle = setInterval(step, 28);
+  },
+
+  async interact(key) {
+    if (key === "note") { await Dlg.runScene("d1_note"); this.render(); return; }
+    if (key === "tv") {
+      // 홀로그램 TV — home_tv 그룹 conditional (첫 시청=실종 뉴스, 이후 토크쇼 반복)
+      const sc = Commute.resolvePointScene({ scene_or_shop: "group:home_tv", selection: "conditional" });
+      if (sc) await Dlg.runScene(sc);
+      return;
+    }
+    if (key === "exit") {
+      if (S.day === 1 && !S.flags.has("d1_note_read")) { toast(S.lang === "ko" ? "…테이블 위에 뭔가 있다." : "...There's something on the table."); return; }
+      this.finish(); return;
+    }
+    if (key === "sofa") { this.finish(); return; }
+  },
+
+  // 소파→테라스 자동 이동 (테라스 대화 연출용)
+  walkTo(x) {
+    return new Promise(resolve => {
+      const t = setInterval(() => {
+        const d = x - this.lunaX;
+        const luna = $("#home-luna");
+        if (Math.abs(d) < 8) { clearInterval(t); if (luna) luna.classList.remove("walking"); resolve(); return; }
+        this.lunaX += Math.sign(d) * 6;
+        if (luna) { luna.style.left = this.lunaX + "px"; luna.classList.add("walking"); luna.classList.toggle("flip", d < 0); }
+        const view = $("#home-view");
+        const target = Math.max(0, Math.min(HOME_W - view.clientWidth, this.lunaX - view.clientWidth / 2));
+        $("#home-strip").style.transform = `translateX(${-target}px)`;
+      }, 24);
+    });
+  },
+
+  // 씬만 재생하는 진입 (day3 구출 루트 — 크리스의 목격)
+  async sceneOnly() {
+    showScreen("screen-home");
+    $("#home-label").textContent = S.lang === "ko" ? "🏠 집 — 밤" : "🏠 Home — Night";
+    this.mode = "evening"; this.lunaX = HOME_X.sofa; this.render();
+    await sleep(500);
+    for (const sc of scenesFor(S.day, "home", "auto")) await Dlg.runScene(sc);
+    Dlg.castClear();
   },
 };
 
@@ -195,23 +356,27 @@ function overlayConfirm(sel) {
 }
 
 // ---------- 집 / 꿈 ----------
-async function homePhase() {
-  showScreen("screen-home");
-  $("#screen-home").classList.remove("terrace");
+// ---------- 인트로 (day1 최초 1회 — 검은 화면, 루나가 처음 눈뜨던 밤) ----------
+async function introPhase() {
+  showScreen("screen-dream");
+  await sleep(600);
+  for (const sc of scenesFor(1, "intro", "auto")) await Dlg.runScene(sc);
+  S.flags.add("intro_seen");
+  Dlg.hideDialog();
+  await sleep(400);
+}
+
+// ---------- 집 저녁 — 소파 '하루 마치기' → 테라스 대화 → 꿈 ----------
+async function homeEvening() {
+  await Home.run("evening");                       // 소파에서 '하루 마치기' 클릭 시 진행
   const homeScenes = scenesFor(S.day, "home", "auto");
-  $("#home-hint").textContent = homeScenes.length
-    ? (S.lang === "ko" ? "…크리스가 아직 안 들어왔다." : "...Chris isn't back yet.")
-    : (S.lang === "ko" ? "조용한 밤이다." : "A quiet night.");
-  await new Promise(resolve => {
-    const b = $("#btn-end-day");
-    b.textContent = "🛏 " + UI("ui_end_day");
-    const h = () => { b.removeEventListener("click", h); resolve(); };
-    b.addEventListener("click", h);
-  });
-  // 결정 B — 하루 마치기 선택 시 home 씬이 있으면 강제 실행
-  for (const sc of homeScenes) await Dlg.runScene(sc);
-  Dlg.castClear();
-  // 수면 → 꿈
+  if (homeScenes.length) {
+    await Home.walkTo(HOME_X.terrace);             // 테라스로 이동 (결정 B — 강제 이벤트)
+    $("#screen-home").classList.add("terrace");
+    for (const sc of homeScenes) await Dlg.runScene(sc);
+    Dlg.castClear();
+    $("#screen-home").classList.remove("terrace");
+  }
   const dreams = scenesFor(S.day, "dream", "auto");
   if (dreams.length) {
     showScreen("screen-dream");
@@ -230,21 +395,21 @@ async function runDay() {
   updateHUD();
   await phaseBanner(`DAY ${S.day}`, T(meta.label));
 
-  const startPhase = meta.start_phase || "commute_in";
-  if (startPhase !== "bar") {
-    // 1. 출근길
-    await phaseBanner(S.lang === "ko" ? "🌃 출근길" : "🌃 Commute", CFG.commute_in_time);
-    await Commute.run("commute_in");
-    // 2. 입고
-    await stockIn();
-  }
-  // 3~4. 바 (1부 → 2부)
+  // 0. 인트로 (day1 최초 1회 — 검은 화면 대화)
+  if (S.day === 1 && !S.flags.has("intro_seen")) await introPhase();
+  // 1. 집 아침 — 소파 기상 → (day1 쪽지) → 현관으로 출근
+  await Home.run("morning");
+  // 2. 출근길 (day1 = 비 오는 거리, 행인 없음)
+  await phaseBanner(S.lang === "ko" ? "🌃 출근길" : "🌃 Commute", CFG.commute_in_time);
+  await Commute.run("commute_in");
+  // 3. 입고 (day1은 초기 재고라 스킵됨)
+  await stockIn();
+  // 4~5. 바 (개점 → 1부 → 2부)
   showScreen("screen-bar");
-  BarCam.apply(SLOT_X[1], 0.92, true); // 카메라 초기 위치 (가운데 슬롯)
+  BarCam.apply(SLOT_X[1], 0.92, true);
   Dlg.castClear();
   const hasSlots = !window.DEV_SKIPPART1 && DATA.schedule.guest_slots.some(g => g.day === S.day);
   if (hasSlots) {
-    // 개점 전 — 크리스와 짧은 대화 → OPEN 간판을 걸어야 손님이 들어온다 (v1.9)
     await Dlg.runPhaseScenes(S.day, "bar_open");
     Dlg.castClear();
     await openSign();
@@ -252,27 +417,41 @@ async function runDay() {
     await Bar.runPart1(S.day);
     await phaseBanner(S.lang === "ko" ? "🌙 새벽 1시" : "🌙 1 A.M.", S.lang === "ko" ? "2부 — 단골의 시간" : "Part 2 — Regulars");
   }
-  Bar.setMode("story"); // 2부: 최대 2명, 손님 수에 맞춰 카메라 자동 프레이밍
+  Bar.setMode("story");
   await Dlg.runPhaseScenes(S.day, "bar");
   Dlg.castClear();
-  // 5. 정산
+  // 6. 정산
   await settlement();
-  // 6. 퇴근길
+  // 7. 퇴근길 (day1 엘리베이터·day3 분기 씬은 auto로 재생)
   await phaseBanner(S.lang === "ko" ? "🌌 퇴근길" : "🌌 Heading home", CFG.commute_out_time);
   await Commute.run("commute_out");
-  // 7~8. 집 → 꿈
-  await homePhase();
-  // 다음날 (저장은 day 증가 후 — 이어하기 시 다음날부터)
+  // 7.5 day3 데모 분기 엔딩 (PD 확정 흐름)
+  if (S.day === 3 && S.flags.has("samho_death_route")) return endOfPrototype("death");
+  if (S.day === 3 && S.flags.has("samho_refused_drink")) {
+    await Home.sceneOnly();          // 집 — 크리스의 목격
+    return endOfPrototype("rescue");
+  }
+  // 8~9. 집 저녁(소파 → 테라스) → 꿈
+  await homeEvening();
   S.day++;
   saveGame();
   if (S.day > 3) return endOfPrototype();
   runDay();
 }
 
-function endOfPrototype() {
+function endOfPrototype(variant) {
   showScreen("screen-end");
+  const headline = variant === "death"
+    ? (S.lang === "ko" ? "🥀 삼호는 돌아오지 못했다" : "🥀 Samho never came back")
+    : variant === "rescue"
+      ? (S.lang === "ko" ? "🌅 삼호는 살아남았다" : "🌅 Samho survived")
+      : (S.lang === "ko" ? "🌅 프로토타입 범위 끝 (Day 1~3)" : "🌅 End of prototype (Day 1–3)");
+  const sub = variant
+    ? (S.lang === "ko" ? "당신이 따라준 잔이, 이야기를 갈랐다.<br>데모는 여기까지 — 이야기는 계속됩니다." : "The glass you poured split the story.<br>The demo ends here — the story continues.")
+    : "";
   $("#end-body").innerHTML = `
-    <h2>🌅 ${S.lang === "ko" ? "프로토타입 범위 끝 (Day 1~3)" : "End of prototype (Day 1–3)"}</h2>
+    <h2>${headline}</h2>
+    ${sub ? `<p class="end-note">${sub}</p>` : ""}
     <div class="settle-rows">
       <div class="srow"><span>${S.lang === "ko" ? "보유 골드" : "Gold"}</span><b>${S.gold}G</b></div>
       <div class="srow"><span>${UI("ui_reputation")}</span><b>${S.rep}</b></div>
@@ -285,6 +464,13 @@ function endOfPrototype() {
 // ---------- 부팅 ----------
 function boot() {
   updateHUD();
+  // 단골 수첩·대화 기록 버튼 (v1.9.5)
+  const hudEl = $("#hud");
+  const bDsr = el("button", "btn tiny", "📒"); bDsr.title = "단골 수첩";
+  const bBlg = el("button", "btn tiny", "💬"); bBlg.title = "대화 기록";
+  bDsr.addEventListener("click", openDossier);
+  bBlg.addEventListener("click", openBacklog);
+  hudEl.insertBefore(bBlg, $("#hud-lang")); hudEl.insertBefore(bDsr, bBlg);
   $("#hud-lang").addEventListener("click", () => { S.lang = S.lang === "ko" ? "en" : "ko"; updateHUD(); toast(S.lang.toUpperCase()); });
   $("#btn-close-early").addEventListener("click", () => Bar.closeEarly());
   $("#btn-interact").addEventListener("click", () => Commute.interact($("#btn-interact").dataset.point));
@@ -296,13 +482,22 @@ function boot() {
       if (e.code === "ArrowLeft") { Bar.focusSlot(Bar.focus - 1); return; }
       if (e.code === "ArrowRight") { Bar.focusSlot(Bar.focus + 1); return; }
     }
-    if (e.code === "ArrowLeft") Commute.keys.left = true;
-    if (e.code === "ArrowRight") Commute.keys.right = true;
-    if (e.code === "KeyE" && $("#btn-interact").style.display === "block") Commute.interact($("#btn-interact").dataset.point);
+    const inHome = $("#screen-home").classList.contains("active");
+    const K = inHome ? Home.keys : Commute.keys;   // 집/거리 공용 이동 키 (v1.9.6)
+    if (e.code === "ArrowLeft") K.left = true;
+    if (e.code === "ArrowRight") K.right = true;
+    if (e.code === "ShiftLeft" || e.code === "ShiftRight") K.shift = true;   // 달리기
+    if (e.code === "KeyE") {
+      if (inHome && $("#btn-home-act").style.display === "block") Home.interact($("#btn-home-act").dataset.key);
+      else if ($("#btn-interact").style.display === "block") Commute.interact($("#btn-interact").dataset.point);
+    }
   });
   window.addEventListener("keyup", e => {
-    if (e.code === "ArrowLeft") Commute.keys.left = false;
-    if (e.code === "ArrowRight") Commute.keys.right = false;
+    for (const K of [Commute.keys, Home.keys]) {
+      if (e.code === "ArrowLeft") K.left = false;
+      if (e.code === "ArrowRight") K.right = false;
+      if (e.code === "ShiftLeft" || e.code === "ShiftRight") K.shift = false;
+    }
   });
   // 모바일 이동 버튼
   const bindHold = (sel, key) => {
@@ -311,8 +506,15 @@ function boot() {
     window.addEventListener("pointerup", () => Commute.keys[key] = false);
   };
   bindHold("#btn-left", "left"); bindHold("#btn-right", "right");
+  const bindHomeHold = (sel, key) => {
+    const el2 = $(sel);
+    el2.addEventListener("pointerdown", () => Home.keys[key] = true);
+    window.addEventListener("pointerup", () => Home.keys[key] = false);
+  };
+  bindHomeHold("#home-left", "left"); bindHomeHold("#home-right", "right");
+  $("#btn-home-act").addEventListener("click", () => Home.interact($("#btn-home-act").dataset.key));
   // 타이틀
-  $("#btn-new-game").addEventListener("click", () => { clearSave(); showScreen("screen-bar"); runDay(); });
+  $("#btn-new-game").addEventListener("click", () => { clearSave(); runDay(); });
   const contBtn = $("#btn-continue");
   if (hasSave()) {
     contBtn.style.display = "inline-block";

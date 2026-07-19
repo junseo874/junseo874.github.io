@@ -98,6 +98,7 @@ const Craft = {
     this.queue = [];        // 담은 재료·도구 {kind,id} — 시작 누르면 논리적 순서로 실행
     this.runList = []; this.ri = 0;
     this.notePeeked = false; // 레시피 노트를 본 뒤에만 글로우 가이드 (시뮬레이터 방식)
+    this.coached = {};       // 튜토리얼 코치마크 — 화면·기믹당 1회 (v1.9.6)
     this.timeStart = performance.now();
     this.startTimer(c.time_limit_sec);
     this.slot = 0;
@@ -156,6 +157,33 @@ const Craft = {
     if (i < 0 || i >= this.SLOTS.length) return;
     this.slot = i;
     this[this.SLOTS[i].show]();
+  },
+
+  // 튜토리얼 코치마크 (v1.9.6) — 크리스가 UI를 직접 설명해주는 카드. 튜토리얼 제조에서만, 항목당 1회.
+  COACH: {
+    glass:   ["🥃", "잔 선반|레시피에 맞는 잔을 고르는 곳이다. 어떤 잔인지 모르겠으면 아래 📖 레시피 노트를 봐라 — 정답 잔이 반짝일 거다.", "The Glass Shelf|Pick the glass the recipe calls for. Not sure? Open the 📖 recipe note below — the right glass will glow."],
+    tool:    ["🛠", "도구 선반|저을 거면 믹싱 글라스, 흔들 거면 셰이커, 병뚜껑·코르크는 따개다. 담아두면 알맞은 순서에 알아서 쓰게 된다.", "The Tool Shelf|Mixing glass to stir, shaker to shake, opener for caps and corks. Stock a tool and it runs at the right moment."],
+    garnish: ["🌿", "가니시 선반|마지막 장식이다. 레시피에 가니시가 없는 술이면 '없음'을 고르면 돼.", "The Garnish Shelf|The finishing touch. If the recipe has no garnish, pick 'None'."],
+    ing:     ["🍾", "재료 선반|레시피의 재료를 눌러 담아라. 잘못 담았으면 다시 누르면 빠진다. 다 담았으면 '제조 시작'!", "The Ingredient Shelf|Tap ingredients to stock them; tap again to put back. When ready, hit 'Start'!"],
+    pour:    ["🍺", "따르기|병을 집으면 자동으로 따라진다. 게이지의 목표선에 딱 맞춰 ⏹ 멈추기!", "Pouring|The bottle pours on its own. Hit ⏹ right on the target line!"],
+    stir:    ["🌀", "스터|스푼으로 원을 그리며 저어라. 레시피마다 알맞은 바퀴 수가 있다 — 다 저었으면 '그만 젓기'.", "Stirring|Draw circles with the spoon. Each recipe has its right number of turns — then hit 'Enough'."],
+    shake:   ["🫨", "셰이킹|위아래로 흔들어라. 덜 흔들면 안 섞이고 너무 흔들면 맛이 죽는다.", "Shaking|Drag up and down. Too little won't mix, too much kills the drink."],
+    squeeze: ["🍋", "스퀴즈|버튼을 누르는 동안 즙이 나온다. 목표량에서 손을 떼라.", "Squeezing|Juice flows while you hold. Release at the target."],
+    powder:  ["🥄", "파우더|한 스푼씩 탭해서 넣는다. 정량을 지켜라.", "Powder|Tap to add one spoon at a time. Mind the measure."],
+    cap:     ["🍾", "병따기|따개로 3번 두드리면 열린다.", "Cap|Tap three times with the opener."],
+    cork:    ["🍷", "코르크|천천히, 조심조심 돌려라. 급하면 부스러져서 술에 들어간다.", "Cork|Twist slowly and gently. Rush it and crumbs fall in the drink."],
+  },
+  coach(key) {
+    if (!this.tutorial || !this.coached || this.coached[key]) return;
+    this.coached[key] = true;
+    const [icon, ko, en] = this.COACH[key];
+    const [title, body] = (S.lang === "ko" ? ko : en).split("|");
+    document.querySelector(".coach-card")?.remove();
+    const card = el("div", "coach-card");
+    card.innerHTML = `<div class="coach-head">${icon} <b>${title}</b></div><p>${body}</p>
+      <button class="btn tiny primary">${S.lang === "ko" ? "알겠어" : "Got it"}</button>`;
+    card.querySelector("button").addEventListener("click", () => card.remove());
+    $("#craft-stage").prepend(card);
   },
 
   // 상단 슬롯 인디케이터 — 지금 몇 번 선반인지 + 직접 점프
@@ -222,6 +250,7 @@ const Craft = {
     wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
+    this.coach("glass");
     if (this.tutorial) this.openNote();
   },
 
@@ -252,6 +281,7 @@ const Craft = {
     wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
+    this.coach("tool");
   },
 
   // ── 3-3) 가니시 선반 ── (v1.9: 비인터랙티브 연출 → 플레이어 선택·채점 대상)
@@ -282,6 +312,7 @@ const Craft = {
     wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
+    this.coach("garnish");
   },
 
   noteButton() {
@@ -443,6 +474,7 @@ const Craft = {
     wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
+    this.coach("ing");
   },
 
   // 시작 — 담은 것을 순서대로 실행. 병(코르크/뚜껑)을 담았으면 따개도 있어야 한다
@@ -495,6 +527,7 @@ const Craft = {
       <button class="btn primary hold-btn stop-btn">${S.lang === "ko" ? "⏹ 멈추기!" : "⏹ Stop!"}</button>
       <p class="hint">${S.lang === "ko" ? "곧 자동으로 따라진다 — 목표선에서 탭!" : "Pouring starts automatically — tap at the line!"}</p>`;
     this.setStage(wrap);
+    this.coach("pour");
     const fillEl = wrap.querySelector(".gauge-fill"), numEl = wrap.querySelector(".gauge-num"),
       targetEl = wrap.querySelector(".gauge-target"), glassEl = wrap.querySelector(".pour-visual"),
       stream = wrap.querySelector(".pour-stream"), bottle = wrap.querySelector(".pour-bottle");
@@ -537,6 +570,7 @@ const Craft = {
       <div class="gauge-num">0.00 / ${g.target || "?"} ${g.unit}</div>
       <button class="btn hold-btn sqz-btn">${S.lang === "ko" ? "🤏 쥐어짜기 (떼면 완료)" : "🤏 Squeeze (release to finish)"}</button>`;
     this.setStage(wrap);
+    this.coach("squeeze");
     const fillEl = wrap.querySelector(".gauge-fill"), numEl = wrap.querySelector(".gauge-num"),
       targetEl = wrap.querySelector(".gauge-target");
     const maxShow = (g.target || 1) * 1.6;
@@ -575,6 +609,7 @@ const Craft = {
       <button class="btn hold-btn spoon-btn">${S.lang === "ko" ? "한 스푼 넣기" : "Add a spoon"}</button>
       <button class="btn ghost done-btn">${UI("ui_confirm")}</button>`;
     this.setStage(wrap);
+    this.coach("powder");
     wrap.querySelector(".spoon-btn").addEventListener("click", () => {
       count++; wrap.querySelector(".tap-count").textContent = count + " tsp";
     });
@@ -593,6 +628,7 @@ const Craft = {
       <button class="btn hold-btn cap-btn" style="font-size:40px">🔒</button>
       <p class="hint">${S.lang === "ko" ? "3번 두드려서 딴다" : "Tap 3 times"}</p>`;
     this.setStage(wrap);
+    this.coach("cap");
     const btn = wrap.querySelector(".cap-btn");
     btn.addEventListener("click", () => {
       taps++;
@@ -613,6 +649,7 @@ const Craft = {
       <div class="tap-count">0.0 / ${NEED}</div>
       <p class="hint cork-hint">${S.lang === "ko" ? "천천히, 조심조심 돌려서 뽑는다 — 급하면 부스러진다!" : "Twist slowly and gently — rush it and it crumbles!"}</p>`;
     this.setStage(wrap);
+    this.coach("cork");
     const dial = wrap.querySelector(".cork-dial"), rod = wrap.querySelector(".stir-rod"),
       count = wrap.querySelector(".tap-count"), hint = wrap.querySelector(".cork-hint"),
       crumbs = wrap.querySelector(".cork-crumbs");
@@ -691,6 +728,7 @@ const Craft = {
       <button class="btn primary done-btn">${S.lang === "ko" ? "그만 흔들기 ✓" : "Enough ✓"}</button>
       <p class="hint">${S.lang === "ko" ? "덜 흔들면 안 섞이고, 너무 흔들면 죽는 맛이 있다" : "Too little won't mix; too much kills the drink"}</p>`;
     this.setStage(wrap);
+    this.coach("shake");
     const track = wrap.querySelector(".shake-track"), puck = wrap.querySelector(".shake-puck"),
       count = wrap.querySelector(".tap-count");
     const onDown = (e) => { dragging = true; lastY = e.clientY; dir = 0; travel = 0; };
@@ -729,6 +767,7 @@ const Craft = {
       <button class="btn primary done-btn">${S.lang === "ko" ? "그만 젓기 ✓" : "Enough ✓"}</button>
       <p class="hint">${S.lang === "ko" ? "레시피마다 알맞은 바퀴 수가 있다" : "Each recipe has its right number of turns"}</p>`;
     this.setStage(wrap);
+    this.coach("stir");
     const dial = wrap.querySelector(".stir-dial"), rod = wrap.querySelector(".stir-rod"),
       count = wrap.querySelector(".tap-count");
     const angleAt = (e) => {

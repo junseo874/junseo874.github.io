@@ -537,3 +537,130 @@ html, body {
 .slot-nav { display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 16px; }
 .slot-arrow { font-size: 20px; padding: 9px 22px; line-height: 1; }
 .slot-arrow.off { opacity: .55; }
+
+/* ===== 단골 수첩 + 대화 기록 (v1.9.5) ===== */
+.ov-dossier {
+  position: fixed; inset: 0; z-index: 70; display: flex; align-items: center; justify-content: center;
+  background: #000a; opacity: 0; transition: opacity .25s; pointer-events: none;
+}
+.ov-dossier.show { opacity: 1; pointer-events: auto; }
+.dsr-panel {
+  width: 700px; max-height: 560px; display: flex; flex-direction: column;
+  background: #1b1730; border: 1px solid #57508a; border-radius: 16px; padding: 18px 22px;
+  box-shadow: 0 18px 60px #000c;
+}
+.dsr-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.dsr-head h3 { margin: 0; }
+.dsr-body { display: flex; gap: 16px; min-height: 300px; }
+.dsr-list { width: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.dsr-row {
+  display: flex; align-items: center; gap: 9px; padding: 7px 10px; border-radius: 10px;
+  background: #221a38; border: 1px solid #3c3460; cursor: pointer; font-size: 14px;
+}
+.dsr-row:hover { border-color: #9c86f0; }
+.dsr-row.on { background: #3a2f66; border-color: #9c86f0; }
+.dsr-row.unknown { opacity: .45; cursor: default; filter: grayscale(1); }
+.dsr-detail { flex: 1; overflow-y: auto; padding: 4px 6px; }
+.dsr-name { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.dsr-aff { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.dsr-aff-bar { flex: 1; height: 10px; border-radius: 5px; background: #2a2440; overflow: hidden; }
+.dsr-aff-bar i { display: block; height: 100%; background: linear-gradient(90deg, #6a4fc9, #e8b4ff); border-radius: 5px; transition: width .4s; }
+.dsr-entry {
+  display: flex; gap: 10px; align-items: flex-start; padding: 9px 12px; margin-bottom: 8px;
+  background: #221a38; border: 1px solid #3c3460; border-radius: 10px; font-size: 14px; line-height: 1.55;
+}
+.dsr-entry.locked { opacity: .5; font-size: 13px; }
+.dsr-ic { flex-shrink: 0; }
+.blg-body { overflow-y: auto; max-height: 460px; display: flex; flex-direction: column; gap: 7px; padding-right: 6px; }
+.blg-row { display: flex; gap: 12px; font-size: 14px; line-height: 1.5; }
+.blg-row b { flex-shrink: 0; width: 74px; text-align: right; }
+.blg-row span { color: #d8d2ea; }
+
+/* ===== 집 내부 사이드스크롤 (v1.9.6 — PDF 배치도: 침실→문→TV→소파→창→테라스) ===== */
+#home-view { position: absolute; top: 90px; bottom: 120px; left: 0; right: 0; overflow: hidden; }
+#home-strip { position: absolute; top: 0; bottom: 0; width: 1760px; transition: transform .1s linear;
+  background: linear-gradient(180deg, #17121f 0%, #241a2e 58%, #171019 58%); }
+#home-strip::before { /* 벽 라인·바닥 */
+  content: ""; position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 118px, #ffffff08 118px 120px),
+    linear-gradient(180deg, transparent 57%, #0d0910 57.5%, transparent 58.5%);
+}
+#home-label { margin-top: 56px; position: relative; z-index: 2; }
+#home-controls { position: absolute; bottom: 30px; left: 0; right: 0; display: flex; justify-content: center; gap: 22px; z-index: 10; }
+.hm-obj { position: absolute; bottom: 108px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.hm-obj span { font-size: 11px; letter-spacing: 1px; color: #8f84b5; }
+/* 캡슐 침대 (크리스) */
+.hm-bed { width: 190px; height: 86px; border-radius: 16px 42px 12px 12px;
+  background: linear-gradient(180deg, #2c2340, #1d1730); border: 2px solid #4a3f68; position: relative; }
+.hm-bed::after { content: ""; position: absolute; top: 10px; left: 14px; right: 40px; height: 30px;
+  border-radius: 10px; background: linear-gradient(90deg, #6fd7ff22, #6fd7ff08); border: 1px solid #6fd7ff33; }
+/* 침실 칸막이 벽 */
+.hm-wall { position: absolute; top: 0; bottom: 0; width: 10px; background: #0e0a14; border-left: 2px solid #3a3054; border-right: 2px solid #3a3054; }
+/* 현관문 */
+.hm-door { width: 84px; height: 176px; border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, #33283f, #241b2e); border: 2px solid #4a3f68; position: relative; }
+.hm-door::after { content: ""; position: absolute; right: 12px; top: 84px; width: 10px; height: 10px; border-radius: 50%; background: #b9a26a; }
+/* 홀로그램 TV */
+.hm-tv { width: 150px; display: flex; flex-direction: column; align-items: center; }
+.hm-tv .tv-screen { width: 150px; height: 84px; border-radius: 8px;
+  background: linear-gradient(180deg, #1a3d4d, #12293b); border: 1px solid #6fd7ff55;
+  box-shadow: 0 0 22px #6fd7ff33; animation: tvflicker 3.4s infinite; position: relative; }
+.hm-tv .tv-screen::after { content: "NEWS"; position: absolute; left: 8px; top: 6px; font-size: 10px; color: #7fe0ff; letter-spacing: 2px; }
+.hm-tv .tv-base { width: 60px; height: 22px; background: #241b2e; border-radius: 0 0 6px 6px; border: 1px solid #4a3f68; }
+@keyframes tvflicker { 0%,100% { opacity: 1; } 92% { opacity: 1; } 95% { opacity: .82; } }
+/* 사진 액자 */
+.hm-photo { width: 60px; height: 44px; background: #2c2340; border: 2px solid #5a4c78; border-radius: 4px; margin-bottom: 130px; }
+/* 소파 (루나의 잠자리) */
+.hm-sofa { width: 200px; height: 74px; position: relative; }
+.hm-sofa::before { content: ""; position: absolute; inset: 0; border-radius: 14px 14px 8px 8px;
+  background: linear-gradient(180deg, #4a2e44, #35203150); border: 2px solid #6a4460; }
+.hm-sofa::after { content: ""; position: absolute; left: -12px; right: -12px; bottom: -4px; height: 30px;
+  border-radius: 10px; background: #3b2438; border: 2px solid #6a4460; }
+/* 쪽지 테이블 */
+.hm-table { width: 74px; height: 44px; background: #2a2036; border: 2px solid #4a3f68; border-radius: 6px 6px 2px 2px; position: relative; }
+.hm-note { position: absolute; top: -14px; left: 24px; font-size: 18px; animation: bob 1.6s ease-in-out infinite; }
+/* 창문 */
+.hm-window { width: 96px; height: 130px; border: 3px solid #4a3f68; border-radius: 6px; margin-bottom: 26px;
+  background: linear-gradient(180deg, #101726, #1c1030); position: relative; }
+.hm-window::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 48%, #4a3f68 48% 52%, transparent 52%),
+              linear-gradient(0deg, transparent 48%, #4a3f68 48% 52%, transparent 52%); }
+/* 테라스 존 — 유리문 너머, 도시 전경 */
+.hm-terrace { position: absolute; top: 0; bottom: 0; left: 1400px; right: 0;
+  background: linear-gradient(180deg, #0d1122 0%, #1a1330 62%, #140d1c 62%); border-left: 4px solid #3a3054; }
+.hm-terrace::before { /* 도시 불빛 */
+  content: ""; position: absolute; left: 20px; right: 10px; top: 60px; height: 160px; opacity: .8;
+  background: repeating-linear-gradient(90deg, #ffd76a18 0 10px, transparent 10px 34px),
+              repeating-linear-gradient(0deg, #e8b4ff10 0 8px, transparent 8px 26px);
+}
+.hm-rail { position: absolute; bottom: 100px; left: 24px; right: 12px; height: 60px;
+  border-top: 4px solid #5a4c78;
+  background: repeating-linear-gradient(90deg, #5a4c78 0 4px, transparent 4px 26px); }
+.hm-tstool { position: absolute; bottom: 108px; width: 34px; height: 30px; background: #35283f; border: 2px solid #5a4c78; border-radius: 6px 6px 2px 2px; }
+.hm-ttable { position: absolute; bottom: 108px; width: 52px; height: 40px; background: #2a2036; border: 2px solid #5a4c78; border-radius: 6px; }
+.hm-ttable::after { content: "🍶"; position: absolute; top: -16px; left: 14px; font-size: 15px; }
+
+/* ===== day1 비 연출 (출근길 — 행인 없는 비 오는 거리) ===== */
+#screen-commute.rain::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: .5;
+  background: repeating-linear-gradient(105deg, transparent 0 22px, #9fb6d422 22px 23px, transparent 23px 46px);
+  animation: rainfall .5s linear infinite;
+}
+#screen-commute.rain::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 6; opacity: .35;
+  background: repeating-linear-gradient(105deg, transparent 0 9px, #cfe3ee2e 9px 10px, transparent 10px 24px);
+  animation: rainfall .34s linear infinite;
+}
+@keyframes rainfall { to { transform: translateY(46px); } }
+
+/* ===== 제조 튜토리얼 코치마크 (v1.9.6) ===== */
+.coach-card {
+  background: linear-gradient(180deg, #2c2450, #221b3e); border: 1px solid #9c86f0;
+  border-radius: 12px; padding: 12px 16px; margin-bottom: 12px;
+  box-shadow: 0 6px 24px #6a4fc955; animation: coachin .3s ease-out;
+  text-align: left;
+}
+.coach-card .coach-head { font-size: 15px; margin-bottom: 6px; color: #e8ddff; }
+.coach-card p { margin: 0 0 10px; font-size: 13px; line-height: 1.6; color: #cfc8e8; }
+@keyframes coachin { from { transform: translateY(-8px); opacity: 0; } }
