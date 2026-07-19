@@ -1,5 +1,6 @@
-// ===== 제조 미니게임 — 플레이어 선택 주도 (메뉴→잔→선반: 집는 대로 기믹 즉시 실행→가니시→판정) =====
-// 레시피(RecipeLines/mix/prep)는 실행 순서가 아니라 '채점 정답'. 기믹은 선반에서 재료·도구를 집는 순간 발동.
+// ===== 제조 미니게임 — 플레이어 선택 주도 (메뉴→잔→선반에 담기→시작→논리적 순서로 기믹 실행→가니시→판정) =====
+// 레시피(RecipeLines/mix/prep)는 실행 순서가 아니라 '채점 정답'. 선반에서 재료·도구를 '담고' 시작을 누르면,
+// 담은 것들이 강제된 순서(개봉→따르기→스퀴즈→파우더→믹스→필업)로 차례차례 실행된다 — 술을 안 따르고 젓는 일은 불가능.
 // 도구: 셰이커=셰이킹 / 믹싱글라스+바스푼=스터 / 따개=병뚜껑(cap)·코르크(cork — 천천히, 급하면 부스러짐)
 // 채점: 칵테일_등급_산출서 §2~3 — 항목 단순 평균, 컷은 balance.grade_cuts
 "use strict";
@@ -92,13 +93,15 @@ const Craft = {
       prepDone: null, corkQuality: 1, opened: {},       // 병 개봉 상태 (cork 병은 따야 따를 수 있음)
     };
     this.pendingBottle = null;
+    this.queue = [];        // 담은 재료·도구 {kind,id} — 시작 누르면 논리적 순서로 실행
+    this.runList = []; this.ri = 0;
     this.notePeeked = false; // 레시피 노트를 본 뒤에만 글로우 가이드 (시뮬레이터 방식)
     this.timeStart = performance.now();
     this.startTimer(c.time_limit_sec);
     this.showGlassSelect();
   },
 
-  // 레시피 노트를 본 상태면 — 필요한 잔/재료가 깜빡인다 (시뮬레이터 glowNeededItems 계승)
+  // 레시피 노트를 본 상태면 — 필요한 잔/재료가 깜빡인다 (아직 안 담은 것만)
   applyGlow() {
     $$("#craft-stage .glow").forEach(x => x.classList.remove("glow"));
     if (!this.notePeeked) return;
@@ -107,19 +110,16 @@ const Craft = {
     $$("#craft-stage .glass-cell").forEach(cell => {
       if (cell.dataset.id === String(c.glass)) cell.classList.add("glow");
     });
-    // 선반 스테이지 — 재료 + 도구까지 안내
-    const a = this.attempt || {};
-    const needed = new Set();
-    c.recipe.forEach(r => {
-      const k = r.action + ":" + r.ingredient;
-      if (!((a.pours || {})[k])) needed.add(k);   // 아직 안 넣은 것만
-    });
-    if (c.fill && !a.fill) needed.add("fill:" + c.fill);
-    if (c.mix === "shake" && a.usedTool !== "shaker") needed.add("tool:shaker");
-    if ((c.mix === "stir" || c.mix === "build") && a.usedTool !== "mixing_glass") needed.add("tool:mixing_glass");
-    if (c.prep && !a.prepDone) needed.add("tool:opener");
+    // 선반 스테이지 — 정답에 필요한 재료·도구 중 아직 큐에 안 담긴 것만 안내
+    const queued = new Set((this.queue || []).map(x => x.kind + ":" + x.id));
+    const need = new Set();
+    c.recipe.forEach(r => need.add(r.action + ":" + r.ingredient));
+    if (c.fill) need.add("fill:" + c.fill);
+    if (c.mix === "shake") need.add("tool:shaker");
+    if (c.mix === "stir" || c.mix === "build") need.add("tool:mixing_glass");
+    if (c.prep) need.add("tool:opener");
     $$("#craft-stage .ing-cell").forEach(cell => {
-      if (needed.has(cell.dataset.key)) cell.classList.add("glow");
+      if (need.has(cell.dataset.key) && !queued.has(cell.dataset.key)) cell.classList.add("glow");
     });
   },
 
@@ -191,48 +191,103 @@ const Craft = {
     this.applyGlow();
   },
 
-  // ---------- 4) 선반 — 집는 대로 기믹이 즉시 실행된다 (플레이어 주도) ----------
-  CORK_BOTTLES: ["red_wine", "champagne"],   // 코르크 병 — 따개로 따야 따를 수 있음
+  // ---------- 4) 선반 — 재료·도구를 '담고' → 시작하면 순서대로 실행 (플레이어 주도) ----------
+  CORK_BOTTLES: ["red_wine", "champagne"],   // 코르크 병 — 따개로 따야 딸 수 있음
 
   lineFor(id, act) { return this.chosen.recipe.find(r => r.ingredient === id && r.action === act); },
 
-  showShelf() {
-    const c = this.chosen, a = this.attempt;
-    const wrap = el("div", "craft-ing");
-    wrap.appendChild(el("h3", "", S.lang === "ko" ? "선반 — 집는 대로 만든다" : "The Shelf — what you grab is what you do"));
+  // 담은 것을 클릭 = 토글 (같은 걸 또 누르면 뺀다). 믹스 도구(셰이커/믹싱글라스)는 서로 배타적
+  toggleQueue(kind, id) {
+    const i = this.queue.findIndex(x => x.kind === kind && x.id === id);
+    if (i >= 0) { this.queue.splice(i, 1); }
+    else {
+      if (kind === "tool" && (id === "shaker" || id === "mixing_glass"))
+        this.queue = this.queue.filter(x => !(x.kind === "tool" && (x.id === "shaker" || x.id === "mixing_glass")));
+      this.queue.push({ kind, id });
+    }
+    this.showShelf();
+  },
 
-    // 지금까지 한 행동 이력
-    const hist = el("div", "craft-hist");
-    const chips = [];
-    Object.keys(a.pours).forEach(k => {
-      const [act, id] = k.split(":");
-      const icon = { pour: "🍾", squeeze: "🍋", powder: "🥄" }[act] || "";
-      chips.push(`${icon} ${T(ingOf(id).name)} ${a.pours[k]}${act === "powder" ? "tsp" : "oz"}`);
-    });
-    if (a.prepDone === "cap") chips.push(S.lang === "ko" ? "🍺 병뚜껑 ✓" : "🍺 cap ✓");
-    if (a.prepDone === "cork") chips.push((S.lang === "ko" ? "🍷 코르크 " : "🍷 cork ") + (a.corkQuality >= 1 ? "✓" : "💥"));
-    if (a.fill) chips.push("⬆ " + T(ingOf(a.fill).name));
-    if (a.usedTool === "shaker") chips.push(`🫨 ×${a.shakeStrokes}`);
-    if (a.usedTool === "mixing_glass") chips.push(`🌀 ×${a.stirTurns.toFixed(1)}`);
-    hist.innerHTML = chips.length ? chips.map(x => `<span class="chip">${x}</span>`).join("")
-      : `<span class="chip dim">${S.lang === "ko" ? "아직 아무것도 안 했다" : "Nothing yet"}</span>`;
-    wrap.appendChild(hist);
+  // 담은 것(queue) → 실제 실행 순서로 변환. 카테고리 순서를 강제 = 따르기 전에 젓는 일이 불가능
+  //   1 개봉 → 2 따르기(베이스 먼저) → 3 스퀴즈 → 4 파우더 → 5 믹스 → 6 필업
+  buildRunList() {
+    const c = this.chosen, q = this.queue;
+    const has = (kind, id) => q.some(x => x.kind === kind && x.id === id);
+    const ids = kind => q.filter(x => x.kind === kind).map(x => x.id);
+    const run = [];
+    if (has("tool", "opener")) {   // 따개를 담았으면 맨 처음 병을 연다
+      const corked = ids("pour").find(id => this.CORK_BOTTLES.includes(id));
+      run.push({ t: "open", prep: (c.prep === "cork" || corked) ? "cork" : "cap",
+                 bottle: corked || (c.recipe.find(r => r.action === "pour") || {}).ingredient });
+    }
+    const isBase = id => (ingOf(id) || {}).category === "base";
+    ids("pour").sort((a, b) => (isBase(a) ? 0 : 1) - (isBase(b) ? 0 : 1))
+      .forEach(id => run.push({ t: "pour", id }));
+    ids("squeeze").forEach(id => run.push({ t: "squeeze", id }));
+    ids("powder").forEach(id => run.push({ t: "powder", id }));
+    const mix = ids("tool").find(id => id === "shaker" || id === "mixing_glass");
+    if (mix) run.push({ t: "mix", tool: mix });
+    ids("fill").forEach(id => run.push({ t: "fill", id }));   // 탄산·믹서는 마지막
+    return run;
+  },
+
+  stepLabel(s) {
+    const ko = S.lang === "ko";
+    const nm = id => T((ingOf(id) || itemOf(id) || { name: { ko: id, en: id } }).name);
+    switch (s.t) {
+      case "open": return s.prep === "cork" ? "🍷 " + (ko ? "코르크 " : "cork ") + nm(s.bottle)
+                                            : "🍺 " + (ko ? "병따기" : "cap");
+      case "pour": return "🍾 " + nm(s.id);
+      case "squeeze": return "🍋 " + nm(s.id);
+      case "powder": return "🥄 " + nm(s.id);
+      case "mix": return s.tool === "shaker" ? "🫨 " + (ko ? "셰이킹" : "shake") : "🌀 " + (ko ? "스터" : "stir");
+      case "fill": return "⬆ " + nm(s.id);
+    }
+    return "";
+  },
+
+  // 큐 미리보기 칩에서 X를 누르면 그 항목을 큐에서 뺀다
+  removeStep(s) {
+    if (s.t === "open") this.queue = this.queue.filter(x => !(x.kind === "tool" && x.id === "opener"));
+    else if (s.t === "mix") this.queue = this.queue.filter(x => !(x.kind === "tool" && x.id === s.tool));
+    else this.queue = this.queue.filter(x => !(x.kind === s.t && x.id === s.id));
+  },
+
+  showShelf() {
+    const c = this.chosen;
+    const wrap = el("div", "craft-ing");
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "선반 — 필요한 재료·도구를 담아라" : "The Shelf — stock what you need"));
+
+    // 담은 것 미리보기 — 탭한 순서가 아니라 '실제 실행될 순서'로 보여준다
+    const tray = el("div", "craft-hist");
+    const run = this.buildRunList();
+    if (!run.length) {
+      tray.innerHTML = `<span class="chip dim">${S.lang === "ko" ? "아직 담은 게 없다" : "Nothing stocked yet"}</span>`;
+    } else {
+      run.forEach((s, i) => {
+        const chip = el("span", "chip rm", `${i + 1}. ${this.stepLabel(s)} ✕`);
+        chip.addEventListener("click", () => { this.removeStep(s); this.showShelf(); });
+        tray.appendChild(chip);
+      });
+    }
+    wrap.appendChild(tray);
 
     const grid = el("div", "ing-grid");
+    const queued = new Set(this.queue.map(x => x.kind + ":" + x.id));
     const ingCell = (ing, key, onClick) => {
-      const cell = el("div", "ing-cell");
+      const cell = el("div", "ing-cell" + (queued.has(key) ? " sel" : ""));
       cell.dataset.key = key;
       const color = ing.color ? `background:linear-gradient(180deg,transparent 30%,rgba(${ing.color},.75) 30%)` : "";
       cell.innerHTML = `<div class="ing-bottle" style="${color}"></div><span>${T(ing.name)}</span>`;
       cell.addEventListener("click", onClick);
       return cell;
     };
-    const section = (label, ings, keyOf, onPick) => {
+    const section = (label, ings, keyOf, kind) => {
+      if (!ings.length) return;
       grid.appendChild(el("div", "ing-group-label", label));
       const row = el("div", "ing-row");
-      ings.forEach(ing => row.appendChild(ingCell(ing, keyOf(ing), () => onPick(ing))));
+      ings.forEach(ing => row.appendChild(ingCell(ing, keyOf(ing), () => this.toggleQueue(kind, ing.id))));
       grid.appendChild(row);
-      return row;
     };
 
     // 선반 재료 = 해금분 + 대본 지정 레시피의 잠긴 재료 (스토리가 시키는 잔은 재료도 꺼내준다)
@@ -242,45 +297,26 @@ const Craft = {
     const shelfIngs = avail.concat(
       DATA.master.ingredients.filter(i => needIds.has(i.id) && !avail.some(x => x.id === i.id)));
 
-    // 따르기 재료 (코르크 병은 따기 전엔 잠김)
     section(S.lang === "ko" ? "따르기" : "Pour",
       shelfIngs.filter(i => ["base", "liqueur", "juice", "dairy", "wine_beer", "syrup"].includes(i.category)),
-      i => "pour:" + i.id,
-      ing => {
-        if (this.CORK_BOTTLES.includes(ing.id) && !a.opened[ing.id]) {
-          this.pendingBottle = ing.id;
-          toast(S.lang === "ko" ? "🔒 코르크가 닫혀 있다 — 따개를 집자" : "🔒 Corked — grab the opener");
-          this.applyGlow();
-          return;
-        }
-        this.pourGimmick({ id: ing.id, target: (this.lineFor(ing.id, "pour") || {}).qty || 0, unit: (this.lineFor(ing.id, "pour") || {}).unit || "oz" });
-      });
+      i => "pour:" + i.id, "pour");
     section(S.lang === "ko" ? "스퀴즈" : "Squeeze",
-      shelfIngs.filter(i => i.category === "fruit"), i => "squeeze:" + i.id,
-      ing => this.squeezeGimmick({ id: ing.id, target: (this.lineFor(ing.id, "squeeze") || {}).qty || 0, unit: "oz" }));
+      shelfIngs.filter(i => i.category === "fruit"), i => "squeeze:" + i.id, "squeeze");
     section(S.lang === "ko" ? "파우더" : "Powder",
-      shelfIngs.filter(i => i.category === "powder"), i => "powder:" + i.id,
-      ing => this.tapGimmick({ id: ing.id, target: (this.lineFor(ing.id, "powder") || {}).qty || 0, unit: "tsp" }));
+      shelfIngs.filter(i => i.category === "powder"), i => "powder:" + i.id, "powder");
     section(S.lang === "ko" ? "필업 (잔 채우기)" : "Fill-up",
-      shelfIngs.filter(i => i.category === "mixer"), i => "fill:" + i.id,
-      ing => this.fillGimmick({ id: ing.id }));
+      shelfIngs.filter(i => i.category === "mixer"), i => "fill:" + i.id, "fill");
 
-    // 바텐더 도구 — 집는 순간 그 기믹
+    // 바텐더 도구 — 담아두면 순서에 맞춰 실행 (믹스 도구는 재료를 다 넣은 뒤에 돈다)
     grid.appendChild(el("div", "ing-group-label", S.lang === "ko" ? "바텐더 도구" : "Bartender Tools"));
     const toolRow = el("div", "ing-row");
     const TOOL_ICON = { shaker: "🫨", mixing_glass: "🌀", opener: "🍾" };
     DATA.master.items.filter(i => i.type === "tool").forEach(t => {
-      const cell = el("div", "ing-cell tool-cell");
-      cell.dataset.key = "tool:" + t.id;
+      const key = "tool:" + t.id;
+      const cell = el("div", "ing-cell tool-cell" + (queued.has(key) ? " sel" : ""));
+      cell.dataset.key = key;
       cell.innerHTML = `<div class="tool-icon">${TOOL_ICON[t.id] || "🛠"}</div><span>${T(t.name)}</span>`;
-      cell.addEventListener("click", () => {
-        if (t.id === "shaker") this.shakeGimmick();
-        else if (t.id === "mixing_glass") this.stirGimmick();
-        else if (t.id === "opener") {
-          if (this.pendingBottle) this.corkGimmick(this.pendingBottle);
-          else this.capGimmick();
-        }
-      });
+      cell.addEventListener("click", () => this.toggleQueue("tool", t.id));
       toolRow.appendChild(cell);
     });
     grid.appendChild(toolRow);
@@ -288,16 +324,43 @@ const Craft = {
 
     const btns = el("div", "btn-row");
     btns.appendChild(this.noteButton());
-    const done = el("button", "btn primary", S.lang === "ko" ? "완성 ▶" : "Finish ▶");
-    done.addEventListener("click", () => this.garnishInfo());
-    btns.appendChild(done);
+    const start = el("button", "btn primary", S.lang === "ko" ? "제조 시작 ▶" : "Start ▶");
+    start.addEventListener("click", () => this.startRun());
+    btns.appendChild(start);
     wrap.appendChild(btns);
     this.setStage(wrap);
     this.applyGlow();
   },
 
-  // 기믹 하나가 끝나면 선반으로 복귀
-  afterGimmick() { this.showShelf(); },
+  // 시작 — 담은 것을 순서대로 실행. 병(코르크/뚜껑)을 담았으면 따개도 있어야 한다
+  startRun() {
+    const c = this.chosen;
+    if (!this.queue.length) { toast(S.lang === "ko" ? "먼저 재료를 담아라" : "Stock something first"); return; }
+    const corkedQueued = this.queue.some(x => x.kind === "pour" && this.CORK_BOTTLES.includes(x.id));
+    const hasOpener = this.queue.some(x => x.kind === "tool" && x.id === "opener");
+    if ((c.prep || corkedQueued) && !hasOpener) {
+      toast(S.lang === "ko" ? "🔒 병을 열 '따개'를 담아야 한다" : "🔒 You need the opener to open the bottle");
+      return;
+    }
+    this.runList = this.buildRunList();
+    this.ri = 0;
+    this.runNext();
+  },
+
+  // 큐의 다음 기믹을 실행. 각 기믹이 끝나면 afterGimmick()→runNext()로 이어진다
+  runNext() {
+    if (this.ri >= this.runList.length) return this.garnishInfo();
+    const s = this.runList[this.ri++];
+    if (s.t === "open") { s.prep === "cork" ? this.corkGimmick(s.bottle) : this.capGimmick(); return; }
+    if (s.t === "pour") { const ln = this.lineFor(s.id, "pour") || {}; this.pourGimmick({ id: s.id, target: ln.qty || 0, unit: ln.unit || "oz" }); return; }
+    if (s.t === "squeeze") { const ln = this.lineFor(s.id, "squeeze") || {}; this.squeezeGimmick({ id: s.id, target: ln.qty || 0, unit: "oz" }); return; }
+    if (s.t === "powder") { const ln = this.lineFor(s.id, "powder") || {}; this.tapGimmick({ id: s.id, target: ln.qty || 0, unit: "tsp" }); return; }
+    if (s.t === "mix") { s.tool === "shaker" ? this.shakeGimmick() : this.stirGimmick(); return; }
+    if (s.t === "fill") { this.fillGimmick({ id: s.id }); return; }
+  },
+
+  // 기믹 하나가 끝나면 다음 기믹으로 (큐 소진 시 가니시로)
+  afterGimmick() { this.runNext(); },
 
   // 따르기 — 시뮬레이터 방식: 자동으로 흘러나오고, 타이밍에 맞춰 탭하면 딱 멈춤
   pourGimmick(g) {
