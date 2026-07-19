@@ -1,6 +1,8 @@
-// ===== 제조 미니게임 — 플레이어 선택 주도 (메뉴→잔→선반에 담기→시작→논리적 순서로 기믹 실행→가니시→판정) =====
-// 레시피(RecipeLines/mix/prep)는 실행 순서가 아니라 '채점 정답'. 선반에서 재료·도구를 '담고' 시작을 누르면,
-// 담은 것들이 강제된 순서(개봉→따르기→스퀴즈→파우더→믹스→필업)로 차례차례 실행된다 — 술을 안 따르고 젓는 일은 불가능.
+// ===== 제조 미니게임 — 플레이어 선택 주도 (v1.9: 선반 4단계) =====
+//   메뉴 → ①잔 선반 → ②도구 선반 → ③가니시 선반 → ④재료 선반 → [제조 시작] → 기믹 실행 → 완성 → 판정
+//   각 선반에서 ◀이전으로 돌아가 다시 고를 수 있다 (제한 시간은 계속 흐른다).
+// 레시피(RecipeLines/mix/prep/garnish)는 실행 순서가 아니라 '채점 정답'. 담은 것들이 강제된 순서
+// (개봉→따르기→스퀴즈→파우더→믹스→필업)로 차례차례 실행된다 — 술을 안 따르고 젓는 일은 불가능.
 // 도구: 셰이커=셰이킹 / 믹싱글라스+바스푼=스터 / 따개=병뚜껑(cap)·코르크(cork — 천천히, 급하면 부스러짐)
 // 채점: 칵테일_등급_산출서 §2~3 — 항목 단순 평균, 컷은 balance.grade_cuts
 "use strict";
@@ -88,8 +90,8 @@ const Craft = {
     this.chosen = c;
     this.isCorrect = this.target ? (c.id === this.target) : true;
     this.attempt = {
-      glass: null, pours: {}, fill: null,
-      usedTool: null, stirTurns: 0, shakeStrokes: 0,   // 도구는 플레이어가 선반에서 집는다
+      glass: null, garnish: null, pours: {}, fill: null,   // 잔·가니시도 플레이어가 선반에서 고른다 (v1.9)
+      usedTool: null, stirTurns: 0, shakeStrokes: 0,
       prepDone: null, corkQuality: 1, opened: {},       // 병 개봉 상태 (cork 병은 따야 따를 수 있음)
     };
     this.pendingBottle = null;
@@ -98,6 +100,7 @@ const Craft = {
     this.notePeeked = false; // 레시피 노트를 본 뒤에만 글로우 가이드 (시뮬레이터 방식)
     this.timeStart = performance.now();
     this.startTimer(c.time_limit_sec);
+    this.slot = 0;
     this.showGlassSelect();
   },
 
@@ -106,9 +109,12 @@ const Craft = {
     $$("#craft-stage .glow").forEach(x => x.classList.remove("glow"));
     if (!this.notePeeked) return;
     const c = this.chosen;
-    // 잔 선택 스테이지
+    // 잔·가니시 선택 스테이지 (정답 없음 = "없음" 칸이 정답)
     $$("#craft-stage .glass-cell").forEach(cell => {
       if (cell.dataset.id === String(c.glass)) cell.classList.add("glow");
+    });
+    $$("#craft-stage .garnish-cell").forEach(cell => {
+      if (cell.dataset.id === String(c.garnish)) cell.classList.add("glow");
     });
     // 선반 스테이지 — 정답에 필요한 재료·도구 중 아직 큐에 안 담긴 것만 안내
     const queued = new Set((this.queue || []).map(x => x.kind + ":" + x.id));
@@ -134,30 +140,148 @@ const Craft = {
   },
   elapsed() { return (performance.now() - this.timeStart) / 1000; },
 
-  // ---------- 3) 잔 선택 ----------
+  // ---------- 3) 선반 4단계: 잔 → 도구 → 가니시 → 재료 (v1.9) ----------
+  // 각 화면은 그 종류가 진열된 '선반'이고, ◀이전으로 돌아가 다시 고를 수 있다.
+  // 되돌아가도 제한 시간은 계속 흐른다 — 무한정 고민하는 걸 막기 위해.
+  // 선반 슬롯 — ◀▶로 좌우 이동. 마지막 슬롯에서만 '제조 시작'이 뜬다.
+  SLOTS: [
+    { key: "glass",   icon: "🥃", ui: "ui_shelf_glass",   show: "showGlassSelect" },
+    { key: "tool",    icon: "🛠", ui: "ui_shelf_tool",    show: "showToolSelect" },
+    { key: "garnish", icon: "🌿", ui: "ui_shelf_garnish", show: "showGarnishSelect" },
+    { key: "ing",     icon: "🍾", ui: "ui_shelf_ing",     show: "showShelf" },
+  ],
+  slot: 0,
+
+  goSlot(i) {
+    if (i < 0 || i >= this.SLOTS.length) return;
+    this.slot = i;
+    this[this.SLOTS[i].show]();
+  },
+
+  // 상단 슬롯 인디케이터 — 지금 몇 번 선반인지 + 직접 점프
+  slotBar() {
+    const bar = el("div", "slot-bar");
+    this.SLOTS.forEach((sl, i) => {
+      const tab = el("div", "slot-tab" + (i === this.slot ? " on" : ""),
+        `${sl.icon} ${UI(sl.ui)}`);
+      tab.addEventListener("click", () => this.goSlot(i));
+      bar.appendChild(tab);
+    });
+    return bar;
+  },
+
+  // 좌우 이동 버튼 — 왼쪽=이전 선반, 오른쪽=다음 선반. 마지막 칸은 '제조 시작'
+  slotNav() {
+    const row = el("div", "slot-nav");
+    const prev = el("button", "btn slot-arrow" + (this.slot === 0 ? " off" : ""), "◀");
+    prev.addEventListener("click", () => this.slot > 0 ? this.goSlot(this.slot - 1) : this.showMenu());
+    prev.title = this.slot === 0 ? (S.lang === "ko" ? "메뉴로" : "Back to menu")
+                                 : UI(this.SLOTS[this.slot - 1].ui);
+    row.appendChild(prev);
+    row.appendChild(this.noteButton());
+    const last = this.slot === this.SLOTS.length - 1;
+    if (last) {
+      const go = el("button", "btn primary", S.lang === "ko" ? "제조 시작 ▶" : "Start ▶");
+      go.addEventListener("click", () => this.startRun());
+      row.appendChild(go);
+    } else {
+      const next = el("button", "btn slot-arrow", "▶");
+      next.title = UI(this.SLOTS[this.slot + 1].ui);
+      next.addEventListener("click", () => this.goSlot(this.slot + 1));
+      row.appendChild(next);
+    }
+    return row;
+  },
+
+  // ── 3-1) 잔 선반 ──
   showGlassSelect() {
     const wrap = el("div", "craft-glass");
-    wrap.appendChild(el("h3", "", S.lang === "ko" ? "잔 선택" : "Choose a Glass"));
+    wrap.appendChild(this.slotBar());
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "잔 선반 — 잔을 고른다" : "Glass Shelf"));
     if (this.tutorial) wrap.appendChild(el("p", "hint", S.lang === "ko" ? "💡 레시피 노트가 정답 잔을 알려준다" : "💡 The recipe note shows the right glass"));
     const grid = el("div", "glass-grid");
-    DATA.master.items.filter(i => i.type === "glass").forEach(g => {
-      const cell = el("div", "glass-cell");
+    const pick = (id, cell) => {
+      this.attempt.glass = id;
+      $$("#craft-stage .glass-cell").forEach(x => x.classList.remove("sel"));
+      cell.classList.add("sel");
+    };
+    unlockedShelf("glass").forEach(g => {
+      const cell = el("div", "glass-cell" + (this.attempt.glass === g.id ? " sel" : ""));
       cell.dataset.id = g.id;
       cell.innerHTML = `${glassSVG(g.id, null, 0)}<span>${T(g.name)}</span>`;
-      cell.addEventListener("click", () => { this.attempt.glass = g.id; this.showShelf(); });
+      cell.addEventListener("click", () => pick(g.id, cell));
       grid.appendChild(cell);
     });
     // 병맥주(잔 없음) 대응 — "잔 없이(병째)" 선택지
-    const none = el("div", "glass-cell");
+    const none = el("div", "glass-cell" + (this.attempt.glass === null ? " sel" : ""));
     none.dataset.id = "null";
     none.innerHTML = `${glassSVG("bottle", null, 0)}<span>${S.lang === "ko" ? "병째로" : "In the bottle"}</span>`;
-    none.addEventListener("click", () => { this.attempt.glass = null; this.showShelf(); });
+    none.addEventListener("click", () => pick(null, none));
     grid.appendChild(none);
     wrap.appendChild(grid);
-    wrap.appendChild(this.noteButton());
+    wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
     if (this.tutorial) this.openNote();
+  },
+
+  // ── 3-2) 도구 선반 ── (담아두면 실행 순서에 맞춰 알아서 돈다)
+  showToolSelect() {
+    const wrap = el("div", "craft-ing");
+    wrap.appendChild(this.slotBar());
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "도구 선반 — 쓸 도구를 담는다" : "Tool Shelf"));
+    wrap.appendChild(el("p", "hint", S.lang === "ko"
+      ? "담아두면 순서에 맞춰 실행된다 — 믹스는 재료를 다 넣은 뒤에 돈다"
+      : "Stocked tools run in the right order — mixing happens after all pours"));
+    const grid = el("div", "ing-grid");
+    const row = el("div", "ing-row");
+    const queued = new Set(this.queue.filter(x => x.kind === "tool").map(x => x.id));
+    const TOOL_ICON = { shaker: "🫨", mixing_glass: "🌀", opener: "🍾" };
+    unlockedShelf("tool").forEach(t => {
+      const cell = el("div", "ing-cell tool-cell" + (queued.has(t.id) ? " sel" : ""));
+      cell.dataset.key = "tool:" + t.id;
+      cell.innerHTML = `<div class="tool-icon">${TOOL_ICON[t.id] || "🛠"}</div><span>${T(t.name)}</span>`;
+      cell.addEventListener("click", () => this.toggleQueue("tool", t.id));
+      row.appendChild(cell);
+    });
+    grid.appendChild(row);
+    wrap.appendChild(grid);
+    const picked = [...queued].map(id => T(shelfOf(id).name)).join(", ");
+    wrap.appendChild(el("p", "hint", (S.lang === "ko" ? "담은 도구: " : "Stocked: ") +
+      (picked || (S.lang === "ko" ? "없음 (도구 없이 진행)" : "none"))));
+    wrap.appendChild(this.slotNav());
+    this.setStage(wrap);
+    this.applyGlow();
+  },
+
+  // ── 3-3) 가니시 선반 ── (v1.9: 비인터랙티브 연출 → 플레이어 선택·채점 대상)
+  showGarnishSelect() {
+    const wrap = el("div", "craft-glass");
+    wrap.appendChild(this.slotBar());
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "가니시 선반 — 장식을 고른다" : "Garnish Shelf"));
+    const grid = el("div", "glass-grid");
+    const pick = (id, cell) => {
+      this.attempt.garnish = id;
+      $$("#craft-stage .garnish-cell").forEach(x => x.classList.remove("sel"));
+      cell.classList.add("sel");
+    };
+    // "없음"도 하나의 선택 — 가니시 없는 칵테일인지 스스로 판단해야 한다(정답 힌트를 주지 않는다)
+    const none = el("div", "glass-cell garnish-cell" + (this.attempt.garnish === null ? " sel" : ""));
+    none.dataset.id = "null";
+    none.innerHTML = `<div class="tool-icon">🚫</div><span>${S.lang === "ko" ? "없음" : "None"}</span>`;
+    none.addEventListener("click", () => pick(null, none));
+    grid.appendChild(none);
+    unlockedShelf("garnish").forEach(g => {
+      const cell = el("div", "glass-cell garnish-cell" + (this.attempt.garnish === g.id ? " sel" : ""));
+      cell.dataset.id = g.id;
+      cell.innerHTML = `<div class="tool-icon">🌿</div><span>${T(g.name)}</span>`;
+      cell.addEventListener("click", () => pick(g.id, cell));
+      grid.appendChild(cell);
+    });
+    wrap.appendChild(grid);
+    wrap.appendChild(this.slotNav());
+    this.setStage(wrap);
+    this.applyGlow();
   },
 
   noteButton() {
@@ -205,7 +329,7 @@ const Craft = {
         this.queue = this.queue.filter(x => !(x.kind === "tool" && (x.id === "shaker" || x.id === "mixing_glass")));
       this.queue.push({ kind, id });
     }
-    this.showShelf();
+    this.goSlot(this.slot);
   },
 
   // 담은 것(queue) → 실제 실행 순서로 변환. 카테고리 순서를 강제 = 따르기 전에 젓는 일이 불가능
@@ -256,7 +380,8 @@ const Craft = {
   showShelf() {
     const c = this.chosen;
     const wrap = el("div", "craft-ing");
-    wrap.appendChild(el("h3", "", S.lang === "ko" ? "선반 — 필요한 재료·도구를 담아라" : "The Shelf — stock what you need"));
+    wrap.appendChild(this.slotBar());
+    wrap.appendChild(el("h3", "", S.lang === "ko" ? "재료 선반 — 넣을 재료를 담는다" : "Ingredient Shelf"));
 
     // 담은 것 미리보기 — 탭한 순서가 아니라 '실제 실행될 순서'로 보여준다
     const tray = el("div", "craft-hist");
@@ -266,7 +391,7 @@ const Craft = {
     } else {
       run.forEach((s, i) => {
         const chip = el("span", "chip rm", `${i + 1}. ${this.stepLabel(s)} ✕`);
-        chip.addEventListener("click", () => { this.removeStep(s); this.showShelf(); });
+        chip.addEventListener("click", () => { this.removeStep(s); this.goSlot(this.slot); });
         tray.appendChild(chip);
       });
     }
@@ -295,7 +420,7 @@ const Craft = {
     const needIds = new Set(c.recipe.map(r => r.ingredient));
     if (c.fill) needIds.add(c.fill);
     const shelfIngs = avail.concat(
-      DATA.master.ingredients.filter(i => needIds.has(i.id) && !avail.some(x => x.id === i.id)));
+      shelfKind("ingredient").filter(i => needIds.has(i.id) && !avail.some(x => x.id === i.id)));
 
     section(S.lang === "ko" ? "따르기" : "Pour",
       shelfIngs.filter(i => ["base", "liqueur", "juice", "dairy", "wine_beer", "syrup"].includes(i.category)),
@@ -307,27 +432,15 @@ const Craft = {
     section(S.lang === "ko" ? "필업 (잔 채우기)" : "Fill-up",
       shelfIngs.filter(i => i.category === "mixer"), i => "fill:" + i.id, "fill");
 
-    // 바텐더 도구 — 담아두면 순서에 맞춰 실행 (믹스 도구는 재료를 다 넣은 뒤에 돈다)
-    grid.appendChild(el("div", "ing-group-label", S.lang === "ko" ? "바텐더 도구" : "Bartender Tools"));
-    const toolRow = el("div", "ing-row");
-    const TOOL_ICON = { shaker: "🫨", mixing_glass: "🌀", opener: "🍾" };
-    DATA.master.items.filter(i => i.type === "tool").forEach(t => {
-      const key = "tool:" + t.id;
-      const cell = el("div", "ing-cell tool-cell" + (queued.has(key) ? " sel" : ""));
-      cell.dataset.key = key;
-      cell.innerHTML = `<div class="tool-icon">${TOOL_ICON[t.id] || "🛠"}</div><span>${T(t.name)}</span>`;
-      cell.addEventListener("click", () => this.toggleQueue("tool", t.id));
-      toolRow.appendChild(cell);
-    });
-    grid.appendChild(toolRow);
     wrap.appendChild(grid);
+    // 도구는 ② 도구 선반에서 이미 골랐다 — 여기선 무엇을 담았는지만 알려준다
+    const tools = this.queue.filter(x => x.kind === "tool").map(x => T(shelfOf(x.id).name));
+    wrap.appendChild(el("p", "hint", (S.lang === "ko" ? "🛠 담은 도구: " : "🛠 Tools: ") +
+      (tools.join(", ") || (S.lang === "ko" ? "없음" : "none")) +
+      (S.lang === "ko" ? " · 🌿 가니시: " : " · 🌿 Garnish: ") +
+      (this.attempt.garnish ? T(shelfOf(this.attempt.garnish).name) : (S.lang === "ko" ? "없음" : "none"))));
 
-    const btns = el("div", "btn-row");
-    btns.appendChild(this.noteButton());
-    const start = el("button", "btn primary", S.lang === "ko" ? "제조 시작 ▶" : "Start ▶");
-    start.addEventListener("click", () => this.startRun());
-    btns.appendChild(start);
-    wrap.appendChild(btns);
+    wrap.appendChild(this.slotNav());
     this.setStage(wrap);
     this.applyGlow();
   },
@@ -335,7 +448,9 @@ const Craft = {
   // 시작 — 담은 것을 순서대로 실행. 병(코르크/뚜껑)을 담았으면 따개도 있어야 한다
   startRun() {
     const c = this.chosen;
-    if (!this.queue.length) { toast(S.lang === "ko" ? "먼저 재료를 담아라" : "Stock something first"); return; }
+    if (!this.queue.some(x => x.kind !== "tool")) {
+      toast(S.lang === "ko" ? "재료를 하나도 담지 않았다" : "No ingredients stocked"); return;
+    }
     const corkedQueued = this.queue.some(x => x.kind === "pour" && this.CORK_BOTTLES.includes(x.id));
     const hasOpener = this.queue.some(x => x.kind === "tool" && x.id === "opener");
     if ((c.prep || corkedQueued) && !hasOpener) {
@@ -644,16 +759,16 @@ const Craft = {
     });
   },
 
-  // ---------- 6) 가니시 설명 화면 (비인터랙티브 — §3.6) ----------
+  // ---------- 6) 완성 화면 — 플레이어가 '고른' 가니시로 장식된다 (v1.9)
+  // 정답 가니시가 아니라 선택한 가니시를 보여준다. 맞았는지는 판정 화면에서 알게 된다.
   garnishInfo() {
-    const c = this.chosen;
-    if (!c.garnish) return this.score();
-    const g = itemOf(c.garnish);
+    const c = this.chosen, picked = this.attempt.garnish;
     const wrap = el("div", "gimmick garnish-info");
-    wrap.innerHTML = `<h3>🌿 ${S.lang === "ko" ? "가니시" : "Garnish"}</h3>
-      <div class="pour-visual dim">${glassSVG(c.glass || "bottle", c.color, 0.85)}</div>
-      <p>${S.lang === "ko" ? `완성된 음료를 잔에 따른 후 아래의 재료로 장식합니다.` : `The finished drink is garnished with:`}</p>
-      <p class="garnish-name">— ${T(g.name)}</p>
+    const gname = picked ? T(shelfOf(picked).name) : (S.lang === "ko" ? "장식 없이" : "no garnish");
+    wrap.innerHTML = `<h3>🌿 ${S.lang === "ko" ? "완성" : "Finished"}</h3>
+      <div class="pour-visual">${glassSVG(this.attempt.glass || "bottle", c.color, 0.85)}</div>
+      <p>${S.lang === "ko" ? "잔에 옮겨 담고 장식을 올린다." : "Poured into the glass and garnished."}</p>
+      <p class="garnish-name">— ${gname}</p>
       <button class="btn primary">${UI("ui_next")} ▶</button>`;
     this.setStage(wrap);
     wrap.querySelector("button").addEventListener("click", () => this.score());
@@ -703,6 +818,13 @@ const Craft = {
     if (c.fill) {
       const ok = a.fill === c.fill;
       add(S.lang === "ko" ? "필업" : "Fill", ok ? 1 : 0, ok ? "✓" : "✗");
+    }
+    // 가니시 — v1.9부터 플레이어가 고르는 채점 항목 (정답이 '없음'인 칵테일은 없음을 골라야 맞다)
+    {
+      const want = c.garnish || null, got = a.garnish || null;
+      const ok = want === got;
+      add(S.lang === "ko" ? "가니시" : "Garnish", ok ? 1 : 0,
+        ok ? "✓" : (got ? T(shelfOf(got).name) : (S.lang === "ko" ? "없음" : "none")));
     }
     // 불필요 행동 — 레시피에 없는 투입 / 안 쓰는 도구 / 안 따도 되는 병 (건당 -50%)
     const needKeys = new Set(c.recipe.map(r => r.action + ":" + r.ingredient));

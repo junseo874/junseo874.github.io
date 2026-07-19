@@ -482,3 +482,45 @@ html, body {
 .rt-order { color:#ffb400; font-weight:600; }
 .rt-name  { color:#7fd8ff; }
 .rt-world { color:#ff8ab8; }
+
+/* ===== 개점 간판 (v1.9) — 플레이어가 걸어야 1부 시작 ===== */
+.ov-open {
+  position: fixed; inset: 0; z-index: 60; display: flex;
+  align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at center, #0d0a18cc, #05030be6);
+  opacity: 0; transition: opacity .35s ease; pointer-events: none;
+}
+.ov-open.show { opacity: 1; pointer-events: auto; }
+.open-wrap { text-align: center; }
+.open-sign { cursor: pointer; display: inline-block; transform-origin: 50% 0; animation: signsway 3.2s ease-in-out infinite; }
+.open-sign:hover .sign-plate { box-shadow: 0 0 26px #ffd76a66; border-color: #ffd76a; }
+.sign-rope { width: 2px; height: 34px; margin: 0 auto; background: linear-gradient(#7a6a4a, #4a3f2c); }
+.sign-plate {
+  width: 210px; padding: 22px 0; border-radius: 8px;
+  background: linear-gradient(180deg, #2a2140, #1a1430);
+  border: 2px solid #6a5a44; transition: box-shadow .25s, border-color .25s, background .4s;
+}
+.sign-text { font-size: 30px; font-weight: 800; letter-spacing: 4px; color: #8a8098; }
+.open-sign.flip { animation: signflip .42s ease-in-out; }
+.open-sign.open .sign-plate { background: linear-gradient(180deg, #1d3a2a, #12281d); border-color: #56c98a; box-shadow: 0 0 34px #56c98a55; }
+.open-sign.open .sign-text { color: #7df0ae; text-shadow: 0 0 14px #56c98a88; }
+.open-hint { margin-top: 18px; color: #cfc8e8; font-size: 13px; opacity: .85; }
+@keyframes signsway { 0%,100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+@keyframes signflip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
+
+/* ===== 제조 선반 슬롯 (v1.9) — ◀▶로 잔·도구·가니시·재료 선반 이동 ===== */
+.slot-bar { display: flex; gap: 6px; justify-content: center; margin-bottom: 12px; }
+.slot-tab {
+  flex: 1; max-width: 118px; text-align: center; cursor: pointer;
+  padding: 7px 4px; border-radius: 8px; font-size: 12px;
+  background: #1d1733; border: 1px solid #3c3460; color: #8b82ab;
+  transition: background .18s, border-color .18s, color .18s;
+}
+.slot-tab:hover { background: #272046; color: #cfc8e8; }
+.slot-tab.on {
+  background: #3a2f66; border-color: #9c86f0; color: #f0ebff; font-weight: bold;
+  box-shadow: 0 0 12px #6a4fc955;
+}
+.slot-nav { display: flex; gap: 12px; justify-content: center; align-items: center; margin-top: 16px; }
+.slot-arrow { font-size: 20px; padding: 9px 22px; line-height: 1; }
+.slot-arrow.off { opacity: .55; }

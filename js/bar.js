@@ -239,16 +239,17 @@ const Bar = {
     await sleep(1200);
     if (!g.isCorrect) { say(bark(g.voice, "wrong_drink")); await sleep(1400); }
 
+    // 정산 = balance.grade_payout 표대로 (v1.9). revenue_mult 음수 = 배상.
+    // sewage와 오제조만 배상(-1.0), poor는 배상 없이 팁만 없음.
     const price = r.cocktail.price;
     const pers = DATA.master.personalities.find(p => p.id === g.personality);
-    let revenue, tip = 0, positive;
-    if (!g.isCorrect || r.grade === "sewage") { revenue = -price; positive = false; }
-    else {
-      revenue = price;
-      const rate = DATA.balance.tip_rates[r.grade] || 1;
-      tip = Math.max(0, Math.round(price * (rate - 1) * (pers ? pers.tip_mult : 1)));
-      positive = true;
-    }
+    const pay = (DATA.balance.grade_payout || {})[r.grade] || { revenue_mult: 1, tip_mult: 0 };
+    const revMult = g.isCorrect ? pay.revenue_mult
+                                : (DATA.balance.config.wrong_cocktail_revenue_mult ?? -1);
+    const revenue = Math.round(price * revMult);
+    const tip = g.isCorrect
+      ? Math.max(0, Math.round(price * pay.tip_mult * (pers ? pers.tip_mult : 1))) : 0;
+    const positive = revenue >= 0 && g.isCorrect;
     S.gold += revenue + tip;
     S.today.sales += revenue; S.today.tips += tip;
     const repD = positive ? (r.grade === "excellent" ? 2 : r.grade === "good" ? 1 : 0) : -2;

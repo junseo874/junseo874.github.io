@@ -35,20 +35,24 @@ function UI(key) { const u = DATA.master.ui_strings[key]; return u ? T(u) : key;
 // ---------- 데이터 조회 ----------
 function charOf(id) { return DATA.master.characters.find(c => c.id === id); }
 function cocktailOf(id) { return DATA.master.cocktails.find(c => c.id === id); }
-function ingOf(id) { return DATA.master.ingredients.find(i => i.id === id); }
-function itemOf(id) { return DATA.master.items.find(i => i.id === id); }
+// v1.9: 재료·잔·도구·가니시가 shelf_items 한 테이블 — kind가 어느 선반 화면에 놓일지를 결정
+function shelfOf(id) { return DATA.master.shelf_items.find(x => x.id === id); }
+const ingOf = shelfOf, itemOf = shelfOf;          // 하위호환 별칭 (같은 테이블을 본다)
+function shelfKind(kind) { return DATA.master.shelf_items.filter(x => x.kind === kind); }
 function dayMeta(d) { return DATA.schedule.days.find(x => x.day === d); }
 function unlockedCocktails() {
   return DATA.master.cocktails.filter(c =>
     (c.unlock_day <= S.day || S.extraRecipes.includes(c.id)) &&
     (!c.unlock_when || evalWhen(c.unlock_when)));
 }
-function unlockedIngredients() {
-  // unlock_day(일차 해금) AND unlock_when(조건부 해금 — 퀘스트 전용 재료는 day 99 + when)
-  return DATA.master.ingredients.filter(i =>
+// unlock_day(일차 해금) AND unlock_when(조건부 해금 — 퀘스트 전용은 day 99 + when)
+function unlockedShelf(kind) {
+  return DATA.master.shelf_items.filter(i =>
+    (!kind || i.kind === kind) &&
     (i.unlock_day <= S.day || (i.unlock_when && evalWhen(i.unlock_when))) &&
     (!i.unlock_when || evalWhen(i.unlock_when)));
 }
+function unlockedIngredients() { return unlockedShelf("ingredient"); }
 function scriptOf(day) { return DATA.scripts[String(day)]; }
 function scenesFor(day, phase, trigger) {
   const sc = scriptOf(day); if (!sc) return [];
@@ -228,6 +232,44 @@ async function phaseBanner(title, sub) {
   b.classList.remove("show");
   await sleep(300);
 }
+// 개점 간판 — 플레이어가 직접 걸어야 1부가 시작된다 (v1.9)
+// 개점 전 대화가 끝난 뒤 호출. 간판을 누를 때까지 기다린다(자동 시작 금지).
+function openSign() {
+  return new Promise(resolve => {
+    const ov = el("div", "ov-open show");
+    ov.innerHTML = `
+      <div class="open-wrap">
+        <div class="open-sign closed">
+          <div class="sign-rope"></div>
+          <div class="sign-plate">
+            <span class="sign-text">${UI("ui_closed_sign")}</span>
+          </div>
+        </div>
+        <p class="open-hint">${UI("ui_open_hint")}</p>
+      </div>`;
+    document.body.appendChild(ov);
+    const sign = ov.querySelector(".open-sign");
+    const txt = ov.querySelector(".sign-text");
+    let done = false;
+    sign.addEventListener("click", async () => {
+      if (done) return;
+      done = true;
+      sign.classList.remove("closed");
+      sign.classList.add("flip");
+      await sleep(420);
+      txt.textContent = UI("ui_open_sign");
+      sign.classList.add("open");
+      ov.querySelector(".open-hint").textContent =
+        S.lang === "ko" ? "언노운, 영업 시작." : "Unknown is open.";
+      await sleep(900);
+      ov.classList.remove("show");
+      await sleep(280);
+      ov.remove();
+      resolve();
+    });
+  });
+}
+
 let toastTimer = null;
 function toast(msg) {
   const t = $("#toast");

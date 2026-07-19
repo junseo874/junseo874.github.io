@@ -153,9 +153,11 @@ function openShop() {
 async function stockIn() {
   if (S.day === 1) return; // 초기 재고
   // 신규 입고 = 오늘 일차 해금 + 퀘스트/이벤트 해금(unlock_when, 아직 입고 연출 안 본 것)
-  const newIngs = DATA.master.ingredients.filter(i =>
-    i.unlock_day === S.day ||
-    (i.unlock_when && evalWhen(i.unlock_when) && !S.flags.has("stocked_" + i.id)));
+  // 입고 대상 = 소모품(재료·가니시)만. 잔·도구는 상시 비치라 입고 연출에 안 나온다 (v1.9)
+  const newIngs = DATA.master.shelf_items.filter(i =>
+    (i.kind === "ingredient" || i.kind === "garnish") &&
+    (i.unlock_day === S.day ||
+     (i.unlock_when && evalWhen(i.unlock_when) && !S.flags.has("stocked_" + i.id))));
   newIngs.forEach(i => { if (i.unlock_when) S.flags.add("stocked_" + i.id); });
   if (!newIngs.length) return;
   const newCks = DATA.master.cocktails.filter(c => c.unlock_day === S.day);
@@ -242,6 +244,10 @@ async function runDay() {
   Dlg.castClear();
   const hasSlots = !window.DEV_SKIPPART1 && DATA.schedule.guest_slots.some(g => g.day === S.day);
   if (hasSlots) {
+    // 개점 전 — 크리스와 짧은 대화 → OPEN 간판을 걸어야 손님이 들어온다 (v1.9)
+    await Dlg.runPhaseScenes(S.day, "bar_open");
+    Dlg.castClear();
+    await openSign();
     await phaseBanner(S.lang === "ko" ? "🍸 1부 — 일반 영업" : "🍸 Part 1 — Open Bar", S.lang === "ko" ? "◀▶로 슬롯 이동 · 코스터를 드래그해 주문" : "◀▶ to switch slots · drag coasters to take orders");
     await Bar.runPart1(S.day);
     await phaseBanner(S.lang === "ko" ? "🌙 새벽 1시" : "🌙 1 A.M.", S.lang === "ko" ? "2부 — 단골의 시간" : "Part 2 — Regulars");
