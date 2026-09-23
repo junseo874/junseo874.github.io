@@ -151,7 +151,6 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ${below?'below':''}" style="left:${Math.max(175,Math.min(785,x))/960*100}%;${below?'top':'bottom'}:${(below?y+18:540-y+h+18)/540*100}%"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item,'desc')||L('소개 문구 준비 중','Description pending'))}</span>${!a('item_'+item.id)?`<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용','Shared team placeholder artwork')}</small>`:''}</div>`;
     })():'';
     return `<div class="craft-screen prep-screen ${ui.recipeOpen?'prep-open':''}">
-      <header class="prep-heading">${button('← '+L('뒤로','Back'),'prepBack')}<span>${esc(g.name(p.selected))} <small> / ${L('재료 담기','Preparation')}</small></span><small class="prep-reset-note">${L('뒤로 가면 선택이 모두 초기화됩니다.','Back clears every selection.')}</small></header>
       <div class="prep-main"><div class="shelf-viewport"><div class="shelf-track" style="transform:translateX(${-categories.indexOf(ui.tab)*100}%)">
       ${categories.map(tab=>{const {positioned:placed}=layout(tab);return `<div class="shelf-slide" data-current="${tab===ui.tab}" ${tab===ui.tab?'':'inert'}><div class="shelf-fit"><div class="shelf-scene" style="background-image:url('${a('prep_'+tab)}')" data-category="${tab}">
         ${placed.map(({item:i,x,y,w,h})=>{

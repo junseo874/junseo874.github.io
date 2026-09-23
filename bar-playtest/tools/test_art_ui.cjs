@@ -13,7 +13,7 @@ const assert=require('assert/strict');
   assert.equal(await p.locator('#ingredient-tip span').textContent(),await p.evaluate(()=>barGame.text(barGame.t.shelf_items.find(i=>i.id==='shaker'),'desc')));
   await p.screenshot({path:'/private/tmp/bar-art-tool.png'});
   await p.mouse.move(1400,10);await p.waitForTimeout(150);assert.equal(await p.locator('#ingredient-tip').count(),0);
-  await p.locator('[data-act="togglePrepRecipe"]').first().click();
+  await p.locator('.prep-recipe [data-act="togglePrepRecipe"]').click();
   await p.locator('[data-act="tab"][data-id="liquor"]').click();
   await p.locator('.shelf-item[data-id="gin"]').hover();await p.screenshot({path:'/private/tmp/bar-art-liquor.png'});
   await p.locator('.shelf-item[data-id="gin"]').click();assert.deepEqual(await p.evaluate(()=>barGame.prep.ingredients),['gin']);
@@ -23,6 +23,9 @@ const assert=require('assert/strict');
   await p.locator('[data-act="shelfPage"][data-id="1"]').click();const page2=await p.locator('.shelf-slide[data-current="true"] .shelf-item').evaluateAll(es=>es.map(e=>e.dataset.id));
   assert.deepEqual([...page1,...page2],allLiquor);
   await p.locator('[data-act="shelfCategory"][data-id="1"]').click();assert.equal(await p.locator('.shelf-slide[data-current="true"] .shelf-scene').getAttribute('data-category'),'fridge');
+  // The enlarged shelf now crosses the pointer during the real 450ms camera slide.
+  // Hover the final soda position, not a bottle passing under that point in transit.
+  await p.waitForTimeout(550);
   await p.locator('.shelf-item[data-id="soda_water"]').hover();await p.screenshot({path:'/private/tmp/bar-art-fridge.png'});
   await p.evaluate(()=>{barGame.lang='en';});await p.waitForTimeout(150);assert.equal(await p.locator('#ingredient-tip span').textContent(),await p.evaluate(()=>barGame.text(barGame.t.shelf_items.find(i=>i.id==='soda_water'),'desc')));
   await p.setViewportSize({width:820,height:650});await p.screenshot({path:'/private/tmp/bar-art-compact.png'});
