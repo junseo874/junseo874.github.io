@@ -21,6 +21,35 @@ test('all 29 recipes: correct Actual Craft → 100 / Excellent',()=>{for(const c
 test('quantity half-open bands and overtime boundaries',()=>{assert.equal(C.band(D.tables.score_bands,'quantity',.04999),100);assert.equal(C.band(D.tables.score_bands,'quantity',.05),90);assert.equal(C.band(D.tables.score_bands,'quantity',.35),0);assert.equal(C.band(D.tables.score_bands,'overtime',0),0);});
 test('mix omission scores zero for mix plus tool penalty',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_fizz'),a=actual(c);a.tool=null;const r=C.scoreCraft(D,c,a,perfect(c,a),2);assert.equal(r.penalties.tool,10);assert.equal(r.representatives.find(x=>x.family==='shake').mean,0);assert(r.score<60);});
 test('build is a recipe method, not an extra gimmick',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_tonic');assert.deepEqual(C.buildQueue(D,c,actual(c)).map(q=>q.type),['pour','fill_up']);});
+test('build rejects extra mixing tools once, but never the auxiliary bottle opener',()=>{
+ for(const c of D.tables.cocktails.filter(c=>(c.target_mix_method||c.mix)==='build')){
+  for(const tool of [null,'shaker','mixing_glass'])for(const opener of [false,true]){
+   const a={...actual(c),tool,opener},r=C.scoreCraft(D,c,a,perfect(c,a),2);
+   assert.equal(r.penalties.tool,tool?10:0,c.id+' / '+tool);assert.equal(r.penalties.gimmick,0);
+   assert.equal(r.score,tool?90:100);
+  }
+ }
+ for(const c of D.tables.cocktails.filter(c=>['shake','stir'].includes(c.target_mix_method||c.mix))){
+  const a=actual(c);a.tool=a.tool==='shaker'?'mixing_glass':'shaker';
+  const r=C.scoreCraft(D,c,a,perfect(c,a),2);assert.equal(r.penalties.tool,10);
+  assert.equal(r.representatives.find(x=>x.family===(c.target_mix_method||c.mix)).mean,0);
+ }
+});
+test('gimmick keys reject unrelated inputs before starting clocks or changing judgments',()=>{
+ for(const type of ['open','pour','fill_up','shake','stir']){
+  const g=game(99,'practice');g.selectCocktail(type==='open'?'bottle_beer':type==='shake'?'gin_fizz':type==='stir'?'dry_martini':'gin_tonic');g.debugFill();g.startCraft();
+  g.craft.index=g.craft.queue.findIndex(q=>q.type===type);assert(g.craft.index>=0);g.nextGimmick();
+  const wrong=type==='stir'?['Space','Enter','KeyE']:['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Enter'];
+  const initial=JSON.stringify(g.gimmick);
+  for(const key of wrong)assert.equal(g.gimmickInput(key),false,type+' / '+key);
+  ticks(g,.5);assert.equal(JSON.stringify(g.gimmick),initial);assert.equal(g.craft.elapsed,0);
+  assert.equal(g.gimmickInput(type==='stir'?'KeyW':'Space'),true);ticks(g,.1);
+  const started=JSON.stringify(g.gimmick);for(const key of wrong)assert.equal(g.gimmickInput(key),false);
+  assert.equal(JSON.stringify(g.gimmick),started);assert(g.craft.elapsed>0);
+  g.overlay='settings';assert.equal(g.gimmickInput(type==='stir'?'KeyD':'Space'),false);assert.equal(JSON.stringify(g.gimmick),started);
+  g.overlay=null;g.gimmick.completed=true;assert.equal(g.gimmickInput(type==='stir'?'KeyD':'Space'),false);
+ }
+});
 test('opening failure penalty and score normalisation',()=>{const c=D.tables.cocktails.find(c=>c.id==='bottle_beer'),a=actual(c),results=perfect(c);results.find(r=>r.type==='open').failures=2;const r=C.scoreCraft(D,c,a,results,2);assert.equal(r.representatives.find(r=>r.family==='open').mean,70);assert.equal(r.score,90);});
 test('atomic effects failure leaves original progress untouched',()=>{const s={money:300,flags:{},affinity:{}};assert.throws(()=>C.applyEffects('money += 10; arbitrary = 1',s));assert.equal(s.money,300);C.applyEffects('money += 10; flag.x = true; affinity.chris += 2',s);assert.equal(s.money,310);assert.equal(s.flags.x,true);});
 test('day 0 complete normal flow and stable settlement IDs',()=>{const g=game(0);drive(g);assert(g.transactions.length>=2);assert.equal(g.transactionIds.size,g.transactions.length);assert(g.progress.flags.chris_met);console.log('  Day 0 orders',g.transactions.length,'lines',g.history.length);});

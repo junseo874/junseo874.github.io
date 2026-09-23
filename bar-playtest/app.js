@@ -73,7 +73,7 @@ function dossierBack(){
  if(ui.dossierDetail){const id=ui.dossierDetail;ui.dossierDetail=null;render(true);root.querySelector('.guest-card[data-id="'+id+'"]')?.focus({preventScroll:true});}
  else {g.overlay=null;ui.dossierPreview=null;render(true);root.querySelector('[data-act="service"]')?.focus({preventScroll:true});}
 }
-function helpHTML(){return `<div class="help-grid"><section><h3>${L('일반 손님 영업','General guests')}</h3><p><kbd>A</kbd> <kbd>D</kbd> / ← → ${L('좌석 이동','Move seats')}</p><p><kbd>Space</kbd> ${L('앞자리 손님에게 코스터 제공','Give a coaster to the focused guest')}</p><p><kbd>E</kbd> ${L('주문 되묻기 · 인내심 10% 차감','Ask again · patience −10%')}</p><p>${L('대사는 현재 보고 있는 좌석에서 자동 진행됩니다.','Barks advance automatically at the focused seat.')}</p></section><section><h3>${L('단골 손님 영업','Regular guests')}</h3><p><kbd>Enter</kbd> / <kbd>Space</kbd> ${L('다음 대사','Next dialogue')}</p><p>${L('주문 대사가 끝나면 코스터가 자동으로 놓입니다.','Coasters appear after the order dialogue.')}</p><p>${L('선택지와 제조는 화면 버튼으로 진행합니다.','Use the on-screen choices and crafting buttons.')}</p></section><section><h3>${L('제조·제공','Craft and serve')}</h3><p>${L('레시피 → 잔·도구·재료 → 기믹 → 제공하기 → 잔을 코스터로 드래그','Recipe → glass / tool / ingredients → gimmicks → offer → drag onto a coaster')}</p><p>${L('빌드는 도구를 선택하지 않습니다. 메뉴·제조 중에는 바 시간이 멈춥니다.','Build uses no mixing tool. Menus and crafting pause bar time.')}</p></section><section><h3>${L('메뉴·테스트','Menus and testing')}</h3><p><kbd>Tab</kbd> ${L('왼쪽 서비스 패널 · 레시피 / 매출 / 단골 정보','Left service panel · recipes / sales / guest profiles')}</p><p><kbd>F2</kbd> ${L('상태·타이머·분기·로그 확인','Inspect state, timers, branches and logs')}</p><p><kbd>Y</kbd> ${L('대사 기록 열기 / 닫기','Open / close dialogue history')}</p><p><kbd>Esc</kbd> ${L('옵션 · 일시정지 / 열린 메뉴 닫기','Options · pause / close the open menu')}</p><p>${L('F2 안의 정답 채우기·등급 강제는 검수 전용입니다.','Recipe fill and grade overrides in F2 are testing tools only.')}</p></section></div><div class="divider"></div><p class="recipe-note">${L('실제 CSV의 0·1·99일차 대본을 사용합니다. 2·3일차의 비어 있는 대본은 만들어 넣지 않았습니다. 일부 그래픽과 효과음은 더미이며, 쉐이킹은 브라우저용 타이밍 조작으로 재현했습니다.','Uses the actual Day 0, 1 and 99 scripts. Empty Day 2/3 scripts are not invented. Missing artwork/audio uses placeholders; shaking uses a browser timing interaction.')}</p>`;}
+function helpHTML(){return `<div class="help-grid"><section><h3>${L('일반 손님 영업','General guests')}</h3><p><kbd>A</kbd> <kbd>D</kbd> / ← → ${L('좌석 이동','Move seats')}</p><p><kbd>Space</kbd> ${L('앞자리 손님에게 코스터 제공','Give a coaster to the focused guest')}</p><p><kbd>E</kbd> ${L('주문 되묻기 · 인내심 10% 차감','Ask again · patience −10%')}</p><p>${L('대사는 현재 보고 있는 좌석에서 자동 진행됩니다.','Barks advance automatically at the focused seat.')}</p></section><section><h3>${L('단골 손님 영업','Regular guests')}</h3><p><kbd>Enter</kbd> / <kbd>Space</kbd> ${L('다음 대사','Next dialogue')}</p><p>${L('주문 대사가 끝나면 코스터가 자동으로 놓입니다.','Coasters appear after the order dialogue.')}</p><p>${L('선택지는 ↑/↓ 이동, Enter/Space 확정 또는 클릭. 제조는 화면 버튼을 사용합니다.','Choices: ↑/↓ to move, Enter/Space to confirm, or click. Use on-screen buttons for crafting.')}</p></section><section><h3>${L('제조·제공','Craft and serve')}</h3><p>${L('레시피 → 잔·도구·재료 → 기믹 → 제공하기 → 잔을 코스터로 드래그','Recipe → glass / tool / ingredients → gimmicks → offer → drag onto a coaster')}</p><p>${L('빌드는 도구를 선택하지 않습니다. 메뉴·제조 중에는 바 시간이 멈춥니다.','Build uses no mixing tool. Menus and crafting pause bar time.')}</p></section><section><h3>${L('메뉴·테스트','Menus and testing')}</h3><p><kbd>Tab</kbd> ${L('왼쪽 서비스 패널 · 레시피 / 매출 / 단골 정보','Left service panel · recipes / sales / guest profiles')}</p><p><kbd>F2</kbd> ${L('상태·타이머·분기·로그 확인','Inspect state, timers, branches and logs')}</p><p><kbd>Y</kbd> ${L('대사 기록 열기 / 닫기','Open / close dialogue history')}</p><p><kbd>Esc</kbd> ${L('옵션 · 일시정지 / 열린 메뉴 닫기','Options · pause / close the open menu')}</p><p>${L('F2 안의 정답 채우기·등급 강제는 검수 전용입니다.','Recipe fill and grade overrides in F2 are testing tools only.')}</p></section></div><div class="divider"></div><p class="recipe-note">${L('실제 CSV의 0·1·99일차 대본을 사용합니다. 2·3일차의 비어 있는 대본은 만들어 넣지 않았습니다. 일부 그래픽과 효과음은 더미이며, 쉐이킹은 브라우저용 타이밍 조작으로 재현했습니다.','Uses the actual Day 0, 1 and 99 scripts. Empty Day 2/3 scripts are not invented. Missing artwork/audio uses placeholders; shaking uses a browser timing interaction.')}</p>`;}
 function serviceHTML(){return `<div class="service-layer"><button class="service-scrim" data-act="service" aria-label="${L('서비스 패널 닫기','Close service panel')}"></button><aside id="service-panel" class="service-panel" role="dialog" aria-modal="true" aria-labelledby="service-title">
  <header><h2 id="service-title">${L('서비스 패널','Service panel')}</h2>${button('×','service','aria-label="'+L('서비스 패널 닫기','Close service panel')+'"')}</header>
  <div class="service-actions">${button('<span>▤</span>'+L('칵테일 레시피 보기','Cocktail recipes'),'recipes')}${button('<span>▥</span>'+L('매출 현황 보기','Sales summary'),'sales')}${button('<span>♙</span>'+L('단골 손님 정보 보기','Regular guest profiles'),'dossierOpen')}</div>
@@ -111,7 +111,7 @@ function morph(parent,next){
  }
 }
 const views=window.LunaBarViews({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines});
-let lastStructure='';
+let lastStructure='',lastFocusedChoice=null;
 function render(force=false){
  views.syncCamera(root);
  const active=document.activeElement,searchFocus=active?.id==='recipe-search',cursor=searchFocus?active.selectionStart:null;const scrolls=[...root.querySelectorAll('.recipe-list,.items-grid,.prep-summary,.inspect-body,.modal,.table-scroll,.dossier-list-scroll,.profile-body,.prep-recipe-scroll')].map(e=>[e.className,e.scrollTop]);
@@ -130,6 +130,12 @@ function render(force=false){
   ${g.phase==='ready'?startHTML():''}${g.screen==='recipe'?recipesHTML():''}${g.screen==='prep'?prepHTML():''}${g.screen==='gimmick'?gimmickHTML():''}${g.screen==='result'?resultHTML():''}${g.screen==='settlement'?settlementHTML():''}${g.screen==='gameover'?gameoverHTML():''}${g.paused?`<div class="pause-full">${button('▶ '+L('계속하기','Resume'),'pause')}</div>`:''}${overlayHTML()}${g.error?errorHTML():''}${inspectorHTML()}${g.effectVisual&&g.realTime<g.effectVisual.until&&g.effectVisual.kind==='fx'?'<div class="effect-flash"></div>':''}
  </main></div>`;
  if(force||html!==lastStructure){const template=document.createElement('template');template.innerHTML=html;morph(root,template.content);views.syncCamera(root);lastStructure=html;for(const [cls,top]of scrolls){const e=root.getElementsByClassName(cls)[0];if(e)e.scrollTop=top;}if(searchFocus){const e=document.getElementById('recipe-search');e?.focus();e?.setSelectionRange(cursor,cursor);}}
+ // Focus a new choice only once, after staging. Never steal focus from a menu.
+ if(!g.choice)lastFocusedChoice=null;
+ else if(lastFocusedChoice!==g.choice&&liveBar&&!g.isPaused()&&!ui.inspector&&!g.cameraMoving&&g.cameraLeft===0&&g.transition===0){
+  const first=root.querySelector('.choices button:not(:disabled)');
+  if(first){first.focus({preventScroll:true});lastFocusedChoice=g.choice;}
+ }
 }
 function toast(msg){const el=document.querySelector('#toast');el.textContent=msg;el.classList.add('visible');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('visible'),2200);}
 function exportLog(){const payload={kind:'LUNA_WEB_PLAYTEST',createdAt:new Date().toISOString(),source:D.source,day:g.day,mode:g.mode,seed:g.seed,progress:g.progress,transactions:g.transactions,dailySettlement:g.dailySettlement,upkeepOverride:g.upkeepOverride,logs:g.logs,history:g.history,error:g.error};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const el=document.createElement('a');el.href=url;el.download=`luna-day${g.day}-${Date.now()}.json`;el.click();setTimeout(()=>URL.revokeObjectURL(url),3000);toast(L('테스트 로그를 내보냈습니다.','Test log exported.'));}
@@ -161,7 +167,7 @@ window.addEventListener('keydown',e=>{
  if(e.code==='F2'){e.preventDefault();if(!e.repeat)act('inspector');return;}
  if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;
  if(e.code==='ControlLeft'||e.code==='ControlRight'){ui.readSkip=true;return;}
- if(e.repeat)return;
+ if(e.repeat){if(['Enter','Space'].includes(e.code))e.preventDefault();return;}
  if(e.code==='KeyY'){
   if(g.overlay==='history'){e.preventDefault();act('closeOverlay');}
   else if(!g.overlay&&!g.paused&&!g.error&&!g.finished&&g.phase!=='ready'&&!ui.drag){e.preventDefault();ui.readSkip=false;show('history');}
@@ -171,7 +177,16 @@ window.addEventListener('keydown',e=>{
  if(e.code==='Tab'&&(g.overlay==='service'||g.screen==='bar'&&g.phase!=='ready'&&!g.finished&&!g.isPaused()&&!ui.drag)){e.preventDefault();act('service');return;}
  if(g.overlay==='service'&&['ArrowUp','ArrowDown'].includes(e.code)){e.preventDefault();const buttons=[...root.querySelectorAll('#service-panel button')],i=buttons.indexOf(document.activeElement);buttons[(i+(e.code==='ArrowDown'?1:-1)+buttons.length)%buttons.length]?.focus();return;}
  if(g.isPaused()||g.phase==='ready')return;
- if(g.screen==='gimmick'){if(['Space','KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){e.preventDefault();if(['pour','fill_up'].includes(g.gimmick.type)&&e.code==='Space')g.holdPour(true);else g.gimmickInput(e.code);render();}return;}
+ if(g.screen==='bar'&&g.choice&&['ArrowUp','ArrowDown','Enter','Space'].includes(e.code)){
+  e.preventDefault();if(g.cameraMoving||g.cameraLeft>0||g.transition>0||ui.inspector||ui.drag)return;
+  const buttons=[...root.querySelectorAll('.choices button:not(:disabled)')],i=buttons.indexOf(document.activeElement);
+  if(!buttons.length)return;
+  if(e.code==='ArrowUp'||e.code==='ArrowDown')buttons[i<0?(e.code==='ArrowDown'?0:buttons.length-1):(i+(e.code==='ArrowDown'?1:-1)+buttons.length)%buttons.length].focus({preventScroll:true});
+  else if(i>=0)act('choice',buttons[i].dataset.id);
+  else buttons[0].focus({preventScroll:true});
+  return;
+ }
+ if(g.screen==='gimmick'){if(['Space','KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)){e.preventDefault();g.gimmickInput(e.code);render();}return;}
  if(g.screen==='prep'&&['KeyA','KeyD','ArrowLeft','ArrowRight'].includes(e.code)){e.preventDefault();act('shelfCategory',['KeyA','ArrowLeft'].includes(e.code)?'-1':'1');return;}if(g.screen!=='bar')return;if(g.phase==='general'){if(e.code==='Space'){e.preventDefault();g.coaster();}else if(e.code==='KeyE'){e.preventDefault();g.reask();}else if(['KeyA','ArrowLeft','KeyD','ArrowRight'].includes(e.code)){e.preventDefault();const delta=['KeyA','ArrowLeft'].includes(e.code)?-1:1;g.focusSeat(['L','M','R'][Math.max(0,Math.min(2,['L','M','R'].indexOf(g.focus)+delta))]);}}else if(['Space','Enter'].includes(e.code)){e.preventDefault();g.advance();}render();});
 window.addEventListener('keyup',e=>{if(e.code==='Space')g.holdPour(false);if(e.code==='ControlLeft'||e.code==='ControlRight')ui.readSkip=false;});
 document.addEventListener('visibilitychange',()=>{g.hidden=document.hidden;g.gimmick&&(g.gimmick.held=false);ui.readSkip=false;});window.addEventListener('blur',()=>{g.gimmick&&(g.gimmick.held=false);ui.readSkip=false;});

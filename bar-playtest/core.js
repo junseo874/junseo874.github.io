@@ -89,7 +89,7 @@ function scoreCraft(data,selected,actual,results,elapsed){
  for(const [family,values]of Object.entries(buckets)){const mean=values.reduce((a,b)=>a+b,0)/values.length,weight=n(cfg['weight_'+family]);weightedSum+=mean*weight;totalWeight+=weight;representatives.push({family,mean,weight,count:values.length});}
  const representativeScore=totalWeight?weightedSum/totalWeight:100;
  const targetTool=mix==='shake'?'shaker':mix==='stir'?'mixing_glass':null;
- const penalties={gimmick:100-representativeScore,glass:actual.glass!==selected.glass?n(cfg.glass_mismatch_penalty):0,tool:targetTool&&actual.tool!==targetTool?n(cfg.tool_mismatch_penalty):0,missing:missing.length*n(cfg.missing_ingredient_penalty),extra:extra.length*n(cfg.extra_ingredient_penalty),overtime:band(data.tables.score_bands,'overtime',Math.max(0,elapsed-n(selected.time_limit_sec))/Math.max(1,n(selected.time_limit_sec)))};
+ const penalties={gimmick:100-representativeScore,glass:actual.glass!==selected.glass?n(cfg.glass_mismatch_penalty):0,tool:(actual.tool||null)!==targetTool?n(cfg.tool_mismatch_penalty):0,missing:missing.length*n(cfg.missing_ingredient_penalty),extra:extra.length*n(cfg.extra_ingredient_penalty),overtime:band(data.tables.score_bands,'overtime',Math.max(0,elapsed-n(selected.time_limit_sec))/Math.max(1,n(selected.time_limit_sec)))};
  const score=clamp(100-Object.values(penalties).reduce((a,b)=>a+b,0),0,100);
  const grade=[...data.tables.grade_cuts].sort((a,b)=>n(b.min_pct)-n(a.min_pct)).find(g=>score>=n(g.min_pct))?.grade||'sewage';
  return{score,grade,penalties,representatives,missingCore:missing.filter(r=>r.is_core).map(r=>r.ingredient),missing:missing.map(r=>r.ingredient),extra,elapsed,selected:selected.id,actual:structuredClone(actual),results:structuredClone(results)};
@@ -239,12 +239,15 @@ class Game{
  }
  startGimmick(){if(this.screen!=='gimmick'||this.isPaused())return;this.gimmick.started=true;this.changed();}
  holdPour(held){if(this.screen!=='gimmick'||this.isPaused())return;if(['pour','fill_up'].includes(this.gimmick.type)){this.gimmick.held=held;if(held)this.gimmick.started=true;}}
- gimmickInput(key){const g=this.gimmick;if(!g||this.isPaused()||g.completed)return false;
+ gimmickInput(key){const g=this.gimmick;if(this.screen!=='gimmick'||!g||this.isPaused()||g.completed)return false;
+  // Reject unrelated keys before they can start the clock or change a score.
+  if(['pour','fill_up'].includes(g.type)){if(key!=='Space')return false;this.holdPour(true);return true;}
   if(g.type==='stir'){
    if(!g.started){if(!['KeyW','ArrowUp'].includes(key))return false;g.started=true;g.message='시계 방향으로 D → S → A → W';return true;}
    const keyMap={KeyW:0,ArrowUp:0,KeyD:1,ArrowRight:1,KeyS:2,ArrowDown:2,KeyA:3,ArrowLeft:3},dir=keyMap[key];if(dir==null)return false;
    if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
   }
+  if(!['open','shake'].includes(g.type)||key!=='Space')return false;
   if(!g.started){g.started=true;this.changed();return true;}
   if(g.type==='open'){
    const start=this.c('open_start_radius_px',165),target=this.c('open_target_radius_px',44),radius=start-(start-target)*g.beatTime/this.c('open_approach_sec',1.6);
