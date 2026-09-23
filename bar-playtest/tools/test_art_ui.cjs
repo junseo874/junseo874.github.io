@@ -6,6 +6,7 @@ const assert=require('assert/strict');
   const p=await b.newPage({viewport:{width:1440,height:900}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));await p.goto(BASE);
   await p.evaluate(()=>barGame.reset(99,'practice',1));await p.locator('[data-act="selectRecipe"][data-id="dry_martini"]').click();
+  assert.equal(await p.locator('.prep-recipe').count(),0);await p.locator('.recipe-toggle').click();
   await p.screenshot({path:'/private/tmp/bar-art-glass.png'});
   await p.locator('[data-act="tab"][data-id="tool"]').click();
   await p.locator('.shelf-item[data-id="shaker"]').hover();await p.locator('#ingredient-tip').waitFor();

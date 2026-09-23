@@ -36,6 +36,14 @@ const assert=require('assert/strict');
  const box=selector=>p.locator(selector).evaluate(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};});
  const active='.shelf-slide[data-current="true"] .shelf-scene',full=await box(active);
  assert.deepEqual(full,{x:0,y:0,w:1280,h:720});assert.deepEqual(await box('.prep-main'),full);
+ assert.equal(await p.locator('.prep-recipe').count(),0);assert.equal(await p.locator('.recipe-toggle').getAttribute('aria-expanded'),'false');
+ assert.equal(await p.locator('.shelf-navigation>span').count(),0);
+ assert.deepEqual(await p.locator('.shelf-arrow small').allTextContents(),['A','D']);
+ assert.equal(await p.locator('.prep-inventory').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(12, 20, 32, 0.8)');
+ assert.equal(await p.locator('.prep-inventory').evaluate(e=>getComputedStyle(e).opacity),'1');
+ for(const side of ['prev','next']){assert(await p.locator('.shelf-arrow.'+side).evaluate(e=>e.querySelector('small').getBoundingClientRect().top>=e.querySelector('span').getBoundingClientRect().bottom));}
+ await p.screenshot({path:'/private/tmp/bar-prep-default-closed.png'});
+ await p.locator('.recipe-toggle').click();assert.equal(await p.locator('.prep-recipe').count(),1);assert.deepEqual(await box(active),full);
  await p.screenshot({path:'/private/tmp/bar-service-prep-open.png'});
  await p.locator('.prep-recipe [data-act="togglePrepRecipe"]').click();assert.deepEqual(await box(active),full);
  await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>barGame.overlay),null);
@@ -47,6 +55,7 @@ const assert=require('assert/strict');
  await p.locator('.recipe-toggle').click();assert.deepEqual(await box(active),full);
  await p.locator('[data-act="prepBack"]').click();assert.equal(await p.evaluate(()=>barGame.prep),null);assert.equal(await p.evaluate(()=>barGame.screen),'recipe');
  await p.screenshot({path:'/private/tmp/bar-service-recipes.png'});
+ await p.locator('[data-act="selectRecipe"][data-id="gin_fizz"]').click();assert.equal(await p.locator('.prep-recipe').count(),0);
  // A story line that cannot manufacture yet keeps the drawer open and paused.
  await p.evaluate(()=>{barGame.reset(0,'full',1);});await p.waitForTimeout(1100);await p.keyboard.press('Tab');await p.locator('#service-panel [data-act="recipes"]').click();
  assert.equal(await p.evaluate(()=>barGame.overlay),'service');assert.equal(await p.evaluate(()=>barGame.screen),'bar');await p.keyboard.press('Escape');
