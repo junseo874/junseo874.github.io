@@ -59,12 +59,14 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       const app=guest.appearance, gender=app.gender;
       const eyes=app.layers.find(k=>/eyes_\d+$/.test(k))?.split('_').at(-1);
       const mouth=app.layers.find(k=>/mouth_\d+$/.test(k))?.split('_').at(-1);
-      const replace={['guest_'+gender+'_body']:'guest_'+gender+'_talk_body',
-        ['guest_'+gender+'_eyes_'+eyes]:'guest_'+gender+'_talk_eyes_'+eyes,
-        ['guest_'+gender+'_mouth_'+mouth]:'guest_'+gender+'_talk_mouth_'+mouth};
-      const available=Object.values(replace).every(k=>D.assets[k]);
-      return {keys:talking&&available?app.layers.map(k=>replace[k]||k):app.layers,
-        pose:talking?(available?'talk':'static-fallback'):'idle'};
+      // Keep the complete base body/head. The "talk" body has a cut-out face
+      // and four identical frames; mixing it with a static mouth leaves a hole.
+      // Shared eyes loop independently. Only the lower face is speech-gated.
+      const replace={['guest_'+gender+'_eyes_'+eyes]:'guest_'+gender+'_talk_eyes_'+eyes};
+      const mouthKey='guest_'+gender+'_talk_mouth_'+mouth;
+      if(talking)replace['guest_'+gender+'_mouth_'+mouth]=mouthKey;
+      return {keys:app.layers.map(k=>D.assets[replace[k]]?replace[k]:k),
+        pose:talking?(D.assets[mouthKey]?'talk':'static-fallback'):'idle'};
     }
     const states=D.characterLayers[guest.actor];if(!states)return {keys:[],pose:'placeholder'};
     const state=expression==='default'?'idle':expression||'idle';
@@ -76,33 +78,41 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function actorHTML(guest,x){
     let state=actors.get(guest);
-    if(!state){state={start:g.realTime,pose:null,poseAt:g.realTime,speech:null,exitAt:null,glass:guest.glass,drinkUntil:0};actors.set(guest,state);}
+    if(!state){state={start:g.realTime,pose:null,poseAt:g.realTime,loopPose:null,speech:null,exitAt:null,glass:guest.glass,drinkUntil:0};actors.set(guest,state);}
     if(guest.glass&&guest.glass!==state.glass){state.drinkUntil=g.realTime+1;}
     state.glass=guest.glass;
     const d=g.currentDialogue();
     // Personality IDs may repeat; only the focused general guest owns this bubble.
-    const speaking=d?.actor===guest.actor&&(g.phase!=='general'||g.seats[g.focus]===guest);
+    const speaking=!!d&&d.actor===guest.actor&&(g.phase!=='general'||g.seats[g.focus]===guest);
     const talking=g.screen==='bar'&&speaking&&d.chars<d.text.length;
     const cycle=D.webArtRules.animationCycleSeconds||1;
+    const poseFamily=pose=>guest.appearance?'guest':pose.pose.replace(/_(talk|default)$/,'');
     if(talking){
       const pose=actorLayers(guest,d.expression,true);
-      // One continuous clock per guest/pose, NOT per letter or dialogue line.
+      // A talk/default swap is NOT a new body/eye animation. All source parts
+      // share the pose clock, including the mouth, so the face stays registered.
       if(!state.speech||state.speech.pose.pose!==pose.pose){
-        state.speech={pose,startedAt:g.realTime,stopAt:null};
+        state.speech={pose,startedAt:state.loopPose===poseFamily(pose)?state.poseAt:g.realTime,stopAt:null};
       }else{state.speech.pose=pose;state.speech.stopAt=null;}
     }else if(state.speech){
       const speech=state.speech;
-      if(speech.stopAt===null){
-        // The bubble disappears while the camera moves. Keep this guest's own
-        // expression and finish the current cycle instead of snapping to idle.
-        const animated=speech.pose.keys.some(k=>(D.assets[k]?.frames||1)>1);
+      const cameraInterrupted=g.cameraMoving||g.cameraLeft>0;
+      if(!cameraInterrupted){
+        // Typing/reveal/line completion stops speech; body and eyes keep looping.
+        state.speech=null;
+      }else if(speech.stopAt===null){
+        // When looking away, finish only the current mouth cycle. The independent
+        // idle clock keeps running during and after this bounded handoff.
+        const animated=speech.pose.keys.some(k=>/(?:mouth_\d+|face_bottom(?:_talk|_default)?)$/.test(k)&&(D.assets[k]?.frames||1)>1);
         speech.stopAt=animated?speech.startedAt+Math.ceil(Math.max(0,g.realTime-speech.startedAt)/cycle)*cycle:g.realTime;
       }
-      if(g.realTime>=speech.stopAt)state.speech=null;
+      if(state.speech&&g.realTime>=speech.stopAt)state.speech=null;
     }
     const drinking=guest.actor==='samho'&&g.realTime<state.drinkUntil&&!state.speech;
     const pose=state.speech?.pose||actorLayers(guest,drinking?'drink':speaking?d.expression:'idle',false);
-    if(pose.pose!==state.pose){state.pose=pose.pose;state.poseAt=g.realTime;}
+    const family=poseFamily(pose);
+    if(family!==state.loopPose){state.loopPose=family;state.poseAt=g.realTime;}
+    state.pose=pose.pose;
     if(guest.state==='EXITING'&&state.exitAt===null)state.exitAt=g.realTime;
     const entering=Math.min(1,(g.realTime-state.start)/.65);
     // General farewell dialogue remains visible, then the guest leaves.
@@ -117,7 +127,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       ${pose.keys.length?pose.keys.map(k=>{
         // CharacterPart.SetClipSpeed: Clip.length / TARGET_LENGTH(1s).
         // The engine normalizes cycle length; source sample rate is NOT playback FPS.
-        const s=D.assets[k],frames=s.frames||1,frame=Math.floor(Math.max(0,g.realTime-(state.speech?.startedAt??state.poseAt))/cycle*frames)%frames;
+        const s=D.assets[k],frames=s.frames||1,frame=Math.floor(Math.max(0,g.realTime-state.poseAt)/cycle*frames)%frames;
         const fw=s.frameWidth||s.w/frames,fh=s.frameHeight||s.h;
         // Keep source pixels and a stable pose-level anchor, never recrop per frame.
         return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw/551*100}%;height:${fh/530*100}%;left:${50+dx/551*100}%;bottom:${-dy/530*100}%;background-image:url('${s.src}');background-size:${frames*100}% 100%;background-position:${frames>1?frame/(frames-1)*100:0}% 0"></div>`;

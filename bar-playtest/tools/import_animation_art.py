@@ -31,7 +31,10 @@ for key, info in d['assets'].items():
     if 'frames' in info:
         info.update(frameWidth=info['w']//info['frames'], frameHeight=info['h'], fps=12)
 
-# Keep each generated guest's eyes/mouth identity. Missing variants stay entirely static.
+# The source "talk" folder includes shared eye loops, active even during idle.
+# Its body is a headless static strip; the view keeps the complete base body.
+# Only mouths are speech-gated. Missing parts stay static
+# independently, preserving identity without freezing the other available loops.
 for gender, folder in [('m', '남'), ('f', '여')]:
     prefix = f'4. 캐릭터 (내부)/NPC/{folder}/talk/'
     add('guest_'+gender+'_talk_body', prefix+('bady.png' if gender=='m' else 'body.png'), 4)

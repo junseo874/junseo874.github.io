@@ -38,16 +38,18 @@ const assert=require('assert/strict');
       g.lines=[barGame.makeLine(g.actor,'애니메이션과 파츠 위치를 확인하고 있습니다. 잠시 기다려 주세요.')];g.lineIndex=0;barGame.dialogSpeed=.15;
     },gender);await p.waitForTimeout(300);const actor=p.locator('.actor[data-talking="true"]').first();
     assert.equal(await actor.getAttribute('data-pose'),'talk');
-    const frame=await actor.locator('[data-frame]').first().getAttribute('data-frame');await p.waitForTimeout(300);
-    assert.notEqual(await actor.locator('[data-frame]').first().getAttribute('data-frame'),frame);
+    const mouth=actor.locator('[data-layer="guest_'+gender+'_talk_mouth_1"]');
+    const frame=await mouth.getAttribute('data-frame');await p.waitForTimeout(300);
+    assert.notEqual(await mouth.getAttribute('data-frame'),frame);
     await p.screenshot({path:'/private/tmp/bar-art-guest-'+gender+'.png'});
-    await p.evaluate(()=>{barGame.paused=true});await p.waitForTimeout(150);const frozen=await actor.locator('[data-frame]').first().getAttribute('data-frame');
-    await p.waitForTimeout(250);assert.equal(await actor.locator('[data-frame]').first().getAttribute('data-frame'),frozen);
+    await p.evaluate(()=>{barGame.paused=true});await p.waitForTimeout(150);const frozen=await mouth.getAttribute('data-frame');
+    await p.waitForTimeout(250);assert.equal(await mouth.getAttribute('data-frame'),frozen);
     await p.evaluate(()=>barGame.paused=false);
   }
   await p.evaluate(()=>{const x=barGame.seats.L.appearance;x.layers=x.layers.map(k=>k.replace('eyes_1','eyes_4'));});await p.waitForTimeout(150);
-  assert.equal(await p.locator('.actor[data-talking="true"]').first().getAttribute('data-pose'),'static-fallback');
+  assert.equal(await p.locator('.actor[data-talking="true"]').first().getAttribute('data-pose'),'talk');
   assert(await p.locator('[data-layer="guest_f_eyes_4"]').count());
+  assert(await p.locator('[data-layer="guest_f_talk_mouth_1"]').count());
   // Separate guests with the same personality must not all talk with the focused bubble.
   await p.evaluate(()=>{const g=barGame.seats.L;barGame.seats.R={...g,id:'second',appearance:{...g.appearance,layers:g.appearance.layers.slice()}}});
   await p.waitForTimeout(150);assert.equal(await p.locator('.actor[data-talking="true"]').count(),1);
