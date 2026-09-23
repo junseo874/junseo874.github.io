@@ -104,7 +104,7 @@ class Game{
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
   this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
-  this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
+  this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else this.startStoryPhase('bar_open');}
   this.changed();
  }
@@ -163,8 +163,8 @@ class Game{
  }
  typeLine(line,dt){line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}}
  finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id});const s=d.step;this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
- advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
- choose(seq){if(!this.choice||this.isPaused())return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}
+ advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.cameraMoving||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
+ choose(seq){if(!this.choice||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}
  createStoryOrder(s){
   const id=s.arg?.match(/^exact:(.+)$/)?.[1];if(!id)throw Error('미지원 주문 형식: '+s.arg);this.cocktail(id);const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('주문자 착석 정보 없음: '+s.actor);
   if(this.currentOrder)throw Error('앞 주문이 미완료');this.resultContext={};this.currentOrder={id:'order_'+(++this.serial),actor:s.actor,seat,cocktail:id};this.resultContext.ordered=id;this.seats[seat].coaster=true;this.seats[seat].order=this.currentOrder;this.log('order',{...this.currentOrder});
@@ -320,7 +320,7 @@ class Game{
   if(this.screen==='gimmick'){this.tickGimmick(dt);return;}
   if(this.screen!=='bar')return;
   if(this.phase==='general')this.safe(()=>this.tickGeneral(dt));
-  else if(this.dialogue){this.typeLine(this.dialogue,dt);}
+  else if(this.dialogue&&!this.cameraMoving&&this.cameraLeft===0){this.typeLine(this.dialogue,dt);}
  }
  tickGeneral(realDt){
   const dt=realDt*this.speed;this.barTime+=dt;
@@ -332,7 +332,7 @@ class Game{
    }
    if(g.state==='EXITING'){g.exitLeft-=dt;if(g.exitLeft<=0){this.log('guest_exit',{guest:g.id,seat:g.seat});this.seats[g.seat]=null;continue;}}
    if(g.state==='REORDER_WAIT'){g.reorderLeft-=dt;if(g.reorderLeft<=0){g.state='ORDER_DIALOGUE';this.beginOrder(g,true);}}
-   if(g.seat!==this.focus||this.cameraLeft>0)continue;
+   if(g.seat!==this.focus||this.cameraLeft>0||this.cameraMoving)continue;
    const line=g.lines[g.lineIndex];if(line){line.seen=true;if(line.chars<line.text.length)this.typeLine(line,realDt);else{line.hold+=realDt*this.dialogSpeed;if(line.hold>=this.c('order_bark_gap_sec',1.5)){this.history.push({actor:line.actor,text:line.text,id:line.id});g.lineIndex++;if(g.lineIndex>=g.lines.length){const fn=g.lineDone;g.lineDone=null;if(fn)fn();}}}}
    else if(g.state==='WAIT_SERVE'&&!g.reasking){g.idleLeft-=dt;if(g.idleLeft<=0){this.setBarks(g,['idle']);g.idleLeft=this.c('idle_min_sec',8)+this.rng()*(this.c('idle_max_sec',13)-this.c('idle_min_sec',8));}}
   }
@@ -344,7 +344,7 @@ class Game{
   else if(g.type==='shake'){g.beatTime+=dt;const period=60/this.c('shake_bpm',60);if(g.beatTime>=period){g.beatTime-=period;g.outcomes.push(g.beatSuccess);if(!g.hit)g.message='MISS';g.attempts++;g.hit=false;g.beatSuccess=false;if(g.attempts>=g.targetStacks){g.completed=true;g.message='완료';}}}
   else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',2))this.finishStirCircle(false);}
  }
- currentDialogue(){if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
+ currentDialogue(){if(this.cameraMoving||this.cameraLeft>0||this.transition>0)return null;if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
  totals(){return this.transactions.reduce((a,t)=>({sale:a.sale+t.sale,tip:a.tip+t.tip,refund:a.refund+t.refund,net:a.net+t.net}),{sale:0,tip:0,refund:0,net:0});}
 }
 const api={Game,GRADES,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};

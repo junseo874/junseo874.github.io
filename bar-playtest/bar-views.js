@@ -13,6 +13,47 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     return boxes.length?[Math.min(...boxes.map(b=>b[0])),Math.min(...boxes.map(b=>b[1])),Math.max(...boxes.map(b=>b[2])),Math.max(...boxes.map(b=>b[3]))]:[0,0,551,440];
   }
 
+  // All standard human canvases share a torso cut at y=440. Hands may extend
+  // below that line onto the tabletop; the lowest opaque pixel is NOT the seat anchor.
+  function poseOffset(guest,pose){
+    if(guest.appearance)return [0,0];
+    const arts=pose.keys.map(k=>D.assets[k]);
+    if(arts.every(a=>(a.frameWidth||a.w)===551&&a.h===530))return [0,0];
+    const [dx]=D.webPoseOffsets?.[guest.actor]?.[pose.pose]||[0,0];
+    if(guest.actor==='samho'&&pose.pose.startsWith('drunk_')){
+      // This engine image is a crop of the full-size drink pose, not of idle.
+      const ref=D.assets.char_samho_drink_body,art=arts[0];
+      return [ref.alphaBBox[0]-art.alphaBBox[0]-(551-art.frameWidth)/2,
+        ref.alphaBBox[1]-art.alphaBBox[1]-(530-art.h)];
+    }
+    const bottom=Math.max(...arts.map(a=>530-a.h+a.alphaBBox[3]));
+    const handOverhang=guest.actor==='port'&&pose.pose.includes('serious')?35:0;
+    return [dx,440-(bottom-handOverhang)];
+  }
+  function cameraLayout(){
+    const visible=Object.entries(g.seats).filter(([,v])=>v);
+    const general=g.phase==='general',wide=general?g.overview:visible.length>1;
+    const coords=general?{L:520,M:1020,R:1520}:{L:750,M:1020,R:1290};
+    const cameraWidth=wide?1280:960,scale=1280/cameraWidth;
+    const center=wide?1020:general?coords[g.focus]:coords[visible[0]?.[0]||'M'];
+    const cameraX=Math.max(0,Math.min(2041-cameraWidth,center-cameraWidth/2));
+    const cameraY=500-534/scale,key=[cameraWidth,cameraX,cameraY].join(':');
+    return {visible,general,wide,coords,cameraWidth,scale,cameraX,cameraY,key};
+  }
+  function syncCamera(root){
+    const plane=root.querySelector('.counter-plane'),layout=cameraLayout();
+    // getAnimations forces style resolution, so a newly applied transform is
+    // observed before it can reveal/type the next line. No guessed timeout.
+    g.cameraMoving=!!plane&&(plane.dataset.cameraKey!==layout.key||plane.getAnimations().some(a=>a.playState==='running'||a.pending));
+  }
+  function dialogueAnchor(actor){
+    const c=cameraLayout();
+    if(actor==='luna'||c.general||!c.wide)return '';
+    const seat=c.visible.find(([,guest])=>guest.actor===actor)?.[0];
+    if(!seat)return '';
+    const x=(c.coords[seat]-c.cameraX)*c.scale;
+    return 'style="left:'+Math.max(289,Math.min(991,x))+'px" data-speaker-seat="'+seat+'"';
+  }
   function actorLayers(guest,expression,talking){
     if(guest.appearance){
       const app=guest.appearance, gender=app.gender;
@@ -67,31 +108,26 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     // General farewell dialogue remains visible, then the guest leaves.
     const exiting=state.exitAt===null?0:Math.min(1,Math.max(0,(g.realTime-state.exitAt-(g.phase==='general'?2.5:0))/.45));
     const opacity=Math.min(entering,1-exiting),offset=(1-entering)*25+exiting*25;
-    const box=actorBounds(guest),base=guest.actor==='bubi'?535:guest.appearance?500:522;
-    const top=base-box[3],centerOffset=275.5-(box[0]+box[2])/2;
+    const box=actorBounds(guest),base=guest.actor==='bubi'?535:500;
+    const anchor=guest.appearance||guest.actor==='bubi'?box[3]:440;
+    const top=base-anchor,centerOffset=275.5-(box[0]+box[2])/2;
+    const [dx,dy]=poseOffset(guest,pose);
     const speechState=state.speech?(talking?'looping':'finishing'):'idle';
-    return `<div class="actor pixel-actor" data-actor="${esc(guest.actor)}" data-baseline="${base}" data-pose="${esc(pose.pose)}" data-talking="${talking}" data-speech-state="${speechState}" style="left:calc(${x}% + ${centerOffset}px);top:${top}px;opacity:${opacity};--arrival:${offset}px">
+    return `<div class="actor pixel-actor" data-actor="${esc(guest.actor)}" data-baseline="${base}" data-table-anchor="${anchor}" data-pose="${esc(pose.pose)}" data-talking="${talking}" data-speech-state="${speechState}" style="left:calc(${x}% + ${centerOffset}px);top:${top}px;opacity:${opacity};--arrival:${offset}px">
       ${pose.keys.length?pose.keys.map(k=>{
         // CharacterPart.SetClipSpeed: Clip.length / TARGET_LENGTH(1s).
         // The engine normalizes cycle length; source sample rate is NOT playback FPS.
         const s=D.assets[k],frames=s.frames||1,frame=Math.floor(Math.max(0,g.realTime-(state.speech?.startedAt??state.poseAt))/cycle*frames)%frames;
         const fw=s.frameWidth||s.w/frames,fh=s.frameHeight||s.h;
-        const [dx,dy]=D.webPoseOffsets?.[guest.actor]?.[pose.pose]||[0,0];
-        // Port's older serious canvas is smaller: keep native pixels, bottom-center.
+        // Keep source pixels and a stable pose-level anchor, never recrop per frame.
         return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw/551*100}%;height:${fh/530*100}%;left:${50+dx/551*100}%;bottom:${-dy/530*100}%;background-image:url('${s.src}');background-size:${frames*100}% 100%;background-position:${frames>1?frame/(frames-1)*100:0}% 0"></div>`;
       }).join(''):'<div class="dummy-actor"></div>'}
     </div>`;
   }
   function worldHTML(){
-    const visible=Object.entries(g.seats).filter(([,v])=>v);
-    const general=g.phase==='general',wide=general?g.overview:visible.length>1;
-    const coords=general?{L:520,M:1020,R:1520}:{L:750,M:1020,R:1290};
-    const cameraWidth=wide?1280:960,scale=1280/cameraWidth;
-    const center=wide?1020:general?coords[g.focus]:coords[visible[0]?.[0]||'M'];
-    const cameraX=Math.max(0,Math.min(2041-cameraWidth,center-cameraWidth/2));
-    const cameraY=500-534/scale;
+    const {visible,general,wide,coords,cameraWidth,scale,cameraX,cameraY,key}=cameraLayout();
     const transform=depth=>`transform:translate(${-cameraX*scale*depth}px,${-cameraY*scale}px) scale(${scale})`;
-    const plane=(name,depth,content)=>`<div class="bar-scene-layer ${name}" data-depth="${depth}" style="${transform(depth)}">${content}</div>`;
+    const plane=(name,depth,content)=>`<div class="bar-scene-layer ${name}" data-depth="${depth}" data-camera-key="${key}" style="${transform(depth)}">${content}</div>`;
     const back=visible.filter(([,v])=>!!v.appearance),front=visible.filter(([,v])=>!v.appearance);
     const zones=(g.phase==='practice'?['M']:['L','M','R']).map(seat=>{
       const guest=g.seats[seat];if(g.phase!=='practice'&&!guest)return '';
@@ -215,5 +251,5 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[205,180,230,340]:[670,180,250,320])}<small>${L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       <div class="gimmick-footer"><div><p>${L('전체 제조 조작 시간','Total active craft time')} <span class="num">${g.craft.elapsed.toFixed(1)}s</span> / ${g.cocktail(g.craft.actual.selected).time_limit_sec}s</p><small>${L('대기·일시정지·화면 전환은 시간에서 제외됩니다.','Ready, pause and transitions are excluded.')}</small></div>${button(s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started?'disabled':'','primary')}</div></div>`;
   }
-  return {actorHTML,worldHTML,prepHTML,mixHTML,categories};
+  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,dialogueAnchor};
 };
