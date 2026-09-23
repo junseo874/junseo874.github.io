@@ -148,5 +148,8 @@ html,body{overflow:hidden;background:#03060b}
 .settings-row~.row .site-home,.modal .site-home{display:inline-flex;align-items:center;padding:10px 14px;color:#aedee4;text-decoration:none;border:1px solid #506271;border-radius:5px;background:#111d29;font-size:14px}
 .modal .site-home:focus-visible{outline:2px solid #8de8ed;outline-offset:3px}
 
-/* Keep the right-hand coaster dock clear when a reminder or finished drink is shown. */
-.bar-view:has(.stack) .tray{bottom:170px}
+/* Reminders stay above the right coaster; finished drinks have their own central dock. */
+.bar-view:has(.stack) .tray:not(.drink-tray){bottom:170px}
+.tray.drink-tray{left:50%;right:auto;bottom:12px;transform:translateX(-50%);width:max-content;max-width:620px;padding:8px 14px;gap:14px}
+.drink-tray-info{display:grid;gap:5px;min-width:0}.drink-tray h3{margin:0;font-size:14px;line-height:18px}.drink-tray small{font-size:11px;line-height:14px}.drink-tray button{justify-self:start;padding:6px 10px;font-size:12px;line-height:16px}
+.bar-view:has(.drink-tray) .dialogue-wrap.player-speech{bottom:112px}

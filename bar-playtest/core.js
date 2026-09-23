@@ -1,6 +1,8 @@
 (function(root){
 'use strict';
 const GRADES=['sewage','poor','decent','good','excellent'];
+// Web-only typing baseline; keep source timings, read holds, patience and animation clocks unchanged.
+const TEXT_SPEED_BASE=1.5;
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const n=(v,d=0)=>v==null||v===''?d:Number(v);
 const sortSeq=a=>[...a].sort((a,b)=>n(a.seq)-n(b.seq));
@@ -159,7 +161,7 @@ class Game{
   const timings=[],speedStack=[this.c('typing_interval_ms',50)];for(const part of String(text).split(/(<\/?[a-z]+>)/g)){const tag=part.match(/^<(\/?)([a-z]+)>$/);if(tag){const rule=this.t.text_tags.find(t=>t.tag===tag[2]&&t.kind==='speed_ms');if(rule){if(tag[1]&&speedStack.length>1)speedStack.pop();else if(!tag[1])speedStack.push(n(rule.value));}}else for(let i=0;i<part.length;i++)timings.push(speedStack.at(-1));}
   return{actor,text:clean(text),raw:text,id,expression:expression||'default',chars:0,hold:0,seen:false,timings,typeMs:0};
  }
- typeLine(line,dt){line.typeMs+=dt*this.dialogSpeed*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}}
+ typeLine(line,dt){line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}}
  finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id});const s=d.step;this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
  advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
  choose(seq){if(!this.choice||this.isPaused())return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}

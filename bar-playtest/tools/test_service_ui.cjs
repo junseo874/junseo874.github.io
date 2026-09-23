@@ -79,15 +79,19 @@ const assert=require('assert/strict');
  await p.evaluate(()=>{barGame.lang='en';barGame.reset(99,'general',1);});await p.waitForTimeout(150);await p.keyboard.press('Tab');assert.equal(await p.locator('#service-title').textContent(),'Service panel');
  await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/bar-service-en.png'});
  await p.keyboard.press('Escape');assert.equal(await p.locator('.topbar').count(),0);assert.equal(await p.locator('.help-corner').getAttribute('aria-label'),'Controls');
- // Exercise both right-hand trays alongside the moved coaster dock, including longer English labels.
+ // Reminders remain right-aligned; finished drinks must be centered, including English labels.
  for(const lang of ['ko','en']){
   await p.evaluate(lang=>{const g=barGame;g.lang=lang;g.reset(99,'general',7);g.dialogSpeed=20;for(let i=0;i<53;i++)g.tick(.1);g.coaster();for(let i=0;i<50;i++)g.tick(.1);},lang);
   await p.locator('[data-act="reask"]').waitFor();await p.waitForTimeout(150);
   const clearDock=()=>p.evaluate(()=>{const stack=document.querySelector('.stack').getBoundingClientRect(),tray=document.querySelector('.tray').getBoundingClientRect(),shell=document.querySelector('.app-shell').getBoundingClientRect();return tray.bottom<stack.top&&tray.top>=shell.top&&tray.right<=shell.right&&tray.left>=shell.left;});
   assert(await clearDock(),'Reminder overlaps coaster');await p.screenshot({path:'/private/tmp/bar-dock-reask-'+lang+'.png'});
   await p.evaluate(()=>{const g=barGame;g.openRecipes();g.selectCocktail(g.seats.L.order.cocktail);g.debugCraft();g.offer();});
-  await p.locator('[data-drag="drink"]').waitFor();await p.waitForTimeout(150);assert(await clearDock(),'Drink overlaps coaster');
-  await p.screenshot({path:'/private/tmp/bar-dock-drink-'+lang+'.png'});
+  await p.locator('[data-drag="drink"]').waitFor();await p.waitForTimeout(150);
+  const centeredDrink=()=>p.evaluate(()=>{const tray=document.querySelector('.drink-tray').getBoundingClientRect(),shell=document.querySelector('.app-shell').getBoundingClientRect(),coaster=document.querySelector('.stack')?.getBoundingClientRect(),dialogue=document.querySelector('.dialogue-wrap')?.getBoundingClientRect();return Math.abs((tray.left+tray.right)-(shell.left+shell.right))<1&&tray.bottom<=shell.bottom&&tray.top>shell.top+shell.height*.8&&(!coaster||tray.right<coaster.left)&&(!dialogue||tray.top>dialogue.bottom);});
+  assert(await centeredDrink(),'Drink must be centered below the dialogue');
+  for(const [width,height] of [[820,650],[1280,720]]){await p.setViewportSize({width,height});await p.waitForTimeout(100);assert(await centeredDrink(),'Scaled drink dock placement');}
+  await p.waitForTimeout(800);await p.locator('#toast.visible').waitFor({state:'hidden'});await p.screenshot({path:'/private/tmp/bar-dock-drink-'+lang+'.png'});
+  await p.evaluate(()=>{const g=barGame;g.phase='regular';g.dialogue=g.makeLine('luna','준비한 칵테일을 전달하겠습니다.');g.dialogue.chars=g.dialogue.text.length;});await p.waitForTimeout(150);assert(await centeredDrink(),'Player dialogue overlaps finished drink');
  }
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);console.log('SERVICE_UI_OK: no top/bottom toolbar or brand, standalone help and edge A/D, Y history, ESC options, F2, clickable seat dots, Tab drawer, menu pause/handoffs, input isolation, EN, full-stage shelves and stable recipe overlays, back/reset.');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
