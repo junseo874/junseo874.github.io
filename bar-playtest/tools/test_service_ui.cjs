@@ -13,6 +13,7 @@ const assert=require('assert/strict');
  for(const size of [{width:1280,height:720},{width:1440,height:900},{width:820,height:650}]){
   await p.setViewportSize(size);await p.waitForTimeout(120);
   const layout=await p.evaluate(()=>{const stage=document.querySelector('.app-shell').getBoundingClientRect(),top=stage,dots=document.querySelector('.seat-indicators').getBoundingClientRect();return {ratio:stage.width/stage.height,dotsBottom:dots.bottom,stageBottom:stage.bottom,overflow:[...document.querySelectorAll('.help-corner,.currency-hud,.view-key')].some(e=>{const r=e.getBoundingClientRect();return r.right>top.right||r.left<top.left||r.bottom>top.bottom})};});
+  assert(await p.evaluate(()=>{const shell=document.querySelector('.app-shell').getBoundingClientRect(),stack=document.querySelector('.stack').getBoundingClientRect(),handle=document.querySelector('.service-handle').getBoundingClientRect(),dots=document.querySelector('.seat-indicators').getBoundingClientRect();return stack.left>shell.left+shell.width/2&&stack.right<=shell.right&&stack.bottom<=shell.bottom&&handle.bottom<dots.top&&Math.abs(handle.left-dots.left)<1&&handle.top>shell.top+shell.height/2;}),'Bottom HUD dock placement');
   assert(Math.abs(layout.ratio-16/9)<.001);assert(!layout.overflow);assert(layout.dotsBottom<layout.stageBottom);
  }
  await p.setViewportSize({width:1280,height:720});await p.screenshot({path:'/private/tmp/bar-service-main.png'});
@@ -37,6 +38,7 @@ const assert=require('assert/strict');
  await p.keyboard.press('KeyA');await p.keyboard.press('KeyE');await p.keyboard.press('KeyP');
  assert.deepEqual(await p.evaluate(()=>({t:barGame.barTime,focus:barGame.focus,left:barGame.seats.L.left})),before);
  assert.equal(await p.evaluate(()=>barGame.paused),false);assert.equal(await p.locator('#service-panel .service-actions button').count(),3);
+ assert(await p.evaluate(()=>{const panel=document.querySelector('.service-panel').getBoundingClientRect(),handle=document.querySelector('.service-handle').getBoundingClientRect();return panel.top>=0&&panel.bottom<handle.top&&Math.abs(panel.left-handle.left)<1;}),'Service menu must open above its handle');
  await p.screenshot({path:'/private/tmp/bar-service-panel.png'});
  await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>barGame.overlay),null);
  await p.waitForTimeout(200);assert((await p.evaluate(()=>barGame.barTime))>before.t);
@@ -77,5 +79,15 @@ const assert=require('assert/strict');
  await p.evaluate(()=>{barGame.lang='en';barGame.reset(99,'general',1);});await p.waitForTimeout(150);await p.keyboard.press('Tab');assert.equal(await p.locator('#service-title').textContent(),'Service panel');
  await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/bar-service-en.png'});
  await p.keyboard.press('Escape');assert.equal(await p.locator('.topbar').count(),0);assert.equal(await p.locator('.help-corner').getAttribute('aria-label'),'Controls');
+ // Exercise both right-hand trays alongside the moved coaster dock, including longer English labels.
+ for(const lang of ['ko','en']){
+  await p.evaluate(lang=>{const g=barGame;g.lang=lang;g.reset(99,'general',7);g.dialogSpeed=20;for(let i=0;i<53;i++)g.tick(.1);g.coaster();for(let i=0;i<50;i++)g.tick(.1);},lang);
+  await p.locator('[data-act="reask"]').waitFor();await p.waitForTimeout(150);
+  const clearDock=()=>p.evaluate(()=>{const stack=document.querySelector('.stack').getBoundingClientRect(),tray=document.querySelector('.tray').getBoundingClientRect(),shell=document.querySelector('.app-shell').getBoundingClientRect();return tray.bottom<stack.top&&tray.top>=shell.top&&tray.right<=shell.right&&tray.left>=shell.left;});
+  assert(await clearDock(),'Reminder overlaps coaster');await p.screenshot({path:'/private/tmp/bar-dock-reask-'+lang+'.png'});
+  await p.evaluate(()=>{const g=barGame;g.openRecipes();g.selectCocktail(g.seats.L.order.cocktail);g.debugCraft();g.offer();});
+  await p.locator('[data-drag="drink"]').waitFor();await p.waitForTimeout(150);assert(await clearDock(),'Drink overlaps coaster');
+  await p.screenshot({path:'/private/tmp/bar-dock-drink-'+lang+'.png'});
+ }
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);console.log('SERVICE_UI_OK: no top/bottom toolbar or brand, standalone help and edge A/D, Y history, ESC options, F2, clickable seat dots, Tab drawer, menu pause/handoffs, input isolation, EN, full-stage shelves and stable recipe overlays, back/reset.');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
