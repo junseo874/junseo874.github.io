@@ -8,7 +8,7 @@ const assert=require('assert/strict'),path=require('path');
   // This lets real ended events test 12 full-length tracks without waiting 40 minutes.
   p.on('pageerror',e=>errors.push(e.message));await p.goto('file://'+path.resolve(__dirname,'../index.html'));
   assert.deepEqual(await p.evaluate(()=>({count:document.querySelectorAll('audio').length,index:barBgm.index,paused:barBgm.audio.paused,volume:barBgm.volume})),{count:1,index:-1,paused:true,volume:.3});
-  await p.locator('[data-act="settings"]').click();
+  await p.keyboard.press('Escape');
   await p.locator('#bgm-volume').waitFor();
   await p.waitForFunction(()=>barBgm.status==='playing'&&barBgm.audio.currentTime>0);
   await p.evaluate(()=>window.originalBgmAudio=barBgm.audio);
@@ -49,7 +49,7 @@ const assert=require('assert/strict'),path=require('path');
   // The terminal game-over modal intentionally blocks background toolbar clicks.
   await p.evaluate(()=>barGame.reset(99,'practice',1));await p.waitForTimeout(200);
   assert.deepEqual(errors,[]);
-  await p.locator('[data-act="settings"]').click();
+  await p.keyboard.press('Escape');
   await p.locator('#bgm-volume').focus();await p.keyboard.press('Home');
   for(let i=0;i<17;i++)await p.keyboard.press('ArrowRight');
   assert.equal(await p.evaluate(()=>barBgm.audio.volume),.17);
@@ -61,7 +61,7 @@ const assert=require('assert/strict'),path=require('path');
   await p.locator('[data-act="bgm"]').click();await p.waitForFunction(t=>barBgm.audio.currentTime>t,paused);
   await p.locator('[data-act="bgm"]').click();await p.reload();
   assert.deepEqual(await p.evaluate(()=>({enabled:barBgm.enabled,volume:barBgm.volume,index:barBgm.index})),{enabled:false,volume:.17,index:-1});
-  await p.locator('[data-act="settings"]').click();await p.waitForTimeout(150);
+  await p.keyboard.press('Escape');await p.waitForTimeout(150);
   assert.equal(await p.evaluate(()=>barBgm.index),-1,'Disabled music started after gesture');
   await p.locator('[data-act="bgm"]').click();await p.waitForFunction(()=>barBgm.status==='playing');
   assert.deepEqual(errors,[]);
@@ -72,7 +72,7 @@ const assert=require('assert/strict'),path=require('path');
   await broken.waitForFunction(()=>barBgm.status==='error');assert.equal(loads,4);
   await broken.waitForTimeout(400);assert.equal(loads,4,'Missing audio entered infinite retry');
   assert.equal(await broken.evaluate(()=>barGame.error),null);
-  await broken.unroute('**/assets/audio/*.m4a');await broken.locator('[data-act="settings"]').click();
+  await broken.unroute('**/assets/audio/*.m4a');await broken.keyboard.press('Escape');
   await broken.locator('[data-act="bgm"]').click();await broken.locator('[data-act="bgm"]').click();
   await broken.waitForFunction(()=>barBgm.status==='playing');
 

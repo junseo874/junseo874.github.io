@@ -16,22 +16,22 @@ const BASE=process.env.LUNA_SITE_URL||'http://127.0.0.1:8123/';
   await page.locator('.card[href="bar-playtest/"]').click();
   await page.waitForFunction(()=>!!window.barGame&&!!window.barBgm);
   assert(new URL(page.url()).pathname.endsWith('/bar-playtest/'));
-  assert.equal(await page.locator('.site-home').count(),1);
-  await page.locator('[data-act="settings"]').click();await page.locator('#bgm-volume').waitFor();
+  assert.equal(await page.locator('.site-home').count(),0);
+  await page.keyboard.press('Escape');assert.equal(await page.locator('.site-home').count(),1);await page.locator('#bgm-volume').waitFor();
   await page.waitForFunction(()=>barBgm.status==='playing');
-  await page.locator('[data-act="closeOverlay"]').click();
   for(const [width,height] of [[1280,720],[1440,1000],[820,650]]){
     await page.setViewportSize({width,height});await page.waitForTimeout(120);
     const box=await page.locator('.app-shell').boundingBox();assert(Math.abs(box.width/box.height-16/9)<.001);
     const link=await page.locator('.site-home').boundingBox();assert(link.x>=0&&link.y>=0&&link.x+link.width<=width);
   }
+  await page.locator('[data-act="closeOverlay"]').click();
   await page.setViewportSize({width:1280,height:720});
   await page.evaluate(()=>{const g=barGame;g.reset(99,'general',7);for(let i=0;i<100;i++)g.tick(.1);g.dialogSpeed=.2;});
   await page.waitForTimeout(800);await page.screenshot({path:'/private/tmp/luna-site-playtest.png'});
   const before=await page.evaluate(()=>barBgm.audio.currentTime);
   await page.evaluate(()=>barGame.openRecipes());await page.waitForTimeout(200);
   assert(await page.evaluate(t=>barBgm.audio.currentTime>=t&&!barBgm.audio.paused,before));
-  await page.locator('.site-home').click();await page.waitForURL('**/index.html');
+  await page.keyboard.press('Escape');await page.locator('.site-home').click();await page.waitForURL('**/index.html');
   assert.equal(await page.locator('.cards>a').count(),3);
   for(const file of ['intro.html','direction.html','simulator.html','LUNA_TestTool.html']){
     await page.goto(new URL(file,BASE).href);await page.waitForTimeout(600);

@@ -8,18 +8,19 @@ const assert=require('assert/strict');
  async function prepare(type){await p.evaluate(type=>{
   barGame.reset(99,'practice',1);barGame.selectCocktail(type==='stir'?'dry_martini':'gin_fizz');barGame.debugFill();barGame.startCraft();
   barGame.craft.index=barGame.craft.queue.findIndex(q=>q.type===type);barGame.nextGimmick();
- },type);await p.waitForTimeout(150);}
+ },type);await p.waitForTimeout(150);
+ assert(await p.locator('.craft-top').evaluate(e=>{const hud=document.querySelector('.currency-hud').getBoundingClientRect();return [...e.children].every(child=>child.getBoundingClientRect().right<hud.left);}),'Craft header overlaps balance');}
  await prepare('stir');assert.equal(await p.locator('.mix-direction').count(),4);
  await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>barGame.gimmick.elapsed),0);
  await p.screenshot({path:'/private/tmp/bar-mix-stir-ready.png'});
  await p.keyboard.press('KeyW');await p.keyboard.press('KeyD');await p.keyboard.press('KeyS');
  assert.equal(await p.evaluate(()=>barGame.gimmick.stirStep),2);
  assert((await p.locator('.orbit-progress').getAttribute('stroke-dasharray')).startsWith('50 '));
- await p.keyboard.press('KeyP');await p.waitForTimeout(100);
+ await p.keyboard.press('Escape');await p.waitForTimeout(100);
  const frozen=await p.evaluate(()=>barGame.gimmick.elapsed),frames=await p.locator('[data-motion-frame]').evaluateAll(es=>es.map(e=>e.dataset.motionFrame));
  await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>barGame.gimmick.elapsed),frozen);
  assert.deepEqual(await p.locator('[data-motion-frame]').evaluateAll(es=>es.map(e=>e.dataset.motionFrame)),frames);
- await p.keyboard.press('KeyP');await p.screenshot({path:'/private/tmp/bar-mix-stir-playing.png'});
+ await p.keyboard.press('Escape');await p.screenshot({path:'/private/tmp/bar-mix-stir-playing.png'});
  await p.keyboard.press('KeyA');await p.keyboard.press('KeyW');assert.equal(await p.evaluate(()=>barGame.gimmick.success),1);
  assert.equal(await p.locator('.mix-gauge i.good').count(),1);
  // Wrong direction is a red segment; timeout is another red segment, not a lost round.

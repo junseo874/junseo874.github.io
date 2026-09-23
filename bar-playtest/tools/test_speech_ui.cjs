@@ -66,10 +66,10 @@ console.log('SPEECH_CLOCK_OK: multi-cycle loop, no per-letter reset, bounded cyc
   assert.equal(await first.getAttribute('data-speech-state'),'idle');
   assert.equal(await second.getAttribute('data-talking'),'true');
   await p.screenshot({path:'/private/tmp/bar-speech-seat.png'});
-  await p.keyboard.press('KeyP');await p.waitForTimeout(150);
+  await p.keyboard.press('Escape');await p.waitForTimeout(150);
   const frozen=await second.locator('[data-layer="guest_f_talk_mouth_1"]').getAttribute('data-frame');
   await p.waitForTimeout(350);assert.equal(await second.locator('[data-layer="guest_f_talk_mouth_1"]').getAttribute('data-frame'),frozen);
-  await p.keyboard.press('KeyP');
+  await p.keyboard.press('Escape');
   await p.evaluate(()=>{barGame.lang='en'});await p.waitForFunction(()=>document.querySelector('.speaker')?.textContent==='Guest');
   await p.evaluate(()=>{
     const g=barGame;g.lang='ko';g.reset(99,'practice',1);g.screen='bar';g.phase='regular';
