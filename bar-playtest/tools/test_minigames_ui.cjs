@@ -16,7 +16,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
    }else{
     await p.keyboard.press(kind==='stir'?'KeyW':'Space');
     if(kind==='open'){await p.evaluate(()=>barGame.gimmick.beatTime=1.6);await p.keyboard.press('Space');}
-    else if(kind==='shake'){const count=await p.evaluate(()=>barGame.gimmick.targetStacks);for(let i=0;i<count;i++){await p.evaluate(()=>barGame.gimmick.beatTime=.75);await p.keyboard.press('Space');await p.evaluate(()=>barGame.tick(.2));await p.evaluate(()=>barGame.tick(.1));}}
+    else if(kind==='shake'){const count=await p.evaluate(()=>barGame.gimmick.targetStacks);for(let i=0;i<count;i++){await p.evaluate(()=>{let guard=0;while((LunaCore.MIX.nearest(barGame.gimmick)?.distance??99)>.05&&guard++<2000)barGame.tick(.005);});await p.keyboard.press('Space');await p.evaluate(()=>barGame.tick(.08));}}
     else {const count=await p.evaluate(()=>barGame.gimmick.targetStacks);for(let i=0;i<count;i++)for(const key of ['KeyD','KeyS','KeyA','KeyW']){await p.evaluate(()=>barGame.tick(.12));await p.keyboard.press(key);}}
     if(variant==='original')await p.locator('[data-act="endGimmick"]').click();
    }

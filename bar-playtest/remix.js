@@ -48,7 +48,7 @@ function attach(g){
  };
  g.nextGimmick=function(){
   base.nextGimmick();if(!active())return;
-  const s=this.gimmick;if(s){s.beatIndex=0;s.lastJudgment=-1;s.lastDirectionAt=null;s.pulse=0;if(s.type==='shake')s.targetStacks=this.remix.profile.shake;if(s.type==='stir')s.targetStacks=this.remix.profile.stir;}
+  const s=this.gimmick;if(s){if(s.type==='shake')s.targetStacks=this.remix.profile.shake;if(s.type==='stir')s.targetStacks=this.remix.profile.stir;}
   else if(this.result){
    if(this.remix.debug)this.result.debug=true;
    if(!this.result.representatives.length){this.result.penalties.gimmick=100;this.result.score=0;this.result.grade='sewage';this.resultContext.craft_grade='sewage';}
@@ -59,16 +59,7 @@ function attach(g){
  g.gimmickInput=function(key){
   if(!active())return base.gimmickInput(key);
   const s=this.gimmick;if(!s||this.screen!=='gimmick'||this.isPaused()||s.completed||this.remix.hold)return false;
-  if(s.type==='shake'){
-   if(key!=='Space')return false;if(!s.started){s.started=true;cue('start');return true;}
-   const period=60/this.c('shake_bpm',60),ok=Math.abs(s.beatTime-period*.75)<=period*.16&&s.lastJudgment!==s.beatIndex;
-   s.lastJudgment=s.beatIndex;s.hit=true;s.beatSuccess=ok;s.attempts++;s.success+=ok?1:0;s.outcomes.push(ok);s.message=ok?'GOOD':'MISS';s.pulse=.2;
-   if(s.attempts>=s.targetStacks)s.completed=true;cue(ok?'hit':'miss');return true;
-  }
-  if(s.type==='stir'&&s.started&&['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(key)){
-   if(s.lastDirectionAt!=null&&s.elapsed-s.lastDirectionAt<.09){this.finishStirCircle(false);s.message='TOO FAST';s.lastDirectionAt=s.elapsed;cue('miss');return true;}
-   s.lastDirectionAt=s.elapsed;
-  }
+  // All versions share the actual engine mix input rules. Difficulty changes counts only.
   const before=s.attempts,fail=s.failures,step=s.stirStep,result=base.gimmickInput(key);
   if(result){if(s.failures>fail||s.attempts>before&&s.message==='MISS')cue('miss');else if(s.completed||s.stirStep!==step||s.attempts>before)cue('hit');}
   return result;
@@ -76,10 +67,7 @@ function attach(g){
  g.tickGimmick=function(dt){
   if(!active())return base.tickGimmick(dt);
   const s=this.gimmick;if(!s||!s.started||this.remix.hold)return;
-  if(!s.completed&&s.type==='shake'){
-   s.elapsed+=dt;this.craft.elapsed+=dt;s.beatTime+=dt;s.pulse=Math.max(0,s.pulse-dt);
-   const period=60/this.c('shake_bpm',60);while(s.beatTime>=period){s.beatTime-=period;s.beatIndex++;s.hit=false;s.beatSuccess=false;s.message='';}
-  }else if(!s.completed&&['pour','fill_up'].includes(s.type)){
+  if(!s.completed&&['pour','fill_up'].includes(s.type)){
    s.elapsed+=dt;this.craft.elapsed+=dt;s.angle=C.clamp(s.angle+(s.held?1:-1)*this.c('pour_tilt_speed_deg_per_sec',95)*dt,0,150);
    const flow=Math.max(0,(s.angle-95)/55)*this.c('pour_emit_rate_ml_per_sec',70),unit=s.unit==='oz'?this.c('unit_oz_to_ml',30):s.unit==='tsp'?this.c('unit_tsp_to_ml',5):1;
    s.value+=flow*dt/unit;s.predicted=s.value+(Math.max(0,s.angle-95)/95)*flow/2/unit;
@@ -89,13 +77,13 @@ function attach(g){
  g.endGimmick=function(){
   if(!active())return base.endGimmick();
   const s=this.gimmick;if(!s||this.isPaused()||!s.started||this.remix.hold)return false;
-  if(!['pour','fill_up'].includes(s.type)&&!s.completed)return false;
+  if(s.type==='open'&&!s.completed)return false;
   s.held=false;this.remix.hold={remaining:.85,step:s};cue('step');return true;
  };
  g.tick=function(dt){
   if(active()&&!this.isPaused()&&!this.finished){
    const d=Math.max(0,Math.min(dt,.2));this.remix.resultLock=Math.max(0,this.remix.resultLock-d);
-   if(this.remix.hold){this.realTime+=d;this.remix.hold.remaining-=d;if(this.remix.hold.remaining<=0){this.remix.hold=null;base.endGimmick();}return;}
+   if(this.remix.hold){this.realTime+=d;C.MIX.visual(this.remix.hold.step,d);this.remix.hold.remaining-=d;if(this.remix.hold.remaining<=0){this.remix.hold=null;base.endGimmick();}return;}
   }
   base.tick(dt);
  };

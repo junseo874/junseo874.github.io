@@ -20,8 +20,8 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  await p.locator('[data-act="remixRetry"]').click();assert.notEqual(await p.evaluate(()=>barGame.craft.id),id);assert.equal(await p.evaluate(()=>barGame.screen),'gimmick');
  // Actual key events, automatic transitions, no missing-beat penalties.
  await p.evaluate(()=>{const g=barGame;g.reset(99,'practice',1,true,{variant:'gpt',difficulty:'cozy'});g.selectCocktail('gin_fizz');g.debugFill();g.startCraft();g.craft.index=g.craft.queue.findIndex(s=>s.type==='shake');g.nextGimmick();});await p.waitForTimeout(200);await p.keyboard.press('Space');await p.waitForTimeout(1200);assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),0);await p.screenshot({path:'/tmp/luna-remix-shake.png'});
- const startIndex=await p.evaluate(()=>barGame.craft.index);await p.evaluate(()=>{barGame.endGimmick();});assert.equal(await p.evaluate(()=>barGame.craft.index),startIndex);
- for(let i=0;i<12;i++){await p.evaluate(()=>{barGame.gimmick.beatTime=.75;barGame.gimmick.beatIndex++;});await p.keyboard.press('Space');}
+ const startIndex=await p.evaluate(()=>barGame.craft.index);
+ for(let i=0;i<12;i++){await p.evaluate(()=>{let guard=0;while((LunaCore.MIX.nearest(barGame.gimmick)?.distance??99)>.05&&guard++<2000)barGame.tick(.005);});await p.keyboard.press('Space');}
  await p.waitForFunction(i=>barGame.remix.hold!==null||barGame.craft.index>i,startIndex);await p.waitForFunction(i=>barGame.craft.index>i,startIndex);assert.equal(await p.evaluate(()=>barGame.error),null);
  // A second person in story mode still waits for camera staging.
  await p.evaluate(()=>barGame.reset(99,'regular',3,true,{variant:'gpt'}));await p.waitForFunction(()=>barGame.choice&&!barGame.cameraMoving&&barGame.transition===0);await p.locator('.choices [data-id="3"]').click();assert.equal(await p.locator('.dialogue-wrap').count(),0);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&barGame.transition===0);assert.equal(await p.evaluate(()=>Object.values(barGame.seats).filter(Boolean).length),2);

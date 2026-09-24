@@ -7,6 +7,87 @@ const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const n=(v,d=0)=>v==null||v===''?d:Number(v);
 const sortSeq=a=>[...a].sort((a,b)=>n(a.seq)-n(b.seq));
 const clean=s=>String(s??'').replace(/<[^>]*>/g,'');
+// Engine input/animation contract, inspected against Play.unity's NEW prefabs.
+// The web board normalizes the 960x540 (PPU100 / ortho2.7) craft view; see README.
+const MIX={
+ points:[[0,0],[2.61,1.206875],[0,2.56],[2.61,3.766875]],route:[0,1,2,3,2,1],
+ patterns:[[[0,.37],[2,.47]],[[0,.28],[0,.38],[1,.38],[2,.49],[2,.56]],[[0,.39],[0,.57],[1,.32],[1,.48],[2,.55],[2,.82]],[[0,.28],[1,.32],[2,.55]]],
+ radius:.25,delay:.1,frameSeconds:.125,shakeClips:[[1,2,3,0],[5,6,7,4]],
+ init(s){
+  if(!['shake','stir'].includes(s.type))return;
+  s.motionFrame=0;s.motionAge=null;s.motionClip=0;s.nextMotionClip=0;s.feedbackLeft=0;s.hitEffect=null;
+  s.beatIndex=-1;s.pathPoint=[...this.points[0]];s.patternIndex=-1;s.patternTurn=-1;s.nodes=[];s.attemptStartPos=0;
+  s.spoonAngle=0;s.spoonTarget=0;s.swirlSpeed=0;
+  const layout=[[-28.49,22.33,41.58,.9],[30.03,19.25,38.2536,-.75],[-.77,-31.57,34.9272,.65],[-30.03,-20.79,27.442802,-.85],[31.57,-26.95,29.106,.6],[3.85,37.73,24.1164,-.62]];
+  s.ice=layout.map(([x,y,size,factor],i)=>({x,y,size,factor,spin:0,sideSpin:0,rest:Math.min(Math.hypot(x,y),72.5-size*.5),sideY:[28.2,29.208,30.216,32.484,31.98,33.492][i]}));
+  s.iceAverage=s.ice.reduce((n,c)=>n+Math.hypot(c.x,c.y),0)/s.ice.length;
+  s.iceRadius=Math.max(...s.ice.map(c=>Math.hypot(c.x,c.y)));this.resolveIce(s,0);
+ },
+ resolveIce(s,dt){
+  for(let pass=0;pass<2;pass++){
+   for(let i=0;i<s.ice.length;i++)for(let j=i+1;j<s.ice.length;j++){
+    const a=s.ice[i],b=s.ice[j],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),min=(a.size+b.size)*.5;
+    if(d>=min)continue;const nx=d>.0001?dx/d:1,ny=d>.0001?dy/d:0,push=(min-d)*.5;
+    a.x-=nx*push;a.y-=ny*push;b.x+=nx*push;b.y+=ny*push;
+   }
+   for(const c of s.ice){const r=Math.hypot(c.x,c.y),limit=72.5-c.size*.5;if(r>limit){c.x*=limit/r;c.y*=limit/r;}}
+  }
+  if(dt>0)for(const c of s.ice){const r=Math.hypot(c.x,c.y);if(r>.0001){const f=(r+(c.rest-r)*(1-Math.exp(-4*dt)))/r;c.x*=f;c.y*=f;}}
+ },
+ visual(s,dt){
+  if(!['shake','stir'].includes(s.type))return;
+  s.feedbackLeft=Math.max(0,s.feedbackLeft-dt);
+  if(s.hitEffect){s.hitEffect.age+=dt;if(s.hitEffect.age>=.5)s.hitEffect=null;}
+  if(s.type==='shake'){
+   if(s.motionAge!==null){s.motionAge+=dt;s.motionFrame=this.shakeClips[s.motionClip][Math.min(3,Math.floor(s.motionAge/this.frameSeconds))];}
+   return;
+  }
+  s.spoonAngle+=(s.spoonTarget-s.spoonAngle)*(1-Math.exp(-18*dt));
+  if(Math.abs(s.spoonTarget-s.spoonAngle)<.01)s.spoonAngle=s.spoonTarget;
+  // Web character artwork follows the same input-driven quarter-turn, never wall time.
+  s.motionFrame=Math.floor(s.spoonAngle/360*6+1e-7)%6;
+  s.swirlSpeed*=Math.exp(-1.2*dt);if(s.swirlSpeed<.05)s.swirlSpeed=0;
+  if(!s.swirlSpeed)return;
+  for(const c of s.ice){
+   const radius=Math.hypot(c.x,c.y),factor=radius<=.01?1.35:clamp((s.iceAverage/radius)**.8,1/1.35,1.35),rad=-s.swirlSpeed*factor*dt*Math.PI/180;
+   const x=c.x*Math.cos(rad)-c.y*Math.sin(rad);c.y=c.x*Math.sin(rad)+c.y*Math.cos(rad);c.x=x;
+   c.spin-=s.swirlSpeed*c.factor*dt;c.sideSpin-=s.swirlSpeed*c.factor*dt;
+  }
+  this.resolveIce(s,dt);
+ },
+ updatePath(s,rng){
+  const beats=Math.max(0,s.elapsed-this.delay),index=Math.floor(beats),t=beats-index;
+  s.beatTime=t;s.beatIndex=index;
+  const turn=Math.floor(index/3);
+  if(s.elapsed>=this.delay&&turn!==s.patternTurn){
+   s.patternTurn=turn;
+   if(turn%2===0||s.patternIndex<0)s.patternIndex=Math.floor(rng()*this.patterns.length);
+   const down=turn%2===0;
+   s.nodes=this.patterns[s.patternIndex].map(([line,f],i)=>{
+    const from=down?line:3-line,to=down?from+1:from-1,a=this.points[from],b=this.points[to];
+    return{id:turn+':'+i,x:a[0]+(b[0]-a[0])*f,y:a[1]+(b[1]-a[1])*f,born:s.elapsed};
+   });
+  }
+  s.nodes=s.nodes.filter(n=>s.elapsed-n.born<10);
+  const a=this.points[this.route[index%6]],b=this.points[this.route[(index+1)%6]];
+  // Serialized ease=1 (Linear), not the C# field's default InOutQuad.
+  s.pathPoint=s.elapsed<this.delay?[...this.points[0]]:[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+ },
+ nearest(s){
+  const candidates=[...s.nodes,...this.points.map(([x,y],i)=>({id:'fixed:'+i,x,y,fixed:true}))];
+  return candidates.map(n=>({...n,distance:Math.hypot(n.x-s.pathPoint[0],n.y-s.pathPoint[1])})).filter(n=>n.distance<=this.radius).sort((a,b)=>a.distance-b.distance)[0]||null;
+ },
+ shakeHit(s){
+  const node=this.nearest(s),ok=!!node;
+  if(node&&!node.fixed)s.nodes=s.nodes.filter(n=>n.id!==node.id);
+  s.attempts++;s.success+=ok?1:0;s.failures+=ok?0:1;s.outcomes.push(ok);s.hit=true;s.beatSuccess=ok;s.message=ok?'GOOD':'MISS';s.feedbackLeft=.35;
+  s.hitEffect={x:node?.x??s.pathPoint[0],y:node?.y??s.pathPoint[1],ok,age:0};
+  if(ok){s.motionClip=s.nextMotionClip;s.nextMotionClip=1-s.nextMotionClip;s.motionAge=0;s.motionFrame=this.shakeClips[s.motionClip][0];}
+  if(s.attempts>=s.targetStacks)s.completed=true;
+  return ok;
+ }
+};
+
 function seeded(seed){let s=seed>>>0;return()=>{s=(Math.imul(1664525,s)+1013904223)>>>0;return s/4294967296;};}
 function weighted(rows,rng){let sum=rows.reduce((a,r)=>a+n(r.weight,1),0),x=rng()*sum;for(const r of rows){x-=n(r.weight,1);if(x<=0)return r;}return rows.at(-1);}
 function contextValue(key,c){
@@ -235,9 +316,9 @@ class Game{
  prepBack(){if(this.screen!=='prep')return;this.prep=null;this.screen='recipe';this.log('prep_reset');this.changed();}
  startCraft(){if(this.screen!=='prep'||!this.prep?.glass||!this.prep.ingredients.length||this.isPaused())return false;return this.safe(()=>{this.craft={id:'craft_attempt_'+(++this.serial),actual:structuredClone(this.prep),queue:buildQueue(this.data,this.cocktail(this.prep.selected),this.prep),index:0,results:[],elapsed:0};this.screen='gimmick';this.nextGimmick();this.changed();return true;});}
  nextGimmick(){const step=this.craft.queue[this.craft.index];if(!step){this.result=scoreCraft(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual,this.craft.results,this.craft.elapsed);this.result.id=this.craft.id;this.resultContext.craft_grade=this.result.grade;this.screen='result';this.gimmick=null;this.log('craft_result',{id:this.craft.id,score:this.result.score,grade:this.result.grade});return;}
-  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?this.c('shake_target_stacks',20):this.c('stir_target_stacks',10)};
+  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?this.c('shake_target_stacks',20):this.c('stir_target_stacks',10)};MIX.init(this.gimmick);
  }
- startGimmick(){if(this.screen!=='gimmick'||this.isPaused())return;this.gimmick.started=true;this.changed();}
+ startGimmick(){return this.gimmickInput(this.gimmick?.type==='stir'?'KeyW':'Space');}
  holdPour(held){if(this.screen!=='gimmick'||this.isPaused())return;if(['pour','fill_up'].includes(this.gimmick.type)){this.gimmick.held=held;if(held)this.gimmick.started=true;}}
  gimmickInput(key){const g=this.gimmick;if(this.screen!=='gimmick'||!g||this.isPaused()||g.completed)return false;
   // Reject unrelated keys before they can start the clock or change a score.
@@ -245,18 +326,18 @@ class Game{
   if(g.type==='stir'){
    if(!g.started){if(!['KeyW','ArrowUp'].includes(key))return false;g.started=true;g.message='시계 방향으로 D → S → A → W';return true;}
    const keyMap={KeyW:0,ArrowUp:0,KeyD:1,ArrowRight:1,KeyS:2,ArrowDown:2,KeyA:3,ArrowLeft:3},dir=keyMap[key];if(dir==null)return false;
-   if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
+   if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;g.spoonTarget+=90;g.swirlSpeed=Math.min(420,g.swirlSpeed+160);g.message='';if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
   }
-  if(!['open','shake'].includes(g.type)||key!=='Space')return false;
+  if(!['open','shake'].includes(g.type)||!(key==='Space'||g.type==='shake'&&key==='MouseLeft'))return false;
   if(!g.started){g.started=true;this.changed();return true;}
   if(g.type==='open'){
    const start=this.c('open_start_radius_px',165),target=this.c('open_target_radius_px',44),radius=start-(start-target)*g.beatTime/this.c('open_approach_sec',1.6);
    if(Math.abs(radius-target)<=this.c('open_judge_window_px',10)){g.completed=true;g.message='OPEN';}else{g.failures++;g.beatTime=0;g.message='빗나감 · 다시 타이밍을 맞춰 주세요';}
-  } else if(g.type==='shake'&&!g.hit){const period=60/this.c('shake_bpm',60);if(Math.abs(g.beatTime-period*0.75)<=period*0.16){g.success++;g.beatSuccess=true;g.message='GOOD';}else {g.beatSuccess=false;g.message='MISS';}g.hit=true;}
+  } else if(g.type==='shake'){MIX.shakeHit(g);}
   this.changed();return true;
  }
- finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;g.stirStep=0;g.circleTime=0;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
- endGimmick(){const g=this.gimmick;if(!g||this.isPaused()||!g.started)return;let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/g.targetStacks};if(['pour','fill_up'].includes(g.type))result.completed=true;
+ finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;else g.failures++;g.attemptStartPos=g.stirPos;g.stirStep=0;g.circleTime=0;g.feedbackLeft=.35;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
+ endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/g.targetStacks,endType:g.completed?'AutoTarget':'ManualNext'};if(['pour','fill_up'].includes(g.type))result.completed=true;
   this.craft.results.push(result);this.craft.index++;this.safe(()=>this.nextGimmick());this.changed();}
  retryDataError(){if(!this.craft)return;this.error=null;this.craft.id='craft_attempt_'+(++this.serial);this.craft.index=0;this.craft.results=[];this.craft.elapsed=0;this.screen='gimmick';this.safe(()=>{this.craft.queue=buildQueue(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual);this.nextGimmick();});this.changed();}
  cancelCraft(){this.error=null;this.gimmick=null;this.craft=null;this.result=null;this.prep=null;this.screen='recipe';this.changed();}
@@ -341,15 +422,15 @@ class Game{
   }
   if(this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.startStoryPhase('bar');}
  }
- tickGimmick(dt){const g=this.gimmick;if(!g||!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
+ tickGimmick(dt){const g=this.gimmick;if(!g)return;MIX.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
   if(g.type==='pour'||g.type==='fill_up'){g.angle=clamp(g.angle+(g.held?1:-1)*this.c('pour_tilt_speed_deg_per_sec',95)*dt,0,this.c('pour_max_tilt_angle_deg',150));if(g.angle>=this.c('pour_start_angle_deg',95)){const ml=this.c('pour_emit_rate_ml_per_sec',70)*dt;g.value+=ml/(g.unit==='oz'?this.c('unit_oz_to_ml',30):g.unit==='tsp'?this.c('unit_tsp_to_ml',5):1);}}
   else if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';}}
-  else if(g.type==='shake'){g.beatTime+=dt;const period=60/this.c('shake_bpm',60);if(g.beatTime>=period){g.beatTime-=period;g.outcomes.push(g.beatSuccess);if(!g.hit)g.message='MISS';g.attempts++;g.hit=false;g.beatSuccess=false;if(g.attempts>=g.targetStacks){g.completed=true;g.message='완료';}}}
+  else if(g.type==='shake'){MIX.updatePath(g,this.rng);if(!g.feedbackLeft){g.hit=false;g.message='';}}
   else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',2))this.finishStirCircle(false);}
  }
  currentDialogue(){if(this.cameraMoving||this.cameraLeft>0||this.transition>0)return null;if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
  totals(){return this.transactions.reduce((a,t)=>({sale:a.sale+t.sale,tip:a.tip+t.tip,refund:a.refund+t.refund,net:a.net+t.net}),{sale:0,tip:0,refund:0,net:0});}
 }
-const api={Game,GRADES,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};
+const api={Game,MIX,GRADES,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};
 if(typeof module!=='undefined')module.exports=api;root.LunaCore=api;
 })(typeof window==='undefined'?globalThis:window);

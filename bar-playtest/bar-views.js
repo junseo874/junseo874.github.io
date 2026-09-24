@@ -216,7 +216,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function motionHTML(s,crop){
     const art=D.assets[s.type==='stir'?'mix_stir_motion':'mix_shake_motion'];
-    const frame=Math.floor(s.elapsed/(D.mixView.motionCycleSeconds||1)*art.frames)%art.frames;
+    const frame=s.motionFrame||0;
     const [x,y,w,h]=crop,fw=art.frameWidth,fh=art.frameHeight;
     // Height-based sizing preserves source pixels in the portrait AND the close-up.
     return `<div class="motion-crop"><div class="mix-motion" data-motion-frame="${frame}" style="width:calc(100cqh * ${fw/h});height:calc(100cqh * ${fh/h});left:calc(50% - 100cqh * ${(x+w/2)/h});top:calc(100cqh * ${-y/h});background-image:url('${art.src}');background-size:${art.frames*100}% 100%;background-position:${frame/(art.frames-1)*100}% 0"></div></div>`;
@@ -229,37 +229,38 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const sec=Math.floor(s.elapsed),time=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
     return `<div class="mix-timer" aria-label="${L('현재 기믹 시간','Step time')} ${time}"><svg viewBox="0 0 36 42" aria-hidden="true"><path d="M13 2h10M18 2v6M29 9l3-3"/><circle cx="18" cy="25" r="14"/><path d="M18 13v12h9"/></svg><span>${time}</span></div>`;
   }
+  function iceShape(c,x,y,size,spin,opacity=1){
+    return '<g data-ice-cube transform="translate('+x+' '+y+') rotate('+spin+')" opacity="'+opacity+'"><rect x="'+(-size/2)+'" y="'+(-size/2)+'" width="'+size+'" height="'+size+'" rx="3" fill="#b8ecf1" fill-opacity=".68" stroke="#e6ffff" stroke-width="1.5"/><path d="M '+(-size*.3)+' '+(size*.28)+' V '+(-size*.27)+' H '+(size*.22)+'" fill="none" stroke="#f4ffff" stroke-width="2"/></g>';
+  }
+  function sideGlass(s){
+    const cubes=s.ice.map(c=>{const depth=c.y/s.iceRadius,t=(depth+1)/2,scale=1.08+(.86-1.08)*t;return{c,depth,x:80+c.x/s.iceRadius*30,y:142-c.sideY-depth*30*.34,scale,alpha:.95+(.62-.95)*t};}).sort((a,b)=>b.depth-a.depth);
+    return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="'+L('같은 얼음의 측면','Side view of the same ice')+'"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g>'+cubes.map(v=>iceShape(v.c,v.x,v.y,v.c.size*(30/41.58)*v.scale,-v.c.sideSpin,v.alpha)).join('')+'</g><path d="M'+(80+Math.sin(s.spoonAngle*Math.PI/180)*30)+' 22 L'+(80+Math.sin(s.spoonAngle*Math.PI/180)*23)+' 145" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
+  }
   function stirBoard(s){
     const pos=[[50,0],[100,50],[50,100],[0,50]],next=s.started?(s.stirPos+1)%4:0;
-    const limit=g.c('stir_circle_limit_sec',2),progress=s.completed?1:g.variant==='gpt'&&s.started?Math.max(0,1-s.circleTime/limit):s.stirStep/4;
-    const [x,y,w,h]=D.mixView.stirCupCrop,ref=D.assets.mix_stir_reference;
-    return `<section class="mix-board stir-board"><div class="mix-guide"><b>${L('시계 방향으로 젓기','STIR CLOCKWISE')}</b><span>${L('W 시작 · D → S → A → W','Start W · D → S → A → W')}<br>${L('한 바퀴 제한','Circle limit')} ${limit}${L('초','s')} · ${s.targetStacks}${L('회',' rounds')}</span></div>${mixTimer(s)}
-      <div class="stir-dial">
-        <div class="stir-cup-reference" aria-label="${L('믹싱 글라스 윗면','Mixing glass, overhead')}"><img src="${ref.src}" alt="" draggable="false" style="width:${ref.w/w*100}%;height:${ref.h/h*100}%;left:${-x/w*100}%;top:${-y/h*100}%"></div>
-        <svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><circle class="orbit-base" cx="200" cy="200" r="180"/><circle class="orbit-progress" cx="200" cy="200" r="180" pathLength="100" stroke-dasharray="${progress*100} 100" transform="rotate(-90 200 200)"/></svg>
-        ${['W','D','S','A'].map((k,i)=>`<button class="mix-direction ${i===next&&!s.completed?'next':''} ${s.started&&i===s.stirPos?'pressed':''}" style="left:${pos[i][0]}%;top:${pos[i][1]}%" data-act="stir" data-id="Key${k}" aria-label="${k}" ${s.completed?'disabled':''}>${k}</button>`).join('')}
-      </div><div class="mix-feedback ${s.message==='MISS'?'miss':''}">${s.completed?L('스터 완료','STIR COMPLETE'):s.started?(s.message==='GOOD'||s.message==='MISS'?s.message:L('다음 키','NEXT')+' '+['W','D','S','A'][next]):L('W 키를 눌러 시작하세요','Press W to begin')}<small>${s.success} / ${s.targetStacks} ${L('성공','successful')} · ${s.attempts} ${L('진행','attempted')}${s.started&&!s.completed?' · '+Math.max(0,limit-s.circleTime).toFixed(1)+'s':''}</small></div>${mixGauge(s)}</section>`;
+    const limit=g.c('stir_circle_limit_sec',2),progress=s.completed?0:s.started?Math.max(0,1-s.circleTime/limit):1;
+    return '<section class="mix-board stir-board"><div class="mix-guide"><b>'+L('시계 방향으로 젓기','STIR CLOCKWISE')+'</b><span>'+L('W 시작 · D → S → A → W','Start W · D → S → A → W')+'<br>'+L('한 바퀴 제한','Circle limit')+' '+limit+L('초','s')+' · '+s.targetStacks+L('회',' rounds')+'</span></div>'+mixTimer(s)+
+      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map(c=>iceShape(c,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
+      '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><circle class="orbit-base" cx="200" cy="200" r="180"/><circle class="orbit-progress '+(s.started&&progress<.34?'danger':'')+'" cx="200" cy="200" r="180" pathLength="100" stroke-dasharray="'+progress*100+' 100" transform="rotate(-90 200 200)"/></svg>'+
+      ['W','D','S','A'].map((k,i)=>'<button class="mix-direction '+(i===next&&!s.completed?'next':'')+' '+(s.started&&i===s.stirPos&&!s.completed?'pressed':'')+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%" data-act="stir" data-id="Key'+k+'" aria-label="'+k+'" '+(s.completed?'disabled':'')+'>'+k+'</button>').join('')+
+      '</div><div class="mix-feedback '+(s.message==='MISS'?'miss':'')+'">'+(s.completed?L('스터 완료','STIR COMPLETE'):s.started?(s.feedbackLeft>0?s.message:L('다음 키','NEXT')+' '+['W','D','S','A'][next]):L('W 키를 눌러 시작하세요','Press W to begin'))+'<small>'+s.success+' / '+s.targetStacks+' '+L('성공','successful')+' · '+s.attempts+' '+L('진행','attempted')+(s.started&&!s.completed?' · '+Math.max(0,limit-s.circleTime).toFixed(1)+'s':'')+'</small></div>'+mixGauge(s)+'</section>';
   }
   function shakeBoard(s){
-    const points=[[75,60],[510,205],[75,350],[510,495]],loop=(g.variant==='gpt'?s.beatIndex:s.attempts)%6;
-    const [from,to]=loop<3?[points[loop],points[loop+1]]:[points[6-loop],points[5-loop]];
-    const at=t=>[from[0]+(to[0]-from[0])*t,from[1]+(to[1]-from[1])*t];
-    const period=60/g.c('shake_bpm',60),t=s.completed?1:Math.min(1,s.beatTime/period),marker=at(t),target=at(.75),start=at(.59),end=at(.91);
-    return `<section class="mix-board shake-board"><div class="mix-guide"><b>${L('리듬에 맞춰 흔들기','SHAKE TO THE BEAT')}</b><span>${(g.variant==='gpt'?L('노란 원에 맞춰 Space · 누른 횟수만 판정','Space at the gold ring · only your inputs count'):L('분홍 표시가 노란 원에 오면 Space','Press Space as pink meets gold'))}</span></div>${mixTimer(s)}${mixGauge(s,true)}
-      <svg class="shake-path" viewBox="0 0 600 555" aria-hidden="true">
-        <polyline points="${points.map(p=>p.join(',')).join(' ')}" class="shake-route"/>
-        ${points.slice(0,-1).map((p,i)=>[.25,.5,.75].map(t=>`<circle cx="${p[0]+(points[i+1][0]-p[0])*t}" cy="${p[1]+(points[i+1][1]-p[1])*t}" r="10" class="shake-waypoint"/>`).join('')).join('')}
-        ${points.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="15" class="shake-turn"/><circle cx="${p[0]}" cy="${p[1]}" r="9" class="shake-turn-inner"/>`).join('')}
-        <line x1="${start[0]}" y1="${start[1]}" x2="${end[0]}" y2="${end[1]}" class="shake-window"/>
-        <circle cx="${target[0]}" cy="${target[1]}" r="24" class="shake-target"/>
-        <circle data-shake-marker cx="${marker[0]}" cy="${marker[1]}" r="12" class="shake-traveler ${s.hit?(s.beatSuccess?'good':'miss'):''}"/>
-      </svg><div class="shake-action"><span class="mix-feedback ${s.message==='MISS'?'miss':''}">${s.completed?L('쉐이킹 완료','SHAKE COMPLETE'):s.started?s.message||`${g.c('shake_bpm',60)} BPM`:L('Space로 시작','Space to start')}<small>${s.success} / ${s.targetStacks} ${L('성공','hits')}</small></span>${button(s.completed?L('완료','Complete'):s.started?'<kbd>Space</kbd> '+L('쉐이킹','Shake'):L('시작','Start')+' <kbd>Space</kbd>','gimmickInput',s.completed?'disabled':'','mix-hit')}</div></section>`;
+    const mix=window.LunaCore.MIX,at=(x,y)=>[55+x*118,42+y*118],points=mix.points.map(([x,y])=>at(x,y)),marker=at(...s.pathPoint);
+    const candidates=[...s.nodes,...mix.points.map(([x,y],i)=>({x,y,id:'fixed:'+i,fixed:true}))],radius=mix.radius*118;
+    const nodes=candidates.map(n=>{const p=at(n.x,n.y);return '<g data-shake-node="'+n.id+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+radius+'" class="shake-judge-range"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(n.fixed?10:8)+'" class="'+(n.fixed?'shake-turn':'shake-waypoint')+'"/></g>';}).join('');
+    const effect=s.hitEffect,ep=effect&&at(effect.x,effect.y);
+    return '<section class="mix-board shake-board"><div class="mix-guide"><b>'+L('노드에 맞춰 흔들기','SHAKE ON THE NODES')+'</b><span>'+L('분홍 표시가 노드와 겹칠 때 클릭','Click as the pink marker meets a node')+'<br>'+L('Space도 사용 가능 · 입력한 횟수만 판정','Space also works · only inputs count')+'</span></div>'+mixTimer(s)+mixGauge(s,true)+
+      '<svg class="shake-path" data-shake-surface viewBox="0 0 420 540" aria-label="'+L('쉐이킹 클릭 영역','Shaking input area')+'"><polyline points="'+points.map(p=>p.join(',')).join(' ')+'" class="shake-route"/>'+nodes+
+      (effect?'<circle cx="'+ep[0]+'" cy="'+ep[1]+'" r="'+(10+effect.age*65)+'" fill="none" stroke="'+(effect.ok?'#90ffff':'#ffffff')+'" stroke-width="3" opacity="'+Math.max(0,1-effect.age*2)+'"/>':'')+
+      '<circle data-shake-marker cx="'+marker[0]+'" cy="'+marker[1]+'" r="9" class="shake-traveler '+(s.feedbackLeft>0?(s.beatSuccess?'good':'miss'):'')+'"/></svg>'+
+      '<div class="shake-action"><span class="mix-feedback '+(s.message==='MISS'?'miss':'')+'">'+(s.completed?L('쉐이킹 완료','SHAKE COMPLETE'):s.started?s.message||'60 BPM':L('클릭으로 시작','Click to start'))+'<small>'+s.success+' / '+s.targetStacks+' '+L('성공','hits')+' · '+s.attempts+' '+L('입력','inputs')+'</small></span>'+button(s.completed?L('완료','Complete'):s.started?L('클릭 / Space','Click / Space'):L('시작','Start'),'gimmickInput',s.completed?'disabled':'','mix-hit')+'</div></section>';
   }
   function mixHTML(s){
     const stir=s.type==='stir';
     return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'}"><div class="craft-top"><h2>${stir?L('스터','STIR'):L('쉐이킹','SHAKE')} <small>${esc(g.name(g.craft.actual.selected))}</small></h2><span class="badge">${g.minigame?L('단독 연습','Single skill'):g.craft.index+1+' / '+g.craft.queue.length}</span>${g.minigame?button(L('기믹 선택','Choose a minigame'),'miniExit','','subtle'):button(L('레시피','Recipe'),'craftRecipe','','subtle')}</div>
-      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[205,180,230,340]:[670,180,250,320])}<small>${L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
-      <div class="gimmick-footer"><div><p>${L('전체 제조 조작 시간','Total active craft time')} <span class="num">${g.craft.elapsed.toFixed(1)}s</span>${g.minigame?'':' / '+g.cocktail(g.craft.actual.selected).time_limit_sec+'s'}</p><small>${L('대기·일시정지·화면 전환은 시간에서 제외됩니다.','Ready, pause and transitions are excluded.')}</small></div>${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.minigame&&!s.completed?'disabled':'','primary')}</div></div>`;
+      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
+      <div class="gimmick-footer"><div><p>${L('전체 제조 조작 시간','Total active craft time')} <span class="num">${g.craft.elapsed.toFixed(1)}s</span>${g.minigame?'':' / '+g.cocktail(g.craft.actual.selected).time_limit_sec+'s'}</p><small>${L('대기·일시정지·화면 전환은 시간에서 제외됩니다.','Ready, pause and transitions are excluded.')}</small></div>${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary')}</div></div>`;
   }
   return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,dialogueAnchor};
 };
