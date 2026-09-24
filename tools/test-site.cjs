@@ -8,7 +8,7 @@ const BASE=process.env.LUNA_SITE_URL||'http://127.0.0.1:8123/';
   page.on('response',r=>{if(r.url().startsWith(BASE)&&r.status()>=400)missing.push(r.status()+' '+r.url());});
   await page.goto(BASE);await page.locator('.lobby').scrollIntoViewIfNeeded();
   const cards=await page.locator('.cards>a').evaluateAll(es=>es.map(e=>e.getAttribute('href')));
-  assert.deepEqual(cards,['intro.html','direction.html','bar-playtest/']);
+  assert.deepEqual(cards,['intro.html','direction.html','bar-playtest/','bar-playtest/?mode=minigames']);
   assert.equal(await page.locator('.sublinks a[href="simulator.html"]').count(),1);
   const preview=page.locator('.card[href="bar-playtest/"] img');await preview.scrollIntoViewIfNeeded();
   await page.waitForFunction(()=>document.querySelector('.card[href="bar-playtest/"] img')?.naturalWidth>0);
@@ -32,7 +32,8 @@ const BASE=process.env.LUNA_SITE_URL||'http://127.0.0.1:8123/';
   await page.evaluate(()=>barGame.openRecipes());await page.waitForTimeout(200);
   assert(await page.evaluate(t=>barBgm.audio.currentTime>=t&&!barBgm.audio.paused,before));
   await page.keyboard.press('Escape');await page.locator('.site-home').click();await page.waitForURL('**/index.html');
-  assert.equal(await page.locator('.cards>a').count(),3);
+  assert.equal(await page.locator('.cards>a').count(),4);
+  await page.locator('.card[href="bar-playtest/?mode=minigames"]').click();await page.locator('.minigame-card').first().waitFor();assert.equal(await page.locator('.minigame-card').count(),5);
   for(const file of ['intro.html','direction.html','simulator.html','LUNA_TestTool.html']){
     await page.goto(new URL(file,BASE).href);await page.waitForTimeout(600);
     assert((await page.locator('body').innerText()).length>50,file+' rendered empty');

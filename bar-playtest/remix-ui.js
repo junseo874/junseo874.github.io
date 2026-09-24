@@ -6,7 +6,7 @@ root.LunaRemixUI=function({g,D,ui,L,esc,a,button,itemArt,drinkArt,recipeLines,re
  const persist=()=>{try{localStorage.setItem(KEY,JSON.stringify(saved));}catch{}};
  const favorite=id=>saved.favorites.includes(id);
  g.onRemixRecord=r=>{if(r.debug)return;const previous=Number(saved.best[r.selected]??-1);r.personalBest=r.score>previous;if(r.personalBest){saved.best[r.selected]=r.score;persist();}};
- const tabsHTML=()=>`<nav class="version-tabs" aria-label="${L('플레이 버전','Game version')}">${button(L('기존 버전','Original'),'version','data-id="original" aria-pressed="'+(ui.variant!=='gpt')+'"',ui.variant!=='gpt'?'selected':'')}${button(L('GPT 개선버전','GPT Remix'),'version','data-id="gpt" aria-pressed="'+(ui.variant==='gpt')+'"',ui.variant==='gpt'?'selected':'')}</nav>`;
+ const tabsHTML=()=>`<nav class="version-tabs" aria-label="${L('플레이 버전','Game version')}">${button(L('기존 버전','Original'),'version','data-id="original" aria-pressed="'+(!ui.minigames&&ui.variant!=='gpt')+'"',!ui.minigames&&ui.variant!=='gpt'?'selected':'')}${button(L('GPT 개선버전','GPT Remix'),'version','data-id="gpt" aria-pressed="'+(!ui.minigames&&ui.variant==='gpt')+'"',!ui.minigames&&ui.variant==='gpt'?'selected':'')}${button(L('기믹 미니게임','Gimmick minigames'),'version','data-id="minigames" aria-pressed="'+!!ui.minigames+'"',ui.minigames?'selected':'')}</nav>`;
  function startHTML(){
   const diff=ui.difficulty||'standard',cost=remix.challengeUpkeep(ui.day,diff),mode=ui.mode;
   const profile={cozy:L('여유로운 인내심 · 짧은 기믹 · 낮은 유지비','More patience · shorter mixing · lower upkeep'),standard:L('적당한 압박 · 연속 보너스 · 균형 잡힌 영업','Balanced pressure · streak bonuses · a full shift'),challenge:L('빠른 손님 교체 · 긴 기믹 · 높은 유지비','Faster arrivals · longer mixing · higher upkeep')};
