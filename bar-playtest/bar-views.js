@@ -79,7 +79,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   function actorHTML(guest,x){
     let state=actors.get(guest);
     if(!state){state={start:g.realTime,pose:null,poseAt:g.realTime,loopPose:null,speech:null,exitAt:null,glass:guest.glass,drinkUntil:0};actors.set(guest,state);}
-    if(guest.glass&&guest.glass!==state.glass){state.drinkUntil=g.realTime+1;}
+    if(g.variant==='gpt'&&g.phase==='general'){if(guest.state==='DRINKING'&&state.guestState!=='DRINKING')state.drinkUntil=g.realTime+1.2;state.guestState=guest.state;}else if(guest.glass&&guest.glass!==state.glass){state.drinkUntil=g.realTime+1;}
     state.glass=guest.glass;
     const d=g.currentDialogue();
     // Personality IDs may repeat; only the focused general guest owns this bubble.
@@ -144,7 +144,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       const canCoaster=general&&g.focus===seat&&guest.state==='WAIT_COASTER';
       const canServe=!!g.drink&&(g.phase==='practice'||guest?.coaster&&(general?g.focus===seat&&guest.state==='WAIT_SERVE':g.currentOrder?.seat===seat));
       const baseline=general?530:542;
-      return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?drinkArt(guest.glass,'table'):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;
+      return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;
     }).join('');
     return `<div class="stage bar-stage" data-camera-width="${cameraWidth}">
       ${plane('far-plane',.88,`<img src="${a('bar_far')}" alt="">`)}
@@ -231,7 +231,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function stirBoard(s){
     const pos=[[50,0],[100,50],[50,100],[0,50]],next=s.started?(s.stirPos+1)%4:0;
-    const progress=s.completed?1:s.stirStep/4,limit=g.c('stir_circle_limit_sec',2);
+    const limit=g.c('stir_circle_limit_sec',2),progress=s.completed?1:g.variant==='gpt'&&s.started?Math.max(0,1-s.circleTime/limit):s.stirStep/4;
     const [x,y,w,h]=D.mixView.stirCupCrop,ref=D.assets.mix_stir_reference;
     return `<section class="mix-board stir-board"><div class="mix-guide"><b>${L('시계 방향으로 젓기','STIR CLOCKWISE')}</b><span>${L('W 시작 · D → S → A → W','Start W · D → S → A → W')}<br>${L('한 바퀴 제한','Circle limit')} ${limit}${L('초','s')} · ${s.targetStacks}${L('회',' rounds')}</span></div>${mixTimer(s)}
       <div class="stir-dial">
@@ -241,11 +241,11 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       </div><div class="mix-feedback ${s.message==='MISS'?'miss':''}">${s.completed?L('스터 완료','STIR COMPLETE'):s.started?(s.message==='GOOD'||s.message==='MISS'?s.message:L('다음 키','NEXT')+' '+['W','D','S','A'][next]):L('W 키를 눌러 시작하세요','Press W to begin')}<small>${s.success} / ${s.targetStacks} ${L('성공','successful')} · ${s.attempts} ${L('진행','attempted')}${s.started&&!s.completed?' · '+Math.max(0,limit-s.circleTime).toFixed(1)+'s':''}</small></div>${mixGauge(s)}</section>`;
   }
   function shakeBoard(s){
-    const points=[[75,60],[510,205],[75,350],[510,495]],loop=s.attempts%6;
+    const points=[[75,60],[510,205],[75,350],[510,495]],loop=(g.variant==='gpt'?s.beatIndex:s.attempts)%6;
     const [from,to]=loop<3?[points[loop],points[loop+1]]:[points[6-loop],points[5-loop]];
     const at=t=>[from[0]+(to[0]-from[0])*t,from[1]+(to[1]-from[1])*t];
     const period=60/g.c('shake_bpm',60),t=s.completed?1:Math.min(1,s.beatTime/period),marker=at(t),target=at(.75),start=at(.59),end=at(.91);
-    return `<section class="mix-board shake-board"><div class="mix-guide"><b>${L('리듬에 맞춰 흔들기','SHAKE TO THE BEAT')}</b><span>${L('분홍 표시가 노란 원에 오면 Space','Press Space as pink meets gold')}</span></div>${mixTimer(s)}${mixGauge(s,true)}
+    return `<section class="mix-board shake-board"><div class="mix-guide"><b>${L('리듬에 맞춰 흔들기','SHAKE TO THE BEAT')}</b><span>${(g.variant==='gpt'?L('노란 원에 맞춰 Space · 누른 횟수만 판정','Space at the gold ring · only your inputs count'):L('분홍 표시가 노란 원에 오면 Space','Press Space as pink meets gold'))}</span></div>${mixTimer(s)}${mixGauge(s,true)}
       <svg class="shake-path" viewBox="0 0 600 555" aria-hidden="true">
         <polyline points="${points.map(p=>p.join(',')).join(' ')}" class="shake-route"/>
         ${points.slice(0,-1).map((p,i)=>[.25,.5,.75].map(t=>`<circle cx="${p[0]+(points[i+1][0]-p[0])*t}" cy="${p[1]+(points[i+1][1]-p[1])*t}" r="10" class="shake-waypoint"/>`).join('')).join('')}
