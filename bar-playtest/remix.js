@@ -65,17 +65,13 @@ function attach(g){
   return result;
  };
  g.tickGimmick=function(dt){
-  if(!active())return base.tickGimmick(dt);
+  if(!active()||this.gimmick?.fluid)return base.tickGimmick(dt);
   const s=this.gimmick;if(!s||!s.started||this.remix.hold)return;
-  if(!s.completed&&['pour','fill_up'].includes(s.type)){
-   s.elapsed+=dt;this.craft.elapsed+=dt;s.angle=C.clamp(s.angle+(s.held?1:-1)*this.c('pour_tilt_speed_deg_per_sec',95)*dt,0,150);
-   const flow=Math.max(0,(s.angle-95)/55)*this.c('pour_emit_rate_ml_per_sec',70),unit=s.unit==='oz'?this.c('unit_oz_to_ml',30):s.unit==='tsp'?this.c('unit_tsp_to_ml',5):1;
-   s.value+=flow*dt/unit;s.predicted=s.value+(Math.max(0,s.angle-95)/95)*flow/2/unit;
-  }else base.tickGimmick(dt);
+  base.tickGimmick(dt);
   if(s.completed&&!this.remix.hold)this.endGimmick();
  };
  g.endGimmick=function(){
-  if(!active())return base.endGimmick();
+  if(!active()||this.gimmick?.fluid)return base.endGimmick();
   const s=this.gimmick;if(!s||this.isPaused()||!s.started||this.remix.hold)return false;
   if(s.type==='open'&&!s.completed)return false;
   s.held=false;this.remix.hold={remaining:.85,step:s};cue('step');return true;

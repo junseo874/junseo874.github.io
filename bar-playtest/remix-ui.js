@@ -49,9 +49,8 @@ root.LunaRemixUI=function({g,D,ui,L,esc,a,button,itemArt,drinkArt,recipeLines,re
   if(s.type==='open')return s.failures?L(`${s.failures}번 빗나갔지만 열었어요.`,`${s.failures} misses, but you opened it.`):L('한 번에 깔끔하게!','A clean first try!');
   return L(`${s.success}/${s.targetStacks} 성공 · ${s.success===s.targetStacks?'완벽한 리듬!':'다음 잔에서 더 정확하게!'}`,`${s.success}/${s.targetStacks} hits · ${s.success===s.targetStacks?'Perfect rhythm!':'Try for an even cleaner next drink!'}`);
  }
- function gimmickHTML(){if(!remix.active()||!g.gimmick)return'';const s=g.gimmick;
+ function gimmickHTML(){if(!remix.active()||!g.gimmick||g.gimmick.fluid)return'';const s=g.gimmick;
   if(g.remix.hold)return`<div class="remix-step-feedback" role="status"><span>${['pour','fill_up'].includes(s.type)?'◌':'✓'}</span><h2>${feedback(s)}</h2><small>${L('잠시 후 다음 단계로 이어집니다.','Continuing to the next step…')}</small></div>`;
-  if(['pour','fill_up'].includes(s.type))return`<div class="remix-pour-help"><strong>${s.inRecipe?L('지금 놓으면 약 ','Release now: about ')+(s.predicted??s.value).toFixed(2)+' '+s.unit:L('레시피에 없는 추가 재료','Extra ingredient, not in recipe')}</strong><span>${L('Space를 놓은 뒤에도 병이 세워질 때까지 조금 더 흐릅니다.','A little keeps flowing while the bottle tips back.')}</span>${s.inRecipe?`<div class="remix-dose-meter"><i style="left:62%;width:10%"></i><b style="left:${Math.min(98,s.value/s.target*67)}%"></b><em style="left:${Math.min(98,(s.predicted??s.value)/s.target*67)}%"></em></div><small>${L('청록: 적정량 / 흰 선: 현재 / 노란 선: 예상 종료량','Teal: target / white: current / gold: predicted finish')}</small>`:''}</div>`;
   return'';
  }
  function resultHTML(){const r=g.result,lock=g.remix.resultLock>0,labels={excellent:L('완벽한 한 잔','Excellent'),good:L('좋은 한 잔','Good'),decent:L('괜찮은 한 잔','Decent'),poor:L('연습이 더 필요해요','Needs practice'),sewage:L('다시 만들어 볼까요?','Try another batch?')};const hints=[];

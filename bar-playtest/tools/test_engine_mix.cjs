@@ -16,5 +16,37 @@ test('ice impulse, inertia, confinement and eventual rest; spoon does not idle-l
 test('pause freezes animations and clocks in both modes; retry resets all state',()=>{for(const v of ['original','gpt'])for(const kind of ['shake','stir']){const g=game(kind,v),s=g.gimmick;start(g);g.gimmickInput(kind==='stir'?'KeyD':'MouseLeft');tick(g,.13);g.overlay='settings';const state=JSON.stringify(s),time=g.craft.elapsed;tick(g,3);assert.equal(JSON.stringify(s),state);assert.equal(g.craft.elapsed,time);assert.equal(g.gimmickInput(kind==='stir'?'KeyS':'MouseLeft'),false);g.overlay=null;g.retryMinigame();assert.equal(g.gimmick.motionFrame,0);assert.equal(g.gimmick.swirlSpeed,0);assert.equal(g.gimmick.spoonTarget,0);assert.equal(g.gimmick.attempts,0);}});
 test('manual completion keeps unattempted stacks in denominator and blocks extra input',()=>{for(const v of ['original','gpt']){const g=game('stir',v),s=g.gimmick;start(g);for(const k of ['KeyD','KeyS','KeyA','KeyW'])g.gimmickInput(k);g.endGimmick();assert.equal(g.gimmickInput('KeyD'),false);tick(g,1);assert.equal(g.screen,'minigame_result');assert.equal(g.minigame.result.score,10);assert.equal(g.minigame.result.endType,'ManualNext');}});
 test('completion feedback finishes final animation without adding craft time',()=>{const g=game('shake','gpt'),s=g.gimmick;start(g);for(let i=0;i<s.targetStacks;i++){s.pathPoint=[0,0];g.gimmickInput('MouseLeft');}g.tick(.01);assert(g.remix.hold);const t=g.craft.elapsed;g.tick(.2);assert.equal(s.motionFrame,6);assert.equal(g.craft.elapsed,t);tick(g,1);assert.equal(g.screen,'minigame_result');assert.equal(s.motionFrame,4);assert.equal(g.minigame.result.score,100);});
-console.log('ENGINE_MIX_OK',count,'groups');
 
+test('stir hand uses evenly spaced frames, independent of eased spoon angle',()=>{
+ const g=game('stir'),s=g.gimmick;start(g);g.gimmickInput('KeyD');
+ assert.equal(s.stirMotionPending,3);assert.equal(s.motionFrame,0);
+ for(const frame of [1,2,3]){
+  C.MIX.visual(s,C.MIX.stirFrameSeconds/2);assert.equal(s.motionFrame,frame-1);
+  C.MIX.visual(s,C.MIX.stirFrameSeconds/2);assert.equal(s.motionFrame,frame);
+ }
+ assert.equal(s.stirMotionPending,0);assert.equal(s.stirMotionClock,0);
+ C.MIX.visual(s,1);assert.equal(s.motionFrame,3);
+ // Resume from the held pose, not the first sprite.
+ g.gimmickInput('KeyS');C.MIX.visual(s,C.MIX.stirFrameSeconds);assert.equal(s.motionFrame,4);
+});
+test('stir valid input extends the gesture without resetting its frame clock',()=>{
+ const g=game('stir'),s=g.gimmick;start(g);g.gimmickInput('KeyD');
+ C.MIX.visual(s,C.MIX.stirFrameSeconds*.75);const clock=s.stirMotionClock;
+ g.gimmickInput('KeyS');assert.equal(s.stirMotionClock,clock);
+ C.MIX.visual(s,C.MIX.stirFrameSeconds*.25);assert.equal(s.motionFrame,1);
+ assert.equal(s.stirMotionPending,5);
+ const pending=s.stirMotionPending;
+ g.gimmickInput('KeyS');g.gimmickInput('Space');assert.equal(s.stirMotionPending,pending);
+});
+test('stir rapid input never queues more than half a second of hand motion',()=>{
+ for(const variant of ['original','gpt']){
+  const g=game('stir',variant),s=g.gimmick;start(g);
+  for(let i=0;i<6;i++)for(const key of ['KeyD','KeyS','KeyA','KeyW'])g.gimmickInput(key);
+  assert.equal(s.stirMotionPending,6);assert.equal(s.success,6);
+  for(let i=0;i<6;i++)C.MIX.visual(s,C.MIX.stirFrameSeconds);
+  assert.equal(s.stirMotionPending,0);assert.equal(s.motionFrame,0);
+  C.MIX.visual(s,5);assert.equal(s.motionFrame,0);
+ }
+});
+
+console.log('ENGINE_MIX_OK',count,'groups');

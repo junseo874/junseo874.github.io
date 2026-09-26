@@ -229,21 +229,61 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const sec=Math.floor(s.elapsed),time=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
     return `<div class="mix-timer" aria-label="${L('현재 기믹 시간','Step time')} ${time}"><svg viewBox="0 0 36 42" aria-hidden="true"><path d="M13 2h10M18 2v6M29 9l3-3"/><circle cx="18" cy="25" r="14"/><path d="M18 13v12h9"/></svg><span>${time}</span></div>`;
   }
-  function iceShape(c,x,y,size,spin,opacity=1){
-    return '<g data-ice-cube transform="translate('+x+' '+y+') rotate('+spin+')" opacity="'+opacity+'"><rect x="'+(-size/2)+'" y="'+(-size/2)+'" width="'+size+'" height="'+size+'" rx="3" fill="#b8ecf1" fill-opacity=".68" stroke="#e6ffff" stroke-width="1.5"/><path d="M '+(-size*.3)+' '+(size*.28)+' V '+(-size*.27)+' H '+(size*.22)+'" fill="none" stroke="#f4ffff" stroke-width="2"/></g>';
+  function iceTransform(x,y,spin,scale=1){return 'translate('+x+' '+y+') rotate('+spin+') scale('+scale+')';}
+  function iceShape(index,x,y,size,spin,opacity=1,scale=1){
+    return '<g data-ice-cube data-ice-index="'+index+'" transform="'+iceTransform(x,y,spin,scale)+'" opacity="'+opacity+'"><rect x="'+(-size/2)+'" y="'+(-size/2)+'" width="'+size+'" height="'+size+'" rx="3" fill="#b8ecf1" fill-opacity=".68" stroke="#e6ffff" stroke-width="1.5"/><path d="M '+(-size*.3)+' '+(size*.28)+' V '+(-size*.27)+' H '+(size*.22)+'" fill="none" stroke="#f4ffff" stroke-width="2"/></g>';
   }
+  function sideIce(s){
+    return s.ice.map((c,index)=>{const depth=c.y/s.iceRadius,t=(depth+1)/2,scale=1.08+(.86-1.08)*t;return{c,index,depth,x:80+c.x/s.iceRadius*30,y:142-c.sideY-depth*30*.34,scale,alpha:.95+(.62-.95)*t};}).sort((a,b)=>b.depth-a.depth);
+  }
+  function sideSpoon(s){const sin=Math.sin(s.spoonAngle*Math.PI/180);return 'M'+(80+sin*30)+' 22 L'+(80+sin*23)+' 145';}
+  function stirProgress(s){return s.completed?0:s.started?Math.max(0,1-s.circleTime/g.c('stir_circle_limit_sec',2)):1;}
   function sideGlass(s){
-    const cubes=s.ice.map(c=>{const depth=c.y/s.iceRadius,t=(depth+1)/2,scale=1.08+(.86-1.08)*t;return{c,depth,x:80+c.x/s.iceRadius*30,y:142-c.sideY-depth*30*.34,scale,alpha:.95+(.62-.95)*t};}).sort((a,b)=>b.depth-a.depth);
-    return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="'+L('같은 얼음의 측면','Side view of the same ice')+'"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g>'+cubes.map(v=>iceShape(v.c,v.x,v.y,v.c.size*(30/41.58)*v.scale,-v.c.sideSpin,v.alpha)).join('')+'</g><path d="M'+(80+Math.sin(s.spoonAngle*Math.PI/180)*30)+' 22 L'+(80+Math.sin(s.spoonAngle*Math.PI/180)*23)+' 145" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
+    const cubes=sideIce(s);
+    return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="'+L('같은 얼음의 측면','Side view of the same ice')+'"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g data-side-ice>'+cubes.map(v=>iceShape(v.index,v.x,v.y,v.c.size*(30/41.58),-v.c.sideSpin,v.alpha,v.scale)).join('')+'</g><path data-side-spoon d="'+sideSpoon(s)+'" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
   }
   function stirBoard(s){
     const pos=[[50,0],[100,50],[50,100],[0,50]],next=s.started?(s.stirPos+1)%4:0;
-    const limit=g.c('stir_circle_limit_sec',2),progress=s.completed?0:s.started?Math.max(0,1-s.circleTime/limit):1;
+    const limit=g.c('stir_circle_limit_sec',2),progress=stirProgress(s);
     return '<section class="mix-board stir-board"><div class="mix-guide"><b>'+L('시계 방향으로 젓기','STIR CLOCKWISE')+'</b><span>'+L('W 시작 · D → S → A → W','Start W · D → S → A → W')+'<br>'+L('한 바퀴 제한','Circle limit')+' '+limit+L('초','s')+' · '+s.targetStacks+L('회',' rounds')+'</span></div>'+mixTimer(s)+
-      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map(c=>iceShape(c,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
+      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map((c,index)=>iceShape(index,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
       '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><circle class="orbit-base" cx="200" cy="200" r="180"/><circle class="orbit-progress '+(s.started&&progress<.34?'danger':'')+'" cx="200" cy="200" r="180" pathLength="100" stroke-dasharray="'+progress*100+' 100" transform="rotate(-90 200 200)"/></svg>'+
       ['W','D','S','A'].map((k,i)=>'<button class="mix-direction '+(i===next&&!s.completed?'next':'')+' '+(s.started&&i===s.stirPos&&!s.completed?'pressed':'')+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%" data-act="stir" data-id="Key'+k+'" aria-label="'+k+'" '+(s.completed?'disabled':'')+'>'+k+'</button>').join('')+
       '</div><div class="mix-feedback '+(s.message==='MISS'?'miss':'')+'">'+(s.completed?L('스터 완료','STIR COMPLETE'):s.started?(s.feedbackLeft>0?s.message:L('다음 키','NEXT')+' '+['W','D','S','A'][next]):L('W 키를 눌러 시작하세요','Press W to begin'))+'<small>'+s.success+' / '+s.targetStacks+' '+L('성공','successful')+' · '+s.attempts+' '+L('진행','attempted')+(s.started&&!s.completed?' · '+Math.max(0,limit-s.circleTime).toFixed(1)+'s':'')+'</small></div>'+mixGauge(s)+'</section>';
+  }
+  // The full UI is throttled; these existing visual nodes must follow every simulation frame.
+  // Scope queries to the current screen so retry/exit never retains a detached canvas or actor.
+  function syncStirMotion(root){
+    const s=g.gimmick;
+    if(g.screen!=='gimmick'||s?.type!=='stir')return;
+    const screen=root.querySelector('.stir-screen');if(!screen)return;
+    const attr=(el,name,value)=>{value=String(value);if(el&&el.getAttribute(name)!==value)el.setAttribute(name,value);};
+    const frame=s.motionFrame||0,art=D.assets.mix_stir_motion;
+    for(const el of screen.querySelectorAll('[data-motion-frame]')){
+      attr(el,'data-motion-frame',frame);
+      const pos=frame/(art.frames-1)*100+'% 0px';
+      if(el.style.backgroundPosition!==pos)el.style.backgroundPosition=pos;
+    }
+    const spoon=screen.querySelector('[data-spoon-angle]');
+    attr(spoon,'data-spoon-angle',s.spoonAngle.toFixed(3));
+    attr(spoon,'transform','rotate('+s.spoonAngle+' 100 100)');
+    for(const el of screen.querySelectorAll('.stir-live-glass [data-ice-index]')){
+      const c=s.ice[Number(el.dataset.iceIndex)];if(!c)continue;
+      attr(el,'transform',iceTransform(100+c.x,100-c.y,-c.spin));
+    }
+    const layer=screen.querySelector('[data-side-ice]');
+    if(layer){
+      const nodes=new Map([...layer.children].map(el=>[Number(el.dataset.iceIndex),el]));
+      sideIce(s).forEach((v,i)=>{
+        const el=nodes.get(v.index);if(!el)return;
+        attr(el,'transform',iceTransform(v.x,v.y,-v.c.sideSpin,v.scale));attr(el,'opacity',v.alpha);
+        if(layer.children[i]!==el)layer.insertBefore(el,layer.children[i]||null);
+      });
+    }
+    attr(screen.querySelector('[data-side-spoon]'),'d',sideSpoon(s));
+    const ring=screen.querySelector('.orbit-progress'),progress=stirProgress(s);
+    attr(ring,'stroke-dasharray',progress*100+' 100');
+    ring?.classList.toggle('danger',s.started&&progress<.34);
   }
   function shakeBoard(s){
     const mix=window.LunaCore.MIX,at=(x,y)=>[55+x*118,42+y*118],points=mix.points.map(([x,y])=>at(x,y)),marker=at(...s.pathPoint);
@@ -262,5 +302,5 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       <div class="gimmick-footer"><div><p>${L('전체 제조 조작 시간','Total active craft time')} <span class="num">${g.craft.elapsed.toFixed(1)}s</span>${g.minigame?'':' / '+g.cocktail(g.craft.actual.selected).time_limit_sec+'s'}</p><small>${L('대기·일시정지·화면 전환은 시간에서 제외됩니다.','Ready, pause and transitions are excluded.')}</small></div>${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary')}</div></div>`;
   }
-  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,dialogueAnchor};
+  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor};
 };

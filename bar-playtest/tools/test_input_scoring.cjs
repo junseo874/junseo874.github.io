@@ -90,7 +90,7 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/').re
   await p.evaluate(tool=>{
    const g=barGame;g.reset(99,'practice',1);g.selectCocktail('gin_tonic');g.debugFill();g.prep.tool=tool;g.prep.opener=true;g.startCraft();
    while(g.screen==='gimmick'){
-    g.gimmick.started=true;g.gimmick.value=g.gimmick.target;g.gimmick.success=g.gimmick.targetStacks;g.gimmick.completed=true;g.endGimmick();
+    const s=g.gimmick;if(s.fluid){g.holdPour(true);let guard=0;while(g.gimmick===s&&guard++<6000){if(!s.fluid.finishRequested&&s.fluid.predicted(s)>=s.target)g.endGimmick();g.tick(1/120);}if(g.gimmick===s)throw Error('Pour failed to settle');}else{s.started=true;s.success=s.targetStacks;s.completed=true;g.endGimmick();}
    }
   },tool);await p.locator('.result-table').waitFor();
   assert.equal(await p.evaluate(()=>barGame.result.penalties.tool),tool?10:0);

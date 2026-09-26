@@ -36,7 +36,7 @@
 .stir-cup-reference{position:absolute;inset:23px 25px;overflow:hidden;clip-path:ellipse(48.5% 47.2% at 50% 50%);pointer-events:none}
 .stir-cup-reference img{position:absolute;max-width:none;image-rendering:pixelated}
 .stir-orbit{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.stir-orbit circle{fill:none;stroke-width:6}.orbit-base{stroke:#31404e}.stir-orbit .orbit-progress{stroke:#d1fbff;filter:drop-shadow(0 0 4px #60d2ff);transition:stroke-dasharray .1s}
+.stir-orbit circle{fill:none;stroke-width:6}.orbit-base{stroke:#31404e}.stir-orbit .orbit-progress{stroke:#d1fbff;filter:drop-shadow(0 0 4px #60d2ff)}
 .mix-direction{position:absolute;transform:translate(-50%,-50%);height:44px;width:44px;padding:0;font:700 26px sans-serif;border:1px solid #324452;color:#536575;background:#0a1019;border-radius:7px;z-index:2}
 .mix-direction.next{border-color:#45cde5;color:#68d6ec;background:#092333;box-shadow:0 0 10px #55bbdd22}
 .mix-direction.pressed{background:#f1fcff;color:#2b546c;box-shadow:0 0 12px #81d6ff88;border-color:#c6f6ff}

@@ -12,7 +12,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
    if(variant==='gpt')await p.screenshot({path:`/tmp/luna-minigame-${kind}.png`});
    if(['pour','fill_up'].includes(kind)){
     await p.keyboard.down('Space');await p.waitForFunction(()=>barGame.gimmick.angle>95);await p.keyboard.up('Space');await p.keyboard.press('Escape');const elapsed=await p.evaluate(()=>barGame.craft.elapsed);await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>barGame.craft.elapsed),elapsed);await p.keyboard.press('Escape');
-    await p.evaluate(()=>{barGame.gimmick.value=barGame.gimmick.target;barGame.gimmick.angle=0;});await p.locator('[data-act="endGimmick"]').click();
+    await p.evaluate(()=>{const g=barGame,s=g.gimmick;g.holdPour(true);let guard=0;while(s.fluid.predicted(s)<s.target&&guard++<4000)g.tick(1/120);g.holdPour(false);});await p.locator('[data-act="endGimmick"]').click();
    }else{
     await p.keyboard.press(kind==='stir'?'KeyW':'Space');
     if(kind==='open'){await p.evaluate(()=>barGame.gimmick.beatTime=1.6);await p.keyboard.press('Space');}
