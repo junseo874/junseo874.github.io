@@ -101,6 +101,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  function html(s){
   const f=s.fluid;
   return '<div class="craft-screen fluid-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
+   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div>'+
    '<div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass')+'"></canvas></div>'+
    '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
@@ -122,10 +123,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  function drawBack(s,rgb){
   const c=mounted.back,f=s.fluid,b=f.glass;c.clearRect(0,0,1000,540);
-  const glow=c.createRadialGradient(670,325,10,650,325,400);glow.addColorStop(0,'#234047');glow.addColorStop(1,'#0a111b');c.fillStyle=glow;c.fillRect(0,0,1000,540);
-  c.strokeStyle='#698c9812';c.lineWidth=1;
-  for(let x=280;x<1000;x+=28){c.beginPath();c.moveTo(x,0);c.lineTo(x,515);c.stroke();}
-  for(let y=12;y<510;y+=28){c.beginPath();c.moveTo(270,y);c.lineTo(1000,y);c.stroke();}
+  // Keep the stage transparent so zooming the bottle never scales or hides the room.
   c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
   c.fillStyle='#b9e8f00d';c.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
  }

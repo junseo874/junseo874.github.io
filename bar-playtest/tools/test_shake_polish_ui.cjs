@@ -72,7 +72,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),attempts);
  assert.deepEqual(await counts(),beforeSwap);
  assert.equal(await p.locator('[data-act="shakeSound"][data-id="2"]').getAttribute('aria-pressed'),'true');
- assert.equal(await p.evaluate(()=>localStorage.getItem('luna.shake.sound.v1')),'2');
+ assert.equal(await p.evaluate(()=>localStorage.getItem('luna.shake.sound.v2')),'2');
  await hit();
  const secondSound=await p.evaluate(()=>shakeAudio.filter(s=>s.kind==='ice').at(-1));
  assert.notEqual(firstSound.signature,secondSound.signature);

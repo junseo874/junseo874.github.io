@@ -1,4 +1,5 @@
 /* No navigation strips: controls float over the full 16:9 play area. */
+.gimmick-room-background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;image-rendering:pixelated;pointer-events:none;user-select:none}
 .gimmick-exit{position:absolute;right:18px;top:14px;z-index:8;padding:7px 12px!important;min-height:30px;font-size:11px!important;background:#0b1421ed;border:1px solid #536472;border-radius:6px}
 .gimmick-finish{position:absolute;right:22px;bottom:18px;z-index:8;font-size:14px;padding:12px 24px}
 .mix-screen .mix-workspace{padding:55px 22px 76px}

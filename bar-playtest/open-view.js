@@ -18,6 +18,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
  function html(s){
   const ready=s.completed&&(s.openFx?.age||0)>=.65;
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
+   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<canvas class="opening-stage" data-opening-stage width="1280" height="720" role="img" aria-label="'+L('맥주병 뚜껑에 초점을 맞춘 병따기','Bottle opening focused on the cap')+'"></canvas>'+
    '<div class="opening-timing-hint" data-open-timing hidden aria-hidden="true">Space</div>'+
    '<div class="opening-feedback" role="status" data-open-feedback></div>'+
@@ -35,10 +36,8 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   if(fx&&seen.get(s)!==fx.serial&&!g.isPaused()){seen.set(s,fx.serial);sound(ok);}
   canvas.dataset.state=ok?'success':miss?'miss':s.started?'playing':'ready';
   const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1280,720);
-  const bg=image('gimmick');if(bg.complete&&bg.naturalWidth)ctx.drawImage(bg,0,0,1280,720);
-  ctx.fillStyle='#060d19dc';ctx.fillRect(0,0,1280,720);
-  const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e47aa':'#193649aa');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
-  ctx.strokeStyle='#77d8e509';ctx.lineWidth=1;for(let x=0;x<1280;x+=32){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,720);ctx.stroke();}
+  // The supplied room is a full-screen layer, independent of cap animation.
+  const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e4740':'#19364926');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
   const bottle=image('item_'+s.ingredient),scale=4.2,cx=640,cy=310;
   const kick=ok&&t<.24?Math.sin(t*42)*Math.exp(-t*18)*6:miss?Math.sin(t*48)*Math.exp(-t*10)*5:0;
   ctx.save();ctx.translate(cx+kick,cy);ctx.imageSmoothingEnabled=false;
