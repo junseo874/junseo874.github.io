@@ -237,19 +237,19 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     return s.ice.map((c,index)=>{const depth=c.y/s.iceRadius,t=(depth+1)/2,scale=1.08+(.86-1.08)*t;return{c,index,depth,x:80+c.x/s.iceRadius*30,y:142-c.sideY-depth*30*.34,scale,alpha:.95+(.62-.95)*t};}).sort((a,b)=>b.depth-a.depth);
   }
   function sideSpoon(s){const sin=Math.sin(s.spoonAngle*Math.PI/180);return 'M'+(80+sin*30)+' 22 L'+(80+sin*23)+' 145';}
-  function stirProgress(s){return s.completed?0:s.started?Math.max(0,1-s.circleTime/g.c('stir_circle_limit_sec',2)):1;}
+  function stirProgress(s){return s.completed?0:s.started?Math.max(0,1-s.circleTime/g.c('stir_circle_limit_sec',1.5)):1;}
   function sideGlass(s){
     const cubes=sideIce(s);
     return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="'+L('같은 얼음의 측면','Side view of the same ice')+'"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g data-side-ice>'+cubes.map(v=>iceShape(v.index,v.x,v.y,v.c.size*(30/41.58),-v.c.sideSpin,v.alpha,v.scale)).join('')+'</g><path data-side-spoon d="'+sideSpoon(s)+'" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
   }
   function stirBoard(s){
     const pos=[[50,0],[100,50],[50,100],[0,50]],next=s.started?(s.stirPos+1)%4:0;
-    const limit=g.c('stir_circle_limit_sec',2),progress=stirProgress(s);
-    return '<section class="mix-board stir-board"><div class="mix-guide"><b>'+L('시계 방향으로 젓기','STIR CLOCKWISE')+'</b><span>'+L('W 시작 · D → S → A → W','Start W · D → S → A → W')+'<br>'+L('한 바퀴 제한','Circle limit')+' '+limit+L('초','s')+' · '+s.targetStacks+L('회',' rounds')+'</span></div>'+mixTimer(s)+
-      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map((c,index)=>iceShape(index,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
+    const progress=stirProgress(s);
+    return '<section class="mix-board stir-board">'+mixTimer(s)+
+      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map((c,index)=>iceShape(index,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
       '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><circle class="orbit-base" cx="200" cy="200" r="180"/><circle class="orbit-progress '+(s.started&&progress<.34?'danger':'')+'" cx="200" cy="200" r="180" pathLength="100" stroke-dasharray="'+progress*100+' 100" transform="rotate(-90 200 200)"/></svg>'+
       ['W','D','S','A'].map((k,i)=>'<button class="mix-direction '+(i===next&&!s.completed?'next':'')+' '+(s.started&&i===s.stirPos&&!s.completed?'pressed':'')+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%" data-act="stir" data-id="Key'+k+'" aria-label="'+k+'" '+(s.completed?'disabled':'')+'>'+k+'</button>').join('')+
-      '</div><div class="mix-feedback '+(s.message==='MISS'?'miss':'')+'">'+(s.completed?L('스터 완료','STIR COMPLETE'):s.started?(s.feedbackLeft>0?s.message:L('다음 키','NEXT')+' '+['W','D','S','A'][next]):L('W 키를 눌러 시작하세요','Press W to begin'))+'<small>'+s.success+' / '+s.targetStacks+' '+L('성공','successful')+' · '+s.attempts+' '+L('진행','attempted')+(s.started&&!s.completed?' · '+Math.max(0,limit-s.circleTime).toFixed(1)+'s':'')+'</small></div>'+mixGauge(s)+'</section>';
+      '</div>'+mixGauge(s)+'</section>';
   }
   // The full UI is throttled; these existing visual nodes must follow every simulation frame.
   // Scope queries to the current screen so retry/exit never retains a detached canvas or actor.
@@ -289,16 +289,17 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const mix=window.LunaCore.MIX,at=(x,y)=>[55+x*118,42+y*118],points=mix.points.map(([x,y])=>at(x,y)),marker=at(...s.pathPoint);
     const candidates=[...s.nodes,...mix.points.map(([x,y],i)=>({x,y,id:'fixed:'+i,fixed:true}))],radius=mix.radius*118;
     const nodes=candidates.map(n=>{const p=at(n.x,n.y);return '<g data-shake-node="'+n.id+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+radius+'" class="shake-judge-range"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(n.fixed?10:8)+'" class="'+(n.fixed?'shake-turn':'shake-waypoint')+'"/></g>';}).join('');
-    const effect=s.hitEffect,ep=effect&&at(effect.x,effect.y);
-    return '<section class="mix-board shake-board"><div class="mix-guide"><b>'+L('노드에 맞춰 흔들기','SHAKE ON THE NODES')+'</b><span>'+L('분홍 표시가 노드와 겹칠 때 클릭','Click as the pink marker meets a node')+'<br>'+L('Space도 사용 가능 · 입력한 횟수만 판정','Space also works · only inputs count')+'</span></div>'+mixTimer(s)+mixGauge(s,true)+
+    return '<section class="mix-board shake-board">'+mixTimer(s)+mixGauge(s,true)+
       '<svg class="shake-path" data-shake-surface viewBox="0 0 420 540" aria-label="'+L('쉐이킹 클릭 영역','Shaking input area')+'"><polyline points="'+points.map(p=>p.join(',')).join(' ')+'" class="shake-route"/>'+nodes+
-      (effect?'<circle cx="'+ep[0]+'" cy="'+ep[1]+'" r="'+(10+effect.age*65)+'" fill="none" stroke="'+(effect.ok?'#90ffff':'#ffffff')+'" stroke-width="3" opacity="'+Math.max(0,1-effect.age*2)+'"/>':'')+
+      '<g data-shake-trail></g><g data-shake-fx></g>'+
       '<circle data-shake-marker cx="'+marker[0]+'" cy="'+marker[1]+'" r="9" class="shake-traveler '+(s.feedbackLeft>0?(s.beatSuccess?'good':'miss'):'')+'"/></svg>'+
-      '<div class="shake-action"><span class="mix-feedback '+(s.message==='MISS'?'miss':'')+'">'+(s.completed?L('쉐이킹 완료','SHAKE COMPLETE'):s.started?s.message||'60 BPM':L('클릭으로 시작','Click to start'))+'<small>'+s.success+' / '+s.targetStacks+' '+L('성공','hits')+' · '+s.attempts+' '+L('입력','inputs')+'</small></span>'+button(s.completed?L('완료','Complete'):s.started?L('클릭 / Space','Click / Space'):L('시작','Start'),'gimmickInput',s.completed?'disabled':'','mix-hit')+'</div></section>';
+      '<div class="shake-action">'+button(s.completed?L('완료','Complete'):s.started?L('클릭 / Space','Click / Space'):L('시작','Start'),'gimmickInput',s.completed?'disabled':'','mix-hit')+'</div></section>';
   }
   function mixHTML(s){
     const stir=s.type==='stir';
     return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
+      ${!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
+      ${stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       ${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary gimmick-finish')}</div>`;
   }

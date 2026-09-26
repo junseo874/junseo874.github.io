@@ -5,9 +5,11 @@
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const GLASS={left:596,right:790,top:252,bottom:470};
 const STEP=1/120,H=20,MAX_PARTICLES=1100;
-function nozzle(angle){const t=clamp(angle/95,0,1),k=t*t*(3-2*t);return{x:420+180*k,y:110+55*k};}
+// Web pourer tuning, not a measured real-world pourer specification.
+const POURER={rateScale:.25,maxAngle:125,rampDegrees:10};
+function nozzle(angle){const t=clamp(angle/95,0,1),k=t*t*(3-2*t);return{x:550+50*k,y:130+60*k};}
 class Simulation{
- constructor({targetMl,unitMl,rate=70,startAngle=95,maxAngle=150,tiltSpeed=95,viscosity=.025}){
+ constructor({targetMl,unitMl,rate=17.5,startAngle=95,maxAngle=125,tiltSpeed=95,viscosity=.025}){
   this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.rate=rate;
   this.startAngle=startAngle;this.maxAngle=maxAngle;this.tiltSpeed=tiltSpeed;this.viscosity=viscosity;
   this.quantum=Math.max(.5,this.targetMl/180);this.supplyMl=Math.max(600,this.targetMl*4);
@@ -17,9 +19,10 @@ class Simulation{
   this.glass={...GLASS};this.peakParticles=0;this.surfaceY=GLASS.bottom;
  }
  requestFinish(s){this.finishRequested=true;s.held=false;}
- flowAt(angle){return clamp((angle-this.startAngle)/Math.max(1,this.maxAngle-this.startAngle),0,1);}
+ flowAt(angle){return clamp((angle-this.startAngle)/Math.max(1,Math.min(POURER.rampDegrees,this.maxAngle-this.startAngle)),0,1);}
  predicted(s){
-  const extraAngle=Math.max(0,s.angle-this.startAngle),tail=this.rate*this.flowAt(s.angle)*extraAngle/(2*this.tiltSpeed);
+  const extraAngle=clamp(s.angle-this.startAngle,0,this.maxAngle-this.startAngle),ramp=Math.max(1,Math.min(POURER.rampDegrees,this.maxAngle-this.startAngle));
+  const tail=this.rate/this.tiltSpeed*(extraAngle<=ramp?extraAngle*extraAngle/(2*ramp):extraAngle-ramp/2);
   return (this.caughtMl+this.airMl+Math.min(tail,Math.max(0,this.supplyMl-this.emittedMl)))/this.unitMl;
  }
  tick(s,dt){
@@ -43,10 +46,10 @@ class Simulation{
   const flush=this.flow===0||this.emittedMl>=this.supplyMl-1e-8,at=nozzle(s.angle),a=s.angle*Math.PI/180;
   while(this.nozzleMl+1e-10>=this.quantum||(flush&&this.nozzleMl>1e-9)){
    const mass=Math.min(this.quantum,this.nozzleMl);this.nozzleMl=Math.max(0,this.nozzleMl-mass);
-   const serial=this.serial++,lane=(serial%4)-1.5,wiggle=Math.sin(serial*2.399)*.6;
-   const speed=260+100*this.flow;
-   this.particles.push({id:serial,x:at.x+lane*7+wiggle,y:at.y,px:at.x,py:at.y,
-    vx:Math.sin(a)*speed+lane*5,vy:-Math.cos(a)*speed,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
+   const serial=this.serial++,lane=(serial%3)-1,wiggle=Math.sin(serial*2.399)*.15;
+   const speed=105+20*this.flow;
+   this.particles.push({id:serial,x:at.x+lane*.7+wiggle,y:at.y,px:at.x,py:at.y,
+    vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
   }
   this.peakParticles=Math.max(this.peakParticles,this.particles.length);
  }
@@ -62,7 +65,8 @@ class Simulation{
    for(let gx=x-1;gx<=x+1;gx++)for(let gy=y-1;gy<=y+1;gy++){
     const cell=this.grid.get(gx+gy*128);if(!cell)continue;
     for(const j of cell){
-     if(j<=i)continue;const b=ps[j],dx=b.x-p.x,dy=b.y-p.y,d2=dx*dx+dy*dy;
+     // Keep the narrow airborne jet ballistic; density pressure starts in the glass.
+     if(j<=i||!p.wet||!ps[j].wet)continue;const b=ps[j],dx=b.x-p.x,dy=b.y-p.y,d2=dx*dx+dy*dy;
      if(d2>=H*H)continue;
      const d=Math.max(.001,Math.sqrt(d2)),q=1-d/H,q2=q*q;
      p.rho+=q2;b.rho+=q2;p.near+=q2*q;b.near+=q2*q;
@@ -116,8 +120,10 @@ class Simulation{
   let caught=0,air=this.nozzleMl,surface=this.glass.bottom,maxSpeed=0;
   const keep=[],g=this.glass;
   for(const p of this.particles){
-   p.inside=p.x>=g.left&&p.x<=g.right&&p.y>=g.top&&p.y<=g.bottom;
-   p.airAge=p.inside?0:p.airAge+STEP;
+   // A settled particle touching the rim still belongs to the glass (collision radius = 3).
+   const rim=p.wet?g.top-3:g.top;
+   p.inside=p.x>=g.left&&p.x<=g.right&&p.y>=rim&&p.y<=g.bottom;
+   p.wet=p.wet||p.inside;p.airAge=p.inside?0:p.airAge+STEP;
    if(!p.inside&&(p.y>540||p.x<0||p.x>1000||p.airAge>8)){
     this.spilledMl+=p.ml;continue;
    }
@@ -133,10 +139,10 @@ function init(s,game){
  if(!['pour','fill_up'].includes(s.type))return;
  const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
  const visc=['grenadine','cream','coconut_milk'].includes(s.ingredient)?.065:.025;
- s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70),
-  startAngle:game.c('pour_start_angle_deg',95),maxAngle:game.c('pour_max_tilt_angle_deg',150),
+ s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70)*POURER.rateScale,
+  startAngle:game.c('pour_start_angle_deg',95),maxAngle:Math.min(POURER.maxAngle,game.c('pour_max_tilt_angle_deg',150)),
   tiltSpeed:game.c('pour_tilt_speed_deg_per_sec',95),viscosity:visc});
 }
-const api={Simulation,init,nozzle,GLASS,STEP};
+const api={Simulation,init,nozzle,GLASS,STEP,POURER};
 if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -6,12 +6,34 @@
 .fluid-screen .pour-hold{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:8;min-width:210px;min-height:45px;margin:0;font-size:14px}
 .opening-screen{background:#080e18;overflow:hidden}
 .opening-stage{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.opening-caption{position:absolute;top:140px;left:65px;pointer-events:none}
-.opening-caption small{font-size:13px;color:#88afb8;letter-spacing:2px}
-.opening-caption h2{font-size:32px;letter-spacing:3px;margin:12px 0 22px;color:#e4f8f6}
-.opening-caption p{font-size:14px;color:#a6c1c8}
 .opening-feedback{position:absolute;left:780px;top:272px;color:#8affd1;font-size:42px;letter-spacing:4px;pointer-events:none}
-.opening-feedback.miss{font-size:18px;color:#efa09b;letter-spacing:0}
-.opening-misses{position:absolute;left:65px;top:275px;color:#8b9da9;font-size:13px}
+.opening-feedback.miss{color:#efa09b;letter-spacing:0}
 .opening-hit{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);z-index:8;min-width:190px;background:#0b202cf0;color:#dffaf5!important}
 .opening-hit:disabled{opacity:.75}
+
+/* Shake hit feedback never moves the judgement board or changes its input radius. */
+.shake-screen .mix-cinema::after{content:"";position:absolute;inset:0;pointer-events:none;border:2px solid #a5ffed;box-shadow:inset 0 0 38px #81f4e12b;opacity:var(--shake-impact,0)}
+.shake-screen .motion-crop{transform:translateX(var(--shake-kick,0px))}
+.shake-screen [data-shake-fx],.shake-screen [data-shake-trail]{pointer-events:none}
+.shake-screen [data-shake-node].in-range .shake-waypoint{fill:#a6fff0;stroke:#edfffc;filter:drop-shadow(0 0 5px #87f8e0)}
+.shake-screen [data-shake-node].in-range .shake-turn{fill:#faacc9;stroke:#fff0f7;filter:drop-shadow(0 0 5px #f486b8)}
+.shake-screen [data-shake-node].in-range .shake-judge-range{stroke:#b3ffee;opacity:.6}
+.shake-screen .mix-gauge i.good{box-shadow:0 0 calc(3px + 8px * var(--shake-impact,0)) #80ffdf80}
+@media(prefers-reduced-motion:reduce){.shake-screen .motion-crop{transform:none}}
+
+.shake-sound-picker{position:absolute;top:14px;left:22px;z-index:8;display:flex;align-items:center;gap:6px}
+.shake-sound-option{font-size:12px!important;min-height:30px;padding:6px 12px!important;background:#0b1421ed;border:1px solid #536472;border-radius:6px}
+.shake-sound-option[aria-pressed="true"]{border-color:#83e8ed;color:#a6fff0;background:#14313a}
+.shake-sound-picker small{font-size:11px;color:#b7c4ce;margin-left:6px}
+
+/* Keep the input button on the right after removing shake status copy. */
+.shake-screen .shake-action{justify-content:flex-end}
+
+/* Stir feedback follows input and never moves the dial or changes judgement. */
+.stir-screen [data-stir-polish]{pointer-events:none}
+.stir-screen .mix-direction.stir-hit{box-shadow:0 0 calc(16px * var(--stir-hit,0)) #a1fff0;border-color:#b9fff4}
+.stir-screen .mix-cinema::after{content:"";position:absolute;inset:0;pointer-events:none;border:2px solid var(--stir-color,#95f6e4);opacity:calc(var(--stir-round,0) * .55)}
+.stir-screen .mix-gauge i.good{box-shadow:0 0 calc(8px * var(--stir-round,0)) #8effdf70}
+
+.opening-timing-hint{position:absolute;top:200px;left:50%;transform:translateX(-50%);z-index:3;pointer-events:none;color:#d4fff0;font-size:24px;text-shadow:0 0 12px #66eabc;letter-spacing:1px}
+.opening-timing-hint[hidden]{display:none}

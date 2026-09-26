@@ -20,6 +20,7 @@ const MIX={
  radius:.25,delay:.1,frameSeconds:.125,stirFrameSeconds:1/12,shakeClips:[[1,2,3,0],[5,6,7,4]],
  init(s){
   if(!['shake','stir'].includes(s.type))return;
+  s.shakeEffects=[];
   s.motionFrame=0;s.motionAge=null;s.motionClip=0;s.nextMotionClip=0;s.feedbackLeft=0;s.hitEffect=null;
   s.beatIndex=-1;s.pathPoint=[...this.points[0]];s.patternIndex=-1;s.patternTurn=-1;s.nodes=[];s.attemptStartPos=0;
   s.spoonAngle=0;s.spoonTarget=0;s.swirlSpeed=0;s.stirMotionPending=0;s.stirMotionClock=0;
@@ -44,6 +45,7 @@ const MIX={
   s.feedbackLeft=Math.max(0,s.feedbackLeft-dt);
   if(s.hitEffect){s.hitEffect.age+=dt;if(s.hitEffect.age>=.5)s.hitEffect=null;}
   if(s.type==='shake'){
+   s.shakeEffects=s.shakeEffects.filter(e=>(e.age+=dt)<.55);
    if(s.motionAge!==null){s.motionAge+=dt;s.motionFrame=this.shakeClips[s.motionClip][Math.min(3,Math.floor(s.motionAge/this.frameSeconds))];}
    return;
   }
@@ -96,6 +98,7 @@ const MIX={
   s.attempts++;s.success+=ok?1:0;s.failures+=ok?0:1;s.outcomes.push(ok);s.hit=true;s.beatSuccess=ok;s.message=ok?'GOOD':'MISS';s.feedbackLeft=.35;
   s.hitEffect={x:node?.x??s.pathPoint[0],y:node?.y??s.pathPoint[1],ok,age:0};
   if(ok){s.motionClip=s.nextMotionClip;s.nextMotionClip=1-s.nextMotionClip;s.motionAge=0;s.motionFrame=this.shakeClips[s.motionClip][0];}
+  s.shakeEffects.push({...s.hitEffect,id:s.attempts});if(s.shakeEffects.length>12)s.shakeEffects.shift();
   if(s.attempts>=s.targetStacks)s.completed=true;
   return ok;
  }
@@ -189,7 +192,7 @@ function scoreCraft(data,selected,actual,results,elapsed){
  return{score,grade,penalties,representatives,missingCore:missing.filter(r=>r.is_core).map(r=>r.ingredient),missing:missing.map(r=>r.ingredient),extra,elapsed,selected:selected.id,actual:structuredClone(actual),results:structuredClone(results)};
 }
 class Game{
- constructor(data,options={}){this.data=data;this.t=data.tables;this.cfg=Object.fromEntries(this.t.balance_config.map(r=>[r.setting,r.value]));this.onChange=()=>{};this.lang='ko';this.speed=1;this.dialogSpeed=1;this.read=new Set();this.reset(options.day??0,options.mode??'full',options.seed??1,false);}
+ constructor(data,options={}){this.data=data;this.t=data.tables;this.cfg=Object.fromEntries(this.t.balance_config.map(r=>[r.setting,r.value]));this.cfg.stir_circle_limit_sec=1.5;/* Web playtest tuning; source CSV unchanged. */this.onChange=()=>{};this.lang='ko';this.speed=1;this.dialogSpeed=1;this.read=new Set();this.reset(options.day??0,options.mode??'full',options.seed??1,false);}
  c(key,fallback=0){return n(this.cfg[key],fallback);}
  text(row,key='text'){return row?.[key+'.'+this.lang]||row?.[key+'.ko']||'';}
  cocktail(id){const c=this.t.cocktails.find(c=>c.id===id);if(!c)throw Error('칵테일 없음: '+id);return c;}
@@ -438,7 +441,7 @@ class Game{
  tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready)this.endGimmick();return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
   if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';OPEN.hit(g,false);}}
   else if(g.type==='shake'){MIX.updatePath(g,this.rng);if(!g.feedbackLeft){g.hit=false;g.message='';}}
-  else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',2))this.finishStirCircle(false);}
+  else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',1.5))this.finishStirCircle(false);}
  }
  currentDialogue(){if(this.cameraMoving||this.cameraLeft>0||this.transition>0)return null;if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
  totals(){return this.transactions.reduce((a,t)=>({sale:a.sale+t.sale,tip:a.tip+t.tip,refund:a.refund+t.refund,net:a.net+t.net}),{sale:0,tip:0,refund:0,net:0});}

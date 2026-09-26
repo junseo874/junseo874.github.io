@@ -2,19 +2,24 @@
 'use strict';
 function bgmSettingsHTML(){
  const status=!bgm.enabled?L('꺼짐','Off'):bgm.status==='error'?L('음원을 불러오지 못했습니다. 껐다 켜서 다시 시도하세요.','Audio could not load. Toggle off/on to retry.'):bgm.title||L('첫 클릭 또는 키 입력 후 재생','Plays after your first click or key press');
- return '<label class="settings-row"><span>'+L('병따기 효과음','Bottle-opening sounds')+'</span><input type="checkbox" data-change="gimmickAudio" '+(ui.gimmickAudio?'checked':'')+'></label><div class="settings-row"><span>'+L('공통 BGM · 4곡 셔플 반복','Background music · 4-track shuffle')+'</span>'+button(bgm.enabled?L('켜짐','On'):L('꺼짐','Off'),'bgm','aria-pressed="'+bgm.enabled+'"')+'</div><div class="settings-row"><label for="bgm-volume">'+L('BGM 음량','Music volume')+'</label><div class="bgm-volume-control"><input id="bgm-volume" type="range" min="0" max="100" step="1" data-input="bgmVolume" value="'+Math.round(bgm.volume*100)+'"><output for="bgm-volume">'+Math.round(bgm.volume*100)+'%</output></div></div><p class="recipe-note bgm-track">'+esc(status)+'</p>';
+ return '<label class="settings-row"><span>'+L('기믹 효과음 · 병따기 / 따르기 / 쉐이킹 / 스터','Gimmick sounds · opening / pouring / shaking / stirring')+'</span><input type="checkbox" data-change="gimmickAudio" '+(ui.gimmickAudio?'checked':'')+'></label><div class="settings-row"><span>'+L('공통 BGM · 4곡 셔플 반복','Background music · 4-track shuffle')+'</span>'+button(bgm.enabled?L('켜짐','On'):L('꺼짐','Off'),'bgm','aria-pressed="'+bgm.enabled+'"')+'</div><div class="settings-row"><label for="bgm-volume">'+L('BGM 음량','Music volume')+'</label><div class="bgm-volume-control"><input id="bgm-volume" type="range" min="0" max="100" step="1" data-input="bgmVolume" value="'+Math.round(bgm.volume*100)+'"><output for="bgm-volume">'+Math.round(bgm.volume*100)+'%</output></div></div><p class="recipe-note bgm-track">'+esc(status)+'</p>';
 }
 const bgm=window.barBgm=new window.LunaBarBgm();
 const D=window.LUNA_DATA,C=window.LunaCore,g=new C.Game(D),root=document.querySelector('#app');
 const remix=window.LunaRemix.attach(g);const mini=window.LunaMinigames.attach(g);window.barGame=g;window.barData=D;
 const siteHome=/\/bar-playtest\/(?:index\.html)?$/.test(location.pathname);
 try{g.read=new Set(JSON.parse(localStorage.getItem('luna.bar.playtest.read.v1')||'[]'));}catch{}
-const ui={minigames:false,miniVariant:'gpt',miniDifficulty:'standard',variant:'original',difficulty:'standard',assist:true,remixFilter:'all',remixAudio:true,gimmickAudio:true,day:0,mode:'full',seed:1,upkeep:'',shelfPage:0,hoverItem:null,tab:'glass',search:'',peek:null,inspector:false,dossier:'chris',dossierDetail:null,dossierPreview:null,dossierTestActor:'chris',sound:false,auto:false,readSkip:false,drag:null,lastEffect:null};
+const ui={minigames:false,miniVariant:'gpt',miniDifficulty:'standard',variant:'original',difficulty:'standard',assist:true,remixFilter:'all',remixAudio:true,gimmickAudio:true,shakeSound:1,stirSound:1,pourSound:1,day:0,mode:'full',seed:1,upkeep:'',shelfPage:0,hoverItem:null,tab:'glass',search:'',peek:null,inspector:false,dossier:'chris',dossierDetail:null,dossierPreview:null,dossierTestActor:'chris',sound:false,auto:false,readSkip:false,drag:null,lastEffect:null};
+try{ui.shakeSound=localStorage.getItem('luna.shake.sound.v1')==='2'?2:1;}catch{}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const L=(ko,en)=>g.lang==='ko'?ko:en;const fmt=n=>Math.round(n).toLocaleString();const phase=()=>({ready:L('플레이테스트 준비','Playtest setup'),opening:L('개점 전 대화','Before opening'),general:L('일반 손님 영업','General guest service'),regular:L('단골 손님 영업','Regular guest service'),practice:L('제조 연습','Craft practice'),complete:L('영업 정산','Daily settlement'),gameover:L('게임오버','Game over')})[g.phase];
 const a=(key)=>D.assets[key]?.src;const button=(label,act,more='',cls='')=>`<button class="${cls}" data-act="${act}" ${more}>${label}</button>`;
-const pourView=window.LunaPourView({g,D,L,esc,button});
+const pourView=window.LunaPourView({g,D,L,esc,button,ui});
+try{ui.pourSound=localStorage.getItem('luna.pour.sound.v1')==='2'?2:1;}catch{}
 const openView=window.LunaOpenView({g,D,L,esc,button,ui});
+const shakePolish=window.LunaShakePolish({g,D,ui});
+const stirPolish=window.LunaStirPolish({g,ui});
+try{ui.stirSound=localStorage.getItem('luna.stir.sound.v1')==='2'?2:1;}catch{}
 const money=n=>`${fmt(n)} G`;const labelType=t=>({pour:L('따르기','Pour'),fill_up:L('필업','Fill-up'),open:L('병따기','Open'),shake:L('쉐이킹','Shake'),stir:L('스터','Stir'),squeeze:L('스퀴즈','Squeeze'),powder:L('파우더','Powder')})[t]||t;
 function itemArt(id,cls='',usage='shelf'){const label=id==='opener'?L('병따개','Bottle opener'):g.name(id);const key=(usage==='recipe'&&a('recipe_item_'+id)?'recipe_item_':usage==='inventory'&&a('inventory_item_'+id)?'inventory_item_':'item_')+id;return '<img class="'+cls+'" src="'+(a(key)||a('item_dummy'))+'" alt="'+esc(label)+'" draggable="false">';}
 function drinkArt(id,usage='hero'){const c=g.cocktail(id),key=usage==='table'?'table_cocktail_'+id:usage==='recipe'?'recipe_cocktail_'+id:'cocktail_'+id;const src=a(key)||a('cocktail_'+id)||a('recipe_cocktail_'+id)||a('item_'+c.glass);return '<img class="drink-art" src="'+src+'" data-art-usage="'+usage+'" alt="'+esc(g.name(id))+'" draggable="false">';}
@@ -145,7 +150,11 @@ function toast(msg){const el=document.querySelector('#toast');el.textContent=msg
 function exportLog(){const payload={kind:'LUNA_WEB_PLAYTEST',createdAt:new Date().toISOString(),source:D.source,day:g.day,mode:g.mode,variant:g.variant,difficulty:g.remix?.difficulty,seed:g.seed,progress:g.progress,transactions:g.transactions,dailySettlement:g.dailySettlement,upkeepOverride:g.upkeepOverride,logs:g.logs,history:g.history,error:g.error};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const el=document.createElement('a');el.href=url;el.download=`luna-day${g.day}-${Date.now()}.json`;el.click();setTimeout(()=>URL.revokeObjectURL(url),3000);toast(L('테스트 로그를 내보냈습니다.','Test log exported.'));}
 function show(name){if(name==='dossier'){ui.dossierDetail=null;ui.dossierPreview=null;ui.inspector=false;}g.overlay=name;g.gimmick&&(g.gimmick.held=false);render();}
 function act(name,id){
- remixUI.unlockAudio();openView.unlockAudio();
+ pourView.unlockAudio();
+ if(name==='pourSound'){ui.pourSound=id==='2'?2:1;try{localStorage.setItem('luna.pour.sound.v1',String(ui.pourSound));}catch{}render(true);return;}
+ remixUI.unlockAudio();openView.unlockAudio();shakePolish.unlockAudio();stirPolish.unlockAudio();
+ if(name==='stirSound'){ui.stirSound=id==='2'?2:1;try{localStorage.setItem('luna.stir.sound.v1',String(ui.stirSound));}catch{}render(true);return;}
+ if(name==='shakeSound'){ui.shakeSound=id==='2'?2:1;try{localStorage.setItem('luna.shake.sound.v1',String(ui.shakeSound));}catch{}render(true);return;}
  if(name==='miniRules'){ui.miniVariant=id==='original'?'original':'gpt';render(true);return;}if(name==='miniDifficulty'){ui.miniDifficulty=id;render(true);return;}if(name==='miniStart'){miniStart(id);render(true);return;}if(name==='miniRetry'){g.retryMinigame();render(true);return;}if(name==='miniLobby'){miniLobby();render(true);return;}if(name==='miniBar'){miniLobby();act('version',ui.variant);return;}if(name==='miniExit'){if(!g.minigame||!g.gimmick?.started){miniLobby();render(true);}else show('miniExit');return;}if(ui.minigames&&name==='inspector')return;
  if(name==='version'){if(g.phase!=='ready')return;if(id==='minigames'){miniLobby();render(true);return;}ui.minigames=false;try{localStorage.setItem(g.variant==='gpt'?'luna.bar.gpt.read.v1':'luna.bar.playtest.read.v1',JSON.stringify([...g.read]));}catch{}ui.variant=id==='gpt'?'gpt':'original';ui.day=ui.variant==='gpt'?99:0;ui.mode=ui.variant==='gpt'?'challenge':'full';ui.upkeep='';ui.search='';ui.peek=null;ui.inspector=false;ui.auto=false;ui.readSkip=false;g.speed=1;g.reset(ui.day,ui.mode,ui.seed,false,{variant:ui.variant,difficulty:ui.difficulty,assist:ui.assist});try{g.read=new Set(JSON.parse(localStorage.getItem(ui.variant==='gpt'?'luna.bar.gpt.read.v1':'luna.bar.playtest.read.v1')||'[]'));}catch{g.read=new Set();}render(true);return;}
  if(remixUI.act(name,id)){render(true);return;}
@@ -165,12 +174,13 @@ function hoverIngredient(e){const el=e.target.closest('[data-hover-item]');if(el
 root.addEventListener('pointerover',hoverIngredient);root.addEventListener('focusin',hoverIngredient);
 function leaveIngredient(e){const from=e.target.closest('[data-hover-item]'),to=e.relatedTarget?.closest?.('[data-hover-item]');if(from&&from!==to&&ui.hoverItem){ui.hoverItem=to?.dataset.hoverItem||null;render();}}
 root.addEventListener('pointerout',leaveIngredient);root.addEventListener('focusout',leaveIngredient);
-root.addEventListener('pointerdown',e=>{if(e.button!==0)return;if(e.target.closest('[data-shake-surface]')&&!g.isPaused()&&!g.remix?.hold){e.preventDefault();g.gimmickInput('MouseLeft');render();return;}const hold=e.target.closest('[data-hold]');if(hold){e.preventDefault();g.holdPour(true);render();return;}const drag=e.target.closest('[data-drag]');if(drag&&!g.isPaused()&&g.screen==='bar'){e.preventDefault();ui.drag=drag.dataset.drag;const ghost=document.querySelector('#drag-ghost');ghost.innerHTML=ui.drag==='coaster'?`<img src="${a('coaster')}" alt="">`:drinkArt(g.drink.selected);ghost.hidden=false;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';render();}});
+root.addEventListener('pointerdown',e=>{if(e.button!==0)return;if(e.target.closest('[data-shake-surface]')&&!g.isPaused()&&!g.remix?.hold){e.preventDefault();shakePolish.unlockAudio();stirPolish.unlockAudio();g.gimmickInput('MouseLeft');render();return;}const hold=e.target.closest('[data-hold]');if(hold){e.preventDefault();pourView.unlockAudio();g.holdPour(true);render();return;}const drag=e.target.closest('[data-drag]');if(drag&&!g.isPaused()&&g.screen==='bar'){e.preventDefault();ui.drag=drag.dataset.drag;const ghost=document.querySelector('#drag-ghost');ghost.innerHTML=ui.drag==='coaster'?`<img src="${a('coaster')}" alt="">`:drinkArt(g.drink.selected);ghost.hidden=false;ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';render();}});
 window.addEventListener('pointermove',e=>{if(!ui.drag)return;const ghost=document.querySelector('#drag-ghost');ghost.style.left=e.clientX+'px';ghost.style.top=e.clientY+'px';});
 window.addEventListener('pointerup',e=>{g.holdPour(false);if(ui.drag){const zone=document.elementFromPoint(e.clientX,e.clientY)?.closest('[data-drop]');const ok=zone&&(ui.drag==='coaster'?g.coaster(zone.dataset.drop):g.serve(zone.dataset.drop));if(!ok)toast(L('현재 손님의 유효한 코스터 위치에 놓아 주세요.','Drop onto the focused guest’s valid coaster.'));ui.drag=null;document.querySelector('#drag-ghost').hidden=true;render();}});
 window.addEventListener('pointercancel',()=>{g.holdPour(false);ui.drag=null;document.querySelector('#drag-ghost').hidden=true;render();});
 window.addEventListener('keydown',e=>{
- remixUI.unlockAudio();openView.unlockAudio();
+ pourView.unlockAudio();
+ remixUI.unlockAudio();openView.unlockAudio();shakePolish.unlockAudio();stirPolish.unlockAudio();
  // Global menu keys work even when an option field has focus; held keys never toggle repeatedly.
  if(e.code==='Escape'){e.preventDefault();if(e.repeat)return;if(g.overlay==='dossier')act('dossierBack');else if(g.overlay)act('closeOverlay');else act('settings');return;}
  if(e.code==='F2'){e.preventDefault();if(!e.repeat)act('inspector');return;}
@@ -205,7 +215,7 @@ function frame(now){remixUI.soundTick();views.syncCamera(root);const dt=(now-pre
  if(g.read.size!==lastReadCount){lastReadCount=g.read.size;try{localStorage.setItem(g.variant==='gpt'?'luna.bar.gpt.read.v1':'luna.bar.playtest.read.v1',JSON.stringify([...g.read]));}catch{}}
  if(g.effectVisual&&g.effectVisual!==ui.lastEffect){ui.lastEffect=g.effectVisual;if(ui.sound&&g.effectVisual.kind==='sfx'){try{const context=new AudioContext(),osc=context.createOscillator(),gain=context.createGain();osc.connect(gain);gain.connect(context.destination);osc.frequency.value=180;gain.gain.setValueAtTime(.08,context.currentTime);gain.gain.exponentialRampToValueAtTime(.001,context.currentTime+.35);osc.start();osc.stop(context.currentTime+.35);osc.onended=()=>context.close();}catch{}}}
  const renderMs=g.screen==='gimmick'&&['stir','shake'].includes(g.gimmick?.type)?1000/30:80;
- if(now-lastRender>renderMs){render();lastRender=now;}views.syncStirMotion(root);pourView.sync(root);openView.sync(root);requestAnimationFrame(frame);}
+ if(now-lastRender>renderMs){render();lastRender=now;}views.syncStirMotion(root);pourView.sync(root);openView.sync(root);shakePolish.sync(root);stirPolish.sync(root);requestAnimationFrame(frame);}
 function fitViewport(){root.style.setProperty('--game-scale',Math.min(innerWidth/1280,innerHeight/720));}
 window.addEventListener('resize',fitViewport);fitViewport();
 g.onChange=()=>{};render(true);requestAnimationFrame(frame);

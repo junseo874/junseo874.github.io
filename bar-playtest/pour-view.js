@@ -10,7 +10,7 @@ function makeGPU(canvas){
   if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p;
  }
  const splat=program(
- 'attribute vec4 point;attribute vec2 velocity;varying float inside;varying float stretch;varying vec2 direction;void main(){gl_Position=vec4(point.x/500.-1.,1.-point.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(1.7,speed/280.);direction=speed>1.?velocity/speed:vec2(0.,1.);gl_PointSize=28.*stretch;inside=point.w;}',
+ 'attribute vec4 point;attribute vec2 velocity;varying float inside;varying float stretch;varying vec2 direction;void main(){gl_Position=vec4(point.x/500.-1.,1.-point.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(3.,speed/180.);direction=speed>1.?velocity/speed:vec2(0.,1.);float pooled=1.-smoothstep(45.,130.,speed);gl_PointSize=mix(16.,28.,pooled)*stretch;inside=point.w;}',
  'precision mediump float;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 d=gl_PointCoord*2.-1.;vec2 local=vec2(dot(d,direction),dot(d,vec2(-direction.y,direction.x))*stretch);float r=dot(local,local);if(r>1.)discard;float y=540.-gl_FragCoord.y;if(inside>.5&&y>=252.&&(gl_FragCoord.x<596.||gl_FragCoord.x>790.||y>470.))discard;float f=pow(1.-r,3.);gl_FragColor=vec4(f);}'
  );
  const composite=program(
@@ -44,15 +44,66 @@ function makeGPU(canvas){
   lose(){gl.getExtension('WEBGL_lose_context')?.loseContext();}
  };
 }
-root.LunaPourView=function({g,D,L,esc,button}){
+root.LunaPourView=function({g,D,L,esc,button,ui}){
  let mounted=null,gpu=null,fallback=false;
  const images=new Map();
- const unit=(s,ml)=> (ml/s.fluid.unitMl).toFixed(2)+' '+s.unit;
+ let audio=null,voice=null,audioState=null,audioSelection=1;
+ const buffers=new Map(),jobs=new Map(),voices=new Set();
+ const raw=new Map([1,2].map(id=>[id,fetch(new URL('audio/pour_0'+id+'_loop.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).catch(()=>null)]));
+ function unlockAudio(){
+  if(ui.gimmickAudio===false||g.screen!=='gimmick'||!g.gimmick?.fluid)return;
+  try{
+   audio??=new(window.AudioContext||window.webkitAudioContext)();
+   if(audio.state==='suspended')audio.resume().catch(()=>{});
+   for(const id of [1,2])if(!jobs.has(id))jobs.set(id,raw.get(id).then(b=>{if(!b)throw Error('Missing pour audio');return audio.decodeAudioData(b.slice(0));}).then(b=>buffers.set(id,b)).catch(()=>console.warn('Pour sound '+id+' unavailable')));
+  }catch{}
+ }
+ function stopAudio(immediate=false){
+  if(immediate){
+   for(const v of voices){try{v.source.stop();}catch{}v.source.disconnect();v.gain.disconnect();}
+   voices.clear();voice=null;return;
+  }
+  const v=voice;if(!v)return;voice=null;
+  const now=audio.currentTime;
+  v.gain.gain.cancelScheduledValues(now);v.gain.gain.setValueAtTime(v.gain.gain.value,now);
+  v.gain.gain.linearRampToValueAtTime(0,now+.08);v.source.stop(now+.085);
+ }
+ function syncAudio(s,screen){
+  if(audioState!==s){stopAudio(true);audioState=s;}
+  const selected=Number(ui.pourSound)||1;
+  if(selected!==audioSelection){stopAudio();audioSelection=selected;}
+  const f=s.fluid,paused=g.isPaused()||document.hidden||ui.gimmickAudio===false;
+  // Match the physical emitter, including the short remaining flow while the bottle rises.
+  const flowing=s.started&&f.flow>.001&&f.emittedMl<f.supplyMl-1e-8;
+  if(paused)stopAudio(true);
+  else if(!flowing)stopAudio();
+  else if(audio?.state==='running'&&buffers.has(selected)){
+   if(!voice){
+    const v={source:audio.createBufferSource(),gain:audio.createGain()};
+    v.source.buffer=buffers.get(selected);v.source.loop=true;
+    v.source.connect(v.gain);v.gain.connect(audio.destination);
+    v.gain.gain.setValueAtTime(0,audio.currentTime);
+    v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();voices.delete(v);if(voice===v)voice=null;};
+    voice=v;voices.add(v);v.source.start();
+   }
+   voice.gain.gain.setTargetAtTime(.8*Math.sqrt(f.flow),audio.currentTime,.035);
+  }
+  screen.dataset.pourSound=selected;
+  screen.dataset.pourAudioReady=String(buffers.has(selected));
+  screen.dataset.pourAudioPlaying=String(!!voice);
+  const status=screen.querySelector('[data-pour-audio-status]');
+  if(status)status.textContent=ui.gimmickAudio===false?L('음소거','Muted'):audio&&!buffers.has(selected)?L('음원 준비 중 / 로드 실패 시 새로고침','Loading / reload if unavailable'):'';
+ }
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAudio(true);});
+ window.addEventListener('blur',()=>stopAudio(true));
+ window.addEventListener('pagehide',()=>stopAudio(true));
+
  function html(s){
   const f=s.fluid;
   return '<div class="craft-screen fluid-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
+   '<div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div>'+
    '<div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass')+'"></canvas></div>'+
-   '<aside class="pour-dashboard"><div class="pour-kicker">'+L('이번 재료의 목표량','INGREDIENT TARGET')+'</div><div class="pour-goal">'+s.target+' <small>'+s.unit+'</small></div><div class="pour-dashboard-rule"></div><span>'+L('잔에 담긴 양','IN THE GLASS')+'</span><strong class="pour-live-value" data-pour-value>0.00 <small>'+s.unit+'</small></strong><div class="pour-dose"><i data-pour-dose></i><b></b></div><div class="pour-stats"><div><span>'+L('떨어지는 중','In flight')+'</span><b data-pour-air>0.00 '+s.unit+'</b></div><div><span>'+L('흘린 양','Spilled')+'</span><b data-pour-spill>0.00 '+s.unit+'</b></div></div><div class="pour-forecast"><span>'+L('지금 놓으면 예상','ESTIMATE IF RELEASED NOW')+'</span><strong data-pour-predicted>0.00 '+s.unit+'</strong><small>'+L('공중 액체 포함 · 넘침에 따라 달라져요','Includes airborne liquid; overflow may reduce it')+'</small></div><p class="pour-status" data-pour-status>'+L('길게 눌러 천천히 기울여 보세요.','Hold to tilt the bottle.')+'</p><small class="pour-render-note" data-pour-render></small></aside></div>'+
+   '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
    '<button class="primary hold-button pour-hold" data-hold="pour" '+(f.finishRequested?'disabled':'')+'><kbd>Space</kbd> '+L('누르고 있기','Hold to pour')+'</button>'+
    button(f.finishRequested?L('마지막 방울 정리 중…','Waiting for the final drops…'):g.minigame?L('따르기 마치기 →','Finish pouring →'):L('마치고 다음 재료 →','Finish & continue →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'</div>';
  }
@@ -75,8 +126,6 @@ root.LunaPourView=function({g,D,L,esc,button}){
   c.strokeStyle='#698c9812';c.lineWidth=1;
   for(let x=280;x<1000;x+=28){c.beginPath();c.moveTo(x,0);c.lineTo(x,515);c.stroke();}
   for(let y=12;y<510;y+=28){c.beginPath();c.moveTo(270,y);c.lineTo(1000,y);c.stroke();}
-  const floor=c.createLinearGradient(0,480,0,540);floor.addColorStop(0,'#243133');floor.addColorStop(1,'#0a1018');c.fillStyle=floor;c.fillRect(270,480,730,60);
-  c.strokeStyle='#74949655';c.beginPath();c.moveTo(270,480);c.lineTo(1000,480);c.stroke();
   c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
   c.fillStyle='#b9e8f00d';c.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
  }
@@ -85,10 +134,20 @@ root.LunaPourView=function({g,D,L,esc,button}){
   const art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
   let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
   c.save();c.translate(at.x,at.y);c.rotate(s.angle*Math.PI/180);
-  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],height=175,width=bw/bh*height;
+  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],height=Math.min(235,110*bh/bw),width=bw/bh*height;
+  const capCrop=Math.round(bh*.065);
   c.imageSmoothingEnabled=false;
-  if(img.complete&&img.naturalWidth)c.drawImage(img,box[0],box[1],bw,bh,-width/2,0,width,height);
-  else{c.fillStyle='#709fa9';c.fillRect(-20,0,40,height);}
+  if(img.complete&&img.naturalWidth)c.drawImage(img,box[0],box[1]+capCrop,bw,bh-capCrop,-width/2,34,width,height);
+  else{c.fillStyle='#709fa9';c.fillRect(-20,34,40,height);}
+  // Pourer tip is local (0,0): the physical emitter and visible outlet share the same pivot.
+  const neck=Math.max(16,Math.min(30,width*.4));
+  c.fillStyle='#101a20';c.fillRect(-neck/2,29,neck,15);
+  c.fillStyle='#384952';c.fillRect(-neck/2-2,29,neck+4,5);
+  c.lineCap='round';c.lineJoin='round';
+  c.beginPath();c.moveTo(0,31);c.lineTo(2,15);c.lineTo(0,0);c.strokeStyle='#334752';c.lineWidth=10;c.stroke();
+  c.strokeStyle='#b8d0d6';c.lineWidth=6;c.stroke();c.strokeStyle='#f3ffff';c.lineWidth=1.5;c.stroke();
+  c.beginPath();c.moveTo(8,30);c.lineTo(9,22);c.strokeStyle='#98aeb7';c.lineWidth=2;c.stroke();
+  c.fillStyle='#172c35';c.beginPath();c.ellipse(0,0,3.5,1.5,0,0,Math.PI*2);c.fill();
   c.restore();c.imageSmoothingEnabled=true;
   // Glass walls are drawn after the liquid, but its interior remains transparent.
   c.lineWidth=3;c.strokeStyle='#acd6dfaa';c.beginPath();c.moveTo(b.left-3,b.top-3);c.lineTo(b.left-3,b.bottom-2);c.quadraticCurveTo(b.left-3,b.bottom+7,b.left+6,b.bottom+7);c.lineTo(b.right-6,b.bottom+7);c.quadraticCurveTo(b.right+3,b.bottom+7,b.right+3,b.bottom-2);c.lineTo(b.right+3,b.top-3);c.stroke();
@@ -96,41 +155,28 @@ root.LunaPourView=function({g,D,L,esc,button}){
   c.strokeStyle='#cce6edaa';c.beginPath();c.ellipse((b.left+b.right)/2,b.top,(b.right-b.left)/2+3,5,0,0,Math.PI*2);c.stroke();
   const guide=clamp(b.bottom-3-(f.targetMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);
   c.setLineDash([5,5]);c.strokeStyle='#e4c885';c.lineWidth=1;c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.setLineDash([]);
-  c.fillStyle='#f4d99a';c.font='15px sans-serif';c.fillText(L('목표','Target')+' '+s.target+' '+s.unit,b.right+26,guide+5);
-  c.fillStyle='#b7c8ca';c.font='12px sans-serif';c.fillText(L('이번 재료 계량 · 수면선은 참고용','This ingredient only · approximate level guide'),b.left-14,510);
-  // Angle gauge remains anchored in the working area, not to a moving bottle.
-  c.strokeStyle='#718a9655';c.lineWidth=4;c.beginPath();c.arc(407,388,30,-Math.PI/2,Math.PI/3);c.stroke();
-  c.strokeStyle='#61dde4';c.beginPath();c.arc(407,388,30,-Math.PI/2,-Math.PI/2+s.angle*Math.PI/180);c.stroke();
-  c.fillStyle='#deebef';c.textAlign='center';c.font='14px monospace';c.fillText(Math.round(s.angle)+'°',407,393);c.textAlign='left';
+
  }
+ // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
+ function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return 3.4+3.1*(1-t*t*(3-2*t));}
  function drawFallback(f,rgb,alpha){
   const c=mounted.fallback;c.clearRect(0,0,1000,540);if(!fallback)return;
   c.fillStyle='rgba('+rgb.join(',')+','+Math.max(.65,alpha)+')';c.shadowColor=c.fillStyle;c.shadowBlur=5;
-  for(const p of f.particles){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,6.5,0,Math.PI*2);c.fill();c.restore();}
+  for(const p of f.particles){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
   c.shadowBlur=0;
  }
  function sync(rootElement){
   const s=g.gimmick,stage=g.screen==='gimmick'&&s?.fluid&&rootElement.querySelector('[data-fluid-stage]');
-  if(!stage){cleanup();return;}mount(stage);const f=s.fluid;
+  if(!stage){stopAudio(true);audioState=null;cleanup();return;}mount(stage);const f=s.fluid;
+  syncAudio(s,stage.closest('.fluid-screen'));
   const item=g.t.shelf_items.find(i=>i.id===s.ingredient),rgb=(item?.color||'200,230,240').split(',').map(Number),alpha=Number(item?.liquid_alpha||.6);
   drawBack(s,rgb);if(!fallback&&gpu)gpu.draw(f,rgb,alpha);drawFallback(f,rgb,alpha);drawFront(s);
   mounted.gpu.style.visibility=fallback?'hidden':'visible';stage.querySelector('.pour-fallback').style.visibility=fallback?'visible':'hidden';
   const set=(selector,text)=>{const el=rootElement.querySelector(selector);if(el&&el.textContent!==text)el.textContent=text;};
-  set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);set('[data-pour-air]',unit(s,f.airMl));set('[data-pour-spill]',unit(s,f.spilledMl));
-  set('[data-pour-predicted]',f.predicted(s).toFixed(2)+' '+s.unit);
-  const dose=rootElement.querySelector('[data-pour-dose]');if(dose)dose.style.width=Math.min(100,s.value/s.target*66.67)+'%';
-  set('[data-pour-render]',fallback?L('호환 그래픽 모드 · 물리·용량은 동일','Compatibility rendering · identical physics & volume'):'');
-  let status=f.finishRequested?L('병을 세우고 마지막 방울을 기다리고 있어요.','Raising the bottle and waiting for the final drops.'):
-   f.emittedMl>=f.supplyMl-1e-6?L('병이 비었어요. 담긴 양을 확인해 주세요.','The bottle is empty. Check the retained amount.'):
-   s.value>s.target*1.05?L('목표량을 넘었어요. 병을 세워 주세요.','Over the target. Release to raise the bottle.'):
-   f.predicted(s)>=s.target*.96&&f.flow>0?L('지금 놓아 보세요. 남은 액체가 마저 떨어져요.','Release now. The remaining liquid will follow.'):
-   f.airMl>.01&&!s.held?L('남은 방울이 떨어지고 있어요.','The last drops are still falling.'):
-   s.held?L('기울기에 따라 물줄기가 굵어져요.','The flow grows as the bottle tilts.'):
-   L('Space 또는 버튼을 길게 눌러 따르세요.','Hold Space or the button to pour.');
-  set('[data-pour-status]',status);
+  set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);
   stage.dataset.renderer=fallback?'canvas2d':'webgl';stage.dataset.particles=f.particles.length;
  }
  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
- return{html,sync};
+ return{html,sync,unlockAudio};
 };
 })(window);

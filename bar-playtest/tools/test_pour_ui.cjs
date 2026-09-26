@@ -7,6 +7,9 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  await p.goto(BASE+'?mode=minigames');
  for(const variant of ['original','gpt'])for(const kind of ['pour','fill_up']){
   await p.evaluate(({kind,variant})=>barGame.startMinigame(kind,variant),{kind,variant});await p.locator('[data-fluid-stage]').waitFor();
+  assert.equal(await p.locator('.pour-dashboard,.pour-bottom-note,[data-pour-status],.craft-top,.gimmick-footer').count(),0);assert.equal(await p.locator('.pour-top-readout strong').count(),2);
+  assert.equal(await p.locator('.pour-top-readout').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');
+  const hud=await p.locator('.pour-top-readout').boundingBox();assert(hud.x<40&&hud.y<40);
   await p.waitForTimeout(150);assert.equal(await p.locator('[data-fluid-stage]').getAttribute('data-renderer'),'webgl');
   await p.keyboard.press('KeyD');await p.waitForTimeout(80);assert.equal(await p.evaluate(()=>barGame.gimmick.fluid.emittedMl),0);
   const button=p.locator('[data-hold="pour"]');await button.hover();await p.mouse.down();

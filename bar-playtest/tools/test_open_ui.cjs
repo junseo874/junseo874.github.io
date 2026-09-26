@@ -10,6 +10,8 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  for(const variant of ['original','gpt']){
   await p.evaluate(v=>barGame.startMinigame('open',v),variant);await p.locator('[data-opening-stage]').waitFor();
   await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/open-'+variant+'-ready.png'});
+  assert.equal(await p.locator('.opening-caption,.opening-misses').count(),0);
+  assert.equal(await p.locator('[data-open-timing]').isVisible(),false);
   assert.equal(await p.locator('.craft-top,.gimmick-footer,.pour-footer').count(),0);
   assert.equal(await p.locator('[data-act="endGimmick"]').isDisabled(),true);
   await p.keyboard.press('Space');await p.waitForTimeout(80);await p.keyboard.press('Space');await p.waitForTimeout(80);
@@ -18,10 +20,18 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   await p.screenshot({path:'/private/tmp/open-'+variant+'-miss.png'});
   await p.keyboard.press('Escape');await p.waitForTimeout(100);
   const frozen=await p.evaluate(()=>JSON.stringify(barGame.gimmick));await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>JSON.stringify(barGame.gimmick)),frozen);
+  assert.equal(await p.locator('[data-open-timing]').isVisible(),false);
   await p.keyboard.press('Escape');
+  for(const [beat,visible] of [[.3,false],[1.40,false],[1.52,true],[1.63,true],[1.78,false]]){
+   await p.evaluate(beat=>{barGame.gimmick.beatTime=beat;},beat);await p.waitForTimeout(30);
+   assert.equal(await p.locator('[data-open-timing]').isVisible(),visible,'Space hint follows the real hit window');
+  }
+  await p.evaluate(()=>{barGame.gimmick.beatTime=1.56;});await p.waitForTimeout(25);
+  await p.screenshot({path:'/private/tmp/open-space-window-'+variant+'.png'});
   // Fix the judgement clock, then exercise the real UI input. No score overrides.
   await p.evaluate(()=>{barGame.gimmick.beatTime=1.54;});await p.keyboard.press('Space');
   await p.waitForTimeout(130);assert.equal(await p.locator('[data-opening-stage]').getAttribute('data-state'),'success');
+  assert.equal(await p.locator('[data-open-timing]').isVisible(),false,'Hide after success');
   await p.screenshot({path:'/private/tmp/open-'+variant+'-pop.png'});
   const elapsed=await p.evaluate(()=>barGame.craft.elapsed);
   await p.keyboard.press('Escape');await p.waitForTimeout(120);
@@ -49,5 +59,5 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  }
  await p.keyboard.press('Space');await p.locator('[data-act="miniExit"]').click();await p.locator('[data-act="miniLobby"]').click();await p.locator('.minigame-lobby').waitFor();
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);assert(muted>=4,'Two attempts each produce miss and pop sounds');
- console.log('OPEN_UI_OK: original/GPT success, slip, preserved score, pause, sound once/mute, retry, all five minimal layouts, responsive & exit.');
+ console.log('OPEN_UI_OK: original/GPT exact-window Space hint, removed caption/miss count, success, slip, preserved score, pause, sound once/mute, retry, all five minimal layouts, responsive & exit.');
 }finally{await b?.close();}})().catch(e=>{console.error(e);process.exitCode=1});
