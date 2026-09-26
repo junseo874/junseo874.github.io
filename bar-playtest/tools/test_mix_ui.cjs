@@ -9,7 +9,7 @@ const assert=require('assert/strict');
   barGame.reset(99,'practice',1,true,{variant:'original'});barGame.selectCocktail(type==='stir'?'dry_martini':'gin_fizz');barGame.debugFill();barGame.startCraft();
   barGame.craft.index=barGame.craft.queue.findIndex(q=>q.type===type);barGame.nextGimmick();
  },type);await p.waitForTimeout(200);await p.evaluate(async()=>{await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));});
- assert(await p.locator('.craft-top').evaluate(e=>{const hud=document.querySelector('.currency-hud').getBoundingClientRect();return [...e.children].every(child=>child.getBoundingClientRect().right<hud.left);}),'Craft header overlaps balance');}
+ assert.equal(await p.locator('.craft-top,.gimmick-footer,.currency-hud').count(),0);assert(await p.locator('.gimmick-finish').isVisible());}
  await prepare('stir');assert.equal(await p.locator('.mix-direction').count(),4);
  assert.equal(await p.locator('.stir-live-glass [data-ice-cube]').count(),6);assert.equal(await p.locator('.stir-side-glass [data-ice-cube]').count(),6);
  await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>barGame.gimmick.elapsed),0);
@@ -47,7 +47,7 @@ const assert=require('assert/strict');
  await p.waitForFunction(()=>LunaCore.MIX.nearest(barGame.gimmick)?.distance<.08,null,{polling:5});
  await p.keyboard.down('Space');const held=await p.evaluate(()=>barGame.gimmick.attempts);await p.waitForTimeout(260);await p.keyboard.up('Space');
  assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),held);assert.equal(await p.evaluate(()=>barGame.gimmick.motionClip),1);
- await p.locator('[data-act="craftRecipe"]').click();const state=await p.evaluate(()=>JSON.stringify(barGame.gimmick));
+ await p.keyboard.press('Escape');const state=await p.evaluate(()=>JSON.stringify(barGame.gimmick));
  await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>JSON.stringify(barGame.gimmick)),state);await p.keyboard.press('Escape');
  await p.evaluate(()=>{let guard=0;while(!barGame.gimmick.completed&&guard++<10000){barGame.tick(.005);const s=barGame.gimmick;if(LunaCore.MIX.nearest(s)&&!s.feedbackLeft)barGame.gimmickInput('Space');}});
  assert.equal(await p.evaluate(()=>barGame.gimmick.completed),true);await p.waitForTimeout(600);

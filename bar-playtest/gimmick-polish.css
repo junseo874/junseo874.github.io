@@ -1,0 +1,17 @@
+/* No navigation strips: controls float over the full 16:9 play area. */
+.gimmick-exit{position:absolute;right:18px;top:14px;z-index:8;padding:7px 12px!important;min-height:30px;font-size:11px!important;background:#0b1421ed;border:1px solid #536472;border-radius:6px}
+.gimmick-finish{position:absolute;right:22px;bottom:18px;z-index:8;font-size:14px;padding:12px 24px}
+.mix-screen .mix-workspace{padding:55px 22px 76px}
+.fluid-screen .pour-workspace{position:absolute;inset:0;margin:0;border:0}
+.fluid-screen .pour-hold{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:8;min-width:210px;min-height:45px;margin:0;font-size:14px}
+.opening-screen{background:#080e18;overflow:hidden}
+.opening-stage{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.opening-caption{position:absolute;top:140px;left:65px;pointer-events:none}
+.opening-caption small{font-size:13px;color:#88afb8;letter-spacing:2px}
+.opening-caption h2{font-size:32px;letter-spacing:3px;margin:12px 0 22px;color:#e4f8f6}
+.opening-caption p{font-size:14px;color:#a6c1c8}
+.opening-feedback{position:absolute;left:780px;top:272px;color:#8affd1;font-size:42px;letter-spacing:4px;pointer-events:none}
+.opening-feedback.miss{font-size:18px;color:#efa09b;letter-spacing:0}
+.opening-misses{position:absolute;left:65px;top:275px;color:#8b9da9;font-size:13px}
+.opening-hit{position:absolute;left:50%;bottom:40px;transform:translateX(-50%);z-index:8;min-width:190px;background:#0b202cf0;color:#dffaf5!important}
+.opening-hit:disabled{opacity:.75}

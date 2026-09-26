@@ -298,9 +298,9 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function mixHTML(s){
     const stir=s.type==='stir';
-    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'}"><div class="craft-top"><h2>${stir?L('스터','STIR'):L('쉐이킹','SHAKE')} <small>${esc(g.name(g.craft.actual.selected))}</small></h2><span class="badge">${g.minigame?L('단독 연습','Single skill'):g.craft.index+1+' / '+g.craft.queue.length}</span>${g.minigame?button(L('기믹 선택','Choose a minigame'),'miniExit','','subtle'):button(L('레시피','Recipe'),'craftRecipe','','subtle')}</div>
+    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
-      <div class="gimmick-footer"><div><p>${L('전체 제조 조작 시간','Total active craft time')} <span class="num">${g.craft.elapsed.toFixed(1)}s</span>${g.minigame?'':' / '+g.cocktail(g.craft.actual.selected).time_limit_sec+'s'}</p><small>${L('대기·일시정지·화면 전환은 시간에서 제외됩니다.','Ready, pause and transitions are excluded.')}</small></div>${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary')}</div></div>`;
+      ${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary gimmick-finish')}</div>`;
   }
   return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor};
 };

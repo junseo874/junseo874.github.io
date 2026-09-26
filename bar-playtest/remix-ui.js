@@ -49,7 +49,7 @@ root.LunaRemixUI=function({g,D,ui,L,esc,a,button,itemArt,drinkArt,recipeLines,re
   if(s.type==='open')return s.failures?L(`${s.failures}번 빗나갔지만 열었어요.`,`${s.failures} misses, but you opened it.`):L('한 번에 깔끔하게!','A clean first try!');
   return L(`${s.success}/${s.targetStacks} 성공 · ${s.success===s.targetStacks?'완벽한 리듬!':'다음 잔에서 더 정확하게!'}`,`${s.success}/${s.targetStacks} hits · ${s.success===s.targetStacks?'Perfect rhythm!':'Try for an even cleaner next drink!'}`);
  }
- function gimmickHTML(){if(!remix.active()||!g.gimmick||g.gimmick.fluid)return'';const s=g.gimmick;
+ function gimmickHTML(){if(!remix.active()||!g.gimmick||g.gimmick.fluid||g.gimmick.type==='open')return'';const s=g.gimmick;
   if(g.remix.hold)return`<div class="remix-step-feedback" role="status"><span>${['pour','fill_up'].includes(s.type)?'◌':'✓'}</span><h2>${feedback(s)}</h2><small>${L('잠시 후 다음 단계로 이어집니다.','Continuing to the next step…')}</small></div>`;
   return'';
  }
@@ -64,7 +64,7 @@ root.LunaRemixUI=function({g,D,ui,L,esc,a,button,itemArt,drinkArt,recipeLines,re
  }
  let audio=null,lastCue=0,lastSession=null;
  function unlockAudio(){if(!remix.active()||ui.remixAudio===false)return;try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});}catch{}}
- function soundTick(){if(!remix.active())return;if(lastSession!==g.remix){lastSession=g.remix;lastCue=0;}const cue=g.remix.cue;if(!cue||lastCue===cue.id)return;lastCue=cue.id;if(!audio||audio.state!=='running'||ui.remixAudio===false)return;try{const o=audio.createOscillator(),gain=audio.createGain(),freq={hit:660,miss:160,complete:880,arrival:440,order:520,start:330,step:740,low:220}[cue.kind]||440;o.type='sine';o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*1.12,audio.currentTime+.09);gain.gain.setValueAtTime(.035,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+.13);o.connect(gain);gain.connect(audio.destination);o.start();o.stop(audio.currentTime+.14);o.onended=()=>{o.disconnect();gain.disconnect();};}catch{}}
+ function soundTick(){if(!remix.active())return;if(lastSession!==g.remix){lastSession=g.remix;lastCue=0;}const cue=g.remix.cue;if(!cue||lastCue===cue.id)return;lastCue=cue.id;if(g.gimmick?.type==='open'&&['hit','miss','step'].includes(cue.kind))return;if(!audio||audio.state!=='running'||ui.remixAudio===false)return;try{const o=audio.createOscillator(),gain=audio.createGain(),freq={hit:660,miss:160,complete:880,arrival:440,order:520,start:330,step:740,low:220}[cue.kind]||440;o.type='sine';o.frequency.setValueAtTime(freq,audio.currentTime);o.frequency.exponentialRampToValueAtTime(freq*1.12,audio.currentTime+.09);gain.gain.setValueAtTime(.035,audio.currentTime);gain.gain.exponentialRampToValueAtTime(.0001,audio.currentTime+.13);o.connect(gain);gain.connect(audio.destination);o.start();o.stop(audio.currentTime+.14);o.onended=()=>{o.disconnect();gain.disconnect();};}catch{}}
  return{tabsHTML,startHTML,goalsHTML,hudHTML,helpHTML,seatClass,seatLabel,recipesHTML,prepHTML,gimmickHTML,resultHTML,summaryHTML,recordRun,act,unlockAudio,soundTick};
 };
 })(window);

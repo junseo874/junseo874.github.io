@@ -79,7 +79,7 @@ function attach(g){
  g.tick=function(dt){
   if(active()&&!this.isPaused()&&!this.finished){
    const d=Math.max(0,Math.min(dt,.2));this.remix.resultLock=Math.max(0,this.remix.resultLock-d);
-   if(this.remix.hold){this.realTime+=d;C.MIX.visual(this.remix.hold.step,d);this.remix.hold.remaining-=d;if(this.remix.hold.remaining<=0){this.remix.hold=null;base.endGimmick();}return;}
+   if(this.remix.hold){this.realTime+=d;C.MIX.visual(this.remix.hold.step,d);C.OPEN.visual(this.remix.hold.step,d);this.remix.hold.remaining-=d;if(this.remix.hold.remaining<=0){this.remix.hold=null;base.endGimmick();}return;}
   }
   base.tick(dt);
  };
