@@ -1,7 +1,7 @@
 (function(root){
 'use strict';
 const C=typeof module==='undefined'?root.LunaCore:require('./core.js');
-const PROFILES={cozy:{patience:1.6,delay:18,shake:12,stir:6,upkeep:.24},standard:{patience:1.2,delay:14,shake:16,stir:8,upkeep:.4},challenge:{patience:1,delay:11,shake:20,stir:10,upkeep:.55}};
+const PROFILES={cozy:{patience:1.6,delay:18,shake:C.MIX.shakeTargetStacks,stir:6,upkeep:.24},standard:{patience:1.2,delay:14,shake:C.MIX.shakeTargetStacks,stir:8,upkeep:.4},challenge:{patience:1,delay:11,shake:C.MIX.shakeTargetStacks,stir:10,upkeep:.55}};
 const complexity=(g,c)=>g.t.recipes.filter(r=>r.context===c.id&&!r.auto_apply).length+(c.mix==='build'?0:2);
 function challengeUpkeep(g,day,difficulty='standard'){
  const rows=g.t.cocktails.filter(c=>c.status==='confirmed'&&(Number(day)===99||Number(c.unlock_day)<=Number(day)));

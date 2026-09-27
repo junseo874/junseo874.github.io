@@ -15,6 +15,7 @@ const OPEN={
  visual(s,dt){if(s.type==='open'&&s.openFx)s.openFx.age=Math.min(2,s.openFx.age+dt);}
 };
 const MIX={
+ shakeTargetStacks:15, // Web playtest tuning; source CSV and stir counts remain unchanged.
  points:[[0,0],[2.61,1.206875],[0,2.56],[2.61,3.766875]],route:[0,1,2,3,2,1],
  patterns:[[[0,.37],[2,.47]],[[0,.28],[0,.38],[1,.38],[2,.49],[2,.56]],[[0,.39],[0,.57],[1,.32],[1,.48],[2,.55],[2,.82]],[[0,.28],[1,.32],[2,.55]]],
  radius:.25,delay:.1,frameSeconds:.125,stirFrameSeconds:1/12,shakeClips:[[1,2,3,0],[5,6,7,4]],
@@ -332,7 +333,7 @@ class Game{
  prepBack(){if(this.screen!=='prep')return;this.prep=null;this.screen='recipe';this.log('prep_reset');this.changed();}
  startCraft(){if(this.screen!=='prep'||!this.prep?.glass||!this.prep.ingredients.length||this.isPaused())return false;return this.safe(()=>{this.craft={id:'craft_attempt_'+(++this.serial),actual:structuredClone(this.prep),queue:buildQueue(this.data,this.cocktail(this.prep.selected),this.prep),index:0,results:[],elapsed:0};this.screen='gimmick';this.nextGimmick();this.changed();return true;});}
  nextGimmick(){const step=this.craft.queue[this.craft.index];if(!step){this.result=scoreCraft(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual,this.craft.results,this.craft.elapsed);this.result.id=this.craft.id;this.resultContext.craft_grade=this.result.grade;this.screen='result';this.gimmick=null;this.log('craft_result',{id:this.craft.id,score:this.result.score,grade:this.result.grade});return;}
-  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?this.c('shake_target_stacks',20):this.c('stir_target_stacks',10)};MIX.init(this.gimmick);POUR.init(this.gimmick,this);
+  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?MIX.shakeTargetStacks:this.c('stir_target_stacks',10)};MIX.init(this.gimmick);POUR.init(this.gimmick,this);
  }
  startGimmick(){return this.gimmickInput(this.gimmick?.type==='stir'?'KeyW':'Space');}
  holdPour(held){if(this.screen!=='gimmick'||this.isPaused())return;if(['pour','fill_up'].includes(this.gimmick.type)&&!this.gimmick.fluid?.finishRequested){this.gimmick.held=held;if(held)this.gimmick.started=true;}}
