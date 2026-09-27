@@ -219,7 +219,7 @@ class Game{
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
   this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
-  this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
+  this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else this.startStoryPhase('bar_open');}
   this.changed();
  }
@@ -241,7 +241,7 @@ class Game{
   if(this.phase==='opening'){this.story=null;this.startGeneral();}
   else {if(this.currentOrder)throw Error('미처리 주문 상태에서 대본 종료');this.finishDay();}
  }
- loadScene(scene){this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
+ loadScene(scene){this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
  stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;this.pump();}
  pump(){
   for(let guard=0;guard<1000;guard++){
@@ -262,7 +262,7 @@ class Game{
    }
    if(s.type==='exit'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('퇴장 대상 없음: '+s.actor);this.seats[seat].state='EXITING';this.setTransition(0.5,()=>{this.seats[seat]=null;this.stepDone(s);});return;}
    if(s.type==='choice'){const rows=sortSeq(this.t.bar_choices.filter(c=>c.context===s.arg));if(!rows.length)throw Error('선택지 세트 없음: '+s.arg);this.choice={step:s,rows};return;}
-   if(s.type==='craft'){if(!this.currentOrder)throw Error('제조 전 주문 없음');this.screen='recipe';this.craftStep=s;return;}
+   if(s.type==='craft'){if(!this.currentOrder)throw Error('제조 전 주문 없음');this.screen='bar';this.craftReminder=this.lastStoryLine?{...this.lastStoryLine,chars:this.lastStoryLine.text.length}:null;this.craftStep=s;return;}
    if(s.type==='serve'){throw Error('제조 결과/서빙 입력 없이 serve에 도착');}
    if(s.type==='effect'||s.type==='set_state'){applyEffects(s.effects,this.progress);this.story.index++;continue;}
    if(s.type==='fx'||s.type==='sfx'){const duration=s.arg==='hard_cut'?0.2:0.7;this.effectVisual={kind:s.type,id:s.arg,until:this.realTime+duration};this.log('effect_preview',{type:s.type,id:s.arg,dummy:true});if(s.sync==='wait'){this.setTransition(duration,()=>this.stepDone(s));return;}applyEffects(s.effects,this.progress);this.story.index++;continue;}
@@ -277,7 +277,7 @@ class Game{
   return{actor,text:clean(text),raw:text,id,expression:expression||'default',chars:0,hold:0,seen:false,timings,typeMs:0};
  }
  typeLine(line,dt){line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}}
- finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id});const s=d.step;this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
+ finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id});const s=d.step;this.lastStoryLine={...d,chars:d.text.length};this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
  advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.cameraMoving||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
  choose(seq){if(!this.choice||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}
  createStoryOrder(s){

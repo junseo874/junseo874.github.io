@@ -8,6 +8,7 @@ function perfect(c,a=actual(c)){return C.buildQueue(D,c,a).map(q=>({...q,value:q
 function completeCraft(g,grade='excellent',id){g.selectCocktail(id||g.currentOrder?.cocktail);assert.equal(g.screen,'prep');g.debugCraft(grade);assert.equal(g.error,null,g.error);g.offer();g.serve(g.currentOrder?.seat||g.focus);assert.equal(g.error,null,g.error);}
 function drive(g,choiceStrategy=()=>1,gradeStrategy=()=> 'excellent',limit=5000){let crafts=0;for(let i=0;i<limit&&!g.finished;i++){
  assert.equal(g.error,null,g.error);if(g.transition){ticks(g,1);continue;}
+ if(g.screen==='bar'&&g.currentOrder&&!g.dialogue&&g.story?.steps[g.story.index]?.type==='craft'&&!g.drink)g.openRecipes();
  if(g.screen==='recipe'){completeCraft(g,gradeStrategy(crafts++));continue;}
  if(g.phase==='general'){
   const entries=Object.entries(g.seats).filter(([k,v])=>v);const target=entries.find(([k,v])=>v.state==='REACTION'||v.state==='ORDER_DIALOGUE')||entries.find(([k,v])=>v.state==='WAIT_COASTER'||v.state==='WAIT_SERVE')||entries[0];

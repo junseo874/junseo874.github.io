@@ -195,3 +195,7 @@ html,body{overflow:hidden;background:#03060b}
 .recipe-icon-slot:hover .recipe-item-tip,.recipe-icon-slot:focus-visible .recipe-item-tip{display:block}
 
 .recipe-icon-slot .recipe-item-tip:after{display:none;content:none}
+
+/* The completed order line stays visible while waiting to begin story crafting. */
+.story-craft-prompt{position:absolute;top:50%;bottom:auto;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:min(360px,calc(100cqw - 40px));padding:18px 22px;text-align:center;background:#000e;border:1px solid #68777f;border-radius:12px;box-shadow:0 8px 28px #0009;z-index:12}
+.story-craft-prompt button{pointer-events:auto;padding:12px 18px;font-size:15px;white-space:normal;box-shadow:0 3px 15px #0008}
