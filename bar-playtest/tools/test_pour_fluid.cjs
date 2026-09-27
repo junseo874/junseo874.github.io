@@ -5,8 +5,8 @@ let count=0;const test=(name,fn)=>{fn();console.log('PASS',name);count++;};
 function game(kind='pour',variant='original'){const g=new C.Game(ctx.window.LUNA_DATA);R.attach(g);M.attach(g);g.startMinigame(kind,variant);return g;}
 function advance(g,seconds,dt=1/120){for(let t=0;t<seconds-1e-9;t+=dt)g.tick(Math.min(dt,seconds-t));}
 function conserved(f){const a=f.audit();assert(Math.abs(a.error)<1e-7,JSON.stringify(a));for(const p of f.particles)assert([p.x,p.y,p.vx,p.vy,p.ml].every(Number.isFinite));}
-test('pourer uses 25% flow, a short ramp and a steady plateau without automatic target stop',()=>{
- for(const v of ['original','gpt'])for(const kind of ['pour','fill_up']){const g=game(kind,v),f=g.gimmick.fluid;assert.equal(f.rate,g.c('pour_emit_rate_ml_per_sec',70)*.25);assert.equal(f.maxAngle,125);assert.equal(f.flowAt(95),0);assert.equal(f.flowAt(100),.5);assert.equal(f.flowAt(105),1);assert.equal(f.flowAt(125),1);g.holdPour(true);advance(g,9);assert(f.caughtMl>f.targetMl);assert.equal(f.finishRequested,false);conserved(f);}
+test('pourer retains maximum flow but ramps over the full 95–125 degree tilt range',()=>{
+ for(const v of ['original','gpt'])for(const kind of ['pour','fill_up']){const g=game(kind,v),f=g.gimmick.fluid;assert.equal(f.rate,g.c('pour_emit_rate_ml_per_sec',70)*.25);assert.equal(f.maxAngle,125);assert.equal(f.flowAt(95),0);assert.equal(f.flowAt(100),1/6);assert.equal(f.flowAt(110),.5);assert.equal(f.flowAt(125),1);g.holdPour(true);advance(g,9);assert(f.caughtMl>f.targetMl);assert.equal(f.finishRequested,false);conserved(f);}
 });
 test('no input, no motion, no volume, no clock',()=>{const g=game(),s=g.gimmick;const before=JSON.stringify(s);advance(g,5);assert.equal(JSON.stringify(s),before);assert.equal(g.craft.elapsed,0);});
 test('emitted volume is not counted until particles enter the glass',()=>{const g=game(),s=g.gimmick;g.holdPour(true);advance(g,1.1);assert(s.fluid.emittedMl>0);assert(s.fluid.airMl>0);assert.equal(s.value,0);conserved(s.fluid);advance(g,.7);assert(s.value>0);assert(s.fluid.caughtMl<s.fluid.emittedMl);});

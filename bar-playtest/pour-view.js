@@ -1,5 +1,12 @@
 (function(root){
 'use strict';
+// Width tracks each parcel's emission rate, so a thin tail travels downstream
+// instead of resizing the whole stream at once. Settled liquid keeps its pool radius.
+function streamWidth(p){
+ const speed=Math.hypot(p.vx,p.vy),falling=Math.max(0,Math.min(1,(speed-45)/85));
+ const width=Math.sqrt(Math.max(.025,Math.min(1,p.emissionFlow??1)));
+ return 1+(width-1)*falling;
+}
 function makeGPU(canvas){
  const gl=canvas.getContext('webgl',{alpha:true,antialias:false,premultipliedAlpha:false,depth:false,stencil:false,preserveDrawingBuffer:false});
  if(!gl)throw Error('WebGL unavailable');
@@ -10,7 +17,7 @@ function makeGPU(canvas){
   if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p;
  }
  const splat=program(
- 'attribute vec4 point;attribute vec2 velocity;varying float inside;varying float stretch;varying vec2 direction;void main(){gl_Position=vec4(point.x/500.-1.,1.-point.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(3.,speed/180.);direction=speed>1.?velocity/speed:vec2(0.,1.);float pooled=1.-smoothstep(45.,130.,speed);gl_PointSize=mix(16.,28.,pooled)*stretch;inside=point.w;}',
+ 'attribute vec4 point;attribute vec2 velocity;uniform vec3 camera;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 pos=point.xy*camera.x+camera.yz;gl_Position=vec4(pos.x/500.-1.,1.-pos.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(3.,speed/180.);direction=speed>1.?velocity/speed:vec2(0.,1.);float pooled=1.-smoothstep(45.,130.,speed);gl_PointSize=mix(16.,28.,pooled)*stretch*camera.x*point.z;inside=point.w;}',
  'precision mediump float;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 d=gl_PointCoord*2.-1.;vec2 local=vec2(dot(d,direction),dot(d,vec2(-direction.y,direction.x))*stretch);float r=dot(local,local);if(r>1.)discard;float y=540.-gl_FragCoord.y;if(inside>.5&&y>=252.&&(gl_FragCoord.x<596.||gl_FragCoord.x>790.||y>470.))discard;float f=pow(1.-r,3.);gl_FragColor=vec4(f);}'
  );
  const composite=program(
@@ -27,12 +34,13 @@ function makeGPU(canvas){
  gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
  const position=gl.getAttribLocation(splat,'point'),velocity=gl.getAttribLocation(splat,'velocity'),vertex=gl.getAttribLocation(composite,'vertex');
  const color=gl.getUniformLocation(composite,'tint'),alpha=gl.getUniformLocation(composite,'opacity');
+ const cameraUniform=gl.getUniformLocation(splat,'camera');
  const array=new Float32Array(1800*6);
  return {
-  draw(f,rgb,opacity,points){
+  draw(f,rgb,opacity,points,camera){
    gl.viewport(0,0,1000,540);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-   gl.useProgram(splat);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
-   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=0;array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
+   gl.useProgram(splat);gl.uniform3f(cameraUniform,camera.scale,camera.x,camera.y);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
+   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=streamWidth(p);array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
    gl.bufferData(gl.ARRAY_BUFFER,array.subarray(0,n),gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(velocity);gl.vertexAttribPointer(velocity,2,gl.FLOAT,false,24,16);
    gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,n/6);gl.disableVertexAttribArray(position);gl.disableVertexAttribArray(velocity);
    gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.clear(gl.COLOR_BUFFER_BIT);gl.disable(gl.BLEND);gl.useProgram(composite);
@@ -99,12 +107,22 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  window.addEventListener('blur',()=>stopAudio(true));
  window.addEventListener('pagehide',()=>stopAudio(true));
 
+ function mode(){return ['classic','clean','bottle'].includes(ui.pourPresentation)?ui.pourPresentation:'classic';}
+ // Camera is presentation-only: physical emission, collisions and ml scoring stay unchanged.
+ function cameraFor(s){
+  if(mode()!=='bottle')return {scale:1,x:0,y:0};
+  const t=clamp(s.angle/95,0,1),k=t*t*(3-2*t),scale=1.55+.35*k,at=root.LunaPour.nozzle(s.angle);
+  // Follow the actual pourer outlet every frame, including return-to-upright.
+  // Use the same centered camera for the bottle and both liquid renderers.
+  return {scale,x:500-at.x*scale,y:270-at.y*scale};
+ }
  function html(s){
   const f=s.fluid;
-  return '<div class="craft-screen fluid-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
+  return '<div class="craft-screen fluid-screen" data-pour-presentation="'+mode()+'">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div>'+
-   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass')+'"></canvas></div>'+
+   '<div class="pour-presentation-picker" role="group" aria-label="'+L('따르기 화면 버전','Pour presentation')+'">'+[['classic','기존','Original'],['clean','가이드 없음','No guides'],['bottle','병 집중','Bottle focus']].map(([id,ko,en])=>button(L(ko,en),'pourPresentation','data-id="'+id+'" aria-pressed="'+(mode()===id)+'"','pour-presentation-option')).join('')+'</div>'+
+   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+(mode()==='bottle'?L('확대한 병과 화면 아래로 흐르는 액체','Enlarged bottle pouring liquid out of view'):L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass'))+'"></canvas></div>'+
    '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
    '<button class="primary hold-button pour-hold" data-hold="pour" '+(f.finishRequested?'disabled':'')+'><kbd>Space</kbd> '+L('누르고 있기','Hold to pour')+'</button>'+
    button(f.finishRequested?L('마지막 방울 정리 중…','Waiting for the final drops…'):g.minigame?L('따르기 마치기 →','Finish pouring →'):L('마치고 다음 재료 →','Finish & continue →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'</div>';
@@ -124,12 +142,13 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  function drawBack(s){
   const c=mounted.back,f=s.fluid,b=f.glass;c.clearRect(0,0,1000,540);
+  if(mode()==='bottle')return;
   // Keep the stage transparent so zooming the bottle never scales or hides the room.
   c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
   c.fillStyle='#b9e8f00d';c.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
  }
- function drawFront(s){
-  const c=mounted.front,f=s.fluid,b=f.glass,at=root.LunaPour.nozzle(s.angle);c.clearRect(0,0,1000,540);
+ function drawFront(s,camera){
+  const c=mounted.front,f=s.fluid,b=f.glass,at=root.LunaPour.nozzle(s.angle);c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
   const art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
   let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
   c.save();c.translate(at.x,at.y);c.rotate(s.angle*Math.PI/180);
@@ -148,23 +167,25 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   c.beginPath();c.moveTo(8,30);c.lineTo(9,22);c.strokeStyle='#98aeb7';c.lineWidth=2;c.stroke();
   c.fillStyle='#172c35';c.beginPath();c.ellipse(0,0,3.5,1.5,0,0,Math.PI*2);c.fill();
   c.restore();c.imageSmoothingEnabled=true;
+  if(mode()==='bottle')return;
   // Glass walls are drawn after the liquid, but its interior remains transparent.
   c.lineWidth=3;c.strokeStyle='#acd6dfaa';c.beginPath();c.moveTo(b.left-3,b.top-3);c.lineTo(b.left-3,b.bottom-2);c.quadraticCurveTo(b.left-3,b.bottom+7,b.left+6,b.bottom+7);c.lineTo(b.right-6,b.bottom+7);c.quadraticCurveTo(b.right+3,b.bottom+7,b.right+3,b.bottom-2);c.lineTo(b.right+3,b.top-3);c.stroke();
   c.lineWidth=2;c.strokeStyle='#e8ffff99';c.beginPath();c.moveTo(b.left+5,b.top+12);c.lineTo(b.left+5,b.bottom-12);c.stroke();
   c.strokeStyle='#cce6edaa';c.beginPath();c.ellipse((b.left+b.right)/2,b.top,(b.right-b.left)/2+3,5,0,0,Math.PI*2);c.stroke();
+  if(mode()!=='classic')return;
   const guide=clamp(b.bottom-3-(f.targetMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);
   c.setLineDash([5,5]);c.strokeStyle='#e4c885';c.lineWidth=1;c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.setLineDash([]);
   if(s.started&&!f.finishRequested&&f.airMl>0){const predicted=clamp(b.bottom-3-(s.predicted*f.unitMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);c.fillStyle='#f5d696';c.beginPath();c.moveTo(b.right+8,predicted);c.lineTo(b.right+17,predicted-4);c.lineTo(b.right+17,predicted+4);c.fill();}
   if(s.pourFinishFx?.perfect){const t=s.pourFinishFx.age,fade=Math.max(0,1-t/.8);c.save();c.globalAlpha=fade;c.strokeStyle='#b6fff0';c.lineWidth=3;c.shadowColor='#8affe0';c.shadowBlur=12;c.strokeRect(b.left-5,b.top-5,b.right-b.left+10,b.bottom-b.top+14);c.setLineDash([]);c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.restore();}
  }
  // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
- function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return 3.4+3.1*(1-t*t*(3-2*t));}
- function drawFallback(f,rgb,alpha,points){
-  const c=mounted.fallback;c.clearRect(0,0,1000,540);if(!fallback)return;
+ function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return (3.4+3.1*(1-t*t*(3-2*t)))*streamWidth(p);}
+ function drawFallback(f,rgb,alpha,points,camera){
+  const c=mounted.fallback;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);if(!fallback)return;c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
   // Draw one opaque mask first: overlapping particles must not turn clear spirits opaque.
   c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5;
   for(const p of points){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
-  c.shadowBlur=0;
+  c.shadowBlur=0;c.setTransform(1,0,0,1,0,0);
   c.globalCompositeOperation='source-in';
   c.fillStyle='rgba('+rgb.join(',')+','+alpha+')';c.fillRect(0,0,1000,540);
   c.globalCompositeOperation='source-over';
@@ -185,8 +206,10 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
   const {rgb,alpha}=liquidAppearance(s.ingredient);
   stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
-  const points=f.renderParticles(s);stage.dataset.streamSamples=points.length-f.particles.length;
-  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points);drawFallback(f,rgb,alpha,points);drawFront(s);
+  const camera=cameraFor(s),points=f.renderParticles(s,{freeFall:mode()==='bottle'});
+  stage.dataset.streamSamples=points.filter(p=>p.visualOnly).length;
+  stage.dataset.presentation=mode();stage.dataset.guides=String(mode()==='classic');stage.dataset.receiver=String(mode()!=='bottle');stage.dataset.visibleParticles=points.length;stage.dataset.camera=JSON.stringify(camera);
+  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points,camera);drawFallback(f,rgb,alpha,points,camera);drawFront(s,camera);
   mounted.gpu.style.visibility=fallback?'hidden':'visible';stage.querySelector('.pour-fallback').style.visibility=fallback?'visible':'hidden';
   const set=(selector,text)=>{const el=rootElement.querySelector(selector);if(el&&el.textContent!==text)el.textContent=text;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);

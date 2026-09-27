@@ -9,7 +9,7 @@ const C=window.LunaCore,D=C.millilitreData(window.LUNA_DATA),g=new C.Game(D),roo
 const remix=window.LunaRemix.attach(g);const mini=window.LunaMinigames.attach(g);window.barGame=g;window.barData=D;
 const siteHome=/\/bar-playtest\/(?:index\.html)?$/.test(location.pathname);
 try{g.read=new Set(JSON.parse(localStorage.getItem('luna.bar.playtest.read.v1')||'[]'));}catch{}
-const ui={minigames:false,miniVariant:'gpt',miniDifficulty:'standard',variant:'original',difficulty:'standard',assist:true,remixFilter:'all',remixAudio:true,gimmickAudio:true,shakeSound:1,stirSound:1,pourSound:1,day:0,mode:'full',seed:1,upkeep:'',shelfPage:0,hoverItem:null,tab:'glass',search:'',peek:null,inspector:false,dossier:'chris',dossierDetail:null,dossierPreview:null,dossierTestActor:'chris',sound:false,auto:false,readSkip:false,drag:null,lastEffect:null};
+const ui={minigames:false,miniVariant:'gpt',miniDifficulty:'standard',variant:'original',difficulty:'standard',assist:true,remixFilter:'all',remixAudio:true,gimmickAudio:true,shakeSound:1,stirSound:1,pourSound:1,pourPresentation:'classic',day:0,mode:'full',seed:1,upkeep:'',shelfPage:0,hoverItem:null,tab:'glass',search:'',peek:null,inspector:false,dossier:'chris',dossierDetail:null,dossierPreview:null,dossierTestActor:'chris',sound:false,auto:false,readSkip:false,drag:null,lastEffect:null};
 // Reset the previous default once; subsequent explicit choices remain persistent.
 try{ui.shakeSound=localStorage.getItem('luna.shake.sound.v2')==='2'?2:1;}catch{}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -17,6 +17,7 @@ const L=(ko,en)=>g.lang==='ko'?ko:en;const fmt=n=>Math.round(n).toLocaleString()
 const a=(key)=>D.assets[key]?.src;const button=(label,act,more='',cls='')=>`<button class="${cls}" data-act="${act}" ${more}>${label}</button>`;
 const pourView=window.LunaPourView({g,D,L,esc,button,ui});
 try{ui.pourSound=localStorage.getItem('luna.pour.sound.v1')==='2'?2:1;}catch{}
+try{const mode=localStorage.getItem('luna.pour.presentation.v1');if(['classic','clean','bottle'].includes(mode))ui.pourPresentation=mode;}catch{}
 const openView=window.LunaOpenView({g,D,L,esc,button,ui});
 const shakePolish=window.LunaShakePolish({g,D,ui});
 const stirPolish=window.LunaStirPolish({g,ui});
@@ -155,6 +156,7 @@ function exportLog(){const payload={kind:'LUNA_WEB_PLAYTEST',createdAt:new Date(
 function show(name){if(name==='dossier'){ui.dossierDetail=null;ui.dossierPreview=null;ui.inspector=false;}g.overlay=name;g.gimmick&&(g.gimmick.held=false);render();}
 function act(name,id){
  pourView.unlockAudio();
+ if(name==='pourPresentation'){if(!['classic','clean','bottle'].includes(id))return;ui.pourPresentation=id;try{localStorage.setItem('luna.pour.presentation.v1',id);}catch{}render(true);return;}
  if(name==='pourSound'){ui.pourSound=id==='2'?2:1;try{localStorage.setItem('luna.pour.sound.v1',String(ui.pourSound));}catch{}render(true);return;}
  remixUI.unlockAudio();openView.unlockAudio();shakePolish.unlockAudio();stirPolish.unlockAudio();
  if(name==='stirSound'){ui.stirSound=id==='2'?2:1;try{localStorage.setItem('luna.stir.sound.v1',String(ui.stirSound));}catch{}render(true);return;}

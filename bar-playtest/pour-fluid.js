@@ -6,7 +6,7 @@ const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const GLASS={left:596,right:790,top:252,bottom:470};
 const STEP=1/120,H=20,MAX_PARTICLES=1100;
 // Web pourer tuning, not a measured real-world pourer specification.
-const POURER={rateScale:.25,maxAngle:125,rampDegrees:10};
+const POURER={rateScale:.25,maxAngle:125,rampDegrees:30};
 function nozzle(angle){const t=clamp(angle/95,0,1),k=t*t*(3-2*t);return{x:550+50*k,y:130+60*k};}
 class Simulation{
  constructor({targetMl,unitMl,rate=17.5,startAngle=95,maxAngle=125,tiltSpeed=95,viscosity=.025}){
@@ -54,8 +54,9 @@ class Simulation{
    const mass=Math.min(this.quantum,this.nozzleMl);this.nozzleMl=Math.max(0,this.nozzleMl-mass);
    const serial=this.serial++,lane=(serial%3)-1,wiggle=Math.sin(serial*2.399)*.15;
    const speed=105+20*this.flow;
+   const origin={x:at.x+lane*.7+wiggle,y:at.y,vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed};
    this.particles.push({id:serial,stream:this.streamSerial,emissionFlow:this.flow,x:at.x+lane*.7+wiggle,y:at.y,px:at.x,py:at.y,
-    vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
+    vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,origin,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
   }
   this.peakParticles=Math.max(this.peakParticles,this.particles.length);
  }
@@ -141,27 +142,36 @@ class Simulation{
  }
  // Rendering samples bridge only adjacent airborne parcels from one uninterrupted pour.
  // They carry no volume and never enter the solver or retained-ml accounting.
- renderParticles(s){
-  const points=[...this.particles];let previous=null,extra=0;
+ renderParticles(s,{freeFall=false}={}){
+  // Bottle focus follows the SAME emitted parcels, but visually lets them fall past
+  // the hidden receiver. These positions never feed collision, volume or scoring.
+  const parcels=freeFall?this.particles.map(p=>{
+   const o=p.origin,t=p.age;
+   return {...p,x:o.x+o.vx*t,y:o.y+o.vy*t+550*t*(t+STEP),
+    vx:o.vx,vy:o.vy+1100*t,inside:false,wet:false,visualOnly:true};
+  }).filter(p=>p.y<580&&p.x>-40&&p.x<1040):this.particles;
+  const points=[...parcels];let previous=null,extra=0;
   const bridge=(a,b)=>{
-   const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/6);
+   // Thin low-flow jets need closer display samples, not additional measured liquid.
+   const spacing=Math.max(1,6*Math.sqrt(Math.min(a.emissionFlow??1,b.emissionFlow??1)));
+   const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/spacing);
    for(let i=1;i<steps&&extra<600;i++,extra++){
     const t=i/steps;points.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,
-     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,inside:false,visualOnly:true});
+     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,emissionFlow:(a.emissionFlow??1)+((b.emissionFlow??1)-(a.emissionFlow??1))*t,inside:false,visualOnly:true});
    }
   };
-  for(const p of this.particles){
+  for(const p of parcels){
    const fallingInGlass=p.inside&&p.vy>100&&p.y<this.glass.bottom-12;
-   if((p.wet&&!fallingInGlass)||p.emissionFlow<.25){previous=p;continue;}
+   if((p.wet&&!fallingInGlass)||p.emissionFlow<.015){previous=p;continue;}
    const reachesPool=previous?.inside&&previous.y>=p.y&&Math.hypot(previous.x-p.x,previous.y-p.y)<110;
    const previousFalling=previous&&(!previous.wet||(previous.inside&&previous.vy>100&&previous.y<this.glass.bottom-12));
-   if(previous&&previous.emissionFlow>=.25&&(previousFalling||reachesPool)&&previous.stream===p.stream&&p.id===previous.id+1)bridge(previous,p);
+   if(previous&&previous.emissionFlow>=.015&&(previousFalling||reachesPool)&&previous.stream===p.stream&&p.id===previous.id+1)bridge(previous,p);
    previous=p;
   }
-  const head=this.particles[this.particles.length-1];
-  if(this.flow>=.25&&this.emittedMl<this.supplyMl-1e-8&&head&&!head.wet&&head.stream===this.streamSerial&&head.emissionFlow>=.25){
+  const head=parcels[parcels.length-1];
+  if(this.flow>=.015&&this.emittedMl<this.supplyMl-1e-8&&head&&!head.wet&&head.stream===this.streamSerial&&head.emissionFlow>=.015){
    const at=nozzle(s.angle),a=s.angle*Math.PI/180,speed=105+20*this.flow;
-   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,inside:false,visualOnly:true};
+   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,emissionFlow:this.flow,inside:false,visualOnly:true};
    bridge(head,tip);points.push(tip);
   }
   return points;

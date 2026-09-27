@@ -330,7 +330,7 @@ class Game{
  }
  reask(){if(this.phase!=='general'||this.screen!=='bar'||this.isPaused()||this.cameraLeft>0)return false;const g=this.seats[this.focus];if(!g||g.state!=='WAIT_SERVE'||!g.order||g.reasking||g.left<=0)return false;
   const cost=g.limit*0.10;g.left=Math.max(0,g.left-cost);this.log('reask',{guest:g.id,cost,remaining:g.left,order:g.order.id});if(g.left<=0){this.leave(g,'leave_serve');this.changed();return true;}
-  g.reasking=true;g.lines=[this.makeLine('luna',this.lang==='ko'?'혹시 주문을 다시 알려주실 수 있나요?':'Could you remind me what you ordered?'),this.bark(g,'order')];g.lineIndex=0;g.lineDone=()=>{g.reasking=false;if(g.state==='WAIT_SERVE'&&g.pendingWarn>g.warn)this.warn(g,g.pendingWarn);};this.changed();return true;
+  g.reasking=true;g.lines=[this.makeLine('luna',this.lang==='ko'?"주문하신 메뉴가 어떤 거였죠?":"Could you remind me what you ordered?"),this.bark(g,'order')];g.lineIndex=0;g.lineDone=()=>{g.reasking=false;if(g.state==='WAIT_SERVE'&&g.pendingWarn>g.warn)this.warn(g,g.pendingWarn);};this.changed();return true;
  }
  warn(g,level){if(g.reasking){g.pendingWarn=Math.max(g.pendingWarn,level);return;}if(level<=g.warn)return;g.warn=level;this.setBarks(g,[(g.state==='WAIT_COASTER'?'call_':'serve_')+(level===2?'final':'urge')]);}
  leave(g,situation){g.reasking=false;g.state='EXITING';g.left=0;g.order=null;this.setBarks(g,[situation]);g.exitLeft=3;this.lost++;this.log('timeout',{guest:g.id,situation});}

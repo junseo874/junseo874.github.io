@@ -9,3 +9,10 @@
 .pour-top-readout strong{display:block;font-size:28px;font-weight:normal;font-variant-numeric:tabular-nums;color:#85eff0}
 .pour-top-readout .pour-target-value{color:#f0d193}
 .fluid-screen .pour-sound-picker{top:102px;left:26px}
+
+/* View-only variants share the same physical simulation and numerical readout. */
+.pour-presentation-picker{position:absolute;top:148px;left:26px;z-index:8;display:flex;gap:5px}
+.pour-presentation-option{padding:7px 10px;font-size:12px;background:#091421eb;border:1px solid #50616d;color:#bdced3}
+.pour-presentation-option[aria-pressed="true"]{border-color:#6fe4ed;color:#a4f8f7;background:#17343eee}
+.fluid-screen[data-pour-presentation="bottle"] .pour-stage{transform:none}
+.fluid-screen[data-pour-presentation="bottle"] .pour-stage canvas{object-fit:cover}
