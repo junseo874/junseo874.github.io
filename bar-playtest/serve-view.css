@@ -21,3 +21,13 @@
 .serve-step-details{padding:12px;background:#080e1680}
 .serve-step-details>div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:13px}
 .serve-grade-cuts{color:#cfc19e}
+
+/* Balance appears only while a money-change notification is active. */
+.currency-hud{z-index:60;background:#090d14f2;border:1px solid #c3a56480;animation:currency-notice-in .18s ease-out}
+.currency-hud.currency-spending{border-color:#e99c62}
+.currency-hud.currency-income{border-color:#ffd26b}
+@keyframes currency-notice-in{from{transform:translateY(-8px) scale(.96)}to{transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.currency-hud{animation:none}}
+.sales-balance{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;margin:0 0 18px;border:1px solid #8ca3ad66;border-radius:8px;background:#152431}
+.sales-balance>span{color:#b4c9d1;font-size:15px}
+.sales-balance>strong{color:#ffe59a;font-size:26px;font-variant-numeric:tabular-nums}

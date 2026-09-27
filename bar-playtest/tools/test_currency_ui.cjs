@@ -18,13 +18,14 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
  const page=await b.newPage({viewport:{width:1280,height:720}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');
+ await page.locator('.updates-confirm').click();
  const number=async()=>Number((await page.locator('.currency-value').innerText()).replaceAll(',',''));
  for(const variant of ['original','gpt']){
   await page.evaluate(()=>barGame.reset(99,'practice',1,false));
   await page.locator('[data-act="version"][data-id="'+variant+'"]').click();
   await page.evaluate(variant=>{barGame.reset(99,'practice',1,true,{variant});barGame.screen='bar';barGame.speed=0;},variant);
   await page.waitForTimeout(180);
-  assert.equal(await page.locator('.currency-delta').count(),0);
+  assert.equal(await page.locator('.currency-hud').count(),0);
   const settle=()=>page.evaluate(()=>{
    const g=barGame,before=g.progress.money,id='money_test_'+(++g.serial);
    g.settle({orderId:id,served:'gin_tonic',grade:'excellent',match:true});
@@ -36,7 +37,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   const second=await settle();await page.waitForTimeout(160);
   assert.equal(await page.locator('.currency-delta').innerText(),'+'+(second.after-first.before).toLocaleString());
   await page.keyboard.press('Escape');await page.waitForTimeout(100);const paused=await number();
-  await page.waitForTimeout(450);assert.equal(await number(),paused);
+  await page.waitForTimeout(450);assert(await number()>paused,'Notification continues while options pause the game');
   await page.keyboard.press('Escape');await page.waitForTimeout(950);assert.equal(await number(),second.after);
   await page.screenshot({path:'/private/tmp/currency-income-'+variant+'.png'});
   await page.evaluate(()=>{barGame.progress.money-=50;});await page.waitForTimeout(150);
@@ -49,11 +50,26 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   // Daily settlement stops the game clock, not the presentation clock.
   await page.evaluate(()=>{barGame.finished=true;barGame.progress.money+=75;});
   await page.waitForTimeout(1100);assert.equal(await number(),await page.evaluate(()=>barGame.progress.money));
-  await page.waitForTimeout(1700);assert.equal(await page.locator('.currency-delta').count(),0);
+  await page.waitForTimeout(1700);assert.equal(await page.locator('.currency-hud').count(),0);
   await page.emulateMedia({reducedMotion:'reduce'});
   const final=await settle();await page.waitForTimeout(150);assert.equal(await number(),final.after);
   assert.equal(await page.locator('.currency-delta').evaluate(e=>getComputedStyle(e).transform),'matrix(1, 0, 0, 1, 0, 0)');
   await page.emulateMedia({reducedMotion:'no-preference'});
+ }
+ for(const variant of ['original','gpt']){
+  await page.evaluate(variant=>barGame.reset(99,'practice',1,true,{variant}),variant);
+  await page.waitForTimeout(100);assert.equal(await page.locator('.currency-hud').count(),0,'Recipe idle hides money');
+  await page.evaluate(()=>{barGame.selectCocktail('gin_tonic');barGame.changed();});await page.waitForTimeout(100);
+  assert.equal(await page.locator('.currency-hud').count(),0,'Prep idle hides money');
+  await page.evaluate(()=>{barGame.overlay='dossier';barGame.changed();});await page.waitForTimeout(100);
+  assert.equal(await page.locator('.currency-hud').count(),0,'Dossier idle hides money');
+  await page.evaluate(()=>{barGame.overlay='sales';barGame.changed();});await page.locator('.sales-balance').waitFor();
+  const balance=await page.evaluate(()=>barGame.progress.money);
+  assert((await page.locator('.sales-balance strong').innerText()).includes(balance.toLocaleString()));
+  await page.evaluate(()=>{barGame.progress.money-=50;barGame.changed();});await page.locator('.currency-spending').waitFor();
+  assert.equal(await page.locator('.currency-delta').innerText(),'−50');
+  await page.waitForTimeout(2800);assert.equal(await page.locator('.currency-hud').count(),0,'Change fades out even inside a paused menu');
+  assert((await page.locator('.sales-balance strong').innerText()).includes((balance-50).toLocaleString()));
  }
  assert.deepEqual(errors,[]);console.log('CURRENCY_UI_OK: both versions, actual settlements + bonus, count, combined income, pause, deduction, reset, finished screen, reduced motion.');
 }finally{await b?.close();}})().catch(e=>{console.error(e);process.exitCode=1});
