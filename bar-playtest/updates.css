@@ -1,0 +1,20 @@
+.updates-dialog{width:min(620px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 40px);margin:auto;padding:0;border:1px solid #4d99a5;border-radius:12px;background:#101923;color:#eceddf;box-shadow:0 22px 90px #000b;font:inherit;overflow:hidden}
+.updates-dialog[open]{display:flex;flex-direction:column}
+.updates-dialog::backdrop{background:#050912cf;backdrop-filter:blur(4px)}
+.updates-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;border-bottom:1px solid #2b424e;flex-shrink:0}
+.updates-header h2{margin:0;font-size:24px}
+.updates-close{padding:3px 10px;font:26px sans-serif;line-height:1.2;background:transparent;border-color:transparent;color:#aabdc4}
+.updates-list{min-height:0;max-height:360px;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:0 26px;outline-offset:-3px}
+.updates-entry{padding:25px 0;border-bottom:1px solid #2b424e}
+.updates-entry:last-child{border-bottom:0}
+.updates-meta{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:13px;color:#a5b6be}
+.updates-new{color:#80e4ea;border:1px solid #397481;border-radius:4px;padding:3px 8px;background:#19333d}
+.updates-entry h3{font-size:20px;color:#e9eddf;margin:0 0 13px}
+.updates-entry p{font-size:16px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere;margin:0;color:#e0e7e6}
+.updates-entry .updates-note{font-size:13px;color:#9eafb9;margin-top:13px}
+.updates-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 26px;border-top:1px solid #2b424e;background:#131f2a;flex-shrink:0}
+.updates-dismiss{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:15px}
+.updates-dismiss input{margin:0;width:17px;height:17px;accent-color:#6dd8e3;cursor:pointer}
+.updates-footer p{font-size:12px;color:#97aab6;margin:9px 0 0;line-height:1.5}
+.updates-confirm{min-width:82px;flex-shrink:0}
+@media(max-width:480px){.updates-header,.updates-footer{padding:17px}.updates-list{padding:0 17px}.updates-footer{gap:12px}.updates-header h2{font-size:21px}.updates-entry p{font-size:14px}.updates-footer p{font-size:11px}}

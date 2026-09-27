@@ -224,5 +224,5 @@ function frame(now){remixUI.soundTick();views.syncCamera(root);const dt=(now-pre
  if(now-lastRender>renderMs){render();lastRender=now;}views.syncStirMotion(root);serveView.sync(root);pourView.sync(root);openView.sync(root);shakePolish.sync(root);stirPolish.sync(root);requestAnimationFrame(frame);}
 function fitViewport(){root.style.setProperty('--game-scale',Math.min(innerWidth/1280,innerHeight/720));}
 window.addEventListener('resize',fitViewport);fitViewport();
-g.onChange=()=>{};render(true);requestAnimationFrame(frame);
+g.onChange=()=>{};render(true);window.LunaUpdates.mount();requestAnimationFrame(frame);
 })();

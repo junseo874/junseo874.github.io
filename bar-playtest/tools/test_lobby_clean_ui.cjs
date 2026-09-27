@@ -5,6 +5,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));
  await p.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');
+ await p.locator('#luna-updates .updates-confirm').click();
  for(const lang of ['ko','en'])for(const [width,height] of [[1280,720],[960,540],[1440,900]]){
   await p.setViewportSize({width,height});await p.evaluate(l=>barGame.lang=l,lang);
   for(const id of ['original','gpt','minigames']){

@@ -239,10 +239,20 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const all=g.itemsAvailable().filter(i=>tab==='glass'?i.kind==='glass':tab==='tool'?i.kind==='tool':i.kind==='ingredient'&&i.shelf_group===tab);
     if(tab==='tool')all.push(opener);
     const capacity=tab==='liquor'?16:tab==='fridge'?14:8;
-    const pages=Math.max(1,Math.ceil(all.length/capacity));let page=tab===ui.tab?Math.min(ui.shelfPage||0,pages-1):0;
+    // Reserve upper/lower shelf rows independently so unlocks and paging cannot lift sour mix.
+    let liquorRows=null;
+    if(tab==='liquor'){
+      const upper=all.filter(i=>i.id!=='sour_mix');
+      const brandy=upper.findIndex(i=>i.id==='brandy');
+      if(brandy>=0){const [item]=upper.splice(brandy,1);upper.splice(Math.min(5,upper.length),0,item);}
+      const top=upper.slice(0,8);liquorRows={top,bottom:all.filter(i=>!top.includes(i))};
+    }
+    const pages=liquorRows?Math.max(1,Math.ceil(liquorRows.top.length/8),Math.ceil(liquorRows.bottom.length/8)):Math.max(1,Math.ceil(all.length/capacity));
+    let page=tab===ui.tab?Math.min(ui.shelfPage||0,pages-1):0;
     if(tab===ui.tab)ui.shelfPage=page;
     let items=all.slice(page*capacity,(page+1)*capacity);
     let topCount=0;
+    if(liquorRows){const top=liquorRows.top.slice(page*8,(page+1)*8);topCount=top.length;items=[...top,...liquorRows.bottom.slice(page*8,(page+1)*8)];}
     if(tab==='fridge'){
       const short=items.filter(i=>!a('item_'+i.id)||D.assets['item_'+i.id].h<=119);
       const top=short.slice(0,7);topCount=top.length;
@@ -252,7 +262,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       let w,h,x,y;
       if(tab==='glass'){w=90;h=190;x=480-(items.length-1)*48+i*96;y=366;}
       else if(tab==='tool'){w=140;h=230;x=320+i*160;y=367;}
-      else if(tab==='liquor'){w=57;h=171;x=274+(i%8)*59;y=i<8?193:397;}
+      else if(tab==='liquor'){const top=i<topCount;w=57;h=171;x=274+(top?i:i-topCount)*59;y=top?193:397;}
       else {const top=i<topCount;w=93;h=top?119:223;x=190+(top?i:i-topCount)*95;y=top?153:393;}
       return {item,w,h,x,y};
     });return {all,pages,positioned};
