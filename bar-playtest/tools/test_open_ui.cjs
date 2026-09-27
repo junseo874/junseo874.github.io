@@ -33,7 +33,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   await p.waitForTimeout(130);assert.equal(await p.evaluate(()=>openRecordings.length),variant==='original'?1:2,'One supplied recording per success');assert.equal(await p.evaluate(()=>openRecordings.at(-1).channels),2);assert.equal(await p.locator('[data-opening-stage]').getAttribute('data-state'),'success');
   assert.equal(await p.locator('[data-open-timing]').isVisible(),false,'Hide after success');
   await p.screenshot({path:'/private/tmp/open-'+variant+'-pop.png'});
-  assert.equal(await p.evaluate(()=>fizzRecordings.length),variant==='original'?1:2,'One fizz tail per success');assert(await p.evaluate(()=>Math.abs(fizzRecordings.at(-1).delay-.09)<.015),'Fizz follows POP by 90ms');
+  assert.equal(await p.evaluate(()=>fizzRecordings.length),variant==='original'?1:2,'One fizz tail per success');assert(await p.evaluate(()=>Math.abs(fizzRecordings.at(-1).delay-.45)<.015),'Fizz follows POP by 450ms');
   const elapsed=await p.evaluate(()=>barGame.craft.elapsed);
   await p.keyboard.press('Escape');await p.waitForTimeout(120);
   const cap=await p.evaluate(()=>barGame.gimmick.openFx.age),plays=await p.evaluate(()=>noiseStarts);

@@ -11,10 +11,16 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
  function playFizz(){
   if(!fizzBuffer)return; // Never append late audio after a completed opening.
   const v={source:audio.createBufferSource(),gain:audio.createGain()};fizzVoice=v;
-  v.source.buffer=fizzBuffer;v.gain.gain.value=window.LunaSfx.level('openFizz');
+  // Let the cap transient lead; carbonation slowly emerges as a quiet tail.
+  const start=audio.currentTime+.45,level=window.LunaSfx.level('openFizz');
+  v.source.buffer=fizzBuffer;v.gain.gain.setValueAtTime(0,audio.currentTime);
+  v.gain.gain.setValueAtTime(0,start);
+  v.gain.gain.linearRampToValueAtTime(level,start+.4);
+  v.gain.gain.linearRampToValueAtTime(level*.65,start+.9);
+  v.gain.gain.linearRampToValueAtTime(0,start+fizzBuffer.duration);
   v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
   v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();if(fizzVoice===v)fizzVoice=null;};
-  v.source.start(audio.currentTime+.09);
+  v.source.start(start);
  }
  function prepare(){if(!audio||buffer||loading)return;loading=bytes.then(raw=>{if(!raw)throw Error('Missing opening recording');return audio.decodeAudioData(raw.slice(0));}).then(b=>{buffer=b;}).catch(()=>console.warn('Opening recording unavailable'));}
  function stopSound(){stopFizz();if(!voice)return;const v=voice;voice=null;try{v.source.stop();}catch{}v.source.disconnect();v.tone.disconnect();v.gain.disconnect();}
