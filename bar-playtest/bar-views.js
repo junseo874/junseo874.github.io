@@ -46,8 +46,8 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     return elapsed<0?rest:sequence[Math.min(sequence.length-1,Math.floor(elapsed/blinkDuration*sequence.length))];
   }
   const opener={id:'opener',kind:'auxiliary','name.ko':'병따개','name.en':'Bottle opener',
-    'desc.ko':'병마개를 여는 보조 도구. 병 재료의 병따기 단계에서 사용합니다.',
-    'desc.en':'An auxiliary tool used to open capped bottles.'};
+    'desc.ko':'병이나 와인을 오픈할 때 쓰는 도구.',
+    'desc.en':'A tool for opening bottles, including wine bottles.'};
   const itemName=id=>id==='opener'?L('병따개','Bottle opener'):g.name(id);
   function actorBounds(guest){
     if(!guest.appearance)return D.webActorBounds?.[guest.actor]||[0,0,551,440];
@@ -222,17 +222,17 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       ${plane('regular-plane',1,front.map(([seat,guest])=>actorHTML(guest,coords[seat]/2041*100)).join(''))}
       ${plane('serve-plane',1,zones)}<div class="vignette"></div></div>`;
   }
-  function recipePanel(c){
+  function recipePanel(c,{preview=false,remixPreview=false}={}){
     const recipe=g.t.recipes.filter(r=>r.context===c.id);
     const tags=g.t.cocktail_tags.filter(t=>t.context===c.id);
     const needsOpener=recipe.some(r=>g.t.shelf_items.find(i=>i.id===r.ingredient)?.prep_action==='open');
     const icons=[c.glass,...(c.mix==='shake'?['shaker']:c.mix==='stir'?['mixing_glass']:[]),...(needsOpener?['opener']:[]),...recipe.map(r=>r.ingredient)];
-    return `<aside class="prep-recipe" aria-label="${L('선택한 칵테일 레시피','Selected cocktail recipe')}">
-      <div class="prep-recipe-heading"><small>${esc(c['name.en'])}</small>${button('×','togglePrepRecipe','aria-label="'+L('레시피 접기','Close recipe')+'"')}<h2>${esc(g.name(c.id))}</h2></div>
+    return `<aside class="prep-recipe${preview?' recipe-preview '+(remixPreview?'remix-recipe-detail':'recipe-peek'):''}" aria-label="${preview?L('칵테일 레시피 미리보기','Cocktail recipe preview'):L('선택한 칵테일 레시피','Selected cocktail recipe')}">
+      <div class="prep-recipe-heading"><small>${esc(c['name.en'])}</small>${preview?'':button('×','togglePrepRecipe','aria-label="'+L('레시피 접기','Close recipe')+'"')}<h2>${esc(g.name(c.id))}</h2></div>
       <div class="prep-recipe-scroll"><div class="recipe-tags"><span>${esc(c.mix.toUpperCase())}</span>${tags.map(t=>`<span>${esc(t[g.lang]||t.ko)}</span>`).join('')}</div>
-      <div class="recipe-hero">${drinkArt(c.id,'recipe')}</div><div class="recipe-icon-grid">${icons.map(id=>`<div title="${esc(itemName(id))}">${itemArt(id,'','recipe')}<small>${esc(itemName(id))}</small></div>`).join('')}</div>
+      <div class="recipe-hero">${drinkArt(c.id,'recipe')}</div><div class="recipe-icon-grid">${icons.map((id,index)=>`<div class="recipe-icon-slot" tabindex="0" aria-label="${esc(itemName(id))}" aria-describedby="recipe-item-tip-${c.id}-${index}">${itemArt(id,'','recipe')}<div id="recipe-item-tip-${c.id}-${index}" role="tooltip" class="ingredient-tip recipe-item-tip"><strong>${esc(itemName(id))}</strong></div></div>`).join('')}</div>
       <section><h3>${L('칵테일 설명','About this cocktail')}</h3><p>${esc(g.text(c,'flavor')||L('소개 문구 준비 중','Description pending'))}</p></section>
-      <section><h3>${L('제조법','Method')}</h3><p>${esc(g.text(c,'recipe_desc'))}</p>${recipeLines(c)}</section></div>
+      <section><h3>${L('제조법','Method')}</h3><p>${esc(g.text(c,'recipe_desc'))}</p>${preview?'':recipeLines(c)}</section>${remixPreview?button(L('이 레시피로 만들기 →','Prepare this recipe →'),'selectRecipe',`data-id="${c.id}"`,'primary recipe-preview-select'):''}</div>
     </aside>`;
   }
   const shelfOrder={
@@ -268,7 +268,14 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       if(tab==='glass'){w=90;h=190;x=480-(items.length-1)*48+i*96;y=366;}
       else if(tab==='tool'){w=140;h=230;x=320+i*160;y=367;}
       else if(tab==='liquor'){const top=i<topCount;w=57;h=171;x=274+(top?i:i-topCount)*59;y=top?193:397;}
-      else {const top=i<topCount;w=93;h=top?119:171;x=190+(top?i:i-topCount)*95;y=top?153:393;}
+      else {const top=i<topCount;w=93;h=top?119:171;x=190+(top?i:i-topCount)*95;y=top?153:393;
+        // The 960×540 refrigerator reference uses cans at native pixel size.
+        // Keep their transparent padding from being enlarged into visible height.
+        if(top&&['soda_water','cola'].includes(item.id)){
+          const art=D.assets['item_'+item.id],bounds=art?.alphaBBox;
+          h=bounds?bounds[3]-bounds[1]:88;
+        }
+      }
       return {item,w,h,x,y};
     });return {all,pages,positioned};
   }
@@ -276,7 +283,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const p=g.prep,c=g.cocktail(p.selected),{pages,positioned}=layout();
     const selected=[p.glass,p.tool,p.opener?'opener':null,...p.ingredients].filter(Boolean);
     const hovered=positioned.find(o=>o.item.id===ui.hoverItem);
-    const tooltip=hovered?(()=>{const {item,x,y,h}=hovered;const below=y-h<70;
+    const tooltip=hovered?(()=>{const {item,x,y,h}=hovered;const below=y-h<120;
       return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ${below?'below':''}" style="left:${Math.max(175,Math.min(785,x))/960*100}%;${below?'top':'bottom'}:${(below?y+18:540-y+h+18)/540*100}%"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item,'desc')||L('소개 문구 준비 중','Description pending'))}</span>${!a('item_'+item.id)?`<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용','Shared team placeholder artwork')}</small>`:''}</div>`;
     })():'';
     return `<div class="craft-screen prep-screen ${ui.recipeOpen?'prep-open':''}">
@@ -288,7 +295,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
           const ingredient=i.kind==='ingredient',visibleW=Math.max(1,box[2]-box[0]),visibleH=Math.max(1,box[3]-box[1]);
           const ratio=ingredient?Math.min(w/visibleW,h/visibleH):Math.min(w/art.w,h/art.h);
           const bottom=(art.h-box[3])*ratio,centerOffset=ingredient?(art.w/2-(box[0]+box[2])/2)*ratio:0;
-          return `<button class="shelf-item ${selected.includes(i.id)?'selected':''}" data-act="${i.id==='opener'?'pickOpener':'pick'}" data-id="${i.id}" data-hover-item="${i.id}" data-baseline="${y}" aria-label="${esc(itemName(i.id))}" aria-pressed="${selected.includes(i.id)}" ${hovered?.item.id===i.id?'aria-describedby="ingredient-tip"':''} style="left:${x/960*100}%;bottom:${(540-y)/540*100}%;width:${w/960*100}%;height:${h/540*100}%"><img class="shelf-sprite" src="${art.src}" alt="${esc(itemName(i.id))}" draggable="false" style="left:${50+centerOffset/w*100}%;width:${art.w*ratio/w*100}%;height:${art.h*ratio/h*100}%;bottom:${-bottom/h*100}%">${selected.includes(i.id)?'<span class="picked-mark">✓</span>':''}${!a('item_'+i.id)?`<span class="shelf-placeholder-label">${esc(itemName(i.id))}</span>`:''}</button>`;
+          return `<button class="shelf-item ${selected.includes(i.id)?'selected':''}" data-act="${i.id==='opener'?'pickOpener':'pick'}" data-id="${i.id}" data-hover-item="${i.id}" data-baseline="${y}" aria-label="${esc(itemName(i.id))}" aria-pressed="${selected.includes(i.id)}" ${hovered?.item.id===i.id?'aria-describedby="ingredient-tip"':''} style="left:${x/960*100}%;bottom:${(540-y)/540*100}%;width:${w/960*100}%;height:${h/540*100}%"><img class="shelf-sprite" src="${art.src}" alt="${esc(itemName(i.id))}" draggable="false" style="left:${50+centerOffset/w*100}%;width:${art.w*ratio/w*100}%;height:${art.h*ratio/h*100}%;bottom:${-bottom/h*100}%">${!a('item_'+i.id)?`<span class="shelf-placeholder-label">${esc(itemName(i.id))}</span>`:''}</button>`;
         }).join('')}
         ${!placed.length?`<div class="shelf-empty">${L('오늘 해금된 항목이 없습니다.','Nothing unlocked here today.')}</div>`:''}${tab===ui.tab?tooltip:''}
       </div></div></div>`;}).join('')}</div></div>
@@ -390,5 +397,5 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       ${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary gimmick-finish')}</div>`;
   }
-  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor,seatIndicator};
+  return {recipePanel,actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor,seatIndicator};
 };

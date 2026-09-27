@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=req
 const dir=path.resolve(__dirname,'..'),ctx={window:{}};vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);
 const C=require(dir+'/core'),P=require(dir+'/pour-fluid'),raw=ctx.window.LUNA_DATA,before=JSON.stringify(raw),data=C.millilitreData(raw);
 assert.equal(JSON.stringify(raw),before);assert.deepEqual(C.millilitreData(data),data,'Conversion must be idempotent');
-assert.equal(data.tables.recipes.length,71);assert(data.tables.recipes.every(r=>r.unit==='ml'));
+assert.equal(data.tables.recipes.length,raw.tables.recipes.length);assert(data.tables.recipes.every(r=>r.unit==='ml'));
 assert(data.tables.shelf_items.filter(i=>['pour','fill_up'].includes(i.default_action)).every(i=>i.default_target_unit==='ml'));
 for(const cocktail of raw.tables.cocktails){
  const recipes=raw.tables.recipes.filter(r=>r.context===cocktail.id&&!r.auto_apply),actual={selected:cocktail.id,glass:cocktail.glass,tool:cocktail.mix==='shake'?'shaker':cocktail.mix==='stir'?'mixing_glass':null,ingredients:recipes.map(r=>r.ingredient)};
@@ -31,4 +31,4 @@ for(const targetMl of [5,45,90,180,360,600]){
  f.requestFinish(s);for(let i=0;i<1800&&!f.ready;i++)f.tick(s,1/120);assert(f.ready);assert(Math.abs(f.audit().error)<1e-7);
  assert(!f.renderParticles(s).some(p=>p.visualOnly),'No phantom stream after settling');
 }
-console.log('ML_STREAM_OK: 28 cocktail score parity; 69 recipes in ml; source untouched; beer 360ml; stream continuity, restarts, mass and final settling');
+console.log('ML_STREAM_OK: current cocktail score parity; all recipes in ml; source untouched; beer 360ml; stream continuity, restarts, mass and final settling');

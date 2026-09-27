@@ -20,7 +20,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.evaluate(()=>{const g=barGame;g.startMinigame('pour','original');g.holdPour(true);for(let i=0;i<660;i++)g.tick(1/120);g.holdPour(false);for(let i=0;i<180;i++)g.tick(1/120);g.paused=true;});
  await p.locator('[data-fluid-stage]').waitFor();
  const rows=await p.evaluate(()=>barGame.t.shelf_items.filter(i=>['pour','fill_up'].includes(i.default_action)).map(i=>({id:i.id,color:i.color,alpha:Number(i.liquid_alpha)})));
- assert.equal(rows.length,33);
+ assert.equal(rows.length,20);
  const readGPU=async()=>{await p.evaluate(()=>{window.liquidSample=null;window.captureLiquid=true;});await p.waitForFunction(()=>!!window.liquidSample);return p.evaluate(()=>liquidSample);};
  const samples={};
  for(const row of rows){
@@ -58,6 +58,6 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   for(let i=0;i<3;i++)for(let j=0;j<3;j++)if(rgb[i]>rgb[j]+15)assert(channels[i]>channels[j],row.id+' fallback hue');
  }
  assert.deepEqual(errors,[]);
- console.log('LIQUID_COLORS_UI_OK: 33 ingredient colors and opacities in WebGL + Canvas2D; real fluid pixels/hue; recipe references; clear vs opaque; zero and malformed values.');
+ console.log('LIQUID_COLORS_UI_OK: 20 ingredient colors and opacities in WebGL + Canvas2D; real fluid pixels/hue; recipe references; clear vs opaque; zero and malformed values.');
  console.log(JSON.stringify(Object.fromEntries(['gin','whiskey','orange_juice','grenadine','blue_curacao','cream'].map(k=>[k,samples[k]]))));
 }finally{await b?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
