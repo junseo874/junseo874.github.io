@@ -169,7 +169,9 @@ html,body{overflow:hidden;background:#03060b}
 .modal .site-home:focus-visible{outline:2px solid #8de8ed;outline-offset:3px}
 
 /* Reminders stay above the right coaster; finished drinks have their own central dock. */
-.bar-view:has(.stack) .tray:not(.drink-tray){bottom:131px}
+.bar-view:has(.stack) .tray:not(.drink-tray){bottom:131px;padding:7px 8px}
+.tray button[data-act="reask"]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;text-align:center;padding:7px 8px}
+.tray button[data-act="reask"] kbd{font-size:11px;padding:2px 5px}
 .tray.drink-tray{left:50%;right:auto;bottom:12px;transform:translateX(-50%);width:max-content;max-width:620px;padding:8px 14px;gap:14px}
 .drink-tray-info{display:grid;gap:5px;min-width:0}.drink-tray h3{margin:0;font-size:14px;line-height:18px}.drink-tray small{font-size:11px;line-height:14px}.drink-tray button{justify-self:start;padding:6px 10px;font-size:12px;line-height:16px}
 .bar-view:has(.drink-tray) .dialogue-wrap.player-speech{bottom:112px}
