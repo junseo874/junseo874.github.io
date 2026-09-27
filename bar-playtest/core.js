@@ -11,7 +11,7 @@ const clean=s=>String(s??'').replace(/<[^>]*>/g,'');
 // Engine input/animation contract, inspected against Play.unity's NEW prefabs.
 // The web board normalizes the 960x540 (PPU100 / ortho2.7) craft view; see README.
 const OPEN={
- minigameHoldSec:2.2, // Allow 450ms delay + 1.6s fizz and a small render margin.
+ minigameHoldSec:4.1, // Allow 450ms delay + 3.5s fizz and a small render margin.
  hit(s,ok,offset=0,window=10){s.openFx={kind:ok?'success':'miss',perfect:ok&&Math.abs(offset)<=window*.3+1e-8,offset,age:0,serial:(s.openFx?.serial||0)+1};},
  visual(s,dt){if(s.type==='open'&&s.openFx)s.openFx.age=Math.min(OPEN.minigameHoldSec,s.openFx.age+dt);}
 };

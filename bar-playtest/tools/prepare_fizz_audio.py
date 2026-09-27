@@ -13,15 +13,18 @@ with wave.open(args.source) as source:
         raise ValueError('Expected 16-bit PCM')
     samples = np.frombuffer(source.readframes(source.getnframes()), dtype='<i2').reshape(-1, channels).astype(np.float64) / 32768
 # Avoid early handling spikes, retain the denser fizz followed by quieter bubbles.
-clip = samples[round(.95 * rate):round(2.55 * rate)].copy()
+clip = samples[round(.95 * rate):round(4.45 * rate)].copy()
 clip -= np.mean(clip, axis=0)
-rms = np.sqrt(np.mean(clip * clip))
+# Keep the previous short-clip calibration; extending the tail must not make it louder.
+reference = samples[round(.95 * rate):round(2.55 * rate)].copy()
+reference -= np.mean(reference, axis=0)
+rms = np.sqrt(np.mean(reference * reference))
 if rms <= 0:
     raise ValueError('Silent source')
 clip *= min(.035 / rms, .55 / np.max(np.abs(clip)))
 # Gentle onset behind POP, then a diminishing pressure-release tail.
 clip *= np.linspace(1, .65, len(clip))[:, None]
-fade_in, fade_out = round(.035 * rate), round(.65 * rate)
+fade_in, fade_out = round(.035 * rate), round(.8 * rate)
 clip[:fade_in] *= np.sin(np.linspace(0, np.pi / 2, fade_in))[:, None]
 clip[-fade_out:] *= np.cos(np.linspace(0, np.pi / 2, fade_out))[:, None] ** 2
 with wave.open(args.output, 'wb') as output:

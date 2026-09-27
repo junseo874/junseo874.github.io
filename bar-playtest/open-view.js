@@ -5,7 +5,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const images=new Map(),seen=new WeakMap();let audio=null,buffer=null,loading=null,voice=null,fizzBuffer=null,fizzLoading=null,fizzVoice=null,active=null;
  const bytes=fetch(new URL('audio/beercan_open.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error('Opening audio '+r.status);return r.arrayBuffer();}).catch(()=>null);
- const fizzBytes=fetch(new URL('audio/beer_fizz_tail.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error('Fizz audio '+r.status);return r.arrayBuffer();}).catch(()=>null);
+ const fizzBytes=fetch(new URL('audio/beer_fizz_tail.wav?v=tail-35',document.baseURI)).then(r=>{if(!r.ok)throw Error('Fizz audio '+r.status);return r.arrayBuffer();}).catch(()=>null);
  function prepareFizz(){if(!audio||fizzBuffer||fizzLoading)return;fizzLoading=fizzBytes.then(raw=>{if(!raw)throw Error('Missing fizz recording');return audio.decodeAudioData(raw.slice(0));}).then(b=>{fizzBuffer=b;}).catch(()=>console.warn('Carbonation recording unavailable'));}
  function stopFizz(){if(!fizzVoice)return;const v=fizzVoice;fizzVoice=null;try{v.source.stop();}catch{}v.source.disconnect();v.gain.disconnect();}
  function playFizz(){
@@ -16,7 +16,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   v.source.buffer=fizzBuffer;v.gain.gain.setValueAtTime(0,audio.currentTime);
   v.gain.gain.setValueAtTime(0,start);
   v.gain.gain.linearRampToValueAtTime(level,start+.4);
-  v.gain.gain.linearRampToValueAtTime(level*.65,start+.9);
+  v.gain.gain.linearRampToValueAtTime(level*.8,start+2.2);
   v.gain.gain.linearRampToValueAtTime(0,start+fizzBuffer.duration);
   v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
   v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();if(fizzVoice===v)fizzVoice=null;};
