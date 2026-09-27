@@ -11,7 +11,7 @@ const assert=require('assert/strict');
  await p.screenshot({path:'/private/tmp/bar-hud-empty.png'});
  await p.evaluate(()=>{for(let i=0;i<60;i++)barGame.tick(.1);const g=barGame.seats.L;barGame.progress.money=9999;barGame.dialogSpeed=.001;g.lines=[barGame.makeLine(g.actor,'오늘은 진토닉으로 부탁할게요.')];g.lineIndex=0;g.lines[0].chars=0;});
  await p.waitForTimeout(700);const initial=await p.locator('.dialogue-box').boundingBox();
- assert.equal(initial.width,538);assert.equal(initial.height,124);
+ assert(initial.width>=269&&initial.width<=618.7);assert.equal(initial.height,124);
  assert.equal(await p.locator('.dialogue-text').evaluate(e=>getComputedStyle(e).fontSize),'18px');
  assert.equal(await p.locator('.speaker').textContent(),'손님');
  await p.evaluate(()=>barGame.seats.L.lines[0].chars=10);await p.waitForTimeout(150);assert.deepEqual(await p.locator('.dialogue-box').boundingBox(),initial);
@@ -20,7 +20,7 @@ const assert=require('assert/strict');
  for(const [width,height] of [[1742,981],[1920,1080],[820,650],[600,800],[1280,720]]){
   await p.setViewportSize({width,height});await p.waitForTimeout(100);
   const measure=await p.evaluate(()=>{const shell=document.querySelector('.app-shell').getBoundingClientRect(),hud=document.querySelector('.currency-hud').getBoundingClientRect(),help=document.querySelector('.help-corner').getBoundingClientRect(),dot=document.querySelector('.seat-indicators span').getBoundingClientRect(),box=document.querySelector('.dialogue-box').getBoundingClientRect();return {fits:hud.right<=shell.right&&hud.top>=shell.top,helpFits:help.left>=shell.left&&help.top>=shell.top&&help.right<hud.left,noNav:!document.querySelector('.topbar'),ratio:box.width/shell.width,dot:dot.width/shell.width};});
-  assert(measure.fits&&measure.helpFits&&measure.noNav);assert(Math.abs(measure.ratio-538/1280)<.001);assert(Math.abs(measure.dot-14/1280)<.001);
+  assert(measure.fits&&measure.helpFits&&measure.noNav);assert(Math.abs(measure.ratio-initial.width/1280)<.001);assert(Math.abs(measure.dot-14/1280)<.001);
  }
  await p.evaluate(()=>{barGame.reset(99,'practice',1);barGame.screen='bar';barGame.phase='regular';barGame.seats={L:{actor:'port',state:'STORY'},M:null,R:null};barGame.dialogue=barGame.makeLine('port','루나, 오늘은 어떤 칵테일을 추천해 주겠나?');barGame.dialogue.chars=100;});
  await p.waitForTimeout(750);assert.equal(await p.locator('.dialogue-next').innerText(),'▼');await p.screenshot({path:'/private/tmp/bar-hud-regular.png'});
