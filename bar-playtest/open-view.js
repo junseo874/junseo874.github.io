@@ -44,7 +44,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   ping.onended=()=>{ping.disconnect();env.disconnect();noise.disconnect();filter.disconnect();bus.disconnect();};
  }
  function html(s){
-  const ready=s.completed&&(s.openFx?.age||0)>=.65;
+  const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:.65);
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<canvas class="opening-stage" data-opening-stage width="1280" height="720" role="img" aria-label="'+L('맥주병 뚜껑에 초점을 맞춘 병따기','Bottle opening focused on the cap')+'"></canvas>'+

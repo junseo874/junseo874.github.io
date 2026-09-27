@@ -35,7 +35,7 @@ function attach(g){
   this.minigame.result={...result,score,grade,elapsed:this.craft.elapsed,target:step.target,unit:step.unit,success:state.success,targetStacks:state.targetStacks,id:this.craft.id};
   this.screen='minigame_result';this.gimmick=null;this.result=null;this.log('minigame_result',this.minigame.result);this.changed();
  };
- g.endGimmick=function(){if(this.minigame&&(!this.gimmick||this.gimmick.type==='open'&&!this.gimmick.completed))return false;return end();};
+ g.endGimmick=function(){if(this.minigame){const s=this.gimmick;if(!s||s.type==='open'&&(!s.completed||this.variant==='original'&&(s.openFx?.age||0)<C.OPEN.minigameHoldSec))return false;}return end();};
  g.retryMinigame=function(){if(!this.minigame)return false;const {kind,variant,difficulty}=this.minigame;return this.startMinigame(kind,variant,difficulty);};
  return {example:kind=>example(g,kind),active:()=>!!g.minigame};
 }

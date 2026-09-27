@@ -74,7 +74,7 @@ function attach(g){
   if(!active()||this.gimmick?.fluid)return base.endGimmick();
   const s=this.gimmick;if(!s||this.isPaused()||!s.started||this.remix.hold)return false;
   if(s.type==='open'&&!s.completed)return false;
-  s.held=false;this.remix.hold={remaining:.85,step:s};cue('step');return true;
+  s.held=false;const remaining=this.minigame&&s.type==='open'?Math.max(.85,C.OPEN.minigameHoldSec-(s.openFx?.age||0)):.85;this.remix.hold={remaining,step:s};cue('step');return true;
  };
  g.tick=function(dt){
   if(active()&&!this.isPaused()&&!this.finished){
