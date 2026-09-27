@@ -2,7 +2,49 @@
 window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines}){
   const categories=['glass','tool','liquor','fridge'];
   const categoryName=id=>({glass:L('잔 선반','Glasses'),tool:L('도구 선반','Tools'),liquor:L('술 선반','Liquor'),fridge:L('냉장고','Fridge')})[id];
-  const actors=new WeakMap();
+  const actors=new WeakMap(),seatSignals=new WeakMap();
+  function seatIndicator(seat){
+    const guest=g.seats[seat];
+    if(!guest)return {className:'seat-empty',state:'empty',label:seat+' · '+L('빈 좌석','Empty')};
+    let signal=seatSignals.get(guest);
+    if(!signal){
+      const entry=g.logs?.findLast(e=>e.event==='guest_enter'&&e.guest===guest.id);
+      signal={enteredAt:entry?.time??g.realTime,exitAt:null};seatSignals.set(guest,signal);
+    }
+    const waiting=['WAIT_COASTER','WAIT_SERVE'].includes(guest.state),exiting=guest.state==='EXITING';
+    if(exiting&&signal.exitAt===null)signal.exitAt=g.realTime;
+    if(!exiting)signal.exitAt=null;
+    const arrival=g.realTime-signal.enteredAt<2.4;
+    // Actual patience seconds, not the former 20% threshold.
+    const state=exiting?'exit':waiting&&guest.left<=10?'danger':
+      waiting&&guest.limit>0&&guest.left/guest.limit<=.5?'warn':'occupied';
+    const pulse=exiting?'exit':arrival&&state==='occupied'?'arrival':null;
+    const since=exiting?signal.exitAt:signal.enteredAt;
+    const dim=pulse&&Math.floor(Math.max(0,g.realTime-since)/.4)%2===1;
+    const status={WAIT_COASTER:L('코스터 대기','Needs coaster'),ORDER_DIALOGUE:L('주문 중','Ordering'),
+      WAIT_SERVE:L('서빙 대기','Awaiting drink'),DRINKING:L('마시는 중','Drinking'),
+      REACTION:L('반응 중','Responding'),EXITING:L('퇴장 중','Leaving'),REORDER_WAIT:L('추가 주문','Reordering')}[guest.state]||L('손님 있음','Occupied');
+    return {state,className:'seat-'+state+(pulse?' seat-pulse-'+pulse:'')+(dim?' seat-pulse-dim':''),
+      label:seat+' · '+status+(waiting?' · '+L('남은 인내심 ','Patience ')+Math.max(0,Math.ceil(guest.left))+L('초','s'):'')};
+  }
+  // Presentation clocks never consume gameplay RNG. Idle and speech are separate.
+  const idleCycle=1.6, speechCycle=.9, blinkDuration=.3;
+  let actorSerial=0;
+  const headY={chris_idle:[0,0,0,-1],port_idle:[0,1,-1,-1],
+    port_joy:[0,1,-1,-1],port_anger:[0,1,-2,-2],port_serious:[0,1,-1,-1],
+    aili_idle:[0,0,1,0],samho_idle:[0,0,-1,1]};
+  function blinkRandom(state){
+    state.blinkSeed=(Math.imul(state.blinkSeed,1664525)+1013904223)>>>0;
+    return state.blinkSeed/4294967296;
+  }
+  function blinkFrame(state,rest,sequence){
+    if(g.realTime>=state.blinkAt+blinkDuration){
+      // No catch-up burst when returning from another screen.
+      state.blinkAt=g.realTime+3.2+blinkRandom(state)*2.8;
+    }
+    const elapsed=g.realTime-state.blinkAt;
+    return elapsed<0?rest:sequence[Math.min(sequence.length-1,Math.floor(elapsed/blinkDuration*sequence.length))];
+  }
   const opener={id:'opener',kind:'auxiliary','name.ko':'병따개','name.en':'Bottle opener',
     'desc.ko':'병마개를 여는 보조 도구. 병 재료의 병따기 단계에서 사용합니다.',
     'desc.en':'An auxiliary tool used to open capped bottles.'};
@@ -61,10 +103,12 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       const mouth=app.layers.find(k=>/mouth_\d+$/.test(k))?.split('_').at(-1);
       // Keep the complete base body/head. The "talk" body has a cut-out face
       // and four identical frames; mixing it with a static mouth leaves a hole.
-      // Shared eyes loop independently. Only the lower face is speech-gated.
+      // Some static default mouths are open smiles. Use the closed final
+      // animation frame while silent instead of reverting to an open image.
       const replace={['guest_'+gender+'_eyes_'+eyes]:'guest_'+gender+'_talk_eyes_'+eyes};
       const mouthKey='guest_'+gender+'_talk_mouth_'+mouth;
-      if(talking)replace['guest_'+gender+'_mouth_'+mouth]=mouthKey;
+      if(talking||D.assets[mouthKey])replace['guest_'+gender+'_mouth_'+mouth]=mouthKey;
+      else if(gender==='m'&&['4','5'].includes(mouth))replace['guest_m_mouth_'+mouth]='guest_m_mouth_3';
       return {keys:app.layers.map(k=>D.assets[replace[k]]?replace[k]:k),
         pose:talking?(D.assets[mouthKey]?'talk':'static-fallback'):'idle'};
     }
@@ -78,21 +122,23 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function actorHTML(guest,x){
     let state=actors.get(guest);
-    if(!state){state={start:g.realTime,pose:null,poseAt:g.realTime,loopPose:null,speech:null,exitAt:null,glass:guest.glass,drinkUntil:0};actors.set(guest,state);}
+    if(!state){
+      state={start:g.realTime,pose:null,poseAt:g.realTime,loopPose:null,speech:null,exitAt:null,glass:guest.glass,drinkUntil:0,blinkSeed:Math.imul(++actorSerial,2654435761)>>>0};
+      state.blinkAt=g.realTime+2.4+blinkRandom(state)*3;
+      actors.set(guest,state);
+    }
     if(g.variant==='gpt'&&g.phase==='general'){if(guest.state==='DRINKING'&&state.guestState!=='DRINKING')state.drinkUntil=g.realTime+1.2;state.guestState=guest.state;}else if(guest.glass&&guest.glass!==state.glass){state.drinkUntil=g.realTime+1;}
     state.glass=guest.glass;
     const d=g.currentDialogue();
     // Personality IDs may repeat; only the focused general guest owns this bubble.
     const speaking=!!d&&d.actor===guest.actor&&(g.phase!=='general'||g.seats[g.focus]===guest);
     const talking=g.screen==='bar'&&speaking&&d.chars<d.text.length;
-    const cycle=D.webArtRules.animationCycleSeconds||1;
     const poseFamily=pose=>guest.appearance?'guest':pose.pose.replace(/_(talk|default)$/,'');
     if(talking){
       const pose=actorLayers(guest,d.expression,true);
-      // A talk/default swap is NOT a new body/eye animation. All source parts
-      // share the pose clock, including the mouth, so the face stays registered.
+      // Starting speech never restarts breathing or the blink schedule.
       if(!state.speech||state.speech.pose.pose!==pose.pose){
-        state.speech={pose,startedAt:state.loopPose===poseFamily(pose)?state.poseAt:g.realTime,stopAt:null};
+        state.speech={pose,startedAt:g.realTime,stopAt:null};
       }else{state.speech.pose=pose;state.speech.stopAt=null;}
     }else if(state.speech){
       const speech=state.speech;
@@ -101,10 +147,9 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
         // Typing/reveal/line completion stops speech; body and eyes keep looping.
         state.speech=null;
       }else if(speech.stopAt===null){
-        // When looking away, finish only the current mouth cycle. The independent
-        // idle clock keeps running during and after this bounded handoff.
-        const animated=speech.pose.keys.some(k=>/(?:mouth_\d+|face_bottom(?:_talk|_default)?)$/.test(k)&&(D.assets[k]?.frames||1)>1);
-        speech.stopAt=animated?speech.startedAt+Math.ceil(Math.max(0,g.realTime-speech.startedAt)/cycle)*cycle:g.realTime;
+        // Close the articulation briefly during a pan, with no extra loop.
+        speech.stopAt=g.realTime+.18;
+        speech.releasePhase=((g.realTime-speech.startedAt)/speechCycle)%1;
       }
       if(state.speech&&g.realTime>=speech.stopAt)state.speech=null;
     }
@@ -125,12 +170,35 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const speechState=state.speech?(talking?'looping':'finishing'):'idle';
     return `<div class="actor pixel-actor" data-actor="${esc(guest.actor)}" data-baseline="${base}" data-table-anchor="${anchor}" data-pose="${esc(pose.pose)}" data-talking="${talking}" data-speech-state="${speechState}" style="left:calc(${x}% + ${centerOffset}px);top:${top}px;opacity:${opacity};--arrival:${offset}px">
       ${pose.keys.length?pose.keys.map(k=>{
-        // CharacterPart.SetClipSpeed: Clip.length / TARGET_LENGTH(1s).
-        // The engine normalizes cycle length; source sample rate is NOT playback FPS.
-        const s=D.assets[k],frames=s.frames||1,frame=Math.floor(Math.max(0,g.realTime-state.poseAt)/cycle*frames)%frames;
+        const s=D.assets[k],frames=s.frames||1;
+        const poseCycle=family==='drink'?1:idleCycle;
+        const bodyFrame=Math.floor(Math.max(0,g.realTime-state.poseAt)/poseCycle*frames)%frames;
+        let frame=bodyFrame,partY=0;
+        const mouth=/(?:mouth_\d+|face_bottom(?:_talk|_default)?)$/.test(k);
+        const eyes=/eyes(?:_\d+)?$/.test(k);
+        if(mouth&&frames>1){
+          if(state.speech){
+            frame=Math.floor(Math.max(0,g.realTime-state.speech.startedAt)/speechCycle*frames)%frames;
+            if(state.speech.stopAt!==null){
+              const progress=1-(state.speech.stopAt-g.realTime)/.18;
+              const first=Math.floor(state.speech.releasePhase*frames);
+              frame=Math.min(frames-1,first+Math.floor(progress*(frames-first)));
+            }
+          }else if(guest.appearance)frame=frames-1;
+        }
+        if(eyes&&frames>1){
+          if(guest.appearance)frame=blinkFrame(state,3,[0,1,2,1,0,3]);
+          else if(guest.actor==='chris'&&family.toLowerCase().endsWith('idle'))frame=blinkFrame(state,0,[1,2,1,0]);
+          else if(guest.actor==='bubi')frame=blinkFrame(state,0,[1,2,3,0]);
+          // Sunglasses/robot eyes are head-motion frames, not blink frames.
+        }
+        if(!guest.appearance&&(eyes||mouth)&&frame!==bodyFrame){
+          const shifts=headY[family.toLowerCase()]||headY[guest.actor+'_'+family.toLowerCase()];
+          if(shifts)partY=(shifts[bodyFrame]||0)-(shifts[frame]||0);
+        }
         const fw=s.frameWidth||s.w/frames,fh=s.frameHeight||s.h;
         // Keep source pixels and a stable pose-level anchor, never recrop per frame.
-        return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw/551*100}%;height:${fh/530*100}%;left:${50+dx/551*100}%;bottom:${-dy/530*100}%;background-image:url('${s.src}');background-size:${frames*100}% 100%;background-position:${frames>1?frame/(frames-1)*100:0}% 0"></div>`;
+        return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw/551*100}%;height:${fh/530*100}%;left:${50+dx/551*100}%;bottom:${-(dy+partY)/530*100}%;background-image:url('${s.src}');background-size:${frames*100}% 100%;background-position:${frames>1?frame/(frames-1)*100:0}% 0"></div>`;
       }).join(''):'<div class="dummy-actor"></div>'}
     </div>`;
   }
@@ -303,5 +371,5 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div><div class="mix-detail" aria-label="${L('손 동작 확대','Hand detail')}" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${stir?sideGlass(s):motionHTML(s,[670,180,250,320])}<small>${stir?L('얼음 측면','ICE / SIDE'):L('동작 확대','DETAIL')}</small></div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       ${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary gimmick-finish')}</div>`;
   }
-  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor};
+  return {actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor,seatIndicator};
 };

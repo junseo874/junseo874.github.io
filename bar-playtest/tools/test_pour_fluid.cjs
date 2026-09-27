@@ -44,4 +44,10 @@ test('automatic final-drop waiting adds no active craft time once the bottle is 
  const g=game(),s=g.gimmick;g.holdPour(true);advance(g,1.7);g.endGimmick();while(g.gimmick===s&&s.angle>0)g.tick(1/120);
  const elapsed=g.craft.elapsed;advance(g,6);assert.equal(g.craft.elapsed,elapsed);assert.equal(g.craft.results.length,1);
 });
+test('top-up retilts sooner without dispensing while upright or adding free liquid',()=>{
+ const g=game(),s=g.gimmick;g.holdPour(true);advance(g,.6);assert.equal(s.fluid.emittedMl,0);
+ advance(g,1);g.holdPour(false);advance(g,2);const before=s.fluid.emittedMl;
+ assert.equal(s.angle,0);assert(before>0);g.holdPour(true);advance(g,.6);
+ assert(s.fluid.emittedMl>before,'Used bottle reaches the pourer sooner');g.holdPour(false);advance(g,2);conserved(s.fluid);
+});
 console.log('POUR_FLUID_OK',count,'groups');

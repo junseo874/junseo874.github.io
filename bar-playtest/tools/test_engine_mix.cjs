@@ -9,7 +9,7 @@ test('no autonomous character animation, score, or prep timer',()=>{for(const ki
 test('serialized linear route, delay and exact pattern, mirrored on return',()=>{const s=game('shake').gimmick;s.elapsed=.09;C.MIX.updatePath(s,()=>0);assert.deepEqual(s.pathPoint,[0,0]);assert.equal(s.nodes.length,0);s.elapsed=.6;C.MIX.updatePath(s,()=>0);assert.deepEqual(s.pathPoint,C.MIX.points[1].map(v=>v/2));assert.equal(s.nodes.length,2);assert(Math.abs(s.nodes[0].x-2.61*.37)<1e-9);s.elapsed=3.6;C.MIX.updatePath(s,()=>.9);assert.equal(s.patternIndex,0);assert.equal(s.nodes.length,2);assert.equal(s.nodes[0].x,2.61*(1-.37));s.elapsed=6.6;C.MIX.updatePath(s,()=>.99);assert.equal(s.patternIndex,3);assert.equal(s.nodes.length,3);});
 test('real distance window, nearest dynamic consumed once, fixed node remains',()=>{const s=game('shake').gimmick;s.nodes=[{id:'dynamic',x:1,y:1,born:0}];s.pathPoint=[1,1];assert.equal(C.MIX.shakeHit(s),true);assert.equal(s.nodes.length,0);assert.equal(C.MIX.shakeHit(s),false);assert.equal(s.success,1);s.pathPoint=[0,0];assert.equal(C.MIX.shakeHit(s),true);assert.equal(C.MIX.shakeHit(s),true);s.pathPoint=[-.250001,0];assert.equal(C.MIX.shakeHit(s),false);s.pathPoint=[-.25,0];assert.equal(C.MIX.shakeHit(s),true);});
 test('successful hits alternate exact nonloop clip frames; miss never restarts',()=>{const g=game('shake'),s=g.gimmick;start(g);s.pathPoint=[0,0];g.gimmickInput('MouseLeft');assert.equal(s.motionFrame,1);C.MIX.visual(s,.126);assert.equal(s.motionFrame,2);s.pathPoint=[9,9];g.gimmickInput('MouseLeft');assert.equal(s.motionFrame,2);assert.equal(s.motionClip,0);C.MIX.visual(s,.126);assert.equal(s.motionFrame,3);C.MIX.visual(s,.13);assert.equal(s.motionFrame,0);C.MIX.visual(s,10);assert.equal(s.motionFrame,0);s.pathPoint=[0,0];g.gimmickInput('Space');assert.equal(s.motionFrame,5);C.MIX.visual(s,.126);assert.equal(s.motionFrame,6);C.MIX.visual(s,.126);assert.equal(s.motionFrame,7);C.MIX.visual(s,5);assert.equal(s.motionFrame,4);assert.equal(s.nextMotionClip,0);});
-test('stir supports event-order rapid inputs with no invented cooldown',()=>{for(const variant of ['original','gpt']){const g=game('stir',variant),s=g.gimmick;start(g);for(const key of ['KeyD','KeyS','KeyA','KeyW'])g.gimmickInput(key);assert.equal(s.success,1);assert.equal(s.failures,0);assert.equal(s.spoonTarget,360);assert.equal(s.swirlSpeed,420);tick(g,.25);assert(s.spoonAngle>350&&s.spoonAngle<360);}});
+test('stir supports event-order rapid inputs with no invented cooldown',()=>{for(const variant of ['original','gpt']){const g=game('stir',variant),s=g.gimmick;start(g);for(const key of ['KeyD','KeyS','KeyA','KeyW'])g.gimmickInput(key);assert.equal(s.success,1);assert.equal(s.failures,0);assert.equal(s.spoonTarget,360);assert.equal(s.swirlSpeed,420);tick(g,.25);assert(Math.abs(s.spoonAngle-360*(1-Math.exp(-10*.25)))<.001,'Web polish keeps a softer exponential follow without changing input targets');}});
 test('stir wrong input and timeout preserve last correct direction',()=>{const g=game('stir'),s=g.gimmick;start(g);g.gimmickInput('KeyD');g.gimmickInput('KeyD');assert.equal(s.failures,1);assert.equal(s.stirPos,1);assert.equal(s.spoonTarget,90);tick(g,2.01);assert.equal(s.failures,2);assert.equal(s.stirPos,1);for(const key of ['KeyS','KeyA','KeyW','KeyD'])g.gimmickInput(key);assert.equal(s.success,1);assert.equal(s.stirPos,1);assert.equal(s.spoonTarget,450);});
 test('fourth valid input before timer update wins; unrelated inputs ignored',()=>{const g=game('stir'),s=g.gimmick;start(g);for(const key of ['KeyD','KeyS','KeyA'])g.gimmickInput(key);s.circleTime=1.499;assert.equal(g.gimmickInput('Space'),false);g.gimmickInput('KeyW');g.tick(.02);assert.equal(s.success,1);assert.equal(s.failures,0);assert(s.circleTime<.03);});
 test('ice impulse, inertia, confinement and eventual rest; spoon does not idle-loop',()=>{const g=game('stir'),s=g.gimmick;start(g);const initial=structuredClone(s.ice);g.gimmickInput('KeyD');assert.equal(s.swirlSpeed,160);C.MIX.visual(s,.1);assert(Math.abs(s.swirlSpeed-160*Math.exp(-.12))<1e-9);assert.notDeepEqual(s.ice,initial);for(let i=0;i<1000;i++)C.MIX.visual(s,.01);assert.equal(s.swirlSpeed,0);assert.equal(s.spoonAngle,90);const stopped=JSON.stringify(s.ice),frame=s.motionFrame;C.MIX.visual(s,10);assert.equal(JSON.stringify(s.ice),stopped);assert.equal(s.motionFrame,frame);for(const c of s.ice)assert(Math.hypot(c.x,c.y)+c.size/2<=72.501);});
@@ -19,15 +19,15 @@ test('completion feedback finishes final animation without adding craft time',()
 
 test('stir hand uses evenly spaced frames, independent of eased spoon angle',()=>{
  const g=game('stir'),s=g.gimmick;start(g);g.gimmickInput('KeyD');
- assert.equal(s.stirMotionPending,3);assert.equal(s.motionFrame,0);
- for(const frame of [1,2,3]){
+ assert.equal(s.stirMotionPending,5);assert.equal(s.motionFrame,0);
+ for(const frame of [1,2,3,4,5]){
   C.MIX.visual(s,C.MIX.stirFrameSeconds/2);assert.equal(s.motionFrame,frame-1);
   C.MIX.visual(s,C.MIX.stirFrameSeconds/2);assert.equal(s.motionFrame,frame);
  }
  assert.equal(s.stirMotionPending,0);assert.equal(s.stirMotionClock,0);
- C.MIX.visual(s,1);assert.equal(s.motionFrame,3);
+ C.MIX.visual(s,1);assert.equal(s.motionFrame,5);
  // Resume from the held pose, not the first sprite.
- g.gimmickInput('KeyS');C.MIX.visual(s,C.MIX.stirFrameSeconds);assert.equal(s.motionFrame,4);
+ g.gimmickInput('KeyS');C.MIX.visual(s,C.MIX.stirFrameSeconds);assert.equal(s.motionFrame,0);
 });
 test('stir valid input extends the gesture without resetting its frame clock',()=>{
  const g=game('stir'),s=g.gimmick;start(g);g.gimmickInput('KeyD');

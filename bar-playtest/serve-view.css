@@ -1,0 +1,23 @@
+.serve-presentation{position:absolute;inset:0;z-index:20;overflow:hidden;background:#0d0e18}
+.serve-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.serve-grade{position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:48px;letter-spacing:4px;color:#f8e1a1;text-shadow:0 3px 0 #251e18,0 0 18px #0b0c18;pointer-events:none}
+.serve-grade[data-grade=poor],.serve-grade[data-grade=sewage]{color:#efa294}
+.serve-actions{position:absolute;bottom:24px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:flex-start}
+.serve-offer{display:flex;flex-direction:column;align-items:center;gap:9px}
+.serve-offer>.primary,.serve-discard{width:210px;height:56px;font-size:22px;border-radius:3px}
+.serve-discard{background:#10121bee;border-color:#748088}
+.serve-details-button{padding:3px 12px;font-size:13px;border:0;background:#0d0e1890;color:#ccd3d8;text-decoration:underline;text-underline-offset:4px}
+.serve-fallback{position:absolute;width:260px;height:370px;left:50%;top:calc(110px + var(--serve-progress)*80px);transform:translateX(-50%) scale(calc(.72 + var(--serve-progress)*.28));opacity:calc(.2 + var(--serve-progress)*.8);pointer-events:none}
+.serve-fallback .drink-art{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
+.currency-hud.currency-spending{box-shadow:0 0 16px #e99c6240}
+.currency-spending .currency-value{color:#ffbc9f}
+.currency-hud.currency-income{box-shadow:0 0 18px #ffd26b55}
+.currency-income .currency-value{color:#ffe59a}
+.currency-hud.currency-income .currency-delta{color:#ffe59a}
+.currency-hud .currency-delta{position:absolute;right:15px;top:41px;font-size:22px;color:#ffac9e;text-shadow:0 2px 5px #000;white-space:nowrap}
+.serve-score-detail .result-table{width:100%;font-size:14px}
+.serve-score-detail th{text-align:left;color:#9bcbd1;padding:8px 0}
+.serve-score-detail p{font-size:13px;line-height:1.7}
+.serve-step-details{padding:12px;background:#080e1680}
+.serve-step-details>div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:13px}
+.serve-grade-cuts{color:#cfc19e}

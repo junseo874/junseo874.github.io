@@ -30,7 +30,10 @@ class Simulation{
   this.accumulator+=Math.max(0,Math.min(.2,dt));
   while(this.accumulator+1e-10>=STEP){
    this.accumulator=Math.max(0,this.accumulator-STEP);
-   s.angle=clamp(s.angle+(s.held&&!this.finishRequested?1:-1)*this.tiltSpeed*STEP,0,this.maxAngle);
+   const lifting=s.held&&!this.finishRequested;
+   // Re-tilt an already-used bottle promptly for small top-ups; never accelerate the release tail.
+   const liftRate=lifting&&this.emittedMl>0&&s.angle<this.startAngle?2:1;
+   s.angle=clamp(s.angle+(lifting?liftRate:-1)*this.tiltSpeed*STEP,0,this.maxAngle);
    this.flow=this.flowAt(s.angle);this.time+=STEP;
    this.emit(s);this.solve(STEP);this.measure();
    s.value=this.caughtMl/this.unitMl;s.predicted=this.predicted(s);

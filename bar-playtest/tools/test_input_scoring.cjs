@@ -92,7 +92,7 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/').re
    while(g.screen==='gimmick'){
     const s=g.gimmick;if(s.fluid){g.holdPour(true);let guard=0;while(g.gimmick===s&&guard++<6000){if(!s.fluid.finishRequested&&s.fluid.predicted(s)>=s.target)g.endGimmick();g.tick(1/120);}if(g.gimmick===s)throw Error('Pour failed to settle');}else{s.started=true;s.success=s.targetStacks;s.completed=true;g.endGimmick();}
    }
-  },tool);await p.locator('.result-table').waitFor();
+  },tool);await p.locator('[data-act="serveDetails"]').click();await p.locator('.result-table').first().waitFor();
   assert.equal(await p.evaluate(()=>barGame.result.penalties.tool),tool?10:0);
   assert.equal(await p.evaluate(()=>barGame.result.score),tool?90:100);
   await p.waitForFunction(expected=>[...document.querySelectorAll('.result-table tr')].find(r=>r.textContent.includes('도구 누락·불일치'))?.lastElementChild.textContent===expected,tool?'−10.0':'−0.0');

@@ -23,8 +23,8 @@ window.LunaStirPolish=function({g,ui}){
  function start(id){
   if(voice||!audio||audio.state!=='running'||!buffers.has(id))return;
   const v={source:audio.createBufferSource(),gain:audio.createGain()};
-  v.source.buffer=buffers.get(id);v.source.loop=true;v.source.connect(v.gain);v.gain.connect(audio.destination);
-  v.gain.gain.setValueAtTime(0,audio.currentTime);v.gain.gain.linearRampToValueAtTime(.65,audio.currentTime+.015);
+  v.source.buffer=buffers.get(id);v.source.loop=true;v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
+  v.gain.gain.setValueAtTime(0,audio.currentTime);v.gain.gain.linearRampToValueAtTime(window.LunaSfx.level("stir"+id),audio.currentTime+.015);
   v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();voices.delete(v);if(voice===v)voice=null;};
   voice=v;voices.add(v);v.source.start();
  }
@@ -36,18 +36,19 @@ window.LunaStirPolish=function({g,ui}){
   const selected=Number(ui.stirSound)||1;
   if(selection!==selected){stop(true);selection=selected;}
   let state=states.get(s);
-  if(!state){state={target:0,attempts:0,stepAge:1,ringAge:1,ok:true};states.set(s,state);}
+  if(!state){state={target:0,attempts:0,stepAge:1,ringAge:1,ok:true,flow:0,angle:0};states.set(s,state);}
   const paused=g.isPaused(),fresh=s.spoonTarget>state.target;
   if(!paused){
    state.stepAge+=dt;state.ringAge+=dt;
-   if(fresh)state.stepAge=0;
-   if(s.attempts>state.attempts){state.ringAge=0;state.ok=!!s.outcomes.at(-1);}
+   if(fresh){state.flow=Math.min(1,state.flow+(state.stepAge<.55?.22:.08));state.stepAge=0;}
+   state.flow*=Math.exp(-dt*(state.stepAge>.55?2.5:.15));state.angle+=s.swirlSpeed*dt;
+   if(s.attempts>state.attempts){state.ringAge=0;state.ok=!!s.outcomes.at(-1);if(!state.ok)state.flow*=.35;}
   }
   state.target=s.spoonTarget;state.attempts=s.attempts;
   if(paused||ui.gimmickAudio===false)stop(true);
-  else if(s.stirMotionPending>0){if(fresh)start(selected);}
+  else if(s.stirMotionPending>0||state.stepAge<.44){if(fresh)start(selected);}
   else stop();
-  screen.dataset.stirSound=selected;
+  screen.dataset.stirSound=selected;screen.dataset.stirFlow=state.flow.toFixed(3);
   screen.dataset.stirAudioReady=String(buffers.has(selected));
   screen.dataset.stirAudioPlaying=String(!!voice);
   const status=screen.querySelector('[data-stir-audio-status]');
@@ -59,9 +60,10 @@ window.LunaStirPolish=function({g,ui}){
   for(const el of screen.querySelectorAll('.mix-direction'))el.classList.toggle('stir-hit',hit>0&&el.dataset.id===['KeyW','KeyD','KeyS','KeyA'][s.stirPos]);
   const layer=screen.querySelector('[data-stir-polish]');
   if(layer){
-   const swirl=reduced.matches?0:Math.min(1,s.swirlSpeed/280)*.4;
-   let html=swirl?'<g transform="rotate('+s.spoonAngle.toFixed(2)+' 100 100)" opacity="'+swirl.toFixed(3)+'"><circle cx="100" cy="100" r="69" fill="none" stroke="#eaffff" stroke-width="1.5" stroke-dasharray="55 89"/><circle cx="100" cy="100" r="61" fill="none" stroke="#d1fffa" stroke-width="1" stroke-dasharray="28 100"/></g>':'';
+   const swirl=reduced.matches?0:Math.min(1,s.swirlSpeed/280)*(.25+state.flow*.3);
+   let html=swirl?'<g transform="rotate('+state.angle.toFixed(2)+' 100 100)" opacity="'+swirl.toFixed(3)+'"><circle cx="100" cy="100" r="69" fill="none" stroke="#eaffff" stroke-width="1.5" stroke-dasharray="55 89"/><circle cx="100" cy="100" r="61" fill="none" stroke="#d1fffa" stroke-width="1" stroke-dasharray="28 100"/></g>':'';
    if(ring)html+='<circle data-stir-round="'+(state.ok?'good':'miss')+'" cx="100" cy="100" r="'+(reduced.matches?83:78+state.ringAge*22)+'" fill="none" stroke="'+(state.ok?'#8efbe1':'#e78c97')+'" stroke-width="2" opacity="'+ring+'"/>';
+   if(state.flow>.25&&!reduced.matches)html+='<circle cx="100" cy="100" r="80" fill="none" stroke="#bdfff1" stroke-width="1.5" stroke-dasharray="'+(state.flow*502).toFixed(1)+' 502" opacity="'+(state.flow*.5).toFixed(3)+'" transform="rotate(-90 100 100)"/>';
    layer.innerHTML=html;
   }
  }

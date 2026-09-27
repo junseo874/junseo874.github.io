@@ -5,7 +5,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
  const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[],missing=[];
  p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))missing.push(r.url());});
- await p.addInitScript(()=>{const original=AudioBufferSourceNode.prototype.start;window.noiseStarts=0;AudioBufferSourceNode.prototype.start=function(...args){window.noiseStarts++;return original.apply(this,args);};});
+ await p.addInitScript(()=>{const original=AudioBufferSourceNode.prototype.start;window.noiseStarts=0;window.openRecordings=[];AudioBufferSourceNode.prototype.start=function(...args){window.noiseStarts++;if(this.buffer?.duration>1.06&&this.buffer?.duration<1.07)window.openRecordings.push({duration:this.buffer.duration,channels:this.buffer.numberOfChannels});return original.apply(this,args);};});
  await p.goto(BASE+'?mode=minigames');
  for(const variant of ['original','gpt']){
   await p.evaluate(v=>barGame.startMinigame('open',v),variant);await p.locator('[data-opening-stage]').waitFor();
@@ -14,7 +14,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   assert.equal(await p.locator('[data-open-timing]').isVisible(),false);
   assert.equal(await p.locator('.craft-top,.gimmick-footer,.pour-footer').count(),0);
   assert.equal(await p.locator('[data-act="endGimmick"]').isDisabled(),true);
-  await p.keyboard.press('Space');await p.waitForTimeout(80);await p.keyboard.press('Space');await p.waitForTimeout(80);
+  await p.keyboard.press('Space');await p.waitForFunction(()=>document.querySelector('[data-opening-stage]')?.dataset.openAudioReady==='true');await p.waitForTimeout(80);await p.keyboard.press('Space');await p.waitForTimeout(80);
   assert.equal(await p.locator('[data-opening-stage]').getAttribute('data-state'),'miss');
   assert.equal(await p.evaluate(()=>barGame.gimmick.failures),1);
   await p.screenshot({path:'/private/tmp/open-'+variant+'-miss.png'});
@@ -30,7 +30,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   await p.screenshot({path:'/private/tmp/open-space-window-'+variant+'.png'});
   // Fix the judgement clock, then exercise the real UI input. No score overrides.
   await p.evaluate(()=>{barGame.gimmick.beatTime=1.54;});await p.keyboard.press('Space');
-  await p.waitForTimeout(130);assert.equal(await p.locator('[data-opening-stage]').getAttribute('data-state'),'success');
+  await p.waitForTimeout(130);assert.equal(await p.evaluate(()=>openRecordings.length),variant==='original'?1:2,'One supplied recording per success');assert.equal(await p.evaluate(()=>openRecordings.at(-1).channels),2);assert.equal(await p.locator('[data-opening-stage]').getAttribute('data-state'),'success');
   assert.equal(await p.locator('[data-open-timing]').isVisible(),false,'Hide after success');
   await p.screenshot({path:'/private/tmp/open-'+variant+'-pop.png'});
   const elapsed=await p.evaluate(()=>barGame.craft.elapsed);

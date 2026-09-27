@@ -131,7 +131,18 @@ html,body{overflow:hidden;background:#03060b}
 /* Bar HUD: no bottom toolbar, no brand wordmark. */
 .bar-view{position:absolute;inset:0}
 .service-handle{position:absolute;left:23px;top:auto;bottom:59px;z-index:13;display:flex;align-items:center;gap:10px;background:#0a1423e6;border-color:#527d94;box-shadow:0 4px 18px #0004;padding:10px 12px;font-size:12px;color:#c6e2ed}.service-handle kbd{font-size:11px;color:#b4f2f5;border-color:#4d7d8d}
-.seat-indicators{position:absolute;left:23px;bottom:19px;display:flex;gap:2px;z-index:13;background:transparent;padding:0}.seat-indicators button{border:0;background:transparent;padding:5px;border-radius:50%}.seat-indicators button span{display:block;width:14px;height:14px;border-radius:50%;background:#494e54}.seat-indicators button.selected span{background:#c9ffff;box-shadow:0 0 11px 3px #44cde0}.seat-indicators button:hover span{background:#9caeb8}.seat-indicators button.selected:hover span{background:#c9ffff}
+.seat-indicators{position:absolute;left:23px;bottom:19px;display:flex;gap:8px;z-index:13;background:transparent;padding:0}
+.seat-indicators button{position:relative;border:0;background:transparent;padding:5px;border-radius:50%;--seat-color:#494e54}
+.seat-indicators button span{display:block;width:14px;height:14px;border-radius:50%;background:var(--seat-color);box-shadow:0 0 8px color-mix(in srgb,var(--seat-color) 40%,transparent);opacity:1;transition:opacity .16s linear,background .15s}
+.seat-indicators .seat-empty span{box-shadow:none}
+.seat-indicators .seat-occupied{--seat-color:#8acbbb}
+.seat-indicators .seat-warn{--seat-color:#ffa747}
+.seat-indicators .seat-danger,.seat-indicators .seat-exit{--seat-color:#ff625b}
+.seat-indicators button.selected{outline:1px solid #bff6ef;outline-offset:3px;border-radius:50%}
+.seat-indicators button.selected.seat-occupied{--seat-color:#c9ffff}
+.seat-indicators .seat-pulse-dim span{opacity:.24;box-shadow:none}
+.seat-indicators button:hover{background:#bff6ef12}
+@media(prefers-reduced-motion:reduce){.seat-indicators button span{transition:none}.seat-indicators .seat-pulse-dim span{opacity:1}}
 .service-layer{position:absolute;inset:0;z-index:36}.service-scrim{position:absolute;inset:0;border:0;border-radius:0;background:#02061045;cursor:default}.service-scrim:hover:not(:disabled){background:#02061045;border:0}.service-panel{position:absolute;left:23px;top:auto;bottom:109px;width:296px;padding:20px;background:#0c1523f7;border:1px solid #63a4bb;border-radius:8px;box-shadow:0 8px 30px #0008;animation:service-enter .18s ease-out}.service-panel header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}.service-panel h2{font-size:20px;color:#82e5ed;margin:0}.service-panel header button{padding:3px 9px;font-size:22px;background:transparent}.service-actions{display:flex;flex-direction:column;gap:10px}.service-actions button{text-align:left;display:flex;align-items:center;gap:13px;padding:17px 13px;font-size:15px;background:#172636;border-color:#425c70}.service-actions button span{color:#82dbe6;font-size:20px}.service-actions button:hover{background:#234258;border-color:#6cdce8}.service-panel p{font-size:11px;margin:18px 0 14px;color:#9cb6c4}.service-panel>small{font-size:11px}.service-panel kbd{font-size:10px}@keyframes service-enter{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
 @media(prefers-reduced-motion:reduce){.service-panel{animation:none}}
 

@@ -25,7 +25,7 @@ window.LunaShakePolish=function({g,D,ui}){
   if(!b)return;
   stop(channel);
   const current={gain:audio.createGain(),source:audio.createBufferSource()};voices.set(channel,current);
-  current.gain.gain.value=.65;current.gain.connect(audio.destination);current.source.buffer=b;current.source.connect(current.gain);
+  current.gain.gain.value=effect.ok?window.LunaSfx.level("shake"+(Number(ui.shakeSound)||1)):.65;current.gain.connect(window.LunaSfx.output(audio));current.source.buffer=b;current.source.playbackRate.value=effect.ok?[.98,1,1.02][effect.id%3]:1;current.source.connect(current.gain);
   current.source.onended=()=>{current.source.disconnect();current.gain.disconnect();if(voices.get(channel)===current)voices.delete(channel);};
   current.source.start();
  }
@@ -34,12 +34,12 @@ window.LunaShakePolish=function({g,D,ui}){
   const m=window.LunaCore.MIX,time=Math.max(0,s.elapsed-m.delay-lag),i=Math.floor(time),t=time-i,a=m.points[m.route[i%6]],b=m.points[m.route[(i+1)%6]];
   return at(a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t);
  }
- function burst(e){
-  const [x,y]=at(e.x,e.y),t=e.age,fade=Math.max(0,1-t/.55),radius=reduced.matches?16:9+t*80,color=e.ok?'#a3ffec':'#ef9e9c';
+ function burst(e,heat=0,finale=false){
+  const [x,y]=at(e.x,e.y),t=e.age,fade=Math.max(0,1-t/.55),radius=reduced.matches?16:9+t*80,color=e.ok?(finale?'#ffe3a0':'#a3ffec'):'#ef9e9c';
   let parts='<circle r="'+radius+'" fill="none" stroke="'+color+'" stroke-width="'+(2.6*fade)+'"/>';
   if(e.ok){
    parts+='<circle r="'+(7+t*25)+'" fill="#eafff8" opacity="'+Math.max(0,1-t*8)+'"/>';
-   for(let i=0;i<(reduced.matches?0:10);i++){const angle=i*Math.PI/5+e.id*.43,d=12+t*(45+(i%3)*30),px=Math.cos(angle)*d,py=Math.sin(angle)*d+t*t*60;
+   for(let i=0;i<(reduced.matches?0:10+Math.round(heat*6)+(finale?4:0));i++){const angle=i*Math.PI/5+e.id*.43,d=12+t*(45+(i%3)*30),px=Math.cos(angle)*d,py=Math.sin(angle)*d+t*t*60;
     parts+='<path d="M-2 0L0 -4L2 0L0 4Z" fill="'+(i%3?color:'#ffe6a8')+'" transform="translate('+px.toFixed(2)+' '+py.toFixed(2)+') rotate('+(i*36+t*150)+')"/>';}
   }else parts+='<path d="M-6 -6L6 6M6 -6L-6 6" stroke="'+color+'" stroke-width="2"/>';
   return '<g data-shake-burst="'+e.id+'" transform="translate('+x+' '+y+')" opacity="'+fade+'">'+parts+'</g>';
@@ -55,6 +55,8 @@ window.LunaShakePolish=function({g,D,ui}){
   const status=screen.querySelector('[data-shake-audio-status]');
   if(status)status.textContent=ui.gimmickAudio===false?(g.lang==='ko'?'음소거':'Muted'):audio&&!buffers.has(selected)?(g.lang==='ko'?'음원 준비 중 / 로드 실패 시 새로고침':'Loading / reload if unavailable'):'';
   const effects=s.shakeEffects||[],last=effects.at(-1);
+  let streak=0;for(let i=s.outcomes.length-1;i>=0&&s.outcomes[i];i--)streak++;const heat=Math.min(1,streak/6),finale=!!(s.completed&&last?.ok);
+  screen.dataset.shakeStreak=streak;screen.dataset.shakeFinale=String(finale);screen.style.setProperty('--shake-heat',heat.toFixed(3));
   if(g.isPaused()||ui.gimmickAudio===false)stop();
   if(!g.isPaused()){
    const previous=seen.get(s)||0;
@@ -64,13 +66,14 @@ window.LunaShakePolish=function({g,D,ui}){
   const marker=screen.querySelector('[data-shake-marker]'),p=at(...s.pathPoint);
   if(marker){marker.setAttribute('cx',p[0]);marker.setAttribute('cy',p[1]);}
   const trail=screen.querySelector('[data-shake-trail]');
-  if(trail)trail.innerHTML=s.started&&!reduced.matches?[.025,.055,.09,.13].map((lag,i)=>{const v=point(s,lag);return '<circle cx="'+v[0]+'" cy="'+v[1]+'" r="'+(6-i)+'" fill="#ef69b3" opacity="'+(.3-i*.06)+'"/>';}).join(''):'';
+  if(trail)trail.innerHTML=s.started&&!reduced.matches?[.025,.055,.09,.13].map((lag,i)=>{const v=point(s,lag);return '<circle cx="'+v[0]+'" cy="'+v[1]+'" r="'+(6-i)+'" fill="#ef69b3" opacity="'+(.3+heat*.15-i*.06)+'"/>';}).join(''):'';
   const layer=screen.querySelector('[data-shake-fx]');
-  if(layer)layer.innerHTML=effects.map(burst).join('');
+  if(layer)layer.innerHTML=effects.map(e=>burst(e,heat,finale&&e===last)).join('');
   const nearest=window.LunaCore.MIX.nearest(s);
   for(const node of screen.querySelectorAll('[data-shake-node]'))node.classList.toggle('in-range',s.started&&!s.completed&&node.dataset.shakeNode===nearest?.id);
   const impact=last?.ok?Math.max(0,1-last.age/.25):0;
   screen.style.setProperty('--shake-impact',impact.toFixed(3));
+  const route=screen.querySelector('.shake-route');if(route){route.style.stroke=finale?'#ffe3a0':heat>.6?'#b8ffed':'';route.style.filter='drop-shadow(0 0 '+(heat*4).toFixed(1)+'px #8affdf)';}
   const offset=!reduced.matches&&last?.ok?Math.sin(last.age*48)*Math.exp(-last.age*19)*2.5:0;
   screen.style.setProperty('--shake-kick',offset.toFixed(3)+'px');
   // Preserve exact source clip frames, but submit the rendered frame with the same RAF as effects.

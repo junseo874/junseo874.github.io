@@ -5,66 +5,88 @@ const root=path.resolve(__dirname,'..'),ctx={window:{}};vm.createContext(ctx);
 for(const f of ['data.js','bar-views.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),ctx);
 const D=ctx.window.LUNA_DATA;
 const appearance=gender=>({gender,layers:['body','top_1','eyes_1','eyebrow_1','mouth_1','hair_1'].map(s=>'guest_'+gender+'_'+s)});
-const guest={actor:'personality',appearance:appearance('m'),state:'WAIT_COASTER'};
-let line={actor:guest.actor,text:'A long line',chars:0,expression:'idle'};
-const g={realTime:0,screen:'bar',phase:'general',seats:{L:guest},focus:'L',currentDialogue:()=>line};
-const v=ctx.window.LunaBarViews({D,g,ui:{},L:k=>k,esc:String});
-const at=t=>{g.realTime=t;const h=v.actorHTML(guest,50);return {
-  state:h.match(/data-speech-state="([^"]+)"/)[1],pose:h.match(/data-pose="([^"]+)"/)[1],
-  frame:Number(h.match(/data-layer="guest_m_talk_mouth_1" data-frame="(\d+)"/)?.[1])};};
-assert.equal(at(0).frame,0);
-for(const [t,frame] of [[.26,1],[.51,2],[.76,3],[1.01,0],[1.26,1],[2.51,2],[3.76,3]]){
-  line.chars++;const s=at(t);assert.equal(s.state,'looping');assert.equal(s.frame,frame);
+const parse=html=>({html,state:html.match(/data-speech-state="([^"]+)"/)[1],pose:html.match(/data-pose="([^"]+)"/)[1],
+  frames:Object.fromEntries([...html.matchAll(/data-layer="([^"]+)" data-frame="(\d+)"/g)].map(m=>[m[1],Number(m[2])]))});
+function fixture(actor,app){
+  const guest={actor,appearance:app,state:'STORY'};let line=null;
+  const g={realTime:0,screen:'bar',phase:app?'general':'regular',seats:{L:guest},focus:'L',currentDialogue:()=>line};
+  const view=ctx.window.LunaBarViews({D,g,ui:{},L:k=>k,esc:String});
+  return {g,guest,view,say:d=>line=d,at:t=>{g.realTime=t;return parse(view.actorHTML(guest,50));}};
 }
-// Advancing letters and replacing a line in the same pose do not reset its clock.
-line={...line,chars:0};assert.equal(at(3.8).frame,3);
-line=null;g.cameraMoving=true;assert.equal(at(3.84).state,'finishing');assert.equal(at(3.9).frame,3);
-assert.equal(at(4.001).pose,'idle');
-g.cameraMoving=false;
-line={actor:guest.actor,text:'More words',chars:0,expression:'idle'};
-at(5);assert.equal(at(5.3).frame,1);line=null;g.cameraMoving=true;assert.equal(at(5.35).state,'finishing');
-g.cameraMoving=false;
-line={actor:guest.actor,text:'Resume without restart',chars:0,expression:'idle'};
-assert.equal(at(5.4).frame,1);assert.equal(at(5.6).frame,2);
-line.chars=line.text.length;assert.equal(at(5.65).state,'idle');assert.equal(at(6.001).state,'idle');
-const twin={...guest,appearance:appearance('m')};g.seats.R=twin;
-line={actor:guest.actor,text:'Same personality',chars:0,expression:'idle'};at(7);
-assert(v.actorHTML(twin,60).includes('data-talking="false"'));
-console.log('SPEECH_CLOCK_OK: multi-cycle loop, no per-letter reset, bounded cycle completion, smooth resume, reveal-to-idle, guest identity isolation.');
-
-// Body/eyes must keep their timeline across every speech start/end. The supplied
-// default lower-face frames follow head motion; they are not talking frames.
-function loopContract(actor,app){
-  const guest={actor,appearance:app,state:'STORY'};
-  let dialogue=null;
-  const game={realTime:0,screen:'bar',phase:app?'general':'regular',seats:{L:guest},focus:'L',currentDialogue:()=>dialogue};
-  const view=ctx.window.LunaBarViews({D,g:game,ui:{},L:k=>k,esc:String});
-  const snapshot=t=>{game.realTime=t;const html=view.actorHTML(guest,50);
-    return {html,frames:Object.fromEntries([...html.matchAll(/data-layer="([^"]+)" data-frame="(\d+)"/g)].map(m=>[m[1],Number(m[2])]))};};
-  const check=(t,say)=>{
-    const snap=snapshot(t),body=Object.keys(snap.frames).find(k=>/body$/.test(k)),eyes=Object.keys(snap.frames).find(k=>/eyes(?:_\d+)?$/.test(k));
-    for(const k of [body,eyes])assert.equal(snap.frames[k],Math.floor(t*(D.assets[k].frames||1))%(D.assets[k].frames||1),`${actor} reset ${k} at ${t}`);
-    const mouth=Object.keys(snap.frames).find(k=>/mouth_\d+$|face_bottom/.test(k));
-    assert.equal(/_talk_/.test(mouth),say,actor+' lower-face policy');return snap;
-  };
-  check(0,false);check(.26,false);
-  dialogue={actor,text:'Talking',chars:0,expression:'idle'};check(.27,true);check(.51,true);
-  dialogue.chars=dialogue.text.length;check(.52,false);check(.76,false);
-  dialogue=null;check(1.01,false);
-  dialogue={actor,text:'Next line',chars:0,expression:'idle'};check(1.27,true);
-  game.cameraMoving=true;dialogue=null;check(1.4,true);check(2.01,false);
+{
+  const f=fixture('personality',appearance('m')),mouth='guest_m_talk_mouth_1';
+  const line={actor:'personality',text:'A long enough line',chars:0,expression:'idle'};
+  f.say(line);assert.equal(f.at(0).frames[mouth],0);
+  for(const [t,frame] of [[.23,1],[.46,2],[.69,3],[.91,0],[1.14,1],[1.82,0],[2.29,2]]){
+    line.chars++;const s=f.at(t);assert.equal(s.state,'looping');assert.equal(s.frames[mouth],frame);
+  }
+  f.say({...line,chars:0});assert.equal(f.at(2.3).frames[mouth],2,'No restart per letter/adjacent line');
+  f.say(null);f.g.cameraMoving=true;assert.equal(f.at(2.31).state,'finishing');
+  assert.equal(f.at(2.46).frames[mouth],3);assert.equal(f.at(2.50).state,'idle');
+  assert.equal(f.at(2.6).frames[mouth],3,'Silent mouth must remain closed');
+  f.g.cameraMoving=false;f.say(line);f.at(3);line.chars=line.text.length;
+  assert.equal(f.at(3.1).state,'idle');assert.equal(f.at(3.1).frames[mouth],3);
+  line.chars=0;f.say(line);
+  const twin={...f.guest,appearance:appearance('m')};f.g.seats.R=twin;
+  assert(f.view.actorHTML(twin,60).includes('data-talking="false"'));
 }
-for(const gender of ['m','f'])loopContract('guest_'+gender,appearance(gender));
-for(const actor of ['chris','port','aili','samho','bubi'])loopContract(actor);
+console.log('SPEECH_CLOCK_OK: sustained typing, closed silent mouth, 180ms pan release, identity isolation.');
+// Exercise 40 seconds of each real sprite family, not an assumed engine FPS.
+for(const [actor,app] of [['guest_m',appearance('m')],['guest_f',appearance('f')],...['chris','port','aili','samho','bubi'].map(a=>[a,undefined])]){
+  const f=fixture(actor,app);f.at(0);
+  let blinkStarts=[],blinkEnds=[],wasBlink=false,lastEye;
+  for(let i=0;i<=2000;i++){
+    const t=i*.02;
+    f.say(t>=10&&t<15?{actor,text:'Still talking',chars:0,expression:'idle'}:null);
+    const s=f.at(t),body=Object.keys(s.frames).find(k=>/body$/.test(k)),eyes=Object.keys(s.frames).find(k=>/eyes(?:_\d+)?$/.test(k));
+    const n=D.assets[body].frames||1;
+    assert.equal(s.frames[body],Math.floor(t/1.6*n)%n,actor+' body clock reset');
+    const mouth=Object.keys(s.frames).find(k=>/mouth_\d+$|face_bottom/.test(k));
+    if(app&&!(t>=10&&t<15))assert.equal(s.frames[mouth],3,actor+' resting mouth');
+    if(!app)assert.equal(/_talk_/.test(mouth),t>=10&&t<15,actor+' lower face');
+    if(app||['chris','bubi'].includes(actor)){
+      const active=s.frames[eyes]!== (app?3:0);
+      if(active&&!wasBlink)blinkStarts.push(t);
+      if(!active&&wasBlink)blinkEnds.push(t);
+      wasBlink=active;
+    }else assert.equal(s.frames[eyes],Math.floor(t/1.6*(D.assets[eyes].frames||1))%(D.assets[eyes].frames||1));
+    lastEye=s.frames[eyes];
+  }
+  if(app||['chris','bubi'].includes(actor)){
+    assert(blinkStarts.length>=5&&blinkStarts.length<=10,actor+' blink frequency');
+    blinkEnds.forEach((end,i)=>assert(end-blinkStarts[i]<=.32,actor+' stuck closed'));
+    blinkStarts.slice(1).forEach((start,i)=>assert(start-blinkEnds[i]>=3.18,actor+' missing blink rest'));
+  }
+  // Frozen game time must freeze all face and body clocks.
+  assert.deepEqual(f.at(40).frames,f.at(40).frames);
+}
+// All ten static general-mouth variants must have a silent closed fallback.
+for(const gender of ['m','f'])for(let m=1;m<=5;m++){
+  const app=appearance(gender);app.layers=app.layers.map(k=>k.replace('mouth_1','mouth_'+m));
+  const f=fixture('mouth_test',app),s=f.at(0),keys=Object.keys(s.frames);
+  const mouth=keys.find(k=>/mouth_\d+$/.test(k));
+  if(m<=3){assert.equal(mouth,'guest_'+gender+'_talk_mouth_'+m);assert.equal(s.frames[mouth],3);}
+  else assert.equal(mouth,'guest_'+gender+'_mouth_'+(gender==='m'?3:m));
+}
 for(const [eye,mouth] of [[4,1],[1,5],[4,5]]){
   const app=appearance('f');app.layers=app.layers.map(k=>k.replace('eyes_1','eyes_'+eye).replace('mouth_1','mouth_'+mouth));
-  const guest={actor:'missing',appearance:app,state:'STORY'},game={realTime:0,screen:'bar',phase:'general',seats:{L:guest},focus:'L',currentDialogue:()=>({actor:'missing',text:'talk',chars:0,expression:'idle'})};
-  const view=ctx.window.LunaBarViews({D,g:game,ui:{},L:k=>k,esc:String}),html=view.actorHTML(guest,50);
-  assert(html.includes(`data-layer="guest_f_${eye===4?'':'talk_'}eyes_${eye}"`));
-  assert(html.includes(`data-layer="guest_f_${mouth===5?'':'talk_'}mouth_${mouth}"`));
-  assert(html.includes('data-layer="guest_f_body"'),'Keep the complete head under partial facial animation');
+  const f=fixture('missing',app);f.say({actor:'missing',text:'talk',chars:0,expression:'idle'});const {html}=f.at(0);
+  assert(html.includes('data-layer="guest_f_'+(eye===4?'':'talk_')+'eyes_'+eye+'"'));
+  assert(html.includes('data-layer="guest_f_'+(mouth===5?'':'talk_')+'mouth_'+mouth+'"'));
+  assert(html.includes('data-layer="guest_f_body"'));
 }
-console.log('IDLE_CLOCK_OK: 2 general genders / 5 regular guests, continuous body + blink, mouth-only gating, reveal, next line, pan, independent missing-part fallback.');
+// Two identical-looking people must not blink in lockstep or consume game RNG.
+{
+  const f=fixture('same',appearance('m'));f.g.rng=()=>{throw Error('Animation consumed gameplay RNG');};
+  const second={...f.guest};let difference=false;
+  for(let i=0;i<600;i++){
+    const a=f.at(i*.02).frames.guest_m_talk_eyes_1;
+    const b=parse(f.view.actorHTML(second,70)).frames.guest_m_talk_eyes_1;
+    difference ||= a!==b;
+  }
+  assert(difference,'Blink clocks are synchronized');
+}
+console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous slow bodies, 10 closed-mouth variants, independent missing-art fallback.');
 
 (async()=>{let browser;try{
   browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
@@ -131,20 +153,20 @@ console.log('IDLE_CLOCK_OK: 2 general genders / 5 regular guests, continuous bod
   await p.waitForFunction(()=>!barGame.cameraMoving&&document.querySelector('[data-layer="guest_m_talk_eyes_1"]'));
   const blinking=async(selectors)=>{
     const samples=selectors.map(()=>new Set());
-    for(let i=0;i<12;i++){
+    for(let i=0;i<240;i++){
       const frames=await p.evaluate(ss=>ss.map(s=>document.querySelector(s)?.dataset.frame),selectors);
-      frames.forEach((f,j)=>{assert.notEqual(f,undefined);samples[j].add(f);});await p.waitForTimeout(120);
+      frames.forEach((f,j)=>{assert.notEqual(f,undefined);samples[j].add(f);});await p.waitForTimeout(30);
     }
-    samples.forEach((s,j)=>assert(s.size>=3,'Idle stopped: '+selectors[j]));
+    samples.forEach((s,j)=>assert(s.size>=(selectors[j].includes('eyes')?2:3),'Idle stopped: '+selectors[j]));
   };
   const generalEyes=['m','f'].map(g=>`[data-layer="guest_${g}_talk_eyes_1"]`);
   await blinking(generalEyes);
-  assert.equal(await p.locator('[data-layer="guest_m_talk_mouth_1"],[data-layer="guest_f_talk_mouth_1"]').count(),0);
+  assert.deepEqual(await p.locator('[data-layer="guest_m_talk_mouth_1"],[data-layer="guest_f_talk_mouth_1"]').evaluateAll(es=>es.map(e=>e.dataset.frame)),['3','3']);
   await p.screenshot({path:'/private/tmp/bar-idle-general.png'});
   await p.evaluate(()=>{const g=barGame;g.seats.L.lines=[g.makeLine(g.seats.L.actor,'저만 말하고 있어도 옆 손님은 눈을 깜빡입니다.')];});
   await p.locator('[data-layer="guest_m_talk_mouth_1"]').waitFor();await blinking(generalEyes);
   await p.evaluate(()=>{const d=barGame.seats.L.lines[0];d.chars=d.text.length;});
-  await p.locator('[data-layer="guest_m_mouth_1"]').waitFor();await blinking(generalEyes);
+  await p.waitForFunction(()=>document.querySelector('[data-layer="guest_m_talk_mouth_1"]')?.dataset.frame==='3'&&document.querySelector('.actor')?.dataset.speechState==='idle');await blinking(generalEyes);
   await p.keyboard.press('Escape');await p.waitForTimeout(150);
   const before=await p.locator('.actor-layer').evaluateAll(es=>es.map(e=>e.dataset.frame));await p.waitForTimeout(400);
   assert.deepEqual(await p.locator('.actor-layer').evaluateAll(es=>es.map(e=>e.dataset.frame)),before);await p.keyboard.press('Escape');

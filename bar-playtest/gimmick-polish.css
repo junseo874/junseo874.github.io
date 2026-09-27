@@ -38,3 +38,11 @@
 
 .opening-timing-hint{position:absolute;top:200px;left:50%;transform:translateX(-50%);z-index:3;pointer-events:none;color:#d4fff0;font-size:24px;text-shadow:0 0 12px #66eabc;letter-spacing:1px}
 .opening-timing-hint[hidden]{display:none}
+
+/* Craft polish: short, local feedback; the judgement board never shakes. */
+.opening-feedback.perfect{left:790px;top:265px;font-size:32px;letter-spacing:2px;color:#ffe3a0;text-shadow:0 0 14px #ffd78065}
+.pour-perfect{position:absolute;left:65%;top:23%;transform:translateX(-50%);z-index:9;pointer-events:none;font-size:32px;letter-spacing:3px;color:#b6fff0;text-shadow:0 0 16px #8affdf80}
+.pour-perfect[hidden]{display:none}
+.shake-screen .mix-gauge i.good{border-color:color-mix(in srgb,#8ef2d8 calc(var(--shake-heat,0)*100%),#56747b)}
+.shake-screen[data-shake-finale="true"] .mix-cinema::after{border-color:#ffe3a0;box-shadow:inset 0 0 38px #ffe3a044}
+@media(prefers-reduced-motion:reduce){.shake-screen .shake-route{filter:none!important}.pour-perfect{text-shadow:none}}

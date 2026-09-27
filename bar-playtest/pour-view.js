@@ -15,7 +15,7 @@ function makeGPU(canvas){
  );
  const composite=program(
  'attribute vec2 vertex;varying vec2 uv;void main(){uv=(vertex+1.)*.5;gl_Position=vec4(vertex,0.,1.);}',
- 'precision mediump float;uniform sampler2D field;uniform vec3 tint;uniform float opacity;varying vec2 uv;void main(){float d=texture2D(field,uv).r;float a=smoothstep(.36,.51,d);if(a<.01)discard;vec2 px=vec2(.001,1./540.);float dx=texture2D(field,uv+vec2(px.x,0.)).r-texture2D(field,uv-vec2(px.x,0.)).r;float dy=texture2D(field,uv+vec2(0.,px.y)).r-texture2D(field,uv-vec2(0.,px.y)).r;float edge=1.-smoothstep(.4,.9,d);vec3 c=tint*(.7+.18*uv.y)+vec3(.18,.23,.25)*edge+vec3(.24)*max(0.,dy-dx);gl_FragColor=vec4(c,a*(.24+opacity*.57+edge*.22));}'
+ 'precision mediump float;uniform sampler2D field;uniform vec3 tint;uniform float opacity;varying vec2 uv;void main(){float d=texture2D(field,uv).r;float a=smoothstep(.36,.51,d);if(a<.01)discard;vec2 px=vec2(.001,1./540.);float dx=texture2D(field,uv+vec2(px.x,0.)).r-texture2D(field,uv-vec2(px.x,0.)).r;float dy=texture2D(field,uv+vec2(0.,px.y)).r-texture2D(field,uv-vec2(0.,px.y)).r;float edge=1.-smoothstep(.4,.9,d);vec3 highlight=mix(tint,vec3(1.),.18);float light=clamp(edge*.5+max(0.,dy-dx)*.18,0.,.55);vec3 c=mix(tint*.94,highlight,light);gl_FragColor=vec4(c,a*opacity);}'
  );
  const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
  gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1000,540,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
@@ -60,7 +60,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  function stopAudio(immediate=false){
   if(immediate){
-   for(const v of voices){try{v.source.stop();}catch{}v.source.disconnect();v.gain.disconnect();}
+   for(const v of voices){try{v.source.stop();}catch{}v.source.disconnect();v.tone.disconnect();v.gain.disconnect();}
    voices.clear();voice=null;return;
   }
   const v=voice;if(!v)return;voice=null;
@@ -79,14 +79,15 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   else if(!flowing)stopAudio();
   else if(audio?.state==='running'&&buffers.has(selected)){
    if(!voice){
-    const v={source:audio.createBufferSource(),gain:audio.createGain()};
+    const v={source:audio.createBufferSource(),gain:audio.createGain(),tone:audio.createBiquadFilter()};
     v.source.buffer=buffers.get(selected);v.source.loop=true;
-    v.source.connect(v.gain);v.gain.connect(audio.destination);
+    v.tone.type='highshelf';v.tone.frequency.value=1800;v.source.connect(v.tone);v.tone.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
     v.gain.gain.setValueAtTime(0,audio.currentTime);
-    v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();voices.delete(v);if(voice===v)voice=null;};
+    v.source.onended=()=>{v.source.disconnect();v.tone.disconnect();v.gain.disconnect();voices.delete(v);if(voice===v)voice=null;};
     voice=v;voices.add(v);v.source.start();
    }
-   voice.gain.gain.setTargetAtTime(.8*Math.sqrt(f.flow),audio.currentTime,.035);
+   voice.tone.gain.setTargetAtTime(-1.5+Math.min(1,f.caughtMl/f.targetMl)*2.5,audio.currentTime,.12);
+   voice.gain.gain.setTargetAtTime(window.LunaSfx.level("pour"+selected)*Math.sqrt(f.flow),audio.currentTime,.035);
   }
   screen.dataset.pourSound=selected;
   screen.dataset.pourAudioReady=String(buffers.has(selected));
@@ -103,7 +104,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   return '<div class="craft-screen fluid-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div>'+
-   '<div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass')+'"></canvas></div>'+
+   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass')+'"></canvas></div>'+
    '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
    '<button class="primary hold-button pour-hold" data-hold="pour" '+(f.finishRequested?'disabled':'')+'><kbd>Space</kbd> '+L('누르고 있기','Hold to pour')+'</button>'+
    button(f.finishRequested?L('마지막 방울 정리 중…','Waiting for the final drops…'):g.minigame?L('따르기 마치기 →','Finish pouring →'):L('마치고 다음 재료 →','Finish & continue →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'</div>';
@@ -121,7 +122,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   mounted.restored=()=>{start();};gl.addEventListener('webglcontextlost',mounted.lost);gl.addEventListener('webglcontextrestored',mounted.restored);
   start();
  }
- function drawBack(s,rgb){
+ function drawBack(s){
   const c=mounted.back,f=s.fluid,b=f.glass;c.clearRect(0,0,1000,540);
   // Keep the stage transparent so zooming the bottle never scales or hides the room.
   c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
@@ -153,22 +154,38 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   c.strokeStyle='#cce6edaa';c.beginPath();c.ellipse((b.left+b.right)/2,b.top,(b.right-b.left)/2+3,5,0,0,Math.PI*2);c.stroke();
   const guide=clamp(b.bottom-3-(f.targetMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);
   c.setLineDash([5,5]);c.strokeStyle='#e4c885';c.lineWidth=1;c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.setLineDash([]);
-
+  if(s.started&&!f.finishRequested&&f.airMl>0){const predicted=clamp(b.bottom-3-(s.predicted*f.unitMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);c.fillStyle='#f5d696';c.beginPath();c.moveTo(b.right+8,predicted);c.lineTo(b.right+17,predicted-4);c.lineTo(b.right+17,predicted+4);c.fill();}
+  if(s.pourFinishFx?.perfect){const t=s.pourFinishFx.age,fade=Math.max(0,1-t/.8);c.save();c.globalAlpha=fade;c.strokeStyle='#b6fff0';c.lineWidth=3;c.shadowColor='#8affe0';c.shadowBlur=12;c.strokeRect(b.left-5,b.top-5,b.right-b.left+10,b.bottom-b.top+14);c.setLineDash([]);c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.restore();}
  }
  // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
  function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return 3.4+3.1*(1-t*t*(3-2*t));}
  function drawFallback(f,rgb,alpha){
   const c=mounted.fallback;c.clearRect(0,0,1000,540);if(!fallback)return;
-  c.fillStyle='rgba('+rgb.join(',')+','+Math.max(.65,alpha)+')';c.shadowColor=c.fillStyle;c.shadowBlur=5;
+  // Draw one opaque mask first: overlapping particles must not turn clear spirits opaque.
+  c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5;
   for(const p of f.particles){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
   c.shadowBlur=0;
+  c.globalCompositeOperation='source-in';
+  c.fillStyle='rgba('+rgb.join(',')+','+alpha+')';c.fillRect(0,0,1000,540);
+  c.globalCompositeOperation='source-over';
+ }
+ function liquidAppearance(id){
+  const item=g.t.shelf_items.find(i=>i.id===id);
+  const values=String(item?.color??'').split(',').map(v=>v.trim());
+  const valid=values.length===3&&values.every(v=>v!==''&&Number.isFinite(Number(v)));
+  const rgb=valid?values.map(v=>Math.round(clamp(Number(v),0,255))):[200,230,240];
+  const raw=item?.liquid_alpha;
+  const alpha=raw==null||String(raw).trim()===''||!Number.isFinite(Number(raw))?.6:clamp(Number(raw),0,1);
+  return {rgb,alpha};
  }
  function sync(rootElement){
   const s=g.gimmick,stage=g.screen==='gimmick'&&s?.fluid&&rootElement.querySelector('[data-fluid-stage]');
   if(!stage){stopAudio(true);audioState=null;cleanup();return;}mount(stage);const f=s.fluid;
   syncAudio(s,stage.closest('.fluid-screen'));
-  const item=g.t.shelf_items.find(i=>i.id===s.ingredient),rgb=(item?.color||'200,230,240').split(',').map(Number),alpha=Number(item?.liquid_alpha||.6);
-  drawBack(s,rgb);if(!fallback&&gpu)gpu.draw(f,rgb,alpha);drawFallback(f,rgb,alpha);drawFront(s);
+  const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
+  const {rgb,alpha}=liquidAppearance(s.ingredient);
+  stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
+  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha);drawFallback(f,rgb,alpha);drawFront(s);
   mounted.gpu.style.visibility=fallback?'hidden':'visible';stage.querySelector('.pour-fallback').style.visibility=fallback?'visible':'hidden';
   const set=(selector,text)=>{const el=rootElement.querySelector(selector);if(el&&el.textContent!==text)el.textContent=text;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);

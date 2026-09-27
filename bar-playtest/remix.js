@@ -108,7 +108,7 @@ function attach(g){
   if(active()&&!this.finished&&!this.remix.goalsPaid){const r=this.remix;r.goalsPaid=true;r.goals=[{id:'quality',ok:r.good>=4,reward:30},{id:'variety',ok:r.variety.size>=3,reward:20},{id:'streak',ok:r.maxCombo>=3,reward:20}];r.goalBonus=r.debug?0:r.goals.reduce((sum,x)=>sum+(x.ok?x.reward:0),0);this.progress.money+=r.goalBonus;this.log('gpt_goals',{goals:r.goals,bonus:r.goalBonus,debug:r.debug});}
   return finish();
  };
- g.remixRetry=function(){if(!active()||this.screen!=='result'||this.remix.resultLock>0)return false;const actual=structuredClone(this.craft.actual);this.result=null;this.prep=actual;this.gimmick=null;this.screen='prep';return this.startCraft();};
+ g.remixRetry=function(){if(!active())return false;return this.discard();};
  g.debugFill=function(){if(active()&&this.screen==='prep')this.remix.debug=true;return base.debugFill();};
  g.debugCraft=function(grade){if(active()){this.remix.hold=null;this.remix.debug=true;}return base.debugCraft(grade);};
  g.remixNotice=notice;

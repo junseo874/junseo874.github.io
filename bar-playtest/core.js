@@ -11,7 +11,7 @@ const clean=s=>String(s??'').replace(/<[^>]*>/g,'');
 // Engine input/animation contract, inspected against Play.unity's NEW prefabs.
 // The web board normalizes the 960x540 (PPU100 / ortho2.7) craft view; see README.
 const OPEN={
- hit(s,ok){s.openFx={kind:ok?'success':'miss',age:0,serial:(s.openFx?.serial||0)+1};},
+ hit(s,ok,offset=0,window=10){s.openFx={kind:ok?'success':'miss',perfect:ok&&Math.abs(offset)<=window*.3+1e-8,offset,age:0,serial:(s.openFx?.serial||0)+1};},
  visual(s,dt){if(s.type==='open'&&s.openFx)s.openFx.age=Math.min(2,s.openFx.age+dt);}
 };
 const MIX={
@@ -49,7 +49,7 @@ const MIX={
    if(s.motionAge!==null){s.motionAge+=dt;s.motionFrame=this.shakeClips[s.motionClip][Math.min(3,Math.floor(s.motionAge/this.frameSeconds))];}
    return;
   }
-  s.spoonAngle+=(s.spoonTarget-s.spoonAngle)*(1-Math.exp(-18*dt));
+  s.spoonAngle+=(s.spoonTarget-s.spoonAngle)*(1-Math.exp(-10*dt));
   if(Math.abs(s.spoonTarget-s.spoonAngle)<.01)s.spoonAngle=s.spoonTarget;
   // Correct inputs fund a short 12 FPS hand gesture. Preserve its phase across inputs;
   // never quantize the exponentially eased spoon angle or accumulate a long autoplay tail.
@@ -201,7 +201,7 @@ class Game{
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
   this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
-  this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
+  this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else this.startStoryPhase('bar_open');}
   this.changed();
  }
@@ -342,22 +342,31 @@ class Game{
   if(g.type==='stir'){
    if(!g.started){if(!['KeyW','ArrowUp'].includes(key))return false;g.started=true;g.message='시계 방향으로 D → S → A → W';return true;}
    const keyMap={KeyW:0,ArrowUp:0,KeyD:1,ArrowRight:1,KeyS:2,ArrowDown:2,KeyA:3,ArrowLeft:3},dir=keyMap[key];if(dir==null)return false;
-   if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;g.spoonTarget+=90;g.stirMotionPending=Math.min(6,g.stirMotionPending+3);g.swirlSpeed=Math.min(420,g.swirlSpeed+160);g.message='';if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
+   if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;g.spoonTarget+=90;g.stirMotionPending=Math.min(6,g.stirMotionPending+5);g.swirlSpeed=Math.min(420,g.swirlSpeed+160);g.message='';if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
   }
   if(!['open','shake'].includes(g.type)||!(key==='Space'||g.type==='shake'&&key==='MouseLeft'))return false;
   if(!g.started){g.started=true;this.changed();return true;}
   if(g.type==='open'){
    const start=this.c('open_start_radius_px',165),target=this.c('open_target_radius_px',44),radius=start-(start-target)*g.beatTime/this.c('open_approach_sec',1.6);
-   if(Math.abs(radius-target)<=this.c('open_judge_window_px',10)){g.completed=true;g.message='OPEN';OPEN.hit(g,true);}else{g.failures++;g.beatTime=0;g.message='빗나감 · 다시 타이밍을 맞춰 주세요';OPEN.hit(g,false);}
+   if(Math.abs(radius-target)<=this.c('open_judge_window_px',10)){g.completed=true;g.message='OPEN';OPEN.hit(g,true,radius-target,this.c('open_judge_window_px',10));}else{g.failures++;g.beatTime=0;g.message='빗나감 · 다시 타이밍을 맞춰 주세요';OPEN.hit(g,false,radius-target);}
   } else if(g.type==='shake'){MIX.shakeHit(g);}
   this.changed();return true;
  }
  finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;else g.failures++;g.attemptStartPos=g.stirPos;g.stirStep=0;g.circleTime=0;g.feedbackLeft=.35;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
- endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;if(g.fluid&&!g.fluid.ready){g.fluid.requestFinish(g);this.changed();return true;}let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/g.targetStacks,endType:g.completed?'AutoTarget':'ManualNext'};if(['pour','fill_up'].includes(g.type)){result.completed=true;if(g.fluid)result.liquid={...g.fluid.audit()};}
+ endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;if(g.fluid&&!g.fluid.ready){g.fluid.requestFinish(g);this.changed();return true;}if(g.fluid?.ready){if(!g.pourFinishFx){const errorMl=g.fluid.caughtMl-g.fluid.targetMl;g.pourFinishFx={errorMl,perfect:Math.abs(errorMl)<=5+1e-8,age:0};}if(g.pourFinishFx.age<.8)return true;}let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/g.targetStacks,endType:g.completed?'AutoTarget':'ManualNext'};if(['pour','fill_up'].includes(g.type)){result.completed=true;if(g.fluid)result.liquid={...g.fluid.audit()};}
   this.craft.results.push(result);this.craft.index++;this.safe(()=>this.nextGimmick());this.changed();}
  retryDataError(){if(!this.craft)return;this.error=null;this.craft.id='craft_attempt_'+(++this.serial);this.craft.index=0;this.craft.results=[];this.craft.elapsed=0;this.screen='gimmick';this.safe(()=>{this.craft.queue=buildQueue(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual);this.nextGimmick();});this.changed();}
  cancelCraft(){this.error=null;this.gimmick=null;this.craft=null;this.result=null;this.prep=null;this.screen='recipe';this.changed();}
- discard(){if(this.screen!=='result')return;this.log('discard',{id:this.result.id});this.result=null;this.prep=null;this.screen='recipe';this.changed();}
+ discard(){
+  if(this.screen!=='result'||!this.result||this.isPaused())return false;
+  const r=this.result,price=Number(this.cocktail(r.selected).price);
+  if(!Number.isFinite(price)||price<0){this.error='칵테일 가격 오류: '+r.selected;this.changed();return false;}
+  const before=this.progress.money;this.progress.money-=price;
+  this.discardFeedback={id:r.id,selected:r.selected,price,before,after:this.progress.money,startedAt:this.realTime,until:this.realTime+2.6};
+  this.log('discard',{id:r.id,selected:r.selected,price,before,after:this.progress.money});
+  this.screen='discarding';this.drink=null;this.gimmick=null;
+  delete this.resultContext.craft_grade;this.changed();return true;
+ }
  offer(){if(this.screen!=='result'||!this.result)return;this.drink=this.result;this.result=null;this.screen='bar';if(this.currentOrder){this.focus=this.currentOrder.seat;this.seats[this.focus].glass=null;}else this.cleanOldGlass();this.log('offer',{id:this.drink.id});this.changed();}
  resolveServe(order,drink){const match=order.cocktail===drink.selected;const sewage=!match?'order_mismatch':drink.missingCore.length?'missing_core':null;const grade=sewage?'sewage':drink.grade;return{orderId:order.id,drinkId:drink.id,ordered:order.cocktail,served:drink.selected,match,grade,craftGrade:drink.grade,score:drink.score,sewage};}
  settle(result,guest=null){
@@ -417,6 +426,13 @@ class Game{
   if(this.isPaused()||this.finished)return;dt=Math.max(0,Math.min(dt,0.2));this.realTime+=dt;
   if(this.transition>0){this.transition=Math.max(0,this.transition-dt);if(!this.transition){const fn=this.pendingTransition;this.pendingTransition=null;this.safe(fn);}return;}
   if(this.cameraLeft>0){this.cameraLeft=Math.max(0,this.cameraLeft-dt);if(!this.cameraLeft){if(!this.cameraSame)this.afterCamera();this.cameraSame=false;}}
+  if(this.screen==='discarding'){
+   if(this.realTime-this.discardFeedback.startedAt>=1.3){
+    this.prep={selected:this.discardFeedback.selected,glass:null,tool:null,ingredients:[]};
+    this.result=null;this.craft=null;this.screen='prep';this.changed();
+   }
+   return;
+  }
   if(this.screen==='gimmick'){this.tickGimmick(dt);return;}
   if(this.screen!=='bar')return;
   if(this.phase==='general')this.safe(()=>this.tickGeneral(dt));
@@ -438,7 +454,7 @@ class Game{
   }
   if(this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.startStoryPhase('bar');}
  }
- tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready)this.endGimmick();return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
+ tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
   if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';OPEN.hit(g,false);}}
   else if(g.type==='shake'){MIX.updatePath(g,this.rng);if(!g.feedbackLeft){g.hit=false;g.message='';}}
   else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',1.5))this.finishStirCircle(false);}
