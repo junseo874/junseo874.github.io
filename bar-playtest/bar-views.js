@@ -235,35 +235,40 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <section><h3>${L('제조법','Method')}</h3><p>${esc(g.text(c,'recipe_desc'))}</p>${recipeLines(c)}</section></div>
     </aside>`;
   }
+  const shelfOrder={
+    liquorTop:['gin','rum','vodka','whiskey','tequila'],
+    liquorBottom:['grenadine','sour_mix'],
+    fridgeTop:['soda_water','cola'],
+    fridgeBottom:['beer','orange_juice','dry_vermouth','red_wine','champagne']
+  };
+  function orderedShelf(items,priority){
+    return [...priority.map(id=>items.find(i=>i.id===id)).filter(Boolean),...items.filter(i=>!priority.includes(i.id))];
+  }
   function layout(tab=ui.tab){
     const all=g.itemsAvailable().filter(i=>tab==='glass'?i.kind==='glass':tab==='tool'?i.kind==='tool':i.kind==='ingredient'&&i.shelf_group===tab);
     if(tab==='tool')all.push(opener);
-    const capacity=tab==='liquor'?16:tab==='fridge'?14:8;
-    // Reserve upper/lower shelf rows independently so unlocks and paging cannot lift sour mix.
-    let liquorRows=null;
-    if(tab==='liquor'){
-      const upper=all.filter(i=>i.id!=='sour_mix');
-      const brandy=upper.findIndex(i=>i.id==='brandy');
-      if(brandy>=0){const [item]=upper.splice(brandy,1);upper.splice(Math.min(5,upper.length),0,item);}
-      const top=upper.slice(0,8);liquorRows={top,bottom:all.filter(i=>!top.includes(i))};
+    // Classify before pagination: excess stock stays on the same row of the next page.
+    let rows=null;
+    if(tab==='liquor')rows={
+      top:orderedShelf(all.filter(i=>i.category==='base'),shelfOrder.liquorTop),
+      bottom:orderedShelf(all.filter(i=>i.category!=='base'),shelfOrder.liquorBottom)
+    };
+    if(tab==='fridge'){
+      const top=all.filter(i=>shelfOrder.fridgeTop.includes(i.id)||!shelfOrder.fridgeBottom.includes(i.id)&&(!a('item_'+i.id)||D.assets['item_'+i.id].h<=119));
+      rows={top:orderedShelf(top,shelfOrder.fridgeTop),bottom:orderedShelf(all.filter(i=>!top.includes(i)),shelfOrder.fridgeBottom)};
     }
-    const pages=liquorRows?Math.max(1,Math.ceil(liquorRows.top.length/8),Math.ceil(liquorRows.bottom.length/8)):Math.max(1,Math.ceil(all.length/capacity));
+    const rowCapacity=tab==='fridge'?7:8;
+    const pages=rows?Math.max(1,Math.ceil(rows.top.length/rowCapacity),Math.ceil(rows.bottom.length/rowCapacity)):Math.max(1,Math.ceil(all.length/8));
     let page=tab===ui.tab?Math.min(ui.shelfPage||0,pages-1):0;
     if(tab===ui.tab)ui.shelfPage=page;
-    let items=all.slice(page*capacity,(page+1)*capacity);
-    let topCount=0;
-    if(liquorRows){const top=liquorRows.top.slice(page*8,(page+1)*8);topCount=top.length;items=[...top,...liquorRows.bottom.slice(page*8,(page+1)*8)];}
-    if(tab==='fridge'){
-      const short=items.filter(i=>!a('item_'+i.id)||D.assets['item_'+i.id].h<=119);
-      const top=short.slice(0,7);topCount=top.length;
-      items=[...top,...items.filter(i=>!top.includes(i))];
-    }
+    let items=all.slice(page*8,(page+1)*8),topCount=0;
+    if(rows){const top=rows.top.slice(page*rowCapacity,(page+1)*rowCapacity);topCount=top.length;items=[...top,...rows.bottom.slice(page*rowCapacity,(page+1)*rowCapacity)];}
     const positioned=items.map((item,i)=>{
       let w,h,x,y;
       if(tab==='glass'){w=90;h=190;x=480-(items.length-1)*48+i*96;y=366;}
       else if(tab==='tool'){w=140;h=230;x=320+i*160;y=367;}
       else if(tab==='liquor'){const top=i<topCount;w=57;h=171;x=274+(top?i:i-topCount)*59;y=top?193:397;}
-      else {const top=i<topCount;w=93;h=top?119:223;x=190+(top?i:i-topCount)*95;y=top?153:393;}
+      else {const top=i<topCount;w=93;h=top?119:171;x=190+(top?i:i-topCount)*95;y=top?153:393;}
       return {item,w,h,x,y};
     });return {all,pages,positioned};
   }
@@ -278,8 +283,12 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <div class="prep-main"><div class="shelf-viewport"><div class="shelf-track" style="transform:translateX(${-categories.indexOf(ui.tab)*100}%)">
       ${categories.map(tab=>{const {positioned:placed}=layout(tab);return `<div class="shelf-slide" data-current="${tab===ui.tab}" ${tab===ui.tab?'':'inert'}><div class="shelf-fit"><div class="shelf-scene" style="background-image:url('${a('prep_'+tab)}')" data-category="${tab}">
         ${placed.map(({item:i,x,y,w,h})=>{
-          const art=D.assets['item_'+i.id]||D.assets.item_dummy,ratio=Math.min(w/art.w,h/art.h),bottom=(art.h-(art.alphaBBox?.[3]||art.h))*ratio;
-          return `<button class="shelf-item ${selected.includes(i.id)?'selected':''}" data-act="${i.id==='opener'?'pickOpener':'pick'}" data-id="${i.id}" data-hover-item="${i.id}" data-baseline="${y}" aria-label="${esc(itemName(i.id))}" aria-pressed="${selected.includes(i.id)}" ${hovered?.item.id===i.id?'aria-describedby="ingredient-tip"':''} style="left:${x/960*100}%;bottom:${(540-y)/540*100}%;width:${w/960*100}%;height:${h/540*100}%"><img class="shelf-sprite" src="${art.src}" alt="${esc(itemName(i.id))}" draggable="false" style="width:${art.w*ratio/w*100}%;height:${art.h*ratio/h*100}%;bottom:${-bottom/h*100}%">${selected.includes(i.id)?'<span class="picked-mark">✓</span>':''}${!a('item_'+i.id)?`<span class="shelf-placeholder-label">${esc(itemName(i.id))}</span>`:''}</button>`;
+          const art=D.assets['item_'+i.id]||D.assets.item_dummy,box=art.alphaBBox||[0,0,art.w,art.h];
+          // Ingredients fit by their visible pixels, not transparent canvas padding.
+          const ingredient=i.kind==='ingredient',visibleW=Math.max(1,box[2]-box[0]),visibleH=Math.max(1,box[3]-box[1]);
+          const ratio=ingredient?Math.min(w/visibleW,h/visibleH):Math.min(w/art.w,h/art.h);
+          const bottom=(art.h-box[3])*ratio,centerOffset=ingredient?(art.w/2-(box[0]+box[2])/2)*ratio:0;
+          return `<button class="shelf-item ${selected.includes(i.id)?'selected':''}" data-act="${i.id==='opener'?'pickOpener':'pick'}" data-id="${i.id}" data-hover-item="${i.id}" data-baseline="${y}" aria-label="${esc(itemName(i.id))}" aria-pressed="${selected.includes(i.id)}" ${hovered?.item.id===i.id?'aria-describedby="ingredient-tip"':''} style="left:${x/960*100}%;bottom:${(540-y)/540*100}%;width:${w/960*100}%;height:${h/540*100}%"><img class="shelf-sprite" src="${art.src}" alt="${esc(itemName(i.id))}" draggable="false" style="left:${50+centerOffset/w*100}%;width:${art.w*ratio/w*100}%;height:${art.h*ratio/h*100}%;bottom:${-bottom/h*100}%">${selected.includes(i.id)?'<span class="picked-mark">✓</span>':''}${!a('item_'+i.id)?`<span class="shelf-placeholder-label">${esc(itemName(i.id))}</span>`:''}</button>`;
         }).join('')}
         ${!placed.length?`<div class="shelf-empty">${L('오늘 해금된 항목이 없습니다.','Nothing unlocked here today.')}</div>`:''}${tab===ui.tab?tooltip:''}
       </div></div></div>`;}).join('')}</div></div>

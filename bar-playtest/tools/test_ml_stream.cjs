@@ -31,5 +31,4 @@ for(const targetMl of [5,45,90,180,360,600]){
  f.requestFinish(s);for(let i=0;i<1800&&!f.ready;i++)f.tick(s,1/120);assert(f.ready);assert(Math.abs(f.audit().error)<1e-7);
  assert(!f.renderParticles(s).some(p=>p.visualOnly),'No phantom stream after settling');
 }
-console.log('ML_STREAM_OK: 29 cocktail score parity; 71 recipes in ml; source untouched; beer 360ml; stream continuity, restarts, mass and final settling');
-
+console.log('ML_STREAM_OK: 28 cocktail score parity; 69 recipes in ml; source untouched; beer 360ml; stream continuity, restarts, mass and final settling');

@@ -17,7 +17,7 @@ function drive(g,choiceStrategy=()=>1,gradeStrategy=()=> 'excellent',limit=5000)
  if(g.dialogue){g.advance();g.advance();continue;}if(g.choice){g.choose(choiceStrategy(g.choice.step.arg,g));continue;}ticks(g,.2);
  }
  assert.equal(g.error,null,g.error);assert.equal(g.finished,true,'did not terminate: '+g.phase+' '+g.story?.scene?.id+' / '+g.story?.index);return crafts;}
-test('all 29 recipes: correct Actual Craft → 100 / Excellent',()=>{for(const c of D.tables.cocktails){const a=actual(c),r=C.scoreCraft(D,c,a,perfect(c),2);assert.equal(r.score,100,c.id);assert.equal(r.grade,'excellent',c.id);}});
+test('all 28 recipes: correct Actual Craft → 100 / Excellent',()=>{for(const c of D.tables.cocktails){const a=actual(c),r=C.scoreCraft(D,c,a,perfect(c),2);assert.equal(r.score,100,c.id);assert.equal(r.grade,'excellent',c.id);}});
 test('quantity half-open bands and overtime boundaries',()=>{assert.equal(C.band(D.tables.score_bands,'quantity',.04999),100);assert.equal(C.band(D.tables.score_bands,'quantity',.05),90);assert.equal(C.band(D.tables.score_bands,'quantity',.35),0);assert.equal(C.band(D.tables.score_bands,'overtime',0),0);});
 test('mix omission scores zero for mix plus tool penalty',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_fizz'),a=actual(c);a.tool=null;const r=C.scoreCraft(D,c,a,perfect(c,a),2);assert.equal(r.penalties.tool,10);assert.equal(r.representatives.find(x=>x.family==='shake').mean,0);assert(r.score<60);});
 test('build is a recipe method, not an extra gimmick',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_tonic');assert.deepEqual(C.buildQueue(D,c,actual(c)).map(q=>q.type),['pour','fill_up']);});

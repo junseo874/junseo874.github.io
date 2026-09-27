@@ -1,6 +1,7 @@
 (function(root){
 'use strict';
-// Keep newest entries first. Give every new update a unique id; retain older entries.
+// Add entries ONLY when the user explicitly designates them for the popup.
+// Keep approved entries newest first, use unique IDs, and retain approved history.
 const entries=[
  {id:'2026-09-27-ctrl-skip',date:'2026-09-27',title:'단골 대사 빠르게 넘기기',text:'대화 진행 중 Ctrl을 누르고 있으면 대사를 빠르게 넘길 수 있습니다.',note:'키를 놓으면 멈추며, 선택지와 제조 화면에서는 자동으로 진행하지 않습니다.'}
 ];
@@ -8,7 +9,11 @@ const storageKey='luna.bar.updates.dismissed.v1';
 function mount(){
  if(document.getElementById('luna-updates')||!entries.length)return;
  const latest=entries[0].id;
- try{if(localStorage.getItem(storageKey)===latest)return;}catch{}
+ try{let dismissed=localStorage.getItem(storageKey);
+  // The withdrawn shelf notice must not reset an already-dismissed Ctrl announcement.
+  if(dismissed==='2026-09-27-shelf-layout'){dismissed='2026-09-27-ctrl-skip';localStorage.setItem(storageKey,dismissed);}
+  if(dismissed===latest)return;
+ }catch{}
  const dialog=document.createElement('dialog');
  dialog.id='luna-updates';dialog.className='updates-dialog';
  dialog.setAttribute('aria-labelledby','updates-heading');

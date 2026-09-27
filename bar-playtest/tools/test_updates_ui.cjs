@@ -4,13 +4,15 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 const URL=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
 const KEY='luna.bar.updates.dismissed.v1';
 const SOURCE=fs.readFileSync(require('path').join(__dirname,'../updates.js'),'utf8');
+const context={window:{}};require('vm').runInNewContext(SOURCE.replace('root.LunaUpdates={mount};','root.LunaUpdates={mount,entries};'),context);
+const expected=context.window.LunaUpdates.entries,latest=expected[0].id;
 (async()=>{
  const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
   await p.goto(URL);const modal=p.locator('#luna-updates');await modal.waitFor();
-  assert.equal(await modal.locator('.updates-entry').count(),1);
+  assert.equal(await modal.locator('.updates-entry').count(),expected.length);
   assert((await modal.innerText()).includes('대화 진행 중 Ctrl을 누르고 있으면 대사를 빠르게 넘길 수 있습니다.'));
   assert.equal(await modal.locator('input').isChecked(),false);
   assert.equal(await p.evaluate(()=>document.activeElement.className),'updates-close');
@@ -23,7 +25,7 @@ const SOURCE=fs.readFileSync(require('path').join(__dirname,'../updates.js'),'ut
   await p.locator('[data-act="version"][data-id="gpt"]').click();assert.equal(await modal.count(),0);
   await p.reload();await modal.waitFor();await modal.locator('.updates-confirm').click();
   await p.reload();await modal.waitFor();await modal.locator('input').check();
-  assert.equal(await p.evaluate(k=>localStorage.getItem(k),KEY),'2026-09-27-ctrl-skip');
+  assert.equal(await p.evaluate(k=>localStorage.getItem(k),KEY),latest);
   await modal.locator('.updates-confirm').click();await p.reload();assert.equal(await modal.count(),0);
   // Suppression is shared across the original, GPT and minigame lobby URLs.
   for(const query of ['?version=gpt','?mode=minigames']){await p.goto(URL+query);assert.equal(await modal.count(),0);}
@@ -34,7 +36,7 @@ const SOURCE=fs.readFileSync(require('path').join(__dirname,'../updates.js'),'ut
   await p.route('**/updates.js*',r=>r.fulfill({contentType:'application/javascript',body:injected}));
   await p.goto(URL);await modal.waitFor();assert.equal(await modal.locator('input').isChecked(),false);
   assert.equal(await modal.locator('.updates-entry').first().getAttribute('data-update-id'),'test-next-release');
-  assert.equal(await modal.locator('.updates-entry').nth(1).getAttribute('data-update-id'),'2026-09-27-ctrl-skip');
+  assert.equal(await modal.locator('.updates-entry').nth(1).getAttribute('data-update-id'),latest);
   const footer=await modal.locator('.updates-footer').boundingBox();
   await modal.locator('.updates-list').evaluate(e=>{e.scrollTop=e.scrollHeight;});await p.waitForTimeout(150);
   assert(await modal.locator('.updates-list').evaluate(e=>e.scrollTop>0));
