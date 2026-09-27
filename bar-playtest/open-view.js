@@ -3,19 +3,30 @@
 // Original project bottle pixels, enlarged around the cap. No replacement artwork.
 window.LunaOpenView=function({g,D,L,esc,button,ui}){
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const images=new Map(),seen=new WeakMap();let audio=null,buffer=null,loading=null,voice=null,active=null;
+ const images=new Map(),seen=new WeakMap();let audio=null,buffer=null,loading=null,voice=null,fizzBuffer=null,fizzLoading=null,fizzVoice=null,active=null;
  const bytes=fetch(new URL('audio/beercan_open.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error('Opening audio '+r.status);return r.arrayBuffer();}).catch(()=>null);
+ const fizzBytes=fetch(new URL('audio/beer_fizz_tail.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error('Fizz audio '+r.status);return r.arrayBuffer();}).catch(()=>null);
+ function prepareFizz(){if(!audio||fizzBuffer||fizzLoading)return;fizzLoading=fizzBytes.then(raw=>{if(!raw)throw Error('Missing fizz recording');return audio.decodeAudioData(raw.slice(0));}).then(b=>{fizzBuffer=b;}).catch(()=>console.warn('Carbonation recording unavailable'));}
+ function stopFizz(){if(!fizzVoice)return;const v=fizzVoice;fizzVoice=null;try{v.source.stop();}catch{}v.source.disconnect();v.gain.disconnect();}
+ function playFizz(){
+  if(!fizzBuffer)return; // Never append late audio after a completed opening.
+  const v={source:audio.createBufferSource(),gain:audio.createGain()};fizzVoice=v;
+  v.source.buffer=fizzBuffer;v.gain.gain.value=window.LunaSfx.level('openFizz');
+  v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
+  v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();if(fizzVoice===v)fizzVoice=null;};
+  v.source.start(audio.currentTime+.09);
+ }
  function prepare(){if(!audio||buffer||loading)return;loading=bytes.then(raw=>{if(!raw)throw Error('Missing opening recording');return audio.decodeAudioData(raw.slice(0));}).then(b=>{buffer=b;}).catch(()=>console.warn('Opening recording unavailable'));}
- function stopSound(){if(!voice)return;const v=voice;voice=null;try{v.source.stop();}catch{}v.source.disconnect();v.tone.disconnect();v.gain.disconnect();}
+ function stopSound(){stopFizz();if(!voice)return;const v=voice;voice=null;try{v.source.stop();}catch{}v.source.disconnect();v.tone.disconnect();v.gain.disconnect();}
  function playOpening(perfect){
   if(!buffer)return; // Never play a delayed success cue after loading.
   stopSound();const v={source:audio.createBufferSource(),gain:audio.createGain(),tone:audio.createBiquadFilter()};voice=v;
   v.source.buffer=buffer;v.source.playbackRate.value=perfect?1.16:1.08;v.tone.type="highshelf";v.tone.frequency.value=2200;v.tone.gain.value=1.5;v.gain.gain.value=window.LunaSfx.level("open")*.88;v.source.connect(v.tone);v.tone.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
   v.source.onended=()=>{v.source.disconnect();v.tone.disconnect();v.gain.disconnect();if(voice===v)voice=null;};
-  v.source.start();
+  v.source.start();playFizz();
  }
  function image(key){if(!images.has(key)){const i=new Image();i.src=D.assets[key]?.src||D.assets.item_dummy.src;images.set(key,i);}return images.get(key);}
- function unlockAudio(){if(ui.gimmickAudio===false)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});prepare();}catch{}}
+ function unlockAudio(){if(ui.gimmickAudio===false)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});prepare();prepareFizz();}catch{}}
  function sound(ok,perfect){
   if(ui.gimmickAudio===false||!audio||audio.state!=='running')return;
   if(ok){playOpening(perfect);return;}
@@ -42,6 +53,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   if(active!==s){stopSound();active=s;}
   if(g.isPaused()||ui.gimmickAudio===false)stopSound();
   canvas.dataset.openAudioReady=String(!!buffer);
+  canvas.dataset.fizzAudioReady=String(!!fizzBuffer);
   // Use the exact input judgement (unclamped radius), not the drawing radius or a timer approximation.
   const targetRadius=g.c('open_target_radius_px',44),startRadius=g.c('open_start_radius_px',165);
   const judgeRadius=startRadius-(startRadius-targetRadius)*s.beatTime/g.c('open_approach_sec',1.6);

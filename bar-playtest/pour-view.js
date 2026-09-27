@@ -27,12 +27,12 @@ function makeGPU(canvas){
  gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
  const position=gl.getAttribLocation(splat,'point'),velocity=gl.getAttribLocation(splat,'velocity'),vertex=gl.getAttribLocation(composite,'vertex');
  const color=gl.getUniformLocation(composite,'tint'),alpha=gl.getUniformLocation(composite,'opacity');
- const array=new Float32Array(1100*6);
+ const array=new Float32Array(1800*6);
  return {
-  draw(f,rgb,opacity){
+  draw(f,rgb,opacity,points){
    gl.viewport(0,0,1000,540);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
    gl.useProgram(splat);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
-   let n=0;for(const p of f.particles){array[n++]=p.x;array[n++]=p.y;array[n++]=0;array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
+   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=0;array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
    gl.bufferData(gl.ARRAY_BUFFER,array.subarray(0,n),gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(velocity);gl.vertexAttribPointer(velocity,2,gl.FLOAT,false,24,16);
    gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,n/6);gl.disableVertexAttribArray(position);gl.disableVertexAttribArray(velocity);
    gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.clear(gl.COLOR_BUFFER_BIT);gl.disable(gl.BLEND);gl.useProgram(composite);
@@ -159,11 +159,11 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
  function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return 3.4+3.1*(1-t*t*(3-2*t));}
- function drawFallback(f,rgb,alpha){
+ function drawFallback(f,rgb,alpha,points){
   const c=mounted.fallback;c.clearRect(0,0,1000,540);if(!fallback)return;
   // Draw one opaque mask first: overlapping particles must not turn clear spirits opaque.
   c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5;
-  for(const p of f.particles){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
+  for(const p of points){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
   c.shadowBlur=0;
   c.globalCompositeOperation='source-in';
   c.fillStyle='rgba('+rgb.join(',')+','+alpha+')';c.fillRect(0,0,1000,540);
@@ -185,7 +185,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
   const {rgb,alpha}=liquidAppearance(s.ingredient);
   stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
-  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha);drawFallback(f,rgb,alpha);drawFront(s);
+  const points=f.renderParticles(s);stage.dataset.streamSamples=points.length-f.particles.length;
+  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points);drawFallback(f,rgb,alpha,points);drawFront(s);
   mounted.gpu.style.visibility=fallback?'hidden':'visible';stage.querySelector('.pour-fallback').style.visibility=fallback?'visible':'hidden';
   const set=(selector,text)=>{const el=rootElement.querySelector(selector);if(el&&el.textContent!==text)el.textContent=text;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);

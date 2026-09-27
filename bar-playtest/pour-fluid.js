@@ -13,6 +13,7 @@ class Simulation{
   this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.rate=rate;
   this.startAngle=startAngle;this.maxAngle=maxAngle;this.tiltSpeed=tiltSpeed;this.viscosity=viscosity;
   this.quantum=Math.max(.5,this.targetMl/180);this.supplyMl=Math.max(600,this.targetMl*4);
+  this.streamSerial=0;this.wasFlowing=false;
   this.particles=[];this.grid=new Map();this.pairs=[];this.serial=0;this.accumulator=0;
   this.emittedMl=0;this.caughtMl=0;this.airMl=0;this.spilledMl=0;this.nozzleMl=0;
   this.flow=0;this.finishRequested=false;this.ready=false;this.quiet=0;this.time=0;this.maxSpeed=0;
@@ -35,6 +36,8 @@ class Simulation{
    const liftRate=lifting&&this.emittedMl>0&&s.angle<this.startAngle?2:1;
    s.angle=clamp(s.angle+(lifting?liftRate:-1)*this.tiltSpeed*STEP,0,this.maxAngle);
    this.flow=this.flowAt(s.angle);this.time+=STEP;
+   if(this.flow>0&&!this.wasFlowing)this.streamSerial++;
+   this.wasFlowing=this.flow>0;
    this.emit(s);this.solve(STEP);this.measure();
    s.value=this.caughtMl/this.unitMl;s.predicted=this.predicted(s);
    if(this.finishRequested&&s.angle===0&&this.airMl<1e-8&&this.maxSpeed<45)this.quiet+=STEP;
@@ -51,7 +54,7 @@ class Simulation{
    const mass=Math.min(this.quantum,this.nozzleMl);this.nozzleMl=Math.max(0,this.nozzleMl-mass);
    const serial=this.serial++,lane=(serial%3)-1,wiggle=Math.sin(serial*2.399)*.15;
    const speed=105+20*this.flow;
-   this.particles.push({id:serial,x:at.x+lane*.7+wiggle,y:at.y,px:at.x,py:at.y,
+   this.particles.push({id:serial,stream:this.streamSerial,emissionFlow:this.flow,x:at.x+lane*.7+wiggle,y:at.y,px:at.x,py:at.y,
     vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
   }
   this.peakParticles=Math.max(this.peakParticles,this.particles.length);
@@ -135,6 +138,33 @@ class Simulation{
    else air+=p.ml;
   }
   this.particles=keep;this.caughtMl=caught;this.airMl=air;this.maxSpeed=maxSpeed;this.surfaceY=surface;
+ }
+ // Rendering samples bridge only adjacent airborne parcels from one uninterrupted pour.
+ // They carry no volume and never enter the solver or retained-ml accounting.
+ renderParticles(s){
+  const points=[...this.particles];let previous=null,extra=0;
+  const bridge=(a,b)=>{
+   const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/6);
+   for(let i=1;i<steps&&extra<600;i++,extra++){
+    const t=i/steps;points.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,
+     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,inside:false,visualOnly:true});
+   }
+  };
+  for(const p of this.particles){
+   const fallingInGlass=p.inside&&p.vy>100&&p.y<this.glass.bottom-12;
+   if((p.wet&&!fallingInGlass)||p.emissionFlow<.25){previous=p;continue;}
+   const reachesPool=previous?.inside&&previous.y>=p.y&&Math.hypot(previous.x-p.x,previous.y-p.y)<110;
+   const previousFalling=previous&&(!previous.wet||(previous.inside&&previous.vy>100&&previous.y<this.glass.bottom-12));
+   if(previous&&previous.emissionFlow>=.25&&(previousFalling||reachesPool)&&previous.stream===p.stream&&p.id===previous.id+1)bridge(previous,p);
+   previous=p;
+  }
+  const head=this.particles[this.particles.length-1];
+  if(this.flow>=.25&&this.emittedMl<this.supplyMl-1e-8&&head&&!head.wet&&head.stream===this.streamSerial&&head.emissionFlow>=.25){
+   const at=nozzle(s.angle),a=s.angle*Math.PI/180,speed=105+20*this.flow;
+   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,inside:false,visualOnly:true};
+   bridge(head,tip);points.push(tip);
+  }
+  return points;
  }
  audit(){return {emitted:this.emittedMl,caught:this.caughtMl,air:this.airMl,spilled:this.spilledMl,error:this.emittedMl-this.caughtMl-this.airMl-this.spilledMl};}
 }

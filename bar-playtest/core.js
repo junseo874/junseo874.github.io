@@ -148,8 +148,24 @@ function applyEffects(expr,state){
  Object.assign(state,next);
 }
 function band(rows,type,x){
+ // Unit conversion must not move an exact boundary across a score band via floating-point noise.
+ x=Math.round(x*1e12)/1e12;
  const row=rows.find(r=>r.band_type===type&&(r.min_ratio==null|| (r.min_inclusive?x>=n(r.min_ratio):x>n(r.min_ratio)))&&(r.max_ratio==null||(r.max_inclusive?x<=n(r.max_ratio):x<n(r.max_ratio))));
  if(!row)throw Error('판정 구간 누락: '+type+' '+x);return n(row.score_or_penalty);
+}
+// Convert a web-only copy once, so recipes, default pours, queues and scoring agree.
+function millilitreData(data){
+ const cfg=Object.fromEntries(data.tables.balance_config.map(r=>[r.setting,r.value]));
+ const factors={ml:1,oz:n(cfg.unit_oz_to_ml,30),tsp:n(cfg.unit_tsp_to_ml,5)};
+ const convert=(row,qty,unit)=>{
+  const factor=factors[row[unit]];
+  if(factor==null)return {...row};
+  const value=row[qty];
+  return {...row,[qty]:value==null||value===''?value:Math.round(n(value)*factor*1e6)/1e6,[unit]:'ml'};
+ };
+ return {...data,tables:{...data.tables,
+  recipes:data.tables.recipes.map(r=>convert(r,'qty','unit')),
+  shelf_items:data.tables.shelf_items.map(r=>convert(r,'default_target_qty','default_target_unit'))}};
 }
 function buildQueue(data,selected,actual){
  const recipe=data.tables.recipes.filter(r=>r.context===selected.id),items=data.tables.shelf_items;
@@ -463,6 +479,6 @@ class Game{
  currentDialogue(){if(this.cameraMoving||this.cameraLeft>0||this.transition>0)return null;if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
  totals(){return this.transactions.reduce((a,t)=>({sale:a.sale+t.sale,tip:a.tip+t.tip,refund:a.refund+t.refund,net:a.net+t.net}),{sale:0,tip:0,refund:0,net:0});}
 }
-const api={Game,MIX,OPEN,POUR,GRADES,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};
+const api={Game,MIX,OPEN,POUR,GRADES,millilitreData,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};
 if(typeof module!=='undefined')module.exports=api;root.LunaCore=api;
 })(typeof window==='undefined'?globalThis:window);

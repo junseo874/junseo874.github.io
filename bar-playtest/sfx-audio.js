@@ -5,7 +5,7 @@ let volume=.8;
 try{const raw=localStorage.getItem(KEY),saved=raw===null?null:JSON.parse(raw);if(typeof saved==='number'&&Number.isFinite(saved))volume=Math.max(0,Math.min(1,saved));}catch{}
 // Active 50ms-window RMS target -29 dBFS, with peak headroom at -4 dBFS.
 // Keep source files and envelopes intact; continuous pouring still follows its flow.
-const levels=Object.freeze({open:.881,shake1:.473,shake2:.416,stir1:.846,stir2:.900,pour1:.804,pour2:.820});
+const levels=Object.freeze({open:.881,openFizz:.55,shake1:.473,shake2:.416,stir1:.846,stir2:.900,pour1:.804,pour2:.820});
 function release(context){const bus=buses.get(context);if(bus){bus.disconnect();buses.delete(context);}}
 window.LunaSfx={
  get volume(){return volume;},
