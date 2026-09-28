@@ -31,7 +31,7 @@ root.LunaRemixUI=function({g,D,ui,L,esc,a,button,itemArt,drinkArt,recipeLines,re
  }
  function recipesHTML(){
   const unlocked=g.cocktailsAvailable(),filter=ui.remixFilter||'all';
-  const rows=g.t.cocktails.filter(c=>c.status==='confirmed').slice().sort((a,b)=>Number(a.unlock_day)-Number(b.unlock_day)||remix.complexity(a)-remix.complexity(b));
+  const unlockedIds=new Set(unlocked.map(c=>c.id));const rows=g.t.cocktails.filter(c=>c.status==='confirmed').slice().sort((a,b)=>Number(unlockedIds.has(b.id))-Number(unlockedIds.has(a.id))||(unlockedIds.has(a.id)?String(a['name.ko']||a.id).localeCompare(String(b['name.ko']||b.id),'ko'):Number(a.unlock_day)-Number(b.unlock_day)||remix.complexity(a)-remix.complexity(b)));
   const visible=rows.filter(c=>{const ok=unlocked.some(x=>x.id===c.id);if(!ok)return filter==='all';return (filter==='all'||filter==='favorite'&&favorite(c.id)||c.mix===filter);});
   const peek=unlocked.find(c=>c.id===ui.peek)||unlocked[0];
   return `<div class="remix-recipes"><aside class="side-panel"><div class="panel-header"><div class="row spread"><h2>${L('칵테일 레시피','Recipes')}</h2>${button('×','closeRecipe')}</div><div class="remix-filters">${[['all','전체','All'],['build','빌드','Build'],['stir','스터','Stir'],['shake','쉐이킹','Shake'],['favorite','★ 즐겨찾기','★ Favorites']].map(([id,ko,en])=>button(L(ko,en),'remixFilter',`data-id="${id}" aria-pressed="${filter===id}"`,filter===id?'selected':'')).join('')}</div></div>
