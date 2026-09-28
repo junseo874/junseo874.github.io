@@ -236,6 +236,8 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     </aside>`;
   }
   const shelfOrder={
+    glass:['old_fashioned','long_drink','mug','cocktail','sour','wine'],
+    tool:['mixing_glass','shaker','opener'],
     liquorTop:['gin','rum','vodka','whiskey','tequila'],
     liquorBottom:['grenadine','sour_mix'],
     fridgeTop:['soda_water','cola'],
@@ -245,8 +247,9 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     return [...priority.map(id=>items.find(i=>i.id===id)).filter(Boolean),...items.filter(i=>!priority.includes(i.id))];
   }
   function layout(tab=ui.tab){
-    const all=g.itemsAvailable().filter(i=>tab==='glass'?i.kind==='glass':tab==='tool'?i.kind==='tool':i.kind==='ingredient'&&i.shelf_group===tab);
+    let all=g.itemsAvailable().filter(i=>tab==='glass'?i.kind==='glass':tab==='tool'?i.kind==='tool':i.kind==='ingredient'&&i.shelf_group===tab);
     if(tab==='tool')all.push(opener);
+    if(tab==='glass'||tab==='tool')all=orderedShelf(all,shelfOrder[tab]);
     // Classify before pagination: excess stock stays on the same row of the next page.
     let rows=null;
     if(tab==='liquor')rows={
@@ -265,15 +268,15 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     if(rows){const top=rows.top.slice(page*rowCapacity,(page+1)*rowCapacity);topCount=top.length;items=[...top,...rows.bottom.slice(page*rowCapacity,(page+1)*rowCapacity)];}
     const positioned=items.map((item,i)=>{
       let w,h,x,y;
-      if(tab==='glass'){w=90;h=190;x=480-(items.length-1)*48+i*96;y=366;}
-      else if(tab==='tool'){w=140;h=230;x=320+i*160;y=367;}
+      if(tab==='glass'){w=90;h=190;x=240+shelfOrder.glass.indexOf(item.id)*96;y=340;}
+      else if(tab==='tool'){w=140;h=230;x=320+shelfOrder.tool.indexOf(item.id)*160;y=346;}
       else if(tab==='liquor'){const top=i<topCount;w=57;h=171;x=274+(top?i:i-topCount)*59;y=top?193:397;}
-      else {const top=i<topCount;w=93;h=top?119:171;x=190+(top?i:i-topCount)*95;y=top?153:393;
-        // The 960×540 refrigerator reference uses cans at native pixel size.
-        // Keep their transparent padding from being enlarged into visible height.
-        if(top&&['soda_water','cola'].includes(item.id)){
+      else {const top=i<topCount;w=93;h=top?119:171;x=145+(top?i:i-topCount)*95;y=top?162:402;
+        // Front stock sits slightly left and below the background stock.
+        // Match native visible heights for the supplied refrigerator artwork.
+        if(['soda_water','cola','beer','orange_juice','dry_vermouth','red_wine','champagne'].includes(item.id)){
           const art=D.assets['item_'+item.id],bounds=art?.alphaBBox;
-          h=bounds?bounds[3]-bounds[1]:88;
+          h=bounds?bounds[3]-bounds[1]:h;
         }
       }
       return {item,w,h,x,y};

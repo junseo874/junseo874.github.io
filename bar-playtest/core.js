@@ -344,7 +344,7 @@ class Game{
  closeRecipes(){if(this.screen!=='recipe')return;this.screen='bar';this.changed();}
  selectCocktail(id){if(this.screen!=='recipe'||!this.cocktailsAvailable().some(c=>c.id===id))return false;this.prep={selected:id,glass:null,tool:null,ingredients:[]};this.screen='prep';this.changed();return true;}
  pickItem(id){if(this.screen!=='prep'||this.isPaused())return;const item=this.itemsAvailable().find(i=>i.id===id);if(!item)return;
-  if(item.kind==='ingredient'){const i=this.prep.ingredients.indexOf(id);if(i>=0)this.prep.ingredients.splice(i,1);else this.prep.ingredients.push(id);}
+  if(item.kind==='ingredient'){const i=this.prep.ingredients.indexOf(id);if(i>=0)this.prep.ingredients.splice(i,1);else {const before=this.prep.ingredients.length;this.prep.ingredients.push(id);if(before<10&&this.prep.ingredients.length>=10)this.overlay='ingredientWarning';}}
   else if(item.kind==='glass')this.prep.glass=this.prep.glass===id?null:id;
   else if(item.kind==='tool')this.prep.tool=this.prep.tool===id?null:id;this.changed();}
  prepBack(){if(this.screen!=='prep')return;this.prep=null;this.screen='recipe';this.log('prep_reset');this.changed();}

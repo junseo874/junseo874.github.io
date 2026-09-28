@@ -199,3 +199,12 @@ html,body{overflow:hidden;background:#03060b}
 /* The completed order line stays visible while waiting to begin story crafting. */
 .story-craft-prompt{position:absolute;top:50%;bottom:auto;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:min(360px,calc(100cqw - 40px));padding:18px 22px;text-align:center;background:#000e;border:1px solid #68777f;border-radius:12px;box-shadow:0 8px 28px #0009;z-index:12}
 .story-craft-prompt button{pointer-events:auto;padding:12px 18px;font-size:15px;white-space:normal;box-shadow:0 3px 15px #0008}
+
+/* Preserve the glass silhouette while concealing locked cocktail artwork. */
+.recipe-card.locked .drink-art{filter:brightness(0)}
+
+.ingredient-warning{width:min(620px,90%);border:1px solid #c9a35a;background:#101721f7}
+.ingredient-warning h2{font-size:22px;line-height:1.5;color:#f5d895;margin:0 0 22px}
+.ingredient-warning p{font-size:17px;line-height:1.8;margin:0 0 16px;word-break:keep-all;overflow-wrap:break-word}
+.ingredient-warning-actions{display:flex;justify-content:flex-end;margin-top:24px}
+.ingredient-warning-actions button{min-width:110px}
