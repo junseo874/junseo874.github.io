@@ -1,5 +1,11 @@
 (function(root){
 'use strict';
+// Narrow receiver: half the original width, three quarters of its original height.
+// Physics, retained ml and scoring stay unchanged; bottle-focus is unchanged.
+const RECEIVER_SCALE=.5,RECEIVER_HEIGHT_SCALE=.75;
+const receiverPoint=p=>({x:600+(p.x-600)*RECEIVER_SCALE,y:190+(p.y-190)*RECEIVER_HEIGHT_SCALE});
+const receiverBounds=b=>{const a=receiverPoint({x:b.left,y:b.top}),z=receiverPoint({x:b.right,y:b.bottom});return {left:a.x,top:a.y,right:z.x,bottom:z.y};};
+function receiverTransform(c){c.translate(600,190);c.scale(RECEIVER_SCALE,RECEIVER_HEIGHT_SCALE);c.translate(-600,-190);}
 // Width tracks each parcel's emission rate, so a thin tail travels downstream
 // instead of resizing the whole stream at once. Settled liquid keeps its pool radius.
 function streamWidth(p){
@@ -18,7 +24,7 @@ function makeGPU(canvas){
  }
  const splat=program(
  'attribute vec4 point;attribute vec2 velocity;uniform vec3 camera;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 pos=point.xy*camera.x+camera.yz;gl_Position=vec4(pos.x/500.-1.,1.-pos.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(3.,speed/180.);direction=speed>1.?velocity/speed:vec2(0.,1.);float pooled=1.-smoothstep(45.,130.,speed);gl_PointSize=mix(16.,28.,pooled)*stretch*camera.x*point.z;inside=point.w;}',
- 'precision mediump float;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 d=gl_PointCoord*2.-1.;vec2 local=vec2(dot(d,direction),dot(d,vec2(-direction.y,direction.x))*stretch);float r=dot(local,local);if(r>1.)discard;float y=540.-gl_FragCoord.y;if(inside>.5&&y>=252.&&(gl_FragCoord.x<596.||gl_FragCoord.x>790.||y>470.))discard;float f=pow(1.-r,3.);gl_FragColor=vec4(f);}'
+ 'precision mediump float;uniform vec4 glassBounds;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 d=gl_PointCoord*2.-1.;vec2 local=vec2(dot(d,direction),dot(d,vec2(-direction.y,direction.x))*stretch);float r=dot(local,local);if(r>1.)discard;float y=540.-gl_FragCoord.y;if(inside>.5&&y>=glassBounds.y&&(gl_FragCoord.x<glassBounds.x||gl_FragCoord.x>glassBounds.z||y>glassBounds.w))discard;float f=pow(1.-r,3.);gl_FragColor=vec4(f);}'
  );
  const composite=program(
  'attribute vec2 vertex;varying vec2 uv;void main(){uv=(vertex+1.)*.5;gl_Position=vec4(vertex,0.,1.);}',
@@ -34,13 +40,13 @@ function makeGPU(canvas){
  gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
  const position=gl.getAttribLocation(splat,'point'),velocity=gl.getAttribLocation(splat,'velocity'),vertex=gl.getAttribLocation(composite,'vertex');
  const color=gl.getUniformLocation(composite,'tint'),alpha=gl.getUniformLocation(composite,'opacity');
- const cameraUniform=gl.getUniformLocation(splat,'camera');
+ const cameraUniform=gl.getUniformLocation(splat,'camera'),glassUniform=gl.getUniformLocation(splat,'glassBounds');
  const array=new Float32Array(1800*6);
  return {
   draw(f,rgb,opacity,points,camera){
    gl.viewport(0,0,1000,540);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-   gl.useProgram(splat);gl.uniform3f(cameraUniform,camera.scale,camera.x,camera.y);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
-   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=streamWidth(p);array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
+   gl.useProgram(splat);const bounds=receiverBounds(f.glass);gl.uniform4f(glassUniform,bounds.left,bounds.top,bounds.right,bounds.bottom);gl.uniform3f(cameraUniform,camera.scale,camera.x,camera.y);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
+   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=streamWidth(p)*(p.receiverScale||1);array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
    gl.bufferData(gl.ARRAY_BUFFER,array.subarray(0,n),gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(velocity);gl.vertexAttribPointer(velocity,2,gl.FLOAT,false,24,16);
    gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,n/6);gl.disableVertexAttribArray(position);gl.disableVertexAttribArray(velocity);
    gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.clear(gl.COLOR_BUFFER_BIT);gl.disable(gl.BLEND);gl.useProgram(composite);
@@ -141,8 +147,9 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   start();
  }
  function drawBack(s){
-  const c=mounted.back,f=s.fluid,b=f.glass;c.clearRect(0,0,1000,540);
+  const c=mounted.back,f=s.fluid,b=f.glass;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);
   if(mode()==='bottle')return;
+  receiverTransform(c);
   // Keep the stage transparent so zooming the bottle never scales or hides the room.
   c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
   c.fillStyle='#b9e8f00d';c.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
@@ -168,6 +175,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   c.fillStyle='#172c35';c.beginPath();c.ellipse(0,0,3.5,1.5,0,0,Math.PI*2);c.fill();
   c.restore();c.imageSmoothingEnabled=true;
   if(mode()==='bottle')return;
+  receiverTransform(c);
   // Glass walls are drawn after the liquid, but its interior remains transparent.
   c.lineWidth=3;c.strokeStyle='#acd6dfaa';c.beginPath();c.moveTo(b.left-3,b.top-3);c.lineTo(b.left-3,b.bottom-2);c.quadraticCurveTo(b.left-3,b.bottom+7,b.left+6,b.bottom+7);c.lineTo(b.right-6,b.bottom+7);c.quadraticCurveTo(b.right+3,b.bottom+7,b.right+3,b.bottom-2);c.lineTo(b.right+3,b.top-3);c.stroke();
   c.lineWidth=2;c.strokeStyle='#e8ffff99';c.beginPath();c.moveTo(b.left+5,b.top+12);c.lineTo(b.left+5,b.bottom-12);c.stroke();
@@ -175,16 +183,22 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(mode()!=='classic')return;
   const guide=clamp(b.bottom-3-(f.targetMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);
   c.setLineDash([5,5]);c.strokeStyle='#e4c885';c.lineWidth=1;c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.setLineDash([]);
-  if(s.started&&!f.finishRequested&&f.airMl>0){const predicted=clamp(b.bottom-3-(s.predicted*f.unitMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);c.fillStyle='#f5d696';c.beginPath();c.moveTo(b.right+8,predicted);c.lineTo(b.right+17,predicted-4);c.lineTo(b.right+17,predicted+4);c.fill();}
+  if(s.started&&!f.finishRequested&&f.airMl>0){
+   const predicted=clamp(b.bottom-3-(s.predicted*f.unitMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8),marker=receiverPoint({x:b.right+10,y:predicted});
+   // Draw at display scale so the indicator stays legible on the smaller glass.
+   c.save();c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
+   c.beginPath();c.moveTo(marker.x,marker.y);c.lineTo(marker.x+10,marker.y-6);c.lineTo(marker.x+10,marker.y+6);c.closePath();
+   c.fillStyle='#ffe8a6';c.strokeStyle='#17232e';c.lineWidth=1.5;c.lineJoin='round';c.shadowColor='#ffe3a080';c.shadowBlur=5;c.fill();c.shadowBlur=0;c.stroke();c.restore();
+  }
   if(s.pourFinishFx?.perfect){const t=s.pourFinishFx.age,fade=Math.max(0,1-t/.8);c.save();c.globalAlpha=fade;c.strokeStyle='#b6fff0';c.lineWidth=3;c.shadowColor='#8affe0';c.shadowBlur=12;c.strokeRect(b.left-5,b.top-5,b.right-b.left+10,b.bottom-b.top+14);c.setLineDash([]);c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.restore();}
  }
  // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
- function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return (3.4+3.1*(1-t*t*(3-2*t)))*streamWidth(p);}
+ function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return (3.4+3.1*(1-t*t*(3-2*t)))*streamWidth(p)*(p.receiverScale||1);}
  function drawFallback(f,rgb,alpha,points,camera){
-  const c=mounted.fallback;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);if(!fallback)return;c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
+  const b=receiverBounds(f.glass),c=mounted.fallback;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);if(!fallback)return;c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
   // Draw one opaque mask first: overlapping particles must not turn clear spirits opaque.
-  c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5;
-  for(const p of points){c.save();if(p.inside){c.beginPath();c.rect(f.glass.left,f.glass.top,f.glass.right-f.glass.left,f.glass.bottom-f.glass.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
+  c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5*(mode()==='bottle'?1:RECEIVER_SCALE);
+  for(const p of points){c.save();if(p.inside){c.beginPath();c.rect(b.left,b.top,b.right-b.left,b.bottom-b.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
   c.shadowBlur=0;c.setTransform(1,0,0,1,0,0);
   c.globalCompositeOperation='source-in';
   c.fillStyle='rgba('+rgb.join(',')+','+alpha+')';c.fillRect(0,0,1000,540);
@@ -206,7 +220,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
   const {rgb,alpha}=liquidAppearance(s.ingredient);
   stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
-  const camera=cameraFor(s),points=f.renderParticles(s,{freeFall:mode()==='bottle'});
+  const camera=cameraFor(s),rawPoints=f.renderParticles(s,{freeFall:mode()==='bottle'}),points=mode()==='bottle'?rawPoints:rawPoints.map(p=>({...p,...receiverPoint(p),receiverScale:RECEIVER_SCALE}));
+  stage.dataset.receiverBounds=JSON.stringify(receiverBounds(f.glass));
   stage.dataset.streamSamples=points.filter(p=>p.visualOnly).length;
   stage.dataset.presentation=mode();stage.dataset.guides=String(mode()==='classic');stage.dataset.receiver=String(mode()!=='bottle');stage.dataset.visibleParticles=points.length;stage.dataset.camera=JSON.stringify(camera);
   drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points,camera);drawFallback(f,rgb,alpha,points,camera);drawFront(s,camera);
