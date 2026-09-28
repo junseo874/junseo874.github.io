@@ -7,7 +7,7 @@ function actual(c){return {selected:c.id,glass:c.glass,tool:c.mix==='shake'?'sha
 function perfect(c,a=actual(c)){return C.buildQueue(D,c,a).map(q=>({...q,value:q.target,completed:true,completion:1,failures:0}));}
 function completeCraft(g,grade='excellent',id){g.selectCocktail(id||g.currentOrder?.cocktail);assert.equal(g.screen,'prep');g.debugCraft(grade);assert.equal(g.error,null,g.error);g.offer();g.serve(g.currentOrder?.seat||g.focus);assert.equal(g.error,null,g.error);}
 function drive(g,choiceStrategy=()=>1,gradeStrategy=()=> 'excellent',limit=5000){let crafts=0;for(let i=0;i<limit&&!g.finished;i++){
- assert.equal(g.error,null,g.error);if(g.transition){ticks(g,1);continue;}
+ assert.equal(g.error,null,g.error);if(g.overlay==='dailyUnlocks'){g.confirmDailyUnlocks();continue;}if(g.transition){ticks(g,1);continue;}
  if(g.screen==='bar'&&g.currentOrder&&!g.dialogue&&g.story?.steps[g.story.index]?.type==='craft'&&!g.drink)g.openRecipes();
  if(g.screen==='recipe'){completeCraft(g,gradeStrategy(crafts++));continue;}
  if(g.phase==='general'){
@@ -18,6 +18,17 @@ function drive(g,choiceStrategy=()=>1,gradeStrategy=()=> 'excellent',limit=5000)
  if(g.dialogue){g.advance();g.advance();continue;}if(g.choice){g.choose(choiceStrategy(g.choice.step.arg,g));continue;}ticks(g,.2);
  }
  assert.equal(g.error,null,g.error);assert.equal(g.finished,true,'did not terminate: '+g.phase+' '+g.story?.scene?.id+' / '+g.story?.index);return crafts;}
+test('daily unlock reveal gates opening once and excludes tutorial and direct practice',()=>{
+ for(const [day,ingredients,cocktails] of [[1,12,8],[2,6,4]]){
+  const g=game(day);assert.equal(g.overlay,'dailyUnlocks');assert.equal(g.story,null);assert.equal(g.dialogue,null);
+  assert.equal(g.dailyUnlocks().ingredients.length,ingredients);assert.equal(g.dailyUnlocks().cocktails.length,cocktails);
+  ticks(g,5);g.advance();assert.equal(g.story,null);assert.equal(g.barTime,0);
+  assert.equal(g.confirmDailyUnlocks(),true);assert.equal(g.overlay,null);assert.equal(g.pendingDailyUnlocks,false);
+  assert.equal(g.confirmDailyUnlocks(),false);
+ }
+ for(const [day,mode] of [[0,'full'],[3,'full'],[99,'full'],[1,'practice'],[1,'general'],[1,'regular']]){const g=game(day,mode);assert.notEqual(g.overlay,'dailyUnlocks');}
+ const g=game(1);g.reset(0,'full');assert.equal(g.pendingDailyUnlocks,false);assert.equal(g.confirmDailyUnlocks(),false);
+});
 test('all current recipes: correct Actual Craft → 100 / Excellent',()=>{for(const c of D.tables.cocktails){const a=actual(c),r=C.scoreCraft(D,c,a,perfect(c),2);assert.equal(r.score,100,c.id);assert.equal(r.grade,'excellent',c.id);}});
 test('quantity half-open bands and overtime boundaries',()=>{assert.equal(C.band(D.tables.score_bands,'quantity',.04999),100);assert.equal(C.band(D.tables.score_bands,'quantity',.05),90);assert.equal(C.band(D.tables.score_bands,'quantity',.35),0);assert.equal(C.band(D.tables.score_bands,'overtime',0),0);});
 test('mix omission scores zero for mix plus tool penalty',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_fizz'),a=actual(c);a.tool=null;const r=C.scoreCraft(D,c,a,perfect(c,a),2);assert.equal(r.penalties.tool,10);assert.equal(r.representatives.find(x=>x.family==='shake').mean,0);assert(r.score<60);});

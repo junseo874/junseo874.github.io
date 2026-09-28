@@ -3,6 +3,7 @@
 // Add entries ONLY when the user explicitly designates them for the popup.
 // Keep approved entries newest first, use unique IDs, and retain approved history.
 const entries=[
+ {id:'2026-09-28-daily-unlocks',date:'2026-09-28',title:'새로운 재료 · 레시피 해금 안내',text:'1일차부터 바 영업을 시작할 때, 그날 새로 들어온 재료와 해금된 칵테일 레시피를 이미지로 확인할 수 있습니다.',note:'확인을 누르면 개점 대화와 영업 흐름이 이어집니다. 기존·GPT 개선 버전에 모두 적용되며, 0일차와 새 해금이 없는 날, 제조 연습 및 구간 바로 시작에서는 표시되지 않습니다.'},
  {id:'2026-09-27-ctrl-skip',date:'2026-09-27',title:'단골 대사 빠르게 넘기기',text:'대화 진행 중 Ctrl을 누르고 있으면 대사를 빠르게 넘길 수 있습니다.',note:'키를 놓으면 멈추며, 선택지와 제조 화면에서는 자동으로 진행하지 않습니다.'}
 ];
 const storageKey='luna.bar.updates.dismissed.v1';

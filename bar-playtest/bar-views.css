@@ -208,3 +208,27 @@ html,body{overflow:hidden;background:#03060b}
 .ingredient-warning p{font-size:17px;line-height:1.8;margin:0 0 16px;word-break:keep-all;overflow-wrap:break-word}
 .ingredient-warning-actions{display:flex;justify-content:flex-end;margin-top:24px}
 .ingredient-warning-actions button{min-width:110px}
+
+/* Day-entry unlock reveal: content scrolls while the continue action stays visible. */
+.daily-unlocks-backdrop{background:#050910ba;backdrop-filter:blur(3px);z-index:80;padding:24px}
+.daily-unlocks{width:min(1080px,88%);max-height:100%;display:flex;flex-direction:column;padding:26px 30px 20px;border:1px solid #57c7cf80;border-radius:16px;background:linear-gradient(145deg,#16242bf5,#0a101afc 65%);box-shadow:0 24px 80px #000b,inset 0 1px #9febed18;color:#edf5f3;animation:unlock-arrive .28s ease-out;box-sizing:border-box}
+.daily-unlocks header{position:relative;flex:none;padding:0 0 20px;border-bottom:1px solid #80dfe324}
+.unlock-day{display:inline-block;color:#71dce2;background:#64d5dc12;border:1px solid #64d5dc50;border-radius:5px;padding:4px 10px;font-size:13px;margin-bottom:10px}
+.daily-unlocks h2{margin:0;font-size:24px;line-height:1.3;font-weight:600}
+.daily-unlocks header p{margin:8px 0 0;color:#9dadb7;font-size:13px}
+.unlock-columns{display:grid;grid-template-columns:1fr 1fr;gap:26px;min-height:0;margin-top:18px}
+.unlock-section{display:flex;flex-direction:column;min-height:0;min-width:0}
+.unlock-section h3{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500;color:#a8e8e9;margin:0 0 12px}
+.unlock-section h3 span{font-size:12px;background:#8cd6db14;color:#8ba9b5;border-radius:20px;padding:3px 8px}
+.unlock-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;overflow:auto;min-height:0;align-content:start;padding:2px 5px 4px 2px;scrollbar-width:thin;scrollbar-color:#43737c #101821}
+.unlock-card{background:#050b146b;border:1px solid #83c5d025;border-radius:9px;padding:9px 4px 10px;min-width:0;text-align:center}
+.unlock-art{height:58px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;background:radial-gradient(ellipse,#72d2d411,transparent 72%)}
+.unlock-art img,.unlock-art .drink-art{display:block;max-width:80%;max-height:100%;width:auto;height:auto;object-fit:contain;image-rendering:pixelated;filter:none}
+.unlock-name{font-size:12px;line-height:1.4;color:#dae4e6;overflow-wrap:anywhere}
+.unlock-empty{grid-column:1/-1;font-size:13px;color:#9dadb7}
+.daily-unlocks footer{flex:none;display:flex;justify-content:center;padding-top:18px;margin-top:18px;border-top:1px solid #80dfe324}
+.daily-unlocks footer button{min-width:230px;padding:12px 26px;font-size:15px;border:1px solid #77dce2;background:#3c909c2e;color:#b8f8f4;border-radius:7px}
+.daily-unlocks button:hover{background:#448f9c60}.daily-unlocks :focus-visible{outline:2px solid #8cecf1;outline-offset:2px}
+@keyframes unlock-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(max-height:650px){.daily-unlocks{padding:15px 20px}.daily-unlocks header{padding-bottom:12px}.unlock-art{height:60px}.daily-unlocks h2{font-size:20px}.unlock-columns{margin-top:12px}.daily-unlocks footer{margin-top:12px;padding-top:12px}}
+@media(prefers-reduced-motion:reduce){.daily-unlocks{animation:none}}
