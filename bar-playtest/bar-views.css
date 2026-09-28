@@ -74,8 +74,8 @@ html,body{overflow:hidden;background:#03060b}
 /* Full-line .text-measure defines the intrinsic width before typing begins.
    Paired guests keep separate 520px lanes, with tails anchored to each speaker. */
 .dialogue-wrap[data-speaker-seat]{max-width:520px}
-.dialogue-wrap .dialogue-text,.dialogue-wrap .speaker{overflow-wrap:anywhere}.dialogue-box{border:1px solid transparent;background:transparent;border-radius:19px;box-shadow:none;padding:28px 49px 30px;min-height:124px}.dialogue-box:before{content:none}.dialogue-text{font-size:18px;line-height:1.45;min-height:26px;letter-spacing:-.25px}.speaker{font-size:20px;line-height:24px;font-weight:400;color:#32cdd4;margin-bottom:10px}.dialogue-next{font-size:11px;line-height:12px;color:#c2c5cc;right:17px;bottom:18px}.auto-bubble .dialogue-next{display:none}
-.dialogue-wrap.player-speech{bottom:50px}.player-speech .dialogue-box{min-height:124px;padding:28px 49px 30px}.player-speech .dialogue-surface:before{top:auto;bottom:-10px;transform:rotate(225deg)}
+.dialogue-wrap .dialogue-text,.dialogue-wrap .speaker{overflow-wrap:anywhere}.dialogue-box{border:1px solid transparent;background:transparent;border-radius:19px;box-shadow:none;padding:22px 38px 24px;min-height:108px}.dialogue-box:before{content:none}.dialogue-text{font-size:18px;line-height:1.45;min-height:26px;letter-spacing:-.25px}.speaker{font-size:20px;line-height:24px;font-weight:400;color:#32cdd4;margin-bottom:10px}.dialogue-next{font-size:11px;line-height:12px;color:#c2c5cc;right:17px;bottom:18px}.auto-bubble .dialogue-next{display:none}
+.dialogue-wrap.player-speech{bottom:50px}.player-speech .dialogue-box{min-height:108px;padding:22px 38px 24px}.player-speech .dialogue-surface:before{top:auto;bottom:-10px;transform:rotate(225deg)}
 /* Composite body and tail before transparency so their overlap never darkens.
    Shared by general guests, regular guests and Luna; text remains fully opaque. */
 .dialogue-surface{position:absolute;inset:-1px;pointer-events:none;background:#090e18;border:1px solid #42c8d7;border-radius:19px;opacity:.85}
