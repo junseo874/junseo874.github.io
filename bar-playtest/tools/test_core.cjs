@@ -31,6 +31,19 @@ test('daily unlock reveal gates opening once and excludes tutorial and direct pr
  for(const [day,mode] of [[0,'full'],[3,'full'],[99,'full'],[1,'practice'],[1,'general'],[1,'regular']]){const g=game(day,mode);assert.notEqual(g.overlay,'dailyUnlocks');}
  const g=game(1);g.reset(0,'full');assert.equal(g.pendingDailyUnlocks,false);assert.equal(g.confirmDailyUnlocks(),false);
 });
+test('beer requires an opener based on actual ingredients and preserves preparation on rejection',()=>{
+ for(const selected of ['bottle_beer','gin_tonic']){
+  const g=game(99,'practice');g.selectCocktail(selected);g.pickItem('mug');g.pickItem('beer');
+  const before=JSON.stringify(g.prep),money=g.progress.money,serial=g.serial;
+  assert.equal(g.startCraft(),false);assert.equal(g.screen,'prep');assert.equal(g.overlay,'openerWarning');
+  assert.equal(JSON.stringify(g.prep),before);assert(!g.craft);assert(!g.gimmick);
+  assert.equal(g.progress.money,money);assert.equal(g.serial,serial);assert.equal(g.startCraft(),false);
+  g.overlay=null;assert.equal(g.startCraft(),false);g.overlay=null;g.prep.opener=true;
+  assert.equal(g.startCraft(),true);assert.deepEqual(g.craft.queue.map(s=>[s.type,s.ingredient]),[['open','beer'],['pour','beer']]);
+ }
+ const g=game(99,'practice');g.selectCocktail('gin_tonic');g.pickItem('long_drink');g.pickItem('beer');
+ g.startCraft();g.overlay=null;g.pickItem('beer');g.pickItem('gin');assert.equal(g.startCraft(),true);assert.equal(g.gimmick.type,'pour');
+});
 test('all current recipes: correct Actual Craft → 100 / Excellent',()=>{for(const c of D.tables.cocktails){const a=actual(c),r=C.scoreCraft(D,c,a,perfect(c),2);assert.equal(r.score,100,c.id);assert.equal(r.grade,'excellent',c.id);}});
 test('quantity half-open bands and overtime boundaries',()=>{assert.equal(C.band(D.tables.score_bands,'quantity',.04999),100);assert.equal(C.band(D.tables.score_bands,'quantity',.05),90);assert.equal(C.band(D.tables.score_bands,'quantity',.35),0);assert.equal(C.band(D.tables.score_bands,'overtime',0),0);});
 test('mix omission scores zero for mix plus tool penalty',()=>{const c=D.tables.cocktails.find(c=>c.id==='gin_fizz'),a=actual(c);a.tool=null;const r=C.scoreCraft(D,c,a,perfect(c,a),2);assert.equal(r.penalties.tool,10);assert.equal(r.representatives.find(x=>x.family==='shake').mean,0);assert(r.score<60);});
