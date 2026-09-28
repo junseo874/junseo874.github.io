@@ -74,10 +74,10 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function cameraLayout(){
     const visible=Object.entries(g.seats).filter(([,v])=>v);
-    const general=g.phase==='general',wide=general?g.overview:visible.length>1;
+    const general=g.phase==='general',exploring=g.tutorial?.kind==='seatExplore',wide=exploring?false:general?g.overview:visible.length>1;
     const coords=general?{L:520,M:1020,R:1520}:{L:750,M:1020,R:1290};
     const cameraWidth=wide?1280:960,scale=1280/cameraWidth;
-    const center=wide?1020:general?coords[g.focus]:coords[visible[0]?.[0]||'M'];
+    const center=wide?1020:general||exploring?coords[g.focus]:coords[visible[0]?.[0]||'M'];
     const cameraX=Math.max(0,Math.min(2041-cameraWidth,center-cameraWidth/2));
     const cameraY=500-534/scale,key=[cameraWidth,cameraX,cameraY].join(':');
     return {visible,general,wide,coords,cameraWidth,scale,cameraX,cameraY,key};

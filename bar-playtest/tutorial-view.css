@@ -25,3 +25,18 @@
 .day0-click-arrow path{animation:day0-nudge .9s ease-in-out infinite}
 @keyframes day0-nudge{50%{transform:translateX(7px)}}
 @media(prefers-reduced-motion:reduce){.day0-click-arrow path{animation:none}.day0-guide[data-nearby="true"] .day0-guide-copy{transition:none}}
+
+/* Interactive Day 0 seat and drink lessons reuse the live indicator visuals. */
+.day0-seat-legend-backdrop{position:absolute;inset:0;z-index:42;display:grid;place-items:center;background:#020611a8}
+.day0-seat-legend{width:690px;max-height:660px;overflow:auto;padding:25px 28px;border:1px solid #58ddeb;border-radius:14px;background:#0b131df5;box-shadow:0 12px 50px #0008;color:#e2fcff}
+.day0-seat-legend h2{font-size:24px;font-weight:400;color:#9ef5f6;margin:0 0 20px}
+.day0-seat-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.day0-seat-legend-row{display:flex;align-items:center;gap:13px;min-height:96px;padding:12px;border:1px solid #264551;border-radius:8px;background:#101e2a}
+.day0-seat-legend-row strong{display:block;font-weight:400;font-size:16px}.day0-seat-legend p{margin:7px 0 0;font-size:14px;line-height:1.5;color:#b5cbd1;word-break:keep-all}
+.seat-indicators.tutorial-seat-sample{position:static;flex:none;display:flex;width:36px;justify-content:center;pointer-events:none}.tutorial-seat-sample button span{width:18px;height:18px}
+.day0-seat-current{display:flex;gap:14px;align-items:center;padding:17px 12px;margin-top:12px;border-top:1px solid #29414b}.day0-seat-current p{margin:0}
+.day0-seat-legend>button{display:block;margin:10px auto 0;padding:12px 30px}.day0-seat-legend kbd{margin-left:8px;font-size:11px}
+.tutorial-seat-sample .demo-blink span{animation:day0-seat-blink .8s steps(1,end) infinite}
+.bar-view[data-tutorial="serveDrink"] [data-drag="drink"]{touch-action:none}.bar-view[data-tutorial="serveDrink"] [data-drag="drink"]:focus-visible{outline:2px solid #baffff;outline-offset:4px}
+@keyframes day0-seat-blink{50%{opacity:.24;box-shadow:none}}
+@media(prefers-reduced-motion:reduce){.tutorial-seat-sample .demo-blink span{animation:none}}

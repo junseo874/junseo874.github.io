@@ -4,7 +4,7 @@ const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('page
 for(const variant of ['original','gpt']){
 await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);
 await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').first().click();
-await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.tutorial?.kind==='coaster');await p.waitForTimeout(250);await p.keyboard.up('Control');
+await p.keyboard.down('Control');if(variant==='original')await require('./day0-seat-test-driver.cjs')(p);await p.waitForFunction(()=>barGame.tutorial?.kind==='coaster');await p.waitForTimeout(250);await p.keyboard.up('Control');
 const frozen=await p.evaluate(()=>barGame.story.index);await p.waitForTimeout(300);assert.equal(await p.evaluate(()=>barGame.story.index),frozen);
 await p.screenshot({path:'/private/tmp/day0-guide-coaster-'+variant+'.png'});
 const source=p.locator('[data-drag="coaster"]'),target=p.locator('[data-drop="R"]');

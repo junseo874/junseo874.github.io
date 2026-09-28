@@ -1,10 +1,10 @@
-function guide(g){switch(g.tutorial.kind){case 'coaster':g.coaster(g.tutorial.seat,'drag');break;case 'recipe':g.openTutorialService();g.openRecipes();break;case 'recipeSelect':g.selectCocktail('gin_tonic');break;case 'prepRecipeOpen':g.tutorialEvent('recipeOpen');break;case 'prepRecipeRead':g.tutorialEvent('read');break;case 'prepRecipeClose':g.tutorialEvent('recipeClose');break;case 'prepGlass':g.pickItem('long_drink');break;case 'prepNavigate':g.tutorialEvent('shelf','liquor');break;case 'prepHover':g.tutorialEvent('hover');break;case 'prepAdd':g.pickItem('gin');break;case 'prepRemove':g.pickItem('gin');if(!g.tutorial)g.prepBack();break;case 'prepGinAgain':g.pickItem('gin');break;case 'prepSodaNavigate':g.tutorialEvent('shelf','fridge');break;case 'prepSodaHover':g.tutorialEvent('hover');break;case 'prepSodaAdd':g.pickItem('soda_water');break;case 'prepStart':assert.equal(g.startCraft(),true);assert.equal(g.screen,'gimmick');g.cancelCraft();break;default:throw Error('Unknown tutorial stage: '+g.tutorial.kind);}}
+function guide(g){switch(g.tutorial.kind){case 'seatExplore':{const seats=['L','M','R'],delta=Math.sign(seats.indexOf(g.tutorialSeatTarget())-seats.indexOf(g.focus));g.focusSeat(seats[seats.indexOf(g.focus)+delta]);for(let i=0;i<8;i++)g.tick(.1);break;}case 'seatIndicator':case 'seatLegend':g.continueBarTutorial();break;case 'serveDrink':g.serve(g.tutorial.seat,'drag');break;case 'coaster':g.coaster(g.tutorial.seat,'drag');break;case 'recipe':g.openTutorialService();g.openRecipes();break;case 'recipeSelect':g.selectCocktail('gin_tonic');break;case 'prepRecipeOpen':g.tutorialEvent('recipeOpen');break;case 'prepRecipeRead':g.tutorialEvent('read');break;case 'prepRecipeClose':g.tutorialEvent('recipeClose');break;case 'prepGlass':g.pickItem('long_drink');break;case 'prepNavigate':g.tutorialEvent('shelf','liquor');break;case 'prepHover':g.tutorialEvent('hover');break;case 'prepAdd':g.pickItem('gin');break;case 'prepRemove':g.pickItem('gin');if(!g.tutorial)g.prepBack();break;case 'prepGinAgain':g.pickItem('gin');break;case 'prepSodaNavigate':g.tutorialEvent('shelf','fridge');break;case 'prepSodaHover':g.tutorialEvent('hover');break;case 'prepSodaAdd':g.pickItem('soda_water');break;case 'prepStart':assert.equal(g.startCraft(),true);assert.equal(g.screen,'gimmick');g.cancelCraft();break;default:throw Error('Unknown tutorial stage: '+g.tutorial.kind);}}
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=require('path');
 const dir=path.resolve(__dirname,'..'),ctx={window:{}};
 vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);
 const D=ctx.window.LUNA_DATA,C=require(dir+'/core.js'),R=require(dir+'/remix.js');
 const scene='d1_tutorial_chris',steps=D.tables.steps.filter(s=>s.context===scene);
-assert.equal(steps.filter(s=>s.type==='say').length,106);
+assert.equal(steps.filter(s=>s.type==='say').length,111);
 assert.equal(new Set(steps.map(s=>s.row_id)).size,steps.length);
 assert(steps.filter(s=>s.type==='say').every(s=>s['text.ko']&&s['text.en']));
 assert(!steps.some(s=>/grade/.test(s.when||'')));
@@ -29,13 +29,13 @@ for(const variant of ['original','gpt'])for(const lang of ['ko','en'])for(const 
    g.openRecipes();g.selectCocktail(selected);assert.equal(g.screen,'prep');
    // A poor matching cocktail must still take the matching-recipe dialogue.
    g.debugCraft(wrong?'excellent':'poor');tick(g,1.4);assert.notEqual(g.offer(),false);tick(g,1);
-   assert.equal(g.serve(order.seat),true);continue;
+   assert.equal(g.serve(order.seat,'drag'),true);continue;
   }
   tick(g,.2);
  }
  assert.equal(g.finished,true,JSON.stringify({variant,lang,choice,chrisWrong,portWrong,index:g.story?.index}));
  const ids=g.history.map(h=>h.id),has=i=>ids.includes('dlg_day0_notion_bar_'+i);
- assert.equal(has(7),choice===1);assert.equal(has(19),choice===2);assert.equal(has(21),true);
+ assert.equal(has(7),choice===1);assert.equal(has(19),choice===2);assert.equal(has(21),false);
  assert.equal(has(27),!chrisWrong);assert.equal(has(31),chrisWrong);assert.equal(has(34),chrisWrong);
  assert.equal(has(75),!portWrong);assert.equal(has(78),!portWrong);assert.equal(has(80),portWrong);assert.equal(has(82),portWrong);
  assert(has(36)&&has(85)&&has(120)&&has(122));assert.equal(portAttempts,1);

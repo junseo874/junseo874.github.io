@@ -263,6 +263,14 @@ class Game{
     this.focus=s.arg;this.story.index+=group.length;this.setTransition(0.8,()=>this.pump());return;
    }
    if(s.type==='exit'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('퇴장 대상 없음: '+s.actor);this.seats[seat].state='EXITING';this.setTransition(0.5,()=>{this.seats[seat]=null;this.stepDone(s);});return;}
+   if(s.type==='tutorial'){
+    if(this.day===0&&this.variant!=='gpt'&&!this.progress.flags.day0_skip_tutorial){
+     this.progress.flags.day0_seats_revealed=true;
+     this.tutorial={kind:s.arg,step:s,origin:this.focus,visited:[],moved:false};
+     this.log('tutorial_wait',{kind:s.arg});this.changed();return;
+    }
+    this.stepDone(s);return;
+   }
    if(s.type==='coaster'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('코스터 대상 없음: '+s.actor);if(s.arg==='tutorial'&&this.day===0&&!this.progress.flags.day0_skip_tutorial){this.tutorial={kind:'coaster',seat,step:s};this.log('tutorial_wait',{kind:'coaster',seat});return;}this.seats[seat].coaster=true;this.log('story_coaster',{actor:s.actor,seat});this.setTransition(.45,()=>this.stepDone(s));return;}
    if(s.type==='choice'){const rows=sortSeq(this.t.bar_choices.filter(c=>c.context===s.arg));if(!rows.length)throw Error('선택지 세트 없음: '+s.arg);this.choice={step:s,rows};return;}
    if(s.type==='craft'){if(!this.currentOrder)throw Error('제조 전 주문 없음');this.screen='bar';this.craftReminder=this.lastStoryLine?{...this.lastStoryLine,chars:this.lastStoryLine.text.length}:null;this.craftStep=s;if(s.arg==='tutorial_recipe'&&this.day===0&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_recipe_taught){this.tutorial={kind:'recipe',serviceOpened:false};this.log('tutorial_wait',{kind:'recipe'});}return;}
@@ -338,7 +346,18 @@ class Game{
  }
  warn(g,level){if(g.reasking){g.pendingWarn=Math.max(g.pendingWarn,level);return;}if(level<=g.warn)return;g.warn=level;this.setBarks(g,[(g.state==='WAIT_COASTER'?'call_':'serve_')+(level===2?'final':'urge')]);}
  leave(g,situation){g.reasking=false;g.state='EXITING';g.left=0;g.order=null;this.setBarks(g,[situation]);g.exitLeft=3;this.lost++;this.log('timeout',{guest:g.id,situation});}
- focusSeat(seat){if(!['L','M','R'].includes(seat)||this.phase!=='general'||this.screen!=='bar'||this.isPaused())return false;if(this.focus===seat)return false;
+ tutorialSeatTarget(){const t=this.tutorial;if(t?.kind!=='seatExplore')return null;return !t.visited.includes('L')?'L':!t.visited.includes('R')?'R':t.origin;}
+ updateSeatTutorial(){const t=this.tutorial;if(t?.kind!=='seatExplore'||!t.moved||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0)return;
+  if(!t.visited.includes(this.focus))t.visited.push(this.focus);
+  if(['L','R'].every(s=>t.visited.includes(s))&&this.focus===t.origin){this.tutorial=null;this.log('tutorial_complete',{kind:'seatExplore'});this.stepDone(t.step);this.changed();}
+ }
+ continueBarTutorial(){const t=this.tutorial;if(!t||this.screen!=='bar'||this.isPaused()||this.cameraMoving||this.cameraLeft||this.transition)return false;
+  if(t.kind==='seatIndicator'){t.kind='seatLegend';this.changed();return true;}
+  if(t.kind==='seatLegend'){this.tutorial=null;this.log('tutorial_complete',{kind:'seatIndicator'});this.stepDone(t.step);this.changed();return true;}
+  return false;
+ }
+ focusSeat(seat){const exploring=this.tutorial?.kind==='seatExplore';if(!['L','M','R'].includes(seat)||(this.phase!=='general'&&!exploring)||this.screen!=='bar'||this.isPaused())return false;if(this.focus===seat)return false;
+  if(exploring){if(this.cameraMoving||this.cameraLeft>0||this.transition>0||Math.abs(['L','M','R'].indexOf(this.focus)-['L','M','R'].indexOf(seat))!==1)return false;this.tutorial.moved=true;}
   this.focus=seat;this.overview=false;this.cameraSame=false;this.cameraLeft=0.55;this.log('focus',{seat});this.changed();return true;
  }
  afterCamera(){const g=this.seats[this.focus],line=g?.lines?.[g.lineIndex];if(line?.seen){line.chars=line.text.length;line.hold=0;}this.cleanOldGlass();}
@@ -391,13 +410,13 @@ class Game{
   this.screen='discarding';this.drink=null;this.gimmick=null;
   delete this.resultContext.craft_grade;this.changed();return true;
  }
- offer(){if(this.screen!=='result'||!this.result)return;this.drink=this.result;this.result=null;this.screen='bar';if(this.currentOrder){this.focus=this.currentOrder.seat;this.seats[this.focus].glass=null;}else this.cleanOldGlass();this.log('offer',{id:this.drink.id});this.changed();}
+ offer(){if(this.screen!=='result'||!this.result)return;this.drink=this.result;this.result=null;this.screen='bar';if(this.currentOrder){this.focus=this.currentOrder.seat;this.seats[this.focus].glass=null;}else this.cleanOldGlass();if(this.day===0&&this.variant!=='gpt'&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_drink_taught&&this.currentOrder?.actor==='chris'&&this.drink.selected===this.currentOrder.cocktail){this.tutorial={kind:'serveDrink',seat:this.currentOrder.seat};this.log('tutorial_wait',{kind:'serveDrink'});}this.log('offer',{id:this.drink.id});this.changed();}
  resolveServe(order,drink){const match=order.cocktail===drink.selected;const sewage=!match?'order_mismatch':drink.missingCore.length?'missing_core':null;const grade=sewage?'sewage':drink.grade;return{orderId:order.id,drinkId:drink.id,ordered:order.cocktail,served:drink.selected,match,grade,craftGrade:drink.grade,score:drink.score,sewage};}
  settle(result,guest=null){
   if(this.transactionIds.has(result.orderId))return;const c=this.cocktail(result.served),rule=this.t.settlement_rules.find(r=>r.setting===result.grade);if(!rule)throw Error('정산 규칙 누락');const price=n(c.price),sale=Math.round(price*n(rule.sale_rate)),tip=Math.round(price*n(rule.tip_rate)*n(guest?.personality?.tip_mult,1)),refund=Math.round(price*n(rule.refund_rate));
   const trx={...result,sale,tip,refund,net:sale+tip-refund,phase:this.phase};this.transactions.push(trx);this.transactionIds.add(result.orderId);this.progress.money+=trx.net;this.served++;this.log('settlement',trx);return trx;
  }
- serve(seat){if(!this.drink||this.screen!=='bar'||this.isPaused()||this.cameraLeft>0||this.transition>0)return false;
+ serve(seat,input){if(this.tutorial&&(this.tutorial.kind!=='serveDrink'||seat!==this.tutorial.seat||!['drag','keyboard'].includes(input)))return false;if(!this.drink||this.screen!=='bar'||this.isPaused()||this.cameraLeft>0||this.transition>0)return false;
   return this.safe(()=>{
    if(this.phase==='practice'){this.settle(this.resolveServe({id:'practice_'+(++this.serial),cocktail:this.drink.selected},this.drink));this.drink=null;this.openRecipes();return true;}
    const g=this.seats[seat];if(!g?.coaster)return false;
@@ -408,7 +427,7 @@ class Game{
     if(!this.currentOrder||seat!==this.currentOrder.seat)return false;
     const craftStep=this.story.steps[this.story.index],serve=this.story.steps[this.story.index+1];if(craftStep?.type!=='craft'||serve?.type!=='serve'||serve.actor!==this.currentOrder.actor)throw Error('order → craft → serve 연결 오류');
     const result=this.resolveServe(this.currentOrder,this.drink);g.glass=this.drink.selected;this.drink=null;this.resultContext={grade:result.grade,final_grade:result.grade,craft_grade:result.craftGrade,order_match:result.match,ordered:result.ordered,served:result.served,cocktail:this.cocktail(result.served),tags:this.t.cocktail_tags.filter(t=>t.context===result.served).map(t=>t.ko)};
-    this.settle(result);this.applyAffinity(this.currentOrder.actor,result);applyEffects(craftStep.effects,this.progress);applyEffects(serve.effects,this.progress);this.currentOrder=null;g.order=null;this.story.index+=2;this.setTransition(1,()=>this.pump());
+    if(this.tutorial?.kind==='serveDrink'){this.tutorial=null;this.progress.flags.day0_drink_taught=true;this.log('tutorial_complete',{kind:'serveDrink',input});}this.settle(result);this.applyAffinity(this.currentOrder.actor,result);applyEffects(craftStep.effects,this.progress);applyEffects(serve.effects,this.progress);this.currentOrder=null;g.order=null;this.story.index+=2;this.setTransition(1,()=>this.pump());
    }
    this.changed();return true;
   });
@@ -450,6 +469,7 @@ class Game{
   if(this.isPaused()||this.finished)return;dt=Math.max(0,Math.min(dt,0.2));this.realTime+=dt;
   if(this.transition>0){this.transition=Math.max(0,this.transition-dt);if(!this.transition){const fn=this.pendingTransition;this.pendingTransition=null;this.safe(fn);}return;}
   if(this.cameraLeft>0){this.cameraLeft=Math.max(0,this.cameraLeft-dt);if(!this.cameraLeft){if(!this.cameraSame)this.afterCamera();this.cameraSame=false;}}
+  this.updateSeatTutorial();
   if(this.screen==='discarding'){
    if(this.realTime-this.discardFeedback.startedAt>=1.3){
     this.prep={selected:this.discardFeedback.selected,glass:null,tool:null,ingredients:[]};

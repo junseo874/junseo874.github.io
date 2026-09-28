@@ -15,6 +15,8 @@ const URL=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?update
    const state=await p.evaluate(()=>({tutorial:barGame.tutorial?.kind,finished:barGame.finished,error:barGame.error,transition:barGame.transition,camera:barGame.cameraMoving||barGame.cameraLeft,dialogue:!!barGame.dialogue,craft:['bar','recipe','prep','gimmick'].includes(barGame.screen)&&!!barGame.currentOrder&&!barGame.drink&&barGame.story?.steps[barGame.story.index]?.type==='craft'}));
    assert.equal(state.error,null);if(state.finished)break;
    if(state.transition||state.camera){await p.waitForTimeout(40);continue;}
+   if(state.tutorial==='seatExplore'){const key=await p.evaluate(()=>['L','M','R'].indexOf(barGame.focus)<['L','M','R'].indexOf(barGame.tutorialSeatTarget())?'KeyD':'KeyA');await p.keyboard.press(key);await p.waitForTimeout(650);continue;}
+   if(['seatIndicator','seatLegend'].includes(state.tutorial)){await p.locator('[data-act="tutorialBarContinue"]').click();continue;}
    if(state.tutorial==='coaster'){const a=await p.locator('[data-drag="coaster"]').boundingBox(),z=await p.locator('[data-drop="R"]').boundingBox();await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(z.x+z.width/2,z.y+z.height*.8,{steps:8});await p.mouse.up();continue;}
    if(state.tutorial==='recipe'){await p.locator('.service-handle').click();await p.locator('#service-panel [data-act="recipes"]').click();continue;}
    if(state.tutorial){
@@ -31,7 +33,7 @@ const URL=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?update
     await p.evaluate(wrong=>{const g=barGame,id=g.currentOrder.cocktail;g.selectCocktail(wrong?(id==='gin_tonic'?'gin_fizz':'gin_tonic'):id);g.debugCraft('poor');},skip&&crafts===0);
     await p.waitForTimeout(1800);await p.evaluate(()=>barGame.offer());await p.waitForTimeout(100);
     const offered=await p.evaluate(()=>({screen:barGame.screen,drink:!!barGame.drink}));assert(offered.drink);
-    await p.evaluate(()=>{const g=barGame;g.serve(g.currentOrder.seat);});crafts++;continue;
+    await p.evaluate(()=>{const g=barGame;g.serve(g.currentOrder.seat,'drag');});crafts++;continue;
    }
    await p.waitForTimeout(30);
   }

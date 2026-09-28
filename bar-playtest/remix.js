@@ -89,7 +89,7 @@ function attach(g){
   if(!active()||this.phase!=='general'||situations.length!==2||!['serve_thanks','wrong_receive'].includes(situations[0]))return base.setBarks(guest,situations,onDone);
   return base.setBarks(guest,[situations[0]],()=>{guest.state='DRINKING';guest.drinkLeft=1.2;guest.lines=[];guest.afterDrink=()=>{guest.glassEmpty=true;guest.state='REACTION';base.setBarks(guest,[situations[1]],onDone);};});
  };
- g.serve=function(seat){const glass=this.drink?.actual?.glass,ok=base.serve(seat);if(active()&&ok&&this.seats[seat]){this.seats[seat].glassKind=glass;this.seats[seat].glassEmpty=false;}return ok;};
+ g.serve=function(seat,input){const glass=this.drink?.actual?.glass,ok=base.serve(seat,input);if(active()&&ok&&this.seats[seat]){this.seats[seat].glassKind=glass;this.seats[seat].glassEmpty=false;}return ok;};
  g.tickGeneral=function(dt){base.tickGeneral(dt);if(active())for(const guest of Object.values(this.seats).filter(x=>x?.state==='DRINKING')){guest.drinkLeft-=dt*this.speed;if(guest.drinkLeft<=0){const fn=guest.afterDrink;guest.afterDrink=null;fn?.();}};};
  g.settle=function(result,guest){
   const previous=this.transactionIds.has(result.orderId),trx=base.settle(result,guest);
