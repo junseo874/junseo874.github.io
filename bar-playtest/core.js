@@ -3,7 +3,7 @@
 const POUR=typeof module==='undefined'?root.LunaPour:require('./pour-fluid.js');
 const GRADES=['sewage','poor','decent','good','excellent'];
 // Web-only typing baseline; keep source timings, read holds, patience and animation clocks unchanged.
-const TEXT_SPEED_BASE=1.5;
+const TEXT_SPEED_BASE=3;
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const n=(v,d=0)=>v==null||v===''?d:Number(v);
 const sortSeq=a=>[...a].sort((a,b)=>n(a.seq)-n(b.seq));
