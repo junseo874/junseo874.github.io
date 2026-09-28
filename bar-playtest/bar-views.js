@@ -209,7 +209,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const back=visible.filter(([,v])=>!!v.appearance),front=visible.filter(([,v])=>!v.appearance);
     const zones=(g.phase==='practice'?['M']:['L','M','R']).map(seat=>{
       const guest=g.seats[seat];if(g.phase!=='practice'&&!guest)return '';
-      const canCoaster=general&&g.focus===seat&&guest.state==='WAIT_COASTER';
+      const canCoaster=general&&g.focus===seat&&guest.state==='WAIT_COASTER'||g.tutorial?.kind==='coaster'&&g.tutorial.seat===seat;
       const canServe=!!g.drink&&(g.phase==='practice'||guest?.coaster&&(general?g.focus===seat&&guest.state==='WAIT_SERVE':g.currentOrder?.seat===seat));
       const baseline=general?530:542;
       return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;

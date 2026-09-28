@@ -1,3 +1,4 @@
+function guide(g){switch(g.tutorial.kind){case 'coaster':g.coaster(g.tutorial.seat,'drag');break;case 'recipe':g.openTutorialService();g.openRecipes();break;case 'recipeSelect':g.selectCocktail('gin_tonic');break;case 'prepRecipeOpen':g.tutorialEvent('recipeOpen');break;case 'prepRecipeRead':g.tutorialEvent('read');break;case 'prepRecipeClose':g.tutorialEvent('recipeClose');break;case 'prepGlass':g.pickItem('long_drink');break;case 'prepNavigate':g.tutorialEvent('shelf','liquor');break;case 'prepHover':g.tutorialEvent('hover');break;case 'prepAdd':g.pickItem('gin');break;case 'prepRemove':g.pickItem('gin');if(!g.tutorial)g.prepBack();break;case 'prepGinAgain':g.pickItem('gin');break;case 'prepSodaNavigate':g.tutorialEvent('shelf','fridge');break;case 'prepSodaHover':g.tutorialEvent('hover');break;case 'prepSodaAdd':g.pickItem('soda_water');break;case 'prepStart':assert.equal(g.startCraft(),true);assert.equal(g.screen,'gimmick');g.cancelCraft();break;default:throw Error('Unknown tutorial stage: '+g.tutorial.kind);}}
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=require('path');
 const dir=path.resolve(__dirname,'..'),ctx={window:{}};vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);const D=ctx.window.LUNA_DATA,C=require(dir+'/core.js'),R=require(dir+'/remix.js');
 const original=JSON.stringify(D);let count=0;
@@ -10,6 +11,8 @@ function craft(g){let guard=0;while(g.screen==='gimmick'&&guard++<2000){const s=
  assert.equal(g.screen,'result');tick(g,1.3);assert.equal(g.result.grade,'excellent');
 }
 function run(g){const visited=new Map();for(let i=0;i<10000&&!g.finished;i++){
+ if(g.tutorial){guide(g);continue;}
+ if(g.screen==='bar'&&g.currentOrder&&!g.dialogue&&!g.drink&&!g.transition&&g.story?.steps[g.story.index]?.type==='craft'){g.openRecipes();continue;}
  if(g.screen==='recipe'){prep(g,g.currentOrder?.cocktail);craft(g);g.offer();g.serve(g.currentOrder.seat);continue;}
  if(g.phase==='general'){
   const entries=Object.entries(g.seats).filter(([,v])=>v),entry=entries.find(([,x])=>['REACTION','ORDER_DIALOGUE'].includes(x.state))||entries.find(([,x])=>['WAIT_COASTER','WAIT_SERVE'].includes(x.state))||entries[0];

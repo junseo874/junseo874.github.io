@@ -1,0 +1,27 @@
+/* Day 0 uses the existing coaster and service controls, highlighted in place. */
+.day0-guide{position:absolute;inset:0;z-index:42;pointer-events:none}
+.day0-guide-art{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.day0-guide-outline{fill:none;stroke:#a3faff;stroke-width:2;filter:drop-shadow(0 0 6px #50dbea);animation:day0-focus 1.4s ease-in-out infinite}
+.day0-drag-route{fill:none;stroke:#baffff;stroke-width:3;stroke-dasharray:12 9;filter:drop-shadow(0 0 5px #44d8e9);animation:day0-drag 1.4s linear infinite}
+.day0-guide-copy{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);max-width:520px;padding:12px 22px;border:1px solid #538995;border-radius:6px;background:#09121aee;text-align:center;box-shadow:0 8px 30px #0005}
+.day0-guide-copy small{display:block;font-size:11px;color:#83c2ca;margin-bottom:7px}.day0-guide-copy span{font-size:16px;color:#e2fcff}
+.day0-guide[data-guide="recipe"] .day0-guide-copy{left:auto;right:22px;transform:none;max-width:400px}
+.bar-view[data-tutorial="coaster"] .stack{touch-action:none}.bar-view[data-tutorial="coaster"] .stack:focus-visible{outline:2px solid #baffff;outline-offset:4px}
+.bar-view[data-tutorial="recipe"] .service-handle{border-color:#affbff;animation:day0-focus 1.4s ease-in-out infinite}
+.service-layer.tutorial-service .service-actions [data-act="recipes"]{border:2px solid #affbff;background:#193745;box-shadow:0 0 18px #5bd7e64d;animation:day0-focus 1.4s ease-in-out infinite;color:#edffff}
+.service-layer.tutorial-service .service-actions button:disabled{opacity:.25;cursor:not-allowed}
+.service-layer.tutorial-service .service-scrim{background:transparent}
+.service-layer.tutorial-service .service-panel>p{color:#c3f3f5}
+@keyframes day0-focus{50%{filter:drop-shadow(0 0 9px #55dae9)}}
+@keyframes day0-drag{to{stroke-dashoffset:-42}}
+@media(prefers-reduced-motion:reduce){.day0-guide-outline,.day0-drag-route,.bar-view[data-tutorial="recipe"] .service-handle,.service-layer.tutorial-service .service-actions [data-act="recipes"]{animation:none}}
+/* The same mask sits above the book, preparation view and service panel. */
+.day0-guide-copy button{pointer-events:auto;display:block;margin:12px auto 0;background:#22404a;border-color:#9af0f4;padding:9px 18px;color:#edffff}
+.day0-guide[data-guide^="prep"] .day0-guide-copy{left:auto;right:24px;bottom:auto;top:28px;transform:none;max-width:480px}
+.day0-guide[data-guide="recipeSelect"] .day0-guide-copy{left:auto;right:24px;bottom:28px;transform:none}
+/* Original-version guidance stays near its live target; GPT keeps its previous layout. */
+.day0-guide[data-nearby="true"] .day0-guide-copy{width:320px;max-width:320px;box-sizing:border-box;padding:12px 15px;word-break:keep-all;overflow-wrap:break-word}
+.day0-click-arrow{fill:none;stroke:#c9ffff;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px #4ae5f4)}
+.day0-click-arrow path{animation:day0-nudge .9s ease-in-out infinite}
+@keyframes day0-nudge{50%{transform:translateX(7px)}}
+@media(prefers-reduced-motion:reduce){.day0-click-arrow path{animation:none}.day0-guide[data-nearby="true"] .day0-guide-copy{transition:none}}

@@ -1,0 +1,39 @@
+const assert=require('assert/strict');const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
+const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/bar-playtest/?update=day0-guide');await p.locator('.updates-confirm').click();
+for(const variant of ['original','gpt']){
+await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);
+await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').first().click();
+await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.tutorial?.kind==='coaster');await p.waitForTimeout(250);await p.keyboard.up('Control');
+const frozen=await p.evaluate(()=>barGame.story.index);await p.waitForTimeout(300);assert.equal(await p.evaluate(()=>barGame.story.index),frozen);
+await p.screenshot({path:'/private/tmp/day0-guide-coaster-'+variant+'.png'});
+const source=p.locator('[data-drag="coaster"]'),target=p.locator('[data-drop="R"]');
+let a=await source.boundingBox(),z=await target.boundingBox();assert(a&&z);await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(100,300,{steps:8});await p.mouse.up();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
+await p.keyboard.press('Escape');await p.locator('[data-change="language"]').waitFor();await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
+for(const viewport of [{width:960,height:540},{width:1600,height:900},{width:1280,height:720}]){await p.setViewportSize(viewport);await p.waitForTimeout(150);const hole=await p.locator('[data-guide-hole="source"]').boundingBox(),box=await source.boundingBox();assert(hole.x<box.x&&hole.y<box.y&&hole.x+hole.width>box.x+box.width);}
+a=await source.boundingBox();z=await target.boundingBox();await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(z.x+z.width/2,z.y+z.height*.8,{steps:12});await p.mouse.up();await p.waitForFunction(()=>!barGame.tutorial&&!!barGame.dialogue);
+assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),true);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'이렇게요?');
+await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.tutorial?.kind==='recipe');await p.keyboard.up('Control');await p.screenshot({path:'/private/tmp/day0-guide-service-'+variant+'.png'});
+assert.equal(await p.locator('.story-craft-prompt').count(),0);await p.locator('.service-handle').click();await p.locator('.tutorial-service').waitFor();
+assert.equal(await p.locator('#service-panel [data-act="sales"]').isDisabled(),true);assert.equal(await p.locator('#service-panel [data-act="dossierOpen"]').isDisabled(),true);
+await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/day0-guide-recipes-'+variant+'.png'});await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'recipe');await p.keyboard.press('Tab');await p.locator('#service-panel [data-act="recipes"]').click();
+assert.equal(await p.evaluate(()=>barGame.screen),'recipe');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'recipeSelect');
+await p.screenshot({path:'/private/tmp/day0-guide-select-'+variant+'.png'});await p.locator('[data-act="selectRecipe"][data-id="gin_tonic"]').click();assert.equal(await p.evaluate(()=>barGame.screen),'prep');
+await p.locator('.recipe-toggle').click();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepRecipeRead');await p.screenshot({path:'/private/tmp/day0-guide-read-'+variant+'.png'});
+await p.keyboard.press('Space');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepRecipeClose');await p.locator('.prep-recipe-heading [data-act="togglePrepRecipe"]').click();if(variant==='original'){
+ assert.equal(await p.locator('.day0-guide-copy small').count(),0);assert.equal(await p.locator('.day0-click-arrow').count(),1);
+ assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepGlass');await p.locator('.shelf-slide[data-current="true"] [data-id="long_drink"]').click();
+ await p.locator('.shelf-dots [data-act="tab"][data-id="liquor"]').click();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepNavigate');assert.equal(await p.locator('.shelf-slide[data-current="true"] .shelf-scene').getAttribute('data-category'),'glass');
+ await p.keyboard.press('KeyD');await p.waitForTimeout(600);assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepNavigate');await p.keyboard.press('KeyA');await p.waitForTimeout(600);await p.locator('.shelf-arrow.next').click();await p.waitForTimeout(600);await p.locator('.shelf-arrow.next').click();
+}else {assert.equal(await p.locator('.day0-guide-copy small').count(),1);assert.equal(await p.locator('.day0-click-arrow').count(),0);await p.locator('.shelf-dots [data-act="tab"][data-id="liquor"]').click();}await p.waitForTimeout(700);assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepHover');const gin=p.locator('.shelf-slide[data-current="true"] [data-hover-item="gin"]');await gin.hover();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepAdd');await p.screenshot({path:'/private/tmp/day0-guide-hover-'+variant+'.png'});await gin.click();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepRemove');await p.screenshot({path:'/private/tmp/day0-guide-remove-'+variant+'.png'});await p.locator('.prep-inventory [data-act="pick"][data-id="gin"]').click();assert.equal(await p.evaluate(()=>barGame.prep.ingredients.includes('gin')),false);
+if(variant==='original'){
+ assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepGinAgain');await gin.click();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepSodaNavigate');await p.keyboard.press('KeyD');await p.waitForTimeout(700);
+ const soda=p.locator('.shelf-slide[data-current="true"] [data-id="soda_water"]');await soda.hover();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepSodaAdd');await p.screenshot({path:'/private/tmp/guide3-soda.png'});await soda.click();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'prepStart');
+ await p.screenshot({path:'/private/tmp/guide3-start.png'});await p.locator('.craft-start').click();assert.equal(await p.evaluate(()=>barGame.screen),'gimmick');assert.deepEqual(await p.evaluate(()=>barGame.craft.actual.ingredients),['gin','soda_water']);
+}assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
+console.log('TUTORIAL_UI_OK',variant,'drag rejection, real drag, responsive mask, pause/resume, service/recipe');
+// Skip does not introduce a mandatory action step.
+await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').nth(1).click();await p.keyboard.down('Control');await p.locator('.story-craft-prompt').waitFor();await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
+}
+assert.deepEqual(errors,[]);console.log('No browser exceptions; both skip paths preserve crafting.');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
