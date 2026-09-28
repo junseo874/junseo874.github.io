@@ -55,3 +55,13 @@
 .inspector{position:fixed;z-index:46}.inspect-body>small{display:block;line-height:1.6;color:#92aeb5}
 @container game (max-width:850px){.dossier-header{height:95px}.dossier-heading{width:60%;gap:12px}.dossier-heading h2{font-size:22px}.dossier-money{font-size:13px}.dossier-list-shell{padding:0 20px}.guest-card{height:280px;padding:14px 9px 20px}.guest-card-caption>span{font-size:16px}.dossier-footer{justify-content:flex-start;min-height:84px}.dossier-footer p{max-width:70%;text-align:left;font-size:12px}.dossier-detail-backdrop{padding:20px}.profile-left{padding:25px 14px}.profile-right{padding:0 20px}.profile-right header{padding:24px 0 18px}.profile-right h2{font-size:24px}.profile-facts>div{grid-template-columns:65px 1fr;gap:12px}}
 @container game (max-width:620px){.dossier-header{height:85px;justify-content:flex-start}.dossier-heading{width:65%}.dossier-heading h2{font-size:20px;letter-spacing:1px}.dossier-grid{gap:9px}.dossier-list-scroll{padding:8px 8px 18px 0}.guest-card{height:225px;padding:10px 8px 15px}.guest-card-caption>span{font-size:13px;margin-bottom:14px}.guest-card.unmet>span{font-size:44px}.affinity-bar{gap:2px}.profile-left{padding:22px 10px;gap:15px}.profile-affinity{padding:0 5px}.profile-affinity>span{font-size:13px}.profile-right{padding:0 15px}.profile-section{padding:22px 0}.profile-section h3{font-size:15px}.profile-section p,.profile-facts{font-size:13px}.profile-facts>div{grid-template-columns:56px 1fr;gap:6px}.profile-body{margin-right:-7px;padding-right:7px}.dossier-detail{grid-template-columns:36% 64%}.portrait-placeholder small{font-size:10px;text-align:center}.dossier-preview-badge{font-size:9px}}
+
+/* Fill the portrait panel using visible artwork, not transparent sprite margins. */
+.guest-card:not(.unmet){padding-left:0;padding-right:0}
+.guest-card-caption{padding-left:16px;padding-right:16px;position:relative;background:inherit}
+.dossier-portrait,.profile-left .dossier-portrait{align-items:flex-start}
+.portrait-canvas.portrait-cropped{width:108%;max-height:none}
+.profile-left{padding-left:0;padding-right:0;overflow:hidden}
+.profile-affinity{margin:0 30px}
+@container game (max-width:850px){.profile-affinity{margin:0 14px}}
+@container game (max-width:620px){.guest-card-caption{padding-left:8px;padding-right:8px}.profile-affinity{margin:0 10px}}

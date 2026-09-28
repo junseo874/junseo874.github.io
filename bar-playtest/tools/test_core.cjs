@@ -19,7 +19,7 @@ function drive(g,choiceStrategy=()=>1,gradeStrategy=()=> 'excellent',limit=5000)
  }
  assert.equal(g.error,null,g.error);assert.equal(g.finished,true,'did not terminate: '+g.phase+' '+g.story?.scene?.id+' / '+g.story?.index);return crafts;}
 test('daily unlock reveal gates opening once and excludes tutorial and direct practice',()=>{
- for(const [day,ingredients,cocktails] of [[1,12,8],[2,6,4]]){
+ for(const [day,ingredients,cocktails] of [[1,8,6],[2,10,6]]){
   const g=game(day);assert.equal(g.overlay,'dailyUnlocks');assert.equal(g.story,null);assert.equal(g.dialogue,null);
   assert.equal(g.dailyUnlocks().ingredients.length,ingredients);assert.equal(g.dailyUnlocks().cocktails.length,cocktails);
   ticks(g,5);g.advance();assert.equal(g.story,null);assert.equal(g.barTime,0);

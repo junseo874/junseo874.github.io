@@ -64,7 +64,8 @@ const DOSSIER_ROSTER=['chris','port','aili','bubi','shiba','samho','tom'];
 const DOSSIER_MET_FLAGS={chris:'chris_met',port:'port_met',aili:'aili_met',bubi:'bubi_met',shiba:'shiba_met',samho:'samho_met',tom:'tom_met'};
 function dossierState(id){
  const preview=ui.dossierPreview?.id===id?ui.dossierPreview.stage:null;
- const met=preview!==null?preview>0:!!g.progress.flags[DOSSIER_MET_FLAGS[id]];
+ // Chris is known from the start; do not alter story flags or affinity.
+ const met=preview!==null?preview>0:id==='chris'||!!g.progress.flags[DOSSIER_MET_FLAGS[id]];
  const character=g.t.characters.find(c=>c.id===id),aff=Number(g.progress.affinity[id]||0);
  // Shiba's affinity feature is unconfirmed: live mode exposes stage 1 only.
  const stage=preview!==null?preview:!met?0:character?.affinity===false?1:aff>=30?3:aff>=10?2:1;
@@ -72,7 +73,12 @@ function dossierState(id){
 }
 function dossierPortrait(id){
  const keys=layers(id,'idle',false),sample=keys?.length?D.assets[keys[0]]:null;
- return '<div class="dossier-portrait" role="img" aria-label="'+esc(g.name(id))+'"><div class="portrait-canvas" style="aspect-ratio:'+ (sample?(sample.w/(sample.frames||1))+'/'+sample.h:'1/1')+'">'+(keys?.length?keys.map(k=>{const v=D.assets[k];return '<span style="background-image:url('+v.src+');background-size:'+((v.frames||1)*100)+'% 100%"></span>';}).join(''):'<div class="portrait-placeholder"><span>◇</span><small>'+L('프로필 이미지 준비 중','Portrait pending')+'</small></div>')+'</div></div>';
+ const fw=sample?(sample.frameWidth||sample.w/(sample.frames||1)):1,fh=sample?.h||1;
+ const boxes=(keys||[]).map(k=>D.assets[k].alphaBBox).filter(b=>b?.length===4);
+ // Frame-space bounds remove transparent sprite margins without modifying source art.
+ const x=boxes.length?Math.min(...boxes.map(b=>b[0])):0,y=boxes.length?Math.min(...boxes.map(b=>b[1])):0;
+ const w=boxes.length?Math.max(...boxes.map(b=>b[2]))-x:fw,h=boxes.length?Math.max(...boxes.map(b=>b[3]))-y:fh;
+ return '<div class="dossier-portrait" role="img" aria-label="'+esc(g.name(id))+'"><div class="portrait-canvas '+(sample?'portrait-cropped':'')+'" style="aspect-ratio:'+w+'/'+h+'">'+(keys?.length?keys.map(k=>{const v=D.assets[k];return '<span style="inset:auto;left:'+(-x/w*100)+'%;top:'+(-y/h*100)+'%;width:'+(fw/w*100)+'%;height:'+(fh/h*100)+'%;background-image:url('+v.src+');background-size:'+((v.frames||1)*100)+'% 100%"></span>';}).join(''):'<div class="portrait-placeholder"><span>◇</span><small>'+L('프로필 이미지 준비 중','Portrait pending')+'</small></div>')+'</div></div>';
 }
 function affinityBar(stage){return '<div class="affinity-bar" role="img" aria-label="'+L('호감도 '+stage+'단계','Affinity stage '+stage)+'">'+[1,2,3].map(n=>'<i class="'+(n<=stage?'filled':'')+'"></i>').join('')+'</div>';}
 function dossierSection(ko,en,unlocked,content){return '<section class="profile-section '+(unlocked?'':'locked')+'"><h3>'+L(ko,en)+'</h3>'+(unlocked?content:'<div class="profile-locked" aria-label="'+L('미해금 정보','Locked information')+'">???</div>')+'</section>';}
