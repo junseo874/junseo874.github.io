@@ -12,6 +12,7 @@ function streetDrawOrder(nodes){
  return nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z||rank(a)-rank(b)||String(a.id).localeCompare(String(b.id)));
 }
 function interactionAnchor(model,target,data){
+ if(target.encounter){const a=global.LunaOutsideEncounters.actor(target.actor);return{x:a.x,y:a.top};}
  const names={bar:'Bar Spawn Point',poster:'3 poster_help_wanted',experiment:'1 experiment_recruit',shiba:'shiba',exit:'Room_Entrance',terrace:'Terrace_Entrance'};
  const n=data.scenes[model.scene].nodes.find(n=>n.name===names[target.id]);
  if(n){const sp=n.sprite,sx=n.sx*(n.flip?-1:1),sy=n.sy;
@@ -28,16 +29,17 @@ class OutsideModel{
  start({place='bar',flow='out',day=0}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:clamp(Math.floor(Number(day)||0),0,3)};
   this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
-  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.updateNear();
+  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.tvInRange=false;this.updateNear();
  }
  targets(){
-  if(this.scene==='home')return[{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},{id:'tv',label:'TV 보기',x:1.22,y:-.7},{id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7},{id:'terrace',label:'테라스 문 살펴보기',x:3.364,y:-.7}];
+  if(this.scene==='home')return[{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},{id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7},{id:'terrace',label:'테라스 문 살펴보기',x:3.364,y:-.7}];
   if(this.level)return[{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
-  return[{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'&&!this.story.flags.seen_coratech_ad?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
+  return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
  }
- updateNear(){this.near=this.ride||this.transition||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x))[0]||null;}
+ updateNear(){this.near=this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
+ beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
  interact(){
-  if(this.paused||this.transition)return false;
+  if(this.paused||this.transition||this.encounter&&this.encounter.stage!=='active')return false;
   if(this.story.blocking)return this.story.advance();
   if(this.ride)return false;
   if(this.dialog){this.dialog=null;this.updateNear();this.revision++;return true;}
@@ -57,7 +59,14 @@ class OutsideModel{
  tick(dt,input={}){
   dt=clamp(Number(dt)||0,0,.05);if(this.paused)return;
   this.story.tick(dt);
+  global.LunaOutsideStory.tickBackground(this,dt);
   this.time+=dt;this.noticeLeft=Math.max(0,this.noticeLeft-dt);
+  if(this.encounter){const e=this.encounter;
+   if(e.stage==='active'&&!this.story.speech){e.stage='leaving';e.cameraReady=false;e.elapsed=0;}
+   if(e.stage==='entering'){e.elapsed+=dt;const p=smooth(clamp(e.elapsed/e.duration,0,1)),old=this.x;this.x=mix(e.from,e.to,p);this.anim=Math.abs(this.x-old)>.00001?'walk':'idle';this.animTime+=dt;
+    if(e.elapsed>=e.duration&&e.cameraReady){this.x=e.to;this.anim='idle';e.stage='active';this.story.begin(e.id,e.target);}return;}
+   if(e.stage==='leaving'){this.anim='idle';this.animTime+=dt;if(e.cameraReady){this.encounter=null;this.updateNear();}return;}
+  }
   if(this.transition){const t=this.transition;t.time+=dt;if(t.time>=.38&&!t.swapped){t.swapped=true;this.scene=t.to;this.level=1;this.x=this.scene==='home'?-1.28:R.homeX;this.y=this.scene==='home'?-.7:R.upperY;this.elevatorY=TOP;this.revision++;}if(t.time>=.85){this.transition=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+.382;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;const bounds=this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x;this.x=clamp(this.x+direction*speed*dt,...bounds);if(direction)this.facing=direction>0?1:-1;const next=Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
@@ -73,12 +82,13 @@ function create({onExit=()=>{}}={}){
  function fit(){if(host)host.style.setProperty('--outside-scale',Math.min(innerWidth/1280,innerHeight/720));}
  function clearInput(){keys.clear();}
  function snapCamera(){cam={x:model.scene==='home'?clamp(model.x,.34,1.14):model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;}
- async function start(){if(active)return;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;clearInput();model=new OutsideModel(config);snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-overlay"></div></div>';document.body.append(host);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
+ async function start(){if(active)return;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;clearInput();model=new OutsideModel(config);snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div></div>';document.body.append(host);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
  function exit(){generation++;active=false;loading=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;onExit();}
  function menu(){if(loading||loadError)return;clearInput();model.paused=!model.paused;hudSignature='';updateHUD();}
  function targetCamera(dt){
   if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7;
   if(model.scene==='street'&&model.ride&&!model.ride.call){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
+  if(model.encounter){panorama=false;if(model.encounter.stage!=='leaving')({w,x,y}=model.encounter.camera);}
   if(panorama&&model.scene==='street'){w=28.8;x=-7.85;y=6.6;}
   if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);
   // Constrain the visible bottom, not just the camera center, during zoom.
@@ -86,13 +96,14 @@ function create({onExit=()=>{}}={}){
   if(model.scene==='street')y=Math.max(y,floor+w*720/1280/2);
   const t=1-Math.exp(-dt*5);cam.x=mix(cam.x,x,t);cam.y=mix(cam.y,y,t);cam.w=mix(cam.w,w,t);
   if(model.scene==='street')cam.y=Math.max(cam.y,floor+cam.w*720/1280/2);
+  if(model.encounter)model.encounter.cameraReady=Math.abs(cam.x-x)<.015&&Math.abs(cam.y-y)<.015&&Math.abs(cam.w-w)<.015;
  }
  function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
  function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.restore();}
  function renderNode(n){if((!n.active&&n.name!=='shiba')||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.name==='shiba'&&model.config.day<1)return;if(n.ambient&&!global.LunaOutsideAmbient.visible(model))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
-  const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;if(n.name==='shiba'&&data.animations.shiba){const a=data.animations.shiba;sp=a.frames[Math.floor(model.time*a.fps)%a.frames.length];}drawSprite(sp,n.x,y,n.sx,n.sy,n.flip,light?.26:1,light);
+  const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;if(n.name==='shiba'&&data.animations.shiba){const a=data.animations.shiba;sp=a.frames[Math.floor(model.time*a.fps)%a.frames.length];}const facing=model.encounter?.kind==='direct'&&n.id==='ambient-'+model.encounter.target.actor?model.x<n.x:n.flip;drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);
  }
  function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
   const nodes=data.scenes[model.scene].nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
@@ -105,9 +116,9 @@ function create({onExit=()=>{}}={}){
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
  function updateHUD(){if(!host)return;const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud');
-  const signature=JSON.stringify([loading,loadError,m.paused,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,m.story.blocking]);
+  const signature=JSON.stringify([loading,loadError,m.paused,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,m.story.blocking,m.encounter?.stage]);
   if(signature!==hudSignature){hudSignature=signature;
-   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button>${m.ride?`<div class="outside-elevator-status">${m.ride.call?'엘리베이터를 부르는 중':m.ride.to===TOP?'올라가는 중':'내려가는 중'}<span class="outside-lift-progress"></span></div>`:''}`;
+   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button>`;
    let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2><p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 거리 전경 보기 / 돌아오기 (외부 거리)<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('시작 위치 다시 고르기','exit')+'</div></section>';
@@ -117,14 +128,21 @@ function create({onExit=()=>{}}={}){
   }
   const prompt=host.querySelector('.outside-interact');if(prompt&&near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}
   updateSpeech();
-  const progress=host.querySelector('.outside-lift-progress');if(progress&&m.ride)progress.style.setProperty('--progress',clamp(m.ride.time/(m.ride.duration+1.1),0,1)*100+'%');
+
  }
  function updateSpeech(){
-  const el=host.querySelector('.outside-speech'),v=model.story.view();el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
+  renderSpeech(host.querySelector('.outside-speech'),model.story.view());
+  const el=host.querySelector('.outside-background-speech'),v=model.backgroundStory.view();
+  const p=v?position(v.anchor.x,v.anchor.y):null;
+  renderSpeech(el,p&&p.x>=0&&p.x<=1280&&p.y>=0&&p.y<=720?v:null,true);
+  const main=host.querySelector('.outside-speech');
+  if(!main.hidden&&!el.hidden){const a=main.getBoundingClientRect(),b=el.getBoundingClientRect();if(a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)el.hidden=true;}
+ }
+ function renderSpeech(el,v,background=false){el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
   const key=v.key+':'+v.canTreat;
-  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label',v.title+' 대화');el.innerHTML='<strong>'+esc(v.title)+'</strong><p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="outside-speech-text" aria-label="'+esc(v.full)+'"></span></p>'+(v.choice?'<div class="outside-choices">'+button('아뇨, 그냥 지나갈게요.','choice-leave')+'<button data-outside-action="choice-treat" '+(v.canTreat?'':'disabled title="줄 수 있는 간식이 없습니다."')+'>간식 좀 드릴까요?'+(v.canTreat?'':' · 간식 없음')+'</button></div>':'');if(!v.auto)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
+  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label',v.title+' 대화');el.innerHTML='<strong>'+esc(v.title)+'</strong><p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.choice?'<div class="outside-choices">'+button('아뇨, 그냥 지나갈게요.','choice-leave')+'<button data-outside-action="choice-treat" '+(v.canTreat?'':'disabled title="줄 수 있는 간식이 없습니다."')+'>간식 좀 드릴까요?'+(v.canTreat?'':' · 간식 없음')+'</button></div>':'');el.querySelector('strong').style.color=v.color||'';if(!v.auto)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
 
-  const text=el.querySelector('.outside-speech-text');if(text.textContent!==v.text)text.textContent=v.text;
+  const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text)text.textContent=v.text;
   const p=position(v.anchor.x,v.anchor.y),w=el.offsetWidth||420,h=el.offsetHeight||160,x=clamp(p.x,25+w/2,1255-w/2),y=clamp(p.y-22,105+h,615);el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--tail-x',clamp(p.x-x+w/2,25,w-25)+'px');
  }
  function tick(dt){if(!active)return;if(!loading&&!loadError&&!document.hidden){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused)targetCamera(Math.min(dt,.05));}draw();updateHUD();}
@@ -136,7 +154,7 @@ function create({onExit=()=>{}}={}){
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight','KeyE','KeyY','Escape','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}
   if(e.code==='Escape'&&!e.repeat){menu();return;}
   if(loading||loadError||model.paused)return;
-  if(e.code==='KeyY'){if(!e.repeat&&model.scene==='street'&&!model.transition){panorama=!panorama;updateHUD();}return;}
+  if(e.code==='KeyY'){if(!e.repeat&&model.scene==='street'&&!model.transition&&!model.encounter){panorama=!panorama;updateHUD();}return;}
   if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();model.interact();updateHUD();return;}
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'].includes(e.code))keys.add(e.code);
  },true);

@@ -5,7 +5,9 @@ class Story{
  constructor(model){Object.defineProperty(this,'model',{value:model});this.flags={};this.done=new Set();this.speech=null;}
  get blocking(){return !!this.speech&&!this.speech.auto;}
  begin(id,target,auto=false){
-  const rows=global.LUNA_OUTSIDE_DIALOGUES[id];if(!rows?.length)return false;
+  const source=global.LUNA_OUTSIDE_DIALOGUES[id];
+  // Proximity TV is a broadcast, not Luna's internal monologue. Keep source data intact.
+  const rows=auto&&target.id==='tv'?source?.filter(row=>row.actor==='radio'&&(row.type==='say'||row.type==='timeline')):source;if(!rows?.length)return false;
   this.speech={id,target,auto,rows,index:0,elapsed:0,choice:false};this.seek();this.model.updateNear();return true;
  }
  seek(){const s=this.speech;if(!s)return;
@@ -15,6 +17,7 @@ class Story{
    // State is committed only on a completed conversation, never on opening or cancelling.
    s.index++;
   }
+  if(s.auto&&s.target.id==='tv')this.lastTvBroadcast=s.id;
   this.done.add(s.id);if(s.id==='np_shiba_1')this.flags.shiba_met=true;if(s.id==='np_tv_1')this.flags.tv_seen1=true;if(s.id==='ob_experiment_1')this.flags.seen_coratech_ad=true;
   this.speech=null;this.model.updateNear();
  }
@@ -26,18 +29,32 @@ class Story{
  cancel(){this.speech=null;this.model.updateNear();}
  tick(dt){const s=this.speech;if(!s)return;s.elapsed+=dt;if(s.auto&&s.elapsed>=s.chars.length/55+Math.max(2,s.chars.length*.055)){s.index++;this.seek();}}
  interact(target){const m=this.model;
+  if(target.encounter)return m.beginEncounter(target);
   if(target.id==='poster')return this.begin('ob_parttime_1',target);
   if(target.id==='experiment')return this.begin('ob_experiment_1',target);
   if(target.id==='shiba')return this.begin(!this.flags.shiba_met?'np_shiba_1':m.config.day>=2&&!this.done.has('np_shiba_3')?'np_shiba_3':'np_shiba_2',target);
-  if(target.id==='tv')return this.begin(this.flags.tv_seen1?'np_tv_2':'np_tv_1',target);
   return false;
  }
  // Isolated exterior preview: reuse the available engine broadcast on every ride.
  // Story/day gating in the engine is unchanged; calling an empty lift is silent.
  radio(){const m=this.model;this.begin('d1_elevator',{id:'radio',x:m.x,y:m.y},true);}
- view(){const s=this.speech;if(!s)return null;const actor=s.line.actor;const m=this.model;const anchor=actor==='luna'?{x:m.x,y:m.y+.36}:s.target.id==='radio'?{x:global.LunaResidence.layout.elevatorX,y:m.elevatorY+1.032}:s.target.id==='tv'?{x:1.22,y:-.26}:s.target.id==='shiba'?{x:s.target.x+.19,y:s.target.y+.32}:{x:s.target.x,y:s.target.y+.42};
-  return {key:s.id+':'+s.index+':'+s.choice,title:s.target.id==='tv'&&actor==='radio'?'TV':names[actor]||(s.target.id==='poster'?'구인 전단':'임상시험 전단'),text:s.chars.slice(0,s.choice?s.chars.length:Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:s.choice,canTreat:!!this.flags.has_snack,anchor};
+ view(){const s=this.speech;if(!s)return null;const actor=s.line.actor;const m=this.model;const extra=global.LunaOutsideEncounters?.actor(actor);const anchor=extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:s.target.id==='radio'?{x:global.LunaResidence.layout.elevatorX,y:m.elevatorY+1.032}:s.target.id==='tv'?{x:1.22,y:-.26}:s.target.id==='shiba'?{x:s.target.x+.19,y:s.target.y+.32}:{x:s.target.x,y:s.target.y+.42};
+  return {key:s.id+':'+s.index+':'+s.choice,color:extra?.color,title:extra?extra.name:s.target.id==='tv'&&actor==='radio'?'TV':names[actor]||(s.target.id==='poster'?'구인 전단':'임상시험 전단'),text:s.chars.slice(0,s.choice?s.chars.length:Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:s.choice,canTreat:!!this.flags.has_snack,anchor};
  }
 }
-global.LunaOutsideStory={Story};
+function tickBackground(model,dt){
+ const story=model.backgroundStory,home=model.scene==='home';
+ if(!home)model.tvInRange=false;
+ if(model.transition||(story.speech&&(story.speech.target.id==='tv'?!home:model.scene!=='street'))){if(story.speech)story.cancel();return;}
+ story.tick(dt);
+ if(!home){global.LunaOutsideEncounters?.tickProximity(model,dt);return;}
+ const distance=Math.abs(model.x-1.22);
+ // Hysteresis avoids retriggering when walking along the edge of the listening area.
+ if(distance>1.05)model.tvInRange=false;
+ if(distance>.85||model.tvInRange||model.dialog||model.story.blocking||story.speech)return;
+ // Cycle available broadcasts on a fresh approach; completion never disables the TV.
+ const id=story.lastTvBroadcast==='np_tv_1'?'np_tv_2':'np_tv_1';
+ if(story.begin(id,{id:'tv',x:1.22,y:-.7},true))model.tvInRange=true;
+}
+global.LunaOutsideStory={Story,tickBackground};
 })(typeof window==='undefined'?globalThis:window);

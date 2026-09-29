@@ -6,7 +6,8 @@
 const placements=[
  {id:'bar-pair-left',kind:'M2',x:-1.18,y:-.94,flip:false,fps:3.8,phase:0},
  {id:'bar-pair-right',kind:'W1',x:-.65,y:-.94,flip:true,fps:3.5,phase:2},
- {id:'shop-loner',kind:'M1',x:-4.6,y:-.95,flip:false,fps:3.2,phase:4},
+ {id:'lift-loner',kind:'W1',x:-10.8,y:-.94,flip:false,fps:3.4,phase:5},
+ {id:'shop-loner',kind:'M1',x:-4.15,y:-.95,flip:false,fps:3.2,phase:4},
  {id:'alley-pair-left',kind:'M1',x:-9.35,y:-.93,flip:false,fps:3.6,phase:1},
  {id:'alley-pair-right',kind:'M2',x:-8.75,y:-.93,flip:true,fps:3.3,phase:3}
 ];
@@ -18,6 +19,6 @@ function apply(data){
 }
 function visible(model){return model.scene==='street'&&model.config.day===0&&model.config.flow==='out';}
 function frame(node,time){return{...node.sprite,x:((Math.floor(time*node.ambient.fps)+node.ambient.phase)%6)*129};}
-global.LunaOutsideAmbient={apply,visible,frame};
+global.LunaOutsideAmbient={apply,visible,frame,placements};
 if(global.LUNA_OUTSIDE_DATA)apply(global.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);
