@@ -35,7 +35,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
    '<canvas class="serve-canvas" width="1280" height="720" aria-label="'+esc(g.name(r.selected))+'"></canvas>'+
    (!sheet||failed?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
    (s.ready?'<div class="serve-grade" role="status" data-grade="'+esc(r.grade)+'">'+esc(r.grade.toUpperCase())+'</div>':'')+
-   (s.ready&&!declined?'<div class="serve-actions"><div class="serve-offer">'+button(L('제공하기','Offer drink'),'offer',ready()?'':'disabled','primary')+button(L('판정 결과','Score details'),'serveDetails',ready()?'':'disabled','serve-details-button')+'</div>'+button(L('버리기','Discard'),'discard',ready()?'':'disabled','serve-discard')+'</div>':'')+
+   (s.ready&&!declined?'<div class="serve-actions">'+button(L('버리기','Discard'),'discard',ready()?'':'disabled','serve-discard')+'<div class="serve-offer">'+button(L('제공하기','Offer drink'),'offer',ready()?'':'disabled','primary')+button(L('판정 결과','Score details'),'serveDetails',ready()?'':'disabled','serve-details-button')+'</div></div>':'')+
    '</section>';
  }
  function sync(root){
