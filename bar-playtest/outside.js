@@ -21,6 +21,7 @@ function interactionAnchor(model,target,data){
  if(target.id==='elevator')return{x:target.x,y:target.y+.518};
  if(target.id==='home')return{x:target.x,y:target.y+.87};
  if(target.id==='tv')return{x:1.22,y:-.26};
+ if(target.id==='story-samho')return{x:target.x,y:target.y+.95};
  if(target.id==='sofa')return{x:2.557,y:-.27};
  return{x:target.x,y:target.y+.5};
 }
@@ -29,12 +30,12 @@ class OutsideModel{
  start({place='bar',flow='out',day=0}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:clamp(Math.floor(Number(day)||0),0,3)};
   this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
-  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.tvInRange=false;this.updateNear();
+  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.notionCommuteSeen=false;this.tvInRange=false;this.updateNear();
  }
  targets(){
   if(this.scene==='home')return[{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},{id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7},{id:'terrace',label:'테라스 문 살펴보기',x:3.364,y:-.7}];
   if(this.level)return[{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
-  return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
+  return[...(global.lunaCampaign?.session.developer&&this.config.flow==='in'&&this.config.day>=2?[{id:'story-samho',label:'삼호',x:-5.99,y:-.7}]:[]),...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
  }
  updateNear(){this.near=this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
  beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
@@ -101,7 +102,7 @@ function create({onExit=()=>{}}={}){
  }
  function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
  function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.restore();}
- function renderNode(n){if(n.name==='Samho'&&global.lunaCampaign?.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,model.x<n.x);return;}if((!n.active&&n.name!=='shiba')||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.name==='shiba'&&model.config.day<1)return;if(n.ambient&&!global.LunaOutsideAmbient.visible(model))return;
+ function renderNode(n){if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,model.x<n.x);return;}if((!n.active&&n.name!=='shiba')||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.name==='shiba'&&model.config.day<1)return;if(n.ambient&&!global.LunaOutsideAmbient.visible(model))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;if(n.name==='shiba'&&data.animations.shiba){const a=data.animations.shiba;sp=a.frames[Math.floor(model.time*a.fps)%a.frames.length];}const facing=model.encounter?.kind==='direct'&&n.id==='ambient-'+model.encounter.target.actor?model.x<n.x:n.flip;drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);

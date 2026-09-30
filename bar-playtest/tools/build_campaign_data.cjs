@@ -62,7 +62,58 @@ const data={source:source.source,revision:source.fetched,actors,
   responseB:speech(section(3,'**응대 선택 · B**','**공통 진행**'))
  }};
 // The ending has prose narration, not dialogue belonging to the last speaker.
-data.scenes.ending=[{actor:'chris',who:'크리스',text:'왜, 무슨 생각이라도 났어?'},{actor:'luna',who:'루나',text:'…기뻤던 것 같아서요.\n지금 생각해 본 거지만.'},{actor:'chris',who:'크리스',text:'…그렇게 생각한다면 그런 거겠지.'},{actor:'narrator',who:'',text:'크리스는 문득 한 여자가 했던 말을 떠올렸다.'},{actor:'woman',who:'기억 속 목소리',text:'이 아이들을 그저 인공지능이라고 생각하지 마.\n너 같은 놈이랑은 달라. 얘들은… 가능성을 품고 있다고.'},{actor:'narrator',who:'',text:'멀리 열차가 지나갔다.\n두 사람은 한동안 말없이 앉아 있었다.'}];
+data.scenes.ending=[
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "루나는 기억을 돌아보는 곳에서 벗어나 다시금 눈을 떴다. 테라스 너머 높은 빌딩들과 화려한 야경이 보였다."
+  },
+  {
+    "actor": "chris",
+    "who": "크리스",
+    "text": "왜, 무슨 생각이라도 났어?"
+  },
+  {
+    "actor": "luna",
+    "who": "루나",
+    "text": "…기뻤던 것 같아서요.\n지금 생각해 본 거지만."
+  },
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "크리스는 잠시 허공을 보며 생각하다 말을 이었다."
+  },
+  {
+    "actor": "chris",
+    "who": "크리스",
+    "text": "…그렇게 생각한다면 그런 거겠지."
+  },
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "루나가 떠올린 일들이 정확히 무엇인지 크리스는 알지 못했다.\n문득 한 여자가 했던 말이 떠올랐다."
+  },
+  {
+    "actor": "woman",
+    "who": "기억 속 목소리",
+    "text": "이 아이들을 그저 인공지능이라고 생각하지 마.\n너 같은 놈이랑은 달라. 얘들은… 가능성을 품고 있다고."
+  },
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "화를 내듯 자신에게 쏘아붙이던 목소리였다.\n그 시절 자신은 이해하지 못한 말이었다."
+  },
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "크리스는 잠시 하늘을 바라보다가 다시 도심 쪽으로 시선을 돌렸다.\n마침 어렸을 적 좋아하던 열차가 지나가고 있었다."
+  },
+  {
+    "actor": "narrator",
+    "who": "",
+    "text": "크리스는 젊은 시절 품었다가 잊고 지냈던 자신의 꿈이 문득 떠올랐다.\n두 사람은 한동안 말없이 앉아 있었다."
+  }
+];
 for(const day of [1,2,3]){data.opening[day]=speech(section(day,'### 오픈 전',day===3?'### 1부':'### 단골 손님'));data.bar[day]=compileBar(day);}
 // Remove production notes between the opening dialogue and the next section.
 for(const rows of Object.values(data.opening))for(const r of rows)r.text=r.text.split('오늘 추가되는')[0].split('오늘 확인할')[0].trim();
