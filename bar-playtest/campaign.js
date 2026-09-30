@@ -61,13 +61,13 @@ class Campaign{
  disposeCinema(){this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);if(this.cinemaBgmMuted!=null){this.bgm.audio.muted=this.cinemaBgmMuted;this.cinemaBgmMuted=null;}}
  finishCinema(){if(this.view!=='prologue'||!this.cinema)return;this.disposeCinema();this.startBar(0);}
  startBar(day,carry){this.preload(day+'일차 · 바를 준비하고 있습니다',Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)),()=>{this.session.beginDay(day,carry);this.screen(this.playView);this.render(true);});}
- async street(flow,place='bar'){this.session.route=flow;this.screen('loading');this.loadLabel=flow==='out'?'문을 닫고, 집으로':'새로운 하루';this.draw();Object.assign(this.outside.config,{flow,place,day:this.session.day});await this.outside.start();this.screen(this.playView);}
+ async street(flow,place='bar'){this.session.route=flow;this.screen('loading');this.loadLabel=flow==='out'?'문을 닫고, 집으로':'새로운 하루';this.draw();Object.assign(this.outside.config,{flow,place,day:this.session.day,variant:'original'});await this.outside.start();this.screen(this.playView);}
  leaveBar(){if(!this.session.settle()){this.render(true);return;}this.street('out');}
  storyStep(step){if(step.type==='campaign_menu'){this.screen('menu');return;}if(step.type==='campaign_response'){this.screen('response');return;}if(step.type==='campaign_memory'){this.scene('johnny','조니의 기억','bar',()=>this.memoryQuiz(),{memory:true});}}
  memoryQuiz(){this.observationError='';this.screen('observation');}
  completeMemory(){this.g.progress.flags.campaign_observation=true;this.scene('prepare','바 · 내일의 준비','bar',()=>{this.screen(this.playView);this.session.finishStep();this.render(true);});}
  previewCommute(model){model.notionCommuteSeen=true;model.story.cancel();model.backgroundStory.cancel();this.streetBackdrop=this.outside.snapshot();this.scene('commute'+model.config.day,'출근길 · 삼호','street',()=>this.screen('developer'));}
- interactOutside(model,target){if(model!==this.outside.model)return false;
+ interactOutside(model,target){if(model!==this.outside.model||model.qa)return false;
   if(!this.active){if(!this.session.developer||model.config.day<2)return false;
    if(target.id==='story-samho'){this.previewCommute(model);return true;}
    if(target.id==='sofa'&&model.config.flow==='out'){model.story.cancel();model.backgroundStory.cancel();this.cityBackdrop=this.outside.snapshot({x:-5,y:8,w:17});const done=()=>this.screen('developer');this.scene('night'+model.config.day,'루나의 기억 · 외부 단독 미리보기','lab',()=>{if(model.config.day===3)this.scene('ending','테라스 · 외부 단독 미리보기','city',done);else done();});return true;}
@@ -92,7 +92,7 @@ class Campaign{
    if(this.paintCinemaSkip()){this.finishCinema();return this.blocking;}
    if(c.time>=c.scene.end){if(++c.index<c.scenes.length){c.scene=c.scenes[c.index];c.time=0;global.Sfx?.silence();this.draw();}else this.finishCinema();}
   }
-  if(this.session.developer&&this.view==='developer'&&this.outside.active&&!this.outside.loading){const m=this.outside.model;if(!m.paused&&!m.ride&&!m.transition&&!m.dialog&&!m.story.blocking&&m.config.flow==='in'&&m.config.day>=2&&m.scene==='street'&&m.level===0&&Math.abs(m.x+5.99)<.7&&!m.notionCommuteSeen)this.previewCommute(m);}
+  if(this.session.developer&&this.view==='developer'&&this.outside.active&&!this.outside.loading){const m=this.outside.model;if(!m.qa&&!m.remixX&&!m.paused&&!m.ride&&!m.transition&&!m.dialog&&!m.story.blocking&&m.config.flow==='in'&&m.config.day>=2&&m.scene==='street'&&m.level===0&&Math.abs(m.x+5.99)<.7&&!m.notionCommuteSeen)this.previewCommute(m);}
   if(this.active&&this.view==='game'&&this.outside.active&&!this.outside.loading){const m=this.outside.model;if(!m.paused&&this.session.route==='in'&&m.scene==='street'&&m.level===0&&m.x>-6.6&&this.session.day>=2&&!this.morningSeen.has(this.session.day)){this.morningSeen.add(this.session.day);this.streetBackdrop=this.outside.snapshot();this.scene('commute'+this.session.day,'출근길 · 삼호','street',()=>{this.g.progress.flags.samho_met=true;this.session.carry.flags.samho_met=true;this.screen(this.playView);});}
    let logo=document.querySelector('#campaign-lift-logo');const show=this.liftLogoPending&&m.ride&&!m.ride.call&&m.ride.time>3&&m.ride.time<10;if(show&&!logo){logo=document.createElement('img');logo.id='campaign-lift-logo';logo.src=path('title-logo.png');logo.alt='Project LUNA';document.querySelector('.outside-stage').append(logo);}if(!show)logo?.remove();if(this.liftLogoPending&&!m.ride)this.liftLogoPending=false;
   }

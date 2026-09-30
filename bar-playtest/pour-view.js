@@ -176,6 +176,15 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   c.restore();c.imageSmoothingEnabled=true;
   if(mode()==='bottle')return;
   receiverTransform(c);
+  // GPT-only cosmetic carbonation: follows retained liquid; adds no ml and never changes scoring.
+  if(g.variant==='gpt'&&['soda_water','tonic_water','beer','champagne','cola'].includes(s.ingredient)&&f.caughtMl>.5){
+   const surface=clamp(b.bottom-3-(f.caughtMl/f.quantum)*68/(b.right-b.left-6),b.top+8,b.bottom-3),depth=b.bottom-3-surface;
+   if(depth>3){c.save();c.beginPath();c.rect(b.left+4,surface,b.right-b.left-8,depth);c.clip();
+    const still=root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,time=still?0:g.realTime;
+    for(let i=0;i<22;i++){const x=b.left+9+((i*47)%(b.right-b.left-18)),p=(time*(.22+(i%4)*.055)+i*.137)%1,y=b.bottom-3-p*depth;c.strokeStyle='rgba(235,252,245,'+(.15+(1-p)*.32)+')';c.lineWidth=1.3;c.beginPath();c.arc(x+Math.sin(time*1.4+i)*1.2,y,1.1+(i%3)*.5,0,Math.PI*2);c.stroke();}
+    c.restore();c.save();c.globalAlpha=s.ingredient==='beer'?.4:.16;c.strokeStyle='#f5edd5';c.lineWidth=s.ingredient==='beer'?5:2;c.beginPath();c.moveTo(b.left+5,surface+1);c.lineTo(b.right-5,surface+1);c.stroke();c.restore();
+   }
+  }
   // Glass walls are drawn after the liquid, but its interior remains transparent.
   c.lineWidth=3;c.strokeStyle='#acd6dfaa';c.beginPath();c.moveTo(b.left-3,b.top-3);c.lineTo(b.left-3,b.bottom-2);c.quadraticCurveTo(b.left-3,b.bottom+7,b.left+6,b.bottom+7);c.lineTo(b.right-6,b.bottom+7);c.quadraticCurveTo(b.right+3,b.bottom+7,b.right+3,b.bottom-2);c.lineTo(b.right+3,b.top-3);c.stroke();
   c.lineWidth=2;c.strokeStyle='#e8ffff99';c.beginPath();c.moveTo(b.left+5,b.top+12);c.lineTo(b.left+5,b.bottom-12);c.stroke();
@@ -219,7 +228,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   syncAudio(s,stage.closest('.fluid-screen'));
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
   const {rgb,alpha}=liquidAppearance(s.ingredient);
-  stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
+  stage.dataset.carbonation=String(g.variant==='gpt'&&mode()!=='bottle'&&['soda_water','tonic_water','beer','champagne','cola'].includes(s.ingredient)&&f.caughtMl>.5);stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
   const camera=cameraFor(s),rawPoints=f.renderParticles(s,{freeFall:mode()==='bottle'}),points=mode()==='bottle'?rawPoints:rawPoints.map(p=>({...p,...receiverPoint(p),receiverScale:RECEIVER_SCALE}));
   stage.dataset.receiverBounds=JSON.stringify(receiverBounds(f.glass));
   stage.dataset.streamSamples=points.filter(p=>p.visualOnly).length;

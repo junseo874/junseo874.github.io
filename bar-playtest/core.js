@@ -217,7 +217,7 @@ class Game{
  name(id){const r=this.t.characters.find(x=>x.id===id)||this.t.cocktails.find(x=>x.id===id)||this.t.shelf_items.find(x=>x.id===id)||this.t.personalities.find(x=>x.id===id);return this.text(r,'name')||id||'';}
  reset(day=0,mode='full',seed=1,run=true,settings={}){
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
-  this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
+  this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
   this.tutorial=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else {const fresh=this.dailyUnlocks();if(mode==='full'&&this.day>0&&this.day!==99&&(fresh.ingredients.length||fresh.cocktails.length)){this.pendingDailyUnlocks=true;this.phase='arrival';this.overlay='dailyUnlocks';}else this.startStoryPhase('bar_open');}}
@@ -497,7 +497,7 @@ class Game{
    const line=g.lines[g.lineIndex];if(line){line.seen=true;if(line.chars<line.text.length)this.typeLine(line,realDt);else{line.hold+=realDt*this.dialogSpeed;if(line.hold>=this.c('order_bark_gap_sec',1.5)){this.history.push({actor:line.actor,text:line.text,id:line.id});g.lineIndex++;if(g.lineIndex>=g.lines.length){const fn=g.lineDone;g.lineDone=null;if(fn)fn();}}}}
    else if(g.state==='WAIT_SERVE'&&!g.reasking){g.idleLeft-=dt;if(g.idleLeft<=0){this.setBarks(g,['idle']);g.idleLeft=this.c('idle_min_sec',8)+this.rng()*(this.c('idle_max_sec',13)-this.c('idle_min_sec',8));}}
   }
-  if(this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.startStoryPhase('bar');}
+  if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.startStoryPhase('bar');}
  }
  tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
   if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';OPEN.hit(g,false);}}

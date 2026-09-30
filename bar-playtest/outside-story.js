@@ -8,8 +8,9 @@ class Story{
   const source=global.LUNA_OUTSIDE_DIALOGUES[id];
   // Proximity TV is a broadcast, not Luna's internal monologue. Keep source data intact.
   const rows=auto&&target.id==='tv'?source?.filter(row=>row.actor==='radio'&&(row.type==='say'||row.type==='timeline')):source;if(!rows?.length)return false;
-  this.speech={id,target,auto,rows,index:0,elapsed:0,choice:false};this.seek();this.model.updateNear();return true;
+  return this.beginRows(id,target,rows,auto);
  }
+ beginRows(id,target,rows,auto=false){if(!rows?.length)return false;this.speech={id,target,auto,rows,index:0,elapsed:0,choice:false};this.seek();this.model.updateNear();return true;}
  seek(){const s=this.speech;if(!s)return;
   while(s.index<s.rows.length){const row=s.rows[s.index];
    if(row.type==='say'||row.type==='timeline'){s.line=row;s.chars=Array.from(row.text);s.elapsed=0;s.choice=false;return;}
@@ -27,7 +28,7 @@ class Story{
   if(id!=='leave')return false;s.index++;this.seek();return true;
  }
  cancel(){this.speech=null;this.model.updateNear();}
- tick(dt){const s=this.speech;if(!s)return;s.elapsed+=dt;if(s.auto&&s.elapsed>=s.chars.length/55+Math.max(2,s.chars.length*.055)){s.index++;this.seek();}}
+ tick(dt){const s=this.speech;if(!s)return;s.elapsed+=dt;if(s.auto&&!s.choice&&s.elapsed>=s.chars.length/55+Math.max(2,s.chars.length*.055)){s.index++;this.seek();}}
  interact(target){const m=this.model;
   if(target.encounter)return m.beginEncounter(target);
   if(target.id==='poster')return this.begin('ob_parttime_1',target);
@@ -38,11 +39,12 @@ class Story{
  // Isolated exterior preview: reuse the available engine broadcast on every ride.
  // Story/day gating in the engine is unchanged; calling an empty lift is silent.
  radio(){const m=this.model;this.begin('d1_elevator',{id:'radio',x:m.x,y:m.y},true);}
- view(){const s=this.speech;if(!s)return null;const actor=s.line.actor;const m=this.model;const extra=global.LunaOutsideEncounters?.actor(actor);const anchor=extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:s.target.id==='radio'?{x:global.LunaResidence.layout.elevatorX,y:m.elevatorY+1.032}:s.target.id==='tv'?{x:1.22,y:-.26}:s.target.id==='shiba'?{x:s.target.x+.19,y:s.target.y+.32}:{x:s.target.x,y:s.target.y+.42};
-  return {key:s.id+':'+s.index+':'+s.choice,color:extra?.color,title:extra?extra.name:s.target.id==='tv'&&actor==='radio'?'TV':names[actor]||(s.target.id==='poster'?'구인 전단':'임상시험 전단'),text:s.chars.slice(0,s.choice?s.chars.length:Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:s.choice,canTreat:!!this.flags.has_snack,anchor};
+ view(){const s=this.speech;if(!s)return null;const actor=s.line.actor;const m=this.model;const extra=global.LunaOutsideEncounters?.actor(actor);const anchor=m.qa?global.LunaOutsideQA.anchor(m,actor,s.target):extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:s.target.id==='radio'?{x:global.LunaResidence.layout.elevatorX,y:m.elevatorY+1.032}:s.target.id==='tv'?{x:1.22,y:-.26}:s.target.id==='shiba'?{x:s.target.x+.19,y:s.target.y+.32}:{x:s.target.x,y:s.target.y+.42};
+  return {key:s.id+':'+s.index+':'+s.choice,color:extra?.color,title:m.qa?(s.line.who||m.qa.people.find(p=>p.id===actor)?.name||(actor==='luna'?'루나':s.target.id==='tv'?'TV':names[actor]||'안내')):extra?extra.name:s.target.id==='tv'&&actor==='radio'?'TV':names[actor]||(s.target.id==='poster'?'구인 전단':'임상시험 전단'),text:s.chars.slice(0,s.choice?s.chars.length:Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:s.choice,canTreat:!!this.flags.has_snack,anchor};
  }
 }
 function tickBackground(model,dt){
+ if(model.qa){model.backgroundStory.tick(dt);return;}
  const story=model.backgroundStory,home=model.scene==='home';
  if(!home)model.tvInRange=false;
  if(model.transition||(story.speech&&(story.speech.target.id==='tv'?!home:model.scene!=='street'))){if(story.speech)story.cancel();return;}

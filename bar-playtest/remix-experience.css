@@ -1,0 +1,23 @@
+.remix-start .start-card{max-height:620px;overflow:auto}
+.rx-intro{padding:12px 15px;margin:10px 0 16px;background:rgba(89,185,192,.08);border-left:2px solid #8de3de;color:#c6d9dc;line-height:1.65}
+.rx-intro strong{color:#e3f2ed;display:block;margin-bottom:4px}
+.rx-prep-intent{position:absolute;top:63px;left:50%;transform:translateX(-50%);max-width:570px;padding:9px 18px;border-radius:8px;background:rgba(7,13,23,.92);color:#dce6e6;z-index:15;text-align:center;pointer-events:none;font-size:14px;line-height:1.5}
+.rx-prep-intent small{display:block;color:#86cbc9;font-size:12px}
+.rx-episode-hint{position:absolute;top:24px;left:25px;max-width:315px;background:rgba(8,14,23,.8);padding:10px 14px;border-radius:6px;color:#bce4e4;font-size:14px;pointer-events:none}
+.rx-episode-report{border:1px solid #45656b;background:linear-gradient(130deg,#172932,#121b27);border-radius:12px;padding:20px 24px;margin:12px 0;line-height:1.7}
+.rx-episode-report h3{font-size:22px;color:#dfede7;margin:5px 0 10px}.rx-episode-report small{color:#8ad9d4}.rx-episode-report p{margin:8px 0}.rx-episode-report blockquote{margin:12px 0;border-left:2px solid #8bd2ca;padding-left:15px;color:#e1dbbd}
+.rx-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}.rx-actions button{flex:1;min-width:165px;padding:13px 18px}
+.rx-street-intro{position:absolute;top:32px;left:50%;transform:translateX(-50%);max-width:590px;padding:13px 22px;border-radius:8px;background:rgba(8,14,23,.84);color:#dfede7;font-size:16px;text-align:center;animation:rx-reveal .7s ease both;pointer-events:none}
+.outside-dialog.rx-reflection{width:min(680px,92vw);max-height:630px;overflow:auto;text-align:left;padding:28px 32px;background:#101d29;border:1px solid #52777b}.rx-reflection>small,.rx-footnote{font-size:12px;color:#88babd}.rx-reflection h2{font-size:28px;margin:12px 0}.rx-reflection p{line-height:1.7}.rx-memory-list{max-height:300px;overflow:auto;padding-right:8px}.rx-memory-list article{padding:12px 0;border-bottom:1px solid #31454b}.rx-memory-list h3{font-size:17px;margin:3px 0;color:#d9e4d3}.rx-memory-list p{margin:6px 0}.rx-memory-list small{color:#8bc6c3}
+@keyframes rx-reveal{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.rx-street-intro{animation:none}}
+
+.rx-craft-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);max-width:550px;text-align:center;font-size:13px;line-height:1.5;color:#a9cccf;pointer-events:none;z-index:16;background:rgba(8,14,23,.8);padding:7px 14px;border-radius:5px}
+
+/* The recommended episode needs no irrelevant unlock/economy/difficulty controls. */
+.rx-episode-setup label:has(+.day-list),.rx-episode-setup .day-list,.rx-episode-setup label:has(+.remix-difficulties),.rx-episode-setup .remix-difficulties,.rx-episode-setup .remix-economy{display:none}
+.rx-episode-setup .start-card{max-height:610px}.rx-episode-setup .remix-profile{margin:12px 0}.rx-episode-setup .remix-play{margin-top:16px}
+
+.remix-start.rx-episode-setup .start-card label:has(+.day-list),.remix-start.rx-episode-setup .start-card label:has(+.remix-difficulties){display:none}
+.rx-prep-intent{top:94px;left:auto;right:38px;transform:none;max-width:580px;z-index:25}
+.rx-craft-cue{top:72px;bottom:auto;left:auto;right:26px;transform:none;max-width:300px;z-index:25}.rx-episode-hint{z-index:15}

@@ -12,6 +12,7 @@ function streetDrawOrder(nodes){
  return nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z||rank(a)-rank(b)||String(a.id).localeCompare(String(b.id)));
 }
 function interactionAnchor(model,target,data){
+ if(model.qa)return {x:target.x,y:target.y+.75};
  if(target.encounter){const a=global.LunaOutsideEncounters.actor(target.actor);return{x:a.x,y:a.top};}
  const names={bar:'Bar Spawn Point',poster:'3 poster_help_wanted',experiment:'1 experiment_recruit',shiba:'shiba',exit:'Room_Entrance',terrace:'Terrace_Entrance'};
  const n=data.scenes[model.scene].nodes.find(n=>n.name===names[target.id]);
@@ -27,17 +28,18 @@ function interactionAnchor(model,target,data){
 }
 class OutsideModel{
  constructor(options={}){this.start(options);}
- start({place='bar',flow='out',day=0}={}){
-  this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:clamp(Math.floor(Number(day)||0),0,3)};
+ start({place='bar',flow='out',day=0,...qaOptions}={}){
+  this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
   this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
-  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.notionCommuteSeen=false;this.tvInRange=false;this.updateNear();
+  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.notionCommuteSeen=false;this.tvInRange=false;global.LunaOutsideQA?.init(this,qaOptions);global.LunaRemixExperience?.init(this,qaOptions);this.updateNear();
  }
  targets(){
+  if(this.qa)return global.LunaOutsideQA.targets(this);
   if(this.scene==='home')return[{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},{id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7},{id:'terrace',label:'테라스 문 살펴보기',x:3.364,y:-.7}];
   if(this.level)return[{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
-  return[...(global.lunaCampaign?.session.developer&&this.config.flow==='in'&&this.config.day>=2?[{id:'story-samho',label:'삼호',x:-5.99,y:-.7}]:[]),...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
+  return[...(!this.remixX&&global.lunaCampaign?.session.developer&&this.config.flow==='in'&&this.config.day>=2?[{id:'story-samho',label:'삼호',x:-5.99,y:-.7}]:[]),...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(this.config.day>=1?[{id:'poster',label:'전단 살펴보기',x:-5.665,y:-.7}]:[]),...(this.config.flow==='out'?[{id:'experiment',label:'안내문 살펴보기',x:-7.495,y:-.7}]:[]),...(this.config.day>=1?[{id:'shiba',label:'시바',x:-2.87,y:-.7}]:[])];
  }
- updateNear(){this.near=this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
+ updateNear(){this.near=this.qa?.runtime||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
  beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
  interact(){
   if(this.paused||this.transition||this.encounter&&this.encounter.stage!=='active')return false;
@@ -45,12 +47,13 @@ class OutsideModel{
   if(this.ride)return false;
   if(this.dialog){this.dialog=null;this.updateNear();this.revision++;return true;}
   this.updateNear();const t=this.near;if(!t)return false;
-  if(global.lunaCampaign?.interactOutside(this,t))return true;
+  if(this.qa&&global.LunaOutsideQA.interact(this,t))return true;
+  if(this.remixX&&global.LunaRemixExperience.interact(this,t))return true;if(!this.qa&&!this.remixX&&global.lunaCampaign?.interactOutside(this,t))return true;
   if(this.story.interact(t)){this.anim='idle';this.animTime=0;return true;}
   if(this.story.speech)this.story.cancel();
   if(t.id==='elevator'){
    const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
-   this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;if(!global.lunaCampaign?.quietLift(this))this.story.radio();}
+   this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;if(this.qa?.caseId!=='lift-logo'&&!global.lunaCampaign?.quietLift(this))this.story.radio();}
   }else if(t.id==='home'||t.id==='exit')this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false};
   else if(t.id==='bar')this.dialog={title:'바 입구',text:this.config.flow==='in'?'출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.':'퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'};
   else if(t.id==='sofa')this.dialog={title:'소파',text:'저장과 취침을 연결할 자리입니다. 지금은 공간 탐색 모드라 일차와 바 영업의 저장 데이터는 바뀌지 않습니다.'};
@@ -60,7 +63,8 @@ class OutsideModel{
  }
  tick(dt,input={}){
   dt=clamp(Number(dt)||0,0,.05);if(this.paused)return;
-  this.story.tick(dt);
+  if(this.qa&&global.LunaOutsideQA.tick(this,dt))return;
+  global.LunaRemixExperience?.tick(this);if(this.paused)return;this.story.tick(dt);
   global.LunaOutsideStory.tickBackground(this,dt);
   this.time+=dt;this.noticeLeft=Math.max(0,this.noticeLeft-dt);
   if(this.encounter){const e=this.encounter;
@@ -71,7 +75,7 @@ class OutsideModel{
   }
   if(this.transition){const t=this.transition;t.time+=dt;if(t.time>=.38&&!t.swapped){t.swapped=true;this.scene=t.to;this.level=1;this.x=this.scene==='home'?-1.28:R.homeX;this.y=this.scene==='home'?-.7:R.upperY;this.elevatorY=TOP;this.revision++;}if(t.time>=.85){this.transition=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+.382;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
-  let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;const bounds=this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x;this.x=clamp(this.x+direction*speed*dt,...bounds);if(direction)this.facing=direction>0?1:-1;const next=Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
+  let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;const bounds=this.qa?[Math.min(-6,R.lowerMin),6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x;this.x=clamp(this.x+direction*speed*dt,...bounds);if(direction)this.facing=direction>0?1:-1;const next=Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
  }
 }
 function create({onExit=()=>{}}={}){
@@ -79,7 +83,7 @@ function create({onExit=()=>{}}={}){
  let active=false,loading=false,loadError='',model=null,host=null,canvas=null,ctx=null,cam={x:1,y:0,w:4.8},generation=0,hudSignature='',lastScene='',panorama=false;
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const button=(text,action,cls='')=>`<button class="${cls}" data-outside-action="${action}">${text}</button>`;
- function lobbyHTML(tabs){return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup"><h2>외부 공간</h2><label for="outside-place">시작 위치</label><select id="outside-place" data-outside-setting="place">${Object.entries(PLACES).map(([v,l])=>`<option value="${v}" ${config.place===v?'selected':''}>${l}</option>`).join('')}</select><label for="outside-flow">이동 상태</label><select id="outside-flow" data-outside-setting="flow">${Object.entries(FLOWS).map(([v,l])=>`<option value="${v}" ${config.flow===v?'selected':''}>${l}</option>`).join('')}</select><label for="outside-day">일차</label><select id="outside-day" data-outside-setting="day">${[0,1,2,3].map(d=>`<option value="${d}" ${config.day===d?'selected':''}>${d}일차</option>`).join('')}</select>${button('탐색 시작 →','start','primary')}</section></div>`;}
+ function lobbyHTML(tabs){return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup"><h2>${config.variant==='gpt'?'GPT 외부 · 집으로 가는 동안':'외부 공간'}</h2>${config.variant==='gpt'?'<div class="rx-intro"><strong>걸어가는 시간이 이야기의 여백이 되도록</strong>추천: 0일차 · 퇴근길 · 바 문 앞. 왼쪽 행인과 대화한 뒤 엘리베이터로 귀가해 소파에서 돌아보세요. 만남은 선택이며, 건너뛰어도 됩니다. ESC에서 기록을 다시 볼 수 있어요.</div>':''}<label for="outside-place">시작 위치</label><select id="outside-place" data-outside-setting="place">${Object.entries(PLACES).map(([v,l])=>`<option value="${v}" ${config.place===v?'selected':''}>${l}</option>`).join('')}</select><label for="outside-flow">이동 상태</label><select id="outside-flow" data-outside-setting="flow">${Object.entries(FLOWS).map(([v,l])=>`<option value="${v}" ${config.flow===v?'selected':''}>${l}</option>`).join('')}</select><label for="outside-day">일차</label><select id="outside-day" data-outside-setting="day">${(config.variant==='gpt'?[0,1,2,3]:[0,1,2,3,99]).map(d=>`<option value="${d}" ${config.day===d?'selected':''}>${d===99?'99일차 · 외부 QA 가상 공간':d+'일차'}</option>`).join('')}</select>${button('탐색 시작 →','start','primary')}</section></div>`;}
  async function loadImages(){await Promise.all(Object.entries(data.assets).map(([id,a])=>{if(images.has(id))return;return new Promise((resolve,reject)=>{const im=new Image(),timeout=setTimeout(()=>reject(Error(a.src)),15000);im.onload=()=>{clearTimeout(timeout);images.set(id,im);resolve();};im.onerror=()=>{clearTimeout(timeout);reject(Error(a.src));};im.src=a.src;});}));}
  function fit(){if(host)host.style.setProperty('--outside-scale',Math.min(innerWidth/1280,innerHeight/720));}
  function clearInput(){keys.clear();}
@@ -90,9 +94,10 @@ function create({onExit=()=>{}}={}){
  function targetCamera(dt){
   if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7;
   if(model.scene==='street'&&model.ride&&!model.ride.call){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
+  if(model.qa?.camera){({w,x,y}=model.qa.camera);}
   if(model.encounter){panorama=false;if(model.encounter.stage!=='leaving')({w,x,y}=model.encounter.camera);}
   if(panorama&&model.scene==='street'){w=28.8;x=-7.85;y=6.6;}
-  if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);
+  if(!model.qa){if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);}
   // Constrain the visible bottom, not just the camera center, during zoom.
   const floor=data.scenes.street.nodes.find(n=>n.name==='1F Floor').y+.02;
   if(model.scene==='street')y=Math.max(y,floor+w*720/1280/2);
@@ -108,6 +113,7 @@ function create({onExit=()=>{}}={}){
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;if(n.name==='shiba'&&data.animations.shiba){const a=data.animations.shiba;sp=a.frames[Math.floor(model.time*a.fps)%a.frames.length];}const facing=model.encounter?.kind==='direct'&&n.id==='ambient-'+model.encounter.target.actor?model.x<n.x:n.flip;drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);
  }
  function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
+  if(model.qa){global.LunaOutsideQA.draw({m:model,ctx,position,sprite:drawSprite,data,player:()=>{const a=data.animations[model.anim];drawSprite(a.frames[Math.floor(model.animTime*a.fps)%a.frames.length],model.x,model.y,1,1,model.facing>0);}});if(model.transition){ctx.fillStyle='rgba(6,10,18,'+Math.max(0,1-Math.abs(model.transition.time-.38)/.47)+')';ctx.fillRect(0,0,1280,720);}return;}
   const nodes=data.scenes[model.scene].nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
   if(model.scene==='home'){const bg=nodes.find(n=>n.name==='main_bg');if(bg)renderNode(bg);nodes.filter(n=>n.name!=='main_bg'&&n.name!=='ForeFore_Object').forEach(renderNode);}
   const drawPlayer=()=>{const anim=data.animations[model.anim],frame=anim.frames[Math.floor(model.animTime*anim.fps)%anim.frames.length];drawSprite(frame,model.x,model.y,1,1,model.facing>0);};
@@ -118,12 +124,12 @@ function create({onExit=()=>{}}={}){
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
  function updateHUD(){if(!host)return;const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud');
-  const signature=JSON.stringify([loading,loadError,m.paused,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,m.story.blocking,m.encounter?.stage]);
+  const signature=JSON.stringify([loading,loadError,m.paused,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,m.story.blocking,m.encounter?.stage,m.remixX?.panel,m.remixX?.entries.length,m.time<6]);
   if(signature!==hudSignature){hudSignature=signature;
-   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button>`;
+   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button>${global.LunaRemixExperience?.hint(m)||''}`;
    let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
-   else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2><p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 거리 전경 보기 / 돌아오기 (외부 거리)<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('시작 위치 다시 고르기','exit')+'</div></section>';
+   else if(m.remixX?.panel)body=global.LunaRemixExperience.dialog(m);else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2><p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 거리 전경 보기 / 돌아오기 (외부 거리)<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+(m.remixX?button('들었던 말 · 탐색 기록','rx-notebook'):'')+button('같은 위치에서 다시 시작','restart')+button('시작 위치 다시 고르기','exit')+'</div></section>';
    else if(m.dialog)body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
@@ -148,13 +154,14 @@ function create({onExit=()=>{}}={}){
   const p=position(v.anchor.x,v.anchor.y),w=el.offsetWidth||420,h=el.offsetHeight||160,x=clamp(p.x,25+w/2,1255-w/2),y=clamp(p.y-22,105+h,615);el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--tail-x',clamp(p.x-x+w/2,25,w-25)+'px');
  }
  function tick(dt){if(!active)return;if(!loading&&!loadError&&!document.hidden){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused)targetCamera(Math.min(dt,.05));}draw();updateHUD();}
- document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=clamp(Number(value)||0,0,3);},true);
- document.addEventListener('click',e=>{if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){start();return;}if(!active)return;if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);panorama=false;snapCamera();hudSignature='';}else if(a==='choice-leave'||a==='choice-treat'){clearInput();model.story.choose(a==='choice-treat'?'treat':'leave');}else if(a==='interact'){clearInput();model.interact();}updateHUD();});
+ document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=Number(value)===99?99:clamp(Number(value)||0,0,3);},true);
+ document.addEventListener('click',e=>{if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){start();return;}if(!active)return;if(global.LunaRemixExperience?.action(model,a)){clearInput();updateHUD();return;}if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);panorama=false;snapCamera();hudSignature='';}else if(a==='choice-leave'||a==='choice-treat'){clearInput();model.story.choose(a==='choice-treat'?'treat':'leave');}else if(a==='interact'){clearInput();model.interact();}updateHUD();});
  window.addEventListener('keydown',e=>{if(!active)return;
   if(e.code==='Tab'){const scope=host.querySelector('.outside-overlay:not([hidden])')||(model.story.blocking?host.querySelector('.outside-speech'):host),buttons=[...(scope.matches('[tabindex="0"]')?[scope]:[]),...scope.querySelectorAll('button:not([hidden]):not(:disabled),[tabindex="0"]')].filter(b=>!b.closest('[inert]')&&b.getClientRects().length),i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?-1:1)+buttons.length)%buttons.length]?.focus();return;}
+  if(global.lunaQA?.opened)return;
   if(e.metaKey||e.ctrlKey||e.altKey)return;
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight','KeyE','KeyY','Escape','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}
-  if(e.code==='Escape'&&!e.repeat){menu();return;}
+  if(e.code==='Escape'&&!e.repeat){if(model.remixX?.panel){global.LunaRemixExperience.action(model,'rx-close');clearInput();updateHUD();}else menu();return;}
   if(loading||loadError||model.paused)return;
   if(e.code==='KeyY'){if(!e.repeat&&model.scene==='street'&&!model.transition&&!model.encounter){panorama=!panorama;updateHUD();}return;}
   if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();model.interact();updateHUD();return;}
@@ -164,7 +171,7 @@ function create({onExit=()=>{}}={}){
  function loseFocus(){if(!active)return;clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
- return{get active(){return active;},get model(){return model;},get loading(){return loading;},get camera(){return{...cam};},config,lobbyHTML,start,exit,tick,clearInput,snapshot};
+ return{get active(){return active;},get model(){return model;},get loading(){return loading;},get camera(){return{...cam};},config,lobbyHTML,start,exit,tick,clearInput,snapshot,snapCamera,refreshHUD:updateHUD};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,interactionAnchor};
 })(typeof window==='undefined'?globalThis:window);
