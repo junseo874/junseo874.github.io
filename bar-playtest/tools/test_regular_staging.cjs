@@ -72,7 +72,7 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
     assert.equal(await p.locator('.actor').getAttribute('data-pose'),pose);
     const anchor=await p.evaluate(({actor,pose})=>{
       const el=document.querySelector('.actor-layer'),art=LUNA_DATA.assets[el.dataset.layer];
-      let native=440;
+      let native=art.static?art.alphaBBox[3]:440;
       if(actor==='bubi')native=476;
       else if(actor==='port'&&pose.includes('serious'))native=317;
       else if(actor==='port'&&pose.includes('event_surprise'))native=418;
