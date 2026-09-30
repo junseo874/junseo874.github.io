@@ -1,0 +1,9 @@
+title-bg.png <- /Users/lee/Desktop/project/Human-Bartender/HumanBartender/Assets/01.Sprites/BG/MainScreen.png
+title-frame.png <- /Users/lee/Desktop/project/Human-Bartender/HumanBartender/Assets/01.Sprites/BG/LogoBG.png
+title-logo.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/8. UI/2. 메인 타이틀 화면/IMG_logo.png
+title-button.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/8. UI/2. 메인 타이틀 화면/BTN_Disable.png
+title-button-active.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/8. UI/2. 메인 타이틀 화면/BTN_Enable.png
+title-deco.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/8. UI/2. 메인 타이틀 화면/IMG_Deco_button.png
+title-dots.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/8. UI/2. 메인 타이틀 화면/PTN_Dot.png
+lab.png <- /Users/lee/Desktop/project/9. 그래픽 리소스/3. 배경 (컷씬)/1. 연구소배경/(1학기 작업물)/LAB_BG_room.png
+cinematic/*.js <- /Users/lee/Desktop/project/Cutscene/web/js (scene1 only; current Notion dialogue is overlaid by campaign.js)

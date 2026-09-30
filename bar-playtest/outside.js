@@ -44,11 +44,12 @@ class OutsideModel{
   if(this.ride)return false;
   if(this.dialog){this.dialog=null;this.updateNear();this.revision++;return true;}
   this.updateNear();const t=this.near;if(!t)return false;
+  if(global.lunaCampaign?.interactOutside(this,t))return true;
   if(this.story.interact(t)){this.anim='idle';this.animTime=0;return true;}
   if(this.story.speech)this.story.cancel();
   if(t.id==='elevator'){
    const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
-   this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;this.story.radio();}
+   this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;if(!global.lunaCampaign?.quietLift(this))this.story.radio();}
   }else if(t.id==='home'||t.id==='exit')this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false};
   else if(t.id==='bar')this.dialog={title:'바 입구',text:this.config.flow==='in'?'출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.':'퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'};
   else if(t.id==='sofa')this.dialog={title:'소파',text:'저장과 취침을 연결할 자리입니다. 지금은 공간 탐색 모드라 일차와 바 영업의 저장 데이터는 바뀌지 않습니다.'};
@@ -83,7 +84,7 @@ function create({onExit=()=>{}}={}){
  function clearInput(){keys.clear();}
  function snapCamera(){cam={x:model.scene==='home'?clamp(model.x,.34,1.14):model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;}
  async function start(){if(active)return;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;clearInput();model=new OutsideModel(config);snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div></div>';document.body.append(host);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
- function exit(){generation++;active=false;loading=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;onExit();}
+ function exit(silent=false){generation++;active=false;loading=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
  function menu(){if(loading||loadError)return;clearInput();model.paused=!model.paused;hudSignature='';updateHUD();}
  function targetCamera(dt){
   if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7;
@@ -100,7 +101,7 @@ function create({onExit=()=>{}}={}){
  }
  function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
  function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.restore();}
- function renderNode(n){if((!n.active&&n.name!=='shiba')||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.name==='shiba'&&model.config.day<1)return;if(n.ambient&&!global.LunaOutsideAmbient.visible(model))return;
+ function renderNode(n){if(n.name==='Samho'&&global.lunaCampaign?.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,model.x<n.x);return;}if((!n.active&&n.name!=='shiba')||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.name==='shiba'&&model.config.day<1)return;if(n.ambient&&!global.LunaOutsideAmbient.visible(model))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;if(n.name==='shiba'&&data.animations.shiba){const a=data.animations.shiba;sp=a.frames[Math.floor(model.time*a.fps)%a.frames.length];}const facing=model.encounter?.kind==='direct'&&n.id==='ambient-'+model.encounter.target.actor?model.x<n.x:n.flip;drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);
@@ -161,7 +162,8 @@ function create({onExit=()=>{}}={}){
  window.addEventListener('keyup',e=>{keys.delete(e.code);});
  function loseFocus(){if(!active)return;clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
- return{get active(){return active;},get model(){return model;},get loading(){return loading;},get camera(){return{...cam};},config,lobbyHTML,start,exit,tick};
+ function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
+ return{get active(){return active;},get model(){return model;},get loading(){return loading;},get camera(){return{...cam};},config,lobbyHTML,start,exit,tick,clearInput,snapshot};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,interactionAnchor};
 })(typeof window==='undefined'?globalThis:window);

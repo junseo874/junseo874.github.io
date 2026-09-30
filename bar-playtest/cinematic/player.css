@@ -1,0 +1,77 @@
+/* Original cutscene speech styling, scoped to the playback overlay. */
+.campaign-cinema-ui{position:absolute;inset:0;overflow:hidden;pointer-events:none;line-height:1.5;--s:2.6666666667;--cy:#4fd6e0;--warm:#e0a03a;--red:#e0555f;--pix:'Galmuri11','NeoDunggeunmo','Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+.campaign-cinema-ui .bubble{position:absolute;left:0;top:0;display:none;max-width:62%;
+  padding:calc(var(--s)*4px) calc(var(--s)*6px) calc(var(--s)*5px);
+  background:rgba(12,20,26,.94);border:calc(var(--s)*1px) solid #dfeff5;
+  font-family:var(--pix);color:#f2fbff}
+.campaign-cinema-ui .bubble.on{display:block}
+.campaign-cinema-ui .bubble .who{color:var(--cy);font-size:calc(var(--s)*6px);margin-bottom:calc(var(--s)*2px);
+  letter-spacing:.03em;display:flex;align-items:center;gap:calc(var(--s)*3px);white-space:nowrap}
+.campaign-cinema-ui .bubble .who span{white-space:nowrap}
+.campaign-cinema-ui .bubble .rd{display:none;width:calc(var(--s)*3px);height:calc(var(--s)*3px);background:var(--red);
+  border-radius:50%;animation:cinema-blip 1s steps(2,end) infinite;flex:0 0 auto}
+@keyframes cinema-blip{50%{opacity:.2}}
+
+/* 타이핑해도 크기가 변하지 않는 구조:
+   ghost = 전체 대사(보이지 않지만 자리를 차지해 폭·높이를 확정)
+   vis   = 그 위에 겹쳐 그리는, 지금까지 타이핑된 부분 */
+.campaign-cinema-ui .bubble .txt{position:relative;font-size:calc(var(--s)*7px)}
+.campaign-cinema-ui .bubble .ghost,.campaign-cinema-ui .bubble .vis{white-space:pre-wrap;word-break:keep-all;display:block}
+.campaign-cinema-ui .bubble .ghost{visibility:hidden}
+.campaign-cinema-ui .bubble .vis{position:absolute;left:0;top:0;width:100%}
+.campaign-cinema-ui .bubble .vis span{white-space:inherit}
+/* [shake] 떨림 — 강도는 --sha(px) */
+.campaign-cinema-ui .bubble .vis .shk{display:inline-block;animation:cinema-tshk .09s steps(2,end) infinite}
+@keyframes cinema-tshk{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(calc(var(--sha,1px)*-1),calc(var(--sha,1px)*0.6))}
+  50%{transform:translate(var(--sha,1px),calc(var(--sha,1px)*-0.6))}
+  75%{transform:translate(0,var(--sha,1px))}
+}
+/* 고정폭 박스 — 노이즈 티커·모자이크 글자. 폴백 폰트 글리프가 커도 칸 안에 클리핑.
+   vertical-align:top — bottom이면 라인박스 디센더만큼 글자가 내려앉는다.
+   선택자를 .vis 한정으로 두면 ghost 쪽 박스에 폭이 안 먹으니 .campaign-cinema-ui .bubble 전역으로. */
+.campaign-cinema-ui .bubble .fixw{display:inline-block;overflow:hidden;white-space:nowrap;
+  text-align:center;vertical-align:top;height:1.3em}
+
+/* 노이즈 글자는 폴백 글리프가 박스보다 좁아 양옆이 떠 보인다 — 살짝만 좁힌다 */
+.campaign-cinema-ui .bubble .vis .nz.fixw{margin-left:calc(var(--s)*-0.6px);margin-right:calc(var(--s)*-0.6px)}
+
+/* [noise] 지지직 — RGB 갈라짐 + 깜빡임 (글자 자체는 JS가 계속 깨뜨린다) */
+.campaign-cinema-ui .bubble .vis .nz{color:#bfeef6;
+  text-shadow:calc(var(--s)*0.5px) 0 rgba(224,85,95,.85),calc(var(--s)*-0.5px) 0 rgba(79,214,224,.85);
+  animation:cinema-nzf .13s steps(2,end) infinite}
+@keyframes cinema-nzf{50%{opacity:.7}}
+/* [censor] 모자이크 — 둔한 블록이 미세하게 명멸 */
+.campaign-cinema-ui .bubble .vis .cz{color:#66757f;animation:cinema-czf .34s steps(2,end) infinite}
+@keyframes cinema-czf{50%{opacity:.55;color:#4d5a63}}
+
+.campaign-cinema-ui .bubble .tail{position:absolute;bottom:calc(var(--s)*-5px);width:0;height:0;
+  border-left:calc(var(--s)*4px) solid transparent;border-right:calc(var(--s)*4px) solid transparent;
+  border-top:calc(var(--s)*5px) solid #dfeff5}
+
+/* 안내 방송 — 천장 스피커에 붙는다. 무전(시안)과 구분되게 앰버 */
+.campaign-cinema-ui .bubble.pa{border-style:dashed;border-color:var(--warm);background:rgba(24,17,6,.94)}
+.campaign-cinema-ui .bubble.pa .tail{border-top-color:var(--warm)}
+.campaign-cinema-ui .bubble.pa .who{color:var(--warm)}
+.campaign-cinema-ui .bubble.pa .rd{display:block;background:var(--warm)}
+.campaign-cinema-ui .bubble.pa .vis{color:#f6e6c8;text-shadow:0 0 calc(var(--s)*2px) rgba(224,160,58,.5)}
+
+/* 앵커 아래쪽에 띄우는 변형 — 꼬리가 위를 가리킨다 */
+.campaign-cinema-ui .bubble.below .tail{bottom:auto;top:calc(var(--s)*-5px);
+  border-top:0;border-bottom:calc(var(--s)*5px) solid #dfeff5}
+.campaign-cinema-ui .bubble.below.pa .tail{border-bottom-color:var(--warm)}
+.campaign-cinema-ui .bubble.below.radio .tail{border-bottom-color:#6fd6e0}
+
+/* 무전 — 팀장이 무전기를 들고 있다는 전제. 점선 테두리 + 붉은 송수신 램프 */
+.campaign-cinema-ui .bubble.radio{border-style:dashed;border-color:#6fd6e0;background:rgba(6,16,22,.94)}
+.campaign-cinema-ui .bubble.radio .tail{border-top-color:#6fd6e0}
+.campaign-cinema-ui .bubble.radio .who{color:#6fd6e0}
+.campaign-cinema-ui .bubble.radio .rd{display:block}
+.campaign-cinema-ui .bubble.radio .vis{color:#dff1f7;text-shadow:0 0 calc(var(--s)*2px) rgba(79,214,224,.55)}
+.campaign-cinema-ui .bubble.glitch .vis{color:#ffe3e6;animation:cinema-gl .16s steps(2,end) infinite}
+@keyframes cinema-gl{
+  0%{text-shadow:calc(var(--s)*1px) 0 rgba(224,85,95,.9),calc(var(--s)*-1px) 0 rgba(79,214,224,.9);transform:translateX(0)}
+  50%{text-shadow:calc(var(--s)*-1px) 0 rgba(224,85,95,.9),calc(var(--s)*1px) 0 rgba(79,214,224,.9);transform:translateX(calc(var(--s)*.5px))}
+}
+

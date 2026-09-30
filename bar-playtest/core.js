@@ -251,6 +251,7 @@ class Game{
    const s=this.story.steps[this.story.index];if(!s){this.nextScene();return;}
    if(!condition(s.when,this.ctx())){this.log('step_skipped',{scene:this.story.scene.id,seq:s.seq,when:s.when});this.story.index++;continue;}
    this.log('step',{scene:this.story.scene.id,seq:s.seq,type:s.type});
+   if(this.campaignStep?.(s))return;
    if(s.type==='say'||s.type==='order'&&this.text(s)){
     this.dialogue=this.makeLine(s.actor,this.text(s),s.dialogue_id,s.arg);this.dialogue.step=s;return;
    }
