@@ -122,7 +122,7 @@ html,body{overflow:hidden;background:#03060b}
 .craft-start{background:linear-gradient(#ffea8e,#e6ca77);border:3px double #4a3b23;color:#271f10;min-width:145px;padding:13px 22px;font-size:20px;border-radius:2px}.craft-start:hover:not(:disabled){background:#fff1a9;border-color:#70562a}
 .shelf-navigation{position:absolute;left:50%;transform:translateX(-50%);text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;padding:3px 12px;background:#0a101acd;border-radius:6px}.craft-start{margin-left:auto}.shelf-dots{display:flex;gap:3px}.shelf-dots button{position:relative;border:0;background:transparent;padding:8px}.shelf-dots button span{display:block;width:10px;height:10px;border-radius:50%;background:#65727c}.shelf-dots button.selected span{background:#c8ffff;box-shadow:0 0 12px 3px #45d3e6}.shelf-dots i{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 .prep-inventory{position:absolute;left:0;right:0;bottom:0;height:121px;z-index:4;border-top:1px solid #39768e;padding:12px 20px;display:flex;gap:18px;align-items:center;background:repeating-linear-gradient(135deg,#ffffff02 0 1px,transparent 1px 12px),rgba(12,20,32,.8)}
-.prep-open .prep-inventory{padding-left:338px}.prep-open .inventory-label{display:none}
+.prep-open .prep-inventory{padding-left:20px}.prep-open .inventory-label{display:none}
 .inventory-label{font-size:11px;color:#9bb8c6;line-height:1.5;min-width:69px}.inventory-label small{display:block;margin-top:8px;color:#586f81}.inventory-scroll{display:flex;gap:8px;overflow-x:auto;padding:3px;flex:1;height:100%;align-items:center}
 .inventory-slot{height:86px;width:86px;aspect-ratio:1;flex-shrink:0;border:1px solid #5c7888;border-radius:2px;background:#0d1724aa;padding:8px;position:relative;display:flex;align-items:center;justify-content:center}
 .inventory-slot img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.inventory-slot .dummy-bottle{width:25px;height:53px;margin:8px 0 0}.inventory-slot .dummy-bottle:before{height:8px;left:5px;right:5px;border-top-width:2px}.inventory-slot .dummy-bottle:after{font-size:7px;padding:3px 0}.remove-mark{position:absolute;right:3px;top:3px;border:1px solid #819aa7;color:#aac2d0;width:16px;height:16px;display:grid;place-items:center;font-size:14px;line-height:1;background:#101721}.inventory-item-name{position:absolute;left:1px;right:1px;bottom:1px;background:#0b1523dc;text-align:center;font-size:9px;padding:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.empty-slot{border-style:dashed;background:transparent;font-size:32px;color:#7899aa}
@@ -232,3 +232,17 @@ html,body{overflow:hidden;background:#03060b}
 @keyframes unlock-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media(max-height:650px){.daily-unlocks{padding:15px 20px}.daily-unlocks header{padding-bottom:12px}.unlock-art{height:60px}.daily-unlocks h2{font-size:20px}.unlock-columns{margin-top:12px}.daily-unlocks footer{margin-top:12px;padding-top:12px}}
 @media(prefers-reduced-motion:reduce){.daily-unlocks{animation:none}}
+
+/* Preparation: an always-visible recipe note replaces the lower-left recipe toggle. */
+.corner-tools.prep-corner-tools{left:auto;right:18px;top:17px}
+.prep-screen .prep-recipe-brief{position:absolute;left:24px;top:18px;z-index:5;width:280px;max-width:calc(100% - 100px);padding:12px 15px;display:block;text-align:left;background:#0c1723f2;border:1px solid #5b919f;border-radius:8px;box-shadow:none;color:#d9e7e9;line-height:1.4}
+.prep-screen .prep-recipe-brief:hover{background:#122634;border-color:#94dce1;box-shadow:none}
+.prep-brief-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.prep-brief-heading strong{font-size:19px;color:#a2ebea;overflow-wrap:anywhere;font-weight:400}.prep-brief-heading>span{font:22px/1 Arial,sans-serif;color:#99bec9}
+.prep-brief-ingredients{display:flex;flex-direction:column;gap:4px}.prep-brief-row{display:block;font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+.prep-controls .prep-back{height:38px;padding:0 15px;font-size:14px}
+/* Keep the optional GPT helper clear of the shared recipe note. */
+.gpt-version .remix-prep-check{left:auto;right:38px;top:162px;max-width:360px}
+
+/* Keep the preparation detail above the bottom controls and selected-item tray.
+   Recipe-list hover previews retain their separate full-height layout. */
+.prep-screen > #prep-recipe-detail{top:18px;bottom:199px}

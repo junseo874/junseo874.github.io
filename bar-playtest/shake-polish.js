@@ -2,6 +2,7 @@
 'use strict';
 window.LunaShakePolish=function({g,D,ui}){
  let audio=null,active=null,selection=null;const voices=new Map(),buffers=new Map(),seen=new WeakMap(),loading=new Map();
+ const beats=new WeakMap();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  // Fetch both tiny WAVs in advance; decoding/resume happens only after user input.
  const bytes=new Map([1,2].map(id=>[id,fetch(new URL('audio/shaker_0'+id+'_hit.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error('Shaker audio '+r.status);return r.arrayBuffer();}).catch(()=>null)]));
@@ -29,6 +30,17 @@ window.LunaShakePolish=function({g,D,ui}){
   current.source.onended=()=>{current.source.disconnect();current.gain.disconnect();if(voices.get(channel)===current)voices.delete(channel);};
   current.source.start();
  }
+ // Base 100 BPM; heat changes the shared note/beat clock to 125 / 150 BPM.
+ function tempo(s){
+  if(!s.rhythm||!s.started||s.completed||g.isPaused()||ui.gimmickAudio===false||!audio||audio.state!=='running'){stop('tempo');return;}
+  const rate=window.LunaShakeRhythm.noteSpeed(s.rhythm.tier),track=s.rhythm.trackTime,beat=Math.floor((track+.10*rate)/.6),at=beat*.6,previous=beats.get(s);
+  if(previous?.index===beat&&previous.rate===rate)return;
+  if(previous&&previous.rate!==rate)stop('tempo');
+  beats.set(s,{index:beat,rate});if(previous?.index===beat&&at<=track||(track-at)/rate>.04)return;
+  stop('tempo');const source=audio.createOscillator(),gain=audio.createGain(),when=audio.currentTime+Math.max(0,(at-track)/rate),v={source,gain};
+  source.type='sine';source.frequency.value=beat%4===0?980:740;gain.gain.setValueAtTime(0,when);gain.gain.linearRampToValueAtTime(.035,when+.003);gain.gain.exponentialRampToValueAtTime(.0001,when+.045);
+  source.connect(gain);gain.connect(window.LunaSfx.output(audio));voices.set('tempo',v);source.start(when);source.stop(when+.05);source.onended=()=>{source.disconnect();gain.disconnect();if(voices.get('tempo')===v)voices.delete('tempo');};
+ }
  const at=(x,y)=>[55+x*118,42+y*118];
  function point(s,lag=0){
   const m=window.LunaCore.MIX,time=Math.max(0,s.elapsed-m.delay-lag),i=Math.floor(time),t=time-i,a=m.points[m.route[i%6]],b=m.points[m.route[(i+1)%6]];
@@ -54,8 +66,9 @@ window.LunaShakePolish=function({g,D,ui}){
   screen.dataset.shakeAudioReady=String(buffers.has(selected));
   const status=screen.querySelector('[data-shake-audio-status]');
   if(status)status.textContent=ui.gimmickAudio===false?(g.lang==='ko'?'음소거':'Muted'):audio&&!buffers.has(selected)?(g.lang==='ko'?'음원 준비 중 / 로드 실패 시 새로고침':'Loading / reload if unavailable'):'';
+  tempo(s);
   const effects=s.shakeEffects||[],last=effects.at(-1);
-  let streak=0;for(let i=s.outcomes.length-1;i>=0&&s.outcomes[i];i--)streak++;const heat=Math.min(1,streak/6),finale=!!(s.completed&&last?.ok);
+  let streak=0;for(let i=s.outcomes.length-1;i>=0&&s.outcomes[i];i--)streak++;if(s.rhythm)streak=s.rhythm.combo;const heat=Math.min(1,streak/6),finale=!!(s.completed&&last?.ok);
   screen.dataset.shakeStreak=streak;screen.dataset.shakeFinale=String(finale);screen.style.setProperty('--shake-heat',heat.toFixed(3));
   if(g.isPaused()||ui.gimmickAudio===false)stop();
   if(!g.isPaused()){

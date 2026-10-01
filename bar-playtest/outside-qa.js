@@ -60,7 +60,7 @@ function draw({m,ctx,position,sprite,data,player}){const q=m.qa,c=catalog().find
  player();
  if(c.id.startsWith('lift-'))data.scenes.street.nodes.filter(n=>n.name==='Elevator Fore'||n.name==='Elevator Door').forEach(n=>sprite(n.sprite,n.x,n.y+m.elevatorY-r.elevatorBottom,n.sx,n.sy));
  if(c.id==='lift-logo'&&m.ride&&m.ride.time>3&&m.ride.time<10){ctx.save();ctx.globalAlpha=Math.min(1,(m.ride.time-3)/1.5,(10-m.ride.time)/1.5);if(!liftLogo){liftLogo=new Image();liftLogo.src='assets/campaign/title-logo.png';}if(liftLogo.complete&&liftLogo.naturalWidth){const width=340,height=width*liftLogo.naturalHeight/liftLogo.naturalWidth;ctx.drawImage(liftLogo,640-width/2,210-height/2,width,height);}ctx.restore();}
- ctx.fillStyle='#8cb4c3';ctx.font='15px sans-serif';ctx.textAlign='left';ctx.fillText('QA 99 / 가상 스테이지',24,32);ctx.fillStyle='#c5e6e6';ctx.fillText(c.label,24,56);ctx.fillStyle='#7993a3';ctx.font='12px sans-serif';ctx.fillText((isAuto(m)?'범위 접근 자동 재생':'접근 후 E')+' · Esc 설정 · 우측 아래 QA에서 대상 변경',24,77);
+ ctx.fillStyle='#8cb4c3';ctx.font='15px sans-serif';ctx.textAlign='left';ctx.fillText('QA 99 / 가상 스테이지',24,100);ctx.fillStyle='#c5e6e6';ctx.fillText(c.label,24,124);ctx.fillStyle='#7993a3';ctx.font='12px sans-serif';ctx.fillText((isAuto(m)?'범위 접근 자동 재생':'접근 후 E')+' · Esc 설정 · Tab으로 QA 대상 변경',24,145);
 }
 W.LunaOutsideQA={catalog,init,targets,target,tick,interact,anchor,draw};
 })(typeof window==='undefined'?globalThis:window);

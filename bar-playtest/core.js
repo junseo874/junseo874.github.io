@@ -16,7 +16,7 @@ const OPEN={
  visual(s,dt){if(s.type==='open'&&s.openFx)s.openFx.age=Math.min(OPEN.minigameHoldSec,s.openFx.age+dt);}
 };
 const MIX={
- shakeTargetStacks:15, // Web playtest tuning; source CSV and stir counts remain unchanged.
+ shakeTargetStacks:20, // Web playtest tuning; source CSV and stir counts remain unchanged.
  points:[[0,0],[2.61,1.206875],[0,2.56],[2.61,3.766875]],route:[0,1,2,3,2,1],
  patterns:[[[0,.37],[2,.47]],[[0,.28],[0,.38],[1,.38],[2,.49],[2,.56]],[[0,.39],[0,.57],[1,.32],[1,.48],[2,.55],[2,.82]],[[0,.28],[1,.32],[2,.55]]],
  radius:.25,delay:.1,frameSeconds:.125,stirFrameSeconds:1/12,shakeClips:[[1,2,3,0],[5,6,7,4]],
@@ -48,6 +48,7 @@ const MIX={
   if(s.hitEffect){s.hitEffect.age+=dt;if(s.hitEffect.age>=.5)s.hitEffect=null;}
   if(s.type==='shake'){
    s.shakeEffects=s.shakeEffects.filter(e=>(e.age+=dt)<.55);
+   if(s.rhythm){root.LunaShakeRhythm.visual(s,dt);return;}
    if(s.motionAge!==null){s.motionAge+=dt;s.motionFrame=this.shakeClips[s.motionClip][Math.min(3,Math.floor(s.motionAge/this.frameSeconds))];}
    return;
   }
@@ -397,7 +398,7 @@ class Game{
   this.changed();return true;
  }
  finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;else g.failures++;g.attemptStartPos=g.stirPos;g.stirStep=0;g.circleTime=0;g.feedbackLeft=.35;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
- endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;if(g.fluid&&!g.fluid.ready){g.fluid.requestFinish(g);this.changed();return true;}if(g.fluid?.ready){if(!g.pourFinishFx){const errorMl=g.fluid.caughtMl-g.fluid.targetMl;g.pourFinishFx={errorMl,perfect:Math.abs(errorMl)<=5+1e-8,age:0};}if(g.pourFinishFx.age<.8)return true;}let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/g.targetStacks,endType:g.completed?'AutoTarget':'ManualNext'};if(['pour','fill_up'].includes(g.type)){result.completed=true;if(g.fluid)result.liquid={...g.fluid.audit()};}
+ endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;if(g.fluid&&!g.fluid.ready){g.fluid.requestFinish(g);this.changed();return true;}if(g.fluid?.ready){if(!g.pourFinishFx){const errorMl=g.fluid.caughtMl-g.fluid.targetMl;g.pourFinishFx={errorMl,perfect:Math.abs(errorMl)<=5+1e-8,age:0};}if(g.pourFinishFx.age<.8)return true;}let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/(g.targetStacks+(g.rhythm?.extraPresses||0)),endType:g.completed?'AutoTarget':'ManualNext'};if(g.rhythm)result.rhythm={mode:g.rhythm.mode,bestCombo:g.rhythm.best,extraPresses:g.rhythm.extraPresses};if(['pour','fill_up'].includes(g.type)){result.completed=true;if(g.fluid)result.liquid={...g.fluid.audit()};}
   this.craft.results.push(result);this.craft.index++;this.safe(()=>this.nextGimmick());this.changed();}
  retryDataError(){if(!this.craft)return;this.error=null;this.craft.id='craft_attempt_'+(++this.serial);this.craft.index=0;this.craft.results=[];this.craft.elapsed=0;this.screen='gimmick';this.safe(()=>{this.craft.queue=buildQueue(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual);this.nextGimmick();});this.changed();}
  cancelCraft(){this.error=null;this.gimmick=null;this.craft=null;this.result=null;this.prep=null;this.screen='recipe';this.changed();}

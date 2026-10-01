@@ -227,7 +227,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const tags=g.t.cocktail_tags.filter(t=>t.context===c.id);
     const needsOpener=recipe.some(r=>g.t.shelf_items.find(i=>i.id===r.ingredient)?.prep_action==='open');
     const icons=[c.glass,...(c.mix==='shake'?['shaker']:c.mix==='stir'?['mixing_glass']:[]),...(needsOpener?['opener']:[]),...recipe.map(r=>r.ingredient)];
-    return `<aside class="prep-recipe${preview?' recipe-preview '+(remixPreview?'remix-recipe-detail':'recipe-peek'):''}" aria-label="${preview?L('칵테일 레시피 미리보기','Cocktail recipe preview'):L('선택한 칵테일 레시피','Selected cocktail recipe')}">
+    return `<aside ${preview?'':'id="prep-recipe-detail"'} class="prep-recipe${preview?' recipe-preview '+(remixPreview?'remix-recipe-detail':'recipe-peek'):''}" aria-label="${preview?L('칵테일 레시피 미리보기','Cocktail recipe preview'):L('선택한 칵테일 레시피','Selected cocktail recipe')}">
       <div class="prep-recipe-heading"><small>${esc(c['name.en'])}</small>${preview?'':button('×','togglePrepRecipe','aria-label="'+L('레시피 접기','Close recipe')+'"')}<h2>${esc(g.name(c.id))}</h2></div>
       <div class="prep-recipe-scroll"><div class="recipe-tags"><span>${esc(c.mix.toUpperCase())}</span>${tags.map(t=>`<span>${esc(t[g.lang]||t.ko)}</span>`).join('')}</div>
       <div class="recipe-hero">${drinkArt(c.id,'recipe')}</div><div class="recipe-icon-grid">${icons.map((id,index)=>`<div class="recipe-icon-slot" tabindex="0" aria-label="${esc(itemName(id))}" aria-describedby="recipe-item-tip-${c.id}-${index}">${itemArt(id,'','recipe')}<div id="recipe-item-tip-${c.id}-${index}" role="tooltip" class="ingredient-tip recipe-item-tip"><strong>${esc(itemName(id))}</strong></div></div>`).join('')}</div>
@@ -282,6 +282,11 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       return {item,w,h,x,y};
     });return {all,pages,positioned};
   }
+  function prepRecipeBrief(c){
+    const rows=g.t.recipes.filter(r=>r.context===c.id&&!r.auto_apply);
+    const ingredients=rows.map(r=>'<span class="prep-brief-row">'+esc(itemName(r.ingredient))+'</span>').join('');
+    return button('<span class="prep-brief-heading"><strong>'+esc(g.name(c.id))+'</strong><span aria-hidden="true">›</span></span><span class="prep-brief-ingredients">'+ingredients+'</span>','togglePrepRecipe','aria-expanded="'+!!ui.recipeOpen+'" aria-controls="prep-recipe-detail" title="'+L('클릭하여 상세 레시피 보기','Click to view the full recipe')+'"','recipe-toggle prep-recipe-brief');
+  }
   function prepHTML(){
     const p=g.prep,c=g.cocktail(p.selected),{pages,positioned}=layout();
     const selected=[p.glass,p.tool,p.opener?'opener':null,...p.ingredients].filter(Boolean);
@@ -289,7 +294,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const tooltip=hovered?(()=>{const {item,x,y,h}=hovered;const below=y-h<120;
       return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ${below?'below':''}" style="left:${Math.max(175,Math.min(785,x))/960*100}%;${below?'top':'bottom'}:${(below?y+18:540-y+h+18)/540*100}%"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item,'desc')||L('소개 문구 준비 중','Description pending'))}</span>${!a('item_'+item.id)?`<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용','Shared team placeholder artwork')}</small>`:''}</div>`;
     })():'';
-    return `<div class="craft-screen prep-screen ${ui.recipeOpen?'prep-open':''}">
+    return `<div class="craft-screen prep-screen ${ui.recipeOpen?'prep-open':''}">${prepRecipeBrief(c)}
       <div class="prep-main"><div class="shelf-viewport"><div class="shelf-track" style="transform:translateX(${-categories.indexOf(ui.tab)*100}%)">
       ${categories.map(tab=>{const {positioned:placed}=layout(tab);return `<div class="shelf-slide" data-current="${tab===ui.tab}" ${tab===ui.tab?'':'inert'}><div class="shelf-fit"><div class="shelf-scene" style="background-image:url('${a('prep_'+tab)}')" data-category="${tab}">
         ${placed.map(({item:i,x,y,w,h})=>{
@@ -305,7 +310,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       <button class="shelf-arrow prev" data-act="shelfCategory" data-id="-1" aria-label="${L('이전 선반','Previous shelf')}" ${ui.tab==='glass'?'disabled':''}><span aria-hidden="true">‹</span><small aria-hidden="true">A</small></button>
       <button class="shelf-arrow next" data-act="shelfCategory" data-id="1" aria-label="${L('다음 선반','Next shelf')}" ${ui.tab==='fridge'?'disabled':''}><span aria-hidden="true">›</span><small aria-hidden="true">D</small></button>
       ${pages>1?`<div class="shelf-pagination">${button('‹','shelfPage','data-id="-1" '+(!ui.shelfPage?'disabled':''))}<span>${ui.shelfPage+1} / ${pages}</span>${button('›','shelfPage','data-id="1" '+(ui.shelfPage===pages-1?'disabled':''))}</div>`:''}
-      </div><div class="prep-controls">${button('▤ '+L('레시피','Recipe'),'togglePrepRecipe',`aria-expanded="${!!ui.recipeOpen}"`,'recipe-toggle')}
+      </div><div class="prep-controls">${button('← '+L('뒤로','Back'),'prepBack','title="'+L('뒤로 가면 선택이 모두 초기화됩니다.','Back clears every selection.')+'"','prep-back')}
         <div class="shelf-navigation"><div class="shelf-dots">${categories.map(id=>button(`<span></span><i>${categoryName(id)}</i>`,'tab',`data-id="${id}" aria-label="${categoryName(id)}" aria-pressed="${ui.tab===id}"`,ui.tab===id?'selected':'')).join('')}</div></div>
         ${button(L('제조 시작','Start crafting'),'craft',!p.glass||!p.ingredients.length?'disabled':'','craft-start')}</div>
       <div class="prep-inventory"><div class="inventory-scroll">${selected.map(id=>button(`${itemArt(id,'','inventory')}<span class="remove-mark">×</span><span class="inventory-item-name">${esc(itemName(id))}</span>`,id==='opener'?'pickOpener':'pick',`data-id="${id}" aria-label="${esc(itemName(id))} ${L('선택 해제','remove')}"`,'inventory-slot')).join('')}<div class="inventory-slot empty-slot" aria-hidden="true">＋</div></div></div>
@@ -383,6 +388,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     ring?.classList.toggle('danger',s.started&&progress<.34);
   }
   function shakeBoard(s){
+    if(s.rhythm)return window.LunaShakeRhythm.board(s,L);
     const mix=window.LunaCore.MIX,at=(x,y)=>[55+x*118,42+y*118],points=mix.points.map(([x,y])=>at(x,y)),marker=at(...s.pathPoint);
     const candidates=[...s.nodes,...mix.points.map(([x,y],i)=>({x,y,id:'fixed:'+i,fixed:true}))],radius=mix.radius*118;
     const nodes=candidates.map(n=>{const p=at(n.x,n.y);return '<g data-shake-node="'+n.id+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+radius+'" class="shake-judge-range"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(n.fixed?10:8)+'" class="'+(n.fixed?'shake-turn':'shake-waypoint')+'"/></g>';}).join('');
@@ -398,7 +404,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       ${!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
       ${stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
-      ${button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold?'disabled':'','primary gimmick-finish')}</div>`;
+      ${s.rhythm?'':button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold||s.rhythm&&!s.completed?'disabled':'','primary gimmick-finish')}</div>`;
   }
   return {recipePanel,actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor,seatIndicator};
 };
