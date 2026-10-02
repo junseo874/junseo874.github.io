@@ -20,8 +20,8 @@ function tick(m,dt){let e=m.encounter;if(e?.kind!==id){if(!m.qa&&visible(m)&&!m.
  return true;
 }
 function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.encounter:null;if(isQA(m)&&m.qa.done&&!e)return;const x=e?.npcX??(isQA(m)?.25:npcX),source=W.LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='Samho'),phase=m.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;
- // Samho's source faces right (unlike the gray extras). Preserve that distinction.
- sprite({...source.sprite,x:frame*84},x,m.y+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,e?.stage==='depart'?e.direction<0:m.x<x,e?.alpha??1);
+ // Source faces left: use the shared target-facing rule, including departure.
+ sprite({...source.sprite,x:frame*84},x,m.y+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),e?.alpha??1);
 }
 W.LunaOutsideSamhoCommute={id,qaId,visible,start,tick,action,draw};
 })(window);
