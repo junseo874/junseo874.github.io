@@ -159,7 +159,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     if(family!==state.loopPose){state.loopPose=family;state.poseAt=g.realTime;}
     state.pose=pose.pose;
     if(guest.state==='EXITING'&&state.exitAt===null)state.exitAt=g.realTime;
-    const entering=Math.min(1,(g.realTime-state.start)/.65);
+    const entering=guest.seated?1:Math.min(1,(g.realTime-state.start)/.65);
     // General farewell dialogue remains visible, then the guest leaves.
     const exiting=state.exitAt===null?0:Math.min(1,Math.max(0,(g.realTime-state.exitAt-(g.phase==='general'?2.5:0))/.45));
     const opacity=Math.min(entering,1-exiting),offset=(1-entering)*25+exiting*25;
@@ -196,7 +196,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
           const shifts=headY[family.toLowerCase()]||headY[guest.actor+'_'+family.toLowerCase()];
           if(shifts)partY=(shifts[bodyFrame]||0)-(shifts[frame]||0);
         }
-        const fw=s.frameWidth||s.w/frames,fh=s.frameHeight||s.h;
+        const scale=s.displayScale||1,fw=(s.frameWidth||s.w/frames)*scale,fh=(s.frameHeight||s.h)*scale;
         // Keep source pixels and a stable pose-level anchor, never recrop per frame.
         return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw/551*100}%;height:${fh/530*100}%;left:${50+dx/551*100}%;bottom:${-(dy+partY)/530*100}%;background-image:url('${s.src}');background-size:${frames*100}% 100%;background-position:${frames>1?frame/(frames-1)*100:0}% 0"></div>`;
       }).join(''):'<div class="dummy-actor"></div>'}
@@ -284,7 +284,13 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function prepRecipeBrief(c){
     const rows=g.t.recipes.filter(r=>r.context===c.id&&!r.auto_apply);
-    const ingredients=rows.map(r=>'<span class="prep-brief-row">'+esc(itemName(r.ingredient))+'</span>').join('');
+    const p=g.prep;
+    const needed=[{id:c.glass,kind:L('잔','Glass'),checked:p.glass===c.glass}];
+    const tool=c.mix==='shake'?'shaker':c.mix==='stir'?'mixing_glass':null;
+    if(tool)needed.push({id:tool,kind:L('도구','Tool'),checked:p.tool===tool});
+    if(rows.some(r=>r.ingredient==='beer'||g.t.shelf_items.find(i=>i.id===r.ingredient)?.prep_action==='open'))needed.push({id:'opener',kind:L('도구','Tool'),checked:!!p.opener});
+    for(const id of new Set(rows.map(r=>r.ingredient)))needed.push({id,kind:L('재료','Ingredient'),checked:p.ingredients.includes(id)});
+    const ingredients=needed.map(({id,kind,checked})=>'<span class="prep-brief-row'+(checked?' is-packed':'')+'" data-required-item="'+esc(id)+'" data-packed="'+checked+'"><span class="prep-brief-check" aria-hidden="true">'+(checked?'✓':'')+'</span><span class="prep-brief-kind">'+kind+'</span><span class="prep-brief-name">'+esc(itemName(id))+'</span><span class="prep-brief-status">'+(checked?L('담음','Selected'):L('미선택','Not selected'))+'</span></span>').join('');
     return button('<span class="prep-brief-heading"><strong>'+esc(g.name(c.id))+'</strong><span aria-hidden="true">›</span></span><span class="prep-brief-ingredients">'+ingredients+'</span>','togglePrepRecipe','aria-expanded="'+!!ui.recipeOpen+'" aria-controls="prep-recipe-detail" title="'+L('클릭하여 상세 레시피 보기','Click to view the full recipe')+'"','recipe-toggle prep-recipe-brief');
   }
   function prepHTML(){

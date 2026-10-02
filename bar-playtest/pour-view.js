@@ -11,7 +11,7 @@ function receiverTransform(c){c.translate(600,190);c.scale(RECEIVER_SCALE,RECEIV
 function streamWidth(p){
  const speed=Math.hypot(p.vx,p.vy),falling=Math.max(0,Math.min(1,(speed-45)/85));
  const width=Math.sqrt(Math.max(.025,Math.min(1,p.emissionFlow??1)));
- return 1+(width-1)*falling;
+ return (1+(width-1)*falling)*(1+((p.emissionWidth||1)-1)*falling);
 }
 function makeGPU(canvas){
  const gl=canvas.getContext('webgl',{alpha:true,antialias:false,premultipliedAlpha:false,depth:false,stencil:false,preserveDrawingBuffer:false});
@@ -117,17 +117,33 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  // Camera is presentation-only: physical emission, collisions and ml scoring stay unchanged.
  function cameraFor(s){
   if(mode()!=='bottle')return {scale:1,x:0,y:0};
-  const t=clamp(s.angle/95,0,1),k=t*t*(3-2*t),scale=1.55+.35*k,at=root.LunaPour.nozzle(s.angle);
+  const t=clamp(s.angle/95,0,1),k=t*t*(3-2*t),scale=1.55+.35*k,at=root.LunaPour.nozzle(s.angle,s.fluid.tool);
   // Follow the actual pourer outlet every frame, including return-to-upright.
   // Use the same centered camera for the bottle and both liquid renderers.
   return {scale,x:500-at.x*scale,y:270-at.y*scale};
+ }
+ function controlsHTML(s){
+  const f=s.fluid,locked=f.finishRequested||s.held||s.angle>.05;
+  const arrow='<svg viewBox="0 0 24 36" aria-hidden="true"><path d="m7 7 11 11L7 29"/></svg>';
+  const pourer='<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M44 100h32l-4-30H48z" fill="#111e2b" stroke="#6996a6" stroke-width="2"/><path d="M42 73h36v9H42z" fill="#5b7889"/><path d="M58 72 65 43 59 20" fill="none" stroke="#354c5d" stroke-width="15" stroke-linecap="round"/><path d="M58 72 65 43 59 20" fill="none" stroke="#c1e6ed" stroke-width="8" stroke-linecap="round"/><path d="m58 68 5-26-5-20" fill="none" stroke="#f0ffff" stroke-width="2"/><path d="M72 73V56" stroke="#abcdd6" stroke-width="4"/><ellipse cx="59" cy="20" rx="6" ry="3" fill="#091724" stroke="#82cbd5"/></svg>';
+  return '<aside class="pour-tool-drawer '+(s.pourToolsOpen?'is-open':'')+'" data-pour-ui><div id="pour-tools-panel" class="pour-tools-panel" '+(s.pourToolsOpen?'':'inert')+' aria-hidden="'+!s.pourToolsOpen+'"><header><small>POURING TOOL</small><h2>'+L('도구 선택','Pouring tool')+'</h2></header><div class="pour-tool-options">'+[['none',L('없음','None'),L('넓은 입구 · 빠르게','Wide mouth · faster'),'<span class="pour-empty-preview" aria-hidden="true"></span>'],['pourer',L('푸어러','Pourer'),L('가는 물줄기 · 정밀하게','Fine stream · precise'),pourer]].map(([id,name,hint,art])=>button('<span class="pour-tool-preview">'+art+'</span><strong>'+name+'</strong><small>'+hint+'</small>','pourTool','data-id="'+id+'" aria-pressed="'+(f.tool===id)+'" '+(locked?'disabled':''),'pour-tool-card')).join('')+'</div><p class="pour-tool-status" aria-live="polite">'+(f.finishRequested?L('따르기를 마무리하고 있어요.','Finishing the pour.'):locked?L('병이 바로 서면 교체할 수 있어요.','Wait until the bottle is upright.'):L('담긴 양은 유지됩니다.','The poured amount is kept.'))+'</p></div>'+button(arrow,'pourToolsToggle','aria-label="'+(s.pourToolsOpen?L('도구 선택 닫기','Close tools'):L('도구 선택 열기','Open tools'))+'" aria-expanded="'+!!s.pourToolsOpen+'" aria-controls="pour-tools-panel"','pour-tools-toggle')+'</aside>'+
+   '<div class="pour-test-controls" data-pour-ui><section class="pour-test-panel" id="pour-test-panel" '+(s.pourTestsOpen?'':'hidden')+' aria-label="'+L('따르기 테스트 설정','Pour test settings')+'"><h2>'+L('테스트 설정','Test settings')+'</h2><h3>'+L('효과음','Sound')+'</h3><div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div><h3>'+L('화면 시점','Camera view')+'</h3><div class="pour-presentation-picker" role="group" aria-label="'+L('따르기 화면 버전','Pour presentation')+'">'+[['classic','기존','Original'],['clean','가이드 없음','No guides'],['bottle','병 집중','Bottle focus']].map(([id,ko,en])=>button(L(ko,en),'pourPresentation','data-id="'+id+'" aria-pressed="'+(mode()===id)+'"','pour-presentation-option')).join('')+'</div></section>'+button(L('테스트 변경','Test settings'),'pourTestsToggle','aria-expanded="'+!!s.pourTestsOpen+'" aria-controls="pour-test-panel"','pour-tests-toggle')+'</div>';
+ }
+ function act(name,id){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid)return false;
+  if(name==='pourToolsToggle'||name==='pourTestsToggle'){g.holdPour(false);const key=name==='pourToolsToggle'?'pourToolsOpen':'pourTestsOpen',other=name==='pourToolsToggle'?'pourTestsOpen':'pourToolsOpen';s[key]=!s[key];s[other]=false;return true;}
+  if(name==='pourTool'){if(g.setPourTool(id)){s.pourToolsOpen=false;document.querySelector('.pour-tools-toggle')?.focus({preventScroll:true});}return true;}return false;
+ }
+ function key(e){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid||g.isPaused())return false;
+  // Space always pours, even when a tool/settings button retains keyboard focus.
+  if(e.code==='Space'){e.preventDefault();if(!e.repeat)g.holdPour(true);return true;}
+  if(e.code==='Escape'&&(s.pourToolsOpen||s.pourTestsOpen)){e.preventDefault();const tool=s.pourToolsOpen;s.pourToolsOpen=false;s.pourTestsOpen=false;document.querySelector(tool?'.pour-tools-toggle':'.pour-tests-toggle')?.focus({preventScroll:true});return true;}
+  return false;
  }
  function html(s){
   const f=s.fluid;
   return '<div class="craft-screen fluid-screen" data-pour-presentation="'+mode()+'">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
-   '<div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div>'+
-   '<div class="pour-presentation-picker" role="group" aria-label="'+L('따르기 화면 버전','Pour presentation')+'">'+[['classic','기존','Original'],['clean','가이드 없음','No guides'],['bottle','병 집중','Bottle focus']].map(([id,ko,en])=>button(L(ko,en),'pourPresentation','data-id="'+id+'" aria-pressed="'+(mode()===id)+'"','pour-presentation-option')).join('')+'</div>'+
+   controlsHTML(s)+
    '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+(mode()==='bottle'?L('확대한 병과 화면 아래로 흐르는 액체','Enlarged bottle pouring liquid out of view'):L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass'))+'"></canvas></div>'+
    '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
    '<button class="primary hold-button pour-hold" data-hold="pour" '+(f.finishRequested?'disabled':'')+'><kbd>Space</kbd> '+L('누르고 있기','Hold to pour')+'</button>'+
@@ -166,6 +182,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   else{c.fillStyle='#709fa9';c.fillRect(-20,34,40,height);}
   // Pourer tip is local (0,0): the physical emitter and visible outlet share the same pivot.
   const neck=Math.max(16,Math.min(30,width*.4));
+  if(f.tool==='pourer'){
   c.fillStyle='#101a20';c.fillRect(-neck/2,29,neck,15);
   c.fillStyle='#384952';c.fillRect(-neck/2-2,29,neck+4,5);
   c.lineCap='round';c.lineJoin='round';
@@ -173,6 +190,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   c.strokeStyle='#b8d0d6';c.lineWidth=6;c.stroke();c.strokeStyle='#f3ffff';c.lineWidth=1.5;c.stroke();
   c.beginPath();c.moveTo(8,30);c.lineTo(9,22);c.strokeStyle='#98aeb7';c.lineWidth=2;c.stroke();
   c.fillStyle='#172c35';c.beginPath();c.ellipse(0,0,3.5,1.5,0,0,Math.PI*2);c.fill();
+  }else{c.fillStyle='#0b1723';c.strokeStyle='#afcfd4';c.lineWidth=2;c.beginPath();c.ellipse(0,34,neck/2,3.5,0,0,Math.PI*2);c.fill();c.stroke();}
   c.restore();c.imageSmoothingEnabled=true;
   if(mode()==='bottle')return;
   receiverTransform(c);
@@ -229,8 +247,10 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
   const {rgb,alpha}=liquidAppearance(s.ingredient);
   stage.dataset.carbonation=String(g.variant==='gpt'&&mode()!=='bottle'&&['soda_water','tonic_water','beer','champagne','cola'].includes(s.ingredient)&&f.caughtMl>.5);stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
-  const camera=cameraFor(s),rawPoints=f.renderParticles(s,{freeFall:mode()==='bottle'}),points=mode()==='bottle'?rawPoints:rawPoints.map(p=>({...p,...receiverPoint(p),receiverScale:RECEIVER_SCALE}));
-  stage.dataset.receiverBounds=JSON.stringify(receiverBounds(f.glass));
+  const camera=cameraFor(s),rawPoints=f.renderParticles(s,{freeFall:mode()==='bottle'}),tip=root.LunaPour.nozzle(s.angle,f.tool),mappedTip=receiverPoint(tip);
+  // Keep the stream attached to the visible mouth, then blend toward the smaller receiver at its rim.
+  const points=mode()==='bottle'?rawPoints:rawPoints.map(p=>{const q=receiverPoint(p),blend=p.wet?0:1-clamp((p.y-tip.y)/Math.max(1,f.glass.top-tip.y),0,1);return {...p,x:q.x+(tip.x-mappedTip.x)*blend,y:q.y+(tip.y-mappedTip.y)*blend,receiverScale:RECEIVER_SCALE};});
+  stage.dataset.pourTool=f.tool;stage.dataset.flowRate=String(f.rate);stage.dataset.nozzle=JSON.stringify(root.LunaPour.nozzle(s.angle,f.tool));stage.dataset.receiverBounds=JSON.stringify(receiverBounds(f.glass));
   stage.dataset.streamSamples=points.filter(p=>p.visualOnly).length;
   stage.dataset.presentation=mode();stage.dataset.guides=String(mode()==='classic');stage.dataset.receiver=String(mode()!=='bottle');stage.dataset.visibleParticles=points.length;stage.dataset.camera=JSON.stringify(camera);
   drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points,camera);drawFallback(f,rgb,alpha,points,camera);drawFront(s,camera);
@@ -240,6 +260,6 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   stage.dataset.renderer=fallback?'canvas2d':'webgl';stage.dataset.particles=f.particles.length;
  }
  const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
- return{html,sync,unlockAudio};
+ return{html,sync,unlockAudio,act,key};
 };
 })(window);

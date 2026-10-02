@@ -1,12 +1,13 @@
 const fs=require('fs'),path=require('path');const root=path.resolve(__dirname,'..');const put=(name,text)=>fs.writeFileSync(path.join(root,name),text);
 const source=JSON.parse(fs.readFileSync(root+'/tools/campaign-notion-source.json','utf8'));
-const actors={'루나':'luna','크리스':'chris','톰':'tom','아일리':'aili','포트':'port','삼호':'samho','조니':'johnny','과거의 톰':'tom','기억 속 루나':'luna','연구원':'researcher','주거층 주민':'resident','의뢰 연락 메시지':'message','삼호가 보내는 메시지':'samho','보안부 3팀 팀장':'captain','진입조｜무전':'radio','보안부 대원 A':'soldier','경계조 A｜무전':'radio'};
+const actors={'개시바':'shiba','시바견':'shiba','루나':'luna','크리스':'chris','톰':'tom','아일리':'aili','포트':'port','삼호':'samho','조니':'johnny','과거의 톰':'tom','기억 속 루나':'luna','연구원':'researcher','주거층 주민':'resident','의뢰 연락 메시지':'message','삼호가 보내는 메시지':'samho','보안부 3팀 팀장':'captain','진입조｜무전':'radio','보안부 대원 A':'soldier','경계조 A｜무전':'radio'};
 const clean=s=>s.replace(/\*\*/g,'').trim().replace(/한잔/g,'한 잔').replace(/할 만한 거 같아/g,'할 만한 것 같아').replace(/아직까진/g,'아직까지는').replace(/시작해보자/g,'시작해 보자').replace(/받아줘/g,'받아 줘').replace(/꺼야/g,'거야');
-function section(day,start,end){const t=source.days[day];const i=t.indexOf(start);if(i<0)throw Error(start);const j=end?t.indexOf(end,i+start.length):t.length;return t.slice(i+start.length,j<0?t.length:j);}
+function section(day,start,end,optional=false){const t=source.days[day];const i=t.indexOf(start);if(i<0){if(optional)return '';throw Error(start);}const j=end?t.indexOf(end,i+start.length):t.length;return t.slice(i+start.length,j<0?t.length:j);}
 function parse(t){let actor=null,who='',buf=[],out=[];function flush(){if(actor&&buf.length)out.push({type:'say',actor,who,text:clean(buf.join('\n'))});buf=[];}
  for(let line of t.split('\n')){line=clean(line).replace(/\s*\|\s*$/,'').trim();if(!line||line==='본문')continue;
   if(actors[line]){flush();who=line;actor=actors[line];continue;}
-  if(line.startsWith('(')&&line.endsWith(')')&&!(actor==='luna'&&/^\((?:\.{0,3}퇴근|아까 본|지금 DB|이따|흠|시작|재료는|기록에서 확인한 것과 달라|돌아온 이유)/.test(line))){flush();out.push({type:'stage',text:line});actor=null;continue;}
+  if(line.startsWith('(')&&line.endsWith(')')&&!(actor==='luna'&&/^\((?:\.{0,3}퇴근|…퇴근|…생각보다|…뭐지|이 짐승|혼자서|아까 본|지금 DB|…현재 레시피|현재 레시피|이따|흠|시작|샴페인 한 잔|재료는|기록에서 확인한 것과 달라|돌아온 이유)/.test(line))){flush();out.push({type:'stage',text:line});actor=null;continue;}
+  if(/^(주문한 .*경우|공통 진행)$/.test(line)){flush();actor=null;continue;}
   if(line.startsWith('#')||/^(본문|영업 준비|등장인물|진행 기준|다음 장면|게임 화면|게임 대사)/.test(line)){flush();actor=null;continue;}
   if(actor)buf.push(line);
  }
@@ -17,14 +18,15 @@ function compileBar(day){let input;if(day<3)input=section(day,'### 단골 손님
  // Failure is a retry screen, not dialogue on the successful path; branches stay exclusive.
  if(day===3){input=input.replace(/\*\*제조 결과가 복원 조건과 일치하지 않을 때\*\*[\s\S]*?\*\*복원 조건에 맞게 완성했을 때 · 공통 진행\*\*/,'(본편 제조 체크포인트)');
  input=input.replace(/\*\*응대 선택 · A\*\*[\s\S]*?\*\*공통 진행\*\*/,'(본편 응대 선택)');}
- const parsed=parse(input),out=[],seated=new Map();let crafted=0,chosen=false;
+ const parsed=parse(input),out=[],seated=new Map();let crafted=0,chosen=false,shibaServed=false;
  const add=(type,actor='',arg='')=>out.push({type,actor,arg});
- function enter(actor){if(seated.has(actor)||!['chris','port','aili','tom','samho'].includes(actor))return;if(day===3&&actor==='chris'&&!out.some(r=>r.type==='exit'&&r.actor==='tom'))return;const seat=actor==='chris'||day===3&&actor==='samho'?'R':'L';const old=[...seated].find(([a,s])=>s===seat);if(old){add('exit',old[0]);seated.delete(old[0]);}add('enter',actor,seat);add('coaster',actor);seated.set(actor,seat);}
+ function enter(actor){if(seated.has(actor)||!['chris','port','aili','tom','samho','shiba'].includes(actor))return;if(day===3&&actor==='chris'&&!out.some(r=>r.type==='exit'&&r.actor==='tom'))return;const seat=actor==='chris'||day===3&&actor==='samho'?'R':'L';const old=[...seated].find(([a,s])=>s===seat);if(old){add('exit',old[0]);seated.delete(old[0]);}add('enter',actor,seat);add('coaster',actor);seated.set(actor,seat);}
  function craft(actor,id){enter(actor);add('order',actor,'exact:'+id);add('craft',actor);add('serve',actor);crafted++;}
  for(const r of parsed){if(r.type==='stage'){
   const t=r.text;
   if(t.includes('본편 응대 선택')){add('campaign_response');continue;}
-  if(day===1&&/제작 후 제공|칵테일 제조 후 제공/.test(t)){craft(crafted===0?'tom':'aili',crafted===0?'dry_martini':'gin_fizz');continue;}
+  if(day===1&&/제작 후 제공|칵테일 제조 후 제공/.test(t)){if(seated.has('shiba')){craft('shiba','@free');Object.assign(out.findLast(r=>r.type==='order'),{arg:'free',payment:'none'});shibaServed=true;}else craft('tom','dry_martini');continue;}
+  if(day===1&&t.includes('샴페인을 잔에 따라 제공')){craft('aili','champagne');continue;}
   if(day===2&&t.startsWith('(드라이 마티니 제조')){craft('port','dry_martini');continue;}
   if(day===2&&t.includes('플레이어가 현재 만들 수 있는 메뉴')){add('campaign_menu','samho');chosen=true;continue;}
   if(day===2&&t.startsWith('(선택한 칵테일을 제조')){add('order','samho','exact:@selected');add('craft','samho');add('serve','samho');crafted++;continue;}
@@ -35,10 +37,11 @@ function compileBar(day){let input;if(day<3)input=section(day,'### 단골 손님
   if(day===3&&t.includes('톰이 루나에게 손을 들어 보이고')){for(const actor of ['tom','samho'])if(seated.has(actor)){add('exit',actor);seated.delete(actor);}}
   continue;
  }
- if(day===1)r.text=r.text.replace('진 피즈, 진토닉, 드라이 마티니, 코스모폴리탄이 가능합니다.','진피즈, 진토닉, 드라이 마티니가 가능합니다.').replace('코스모폴리탄 돼?','진피즈 돼?');
+ if(day===1&&r.actor==='tom'&&r.text==='톰이야.')r.effects='flag.tom_name_known = true';
  enter(r.actor);out.push(r);
  }
- if(crafted!== (day===3?1:2))throw Error('Missing crafts day '+day+': '+crafted);
+ if(day===1&&!shibaServed)throw Error('Missing Shiba visit');
+ if(crafted!== (day===1?3:day===3?1:2))throw Error('Missing crafts day '+day+': '+crafted);
  if(day===2&&!chosen)throw Error('Missing Samho choice');
  if(day===2)add('campaign_memory');
  return out;
@@ -47,10 +50,10 @@ const prologue=speech(section(0,'### 프롤로그 · 연구소','### 바 ·')).m
 // Keep visual directions out of spoken copy. The last attack is a separate visual beat.
 const data={source:source.source,revision:source.fetched,actors,
  prologue,opening:{},bar:{},scenes:{
-  resident:speech(section(0,'### 귀가길 · 거리 탐색','### 첫 귀가')),
-  night0:speech(section(0,'### 크리스의 집 · 앞으로 해볼 일','### 다음 일차')),
+  resident:speech(section(0,'### 귀가길 · 거리 탐색','### 첫 귀가',true)),
+  night0:speech(section(0,'### 크리스의 집 · 테라스 대화','### 다음 일차')),
   workshop:speech(section(1,'### 영업 후 · 포트의 작업장','### 귀가 후')),
-  night1:speech(section(1,'### 귀가 후 · 첫 번째 기억 단편')),
+  night1:speech(section(1,'### 귀가 후 · 첫 번째 기억 단편',null,true)),
   commute2:speech(section(2,'### 출근 전 · 삼호와 첫 만남','### 오픈 전')),
   johnny:speech(section(2,'### 교대 후 · 조니의 기억','### 기억 확인 후')),
   prepare:speech(section(2,'### 기억 확인 후 · 내일의 준비','### 귀가 후')),
@@ -115,6 +118,7 @@ data.scenes.ending=[
   }
 ];
 for(const day of [1,2,3]){data.opening[day]=speech(section(day,'### 오픈 전',day===3?'### 1부':'### 단골 손님'));data.bar[day]=compileBar(day);}
+data.day0Bar=speech(section(0,'### 바 · 튜토리얼과 첫 손님','### 크리스의 집'));
 // Remove production notes between the opening dialogue and the next section.
 for(const rows of Object.values(data.opening))for(const r of rows)r.text=r.text.split('오늘 추가되는')[0].split('오늘 확인할')[0].trim();
 put('campaign-data.js','/* Current Notion main story. Generated by tools/build_campaign_data.cjs. Other is not a dialogue source. */\n(function(root){root.LUNA_CAMPAIGN_DATA='+JSON.stringify(data,null,2)+';})(typeof window===\'undefined\'?globalThis:window);\n');

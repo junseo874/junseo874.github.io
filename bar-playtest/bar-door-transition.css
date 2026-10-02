@@ -1,0 +1,32 @@
+.campaign-stage.view-bar-door{background:#000}
+.bar-door-scene{position:absolute;inset:0;background:#000;--door-open:0;--door-offset:0%;--door-arrival:0;color:#c8b798;overflow:hidden}
+.bar-door-composition{position:absolute;inset:0;opacity:var(--door-arrival)}
+.bar-door-wall-halo{position:absolute;left:335px;top:124px;width:610px;height:494px;background:radial-gradient(ellipse,#1921253d,transparent 68%)}
+.bar-door-sign{position:absolute;left:519px;top:153px;width:242px;height:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:linear-gradient(#151f25,#0a1016);border:3px solid #293c45;box-shadow:inset 0 0 0 2px #070c0e,0 3px 0 #000,0 0 28px #b1aa6920}
+.bar-door-sign span{font-size:30px;letter-spacing:10px;padding-left:10px;color:#ded5a0;text-shadow:0 0 12px #d5bd7266}.bar-door-sign small{font-size:9px;letter-spacing:5px;color:#899187;padding-left:5px}
+.bar-door-frame{position:absolute;left:532px;top:246px;width:216px;height:328px;border:7px solid #273b45;border-top-color:#42545b;box-shadow:0 0 0 3px #070b0d,inset 0 0 0 2px #0b1014;background:#030405;box-sizing:border-box}
+.bar-door-rail{position:absolute;left:-15px;right:-15px;top:-13px;height:5px;background:#566168;box-shadow:0 4px 0 #121d23}
+.bar-door-aperture{position:absolute;inset:0;overflow:hidden;background:#f1b76c}
+.bar-door-interior{position:absolute;inset:0;background:linear-gradient(90deg,#5e361c,#d7984b 45%,#ffe4a4);box-shadow:inset 0 0 40px #4e250e}
+.bar-door-interior:before{content:'';position:absolute;left:12px;right:16px;top:80px;height:7px;background:#6b442699;box-shadow:0 10px 20px #ffd28480,0 75px 0 #4f301b88}
+.bar-door-interior i{position:absolute;inset:0;background:linear-gradient(0deg,#fff1c586,#ffc86a00 85%)}
+.bar-door-leaf{position:absolute;inset:0;transform:translateX(var(--door-offset));background:#172025 url('assets/outside/outside_66c64bd9a7c116.png') -18px -96px/228px 402px no-repeat;image-rendering:pixelated;filter:brightness(2.1);border:2px solid #1b272e;border-right:5px solid #536069;box-sizing:border-box;box-shadow:6px 0 12px #0007;will-change:transform}
+.bar-door-window{position:absolute;left:24px;right:22px;top:36px;height:49px;background:linear-gradient(145deg,#253634,#141b1b);border:4px solid #0c1318;box-shadow:0 1px 0 #465453,inset 0 0 12px #0008}
+.bar-door-window:after{content:'';position:absolute;inset:5px 8px;background:linear-gradient(170deg,transparent 42%,#d2c18328 44%,#d2c18328 49%,transparent 51%)}
+.bar-door-grip{position:absolute;right:14px;top:135px;width:6px;height:48px;background:#718078;border:2px solid #1e2c32;box-shadow:2px 0 3px #000}
+.bar-door-sill{position:absolute;left:-13px;right:-13px;bottom:-10px;height:8px;background:#3b4444;border-bottom:3px solid #11191d}
+.bar-door-ground{position:absolute;left:315px;top:575px;width:650px;height:2px;background:linear-gradient(90deg,transparent,#334048 22%,#465052 50%,#253037 80%,transparent)}
+.bar-door-light-floor{position:absolute;left:393px;top:569px;width:494px;height:123px;background:linear-gradient(#ffd98c99,#c68a3620 70%,transparent);clip-path:polygon(29% 0,70% 0,100% 100%,0 100%);opacity:var(--door-open);filter:blur(5px);transform:scaleY(calc(.5 + var(--door-open)*.5));transform-origin:top}
+.bar-door-spill{position:absolute;left:426px;top:260px;width:428px;height:390px;background:radial-gradient(ellipse at 50% 70%,#ffbc5f26,transparent 67%);opacity:var(--door-open);pointer-events:none;mix-blend-mode:screen}
+.bar-door-prop{position:absolute;image-rendering:pixelated;background-image:url('assets/outside/outside_e4adecb8ff1c9c.png');filter:brightness(.68) sepia(.15)}
+.bar-door-prop.bin{left:431px;top:474px;width:84px;height:102px;background-size:384px 384px;background-position:-51px -225px}
+.bar-door-prop.bags{left:770px;top:503px;width:58px;height:73px;background-size:448px 448px;background-position:-59.5px -269.5px;transform:scaleX(-1)}
+.bar-door-caption{position:absolute;top:636px;left:0;width:100%;text-align:center;font-size:13px;letter-spacing:2px;color:#73817f;margin:0;opacity:var(--door-arrival)}
+.bar-door-load-track{position:absolute;left:610px;top:671px;width:60px;height:2px;background:#26312f;overflow:hidden;transition:opacity .3s}.bar-door-load-track i{display:block;width:24px;height:100%;background:#bdb389;animation:bar-door-loading 1.8s ease-in-out infinite alternate}
+@keyframes bar-door-loading{from{transform:translateX(-15px)}to{transform:translateX(55px)}}
+@media(prefers-reduced-motion:reduce){.bar-door-load-track i{animation:none;width:100%}}
+
+/* A metal refuse bin beside the reused pixel-art bag, not the atlas's old toilet prop. */
+.bar-door-prop.bin{left:465px;top:494px;width:51px;height:81px;background-image:repeating-linear-gradient(90deg,#17252b 0 8px,#2b3a40 8px 10px,#121d22 10px 12px);border:3px solid #334149;border-radius:2px 2px 6px 6px;filter:none;box-shadow:inset -7px 0 0 #0b1216,3px 2px 0 #000}
+.bar-door-prop.bin:before{content:'';position:absolute;left:-6px;right:-6px;top:-9px;height:9px;background:#445159;border:2px solid #1c282e;border-radius:3px}.bar-door-prop.bin:after{content:'';position:absolute;left:13px;top:-14px;width:18px;height:5px;border:3px solid #39474c;border-bottom:0}
+.bar-door-prop.left-bag{left:420px;top:523px;width:41px;height:52px;background-size:320px 320px;background-position:-42.5px -192.5px}

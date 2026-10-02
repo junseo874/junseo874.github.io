@@ -1,0 +1,16 @@
+/* Game surfaces are interactive artwork, not selectable browser content. */
+body, body * {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+/* Preserve ordinary editing and copying in developer/settings fields. */
+body input, body textarea,
+body [contenteditable=""], body [contenteditable=""] *,
+body [contenteditable="true"], body [contenteditable="true"] *,
+body [contenteditable="plaintext-only"], body [contenteditable="plaintext-only"] * {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+body img, body a, body svg, body canvas {
+  -webkit-user-drag: none;
+}

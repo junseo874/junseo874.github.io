@@ -32,7 +32,7 @@ window.LunaShakePolish=function({g,D,ui}){
  }
  // Base 100 BPM; heat changes the shared note/beat clock to 125 / 150 BPM.
  function tempo(s){
-  if(!s.rhythm||!s.started||s.completed||g.isPaused()||ui.gimmickAudio===false||!audio||audio.state!=='running'){stop('tempo');return;}
+  if(!s.rhythm||s.rhythm.mode==='path'||!s.started||s.completed||g.isPaused()||ui.gimmickAudio===false||!audio||audio.state!=='running'){stop('tempo');return;}
   const rate=window.LunaShakeRhythm.noteSpeed(s.rhythm.tier),track=s.rhythm.trackTime,beat=Math.floor((track+.10*rate)/.6),at=beat*.6,previous=beats.get(s);
   if(previous?.index===beat&&previous.rate===rate)return;
   if(previous&&previous.rate!==rate)stop('tempo');

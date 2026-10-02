@@ -7,10 +7,10 @@ const GLASS={left:596,right:790,top:252,bottom:470};
 const STEP=1/120,H=20,MAX_PARTICLES=1100;
 // Web pourer tuning, not a measured real-world pourer specification.
 const POURER={rateScale:.25,maxAngle:125,rampDegrees:30};
-function nozzle(angle){const t=clamp(angle/95,0,1),k=t*t*(3-2*t);return{x:550+50*k,y:130+60*k};}
+function nozzle(angle,tool='pourer'){const t=clamp(angle/95,0,1),k=t*t*(3-2*t),a=angle*Math.PI/180,offset=tool==='none'?34:0;return{x:550+50*k-Math.sin(a)*offset,y:130+60*k+Math.cos(a)*offset};}
 class Simulation{
  constructor({targetMl,unitMl,rate=17.5,startAngle=95,maxAngle=125,tiltSpeed=95,viscosity=.025}){
-  this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.rate=rate;
+  this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.tool='pourer';
   this.startAngle=startAngle;this.maxAngle=maxAngle;this.tiltSpeed=tiltSpeed;this.viscosity=viscosity;
   this.quantum=Math.max(.5,this.targetMl/180);this.supplyMl=Math.max(600,this.targetMl*4);
   this.streamSerial=0;this.wasFlowing=false;
@@ -19,6 +19,7 @@ class Simulation{
   this.flow=0;this.finishRequested=false;this.ready=false;this.quiet=0;this.time=0;this.maxSpeed=0;
   this.glass={...GLASS};this.peakParticles=0;this.surfaceY=GLASS.bottom;
  }
+ setTool(tool,s){if(!['none','pourer'].includes(tool)||this.finishRequested||this.ready||s.held||s.angle>.05)return false;this.tool=tool;this.rate=this.baseRate*(tool==='none'?4:1);this.streamSerial++;return true;}
  requestFinish(s){this.finishRequested=true;s.held=false;}
  flowAt(angle){return clamp((angle-this.startAngle)/Math.max(1,Math.min(POURER.rampDegrees,this.maxAngle-this.startAngle)),0,1);}
  predicted(s){
@@ -49,13 +50,13 @@ class Simulation{
   if(this.particles.length>=MAX_PARTICLES-12){this.flow=0;return;}
   const ml=Math.min(this.rate*this.flow*STEP,Math.max(0,this.supplyMl-this.emittedMl));
   this.emittedMl+=ml;this.nozzleMl+=ml;
-  const flush=this.flow===0||this.emittedMl>=this.supplyMl-1e-8,at=nozzle(s.angle),a=s.angle*Math.PI/180;
+  const flush=this.flow===0||this.emittedMl>=this.supplyMl-1e-8,at=nozzle(s.angle,this.tool),a=s.angle*Math.PI/180;
   while(this.nozzleMl+1e-10>=this.quantum||(flush&&this.nozzleMl>1e-9)){
    const mass=Math.min(this.quantum,this.nozzleMl);this.nozzleMl=Math.max(0,this.nozzleMl-mass);
    const serial=this.serial++,lane=(serial%3)-1,wiggle=Math.sin(serial*2.399)*.15;
-   const speed=105+20*this.flow;
-   const origin={x:at.x+lane*.7+wiggle,y:at.y,vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed};
-   this.particles.push({id:serial,stream:this.streamSerial,emissionFlow:this.flow,x:at.x+lane*.7+wiggle,y:at.y,px:at.x,py:at.y,
+   const speed=105+20*this.flow,spread=this.tool==='none'?2.2:.7,emissionWidth=this.tool==='none'?2:1;
+   const origin={x:at.x+lane*spread+wiggle,y:at.y,vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed};
+   this.particles.push({id:serial,stream:this.streamSerial,emissionFlow:this.flow,emissionWidth,x:at.x+lane*spread+wiggle,y:at.y,px:at.x,py:at.y,
     vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,origin,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
   }
   this.peakParticles=Math.max(this.peakParticles,this.particles.length);
@@ -157,7 +158,7 @@ class Simulation{
    const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/spacing);
    for(let i=1;i<steps&&extra<600;i++,extra++){
     const t=i/steps;points.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,
-     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,emissionFlow:(a.emissionFlow??1)+((b.emissionFlow??1)-(a.emissionFlow??1))*t,inside:false,visualOnly:true});
+     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,emissionFlow:(a.emissionFlow??1)+((b.emissionFlow??1)-(a.emissionFlow??1))*t,emissionWidth:(a.emissionWidth??1)+((b.emissionWidth??1)-(a.emissionWidth??1))*t,inside:false,visualOnly:true});
    }
   };
   for(const p of parcels){
@@ -170,8 +171,8 @@ class Simulation{
   }
   const head=parcels[parcels.length-1];
   if(this.flow>=.015&&this.emittedMl<this.supplyMl-1e-8&&head&&!head.wet&&head.stream===this.streamSerial&&head.emissionFlow>=.015){
-   const at=nozzle(s.angle),a=s.angle*Math.PI/180,speed=105+20*this.flow;
-   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,emissionFlow:this.flow,inside:false,visualOnly:true};
+   const at=nozzle(s.angle,this.tool),a=s.angle*Math.PI/180,speed=105+20*this.flow;
+   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,emissionFlow:this.flow,emissionWidth:this.tool==='none'?2:1,inside:false,visualOnly:true};
    bridge(head,tip);points.push(tip);
   }
   return points;
@@ -185,6 +186,7 @@ function init(s,game){
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70)*POURER.rateScale,
   startAngle:game.c('pour_start_angle_deg',95),maxAngle:Math.min(POURER.maxAngle,game.c('pour_max_tilt_angle_deg',150)),
   tiltSpeed:game.c('pour_tilt_speed_deg_per_sec',95),viscosity:visc});
+ s.fluid.setTool(game.pourTool||'pourer',s);
 }
 const api={Simulation,init,nozzle,GLASS,STEP,POURER};
 if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;

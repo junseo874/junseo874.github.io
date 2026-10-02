@@ -1,0 +1,15 @@
+/* A locked wide composition: speech moves between seats, never the camera. */
+.terrace-scene{position:absolute;inset:0;background:#080f1b}
+.terrace-art{display:block;width:1280px;height:720px;image-rendering:pixelated;pointer-events:none;user-select:none}
+.terrace-seat{position:absolute;top:445px;width:2px;height:2px;pointer-events:none}
+.terrace-seat.chris{left:381.33px}.terrace-seat.luna{left:472px}
+.campaign-stage .terrace-speech{width:max-content;min-width:190px;max-width:460px;min-height:0;padding:13px 18px 15px;background:rgba(7,15,26,.86);border:1px solid #6dc4d2;border-radius:10px;box-shadow:0 5px 18px #0005;outline:0;transition:none;cursor:pointer}
+.campaign-stage .terrace-bubble{left:var(--speaker-x);bottom:calc(720px - var(--speaker-y) + 15px);transform:translateX(-50%)}
+.terrace-bubble::after{content:"";position:absolute;bottom:-7px;left:calc(50% - 6px);width:12px;height:12px;background:#101c28;border-right:1px solid #6dc4d2;border-bottom:1px solid #6dc4d2;transform:rotate(45deg);pointer-events:none}
+.campaign-stage .terrace-speech:hover,.campaign-stage .terrace-speech:focus,.campaign-stage .terrace-speech:active{outline:none;background:rgba(7,15,26,.86);box-shadow:0 5px 18px #0005}
+.campaign-stage .terrace-speech:focus-visible{border-color:#bbf3fa}
+.terrace-speech strong{font-size:16px;font-weight:500;color:#8edbe4}
+.terrace-speech p{margin:0;font-size:20px;line-height:1.5;overflow-wrap:anywhere;text-wrap:pretty}
+.terrace-scene[data-terrace-speaker=luna] .terrace-speech strong{color:#c5ddeb}
+.campaign-stage .terrace-narration{left:50%;bottom:42px;max-width:750px;min-width:0;text-align:center;background:#07101bba;border:0;border-radius:4px}
+.terrace-narration p{font-size:19px;color:#c5d3dc}

@@ -5,7 +5,7 @@
   const settingsKey='luna.bar.playtest.bgm.v1';
   class BarBgm{
     constructor(){
-      this.enabled=true;this.volume=.3;this.unlocked=false;this.index=-1;this.bag=[];this.failed=new Set();this.attempt=0;
+      this.enabled=true;this.volume=.3;this.transitionGain=1;this.unlocked=false;this.index=-1;this.bag=[];this.failed=new Set();this.attempt=0;
       this.status='waiting';this.tracks=tracks;
       try{
         const saved=JSON.parse(localStorage.getItem(settingsKey)||'null');
@@ -37,7 +37,13 @@
     }
     setVolume(value){
       if(!Number.isFinite(value))return;
-      this.volume=Math.max(0,Math.min(1,value));this.audio.volume=this.volume;this.save();
+      this.volume=Math.max(0,Math.min(1,value));this.applyVolume();this.save();
+    }
+    // Transient scene gain never changes the saved user-volume preference.
+    applyVolume(){this.audio.volume=this.volume*this.transitionGain;}
+    setTransitionGain(value){
+      if(!Number.isFinite(value))return;
+      this.transitionGain=Math.max(0,Math.min(1,value));this.applyVolume();
     }
     choose(){
       this.bag=this.bag.filter(i=>!this.failed.has(i));

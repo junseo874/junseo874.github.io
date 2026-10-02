@@ -54,3 +54,15 @@
 .shake-screen[data-rhythm-tier="2"] .mix-cinema::before{background:radial-gradient(ellipse at center,transparent 40%,#f7ba64);opacity:calc(var(--rhythm-surge,0) * .28)}
 .rhythm-board[data-combo-tier="2"] .target-face{stroke:#e6e7cc;filter:drop-shadow(0 0 7px #b9d8ddaa)}
 @media(prefers-reduced-motion:reduce){.rhythm-speed-lines,.rhythm-note-tail,.shake-screen:has(.rhythm-board) .mix-cinema::before{display:none}}
+
+/* Restored generated-node route: the moving marker is distinct from static targets. */
+.rhythm-path-route{fill:none;stroke:#7eb7ce55;stroke-width:2}
+.rhythm-path-node .path-range{fill:#163f5420;stroke:#73c5dd77;stroke-width:1}
+.rhythm-path-node .path-core{fill:#aadfeb;stroke:#e4f8ff;stroke-width:1}
+.rhythm-path-node.in-range .path-range{fill:#5dd6ff30;stroke:#ccf6ff;stroke-width:2;filter:drop-shadow(0 0 5px #81dfff)}
+.rhythm-path-marker{fill:#ffe7ba;stroke:#fff6e4;stroke-width:2;filter:drop-shadow(0 0 7px #efb65b);pointer-events:none}
+.rhythm-path-trail{fill:#ffd394;pointer-events:none}
+.rhythm-board[data-rhythm-mode=path] .rhythm-stage{cursor:pointer;touch-action:manipulation}
+.rhythm-board[data-rhythm-mode=path] .rhythm-pads button{width:160px}
+.rhythm-board[data-rhythm-mode=path][data-combo-tier="2"] .path-range{stroke:#dfbf7e88}
+@media(prefers-reduced-motion:reduce){.rhythm-path-trail{display:none}.rhythm-path-marker,.rhythm-path-node.in-range .path-range{filter:none}}

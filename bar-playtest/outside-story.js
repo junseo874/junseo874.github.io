@@ -1,62 +1,29 @@
 (function(global){
 'use strict';
-const names={luna:'루나',shiba:'시바',radio:'라디오',sign:'전단'};
 class Story{
  constructor(model){Object.defineProperty(this,'model',{value:model});this.flags={};this.done=new Set();this.speech=null;}
  get blocking(){return !!this.speech&&!this.speech.auto;}
- begin(id,target,auto=false){
-  const source=global.LUNA_OUTSIDE_DIALOGUES[id];
-  // Proximity TV is a broadcast, not Luna's internal monologue. Keep source data intact.
-  const rows=auto&&target.id==='tv'?source?.filter(row=>row.actor==='radio'&&(row.type==='say'||row.type==='timeline')):source;if(!rows?.length)return false;
-  return this.beginRows(id,target,rows,auto);
- }
+ begin(id,target,auto=false){const rows=global.LUNA_OUTSIDE_DIALOGUES[id];return this.beginRows(id,target,rows,auto);}
  beginRows(id,target,rows,auto=false){if(!rows?.length)return false;this.speech={id,target,auto,rows,index:0,elapsed:0,choice:false};this.seek();this.model.updateNear();return true;}
  seek(){const s=this.speech;if(!s)return;
-  while(s.index<s.rows.length){const row=s.rows[s.index];
-   if(row.type==='say'||row.type==='timeline'){s.line=row;s.chars=Array.from(row.text);s.elapsed=0;s.choice=false;return;}
-   if(row.type==='choice'){s.choice=true;s.line={actor:'shiba',text:'…뭐, 볼일 있으면 빨리 말해, 시바.'};s.chars=Array.from(s.line.text);return;}
-   // State is committed only on a completed conversation, never on opening or cancelling.
-   s.index++;
-  }
-  if(s.auto&&s.target.id==='tv')this.lastTvBroadcast=s.id;
-  this.done.add(s.id);if(s.id==='np_shiba_1')this.flags.shiba_met=true;if(s.id==='np_tv_1')this.flags.tv_seen1=true;if(s.id==='ob_experiment_1')this.flags.seen_coratech_ad=true;
-  this.speech=null;this.model.updateNear();
+  while(s.index<s.rows.length){const row=s.rows[s.index];if(row.type==='bd-cinema'){global.LunaBDVendor.watch(this.model);return;}if(row.type==='bd-choice'){s.line=row;s.chars=Array.from(row.text);s.elapsed=99;s.choice=true;return;}if(row.type==='say'||row.type==='timeline'){s.line=row;s.chars=Array.from(row.text);s.elapsed=0;return;}s.index++;}
+  this.done.add(s.id);this.speech=null;this.model.updateNear();
  }
  advance(){const s=this.speech;if(!s||s.auto||s.choice)return false;if(s.elapsed*55<s.chars.length){s.elapsed=(s.chars.length+1)/55;return true;}s.index++;this.seek();return true;}
- choose(id){const s=this.speech;if(!s?.choice)return false;
-  if(id==='treat'){if(!this.flags.has_snack)return false;this.flags.has_snack=false;this.flags.shiba_fed=true;this.done.add('np_shiba_3');return this.begin('np_shiba_treat',s.target);}
-  if(id!=='leave')return false;s.index++;this.seek();return true;
- }
+ choose(id){return global.LunaBDVendor?.choose(this.model,id)||false;}
  cancel(){this.speech=null;this.model.updateNear();}
- tick(dt){const s=this.speech;if(!s)return;s.elapsed+=dt;if(s.auto&&!s.choice&&s.elapsed>=s.chars.length/55+Math.max(2,s.chars.length*.055)){s.index++;this.seek();}}
- interact(target){const m=this.model;
-  if(target.encounter)return m.beginEncounter(target);
-  if(target.id==='poster')return this.begin('ob_parttime_1',target);
-  if(target.id==='experiment')return this.begin('ob_experiment_1',target);
-  if(target.id==='shiba')return this.begin(!this.flags.shiba_met?'np_shiba_1':m.config.day>=2&&!this.done.has('np_shiba_3')?'np_shiba_3':'np_shiba_2',target);
-  return false;
- }
- // Isolated exterior preview: reuse the available engine broadcast on every ride.
- // Story/day gating in the engine is unchanged; calling an empty lift is silent.
- radio(){const m=this.model;this.begin('d1_elevator',{id:'radio',x:m.x,y:m.y},true);}
- view(){const s=this.speech;if(!s)return null;const actor=s.line.actor;const m=this.model;const extra=global.LunaOutsideEncounters?.actor(actor);const anchor=m.qa?global.LunaOutsideQA.anchor(m,actor,s.target):extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:s.target.id==='radio'?{x:global.LunaResidence.layout.elevatorX,y:m.elevatorY+1.032}:s.target.id==='tv'?{x:1.22,y:-.26}:s.target.id==='shiba'?{x:s.target.x+.19,y:s.target.y+.32}:{x:s.target.x,y:s.target.y+.42};
-  return {key:s.id+':'+s.index+':'+s.choice,color:extra?.color,title:m.qa?(s.line.who||m.qa.people.find(p=>p.id===actor)?.name||(actor==='luna'?'루나':s.target.id==='tv'?'TV':names[actor]||'안내')):extra?extra.name:s.target.id==='tv'&&actor==='radio'?'TV':names[actor]||(s.target.id==='poster'?'구인 전단':'임상시험 전단'),text:s.chars.slice(0,s.choice?s.chars.length:Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:s.choice,canTreat:!!this.flags.has_snack,anchor};
+ tick(dt){const s=this.speech;if(!s)return;s.elapsed+=dt;if(s.auto&&s.elapsed>=s.chars.length/55+Math.max(2,s.chars.length*.055)){s.index++;this.seek();}}
+ interact(target){if(global.LunaBDVendor?.interact(this.model,target))return true;if(target.source)return this.begin(target.source,target);return false;}
+ view(){const s=this.speech;if(!s)return null;const actor=s.line.actor,m=this.model,extra=global.LunaOutsideEncounters?.actor(actor),event=global.LunaOutsideContent.events.find(e=>e.id===s.id);
+  const anchor=m.qa?global.LunaOutsideQA.anchor(m,actor,s.target):extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:{x:s.target.x,y:s.target.y+.42};
+  const title=s.line.who||(actor==='luna'?'루나':extra?.name||m.qa?.people.find(p=>p.id===actor)?.name||event?.title||'안내');
+  const purchase=s.choice?global.LunaBDVendor.choiceView():null;return{key:s.id+':'+s.index+':'+s.line.text+(purchase?':'+purchase.money:''),purchase,color:extra?.color,title,text:s.chars.slice(0,Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
  }
 }
-function tickBackground(model,dt){
- if(model.qa){model.backgroundStory.tick(dt);return;}
- const story=model.backgroundStory,home=model.scene==='home';
- if(!home)model.tvInRange=false;
- if(model.transition||(story.speech&&(story.speech.target.id==='tv'?!home:model.scene!=='street'))){if(story.speech)story.cancel();return;}
- story.tick(dt);
- if(!home){global.LunaOutsideEncounters?.tickProximity(model,dt);return;}
- const distance=Math.abs(model.x-1.22);
- // Hysteresis avoids retriggering when walking along the edge of the listening area.
- if(distance>1.05)model.tvInRange=false;
- if(distance>.85||model.tvInRange||model.dialog||model.story.blocking||story.speech)return;
- // Cycle available broadcasts on a fresh approach; completion never disables the TV.
- const id=story.lastTvBroadcast==='np_tv_1'?'np_tv_2':'np_tv_1';
- if(story.begin(id,{id:'tv',x:1.22,y:-.7},true))model.tvInRange=true;
+function tickBackground(model,dt){const story=model.backgroundStory;
+ if(model.qa){story.tick(dt);return;}
+ if(model.transition||model.scene!=='street'){if(story.speech)story.cancel();return;}
+ story.tick(dt);global.LunaOutsideEncounters?.tickProximity(model,dt);
 }
 global.LunaOutsideStory={Story,tickBackground};
 })(typeof window==='undefined'?globalThis:window);

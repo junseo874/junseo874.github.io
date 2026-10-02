@@ -235,8 +235,8 @@ html,body{overflow:hidden;background:#03060b}
 
 /* Preparation: an always-visible recipe note replaces the lower-left recipe toggle. */
 .corner-tools.prep-corner-tools{left:auto;right:18px;top:17px}
-.prep-screen .prep-recipe-brief{position:absolute;left:24px;top:18px;z-index:5;width:280px;max-width:calc(100% - 100px);padding:12px 15px;display:block;text-align:left;background:#0c1723f2;border:1px solid #5b919f;border-radius:8px;box-shadow:none;color:#d9e7e9;line-height:1.4}
-.prep-screen .prep-recipe-brief:hover{background:#122634;border-color:#94dce1;box-shadow:none}
+.prep-screen .prep-recipe-brief{position:absolute;left:24px;top:18px;z-index:5;width:280px;max-width:calc(100% - 100px);padding:12px 15px;display:block;text-align:left;background:rgba(12,23,35,.65);border:1px solid #5b919f;border-radius:8px;box-shadow:none;color:#d9e7e9;line-height:1.4}
+.prep-screen .prep-recipe-brief:hover{background:rgba(18,38,52,.74);border-color:#94dce1;box-shadow:none}
 .prep-brief-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.prep-brief-heading strong{font-size:19px;color:#a2ebea;overflow-wrap:anywhere;font-weight:400}.prep-brief-heading>span{font:22px/1 Arial,sans-serif;color:#99bec9}
 .prep-brief-ingredients{display:flex;flex-direction:column;gap:4px}.prep-brief-row{display:block;font-size:13px;line-height:1.4;overflow-wrap:anywhere}
 .prep-controls .prep-back{height:38px;padding:0 15px;font-size:14px}
@@ -246,3 +246,13 @@ html,body{overflow:hidden;background:#03060b}
 /* Keep the preparation detail above the bottom controls and selected-item tray.
    Recipe-list hover previews retain their separate full-height layout. */
 .prep-screen > #prep-recipe-detail{top:18px;bottom:199px}
+
+/* Read-only selection checklist; clicking the card still opens recipe details. */
+.prep-brief-ingredients{max-height:230px;overflow-y:auto;scrollbar-width:thin}
+.prep-brief-row{display:flex;align-items:center;gap:7px;min-height:22px;color:#d9e7e9}
+.prep-brief-check{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;flex:0 0 15px;border:1px solid #78939c;border-radius:3px;background:#07111d55;color:transparent;font:12px/1 Arial,sans-serif}
+.prep-brief-kind{flex:0 0 auto;font-size:10px;color:#9eafb9}
+.prep-brief-name{flex:1;min-width:0}
+.prep-brief-row.is-packed{color:#adf2e4}
+.prep-brief-row.is-packed .prep-brief-check{color:#c7fff4;background:#23574fbb;border-color:#8adccc}
+.prep-brief-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

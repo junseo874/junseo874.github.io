@@ -1,6 +1,6 @@
 const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'),assert=require('assert/strict');
 (async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
-for(const mode of ['fall','drum','cross']){
+for(const mode of ['fall','cross']){
  await p.evaluate(()=>barGame.startMinigame('shake','original'));await p.locator('.rhythm-board').waitFor();await p.locator('[data-act="shakeMode"][data-id="'+mode+'"]').click();assert.equal(await p.evaluate(()=>barGame.gimmick.rhythm.mode),mode);
  let t=await p.evaluate(()=>barGame.gimmick.rhythm.clock);await p.waitForTimeout(200);assert(await p.evaluate(()=>barGame.gimmick.rhythm.clock)>t);
  await p.keyboard.press('Space');await p.waitForTimeout(500);await p.screenshot({path:'/private/tmp/rhythm-'+mode+'.png'});

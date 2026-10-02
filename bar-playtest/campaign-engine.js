@@ -25,12 +25,20 @@ class Session{
   for(const [id,name]of [['tom','톰'],['message','의뢰 연락 메시지'],['johnny','조니']])if(!t.characters.some(c=>c.id===id))t.characters.push({id,'name.ko':name,'name.en':name,affinity:false});
   for(const day of [1,2,3])for(const phase of ['bar_open','bar']){const id='campaign_d'+day+'_'+phase;const rows=phase==='bar_open'?[{type:'enter',actor:'chris',arg:'R'},...this.story.opening[day]]:this.story.bar[day];
    t.scenes.push({id,day:String(day),seq:'1',phase,trigger:'auto',title:day+'일차 본편',row_id:id});
-   t.steps.push(...rows.map((r,i)=>({context:id,seq:String(i+1),type:r.type,actor:r.actor||'luna',arg:r.arg||null,'text.ko':r.text||null,'text.en':r.text||null,dialogue_id:r.type==='say'?id+'_'+i:null,row_id:id+'_'+i})));
+   t.steps.push(...rows.map((r,i)=>({context:id,seq:String(i+1),type:r.type,actor:r.actor||'luna',arg:r.arg||null,effects:r.effects||null,payment:r.payment||null,'text.ko':r.text||null,'text.en':r.text||null,dialogue_id:r.type==='say'?id+'_'+i:null,row_id:id+'_'+i})));
   }
   this.g.campaignStep=s=>{if(!s.type.startsWith('campaign_'))return false;this.pendingStep=s;this.onStep?.(s);return true;};
   const createOrder=this.g.createStoryOrder;this.savedCreateOrder=createOrder;this.g.createStoryOrder=function(s){if(s.arg==='exact:@selected')s={...s,arg:'exact:'+this.progress.flags.campaign_selected_drink};return createOrder.call(this,s);};
  }
  uninstall(){if(!this.active)return;for(const[k,v]of Object.entries(this.original))this.data.tables[k]=v;for(const k of this.assetKeys)delete this.data.assets[k];this.g.campaignStep=null;this.g.createStoryOrder=this.savedCreateOrder;this.active=false;this.pendingStep=null;this.original=null;}
+ // A fresh later-day start carries only established story prerequisites, never a previous run's money or choices.
+ beginCommute(day){if(!Number.isInteger(day)||day<1||day>3)throw Error('시작 일차는 1~3일차여야 합니다.');if(!this.active)this.install();this.day=day;this.startDay=day;this.completed=[];this.events=[];this.pendingStep=null;
+  const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original'});const flags=g.progress.flags;
+  const prior=new Set(this.data.tables.scenes.filter(s=>Number(s.day)<day&&Number(s.day)>=0).map(s=>s.id));
+  for(const step of this.data.tables.steps)if(prior.has(step.context)&&step.type==='enter')flags[step.actor+'_met']=true;
+  if(day>=2)flags.tom_name_known=true;if(day>=3){flags.samho_met=true;flags.campaign_observation=true;}
+  g.progress.phase='commute';this.carry=copy(g.progress);this.checkpoint=null;this.route='in';this.events.push({event:'commute-in',day});g.changed();
+ }
  beginDay(day,carry=null){if(!this.active)this.install();this.day=day;const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original'});if(carry){g.progress={...copy(carry),day,phase:'bar_open'};g.openingBalance=g.progress.money;}
   this.checkpoint=copy(g.progress);this.route='bar';this.events.push({event:'bar',day,money:g.progress.money});
   const fresh=g.dailyUnlocks();if(day>0&&(fresh.ingredients.length||fresh.cocktails.length)){g.phase='arrival';g.pendingDailyUnlocks=true;g.overlay='dailyUnlocks';}else g.startStoryPhase('bar_open');g.changed();

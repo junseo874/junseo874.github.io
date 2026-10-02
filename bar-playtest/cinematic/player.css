@@ -5,12 +5,6 @@
   background:rgba(12,20,26,.94);border:calc(var(--s)*1px) solid #dfeff5;
   font-family:var(--pix);color:#f2fbff}
 .campaign-cinema-ui .bubble.on{display:block}
-.campaign-cinema-ui .bubble .who{color:var(--cy);font-size:calc(var(--s)*6px);margin-bottom:calc(var(--s)*2px);
-  letter-spacing:.03em;display:flex;align-items:center;gap:calc(var(--s)*3px);white-space:nowrap}
-.campaign-cinema-ui .bubble .who span{white-space:nowrap}
-.campaign-cinema-ui .bubble .rd{display:none;width:calc(var(--s)*3px);height:calc(var(--s)*3px);background:var(--red);
-  border-radius:50%;animation:cinema-blip 1s steps(2,end) infinite;flex:0 0 auto}
-@keyframes cinema-blip{50%{opacity:.2}}
 
 /* 타이핑해도 크기가 변하지 않는 구조:
    ghost = 전체 대사(보이지 않지만 자리를 차지해 폭·높이를 확정)
@@ -53,8 +47,6 @@
 /* 안내 방송 — 천장 스피커에 붙는다. 무전(시안)과 구분되게 앰버 */
 .campaign-cinema-ui .bubble.pa{border-style:dashed;border-color:var(--warm);background:rgba(24,17,6,.94)}
 .campaign-cinema-ui .bubble.pa .tail{border-top-color:var(--warm)}
-.campaign-cinema-ui .bubble.pa .who{color:var(--warm)}
-.campaign-cinema-ui .bubble.pa .rd{display:block;background:var(--warm)}
 .campaign-cinema-ui .bubble.pa .vis{color:#f6e6c8;text-shadow:0 0 calc(var(--s)*2px) rgba(224,160,58,.5)}
 
 /* 앵커 아래쪽에 띄우는 변형 — 꼬리가 위를 가리킨다 */
@@ -66,12 +58,9 @@
 /* 무전 — 팀장이 무전기를 들고 있다는 전제. 점선 테두리 + 붉은 송수신 램프 */
 .campaign-cinema-ui .bubble.radio{border-style:dashed;border-color:#6fd6e0;background:rgba(6,16,22,.94)}
 .campaign-cinema-ui .bubble.radio .tail{border-top-color:#6fd6e0}
-.campaign-cinema-ui .bubble.radio .who{color:#6fd6e0}
-.campaign-cinema-ui .bubble.radio .rd{display:block}
 .campaign-cinema-ui .bubble.radio .vis{color:#dff1f7;text-shadow:0 0 calc(var(--s)*2px) rgba(79,214,224,.55)}
 .campaign-cinema-ui .bubble.glitch .vis{color:#ffe3e6;animation:cinema-gl .16s steps(2,end) infinite}
 @keyframes cinema-gl{
   0%{text-shadow:calc(var(--s)*1px) 0 rgba(224,85,95,.9),calc(var(--s)*-1px) 0 rgba(79,214,224,.9);transform:translateX(0)}
   50%{text-shadow:calc(var(--s)*-1px) 0 rgba(224,85,95,.9),calc(var(--s)*1px) 0 rgba(79,214,224,.9);transform:translateX(calc(var(--s)*.5px))}
 }
-

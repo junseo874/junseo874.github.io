@@ -92,17 +92,13 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     const natural = Math.max.apply(null, l.text.split('\n').map(function (ln) {
       return domW(txtEl, ln || ' ');
     })) + 2;
-    // 최소 폭 = 한글 5자 — 짧은 대사에서 말풍선이 너무 좁아져 화자명까지 줄바꿈되는 것 방지
+    // Size for dialogue text only; speaker identity stays in the scene data.
     const min5 = domW(txtEl, '가나다라마');
-    // 화자명도 한 줄에 들어가야 한다 (송수신 램프·간격 여유 포함)
-    const whoSpan = bubble.querySelector('.who span');
-    const sUnit = parseFloat(getComputedStyle(ui).getPropertyValue('--s')) || 1;
-    const whoW = domW(whoSpan, whoSpan.textContent) + 8 * sUnit;
     const cb = getComputedStyle(bubble);
     const padX = parseFloat(cb.paddingLeft) + parseFloat(cb.paddingRight) +
                  parseFloat(cb.borderLeftWidth) + parseFloat(cb.borderRightWidth);
     // box-sizing:border-box라 style.width는 패딩·보더 포함 폭이다 — 내용 폭에 padX를 더해 지정
-    const inner = Math.min(Math.max(natural, min5, whoW), ui.clientWidth * 0.62 - padX);
+    const inner = Math.min(Math.max(natural, min5), ui.clientWidth * 0.62 - padX);
     bubble.style.width = Math.ceil(inner + padX) + 'px';
   }
 
@@ -131,8 +127,6 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     bubble.classList.toggle('pa', isPa);
     bubble.classList.toggle('below', !!l.below);
     bubble.classList.toggle('glitch', !!l.glitch);
-    // 화면에는 「무전」·「방송」으로만 적는다. 진입조·경계조 구분은 데이터와 진행표에만 남긴다.
-    bubble.querySelector('.who span').textContent = isRadio ? '무전' : isPa ? '방송' : l.speaker;
     // ghost에 전체 대사(모자이크 치환 후)를 먼저 넣어 크기를 확정하고,
     // vis는 글자 단위 span — 태그 스타일(색·떨림·지지직·모자이크) 적용 + 노출 토글
     if (curLine !== l) { curLine = l; buildLineDom(l); }
