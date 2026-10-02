@@ -7,3 +7,5 @@
 
 /* Independent team-facing story guide entry. */
 .version-tabs .story-guide-tab{display:flex;align-items:center;justify-content:center;white-space:nowrap;padding:9px 15px;border:1px solid #50818b;border-radius:6px;color:#a7e6e9;background:#10282f;text-decoration:none;font-size:13px}.version-tabs .story-guide-tab:hover{background:#1d3d47}.version-tabs .story-guide-tab:focus-visible{outline:2px solid #a7e6e9;outline-offset:3px}
+
+.service-version-picker{border:1px solid #365b65;border-radius:7px;padding:12px;margin:0 0 16px}.service-version-picker legend{font-size:13px;color:#b7e6e5;padding:0 6px}.service-version-picker>div{display:flex;gap:8px;margin-bottom:8px}.service-version-picker button{flex:1;padding:9px}.service-version-picker button.selected{background:#24434a;color:#c8ffff;border-color:#82d5d7}.service-version-picker small{display:block;font-size:11px;line-height:1.6}.start-screen .start-card{max-height:calc(100% - 16px);overflow:auto}

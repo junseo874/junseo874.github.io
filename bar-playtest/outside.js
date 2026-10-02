@@ -32,7 +32,7 @@ class OutsideModel{
  constructor(options={}){this.start(options);}
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
-  this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
+  this.thugFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
   this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.Story(this);this.playedAmbient=new Set();this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);global.LunaRemixExperience?.init(this,qaOptions);this.updateNear();
  }
  wakeAtSofa(){
@@ -75,6 +75,7 @@ class OutsideModel{
   global.LunaRemixExperience?.tick(this);if(this.paused)return;this.story.tick(dt);
   global.LunaOutsideStory.tickBackground(this,dt);
   this.time+=dt;this.noticeLeft=Math.max(0,this.noticeLeft-dt);
+  if(global.LunaOutsideThug?.tick(this,dt))return;
   if(this.encounter){const e=this.encounter;
    if(e.stage==='active'&&!this.story.speech){e.stage='leaving';e.cameraReady=false;e.elapsed=0;}
    if(e.stage==='entering'){e.elapsed+=dt;const p=smooth(clamp(e.elapsed/e.duration,0,1)),old=this.x;this.x=mix(e.from,e.to,p);this.anim=Math.abs(this.x-old)>.00001?'walk':'idle';this.animTime+=dt;
@@ -96,14 +97,25 @@ function create({onExit=()=>{}}={}){
  function fit(){if(host)host.style.setProperty('--outside-scale',Math.min(innerWidth/1280,innerHeight/720));}
  function clearInput(){keys.clear();}
  function devMoney(){return Math.max(0,Number(global.barGame?.progress.money)||0);}
- function devHTML(){return '<aside class="outside-dev-console" role="dialog" aria-label="외부 개발자 콘솔" hidden><header><div><small>DEVELOPER</small><h2>외부 개발자 콘솔</h2></div>'+button('P · 닫기','dev-close')+'</header><section><h3>위치 이동</h3>'+button('집 안','dev-home')+button('엘리베이터 앞 · 아래층','dev-elevator')+button('바 문 앞','dev-bar')+'</section><section><h3>현재 소지금</h3><output class="outside-dev-money" aria-live="polite"></output><div class="outside-dev-money-actions">'+button('−1,000원','dev-minus')+button('+1,000원','dev-plus')+'</div></section><p class="outside-dev-note">일차·출퇴근 상태는 유지됩니다.<br>소지금은 0원 아래로 내려가지 않습니다.</p><p class="outside-dev-feedback" role="status"></p></aside>';}
- function paintDev(){const panel=host?.querySelector('.outside-dev-console');if(!panel)return;panel.hidden=!devOpen;panel.querySelector('output').textContent=devMoney().toLocaleString('ko-KR')+'원';panel.querySelector('[data-outside-action="dev-minus"]').disabled=devMoney()===0;}
+ function devHTML(){return '<aside class="outside-dev-console" role="dialog" aria-label="외부 개발자 콘솔" hidden><header><div><small>DEVELOPER</small><h2>외부 개발자 콘솔</h2></div>'+button('P · 닫기','dev-close')+'</header><section><h3>위치 이동</h3>'+button('집 안','dev-home')+button('엘리베이터 앞 · 아래층','dev-elevator')+button('바 문 앞','dev-bar')+'</section><section><h3>이동 상태 <small class="outside-dev-day"></small></h3><div class="outside-dev-flow">'+button('출근길','dev-flow-in')+button('퇴근길','dev-flow-out')+'</div></section><section><h3>현재 소지금</h3><output class="outside-dev-money" aria-live="polite"></output><div class="outside-dev-money-actions">'+button('−1,000원','dev-minus')+button('+1,000원','dev-plus')+'</div></section><p class="outside-dev-note">상태 변경 시 일차·위치·소지금은 유지됩니다.<br>출근길은 바 입장, 퇴근길은 귀가·수면으로 이어집니다.</p><p class="outside-dev-feedback" role="status"></p></aside>';}
+ function paintDev(){const panel=host?.querySelector('.outside-dev-console');if(!panel)return;panel.hidden=!devOpen;panel.querySelector('.outside-dev-day').textContent=model.config.day+'일차';for(const flow of ['in','out'])panel.querySelector('[data-outside-action="dev-flow-'+flow+'"]').setAttribute('aria-pressed',String(model.config.flow===flow));panel.querySelector('output').textContent=devMoney().toLocaleString('ko-KR')+'원';panel.querySelector('[data-outside-action="dev-minus"]').disabled=devMoney()===0;}
  function toggleDev(open=!devOpen){if(!active||loading||loadError)return;devOpen=open;clearInput();paintDev();hudSignature='';updateHUD();if(open)host.querySelector('[data-outside-action="dev-home"]')?.focus({preventScroll:true});else host.focus({preventScroll:true});}
  function devAction(action){if(!devOpen||loading||loadError)return;
   if(action==='dev-close'){toggleDev(false);return;}
   const m=model,c=global.lunaCampaign,g=global.barGame;
   if(action==='dev-plus'||action==='dev-minus'){const before=devMoney(),after=Math.max(0,before+(action==='dev-plus'?1000:-1000));g.progress.money=after;if(c?.session.active&&c.session.carry)c.session.carry.money=after;g.log('debug_money',{before,after,source:'outside-console'});g.changed();}
+  else if(action==='dev-flow-in'||action==='dev-flow-out'){
+   const flow=action==='dev-flow-in'?'in':'out';if(m.config.flow===flow)return;
+   clearInput();m.story.cancel();m.backgroundStory.cancel();m.encounter=null;m.dialog=null;m.notice='';m.noticeLeft=0;m.playedAmbient.clear();m.notionCommuteSeen=false;
+   // Preserve the exact location (and any lift trip); only the route and its event state change.
+   m.config.flow=flow;config.flow=flow;
+   if(c?.active){c.session.day=m.config.day;c.session.route=flow;c.session.carry=JSON.parse(JSON.stringify(g.progress));c.session.pendingStep=null;c.morningSeen.delete(m.config.day);c.nightStarted=false;}
+   if(c){c.outsideSleep=null;c.liftLogoPending=false;document.querySelector('#campaign-lift-logo')?.remove();}
+   g.log('debug_commute',{day:m.config.day,flow,source:'outside-console'});m.updateNear();m.revision++;
+   host.querySelector('.outside-dev-feedback').textContent=m.config.day+'일차 · '+FLOWS[flow]+'로 변경했습니다.';
+  }
   else if(['dev-home','dev-elevator','dev-bar'].includes(action)){
+
    clearInput();m.story.cancel();m.backgroundStory.cancel();m.ride=null;m.transition=null;m.encounter=null;m.dialog=null;m.paused=false;m.notice='';m.noticeLeft=0;
    // Teleport destinations are actual locations, including when invoked from the QA sandbox.
    if(m.qa)m.qa=null;
@@ -146,7 +158,7 @@ function create({onExit=()=>{}}={}){
  }
  function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
  function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.restore();}
- function renderNode(n){if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,model.x<n.x);return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model)))return;
+ function renderNode(n){if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,model.x>n.x);return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model)))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=model.encounter?.kind==='direct'&&n.id==='ambient-'+model.encounter.target.actor?model.x<n.x:n.flip;drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);
@@ -157,7 +169,7 @@ function create({onExit=()=>{}}={}){
   if(model.scene==='home'){const bg=nodes.find(n=>n.name==='main_bg');if(bg)renderNode(bg);nodes.filter(n=>n.name!=='main_bg'&&n.name!=='ForeFore_Object').forEach(renderNode);}
   const drawPlayer=()=>{const anim=data.animations[model.anim],frame=anim.frames[Math.floor(model.animTime*anim.fps)%anim.frames.length];drawSprite(frame,model.x,model.y,1,1,model.facing>0);};
   if(model.scene==='home'){drawPlayer();nodes.filter(n=>n.name==='ForeFore_Object').forEach(renderNode);}
-  else streetDrawOrder(nodes).forEach(n=>{if(n.name==='Luna')drawPlayer();else renderNode(n);});
+  else streetDrawOrder(nodes).forEach(n=>{if(n.name==='Luna'){global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);});
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
@@ -187,7 +199,7 @@ function create({onExit=()=>{}}={}){
  }
  function renderSpeech(el,v,background=false){el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
   const key=v.key+':'+v.canTreat;
-  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML='<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="BD 칩 구매 선택">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
+  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML='<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
 
   const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text)text.textContent=v.text;
   const p=position(v.anchor.x,v.anchor.y),w=el.offsetWidth||420,h=el.offsetHeight||160,x=clamp(p.x,25+w/2,1255-w/2),y=clamp(p.y-22,105+h,615);el.style.left=x+'px';el.style.top=y+'px';el.style.setProperty('--tail-x',clamp(p.x-x+w/2,25,w-25)+'px');
@@ -204,7 +216,7 @@ function create({onExit=()=>{}}={}){
   if(loading||loadError||model.paused)return;
   if(model.story.speech?.choice){
    if(e.code==='Tab'||e.code==='ArrowUp'||e.code==='ArrowDown'){e.preventDefault();const buttons=[...host.querySelectorAll('.bd-choices button:not(:disabled)')],i=buttons.indexOf(document.activeElement),delta=e.shiftKey||e.code==='ArrowUp'?-1:1;buttons[(i+delta+buttons.length)%buttons.length]?.focus();return;}
-   if(['KeyE','Space','Enter'].includes(e.code)){if(e.code==='KeyE'||!e.target.closest('.bd-choices button'))e.preventDefault();return;}
+   if(['KeyE','Space','Enter'].includes(e.code)){e.preventDefault();const choice=e.target.closest('.bd-choices button');if(e.code!=='KeyE'&&!e.repeat&&choice&&!choice.disabled)choice.click();return;}
   }
   if(e.code==='KeyY'){if(!e.repeat&&model.scene==='street'&&!model.transition&&!model.encounter){panorama=!panorama;updateHUD();}return;}
   if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();model.interact();updateHUD();return;}
@@ -214,7 +226,7 @@ function create({onExit=()=>{}}={}){
  function loseFocus(){if(!active)return;if(devOpen)toggleDev(false);clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
- return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,tick,clearInput,snapshot,snapCamera,refreshHUD:updateHUD};
+ return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,interactionAnchor};
 })(typeof window==='undefined'?globalThis:window);

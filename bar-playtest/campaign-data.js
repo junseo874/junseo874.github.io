@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-02 (day 1 Shiba scene refreshed; other days retained)",
+  "revision": "2026-10-02 (day 0 memory and day 1 terrace / regular dialogue refreshed)",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -443,12 +443,6 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "(이따가 크리스에게 도움을 부탁해야겠네.)"
-      },
-      {
-        "type": "say",
         "actor": "shiba",
         "who": "개시바",
         "text": "후… 웬 얼빠진 놈 때문에 흥분했군."
@@ -457,7 +451,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(혼자서 화내고 혼자서 진정하는 특이한 짐승이네.)"
+        "text": "(뭐지…)"
       },
       {
         "type": "say",
@@ -544,13 +538,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "…어, 그래. 반가워."
+        "text": "어? 어… 그래. 반가워."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "혹시 여기서 분위기 잡고 있던 무서운 아저씨, 어디 갔는지 알아?"
+        "text": "혹시 여기에 분위기 잡고 있던 무서운 아저씨, 어디 갔는지 알아?"
       },
       {
         "type": "say",
@@ -885,12 +879,6 @@ window.LUNA_CAMPAIGN_DATA={
         "actor": "luna",
         "who": "루나",
         "text": "맛있었나 보네요."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "하하, 너라면 그렇게 생각할 것 같았어."
       },
       {
         "type": "say",
@@ -3401,13 +3389,100 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "물론 아직 알려 주지 않은 것도 많지만, 천천히 해 보자고."
+        "text": "…그래서, 계속 해 보고 싶다는 생각은 들어?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네, 알겠습니다."
+        "text": "솔직히 말씀드리면, 아직 잘 모르겠습니다."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "이 일을 계속한다고 사람을 이해하고 감정을 배울 수 있을지 잘 모르겠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…사람과 감정을 이해하고 싶다는 마음은 여전한 거지?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…",
+        "cinemaAfter": "terrace-memory"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 맞아요. 사람과 감정을 이해하고, 다른 사람에게 공감할 수 있었으면 좋겠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그 마음이 여전하다면 일주일만 더 해 봐.\n그때도 여기서는 배울 게 없다는 생각이 들면, 다른 방법을 찾아줄게."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "알겠어요, 크리스."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그래. 오늘은 이만 자고, 내일 다시 해 보자고."
+      }
+    ],
+    "terraceMemory": [
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "루나, 내가 말했던 거 기억나지?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "감정에 대해서 배우는 거요?"
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "그래. 감정을 이해하면 너한테 행복이 뭔지도 알게 될 거야.\n그러면 넌 단순한 인공지능이 아니라 사람이라고 떳떳하게 말할 수 있어."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "쉽진 않겠지만, 그래도 포기하지 마. 넌 할 수 있을 거야."
       }
     ],
     "workshop": [
@@ -3484,7 +3559,127 @@ window.LUNA_CAMPAIGN_DATA={
         "text": "부탁할 때만 말이 곱지, 망할 놈 같으니."
       }
     ],
-    "night1": [],
+    "night1": [
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "고생했다. 내 예상보다 손님이 꽤 왔네."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그렇게 힘들진 않았어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그렇다면 다행이군…"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "아까 말한 조니의 기억 칩은 포트가 복원하는 대로 가져다줄 거야."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "물론 우리가 찾는 기록까지 복원할 수 있을지는 모르지만."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "잘되면 좋겠네요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "왜? 그놈이랑 벌써 친해진 건가?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "톰은 그 칵테일이 자신에게 큰 영향을 줬고, 지금도 자꾸 생각난다고 했어요."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "직접 만들어 드리면, 왜 그렇게 특별하게 기억하는지 조금은 이해할 수 있을 것 같아서요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "흠… 그렇군."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그럼 아까 떠오른 것도 얘기해 줄게. 정확한 기억은 아닐 수도 있지만."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "예전에 조니가 만들던 올드 패션드에는 와일드 독, 비터스, 각설탕, 이 세 가지가 들어갔던 걸로 기억해.",
+        "emphasis": [
+          "와일드 독",
+          "비터스",
+          "각설탕"
+        ]
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "문제는 이 재료들이 지금 가게에 없고, 거래하는 매입처에서도 취급하지 않는다는 거야."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…뭔가 방법은 없나요?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "나도 계속 알아볼 테니, 너도 거리에 나가면 이런 재료를 파는 사람이 있는지 살펴봐 줘."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "물론 위험해 보이면 섣불리 나서지는 말고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 알겠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "좋아. 잘될지는 모르지만, 이왕 그렇게 마음먹었다면 한번 해 보자고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네."
+      }
+    ],
     "commute2": [
       {
         "type": "say",

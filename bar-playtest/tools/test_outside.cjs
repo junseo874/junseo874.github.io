@@ -9,7 +9,7 @@ let m=new Model();step(m,1,{move:-1});assert(Math.abs(m.x-.3)<1e-6);assert.equal
 console.log('PASS speed, direction, animation and pause');
 m.x=-12.51;m.updateNear();assert.equal(m.near.id,'elevator');assert(m.interact());assert(!m.interact());step(m,5,{move:1,run:true});assert.equal(m.x,-12.51);assert(Math.abs(m.y-m.elevatorY-.382)<1e-9);m.paused=true;before=m.elevatorY;step(m,3);assert.equal(m.elevatorY,before);m.paused=false;step(m,9);assert(!m.ride);assert.equal(m.level,1);assert.equal(m.elevatorY,9.238);assert.equal(m.y,9.62);assert.equal(m.arrivals,1);
 // Approach the actual house door, then enter and leave once.
-m.x=-16.36;m.updateNear();assert.equal(m.near.id,'home');m.interact();assert(!m.interact());step(m,1);assert.equal(m.scene,'home');assert.equal(m.near.id,'exit');m.interact();step(m,1);assert.equal(m.scene,'street');assert.equal(m.level,1);assert.equal(m.config.day,0);
+m.x=globalThis.LunaResidence.layout.homeX;m.updateNear();assert.equal(m.near.id,'home');m.interact();assert(!m.interact());step(m,1);assert.equal(m.scene,'home');assert.equal(m.near.id,'exit');m.interact();step(m,1);assert.equal(m.scene,'street');assert.equal(m.level,1);assert.equal(m.config.day,0);
 m.x=-12.51;m.updateNear();m.interact();step(m,14);assert.equal(m.level,0);assert.equal(m.arrivals,2);assert.equal(m.elevatorY,-1.09);
 console.log('PASS elevator up/down, interruption guard, house round trip');
 m=new Model({place:'homeDoor'});m.elevatorY=-1.09;m.x=-12.51;m.updateNear();m.interact();assert(m.ride.call);step(m,8);assert.equal(m.y,9.62);assert.equal(m.elevatorY,9.238);assert.equal(m.arrivals,0);

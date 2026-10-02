@@ -1,12 +1,12 @@
 const fs=require('fs'),path=require('path');const root=path.resolve(__dirname,'..');const put=(name,text)=>fs.writeFileSync(path.join(root,name),text);
 const source=JSON.parse(fs.readFileSync(root+'/tools/campaign-notion-source.json','utf8'));
-const actors={'개시바':'shiba','시바견':'shiba','루나':'luna','크리스':'chris','톰':'tom','아일리':'aili','포트':'port','삼호':'samho','조니':'johnny','과거의 톰':'tom','기억 속 루나':'luna','연구원':'researcher','주거층 주민':'resident','의뢰 연락 메시지':'message','삼호가 보내는 메시지':'samho','보안부 3팀 팀장':'captain','진입조｜무전':'radio','보안부 대원 A':'soldier','경계조 A｜무전':'radio'};
-const clean=s=>s.replace(/\*\*/g,'').trim().replace(/한잔/g,'한 잔').replace(/할 만한 거 같아/g,'할 만한 것 같아').replace(/아직까진/g,'아직까지는').replace(/시작해보자/g,'시작해 보자').replace(/받아줘/g,'받아 줘').replace(/꺼야/g,'거야');
+const actors={'유나':'yuna','개시바':'shiba','시바견':'shiba','루나':'luna','크리스':'chris','톰':'tom','아일리':'aili','포트':'port','삼호':'samho','조니':'johnny','과거의 톰':'tom','기억 속 루나':'luna','연구원':'researcher','주거층 주민':'resident','의뢰 연락 메시지':'message','삼호가 보내는 메시지':'samho','보안부 3팀 팀장':'captain','진입조｜무전':'radio','보안부 대원 A':'soldier','경계조 A｜무전':'radio'};
+const clean=s=>s.replace(/\*\*/g,'').trim().replace(/한잔/g,'한 잔').replace(/할 만한 거 같아/g,'할 만한 것 같아').replace(/아직까진/g,'아직까지는').replace(/시작해보자/g,'시작해 보자').replace(/받아줘/g,'받아 줘').replace(/꺼야/g,'거야').replace(/네 알겠어요\./g,'네, 알겠어요.').replace(/평범한 일인 거 같은데/g,'평범한 일인 것 같은데').replace(/\(뭐지\.\.\.\)/g,'(뭐지…)');
 function section(day,start,end,optional=false){const t=source.days[day];const i=t.indexOf(start);if(i<0){if(optional)return '';throw Error(start);}const j=end?t.indexOf(end,i+start.length):t.length;return t.slice(i+start.length,j<0?t.length:j);}
 function parse(t){let actor=null,who='',buf=[],out=[];function flush(){if(actor&&buf.length)out.push({type:'say',actor,who,text:clean(buf.join('\n'))});buf=[];}
  for(let line of t.split('\n')){line=clean(line).replace(/\s*\|\s*$/,'').trim();if(!line||line==='본문')continue;
   if(actors[line]){flush();who=line;actor=actors[line];continue;}
-  if(line.startsWith('(')&&line.endsWith(')')&&!(actor==='luna'&&/^\((?:\.{0,3}퇴근|…퇴근|…생각보다|…뭐지|이 짐승|혼자서|아까 본|지금 DB|…현재 레시피|현재 레시피|이따|흠|시작|샴페인 한 잔|재료는|기록에서 확인한 것과 달라|돌아온 이유)/.test(line))){flush();out.push({type:'stage',text:line});actor=null;continue;}
+  if(line.startsWith('(')&&line.endsWith(')')&&!(actor==='luna'&&/^\((?:\.{0,3}퇴근|…퇴근|…생각보다|…뭐지|이 짐승|혼자서|아까 본|지금 DB|…현재 레시피|현재 레시피|이따|흠|뭐지|시작|샴페인 한 잔|재료는|기록에서 확인한 것과 달라|돌아온 이유)/.test(line))){flush();out.push({type:'stage',text:line});actor=null;continue;}
   if(/^(주문한 .*경우|공통 진행)$/.test(line)){flush();actor=null;continue;}
   if(line.startsWith('#')||/^(본문|영업 준비|등장인물|진행 기준|다음 장면|게임 화면|게임 대사)/.test(line)){flush();actor=null;continue;}
   if(actor)buf.push(line);
@@ -46,14 +46,34 @@ function compileBar(day){let input;if(day<3)input=section(day,'### 단골 손님
  if(day===2)add('campaign_memory');
  return out;
 }
+// Split the short memory from the seated dialogue so regeneration preserves playback order.
+function compileTerrace(){
+ const night0=[],terraceMemory=[];let inMemory=false;
+ for(const row of parse(section(0,'### 크리스의 집 · 테라스 대화','### 다음 일차'))){
+  if(row.type==='stage'){
+   if(row.text.includes('짧은 회상')){inMemory=true;if(!night0.length)throw Error('Missing terrace lead-in');night0.at(-1).cinemaAfter='terrace-memory';}
+   else if(row.text.includes('회상 컷씬 종료'))inMemory=false;
+   continue;
+  }
+  (inMemory?terraceMemory:night0).push(row);
+ }
+ if(night0.some(r=>r.cinemaAfter)&&(!terraceMemory.length||inMemory))throw Error('Incomplete terrace memory');
+ return {night0,terraceMemory};
+}
+function compileNight1(){
+ const rows=speech(section(1,'### 크리스의 집 · 테라스 대화',null,true));
+ for(const row of rows)row.text=row.text.replace(/\\*\[([^\]]+)\\*\]/g,(_,list)=>{const plain=list.replace(/\\/g,'');row.emphasis=plain.split(',').map(s=>s.trim());return plain;});
+ return rows;
+}
+const terrace=compileTerrace();
 const prologue=speech(section(0,'### 프롤로그 · 연구소','### 바 ·')).map(r=>({...r,text:r.text.replace(/\(노이즈 효과\)/g,'')}));
 // Keep visual directions out of spoken copy. The last attack is a separate visual beat.
 const data={source:source.source,revision:source.fetched,actors,
  prologue,opening:{},bar:{},scenes:{
   resident:speech(section(0,'### 귀가길 · 거리 탐색','### 첫 귀가',true)),
-  night0:speech(section(0,'### 크리스의 집 · 테라스 대화','### 다음 일차')),
-  workshop:speech(section(1,'### 영업 후 · 포트의 작업장','### 귀가 후')),
-  night1:speech(section(1,'### 귀가 후 · 첫 번째 기억 단편',null,true)),
+  night0:terrace.night0,terraceMemory:terrace.terraceMemory,
+  workshop:speech(section(1,'### 영업 후 · 포트의 작업장','### 크리스의 집 · 테라스 대화')),
+  night1:compileNight1(),
   commute2:speech(section(2,'### 출근 전 · 삼호와 첫 만남','### 오픈 전')),
   johnny:speech(section(2,'### 교대 후 · 조니의 기억','### 기억 확인 후')),
   prepare:speech(section(2,'### 기억 확인 후 · 내일의 준비','### 귀가 후')),

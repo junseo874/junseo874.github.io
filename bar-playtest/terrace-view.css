@@ -13,3 +13,9 @@
 .terrace-scene[data-terrace-speaker=luna] .terrace-speech strong{color:#c5ddeb}
 .campaign-stage .terrace-narration{left:50%;bottom:42px;max-width:750px;min-width:0;text-align:center;background:#07101bba;border:0;border-radius:4px}
 .terrace-narration p{font-size:19px;color:#c5d3dc}
+
+
+.terrace-speech .terrace-ingredient{color:#ffad68;white-space:nowrap}
+
+/* Reveal the setting first; dialogue begins after the shared transition completes. */
+.terrace-entering .terrace-speech{visibility:hidden;pointer-events:none}

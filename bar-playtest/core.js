@@ -218,7 +218,7 @@ class Game{
  name(id){const r=this.t.characters.find(x=>x.id===id)||this.t.cocktails.find(x=>x.id===id)||this.t.shelf_items.find(x=>x.id===id)||this.t.personalities.find(x=>x.id===id);return this.text(r,'name')||id||'';}
  reset(day=0,mode='full',seed=1,run=true,settings={}){
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
-  this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
+  this.serviceVersion=settings.serviceVersion==='B'&&settings.variant!=='gpt'?'B':'A';this.mixedResume=null;this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
   this.pourTool='pourer';this.tutorial=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else {const fresh=this.dailyUnlocks();if(mode==='full'&&this.day>0&&this.day!==99&&(fresh.ingredients.length||fresh.cocktails.length)){this.pendingDailyUnlocks=true;this.phase='arrival';this.overlay='dailyUnlocks';}else this.startStoryPhase('bar_open');}}
@@ -244,7 +244,10 @@ class Game{
   if(this.phase==='opening'){this.story=null;this.startGeneral();}
   else {if(this.currentOrder)throw Error('미처리 주문 상태에서 대본 종료');this.finishDay();}
  }
- loadScene(scene){this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
+ loadScene(scene){this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));
+  // Runtime-only schedule: never mutate authored dialogue tables or Version A.
+  if(this.mixedService()&&this.story.steps.some(s=>s.type==='enter'&&s.actor==='shiba')){const at=this.story.steps.findIndex(s=>s.type==='enter'&&s.actor==='tom');if(at>=0)this.story.steps.splice(at,0,{type:'mixed_general',arg:'1',context:scene.id,seq:'mixed-before-tom'});}
+  this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
  stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;this.pump();}
  pump(){
   for(let guard=0;guard<1000;guard++){
@@ -252,6 +255,10 @@ class Game{
    const s=this.story.steps[this.story.index];if(!s){this.nextScene();return;}
    if(!condition(s.when,this.ctx())){this.log('step_skipped',{scene:this.story.scene.id,seq:s.seq,when:s.when});this.story.index++;continue;}
    this.log('step',{scene:this.story.scene.id,seq:s.seq,type:s.type});
+   if(s.type==='mixed_general'){
+    if(this.currentOrder)throw Error('미처리 주문이 있어 일반 손님으로 전환할 수 없습니다.');
+    this.story.index++;this.mixedResume={story:this.story,seats:this.seats,focus:this.focus,resultContext:this.resultContext,lastStoryLine:this.lastStoryLine};this.startGeneral();return;
+   }
    if(this.campaignStep?.(s))return;
    if(s.type==='say'||s.type==='order'&&this.text(s)){
     this.dialogue=this.makeLine(s.actor,this.text(s),s.dialogue_id,s.arg);this.dialogue.step=s;return;
@@ -298,9 +305,14 @@ class Game{
   const freeChoice=s.arg==='free',id=freeChoice?this.cocktailsAvailable()[0]?.id:s.arg?.match(/^exact:(.+)$/)?.[1];if(!id)throw Error('미지원 주문 형식: '+s.arg);this.cocktail(id);const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('주문자 착석 정보 없음: '+s.actor);
   if(this.currentOrder)throw Error('앞 주문이 미완료');this.resultContext={};this.currentOrder={id:'order_'+(++this.serial),actor:s.actor,seat,cocktail:id,...(freeChoice?{freeChoice:true}:{}),...(s.payment?{payment:s.payment}:{})};this.resultContext.ordered=id;this.seats[seat].coaster=true;this.seats[seat].order=this.currentOrder;this.log('order',{...this.currentOrder});
  }
+ mixedService(){return this.serviceVersion==='B'&&this.day===1&&this.variant!=='gpt'&&this.mode!=='practice';}
+ finishGeneralService(){
+  if(this.mixedResume){const saved=this.mixedResume;this.mixedResume=null;this.phase='regular';this.progress.phase='bar';this.screen='bar';this.story=saved.story;this.seats=saved.seats;this.focus=saved.focus;this.resultContext=saved.resultContext;this.lastStoryLine=saved.lastStoryLine;this.dialogue=null;this.choice=null;this.currentOrder=null;this.log('mixed_service_block',{block:'tom-aili-chris'});this.pump();this.changed();return;}
+  if(this.mixedService())this.log('mixed_service_block',{block:'shiba'});this.startStoryPhase('bar');
+ }
  startGeneral(){
-  this.phase='general';this.progress.phase='bar_open';this.screen='bar';this.seats={L:null,M:null,R:null};this.story=null;this.dialogue=null;this.queue=sortSeq([...this.t.random_waves,...this.t.regular_slots].filter(s=>n(s.day)===this.day));this.queueIndex=0;this.spawnBlocked=false;this.spawnLeft=this.c('first_spawn_delay_sec',5)+n(this.queue[0]?.delay_sec);this.focus='L';
-  this.log('phase_start',{phase:'general',slots:this.queue.length});if(!this.queue.length)this.startStoryPhase('bar');
+  this.phase='general';this.progress.phase='bar_open';this.screen='bar';this.seats={L:null,M:null,R:null};this.story=null;this.dialogue=null;this.queue=sortSeq([...this.t.random_waves,...this.t.regular_slots].filter(s=>n(s.day)===this.day));if(this.mixedService()){const ordinary=sortSeq(this.t.random_waves.filter(s=>n(s.day)===1));this.queue=(this.mixedResume?ordinary.slice(2,3):ordinary.slice(0,2)).map((s,i)=>({...s,max_rounds:'1',...(i===0?{delay_sec:'0'}:{})}));this.log('mixed_service_block',{block:this.mixedResume?'general-1':'general-2',count:this.queue.length});}this.queueIndex=0;this.spawnBlocked=false;this.spawnLeft=this.c('first_spawn_delay_sec',5)+n(this.queue[0]?.delay_sec);this.focus='L';
+  this.log('phase_start',{phase:'general',slots:this.queue.length});if(!this.queue.length)this.finishGeneralService();
  }
  appearance(){
   const gender=this.rng()<0.5?'m':'f';const slots=['body','outfit','eyes','eyebrows','mouth','hair'];let ids=[],layers=[];
@@ -379,6 +391,7 @@ class Game{
  startCraft(){if(this.tutorial&&(this.variant==='gpt'||this.tutorial.kind!=='prepStart'||this.prep?.glass!=='long_drink'||!['gin','soda_water'].every(id=>this.prep.ingredients.includes(id))))return false;if(this.screen!=='prep'||!this.prep?.glass||!this.prep.ingredients.length||this.isPaused())return false;if(this.prep.ingredients.includes('beer')&&!this.prep.opener){this.overlay='openerWarning';this.changed();return false;}return this.safe(()=>{this.craft={id:'craft_attempt_'+(++this.serial),actual:structuredClone(this.prep),queue:buildQueue(this.data,this.cocktail(this.prep.selected),this.prep),index:0,results:[],elapsed:0};this.screen='gimmick';this.nextGimmick();if(this.tutorial?.kind==='prepStart'){this.tutorial=null;this.progress.flags.day0_recipe_taught=true;this.log('tutorial_complete',{kind:'prep'});}this.changed();return true;});}
  nextGimmick(){const step=this.craft.queue[this.craft.index];if(!step){this.result=scoreCraft(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual,this.craft.results,this.craft.elapsed);this.result.id=this.craft.id;this.resultContext.craft_grade=this.result.grade;this.screen='result';this.gimmick=null;this.log('craft_result',{id:this.craft.id,score:this.result.score,grade:this.result.grade});return;}
   this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?MIX.shakeTargetStacks:this.c('stir_target_stacks',10)};MIX.init(this.gimmick);POUR.init(this.gimmick,this);
+  if(this.gimmick.fluid&&this.day===0&&this.variant!=='gpt'&&!this.minigame&&this.currentOrder?.actor==='chris'&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_pour_taught)this.gimmick.pourTutorial={step:'target'};
  }
  startGimmick(){return this.gimmickInput(this.gimmick?.type==='stir'?'KeyW':'Space');}
  setPourTool(tool){const s=this.gimmick;if(this.screen!=='gimmick'||this.isPaused()||!s?.fluid||!s.fluid.setTool(tool,s))return false;this.pourTool=tool;this.log('pour_tool',{tool,ingredient:s.ingredient,rate:s.fluid.rate});this.changed();return true;}
@@ -401,6 +414,7 @@ class Game{
  }
  finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;else g.failures++;g.attemptStartPos=g.stirPos;g.stirStep=0;g.circleTime=0;g.feedbackLeft=.35;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
  endGimmick(){const g=this.gimmick;if(!g||this.screen!=='gimmick'||this.isPaused()||!g.started)return false;if(g.fluid&&!g.fluid.ready){g.fluid.requestFinish(g);this.changed();return true;}if(g.fluid?.ready){if(!g.pourFinishFx){const errorMl=g.fluid.caughtMl-g.fluid.targetMl;g.pourFinishFx={errorMl,perfect:Math.abs(errorMl)<=5+1e-8,age:0};}if(g.pourFinishFx.age<.8)return true;}let result={type:g.type,ingredient:g.ingredient,value:g.value,failures:g.failures,completed:g.completed,completion:g.success/(g.targetStacks+(g.rhythm?.extraPresses||0)),endType:g.completed?'AutoTarget':'ManualNext'};if(g.rhythm)result.rhythm={mode:g.rhythm.mode,bestCombo:g.rhythm.best,extraPresses:g.rhythm.extraPresses};if(['pour','fill_up'].includes(g.type)){result.completed=true;if(g.fluid)result.liquid={...g.fluid.audit()};}
+  if(g.fluid&&g.pourTutorial){this.progress.flags.day0_pour_taught=true;this.log('tutorial_complete',{kind:'pour'});}
   this.craft.results.push(result);this.craft.index++;this.safe(()=>this.nextGimmick());this.changed();}
  retryDataError(){if(!this.craft)return;this.error=null;this.craft.id='craft_attempt_'+(++this.serial);this.craft.index=0;this.craft.results=[];this.craft.elapsed=0;this.screen='gimmick';this.safe(()=>{this.craft.queue=buildQueue(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual);this.nextGimmick();});this.changed();}
  cancelCraft(){this.error=null;this.gimmick=null;this.craft=null;this.result=null;this.prep=null;this.screen='recipe';this.changed();}
@@ -500,7 +514,7 @@ class Game{
    const line=g.lines[g.lineIndex];if(line){line.seen=true;if(line.chars<line.text.length)this.typeLine(line,realDt);else{line.hold+=realDt*this.dialogSpeed;if(line.hold>=this.c('order_bark_gap_sec',1.5)){this.history.push({actor:line.actor,text:line.text,id:line.id});g.lineIndex++;if(g.lineIndex>=g.lines.length){const fn=g.lineDone;g.lineDone=null;if(fn)fn();}}}}
    else if(g.state==='WAIT_SERVE'&&!g.reasking){g.idleLeft-=dt;if(g.idleLeft<=0){this.setBarks(g,['idle']);g.idleLeft=this.c('idle_min_sec',8)+this.rng()*(this.c('idle_max_sec',13)-this.c('idle_min_sec',8));}}
   }
-  if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.startStoryPhase('bar');}
+  if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.finishGeneralService();}
  }
  tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
   if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';OPEN.hit(g,false);}}

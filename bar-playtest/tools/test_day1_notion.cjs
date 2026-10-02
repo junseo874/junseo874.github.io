@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict'),pat
 const box={window:{}};for(const name of ['data.js','campaign-data.js','campaign-engine.js'])vm.runInNewContext(fs.readFileSync(root+'/'+name,'utf8'),box);
 const C=require(root+'/core.js'),R=require(root+'/remix.js'),D=C.millilitreData(JSON.parse(JSON.stringify(box.window.LUNA_DATA))),story=box.window.LUNA_CAMPAIGN_DATA;
 const rows=D.tables.steps.filter(s=>s.context==='day1_notion_regular'),say=rows.filter(s=>s.type==='say');
-assert.equal(say.length,216);assert.equal(rows.length,story.bar[1].length);
+assert.equal(say.length,214);assert.equal(rows.length,story.bar[1].length);
 assert.equal(JSON.stringify(say.map(s=>[s.actor,s['text.ko']])),JSON.stringify(story.bar[1].filter(s=>s.type==='say').map(s=>[s.actor,s.text])));
 assert.deepEqual(rows.filter(s=>s.type==='order').map(s=>[s.actor,s.arg]),[['shiba','free'],['tom','exact:dry_martini'],['aili','exact:champagne']]);
 assert.equal(D.tables.scenes.filter(s=>+s.day===1&&s.phase==='bar').length,1);
@@ -22,5 +22,5 @@ for(const mode of ['original','gpt','campaign']){
   }
   g.tick(.1);
  }
- assert(g.finished,mode+' stalled');assert(unknown>0&&known>0);assert.equal(g.progress.flags.tom_name_known,true);assert.equal(g.error,null);assert.equal(seen.length,216,mode);assert.equal(JSON.stringify(seen),JSON.stringify(story.bar[1].filter(s=>s.type==='say').map(s=>[s.actor,s.text])));assert.deepEqual(drinks,['gin_tonic','dry_martini','champagne']);session?.uninstall();console.log('PASS '+mode+' 216 lines + Tom/Aili orders + full regular service');
+ assert(g.finished,mode+' stalled');assert(unknown>0&&known>0);assert.equal(g.progress.flags.tom_name_known,true);assert.equal(g.error,null);assert.equal(seen.length,214,mode);assert.equal(JSON.stringify(seen),JSON.stringify(story.bar[1].filter(s=>s.type==='say').map(s=>[s.actor,s.text])));assert.deepEqual(drinks,['gin_tonic','dry_martini','champagne']);session?.uninstall();console.log('PASS '+mode+' 214 lines + Tom/Aili orders + full regular service');
 }

@@ -3,7 +3,7 @@
 'use strict';
 const labels=Object.fromEntries(W.LunaOutsideContent.events.map(e=>[e.id,e.label]));
 let liftLogo=null;
-const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',ending:'3일차 테라스 · 마지막 대화'};
+const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
  ...Object.keys(W.LUNA_OUTSIDE_DIALOGUES).map(id=>{const e=W.LunaOutsideEncounters.cases.find(c=>c.id===id);return{id,label:labels[id]||(e?.kind==='pair'?'NPC끼리 대화':'NPC와 대화')+' · '+id.replace('demo_out_',''),source:id,auto:!!W.LunaOutsideContent.events.find(c=>c.id===id)?.auto,encounter:e,note:'노션 외부 이야기 · 0일차 퇴근길'};}),
  ...Object.entries(scenes).filter(([id])=>W.LUNA_CAMPAIGN_DATA.scenes[id]?.length).map(([key,label])=>({id:'runtime:'+key,label,scene:key,note:'대사 원문 + QA 접근·카메라 스테이징 (완성 컷씬 아님)'})),
@@ -28,7 +28,7 @@ function target(m){const c=catalog().find(c=>c.id===m.qa.caseId),r=W.LunaResiden
 function isAuto(m){const c=catalog().find(c=>c.id===m.qa.caseId);return !c.physical&&(m.qa.activation==='proximity'||m.qa.activation==='source'&&c.auto);}
 function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
- const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).map(r=>({...r,type:r.type||'say'}));
+ const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.terraceMemory]:[r]).map(r=>({...r,type:r.type||'say'}));
  const start=()=>{m.qa.runtime=null;m.story.beginRows(c.id,{...t,qa:true},rows,automatic);};
  if(automatic){start();return;}
  m.qa.camera={x:-.2,y:-.12,w:3.6};m.qa.runtime={elapsed:0,from:m.x,to:-.65,start};
@@ -50,7 +50,7 @@ function draw({m,ctx,position,sprite,data,player}){const q=m.qa,c=catalog().find
  if(c.id.startsWith('lift-')){data.scenes.street.nodes.filter(n=>n.name==='Elevator Line'||n.name==='Elevator').forEach(n=>sprite(n.sprite,n.x,n.y+(n.name==='Elevator'?m.elevatorY-r.elevatorBottom:0),n.sx,n.sy));}
  else if(c.physical){const t=target(m);box(t.x-.25,t.y-.274,.5,.9,t.label);}
  else if(W.LunaOutsideContent.events.some(e=>e.id===c.source&&e.kind==='object')){const e=W.LunaOutsideContent.events.find(e=>e.id===c.source),n=data.scenes.street.nodes.find(n=>n.name===e.node);if(n)sprite(n.sprite,0,-.45,1,1);}
- for(const p of q.people){if(p.id==='shiba'){const a=data.animations.shiba;sprite(a.frames[Math.floor(m.time*a.fps)%a.frames.length],p.x,-.6);continue;}if(p.id==='samho'){const n=data.scenes.street.nodes.find(n=>n.name==='Samho');sprite({...n.sprite,x:(m.time%4<.3?Math.floor(m.time*10)%3:0)*84},p.x,p.y,1,1,m.x<p.x);continue;}
+ for(const p of q.people){if(p.id==='shiba'){const a=data.animations.shiba;sprite(a.frames[Math.floor(m.time*a.fps)%a.frames.length],p.x,-.6);continue;}if(p.id==='samho'){const n=data.scenes.street.nodes.find(n=>n.name==='Samho');sprite({...n.sprite,x:(m.time%4<.3?Math.floor(m.time*10)%3:0)*84},p.x,p.y,1,1,m.x>p.x);continue;}
  const original=W.LunaOutsideEncounters.actor(p.id),kind=original?.kind||p.kind,sp={asset:'ambient-'+kind,x:(Math.floor(m.time*3.5)%6)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};sprite(sp,p.x,-.974,1,1,m.x<p.x);const at=position(p.x,-.2);ctx.fillStyle='#a0bdc9';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText(p.name+(original?'':' · 외부 포즈 임시'),at.x,at.y);}
  player();
  if(c.id.startsWith('lift-'))data.scenes.street.nodes.filter(n=>n.name==='Elevator Fore'||n.name==='Elevator Door').forEach(n=>sprite(n.sprite,n.x,n.y+m.elevatorY-r.elevatorBottom,n.sx,n.sy));

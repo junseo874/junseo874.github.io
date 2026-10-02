@@ -38,3 +38,10 @@
 /* Outdoor story dialogue uses text only, without reserving a speaker-name row. */
 .campaign-stage .campaign-speech.text-only{min-height:0}
 .campaign-speech.text-only p{margin:0}
+
+.campaign-service-versions{display:grid;grid-template-columns:1fr 1fr;gap:16px}.campaign-service-versions button{margin:0;padding:22px;text-align:left;border-radius:9px}.campaign-service-versions small{display:block;font-size:11px;letter-spacing:2px;color:#88ced7}.campaign-service-versions strong{display:block;font-size:30px;margin:12px 0}.campaign-service-versions span{color:#dcdfbd;font-size:15px}.campaign-service-versions p{font-size:14px;line-height:1.7;margin:15px 0 0}.campaign-title .campaign-version-switch{position:absolute;right:30px;top:28px;background:#0a1a28d9;border:1px solid #518a97;color:#a6e7e7;padding:10px 16px;font-size:14px}
+
+#campaign-root.is-dev-console{background:#03050c55}#campaign-root .view-dev-console{background:transparent}.campaign-stage .campaign-dev-console button:focus-visible{outline:none;border-color:#b3ffff;background:#234957}.campaign-dev-console{width:340px}
+
+/* Persistent above scene redraws, including slow loads and skip return. */
+.campaign-memory-transition{position:fixed;inset:0;z-index:50001;background:#000;pointer-events:auto;cursor:wait;will-change:opacity}

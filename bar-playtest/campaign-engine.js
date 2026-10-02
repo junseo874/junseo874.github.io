@@ -5,7 +5,7 @@ const copy=x=>JSON.parse(JSON.stringify(x));
 const RESTORATION={id:'johnny_old_fashioned',prototype:true,glass:'old_fashioned',tool:'mixing_glass',ingredients:[['rye_whiskey',45],['simple_syrup',5],['aromatic_bitters',2]],mix:'stir'};
 class Session{
  constructor(g,data,story){this.g=g;this.data=data;this.story=story;this.active=false;this.day=0;this.completed=[];this.checkpoint=null;this.route='title';this.events=[];this.original=null;}
- install(options={}){if(this.active)return;this.developer=!!options.developer;const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
+ install(options={}){if(this.active)return;this.developer=!!options.developer;this.serviceVersion=options.serviceVersion==='B'?'B':'A';const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
   const addAsset=(key,source)=>{if(!this.data.assets[key]&&this.data.assets[source]){this.assetKeys.push(key);this.data.assets[key]=this.data.assets[source];}};
   t.scenes=t.scenes.filter(s=>!([1,2,3].includes(Number(s.day))));
   const oldContexts=new Set(this.original.scenes.filter(s=>[1,2,3].includes(Number(s.day))).map(s=>s.id));
@@ -33,13 +33,13 @@ class Session{
  uninstall(){if(!this.active)return;for(const[k,v]of Object.entries(this.original))this.data.tables[k]=v;for(const k of this.assetKeys)delete this.data.assets[k];this.g.campaignStep=null;this.g.createStoryOrder=this.savedCreateOrder;this.active=false;this.pendingStep=null;this.original=null;}
  // A fresh later-day start carries only established story prerequisites, never a previous run's money or choices.
  beginCommute(day){if(!Number.isInteger(day)||day<1||day>3)throw Error('시작 일차는 1~3일차여야 합니다.');if(!this.active)this.install();this.day=day;this.startDay=day;this.completed=[];this.events=[];this.pendingStep=null;
-  const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original'});const flags=g.progress.flags;
+  const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});const flags=g.progress.flags;
   const prior=new Set(this.data.tables.scenes.filter(s=>Number(s.day)<day&&Number(s.day)>=0).map(s=>s.id));
   for(const step of this.data.tables.steps)if(prior.has(step.context)&&step.type==='enter')flags[step.actor+'_met']=true;
   if(day>=2)flags.tom_name_known=true;if(day>=3){flags.samho_met=true;flags.campaign_observation=true;}
   g.progress.phase='commute';this.carry=copy(g.progress);this.checkpoint=null;this.route='in';this.events.push({event:'commute-in',day});g.changed();
  }
- beginDay(day,carry=null){if(!this.active)this.install();this.day=day;const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original'});if(carry){g.progress={...copy(carry),day,phase:'bar_open'};g.openingBalance=g.progress.money;}
+ beginDay(day,carry=null){if(!this.active)this.install();this.day=day;const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});if(carry){g.progress={...copy(carry),day,phase:'bar_open'};g.openingBalance=g.progress.money;}
   this.checkpoint=copy(g.progress);this.route='bar';this.events.push({event:'bar',day,money:g.progress.money});
   const fresh=g.dailyUnlocks();if(day>0&&(fresh.ingredients.length||fresh.cocktails.length)){g.phase='arrival';g.pendingDailyUnlocks=true;g.overlay='dailyUnlocks';}else g.startStoryPhase('bar_open');g.changed();
  }
