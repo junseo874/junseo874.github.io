@@ -36,7 +36,7 @@ function draw(m,sprite,ctx,position){if(!visible(m))return;const e=m.encounter?.
  // The right-hand pillar is baked into the building art; clip the NPC behind it.
  ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();
  const sp={asset:'ambient-M2',x:(Math.floor(m.time*3.8)%6)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};// Source idle faces left: mirror only to look right, including the exit walk.
- sprite(sp,x,y,1,1,e?.stage==='depart'||m.x>x,alpha);
+ sprite(sp,x,y,1,1,e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha);
  // A short pixel-art arm thrust, followed by the forearm held close to the body.
  if(e&&(e.stage==='punch'&&e.elapsed>.58&&e.elapsed<.92||e.hurt)&&alpha>0){const hit=e.stage==='punch'&&e.elapsed<.92,a=position(x-.04,y+.35),b=position(hit?m.x+.07:x-.13,y+(hit?.34:.3));ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle='#51585c';ctx.lineWidth=8;ctx.lineCap='square';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.fillStyle='#77796c';ctx.fillRect(b.x-4,b.y-4,8,8);ctx.restore();}
  ctx.restore();

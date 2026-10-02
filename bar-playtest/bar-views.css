@@ -256,3 +256,7 @@ html,body{overflow:hidden;background:#03060b}
 .prep-brief-row.is-packed{color:#adf2e4}
 .prep-brief-row.is-packed .prep-brief-check{color:#c7fff4;background:#23574fbb;border-color:#8adccc}
 .prep-brief-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* Developer-only story shortcut, also reachable above the day-0 recipe guide. */
+.dev-craft-skip{position:absolute;right:26px;bottom:26px;z-index:44;padding:12px 18px;background:#0b1b28eb;border:1px solid #68aeba;border-radius:7px;color:#bfeaf0;font-size:15px;cursor:pointer}
+.dev-craft-skip:hover,.dev-craft-skip:focus-visible{background:#173545;border-color:#a8eff0;outline:none;box-shadow:none}
