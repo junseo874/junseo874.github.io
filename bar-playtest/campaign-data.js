@@ -3685,91 +3685,167 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "왜? 신기해?"
+        "text": "뭐야, 넌. 못 보던 얼굴인데?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "손을 계속 보고 계셔서요. 문제가 있나요?"
+        "text": "이 동네에 온 지 얼마 안 됐어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "아니. 새로 달아서 익숙해지는 중이야.\n군용이거든. 이런 거 흔하게 못 봐."
+        "text": "흠… 복장이 좀 특이한데…"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "너 혹시 어디 소속이야?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "힘이 많이 필요한 일을 하시나요?"
+        "text": "제가 일하는 곳을 말하는 건가요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "이제 하려고. 경호 같은 거.\n계속 말로만 할 수 있다고 해봤자 아무도 안 믿어주니까."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "뭐, 싼 물건은 아니지.\n빨리 일부터 구해야 해."
+        "text": "그래, 뭐 갱이나 회사 같은 거. 있어?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "일은 이미 정해졌나요?"
+        "text": "저 앞 건물에 있는 언노운이라는 가게에서 일하고 있어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "연락 넣어둔 데는 있어. 물건 가져오는 사람 옆에서 경호해주는 일이래.\n조건은 더 들어봐야 하지만."
+        "text": "언노운?… 언노운… 어디서 들어 봤는데."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "근데 너, 이쪽 사람은 아닌 것 같은데. 길 찾는 중이야?"
+        "text": "혹시 거기 술 파는 곳이야?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "일하러 가는 중이에요. 저쪽 바에서요."
+        "text": "네, 맞아요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "거기 다시 열었어? 지나갈 때마다 닫혀 있던데."
+        "text": "아, 보스가 전에 말했던 곳이구나. 새로 생긴 갱단인 줄 알았네."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 아직 만들 수 있는 건 많지 않지만요."
+        "text": "갱단은 뭐 하는 곳인가요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "이따 시간 나면 들러볼게. 이름이 뭐야?"
+        "text": "…너 그런 것도 몰라?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "루나예요."
+        "text": "제가 사람이 별로 없는 곳에 살다가 온 지 얼마 안 돼서요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "난 삼호. 이따 보자, 루나."
+        "text": "뭐야, 하이랜더 출신인가 보네. 그러면 그럴 수 있지."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "그냥 돈 되는 거 이것저것 하는 팀 같은 거라고 생각해."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "돈을 많이 버는 직업인가요?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "…나도 그런 건 잘 몰라."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "갱단에서 일하시는 분이 아니었나요?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "지금은 아니지만 곧 들어갈 예정이지."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "들어가기만 하면 너도 곧 내 이름이 유명해지는 걸 듣게 될 거야."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "지금 들으면 안 되나요?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "…삼호야, 삼호. 내 이름. 애니멀 갱단에 곧 소속될 몸이지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네. 삼호."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "반응 되게 무뚝뚝하네."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "언노운이라고 했지? 나중에 놀러 갈 테니까 서비스 좀 제대로 챙겨 주라고."
+      },
+      {
+        "type": "samho-action",
+        "action": "depart"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "서비스?"
       }
     ],
     "johnny": [
