@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-02 (day 0 memory and day 1 terrace / regular dialogue refreshed)",
+  "revision": "2026-10-03 (day 1 pre-opening bottle tutorial and Shiba beer order; Notion 06:49 UTC)",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -132,13 +132,172 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "오늘 가져온 재료로 만들 수 있는 칵테일은 레시피 DB에 추가해 뒀으니까 확인해 봐."
+        "text": "잘할 수 있지?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "확인했습니다."
+        "text": "가능한 선에서요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그래. 오늘 거래처에서 새로 받아 온 재료도 있으니까 잘 확인해 봐."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "생각했던 것만큼 선반이 가득 차진 않았네요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "가득 차려면 좀 멀었지. 그나마 있는 것들도 대부분 빈 병이고."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "요즘 이런 재료를 취급하는 곳도 별로 없어서 구하기도 힘들어."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "아무튼 새로 구한 재료랑 그걸로 만들 수 있는 칵테일 레시피는 디스플레이에 추가해 뒀으니까 확인해 봐."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "알겠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "어제 재료가 없어서 못 알려 준 게 있는데, 맥주 한 잔 만들어 봐. 짧게 알려 줄게."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그냥 맥주가 드시고 싶으신 거 아닌가요?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…만들기나 해."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "(맥주 한 잔…)"
+      },
+      {
+        "type": "order",
+        "actor": "chris",
+        "arg": "exact:bottle_beer",
+        "payment": "none"
+      },
+      {
+        "type": "craft",
+        "actor": "chris",
+        "arg": "tutorial_beer"
+      },
+      {
+        "type": "serve",
+        "actor": "chris"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "음… 좋아. 잘했어."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "(그냥 맥주가 마시고 싶었던 것 같은데.)"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…뭘 그렇게 봐?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "뚜껑 따고 따르면 되는데, 따로 배울 필요가 있었나요?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "간단해도 도구 쓰는 법은 익혀 둬야지. 자주 나가는 술이니까."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "우리 가게에 오는 손님들이 대부분 맥주나 샴페인처럼 익숙한 걸 주문하니까 말이지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "왜 그런 것들만 주문하나요?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "이 동네 사람들은 형편이 그리 좋지 않아. 그래서 보통 싸고 빠르게 취할 수 있는 걸 찾는 경우가 많지."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "주변 술집들도 대부분 맥주나 공장에서 만든 병 칵테일만 팔아. 그러니 다른 걸 마셔 볼 기회도 별로 없고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "익숙한 걸 고르는 거군요. 저도 술을 이렇게 다양하게 즐길 수 있다는 건 여기 와서 처음 알았어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그렇지. 그렇다고 새로운 걸 알려 주겠답시고 다른 술을 권하면, 싫어하는 사람도 있어."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "들을수록 까다로운 일인 것 같은데요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "일단 해 봐. 걱정 같은 건 그런 일이 생겼을 때 하고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "알겠어요."
       },
       {
         "type": "say",
@@ -257,8 +416,7 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "coaster",
-        "actor": "chris",
-        "arg": ""
+        "actor": "chris"
       },
       {
         "type": "say",
@@ -292,14 +450,13 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "exit",
-        "actor": "chris",
-        "arg": ""
+        "actor": "chris"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(…생각보다 평범한 일인 것 같은데.)"
+        "text": "(…생각보다 평범한데…)"
       },
       {
         "type": "enter",
@@ -308,8 +465,7 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "coaster",
-        "actor": "shiba",
-        "arg": ""
+        "actor": "shiba"
       },
       {
         "type": "say",
@@ -321,7 +477,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "뭘 꼬라봐, 얼빠지게 생긴 게."
+        "text": "주문 안 받을 거야?"
       },
       {
         "type": "say",
@@ -345,71 +501,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "시바… 말을 말자. 그냥 술이나 한 잔 줘."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "어떤 걸 드릴까요?"
-      },
-      {
-        "type": "say",
-        "actor": "shiba",
-        "who": "개시바",
-        "text": "아, 귀찮게. 딱 보면 나한테 어울릴 만한 술을 주면 되잖아. 여기는 그런 기본도 모르나?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "(…뭐지, 이건.)"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "알겠습니다."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "(이 짐승에게 술 한 잔…)"
-      },
-      {
-        "type": "order",
-        "actor": "shiba",
-        "arg": "free",
-        "payment": "none"
-      },
-      {
-        "type": "craft",
-        "actor": "shiba",
-        "arg": ""
-      },
-      {
-        "type": "serve",
-        "actor": "shiba",
-        "arg": ""
-      },
-      {
-        "type": "say",
-        "actor": "shiba",
-        "who": "개시바",
-        "text": "야."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네?"
-      },
-      {
-        "type": "say",
-        "actor": "shiba",
-        "who": "개시바",
-        "text": "장난해? 이게 나한테 어울린다고?"
+        "text": "됐고. 여기 맥주, 진짜 보리로 만든 맥아로 만드는 거 맞나?"
       },
       {
         "type": "say",
@@ -419,98 +511,116 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "보리를 발효시켜 만드는 술이라는 건 알고 있어요."
+      },
+      {
+        "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "하. 내가 착하니까 이번엔 그냥 넘어가서 마셔 주지. 대신 돈은 안 줄 거야."
+        "text": "하. 그건 옆집 뽀삐도 알고 있는 거고."
+      },
+      {
+        "type": "say",
+        "actor": "shiba",
+        "who": "개시바",
+        "text": "자기가 파는 맥주가 어디서 어떻게 만들어지는지도 모르는군."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…그러면 안 되는데요."
+        "text": "그런 걸 알고 있어야 하나요?"
       },
       {
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "뭐? 내 말에 자꾸 토 달 거야?"
+        "text": "그 정도는 기본으로 알고 있어야지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…알겠습니다."
+        "text": "지금 맥주를 드리는 데 필요한 정보는 아닌 것 같은데요."
       },
       {
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "후… 웬 얼빠진 놈 때문에 흥분했군."
+        "text": "아주 당당하구만. 그럼 한 잔 가져와 봐."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(뭐지…)"
-      },
-      {
-        "type": "say",
-        "actor": "shiba",
-        "who": "개시바",
-        "text": "야. 너 방금 속으로 내 욕 했지?"
+        "text": "네, 알겠습니다."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "아뇨."
+        "text": "(이 개에게 맥주 한 잔…)"
+      },
+      {
+        "type": "order",
+        "actor": "shiba",
+        "arg": "exact:bottle_beer"
+      },
+      {
+        "type": "craft",
+        "actor": "shiba"
+      },
+      {
+        "type": "serve",
+        "actor": "shiba"
       },
       {
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "닭 쫓던 개새끼라도 보는 듯한 눈빛이었는데."
+        "text": "뭐야, 이 엿같은 건?!"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그런 비유는 처음 들어 보네요."
+        "text": "주문하신 거요."
       },
       {
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "요즘 놈들은 책도 안 읽으니 비유도 못 알아 처먹는군. 나 때는 안 그랬는데 말이야."
-      },
-      {
-        "type": "say",
-        "actor": "shiba",
-        "who": "개시바",
-        "text": "오늘 네가 만든 술이 그렇게 나쁘진 않았으니, 나중에 특별히 책 한 권 주도록 하지. 애송이."
+        "text": "맥주가 원래 이런 맛이라고?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…"
+        "text": "네. 그렇게 알고 있어요."
       },
       {
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "그럼 난 간다. 또 보자고, 애송이."
+        "text": "하, 구라 치지 마. 완전 허탕쳤구만."
       },
       {
         "type": "exit",
-        "actor": "shiba",
-        "arg": ""
+        "actor": "shiba"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "자기 할 말만 하고 가 버리네."
+        "text": "…거짓말은 아니었는데."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "말하는 개가 술을 마시러 오기도 하는구나."
       },
       {
         "type": "enter",
@@ -1121,7 +1231,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "aili",
         "who": "아일리",
-        "text": "뭐, 오늘은 이런 얘기 하려고 온 건 아니고! 네가 일한다는 말을 포트한테 듣고, 안구 정화도 할 겸 한 잔하러 왔어."
+        "text": "뭐, 오늘은 이런 얘기 하려고 온 건 아니고! 네가 일한다는 말을 포트한테 듣고, 안구 정화도 할 겸 한잔하러 왔어."
       },
       {
         "type": "say",

@@ -186,7 +186,9 @@ function init(s,game){
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70)*POURER.rateScale,
   startAngle:game.c('pour_start_angle_deg',95),maxAngle:Math.min(POURER.maxAngle,game.c('pour_max_tilt_angle_deg',150)),
   tiltSpeed:game.c('pour_tilt_speed_deg_per_sec',95),viscosity:visc});
- s.fluid.setTool(game.pourTool||'pourer',s);
+ // Each new ingredient starts with the tool suited to its own target in ml.
+ game.pourTool=s.fluid.targetMl>=100?'none':'pourer';
+ s.fluid.setTool(game.pourTool,s);
 }
 const api={Simulation,init,nozzle,GLASS,STEP,POURER};
 if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;

@@ -2,7 +2,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 (async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
  const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
  async function selectRecipe(id){const preview=p.locator('[data-act="remixPreview"][data-id="'+id+'"]');if(await preview.count())await preview.click();await p.locator('[data-act="selectRecipe"][data-id="'+id+'"]').click();}
- for(const [mode,drink] of [['original','gin_tonic'],['gpt','gin_fizz'],['campaign','dry_martini']]){
+ for(const [mode,drink] of [['original','bottle_beer'],['gpt','bottle_beer'],['campaign','bottle_beer']]){
   await p.evaluate(mode=>{const c=lunaCampaign;c.session.uninstall();c.session.install({developer:mode!=='campaign'});c.session.day=1;c.ui.variant=mode==='gpt'?'gpt':'original';barGame.reset(1,'regular',42,true,{variant:c.ui.variant});c.screen(c.playView);c.render(true);},mode);
   await p.evaluate(()=>{const g=barGame;for(let i=0;i<3000;i++){g.cameraMoving=false;if(g.error)throw Error(g.error);if(g.dialogue?.actor==='shiba'){g.dialogue.chars=g.dialogue.text.length;lunaCampaign.render(true);return;}if(g.dialogue){g.advance();g.advance();}else g.tick(.1);}throw Error('No Shiba');});
   await p.waitForFunction(()=>!!document.querySelector('.actor[data-actor="shiba"] .actor-layer'));await p.waitForTimeout(350);assert.equal(await p.locator('.dialogue-box .speaker').textContent(),'개시바');assert.equal(await p.locator('.actor[data-actor="shiba"] [data-layer="char_shiba_static"]').count(),1);assert.equal(await p.locator('.actor[data-actor="shiba"] .dummy-actor').count(),0);await p.screenshot({path:'/private/tmp/day1-shiba-'+mode+'.png'});
@@ -11,11 +11,11 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   // Backing out and choosing again must still use the ordinary recipe UI, with no locked first choice.
   await p.evaluate(()=>{barGame.prepBack();lunaCampaign.render(true);});await selectRecipe('bottle_beer');assert.equal(await p.evaluate(()=>barGame.currentOrder.cocktail),'bottle_beer');await p.evaluate(()=>{barGame.prepBack();lunaCampaign.render(true);});await selectRecipe(drink);
   const result=await p.evaluate(()=>{const g=barGame,c=lunaCampaign,o=g.currentOrder;g.cameraMoving=false;g.debugCraft('good');for(let i=0;i<20;i++)g.tick(.1);const issues=c.session.problems(g.result);g.offer();const money=g.progress.money;if(!g.serve(o.seat,'drag'))throw Error('Serve failed');for(let i=0;i<20;i++)g.tick(.1);return{issues,money,after:g.progress.money,trx:g.transactions.at(-1),actor:g.dialogue.actor,text:g.dialogue.text};});
-  assert.deepEqual(result.issues,[]);assert.equal(result.money,result.after);assert.equal(result.trx.net,0);assert.equal(result.trx.payment,'none');assert.equal(result.actor,'shiba');assert.equal(result.text,'야.');
+  assert.deepEqual(result.issues,[]);assert(result.after>result.money);assert(result.trx.net>0);assert.equal(result.trx.payment,undefined);assert.equal(result.actor,'shiba');assert.equal(result.text,'뭐야, 이 엿같은 건?!');
   await p.evaluate(()=>{const g=barGame;for(let i=0;i<3000;i++){g.cameraMoving=false;if(g.dialogue?.actor==='tom'){lunaCampaign.render(true);return;}if(g.dialogue){g.advance();g.advance();}else g.tick(.1);if(g.error)throw Error(g.error);}throw Error('No Tom');});
   await p.waitForTimeout(100);assert.equal(await p.locator('.actor[data-actor="shiba"]').count(),0);assert.equal(await p.locator('.dialogue-box .speaker').textContent(),'???');
  }
  // Story scene is bar-only; the retired exterior Shiba conversations stay absent.
- assert.deepEqual(await p.evaluate(()=>Object.keys(LUNA_OUTSIDE_DIALOGUES)),['outside_day0_port_pair','outside_day0_shiba_wanted']);
- assert.deepEqual(errors,[]);console.log('DAY1_SHIBA_UI_OK: original/GPT/main portrait + name, free selection, no charge, post-serve dialogue, exit then unknown Tom, exterior data unchanged');
+ assert.equal(await p.evaluate(()=>Object.keys(LUNA_OUTSIDE_DIALOGUES).some(k=>/shiba/.test(k)&&k!=='outside_day0_shiba_wanted')),false);
+ assert.deepEqual(errors,[]);console.log('DAY1_SHIBA_UI_OK: original/GPT/main portrait + name, fixed beer order, ordinary recipe UI and settlement, post-serve dialogue, exit then unknown Tom, exterior data unchanged');
  }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

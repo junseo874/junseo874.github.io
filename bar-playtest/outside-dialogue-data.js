@@ -2,10 +2,59 @@
 // Source: Notion 외부 이야기, edited 2026-10-02. Empty day sections add no events.
 (function(g){
 'use strict';
-const source={url:'https://app.notion.com/p/3df1612298dc8008bc34da446a92d2d2',lastEdited:'2026-10-02T14:51:00.006Z'};
+const source={url:'https://app.notion.com/p/3df1612298dc8008bc34da446a92d2d2',lastEdited:'2026-10-02T18:19:00.861Z'};
 const pair='outside_day0_port_pair',poster='outside_day0_shiba_wanted',trade='outside_day1_samho_smuggler';
 const rows=(id,lines)=>lines.map(([actor,text,en],i)=>({type:'say',actor,text,en,sourceId:id+'_'+(i+1)}));
 g.LUNA_OUTSIDE_DIALOGUES={
+ // 행인 대사 1: source checked 2026-10-02T18:33:54.151Z; other sections unchanged.
+ outside_day0_store_passers:rows("outside_day0_store_passers",[
+  [
+    "store-pair-left",
+    "다시 잠잠해진 줄 알았는데 요즘 또 왜 이러는 거야?",
+    "I thought things had quieted down. What’s going on again lately?"
+  ],
+  [
+    "store-pair-right",
+    "너 못 들었어?",
+    "You haven’t heard?"
+  ],
+  [
+    "store-pair-left",
+    "뭘?",
+    "Heard what?"
+  ],
+  [
+    "store-pair-right",
+    "이번에 코라테크 연구소 하나 털렸잖아.",
+    "One of CoraTech’s labs got hit recently."
+  ],
+  [
+    "store-pair-left",
+    "그게 무슨 상관인데?",
+    "What’s that got to do with it?"
+  ],
+  [
+    "store-pair-right",
+    "소문이긴 한데, 거기서 비밀리에 연구하던 강력한 군용 실험체가 송파구 쪽으로 넘어왔다고 하던데?",
+    "It’s just a rumor, but apparently some powerful military test subject they were secretly working on there has made its way into Songpa."
+  ],
+  [
+    "store-pair-left",
+    "…너 요즘 판타지 BD 보냐?",
+    "…You been watching fantasy BDs lately?"
+  ],
+  [
+    "store-pair-right",
+    "지랄. 말해 줘도 안 믿네.",
+    "Bullshit. I tell you, and you still don’t believe me."
+  ]
+]),
+ outside_day0_building_residents:rows('outside_day0_building_residents',[
+  ['resident-left','…또 올렸다고?','…They raised it again?'],
+  ['resident-right','그렇다니까.','That’s what I’m saying.'],
+  ['resident-right','거기다 이젠 승강기 이용할 때마다 돈을 받겠다는 말까지 했다고.','They even said they’d start charging us every time we use the elevator.'],
+  ['resident-left','시발… 진짜 그러면 그 새끼 죽여 버린다.','Fuck… If they really do that, I’ll kill that bastard.']
+ ]),
  [pair]:rows(pair,[
   ['bar-pair-left','저기 언노운에 불 켜져 있는데? 영업 다시 시작하는 건가?','The lights are on at Unknown. Are they opening again?'],
   ['bar-pair-right','아직 그런 말은 없었는데. 그냥 잠깐 켜 둔 거 아니야?','I haven’t heard anything. Maybe they just turned them on for a bit?'],
@@ -30,12 +79,43 @@ g.LUNA_OUTSIDE_DIALOGUES={
   ['sign','- 코라테크 치안관리부 -','— CoraTech Public Security Department —']
  ])
 };
+// TV 뉴스 1: Notion checked 2026-10-02T18:49:00.035Z; no other source sections changed.
+g.LUNA_OUTSIDE_DIALOGUES.outside_day0_tv_news1=rows('outside_day0_tv_news1',[
+  [
+    "tv",
+    "…이라고 발표했습니다.",
+    "…the announcement stated."
+  ],
+  [
+    "tv",
+    "다음 소식입니다. 북한산 인근에 위치한 코라테크 연구 시설에서 발생한 화재가 주변으로 번져 산불이 일어났다고 합니다.",
+    "In other news, a fire at a CoraTech research facility near Bukhansan has reportedly spread to the surrounding area, sparking a forest fire."
+  ],
+  [
+    "tv",
+    "현재까지 보고된 인명 피해는 없지만, 인근 주민들은 연구 시설의 관리 부주의로 불이 났다고 주장하며,",
+    "No casualties have been reported so far. However, nearby residents claim the fire was caused by negligence at the facility,"
+  ],
+  [
+    "tv",
+    "코라테크 측에 책임 규명과 피해 보상을 요구하고 있습니다.",
+    "and are demanding that CoraTech establish responsibility and provide compensation for the damage."
+  ],
+  [
+    "tv",
+    "다음 소식입니다…",
+    "Moving on to our next story…"
+  ]
+]);
 const events=[
+ {id:'outside_day0_tv_news1',label:'0일차 퇴근길 · TV 뉴스 1 · 집 안',day:0,flow:'out',scene:'home',auto:true,kind:'broadcast',title:'TV 뉴스 1'},
+ {id:'outside_day0_store_passers',label:'0일차 퇴근길 · 행인 대사 1 · 편의점 앞',day:0,flow:'out',auto:true,kind:'pair'},
+ {id:'outside_day0_building_residents',label:'0일차 퇴근길 · 빌딩 주민 1',day:0,flow:'out',auto:true,kind:'pair',trigger:'upper-corridor-visible'},
  {id:trade,label:'1일차 퇴근길 · 삼호와 밀수업자',day:1,flow:'out',auto:false,kind:'pair'},
  {id:pair,label:'0일차 퇴근길 · 포트 가게 앞 NPC 대화',day:0,flow:'out',auto:true,kind:'pair'},
  {id:poster,label:'상시 · 개시바 지명수배 포스터',persistent:true,auto:false,kind:'object',title:'지명수배',object:'wanted-poster',node:'5 poster_shiba_wanted_day1',x:-1.9849996,y:-.7}
 ];
-const active=(m,e)=>m.scene==='street'&&!m.level&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
+const active=(m,e)=>m.scene===(e.scene||'street')&&(e.scene==='home'||!m.level)&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
 // Keep original atlases for animation QA, but retired street props never render.
 const retired=new Set(['1 experiment_recruit','3 poster_help_wanted','7 poster_human_trafficking','10 real_estate_posting']);
 g.LunaOutsideContent={source,events,active,

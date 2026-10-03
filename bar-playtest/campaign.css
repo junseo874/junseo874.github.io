@@ -45,3 +45,10 @@
 
 /* Persistent above scene redraws, including slow loads and skip return. */
 .campaign-memory-transition{position:fixed;inset:0;z-index:50001;background:#000;pointer-events:auto;cursor:wait;will-change:opacity}
+
+/* First lift title: logo above a restrained, right-side-only contrast veil. */
+#campaign-lift-reveal{position:absolute;inset:0;z-index:3;pointer-events:none}
+.campaign-lift-shade{position:absolute;top:0;bottom:0;right:0;width:46%;z-index:0;background:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,.24) 55%,rgba(0,0,0,.48) 100%)}
+#campaign-lift-reveal #campaign-lift-logo{z-index:1;animation:none}
+
+.campaign-lift-team{position:absolute;right:90px;top:388px;width:380px;z-index:1;text-align:center;font-size:22px;line-height:32px;letter-spacing:1.5px;color:#f2f8fc;text-shadow:0 2px 4px #000,0 0 12px #000b;pointer-events:none}

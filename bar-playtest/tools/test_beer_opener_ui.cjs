@@ -2,9 +2,9 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 const assert=require('assert/strict');
 (async()=>{const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});try{
  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
- await p.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');await p.locator('.updates-confirm').click();
+ await p.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
  for(const variant of ['original','gpt']){
-  await p.evaluate(variant=>{const g=barGame;g.reset(99,'practice',1,true,{variant});g.selectCocktail('bottle_beer');g.pickItem('mug');g.pickItem('beer');},variant);
+  await p.evaluate(variant=>{const g=barGame;g.reset(1,'practice',1,true,{variant});g.selectCocktail('bottle_beer');g.pickItem('mug');g.pickItem('beer');},variant);
   await p.locator('[data-act="craft"]').click();
   const dialog=p.getByRole('alertdialog');await dialog.waitFor();assert((await dialog.innerText()).includes('병따개가 필요합니다'));
   assert.equal(await p.evaluate(()=>barGame.screen),'prep');await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>document.activeElement.textContent),'확인');

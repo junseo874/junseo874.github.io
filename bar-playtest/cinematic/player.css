@@ -64,3 +64,5 @@
   0%{text-shadow:calc(var(--s)*1px) 0 rgba(224,85,95,.9),calc(var(--s)*-1px) 0 rgba(79,214,224,.9);transform:translateX(0)}
   50%{text-shadow:calc(var(--s)*-1px) 0 rgba(224,85,95,.9),calc(var(--s)*1px) 0 rgba(79,214,224,.9);transform:translateX(calc(var(--s)*.5px))}
 }
+
+.campaign-cinema-ui .bubble{max-width:793.6px;transform-origin:50% 100%;transition:none}

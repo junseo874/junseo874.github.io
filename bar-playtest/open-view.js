@@ -43,6 +43,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   const ping=audio.createOscillator(),env=audio.createGain();ping.type='triangle';ping.frequency.setValueAtTime(480,now);ping.frequency.exponentialRampToValueAtTime(140,now+.16);env.gain.setValueAtTime(.13,now);env.gain.exponentialRampToValueAtTime(.0001,now+.22);ping.connect(env);env.connect(bus);ping.start(now);ping.stop(now+.23);
   ping.onended=()=>{ping.disconnect();env.disconnect();noise.disconnect();filter.disconnect();bus.disconnect();};
  }
+ function lesson(s){if(!s.openTutorial||g.isPaused())return '';const text=s.completed?L('잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.'):!s.started?L('Space를 눌러 시작하세요. 큰 원이 작아지기 시작해요.','Press Space to start. The outer ring will begin to shrink.'):s.failures?L('괜찮아요. 큰 원과 민트색 원이 겹칠 때 Space를 다시 눌러 보세요.','Try again. Press Space when the outer ring meets the mint ring.'):L('큰 원이 민트색 원과 겹치는 순간 Space를 한 번 더 누르면 뚜껑이 열려요.','Press Space again when the outer ring meets the mint ring to pop the cap.');return '<div class="opening-lesson" data-open-lesson><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/><circle cx="640" cy="310" r="190" fill="black"/><rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';}
  function html(s){
   const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:.65);
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
@@ -51,7 +52,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
    '<div class="opening-timing-hint" data-open-timing hidden aria-hidden="true">Space</div>'+
    '<div class="opening-feedback" role="status" data-open-feedback></div>'+
    button(s.completed?L('OPEN!','OPEN!'):s.started?'<kbd>Space</kbd> '+L('뚜껑 따기','Pop the cap'):'<kbd>Space</kbd> '+L('시작','Start'),'gimmickInput',s.completed?'disabled':'','primary opening-hit')+
-   button(g.minigame?L('마치기 →','Finish →'):L('다음 →','Next →'),'endGimmick',(!ready||g.remix?.hold?'disabled':''),'primary gimmick-finish')+'</div>';
+   lesson(s)+button(g.minigame?L('마치기 →','Finish →'):L('다음 →','Next →'),'endGimmick',(!ready||g.remix?.hold?'disabled':''),'primary gimmick-finish')+'</div>';
  }
  function sync(root){
   const canvas=root.querySelector('[data-opening-stage]'),s=g.gimmick;

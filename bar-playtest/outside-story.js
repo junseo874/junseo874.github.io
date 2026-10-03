@@ -20,10 +20,25 @@ class Story{
   const purchase=s.choice?(s.line.type==='shop-choice'?global.LunaOutsideShop.choiceView(m):s.line.type==='thug-choice'?global.LunaOutsideThug.choiceView():global.LunaBDVendor.choiceView()):null;return{key:s.id+':'+s.index+':'+s.line.text+(purchase?':'+purchase.money:''),purchase,color:extra?.color,title,text:s.chars.slice(0,Math.floor(s.elapsed*55)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
  }
 }
+// Ambient conversations own independent clocks and speaker anchors.
+// The foreground Story remains exclusive for interactions and forced scenes.
+class BackgroundStories{
+ constructor(model){Object.defineProperty(this,'model',{value:model});this.channels=new Map();this.done=new Set();}
+ get speech(){return this.channels.values().next().value?.speech||null;}
+ get blocking(){return false;}
+ begin(id,target,auto=true){return this.beginRows(id,target,global.LUNA_OUTSIDE_DIALOGUES[id],auto);}
+ beginRows(id,target,rows,auto=true){if(this.channels.has(id)||!rows?.length)return false;const story=new Story(this.model);if(!story.beginRows(id,target,rows,auto))return false;this.channels.set(id,story);return true;}
+ tick(dt){for(const [id,story]of this.channels){story.tick(dt);if(!story.speech){if(story.done.has(id))this.done.add(id);this.channels.delete(id);}}}
+ cancel(){this.channels.clear();this.model.updateNear();}
+ advance(){return false;}
+ view(){return this.channels.values().next().value?.view()||null;}
+ views(){return [...this.channels.values()].map(story=>story.view()).filter(Boolean);}
+}
 function tickBackground(model,dt){const story=model.backgroundStory;
  if(model.qa){story.tick(dt);return;}
+ if(model.scene==='home'||story.speech?.id===global.LunaOutsideTV?.id){global.LunaOutsideTV.tick(model,dt);if(model.scene==='home')return;}
  if(model.transition||model.scene!=='street'){if(story.speech)story.cancel();return;}
  story.tick(dt);global.LunaOutsideEncounters?.tickProximity(model,dt);
 }
-global.LunaOutsideStory={Story,tickBackground};
+global.LunaOutsideStory={Story,BackgroundStories,tickBackground};
 })(typeof window==='undefined'?globalThis:window);

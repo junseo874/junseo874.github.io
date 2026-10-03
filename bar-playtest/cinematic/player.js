@@ -6,15 +6,9 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
   const rd=new Engine.Renderer(canvas,sc);
   rd.opts.sfxLabel=false;
   let t=0,scale=1280/Engine.VW,soundOn=true,playing=true;
-  function headOf(a, cam, tt) {
-    const st = sc.actorState(a, tt);
-    const key = st.anim, d = Engine.ANIM[key.v];
-    const h = Sprites.contentHeight(d.sheet) * st.scale;
-    return rd.project(cam, st.x, st.y - h - 8);
-  }
 
   /* ---------- 말풍선 글자 DOM ---------- */
-  let curLine = null, charSpans = [], noiseChars = [], nzKey = -1, measEl = null;
+  let curLine = null, charSpans = [], noiseChars = [], nzKey = -1, measEl = null, lineAnchor = null;
   const HANGUL = /[\uAC00-\uD7A3]/;
   /* 노이즈 — 글자별 스크램블. 특수문자로만 깨지고(전각/반각), 40% 확률로 원문이 스친다.
      각 글자는 원문 폭 고정 박스(.fixw) 안에서만 교체되어 레이아웃이 흔들리지 않는다. */
@@ -98,7 +92,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     const padX = parseFloat(cb.paddingLeft) + parseFloat(cb.paddingRight) +
                  parseFloat(cb.borderLeftWidth) + parseFloat(cb.borderRightWidth);
     // box-sizing:border-box라 style.width는 패딩·보더 포함 폭이다 — 내용 폭에 padX를 더해 지정
-    const inner = Math.min(Math.max(natural, min5), ui.clientWidth * 0.62 - padX);
+    const inner = Math.min(Math.max(natural, min5), 1280 * 0.62 - padX);
     bubble.style.width = Math.ceil(inner + padX) + 'px';
   }
 
@@ -117,7 +111,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
 
   function paintLine(cam) {
     const l = sc.lineAt(t);
-    if (!l) { bubble.classList.remove('on'); curLine = null; return; }
+    if (!l) { bubble.classList.remove('on'); curLine = null; lineAnchor = null; return; }
     bubble.style.opacity = (1 - overlayDim()).toFixed(3);
     const n = Engine.typedCount(l, t - l.t - l.lead);   // [T:초] 정지 태그 반영
     const isRadio = l.kind === 'radio', isPa = l.kind === 'pa';
@@ -129,7 +123,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     bubble.classList.toggle('glitch', !!l.glitch);
     // ghost에 전체 대사(모자이크 치환 후)를 먼저 넣어 크기를 확정하고,
     // vis는 글자 단위 span — 태그 스타일(색·떨림·지지직·모자이크) 적용 + 노출 토글
-    if (curLine !== l) { curLine = l; buildLineDom(l); }
+    if (curLine !== l) { curLine = l; lineAnchor = null; buildLineDom(l); }
     for (let i = 0; i < charSpans.length; i++)
       charSpans[i].style.visibility = i < n ? '' : 'hidden';
     const nk = Math.floor(t * 15);                 // 지지직 — 글자가 계속 깨진다
@@ -139,34 +133,20 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
         nc.sp.textContent = scrambleChar(nc, nk);
     }
 
-    // 붙일 지점 — 월드 좌표(천장 스피커 등)가 지정돼 있으면 그쪽, 아니면 화자 머리 위.
-    // 무전·방송은 기기를 든 배우(sc.radioActor)에게 붙는다.
-    let p = null;
-    if (l.at) p = rd.project(cam, l.at[0], l.at[1]);
-    else {
-      const id = l.actor || ((isRadio || isPa) ? sc.radioActor : null);
-      const a = id ? sc.actors[id] : null;
-      const st = a ? sc.actorState(a, t) : null;
-      if (a && st && st.vis) p = headOf(a, cam, t);
+    // Bind once in world coordinates. No edge clamping, viewport fallback,
+    // or pose-height re-anchoring while the same line is playing.
+    if(!lineAnchor){
+      const id=l.actor||((isRadio||isPa)?sc.radioActor:null),a=id?sc.actors[id]:null;
+      if(l.at)lineAnchor={x:l.at[0],y:l.at[1]};
+      else if(a){const st=sc.actorState(a,l.t),anim=Engine.ANIM[st.anim.v];
+        lineAnchor={actor:a,head:Sprites.contentHeight(anim.sheet)*st.scale+8};
+      }else {const origin=rd.camera(l.t);lineAnchor={x:origin.x,y:origin.y};}
     }
+    const st=lineAnchor.actor?sc.actorState(lineAnchor.actor,t):null;
+    const p=rd.project(cam,st?st.x:lineAnchor.x,st?st.y-lineAnchor.head:lineAnchor.y);
+    global.LunaWorldSpeech.place(bubble,{x:p.x*scale,y:p.y*scale,scale:cam.z,gap:(l.below?7:6)*scale,below:!!l.below});
+    const tail=bubble.querySelector('.tail');tail.style.left='calc(50% - '+4*scale+'px)';tail.style.display=lineAnchor.actor||l.at?'':'none';
 
-    const tail = bubble.querySelector('.tail');
-    if (p) {
-      const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
-      const px = p.x * scale, py = p.y * scale, pad = 6 * scale;
-      let left = Math.round(px - bw / 2);
-      left = Math.max(pad, Math.min(Engine.VW * scale - bw - pad, left));
-      let top = Math.round(l.below ? py + 7 * scale : py - bh - 6 * scale);
-      top = Math.max(pad + 10 * scale, Math.min(Engine.VH * scale - bh - pad - 10 * scale, top));
-      bubble.style.left = left + 'px';
-      bubble.style.top = top + 'px';
-      tail.style.left = Math.max(6 * scale, Math.min(bw - 14 * scale, px - left - 4 * scale)) + 'px';
-      tail.style.display = '';
-    } else {
-      bubble.style.left = Math.round(Engine.VW * scale / 2 - bubble.offsetWidth / 2) + 'px';
-      bubble.style.top = Math.round(Engine.VH * scale * 0.6) + 'px';
-      tail.style.display = 'none';
-    }
   }
 
 

@@ -1,5 +1,5 @@
 const assert=require('assert/strict'),{chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
-(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/bar-playtest/?update=shelf-settled');await p.locator('.updates-confirm').click();
+(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&update=shelf-settled');await p.locator('.updates-confirm').click();
 for(const seconds of [.45,1.1,0]){
  await p.evaluate(()=>{const g=barGame;g.reset(0,'practice',7,true,{variant:'original'});g.tutorial=null;g.screen='recipe';});await p.locator('[data-act="selectRecipe"][data-id="gin_tonic"]').click();await p.waitForTimeout(150);
  await p.addStyleTag({content:'.shelf-track{transition-duration:'+seconds+'s!important}'});

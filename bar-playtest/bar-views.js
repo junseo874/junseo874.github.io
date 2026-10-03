@@ -2,7 +2,7 @@
 window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines}){
   const categories=['glass','tool','liquor','fridge'];
   const categoryName=id=>({glass:L('잔 선반','Glasses'),tool:L('도구 선반','Tools'),liquor:L('술 선반','Liquor'),fridge:L('냉장고','Fridge')})[id];
-  const actors=new WeakMap(),seatSignals=new WeakMap();
+  const actors=new WeakMap(),seatSignals=new WeakMap(),lunaSpeechAnchors=new WeakMap();
   function seatIndicator(seat){
     const guest=g.seats[seat];
     if(!guest)return {className:'seat-empty',state:'empty',label:seat+' · '+L('빈 좌석','Empty')};
@@ -74,27 +74,36 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function cameraLayout(){
     const visible=Object.entries(g.seats).filter(([,v])=>v);
-    const general=g.phase==='general',exploring=g.tutorial?.kind==='seatExplore',wide=exploring?false:general?g.overview:visible.length>1;
+    const general=g.phase==='general',exploring=g.tutorial?.kind==='seatExplore',storyWide=g.phase==='regular'&&g.day>=1&&g.day<=3,wide=exploring?false:general?g.overview:storyWide||visible.length>1;
     const coords=general?{L:520,M:1020,R:1520}:{L:750,M:1020,R:1290};
     const cameraWidth=wide?1280:960,scale=1280/cameraWidth;
     const center=wide?1020:general||exploring?coords[g.focus]:coords[visible[0]?.[0]||'M'];
     const cameraX=Math.max(0,Math.min(2041-cameraWidth,center-cameraWidth/2));
     const cameraY=500-534/scale,key=[cameraWidth,cameraX,cameraY].join(':');
-    return {visible,general,wide,coords,cameraWidth,scale,cameraX,cameraY,key};
+    return {visible,general,wide,storyWide,coords,cameraWidth,scale,cameraX,cameraY,key};
   }
   function syncCamera(root){
     const plane=root.querySelector('.counter-plane'),layout=cameraLayout();
+    // Use the live matrix, including the in-flight camera transition, not its target.
+    if(plane){const matrix=new DOMMatrixReadOnly(getComputedStyle(plane).transform);
+      root.querySelectorAll('.dialogue-wrap[data-world-x]').forEach(el=>{
+        const x=Number(el.dataset.worldX),y=Number(el.dataset.worldY);
+        window.LunaWorldSpeech.place(el,{x:matrix.a*x+matrix.e,y:matrix.d*y+matrix.f,scale:matrix.a*.75});
+      });
+    }
     // getAnimations forces style resolution, so a newly applied transform is
     // observed before it can reveal/type the next line. No guessed timeout.
     g.cameraMoving=!!plane&&(plane.dataset.cameraKey!==layout.key||plane.getAnimations().some(a=>a.playState==='running'||a.pending));
   }
-  function dialogueAnchor(actor){
+  function dialogueAnchor(actor,line){
     const c=cameraLayout();
-    if(actor==='luna'||c.general||!c.wide)return '';
-    const seat=c.visible.find(([,guest])=>guest.actor===actor)?.[0];
-    if(!seat)return '';
-    const x=(c.coords[seat]-c.cameraX)*c.scale;
-    return 'style="left:'+Math.max(289,Math.min(991,x))+'px" data-speaker-seat="'+seat+'"';
+    const seat=actor==='luna'?(g.currentOrder?.seat||(c.general?g.focus:c.visible[0]?.[0])||g.focus):c.general?g.focus:c.visible.find(([,guest])=>guest.actor===actor)?.[0]||g.focus;
+    let x=c.coords[seat]??1020;const y=actor==='luna'?601:555.5;
+    if(actor==='luna'&&line&&typeof line==='object'){
+      if(!lunaSpeechAnchors.has(line))lunaSpeechAnchors.set(line,x);
+      x=lunaSpeechAnchors.get(line);
+    }
+    return 'data-world-x="'+x+'" data-world-y="'+y+'" data-speaker-seat="'+seat+'"';
   }
   function actorLayers(guest,expression,talking){
     if(guest.appearance){
@@ -203,7 +212,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     </div>`;
   }
   function worldHTML(){
-    const {visible,general,wide,coords,cameraWidth,scale,cameraX,cameraY,key}=cameraLayout();
+    const {visible,general,wide,storyWide,coords,cameraWidth,scale,cameraX,cameraY,key}=cameraLayout();
     const transform=depth=>`transform:translate(${-cameraX*scale*depth}px,${-cameraY*scale}px) scale(${scale})`;
     const plane=(name,depth,content)=>`<div class="bar-scene-layer ${name}" data-depth="${depth}" data-camera-key="${key}" style="${transform(depth)}">${content}</div>`;
     const back=visible.filter(([,v])=>!!v.appearance),front=visible.filter(([,v])=>!v.appearance);
@@ -214,7 +223,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       const baseline=general?530:542;
       return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;
     }).join('');
-    return `<div class="stage bar-stage" data-camera-width="${cameraWidth}">
+    return `<div class="stage bar-stage${storyWide?' story-camera-stable':''}" data-camera-width="${cameraWidth}">
       ${plane('far-plane',.88,`<img src="${a('bar_far')}" alt="">`)}
       ${plane('mid-plane',.95,`<img src="${a('bar_mid')}" alt="">`)}
       ${plane('guest-plane',1,back.map(([seat,guest])=>actorHTML(guest,coords[seat]/2041*100)).join(''))}

@@ -22,7 +22,7 @@ function attach(g){
   let upkeep=active()&&mode==='episode'?0:settings.upkeepOverride;
   if(active()&&mode==='challenge'&&upkeep==null)upkeep=challengeUpkeep(this,day,difficulty);
   base.reset(day,['challenge','episode'].includes(mode)?'general':mode,seed,run,{...settings,upkeepOverride:upkeep});
-  this.mode=mode;if(active()&&this.remix.episode&&root.LunaRemixExperience)root.LunaRemixExperience.lastEpisode=null;
+  this.mode=mode;
   if(active())this.log('gpt_session',{difficulty,assist,challenge:mode==='challenge',upkeep:this.upkeepOverride});
  };
  g.startGeneral=function(){
@@ -129,7 +129,6 @@ function attach(g){
  const finish=g.finishDay.bind(g);
  g.finishDay=function(){
   if(active()&&this.remix.challenge&&!this.finished&&!this.remix.goalsPaid){const r=this.remix;r.goalsPaid=true;r.goals=[{id:'quality',ok:r.good>=4,reward:30},{id:'variety',ok:r.variety.size>=3,reward:20},{id:'streak',ok:r.maxCombo>=3,reward:20}];r.goalBonus=r.debug?0:r.goals.reduce((sum,x)=>sum+(x.ok?x.reward:0),0);this.progress.money+=r.goalBonus;this.log('gpt_goals',{goals:r.goals,bonus:r.goalBonus,debug:r.debug});}
-  if(active()&&this.remix.episode&&root.LunaRemixExperience){const trx=this.transactions.at(-1);root.LunaRemixExperience.lastEpisode={title:trx?this.name(trx.served):'아직 건네지 못한 한 잔',text:this.remix.episodeReaction||'이번에는 손님의 반응까지 듣지 못했다.',debug:this.remix.debug};}
   return finish();
  };
  g.remixRetry=function(){if(!active())return false;return this.discard();};

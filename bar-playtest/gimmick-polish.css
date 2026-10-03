@@ -46,3 +46,12 @@
 .shake-screen .mix-gauge i.good{border-color:color-mix(in srgb,#8ef2d8 calc(var(--shake-heat,0)*100%),#56747b)}
 .shake-screen[data-shake-finale="true"] .mix-cinema::after{border-color:#ffe3a0;box-shadow:inset 0 0 38px #ffe3a044}
 @media(prefers-reduced-motion:reduce){.shake-screen .shake-route{filter:none!important}.pour-perfect{text-shadow:none}}
+
+/* Day-one lesson: real controls remain usable. */
+.opening-lesson{position:absolute;inset:0;z-index:7;pointer-events:none}
+.opening-lesson>svg{position:absolute;inset:0;width:100%;height:100%}
+.opening-lesson-copy{position:absolute;left:70px;top:230px;width:290px;padding:20px 24px;color:#e5ffff;background:#0a1522f5;border:1px solid #68ced7;border-radius:12px;font-size:20px;line-height:1.65}
+.opening-lesson-copy kbd{color:#9ef5f0;font-size:17px}.opening-lesson-copy p{margin:10px 0 0}
+.opening-lesson-copy>span{position:absolute;right:-44px;top:50%;font-size:36px;color:#9ef5f0;animation:opening-guide-point 1s ease-in-out infinite}
+@keyframes opening-guide-point{50%{transform:translateX(8px)}}
+@media(prefers-reduced-motion:reduce){.opening-lesson-copy>span{animation:none}}

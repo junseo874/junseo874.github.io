@@ -4,6 +4,8 @@
 // Luna stands at y=-.7 but its visible feet are -.974 (pivot is inside its cell).
 // Put these foot-pivot sprites on the same road, slightly behind Luna.
 const placements=[
+ {id:'store-pair-left',kind:'M1',x:-5.78,y:-.94,flip:true,faces:'store-pair-right',fps:3.4,phase:1},
+ {id:'store-pair-right',kind:'M2',x:-5.12,y:-.94,flip:false,faces:'store-pair-left',fps:3.7,phase:3},
  {id:'bar-pair-left',kind:'M2',x:-1.18,y:-.94,flip:true,faces:'bar-pair-right',fps:3.8,phase:0},
  {id:'bar-pair-right',kind:'W1',x:-.65,y:-.94,flip:false,faces:'bar-pair-left',fps:3.5,phase:2}
 ];
