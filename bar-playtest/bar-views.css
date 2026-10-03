@@ -264,6 +264,6 @@ html,body{overflow:hidden;background:#03060b}
 /* Camera movement cannot change speech layout, width, or tail attachment. */
 .bar-view .dialogue-wrap[data-world-x]{position:absolute;width:max-content;min-width:269px;max-width:618.7px;bottom:auto;transition:none}
 
-/* Days 1–3: settle into one conversation frame, without panning on every entrance/exit. */
+/* Days 1–3: ease between the single-guest and two-guest conversation frames. */
 .story-camera-stable .bar-scene-layer{transition-duration:.95s;transition-timing-function:cubic-bezier(.22,.61,.36,1)}
 @media(prefers-reduced-motion:reduce){.story-camera-stable .bar-scene-layer{transition-duration:0s}}

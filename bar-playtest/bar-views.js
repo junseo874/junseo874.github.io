@@ -74,13 +74,13 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function cameraLayout(){
     const visible=Object.entries(g.seats).filter(([,v])=>v);
-    const general=g.phase==='general',exploring=g.tutorial?.kind==='seatExplore',storyWide=g.phase==='regular'&&g.day>=1&&g.day<=3,wide=exploring?false:general?g.overview:storyWide||visible.length>1;
+    const general=g.phase==='general',exploring=g.tutorial?.kind==='seatExplore',smoothStory=g.phase==='regular'&&g.day>=1&&g.day<=3,wide=exploring?false:general?g.overview:visible.length>1;
     const coords=general?{L:520,M:1020,R:1520}:{L:750,M:1020,R:1290};
     const cameraWidth=wide?1280:960,scale=1280/cameraWidth;
-    const center=wide?1020:general||exploring?coords[g.focus]:coords[visible[0]?.[0]||'M'];
+    const center=wide?1020:general||exploring?coords[g.focus]:coords[visible[0]?.[0]||g.focus||'M'];
     const cameraX=Math.max(0,Math.min(2041-cameraWidth,center-cameraWidth/2));
     const cameraY=500-534/scale,key=[cameraWidth,cameraX,cameraY].join(':');
-    return {visible,general,wide,storyWide,coords,cameraWidth,scale,cameraX,cameraY,key};
+    return {visible,general,wide,smoothStory,coords,cameraWidth,scale,cameraX,cameraY,key};
   }
   function syncCamera(root){
     const plane=root.querySelector('.counter-plane'),layout=cameraLayout();
@@ -212,7 +212,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     </div>`;
   }
   function worldHTML(){
-    const {visible,general,wide,storyWide,coords,cameraWidth,scale,cameraX,cameraY,key}=cameraLayout();
+    const {visible,general,wide,smoothStory,coords,cameraWidth,scale,cameraX,cameraY,key}=cameraLayout();
     const transform=depth=>`transform:translate(${-cameraX*scale*depth}px,${-cameraY*scale}px) scale(${scale})`;
     const plane=(name,depth,content)=>`<div class="bar-scene-layer ${name}" data-depth="${depth}" data-camera-key="${key}" style="${transform(depth)}">${content}</div>`;
     const back=visible.filter(([,v])=>!!v.appearance),front=visible.filter(([,v])=>!v.appearance);
@@ -223,7 +223,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       const baseline=general?530:542;
       return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;
     }).join('');
-    return `<div class="stage bar-stage${storyWide?' story-camera-stable':''}" data-camera-width="${cameraWidth}">
+    return `<div class="stage bar-stage${smoothStory?' story-camera-stable':''}" data-camera-width="${cameraWidth}">
       ${plane('far-plane',.88,`<img src="${a('bar_far')}" alt="">`)}
       ${plane('mid-plane',.95,`<img src="${a('bar_mid')}" alt="">`)}
       ${plane('guest-plane',1,back.map(([seat,guest])=>actorHTML(guest,coords[seat]/2041*100)).join(''))}
