@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-04 (day 2 commute, bar, terrace and Johnny memory; Notion edited 08:22 UTC)",
+  "revision": "2026-10-04 · days 2/3 latest Notion; day3 edited 12:13 UTC; ends at 네. 보스.; Johnny memory edited 12:54 UTC, speaker labels enabled",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -343,49 +343,43 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "왔나. 어제 네가 부탁한 건 여기 뒀어.\n새로 가져온 재료로 만들 수 있는 칵테일은 레시피 DB에도 업데이트했으니까 보면 될 거야."
+        "text": "왔나. 어제 네가 가져온 재료는 선반에 뒀어."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "확인했습니다. 부탁드린 것도 모두 있네요."
+        "text": "혹시 각설탕은 어디에 있죠?"
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "기억은 볼 만했어?"
+        "text": "곧 있으면 누가 와서 주고 갈 거야."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 조니가 만드는 과정도 확인했어요."
+        "text": "확인했어요."
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "그럼 오늘은 만들 수 있겠군."
+        "text": "한번 만들어 볼 수 있겠어?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "만드는 방법은 알 것 같아요.\n톰이 왜 그때를 계속 생각하는지는, 직접 더 들어봐야겠지만요."
+        "text": "만드는 데 필요한 건 다 구한 거 같아서 될 것 같아요."
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "그 녀석 말 시작하면 길어지니까 각오는 해두고."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "오늘은 길어져도 괜찮을 것 같아요."
+        "text": "…그래. 오늘 톰이 올진 모르겠지만 오면 한 잔 만들어 봐."
       },
       {
         "type": "say",
@@ -2452,312 +2446,316 @@ window.LUNA_CAMPAIGN_DATA={
     ],
     "3": [
       {
+        "type": "enter",
+        "actor": "aili",
+        "arg": "R"
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "루나!! 나 왔어."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "안녕하세요, 아일리."
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "그래… 루나 너라도 보니까 진정이 되네."
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "크리스 이 망할 새끼… 사람 시켜 먹고 말이야."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "무슨 일이신가요?"
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "여기 필요하다던 각설탕이야.",
+        "effects": "flag.day3_sugar_received = true"
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "포트 그 노인네가 숨겨 둔 다과 세트에서 훔쳐 왔지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…감사해요."
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "별말씀을. 나중에 나랑 데이트 한 번 해 줘 알았지?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "일하는 시간이랑 겹치지 않는다면 문제 없어요."
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "아싸! 말한 거다? 무르기 없기야?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네."
+      },
+      {
+        "type": "say",
+        "actor": "aili",
+        "who": "아일리",
+        "text": "좋아. 그럼 이만 가 볼게! 예약이 있어서."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "안녕히 가세요."
+      },
+      {
+        "type": "exit",
+        "actor": "aili"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "(이제 재료는 다 구했네…)"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "(남은 건…)"
+      },
+      {
+        "type": "enter",
+        "actor": "tom",
+        "arg": "R"
+      },
+      {
+        "type": "coaster",
+        "actor": "tom"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "여, 루나. 나 왔어."
+      },
+      {
         "type": "say",
         "actor": "luna",
         "who": "루나",
         "text": "어서 오세요, 톰."
       },
       {
-        "type": "enter",
+        "type": "say",
         "actor": "tom",
+        "who": "톰",
+        "text": "오. 전에 봤을 때보다 달라졌는데? 진짜 바텐더 같아 보여."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그런가요?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그렇고 말고. 그래서, 전에 부탁한 건 가능한가?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "역시 힘든가 보네. 뭐 어쩔 수 없지 추억으로 남겨 두는 것도…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "가능해요."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…뭐? 정말?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "하지만 한 가지 물어보고 싶은 게 있네요."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "어떤 걸?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "과거에 톰이 돌봐주기로 한 아이가 혹시 삼호인가요?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…그걸 네가 어떻게 알고 있는 거야? 설마…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "예전에 조니의 기억 데이터를 봤어요. 그날 톰과 조니가 나눈 대화들까지."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "헤에… 칵테일 한 잔 만들겠다고 그렇게까지 할 줄은 몰랐는데 말이지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그래서 제 말이 맞나요?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "맞아. 근데 갑자기 그건 왜 물어보는 거야?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그건…"
+      },
+      {
+        "type": "enter",
+        "actor": "samho",
         "arg": "L"
       },
       {
-        "type": "coaster",
-        "actor": "tom",
-        "arg": ""
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "역시 여기로 올 줄 알았어."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "오. 오늘은 날 보자마자 깔아주네.\n여기 내 자리도 생긴 거야?"
+        "text": "…네가 여긴 무슨 일이야?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "오랜만에 봤는데 무슨 반응이 그래. 내가 무슨 일 없으면 여기 오면 안 돼?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그건 아니지만…"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…그러면 나는 다음 일정이 있어서 먼저…"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "또 이렇게 가버린다고?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "다른 손님이 먼저 오시면 그분께 드립니다."
+        "text": "톰. 아직 부탁하신 칵테일을 못 드렸는데요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "하하, 아주 공평하구만.\n그래서, 내 부탁은 좀 어때?"
+        "text": "…"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "조니가 남긴 기록에서 만드는 방법을 찾았어요.\n재료도 준비했고요."
+        "text": "그렇게 오래 걸리지 않으니 조금만 기다려 주시죠."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "정말? 크리스가 도와줬어?"
+        "text": "그래… 좀만 기다리지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 아일리와 포트도요."
+        "text": "삼호는 톰 걸 만들고 나서 주문을 받도록 하겠습니다."
       },
       {
         "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "내가 한 잔 부탁했다가 사람 여럿 부려먹었네.\n나중에 다 한 잔씩 사야겠어."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "네 계산부터 밀리지 않으면 돼."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "이야, 저런 말은 또 잘 듣는다니까."
+        "actor": "samho",
+        "who": "삼호",
+        "text": "알았어. 천천히 해."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "올드 패션드 한 잔, 맞으시죠?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그래. 부탁할게."
-      },
-      {
-        "type": "enter",
-        "actor": "samho",
-        "arg": "R"
-      },
-      {
-        "type": "coaster",
-        "actor": "samho",
-        "arg": ""
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "보스. 여기 있었네."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "뭐야. 너도 여기까지 소문 듣고 왔냐?\n루나, 벌써 단골 하나 잡았네."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "오늘 온다길래 기다렸어. 할 말 있어서."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "삼호도 주문하시겠어요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "조금 있다가. 먼저 얘기 좀 할게."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "보스. 요즘 왜 나 피해?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "피하긴 누가 피해. 지금 네 앞에 있잖아."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "일 얘기만 꺼내면 바쁘다며 가버리잖아."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그 얘기는 했을 텐데."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "안 된다는 말만 했지. 왜 안 되는지는 말 안 했잖아."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그래서 나도 준비했어. 이거 군용이야.\n이제 끼워달라고 말만 하는 거 아니라고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "…너 그거 언제 달았어?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "얼마 안 됐어. 작동도 확인했고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "돈은?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "빌렸어. 갚을 방법도 찾았고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "빌려서까지 이걸 달았다고?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "보스가 자격을 갖추라며.\n맨몸으로는 아무것도 못 한다는 건 나도 알아."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "내가 말한 건 이런 게 아니야."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그럼 뭔데? 이번에도 아니라고만 할 거야?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "일도 구했어. 물건 회수하는 데 경호가 필요하대.\n이번 거 하면 빌린 돈도 꽤 갚아."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "누구랑 붙는 일인데?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "다른 놈들이 올 수도 있대. 아직 누군지는…"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "누가 오는지도 모르고 받겠다고?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "아직 대답 안 했어. 지금 확인하고 있잖아."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "연락은 어떻게 닿았는데. 그쪽이 널 뭘 보고 믿고?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "내가 애니멀 쪽이라고 했어."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "삼호."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그렇게라도 해야 일을 주니까. 어차피 곧 들어갈 거였고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "나랑 얘기도 없이 우리 이름을 팔았어?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "들어주지도 않으면서 언제 얘기하라는 건데!"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "…미안하다, 루나. 술 한 잔 하러 와서 이러고 있네."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "주문하신 술, 지금 만들어도 될까요?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그래. 부탁하지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "삼호, 물을 드릴까요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…응."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "(재료는 준비됐어. 조니가 만들던 순서를 다시 확인하자.)"
+        "text": "(조니의 올드 패션드 한 잔…)"
       },
       {
         "type": "order",
@@ -2766,420 +2764,311 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "craft",
-        "actor": "tom",
-        "arg": ""
+        "actor": "tom"
       },
       {
         "type": "serve",
+        "actor": "tom"
+      },
+      {
+        "type": "say",
         "actor": "tom",
-        "arg": ""
+        "who": "톰",
+        "text": "…"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "주문하신 올드 패션드입니다."
+        "text": "어떤가요?"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "…이거네."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "허. 진짜 이 맛이야.\n영감이 여기서 툭 튀어나올 것 같네."
+        "text": "맛…있네. 정말 예전에 마셨던 거랑 똑같아. 어떻게 한 거지? 불가능할 거라 생각하고 부탁한 건데…"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "찾으시던 맛인가요?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그래. 맞아.\n이거, 다시 마실 수 있을 줄 몰랐는데."
+        "text": "조니가 이걸 톰에게 줄 때 했던 말 기억하시나요?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "기록에서, 그날 톰이 한참 동안 말을 하지 않으셨어요."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "술 만드는 것 말고 그것도 남아 있었어?"
+        "text": "올드 패션드는 과거 칵테일이라는 문화가 처음 생긴 시기에 등장한 칵테일이었죠."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 조니가 잔을 만들던 때의 기록이라서요.\n계속 말씀드려도 괜찮을까요?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "…그래. 그랬지.\n그때는 잘난 소리 하러 온 날이 아니었으니까."
+        "text": "하지만 세월이 흐르고 리큐어나 여러 재료들을 섞는 화려한 칵테일들이 등장하고 이를 좋아하지 않는 술꾼들은 옛날 방식의 칵테일을 원했어요."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "조니는 톰이 무슨 일을 해냈는지 먼저 묻지 않으셨어요."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "뭐라도 해내야 얼굴 들고 올 수 있을 줄 알았거든.\n막상 와서는 아무 말도 못 했지."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "근데 영감은 평소처럼 잔부터 꺼내더라.\n내가 무슨 꼴을 하고 왔든, 여기 앉을 자리는 있다는 것처럼."
+        "text": "그래서 이 칵테일은 과거부터 ‘옛날 방식대로’ 변하지 않는 레시피의 칵테일이었습니다. 세월이 지나도 칵테일의 근본을 유지하고 있는 칵테일이죠."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그래서 그 술을 다시 마시고 싶으셨나요?"
+        "text": "톰, 혹시 그때 조니가 이 칵테일을 주며 당신에게 했던 말을 기억하나요?"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그런 것도 있겠지.\n맛만 따라가면 그때 기분도 좀 돌아올 줄 알았나 봐."
+        "text": "오래됐지만… 기억하고 있어."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "한동안 그 생각을 하고 살았어.\n나도 누가 찾아왔을 때 앉을 자리 정도는 만들어주자고.\n…요새는 통 여유가 없네."
+        "text": "내가 어떤 바보 같은 짓을 저질러도 내가 가진 생각이나 마음이 변하지 않는다면…"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "삼호에게도 하실 말씀이 있는 것 같아요."
+        "text": "“후회하고 걱정할 시간에 그 아이나 돌봐 주라고.”라고 했던 게 맞나요?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…그래, 맞아."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그리고 삼호도, 아직 이야기가 끝나지 않은 것 같고요."
+        "text": "제가 궁금했던 게 있었어요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "…그래. 말해 봐."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "말하면 끝까지 들어줄 거야?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "응. 들어볼게."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "처음 잘 곳 구해준 거 기억해?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "기억하지."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그 뒤로도 몇 번이나 도와줬잖아.\n먹을 게 없든, 어디서 쫓겨나든. 나만 그런 것도 아니었고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그때 너희는…"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "응. 어렸지.\n근데 지금은 스무 살이야. 계속 그때처럼 살 수는 없잖아."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "나도 옆에서 뭔가 해주고 싶었어.\n맨날 보스가 와주기만 기다리는 거 말고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "그래서 이걸 단 거야?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그러면 적어도 짐은 안 될 줄 알았어.\n근데 이것도 아니라고 하면… 뭘 해야 하는데."
+        "text": "뭐지?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "어제는 톰에게 무슨 잘못을 하셨냐고 물었어요.\n아직 이유도 모르면서요."
+        "text": "그 아이가 삼호라면 왜 지금은 삼호를 피하고 더 이상 돌봐주지 않는 건가요? 혹시 마음이란 게 바뀐 건가요?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…그랬지."
+        "text": "뭐야… 이거 나랑도 관련 있던 얘기였어?"
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "마음이 변한 건 아니야. 그때와 똑같이 항상 걱정하고… 도와주고 싶다고 생각하지."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "…내가 갱단에 들어가고 싶다고 해도 거절하고 날 계속 피하기만 한 사람이 할 소리야?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "삼호는 도와드리고 싶었던 거군요."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "응. 나도 도움이 된다는 말, 한 번쯤은 듣고 싶었어."
-      },
-      {
-        "type": "say",
-        "actor": "message",
-        "who": "의뢰 연락 메시지",
-        "text": "배정 마감한다. 조건 확인했으면 지금 답 줘.\n오늘 투입 가능한 거지? 애니멀 쪽 인원은 너 하나로 알면 되나?"
+        "text": "저도 그게 모순되었다고 생각해요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그쪽이야?"
+        "text": "갱은… 너희들이 생각하는 것보다 더 위험하고 비인간적인 놈들로 가득한 곳이야. 그런 곳에 내가 어릴 때부터 챙긴 자식 같은 놈들 들여보내라고?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…응. 지금 대답해 달래."
+        "text": "…그런 건 다른 갱들이나 그런 거 아니었어? 보스가 있는 곳은 안 그런다고 했잖아. 분명 누군가를 죽이거나 하는 선은 지킨다고…"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "무슨 일을 하겠다고 얘기했는지부터 말해 봐."
+        "text": "그 말을 믿어? 여긴 서울에서도 가장 쓰레기 같은 놈들만 모이는 나이트타운이라고!"
       },
       {
-        "type": "campaign_response",
-        "actor": "",
-        "arg": ""
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…왜 그런 거짓말을 했죠?"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "거기서 네가 애니멀이라고 하고 누구 하나 건드리면, 그다음은?"
+        "text": "있는 그대로 말하면… 너도 나같이 행동할까 봐. 마약을 팔거나 누군가를 납치하거나 사람을 죽이는 일을 하며 사는 사람이 너에게 유일한 도움을 주는 사람이라고 생각하면…"
       },
       {
         "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그건 내가…"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…우리 쪽에서 시킨 줄 알겠지.\n아니, 애니멀에서."
+        "actor": "luna",
+        "who": "루나",
+        "text": "범죄에 대한 미화가 된다든가 긍정적인 이미지가 생기겠네요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그래. 그놈들이 너한테만 따지러 온다는 보장도 없어."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "나 혼자 할 수 있다고 생각했는데.\n일 얻을 때부터 보스 이름을 빌린 거네."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "돈은 진짜 많이 주는데.\n…빌린 건 또 어떻게 갚냐."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "근데 내가 뭘 끌고 가는지도 모르면서 하겠다고 할 순 없잖아."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호가 보내는 메시지",
-        "text": "이번 일은 안 하겠습니다.\n그리고 앞에서 애니멀 쪽이라고 한 건 정정할게요. 저는 정식 소속이 아닙니다.\n그쪽에서 맡긴 일도 아니고요. 제가 잘못 말했습니다."
-      },
-      {
-        "type": "say",
-        "actor": "message",
-        "who": "의뢰 연락 메시지",
-        "text": "그럼 처음부터 그렇게 말했어야지. 다른 사람 구한다."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…끝났네."
+        "text": "그래… 그런데 갑자기 삼호 네가 갱단에 들어온다고 말한 날에 크게 잘못되었단 걸 깨달았어."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "자격 얘기. 내가 제대로 말했어야 했어."
+        "text": "너에게 나란 쓰레기 같은 놈이 동경의 대상이 되어 버린 거야."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그럼 무슨 뜻이었는데?"
+        "text": "그럼… 그동안 거리를 두거나 피했던 건…"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "힘을 쓸 수 있냐고 물은 게 아니야.\n쓰고 나면 누구한테 무슨 일이 생기는지, 거기까지 볼 수 있어야 한다는 뜻이었어."
+        "text": "그래. 나에 대해서 실망하길 바라고 네가 이 동네를 떠났으면 했지."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그럼 그렇게 말해주지."
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그럼 그동안의 행동은 마음이 변해서 행한 일들이 아니라 오히려 삼호를 걱정하고 위했기에 그런 모순적인 행동을 했던 거네요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그래. 그랬어야 했지.\n안 된다고만 하면 네가 포기할 줄 알았어."
+        "text": "…그렇지."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그때에 비해 내가 너무 변해 버린 건가?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그때 조니가 했던 말 중에 이런 말도 있었죠."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "사람은 변하지만 칵테일의 맛은 바꾸지 말라고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "그러면 손님이 바에 왔을 때 옛날의 자신을 만날 수 있을 테니"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "조니가 늘 말하던 말씀이었다고 해요."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "옛날의 자신…이라."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…나한테는 더 세져서 오라는 말로 들렸어."
+        "text": "보스… 기억나? 예전에 내가 잘 곳도 없어서 저기 쓰레기 더미에서 떨고 있었을 때. 잘 곳을 마련해 줬던 거."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "너한테서 이런 팔을 보게 될 줄은 몰랐어.\n내 말 때문에 빚까지 냈다고 하니까, 겁부터 나더라."
+        "text": "…기억나지."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "보스도 겁나는 게 있어?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "야. 많아.\n너 하나 못 알아들을 말 해놓고, 잘못되면 어떡하나 싶기도 하고."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "우리가 네가 생각하는 만큼 좋은 놈들인 것도 아니야.\n돈 때문에 남을 다치게 하는 일도 하고, 약 만지는 일에도 손대.\n시키는 일 하다가 죽는 놈도 있고."
+        "text": "그때 보스를 처음 보고 무섭고 경계하고 의심했지만. 믿기로 했어. 보스가 무슨 사람이든 간에 날 도와주고 싶다는 마음이 거짓된 게 아니었으니까."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래도 나한테 해준 건 진짜잖아."
+        "text": "보스 혼자서 자기가 무슨 인간이라고 생각하든 간에 나는 내 눈으로 본 보스를 믿고 동경하고 따르고 싶었어. 나중에 내가 보스를 도울 날이 있으면 좋겠다고 생각해서."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그것도 진짜지.\n그러니까 네가 다칠 데로 들어오는 걸 보고만 있기가 싫은 거야."
+        "text": "…"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…알았어.\n근데 내가 계속 아무것도 모르는 애로 있진 않을 거야."
+        "text": "그런데 그런 행동들이 정말 날 위한 거라고 생각해? 내가 이 동네를 벗어나면 아무 일 없이 잘 살 수 있을 것 같아?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "더 이상 나는 보호를 받아야만 하는 사람이 아니야. 왜 나한테 기회를 주지 않는 건데."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "나도 보스한테 도움이 된다는 말, 한 번쯤은 듣고 싶었단 말이야."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "알아. 나도 오늘 들었어."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "들어가고 싶은 마음까지 없어진 건 아니고."
+        "text": "…아무래도 내가 생각이 짧았던 것 같네."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그럴 거라 생각했어.\n그렇다고 오늘 받아주겠다는 말도 아니야."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그건 알겠다고.\n대신 앞으로 얘기하려고 하면 도망가지 마."
+        "text": "널 위해서 한 일이라고 생각했는데 이기적인 내 생각일 뿐이었어."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그래. 바쁘면 언제 얘기할지라도 말할게.\n너도 혼자 결정해놓고 완성품처럼 들이밀지 말고."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…응."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "이건 내가 단 거니까. 돈도 내가 방법을 찾아볼게."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "방법 찾으면 조건부터 같이 보자.\n이번에는 나도 제대로 들을 테니까."
+        "text": "아직 삼호 널 갱에 들어오라고 하는 건… 좀 더 고민해 봐야겠지만 그래도 혼자 생각하지 않도록 하지. 이번에는 나도 네가 하는 말 제대로 들을 테니까."
       },
       {
         "type": "say",
@@ -3189,97 +3078,83 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "벌써 가게?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "할 얘기는 끝났잖아."
+        "actor": "luna",
+        "who": "루나",
+        "text": "이제 가시는 건가요?"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "얘기 끝나면 꼭 가야 하냐?\n나 아직 마시고 있는데."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…그 술이 그렇게 맛있어?"
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "내가 찾아달라고까지 했으면 궁금할 만하지."
+        "text": "그래. 잘 마셨어 덕분에 일도 해결된 것 같고 말이지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "한 잔 만들어드릴까요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "오늘은 이걸로 됐어. 다음에."
+        "text": "다행이네요."
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "그래. 다음에 또 오면 되지."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "루나. 잘 마셨어.\n다음에도 이걸로 부탁하지."
+        "text": "역시… 넌 될 것 같네."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 준비해 둘게요."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "나 먼저 간다. 물 고마워."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "안녕히 가세요."
+        "text": "네? 무슨 의미인가요?"
       },
       {
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "야, 같이 가. 그렇게 먼저 나갈 거면 왜 날 찾아왔냐."
+        "text": "아니야. 항상 응원한다고 생각해. 오늘 있었던 일은 잊지 못할 것 같아. 고마워, 루나."
       },
       {
         "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그럼 빨리 와, 보스."
+        "actor": "luna",
+        "who": "루나",
+        "text": "전 제 일을 했을 뿐이에요."
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "하하. 그런 면까지 정말 닮았네. 그러면 다음에 또 오도록 하지."
       },
       {
         "type": "exit",
-        "actor": "tom",
-        "arg": ""
+        "actor": "tom"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "이씨… 왜 먼저 가는 거야!"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "그럼 나도 먼저 갈게, 루나. 다음에 봐!"
       },
       {
         "type": "exit",
-        "actor": "samho",
-        "arg": ""
+        "actor": "samho"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…잘한 건가."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "(누군가를 위하는 마음으로 한 행동이 저렇게도 나타날 수 있는 건가…)"
       },
       {
         "type": "enter",
@@ -3287,105 +3162,43 @@ window.LUNA_CAMPAIGN_DATA={
         "arg": "R"
       },
       {
-        "type": "coaster",
-        "actor": "chris",
-        "arg": ""
-      },
-      {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "갔나?"
+        "text": "갔나 보군."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 같이 가셨어요."
+        "text": "듣고 계셨나요?"
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "술은 어땠대?"
+        "text": "생각보다 소란스러워서 말이지. 물론 끼면 안 될 것 같아서 듣고만 있었어."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그래도… 잘한 거 같네. 고생했어."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "피곤할 테니 먼저 들어가 봐."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "찾던 맛이라고 하셨어요. 다음에도 부탁한다고요."
+        "text": "알겠어요."
       },
       {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "그럼 됐네. 고생했어."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "왜?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "어제는 레시피대로 만들면 된다고 했어요.\n삼호에게요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "틀린 말은 아니지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "오늘도 만드는 방법은 같았는데, 언제 말을 꺼내야 할지는 적혀 있지 않았어요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "그래서?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "조금 기다려 봤어요.\n아직 하려던 말이 남아 있는 것 같아서요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "…그랬군."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "어때. 아직도 일하기로 한 게 잘못된 선택 같아?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "…조금 더 해보고 싶어요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "그래. 그럼 내일도 부탁하지.\n오늘은 이쯤 하고 들어가자."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네."
+        "type": "end_part"
       }
     ]
   },
@@ -3966,14 +3779,6 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "(…평소 것에서 좀 변형을 줘 볼까.)",
-        "tomPresent": true,
-        "served": false
-      },
-      {
-        "type": "say",
-        "actor": "johnny",
-        "who": "조니",
         "text": "(와일드 독 45ml…)",
         "tomPresent": true,
         "served": false
@@ -3998,7 +3803,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "(얼음을 넣고 저으면…)",
+        "text": "(얼음을 넣고 저어서…)",
         "tomPresent": true,
         "served": false
       },
@@ -4020,17 +3825,9 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "평소랑은 조금 다른 것 같은데.",
-        "tomPresent": true,
-        "served": true
-      },
-      {
-        "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "별로인가?",
+        "text": "어떤가?",
         "tomPresent": true,
         "served": true
       },
@@ -4038,7 +3835,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "아니. 마음에 들어. 뭘 바꾼 거지?",
+        "text": "…맛있네. 엄청…",
         "tomPresent": true,
         "served": true
       },
@@ -4046,7 +3843,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "그냥 원래 레시피에서 살짝 변형만 줘 봤네.",
+        "text": "다행이군, 그래.",
         "tomPresent": true,
         "served": true
       },
@@ -4054,7 +3851,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "마음에 드는군… 평소 것도 좋지만 가끔 이런 맛도 생각나겠는데.",
+        "text": "후우…",
         "tomPresent": true,
         "served": true
       },
@@ -4062,7 +3859,239 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "마셨으면 한숨 돌려. 얘기는 하고 싶을 때 하고.",
+        "text": "그래서 말하기 힘든 일이었나?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…그렇진 않아.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "어떤 꼬마가 계속 신경 쓰여서…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "내가 도움을 줄 수 있을지는 모르지만 들어줄 순 있으니 편하게 말해 보게. 내가 보기엔 꽤나 답답해 보이거든.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…전에 어떤 의뢰를 진행하면서 다른 갱단이랑 충돌한 적이 있었는데. 상대 갱단 중에 정신 나간 놈이 주거 구역에서 소형 미사일 탄환을 날린 적이 있어.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그게 빗나가서 뒤에 있던 모르는 차량 앞부분에 맞아서 전복됐지.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "차량 앞에 타 있던 사람은 아무리 봐도 죽은 것처럼 보였는데, 뒷좌석에 앉은 다섯 살도 안 돼 보이는 아이가 기어 나오더라고.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그리고 나와서 앞좌석을 보면서 무표정으로 가만히 바라만 보고 있었지.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "허어… 그것 참…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그걸 봤지만 그때는 교전 중이라 다른 곳으로 바로 이동해야 해서 그 뒤에 어떻게 됐는지 보지 못했는데.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "어제 저기 쓰레기 처리장 쪽에서 그때 그 아이를 다시 보게 됐지.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "추워서 쓰레기를 끌어다가 덮고 덜덜 떨고 있는 모습을 말이야.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "그리 좋은 경험은 아니었겠군. 거기서 죄책감을 느낀 건가?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…그럴지도.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "근데 왜 아무것도 하지 않았던 건가.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…내가 누군가를 도와줄 만큼 좋은 사람은 아닌 것 같아서.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "당신같이 이런 일을 하면서 누군가의 고충을 들어주거나 타인을 도우려는 사람이 아니라,",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "누군가를 해치거나 피해를 입히면서 돈을 받는 쓰레기 같은 인생을 살고 있는 내가…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…이 더러운 손으로 그 아이를 돕는 게… 옳지 않은 것 같아서…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그렇게 생각하다 보니 요즘 내가 하고 있는 일들에 대해서도 회의감이 들어서… 보시다시피 지금 이 상태야.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "이 나이트타운에서… 위선 떠는 것 같은 놈으로 보이지?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "톰. 지금까지 우리 가게를 찾아와서 대화했을 때 본 자네는 좋은 사람이네.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…내가 방금 한 얘기 못 들은 거야? 난 갱에서 일하는 사람이라고! 범죄를 저지르는!",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "그래. 자네가 하는 일들은 분명 떳떳하지 못한 일들일 수 있지. 하지만 그 일들이 자네의 인간성까지 물들여 버리진 않았다고 생각하네.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "내가 아는 인간성을 버린 이들은 그런 고민 따위는 하지 않아. 그저 폭력과 쾌락만을 좇지.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "자네는 자신이 한 실수들을 후회도 하고, 죄책감도 느끼고, 누군가를 도우려고 하는 사람이야.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "그러니까… 후회와 걱정은 충분히 한 것 같으니 이젠 그 아이를 도와주는 게 어떤가?",
         "tomPresent": true,
         "served": true
       },
@@ -4076,9 +4105,9 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
-        "actor": "tom",
-        "who": "톰",
-        "text": "…오늘은 그냥 좀 앉아 있다 가도 돼?",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "물론 강요하는 건 아닐세. 하지만 자네가 앞으로 후회하지 않을 선택을 하길 바랄 뿐이야.",
         "tomPresent": true,
         "served": true
       },
@@ -4086,7 +4115,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "물론 영업 끝날 때까지는.",
+        "text": "우리 가게에 오는 손님이 매일같이 취해서 넋두리만 하는 건 그리 원치 않는 일이라서 말이지.",
         "tomPresent": true,
         "served": true
       },
@@ -4094,7 +4123,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "역시 이 칵테일이 제일 좋은 것 같은데 다음에 와도 이걸로 줘.",
+        "text": "하하… 그래… 그렇지.",
         "tomPresent": true,
         "served": true
       },
@@ -4102,7 +4131,31 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "그래.",
+        "text": "가 보는 건가?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "그래. 오늘은 일찍 가 볼게, 영감. 잘 마셨어.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "잘 가게나. 내 예상에 다음에 볼 때는 전처럼 웃으면서 볼 수 있을 것 같구만.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…노력해 볼게.",
         "tomPresent": true,
         "served": true
       }
@@ -4200,115 +4253,31 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 삼호는 어제 말한 일을 하러 가시나요?"
+        "text": "네, 맞아요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "아직. 조건 좀 더 들어보는 중이야.\n오늘 보스 온다고 했지?"
+        "text": "참 열심히도 하네."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 부탁하신 술을 마시러 오실 거예요."
+        "text": "삼호는 여기서 뭐 하는 건가요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그럼 나도 들러야겠네. 어제 말한 거 물어보려고."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "조건이 달라졌나요?"
+        "text": "의뢰 중개인이랑 잠깐 얘기하느라."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "물건 가져오는 동안 옆에 서 있기만 하면 된다더니.\n다른 놈들도 그 물건을 가지러 올 수 있대."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "같이 일하는 사람들인가요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "아니. 무장하고 올 수도 있으니까, 오면 막으라는 거지.\n대신 돈은 더 준대."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "어떻게 막아야 하는지는 들으셨나요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "…지금 물어보려고."
-      },
-      {
-        "type": "say",
-        "actor": "message",
-        "who": "의뢰 연락 메시지",
-        "text": "회수 끝날 때까지 접근 차단. 상대가 무력 쓰면 대응 가능.\n그쪽 전력 믿고 맡기는 거니까. 오늘 안에 확답 줘."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "뭐, 처음부터 순한 일일 거라고 생각한 건 아니니까.\n이 정도는 해야 돈도 되지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "그만큼 돈이 필요한 건가요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "이거 공짜로 단 거 아니거든."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "장비값에 수술비까지 빌렸어. 이번 거 하면 꽤 갚을 수 있어.\n보스도 이제 내가 뭘 할 수 있는지 알겠지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "톰에게도 이 일을 말씀하셨나요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "아직. 말부터 꺼내면 또 하지 말라고 할 게 뻔해서.\n…그래도 오늘은 이유나 들어보려고."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "아직 수락한 건 아니고요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "응. 일단 더 알아보고.\n너 늦겠다. 이따 보자."
+        "text": "이따 갈게. 오늘은 뭔가 보스가 거기로 갈 거 같단 말이지."
       },
       {
         "type": "say",
@@ -4317,116 +4286,127 @@ window.LUNA_CAMPAIGN_DATA={
         "text": "네. 바에서 뵐게요."
       }
     ],
-    "night3": [
-      {
-        "type": "say",
-        "actor": "researcher",
-        "who": "연구원",
-        "text": "늦었네. 어디 있었어?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "기억 속 루나",
-        "text": "돌아오는 데 예상보다 시간이 걸렸어요.\n이유를 설명해 드릴까요?"
-      },
-      {
-        "type": "say",
-        "actor": "researcher",
-        "who": "연구원",
-        "text": "잠깐. 어디 다친 데는 없고?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "기억 속 루나",
-        "text": "네. 이상 없습니다."
-      },
-      {
-        "type": "say",
-        "actor": "researcher",
-        "who": "연구원",
-        "text": "됐어. 일단 여기 앉아."
-      }
-    ],
+    "night3": [],
     "ending": [
       {
-        "actor": "narrator",
-        "who": "",
-        "text": "루나는 기억을 돌아보는 곳에서 벗어나 다시금 눈을 떴다. 테라스 너머 높은 빌딩들과 화려한 야경이 보였다."
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그래서… 오늘은 어땠지?"
       },
       {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…생각했던 것보다 사람들의 감정과 행동들이 굉장히 모순적이고 복잡하고 이해하기 어려웠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "사람의 감정이라는 게 늘 그렇지. 언제는 모순되기도 하고 매 순간마다 변하고 알기 힘든 것들뿐이야."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "나 같은 사람도 아직 이해하기 힘든 것들이지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "조니라는 분은 어떻게 이런 복잡하고 이해하기 어려운 일들에 능숙하게 대처할 수 있는 거죠?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그 영감도 우리와 같은 인간이야. 대신 손님에 대해 관찰하고 이해하는 걸 포기하지 않는 사람이기에 그런 행동을 할 수 있는 거지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…",
+        "cinemaAfter": "terrace-memory",
+        "memoryKey": "terraceMemory3"
+      },
+      {
+        "type": "say",
         "actor": "chris",
         "who": "크리스",
         "text": "왜, 무슨 생각이라도 났어?"
       },
       {
+        "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…기뻤던 것 같아서요.\n지금 생각해 본 거지만."
+        "text": "…저를 보호하고 싶었던 것 같아서요. 지금 생각해 본 거지만."
       },
       {
-        "actor": "narrator",
-        "who": "",
-        "text": "크리스는 잠시 허공을 보며 생각하다 말을 이었다."
-      },
-      {
+        "type": "say",
         "actor": "chris",
         "who": "크리스",
         "text": "…그렇게 생각한다면 그런 거겠지."
       },
       {
-        "actor": "narrator",
-        "who": "",
-        "text": "루나가 떠올린 일들이 정확히 무엇인지 크리스는 알지 못했다.\n문득 한 여자가 했던 말이 떠올랐다."
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…그래서 어때. 아직도 일하기로 한 게 잘못된 선택 같아?"
       },
-      {
-        "actor": "woman",
-        "who": "기억 속 목소리",
-        "text": "이 아이들을 그저 인공지능이라고 생각하지 마.\n너 같은 놈이랑은 달라. 얘들은… 가능성을 품고 있다고."
-      },
-      {
-        "actor": "narrator",
-        "who": "",
-        "text": "화를 내듯 자신에게 쏘아붙이던 목소리였다.\n그 시절 자신은 이해하지 못한 말이었다."
-      },
-      {
-        "actor": "narrator",
-        "who": "",
-        "text": "크리스는 잠시 하늘을 바라보다가 다시 도심 쪽으로 시선을 돌렸다.\n마침 어렸을 적 좋아하던 열차가 지나가고 있었다."
-      },
-      {
-        "actor": "narrator",
-        "who": "",
-        "text": "크리스는 젊은 시절 품었다가 잊고 지냈던 자신의 꿈이 문득 떠올랐다.\n두 사람은 한동안 말없이 앉아 있었다."
-      }
-    ],
-    "responseA": [
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "삼호가 확인한 조건부터 들어볼까요?"
+        "text": "조금 더… 해 보고 싶어요."
       },
       {
         "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "물건 가져오는 동안 다른 놈들이 못 오게 막는 거.\n상대가 먼저 무력을 쓰면 나도 써도 된대."
-      }
-    ],
-    "responseB": [
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…잘됐군. 내일도 부탁할게."
+      },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그쪽에서는 애니멀이 맡는 일이라고 생각하고 있나요?"
+        "text": "네. 보스."
+      }
+    ],
+    "responseA": [],
+    "responseB": [],
+    "terraceMemory3": [
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "전 인류를 돕기 위해 존재하는 건데 왜 유나가 희생하고 전 생존해야 하는 건가요?"
       },
       {
         "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "응. 우리 쪽 전력을 믿고 맡긴다고 했어.\n다른 놈들이랑 붙을 수도 있으니까."
+        "actor": "yuna",
+        "who": "유나",
+        "text": "…이 순간에도 궁금한 건 못 참는구나 루나."
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "그냥 내가 그러고 싶어서 그러는 거야."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "이해가 되지 않네요."
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "나중에 알게 될 거야. 그럼 먼저 가 루나. 꼭 행복하고."
       }
     ]
   },

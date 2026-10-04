@@ -2,7 +2,7 @@
 (function(root){
 'use strict';
 const copy=x=>JSON.parse(JSON.stringify(x));
-const RESTORATION={id:'johnny_old_fashioned',prototype:true,glass:'old_fashioned',tool:'mixing_glass',ingredients:[['rye_whiskey',45],['simple_syrup',5],['aromatic_bitters',2]],mix:'stir'};
+const RESTORATION={id:'johnny_old_fashioned',prototype:false,glass:'old_fashioned',tool:'mixing_glass',ingredients:[['wild_dog',45],['bitters',5],['sugar_cube',1]],mix:'stir'};
 class Session{
  constructor(g,data,story){this.g=g;this.data=data;this.story=story;this.active=false;this.day=0;this.completed=[];this.checkpoint=null;this.route='title';this.events=[];this.original=null;}
  install(options={}){if(this.active)return;this.developer=!!options.developer;this.serviceVersion=options.serviceVersion==='B'?'B':'A';const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
@@ -14,13 +14,14 @@ class Session{
   // Explicit story availability: Cosmo and its ingredients remain day 2.
   t.cocktails.find(c=>c.id==='dry_martini').unlock_day='1';t.shelf_items.find(c=>c.id==='dry_vermouth').unlock_day='1';
   const base=t.shelf_items.find(i=>i.id==='whiskey');
-  for(const [id,name,color,asset,category] of [['rye_whiskey','라이 위스키','190,120,40','whiskey','base'],['simple_syrup','심플 시럽','240,237,209','grenadine','syrup'],['aromatic_bitters','아로마틱 비터스','145,67,33','kahlua','liqueur']]){
-   t.shelf_items.push({...base,id,'name.ko':name,'name.en':name,color,category,unlock_day:'3','desc.ko':name+' · 조니의 관찰 메모용 테스트 재료. 배합은 가안입니다.',default_target_qty:String(RESTORATION.ingredients.find(r=>r[0]===id)[1]),default_target_unit:'ml',row_id:'campaign_item_'+id});
-   for(const prefix of ['item_','recipe_item_','inventory_item_'])addAsset(prefix+id,prefix+asset);
+  const ids=RESTORATION.ingredients.map(r=>r[0]);t.shelf_items=t.shelf_items.filter(i=>!ids.includes(i.id));t.cocktails=t.cocktails.filter(c=>c.id!==RESTORATION.id);t.recipes=t.recipes.filter(r=>r.context!==RESTORATION.id);
+  for(const [id,name,color,asset,category] of [['wild_dog','와일드 독','190,120,40','whiskey','base'],['bitters','비터스','145,67,33','kahlua','liqueur'],['sugar_cube','각설탕','240,237,209','sugar_cube','sugar']]){
+   t.shelf_items.push({...base,id,'name.ko':name,'name.en':{wild_dog:'Wild Dog',bitters:'Bitters',sugar_cube:'Sugar Cube'}[id],color,category,unlock_day:'3','desc.ko':id==='sugar_cube'?'올드 패션드에 넣는 각설탕. 선택하면 1개가 투입됩니다.':name+' · 조니의 올드 패션드 재료.',default_action:id==='sugar_cube'?'add':'pour',default_target_qty:String(RESTORATION.ingredients.find(r=>r[0]===id)[1]),default_target_unit:id==='sugar_cube'?'개':'ml',row_id:'campaign_item_'+id});
+   for(const prefix of ['item_','recipe_item_','inventory_item_']){if(id==='sugar_cube'&&!this.data.assets[prefix+id]){this.assetKeys.push(prefix+id);this.data.assets[prefix+id]={src:'assets/campaign/sugar-cube.svg',w:96,h:96,frames:1};}else addAsset(prefix+id,prefix+asset);}
   }
   const baseDrink=t.cocktails.find(c=>c.id==='godfather');
-  t.cocktails.push({...baseDrink,id:RESTORATION.id,'name.ko':'올드 패션드','name.en':'Old Fashioned',unlock_day:'3',price:'300',sprite:null,serve_sprite:null,'flavor.ko':'조니의 기억에서 관찰한 한 잔.','recipe_desc.ko':'관찰 메모 · 테스트 배합: 라이 위스키 45ml → 심플 시럽 5ml → 아로마틱 비터스 2ml. 믹싱 글라스에서 스터한 뒤 올드패션드 잔에 제공한다. 확정 배합이 아닌 본편 연결용 가안.',row_id:'campaign_cocktail_old_fashioned'});
-  t.recipes.push(...RESTORATION.ingredients.map(([ingredient,qty],i)=>({context:RESTORATION.id,action:'pour',ingredient,qty:String(qty),unit:'ml',is_core:true,scored:true,auto_apply:false,row_id:'campaign_recipe_'+i})));
+  t.cocktails.push({...baseDrink,id:RESTORATION.id,'name.ko':'올드 패션드','name.en':'Old Fashioned',mix:'stir',target_mix_method:'stir',glass:'old_fashioned',unlock_day:'3',price:'300',sprite:null,serve_sprite:null,'flavor.ko':'조니의 기억에서 관찰한 한 잔.','recipe_desc.ko':'와일드 독 45ml → 비터스 5ml → 각설탕 1개. 얼음이 든 믹싱 글라스에서 스터한 뒤 올드패션드 잔에 제공한다.',row_id:'campaign_cocktail_old_fashioned'});
+  t.recipes.push(...RESTORATION.ingredients.map(([ingredient,qty],i)=>({context:RESTORATION.id,action:ingredient==='sugar_cube'?'add':'pour',ingredient,qty:String(qty),unit:ingredient==='sugar_cube'?'개':'ml',is_core:true,scored:true,auto_apply:false,row_id:'campaign_recipe_'+i})));
   for(const prefix of ['cocktail_','recipe_cocktail_','table_cocktail_'])addAsset(prefix+RESTORATION.id,prefix+'godfather');
   for(const [id,name]of [['tom','톰'],['message','의뢰 연락 메시지'],['johnny','조니']])if(!t.characters.some(c=>c.id===id))t.characters.push({id,'name.ko':name,'name.en':name,affinity:false});
   for(const day of [1,2,3])for(const phase of ['bar_open','bar']){const id='campaign_d'+day+'_'+phase;const rows=phase==='bar_open'?[{type:'enter',actor:'chris',arg:'R'},...this.story.opening[day]]:this.story.bar[day];
@@ -52,7 +53,7 @@ class Session{
   if(result.missingCore?.length)issues.push('필수 재료가 빠졌습니다.');
   if(id===RESTORATION.id){const a=result.actual||{};if(a.glass!==RESTORATION.glass)issues.push('올드패션드 잔을 사용해 주세요.');if(a.tool!==RESTORATION.tool)issues.push('믹싱 글라스와 바 스푼으로 스터해 주세요.');
    if(JSON.stringify(a.ingredients)!==JSON.stringify(RESTORATION.ingredients.map(r=>r[0])))issues.push('메모에 적힌 재료 순서가 다릅니다.');
-   for(const[ingredient,qty]of RESTORATION.ingredients){const r=result.results?.find(r=>r.ingredient===ingredient&&r.type==='pour');if(!r||Math.abs(Number(r.value)-qty)>5)issues.push(this.g.name(ingredient)+' '+qty+'ml (허용 오차 ±5ml)를 확인해 주세요.');}
+   for(const[ingredient,qty]of RESTORATION.ingredients){const r=result.results?.find(r=>r.ingredient===ingredient&&r.type===(ingredient==='sugar_cube'?'add':'pour'));if(!r||Math.abs(Number(r.value)-qty)>(ingredient==='sugar_cube'?0:5))issues.push(this.g.name(ingredient)+' '+qty+(ingredient==='sugar_cube'?'개':'ml (허용 오차 ±5ml)')+'를 확인해 주세요.');}
    if(!result.results?.some(r=>r.type==='stir'&&r.completed))issues.push('스터를 끝까지 완료해 주세요.');
   }return[...new Set(issues)];
  }

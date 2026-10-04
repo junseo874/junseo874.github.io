@@ -6,7 +6,7 @@ function state(dialog,D){
  if(dialog.johnnyView)return dialog.johnnyView;
  const g=new W.LunaCore.Game(D);g.reset(2,'regular',1,false);g.phase='regular';g.screen='bar';g.focus='R';
  const asset=id=>D.assets[id]?.src||'',tom={id:'memory-tom',actor:'tom',state:'STORY',coaster:true,glass:null,expression:'idle',seated:false};
- const views=W.LunaBarViews({D,g,ui:{drag:null},L:(ko)=>ko,esc,a:asset,button:()=>'',itemArt:()=>'',drinkArt:id=>'<img class="drink-art" src="'+esc(asset('table_cocktail_'+id)||asset('table_cocktail_godfather'))+'" alt="" draggable="false">',recipeLines:()=>''});
+ const views=W.LunaBarViews({D,g,ui:{drag:null},L:(ko)=>ko,esc,a:asset,button:()=>'',itemArt:()=>'',drinkArt:id=>'<img class="drink-art" src="'+esc(asset('table_cocktail_'+id)||asset('cocktail_'+id)||asset('cocktail_godfather'))+'" alt="" draggable="false">',recipeLines:()=>''});
  return dialog.johnnyView={g,views,tom,entryAt:null};
 }
 function update(dialog,D,dt=0){
@@ -18,7 +18,7 @@ function update(dialog,D,dt=0){
 }
 function html(dialog,D){
  const s=update(dialog,D),r=dialog.rows[dialog.index];
- return '<div class="johnny-memory bar-view" data-memory-pov="johnny"><div class="johnny-memory-world">'+s.views.worldHTML()+'</div><div class="johnny-memory-texture" aria-hidden="true"></div><button class="campaign-speech johnny-memory-speech" data-campaign="next" data-world-speech="true" aria-label="다음 대사"><p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p></button></div>';
+ return '<div class="johnny-memory bar-view" data-memory-pov="johnny"><div class="johnny-memory-world">'+s.views.worldHTML()+'</div><div class="johnny-memory-texture" aria-hidden="true"></div><button class="campaign-speech johnny-memory-speech" data-campaign="next" data-world-speech="true" aria-label="다음 대사"><strong class="speaker">'+esc(r.who||(r.actor==='johnny'?'조니':'톰'))+'</strong><p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p></button></div>';
 }
 function sync(host,dialog,D,dt=0){
  const s=update(dialog,D,dt),root=host.querySelector('.johnny-memory');if(!root)return;
@@ -28,7 +28,7 @@ function sync(host,dialog,D,dt=0){
  const m=new DOMMatrixReadOnly(getComputedStyle(plane).transform),y=dialog.rows[dialog.index].actor==='johnny'?601:555.5;
  W.LunaWorldSpeech.place(bubble,{x:m.a*1290+m.e,y:m.d*y+m.f,scale:m.a*.75});
 }
-async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_godfather'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}
+async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_godfather','cocktail_godfather'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}
 let audio;
 function cue(kind,enabled=true){
  if(!enabled)return;try{audio??=new(W.AudioContext||W.webkitAudioContext)();audio.resume().catch(()=>{});const at=audio.currentTime,bus=W.LunaSfx.output(audio);

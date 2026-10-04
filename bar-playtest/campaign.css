@@ -63,3 +63,6 @@
 .campaign-stage .johnny-memory-speech:hover,.campaign-stage .johnny-memory-speech:focus-visible{outline:none;background:#101614ef;border-color:#d0d8bc}
 @keyframes johnny-grain{50%{transform:translate(4px,-3px)}}
 @media(prefers-reduced-motion:reduce){.johnny-memory-texture:after{animation:none}}
+
+/* Johnny recall keeps the normal bar speaker row; other memories remain text-only. */
+.campaign-stage .johnny-memory-speech .speaker{display:block;font-size:20px;line-height:24px;font-weight:400;color:#32cdd4;margin:0 0 8px}

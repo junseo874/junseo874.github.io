@@ -182,7 +182,7 @@ function buildQueue(data,selected,actual){
  }
  if(actual.tool==='shaker')queue.push({type:'shake',ingredient:null});
  if(actual.tool==='mixing_glass')queue.push({type:'stir',ingredient:null});
- const rank={open:0,pour:1,squeeze:2,powder:3,shake:4,stir:4,fill_up:5};
+ const rank={open:0,pour:1,squeeze:2,powder:3,add:3,shake:4,stir:4,fill_up:5};
  return queue.sort((a,b)=>rank[a.type]-rank[b.type]);
 }
 function scoreCraft(data,selected,actual,results,elapsed){
@@ -392,6 +392,7 @@ class Game{
  prepBack(){if(this.tutorial)return false;if(this.screen!=='prep')return;this.prep=null;this.screen='recipe';this.log('prep_reset');this.changed();}
  startCraft(){if(this.screen!=='prep'||this.isPaused())return false;if(this.tutorial?.beer){if(this.tutorial.kind!=='beerStart'||this.prep?.glass!==this.cocktail('bottle_beer').glass||!this.prep.opener||!this.prep.ingredients.includes('beer'))return false;this.tutorial=null;}if(this.tutorial&&(this.variant==='gpt'||this.tutorial.kind!=='prepStart'||this.prep?.glass!=='long_drink'||!['gin','soda_water'].every(id=>this.prep.ingredients.includes(id))))return false;if(this.screen!=='prep'||!this.prep?.glass||!this.prep.ingredients.length||this.isPaused())return false;if(this.prep.ingredients.includes('beer')&&!this.prep.opener){this.overlay='openerWarning';this.changed();return false;}return this.safe(()=>{this.craft={id:'craft_attempt_'+(++this.serial),actual:structuredClone(this.prep),queue:buildQueue(this.data,this.cocktail(this.prep.selected),this.prep),index:0,results:[],elapsed:0};this.screen='gimmick';this.nextGimmick();if(this.tutorial?.kind==='prepStart'){this.tutorial=null;this.progress.flags.day0_recipe_taught=true;this.log('tutorial_complete',{kind:'prep'});}this.changed();return true;});}
  nextGimmick(){const step=this.craft.queue[this.craft.index];if(!step){this.result=scoreCraft(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual,this.craft.results,this.craft.elapsed);this.result.id=this.craft.id;this.resultContext.craft_grade=this.result.grade;this.screen='result';this.gimmick=null;this.log('craft_result',{id:this.craft.id,score:this.result.score,grade:this.result.grade});return;}
+  if(step.type==='add'){this.craft.results.push({...step,value:step.target,completed:true,failures:0,completion:1});this.craft.index++;return this.nextGimmick();}
   this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?MIX.shakeTargetStacks:this.c('stir_target_stacks',10)};MIX.init(this.gimmick);POUR.init(this.gimmick,this);if(step.type==='open'&&this.day===1&&this.phase==='opening'&&this.craftStep?.arg==='tutorial_beer')this.gimmick.openTutorial=true;
   if(this.gimmick.fluid&&this.day===0&&this.variant!=='gpt'&&!this.minigame&&this.currentOrder?.actor==='chris'&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_pour_taught)this.gimmick.pourTutorial={step:'target'};
  }
