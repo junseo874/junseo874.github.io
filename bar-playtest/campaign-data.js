@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-03 (day 1 pre-opening bottle tutorial and Shiba beer order; Notion 06:49 UTC)",
+  "revision": "2026-10-04 (day 2 commute, bar, terrace and Johnny memory; Notion edited 08:22 UTC)",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -329,7 +329,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "좋아 그럼 부탁할게."
+        "text": "좋아. 그럼 부탁할게."
       },
       {
         "type": "say",
@@ -1762,223 +1762,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(흠.. 더 이상 안 들어오네 슬슬 정리해야 하나.)"
-      },
-      {
-        "type": "enter",
-        "actor": "port",
-        "arg": "L"
-      },
-      {
-        "type": "coaster",
-        "actor": "port",
-        "arg": ""
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "여어-"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "어서 오세요 포트."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "반가워 아가씨"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "일단.. 한 잔 먼저 시키지 드라이 마티니로 한 잔 부탁해."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네 주문받았습니다."
-      },
-      {
-        "type": "order",
-        "actor": "port",
-        "arg": "exact:dry_martini"
-      },
-      {
-        "type": "craft",
-        "actor": "port",
-        "arg": ""
-      },
-      {
-        "type": "serve",
-        "actor": "port",
-        "arg": ""
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "이제 얼추 바텐더 태가 나는구만 아가씨"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "제가 바텐더처럼 보인다는 건가요?"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "제법 손님을 맞이하는 게 자연스러워 보인다 이거야.\n그전에는 영 뻣뻣해 보였거든."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "안 맞는 옷을 입은 것처럼 말이지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "지금 제 옷은 저에게 딱 맞는다고 생각됩니다."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "큭큭 아직 이런 센스는 부족하구만."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "자 받아 어제 부탁받은 물건이야."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "이게 뭐죠?"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "벌써 까먹었나? 어제 아일리랑 크리스 이 자식들이\n새벽 3시에 대뜸 이걸 들고 오더니 고치라고 하더라니까?"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "그냥 고치는 것도 아니고 복원에다가 원하는 부분을 편집해서 추출까지\n내 고객이 이랬으면 난 벌써 대가리에 시원한 바람구멍 하나 내줬을 건데."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "…"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "암튼 그놈들 요청 사항 다 들어줘서 따로 뽑은 거니까 이따가 확인해 봐."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "감사합니다. 포트."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "뭘 대신 나중에 내 부탁 한 번만 들어줘."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "어떤 걸 말씀하시는 거죠?"
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "아직 확정은 아니라 지금 말하긴 좀 그렇고\n일단 너만 할 수 있는 거라고 말해둘게."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "상당히 저에게 불리한 상황이 연출될 것 같습니다."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "날 뭘로 보는 거야? 암만 내가 못났어도 너한테 사기 칠 쓰레기는 아니지."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "그럼 다행이네요."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "그래. 그럼 난 분명 건네준 거다? 나중에 딴소리하기 없기야."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네 하지만 추후에 부탁을 듣고 불합리하다 판단되면 거절할게요."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "큭큭 철저하구만 아가씨 누구한테 배운 건지 원."
-      },
-      {
-        "type": "say",
-        "actor": "port",
-        "who": "포트",
-        "text": "암튼 이만 가보지 수고하라고."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네 안녕히 가세요."
-      },
-      {
-        "type": "exit",
-        "actor": "port",
-        "arg": ""
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "음.. 이건 언제 봐야 하는 거지? 퇴근하고 확인해야 하나."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "내일 온다고 했으니 오늘 교대할 때 보면 되겠다."
+        "text": "(흠… 더 이상 안 들어오네. 슬슬 정리해야 하나.)"
       },
       {
         "type": "enter",
@@ -1987,50 +1771,61 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "coaster",
-        "actor": "samho",
-        "arg": ""
+        "actor": "samho"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "뭐야. 진짜 여기 있었잖아?"
+        "text": "안녕. 또 보네?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "안녕하세요 손님."
+        "text": "안녕하세요, 손님."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래 반가워. 진짜 여기서 일하고 있네"
+        "text": "그래. 여기가 언노운이구나."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "말로만 들었을 때는 무슨 이 동네랑은 다른 공간처럼 느껴진다거나 잊지 못할 경험을 하는 곳이라고 들었는데."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "…인테리어는 좀 고급스럽긴 하지만 딱히 특별할 건 없네. 오히려 좀 낡아 보이는 거 같기도 하고."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "아까 밖에서 뵀죠. 삼호."
+        "text": "손님으로 오신 거죠?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래 맞아. 근데 진짜 너 말투 특이하다."
+        "text": "그래, 맞아. 근데 나도 그렇지만 너도 참 별종이란 말이지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "제 말투요?"
+        "text": "네? 제가요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래 나 이 동네에서 평생을 살았는데.\n너처럼 존댓말 쓰는 사람을 거의 처음 봤어"
+        "text": "그래, 내가 이 동네에서 평생을 살았는데 너처럼 존댓말 쓰는 사람은 거의 처음 봤어."
       },
       {
         "type": "say",
@@ -2042,19 +1837,19 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "너.. 어디 살다가 왔길래…\n씁 그래 이런 걸 물어볼 만큼 좋은 동네는 아니지."
+        "text": "너… 어디 살다가 왔길래… 흠… 그래 이런 걸 물어볼 만큼 정이 넘치는 동네는 아니지."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "암튼 그래 여기선 사람들 존댓말 안 써."
+        "text": "아무튼 그래. 여기선 사람들 존댓말 안 써."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "생각해 보니 대부분 그랬던 거 같습니다."
+        "text": "생각해 보니 대부분 그랬던 것 같습니다."
       },
       {
         "type": "say",
@@ -2066,105 +1861,80 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "맞습니다. 사정이 있어서"
+        "text": "맞습니다. 사정이 있어서요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "다 저마다의 사정이 있지. 알았어 더는 캐묻지 않을게."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그래서 여기는 뭘 파는 곳이야?"
+        "text": "다 저마다의 사정이 있지. 알았어. 더는 캐묻지 않을게."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "칵테일이라는 음료를 팔고 있습니다."
+        "text": "그럼 주문하시겠나요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "오호.. 그럼 여기가 보스가 자주 오던 곳인가 보구나."
+        "text": "음… 추천하는 걸로 마실게. 나랑 어울릴 만한 걸로. 독한 것만 아니면 돼."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "주문하시겠습니까?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "그래. 아무거나 자신 있는 걸로 부탁해."
-      },
-      {
-        "type": "campaign_menu",
-        "actor": "samho",
-        "arg": ""
+        "text": "네."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그럼 이걸로 만들어드릴게요."
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "좋아. 부탁해."
+        "text": "(앞에 계신 손님과 어울릴 만한 걸로. 단, 도수가 높지 않은 것.)"
       },
       {
         "type": "order",
         "actor": "samho",
-        "arg": "exact:@selected"
+        "arg": "free"
       },
       {
         "type": "craft",
-        "actor": "samho",
-        "arg": ""
+        "actor": "samho"
       },
       {
         "type": "serve",
-        "actor": "samho",
-        "arg": ""
+        "actor": "samho"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "오.. 괜찮은데?"
+        "text": "오… 괜찮은데?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "네가 실력이 좋은 건지 여기서 쓰는 재료가 좋은 건지"
+        "text": "실력이 좋은 건지, 여기서 쓰는 재료가 좋은 건지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "레시피대로만 만들면 됩니다."
+        "text": "레시피대로만 만들면 할 수 있어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "흠 내가 그 레시피를 안다고 해도 이렇겐 못 만들 것 같은데."
+        "text": "흠, 내가 그 레시피를 안다고 해도 이렇겐 못 만들 것 같은데."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "아무튼 둘 다 괜찮은 걸로 하자고.\n여기가 유명했었던 이유가 있는 것 같네."
+        "text": "여기가 유명했었던 이유가 있는 것 같네."
       },
       {
         "type": "say",
@@ -2176,13 +1946,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "주변에 이렇게 술을 만들어 파는 곳은 저기 기업 구역에 있는 높은 라운지 빼곤 없다고 보스한테 들었어."
+        "text": "이렇게 술을 만들어 파는 곳은 기업 구역 빼곤 없다고 보스한테 들었지."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "이런 동네에 이렇게 술을 파는 곳이 있으면 유명할 수밖에 없지."
+        "text": "나도 이런 곳은 처음 보니까. 그래서 유명한 거 아닐까?"
       },
       {
         "type": "say",
@@ -2200,19 +1970,19 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "아니요, 보스라는 말을 하시길래 무슨 보스인지 궁금했습니다."
+        "text": "아뇨. 보스라는 말을 하시길래 궁금했어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래 넌 이런 동네가 처음이니까 그럴 수 있겠네."
+        "text": "그래, 넌 이런 동네가 처음이니까 그럴 수 있겠네."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "이 동네에서 보스란 건 대부분 갱단의 리더를 말하는 거야."
+        "text": "이 동네에서 보스란 건 다는 아니지만 대부분 갱단의 리더를 말하는 거야."
       },
       {
         "type": "say",
@@ -2224,7 +1994,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "날 보고도 그런 걸 물어봐? 딱 보면 강해 보이지 않나?"
+        "text": "당연하지! 딱 보면 강해 보이지 않나?"
       },
       {
         "type": "say",
@@ -2248,13 +2018,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "우리 갱은 짐승 같은 강함과 유대를 추구하거든. 또한 인간성에 대한 경멸도 있고."
+        "text": "우리 갱은 짐승 같은 강함과 유대를 중요시하지. 또한 요즘 사람들이 하는 꼴을 보고 같은 종족이란 것에 대한 경멸도 있고."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "솔직히 사람들이 하는 짓을 보면 내가 사람이라는 게 싫어질 정도로 진절머리가 난다니까.\n동물들은 그래도 서로 챙겨주고 지킬 건 지킨다고."
+        "text": "솔직히 사람들이 하는 짓을 보면 내가 사람이라는 게 싫어질 정도로 진절머리가 난다니까. 동물들은 그래도 서로 챙겨 주고 지킬 건 지킨다고."
       },
       {
         "type": "say",
@@ -2308,25 +2078,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "혹시 송곳니 목걸이를 하고 머리색이 빨간가요?"
+        "text": "혹시 이름이 톰 거너인가요?"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…이 동네에서 그러고 다닐 사람은 보스밖에 없는데."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "그리고 이름이 톰인가요?"
-      },
-      {
-        "type": "say",
-        "actor": "samho",
-        "who": "삼호",
-        "text": "음 백 프로 보스네."
+        "text": "…맞는데. 어떻게 알고 있어?"
       },
       {
         "type": "say",
@@ -2338,7 +2096,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그래? 보스도 여길 오는구나.\n앞으로 자주 와야 하는 이유가 생겼네."
+        "text": "…바쁘다면서 나랑은 만나 주지도 않더니."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "앞으로 자주 와야 하는 이유가 생겼네."
       },
       {
         "type": "say",
@@ -2350,7 +2114,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "전에는 자주 와서 도와주거나 얘기도 하고 그랬는데.\n최근에는 날 피하는 느낌이 들어서."
+        "text": "전에는 자주 와서 도와주거나 얘기도 하고 그랬는데. 최근에는 날 피하는 느낌이 들어서."
       },
       {
         "type": "say",
@@ -2362,7 +2126,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "어릴 때부터. 거리에서 잘 데 없을 때 보스가 거처를 구해줬어.\n먹고살 것도 몇 번이나 챙겨주고. 나 같은 애들이 좀 있었거든."
+        "text": "어릴 때부터. 거리에서 잘 데 없을 때 보스가 거처를 구해 줬어. 먹고살 것도 몇 번이나 챙겨 주고. 나 같은 애들이 좀 있었거든."
       },
       {
         "type": "say",
@@ -2374,13 +2138,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "응. 근데 막상 들어가겠다고 하니까 자격부터 갖추래.\n이제 나도 스무 살인데, 언제까지 기다려야 하는지 모르겠어."
+        "text": "응. 근데 막상 들어가겠다고 하니까 나보곤 아직 많이 부족하고 어리다면서 안 된대. 이제 나도 스무 살인데, 언제까지 기다려야 하는지 모르겠어."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "이 정도 준비했으면 보스도 다시 생각해주겠지 싶었는데.\n요즘은 말 붙일 틈도 안 줘."
+        "text": "그래서 이번에 큰맘 먹고 팔에 와일드독스 임플란트도 달아서 이걸 보면 보스도 다시 생각해 주겠지 싶었는데. 요즘은 말 붙일 틈도 안 줘."
       },
       {
         "type": "say",
@@ -2398,31 +2162,31 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "피한다고 꼭 내가 뭘 잘못한 거야?"
+        "text": "피한다고 꼭 내가 뭘 잘못한 건가?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…그렇게 말씀하신 건 아니었죠."
+        "text": "그런 의도는 아니었어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "모르겠어. 언제부터 이랬는지도.\n이제 생각해 보니 자꾸 날 밀어내는 것 같기도 하고…"
+        "text": "흠… 모르겠어. 이제 생각해 보니 자꾸 날 밀어내는 것 같기도 하고…"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "모르겠네. 나중에 보면 제대로 물어봐야겠어."
+        "text": "나중에 보면 제대로 물어봐야겠어."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "진실된 대화는 좋은 법이라고 배웠죠."
+        "text": "충분한 대화는 항상 좋은 해결법이라고 배웠죠."
       },
       {
         "type": "say",
@@ -2434,13 +2198,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "톰은 내일 다시 오기로 하셨어요. 부탁하신 술 때문에요."
+        "text": "조만간 여기로 다시 올 거예요. 만들어 달라고 부탁한 술이 있어서."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "그럼 내일 와서 물어보면 되겠다.\n너도 그때 여기 있지?"
+        "text": "하여튼 술은 평생 못 끊는 사람이라니까. 그럼 자주 와서 기다려야겠네. 너도 그때 여기 있는 거지?"
       },
       {
         "type": "say",
@@ -2452,19 +2216,35 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "알았어. 오늘 잘 마셨어."
+        "text": "알았어. 오늘 잘 마셨어. 다음번엔 내가…"
       },
       {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "경호 일에 대한 연락인가요?"
+        "type": "story_cue",
+        "arg": "message"
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "응. 자세한 조건은 내일 보내준다네.\n일단 들어봐야지. 나중에 봐."
+        "text": "하아… 겁나 재촉하네."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "무슨 일 있으신가요?"
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "별건 아니고, 그냥 의뢰 관련해서 자꾸 쪼아 대서 말이지. 귀찮아 죽겠네, 정말."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "일단 먼저 갈게. 나중에 봐."
       },
       {
         "type": "say",
@@ -2474,18 +2254,12 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "exit",
-        "actor": "samho",
-        "arg": ""
+        "actor": "samho"
       },
       {
         "type": "enter",
         "actor": "chris",
         "arg": "R"
-      },
-      {
-        "type": "coaster",
-        "actor": "chris",
-        "arg": ""
       },
       {
         "type": "say",
@@ -2497,18 +2271,183 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 포트가 가져다준 기록을 확인하고 가도 될까요?"
+        "text": "네. 혹시 재료에 대한 건 구해 주셨나요?"
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "그래. 손님은 내가 볼게. 안쪽에서 보고 와."
+        "text": "어제 말했던 재료 중 각설탕은 내가 구할 곳을 찾은 거 같으니까 아마 와일드 독이랑 비터스만 찾으면 되는데…"
       },
       {
-        "type": "campaign_memory",
-        "actor": "",
-        "arg": ""
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "도무지 파는 곳을 못 찾겠군. 심지어 와일드 독은 판매 금지 품목으로 걸려서 힘들 수도 있을 것 같아."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…네, 일단 알겠어요."
+      },
+      {
+        "type": "enter",
+        "actor": "port",
+        "arg": "L"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "…나 왔다."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "지금은 원래 작업하는 시간 아닌가? 무슨 일이지."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "네가 맡긴 거 주러 왔다!! 이 자식아."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "너한테 주기 싫으니 루나 네가 받아라."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "감사해요.",
+        "effects": "flag.johnny_chip_received = true"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "그래, 좀 젊은 아가씨한테 고맙다고 들으니까 그래도 밤새운 보람은 있네."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…일단 고맙다."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "네놈 감사 인사는 필요 없어. 닭살 돋으니까 집어치우라고."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "아무튼 루나, 집에 가서 칩을 끼운 다음에 보면 될 거야."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 알겠어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "이제 먼저 들어가, 루나. 가게는 내가 보지."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 먼저 가 보겠습니다."
+      },
+      {
+        "type": "story_cue",
+        "arg": "door",
+        "effects": "flag.day2_luna_left = true"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…한 가지 물어봐도 되나?"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "뭘."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "어차피 편집하면서 레시피 관련해서는 다 알고 있을 텐데. 왜 여기서 말 안 해 주고 보라고 준 거지?"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "이러니까 아직 네가 애송이라는 거야."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "하나하나 네가 알려 주면 모든 게 해결될 거라 생각하지 마. 직접 보고 듣고 해야 스스로 자립할 수 있는 거지."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "조니한테 다 배웠으면서 왜 그러는 거야?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…이런 역할은 익숙지 않단 말이지."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "하. 그럼 너도 아직 배워 가는 단계라고 생각하라고."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "음… 그러지."
+      },
+      {
+        "type": "say",
+        "actor": "port",
+        "who": "포트",
+        "text": "오늘따라 조니가 보고 싶구만. 있었다면 너한테 아주 따끔한 조언을 해 줄 텐데 말이야."
+      },
+      {
+        "type": "end_part"
       }
     ],
     "3": [
@@ -3801,7 +3740,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "이 동네에 온 지 얼마 안 됐어요."
+        "text": "이 동네에 온 지 얼마 안 되었어요."
       },
       {
         "type": "say",
@@ -3831,13 +3770,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "저 앞 건물에 있는 언노운이라는 가게에서 일하고 있어요."
+        "text": "저 앞 건물에 언노운이라는 가게에서 일하고 있어요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "언노운?… 언노운… 어디서 들어 봤는데."
+        "text": "언노운?… 언노운… 어디서 들어봤는데."
       },
       {
         "type": "say",
@@ -3855,7 +3794,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "아, 보스가 전에 말했던 곳이구나. 새로 생긴 갱단인 줄 알았네."
+        "text": "아 보스가 전에 말했던 곳이구나. 새로 생긴 갱단인 줄 알았네."
       },
       {
         "type": "say",
@@ -3879,7 +3818,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "뭐야, 하이랜더 출신인가 보네. 그러면 그럴 수 있지."
+        "text": "뭐야 하이랜더 출신인가 보네. 그러면 그럴 수 있지."
       },
       {
         "type": "say",
@@ -3927,19 +3866,19 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "…삼호야, 삼호. 내 이름. 애니멀 갱단에 곧 소속될 몸이지."
+        "text": "…삼호야, 삼호. 조만간 애니멀 갱단원이 될 몸이지."
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "네. 삼호."
+        "text": "네. 잘 부탁드려요."
       },
       {
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "반응 되게 무뚝뚝하네."
+        "text": "처음 본 사이인데 뭔 부탁까지 해."
       },
       {
         "type": "say",
@@ -3955,7 +3894,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "서비스?"
+        "text": "…서비스?"
       }
     ],
     "johnny": [
@@ -3963,185 +3902,291 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "왔냐."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "과거의 톰",
-        "text": "…영감. 오늘은 별로 해줄 얘기가 없는데."
+        "text": "…",
+        "tomPresent": false,
+        "served": false
       },
       {
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "그래? 그럼 뭘 마실지는 말해봐."
+        "text": "왔나? 오랜만이군.",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "tom",
-        "who": "과거의 톰",
-        "text": "아무거나. 머리 좀 식힐 만한 걸로."
+        "who": "톰",
+        "text": "…요즘 일이 많아서. 별일 없었지?",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "올드 패션드로 한 잔 줄까?"
+        "text": "나야 별문제 없지만 자네는 아닌 것 같은데.",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "tom",
-        "who": "과거의 톰",
-        "text": "…그래."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "과거의 톰",
-        "text": "다른 놈들은 벌써 제 몫을 하는데.\n난 오늘도 빈손으로 왔네."
-      },
-      {
-        "type": "say",
-        "actor": "tom",
-        "who": "과거의 톰",
-        "text": "뭐라도 해놓고 와야 할 것 같아서, 안 오려다가…"
+        "who": "톰",
+        "text": "괜찮…은 것 같진 않긴 해.",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "그걸 왜 나한테 검사받으려고 해."
-      },
-      {
-        "type": "say",
-        "actor": "johnny",
-        "who": "조니",
-        "text": "앉았으면 한숨 돌려.\n얘기는 하고 싶을 때 하고."
+        "text": "그래? 그러면 먼저 한 잔 줄 테니 마셔 보게나.",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "tom",
-        "who": "과거의 톰",
-        "text": "…오늘은 그냥 좀 앉아 있다 가도 돼?"
+        "who": "톰",
+        "text": "좋아. 늘 마시던 걸로 부탁해.",
+        "tomPresent": true,
+        "served": false
       },
       {
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "영업 끝날 때까지는.\n의자 들고 도망만 가지 마라."
+        "text": "그러지.",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "(…평소 것에서 좀 변형을 줘 볼까.)",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "(와일드 독 45ml…)",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "(비터스 5ml)",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "(각설탕 1개)",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "(얼음을 넣고 저으면…)",
+        "tomPresent": true,
+        "served": false
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "자. 여기.",
+        "tomPresent": true,
+        "served": true
       },
       {
         "type": "say",
         "actor": "tom",
-        "who": "과거의 톰",
-        "text": "다음에 와도 이걸로 줘."
+        "who": "톰",
+        "text": "…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "평소랑은 조금 다른 것 같은데.",
+        "tomPresent": true,
+        "served": true
       },
       {
         "type": "say",
         "actor": "johnny",
         "who": "조니",
-        "text": "그래."
+        "text": "별로인가?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "아니. 마음에 들어. 뭘 바꾼 거지?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "그냥 원래 레시피에서 살짝 변형만 줘 봤네.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "마음에 드는군… 평소 것도 좋지만 가끔 이런 맛도 생각나겠는데.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "마셨으면 한숨 돌려. 얘기는 하고 싶을 때 하고.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "…오늘은 그냥 좀 앉아 있다 가도 돼?",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "물론 영업 끝날 때까지는.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "tom",
+        "who": "톰",
+        "text": "역시 이 칵테일이 제일 좋은 것 같은데 다음에 와도 이걸로 줘.",
+        "tomPresent": true,
+        "served": true
+      },
+      {
+        "type": "say",
+        "actor": "johnny",
+        "who": "조니",
+        "text": "그래.",
+        "tomPresent": true,
+        "served": true
       }
     ],
-    "prepare": [
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "찾았어?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네. 톰에게 처음 올드 패션드를 내줬던 기록이 있었어요.\n사용한 병이랑 계량 과정도 확인했습니다."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "재료는?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "라이 위스키가 필요해요. 지금 재고에는 없는 종류예요.\n나머지도 목록으로 정리했어요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "알았어. 내일 열기 전에 준비해 둘게."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "고마워요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "또 필요한 거 있어?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "아니요. 조니는 톰이 말을 하지 않을 때 계속 기다렸어요.\n물어보면 더 빨리 알 수 있었을 텐데요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "왜 말이 없었는지 네가 알아?"
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "…아니요. 기록에 나온 말만 알고 있어요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "그럼 톰이 왔을 때 들어봐.\n영감이 기다린 것도 그런 이유였을지 모르고."
-      },
-      {
-        "type": "say",
-        "actor": "luna",
-        "who": "루나",
-        "text": "네. 내일 물어볼게요."
-      },
-      {
-        "type": "say",
-        "actor": "chris",
-        "who": "크리스",
-        "text": "오늘은 들어가서 쉬어. 나머지는 내가 정리할게."
-      }
-    ],
+    "prepare": [],
     "night2": [
       {
         "type": "say",
-        "actor": "researcher",
-        "who": "연구원",
-        "text": "잠깐. 어디 다친 데는 없고?"
+        "actor": "luna",
+        "who": "루나",
+        "text": "다행히 말씀해 주신 재료는 다 구한 것 같아요."
       },
       {
         "type": "say",
-        "actor": "luna",
-        "who": "기억 속 루나",
-        "text": "네. 이상 없습니다."
+        "actor": "chris",
+        "who": "크리스",
+        "text": "찾기 힘들었을 텐데. 어디서 구했지?"
       },
       {
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(돌아온 이유보다, 다친 곳이 있는지 먼저 물었어.)"
+        "text": "자신이 팔았다고 말하지 말라고 하는 곳에서 찾아서 구했어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "시바…인가 보네. 나한텐 죽어도 없다고 하더니."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "아무래도 너한테 호감이 있는 것 같네."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "호감이 있는 것치곤 많이 거칠게 행동하던데요?"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그냥 그놈만의 애정 표현이라고 생각해. 다른 놈들한텐 말도 못 붙이게 한다고."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "…그래서 포트가 준 건 확인해 봤어?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "아직 보진 못했어요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그러면 지금 한번 확인해 볼래?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 알겠어요.",
+        "cinemaAfter": "johnny-memory"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…"
       }
     ],
     "commute3": [

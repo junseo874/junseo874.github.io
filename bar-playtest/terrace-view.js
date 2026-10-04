@@ -20,5 +20,5 @@ function html(dialog){
  '<span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
  '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사"><p><span class="campaign-measure" aria-hidden="true">'+textHTML(row)+'</span><span class="campaign-ink"></span></p></button></div>';
 }
-W.LunaTerrace={asset,seats,rows,html,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===3?'ending':null};
+W.LunaTerrace={asset,seats,rows,html,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===2?'night2':day===3?'ending':null};
 })(window);

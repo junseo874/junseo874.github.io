@@ -3,7 +3,7 @@
 'use strict';
 const labels=Object.fromEntries(W.LunaOutsideContent.events.map(e=>[e.id,e.label]));
 let liftLogo=null;
-const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',ending:'3일차 테라스 · 마지막 대화'};
+const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
  ...Object.keys(W.LUNA_OUTSIDE_DIALOGUES).map(id=>{const e=W.LunaOutsideEncounters.cases.find(c=>c.id===id);return{id,label:labels[id]||(e?.kind==='pair'?'NPC끼리 대화':'NPC와 대화')+' · '+id.replace('demo_out_',''),source:id,auto:!!W.LunaOutsideContent.events.find(c=>c.id===id)?.auto,encounter:e,note:W.LunaOutsideContent.events.find(e=>e.id===id)?.persistent?'모든 일차 · 출근길/퇴근길':labels[id]};}),
  ...[{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
@@ -30,7 +30,7 @@ function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
  if(c.scene==='commute2'){W.LunaOutsideSamhoCommute.start(m);return;}
  if(c.shop){m.qa.shopProgress={money:W.LunaBDVendor.balance(),flags:{},inventory:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
- const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.terraceMemory]:[r]).map(r=>({...r,type:r.type||'say'}));
+ const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.terraceMemory]:r.cinemaAfter==='johnny-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.johnny]:[r]).map(r=>({...r,type:r.type||'say'}));
  const start=()=>{m.qa.runtime=null;m.story.beginRows(c.id,{...t,qa:true},rows,automatic);};
  if(automatic){start();return;}
  m.qa.camera={x:-.2,y:-.12,w:3.6};m.qa.runtime={elapsed:0,from:m.x,to:-.65,start};

@@ -9,6 +9,7 @@ for(let day=0;day<=3;day++){
  // Full timeline, including ordinary service, is exercised through the core state machine.
  for(let i=0;i<30000&&!g.finished;i++){
   if(g.error)throw Error(g.error);if(g.transition||g.cameraLeft){tick();continue;}g.cameraMoving=false;
+  if(g.tutorial?.beer){const t=g.tutorial.kind;if(t==='recipe'){g.openTutorialService();g.openRecipes();}else if(t==='recipeSelect')g.selectCocktail('bottle_beer');else if(t==='beerGlass')g.pickItem(g.cocktail('bottle_beer').glass);else if(t==='beerToolNavigate')g.tutorialEvent('shelf','tool');else if(t==='beerOpener')g.pickOpener();else if(t==='beerFridgeNavigate')g.tutorialEvent('shelf','fridge');else if(t==='beerAdd')g.pickItem('beer');else if(t==='beerStart')g.startCraft();continue;}if(g.gimmick?.openTutorial){g.gimmickInput('Space');g.gimmick.beatTime=g.c('open_approach_sec',1.6);g.gimmickInput('Space');g.gimmick.openFx.age=1;g.endGimmick();g.debugCraft('good');g.offer();attempts++;assert(g.serve(g.currentOrder.seat,'drag'));continue;}
   if(g.choice){g.choose(2);continue;}if(g.dialogue){g.advance();g.advance();continue;}
   if(g.phase==='general'){
    const waiting=Object.entries(g.seats).find(([seat,v])=>v&&['WAIT_COASTER','WAIT_SERVE'].includes(v.state));
@@ -22,7 +23,7 @@ for(let day=0;day<=3;day++){
  }
  assert(g.finished,'stalled '+JSON.stringify({day,phase:g.phase,screen:g.screen,index:g.story?.index,tutorial:g.tutorial}));assert.equal(s.settle(),true,'cannot settle day '+day);const money=g.progress.money;assert.equal(s.settle(),false);assert.equal(g.progress.money,money);assert.equal(s.endDay(),true);assert.equal(s.endDay(),false);
 }
-assert.equal(s.completed.join(','),'0,1,2,3');assert.equal(s.route,'ending');assert.deepEqual(events,['campaign_menu','campaign_memory','campaign_response']);assert(attempts>=7);
+assert.equal(s.completed.join(','),'0,1,2,3');assert.equal(s.route,'ending');assert.deepEqual(events,['campaign_response']);assert(attempts>=7);
 // Restoration never accepts the wrong vessel, base, sequence, amount or missing stir.
 g.day=3;g.phase='regular';g.currentOrder={cocktail:E.RESTORATION.id};const valid={selected:E.RESTORATION.id,actual:{glass:'old_fashioned',tool:'mixing_glass',ingredients:E.RESTORATION.ingredients.map(r=>r[0])},results:[...E.RESTORATION.ingredients.map(([ingredient,value])=>({type:'pour',ingredient,value})),{type:'stir',completed:true}]};assert.equal(s.problems(valid).length,0);for(const mutate of [r=>r.actual.glass='mug',r=>r.actual.tool='shaker',r=>r.actual.ingredients.reverse(),r=>r.results[0].value+=6,r=>r.results.pop(),r=>r.selected='gin_tonic']){const r=JSON.parse(JSON.stringify(valid));mutate(r);assert(s.problems(r).length);}
 s.uninstall();assert.equal(JSON.stringify(D.tables),original);assert.equal(g.campaignStep,null);assert(!D.assets.item_rye_whiskey);

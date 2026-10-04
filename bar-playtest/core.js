@@ -259,6 +259,7 @@ class Game{
     if(this.currentOrder)throw Error('미처리 주문이 있어 일반 손님으로 전환할 수 없습니다.');
     this.story.index++;this.mixedResume={story:this.story,seats:this.seats,focus:this.focus,resultContext:this.resultContext,lastStoryLine:this.lastStoryLine};this.startGeneral();return;
    }
+   if(s.type==='story_cue'){this.onStoryCue?.(s.arg);this.log('story_cue',{kind:s.arg});this.setTransition(s.arg==='door'?.9:.35,()=>this.stepDone(s));return;}
    if(this.campaignStep?.(s))return;
    if(s.type==='say'||s.type==='order'&&this.text(s)){
     this.dialogue=this.makeLine(s.actor,this.text(s),s.dialogue_id,s.arg);this.dialogue.step=s;return;
