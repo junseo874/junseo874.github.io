@@ -8,7 +8,7 @@ assert(c.day0Bar.some(r=>r.text.endsWith('1803호야.')));assert(!c.day0Bar.some
 assert(c.day0Bar.some(r=>r.text==='잠은 자야 하지만, 수면 공간에 크게 영향을 받지는 않아요.'));
 assert(c.day0Bar.some(r=>r.text==='내가 사람 보는 눈은 있는데 말이야. 루나, 너는 크게 될 놈이야.'));
 assert(c.day0Bar.some(r=>r.text==='반면 저 크리스라는 음침한 놈은 아주 인생의 밑바닥을 찍을 놈이지.'));
-assert(c.scenes.terraceMemory[2].text.startsWith('그래. 감정을 알게 된다면 행복이 뭔지 알게 될 거야.'));
+assert.equal(c.scenes.terraceMemory.length,8);assert(c.scenes.terraceMemory[3].text.startsWith('그래. 네가 느끼는 감정에 대해 이해한다면'));assert(c.scenes.terraceMemory[7].text.includes('수석 연구원'));assert(c.scenes.night0.some(r=>r.text.includes('너의 목표인 거야')));
 assert(c.bar[1].some(r=>r.text==='됐고. 여기 맥주, 진짜 맥아로 만드는 거 맞나?'));
 assert.equal(c.scenes.johnny.length,56);assert(c.scenes.johnny.slice(44,47).every(r=>r.actor==='johnny'));
 assert.equal(c.scenes.ending.length,20);assert.equal(c.scenes.ending.filter(r=>r.cinemaAfter).length,1);assert.equal(c.scenes.ending[7].memoryKey,'terraceMemory3');assert.equal(c.scenes.ending[8].text,'왜, 무슨 생각이라도 났어?');

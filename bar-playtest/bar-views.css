@@ -267,3 +267,17 @@ html,body{overflow:hidden;background:#03060b}
 /* Days 1–3: ease between the single-guest and two-guest conversation frames. */
 .story-camera-stable .bar-scene-layer{transition-duration:.95s;transition-timing-function:cubic-bezier(.22,.61,.36,1)}
 @media(prefers-reduced-motion:reduce){.story-camera-stable .bar-scene-layer{transition-duration:0s}}
+
+/* Hidden recipe reveal: a single cyan edge, warm drink, compact shelf additions. */
+.johnny-unlock{width:min(820px,92%);border-radius:8px}
+.johnny-unlock-body{display:grid;grid-template-columns:1fr 1.15fr;gap:30px;margin-top:20px;overflow:auto;min-height:0}
+.johnny-unlock-drink{text-align:center;background:radial-gradient(ellipse at 50% 38%,#d7a55d1a,transparent 68%)}
+.johnny-unlock-drink .drink-art{display:block;margin:0 auto;width:160px;height:168px;object-fit:contain;image-rendering:pixelated;filter:none}
+.johnny-unlock h3{font-size:20px;margin:8px 0;color:#d4b782}
+.johnny-unlock p{line-height:1.7;font-size:12px;color:#aebdc6}
+.johnny-unlock-stock h3{font-size:15px;color:#adedef;margin:0 0 12px}
+.johnny-unlock-item{display:flex;align-items:center;gap:14px;padding:7px 12px;margin:6px 0;background:#070d1688;border-bottom:1px solid #6dc6cb28}
+.johnny-unlock-item img{width:36px;height:48px;object-fit:contain;image-rendering:pixelated}
+.johnny-unlock-item span{flex:1;font-size:15px}.johnny-unlock-item b{color:#a5d4d6;font-size:13px;font-weight:400}
+.johnny-unlock :focus-visible{outline:0;box-shadow:0 0 14px #62dbe32b;border-color:#b2f3ef}
+@media(max-width:560px){.johnny-unlock-body{grid-template-columns:1fr;gap:10px}.johnny-unlock-drink .drink-art{height:95px}.johnny-unlock{padding:16px}.johnny-unlock h2{font-size:19px}}

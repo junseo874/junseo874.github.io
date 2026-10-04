@@ -16,11 +16,11 @@ class Session{
   const base=t.shelf_items.find(i=>i.id==='whiskey');
   const ids=RESTORATION.ingredients.map(r=>r[0]);t.shelf_items=t.shelf_items.filter(i=>!ids.includes(i.id));t.cocktails=t.cocktails.filter(c=>c.id!==RESTORATION.id);t.recipes=t.recipes.filter(r=>r.context!==RESTORATION.id);
   for(const [id,name,color,asset,category] of [['wild_dog','와일드 독','190,120,40','whiskey','base'],['bitters','비터스','145,67,33','kahlua','liqueur'],['sugar_cube','각설탕','240,237,209','sugar_cube','sugar']]){
-   t.shelf_items.push({...base,id,'name.ko':name,'name.en':{wild_dog:'Wild Dog',bitters:'Bitters',sugar_cube:'Sugar Cube'}[id],color,category,unlock_day:'3','desc.ko':id==='sugar_cube'?'올드 패션드에 넣는 각설탕. 선택하면 1개가 투입됩니다.':name+' · 조니의 올드 패션드 재료.',default_action:id==='sugar_cube'?'add':'pour',default_target_qty:String(RESTORATION.ingredients.find(r=>r[0]===id)[1]),default_target_unit:id==='sugar_cube'?'개':'ml',row_id:'campaign_item_'+id});
+   t.shelf_items.push({...base,id,'name.ko':name,'name.en':{wild_dog:'Wild Dog',bitters:'Bitters',sugar_cube:'Sugar Cube'}[id],color,category,unlock_day:'3',unlock_when:'flag.johnny_recipe_unlocked','desc.en':id==='sugar_cube'?'One sugar cube for Johnny’s Old Fashioned. Added automatically during preparation.':({wild_dog:'Wild Dog',bitters:'Bitters'}[id]+' · An ingredient for Johnny’s Old Fashioned.'),'desc.ko':id==='sugar_cube'?'올드 패션드에 넣는 각설탕. 선택하면 1개가 투입됩니다.':name+' · 조니의 올드 패션드 재료.',default_action:id==='sugar_cube'?'add':'pour',default_target_qty:String(RESTORATION.ingredients.find(r=>r[0]===id)[1]),default_target_unit:id==='sugar_cube'?'개':'ml',row_id:'campaign_item_'+id});
    for(const prefix of ['item_','recipe_item_','inventory_item_']){if(id==='sugar_cube'&&!this.data.assets[prefix+id]){this.assetKeys.push(prefix+id);this.data.assets[prefix+id]={src:'assets/campaign/sugar-cube.svg',w:96,h:96,frames:1};}else addAsset(prefix+id,prefix+asset);}
   }
   const baseDrink=t.cocktails.find(c=>c.id==='godfather');
-  t.cocktails.push({...baseDrink,id:RESTORATION.id,'name.ko':'올드 패션드','name.en':'Old Fashioned',mix:'stir',target_mix_method:'stir',glass:'old_fashioned',unlock_day:'3',price:'300',sprite:null,serve_sprite:null,'flavor.ko':'조니의 기억에서 관찰한 한 잔.','recipe_desc.ko':'와일드 독 45ml → 비터스 5ml → 각설탕 1개. 얼음이 든 믹싱 글라스에서 스터한 뒤 올드패션드 잔에 제공한다.',row_id:'campaign_cocktail_old_fashioned'});
+  t.cocktails.push({...baseDrink,id:RESTORATION.id,'name.ko':'올드 패션드','name.en':'Old Fashioned',mix:'stir',target_mix_method:'stir',glass:'old_fashioned',unlock_day:'3',unlock_when:'flag.johnny_recipe_unlocked',price:'300',sprite:null,serve_sprite:null,'flavor.ko':'조니의 기억에서 관찰한 한 잔.','flavor.en':'A drink remembered from Johnny’s past.','recipe_desc.en':'Wild Dog 45ml → bitters 5ml → 1 sugar cube. Stir with ice in a mixing glass, then serve in an old fashioned glass.','recipe_desc.ko':'와일드 독 45ml → 비터스 5ml → 각설탕 1개. 얼음이 든 믹싱 글라스에서 스터한 뒤 올드패션드 잔에 제공한다.',row_id:'campaign_cocktail_old_fashioned'});
   t.recipes.push(...RESTORATION.ingredients.map(([ingredient,qty],i)=>({context:RESTORATION.id,action:ingredient==='sugar_cube'?'add':'pour',ingredient,qty:String(qty),unit:ingredient==='sugar_cube'?'개':'ml',is_core:true,scored:true,auto_apply:false,row_id:'campaign_recipe_'+i})));
   for(const prefix of ['cocktail_','recipe_cocktail_','table_cocktail_'])addAsset(prefix+RESTORATION.id,prefix+'godfather');
   for(const [id,name]of [['tom','톰'],['message','의뢰 연락 메시지'],['johnny','조니']])if(!t.characters.some(c=>c.id===id))t.characters.push({id,'name.ko':name,'name.en':name,affinity:false});
@@ -37,7 +37,7 @@ class Session{
   const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});const flags=g.progress.flags;
   const prior=new Set(this.data.tables.scenes.filter(s=>Number(s.day)<day&&Number(s.day)>=0).map(s=>s.id));
   for(const step of this.data.tables.steps)if(prior.has(step.context)&&step.type==='enter')flags[step.actor+'_met']=true;
-  if(day>=2)flags.tom_name_known=true;if(day>=3){flags.samho_met=true;flags.campaign_observation=true;}
+  if(day>=2)flags.tom_name_known=true;if(day>=3){flags.samho_met=true;g.seedJohnnyPrerequisites();}
   g.progress.phase='commute';this.carry=copy(g.progress);this.checkpoint=null;this.route='in';this.events.push({event:'commute-in',day});g.changed();
  }
  beginDay(day,carry=null){if(!this.active)this.install();this.day=day;const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});if(carry){g.progress={...copy(carry),day,phase:'bar_open'};g.openingBalance=g.progress.money;}
@@ -46,7 +46,7 @@ class Session{
  }
  finishStep(){const s=this.pendingStep;if(!s)return;this.pendingStep=null;this.g.stepDone(s);}
  settle(){if(this.route!=='bar')return false;const g=this.g;if(!g.dailySettlement)return false;if(g.dailySettlement.status!=='paid')g.confirmDailySettlement();if(g.dailySettlement.status!=='paid')return false;this.route='out';this.carry=copy(g.progress);this.events.push({event:'commute-out',day:this.day,money:this.carry.money});return true;}
- endDay(){if(this.route!=='out')return false;this.completed.push(this.day);this.events.push({event:'sleep',day:this.day});if(this.day===3){this.route='ending';return true;}this.day++;this.route='in';this.events.push({event:'commute-in',day:this.day});return true;}
+ endDay(){if(this.route!=='out'||this.day===2&&this.g.johnnyMissing().length)return false;this.completed.push(this.day);this.events.push({event:'sleep',day:this.day});if(this.day===3){this.route='ending';return true;}this.day++;this.route='in';this.events.push({event:'commute-in',day:this.day});return true;}
  retry(){this.beginDay(this.day,this.checkpoint);}
  problems(result){if(!result||!this.g.currentOrder||this.g.day===0||this.g.phase!=='regular')return[];const id=this.g.currentOrder.cocktail,issues=[];
   if(result.selected!==id)issues.push('주문한 칵테일과 다른 레시피입니다.');

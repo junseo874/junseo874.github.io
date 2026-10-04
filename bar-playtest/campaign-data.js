@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-04 · days 0–3 rechecked against latest child dialogue pages; day3 terrace edited 14:25 UTC; Johnny speaker correction retained",
+  "revision": "2026-10-05 · current day0–3 child pages; revised terrace memory and Samho commute; legacy folded sections excluded",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -291,7 +291,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "일단 해 봐. 걱정 같은 건 그런 일이 생겼을 때 하고."
+        "text": "일단 해 봐. 걱정 같은 건 그런 일이 생겼을 때 생각하고."
       },
       {
         "type": "say",
@@ -988,7 +988,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "맛도 끝내주긴 했지. 그런데 일상에 지쳐 있던 날, 늦은 밤에 이곳에 들어와서 조니와 나눈 대화, 오렌지와 바닐라 향이 나던 묵직한 칵테일, 들려오던 음악 소리…"
+        "text": "맛도 끝내주긴 했지. 하지만… 그날은 유난히 좀 힘들었던 날이기도 하고, 조니가 내게 해 줬던 이런저런 말들도 인상 깊어서 그렇게 느꼈는지도 모르겠네."
       },
       {
         "type": "say",
@@ -2822,7 +2822,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "tom",
         "who": "톰",
-        "text": "오래됐지만… 기억하고 있어."
+        "text": "오래됐지만… 기억해."
       },
       {
         "type": "say",
@@ -3275,7 +3275,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "…사람과 감정을 이해하고 싶다는 마음은 여전한 거지?"
+        "text": "…전에 말해 줬던 연구소에서 탈출했을 때."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그날 유나가 했던 말들이 여전히 너의 목표인 거야?"
       },
       {
         "type": "say",
@@ -3312,10 +3318,34 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
+        "text": "그래도 이 무법지대에 가까운 나이트타운까지 코라테크 놈들이 들어닥칠 일은 없겠지만,"
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "너무 눈에 띄는 일은 자제하고 좀 수상하다 싶은 사람이 있으면 피해."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네. 눈에 띄는 행동은 자제할게요."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
         "text": "그래. 오늘은 이만 자고, 내일 다시 해 보자고."
       }
     ],
     "terraceMemory": [
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "이제 시간도 별로 안 남은 것 같네."
+      },
       {
         "type": "say",
         "actor": "yuna",
@@ -3332,7 +3362,13 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "yuna",
         "who": "유나",
-        "text": "그래. 감정을 알게 된다면 행복이 뭔지 알게 될 거야.\n그러면 넌 단순한 인공지능이 아니라 사람이라고 떳떳하게 말할 수 있어."
+        "text": "그래. 네가 느끼는 감정에 대해 이해한다면… 행복이 뭔지 조금이나마 알 거야."
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "그러면 넌 만들어진 인공지능이 아니라 사람이라고 말할 수 있어."
       },
       {
         "type": "say",
@@ -3345,6 +3381,12 @@ window.LUNA_CAMPAIGN_DATA={
         "actor": "yuna",
         "who": "유나",
         "text": "쉽진 않겠지만, 그래도 포기하지 마. 넌 할 수 있을 거야."
+      },
+      {
+        "type": "say",
+        "actor": "yuna",
+        "who": "유나",
+        "text": "무려 수석 연구원인 내가 보증하는 거라고? 그러니까 한 번만 믿고 바깥에서 살아가 줘. 부탁이야."
       }
     ],
     "workshop": [
@@ -3631,7 +3673,19 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "samho",
         "who": "삼호",
-        "text": "뭐야 하이랜더 출신인가 보네. 그러면 그럴 수 있지."
+        "text": "뭐야, 너 산에 살다 왔어?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "전에 있던 곳이 산 쪽에 위치하긴 했죠."
+      },
+      {
+        "type": "say",
+        "actor": "samho",
+        "who": "삼호",
+        "text": "하이랜더 출신인가 보네. 그러면 그럴 수 있지."
       },
       {
         "type": "say",
@@ -4679,7 +4733,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "말했잖아. 전에 사고가 터져서 두 달 동안 영업을 못 했다고."
+      "text": "말했잖아. 전에 사고가 터져서 반년 동안 영업을 못 했다고."
     },
     {
       "type": "say",

@@ -1,0 +1,24 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "소형 픽셀아트 히든 칵테일·재료",
+  "sharedPrompt": "Use case: stylized-concept. Asset type: small inventory sprite for a dark cyberpunk pixel-art bartending game. Subject: {subject} Composition: single isolated object centered, fully visible including bottom, almost filling canvas height with small transparent margin, straight-on front view with slightly visible top. Style: crisp hand-drawn 16-bit pixel art, discrete square pixels, thin dark outlines, restrained warm amber and cool gray highlights, readable at 64-120 pixels tall. No smooth rendering, no typography, no background scenery, no floor shadow, no glow. Genuinely transparent background. Only ONE object.",
+  "assets": [
+    {
+      "file": "johnny-wild_dog.png",
+      "subject": "A single tall whiskey bottle filled with amber whiskey, dark narrow neck with black cap, small worn cream paper label bearing an abstract black canine silhouette (NO text)."
+    },
+    {
+      "file": "johnny-bitters.png",
+      "subject": "A single small dark amber bitters bottle with a thin neck, red screw cap and cream paper wrap label with red stripes (NO text)."
+    },
+    {
+      "file": "johnny-sugar_cube.png",
+      "subject": "A single small ivory-white sugar cube, visible top and two sides, subtly granular pixel texture and blue gray shadows. No dish, bottle, wrapper or extra cube."
+    },
+    {
+      "file": "johnny-johnny_old_fashioned.png",
+      "subject": "One Old Fashioned cocktail in a short straight-sided heavy rocks glass, amber liquid and one large clear ice cube. A tiny orange peel on the rim. No bottle or extra objects."
+    }
+  ],
+  "export": "Nearest-neighbor PNG export, alpha preserved, 64–192 pixels tall."
+}

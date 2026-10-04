@@ -8,7 +8,7 @@ for(let day=0;day<=3;day++){
  s.beginDay(day,s.carry);if(day>0)assert.equal(g.progress.money,s.carry.money);if(g.pendingDailyUnlocks)g.confirmDailyUnlocks();
  // Full timeline, including ordinary service, is exercised through the core state machine.
  for(let i=0;i<30000&&!g.finished;i++){
-  if(g.error)throw Error(g.error);if(g.transition||g.cameraLeft){tick();continue;}g.cameraMoving=false;
+  if(g.overlay==='johnnyUnlock'){g.confirmJohnnyUnlock();continue;}if(g.error)throw Error(g.error);if(g.transition||g.cameraLeft){tick();continue;}g.cameraMoving=false;
   if(g.tutorial?.beer){const t=g.tutorial.kind;if(t==='recipe'){g.openTutorialService();g.openRecipes();}else if(t==='recipeSelect')g.selectCocktail('bottle_beer');else if(t==='beerGlass')g.pickItem(g.cocktail('bottle_beer').glass);else if(t==='beerToolNavigate')g.tutorialEvent('shelf','tool');else if(t==='beerOpener')g.pickOpener();else if(t==='beerFridgeNavigate')g.tutorialEvent('shelf','fridge');else if(t==='beerAdd')g.pickItem('beer');else if(t==='beerStart')g.startCraft();continue;}if(g.gimmick?.openTutorial){g.gimmickInput('Space');g.gimmick.beatTime=g.c('open_approach_sec',1.6);g.gimmickInput('Space');g.gimmick.openFx.age=1;g.endGimmick();g.debugCraft('good');g.offer();attempts++;assert(g.serve(g.currentOrder.seat,'drag'));continue;}
   if(g.choice){g.choose(2);continue;}if(g.dialogue){g.advance();g.advance();continue;}
   if(g.phase==='general'){
@@ -21,7 +21,7 @@ for(let day=0;day<=3;day++){
    const order=g.currentOrder;g.openRecipes();g.selectCocktail(order.cocktail);g.debugCraft('good');assert.equal(s.problems(g.result).length,0,JSON.stringify(s.problems(g.result)));g.offer();assert.equal(g.serve(order.seat,'drag'),true);attempts++;continue;
   }tick();
  }
- assert(g.finished,'stalled '+JSON.stringify({day,phase:g.phase,screen:g.screen,index:g.story?.index,tutorial:g.tutorial}));assert.equal(s.settle(),true,'cannot settle day '+day);const money=g.progress.money;assert.equal(s.settle(),false);assert.equal(g.progress.money,money);assert.equal(s.endDay(),true);assert.equal(s.endDay(),false);
+ assert(g.finished,'stalled '+JSON.stringify({day,phase:g.phase,screen:g.screen,index:g.story?.index,tutorial:g.tutorial}));assert.equal(s.settle(),true,'cannot settle day '+day);const money=g.progress.money;assert.equal(s.settle(),false);assert.equal(g.progress.money,money);if(day===2){g.progress.inventory={wild_dog:1,bitters:1};g.progress.flags.campaign_observation=true;s.carry=structuredClone(g.progress);}assert.equal(s.endDay(),true);assert.equal(s.endDay(),false);
 }
 assert.equal(s.completed.join(','),'0,1,2,3');assert.equal(s.route,'ending');assert.deepEqual(events,[]);assert(attempts>=7);
 // Restoration never accepts the wrong vessel, base, sequence, amount or missing stir.

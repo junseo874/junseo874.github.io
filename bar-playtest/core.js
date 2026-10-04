@@ -221,6 +221,7 @@ class Game{
   this.serviceVersion=settings.serviceVersion==='B'&&settings.variant!=='gpt'?'B':'A';this.mixedResume=null;this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
   this.pourTool='pourer';this.tutorial=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
+  if(settings.storyPrerequisites)this.seedJohnnyPrerequisites();
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else {const fresh=this.dailyUnlocks();if(mode==='full'&&this.day>0&&this.day!==99&&(fresh.ingredients.length||fresh.cocktails.length)){this.pendingDailyUnlocks=true;this.phase='arrival';this.overlay='dailyUnlocks';}else this.startStoryPhase('bar_open');}}
   this.changed();
  }
@@ -230,9 +231,14 @@ class Game{
  safe(fn){try{return fn();}catch(e){this.error=e.message;this.log('DATA_ERROR',{message:e.message});this.changed();return false;}}
  isPaused(){return this.paused||this.hidden||!!this.error||!!this.overlay;}
  available(c){return this.day===99||(n(c.unlock_day)<=this.day&&condition(c.unlock_when,this.ctx()));}
- cocktailsAvailable(){return this.t.cocktails.filter(c=>c.status==='confirmed'&&(this.available(c)||this.currentOrder?.cocktail===c.id));}
- itemsAvailable(){const needed=this.currentOrder?this.t.recipes.filter(r=>r.context===this.currentOrder.cocktail).map(r=>r.ingredient):[];return this.t.shelf_items.filter(r=>this.available(r)||needed.includes(r.id));}
- dailyUnlocks(){return {ingredients:this.t.shelf_items.filter(r=>r.kind==='ingredient'&&n(r.unlock_day)===this.day&&this.available(r)),cocktails:this.t.cocktails.filter(r=>r.status==='confirmed'&&n(r.unlock_day)===this.day&&this.available(r))};}
+ cocktailsAvailable(){return this.t.cocktails.filter(c=>c.status==='confirmed'&&(this.available(c)||c.id!=='johnny_old_fashioned'&&this.currentOrder?.cocktail===c.id));}
+ itemsAvailable(){const needed=this.currentOrder?this.t.recipes.filter(r=>r.context===this.currentOrder.cocktail).map(r=>r.ingredient):[];return this.t.shelf_items.filter(r=>this.available(r)||!['wild_dog','bitters','sugar_cube'].includes(r.id)&&needed.includes(r.id));}
+ // Possession is a story prerequisite, not a consumable bottle count per craft.
+ seedJohnnyPrerequisites(){if(this.day<3||this.day===99)return;this.progress.inventory={...this.progress.inventory,wild_dog:Math.max(1,Number(this.progress.inventory?.wild_dog)||0),bitters:Math.max(1,Number(this.progress.inventory?.bitters)||0)};this.progress.flags.campaign_observation=true;}
+ johnnyMissing({memory=true,sugar=false}={}){const missing=['wild_dog','bitters'].filter(id=>!(Number(this.progress.inventory?.[id])>0));if(memory&&!this.progress.flags.campaign_observation)missing.push('johnny_memory');if(sugar&&!this.progress.flags.day3_sugar_received)missing.push('sugar_cube');return missing;}
+ checkJohnnyUnlock(){if(this.day!==3||this.progress.flags.johnny_recipe_unlocked||this.johnnyMissing({sugar:true}).length)return false;this.progress.inventory||={};this.progress.inventory.sugar_cube=Math.max(1,Number(this.progress.inventory.sugar_cube)||0);this.progress.flags.johnny_recipe_unlocked=true;this.overlay='johnnyUnlock';this.log('recipe_unlocked',{cocktail:'johnny_old_fashioned',ingredients:['wild_dog','bitters','sugar_cube']});this.changed();return true;}
+ confirmJohnnyUnlock(){if(this.overlay!=='johnnyUnlock')return false;this.overlay=null;this.pump();this.changed();return true;}
+ dailyUnlocks(){return {ingredients:this.t.shelf_items.filter(r=>r.kind==='ingredient'&&n(r.unlock_day)===this.day&&!['wild_dog','bitters','sugar_cube'].includes(r.id)&&this.available(r)),cocktails:this.t.cocktails.filter(r=>r.status==='confirmed'&&n(r.unlock_day)===this.day&&r.id!=='johnny_old_fashioned'&&this.available(r))};}
  confirmDailyUnlocks(){if(!this.pendingDailyUnlocks||this.overlay!=='dailyUnlocks')return false;this.pendingDailyUnlocks=false;this.overlay=null;this.startStoryPhase('bar_open');this.changed();return true;}
  startStoryPhase(phase){
   this.phase=phase==='bar_open'?'opening':'regular';this.progress.phase=phase;this.screen='bar';this.seats={L:null,M:null,R:null};this.dialogue=null;this.choice=null;this.resultContext={};this.currentOrder=null;this.story={phase,autos:sortSeq(this.t.scenes.filter(s=>n(s.day)===this.day&&s.phase===phase&&s.trigger==='auto')),cursor:0,scene:null,index:0,steps:[]};
@@ -248,10 +254,10 @@ class Game{
   // Runtime-only schedule: never mutate authored dialogue tables or Version A.
   if(this.mixedService()&&this.story.steps.some(s=>s.type==='enter'&&s.actor==='shiba')){const at=this.story.steps.findIndex(s=>s.type==='enter'&&s.actor==='tom');if(at>=0)this.story.steps.splice(at,0,{type:'mixed_general',arg:'1',context:scene.id,seq:'mixed-before-tom'});}
   this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
- stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;this.pump();}
+ stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;if(!this.checkJohnnyUnlock())this.pump();}
  pump(){
   for(let guard=0;guard<1000;guard++){
-   if(!this.story||this.error||this.tutorial)return;
+   if(!this.story||this.error||this.tutorial||this.overlay==='johnnyUnlock')return;
    const s=this.story.steps[this.story.index];if(!s){this.nextScene();return;}
    if(!condition(s.when,this.ctx())){this.log('step_skipped',{scene:this.story.scene.id,seq:s.seq,when:s.when});this.story.index++;continue;}
    this.log('step',{scene:this.story.scene.id,seq:s.seq,type:s.type});

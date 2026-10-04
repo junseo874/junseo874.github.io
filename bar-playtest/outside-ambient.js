@@ -24,7 +24,7 @@ function facing(node,model){
  if(node.bdVendor||model.encounter?.kind==='direct'&&node.id==='ambient-'+model.encounter.target.actor)return faceTarget(node.x,model.x);
  return node.flip;
 }
-function visible(model){return model.scene==='street'&&model.config.day===0&&model.config.flow==='out';}
+function visible(model,node){return model.scene==='street'&&(node?.notionEvent?global.LunaOutsideContent.active(model,global.LunaOutsideContent.events.find(e=>e.id===node.notionEvent)):model.config.day===0&&model.config.flow==='out');}
 function frame(node,time){return{...node.sprite,x:((Math.floor(time*node.ambient.fps)+node.ambient.phase)%6)*129};}
 global.LunaOutsideAmbient={apply,visible,frame,placements,faceTarget,facing};
 if(global.LUNA_OUTSIDE_DATA)apply(global.LUNA_OUTSIDE_DATA);

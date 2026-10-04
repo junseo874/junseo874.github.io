@@ -5,8 +5,9 @@ const labels=Object.fromEntries(W.LunaOutsideContent.events.map(e=>[e.id,e.label
 let liftLogo=null;
 const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
+ ...W.LunaOutsideNotion.qaCases.map(c=>({...c,note:'최신 외부 이야기 · 런타임 이동/선택 · QA 소지금 별도'})),
  ...Object.keys(W.LUNA_OUTSIDE_DIALOGUES).map(id=>{const e=W.LunaOutsideEncounters.cases.find(c=>c.id===id);return{id,label:labels[id]||(e?.kind==='pair'?'NPC끼리 대화':'NPC와 대화')+' · '+id.replace('demo_out_',''),source:id,auto:!!W.LunaOutsideContent.events.find(c=>c.id===id)?.auto,encounter:e,note:W.LunaOutsideContent.events.find(e=>e.id===id)?.persistent?'모든 일차 · 출근길/퇴근길':labels[id]};}),
- ...[{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false},{id:'shop:quiz-bitters',label:'시BAR · 와일드 독 보유 → 비터스 구매·퀴즈',shop:true,first:false,owned:'wild_dog'},{id:'shop:quiz-wild-dog',label:'시BAR · 비터스 보유 → 와일드 독 구매·퀴즈',shop:true,first:false,owned:'bitters'}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
+ ...[{id:'shop:allowance',label:'시BAR · 300원 이하 용돈 선택',shop:true,first:true,shopDay:2,money:300},{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false},{id:'shop:quiz-bitters',label:'시BAR · 와일드 독 보유 → 비터스 구매·퀴즈',shop:true,first:false,owned:'wild_dog'},{id:'shop:quiz-wild-dog',label:'시BAR · 비터스 보유 → 와일드 독 구매·퀴즈',shop:true,first:false,owned:'bitters'}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
  ...Object.entries(scenes).filter(([id])=>W.LUNA_CAMPAIGN_DATA.scenes[id]?.length).map(([key,label])=>({id:'runtime:'+key,label,scene:key,auto:['commute2','commute3'].includes(key),note:'대사 원문 + QA 접근·카메라 스테이징 (완성 컷씬 아님)'})),
  ...[['lift-up','엘리베이터 · 탑승·상승'],['lift-down','엘리베이터 · 하강'],['lift-call','엘리베이터 · 빈 승강기 호출'],['lift-logo','0일차 첫 상승 · 로고 타이밍'],['home-in','집 문 · 입장 전환'],['home-out','집 문 · 퇴장 전환'],['bar-in','바 입구 · 안내'],['sofa','소파 · 상호작용']].map(([id,label])=>({id,label,physical:true,note:'실제 이동·전환 로직 / 본편 일차 전환 없이 반복'}))
  ];}
@@ -28,8 +29,9 @@ function target(m){const c=catalog().find(c=>c.id===m.qa.caseId),r=W.LunaResiden
 function isAuto(m){const c=catalog().find(c=>c.id===m.qa.caseId);return !c.physical&&(m.qa.activation==='proximity'||m.qa.activation==='source'&&c.auto);}
 function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
+ if(c.notion){m.qa.shopProgress={money:1000,flags:{},inventory:{}};W.LunaOutsideNotion.start(m,c.notion);return;}
  if(['commute2','commute3'].includes(c.scene)){W.LunaOutsideSamhoCommute.start(m);return;}
- if(c.shop){m.qa.shopProgress={money:W.LunaBDVendor.balance(),flags:{},inventory:c.owned?{[c.owned]:1}:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
+ if(c.shop){m.qa.shopDay=c.shopDay;m.qa.shopProgress={money:c.money??W.LunaBDVendor.balance(),flags:{},inventory:c.owned?{[c.owned]:1}:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
  const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes[r.memoryKey||'terraceMemory']]:r.cinemaAfter==='johnny-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.johnny]:[r]).map(r=>({...r,type:r.type||'say'}));
  const start=()=>{m.qa.runtime=null;m.story.beginRows(c.id,{...t,qa:true},rows,automatic);};
  if(automatic){start();return;}
@@ -53,8 +55,9 @@ function draw({m,ctx,position,sprite,data,player}){const q=m.qa,c=catalog().find
  else if(c.physical){const t=target(m);box(t.x-.25,t.y-.274,.5,.9,t.label);}
  else if(W.LunaOutsideContent.events.some(e=>e.id===c.source&&e.kind==='broadcast')){box(-.32,-.974,.64,.5,'TV');}
  else if(W.LunaOutsideContent.events.some(e=>e.id===c.source&&e.kind==='object')){const e=W.LunaOutsideContent.events.find(e=>e.id===c.source),n=data.scenes.street.nodes.find(n=>n.name===e.node);if(n)sprite(n.sprite,0,-.45,1,1);}
+ if(c.notion)W.LunaOutsideNotion.draw(m,sprite,ctx,position);
  if(['commute2','commute3'].includes(c.scene))W.LunaOutsideSamhoCommute.draw(m,sprite);
- for(const p of ['commute2','commute3'].includes(c.scene)?[]:q.people){if(p.id==='shiba'){const a=data.animations.shiba;sprite(a.frames[Math.floor(m.time*a.fps)%a.frames.length],p.x,-.6);continue;}if(p.id==='samho'||p.id==='trade-samho'){const n=data.scenes.street.nodes.find(n=>n.name==='Samho');const partner=c.encounter?.kind==='pair'?q.people.find(other=>other.id!==p.id&&c.encounter.members.includes(other.id)):null;sprite({...n.sprite,x:(m.time%4<.3?Math.floor(m.time*10)%3:0)*84},p.x,p.y,1,1,W.LunaOutsideAmbient.faceTarget(p.x,partner?.x??m.x));continue;}
+ for(const p of c.notion||['commute2','commute3'].includes(c.scene)?[]:q.people){if(p.id==='shiba'){const a=data.animations.shiba;sprite(a.frames[Math.floor(m.time*a.fps)%a.frames.length],p.x,-.6);continue;}if(p.id==='samho'||p.id==='trade-samho'){const n=data.scenes.street.nodes.find(n=>n.name==='Samho');const partner=c.encounter?.kind==='pair'?q.people.find(other=>other.id!==p.id&&c.encounter.members.includes(other.id)):null;sprite({...n.sprite,x:(m.time%4<.3?Math.floor(m.time*10)%3:0)*84},p.x,p.y,1,1,W.LunaOutsideAmbient.faceTarget(p.x,partner?.x??m.x));continue;}
  const original=W.LunaOutsideEncounters.actor(p.id),kind=original?.kind||p.kind,sp={asset:'ambient-'+kind,x:(Math.floor(m.time*3.5)%6)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};const partner=c.encounter?.kind==='pair'?q.people.find(other=>other.id!==p.id&&c.encounter.members.includes(other.id)):null;sprite(sp,p.x,-.974,1,1,W.LunaOutsideAmbient.faceTarget(p.x,partner?.x??m.x));const at=position(p.x,-.2);ctx.fillStyle='#a0bdc9';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText(p.name+(original?'':' · 외부 포즈 임시'),at.x,at.y);}
  player();
  if(c.id.startsWith('lift-'))data.scenes.street.nodes.filter(n=>n.name==='Elevator Fore'||n.name==='Elevator Door').forEach(n=>sprite(n.sprite,n.x,n.y+m.elevatorY-r.elevatorBottom,n.sx,n.sy));

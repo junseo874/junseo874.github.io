@@ -12,7 +12,7 @@ function state(dialog,D){
 function update(dialog,D,dt=0){
  const s=state(dialog,D),r=dialog.rows[dialog.index];s.g.realTime+=dt;
  if(r.tomPresent&&s.entryAt===null)s.entryAt=s.g.realTime;
- s.g.seats={L:null,M:null,R:r.tomPresent?s.tom:null};s.tom.glass=r.served?'godfather':null;
+ s.g.seats={L:null,M:null,R:r.tomPresent?s.tom:null};s.tom.glass=r.served?'johnny_old_fashioned':null;
  s.g.dialogue={actor:r.actor==='johnny'?'luna':r.actor,text:r.text,chars:dialog.chars,expression:'idle'};
  return s;
 }
@@ -28,7 +28,7 @@ function sync(host,dialog,D,dt=0){
  const m=new DOMMatrixReadOnly(getComputedStyle(plane).transform),y=dialog.rows[dialog.index].actor==='johnny'?601:555.5;
  W.LunaWorldSpeech.place(bubble,{x:m.a*1290+m.e,y:m.d*y+m.f,scale:m.a*.75});
 }
-async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_godfather','cocktail_godfather'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}
+async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_johnny_old_fashioned','cocktail_johnny_old_fashioned'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}
 let audio;
 function cue(kind,enabled=true){
  if(!enabled)return;try{audio??=new(W.AudioContext||W.webkitAudioContext)();audio.resume().catch(()=>{});const at=audio.currentTime,bus=W.LunaSfx.output(audio);

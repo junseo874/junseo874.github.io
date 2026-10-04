@@ -15,3 +15,13 @@
 .outside-dev-console{max-height:calc(100% - 48px);overflow-y:auto}.outside-dev-flow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.outside-dev-flow button{text-align:center}.outside-dev-flow button[aria-pressed="true"]{background:#23525d;border-color:#a9f5ef;color:#dcfff9}.outside-dev-day{float:right;color:#a9d9df;font-size:12px}
 
 .outside-dev-note{word-break:keep-all;overflow-wrap:break-word}
+
+
+/* Compact acquisition HUD, independent of the world camera and speech layers. */
+.outside-notices{position:absolute;inset:0;z-index:3;pointer-events:none}
+.outside-notices .currency-hud{right:23px;top:17px}
+.outside-item-notice{position:absolute;left:20px;top:17px;display:flex;align-items:center;gap:10px;min-height:54px;width:210px;padding:7px 12px;border:1px solid #61cbd27d;border-radius:5px;background:#09141eed;box-shadow:0 4px 14px #0005;color:#a7d3d8;font-size:13px;line-height:1.4;will-change:transform,opacity}
+.outside-item-notice img{width:32px;height:38px;object-fit:contain;image-rendering:pixelated;flex:none}
+.outside-item-notice strong{font-weight:400;color:#e5f6f3}
+
+.outside-story-emphasis{color:#ff7777;font-weight:700}

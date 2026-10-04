@@ -53,7 +53,7 @@ g.LUNA_OUTSIDE_DIALOGUES={
   ['resident-left','…또 올렸다고?','…They raised it again?'],
   ['resident-right','그렇다니까.','That’s what I’m saying.'],
   ['resident-right','거기다 이젠 승강기 이용할 때마다 돈을 받겠다는 말까지 했다고.','They even said they’d start charging us every time we use the elevator.'],
-  ['resident-left','시발… 진짜 그러면 그 새끼 죽여 버린다.','Fuck… If they really do that, I’ll kill that bastard.']
+  ['resident-left','하… 진짜 그렇게 바뀌면 관리인 새끼 죽여 버린다.','Fuck… If they really do that, I’ll kill that bastard.']
  ]),
  [pair]:rows(pair,[
   ['bar-pair-left','저기 언노운에 불 켜져 있는데? 영업 다시 시작하는 건가?','The lights are on at Unknown. Are they opening again?'],

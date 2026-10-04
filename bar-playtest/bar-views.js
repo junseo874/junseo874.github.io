@@ -263,7 +263,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     let rows=null;
     if(tab==='liquor')rows={
       top:orderedShelf(all.filter(i=>i.category==='base'),shelfOrder.liquorTop),
-      bottom:orderedShelf(all.filter(i=>i.category!=='base'),shelfOrder.liquorBottom)
+      bottom:[...orderedShelf(all.filter(i=>i.category!=='base'&&i.id!=='sugar_cube'),shelfOrder.liquorBottom),...all.filter(i=>i.id==='sugar_cube')]
     };
     if(tab==='fridge'){
       const top=all.filter(i=>shelfOrder.fridgeTop.includes(i.id)||!shelfOrder.fridgeBottom.includes(i.id)&&(!a('item_'+i.id)||D.assets['item_'+i.id].h<=119));
@@ -288,6 +288,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
           h=bounds?bounds[3]-bounds[1]:h;
         }
       }
+      if(item.id==='sugar_cube'){w=32;h=36;}else if(item.id==='bitters'){w=40;h=116;}
       return {item,w,h,x,y};
     });return {all,pages,positioned};
   }

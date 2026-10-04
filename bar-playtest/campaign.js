@@ -23,14 +23,14 @@ class Campaign{
   if(this.view==='awakening')body='<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
   if(this.view==='service-select')body=this.card('어떤 버전으로 플레이할까요?','<p>버전 B는 1일차 영업 흐름만 달라집니다. 0·2·3일차는 두 버전이 같아요.</p><div class="campaign-service-versions">'+button('<small>VERSION A</small><strong>버전 A</strong><span>현재 진행 그대로</span><p>일반 손님 영업을 마친 뒤 단골 손님 이야기가 이어집니다.</p>','service:A')+button('<small>VERSION B</small><strong>버전 B</strong><span>일반 손님과 단골 손님을 섞어서</span><p>일반 1명 → 시바견 → 일반 1명 → 톰 → 아일리·크리스 → 영업 종료</p>','service:B')+'</div>'+button('← 플레이 모드 선택','picker'));
   if(this.view==='title')body='<div class="campaign-title"><img class="title-logo" src="'+path('title-logo.png')+'" alt="Project LUNA">'+button('버전 '+this.serviceVersion+' · 변경','service-select','campaign-version-switch')+'<nav aria-label="타이틀 메뉴">'+button('새 게임','new','title-choice')+button('설정','options','title-choice')+button('종료','picker','title-choice')+'</nav></div>';
-  if(this.view==='day-select')body=this.card('어느 날부터 시작할까요?','<p class="campaign-day-intro">0일차는 이야기의 처음부터, 1~3일차는 그날 아침 출근길부터 시작합니다.</p><div class="campaign-days" aria-label="시작 일차">'+[0,1,2,3].map(day=>button('<span>DAY '+day+'</span><strong>'+day+'일차</strong><small>'+(day===0?'꿈 회상 · 바에서 눈뜨기':'집에서 시작 · 출근길')+'</small>','start-day:'+day,'campaign-day')).join('')+'</div>'+button('← 타이틀로','title','campaign-day-back'));
+  if(this.view==='day-select')body=this.card('어느 날부터 시작할까요?','<p class="campaign-day-intro">0일차는 이야기의 처음부터, 1~3일차는 그날 아침 출근길부터 시작합니다. 3일차 바로 시작은 이전 재료 수집·회상을 완료한 상태입니다.</p><div class="campaign-days" aria-label="시작 일차">'+[0,1,2,3].map(day=>button('<span>DAY '+day+'</span><strong>'+day+'일차</strong><small>'+(day===0?'꿈 회상 · 바에서 눈뜨기':'집에서 시작 · 출근길')+'</small>','start-day:'+day,'campaign-day')).join('')+'</div>'+button('← 타이틀로','title','campaign-day-back'));
   if(this.view==='loading')body='<div class="campaign-loading" role="status"><img src="'+path('title-logo.png')+'" alt="LUNA"><p>'+esc(this.loadLabel||'밤을 준비하고 있습니다')+'</p><progress max="100" value="'+(this.loadPercent||0)+'"></progress><small>'+Math.round(this.loadPercent||0)+'%</small></div>';
   if(this.view==='load-error')body=this.card('리소스를 불러오지 못했어요','<p>'+esc(this.loadError)+'</p>'+button('다시 시도','retry-load')+button('타이틀로','title'));
   if(this.view==='options')body=this.card('설정',this.optionsHTML());
   if(this.view==='dev-console')body=this.devConsoleHTML();
   if(this.view==='confirm-exit')body=this.card('타이틀로 돌아갈까요?','<p>진행 상황은 저장되지 않습니다.</p>'+button('계속 플레이','resume')+button('타이틀로 돌아가기','exit-run'));
   if(this.view==='sleep')body=this.card('하루를 마칠까요?','<p>오늘의 이야기를 마치고 휴식을 취합니다.</p>'+button('조금 더 둘러보기','resume')+button('하루 마치기','sleep-confirm','primary'));
-  if(this.view==='notice')body=this.card(this.noticeTitle||'안내','<p>'+esc(this.noticeText)+'</p>'+button('확인','resume','primary'));
+  if(this.view==='notice')body=this.card(this.noticeTitle||'안내','<p>'+esc(this.noticeText).replace(/\n/g,'<br>')+'</p>'+button('확인','resume','primary'));
   if(this.view==='retry-drink')body=this.card('주문을 다시 확인해 주세요','<ul>'+this.drinkIssues.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ul>'+button('판정 화면으로','resume')+button('다시 만들기','remake','primary'));
   if(this.view==='menu')body=this.card('어떤 한 잔을 추천할까요?','<p>'+esc(this.g.name(this.session.pendingStep?.actor||'samho'))+'에게 제공할 칵테일을 골라 주세요.</p><div class="campaign-menu">'+this.g.cocktailsAvailable().map(c=>button('<img src="'+esc(this.drinkSrc(c.id))+'" alt=""><span>'+esc(this.g.name(c.id))+'</span>','drink:'+c.id)).join('')+'</div>');
   if(this.view==='response')body=this.card('어떻게 이야기를 이어갈까요?',button('삼호가 확인한 조건부터 들어볼까요?','response:A')+button('그쪽에서는 애니멀이 맡는 일이라고 생각하고 있나요?','response:B'));
@@ -146,6 +146,8 @@ class Campaign{
  completeMemory(){this.g.progress.flags.campaign_observation=true;this.scene('prepare','바 · 내일의 준비','bar',()=>{this.screen(this.playView);this.session.finishStep();this.render(true);});}
  previewCommute(model){if([2,3].includes(model.config.day))return global.LunaOutsideSamhoCommute.start(model);model.notionCommuteSeen=true;model.story.cancel();model.backgroundStory.cancel();this.streetBackdrop=this.outside.snapshot();this.scene('commute'+model.config.day,'출근길 · 삼호','street',()=>this.screen('developer'));}
  interactOutside(model,target){if(model!==this.outside.model||model.qa)return false;
+  // Check on boarding the upward homeward lift, not when calling it or leaving home.
+  if((this.active||this.session.developer)&&target.id==='elevator'&&model.scene==='street'&&model.level===0&&model.config.flow==='out'&&Math.abs(model.elevatorY-global.LunaResidence.layout.elevatorBottom)<=.01){const missing=this.dayEndRequirements(model.config.day);if(missing.length){this.outside.clearInput();this.showHomewardRequirements(missing);return true;}}
   if(!this.active){if(!this.session.developer)return false;
    if(target.id==='sofa'){this.sleepOutsideTest(model);return true;}
    if(model.config.day<2)return false;
@@ -180,6 +182,8 @@ class Campaign{
   if(d.revealAt!=null&&d.time>=d.revealAt+.9){this.cancelDayTransition();this.screen(this.playView);this.render(true);}
   return true;
  }
+ dayEndRequirements(day,{memory=false}={}){return day===2?this.g.johnnyMissing({memory}):[];}
+ showHomewardRequirements(missing){const labels=missing.map(id=>id==='johnny_memory'?'조니의 레시피 회상':this.g.name(id));this.notice('아직 해야 할 일이 남아 있습니다.\n확인할 항목: '+labels.join(' · ')+'\n필요한 재료는 거리의 시BAR에게서 구할 수 있습니다.','집에 올라가기 전에');this.resumeView=this.playView;}
  sleepOutsideTest(model){
   if(model!==this.outside.model||model.qa||!this.outside.active||model.scene!=='home'||this.view!=='developer'||this.dayTransition||this.memoryTransition)return;
   if(model.config.flow!=='out'){this.notice('지금은 출근길입니다. 바에 다녀온 뒤 퇴근길 상태에서 하루를 마칠 수 있어요.','소파');return;}
@@ -196,7 +200,8 @@ class Campaign{
   this.playSleepScenes(day,finish);
  }
  playSleepScenes(day,finish){
-  const terrace=()=>{const key=global.LunaTerrace.nightKey(day);if(key&&this.data.scenes[key]?.length)this.scene(key,'테라스','terrace',finish);else finish();};
+  const complete=()=>{if(this.dayEndRequirements(day,{memory:true}).includes('johnny_memory')){this.playJohnnyMemory(finish);return;}finish();};
+  const terrace=()=>{const key=global.LunaTerrace.nightKey(day);if(key&&this.data.scenes[key]?.length)this.scene(key,'테라스','terrace',complete);else complete();};
   // Player-only interlude: no Luna knowledge/relationship flags are changed here.
   if(day===1&&this.data.scenes.workshop?.length)this.scene('workshop','포트의 작업장','black',terrace);else terrace();
  }
@@ -239,7 +244,7 @@ class Campaign{
   if(a==='replay-memory'){this.scene('johnny','조니의 기억','bar',()=>this.memoryQuiz(),{memory:true});return;}
   if(a==='confirm-observation'){if(this.host.querySelector('#observation-base').value!=='rye'||this.host.querySelector('#observation-order').value!=='right'){this.observationError='기록과 다른 항목이 있어요. 제조 기록을 다시 확인해 주세요.';this.draw();return;}this.completeMemory();}
  }
- key(e){if(this.memoryTransition||this.dayTransition||this.doorTransition)return true;
+ key(e){if(this.memoryTransition||this.dayTransition||this.doorTransition)return true;if(this.g.overlay==='johnnyUnlock'&&!this.blocking)return false;
   if(this.active&&e.code==='KeyP'&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&['game','dev-console'].includes(this.view)&&!this.outside.active){if(!e.repeat){if(this.view==='dev-console')this.devConsoleAction('dev-close');else{this.devResumeView=this.view;this.screen('dev-console');}}return true;}
   if(this.view==='dev-console'&&['Space','Enter'].includes(e.code)){if(!e.repeat)e.target.closest('#campaign-root button')?.click();return true;}
   if(this.view==='dev-console'&&e.code==='Escape'){if(!e.repeat)this.devConsoleAction('dev-close');return true;}
