@@ -1,6 +1,6 @@
 window.LUNA_CAMPAIGN_DATA={
   "source": "https://app.notion.com/p/3d81612298dc80fbb176cbd6acd05651",
-  "revision": "2026-10-04 · days 2/3 latest Notion; day3 edited 12:13 UTC; ends at 네. 보스.; Johnny memory edited 12:54 UTC, speaker labels enabled",
+  "revision": "2026-10-04 · days 0–3 rechecked against latest child dialogue pages; day3 terrace edited 14:25 UTC; Johnny speaker correction retained",
   "actors": {
     "개시바": "shiba",
     "시바견": "shiba",
@@ -495,7 +495,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "shiba",
         "who": "개시바",
-        "text": "됐고. 여기 맥주, 진짜 보리로 만든 맥아로 만드는 거 맞나?"
+        "text": "됐고. 여기 맥주, 진짜 맥아로 만드는 거 맞나?"
       },
       {
         "type": "say",
@@ -2361,7 +2361,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "이제 먼저 들어가, 루나. 가게는 내가 보지."
+        "text": "이제 먼저 들어가, 루나. 가게는 내가 보지. 먼저 들어가 있어라."
       },
       {
         "type": "say",
@@ -2810,7 +2810,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "그래서 이 칵테일은 과거부터 ‘옛날 방식대로’ 변하지 않는 레시피의 칵테일이었습니다. 세월이 지나도 칵테일의 근본을 유지하고 있는 칵테일이죠."
+        "text": "그래서 이 칵테일은 과거부터 ‘옛날 방식대로’ 변하지 않는 레시피의 칵테일이에요. 세월이 지나도 칵테일의 근본을 유지하고 있는 칵테일이죠."
       },
       {
         "type": "say",
@@ -3332,7 +3332,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "yuna",
         "who": "유나",
-        "text": "그래. 감정을 이해하면 너한테 행복이 뭔지도 알게 될 거야.\n그러면 넌 단순한 인공지능이 아니라 사람이라고 떳떳하게 말할 수 있어."
+        "text": "그래. 감정을 알게 된다면 행복이 뭔지 알게 될 거야.\n그러면 넌 단순한 인공지능이 아니라 사람이라고 떳떳하게 말할 수 있어."
       },
       {
         "type": "say",
@@ -4326,6 +4326,12 @@ window.LUNA_CAMPAIGN_DATA={
       },
       {
         "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "그런 자세로 손님들을 생각한다면 루나 네가 이해하기 힘든 것들도 이해할 수 있을지도 모르지."
+      },
+      {
+        "type": "say",
         "actor": "luna",
         "who": "루나",
         "text": "…",
@@ -4342,19 +4348,49 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "…저를 보호하고 싶었던 것 같아서요. 지금 생각해 본 거지만."
+        "text": "전에 연구소에서 빠져나올 때 유나가 이해되질 않았어요."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "유나가 목숨을 희생하면서까지 저를 구한 이유나 근거를 몰랐었죠."
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "하지만 지금 생각해 보면…"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "…저를 보호하고 싶었던 것 같아서요."
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "…그렇게 생각한다면 그런 거겠지."
+        "text": "…오늘 톰이랑 삼호를 보면서 생각한 거야?"
+      },
+      {
+        "type": "say",
+        "actor": "luna",
+        "who": "루나",
+        "text": "네, 맞아요."
       },
       {
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "…그래서 어때. 아직도 일하기로 한 게 잘못된 선택 같아?"
+        "text": "좋네. 그렇게 하나씩 생각해 보는 거지."
+      },
+      {
+        "type": "say",
+        "actor": "chris",
+        "who": "크리스",
+        "text": "어때. 아직도 일하기로 한 게 잘못된 선택 같아?"
       },
       {
         "type": "say",
@@ -4961,7 +4997,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "luna",
       "who": "루나",
-      "text": "잠은 자야 하지만, 수면 공간에 크게 영향을 받지는 않습니다."
+      "text": "잠은 자야 하지만, 수면 공간에 크게 영향을 받지는 않아요."
     },
     {
       "type": "say",
@@ -5021,7 +5057,13 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "내가 사람 보는 눈은 있는데 말이야. 루나, 너는 크게 될 놈이야.\n반면 저 크리스라는 음침한 놈은 아주 인생의 밑바닥을 찍을 놈이지."
+      "text": "내가 사람 보는 눈은 있는데 말이야. 루나, 너는 크게 될 놈이야."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "반면 저 크리스라는 음침한 놈은 아주 인생의 밑바닥을 찍을 놈이지."
     },
     {
       "type": "say",
@@ -5063,7 +5105,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "지금 보내 준 위치 안내를 따라 빌딩으로 가면 돼. 1703호야."
+      "text": "지금 보내 준 위치 안내를 따라 빌딩으로 가면 돼. 1803호야."
     },
     {
       "type": "say",

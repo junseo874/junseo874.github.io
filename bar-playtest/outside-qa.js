@@ -6,7 +6,7 @@ let liftLogo=null;
 const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
  ...Object.keys(W.LUNA_OUTSIDE_DIALOGUES).map(id=>{const e=W.LunaOutsideEncounters.cases.find(c=>c.id===id);return{id,label:labels[id]||(e?.kind==='pair'?'NPC끼리 대화':'NPC와 대화')+' · '+id.replace('demo_out_',''),source:id,auto:!!W.LunaOutsideContent.events.find(c=>c.id===id)?.auto,encounter:e,note:W.LunaOutsideContent.events.find(e=>e.id===id)?.persistent?'모든 일차 · 출근길/퇴근길':labels[id]};}),
- ...[{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
+ ...[{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false},{id:'shop:quiz-bitters',label:'시BAR · 와일드 독 보유 → 비터스 구매·퀴즈',shop:true,first:false,owned:'wild_dog'},{id:'shop:quiz-wild-dog',label:'시BAR · 비터스 보유 → 와일드 독 구매·퀴즈',shop:true,first:false,owned:'bitters'}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
  ...Object.entries(scenes).filter(([id])=>W.LUNA_CAMPAIGN_DATA.scenes[id]?.length).map(([key,label])=>({id:'runtime:'+key,label,scene:key,auto:['commute2','commute3'].includes(key),note:'대사 원문 + QA 접근·카메라 스테이징 (완성 컷씬 아님)'})),
  ...[['lift-up','엘리베이터 · 탑승·상승'],['lift-down','엘리베이터 · 하강'],['lift-call','엘리베이터 · 빈 승강기 호출'],['lift-logo','0일차 첫 상승 · 로고 타이밍'],['home-in','집 문 · 입장 전환'],['home-out','집 문 · 퇴장 전환'],['bar-in','바 입구 · 안내'],['sofa','소파 · 상호작용']].map(([id,label])=>({id,label,physical:true,note:'실제 이동·전환 로직 / 본편 일차 전환 없이 반복'}))
  ];}
@@ -29,7 +29,7 @@ function isAuto(m){const c=catalog().find(c=>c.id===m.qa.caseId);return !c.physi
 function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
  if(['commute2','commute3'].includes(c.scene)){W.LunaOutsideSamhoCommute.start(m);return;}
- if(c.shop){m.qa.shopProgress={money:W.LunaBDVendor.balance(),flags:{},inventory:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
+ if(c.shop){m.qa.shopProgress={money:W.LunaBDVendor.balance(),flags:{},inventory:c.owned?{[c.owned]:1}:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
  const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes[r.memoryKey||'terraceMemory']]:r.cinemaAfter==='johnny-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.johnny]:[r]).map(r=>({...r,type:r.type||'say'}));
  const start=()=>{m.qa.runtime=null;m.story.beginRows(c.id,{...t,qa:true},rows,automatic);};
  if(automatic){start();return;}

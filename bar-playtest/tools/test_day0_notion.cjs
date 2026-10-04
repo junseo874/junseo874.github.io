@@ -4,7 +4,7 @@ const dir=path.resolve(__dirname,'..'),ctx={window:{}};
 vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);
 const D=ctx.window.LUNA_DATA,C=require(dir+'/core.js'),R=require(dir+'/remix.js');
 const scene='d1_tutorial_chris',steps=D.tables.steps.filter(s=>s.context===scene);
-assert.equal(steps.filter(s=>s.type==='say').length,111);
+assert.equal(steps.filter(s=>s.type==='say').length,112);
 assert.equal(new Set(steps.map(s=>s.row_id)).size,steps.length);
 assert(steps.filter(s=>s.type==='say').every(s=>s['text.ko']&&s['text.en']));
 assert(!steps.some(s=>/grade/.test(s.when||'')));
