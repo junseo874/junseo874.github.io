@@ -4,8 +4,23 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
  const frame=p.frames().find(f=>f.url().includes('resourceReview=1'));
  const ids=await p.evaluate(()=>resourceReview.rows.filter(r=>r.group==='bar-ui').map(r=>r.id));
+ const revisionIds=['ui:mini:shake','ui:mini:stir','ui:pair','ui:prep'];assert.deepEqual(await p.evaluate(()=>resourceReview.rows.filter(r=>r.needsRevision).map(r=>r.id).sort()),revisionIds);
+ await p.click('[data-group="bar-ui"]');assert.equal(await p.locator('#grid .revision-tag').count(),4);
+ for(const id of revisionIds){const card=p.locator('[data-id="'+id+'"]');assert.equal(await card.locator('.revision-tag').innerText(),'수정 필요');assert.equal(await card.locator('.badge').count(),1);await card.click();assert.equal(await p.locator('#inspector .revision-tag').innerText(),'수정 필요');}
+ assert.deepEqual(await p.evaluate(()=>resourceReview.rows.filter(r=>r.needsRevision).map(r=>[r.id,r.status]).sort()),[['ui:mini:shake','missing'],['ui:mini:stir','missing'],['ui:pair','code'],['ui:prep','code']]);
+ await p.screenshot({path:'/private/tmp/resource-revision-tags.png'});
  for(const id of ['arrival','order','wait','orange','red','exit','drink','reorder','reask','full','wrong','missing','expense','bankrupt'])assert(!ids.includes('ui:'+id),id+' folded');
  for(const id of ['solo','indicators','serve','income','settlement'])assert.equal(ids.filter(k=>k==='ui:'+id).length,1);
+ for(const id of ['recipe','restart','serveDetails','openerWarning','ingredientWarning'])assert(!ids.includes('ui:overlay:'+id),id+' removed or grouped');
+ assert.equal(ids.filter(k=>k==='ui:warnings').length,1);
+ await p.click('[data-group="bar-ui"]');await p.click('[data-id="ui:warnings"]');
+ assert.equal(await p.locator('#inspect-state option').count(),2);await p.click('#inspector [data-action="launch"]');
+ await frame.locator('#opener-warning-title').waitFor();const warningHistory=await p.evaluate(()=>history.length);
+ await p.selectOption('#lab-state','ingredientWarning');await frame.locator('#ingredient-warning-title').waitFor();assert.equal(await frame.locator('#opener-warning-title').count(),0);assert.equal(await p.evaluate(()=>history.length),warningHistory);
+ await frame.locator('.ingredient-warning [data-act="closeOverlay"]').click();await frame.waitForFunction(()=>barGame.overlay===null);
+ await p.click('#replay');await frame.locator('#ingredient-warning-title').waitFor();
+ await p.selectOption('#lab-state','openerWarning');await frame.locator('#opener-warning-title').waitFor();
+ await p.screenshot({path:'/private/tmp/resource-warning-states.png'});await p.click('#close-lab');
  await p.click('[data-group="bar-ui"]');await p.click('[data-id="ui:indicators"]');
  assert.equal(await p.locator('#inspect-state option').count(),7);await p.selectOption('#inspect-state','red');await p.click('#inspector [data-action="launch"]');
  await frame.locator('.seat-indicators .seat-danger').waitFor();const historyLength=await p.evaluate(()=>history.length);

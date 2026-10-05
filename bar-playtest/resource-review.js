@@ -4,8 +4,17 @@ const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({
 const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
 let F,navigation,rows=[],group='bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
-const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>';
+const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>'+(r.needsRevision?'<span class="revision-tag">수정 필요</span>':'');
 const variantSelections=new Map();let indicatorPreview=null;
+const statusesByGroup=new Map();
+const statusOptions=[['all','전체'],['registered','등록됨'],['dummy','더미·임시'],['shared','대체·공용'],['missing','미등록·미제작'],['uiArt','UI 아트 미제작'],['code','코드 UI·연출'],['revision','수정 필요'],['attention','검토 대상']];
+const currentStatus=()=>statusesByGroup.get(group)||'all';
+const matchesStatus=(r,s)=>s==='all'||s==='revision'&&r.needsRevision||s==='uiArt'&&r.uiArtPending||s==='attention'&&(['dummy','shared','missing'].includes(r.status)||r.needsRevision)||r.status===s;
+function matchesSearch(r){const q=$('#search').value.trim().toLowerCase();return !q||[r.title,r.usage,r.wanted,r.key,r.note,...(r.layers||[]).map(l=>l.key+' '+l.src+' '+l.source)].join(' ').toLowerCase().includes(q);}
+function statusHTML(){
+ const candidates=rows.filter(r=>r.group===group&&matchesSearch(r)&&R.matches(r,picked())),s=currentStatus();
+ return '<div class="facet-row status-row" role="group" aria-label="리소스 상태"><strong>상태</strong><div class="facet-options status-options">'+statusOptions.map(([id,label])=>{const n=candidates.filter(r=>matchesStatus(r,id)).length,active=s===id;return '<button class="status-chip status-'+id+'" data-status="'+id+'" aria-pressed="'+active+'" '+(!n&&!active?'disabled':'')+'><i aria-hidden="true"></i>'+label+'<span>'+n+'</span></button>';}).join('')+'</div></div>';
+}
 function stopIndicatorPreview(){if(indicatorPreview&&F)F.barGame.tick=indicatorPreview.tick;indicatorPreview=null;}
 const variantFor=r=>r?.variants?.find(v=>v.id===variantSelections.get(r.id))||r?.variants?.[0];
 const variantLaunch=(r,v=variantFor(r))=>v?{...v.launch,reviewId:r.id,variantId:v.id}:r.launch;
@@ -24,19 +33,19 @@ function paint(canvas,r,n,muted=new Set()){
 function drawThumbs(){for(const c of document.querySelectorAll('canvas[data-thumb]')){const r=rows.find(r=>r.id===c.dataset.thumb);if(r)paint(c,r,0);}}
 function drawPreview(){if(!selected)return;paint($('#preview-canvas'),selected,step,disabled);const label=$('#frame-label');if(label)label.textContent=(step+1)+' / '+count(selected)+' 프레임';const slider=$('#frame-slider');if(slider)slider.value=step;}
 function picked(){if(!facetsByGroup.has(group))facetsByGroup.set(group,{});return facetsByGroup.get(group);}
-function baseFiltered(){const q=$('#search').value.trim().toLowerCase(),s=$('#status').value;return rows.filter(r=>r.group===group&&(s==='all'||s==='attention'&&['dummy','shared','missing'].includes(r.status)||r.status===s)&&(!q||[r.title,r.usage,r.wanted,r.key,r.note,...(r.layers||[]).map(l=>l.key+' '+l.src+' '+l.source)].join(' ').toLowerCase().includes(q)));}
+function baseFiltered(){return rows.filter(r=>r.group===group&&matchesStatus(r,currentStatus())&&matchesSearch(r));}
 function filtered(){return baseFiltered().filter(r=>R.matches(r,picked()));}
 function filterHTML(){
  const base=baseFiltered(),all=rows.filter(r=>r.group===group),p=picked();
- return R.schema(group).map(([key,label])=>{
+ return statusHTML()+R.schema(group).map(([key,label])=>{
   const candidates=base.filter(r=>R.matches(r,p,key));
   return '<div class="facet-row" role="group" aria-label="'+label+'"><strong>'+label+'</strong><div class="facet-options">'+[['all','전체'],...R.options(all,key)].map(([value,title])=>{
    const n=value==='all'?candidates.length:candidates.filter(r=>R.values(r,key).includes(value)).length,active=(p[key]||'all')===value;
    return '<button data-facet="'+key+'" data-value="'+E(value)+'" aria-pressed="'+active+'" '+(!n&&!active?'disabled':'')+'>'+E(title)+'<span>'+n+'</span></button>';
   }).join('')+'</div></div>';
- }).join('')+'<div class="filter-foot"><small>분류끼리 함께 적용됩니다. 이미지 형태는 실제 프레임 수 기준입니다.</small><button data-filter-reset '+(!Object.values(p).some(v=>v!=='all')&&!$('#search').value&&$('#status').value==='all'?'disabled':'')+'>필터 초기화</button></div>';
+ }).join('')+'<div class="filter-foot"><small>상태와 분류를 함께 적용합니다. 검토 대상은 더미·대체·미등록·수정 필요를 모아 봅니다.</small><button data-filter-reset '+(!Object.values(p).some(v=>v!=='all')&&!$('#search').value&&currentStatus()==='all'?'disabled':'')+'>필터 초기화</button></div>';
 }
-function clearFilters(){facetsByGroup.set(group,{});$('#search').value='';$('#status').value='all';render();}
+function clearFilters(){facetsByGroup.set(group,{});$('#search').value='';statusesByGroup.delete(group);render();}
 
 function render(){
  const missing=group==='missing';
@@ -136,9 +145,9 @@ $('#lab-state-controls').onchange=e=>{if(e.target.id!=='lab-state'||busy)return;
 $('#inspector').onchange=e=>{if(e.target.id==='inspect-state'&&selected)variantSelections.set(selected.id,e.target.value);};
 $('#close-lab').onclick=closeLab;$('#replay').onclick=()=>activeLaunch&&launch(activeLaunch.d,activeLaunch.title,activeLaunch.note);
 $('#nav').onclick=e=>{const b=e.target.closest('[data-group]');if(b&&!b.disabled){group=b.dataset.group;render();$('#nav [data-group="'+group+'"]').focus({preventScroll:true});}};
-$('#resource-filters').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.hasAttribute('data-filter-reset')){clearFilters();$('#resource-filters [data-facet]')?.focus({preventScroll:true});return;}const key=b.dataset.facet,value=b.dataset.value;picked()[key]=value;render();[...document.querySelectorAll('[data-facet]')].find(el=>el.dataset.facet===key&&el.dataset.value===value)?.focus({preventScroll:true});};
+$('#resource-filters').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.hasAttribute('data-filter-reset')){clearFilters();$('#resource-filters [data-status="all"]')?.focus({preventScroll:true});return;}if(b.dataset.status){const s=b.dataset.status;statusesByGroup.set(group,s);render();$('#resource-filters [data-status="'+s+'"]')?.focus({preventScroll:true});return;}const key=b.dataset.facet,value=b.dataset.value;picked()[key]=value;render();[...document.querySelectorAll('[data-facet]')].find(el=>el.dataset.facet===key&&el.dataset.value===value)?.focus({preventScroll:true});};
 $('#grid').onclick=e=>{const b=e.target.closest('[data-id]');if(b)select(b.dataset.id);};
-$('#search').oninput=render;$('#status').onchange=render;
+$('#search').oninput=render;
 $('#inspector').onclick=e=>{const a=e.target.closest('[data-action]')?.dataset.action;if(!a)return;if(a==='launch')launch(variantLaunch(selected),selected.title,selected.note);else if(a==='play'){playing=!playing;e.target.textContent=playing?'일시정지':'재생';}else if(a==='next'||a==='prev'){playing=false;step=(step+(a==='next'?1:-1)+count(selected))%count(selected);$('#inspector [data-action="play"]').textContent='재생';drawPreview();}else if(a==='background'){const p=$('.preview');if(p.classList.contains('light')){p.classList.remove('light');p.classList.add('black');}else if(p.classList.contains('black'))p.classList.remove('black');else p.classList.add('light');}};
 $('#inspector').oninput=e=>{if(e.target.id==='frame-slider'){step=+e.target.value;playing=false;$('#inspector [data-action="play"]').textContent='재생';drawPreview();}if(e.target.id==='fps')fps=Math.max(1,Math.min(60,+e.target.value||6));if(e.target.dataset.layer){e.target.checked?disabled.delete(e.target.dataset.layer):disabled.add(e.target.dataset.layer);drawPreview();}};
 $('#export').onclick=()=>{const csv=[['분류','이름','용도','상태','요청 키','사용 키','파일','원본 출처','비고'],...rows.map(r=>[C.groups.find(g=>g[0]===r.group).slice(1).join(' / '),r.title,r.usage,C.statusNames[r.status],r.wanted,r.key,(r.layers||[]).map(l=>l.src?.startsWith('data:')?(l.source||'내장 이미지')+'#'+l.key:l.src).join(' | '),(r.layers||[]).map(l=>l.source).join(' | '),r.note])].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='unknown-resource-review.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};

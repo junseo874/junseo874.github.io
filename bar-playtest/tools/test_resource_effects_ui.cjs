@@ -8,7 +8,7 @@ const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/C
  if(!out){const missing=await p.evaluate(async rows=>(await Promise.all(rows.map(r=>new Promise(resolve=>{const i=new Image();i.onload=()=>resolve(i.naturalWidth?null:r.id);i.onerror=()=>resolve(r.id);i.src=r.preview;})))).filter(Boolean),rows);assert.deepEqual(missing,[],'all effect previews load');}
  for(const group of ['bar-fx','out-fx']){await p.locator('[data-group="'+group+'"]').click();assert(await p.locator('[data-facet="effect"]').count()>1);assert(await p.locator('#grid .card').count()>5);}
  await p.locator('[data-group="bar-fx"]').click();await p.locator('[data-facet="effect"][data-value="judgement"]').click();assert.equal(await p.locator('#grid .card').count(),6);await p.locator('[data-filter-reset]').click();
- await p.selectOption('#status','dummy');assert.equal(await p.locator('#grid .card').count(),1);await p.locator('[data-filter-reset]').click();
+ await p.click('[data-status="dummy"]');assert.equal(await p.locator('#grid .card').count(),1);await p.locator('[data-filter-reset]').click();
  await p.addStyleTag({content:'.frame-wrap,.lab.parked .frame-wrap{width:960px!important;height:540px!important;max-width:none!important;border:0!important}'});
  for(const r of rows){
   await p.evaluate(r=>resourceReview.launch(r.launch,r.title,r.note),r);const f=p.frames().find(f=>f.url().includes('resourceReview=1'));

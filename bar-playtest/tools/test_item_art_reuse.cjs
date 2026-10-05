@@ -9,5 +9,6 @@ assert.equal(d.assets.item_tequila.src,'assets/tequila-registered.png');
 assert(!api.temporary(d.assets.item_tequila));
 for(const prefix of ['item_','recipe_item_','inventory_item_']){const a=d.assets[prefix+'tequila'];assert.equal(a.src,d.assets.item_tequila.src);assert.equal(a.w,57);assert.equal(a.h,171);assert.deepEqual(Array.from(a.alphaBBox),[9,23,47,170]);assert(fs.existsSync(path.join(root,a.src)));}
 // If only another usage has registered art, shelf/inventory still adopt it.
+for(const prefix of ['item_','recipe_item_','inventory_item_']){const a=d.assets[prefix+'orange_juice'];assert.equal(a.src,'assets/orange-juice-registered.png');assert(!api.temporary(a));assert.equal(a.w,93);assert.equal(a.h,223);assert.deepEqual(Array.from(a.alphaBBox),[25,56,65,222]);assert(fs.existsSync(path.join(root,a.src)));}
 const synthetic={tables:{shelf_items:[{id:'example'}]},assets:{recipe_item_example:{src:'real.png',w:45,h:95,source:'approved'},item_example:{src:'dummy.png',source:'임시'}}};api.apply(synthetic);assert.equal(synthetic.assets.item_example.src,'real.png');assert.equal(synthetic.assets.inventory_item_example.src,'real.png');
 console.log('ITEM_ART_REUSE_OK',reused,'usage aliases, dimensions, original registered art preserved, missing/dummy-only unchanged, idempotence');

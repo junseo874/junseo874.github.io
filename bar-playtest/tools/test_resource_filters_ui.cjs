@@ -3,6 +3,8 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  const p=await b.newPage({viewport:{width:1600,height:1050}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
  const facet=(key,value)=>p.locator('[data-facet="'+key+'"][data-value="'+value+'"]');
  const catalog=await p.evaluate(()=>resourceReview.rows);
+ for(const pose of ['event_surprise_default','event_surprise_talk'])assert(!catalog.some(r=>r.id==='actor:port:'+pose));
+ assert.equal(catalog.filter(r=>r.id.startsWith('actor:port:')).length,8);
  const guests=catalog.filter(r=>r.group==='bar-characters'&&/^guest[:_]/.test(r.id));assert.deepEqual(guests.map(r=>r.id).sort(),['guest:f','guest:m']);for(const r of guests)assert(r.layers.length>=6);
  assert(!catalog.some(r=>r.group==='bar-characters'&&/^actor:(luna|johnny)(:|$)/.test(r.id)));
  assert(catalog.some(r=>r.group==='out-characters'&&r.title==='루나'));
@@ -29,7 +31,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  // Search/status intersect with tabs; empty results can always reset, and selections persist per group.
  await p.fill('#search','없는리소스');assert.equal((await ids()).length,0);assert(await facet('motion','idle').isEnabled());await p.locator('[data-filter-reset]').click();assert((await ids()).length>20);
  await group('bar-items');assert.equal(await facet('kind','tool').getAttribute('aria-pressed'),'true');assert.equal(await facet('usage','recipe').getAttribute('aria-pressed'),'true');await p.locator('[data-filter-reset]').click();
- await p.selectOption('#status','attention');await facet('kind','ingredient').click();assert((await ids()).length>0);await p.locator('[data-filter-reset]').click();
+ await p.click('[data-status="attention"]');await facet('kind','ingredient').click();assert((await ids()).length>0);await p.locator('[data-filter-reset]').click();
  await group('out-characters');await facet('motion','run').click();await facet('media','animation').click();assert((await ids()).length>0);assert(await p.locator('#grid').innerText().then(s=>!s.includes('하운드')));await p.screenshot({path:'/private/tmp/resource-filters-outside.png'});
  await group('bar-serve');assert(await facet('media','animation').isVisible());
  await group('bar-ui');await facet('topic','gimmick').click();assert.equal((await ids()).length,4);assert.equal(await p.locator('.ui-shot').count(),4);await p.locator('#grid .card').first().click();assert(await p.locator('.ui-preview').isVisible());
