@@ -3,6 +3,9 @@
 'use strict';
 const groups=[['bar-characters','바 내부','캐릭터 / 애니메이션'],['bar-drinks','바 내부','칵테일 · 용도별 이미지'],['bar-items','바 내부','재료 / 도구 / 잔'],['bar-serve','바 내부','제공하기 컷씬'],['bar-ui','바 내부','UI / 화면 테스트'],['out-characters','외부','캐릭터 / 컷씬 동작'],['out-ui','외부','UI / 이벤트 테스트']];
 const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체·공용',missing:'미등록',code:'코드 UI·연출'};
+// Screen behavior exists, but dedicated UI artwork is not yet in production.
+// Explicit owner confirmation; a screen capture is not a finished UI asset.
+const pendingUIArt=new Set(['recipes','dossier','overlay:service','overlay:settings','overlay:history','overlay:johnnyUnlock','mini:shake','mini:stir','mini:pour','result']);
 function build(F){
  const D=F.barData,g=F.barGame,A=D.assets,O=F.LUNA_OUTSIDE_DATA,rows=[];
  const name=id=>g.name(id)||id;
@@ -34,7 +37,7 @@ function build(F){
  }
  const items=[...D.tables.shelf_items];if(!items.some(x=>x.id==='opener'))items.push({id:'opener',kind:'tool'});
  for(const it of items)for(const [kind,prefix,label]of [['shelf','item_','선반'],['recipe','recipe_item_','레시피 상세'],['inventory','inventory_item_','담은 재료']])imageRecord('item:'+it.id+':'+kind,'bar-items',name(it.id),(it.kind||'재료')+' · '+label,prefix+it.id,['item_'+it.id,'item_dummy'],{launch:{type:'prep',id:it.id},itemKind:it.kind});
- const ui=(id,title,note,launch,group='bar-ui')=>add({id:'ui:'+id,group,title,usage:'실제 화면 · 직접 조작',status:'code',layers:[],note,launch,preview:'assets/resource-previews/'+('ui:'+id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg',previewNote:'실제 게임 화면 캡처 · 2026-10-05 · 정적 미리보기'});
+ const ui=(id,title,note,launch,group='bar-ui')=>{const uiArtPending=group==='bar-ui'&&pendingUIArt.has(id);add({id:'ui:'+id,group,title,usage:uiArtPending?'화면 구현됨 · 전용 UI 아트 미제작':'실제 화면 · 직접 조작',status:uiArtPending?'missing':'code',uiArtPending,layers:[],note:(uiArtPending?'작업자 확인: 현재 UI 화면과 기능만 구현되어 있으며 전용 UI 리소스 작업은 시작되지 않았습니다. 미리보기는 구현 화면 캡처이며 완성 리소스가 아닙니다. ':'')+note,launch,preview:'assets/resource-previews/'+('ui:'+id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg',previewNote:uiArtPending?'구현 화면 참고용 · 전용 UI 아트 미제작 · 2026-10-05':'실제 게임 화면 캡처 · 2026-10-05 · 정적 미리보기'});};
  for(const [id,title]of F.LunaQALab.STATES)ui(id,title,'실제 '+title+' 상태를 재현합니다. 손님·잔·버튼에 마우스를 올리거나 클릭해 보세요.',{type:'qa',id});
  for(const [id,title,note]of [
   ['recipes','레시피 목록 / 상세 / 잠김','레시피 카드 호버·클릭, 상세 보기와 제조 진입. 1일차 해금 기준으로 잠금 상태도 확인합니다.'],
@@ -46,8 +49,6 @@ function build(F){
  ])ui(id,title,note,{type:id});
  for(const [id,title]of [['service','서비스 패널'],['settings','설정 / 볼륨 / 언어'],['help','조작 설명'],['history','대사 기록'],['sales','매출'],['restart','일차 변경 확인'],['recipe','제조 중 레시피'],['openerWarning','병따개 누락 경고'],['ingredientWarning','재료 초과 경고'],['johnnyUnlock','히든 칵테일 해금'],['serveDetails','제조 점수 상세']])ui('overlay:'+id,title,'게임의 실제 팝업을 표시합니다. 버튼 호버·포커스·닫기를 확인하세요.',{type:'overlay',id});
  for(const [id,title]of [['open','병따기'],['pour','따르기'],['fill_up','필업'],['shake','쉐이킹'],['stir','스터']])ui('mini:'+id,title+' / 제조 기믹',id==='shake'?'실제 기믹 테스트. 버전 선택·시작 안내·노드·콤보 단계·실패 상태를 직접 조작합니다.':'실제 기믹의 안내·버튼·진행·판정·설정을 직접 확인합니다.',{type:'mini',id});
- ui('updates','업데이트 내역','현재 업데이트 팝업을 다시 열어 스크롤·닫기·버튼을 확인합니다.',{type:'updates'});
- ui('qa-panel','단골 장면 / 중간 스텝 선택','실제 QA 패널에서 일차·장면·스텝·분기 조건을 선택할 수 있습니다.',{type:'qa-panel'});
  for(const s of D.tables.scenes)ui('scene:'+s.id,s.day+'일차 · '+(s.title||s.id),'장면 ID: '+s.id+' · 등록된 대사·분기·표정을 실제 진행기로 재생합니다. QA 패널에서 중간 스텝도 선택할 수 있습니다.',{type:'scene',id:s.id});
  // Raw UI art remains inspectable separately from code-rendered UI.
  for(const [key,a] of Object.entries(A).filter(([k])=>/^(bar($|_)|prep_|gimmick|dialogue|choice|next$|coaster|money|logo|expr_|mix_)/.test(k)))add({id:'ui-art:'+key,group:'bar-ui',title:key,usage:'화면 구성 리소스 · 원본',status:state(a),layers:[layer(key,a)]});
@@ -59,6 +60,7 @@ function build(F){
  const samho=O.scenes.street.nodes.find(n=>n.name==='Samho')?.sprite;
  if(samho){const l=outsideLayer(samho);add({id:'outside:samho',group:'out-characters',title:'삼호',usage:'대기 / 눈 깜빡임 · 3프레임',layers:[{...l,rects:Array.from({length:3},(_,i)=>({...samho,x:i*84})),frames:3,fps:10}],note:'원본 프레임 반복 미리보기. 실제 게임은 눈 깜빡임 사이에 대기 간격을 둡니다.'});}
  add({id:'outside:terrace',group:'out-characters',title:'테라스 · 크리스 / 루나',usage:'배경에 합쳐진 정적 착석 이미지',status:'shared',layers:[{key:'terrace-reference',src:F.LunaTerrace.asset,frames:1}],note:'두 인물이 배경 이미지에 포함되어 있습니다. 분리된 착석·대화 애니메이션은 사용하지 않습니다.',launch:{type:'terrace',id:'night0'}});
+ add({id:'outside:terrace-chris',group:'out-characters',title:'크리스 · 집 테라스 대화',usage:'테라스 착석 / 대화 · 전용 캐릭터 미제작',status:'missing',layers:[],preview:F.LunaTerrace.asset,previewNote:'현재 테라스 장면 참고 · 왼쪽 인물이 크리스 · 전용 캐릭터 리소스 아님',note:'작업자 확인: 집 테라스 대화용 크리스 캐릭터 리소스는 미제작입니다. 현재는 배경에 합쳐진 정적 착석 이미지로 대신 표시합니다. 바 내부 크리스 리소스와는 별도 제작 항목입니다.',launch:{type:'terrace',id:'night0'}});
  for(const c of F.LunaOutsideQA.catalog())ui('outside:'+c.id,c.label,(c.note||'')+' · '+(c.auto?'범위 접근 자동 재생':'대상 근처에서 E / 선택지 클릭')+' · 가상 QA 무대에서 확인합니다.',{type:'outside',id:c.id},'out-ui');
  for(const [id,title,note]of [['entry-hint','탐색 시작 / P 설정 안내','탐색 시작 시 표시되는 안내 팝업입니다. P로 일차·출퇴근·위치 설정 패널을 바로 열 수 있습니다.'],['street','거리 / E 표시 / 말풍선','실제 거리 배치·상호작용 표시. A/D 이동, E 상호작용, Y 전경, ESC 설정, P 콘솔.'],['home','집 / TV / 소파','실제 집 화면에서 TV 자동 말풍선·소파·출입 UI를 확인합니다.'],['settings','외부 설정 / 조작 설명','ESC로 닫거나 여세요.'],['console','외부 개발자 콘솔','P로 닫거나 여세요. 위치·일차·출퇴근 상태·소지금 테스트.']])ui('exterior:'+id,title,note,{type:'exterior',id},'out-ui');
  for(const [id,title]of [['night0','0일차 테라스'],['night1','1일차 테라스'],['night2','2일차 테라스'],['ending','3일차 테라스'],['workshop','포트 작업장 / 검은 화면']])ui('terrace:'+id,title,'실제 대화 화면·진입 페이드·말풍선·후속 회상을 확인합니다. 테스트 종료 시 목록으로 돌아갑니다.',{type:'terrace',id},'out-ui');

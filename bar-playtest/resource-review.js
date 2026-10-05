@@ -4,7 +4,7 @@ const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({
 const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
 let F,navigation,rows=[],group='bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
-const badge=r=>'<span class="badge '+r.status+'">'+C.statusNames[r.status]+'</span>';
+const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>';
 const count=r=>Math.max(1,...(r.layers||[]).map(l=>l.frames||1));
 function image(src){if(!src)return null;if(!cache.has(src)){const im=new Image();cache.set(src,im);im.onload=()=>{if(!redrawPending){redrawPending=true;requestAnimationFrame(()=>{redrawPending=false;drawThumbs();drawPreview();});}};im.onerror=()=>{if(selected?.layers?.some(l=>l.src===src))$('#preview-status').textContent='파일을 불러오지 못했습니다. 원본 경로를 확인해 주세요.';};im.src=src;}return cache.get(src);}
 function geometry(l,n){if(l.rects){const f=l.rects[n%l.rects.length];return {src:f.src||l.src,x:f.x||0,y:f.y||0,w:f.w,h:f.h,ox:f.ox||0,oy:f.oy||0,cw:f.cw||f.w,ch:f.ch||f.h};}const im=image(l.src),cols=l.cols||l.frames||1,w=l.fw||l.w/cols||im?.naturalWidth/cols||1,h=l.fh||l.h||im?.naturalHeight||1;return{src:l.src,x:(l.sx||0)+n%cols*(l.dx||w),y:(l.sy||0)+Math.floor(n/cols)*(l.dy||h),w,h,ox:0,oy:0,cw:w,ch:h};}

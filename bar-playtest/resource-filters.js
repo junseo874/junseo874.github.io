@@ -12,7 +12,7 @@ function decorate(r){
   f.motion=Object.keys(labels.motion).filter(k=>!['other','parts','seated','pov'].includes(k)&&new RegExp('(^|[_:\\s-])'+k+'($|[_:\\s-])').test(raw));
   if(r.id.startsWith('guest'))f.motion=['parts'];
   else if(r.id.endsWith(':pov'))f.motion=['pov'];
-  else if(r.id==='outside:terrace')f.motion=['seated'];
+  else if(['outside:terrace','outside:terrace-chris'].includes(r.id))f.motion=['seated'];
   else if(r.id.startsWith('outside-role:')||/^outside:(M1|M2|W1|samho|shiba)$/.test(r.id))f.motion=['idle'];
   if(!f.motion.length)f.motion=['other'];
  }

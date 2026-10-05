@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const categories=[['cocktail','칵테일'],['item','재료 · 잔 · 도구'],['character','캐릭터'],['background','배경'],['ui','UI'],['effect','연출']];
-const reasons={dummy:'더미·임시만 등록',sharedDummy:'공용 더미 사용',missing:'전용 리소스 미등록',animation:'제공 애니메이션 미등록'};
+const reasons={dummy:'더미·임시만 등록',sharedDummy:'공용 더미 사용',missing:'전용 리소스 미등록',animation:'제공 애니메이션 미등록',uiArt:'UI 아트 미제작'};
 const temporary=l=>/더미|dummy|임시/i.test(l.source||'')||/campaign\/(johnny-|tom-|shiba-)/i.test(l.src||'')||l.key==='item_dummy'||/^ambient-/.test(l.key||'');
 function category(r){
  if(['bar-drinks','bar-serve'].includes(r.group))return 'cocktail';
@@ -13,9 +13,10 @@ function category(r){
  return 'ui';
 }
 function reason(r){
- // Passerby silhouettes are intentionally generic; keep them in the catalog,
- // but do not list them as production gaps. Named story roles still need art.
- if(r.group==='out-characters'&&(/^outside:(M1|M2|W1)$/.test(r.id)||r.id.startsWith('outside-role:')&&/^행인(?:\s*\d+)?$/.test(r.title||'')))return null;
+ // The current character production checklist is limited by the owner.
+ // This affects only missing-resource reporting, not the full catalog.
+ if(category(r)==='character'&&!/^actor:(tom|shiba)(:|$)/.test(r.id)&&r.id!=='outside:terrace-chris')return null;
+ if(r.uiArtPending)return 'uiArt';
  const ls=r.layers||[],dummy=ls.some(temporary);
  if(r.status==='missing')return 'missing';
  if(r.id.startsWith('serve:')&&r.status==='shared')return 'animation';
