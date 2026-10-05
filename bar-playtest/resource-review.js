@@ -1,7 +1,7 @@
 (function(){
 'use strict';
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,cache=new Map();
+const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
 let F,rows=[],group='bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
 const badge=r=>'<span class="badge '+r.status+'">'+C.statusNames[r.status]+'</span>';
@@ -17,17 +17,31 @@ function paint(canvas,r,n,muted=new Set()){
 }
 function drawThumbs(){for(const c of document.querySelectorAll('canvas[data-thumb]')){const r=rows.find(r=>r.id===c.dataset.thumb);if(r)paint(c,r,0);}}
 function drawPreview(){if(!selected)return;paint($('#preview-canvas'),selected,step,disabled);const label=$('#frame-label');if(label)label.textContent=(step+1)+' / '+count(selected)+' 프레임';const slider=$('#frame-slider');if(slider)slider.value=step;}
-function filtered(){const q=$('#search').value.toLowerCase(),s=$('#status').value;return rows.filter(r=>r.group===group&&(s==='all'||s==='attention'&&['dummy','shared','missing'].includes(r.status)||r.status===s)&&(!q||[r.title,r.usage,r.wanted,r.key,r.note,...(r.layers||[]).map(l=>l.key+' '+l.src+' '+l.source)].join(' ').toLowerCase().includes(q)));}
+function picked(){if(!facetsByGroup.has(group))facetsByGroup.set(group,{});return facetsByGroup.get(group);}
+function baseFiltered(){const q=$('#search').value.trim().toLowerCase(),s=$('#status').value;return rows.filter(r=>r.group===group&&(s==='all'||s==='attention'&&['dummy','shared','missing'].includes(r.status)||r.status===s)&&(!q||[r.title,r.usage,r.wanted,r.key,r.note,...(r.layers||[]).map(l=>l.key+' '+l.src+' '+l.source)].join(' ').toLowerCase().includes(q)));}
+function filtered(){return baseFiltered().filter(r=>R.matches(r,picked()));}
+function filterHTML(){
+ const base=baseFiltered(),all=rows.filter(r=>r.group===group),p=picked();
+ return R.schema(group).map(([key,label])=>{
+  const candidates=base.filter(r=>R.matches(r,p,key));
+  return '<div class="facet-row" role="group" aria-label="'+label+'"><strong>'+label+'</strong><div class="facet-options">'+[['all','전체'],...R.options(all,key)].map(([value,title])=>{
+   const n=value==='all'?candidates.length:candidates.filter(r=>R.values(r,key).includes(value)).length,active=(p[key]||'all')===value;
+   return '<button data-facet="'+key+'" data-value="'+E(value)+'" aria-pressed="'+active+'" '+(!n&&!active?'disabled':'')+'>'+E(title)+'<span>'+n+'</span></button>';
+  }).join('')+'</div></div>';
+ }).join('')+'<div class="filter-foot"><small>분류끼리 함께 적용됩니다. 이미지 형태는 실제 프레임 수 기준입니다.</small><button data-filter-reset '+(!Object.values(p).some(v=>v!=='all')&&!$('#search').value&&$('#status').value==='all'?'disabled':'')+'>필터 초기화</button></div>';
+}
+function clearFilters(){facetsByGroup.set(group,{});$('#search').value='';$('#status').value='all';render();}
+
 function render(){
  $('#nav').innerHTML=['바 내부','외부'].map(area=>'<h3>'+area+'</h3>'+C.groups.filter(g=>g[1]===area).map(([id,,label])=>'<button data-group="'+id+'" aria-current="'+(id===group)+'">'+label+'<em>'+rows.filter(r=>r.group===id).length+'</em></button>').join('')).join('');
- const gs=C.groups.find(g=>g[0]===group);$('#heading').textContent=gs[1]+' · '+gs[2];const list=filtered();$('#count').textContent=list.length+'개 표시 / '+rows.filter(r=>r.group===group).length+'개';
+ const gs=C.groups.find(g=>g[0]===group);$('#heading').textContent=gs[1]+' · '+gs[2];const list=filtered();$('#resource-filters').innerHTML=filterHTML();if(selected&&!list.some(r=>r.id===selected.id)){selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}$('#count').textContent=list.length+'개 표시 / '+rows.filter(r=>r.group===group).length+'개';
  $('#totals').innerHTML=[['전체 항목',rows.length],['더미·대체·미등록',rows.filter(r=>['dummy','shared','missing'].includes(r.status)).length],['실제 화면 테스트',rows.filter(r=>r.launch).length]].map(([t,n])=>'<span><b>'+n+'</b>'+t+'</span>').join('');
- $('#grid').innerHTML=list.map(r=>'<button class="card '+(selected?.id===r.id?'selected':'')+'" data-id="'+E(r.id)+'"><div class="thumb">'+(r.layers?.length?'<canvas data-thumb="'+E(r.id)+'" aria-label="'+E(r.title)+'"></canvas>':'<span class="symbol">'+(r.status==='missing'?'—':'▣')+'</span>')+'</div><div class="card-copy"><strong>'+E(r.title)+'</strong><p>'+E(r.usage)+'</p>'+badge(r)+'</div></button>').join('')||'<p class="empty">일치하는 항목이 없습니다.</p>';
+ $('#grid').innerHTML=list.map(r=>'<button class="card '+(selected?.id===r.id?'selected':'')+'" data-id="'+E(r.id)+'"><div class="thumb">'+(r.preview?'<img class="ui-shot" src="'+E(r.preview)+'" alt="'+E(r.title)+' 실제 화면 미리보기" loading="lazy" decoding="async"><span class="shot-label">실제 화면</span>':r.layers?.length?'<canvas data-thumb="'+E(r.id)+'" aria-label="'+E(r.title)+'"></canvas>':'<span class="symbol">'+(r.status==='missing'?'—':'▣')+'</span>')+'</div><div class="card-copy"><strong>'+E(r.title)+'</strong><p>'+E(r.usage)+'</p>'+badge(r)+'</div></button>').join('')||'<p class="empty">일치하는 항목이 없습니다.</p>';
  drawThumbs();
 }
 function select(id){selected=rows.find(r=>r.id===id);if(!selected)return;step=age=0;playing=true;disabled=new Set();fps=selected.layers?.[0]?.fps||6;const r=selected;
  $('#inspector').innerHTML='<small>'+E(C.groups.find(g=>g[0]===r.group)?.[1])+' / RESOURCE DETAIL</small><h2>'+E(r.title)+'</h2><p>'+E(r.usage)+'</p>'+badge(r)+
- (r.layers?.length?'<div class="preview"><canvas id="preview-canvas"></canvas></div><div class="controls"><button data-action="play">일시정지</button><button data-action="prev" aria-label="이전 프레임">◀</button><button data-action="next" aria-label="다음 프레임">▶</button><label>FPS<input id="fps" type="number" min="1" max="60" value="'+fps+'"></label><button data-action="background">배경 변경</button></div><input class="scrub" id="frame-slider" aria-label="프레임" type="range" min="0" max="'+(count(r)-1)+'" value="0"><small id="frame-label"></small><p id="preview-status"></p>':'<p class="empty">'+(r.status==='missing'?'전용 이미지 미등록':'실제 화면에서 확인하는 UI입니다.')+'</p>')+
+ (r.preview?'<figure class="ui-preview"><img src="'+E(r.preview)+'" alt="'+E(r.title)+' 실제 화면 미리보기"><figcaption>'+E(r.previewNote)+'</figcaption></figure>':r.layers?.length?'<div class="preview"><canvas id="preview-canvas"></canvas></div><div class="controls"><button data-action="play">일시정지</button><button data-action="prev" aria-label="이전 프레임">◀</button><button data-action="next" aria-label="다음 프레임">▶</button><label>FPS<input id="fps" type="number" min="1" max="60" value="'+fps+'"></label><button data-action="background">배경 변경</button></div><input class="scrub" id="frame-slider" aria-label="프레임" type="range" min="0" max="'+(count(r)-1)+'" value="0"><small id="frame-label"></small><p id="preview-status"></p>':'<p class="empty">'+(r.status==='missing'?'전용 이미지 미등록':'실제 화면에서 확인하는 UI입니다.')+'</p>')+
  (r.launch?'<button class="primary" data-action="launch">실제 화면 테스트 ↗</button>':'')+
  '<dl class="meta"><dt>사용 / 확인 방법</dt><dd>'+E(r.note||'현재 등록된 게임 리소스입니다. 최종 제작 여부는 담당자 확인이 필요합니다.')+'</dd>'+(r.wanted?'<dt>요청 키 → 실제 사용 키</dt><dd>'+E(r.wanted)+' → '+E(r.key||'없음')+'</dd>':'')+'<dt>레이어 / 원본 출처</dt><dd class="layers">'+(r.layers?.length?r.layers.map(l=>'<label><input type="checkbox" data-layer="'+E(l.key)+'" checked> '+E(l.key)+'</label><span>'+E(l.source||'출처 메타데이터 없음')+'</span><span>'+(l.src?.startsWith('data:')?'cinematic/assets.js 내장 PNG': '<a href="'+E(l.src)+'" target="_blank" rel="noopener">'+E(l.src)+'</a>')+'<br>'+E((l.fw||l.w||'자동')+' × '+(l.fh||l.h||'자동'))+' · '+(l.frames||1)+'프레임</span>').join(''):'별도 이미지 없음 · 게임 코드에서 구성')+'</dd></dl>';
  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('selected',c.dataset.id===id));drawPreview();
@@ -37,6 +51,9 @@ function reset(){F.lunaQA.close();F.lunaCampaign.developer();F.document.querySel
 async function launch(d,title,note){
  if(busy)return;const token=++launchEpoch;busy=true;activeLaunch={d,title,note};lab.classList.remove('parked');$('#lab-title').textContent=title;$('#lab-note').textContent=note||'실제 UI를 직접 조작하세요.';$('#lab-note').classList.remove('error');
  try{
+  // Focus before opening a test dialog. Refocusing the iframe afterwards blurs
+  // its focused button and closes the exterior P drawer via loseFocus().
+  frame.focus();F.focus();
   reset();const g=F.barGame,c=F.lunaCampaign,q=F.lunaQA,ui=c.ui;const qa=id=>q.runSituation(id);const prep=id=>{q.state.cocktail=id||'gin_tonic';qa('prep');};
   if(d.type==='qa')qa(d.id);
   else if(d.type==='drink'||d.type==='serve'){q.state.cocktail=d.id;qa(d.type==='serve'?'result':'prep');if(d.type==='drink'){g.cancelCraft();g.openRecipes();ui.peek=d.id;}}
@@ -68,20 +85,21 @@ async function launch(d,title,note){
    }
    if(['settings','console'].includes(d.id)){const code=d.id==='settings'?'Escape':'KeyP';F.document.dispatchEvent(new F.KeyboardEvent('keydown',{code,key:d.id==='settings'?'Escape':'p',bubbles:true}));}
   }
-  if(token!==launchEpoch)return;c.render(true);frame.focus();F.focus();
+  if(token!==launchEpoch)return;c.render(true);
  }catch(e){if(token!==launchEpoch)return;$('#lab-note').textContent='이 테스트를 시작하지 못했습니다: '+e.message+' · 목록으로 돌아간 뒤 다른 항목을 선택해 주세요.';$('#lab-note').classList.add('error');console.error(e);}
  finally{if(token===launchEpoch)busy=false;}
 }
 function closeLab(){launchEpoch++;busy=false;if(F){F.lunaCampaign.developer();F.barGame.paused=true;}lab.classList.add('parked');$('#inspector [data-action="launch"]')?.focus();}
 $('#close-lab').onclick=closeLab;$('#replay').onclick=()=>activeLaunch&&launch(activeLaunch.d,activeLaunch.title,activeLaunch.note);
 $('#nav').onclick=e=>{const b=e.target.closest('[data-group]');if(b){group=b.dataset.group;render();}};
+$('#resource-filters').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.hasAttribute('data-filter-reset')){clearFilters();$('#resource-filters [data-facet]')?.focus({preventScroll:true});return;}const key=b.dataset.facet,value=b.dataset.value;picked()[key]=value;render();[...document.querySelectorAll('[data-facet]')].find(el=>el.dataset.facet===key&&el.dataset.value===value)?.focus({preventScroll:true});};
 $('#grid').onclick=e=>{const b=e.target.closest('[data-id]');if(b)select(b.dataset.id);};
 $('#search').oninput=render;$('#status').onchange=render;
 $('#inspector').onclick=e=>{const a=e.target.closest('[data-action]')?.dataset.action;if(!a)return;if(a==='launch')launch(selected.launch,selected.title,selected.note);else if(a==='play'){playing=!playing;e.target.textContent=playing?'일시정지':'재생';}else if(a==='next'||a==='prev'){playing=false;step=(step+(a==='next'?1:-1)+count(selected))%count(selected);$('#inspector [data-action="play"]').textContent='재생';drawPreview();}else if(a==='background'){const p=$('.preview');if(p.classList.contains('light')){p.classList.remove('light');p.classList.add('black');}else if(p.classList.contains('black'))p.classList.remove('black');else p.classList.add('light');}};
 $('#inspector').oninput=e=>{if(e.target.id==='frame-slider'){step=+e.target.value;playing=false;$('#inspector [data-action="play"]').textContent='재생';drawPreview();}if(e.target.id==='fps')fps=Math.max(1,Math.min(60,+e.target.value||6));if(e.target.dataset.layer){e.target.checked?disabled.delete(e.target.dataset.layer):disabled.add(e.target.dataset.layer);drawPreview();}};
 $('#export').onclick=()=>{const csv=[['분류','이름','용도','상태','요청 키','사용 키','파일','원본 출처','비고'],...rows.map(r=>[C.groups.find(g=>g[0]===r.group).slice(1).join(' / '),r.title,r.usage,C.statusNames[r.status],r.wanted,r.key,(r.layers||[]).map(l=>l.src?.startsWith('data:')?'cinematic/assets.js#'+l.key:l.src).join(' | '),(r.layers||[]).map(l=>l.source).join(' | '),r.note])].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='unknown-resource-review.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 function tick(t){if(selected&&playing&&lab.classList.contains('parked')){age+=Math.min(.1,(t-last)/1000)*fps;if(age>=1){step=(step+Math.floor(age))%count(selected);age%=1;drawPreview();}}last=t;requestAnimationFrame(tick);}requestAnimationFrame(tick);
-async function init(){try{F=frame.contentWindow;if(!F.lunaCampaign||!F.lunaQA){if(performance.now()-loadingStarted>45000)throw Error('시뮬레이터 로딩이 지연되고 있습니다. 웹 서버 연결을 확인한 뒤 새로고침해 주세요.');setTimeout(init,150);return;}F.document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&!/^(blob:|data:|#)/.test(a.getAttribute('href'))){e.preventDefault();$('#lab-note').textContent='테스트 안에서는 다른 페이지로 이동하지 않습니다. 목록으로 돌아가 다른 테스트를 선택하세요.';}},true);F.document.querySelector('.updates-confirm')?.click();F.lunaCampaign.developer();F.barGame.paused=true;rows=C.build(F);$('#notice').textContent='카드별 용도와 대체 여부를 확인하세요. 컷씬 캐릭터 데이터를 추가로 불러오고 있습니다.';render();await F.lunaCampaign.script('assets');rows.push(...C.cinema(F));$('#notice').textContent='실제 등록 데이터 기준 · 정적 이미지에는 임의의 애니메이션을 넣지 않습니다. 하운드·코라테크 병력 제외.';render();window.resourceReview.ready=true;$('#export').disabled=false;}catch(e){$('#notice').textContent='데이터를 불러오지 못했습니다: '+e.message;$('#notice').classList.add('error');}}
+async function init(){try{F=frame.contentWindow;if(!F.lunaCampaign||!F.lunaQA){if(performance.now()-loadingStarted>45000)throw Error('시뮬레이터 로딩이 지연되고 있습니다. 웹 서버 연결을 확인한 뒤 새로고침해 주세요.');setTimeout(init,150);return;}F.document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&!/^(blob:|data:|#)/.test(a.getAttribute('href'))){e.preventDefault();$('#lab-note').textContent='테스트 안에서는 다른 페이지로 이동하지 않습니다. 목록으로 돌아가 다른 테스트를 선택하세요.';}},true);F.document.querySelector('.updates-confirm')?.click();F.lunaCampaign.developer();F.barGame.paused=true;rows=C.build(F).map(R.decorate);$('#notice').textContent='카드별 용도와 대체 여부를 확인하세요. 컷씬 캐릭터 데이터를 추가로 불러오고 있습니다.';render();await F.lunaCampaign.script('assets');rows.push(...C.cinema(F).map(R.decorate));$('#notice').textContent='0–3일차 출연 캐릭터 + 부비(등장 예정) · UI는 실제 화면 캡처 제공 · 하운드·코라테크 병력 제외.';render();window.resourceReview.ready=true;$('#export').disabled=false;}catch(e){$('#notice').textContent='데이터를 불러오지 못했습니다: '+e.message;$('#notice').classList.add('error');}}
 window.resourceReview={get rows(){return rows;},get selected(){return selected;},select,launch,close:closeLab,ready:false};
 init();
 })();

@@ -18,10 +18,12 @@ function build(F){
  const ignored=new Set(['hound','soldier','radio','luna','yuna','johnny','message','street_citizen_a','street_citizen_b','street_citizen_c','street_citizen_d']);
  add({id:'actor:luna:pov',group:'bar-characters',title:'루나 · 바텐더 시점',usage:'바 내부 전신 이미지 사용 안 함',status:'code',layers:[],note:'바 내부에서는 플레이어 시점의 화자입니다. 외부 루나 동작은 외부 캐릭터 분류에서 확인하세요.',launch:{type:'pair'}});
  add({id:'actor:johnny:pov',group:'bar-characters',title:'조니 · 회상 시점',usage:'회상 전신 이미지 사용 안 함',status:'code',layers:[],note:'조니의 기억은 조니의 시점으로 진행됩니다. 말풍선 이름과 맞은편 톰 이미지를 사용합니다.',launch:{type:'johnny-memory'}});
- for(const id of new Set([...Object.keys(D.characterLayers),...D.tables.characters.map(c=>c.id).filter(id=>!ignored.has(id))])){
+ const storyScenes=new Set(D.tables.scenes.filter(s=>Number(s.day)>=0&&Number(s.day)<=3).map(s=>s.id));
+ const cast=new Set(['bubi',...D.tables.steps.filter(s=>storyScenes.has(s.context)).map(s=>s.actor)]);
+ for(const id of new Set([...Object.keys(D.characterLayers),...D.tables.characters.map(c=>c.id)].filter(id=>cast.has(id)&&!ignored.has(id)))){
   const poses=Object.entries(D.characterLayers[id]||{});
   if(!poses.length)add({id:'actor:'+id,group:'bar-characters',title:name(id),usage:'바 캐릭터 · 포즈 미등록',status:'missing',layers:[],note:'캐릭터 데이터는 있으나 바 전용 포즈가 등록되지 않았습니다. 실제 출연 예정 여부는 기획 확인이 필요합니다.'});
-  for(const [pose,keys]of poses){const ls=keys.map(k=>layer(k,A[k],{offset:D.webPoseOffsets?.[id]?.[pose]||[0,0]})).filter(Boolean);add({id:'actor:'+id+':'+pose,group:'bar-characters',title:name(id),usage:pose,status:keys.some(k=>!A[k])?'missing':ls.some(l=>state(A[l.key])==='dummy')||['tom','shiba'].includes(id)?'dummy':'registered',layers:ls,stage:[551,530],note:['tom','shiba'].includes(id)?'현재 정적 임시 손님 이미지입니다. talk 포즈도 동일 이미지를 사용하며 애니메이션이 아닙니다.':'레이어를 원래 위치에 합성합니다. 아래에서 부위별 표시를 켜거나 끌 수 있습니다.'});}
+  for(const [pose,keys]of poses){const ls=keys.map(k=>layer(k,A[k],{offset:D.webPoseOffsets?.[id]?.[pose]||[0,0]})).filter(Boolean);add({id:'actor:'+id+':'+pose,group:'bar-characters',title:name(id),usage:pose+(id==='bubi'?' · 등장 예정':''),status:keys.some(k=>!A[k])?'missing':ls.some(l=>state(A[l.key])==='dummy')||['tom','shiba'].includes(id)?'dummy':'registered',layers:ls,stage:[551,530],note:id==='bubi'?'0–3일차에는 아직 등장하지 않지만 출연 예정이므로 유지합니다. 등록된 모든 표정·레이어를 확인할 수 있습니다.':['tom','shiba'].includes(id)?'현재 정적 임시 손님 이미지입니다. talk 포즈도 동일 이미지를 사용하며 애니메이션이 아닙니다.':'레이어를 원래 위치에 합성합니다. 아래에서 부위별 표시를 켜거나 끌 수 있습니다.'});}
  }
  for(const sex of ['m','f']){const keys=Object.keys(A).filter(k=>k.startsWith('guest_'+sex+'_'));const base=keys.filter(k=>/_(body|top_1|eyes_1|eyebrow_1|mouth_1|hair_1)$/.test(k));add({id:'guest:'+sex,group:'bar-characters',title:'일반 손님 · '+(sex==='m'?'남성':'여성'),usage:'기본 부위 합성',layers:layers(base),stage:[551,530]});for(const k of keys)add({id:k,group:'bar-characters',title:'일반 손님 · '+(sex==='m'?'남성':'여성'),usage:k.replace('guest_'+sex+'_',''),layers:layers([k]),status:state(A[k])});}
  for(const c of D.tables.cocktails){
@@ -32,7 +34,7 @@ function build(F){
  }
  const items=[...D.tables.shelf_items];if(!items.some(x=>x.id==='opener'))items.push({id:'opener',kind:'tool'});
  for(const it of items)for(const [kind,prefix,label]of [['shelf','item_','선반'],['recipe','recipe_item_','레시피 상세'],['inventory','inventory_item_','담은 재료']])imageRecord('item:'+it.id+':'+kind,'bar-items',name(it.id),(it.kind||'재료')+' · '+label,prefix+it.id,['item_'+it.id,'item_dummy'],{launch:{type:'prep',id:it.id},itemKind:it.kind});
- const ui=(id,title,note,launch,group='bar-ui')=>add({id:'ui:'+id,group,title,usage:'실제 화면 · 직접 조작',status:'code',layers:[],note,launch});
+ const ui=(id,title,note,launch,group='bar-ui')=>add({id:'ui:'+id,group,title,usage:'실제 화면 · 직접 조작',status:'code',layers:[],note,launch,preview:'assets/resource-previews/'+('ui:'+id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg',previewNote:'실제 게임 화면 캡처 · 2026-10-05 · 정적 미리보기'});
  for(const [id,title]of F.LunaQALab.STATES)ui(id,title,'실제 '+title+' 상태를 재현합니다. 손님·잔·버튼에 마우스를 올리거나 클릭해 보세요.',{type:'qa',id});
  for(const [id,title,note]of [
   ['recipes','레시피 목록 / 상세 / 잠김','레시피 카드 호버·클릭, 상세 보기와 제조 진입. 1일차 해금 기준으로 잠금 상태도 확인합니다.'],
