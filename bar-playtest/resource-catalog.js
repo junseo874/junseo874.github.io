@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const groups=[['bar-characters','바 내부','캐릭터 / 애니메이션'],['bar-drinks','바 내부','칵테일 · 용도별 이미지'],['bar-items','바 내부','재료 / 도구 / 잔'],['bar-serve','바 내부','제공하기 컷씬'],['bar-ui','바 내부','UI / 화면 테스트'],['out-characters','외부','캐릭터 / 컷씬 동작'],['out-ui','외부','UI / 이벤트 테스트']];
-const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체·공용',missing:'미등록',code:'코드 UI'};
+const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체·공용',missing:'미등록',code:'코드 UI·연출'};
 function build(F){
  const D=F.barData,g=F.barGame,A=D.assets,O=F.LUNA_OUTSIDE_DATA,rows=[];
  const name=id=>g.name(id)||id;
@@ -66,6 +66,27 @@ function build(F){
  for(const [id,title]of [['in','바 입장 / 문 열림 로딩'],['out','바 퇴장 / 문 닫힘 로딩']])ui('door:'+id,title,'실제 문·간판·주변 오브젝트·빛·전환 연출. 최소 대기 시간도 동일합니다.',{type:'door',id},'out-ui');
  ui('day-transition','일차 전환 / Day 숫자','검은 화면과 Day 0 → 1 숫자 전환을 실제 연출로 재생합니다.',{type:'day-transition'},'out-ui');
  ui('johnny-memory','조니의 기억 / 화자 이름','실제 바 구도의 회상 대사·이름·말풍선·전환을 확인합니다.',{type:'johnny-memory'},'out-ui');
+ for(const area of ['bar','out'])groups.some(g=>g[0]===area+'-fx')||groups.splice(groups.findIndex(g=>g[0]===area+'-ui')+1,0,[area+'-fx',area==='bar'?'바 내부':'외부','연출 / 이펙트']);
+ const fx=(id,area,title,category,source,launch,previewId,note,status='code')=>add({id:'fx:'+id,group:area+'-fx',title,usage:source,status,layers:[],effectCategory:category,launch,preview:'assets/resource-previews/'+(previewId||'fx:'+id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg',previewNote:previewId?'관련 실제 화면 · 동작은 실제 화면 테스트에서 확인':'효과 재생 중 실제 화면 캡처',note:note+' · 구현: '+source+' · 검수용 상태 설정이며 본편 진행에는 반영되지 않습니다.'});
+ for(const [id,title]of [['arrival','손님 입장 · 페이드 / 이동'],['exit','손님 퇴장'],['red','좌석 위험 · 점멸']])fx(id,'bar',title,id==='red'?'guidance':'transition','bar-views.js / bar-views.css',{type:'qa',id},'ui:'+id,'실제 손님 상태와 표시 효과를 확인합니다. 다시 실행하면 처음부터 재생합니다.');
+ fx('tutorial','bar','튜토리얼 · 암전 / 강조 / 화살표','guidance','tutorial-view.js / tutorial-view.css',{type:'tutorial'},'ui:tutorial','대화를 진행해 코스터·선반·드래그 안내의 움직임과 주변 암전을 확인하세요.');
+ fx('camera','bar','단골 1인 ↔ 2인 · 카메라 전환','camera','bar-views.js / bar-views.css',{type:'effect',id:'camera'},'ui:pair','1인 구도에서 2인 구도로 전환한 뒤 1인으로 돌아갑니다. 말풍선도 같은 월드 변환을 사용합니다.');
+ for(const combo of [5,10])fx('shake-'+combo,'bar','쉐이킹 · '+combo+'콤보 / '+(combo===5?'1':'2')+'단계','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',combo},null,'실제 성공 입력으로 해당 콤보에 진입합니다. 불꽃·발광·속도선·애니메이션 가속을 비교하세요. 이후 직접 입력하거나 다시 실행할 수 있습니다.');
+ fx('shake-miss','bar','쉐이킹 · MISS / 콤보 초기화','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',combo:5,miss:true},null,'5콤보 이후 실제 오입력을 재현합니다. MISS 피드백·불꽃 해제·캐릭터 정지와 다음 성공 시 재개를 확인하세요.');
+ for(const success of [true,false])fx('open-'+(success?'hit':'miss'),'bar','병따기 · '+(success?'성공 / 캡 튕김 / 섬광':'실패 / 반동'),'judgement','open-view.js / core.js',{type:'effect',id:'open',success},null,'실제 병따기 판정과 캡·병따개·고리 효과를 바로 재생합니다. 짧은 효과는 다시 실행으로 반복 확인하세요.');
+ for(const ingredient of ['gin','beer'])fx('pour-'+ingredient,'bar','따르기 · '+(ingredient==='gin'?'푸어러 / 가는 물줄기':'미장착 / 굵은 물줄기'),'fluid','pour-fluid.js / pour-view.js',{type:'effect',id:'pour',ingredient},null,'실제 재료별 입구·유량·잔에 쌓이는 액체를 재생합니다. 자동 시연 뒤 Space로 직접 따를 수 있습니다.');
+ fx('stir','bar','스터 · 얼음 / 스푼 / 회전 잔상','fluid','stir-polish.js / bar-views.js',{type:'effect',id:'stir'},null,'실제 W → D → S → A → W 입력으로 한 바퀴를 재생합니다. 이후 직접 젓거나 다시 실행하세요.');
+ fx('serve','bar','완성 · 제공 애니메이션 / 등급 등장','judgement','serve-view.js / serve-view.css',{type:'serve',id:'gin_tonic'},'ui:result','진토닉 결과 연출입니다. 칵테일별 원본 시트와 대체 이미지는 제공하기 컷씬 분류에서 확인하세요.');
+ for(const id of ['income','expense','unlock'])fx(id,'bar',{income:'소지금 증가 · 일시 알림',expense:'소지금 차감 · 일시 알림',unlock:'신규 재료 / 레시피 · 해금 안내'}[id],'notice','currency-view.js / app.js',{type:'qa',id},'ui:'+id,'실제 알림의 등장·유지·사라짐과 팝업을 확인합니다.');
+ fx('placeholder','bar','대본 FX / SFX · 더미 효과','placeholder','core.js / app.js',{type:'scene',id:'t99_fxsfx'},'ui:scene:t99_fxsfx','대본을 넘기며 공용 플래시와 더미 효과음을 확인합니다. 전용 이펙트·음향이 완성된 상태가 아닙니다.','dummy');
+ for(const id of ['in','out'])fx('door-'+id,'out','바 문 · '+(id==='in'?'열림 / 따뜻한 빛':'닫힘 / 암전'),'transition','bar-door-transition.js / campaign.js',{type:'door',id},'ui:door:'+id,'실제 로딩 전환입니다. 최소 3초 대기 후 문 동작과 화면 전환을 재생합니다.');
+ fx('day','out','일차 종료 · 암전 / Day 숫자 전환','transition','campaign.js / campaign.css',{type:'day-transition'},'ui:day-transition','Day 0 → 1 전환을 재생합니다.');
+ fx('terrace','out','테라스 · 서서히 나타나는 진입','transition','terrace-view.js / campaign.js',{type:'terrace',id:'night0'},'ui:terrace:night0','테라스 페이드 인과 대화를 재생합니다. 대사를 진행하면 연결된 회상도 확인할 수 있습니다.');
+ fx('memory','out','기억 회상 · 전환 / 화면 노이즈','transition','johnny-memory.js / campaign.js',{type:'johnny-memory'},'ui:johnny-memory','조니의 기억에 진입해 실제 회상 연출을 확인합니다.');
+ fx('lift','out','엘리베이터 · 로고 / 그라디언트 / 팀명','transition','outside-qa.js / campaign.css',{type:'outside',id:'lift-logo'},'ui:outside:lift-logo','QA 승강 연출의 로고·우측 음영·Team. SimChung 표시를 확인합니다.');
+ fx('panorama','out','전경 관찰 · 카메라 줌 / 복귀','camera','outside.js',{type:'exterior',id:'panorama'},'ui:exterior:panorama','관찰 지점에서 Y를 눌러 전경 확대와 복귀를 비교하세요.');
+ fx('purchase','out','구매 · 재화 차감 / 재료 슬라이드 알림','notice','currency-view.js / outside.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','우측 재화 알림과 좌측 재료 획득 알림을 동시에 재생합니다.');
+ fx('street','out','거리 · 원경 / 중경 / 근경 / 전광판','environment','outside.js / outside-data.js',{type:'exterior',id:'street'},'ui:exterior:street','A/D 이동으로 레이어·가림·거리 전광판을 확인합니다. 코드와 기존 이미지로 구성된 현재 표현이며 별도 셰이더 원본이 등록됐다는 의미는 아닙니다.');
  return rows;
 }
 function cinema(F){return Object.entries(F.SHEETS||{}).filter(([k])=>/^(luna|yuna)/i.test(k)).map(([k,a])=>({id:'cinema:'+k,group:'out-characters',title:k.startsWith('luna')?'루나 · 컷씬':'유나 · 컷씬',usage:k,status:'registered',note:'컷씬 원본 프레임입니다. 하운드·코라테크 병력은 목록에서 제외합니다.',layers:[{key:k,source:'cinematic/assets.js · '+k,src:a.png,frames:a.frames.length,fps:8,rects:a.frames.map(f=>({x:f.sx,y:f.sy,w:f.sw,h:f.sh,ox:f.ox,oy:f.oy,cw:f.cw,ch:f.ch}))}]}));}

@@ -64,6 +64,28 @@ async function launch(d,title,note){
   else if(d.type==='scene'||d.type==='choices'){q.state.scene=d.id||'t99_dialogue';q.state.step='0';if(d.type==='choices'){const choice=g.t.steps.find(r=>r.type==='choice');if(!choice)throw Error('등록된 선택지 스텝이 없습니다.');q.state.scene=choice.context;q.state.step=String(g.t.steps.filter(r=>r.context===choice.context).sort((a,b)=>+a.seq-+b.seq).indexOf(choice));}q.runScene();}
   else if(d.type==='tutorial'){g.reset(0,'full',1,true,{variant:'original',serviceVersion:'A'});}
   else if(d.type==='mini'){ui.minigames=true;g.startMinigame(d.id,'original');}
+  else if(d.type==='effect'){
+   if(d.id==='camera'){
+    g.day=3;g.phase='regular';g.screen='bar';g.focus='L';g.currentOrder=null;g.seats={L:{id:'fx-chris',actor:'chris',state:'STORY'},M:null,R:null};c.render(true);
+    await new Promise(resolve=>F.setTimeout(resolve,1100));if(token!==launchEpoch)return;
+    g.seats.R={id:'fx-tom',actor:'tom',state:'STORY'};c.render(true);
+    await new Promise(resolve=>F.setTimeout(resolve,1800));if(token!==launchEpoch)return;
+    g.seats.L=null;
+   }else{
+    ui.minigames=true;g.startMinigame(d.id,'original');const s=g.gimmick;
+    if(d.id==='shake'){
+     F.LunaShakeRhythm.init(s,'fall');g.gimmickInput('Space');
+     for(let i=0;i<d.combo;i++){const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}
+     if(d.miss){const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyA':'KeyD');}
+     // Keep a short inspection interval before the next live note arrives.
+     for(const n of s.rhythm.notes)if(!n.status)n.time+=5;
+    }else if(d.id==='open'){g.gimmickInput('Space');s.beatTime=d.success?g.c('open_approach_sec',1.6):0;g.gimmickInput('Space');}
+    else if(d.id==='pour'){
+     g.craft.queue=[{type:'pour',ingredient:d.ingredient,target:360,unit:'ml'}];g.craft.index=0;g.nextGimmick();g.holdPour(true);c.render(true);
+     await new Promise(resolve=>F.setTimeout(resolve,2500));if(token!==launchEpoch)return;g.holdPour(false);
+    }else if(d.id==='stir'){for(const key of ['KeyW','KeyD','KeyS','KeyA','KeyW'])g.gimmickInput(key);}
+   }
+  }
   else if(d.type==='terrace'){c.scene(d.id,'리소스 확인',d.id==='workshop'?'black':'terrace',()=>closeLab());}
   else if(d.type==='door'){c.runDoorTransition(d.id,()=>Promise.resolve(),()=>{c.screen('developer');c.render(true);});}
   else if(d.type==='day-transition'){c.beginDayTransition(0,1,()=>c.screen('developer'));}
