@@ -18,8 +18,8 @@ function reason(r){
  if(category(r)==='character'&&!/^actor:(tom|shiba)(:|$)/.test(r.id)&&r.id!=='outside:terrace-chris')return null;
  if(r.uiArtPending)return 'uiArt';
  const ls=r.layers||[],dummy=ls.some(temporary);
+ if(r.id.startsWith('serve:')&&['missing','shared'].includes(r.status))return 'animation';
  if(r.status==='missing')return 'missing';
- if(r.id.startsWith('serve:')&&r.status==='shared')return 'animation';
  if(r.key==='item_dummy'||r.id.startsWith('outside-role:')&&r.status==='dummy'||r.status==='shared'&&dummy)return 'sharedDummy';
  if(r.status==='dummy'||dummy)return 'dummy';
  if(r.id.startsWith('drink:')&&r.key?.startsWith('item_'))return 'missing';

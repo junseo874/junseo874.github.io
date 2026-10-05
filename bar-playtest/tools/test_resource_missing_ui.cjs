@@ -4,6 +4,10 @@ const p=await b.newPage({viewport:{width:1500,height:1000}}),errors=[];p.on('pag
 const entries=await p.evaluate(()=>resourceReview.missing.entries);assert(entries.length>10);assert.equal(new Set(entries.map(e=>e.id)).size,entries.length);
 const pendingIds=['recipes','dossier','overlay:service','overlay:settings','overlay:history','overlay:johnnyUnlock','unlock','mini:shake','mini:stir','mini:pour','result'].map(id=>'ui:'+id);
 const catalog=await p.evaluate(()=>resourceReview.rows);
+const registeredServe=['cosmopolitan','dry_martini','gin_fizz','gin_tonic','kahlua_milk'],serve=catalog.filter(r=>r.group==='bar-serve');
+assert.deepEqual(serve.filter(r=>r.status==='registered').map(r=>r.id.slice(6)).sort(),registeredServe);
+for(const r of serve.filter(r=>!registeredServe.includes(r.id.slice(6)))){assert.equal(r.status,'missing');assert(entries.some(e=>e.rows.some(x=>x.row.id===r.id&&x.reason==='animation')));}
+await p.click('[data-group="bar-serve"]');await p.selectOption('#status','missing');assert.equal(await p.locator('#grid .card').count(),serve.length-5);for(const badge of await p.locator('#grid .badge').allTextContents())assert.equal(badge,'미등록');await p.selectOption('#status','all');
 assert.equal(catalog.filter(r=>r.uiArtPending).length,pendingIds.length);
 for(const id of pendingIds){const r=catalog.find(r=>r.id===id);assert(r&&r.uiArtPending&&r.status==='missing'&&r.preview&&r.launch,id);assert(entries.some(e=>e.category==='ui'&&e.reasons.includes('uiArt')&&e.rows.some(x=>x.row.id===id)),id);}
 for(const id of ['ui:updates','ui:qa-panel'])assert(!catalog.some(r=>r.id===id));

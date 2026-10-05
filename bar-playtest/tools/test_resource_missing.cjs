@@ -4,6 +4,7 @@ const samples=[row('item:gin:recipe','bar-items','shared',[real]),row('item:gin:
 samples.push(row('actor:tom:idle','bar-characters','dummy'),row('actor:shiba:idle','bar-characters','dummy'));
 const gaps=M.build(samples);assert.equal(gaps.length,8);assert.equal(gaps.find(e=>e.id==='item:item:milk').rows.length,3);assert.equal(gaps.find(e=>e.id==='item:item:milk').reasons[0],'sharedDummy');assert.equal(gaps.find(e=>e.id==='cocktail:cocktail:good').reasons[0],'animation');assert.deepEqual(new Set(gaps.map(e=>e.category)),new Set(M.categories.map(c=>c[0])));
 const pending=M.build([row('ui:recipes','bar-ui','missing',[],{uiArtPending:true,preview:'screenshot.jpg'}),row('ui:choices','bar-ui','code')]);
+assert.equal(M.reason(row('serve:absent','bar-serve','missing',[real])),'animation');
 assert.equal(pending.length,1);assert.equal(pending[0].category,'ui');assert.deepEqual(pending[0].reasons,['uiArt']);
 for(const id of ['item:gin:recipe','item:gin:inventory','bg:residence','ui:choices','fx:camera','drink:good:recipe'])assert(!gaps.some(e=>e.rows.some(x=>x.row.id===id)),id);
 const passers=['M1','M2','W1'].map(kind=>row('outside:'+kind,'out-characters','dummy',[{key:'ambient-'+kind}]));
