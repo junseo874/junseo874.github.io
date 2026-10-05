@@ -13,7 +13,7 @@ function build(F){
  function imageRecord(id,group,title,usage,wanted,fallback,extra={}){
   extra=Object.fromEntries(Object.entries(extra).filter(([,v])=>v!==undefined));
   const key=[wanted,...fallback].find(k=>A[k]),a=A[key];
-  add({id,group,title,usage,status:!a?'missing':key!==wanted?'shared':state(a),wanted,key,layers:a?[layer(key,a)]:[],note:!a?'전용 이미지와 대체 이미지가 등록되지 않았습니다.':key!==wanted?'전용 키 '+wanted+' 미등록. 현재 '+key+' 이미지로 대체됩니다.':undefined,...extra});
+  add({id,group,title,usage,status:!a?'missing':a.sharedFrom||key!==wanted?'shared':state(a),wanted,key:a?.sharedFrom||key,layers:a?[layer(key,a)]:[],note:!a?'전용 이미지와 대체 이미지가 등록되지 않았습니다.':a.sharedFrom?'같은 종류의 등록 이미지 '+a.sharedFrom+'를 공용으로 사용합니다. 더미가 아니며 용도별 전용 이미지를 따로 만들 필요가 없습니다.':key!==wanted?'전용 키 '+wanted+' 미등록. 현재 '+key+' 이미지로 대체됩니다.':undefined,...extra});
  }
  const ignored=new Set(['hound','soldier','radio','luna','yuna','johnny','message','street_citizen_a','street_citizen_b','street_citizen_c','street_citizen_d']);
  add({id:'actor:luna:pov',group:'bar-characters',title:'루나 · 바텐더 시점',usage:'바 내부 전신 이미지 사용 안 함',status:'code',layers:[],note:'바 내부에서는 플레이어 시점의 화자입니다. 외부 루나 동작은 외부 캐릭터 분류에서 확인하세요.',launch:{type:'pair'}});
@@ -87,6 +87,8 @@ function build(F){
  fx('panorama','out','전경 관찰 · 카메라 줌 / 복귀','camera','outside.js',{type:'exterior',id:'panorama'},'ui:exterior:panorama','관찰 지점에서 Y를 눌러 전경 확대와 복귀를 비교하세요.');
  fx('purchase','out','구매 · 재화 차감 / 재료 슬라이드 알림','notice','currency-view.js / outside.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','우측 재화 알림과 좌측 재료 획득 알림을 동시에 재생합니다.');
  fx('street','out','거리 · 원경 / 중경 / 근경 / 전광판','environment','outside.js / outside-data.js',{type:'exterior',id:'street'},'ui:exterior:street','A/D 이동으로 레이어·가림·거리 전광판을 확인합니다. 코드와 기존 이미지로 구성된 현재 표현이며 별도 셰이더 원본이 등록됐다는 의미는 아닙니다.');
+ for(const area of ['bar','out'])if(!groups.some(g=>g[0]===area+'-backgrounds'))groups.splice(groups.findIndex(g=>g[0]===area+'-ui'),0,[area+'-backgrounds',area==='bar'?'바 내부':'외부','배경 / 화면별 레이어']);
+ rows.push(...W.ResourceBackgrounds.build(F));
  return rows;
 }
 function cinema(F){return Object.entries(F.SHEETS||{}).filter(([k])=>/^(luna|yuna)/i.test(k)).map(([k,a])=>({id:'cinema:'+k,group:'out-characters',title:k.startsWith('luna')?'루나 · 컷씬':'유나 · 컷씬',usage:k,status:'registered',note:'컷씬 원본 프레임입니다. 하운드·코라테크 병력은 목록에서 제외합니다.',layers:[{key:k,source:'cinematic/assets.js · '+k,src:a.png,frames:a.frames.length,fps:8,rects:a.frames.map(f=>({x:f.sx,y:f.sy,w:f.sw,h:f.sh,ox:f.ox,oy:f.oy,cw:f.cw,ch:f.ch}))}]}));}

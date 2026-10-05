@@ -5,6 +5,7 @@ const labels={media:{static:'단일 / 정적 이미지',animation:'애니메이�
 function decorate(r){
  const f={media:!r.layers?.length?'none':r.layers.some(l=>(l.frames||1)>1)?'animation':'static'};
  if(r.effectCategory)f.effect=r.effectCategory;
+ if(r.backgroundScreen){f.backgroundScreen=r.backgroundScreen;f.backgroundKind=r.backgroundKind;}
  if(['bar-characters','out-characters'].includes(r.group)){
   f.actor=r.title.startsWith('일반 손님')?r.title:r.title.split(' · ')[0];
   const raw=(r.id+' '+r.usage).toLowerCase();
@@ -32,6 +33,7 @@ function decorate(r){
  return {...r,facets:f};
 }
 function schema(group){
+ if(group.endsWith('-backgrounds'))return [['backgroundScreen','사용 화면'],['backgroundKind','배경 / 레이어 종류']];
  if(group.endsWith('-fx'))return [['effect','연출 종류']];
  if(['bar-characters','out-characters'].includes(group))return [['actor','캐릭터'],['motion','동작 / 상태'],['media','리소스 형태']];
  if(group==='bar-drinks')return [['usage','이미지 용도']];
@@ -41,6 +43,6 @@ function schema(group){
 }
 const values=(r,key)=>Array.isArray(r.facets[key])?r.facets[key]:[r.facets[key]];
 const matches=(r,picked,skip)=>Object.entries(picked).every(([key,value])=>key===skip||value==='all'||values(r,key).includes(value));
-function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패 / 콤보',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'?[...present].map(v=>[v,v]):Object.entries(key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
+function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패 / 콤보',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'||key.startsWith('background')?[...present].map(v=>[v,v]):Object.entries(key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
 const api={decorate,schema,options,matches,values};W.ResourceFilters=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);
