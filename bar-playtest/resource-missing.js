@@ -39,29 +39,27 @@ function build(rows){
 }
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function mount({getRows,inspect,paint}){
- const button=document.querySelector('#missing-resources'),dialog=document.querySelector('#missing-dialog');let entries=[],picked='all',query='',status='all',area='all';
+ const panel=document.querySelector('#missing-view');let entries=[],picked='all',query='',status='all',area='all';
  const visible=()=>entries.filter(e=>(picked==='all'||picked===e.category)&&(status==='all'||e.reasons.includes(status))&&(area==='all'||e.area===area)&&(!query||[e.title,e.area,...e.rows.flatMap(({row:r})=>[r.usage,r.id,r.note,r.wanted,r.key,...(r.layers||[]).map(l=>l.key+' '+l.source)])].join(' ').toLowerCase().includes(query)));
  function render(){
   const list=visible();
-  dialog.querySelector('.missing-tabs').innerHTML=[['all','전체'],...categories].map(([id,title])=>'<button data-missing-category="'+id+'" aria-pressed="'+(picked===id)+'">'+title+'<span>'+entries.filter(e=>id==='all'||e.category===id).length+'</span></button>').join('');
-  dialog.querySelector('#missing-count').textContent=list.length+'종 / 전체 '+entries.length+'종 · 같은 항목의 용도·표정은 한 줄로 모았습니다.';
-  dialog.querySelector('#missing-list').innerHTML=list.map(e=>{const r=e.rows[0].row;return '<article class="missing-entry" data-gap="'+esc(e.id)+'"><div class="missing-thumb">'+(r.preview?'<img src="'+esc(r.preview)+'" alt="현재 임시 표시" loading="lazy">':r.layers?.length?'<canvas data-thumb="'+esc(r.id)+'" aria-label="'+esc(e.title)+' 현재 표시"></canvas>':'<span aria-label="이미지 미등록">—</span>')+'</div><div class="missing-copy"><small>'+categories.find(c=>c[0]===e.category)[1]+' · '+e.area+'</small><h3>'+esc(e.title)+'</h3><div class="missing-badges">'+e.reasons.map(k=>'<span class="badge '+(k==='missing'?'missing':'dummy')+'">'+reasons[k]+'</span>').join('')+'</div><p>'+esc([...new Set(e.rows.map(({row})=>row.usage))].join(' / '))+'</p><details><summary>누락·대체 내역 '+e.rows.length+'건</summary>'+e.rows.map(({row:r,reason:k})=>'<div class="missing-detail"><b>'+esc(r.usage)+'</b><p>'+reasons[k]+(k==='animation'?' · 정적 이미지로 대신 재생 중':'')+'</p><p>'+esc(r.note||'현재 등록된 이미지의 출처가 더미·임시로 표시되어 있습니다.')+'</p><code>'+esc(r.id)+'</code>'+(r.layers?.length?'<p class="missing-source">현재 사용: '+r.layers.map(l=>esc(l.key)+'<br>'+esc(l.source||'출처 메타데이터 없음')).join('<br>')+'</p>':'<p>사용 가능한 이미지 없음</p>')+'<button data-missing-inspect="'+esc(r.id)+'">이 용도 확인 ↗</button></div>').join('')+'</details></div><button class="missing-inspect" data-missing-inspect="'+esc(r.id)+'">리소스 보기 ↗</button></article>';}).join('')||'<p class="missing-empty">'+(query||status!=='all'||area!=='all'?'조건에 맞는 항목이 없습니다.':'현재 등록 데이터에서 이 분류의 미제작 항목이 확인되지 않았습니다.')+'</p>';
-  for(const canvas of dialog.querySelectorAll('canvas[data-thumb]')){const r=getRows().find(r=>r.id===canvas.dataset.thumb);if(r)paint(canvas,r,0);}
+  panel.querySelector('.missing-tabs').innerHTML=[['all','전체'],...categories].map(([id,title])=>'<button data-missing-category="'+id+'" aria-pressed="'+(picked===id)+'">'+title+'<span>'+entries.filter(e=>id==='all'||e.category===id).length+'</span></button>').join('');
+  panel.querySelector('#missing-count').textContent=list.length+'종 / 전체 '+entries.length+'종 · 같은 항목의 용도·표정은 한 줄로 모았습니다.';
+  panel.querySelector('#missing-list').innerHTML=list.map(e=>{const r=e.rows[0].row;return '<article class="missing-entry" data-gap="'+esc(e.id)+'"><div class="missing-thumb">'+(r.preview?'<img src="'+esc(r.preview)+'" alt="현재 임시 표시" loading="lazy">':r.layers?.length?'<canvas data-thumb="'+esc(r.id)+'" aria-label="'+esc(e.title)+' 현재 표시"></canvas>':'<span aria-label="이미지 미등록">—</span>')+'</div><div class="missing-copy"><small>'+categories.find(c=>c[0]===e.category)[1]+' · '+e.area+'</small><h3>'+esc(e.title)+'</h3><div class="missing-badges">'+e.reasons.map(k=>'<span class="badge '+(k==='missing'?'missing':'dummy')+'">'+reasons[k]+'</span>').join('')+'</div><p>'+esc([...new Set(e.rows.map(({row})=>row.usage))].join(' / '))+'</p><details><summary>누락·대체 내역 '+e.rows.length+'건</summary>'+e.rows.map(({row:r,reason:k})=>'<div class="missing-detail"><b>'+esc(r.usage)+'</b><p>'+reasons[k]+(k==='animation'?' · 정적 이미지로 대신 재생 중':'')+'</p><p>'+esc(r.note||'현재 등록된 이미지의 출처가 더미·임시로 표시되어 있습니다.')+'</p><code>'+esc(r.id)+'</code>'+(r.layers?.length?'<p class="missing-source">현재 사용: '+r.layers.map(l=>esc(l.key)+'<br>'+esc(l.source||'출처 메타데이터 없음')).join('<br>')+'</p>':'<p>사용 가능한 이미지 없음</p>')+'<button data-missing-inspect="'+esc(r.id)+'">이 용도 확인 ↗</button></div>').join('')+'</details></div><button class="missing-inspect" data-missing-inspect="'+esc(r.id)+'">리소스 보기 ↗</button></article>';}).join('')||'<p class="missing-empty">'+(query||status!=='all'||area!=='all'?'조건에 맞는 항목이 없습니다.':'현재 등록 데이터에서 이 분류의 미제작 항목이 확인되지 않았습니다.')+'</p>';
+  for(const canvas of panel.querySelectorAll('canvas[data-thumb]')){const r=getRows().find(r=>r.id===canvas.dataset.thumb);if(r)paint(canvas,r,0);}
  }
- function refresh(){entries=build(getRows());button.disabled=false;button.textContent='미제작 리소스 '+entries.length;if(dialog.open)render();}
- button.onclick=()=>{entries=build(getRows());render();dialog.showModal();dialog.querySelector('#missing-search').focus();};
- dialog.querySelector('#missing-close').onclick=()=>dialog.close();
- dialog.addEventListener('close',()=>button.focus({preventScroll:true}));
- dialog.addEventListener('click',e=>{const tab=e.target.closest('[data-missing-category]');if(tab){picked=tab.dataset.missingCategory;render();dialog.querySelector('[data-missing-category="'+picked+'"]').focus();}const link=e.target.closest('[data-missing-inspect]');if(link){dialog.close();inspect(link.dataset.missingInspect);}});
- dialog.querySelector('#missing-search').oninput=e=>{query=e.target.value.trim().toLowerCase();render();};
- dialog.querySelector('#missing-reason').onchange=e=>{status=e.target.value;render();};
- dialog.querySelector('#missing-area').onchange=e=>{area=e.target.value;render();};
- dialog.querySelector('#missing-reset').onclick=()=>{picked=status=area='all';query='';dialog.querySelector('#missing-search').value='';dialog.querySelector('#missing-reason').value='all';dialog.querySelector('#missing-area').value='all';render();};
- dialog.querySelector('#missing-export').onclick=()=>{
+ function refresh(){entries=build(getRows());if(!panel.hidden)render();}
+ function show(){entries=build(getRows());render();}
+ panel.addEventListener('click',e=>{const tab=e.target.closest('[data-missing-category]');if(tab){picked=tab.dataset.missingCategory;render();panel.querySelector('[data-missing-category="'+picked+'"]').focus();}const link=e.target.closest('[data-missing-inspect]');if(link)inspect(link.dataset.missingInspect);});
+ panel.querySelector('#missing-search').oninput=e=>{query=e.target.value.trim().toLowerCase();render();};
+ panel.querySelector('#missing-reason').onchange=e=>{status=e.target.value;render();};
+ panel.querySelector('#missing-area').onchange=e=>{area=e.target.value;render();};
+ panel.querySelector('#missing-reset').onclick=()=>{picked=status=area='all';query='';panel.querySelector('#missing-search').value='';panel.querySelector('#missing-reason').value='all';panel.querySelector('#missing-area').value='all';render();};
+ panel.querySelector('#missing-export').onclick=()=>{
   const cells=[['분류','영역','리소스','용도','누락 상태','현재 사용 키','출처','비고'],...visible().flatMap(e=>e.rows.map(({row:r,reason:k})=>[categories.find(c=>c[0]===e.category)[1],e.area,e.title,r.usage,reasons[k],(r.layers||[]).map(l=>l.key).join(' | '),(r.layers||[]).map(l=>l.source).join(' | '),r.note]))];
   const csv=cells.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n'),url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='unknown-missing-resources.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  };
- refresh();return{refresh,get entries(){return entries;}};
+ refresh();return{refresh,show,get entries(){return entries;}};
 }
 W.ResourceMissing={build,reason,category,mount,categories,reasons};if(typeof module!=='undefined')module.exports=W.ResourceMissing;
 })(typeof window==='undefined'?globalThis:window);

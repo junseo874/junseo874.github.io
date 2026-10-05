@@ -21,6 +21,7 @@ function decorate(r){
  if(['bar-ui','out-ui'].includes(r.group)){
   const d=r.launch||{},id=d.id||'';
   if(r.id.startsWith('ui-art:'))f.topic='art';
+  else if(d.type==='indicator')f.topic='service';
   else if(d.type==='qa')f.topic=id==='prep'?'recipe':['unlock','income','expense','dossier'].includes(id)?'popup':'service';
   else if(['solo','pair','scene','choices','terrace','johnny-memory'].includes(d.type))f.topic='dialogue';
   else if(['recipes','prep-recipe','prep'].includes(d.type)||d.type==='overlay'&&id==='recipe')f.topic='recipe';

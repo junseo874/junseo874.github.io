@@ -2,6 +2,19 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 (async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
  const p=await b.newPage({viewport:{width:1600,height:1050}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
  const facet=(key,value)=>p.locator('[data-facet="'+key+'"][data-value="'+value+'"]');
+ const catalog=await p.evaluate(()=>resourceReview.rows);
+ const guests=catalog.filter(r=>r.group==='bar-characters'&&/^guest[:_]/.test(r.id));assert.deepEqual(guests.map(r=>r.id).sort(),['guest:f','guest:m']);for(const r of guests)assert(r.layers.length>=6);
+ assert(!catalog.some(r=>r.group==='bar-characters'&&/^actor:(luna|johnny)(:|$)/.test(r.id)));
+ assert(catalog.some(r=>r.group==='out-characters'&&r.title==='루나'));
+ assert(catalog.some(r=>r.id==='fx:memory'));
+ assert(!catalog.some(r=>['bar-ui','out-ui'].includes(r.group)&&(/^(ui:scene:|ui:outside:)/.test(r.id)||['ui:tutorial','ui:johnny-memory','ui:terrace:night0','ui:terrace:night1','ui:terrace:night2','ui:terrace:ending','ui:exterior:home','ui:exterior:bd','ui:exterior:panorama','ui:door:out','ui:prep-recipe','ui:mini:fill_up'].includes(r.id))));
+ for(const id of ['ui:world-speech','ui:terrace:workshop','fx:tutorial','outside:terrace-chris'])assert(catalog.some(r=>r.id===id),id+' retained');
+ const excludedArt=/^ui-art:(bar($|_)|prep_|gimmick|coaster|expr_|mix_)/;
+ assert(!catalog.some(r=>r.group==='bar-ui'&&excludedArt.test(r.id)));
+ const sourceKeys=await p.evaluate(()=>Object.keys(document.querySelector('#game').contentWindow.barData.assets));
+ for(const key of ['bar','prep_glass','gimmick','coaster','expr_chris_success','mix_stir_motion','mix_shake_motion','mix_stir_reference'])assert(sourceKeys.includes(key),key+' remains in game');
+ for(const key of ['dialogue','dialogue_luna','choice','next','money','logo'])assert(catalog.some(r=>r.id==='ui-art:'+key),key+' remains in UI');
+ for(const id of ['ui:mini:shake','ui:mini:stir','ui:mini:pour','ui:prep'])assert(catalog.some(r=>r.id===id&&r.launch),id+' test remains');
  const ids=()=>p.locator('#grid .card').evaluateAll(cs=>cs.map(c=>c.dataset.id));
  const group=id=>p.locator('[data-group="'+id+'"]').click();
  await group('bar-drinks');assert.equal((await ids()).length,45);await facet('usage','table').click();assert.equal((await ids()).length,15);assert((await ids()).every(id=>id.endsWith(':table')));assert.equal(await facet('usage','table').getAttribute('aria-pressed'),'true');
@@ -19,9 +32,9 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.selectOption('#status','attention');await facet('kind','ingredient').click();assert((await ids()).length>0);await p.locator('[data-filter-reset]').click();
  await group('out-characters');await facet('motion','run').click();await facet('media','animation').click();assert((await ids()).length>0);assert(await p.locator('#grid').innerText().then(s=>!s.includes('하운드')));await p.screenshot({path:'/private/tmp/resource-filters-outside.png'});
  await group('bar-serve');assert(await facet('media','animation').isVisible());
- await group('bar-ui');await facet('topic','gimmick').click();assert.equal((await ids()).length,5);assert.equal(await p.locator('.ui-shot').count(),5);await p.locator('#grid .card').first().click();assert(await p.locator('.ui-preview').isVisible());
+ await group('bar-ui');await facet('topic','gimmick').click();assert.equal((await ids()).length,4);assert.equal(await p.locator('.ui-shot').count(),4);await p.locator('#grid .card').first().click();assert(await p.locator('.ui-preview').isVisible());
  await facet('topic','art').click();assert((await ids()).every(id=>id.startsWith('ui-art:')));assert.equal(await p.locator('.ui-preview').count(),0);
- await group('out-ui');await facet('topic','transition').click();assert.equal((await ids()).length,3);await p.screenshot({path:'/private/tmp/resource-filters-ui.png'});
+ await group('out-ui');await facet('topic','transition').click();assert.equal((await ids()).length,2);await p.screenshot({path:'/private/tmp/resource-filters-ui.png'});
  await p.setViewportSize({width:390,height:844});await group('bar-characters');await p.locator('#resource-filters').scrollIntoViewIfNeeded();assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.screenshot({path:'/private/tmp/resource-filters-mobile.png'});
  assert.deepEqual(errors,[]);console.log('RESOURCE_FILTERS_OK all 7 groups, facets/counts/intersections, static Tom vs animated idle, keyboard, search/status/reset, group memory, UI previews, mobile');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

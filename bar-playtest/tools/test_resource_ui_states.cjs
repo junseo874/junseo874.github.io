@@ -1,0 +1,38 @@
+const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright'),assert=require('assert/strict');
+(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
+ const p=await b.newPage({viewport:{width:1500,height:1000}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));
+ await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
+ const frame=p.frames().find(f=>f.url().includes('resourceReview=1'));
+ const ids=await p.evaluate(()=>resourceReview.rows.filter(r=>r.group==='bar-ui').map(r=>r.id));
+ for(const id of ['arrival','order','wait','orange','red','exit','drink','reorder','reask','full','wrong','missing','expense','bankrupt'])assert(!ids.includes('ui:'+id),id+' folded');
+ for(const id of ['solo','indicators','serve','income','settlement'])assert.equal(ids.filter(k=>k==='ui:'+id).length,1);
+ await p.click('[data-group="bar-ui"]');await p.click('[data-id="ui:indicators"]');
+ assert.equal(await p.locator('#inspect-state option').count(),7);await p.selectOption('#inspect-state','red');await p.click('#inspector [data-action="launch"]');
+ await frame.locator('.seat-indicators .seat-danger').waitFor();const historyLength=await p.evaluate(()=>history.length);
+ assert(!await frame.evaluate(()=>barGame.paused),'State preview must not show the paused overlay');
+ const check=async(id,cls)=>{await p.selectOption('#lab-state',id);await frame.locator('.seat-indicators .'+cls).first().waitFor();assert.equal(await p.evaluate(()=>history.length),historyLength);};
+ await check('empty','seat-empty');assert.equal(await frame.locator('.seat-indicators .seat-empty').count(),3);
+ await check('arrival','seat-pulse-arrival');await p.waitForTimeout(2700);assert(await frame.locator('.seat-pulse-arrival').count()>0);
+ await check('wait','seat-occupied');assert.equal(await frame.locator('.seat-pulse-arrival').count(),0);
+ await check('orange','seat-warn');await check('red','seat-danger');
+ const left=await frame.evaluate(()=>barGame.seats[barGame.focus].left);await p.waitForTimeout(500);assert.equal(await frame.evaluate(()=>barGame.seats[barGame.focus].left),left);
+ await p.screenshot({path:'/private/tmp/resource-indicator-states.png'});
+ await check('exit','seat-pulse-exit');await p.waitForTimeout(1200);assert(await frame.locator('.seat-pulse-exit').count()>0);
+ await check('full','seat-occupied');assert.equal(await frame.locator('.seat-indicators .seat-occupied').count(),3);
+ await p.goBack();await p.waitForFunction(()=>document.querySelector('#lab').classList.contains('parked'));assert.equal(await p.locator('#inspect-state').inputValue(),'full');
+ await p.click('[data-id="ui:solo"]');await p.selectOption('#inspect-state','order');await p.click('#inspector [data-action="launch"]');
+ await frame.waitForFunction(()=>barGame.phase==='general'&&barGame.seats[barGame.focus]?.state==='ORDER_DIALOGUE');
+ for(const id of ['reask','reorder','regular']){await p.selectOption('#lab-state',id);assert.equal(await p.locator('#lab-state').inputValue(),id);assert(!await frame.evaluate(()=>barGame.paused));}
+ assert.equal(await frame.evaluate(()=>barGame.phase),'regular');const time=await frame.evaluate(()=>barGame.realTime);await p.waitForTimeout(250);assert(await frame.evaluate(()=>barGame.realTime)>time,'Normal simulation clock restored');await p.click('#close-lab');
+ await p.click('[data-id="ui:income"]');await p.selectOption('#inspect-state','expense');await p.click('#inspector [data-action="launch"]');assert.equal(await frame.evaluate(()=>barGame.progress.money),700);await p.selectOption('#lab-state','income');assert.equal(await frame.evaluate(()=>barGame.progress.money),1300);await p.click('#close-lab');
+ await p.click('[data-id="ui:serve"]');assert.equal(await p.locator('#inspect-state option').count(),3);
+ await p.click('[data-id="ui:settlement"]');assert.equal(await p.locator('#inspect-state option').count(),2);
+ await p.click('[data-id="ui:prep"]');await p.selectOption('#inspect-state','detail');await p.click('#inspector [data-action="launch"]');assert(await frame.evaluate(()=>lunaCampaign.ui.recipeOpen));await p.click('#close-lab');
+ await p.click('[data-id="ui:mini:pour"]');await p.selectOption('#inspect-state','fill_up');await p.click('#inspector [data-action="launch"]');assert.equal(await frame.evaluate(()=>barGame.gimmick.type),'fill_up');await p.click('#close-lab');
+ await p.click('[data-group="out-ui"]');await p.click('[data-id="ui:world-speech"]');await p.click('#inspector [data-action="launch"]');await frame.waitForFunction(()=>!!outsidePlaytest.model.story.speech);await p.click('#close-lab');
+ await p.click('[data-id="ui:exterior:poor"]');await p.click('#inspector [data-action="launch"]');await frame.waitForFunction(()=>!!outsidePlaytest.model.story.speech?.choice);await p.selectOption('#lab-state','bd');await frame.waitForFunction(()=>outsidePlaytest.model.config.day===1&&!!outsidePlaytest.model.story.speech);await p.click('#close-lab');
+ await p.click('[data-id="ui:exterior:street"]');await p.selectOption('#inspect-state','y');await p.click('#inspector [data-action="launch"]');await frame.waitForFunction(()=>Math.abs(outsidePlaytest.model.x-LunaOutside.viewpoint.x)<.001);await p.click('#close-lab');
+ await p.click('[data-group="bar-ui"]');
+ await p.setViewportSize({width:390,height:844});await p.click('[data-id="ui:indicators"]');await p.click('#inspector [data-action="launch"]');await p.screenshot({path:'/private/tmp/resource-indicator-mobile.png'});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.click('#close-lab');
+ assert.deepEqual(errors,[]);console.log('RESOURCE_UI_STATES_OK consolidated cards, live state switching, held indicators/pulses, history, dialogues, currency, mobile');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
