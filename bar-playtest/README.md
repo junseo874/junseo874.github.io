@@ -690,3 +690,23 @@ CSV와 이미지가 바뀌어도 자동으로 원본을 다시 읽지는 않습�
 - 투영은 world-speech.js의 LunaWorldSpeech.place를 사용한다. 바는 실제 전환 중인 월드 레이어 행렬을, 외부는 기준 카메라 폭 4.8 대비 배율을, 컷씬은 cam.z를 적용한다. 테라스는 고정 배경과 같은 1280×720 무대 및 화자 앵커를 사용한다.
 - 검은 화면의 작업장 대사창, 선택 메뉴, 조작 안내는 말풍선이 아닌 기존 화면 UI로 유지한다.
 - 회귀 확인: tools/test_world_speech_ui.cjs (줌·이동·화면 경계에서도 월드 크기/좌표 보존).
+
+## 엘리베이터 NPC 고정 및 회귀 검수 (2026-10-05)
+
+- 수정: 2·3일차 출근길 삼호의 렌더링 높이가 플레이어 높이(`m.y`)를 따라가던 문제. 이제 거리 바닥의 고정 월드 좌표를 사용한다.
+- 수정: 2일차 복도 불량배의 이미지·상호작용 표시·대사 앵커가 플레이어를 따라 내려가던 문제. 복도는 윗층, QA는 가상 바닥에 고정한다. 계약 종료 장면의 NPC 대사 앵커도 거리 바닥을 기준으로 한다.
+- 수정: 외부 개발자 테스트의 ‘같은 위치에서 다시 시작’ 시 신규 외부 이벤트 완료 상태(`notionFlags`)가 남아 재회/계약 이벤트가 생략되는 문제. 본편 진행 플래그는 유지하고 테스트 로컬 상태만 초기화한다.
+- 수정: 1일차 톰이 이름을 밝히기 전에 대사 기록에서 실명이 노출되는 문제. 해당 줄이 익명으로 출력되었는지를 기록하고 이후에도 그 줄은 `???`로 표시한다.
+- 재현/회귀: `tools/test_world_npc_regression_ui.cjs`. 수정 전 2일차 출근길 높이 추종을 재현했고 수정 후 본편/개발자 × 0~3일차 × 출근/퇴근의 16조합에서 상승·하강·빈 엘리베이터 호출, 바닥 카메라 경계, NPC/대사 좌표, 테스트 재시작, 기록창 익명을 확인했다.
+
+### 이번 변경 후 통과한 검수
+
+- 로직 17개: `test_campaign`, `test_day0_notion`, `test_day0_tutorial`, `test_day1_notion`, `test_day2_notion`, `test_day3_notion`, `test_dialogue_sync_20261004`, `test_guest_spacing`, `test_johnny_unlock`, `test_pour_fluid`, `test_pour_default_tool`, `test_pour_tools`, `test_remix_storyfirst`, `test_shake_path`, `test_shake_rhythm`, `test_shiba_shop`, `test_two_guest_schedule` (모두 `tools/*.cjs`).
+- Chrome UI 14개: `test_world_npc_regression_ui`, `test_notion_sync_20261005_ui`, `test_world_speech_ui`, `test_regular_camera_ui`, `test_johnny_unlock_ui`, `test_shiba_allowance_ui`, `test_outside_purchase_notices_ui`, `test_prep_checklist_ui`, `test_pour_space_ui`, `test_shake_combo_tiers_ui`, `test_day1_beer_tutorial_ui`, `test_day1_thug_ui`, `test_terrace_entry_fade_ui`, `test_memory_transition_ui`.
+- 낡은 검수 조건 2곳도 갱신: 1일차 불량배 검사에서 별도로 추가된 2일차 재회를 허용하고, 회상 전환 검사는 대사의 고정 행 번호 대신 실제 `cinemaAfter` 큐를 찾는다. 게임 대사·분기 조건 자체를 테스트 통과 목적으로 변경하지 않았다.
+
+### 검수 범위와 남은 테스트 정비
+
+- 로컬 웹 시뮬레이터 대상이다. 배포 반영·Unity 검수·모든 선택 분기의 수동 완주를 완료했다는 의미는 아니다. 제조 일부 진행 테스트는 강제 성공으로 연결 흐름을 검사하므로 실제 조작 UI 테스트와 구분한다.
+- 기존 테스트 전체가 통과한 것은 아니다. `test_core` 일부는 옛 해금 개수·2/3일차 빈 대본·15회 쉐이킹·맥주 튜토리얼 이전 진행기를 전제로 한다. `test_day0_seat_serving`은 변경 전 문장부호, `test_engine_mix`·`test_minigames`는 이전 스터 목표 횟수, `test_ml_stream`은 각설탕까지 ml 단위라는 가정, `test_remix`는 이전 일반 손님 수를 기대해 실패한다.
+- `test_outside`는 현재 필요한 TV 모듈 로딩과 삭제된 테라스 상호작용 조건이 낡았고, `test_outside_story`는 이전 이벤트 목록을 기대한다. `test_service_versions`의 3일차 직접 진입에는 신규 히든 레시피 선행 조건 준비가 빠져 있다. 이 9개 레거시 스크립트의 실패를 게임 버그 수정 완료나 전체 테스트 성공으로 집계하지 않았다. 현재 일차 대본/제조/외부 동작은 위의 최신 로직·브라우저 검사로 별도 확인했다.

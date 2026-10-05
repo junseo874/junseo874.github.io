@@ -46,18 +46,19 @@ const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m
 const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&!m.level&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
 const tx=m=>m.qa?.25:R.homeX+.7;
 const base=m=>m.qa?-.45:R.elevatorX+1.35;
-function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:m.y,top:m.y+.4,label:'불량배'}]:[];}
+const thugY=m=>m.qa?-.7:R.upperY;
+function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:thugY(m)+.4,label:'불량배'}]:[];}
 function infoStart(m,target){m.story.beginRows(info,target,[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}]);return true;}
 function interact(m,t){return t.id===info&&infoStart(m,t);}
 function start(m,kind=mode(m)){
  if(m.encounter)return false;
  m.story.cancel();m.backgroundStory.cancel();W.outsidePlaytest?.clearInput();m.anim='idle';m.animTime=0;
- if(kind===info){save(m,'day2_thug_done');return infoStart(m,{id:info,x:tx(m),y:m.y});}
- const x=kind===contract?base(m)+.7:tx(m),to=kind===contract?x+1.0:Math.min(m.x,x-.55);
- m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX:base(m),alpha:1,dealerAlpha:1,camera:{x:kind===contract?x+.2:(x+to)/2,y:m.y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y:m.y}};
+ if(kind===info){save(m,'day2_thug_done');return infoStart(m,{id:info,x:tx(m),y:thugY(m)});}
+ const x=kind===contract?base(m)+.7:tx(m),to=kind===contract?x+1.0:Math.min(m.x,x-.55),y=kind===contract?-.7:thugY(m);
+ m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX:base(m),alpha:1,dealerAlpha:1,camera:{x:kind===contract?x+.2:(x+to)/2,y:y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y}};
  m.facing=kind===contract?-1:1;m.updateNear();return true;
 }
-function runAction(m,row){const e=m.encounter;if(e?.kind!==contract)return false;e.stage=row.action;e.elapsed=0;e.actionX=row.action==='dealer-exit'?e.dealerX:e.npcX;if(row.action==='approach')e.camera={x:(e.npcX+m.x)/2,y:m.y+.65,w:4.8};return true;}
+function runAction(m,row){const e=m.encounter;if(e?.kind!==contract)return false;e.stage=row.action;e.elapsed=0;e.actionX=row.action==='dealer-exit'?e.dealerX:e.npcX;if(row.action==='approach')e.camera={x:(e.npcX+m.x)/2,y:-.7+.65,w:4.8};return true;}
 function tick(m,dt){let e=m.encounter;
  if(![thug,contract].includes(e?.kind)){
   if(m.qa||m.encounter||m.paused||m.transition||m.ride||m.dialog||m.story.blocking)return false;
@@ -88,14 +89,14 @@ function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)retur
  m.story.beginRows(info,sp.target,infoRows[sp.line.topic]);return true;
 }
 function anchor(m,actor){const e=m.encounter;
- if(actor===thug)return{x:e?.kind===thug?e.npcX:tx(m),y:m.y+.43};
- if(e?.kind===contract&&[samho,dealer].includes(actor))return{x:actor===samho?e.npcX:e.dealerX,y:m.y+.44};
+ if(actor===thug)return{x:e?.kind===thug?e.npcX:tx(m),y:thugY(m)+.43};
+ if(e?.kind===contract&&[samho,dealer].includes(actor))return{x:actor===samho?e.npcX:e.dealerX,y:-.7+.44};
  return null;
 }
 function draw(m,sprite,ctx,position){
  const e=m.encounter;
  const idle=(kind,x,y,target,alpha=1)=>sprite({asset:'ambient-'+kind,x:Math.floor(m.time*3.6)%6*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100},x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
- if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('M2',e?.kind===thug?e.npcX:tx(m),m.y-.24,m.x);if(!m.qa)ctx.restore();}
+ if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('M2',e?.kind===thug?e.npcX:tx(m),thugY(m)-.24,m.x);if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:base(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
   const source=W.LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='Samho'),phase=m.time%4;
