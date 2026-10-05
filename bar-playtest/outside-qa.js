@@ -29,6 +29,7 @@ function target(m){const c=catalog().find(c=>c.id===m.qa.caseId),r=W.LunaResiden
 function isAuto(m){const c=catalog().find(c=>c.id===m.qa.caseId);return !c.physical&&(m.qa.activation==='proximity'||m.qa.activation==='source'&&c.auto);}
 function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
+ if(c.encounter?.activation==='forced'){W.LunaOutsideEncounters.start(m);return;}
  if(c.notion){m.qa.shopProgress={money:1000,flags:{},inventory:{}};W.LunaOutsideNotion.start(m,c.notion);return;}
  if(['commute2','commute3'].includes(c.scene)){W.LunaOutsideSamhoCommute.start(m);return;}
  if(c.shop){m.qa.shopDay=c.shopDay;m.qa.shopProgress={money:c.money??W.LunaBDVendor.balance(),flags:{},inventory:c.owned?{[c.owned]:1}:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}

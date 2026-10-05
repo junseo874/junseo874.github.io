@@ -5,7 +5,7 @@ const shop=W.LunaOutsideShop,notices=[];W.outsidePlaytest={notifyItem:(m,id)=>no
 function setup(inventory={},flags={},qa=false){const p={money:2000,inventory,flags};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};W.LunaBDVendor={balance:()=>2000};const m={config:{day:1,flow:'out'},scene:'street',level:0,x:-2.8,backgroundStory:{cancel(){}},updateNear(){},qa:qa?{shopProgress:structuredClone(p)}:null};m.story=new W.LunaOutsideStory.Story(m);return m;}
 const target={id:shop.id,x:-2.68,y:-.596};
 function drain(m){const lines=[];for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){lines.push(m.story.speech.line.text);m.story.speech.elapsed=99;m.story.advance();}return lines;}
-function menu(m){shop.begin(m,target,false);assert(shop.choose(m,'shop-yes'));drain(m);}
+function menu(m){shop.begin(m,target,false);drain(m);assert(shop.choose(m,'shop-yes'));drain(m);}
 const ids=m=>Array.from(shop.choiceView(m).options,o=>o.id);
 for(const qa of [false,true])for(const [first,second]of [['wild_dog','bitters'],['bitters','wild_dog']]){
 const m=setup({}, {},qa),p=qa?m.qa.shopProgress:W.barGame.progress;

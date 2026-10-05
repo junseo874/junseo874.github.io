@@ -77,6 +77,7 @@ class OutsideModel{
   this.story.tick(dt);
   global.LunaOutsideStory.tickBackground(this,dt);
   this.time+=dt;this.noticeLeft=Math.max(0,this.noticeLeft-dt);
+  if(global.LunaOutsideEncounters?.tick(this,dt))return;
   if(global.LunaOutsideNotion?.tick(this,dt))return;
   if(global.LunaOutsideThug?.tick(this,dt))return;
   if(global.LunaOutsideSamhoCommute?.tick(this,dt))return;
@@ -210,6 +211,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const key=v.key+':'+v.canTreat;
   if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML='<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
 
+  el.querySelector('p').hidden=!v.full;
   const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text){text.replaceChildren();const marks=v.emphasis||[];let rest=v.text;while(rest){let index=rest.length,word='';for(const mark of marks){const at=rest.indexOf(mark);if(at>=0&&at<index){index=at;word=mark;}}if(!word){text.append(document.createTextNode(rest));break;}if(index)text.append(document.createTextNode(rest.slice(0,index)));const span=document.createElement('span');span.className='outside-story-emphasis';span.textContent=word;text.append(span);rest=rest.slice(index+word.length);}}
   const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/cam.w,gap:22});
  }

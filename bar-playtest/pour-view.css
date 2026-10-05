@@ -17,20 +17,7 @@
 .fluid-screen[data-pour-presentation="bottle"] .pour-stage{transform:none}
 .fluid-screen[data-pour-presentation="bottle"] .pour-stage canvas{object-fit:cover}
 
-/* Pour tool drawer is always mounted, so its transform animates without remounting the canvases. */
-.pour-tool-drawer{position:absolute;left:0;top:50%;width:306px;z-index:14;transform:translate(-100%,-50%);transition:transform .28s cubic-bezier(.22,.8,.25,1)}
-.pour-tool-drawer.is-open{transform:translate(0,-50%)}
-.pour-tools-panel{padding:24px 20px 16px;background:linear-gradient(135deg,#0b1829f5,#0a101cf7);border:1px solid #6cb9c8;border-left:0;border-radius:0 10px 10px 0;box-shadow:8px 10px 35px #0007}
-.pour-tools-panel header small{font-size:10px;letter-spacing:2px;color:#6bbac7}.pour-tools-panel h2{margin:6px 0 18px;font-size:21px;color:#c4f6f4;font-weight:normal}
-.pour-tool-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.fluid-screen .pour-tool-card{padding:9px;display:flex;align-items:stretch;flex-direction:column;gap:9px;background:#101e2c;border:1px solid #365567;border-radius:5px;color:#deeeee;text-align:center;min-width:0;box-shadow:none}
-.pour-tool-preview{display:grid;place-items:center;aspect-ratio:1;width:100%;background:radial-gradient(ellipse at 50% 75%,#28475777,#080f1b);border:1px solid #334b5d;border-radius:3px}.pour-tool-preview svg{width:100%;height:100%}.pour-empty-preview{width:100%;height:100%;display:block}
-.pour-tool-card strong{font-size:17px;font-weight:normal}.pour-tool-card small{font-size:10px;white-space:nowrap;color:#9cbac5}.fluid-screen .pour-tool-card[aria-pressed="true"]{border-color:#8ae6e2;background:#19323f}.fluid-screen .pour-tool-card:hover:not(:disabled),.fluid-screen .pour-tool-card:focus-visible{outline:0;border-color:#c6ffff;background:#244454}.pour-tool-card:disabled{opacity:.5;cursor:default}
-.pour-tool-status{font-size:12px;line-height:1.5;color:#97b6c1;margin:15px 0 0;min-height:18px}
-.fluid-screen .pour-tools-toggle{position:absolute;left:100%;top:50%;transform:translateY(-50%);width:35px;height:74px;padding:8px;background:#0d1d2cf0;border:1px solid #6cb9c8;border-left:0;border-radius:0 8px 8px 0;color:#8de8ed;box-shadow:none;display:grid;place-items:center}
-.pour-tools-toggle svg{width:19px;height:32px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}.is-open .pour-tools-toggle svg{transform:rotate(180deg)}
 .pour-test-controls{position:absolute;bottom:16px;left:22px;z-index:15}.fluid-screen .pour-tests-toggle{padding:8px 14px;border:1px solid #487487;border-radius:4px;color:#b7d8df;background:#0a1725e8;font-size:13px;box-shadow:none}
 .pour-test-panel{position:absolute;bottom:46px;left:0;width:292px;padding:20px;background:#0a1524f5;border:1px solid #649ead;border-radius:8px;box-shadow:0 8px 30px #0008}.pour-test-panel[hidden]{display:none}.pour-test-panel h2{font-weight:normal;font-size:18px;margin:0 0 18px;color:#bcf2f3}.pour-test-panel h3{font-weight:normal;font-size:12px;margin:16px 0 9px;color:#9ab8c6}
 .fluid-screen .pour-test-panel .pour-sound-picker,.pour-test-panel .pour-presentation-picker{position:static;display:flex;flex-wrap:wrap;gap:7px;margin:0}.pour-test-panel .pour-sound-picker small{position:static;flex-basis:100%;font-size:10px}.pour-test-panel .pour-presentation-option{font-size:12px;padding:7px 9px}
-.fluid-screen .pour-tools-toggle:hover,.fluid-screen .pour-tools-toggle:focus-visible,.fluid-screen .pour-tests-toggle:hover,.fluid-screen .pour-tests-toggle:focus-visible{outline:none;border-color:#b7ffff;color:#dcffff;background:#213f50}
-@media(prefers-reduced-motion:reduce){.pour-tool-drawer,.pour-tools-toggle svg{transition:none}}
+.fluid-screen .pour-tests-toggle:hover,.fluid-screen .pour-tests-toggle:focus-visible{outline:none;border-color:#b7ffff;color:#dcffff;background:#213f50}

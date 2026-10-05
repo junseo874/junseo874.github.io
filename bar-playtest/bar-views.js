@@ -97,7 +97,9 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function dialogueAnchor(actor,line){
     const c=cameraLayout();
-    const seat=actor==='luna'?(g.currentOrder?.seat||(c.general?g.focus:c.visible[0]?.[0])||g.focus):c.general?g.focus:c.visible.find(([,guest])=>guest.actor===actor)?.[0]||g.focus;
+    // Luna addresses the whole group from the bar's authored center, not the
+    // pending order's seat. Cache that world position for the lifetime of the line.
+    const seat=actor==='luna'?(!c.general&&c.visible.length>1?'M':g.currentOrder?.seat||(c.general?g.focus:c.visible[0]?.[0])||g.focus):c.general?g.focus:c.visible.find(([,guest])=>guest.actor===actor)?.[0]||g.focus;
     let x=c.coords[seat]??1020;const y=actor==='luna'?601:555.5;
     if(actor==='luna'&&line&&typeof line==='object'){
       if(!lunaSpeechAnchors.has(line))lunaSpeechAnchors.set(line,x);

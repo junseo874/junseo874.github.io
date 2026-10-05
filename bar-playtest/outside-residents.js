@@ -9,7 +9,7 @@ const allPeople=[...people,...dummies],actor=id=>people.find(p=>p.id===id);
 function visible(m){return !m.qa&&m.scene==='street'&&m.config.day===0&&m.config.flow==='out';}
 function onScreen(cam){const h=cam.w*720/1280;return people.every(p=>p.x-.18>cam.x-cam.w/2&&p.x+.18<cam.x+cam.w/2&&p.top+.9<cam.y+h/2&&railY>cam.y-h/2);}
 function tickView(m,cam){if(!visible(m)||m.paused||m.transition||m.encounter||m.story.blocking||m.playedAmbient.has(id))return;
- if(m.ride||m.level!==1||!people.some(p=>Math.abs(p.x-m.x)<=1.05)||!onScreen(cam))return;
+ if(!(m.ride&&!m.ride.call||m.level===1)||!onScreen(cam))return;
  if(m.backgroundStory.begin(id,{id},true))m.playedAmbient.add(id);
 }
 // The player may keep walking; this optional conversation never takes over the camera.

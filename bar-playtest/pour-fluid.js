@@ -7,6 +7,9 @@ const GLASS={left:596,right:790,top:252,bottom:470};
 const STEP=1/120,H=20,MAX_PARTICLES=1100;
 // Web pourer tuning, not a measured real-world pourer specification.
 const POURER={rateScale:.25,maxAngle:125,rampDegrees:30};
+// Ingredient policy is independent of volume, recipe, and game mode.
+const WITHOUT_POURER=new Set(['soda_water','cola','cranberry_juice','milk','beer','orange_juice','red_wine','champagne']);
+const toolForIngredient=ingredient=>WITHOUT_POURER.has(ingredient)?'none':'pourer';
 function nozzle(angle,tool='pourer'){const t=clamp(angle/95,0,1),k=t*t*(3-2*t),a=angle*Math.PI/180,offset=tool==='none'?34:0;return{x:550+50*k-Math.sin(a)*offset,y:130+60*k+Math.cos(a)*offset};}
 class Simulation{
  constructor({targetMl,unitMl,rate=17.5,startAngle=95,maxAngle=125,tiltSpeed=95,viscosity=.025}){
@@ -186,10 +189,10 @@ function init(s,game){
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70)*POURER.rateScale,
   startAngle:game.c('pour_start_angle_deg',95),maxAngle:Math.min(POURER.maxAngle,game.c('pour_max_tilt_angle_deg',150)),
   tiltSpeed:game.c('pour_tilt_speed_deg_per_sec',95),viscosity:visc});
- // Each new ingredient starts with the tool suited to its own target in ml.
- game.pourTool=s.fluid.targetMl>=100?'none':'pourer';
+ // Always configure the bottle for this ingredient, including fill-up and retries.
+ game.pourTool=toolForIngredient(s.ingredient);
  s.fluid.setTool(game.pourTool,s);
 }
-const api={Simulation,init,nozzle,GLASS,STEP,POURER};
+const api={Simulation,init,nozzle,GLASS,STEP,POURER,toolForIngredient};
 if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

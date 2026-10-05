@@ -403,7 +403,6 @@ class Game{
   if(this.gimmick.fluid&&this.day===0&&this.variant!=='gpt'&&!this.minigame&&this.currentOrder?.actor==='chris'&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_pour_taught)this.gimmick.pourTutorial={step:'target'};
  }
  startGimmick(){return this.gimmickInput(this.gimmick?.type==='stir'?'KeyW':'Space');}
- setPourTool(tool){const s=this.gimmick;if(this.screen!=='gimmick'||this.isPaused()||!s?.fluid||!s.fluid.setTool(tool,s))return false;this.pourTool=tool;this.log('pour_tool',{tool,ingredient:s.ingredient,rate:s.fluid.rate});this.changed();return true;}
  holdPour(held){if(this.screen!=='gimmick'||this.isPaused())return;if(['pour','fill_up'].includes(this.gimmick.type)&&!this.gimmick.fluid?.finishRequested){this.gimmick.held=held;if(held)this.gimmick.started=true;}}
  gimmickInput(key){const g=this.gimmick;if(this.screen!=='gimmick'||!g||this.isPaused()||g.completed||g.fluid?.finishRequested)return false;
   // Reject unrelated keys before they can start the clock or change a score.
