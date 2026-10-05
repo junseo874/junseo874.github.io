@@ -218,7 +218,7 @@ class Game{
  name(id){const r=this.t.characters.find(x=>x.id===id)||this.t.cocktails.find(x=>x.id===id)||this.t.shelf_items.find(x=>x.id===id)||this.t.personalities.find(x=>x.id===id);return this.text(r,'name')||id||'';}
  reset(day=0,mode='full',seed=1,run=true,settings={}){
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
-  this.serviceVersion=settings.serviceVersion==='B'&&settings.variant!=='gpt'?'B':'A';this.mixedResume=null;this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
+  this.serviceVersion='A';this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
   this.pourTool='pourer';this.tutorial=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(settings.storyPrerequisites)this.seedJohnnyPrerequisites();
@@ -251,8 +251,6 @@ class Game{
   else {if(this.currentOrder)throw Error('미처리 주문 상태에서 대본 종료');this.finishDay();}
  }
  loadScene(scene){this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));
-  // Runtime-only schedule: never mutate authored dialogue tables or Version A.
-  if(this.mixedService()&&this.story.steps.some(s=>s.type==='enter'&&s.actor==='shiba')){const at=this.story.steps.findIndex(s=>s.type==='enter'&&s.actor==='tom');if(at>=0)this.story.steps.splice(at,0,{type:'mixed_general',arg:'1',context:scene.id,seq:'mixed-before-tom'});}
   this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
  stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;if(!this.checkJohnnyUnlock())this.pump();}
  pump(){
@@ -261,10 +259,6 @@ class Game{
    const s=this.story.steps[this.story.index];if(!s){this.nextScene();return;}
    if(!condition(s.when,this.ctx())){this.log('step_skipped',{scene:this.story.scene.id,seq:s.seq,when:s.when});this.story.index++;continue;}
    this.log('step',{scene:this.story.scene.id,seq:s.seq,type:s.type});
-   if(s.type==='mixed_general'){
-    if(this.currentOrder)throw Error('미처리 주문이 있어 일반 손님으로 전환할 수 없습니다.');
-    this.story.index++;this.mixedResume={story:this.story,seats:this.seats,focus:this.focus,resultContext:this.resultContext,lastStoryLine:this.lastStoryLine};this.startGeneral();return;
-   }
    if(s.type==='story_cue'){this.onStoryCue?.(s.arg);this.log('story_cue',{kind:s.arg});this.setTransition(s.arg==='door'?.9:.35,()=>this.stepDone(s));return;}
    if(this.campaignStep?.(s))return;
    if(s.type==='say'||s.type==='order'&&this.text(s)){
@@ -312,13 +306,9 @@ class Game{
   const freeChoice=s.arg==='free',id=freeChoice?this.cocktailsAvailable()[0]?.id:s.arg?.match(/^exact:(.+)$/)?.[1];if(!id)throw Error('미지원 주문 형식: '+s.arg);this.cocktail(id);const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('주문자 착석 정보 없음: '+s.actor);
   if(this.currentOrder)throw Error('앞 주문이 미완료');this.resultContext={};this.currentOrder={id:'order_'+(++this.serial),actor:s.actor,seat,cocktail:id,...(freeChoice?{freeChoice:true}:{}),...(s.payment?{payment:s.payment}:{})};this.resultContext.ordered=id;this.seats[seat].coaster=true;this.seats[seat].order=this.currentOrder;this.log('order',{...this.currentOrder});
  }
- mixedService(){return this.serviceVersion==='B'&&this.day===1&&this.variant!=='gpt'&&this.mode!=='practice';}
- finishGeneralService(){
-  if(this.mixedResume){const saved=this.mixedResume;this.mixedResume=null;this.phase='regular';this.progress.phase='bar';this.screen='bar';this.story=saved.story;this.seats=saved.seats;this.focus=saved.focus;this.resultContext=saved.resultContext;this.lastStoryLine=saved.lastStoryLine;this.dialogue=null;this.choice=null;this.currentOrder=null;this.log('mixed_service_block',{block:'tom-aili-chris'});this.pump();this.changed();return;}
-  if(this.mixedService())this.log('mixed_service_block',{block:'shiba'});this.startStoryPhase('bar');
- }
+ finishGeneralService(){this.startStoryPhase('bar');}
  startGeneral(){
-  this.phase='general';this.progress.phase='bar_open';this.screen='bar';this.seats={L:null,M:null,R:null};this.story=null;this.dialogue=null;this.queue=sortSeq([...this.t.random_waves,...this.t.regular_slots].filter(s=>n(s.day)===this.day));if(this.mixedService()){const ordinary=sortSeq(this.t.random_waves.filter(s=>n(s.day)===1));this.queue=(this.mixedResume?ordinary.slice(1,2):ordinary.slice(0,1)).map((s,i)=>({...s,max_rounds:'1',...(i===0?{delay_sec:'0'}:{})}));this.log('mixed_service_block',{block:this.mixedResume?'general-after-shiba':'general-before-shiba',count:this.queue.length});}this.queueIndex=0;this.spawnBlocked=false;this.spawnLeft=this.c('first_spawn_delay_sec',5)+n(this.queue[0]?.delay_sec);this.focus='L';
+  this.phase='general';this.progress.phase='bar_open';this.screen='bar';this.seats={L:null,M:null,R:null};this.story=null;this.dialogue=null;this.queue=sortSeq([...this.t.random_waves,...this.t.regular_slots].filter(s=>n(s.day)===this.day));this.queueIndex=0;this.spawnBlocked=false;this.spawnLeft=this.c('first_spawn_delay_sec',5)+n(this.queue[0]?.delay_sec);this.focus='L';
   this.log('phase_start',{phase:'general',slots:this.queue.length});if(!this.queue.length)this.finishGeneralService();
  }
  appearance(){

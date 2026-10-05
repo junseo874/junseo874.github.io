@@ -9,13 +9,13 @@ const entries=[
  {id:'2026-09-27-ctrl-skip',date:'2026-09-27',title:'단골 대사 빠르게 넘기기',text:'대화 진행 중 Ctrl을 누르고 있으면 대사를 빠르게 넘길 수 있습니다.',note:'키를 놓으면 멈추며, 선택지와 제조 화면에서는 자동으로 진행하지 않습니다.'}
 ];
 const storageKey='luna.bar.updates.dismissed.v1';
-function mount(){
+function mount({preview=false}={}){
  if(document.getElementById('luna-updates')||!entries.length)return;
  const latest=entries[0].id;
  try{let dismissed=localStorage.getItem(storageKey);
   // The withdrawn shelf notice must not reset an already-dismissed Ctrl announcement.
   if(dismissed==='2026-09-27-shelf-layout'){dismissed='2026-09-27-ctrl-skip';localStorage.setItem(storageKey,dismissed);}
-  if(dismissed===latest)return;
+  if(!preview&&dismissed===latest)return;
  }catch{}
  const dialog=document.createElement('dialog');
  dialog.id='luna-updates';dialog.className='updates-dialog';
@@ -33,7 +33,7 @@ function mount(){
   list.append(article);
  }
  const checkbox=dialog.querySelector('input');
- checkbox.addEventListener('change',()=>{try{if(checkbox.checked)localStorage.setItem(storageKey,latest);else localStorage.removeItem(storageKey);}catch{}});
+ checkbox.addEventListener('change',()=>{if(preview)return;try{if(checkbox.checked)localStorage.setItem(storageKey,latest);else localStorage.removeItem(storageKey);}catch{}});
  const previous=document.activeElement;
  const close=()=>dialog.close();
  dialog.querySelector('.updates-close').addEventListener('click',close);

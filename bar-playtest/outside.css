@@ -15,6 +15,7 @@
 .outside-dev-console{max-height:calc(100% - 48px);overflow-y:auto}.outside-dev-flow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.outside-dev-flow button{text-align:center}.outside-dev-flow button[aria-pressed="true"]{background:#23525d;border-color:#a9f5ef;color:#dcfff9}.outside-dev-day{float:right;color:#a9d9df;font-size:12px}
 
 .outside-dev-note{word-break:keep-all;overflow-wrap:break-word}
+.outside-dev-console{width:330px;padding:18px}.outside-dev-console button{padding:10px}.outside-dev-console .outside-dev-money{font-size:24px;padding-bottom:3px}.outside-dev-console .outside-dev-note{margin-top:12px}.outside-dev-console .outside-dev-feedback{margin-top:9px;min-height:16px}.outside-dev-console section{gap:6px}.outside-dev-console h3{margin-bottom:6px}
 
 
 /* Compact acquisition HUD, independent of the world camera and speech layers. */
@@ -25,3 +26,6 @@
 .outside-item-notice strong{font-weight:400;color:#e5f6f3}
 
 .outside-story-emphasis{color:#ff7777;font-weight:700}
+/* The entry page is a launch point; test configuration lives in the P drawer. */
+.outside-entry{text-align:center;width:390px;padding:36px!important}.outside-entry>small{font-size:11px;letter-spacing:2px;color:#7dcad0}.outside-entry h2{margin:12px 0 18px}.outside-entry p{font-size:15px;line-height:1.9;color:#9db8c6;margin:0 0 28px}.outside-entry kbd{border:1px solid #557985;border-radius:4px;padding:2px 7px;color:#c3f8f7}.outside-entry>button{width:100%;padding:15px}.outside-entry>span{display:block;margin-top:14px;font-size:11px;color:#8399a7}
+.outside-dev-days{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.outside-dev-days button{padding:9px 5px;text-align:center;font-size:13px}.outside-dev-days .outside-dev-qa{grid-column:1/-1}.outside-dev-days button[aria-pressed="true"]{background:#23525d;border-color:#a9f5ef;color:#dcfff9}.outside-dev-console section{margin-top:16px}.outside-dev-console section[hidden]{display:none}.outside-entry-hint{text-align:center;max-width:490px}.outside-entry-hint>kbd{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 22px;font-size:28px;color:#c6fbf8;border:1px solid #6cc8d0;border-radius:9px;background:#18313f;box-shadow:0 0 25px #6cc8d022}.outside-entry-hint p{font-size:15px;line-height:1.9}.outside-entry-hint .primary{min-width:140px;margin-top:15px}

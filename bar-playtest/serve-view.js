@@ -1,12 +1,13 @@
 /* One-shot serving presentation. Original PNG sheets remain unchanged. */
-window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
- const sheets={
+window.LUNA_SERVE_SHEETS={
   gin_tonic:{src:'assets/serve-gin-tonic.png',cols:6,w:959,h:540,sx:2,sy:3,dx:961,dy:543,full:true},
   cosmopolitan:{src:'assets/serve-cosmo.png',cols:5,w:376,h:531,x:340,y:-10,scale:.85},
   dry_martini:{src:'assets/serve-dry-martini.png',cols:5,w:376,h:531,x:340,y:-10,scale:.85},
   gin_fizz:{src:'assets/serve-gin-fizz.png',cols:5,w:336,h:496,x:315,y:-12,scale:.91},
   kahlua_milk:{src:'assets/serve-kahlua.png',cols:5,w:285,h:479,x:364,y:-16,scale:.93}
  };
+window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
+ const sheets=window.LUNA_SERVE_SHEETS;
  const images=new Map(),duration=1.5;
  let current=null;
  function image(src){

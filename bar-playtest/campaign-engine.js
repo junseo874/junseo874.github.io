@@ -5,7 +5,7 @@ const copy=x=>JSON.parse(JSON.stringify(x));
 const RESTORATION={id:'johnny_old_fashioned',prototype:false,glass:'old_fashioned',tool:'mixing_glass',ingredients:[['wild_dog',45],['bitters',5],['sugar_cube',1]],mix:'stir'};
 class Session{
  constructor(g,data,story){this.g=g;this.data=data;this.story=story;this.active=false;this.day=0;this.completed=[];this.checkpoint=null;this.route='title';this.events=[];this.original=null;}
- install(options={}){if(this.active)return;this.developer=!!options.developer;this.serviceVersion=options.serviceVersion==='B'?'B':'A';const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
+ install(options={}){if(this.active)return;this.developer=!!options.developer;this.serviceVersion='A';const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
   const addAsset=(key,source)=>{if(!this.data.assets[key]&&this.data.assets[source]){this.assetKeys.push(key);this.data.assets[key]=this.data.assets[source];}};
   t.scenes=t.scenes.filter(s=>!([1,2,3].includes(Number(s.day))));
   const oldContexts=new Set(this.original.scenes.filter(s=>[1,2,3].includes(Number(s.day))).map(s=>s.id));
