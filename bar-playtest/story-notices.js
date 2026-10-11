@@ -62,7 +62,7 @@ function tick(g,outside,campaign,dt){
   if(lane.current?.owner!==owner){lane.current=null;lane.age=0;}
  }
  if(!layer&&!Object.values(lanes).some(l=>l.current||l.queue.length))return;
- mount();layer.hidden=!!blocked;if(blocked)return;
+ mount();layer.hidden=!!blocked;if(blocked){W.LunaStoryNoticeAudio?.stop();return;}
  const elapsed=Math.min(.1,Math.max(0,Number(dt)||0));
  for(const lane of Object.values(lanes)){
   if(lane.current){lane.age+=elapsed;if(lane.age>=3.3){lane.current=null;lane.age=0;}}
@@ -72,6 +72,7 @@ function tick(g,outside,campaign,dt){
    lane.el.querySelector('.story-notice-icon').textContent={meet:'＋',up:'↑',down:'↓',event:'!'}[e.kind];
    lane.el.querySelector('small').textContent=e.kind==='meet'?'인물 정보':e.kind==='event'?'외부 이벤트':'관계 변화';
    lane.el.querySelector('strong').textContent=label(e,g);
+   W.LunaStoryNoticeAudio?.play(()=>lane.current===e&&!layer.hidden);
   }
   lane.el.hidden=!lane.current;if(!lane.current)continue;
   const enter=Math.min(1,lane.age/.25),exit=Math.max(0,(lane.age-2.95)/.35),visible=enter*(1-exit);
@@ -80,6 +81,6 @@ function tick(g,outside,campaign,dt){
   lane.el.style.transform=reduced?'none':'translateX('+((1-Math.pow(enter,1/3))*300+exit*300)+'px)';
  }
 }
-function clear(){for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}
+function clear(){W.LunaStoryNoticeAudio?.stop();for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}
 W.LunaStoryNotices={roster,meet,meetOutside,affinity,effects,forced,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
 })(typeof window==='undefined'?globalThis:window);

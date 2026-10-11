@@ -6,6 +6,22 @@ const R=global.LunaResidence.layout;
 const BOTTOM=R.elevatorBottom,TOP=R.elevatorTop,EX=R.elevatorX;
 // The fence-side sign is a local lookout, not a full-map camera toggle.
 const VIEWPOINT={x:-8.78,y:-.7,radius:.55,width:12};
+// Speeds relative to the gameplay plane (1). Only independent art is listed:
+// doors, lift, railings, shop props, actors, speech and rain stay in world space.
+const STREET_DEPTH=Object.freeze({
+ Sky:[.55,.78],C_Back_Building_2:[.72,.86],C_Back_Building_1:[.84,.91],
+ C_Middle_Building_1:[.94,.96],C_Middle_Building_2:[.94,.96],C_Middle_Building_3:[.94,.96],
+ C_Middle_Object_1:[.94,.96],C_Middle_Object_2:[.94,.96],
+ CityLight:[.94,.96],"'CityLight '":[.94,.96],CityUpLight:[.94,.96],
+ B_ForeFore_Object_1:[1.035,1]
+});
+function streetParallax(n,camera,model){
+ const speed=model.scene==='street'&&!model.qa&&!n.ambient&&n.ancestry?.[0]==='BG'?STREET_DEPTH[n.name]:null;
+ if(!speed)return{x:n.x,y:n.y};
+ // Fixed map-center origin: no accumulated drift, day/spawn resets or zoom
+ // multipliers. All billboard pieces share their building's exact offset.
+ return{x:n.x+(camera.x+7.85)*(1-speed[0]),y:n.y+camera.y*(1-speed[1])};
+}
 function atViewpoint(m){return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&Math.abs(m.x-VIEWPOINT.x)<=VIEWPOINT.radius&&!m.ride&&!m.transition&&!m.encounter&&!m.dialog&&!m.story.blocking;}
 // Equal Unity sorting keys must not inherit serialized component/file-ID order.
 // Wall/fence dressing goes on the background, NPCs follow their sorting order,
@@ -188,7 +204,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function renderNode(n){if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
-  const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model);drawSprite(sp,n.x,y,n.sx,n.sy,facing,light?.26:1,light);
+  const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model),art=streetParallax(n,cam,model);drawSprite(sp,art.x,art.y+(y-n.y),n.sx,n.sy,facing,light?.26:1,light);
  }
  function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
   if(model.qa){global.LunaOutsideQA.draw({m:model,ctx,position,sprite:drawSprite,data,player:()=>{const a=data.animations[model.anim];drawSprite(a.frames[Math.floor(model.animTime*a.fps)%a.frames.length],model.x,model.y,1,1,model.facing>0);}});if(model.transition){ctx.fillStyle='rgba(6,10,18,'+Math.max(0,1-Math.abs(model.transition.time-.38)/.47)+')';ctx.fillRect(0,0,1280,720);}return;}
@@ -196,7 +212,16 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.scene==='home'){const bg=nodes.find(n=>n.name==='main_bg');if(bg)renderNode(bg);nodes.filter(n=>n.name!=='main_bg'&&n.name!=='ForeFore_Object').forEach(renderNode);}
   const drawPlayer=()=>{const anim=data.animations[model.anim],frame=anim.frames[Math.floor(model.animTime*anim.fps)%anim.frames.length];drawSprite(frame,model.x,model.y,1,1,model.facing>0);};
   if(model.scene==='home'){drawPlayer();nodes.filter(n=>n.name==='ForeFore_Object').forEach(renderNode);}
-  else streetDrawOrder(nodes).forEach(n=>{if(n.name==='Luna'){global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);});
+  else {
+   let farTraffic=false,midTraffic=false;
+   for(const n of streetDrawOrder(nodes)){
+    // Traffic is part of the scene, not an overlay: skyline silhouettes,
+    // foreground shops and the residence/lift naturally cover it afterwards.
+    if(!farTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'far');farTraffic=true;}
+    if(!midTraffic&&n.layer>=5){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'mid');midTraffic=true;}
+    if(n.name==='Luna'){global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);
+   }
+  }
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
   global.LunaOutsideRain?.draw(ctx,model,cam,position);
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
@@ -258,5 +283,5 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
  return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
-global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint};
+global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint};
 })(typeof window==='undefined'?globalThis:window);

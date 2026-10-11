@@ -3,9 +3,18 @@
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
-let F,navigation,rows=[],group='bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
+let F,navigation,rows=[],group=new URLSearchParams(location.search).get('tab')==='popups'?'common-popups':'bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
 const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>'+(r.needsRevision?'<span class="revision-tag">수정 필요</span>':'');
 const variantSelections=new Map();let indicatorPreview=null;
+let popupActor='chris';
+function popupControls(d){
+ const row=rows.find(r=>r.id===d.popupId),popup=!!row;
+ if(d.actor)popupActor=d.actor;
+ lab.classList.toggle('popup-mode',popup);
+ const rail=$('#popup-rail');
+ rail.innerHTML=popup?['toast','dialog'].map(kind=>'<h3>'+(kind==='toast'?'알림 / 자동 사라짐':'팝업 / 직접 닫기')+'</h3>'+rows.filter(r=>r.group===ResourcePopups.group&&r.popupKind===kind).map(r=>'<button data-popup="'+E(r.id)+'" aria-current="'+(r.id===row.id)+'">'+E(r.title)+'<small>'+(r.uiArtPending?'UI 아트 미제작':'실제 게임 UI')+'</small></button>').join('')).join(''):'';
+ $('#popup-actor-controls').innerHTML=popup&&d.type==='popup-story'&&d.kind!=='event'?'<label class="popup-actor">테스트 인물<select id="popup-actor">'+F.LunaStoryNotices.roster.map(id=>'<option value="'+id+'" '+(popupActor===id?'selected':'')+'>'+E(F.barGame.name(id))+'</option>').join('')+'</select></label>':'';
+}
 const statusesByGroup=new Map();
 const statusOptions=[['all','전체'],['registered','등록됨'],['dummy','더미·임시'],['shared','대체·공용'],['missing','미등록·미제작'],['uiArt','UI 아트 미제작'],['code','코드 UI·연출'],['revision','수정 필요'],['attention','검토 대상']];
 const currentStatus=()=>statusesByGroup.get(group)||'all';
@@ -17,7 +26,7 @@ function statusHTML(){
 }
 function stopIndicatorPreview(){if(indicatorPreview&&F)F.barGame.tick=indicatorPreview.tick;indicatorPreview=null;}
 const variantFor=r=>r?.variants?.find(v=>v.id===variantSelections.get(r.id))||r?.variants?.[0];
-const variantLaunch=(r,v=variantFor(r))=>v?{...v.launch,reviewId:r.id,variantId:v.id}:r.launch;
+const variantLaunch=(r,v=variantFor(r))=>({...v?.launch,...(!v?r.launch:{}),...(v?{reviewId:r.id,variantId:v.id}:{}),...(r.group===ResourcePopups.group?{popupId:r.id,actor:popupActor}:{})});
 function variantControls(r,id){const v=variantFor(r);return v?'<label class="state-picker">표시 상태<select id="'+id+'">'+r.variants.map(x=>'<option value="'+E(x.id)+'" '+(x.id===v.id?'selected':'')+'>'+E(x.label)+'</option>').join('')+'</select></label>':'';}
 function syncVariantControls(d){const r=rows.find(r=>r.id===d.reviewId);if(r)variantSelections.set(r.id,d.variantId);$('#lab-state-controls').innerHTML=variantControls(r,'lab-state');const input=$('#inspect-state');if(input&&selected?.id===r?.id)input.value=d.variantId;}
 const count=r=>Math.max(1,...(r.layers||[]).map(l=>l.frames||1));
@@ -49,7 +58,7 @@ function clearFilters(){facetsByGroup.set(group,{});$('#search').value='';status
 
 function render(){
  const missing=group==='missing';
- $('#nav').innerHTML='<button id="missing-resources" data-group="missing" aria-controls="missing-view" aria-current="'+missing+'" '+(!window.resourceReview?.ready?'disabled':'')+'>미제작 리소스<em>'+ResourceMissing.build(rows).length+'</em></button>'+['바 내부','외부'].map(area=>'<h3>'+area+'</h3>'+C.groups.filter(g=>g[1]===area).map(([id,,label])=>'<button data-group="'+id+'" aria-current="'+(id===group)+'">'+label+'<em>'+rows.filter(r=>r.group===id).length+'</em></button>').join('')).join('');
+ $('#nav').innerHTML='<button id="missing-resources" data-group="missing" aria-controls="missing-view" aria-current="'+missing+'" '+(!window.resourceReview?.ready?'disabled':'')+'>미제작 리소스<em>'+ResourceMissing.build(rows).length+'</em></button>'+['공통','바 내부','외부'].map(area=>'<h3>'+area+'</h3>'+C.groups.filter(g=>g[1]===area).map(([id,,label])=>'<button data-group="'+id+'" aria-current="'+(id===group)+'">'+label+'<em>'+rows.filter(r=>r.group===id).length+'</em></button>').join('')).join('');
  $('#catalog-view').hidden=missing;$('#missing-view').hidden=!missing;$('#inspector').hidden=missing;$('.workspace').classList.toggle('missing-mode',missing);
  if(missing){window.resourceReview.missing.show();return;}
  const gs=C.groups.find(g=>g[0]===group);$('#heading').textContent=gs[1]+' · '+gs[2];const list=filtered();$('#resource-filters').innerHTML=filterHTML();if(selected&&!list.some(r=>r.id===selected.id)){selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}$('#count').textContent=list.length+'개 표시 / '+rows.filter(r=>r.group===group).length+'개';
@@ -69,12 +78,13 @@ function reset(){F.lunaQA.close();F.lunaCampaign.developer();F.document.querySel
 async function launch(d,title,note,fromHistory=false){
  if(busy)return;const token=++launchEpoch;if(navigation?.pending)await navigation.pending;if(token!==launchEpoch)return;busy=true;activeLaunch={d,title,note};if(!fromHistory)navigation?.enter(activeLaunch);lab.classList.remove('parked');$('#lab-title').textContent=title;$('#lab-note').textContent=note||'실제 UI를 직접 조작하세요.';$('#lab-note').classList.remove('error');
  try{
-  stopIndicatorPreview();syncVariantControls(d);
+  stopIndicatorPreview();syncVariantControls(d);popupControls(d);
   // Focus before opening a test dialog. Refocusing the iframe afterwards blurs
   // its focused button and closes the exterior P drawer via loseFocus().
   frame.focus();F.focus();
-  reset();const g=F.barGame,c=F.lunaCampaign,q=F.lunaQA,ui=c.ui;const qa=id=>q.runSituation(id);const prep=id=>{q.state.cocktail=id||'gin_tonic';qa('prep');};
-  if(d.type==='qa')qa(d.id);
+  reset();F.LunaStoryNotices.clear();const g=F.barGame,c=F.lunaCampaign,q=F.lunaQA,ui=c.ui;const qa=id=>q.runSituation(id);const prep=id=>{q.state.cocktail=id||'gin_tonic';qa('prep');};
+  if(d.type.startsWith('popup-'))await ResourcePopups.play(F,d,()=>token===launchEpoch);
+  else if(d.type==='qa')qa(d.id);
   else if(d.type==='indicator'){
    qa(d.id==='empty'?'wait':d.id);
    if(d.id==='empty')g.seats={L:null,M:null,R:null};
@@ -127,8 +137,10 @@ async function launch(d,title,note,fromHistory=false){
    o.snapCamera();o.model.paused=false;o.refreshHUD?.();
    if(d.type==='exterior'){
     const m=o.model;
-    if(['purchase','poor'].includes(d.id)){g.progress.money=d.id==='poor'?0:1000;g.progress.inventory={};g.progress.flags={shiba_shop_met:true,shiba_allowance_received:true};m.x=-2.87;m.updateNear();o.snapCamera();o.tick(0);
-     if(d.id==='purchase'){g.progress.money-=300;o.notifyItem(m,'bitters');o.tick(0);}
+    if(['purchase','poor'].includes(d.id)){if(d.id==='poor'){g.progress.money=0;g.progress.inventory={};g.progress.flags={shiba_shop_met:true,shiba_allowance_received:true};}m.x=-2.87;m.updateNear();o.snapCamera();o.tick(0);
+     // Preview the material toast alone. Real purchases still charge normally;
+     // currency changes have their own independent popup test.
+     if(d.id==='purchase'){o.notifyItem(m,'bitters');o.tick(0);}
      else{const drain=()=>{for(let i=0;i<30&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}};F.LunaOutsideShop.begin(m,{x:-2.68,y:-.596},false);drain();m.story.choose('shop-yes');drain();m.story.choose('shop-allowance-no');drain();o.tick(0);}
     }
     if(d.id==='bd'){m.x=5.5;m.updateNear();o.snapCamera();F.LunaBDVendor.interact(m,{id:'bd-vendor',x:5.65,y:-.7});}
@@ -140,19 +152,21 @@ async function launch(d,title,note,fromHistory=false){
  }catch(e){if(token!==launchEpoch)return;$('#lab-note').textContent='이 테스트를 시작하지 못했습니다: '+e.message+' · 목록으로 돌아간 뒤 다른 항목을 선택해 주세요.';$('#lab-note').classList.add('error');console.error(e);}
  finally{if(token===launchEpoch)busy=false;}
 }
-function closeLab(fromHistory=false){launchEpoch++;busy=false;stopIndicatorPreview();if(F){F.lunaCampaign.developer();F.barGame.paused=true;}lab.classList.add('parked');if(fromHistory!==true)navigation?.leave();$('#inspector [data-action="launch"]')?.focus({preventScroll:true});}
+function closeLab(fromHistory=false){launchEpoch++;busy=false;stopIndicatorPreview();if(F){F.lunaCampaign.developer();F.LunaStoryNotices.clear();F.barGame.paused=true;}lab.classList.add('parked');if(fromHistory!==true)navigation?.leave();$('#grid [data-id="'+selected?.id+'"]')?.focus({preventScroll:true});}
+$('#popup-rail').onclick=e=>{const b=e.target.closest('[data-popup]'),r=rows.find(r=>r.id===b?.dataset.popup);if(r&&!busy){select(r.id);launch(variantLaunch(r),r.title,r.note);}};
+$('#popup-actor-controls').onchange=e=>{if(e.target.id!=='popup-actor'||busy)return;popupActor=e.target.value;if(activeLaunch)launch({...activeLaunch.d,actor:popupActor},activeLaunch.title,activeLaunch.note);};
 $('#lab-state-controls').onchange=e=>{if(e.target.id!=='lab-state'||busy)return;const r=rows.find(r=>r.id===activeLaunch?.d.reviewId),v=r?.variants.find(v=>v.id===e.target.value);if(v)launch(variantLaunch(r,v),r.title,r.note);};
 $('#inspector').onchange=e=>{if(e.target.id==='inspect-state'&&selected)variantSelections.set(selected.id,e.target.value);};
 $('#close-lab').onclick=closeLab;$('#replay').onclick=()=>activeLaunch&&launch(activeLaunch.d,activeLaunch.title,activeLaunch.note);
 $('#nav').onclick=e=>{const b=e.target.closest('[data-group]');if(b&&!b.disabled){group=b.dataset.group;render();$('#nav [data-group="'+group+'"]').focus({preventScroll:true});}};
 $('#resource-filters').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;if(b.hasAttribute('data-filter-reset')){clearFilters();$('#resource-filters [data-status="all"]')?.focus({preventScroll:true});return;}if(b.dataset.status){const s=b.dataset.status;statusesByGroup.set(group,s);render();$('#resource-filters [data-status="'+s+'"]')?.focus({preventScroll:true});return;}const key=b.dataset.facet,value=b.dataset.value;picked()[key]=value;render();[...document.querySelectorAll('[data-facet]')].find(el=>el.dataset.facet===key&&el.dataset.value===value)?.focus({preventScroll:true});};
-$('#grid').onclick=e=>{const b=e.target.closest('[data-id]');if(b)select(b.dataset.id);};
+$('#grid').onclick=e=>{const b=e.target.closest('[data-id]');if(b){select(b.dataset.id);if(selected?.group===ResourcePopups.group)launch(variantLaunch(selected),selected.title,selected.note);}};
 $('#search').oninput=render;
 $('#inspector').onclick=e=>{const a=e.target.closest('[data-action]')?.dataset.action;if(!a)return;if(a==='launch')launch(variantLaunch(selected),selected.title,selected.note);else if(a==='play'){playing=!playing;e.target.textContent=playing?'일시정지':'재생';}else if(a==='next'||a==='prev'){playing=false;step=(step+(a==='next'?1:-1)+count(selected))%count(selected);$('#inspector [data-action="play"]').textContent='재생';drawPreview();}else if(a==='background'){const p=$('.preview');if(p.classList.contains('light')){p.classList.remove('light');p.classList.add('black');}else if(p.classList.contains('black'))p.classList.remove('black');else p.classList.add('light');}};
 $('#inspector').oninput=e=>{if(e.target.id==='frame-slider'){step=+e.target.value;playing=false;$('#inspector [data-action="play"]').textContent='재생';drawPreview();}if(e.target.id==='fps')fps=Math.max(1,Math.min(60,+e.target.value||6));if(e.target.dataset.layer){e.target.checked?disabled.delete(e.target.dataset.layer):disabled.add(e.target.dataset.layer);drawPreview();}};
 $('#export').onclick=()=>{const csv=[['분류','이름','용도','상태','요청 키','사용 키','파일','원본 출처','비고'],...rows.map(r=>[C.groups.find(g=>g[0]===r.group).slice(1).join(' / '),r.title,r.usage,C.statusNames[r.status],r.wanted,r.key,(r.layers||[]).map(l=>l.src?.startsWith('data:')?(l.source||'내장 이미지')+'#'+l.key:l.src).join(' | '),(r.layers||[]).map(l=>l.source).join(' | '),r.note])].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');const url=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download='unknown-resource-review.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 function tick(t){if(indicatorPreview&&!lab.classList.contains('parked')){const age=Math.max(0,(t-indicatorPreview.start)/1000);F.barGame.realTime=indicatorPreview.clock+(indicatorPreview.id==='arrival'?age%2.4:age);}if(selected&&playing&&lab.classList.contains('parked')){age+=Math.min(.1,(t-last)/1000)*fps;if(age>=1){step=(step+Math.floor(age))%count(selected);age%=1;drawPreview();}}last=t;requestAnimationFrame(tick);}requestAnimationFrame(tick);
-async function init(){try{F=frame.contentWindow;if(!F.lunaCampaign||!F.lunaQA){if(performance.now()-loadingStarted>45000)throw Error('시뮬레이터 로딩이 지연되고 있습니다. 웹 서버 연결을 확인한 뒤 새로고침해 주세요.');setTimeout(init,150);return;}F.document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&!/^(blob:|data:|#)/.test(a.getAttribute('href'))){e.preventDefault();$('#lab-note').textContent='테스트 안에서는 다른 페이지로 이동하지 않습니다. 목록으로 돌아가 다른 테스트를 선택하세요.';}},true);F.document.querySelector('.updates-confirm')?.click();F.lunaCampaign.developer();F.barGame.paused=true;navigation=ResourceReviewNavigation.create({frame,isOpen:()=>!lab.classList.contains('parked'),open:({d,title,note})=>launch(d,title,note,true),close:closeLab});rows=C.build(F).map(R.decorate);$('#notice').textContent='카드별 용도와 대체 여부를 확인하세요. 컷씬 캐릭터 데이터를 추가로 불러오고 있습니다.';render();await F.lunaCampaign.script('assets');rows.push(...C.cinema(F).map(R.decorate));for(const name of ['stage','stage2','stage3','stage4'])await F.lunaCampaign.script(name);rows.push(...ResourceBackgrounds.cinema(F).map(R.decorate));$('#notice').textContent='0–3일차 출연 캐릭터 + 부비(등장 예정) · 배경은 화면별 원본·레이어 합성 제공 · UI는 실제 화면 캡처 제공 · 하운드·코라테크 병력 제외.';render();window.resourceReview.ready=true;$('#export').disabled=false;window.resourceReview.missing=ResourceMissing.mount({getRows:()=>rows,paint,inspect:id=>{const r=rows.find(r=>r.id===id);if(!r)return;group=r.group;clearFilters();select(id);const card=[...document.querySelectorAll('#grid [data-id]')].find(el=>el.dataset.id===id);card?.scrollIntoView({block:'center'});card?.focus({preventScroll:true});}});render();}catch(e){$('#notice').textContent='데이터를 불러오지 못했습니다: '+e.message;$('#notice').classList.add('error');}}
+async function init(){try{F=frame.contentWindow;if(!F.lunaCampaign||!F.lunaQA){if(performance.now()-loadingStarted>45000)throw Error('시뮬레이터 로딩이 지연되고 있습니다. 웹 서버 연결을 확인한 뒤 새로고침해 주세요.');setTimeout(init,150);return;}F.document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(a&&!/^(blob:|data:|#)/.test(a.getAttribute('href'))){e.preventDefault();$('#lab-note').textContent='테스트 안에서는 다른 페이지로 이동하지 않습니다. 목록으로 돌아가 다른 테스트를 선택하세요.';}},true);F.document.querySelector('.updates-confirm')?.click();F.lunaCampaign.developer();F.barGame.paused=true;navigation=ResourceReviewNavigation.create({frame,isOpen:()=>!lab.classList.contains('parked'),open:({d,title,note})=>launch(d,title,note,true),close:closeLab});rows=ResourcePopups.collect(C.build(F),C).map(R.decorate);$('#notice').textContent='카드별 용도와 대체 여부를 확인하세요. 컷씬 캐릭터 데이터를 추가로 불러오고 있습니다.';render();await F.lunaCampaign.script('assets');rows.push(...C.cinema(F).map(R.decorate));for(const name of ['stage','stage2','stage3','stage4'])await F.lunaCampaign.script(name);rows.push(...ResourceBackgrounds.cinema(F).map(R.decorate));$('#notice').textContent='0–3일차 출연 캐릭터 + 부비(등장 예정) · 배경은 화면별 원본·레이어 합성 제공 · UI는 실제 화면 캡처 제공 · 하운드·코라테크 병력 제외.';render();window.resourceReview.ready=true;$('#export').disabled=false;window.resourceReview.missing=ResourceMissing.mount({getRows:()=>rows,paint,inspect:id=>{const r=rows.find(r=>r.id===id);if(!r)return;group=r.group;clearFilters();select(id);const card=[...document.querySelectorAll('#grid [data-id]')].find(el=>el.dataset.id===id);card?.scrollIntoView({block:'center'});card?.focus({preventScroll:true});}});render();}catch(e){$('#notice').textContent='데이터를 불러오지 못했습니다: '+e.message;$('#notice').classList.add('error');}}
 window.resourceReview={get rows(){return rows;},get selected(){return selected;},select,launch,close:closeLab,ready:false};
 init();
 })();

@@ -83,7 +83,7 @@ function build(F){
  const speechCase=F.LunaOutsideQA.catalog().find(c=>c.encounter?.kind==='pair'&&c.encounter.activation!=='forced');
  if(speechCase){ui('world-speech','월드 말풍선 / 외부','외부 NPC·오브젝트·방송에서 공통으로 쓰는 월드 말풍선입니다. 대사 내용별로 카드를 나누지 않고 대표 대화로 확인합니다.',{type:'outside',id:speechCase.id},'out-ui');rows.at(-1).preview='assets/resource-previews/'+('ui:outside:'+speechCase.id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg';}
  ui('terrace:workshop','독립 대사창 / 검은 화면','월드 말풍선과 다른 화면 하단 대사창입니다. 화자 이름과 대사 텍스트 배치를 확인합니다.',{type:'terrace',id:'workshop'},'out-ui');
- ui('exterior:purchase','재료 획득 알림 / 외부','왼쪽에서 들어오는 재료 이미지·이름 알림입니다. 오른쪽 재화 차감은 기존 소지금 알림을 공용으로 사용합니다.',{type:'exterior',id:'purchase'},'out-ui');
+ ui('exterior:purchase','재료 획득 알림 / 외부','재료 이미지·이름과 획득 알림 효과음만 재생합니다. 소지금은 변경하지 않으며, 재화 알림은 소지금 증가 / 차감 항목에서 따로 확인합니다.',{type:'exterior',id:'purchase'},'out-ui');
  stateGroup('exterior:street','상호작용 키 안내 / E·Y','대상 위 E 표시와 전경 관찰 지점의 Y 표시를 전환해 확인합니다.',[{id:'e',label:'상호작용 / E',launch:{type:'exterior',id:'street'}},{id:'y',label:'전경 관찰 / Y',launch:{type:'exterior',id:'panorama'}}],'exterior:street','out-ui');
  stateGroup('exterior:poor','외부 대화 / 선택지','구매 선택과 금액 부족 비활성화를 같은 선택지 UI에서 확인합니다.',[{id:'poor',label:'상점 / 소지금 부족',launch:{type:'exterior',id:'poor'}},{id:'bd',label:'구매 확인',launch:{type:'exterior',id:'bd'}}],'exterior:poor','out-ui');
  stateGroup('door:in','바 출입 / 로딩','같은 문 로딩 화면의 입장·퇴장 상태를 전환해 확인합니다.',[{id:'in',label:'입장 / 문 열림',launch:{type:'door',id:'in'}},{id:'out',label:'퇴장 / 문 닫힘',launch:{type:'door',id:'out'}}],'door:in','out-ui');
@@ -107,7 +107,7 @@ function build(F){
  fx('memory','out','기억 회상 · 전환 / 화면 노이즈','transition','johnny-memory.js / campaign.js',{type:'johnny-memory'},'ui:johnny-memory','조니의 기억에 진입해 실제 회상 연출을 확인합니다.');
  fx('lift','out','엘리베이터 · 로고 / 그라디언트 / 팀명','transition','outside-qa.js / campaign.css',{type:'outside',id:'lift-logo'},'ui:outside:lift-logo','QA 승강 연출의 로고·우측 음영·Team. SimChung 표시를 확인합니다.');
  fx('panorama','out','전경 관찰 · 카메라 줌 / 복귀','camera','outside.js',{type:'exterior',id:'panorama'},'ui:exterior:panorama','관찰 지점에서 Y를 눌러 전경 확대와 복귀를 비교하세요.');
- fx('purchase','out','구매 · 재화 차감 / 재료 슬라이드 알림','notice','currency-view.js / outside.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','우측 재화 알림과 좌측 재료 획득 알림을 동시에 재생합니다.');
+ fx('purchase','out','재료 획득 · 슬라이드 알림','notice','outside-notices.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','재화 변동 없이 좌측 재료 획득 알림만 재생합니다.');
  fx('street','out','거리 · 원경 / 중경 / 근경 / 전광판','environment','outside.js / outside-data.js',{type:'exterior',id:'street'},'ui:exterior:street','A/D 이동으로 레이어·가림·거리 전광판을 확인합니다. 코드와 기존 이미지로 구성된 현재 표현이며 별도 셰이더 원본이 등록됐다는 의미는 아닙니다.');
  for(const area of ['bar','out'])if(!groups.some(g=>g[0]===area+'-backgrounds'))groups.splice(groups.findIndex(g=>g[0]===area+'-ui'),0,[area+'-backgrounds',area==='bar'?'바 내부':'외부','배경 / 화면별 레이어']);
  rows.push(...W.ResourceBackgrounds.build(F));

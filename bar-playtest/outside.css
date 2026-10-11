@@ -24,9 +24,12 @@
 /* Compact acquisition HUD, independent of the world camera and speech layers. */
 .outside-notices{position:absolute;inset:0;z-index:3;pointer-events:none}
 .outside-notices .currency-hud{right:23px;top:17px}
-.outside-item-notice{position:absolute;left:20px;top:17px;display:flex;align-items:center;gap:10px;min-height:54px;width:210px;padding:7px 12px;border:1px solid #61cbd27d;border-radius:5px;background:#09141eed;box-shadow:0 4px 14px #0005;color:#a7d3d8;font-size:13px;line-height:1.4;will-change:transform,opacity}
-.outside-item-notice img{width:32px;height:38px;object-fit:contain;image-rendering:pixelated;flex:none}
-.outside-item-notice strong{font-weight:400;color:#e5f6f3}
+/* Reuse the profile-registration card theme; retain the small upper-left
+   acquisition slot and ingredient preview rather than moving it over people. */
+.outside-item-notice.story-notice{left:20px;right:auto;top:17px;width:270px;max-width:calc(100% - 40px);min-height:74px;padding:12px 14px;gap:12px}
+.outside-item-preview{display:grid;place-items:center;width:40px;height:44px;flex:0 0 40px;border:1px solid #477880;border-radius:5px;background:#0919238c}
+.outside-item-notice img{width:30px;height:38px;object-fit:contain;image-rendering:pixelated}
+.outside-item-notice.story-notice strong{font-size:14px;overflow-wrap:anywhere}
 
 .outside-story-emphasis{color:#ff7777;font-weight:700}
 /* The entry page is a launch point; test configuration lives in the P drawer. */

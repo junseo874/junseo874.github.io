@@ -2,8 +2,10 @@
 (function(W){
 'use strict';
 const labels={media:{static:'단일 / 정적 이미지',animation:'애니메이션',none:'이미지 없음 / 시점'},motion:{idle:'Idle · 대기',talk:'Talk · 대화',anger:'Anger · 분노',joy:'Joy · 기쁨',success:'Success · 성공',fail:'Fail · 실패',serious:'Serious · 진지',surprise:'Surprise · 놀람',drunk:'Drunk · 취함',drink:'Drink · 마시기',walk:'Walk · 걷기',run:'Run · 달리기',crawl:'Crawl · 기어가기',fall:'Fall · 낙하',shoot:'Shoot · 사격',stand_up:'Stand up · 일어서기',parts:'일반 손님 / 부위',seated:'착석',pov:'시점',other:'기타 동작'},usage:{hero:'완성 / 대표 이미지',recipe:'레시피 UI 이미지',table:'바 테이블 위',shelf:'선반 이미지',inventory:'담은 재료 UI'},kind:{ingredient:'재료',glass:'잔',tool:'도구'},topic:{service:'영업 / 손님 상태',dialogue:'말풍선 / 대화 / 선택지',recipe:'레시피 / 재료 준비',gimmick:'제조 기믹',popup:'팝업 / 설정 / 안내',art:'원본 UI 리소스',event:'런타임 이벤트',interaction:'NPC / 오브젝트 상호작용',space:'거리 / 집 / 이동',transition:'로딩 / 일차 전환'}};
+labels.popupKind={toast:'알림 / 자동 사라짐',dialog:'팝업 / 직접 닫기'};
 function decorate(r){
  const f={media:!r.layers?.length?'none':r.layers.some(l=>(l.frames||1)>1)?'animation':'static'};
+ if(r.popupKind)f.popupKind=r.popupKind;
  if(r.effectCategory)f.effect=r.effectCategory;
  if(r.backgroundScreen){f.backgroundScreen=r.backgroundScreen;f.backgroundKind=r.backgroundKind;}
  if(['bar-characters','out-characters'].includes(r.group)){
@@ -34,6 +36,7 @@ function decorate(r){
  return {...r,facets:f};
 }
 function schema(group){
+ if(group==='common-popups')return [['popupKind','표시 방식']];
  if(group.endsWith('-backgrounds'))return [['backgroundScreen','사용 화면'],['backgroundKind','배경 / 레이어 종류']];
  if(group.endsWith('-fx'))return [['effect','연출 종류']];
  if(['bar-characters','out-characters'].includes(group))return [['actor','캐릭터'],['motion','동작 / 상태'],['media','리소스 형태']];

@@ -11,6 +11,19 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await page.evaluate(()=>outsidePlaytest.start());await page.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);
   await page.evaluate(()=>{const m=outsidePlaytest.model;m.paused=false;m.time=2.5;outsidePlaytest.tick(0);});
   await page.screenshot({path:'/private/tmp/luna-rain-preview.png'});
+  // Reproduce the supplied shop view. Freeze only rain time so a full splash
+  // is visible, then compare fixed-world impacts across several street areas.
+  for(const x of [-2.87,1,-18]){
+   const result=await page.evaluate(x=>{
+    const o=outsidePlaytest,m=o.model;m.start({day:0,flow:'out',place:'bar'});m.x=x;m.time=2.5;o.snapCamera();
+    const sp=LUNA_OUTSIDE_DATA.animations.idle.frames[0],foot=m.y-sp.h/sp.ppu*sp.pivot.y;
+    const field=LunaOutsideRain.particles(m,o.camera);
+    return {count:field.splashes.length,below:field.splashes.every(s=>s.y+.018<foot)};
+   },x);assert(result.count>0&&result.below,'Road impacts below feet at '+x);
+  }
+  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.x=-2.87;m.paused=false;m.time=2.5;window.rainPreviewTick=m.tick;m.tick=()=>{};o.snapCamera();o.tick(0);});
+  await page.screenshot({path:'/private/tmp/luna-rain-ground-shop.png'});
+  await page.evaluate(()=>{outsidePlaytest.model.tick=window.rainPreviewTick;delete window.rainPreviewTick;});
   for(const [day,flow,expected] of [[0,'out',true],[0,'in',false],[1,'out',true],[1,'in',false],[2,'in',true],[2,'out',false],[3,'out',false]]){
    const result=await page.evaluate(({day,flow})=>{const o=outsidePlaytest;o.openDev();o.devAction('dev-day-'+day);o.devAction('dev-flow-'+flow);o.devAction('dev-close');return LunaOutsideRain.enabled(o.model);},{day,flow});
    assert.equal(result,expected,day+'/'+flow);

@@ -34,7 +34,7 @@ function family(r){
 }
 function build(rows){
  const entries=new Map();
- for(const row of rows){const why=reason(row);if(!why)continue;const kind=category(row),id=kind+':'+family(row);if(!entries.has(id))entries.set(id,{id,category:kind,title:row.title,area:row.group.startsWith('bar-')?'바 내부':'외부',rows:[],reasons:[]});const e=entries.get(id);e.rows.push({row,reason:why});if(!e.reasons.includes(why))e.reasons.push(why);}
+ for(const row of rows){const why=reason(row);if(!why)continue;const kind=category(row),id=kind+':'+family(row);if(!entries.has(id))entries.set(id,{id,category:kind,title:row.title,area:(row.sourceGroup||row.group).startsWith('bar-')?'바 내부':'외부',rows:[],reasons:[]});const e=entries.get(id);e.rows.push({row,reason:why});if(!e.reasons.includes(why))e.reasons.push(why);}
  return [...entries.values()].sort((a,b)=>categories.findIndex(c=>c[0]===a.category)-categories.findIndex(c=>c[0]===b.category)||a.title.localeCompare(b.title,'ko'));
 }
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
