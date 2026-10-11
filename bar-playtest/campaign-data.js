@@ -249,7 +249,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "chris",
         "who": "크리스",
-        "text": "우리 가게에 오는 손님들이 대부분 맥주나 샴페인처럼 익숙한 걸 주문하니까 말이지."
+        "text": "우리 가게에 오는 손님들이 대부분 맥주나 진피즈처럼 익숙한 걸 주문하니까 말이지."
       },
       {
         "type": "say",
@@ -1267,7 +1267,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "aili",
         "who": "아일리",
-        "text": "그러면 혹시 샴페인은 있어?"
+        "text": "그러면 혹시 진피즈는 있어?"
       },
       {
         "type": "say",
@@ -1285,12 +1285,12 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "luna",
         "who": "루나",
-        "text": "(샴페인 한 잔.)"
+        "text": "(진피즈 한 잔.)"
       },
       {
         "type": "order",
         "actor": "aili",
-        "arg": "exact:champagne"
+        "arg": "exact:gin_fizz"
       },
       {
         "type": "craft",
@@ -1312,7 +1312,7 @@ window.LUNA_CAMPAIGN_DATA={
         "type": "say",
         "actor": "aili",
         "who": "아일리",
-        "text": "오… 좋은데? 샴페인은 예전이랑 똑같은 걸 쓰나 보네."
+        "text": "오… 좋은데? 진피즈는 예전이랑 맛이 똑같네."
       },
       {
         "type": "say",

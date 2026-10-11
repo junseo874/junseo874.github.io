@@ -1,0 +1,11 @@
+/* HUD notifications, deliberately separate from world-anchored dialogue bubbles. */
+#story-notices{position:fixed;inset:0;z-index:11000;pointer-events:none;overflow:hidden;font-family:inherit}
+#story-notices[hidden],#story-notices [hidden]{display:none!important}
+.story-notice{position:absolute;right:24px;width:270px;max-width:calc(100vw - 32px);box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:15px 17px;border:1px solid #477880;border-left:3px solid var(--notice-accent,#8de5df);border-radius:5px;background:linear-gradient(100deg,#102b36f5,#0a1521f5);box-shadow:0 6px 22px #0006;color:#e9f6f4;will-change:transform,opacity}
+.story-notice-people{top:calc(50% - 37px)}
+.story-notice-event{bottom:30px;--notice-accent:#e4c482;border-color:#726348;background:linear-gradient(100deg,#30271bf5,#151b22f5)}
+.story-notice[data-kind="down"]{--notice-accent:#e6a295;border-color:#835d58}
+.story-notice-icon{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border:1px solid currentColor;border-radius:50%;color:var(--notice-accent,#8de5df);font-size:20px}
+.story-notice small{display:block;margin-bottom:6px;color:var(--notice-accent,#8de5df);font-size:10px;letter-spacing:1px}
+.story-notice strong{display:block;font-size:15px;line-height:1.4;font-weight:400;word-break:keep-all}
+@media(max-width:600px){.story-notice{right:12px;width:235px;padding:12px}.story-notice strong{font-size:13px}.story-notice-event{bottom:16px}}

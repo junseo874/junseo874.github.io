@@ -1,0 +1,7 @@
+.street-audio-setting{display:flex;align-items:center;gap:16px;padding:12px 0;margin:8px 0;color:inherit;font:inherit}
+.street-audio-setting>span{white-space:nowrap;flex:1}
+.street-audio-setting input{width:160px;min-width:60px;accent-color:#67d6da}
+.street-audio-setting output{width:42px;text-align:right}
+.outside-dialog .street-audio-setting{font-size:14px;gap:10px}
+.outside-dialog .street-audio-setting input{width:125px}
+.outside-dialog:has(.street-audio-setting){max-height:90vh;overflow-y:auto}

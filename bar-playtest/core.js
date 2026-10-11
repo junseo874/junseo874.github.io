@@ -138,7 +138,7 @@ function condition(expr,c){
 }
 function applyEffects(expr,state){
  if(!expr)return;
- const next={...state,flags:{...state.flags},affinity:{...state.affinity}};
+ const before={flags:state.flags,affinity:state.affinity},next={...state,flags:{...state.flags},affinity:{...state.affinity}};
  for(const raw of expr.split(';').filter(s=>s.trim())){
   const m=raw.trim().match(/^(flag\.[\w]+|affinity\.[\w]+|money|reputation)\s*(\+=|-=|=)\s*(true|false|[-+]?\d+(?:\.\d+)?)$/);
   if(!m)throw Error('상태 변경 해석 실패: '+raw);
@@ -147,7 +147,7 @@ function applyEffects(expr,state){
   if(key.startsWith('flag.')&&(typeof v!=='boolean'||op!=='='))throw Error('플래그에는 true/false 대입만 허용');
   obj[k]=op==='='?v:n(obj[k])+(op==='+='?1:-1)*v;
  }
- Object.assign(state,next);
+ Object.assign(state,next);root.LunaStoryNotices?.effects(state,before);
 }
 function band(rows,type,x){
  // Unit conversion must not move an exact boundary across a score band via floating-point noise.
@@ -269,7 +269,7 @@ class Game{
     const first=this.story.index,group=[s];if(s.sync==='no_wait'){const next=this.story.steps[first+1];if(!next||next.type!=='enter'||next.sync!=='wait')throw Error('동시 입장 쌍 오류');group.push(next);}
     const reserved=new Set(Object.keys(this.seats).filter(k=>this.seats[k]));
     for(const e of group){if(!['L','R'].includes(e.arg)||reserved.has(e.arg))throw Error('단골 좌석 충돌: '+e.actor+' / '+e.arg);reserved.add(e.arg);}
-    for(const e of group){this.seats[e.arg]={id:e.actor,actor:e.actor,seated:e.entrance==='seated',state:'STORY',coaster:false,glass:null,expression:'default'};this.progress.flags[e.actor+'_met']=true;applyEffects(e.effects,this.progress);}
+    for(const e of group){this.seats[e.arg]={id:e.actor,actor:e.actor,seated:e.entrance==='seated',state:'STORY',coaster:false,glass:null,expression:'default'};if(root.LunaStoryNotices?.roster.includes(e.actor))root.LunaStoryNotices.meet(this.progress,e.actor);else this.progress.flags[e.actor+'_met']=true;applyEffects(e.effects,this.progress);}
     this.focus=s.arg;this.story.index+=group.length;if(group.every(e=>e.entrance==='seated'))continue;this.setTransition(0.8,()=>this.pump());return;
    }
    if(s.type==='exit'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('퇴장 대상 없음: '+s.actor);this.seats[seat].state='EXITING';this.setTransition(0.5,()=>{this.seats[seat]=null;this.stepDone(s);});return;}
@@ -298,7 +298,7 @@ class Game{
   const timings=[],speedStack=[this.c('typing_interval_ms',50)];for(const part of String(text).split(/(<\/?[a-z]+>)/g)){const tag=part.match(/^<(\/?)([a-z]+)>$/);if(tag){const rule=this.t.text_tags.find(t=>t.tag===tag[2]&&t.kind==='speed_ms');if(rule){if(tag[1]&&speedStack.length>1)speedStack.pop();else if(!tag[1])speedStack.push(n(rule.value));}}else for(let i=0;i<part.length;i++)timings.push(speedStack.at(-1));}
   return{actor,text:clean(text),raw:text,id,expression:expression||'default',chars:0,hold:0,seen:false,timings,typeMs:0};
  }
- typeLine(line,dt){line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}}
+ typeLine(line,dt){const before=line.chars;line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}if(this.screen==='bar'&&this.currentDialogue()===line)root.LunaDialogueAudio?.reveal(line.text,before,line.chars);}
  finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id,anonymous:d.actor==='tom'&&this.speakerName(d.actor)==='???'});const s=d.step;this.lastStoryLine={...d,chars:d.text.length};this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
  advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.cameraMoving||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
  choose(seq){if(!this.choice||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}
@@ -448,7 +448,7 @@ class Game{
    this.changed();return true;
   });
  }
- applyAffinity(actor,result){const c=this.t.characters.find(c=>c.id===actor);if(!c?.affinity)return;const taste=sortSeq(this.t.tastes.filter(t=>t.character_id===actor)).find(t=>condition(t.when,this.ctx()));const tier=!result.match?'miss':taste?.tier||'ok';const row=this.t.affinity_matrix.find(r=>r.taste_tier===tier);const delta=n(row?.[result.grade]);this.progress.affinity[actor]=n(this.progress.affinity[actor])+delta;this.log('affinity',{actor,tier,delta});}
+ applyAffinity(actor,result){const c=this.t.characters.find(c=>c.id===actor);if(!c?.affinity)return;const taste=sortSeq(this.t.tastes.filter(t=>t.character_id===actor)).find(t=>condition(t.when,this.ctx()));const tier=!result.match?'miss':taste?.tier||'ok';const row=this.t.affinity_matrix.find(r=>r.taste_tier===tier);const delta=n(row?.[result.grade]);this.progress.affinity[actor]=n(this.progress.affinity[actor])+delta;this.log('affinity',{actor,tier,delta});root.LunaStoryNotices?.affinity(this.progress,actor,delta);}
  parseUpkeepOverride(value){
   if(value==null||String(value).trim()==='')return null;
   const amount=Number(value);if(!Number.isSafeInteger(amount)||amount<0)throw Error('유지비는 0 이상의 정수 G로 입력해 주세요.');return amount;

@@ -50,7 +50,7 @@ class OutsideModel{
   if(this.level)return[...(global.LunaOutsideNotion?.targets(this)||[]),{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
   return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(global.LunaOutsideContent?.targets(this)||[]),...(global.LunaBDVendor?.targets(this)||[]),...(global.LunaOutsideShop?.targets(this)||[])];
  }
- updateNear(){this.near=this.qa?.runtime||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
+ updateNear(){global.LunaStoryNotices?.forced(this);this.near=this.qa?.runtime||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
  beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
  interact(){
   if(this.paused||this.transition||this.encounter&&this.encounter.stage!=='active')return false;
@@ -198,6 +198,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.scene==='home'){drawPlayer();nodes.filter(n=>n.name==='ForeFore_Object').forEach(renderNode);}
   else streetDrawOrder(nodes).forEach(n=>{if(n.name==='Luna'){global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);});
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
+  global.LunaOutsideRain?.draw(ctx,model,cam,position);
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
@@ -208,7 +209,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
-   else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2><p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
+   else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
    else if(m.dialog)body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
