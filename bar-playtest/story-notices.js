@@ -68,7 +68,7 @@ function tick(g,outside,campaign,dt){
  if(typeof document==='undefined')return;
  const liveOutside=outside?.active,m=liveOutside?outside.model:null;
  const owner=m?.qa?outsideProgress(m):g.progress;
- const blocked=document.hidden||campaign?.blocking||(liveOutside?outside.loading||outside.loadError||outside.devConsoleOpen||m?.paused||m?.transition:g.phase==='ready'||g.isPaused());
+ const blocked=document.hidden||campaign?.blocking||campaign?.memoryTransition||(liveOutside?outside.loading||outside.loadError||outside.devConsoleOpen||m?.paused||m?.transition:g.phase==='ready'||g.isPaused());
  for(const lane of Object.values(lanes)){
   lane.queue=lane.queue.filter(e=>e.owner===owner);
   if(lane.current?.owner!==owner){lane.current=null;lane.age=0;}

@@ -43,15 +43,15 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   const ping=audio.createOscillator(),env=audio.createGain();ping.type='triangle';ping.frequency.setValueAtTime(480,now);ping.frequency.exponentialRampToValueAtTime(140,now+.16);env.gain.setValueAtTime(.13,now);env.gain.exponentialRampToValueAtTime(.0001,now+.22);ping.connect(env);env.connect(bus);ping.start(now);ping.stop(now+.23);
   ping.onended=()=>{ping.disconnect();env.disconnect();noise.disconnect();filter.disconnect();bus.disconnect();};
  }
- function lesson(s){if(!s.openTutorial||g.isPaused())return '';const text=s.completed?L('잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.'):!s.started?L('Space를 눌러 시작하세요. 큰 원이 작아지기 시작해요.','Press Space to start. The outer ring will begin to shrink.'):s.failures?L('괜찮아요. 큰 원과 민트색 원이 겹칠 때 Space를 다시 눌러 보세요.','Try again. Press Space when the outer ring meets the mint ring.'):L('큰 원이 민트색 원과 겹치는 순간 Space를 한 번 더 누르면 뚜껑이 열려요.','Press Space again when the outer ring meets the mint ring to pop the cap.');return '<div class="opening-lesson" data-open-lesson><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/><circle cx="640" cy="310" r="190" fill="black"/><rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';}
+ function lesson(s){if(!s.openTutorial||g.isPaused())return '';const text=s.completed?L('잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.'):!s.started?L('Space를 눌러 시작하세요. 먼저 힘 게이지가 움직여요.','Press Space to start. The outer ring will begin to shrink.'):s.failures?L('괜찮아요. 초록 힘 구간을 맞춘 뒤, 두 원이 겹칠 때 눌러 보세요.','Try again. Press Space when the outer ring meets the mint ring.'):L('초록 구간에서 힘을 맞추고, 이어서 원이 겹칠 때 누르면 열려요.','Press Space again when the outer ring meets the mint ring to pop the cap.');return '<div class="opening-lesson" data-open-lesson><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/><circle cx="640" cy="310" r="190" fill="black"/><rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';}
  function html(s){
   const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:.65);
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<canvas class="opening-stage" data-opening-stage width="1280" height="720" role="img" aria-label="'+L('맥주병 뚜껑에 초점을 맞춘 병따기','Bottle opening focused on the cap')+'"></canvas>'+
    '<div class="opening-timing-hint" data-open-timing hidden aria-hidden="true">Space</div>'+
-   '<div class="opening-feedback" role="status" data-open-feedback></div>'+
-   button(s.completed?L('OPEN!','OPEN!'):s.started?'<kbd>Space</kbd> '+L('뚜껑 따기','Pop the cap'):'<kbd>Space</kbd> '+L('시작','Start'),'gimmickInput',s.completed?'disabled':'','primary opening-hit')+
+   '<div class="opening-feedback" role="status" data-open-feedback></div><div class="opening-phase" data-open-phase></div>'+
+   button(s.completed?L('OPEN!','OPEN!'):s.started?'<kbd>Space</kbd> '+(s.openPhase==='power'?L('힘 조절','Set power'):L('뚜껑 따기','Pop the cap')):'<kbd>Space</kbd> '+L('시작','Start'),'gimmickInput',s.completed?'disabled':'','primary opening-hit')+
    lesson(s)+button(g.minigame?L('마치기 →','Finish →'):L('다음 →','Next →'),'endGimmick',(!ready||g.remix?.hold?'disabled':''),'primary gimmick-finish')+'</div>';
  }
  function sync(root){
@@ -63,19 +63,20 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   canvas.dataset.fizzAudioReady=String(!!fizzBuffer);
   // Use the exact input judgement (unclamped radius), not the drawing radius or a timer approximation.
   const targetRadius=g.c('open_target_radius_px',44),startRadius=g.c('open_start_radius_px',165);
-  const judgeRadius=startRadius-(startRadius-targetRadius)*s.beatTime/g.c('open_approach_sec',1.6);
-  const inWindow=g.screen==='gimmick'&&s.started&&!s.completed&&!g.isPaused()&&Math.abs(judgeRadius-targetRadius)<=g.c('open_judge_window_px',10);
+  const judgeRadius=startRadius-(startRadius-targetRadius)*s.beatTime/1.1;
+  const inWindow=g.screen==='gimmick'&&s.openPhase==='rhythm'&&!s.completed&&!g.isPaused()&&Math.abs(s.beatTime-1.1)<=.14;
   const hint=root.querySelector('[data-open-timing]');if(hint)hint.hidden=!inWindow;
   const fx=s.openFx,t=fx?.age||0,ok=fx?.kind==='success',miss=fx?.kind==='miss'&&t<.55;
   if(fx&&seen.get(s)!==fx.serial&&!g.isPaused()){seen.set(s,fx.serial);if(fx.age<.12)sound(ok,fx.perfect);}
   canvas.dataset.perfect=String(!!fx?.perfect);
-  canvas.dataset.state=ok?'success':miss?'miss':s.started?'playing':'ready';
+  canvas.dataset.state=ok?'success':s.openPhase||'ready';
+  const phaseLabel=root.querySelector('[data-open-phase]');if(phaseLabel)phaseLabel.textContent=L(({ready:'Space / 클릭으로 시작',power:'1 · 힘 조절 — 초록 구간에서 누르기','power-done':'힘 조절 성공',rhythm:'2 · 타이밍 — 두 원이 겹칠 때 누르기',broken:'병이 깨졌어요 · 다시 준비 중',pop:'병따기 완료'})[s.openPhase]||'','POWER → TIMING');
   const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1280,720);
   // The supplied room is a full-screen layer, independent of cap animation.
   const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e4740':'#19364926');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
   const bottle=image('item_'+s.ingredient),scale=4.2,cx=640,cy=310;
   const kick=reduced.matches?0:ok&&t<.24?Math.sin(t*42)*Math.exp(-t*18)*6:miss?Math.sin(t*48)*Math.exp(-t*10)*5:0;
-  ctx.save();ctx.translate(cx+kick,cy);ctx.imageSmoothingEnabled=false;
+  ctx.save();ctx.translate(cx+kick,cy);ctx.imageSmoothingEnabled=false;if(s.openPhase==='broken')ctx.globalAlpha=.2;
   if(bottle.complete&&bottle.naturalWidth){
    // beer.png: cap x33..54, y66..72. Body retains the native alpha and neck.
    ctx.drawImage(bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
@@ -90,14 +91,22 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   // Opener lever reacts only to a hit; a miss slips back instead of detaching the cap.
   const tool=image('item_opener'),strike=fx&&t<.45;
   if(tool.complete&&tool.naturalWidth){ctx.save();ctx.translate(cx+48+(strike?Math.sin(t*15)*35:35),cy+36+(strike?Math.sin(t*15)*20:35));ctx.rotate(-.9+(strike?(ok?-1:1)*Math.sin(t*13)*.6:0));ctx.globalAlpha=ok?Math.max(0,1-t*3):.85;ctx.imageSmoothingEnabled=false;ctx.drawImage(tool,13,63,45,44,-25,-15,135,132);ctx.restore();}
-  if(!ok){
-   const target=g.c('open_target_radius_px',44),start=g.c('open_start_radius_px',165),radius=Math.max(12,start-(start-target)*s.beatTime/g.c('open_approach_sec',1.6));
+  if(!ok&&s.openPhase==='rhythm'){
+   const target=g.c('open_target_radius_px',44),start=g.c('open_start_radius_px',165),radius=Math.max(12,start-(start-target)*s.beatTime/1.1);
    ctx.save();ctx.translate(cx,cy);ctx.strokeStyle='#7cf3c6';ctx.lineWidth=3;ctx.shadowColor='#60edc0';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(0,0,target,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle=miss?'#f18d89':'#e1faff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.stroke();ctx.restore();
-  }else if(t<.65){
+  }else if(ok&&t<.65){
    ctx.save();ctx.globalAlpha=1-t/.65;ctx.strokeStyle='#a4ffdd';ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx,cy,44+t*210,0,Math.PI*2);ctx.stroke();
    for(let i=0;i<16;i++){const a=i*2.399,r=30+t*(110+i*8);ctx.fillStyle=i%3?'#9cffe1':'#ffe7a8';ctx.fillRect(cx+Math.cos(a)*r,cy+Math.sin(a)*r-t*80,3,5);}ctx.restore();
   }
-  const label=root.querySelector('[data-open-feedback]');if(label){label.textContent=ok?(fx.perfect?'PERFECT!':'POP!'):miss?'Miss':'';label.classList.toggle('miss',miss);label.classList.toggle('perfect',!!fx?.perfect);}
+  if(['power','power-done'].includes(s.openPhase)){
+   const x=400,y=240,h=250;ctx.fillStyle='#17252fee';ctx.fillRect(x,y,30,h);
+   ctx.fillStyle='#42775d';ctx.fillRect(x,y+h*(1-.932),30,h*.304);ctx.fillStyle='#8bc99b';ctx.fillRect(x,y+h*(1-.86),30,h*.16);
+   ctx.fillStyle='#e8f6ee';ctx.fillRect(x-9,y+h*(1-s.powerPos)-2,48,4);
+   ctx.font='17px sans-serif';ctx.fillText('힘',x+4,y-18);
+  }
+  if(!ok&&s.roundMisses){ctx.strokeStyle='#c8dbd4aa';ctx.lineWidth=2;for(let j=0;j<Math.min(3,s.roundMisses);j++){ctx.beginPath();ctx.moveTo(cx-28+j*22,cy+130+j*45);for(let i=1;i<6;i++)ctx.lineTo(cx-28+j*22+Math.sin(i*2+j)*19,cy+130+j*45+i*10);ctx.stroke();}}
+  if(s.openPhase==='broken'){const age=1.2-s.openDelay;for(let i=0;i<36;i++){ctx.fillStyle=i%3?'#61432e':'#a2c5cb';ctx.fillRect(cx+Math.sin(i*2.4)*age*220,cy+90+i*8-age*180+age*age*160,4+i%3*2,7);}}
+  const label=root.querySelector('[data-open-feedback]');if(label){label.textContent=ok?(fx.perfect?'PERFECT!':'POP!'):s.openPhase==='broken'?'다시 시도':miss?'MISS':'';label.classList.toggle('miss',miss);label.classList.toggle('perfect',!!fx?.perfect);}
  }
  return {html,sync,unlockAudio};
 };

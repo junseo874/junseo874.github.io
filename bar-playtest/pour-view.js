@@ -1,79 +1,20 @@
-(function(root){
-'use strict';
-// Narrow receiver: half the original width, three quarters of its original height.
-// Physics, retained ml and scoring stay unchanged; bottle-focus is unchanged.
-const RECEIVER_SCALE=.5,RECEIVER_HEIGHT_SCALE=.75;
-const receiverPoint=p=>({x:600+(p.x-600)*RECEIVER_SCALE,y:190+(p.y-190)*RECEIVER_HEIGHT_SCALE});
-const receiverBounds=b=>{const a=receiverPoint({x:b.left,y:b.top}),z=receiverPoint({x:b.right,y:b.bottom});return {left:a.x,top:a.y,right:z.x,bottom:z.y};};
-function receiverTransform(c){c.translate(600,190);c.scale(RECEIVER_SCALE,RECEIVER_HEIGHT_SCALE);c.translate(-600,-190);}
-// Width tracks each parcel's emission rate, so a thin tail travels downstream
-// instead of resizing the whole stream at once. Settled liquid keeps its pool radius.
-function streamWidth(p){
- const speed=Math.hypot(p.vx,p.vy),falling=Math.max(0,Math.min(1,(speed-45)/85));
- const width=Math.sqrt(Math.max(.025,Math.min(1,p.emissionFlow??1)));
- return (1+(width-1)*falling)*(1+((p.emissionWidth||1)-1)*falling);
-}
-function makeGPU(canvas){
- const gl=canvas.getContext('webgl',{alpha:true,antialias:false,premultipliedAlpha:false,depth:false,stencil:false,preserveDrawingBuffer:false});
- if(!gl)throw Error('WebGL unavailable');
- const shaders=[];
- function program(vs,fs){
-  function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));shaders.push(s);return s;}
-  const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,vs));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);
-  if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));return p;
- }
- const splat=program(
- 'attribute vec4 point;attribute vec2 velocity;uniform vec3 camera;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 pos=point.xy*camera.x+camera.yz;gl_Position=vec4(pos.x/500.-1.,1.-pos.y/270.,0.,1.);float speed=length(velocity);stretch=1.+min(3.,speed/180.);direction=speed>1.?velocity/speed:vec2(0.,1.);float pooled=1.-smoothstep(45.,130.,speed);gl_PointSize=mix(16.,28.,pooled)*stretch*camera.x*point.z;inside=point.w;}',
- 'precision mediump float;uniform vec4 glassBounds;varying float inside;varying float stretch;varying vec2 direction;void main(){vec2 d=gl_PointCoord*2.-1.;vec2 local=vec2(dot(d,direction),dot(d,vec2(-direction.y,direction.x))*stretch);float r=dot(local,local);if(r>1.)discard;float y=540.-gl_FragCoord.y;if(inside>.5&&y>=glassBounds.y&&(gl_FragCoord.x<glassBounds.x||gl_FragCoord.x>glassBounds.z||y>glassBounds.w))discard;float f=pow(1.-r,3.);gl_FragColor=vec4(f);}'
- );
- const composite=program(
- 'attribute vec2 vertex;varying vec2 uv;void main(){uv=(vertex+1.)*.5;gl_Position=vec4(vertex,0.,1.);}',
- 'precision mediump float;uniform sampler2D field;uniform vec3 tint;uniform float opacity;varying vec2 uv;void main(){float d=texture2D(field,uv).r;float a=smoothstep(.36,.51,d);if(a<.01)discard;vec2 px=vec2(.001,1./540.);float dx=texture2D(field,uv+vec2(px.x,0.)).r-texture2D(field,uv-vec2(px.x,0.)).r;float dy=texture2D(field,uv+vec2(0.,px.y)).r-texture2D(field,uv-vec2(0.,px.y)).r;float edge=1.-smoothstep(.4,.9,d);vec3 highlight=mix(tint,vec3(1.),.18);float light=clamp(edge*.5+max(0.,dy-dx)*.18,0.,.55);vec3 c=mix(tint*.94,highlight,light);gl_FragColor=vec4(c,a*opacity);}'
- );
- const texture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,texture);
- gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1000,540,0,gl.RGBA,gl.UNSIGNED_BYTE,null);
- gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
- gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
- const fb=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,texture,0);
- if(gl.checkFramebufferStatus(gl.FRAMEBUFFER)!==gl.FRAMEBUFFER_COMPLETE)throw Error('Liquid render target unavailable');
- const dots=gl.createBuffer(),quad=gl.createBuffer();
- gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
- const position=gl.getAttribLocation(splat,'point'),velocity=gl.getAttribLocation(splat,'velocity'),vertex=gl.getAttribLocation(composite,'vertex');
- const color=gl.getUniformLocation(composite,'tint'),alpha=gl.getUniformLocation(composite,'opacity');
- const cameraUniform=gl.getUniformLocation(splat,'camera'),glassUniform=gl.getUniformLocation(splat,'glassBounds');
- const array=new Float32Array(1800*6);
- return {
-  draw(f,rgb,opacity,points,camera){
-   gl.viewport(0,0,1000,540);gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
-   gl.useProgram(splat);const bounds=receiverBounds(f.glass);gl.uniform4f(glassUniform,bounds.left,bounds.top,bounds.right,bounds.bottom);gl.uniform3f(cameraUniform,camera.scale,camera.x,camera.y);gl.bindBuffer(gl.ARRAY_BUFFER,dots);
-   let n=0;for(const p of points){array[n++]=p.x;array[n++]=p.y;array[n++]=streamWidth(p)*(p.receiverScale||1);array[n++]=p.inside?1:0;array[n++]=p.vx;array[n++]=p.vy;}
-   gl.bufferData(gl.ARRAY_BUFFER,array.subarray(0,n),gl.DYNAMIC_DRAW);gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,4,gl.FLOAT,false,24,0);gl.enableVertexAttribArray(velocity);gl.vertexAttribPointer(velocity,2,gl.FLOAT,false,24,16);
-   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE);gl.drawArrays(gl.POINTS,0,n/6);gl.disableVertexAttribArray(position);gl.disableVertexAttribArray(velocity);
-   gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.clear(gl.COLOR_BUFFER_BIT);gl.disable(gl.BLEND);gl.useProgram(composite);
-   gl.bindBuffer(gl.ARRAY_BUFFER,quad);gl.enableVertexAttribArray(vertex);gl.vertexAttribPointer(vertex,2,gl.FLOAT,false,0,0);
-   gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(gl.getUniformLocation(composite,'field'),0);
-   gl.uniform3f(color,...rgb.map(v=>v/255));gl.uniform1f(alpha,opacity);gl.drawArrays(gl.TRIANGLES,0,6);gl.disableVertexAttribArray(vertex);
-  },
-  dispose(){gl.deleteBuffer(dots);gl.deleteBuffer(quad);gl.deleteFramebuffer(fb);gl.deleteTexture(texture);gl.deleteProgram(splat);gl.deleteProgram(composite);shaders.forEach(s=>gl.deleteShader(s));},
-  lose(){gl.getExtension('WEBGL_lose_context')?.loseContext();}
- };
-}
+(function(root){'use strict';
 root.LunaPourView=function({g,D,L,esc,button,ui}){
- let mounted=null,gpu=null,fallback=false;
- const images=new Map();
- let audio=null,voice=null,audioState=null,audioSelection=1;
+ let audio=null,voice=null,audioState=null;
+ const popSeen=new WeakSet(),popVoices=new Set();let popPlays=0;
  const buffers=new Map(),jobs=new Map(),voices=new Set();
- const raw=new Map([1,2].map(id=>[id,fetch(new URL('audio/pour_0'+id+'_loop.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).catch(()=>null)]));
+ const raw=new Map([2].map(id=>[id,fetch(new URL('audio/pour_0'+id+'_loop.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).catch(()=>null)]));
  function unlockAudio(){
   if(ui.gimmickAudio===false||g.screen!=='gimmick'||!g.gimmick?.fluid)return;
   try{
    audio??=new(window.AudioContext||window.webkitAudioContext)();
    if(audio.state==='suspended')audio.resume().catch(()=>{});
-   for(const id of [1,2])if(!jobs.has(id))jobs.set(id,raw.get(id).then(b=>{if(!b)throw Error('Missing pour audio');return audio.decodeAudioData(b.slice(0));}).then(b=>buffers.set(id,b)).catch(()=>console.warn('Pour sound '+id+' unavailable')));
+   for(const id of [2])if(!jobs.has(id))jobs.set(id,raw.get(id).then(b=>{if(!b)throw Error('Missing pour audio');return audio.decodeAudioData(b.slice(0));}).then(b=>buffers.set(id,b)).catch(()=>console.warn('Pour sound '+id+' unavailable')));
   }catch{}
  }
  function stopAudio(immediate=false){
   if(immediate){
+   for(const v of popVoices){try{v.source.stop();}catch{}v.source.disconnect();v.gain.disconnect();v.filter?.disconnect();}popVoices.clear();
    for(const v of voices){try{v.source.stop();}catch{}v.source.disconnect();v.tone.disconnect();v.gain.disconnect();}
    voices.clear();voice=null;return;
   }
@@ -84,11 +25,11 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  function syncAudio(s,screen){
   if(audioState!==s){stopAudio(true);audioState=s;}
-  const selected=Number(ui.pourSound)||1;
-  if(selected!==audioSelection){stopAudio();audioSelection=selected;}
+  const selected=2;
   const f=s.fluid,paused=g.isPaused()||document.hidden||ui.gimmickAudio===false;
   // Match the physical emitter, including the short remaining flow while the bottle rises.
-  const flowing=s.started&&f.flow>.001&&f.emittedMl<f.supplyMl-1e-8;
+  const flowing=s.started&&f.flowNow>.01&&f.emittedMl<f.supplyMl-1e-8;
+  if(f.popped&&!popSeen.has(s)){popSeen.add(s);if(!paused)playPop();}
   if(paused)stopAudio(true);
   else if(!flowing)stopAudio();
   else if(audio?.state==='running'&&buffers.has(selected)){
@@ -101,9 +42,9 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
     voice=v;voices.add(v);v.source.start();
    }
    voice.tone.gain.setTargetAtTime(-1.5+Math.min(1,f.caughtMl/f.targetMl)*2.5,audio.currentTime,.12);
-   voice.gain.gain.setTargetAtTime(window.LunaSfx.level("pour"+selected)*Math.sqrt(f.flow),audio.currentTime,.035);
+   voice.gain.gain.setTargetAtTime(window.LunaSfx.level("pour"+selected)*Math.sqrt(Math.min(1.4,f.flowNow/Math.max(1,f.rate))),audio.currentTime,.035);
   }
-  screen.dataset.pourSound=selected;
+  screen.dataset.pourSound=selected;screen.dataset.popSoundCount=String(popPlays);
   screen.dataset.pourAudioReady=String(buffers.has(selected));
   screen.dataset.pourAudioPlaying=String(!!voice);
   const status=screen.querySelector('[data-pour-audio-status]');
@@ -113,148 +54,175 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  window.addEventListener('blur',()=>stopAudio(true));
  window.addEventListener('pagehide',()=>stopAudio(true));
 
- function mode(){return ['classic','clean','bottle'].includes(ui.pourPresentation)?ui.pourPresentation:'classic';}
- // Camera is presentation-only: physical emission, collisions and ml scoring stay unchanged.
- function cameraFor(s){
-  if(mode()!=='bottle')return {scale:1,x:0,y:0};
-  const t=clamp(s.angle/95,0,1),k=t*t*(3-2*t),scale=1.55+.35*k,at=root.LunaPour.nozzle(s.angle,s.fluid.tool);
-  // Follow the actual pourer outlet every frame, including return-to-upright.
-  // Use the same centered camera for the bottle and both liquid renderers.
-  return {scale,x:500-at.x*scale,y:270-at.y*scale};
+
+ const images=new Map();let dragging=null;const idleState=new WeakMap();
+ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),snap=v=>Math.round(v/3)*3;
+ function mode(){return ui.pourPresentation==='clean'?'clean':'classic';}
+ function release(){if(dragging){dragging.s.held=false;dragging.s.dragAngle=null;dragging=null;}}
+ function pointer(e){
+  if(!dragging||e.pointerId!==dragging.pointerId)return;const s=dragging.s;if(g.gimmick!==s||g.isPaused()||document.hidden){release();return;}
+  const r=dragging.canvas.getBoundingClientRect(),scale=Math.min(r.width/1000,r.height/540);
+  const x=(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y=(e.clientY-r.top-(r.height-540*scale)/2)/scale;
+  let angle=Math.atan2(-(x-530),y-220)*180/Math.PI;
+  if(angle< -90)angle=170;else if(angle<0)angle=0;
+  s.dragAngle=clamp(angle,0,s.fluid.maxAngle);
  }
- function controlsHTML(s){
-  return '<div class="pour-test-controls" data-pour-ui><section class="pour-test-panel" id="pour-test-panel" '+(s.pourTestsOpen?'':'hidden')+' aria-label="'+L('따르기 테스트 설정','Pour test settings')+'"><h2>'+L('테스트 설정','Test settings')+'</h2><h3>'+L('효과음','Sound')+'</h3><div class="shake-sound-picker pour-sound-picker" role="group" aria-label="'+L('따르기 효과음 선택','Pour sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'pourSound','data-id="'+id+'" aria-pressed="'+(ui.pourSound===id)+'"','shake-sound-option')).join('')+'<small data-pour-audio-status aria-live="polite"></small></div><h3>'+L('화면 시점','Camera view')+'</h3><div class="pour-presentation-picker" role="group" aria-label="'+L('따르기 화면 버전','Pour presentation')+'">'+[['classic','기존','Original'],['clean','가이드 없음','No guides'],['bottle','병 집중','Bottle focus']].map(([id,ko,en])=>button(L(ko,en),'pourPresentation','data-id="'+id+'" aria-pressed="'+(mode()===id)+'"','pour-presentation-option')).join('')+'</div></section>'+button(L('테스트 변경','Test settings'),'pourTestsToggle','aria-expanded="'+!!s.pourTestsOpen+'" aria-controls="pour-test-panel"','pour-tests-toggle')+'</div>';
- }
- function act(name,id){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid)return false;if(root.LunaPourTutorial?.action(g,name,id))return true;
-  if(name==='pourTestsToggle'){g.holdPour(false);s.pourTestsOpen=!s.pourTestsOpen;return true;}return false;
- }
- function key(e){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid||g.isPaused())return false;
-  // Space always pours, even when a test-settings button retains keyboard focus.
-  if(e.code==='Space'){e.preventDefault();if(!e.repeat)g.holdPour(true);return true;}
-  if(e.code==='Escape'&&s.pourTestsOpen){e.preventDefault();s.pourTestsOpen=false;document.querySelector('.pour-tests-toggle')?.focus({preventScroll:true});return true;}
+ document.addEventListener('pointerdown',e=>{
+  const canvas=e.target.closest('[data-pixel-pour]'),s=g.gimmick;
+  if(!canvas||e.button!==0||g.screen!=='gimmick'||!s?.fluid||g.isPaused()||s.fluid.finishRequested)return;
+  e.preventDefault();unlockAudio();dragging={canvas,s,pointerId:e.pointerId};g.holdPour(true);pointer(e);
+  canvas.setPointerCapture?.(e.pointerId);
+ });
+ window.addEventListener('pointermove',pointer);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);window.addEventListener('blur',release);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)release();});
+ function act(name,id){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid)return false;
+  if(root.LunaPourTutorial?.action(g,name,id))return true;
   return false;
  }
- function html(s){
-  const f=s.fluid;
-  return '<div class="craft-screen fluid-screen" data-pour-presentation="'+mode()+'">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
-   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
-   controlsHTML(s)+
-   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas class="pour-back" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-gpu" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-fallback" width="1000" height="540" aria-hidden="true"></canvas><canvas class="pour-front" width="1000" height="540" role="img" aria-label="'+(mode()==='bottle'?L('확대한 병과 화면 아래로 흐르는 액체','Enlarged bottle pouring liquid out of view'):L('병에서 떨어져 잔에 쌓이는 실시간 2D 액체','Live 2D liquid flowing from the bottle into the glass'))+'"></canvas></div>'+
-   '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div></div>'+
-   '<button class="primary hold-button pour-hold" data-hold="pour" '+(f.finishRequested?'disabled':'')+'><kbd>Space</kbd> '+L('누르고 있기','Hold to pour')+'</button>'+
-   button(f.finishRequested?L('마지막 방울 정리 중…','Waiting for the final drops…'):g.minigame?L('따르기 마치기 →','Finish pouring →'):L('마치고 다음 재료 →','Finish & continue →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
+ function key(e){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid||g.isPaused())return false;
+  if(e.code==='Escape'){release();g.holdPour(false);return false;}
+  if(e.code==='Space'){e.preventDefault();if(!e.repeat){release();s.dragAngle=145;g.holdPour(true);}return true;}
+  if(e.code==='Enter'&&!e.target.closest('[data-pour-ui]')){e.preventDefault();if(!e.repeat)g.endGimmick();return true;}
+  return false;
  }
- function cleanup(){
-  if(!mounted)return;mounted.gpu.removeEventListener('webglcontextlost',mounted.lost);mounted.gpu.removeEventListener('webglcontextrestored',mounted.restored);
-  gpu?.dispose();gpu?.lose();gpu=null;mounted=null;
+ function html(s){const f=s.fluid;return '<div class="craft-screen fluid-screen pixel-fluid-screen">'+
+  (g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
+  '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" draggable="false">'+
+  '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas></div>'+
+  '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div><small data-pour-detail></small></div></div>'+
+  '<div class="pour-tilt-meter" data-pour-tilt role="meter" aria-label="'+L('기울이기','Tilt')+'" aria-valuemin="0" aria-valuemax="'+f.maxAngle+'" aria-valuenow="0"><span>'+L('기울이기','Tilt')+'</span><div class="pour-tilt-track"><i class="pour-tilt-range"></i><i class="pour-tilt-warning"></i><i class="pour-tilt-marker"></i></div></div>'+
+  button(f.finishRequested?L('마지막 방울 정리 중…','Settling final drops…'):L('따르기 마치기 →','Finish pouring →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
  }
- function mount(stage){
-  if(mounted?.stage===stage)return;cleanup();
-  const back=stage.querySelector('.pour-back'),front=stage.querySelector('.pour-front'),gl=stage.querySelector('.pour-gpu'),fb=stage.querySelector('.pour-fallback');
-  mounted={stage,gpu:gl,back:back.getContext('2d'),front:front.getContext('2d'),fallback:fb.getContext('2d')};
-  const start=()=>{try{gpu=makeGPU(gl);fallback=false;}catch{gpu=null;fallback=true;}};
-  mounted.lost=e=>{e.preventDefault();fallback=true;gpu=null;};
-  mounted.restored=()=>{start();};gl.addEventListener('webglcontextlost',mounted.lost);gl.addEventListener('webglcontextrestored',mounted.restored);
-  start();
+
+ function playPop(){
+  if(audio?.state!=='running')return;
+  const now=audio.currentTime;
+  // The supplied bottle-opening HTML's pop: 120ms high-passed noise + falling sine.
+  const buffer=audio.createBuffer(1,Math.ceil(audio.sampleRate*.12),audio.sampleRate),data=buffer.getChannelData(0);
+  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+  const source=audio.createBufferSource(),filter=audio.createBiquadFilter(),gain=audio.createGain();
+  source.buffer=buffer;filter.type='highpass';filter.frequency.value=1200;gain.gain.value=.35;
+  source.connect(filter);filter.connect(gain);gain.connect(root.LunaSfx.output(audio));
+  const add=v=>{popVoices.add(v);v.source.onended=()=>{v.source.disconnect();v.filter?.disconnect();v.gain.disconnect();popVoices.delete(v);};};
+  add({source,filter,gain});source.start(now);
+  const tone=audio.createOscillator(),envelope=audio.createGain();tone.type='sine';tone.frequency.setValueAtTime(600,now);tone.frequency.exponentialRampToValueAtTime(180,now+.25);envelope.gain.setValueAtTime(.15,now);envelope.gain.exponentialRampToValueAtTime(.0001,now+.25);tone.connect(envelope);envelope.connect(root.LunaSfx.output(audio));add({source:tone,gain:envelope});tone.start(now);tone.stop(now+.25);popPlays++;
  }
- function drawBack(s){
-  const c=mounted.back,f=s.fluid,b=f.glass;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);
-  if(mode()==='bottle')return;
-  receiverTransform(c);
-  // Keep the stage transparent so zooming the bottle never scales or hides the room.
-  c.fillStyle='#00000066';c.beginPath();c.ellipse((b.left+b.right)/2,480,130,12,0,0,Math.PI*2);c.fill();
-  c.fillStyle='#b9e8f00d';c.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
+ function idleGuide(ctx,s){
+  const now=g.realTime||0,f=s.fluid;let idle=idleState.get(s);if(!idle){idle={since:now};idleState.set(s,idle);}
+  if(s.held||s.angle>.1||f.airMl>.01||f.finishRequested||g.isPaused()||document.hidden){idle.since=now;s.idleGuideVisible=false;return;}
+  const age=now-idle.since-.55;s.idleGuideVisible=age>0;if(age<=0)return;
+  const reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches,u=reduced?.5:(age%3)/3;
+  const travel=clamp((u-.16)/.65,0,1),eased=travel*travel*(3-2*travel),fade=Math.min(1,age*2);
+  // A circular sweep keeps the curvature and arrowhead tangent consistent.
+  // Match the main tutorial's flowing cyan dashes; adapt the grip height for cans.
+  const cx=438,cy=f.can?142:175,radius=f.can?88:112,start=Math.PI/2,end=3.96,a=start+(end-start)*eased;
+  const x=cx+Math.cos(a)*radius,y=cy+Math.sin(a)*radius;
+  ctx.save();ctx.globalAlpha=fade*.62;ctx.strokeStyle='#baffff';ctx.lineWidth=2.4;ctx.lineCap='round';ctx.lineJoin='round';
+  ctx.shadowColor='#44d8e955';ctx.shadowBlur=4;ctx.setLineDash([10,8]);ctx.lineDashOffset=reduced?0:-age*30;
+  ctx.beginPath();ctx.arc(cx,cy,radius,start,end);ctx.stroke();ctx.setLineDash([]);ctx.lineDashOffset=0;
+  ctx.save();ctx.translate(cx+Math.cos(end)*radius,cy+Math.sin(end)*radius);ctx.rotate(end+Math.PI/2);
+  ctx.beginPath();ctx.moveTo(-10,-7);ctx.lineTo(0,0);ctx.lineTo(-10,7);ctx.stroke();ctx.restore();
+  ctx.shadowBlur=0;
+  // Pause at the grip, press, drag, then fade out before returning (no backward swipe).
+  const cursorAlpha=reduced?1:Math.min(clamp(u/.08,0,1),clamp((1-u)/.14,0,1)),pressed=reduced||(u>=.1&&u<.86);
+  ctx.globalAlpha=fade*.9*cursorAlpha;ctx.translate(x,y);ctx.fillStyle='#101c25';ctx.beginPath();ctx.roundRect(-10,-15,20,30,8);ctx.fill();ctx.stroke();
+  ctx.fillStyle=pressed?'#9ae6ea':'#29434c';ctx.beginPath();ctx.moveTo(0,-13);ctx.lineTo(0,-2);ctx.lineTo(-8,-2);ctx.lineTo(-8,-7);ctx.quadraticCurveTo(-8,-13,0,-13);ctx.fill();
+  ctx.beginPath();ctx.moveTo(0,-14);ctx.lineTo(0,-2);ctx.moveTo(-9,-2);ctx.lineTo(9,-2);ctx.stroke();ctx.restore();
  }
- function drawFront(s,camera){
-  const c=mounted.front,f=s.fluid,b=f.glass,at=root.LunaPour.nozzle(s.angle);c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
-  const art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
+
+ const fizzStyles={
+  beer:{rgb:[218,157,45],alpha:.82,bubble:'#ffedac',foam:'#f5e9c9',shade:'#c4b389',highlight:'#fff8e4'},
+  soda_water:{rgb:[149,198,218],alpha:.36,bubble:'#e3faff',foam:'#e7f4f7',shade:'#9cbfc9',highlight:'#ffffff'},
+  cola:{rgb:[76,36,20],alpha:.92,bubble:'#e1b278',foam:'#dec298',shade:'#a47c50',highlight:'#ffebc8'}
+ };
+ function appearance(id){
+  if(fizzStyles[id])return fizzStyles[id];
+  const item=g.t.shelf_items.find(i=>i.id===id),values=String(item?.color||'200,230,240').split(',').map(Number);
+  return{rgb:values.length===3&&values.every(Number.isFinite)?values:[200,230,240],alpha:Math.max(.4,Number(item?.liquid_alpha)||.6)};
+ }
+ function carbonation(ctx,s,sy,t){
+  const f=s.fluid,b=f.glass;if(!f.carbonated||f.liquidMl<=1)return;
+  const style=fizzStyles[s.ingredient]||fizzStyles.soda_water,depth=b.bottom-sy,count=Math.min(66,Math.max(12,Math.floor(depth*.55)));
+  ctx.save();ctx.beginPath();ctx.rect(b.left+4,sy,b.right-b.left-8,Math.max(0,depth-3));ctx.clip();
+  for(let i=0;i<count;i++){
+   // Narrow columns rise at different speeds, expanding slightly near the surface.
+   const phase=(t*(.25+i%5*.065)+i*.137)%1,x=snap(b.left+9+(i*37%(b.right-b.left-22))+Math.sin(t*3+i)*2),y=snap(b.bottom-4-phase*depth),size=phase>.55&&i%3===0?5:3;
+   ctx.globalAlpha=.45+phase*.45;ctx.strokeStyle=style.bubble;ctx.lineWidth=1;
+   if(size===5)ctx.strokeRect(x,y,size,size);else{ctx.fillStyle=style.bubble;ctx.fillRect(x,y,2,2);}
+  }
+  ctx.restore();
+ }
+ function bottle(ctx,s){const f=s.fluid,at=root.LunaPour.nozzle(s.angle,f.tool,f.grab),art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
   let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
-  c.save();c.translate(at.x,at.y);c.rotate(s.angle*Math.PI/180);
-  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],height=Math.min(235,110*bh/bw),width=bw/bh*height;
-  const capCrop=Math.round(bh*.065);
-  c.imageSmoothingEnabled=false;
-  if(img.complete&&img.naturalWidth)c.drawImage(img,box[0],box[1]+capCrop,bw,bh-capCrop,-width/2,34,width,height);
-  else{c.fillStyle='#709fa9';c.fillRect(-20,34,40,height);}
-  // Pourer tip is local (0,0): the physical emitter and visible outlet share the same pivot.
-  const neck=Math.max(16,Math.min(30,width*.4));
-  if(f.tool==='pourer'){
-  c.fillStyle='#101a20';c.fillRect(-neck/2,29,neck,15);
-  c.fillStyle='#384952';c.fillRect(-neck/2-2,29,neck+4,5);
-  c.lineCap='round';c.lineJoin='round';
-  c.beginPath();c.moveTo(0,31);c.lineTo(2,15);c.lineTo(0,0);c.strokeStyle='#334752';c.lineWidth=10;c.stroke();
-  c.strokeStyle='#b8d0d6';c.lineWidth=6;c.stroke();c.strokeStyle='#f3ffff';c.lineWidth=1.5;c.stroke();
-  c.beginPath();c.moveTo(8,30);c.lineTo(9,22);c.strokeStyle='#98aeb7';c.lineWidth=2;c.stroke();
-  c.fillStyle='#172c35';c.beginPath();c.ellipse(0,0,3.5,1.5,0,0,Math.PI*2);c.fill();
-  }else{c.fillStyle='#0b1723';c.strokeStyle='#afcfd4';c.lineWidth=2;c.beginPath();c.ellipse(0,34,neck/2,3.5,0,0,Math.PI*2);c.fill();c.stroke();}
-  c.restore();c.imageSmoothingEnabled=true;
-  if(mode()==='bottle')return;
-  receiverTransform(c);
-  // GPT-only cosmetic carbonation: follows retained liquid; adds no ml and never changes scoring.
-  if(g.variant==='gpt'&&['soda_water','tonic_water','beer','champagne','cola'].includes(s.ingredient)&&f.caughtMl>.5){
-   const surface=clamp(b.bottom-3-(f.caughtMl/f.quantum)*68/(b.right-b.left-6),b.top+8,b.bottom-3),depth=b.bottom-3-surface;
-   if(depth>3){c.save();c.beginPath();c.rect(b.left+4,surface,b.right-b.left-8,depth);c.clip();
-    const still=root.matchMedia?.('(prefers-reduced-motion: reduce)').matches,time=still?0:g.realTime;
-    for(let i=0;i<22;i++){const x=b.left+9+((i*47)%(b.right-b.left-18)),p=(time*(.22+(i%4)*.055)+i*.137)%1,y=b.bottom-3-p*depth;c.strokeStyle='rgba(235,252,245,'+(.15+(1-p)*.32)+')';c.lineWidth=1.3;c.beginPath();c.arc(x+Math.sin(time*1.4+i)*1.2,y,1.1+(i%3)*.5,0,Math.PI*2);c.stroke();}
-    c.restore();c.save();c.globalAlpha=s.ingredient==='beer'?.4:.16;c.strokeStyle='#f5edd5';c.lineWidth=s.ingredient==='beer'?5:2;c.beginPath();c.moveTo(b.left+5,surface+1);c.lineTo(b.right-5,surface+1);c.stroke();c.restore();
-   }
-  }
-  // Glass walls are drawn after the liquid, but its interior remains transparent.
-  c.lineWidth=3;c.strokeStyle='#acd6dfaa';c.beginPath();c.moveTo(b.left-3,b.top-3);c.lineTo(b.left-3,b.bottom-2);c.quadraticCurveTo(b.left-3,b.bottom+7,b.left+6,b.bottom+7);c.lineTo(b.right-6,b.bottom+7);c.quadraticCurveTo(b.right+3,b.bottom+7,b.right+3,b.bottom-2);c.lineTo(b.right+3,b.top-3);c.stroke();
-  c.lineWidth=2;c.strokeStyle='#e8ffff99';c.beginPath();c.moveTo(b.left+5,b.top+12);c.lineTo(b.left+5,b.bottom-12);c.stroke();
-  c.strokeStyle='#cce6edaa';c.beginPath();c.ellipse((b.left+b.right)/2,b.top,(b.right-b.left)/2+3,5,0,0,Math.PI*2);c.stroke();
-  if(mode()!=='classic')return;
-  const guide=clamp(b.bottom-3-(f.targetMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8);
-  c.setLineDash([5,5]);c.strokeStyle='#e4c885';c.lineWidth=1;c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.setLineDash([]);
-  if(s.started&&!f.finishRequested&&f.airMl>0){
-   const predicted=clamp(b.bottom-3-(s.predicted*f.unitMl/f.quantum)*68/(b.right-b.left-6),b.top+10,b.bottom-8),marker=receiverPoint({x:b.right+10,y:predicted});
-   // Draw at display scale so the indicator stays legible on the smaller glass.
-   c.save();c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
-   c.beginPath();c.moveTo(marker.x,marker.y);c.lineTo(marker.x+10,marker.y-6);c.lineTo(marker.x+10,marker.y+6);c.closePath();
-   c.fillStyle='#ffe8a6';c.strokeStyle='#17232e';c.lineWidth=1.5;c.lineJoin='round';c.shadowColor='#ffe3a080';c.shadowBlur=5;c.fill();c.shadowBlur=0;c.stroke();c.restore();
-  }
-  if(s.pourFinishFx?.perfect){const t=s.pourFinishFx.age,fade=Math.max(0,1-t/.8);c.save();c.globalAlpha=fade;c.strokeStyle='#b6fff0';c.lineWidth=3;c.shadowColor='#8affe0';c.shadowBlur=12;c.strokeRect(b.left-5,b.top-5,b.right-b.left+10,b.bottom-b.top+14);c.setLineDash([]);c.beginPath();c.moveTo(b.left-12,guide);c.lineTo(b.right+18,guide);c.stroke();c.restore();}
+  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],h=f.can?128:210,w=bw/bh*h;
+  ctx.save();ctx.translate(at.x,at.y);ctx.rotate(s.angle*Math.PI/180);ctx.imageSmoothingEnabled=false;
+  const neck=f.tool==='pourer'&&!f.popped?23:0,cut=f.can?0:Math.round(bh*.065);
+  if(img.complete&&img.naturalWidth)ctx.drawImage(img,box[0],box[1]+cut,bw,bh-cut,f.can?-w+12:-w/2,neck,w,h);
+  if(neck){ctx.fillStyle='#52616a';ctx.fillRect(-5,0,10,26);ctx.fillStyle='#cfdddf';ctx.fillRect(-3,0,3,23);ctx.fillStyle='#14212c';ctx.fillRect(-8,22,16,8);}
+  ctx.fillStyle='#101d24';ctx.fillRect(-4,0,8,3);ctx.restore();
+  if(f.cap&&f.time-f.popTime<2.4){const c=f.cap;ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rotation);ctx.fillStyle='#52616a';ctx.fillRect(-5,-13,10,26);ctx.fillStyle='#cfdddf';ctx.fillRect(-3,-13,3,23);ctx.fillStyle='#14212c';ctx.fillRect(-8,9,16,8);ctx.restore();}
  }
- // Falling drops keep a narrow width across the rim; widen only as they slow into the pool.
- function liquidRadius(p){const t=clamp((Math.hypot(p.vx,p.vy)-45)/85,0,1);return (3.4+3.1*(1-t*t*(3-2*t)))*streamWidth(p)*(p.receiverScale||1);}
- function drawFallback(f,rgb,alpha,points,camera){
-  const b=receiverBounds(f.glass),c=mounted.fallback;c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,1000,540);if(!fallback)return;c.setTransform(camera.scale,0,0,camera.scale,camera.x,camera.y);
-  // Draw one opaque mask first: overlapping particles must not turn clear spirits opaque.
-  c.fillStyle='#fff';c.shadowColor='#fff';c.shadowBlur=5*(mode()==='bottle'?1:RECEIVER_SCALE);
-  for(const p of points){c.save();if(p.inside){c.beginPath();c.rect(b.left,b.top,b.right-b.left,b.bottom-b.top);c.clip();}c.beginPath();c.arc(p.x,p.y,liquidRadius(p),0,Math.PI*2);c.fill();c.restore();}
-  c.shadowBlur=0;c.setTransform(1,0,0,1,0,0);
-  c.globalCompositeOperation='source-in';
-  c.fillStyle='rgba('+rgb.join(',')+','+alpha+')';c.fillRect(0,0,1000,540);
-  c.globalCompositeOperation='source-over';
- }
- function liquidAppearance(id){
-  const item=g.t.shelf_items.find(i=>i.id===id);
-  const values=String(item?.color??'').split(',').map(v=>v.trim());
-  const valid=values.length===3&&values.every(v=>v!==''&&Number.isFinite(Number(v)));
-  const rgb=valid?values.map(v=>Math.round(clamp(Number(v),0,255))):[200,230,240];
-  const raw=item?.liquid_alpha;
-  const alpha=raw==null||String(raw).trim()===''||!Number.isFinite(Number(raw))?.6:clamp(Number(raw),0,1);
-  return {rgb,alpha};
+ function draw(ctx,s){
+  const f=s.fluid,b=f.glass,{rgb,alpha}=appearance(s.ingredient),color='rgba('+rgb.join(',')+','+alpha+')',sy=snap(f.surfaceY),fh=snap(f.foamHeight()),t=f.time;
+  ctx.clearRect(0,0,1000,540);ctx.imageSmoothingEnabled=false;
+  ctx.fillStyle='#0005';ctx.fillRect(b.left-20,b.bottom+6,b.right-b.left+40,6);
+  ctx.fillStyle='#25344066';ctx.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
+  ctx.save();ctx.beginPath();ctx.rect(b.left+3,b.top,b.right-b.left-6,b.bottom-b.top);ctx.clip();
+  if(f.liquidMl>.02){ctx.fillStyle=color;ctx.fillRect(b.left+3,sy,b.right-b.left-6,b.bottom-sy);
+   for(let x=b.left+3;x<b.right-3;x+=3){const wave=Math.round(Math.sin(x*.1+t*9)*f.wobble*2)*3;ctx.fillStyle='#d9e6edaa';ctx.fillRect(snap(x),sy+wave,3,3);}
+  }
+  carbonation(ctx,s,sy,t);
+  if(fh>0){const style=fizzStyles[s.ingredient]||fizzStyles.soda_water,top=sy-fh;ctx.fillStyle=style.foam;ctx.fillRect(b.left+3,top,b.right-b.left-6,fh);
+   for(let x=b.left+3;x<b.right-3;x+=3){const wave=Math.round(Math.sin(x*.3+t*5))*3;ctx.fillRect(snap(x),top+wave,3,4);}
+   ctx.save();ctx.beginPath();ctx.rect(b.left+3,top,b.right-b.left-6,fh);ctx.clip();
+   for(let i=0;i<Math.min(150,Math.ceil(fh*2));i++){const seed=Math.sin(i*127.1+7.3)*43758.5453,seedY=Math.sin(i*311.7+19.1)*19341.137,x=snap(b.left+6+(seed-Math.floor(seed))*(b.right-b.left-15)),y=snap(top+((seedY-Math.floor(seedY))+t*.012)%1*Math.max(3,fh));ctx.strokeStyle=style.shade;ctx.lineWidth=1;ctx.strokeRect(x,y,i%3?3:5,3);ctx.fillStyle=style.highlight;ctx.fillRect(x,y,2,1);}
+   ctx.restore();
+   // A few surface bubbles burst above the foam instead of reading as flat fill.
+   for(let i=0;i<7;i++){const u=(t*1.7+i*.19)%1;if(u>.45)continue;const x=snap(b.left+10+i*19),y=snap(top-2-u*8);ctx.fillStyle=style.highlight;ctx.globalAlpha=(1-u/.45)*.8;ctx.fillRect(x-2-u*5,y,2,2);ctx.fillRect(x+2+u*5,y,2,2);}ctx.globalAlpha=1;
+  }
+  ctx.restore();
+  ctx.fillStyle=color;
+  for(let i=0;i<f.particles.length;i++){const a=f.particles[i],z=f.particles[i+1];const w=f.tool==='none'||f.popped?5:3;
+   if(z&&z.id===a.id+1){const n=Math.min(80,Math.ceil(Math.hypot(z.x-a.x,z.y-a.y)/2));for(let k=0;k<=n;k++)ctx.fillRect(snap(a.x+(z.x-a.x)*k/Math.max(1,n)),snap(a.y+(z.y-a.y)*k/Math.max(1,n)),w,3);}
+   else ctx.fillRect(snap(a.x),snap(a.y),w,3);
+   if(f.carbonated&&i%7===0){ctx.fillStyle=(fizzStyles[s.ingredient]||fizzStyles.soda_water).bubble;ctx.fillRect(snap(a.x),snap(a.y),2,2);ctx.fillStyle=color;}
+  }
+  ctx.fillStyle='#e8f1e9bb';for(const p of f.splash)ctx.fillRect(snap(p.x),snap(p.y),3,3);
+  ctx.fillStyle='#b0d1d5bb';ctx.fillRect(b.left,b.top,3,b.bottom-b.top);ctx.fillRect(b.right-3,b.top,3,b.bottom-b.top);ctx.fillRect(b.left,b.bottom-3,b.right-b.left,3);ctx.fillRect(b.left-3,b.top,b.right-b.left+6,2);ctx.fillStyle='#d6edef55';ctx.fillRect(b.left+9,b.top+10,3,b.bottom-b.top-30);
+  if(mode()==='classic'){const y=snap(b.bottom-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
+  bottle(ctx,s);
+  idleGuide(ctx,s);
+  const age=f.popped?f.time-f.popTime:Infinity;
+  if(age<.9){ctx.save();ctx.globalAlpha=Math.min(1,(.9-age)*2);ctx.font='bold 40px LunaPixel, sans-serif';ctx.fillStyle='#ffdf8a';ctx.textAlign='center';ctx.fillText(L('펑!','POP!'),667,110-age*37);ctx.restore();}
+
  }
  function sync(rootElement){
   const s=g.gimmick,stage=g.screen==='gimmick'&&s?.fluid&&rootElement.querySelector('[data-fluid-stage]');
-  if(!stage){stopAudio(true);audioState=null;cleanup();return;}mount(stage);const f=s.fluid;
+  if(!stage){release();stopAudio(true);audioState=null;return;}
+  if(g.isPaused()||document.hidden){release();s.held=false;}
   syncAudio(s,stage.closest('.fluid-screen'));
-  const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect){perfect.hidden=!s.pourFinishFx?.perfect;perfect.style.opacity=s.pourFinishFx?Math.min(1,Math.max(0,(.8-s.pourFinishFx.age)/.2)):0;}
-  const {rgb,alpha}=liquidAppearance(s.ingredient);
-  stage.dataset.carbonation=String(g.variant==='gpt'&&mode()!=='bottle'&&['soda_water','tonic_water','beer','champagne','cola'].includes(s.ingredient)&&f.caughtMl>.5);stage.dataset.ingredient=s.ingredient;stage.dataset.liquidColor=rgb.join(',');stage.dataset.liquidAlpha=alpha;
-  const camera=cameraFor(s),rawPoints=f.renderParticles(s,{freeFall:mode()==='bottle'}),tip=root.LunaPour.nozzle(s.angle,f.tool),mappedTip=receiverPoint(tip);
-  // Keep the stream attached to the visible mouth, then blend toward the smaller receiver at its rim.
-  const points=mode()==='bottle'?rawPoints:rawPoints.map(p=>{const q=receiverPoint(p),blend=p.wet?0:1-clamp((p.y-tip.y)/Math.max(1,f.glass.top-tip.y),0,1);return {...p,x:q.x+(tip.x-mappedTip.x)*blend,y:q.y+(tip.y-mappedTip.y)*blend,receiverScale:RECEIVER_SCALE};});
-  stage.dataset.pourTool=f.tool;stage.dataset.flowRate=String(f.rate);stage.dataset.nozzle=JSON.stringify(root.LunaPour.nozzle(s.angle,f.tool));stage.dataset.receiverBounds=JSON.stringify(receiverBounds(f.glass));
-  stage.dataset.streamSamples=points.filter(p=>p.visualOnly).length;
-  stage.dataset.presentation=mode();stage.dataset.guides=String(mode()==='classic');stage.dataset.receiver=String(mode()!=='bottle');stage.dataset.visibleParticles=points.length;stage.dataset.camera=JSON.stringify(camera);
-  drawBack(s);if(!fallback&&gpu)gpu.draw(f,rgb,alpha,points,camera);drawFallback(f,rgb,alpha,points,camera);drawFront(s,camera);
-  mounted.gpu.style.visibility=fallback?'hidden':'visible';stage.querySelector('.pour-fallback').style.visibility=fallback?'visible':'hidden';
-  const set=(selector,text)=>{const el=rootElement.querySelector(selector);if(el&&el.textContent!==text)el.textContent=text;};
+  const f=s.fluid,age=f.popped?f.time-f.popTime:Infinity,reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const strength=!reduced&&age<.35?(.35-age)*40/2.184:0,dx=Math.sin(age*173)*strength*.5||0,dy=Math.cos(age*137)*strength*.5||0;
+  const transform='translate('+dx+'px,'+dy+'px)';stage.style.transform=transform;const bg=rootElement.querySelector('.fluid-screen .gimmick-room-background');if(bg)bg.style.transform=transform;
+  draw(stage.querySelector('canvas').getContext('2d'),s);stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);
+  stage.dataset.renderer='pixel-canvas2d';stage.dataset.pourTool=f.tool;stage.dataset.carbonation=String(f.carbonated);stage.dataset.container=f.can?'can':'bottle';stage.dataset.foam=String(f.foamMl);stage.dataset.nozzle=JSON.stringify(root.LunaPour.nozzle(s.angle,f.tool,f.grab));
+  stage.style.cursor=s.held?'grabbing':'grab';
+  const set=(selector,value)=>{const e=rootElement.querySelector(selector);if(e)e.textContent=value;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);
-  stage.dataset.renderer=fallback?'canvas2d':'webgl';stage.dataset.particles=f.particles.length;root.LunaPourTutorial?.sync(g,stage.closest('.fluid-screen'),L);
+  const meter=rootElement.querySelector('[data-pour-tilt]');
+  if(meter){
+   const start=f.can?65+85*f.emittedMl/f.supplyMl:f.popped||f.tool==='none'?80:98;
+   const hasPourer=!f.can&&f.tool==='pourer'&&!f.popped,end=hasPourer?160:f.maxAngle;
+   meter.style.setProperty('--tilt-position',clamp(s.angle/f.maxAngle,0,1)*100+'%');
+   meter.style.setProperty('--tilt-start',clamp(start/f.maxAngle,0,1)*100+'%');
+   meter.style.setProperty('--tilt-range',Math.max(0,end-start)/f.maxAngle*100+'%');
+   meter.style.setProperty('--tilt-warning',hasPourer?(f.maxAngle-end)/f.maxAngle*100+'%':'0%');
+   meter.setAttribute('aria-valuenow',String(Math.round(s.angle)));
+  }
+  set('[data-pour-detail]',(f.carbonated?L('현재량은 거품 속 음료까지 포함','Includes liquid held in foam'):'')+(f.spilledMl>.05?' · '+L('넘침 ','Spilled ')+f.spilledMl.toFixed(1)+' ml':''));
+  const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect)perfect.hidden=!s.pourFinishFx?.perfect;
+  root.LunaPourTutorial?.sync(g,stage.closest('.fluid-screen'),L);
  }
- const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
  return{html,sync,unlockAudio,act,key};
 };
 })(window);

@@ -8,10 +8,12 @@ W.LunaPourTutorial={
   if(s.started&&t.step==='target')t.step='pour';
   if(t.step==='pour'&&s.started&&!s.held&&s.fluid.caughtMl>0)t.step='finish';
   if(t.step==='finish'&&s.held)t.step='pour';
+  // The pouring gesture is demonstrated by the idle mouse animation, not a text card.
+  if(t.step==='pour'){layer.hidden=true;delete host.dataset.pourTutorialStep;return;}
   const steps={
    target:['.pour-top-readout',L('목표량부터 확인해요','Check the target'),L('이번 재료의 목표량은 '+s.target+' '+s.unit+'예요. 현재량과 비교하며 따르고, 목표에서 ±5 ml 이내로 마치면 PERFECT예요.','This ingredient needs '+s.target+' '+s.unit+'. Compare the current amount as you pour. Finish within ±5 ml for PERFECT.'),1],
-   pour:[s.started?'.pour-workspace':'.pour-hold',L('누르면 따르고, 떼면 멈춰요','Hold to pour, release to stop'),L('Space를 누르고 있으면 병이 기울고 액체가 나와요. 떼면 병이 돌아오지만 남은 액체는 계속 떨어져요. 목표량보다 조금 일찍 떼고, 부족하면 짧게 더 따라 보세요.','Hold Space to tilt and pour. Release to return the bottle; liquid still in the air keeps falling. Release a little early and add short pours if needed.'),2],
-   finish:['.pour-finish',L('남은 방울까지 확인해요','Check the final drops'),L('현재량을 확인하세요. 부족하면 Space로 더 따를 수 있어요. 준비되면 「마치고 다음 재료」를 누르세요. 마지막 방울까지 담긴 뒤 판정하고 다음 재료로 넘어가요.','Check the current amount. Add more with Space if needed, then choose Finish & continue. The final drops land before scoring and moving on.'),3]
+   pour:[s.started?'.pour-workspace':'.pour-hold',L('드래그로 기울기를 조절해요','Drag to control the tilt'),L('병이나 캔을 잡고 왼쪽 위로 드래그하세요. 기울일수록 빠르게 나와요. 놓으면 돌아오지만 남은 방울은 계속 떨어져요. 탄산 재료는 천천히 따라야 거품이 적어요.','Drag up-left to tilt. More tilt means faster flow. Release early: airborne drops still land. Pour carbonated drinks slowly to reduce foam.'),2],
+   finish:['.pour-finish',L('남은 방울까지 확인해요','Check the final drops'),L('현재량을 확인하세요. 부족하면 드래그해서 조금 더 따를 수 있어요. 준비되면 「마치고 다음 재료」를 누르세요. 마지막 방울까지 담긴 뒤 판정하고 다음 재료로 넘어가요.','Check the current amount. Drag to top up if needed, then choose Finish & continue. The final drops land before scoring and moving on.'),3]
   };
   const step=steps[t.step],target=host.querySelector(step[0]);if(!target){layer.hidden=true;return;}
   layer.dataset.step=t.step;host.dataset.pourTutorialStep=t.step;

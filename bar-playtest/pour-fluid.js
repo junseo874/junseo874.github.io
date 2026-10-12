@@ -1,198 +1,69 @@
 (function(root){
 'use strict';
-// Web-only 2D double-density relaxation; inspired by Clavet et al. (SCA 2005).
-// Numerical particles carry immutable millilitres. Rendering never changes measurement.
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-const GLASS={left:596,right:790,top:252,bottom:470};
-const STEP=1/120,H=20,MAX_PARTICLES=1100;
-// Web pourer tuning, not a measured real-world pourer specification.
-const POURER={rateScale:.25,maxAngle:125,rampDegrees:30};
-// Ingredient policy is independent of volume, recipe, and game mode.
+// Reference-style ballistic pixel parcels. Foam stores liquid mass, never creates it.
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),STEP=1/120;
+const GLASS={left:520,right:662,top:250,bottom:470};
 const WITHOUT_POURER=new Set(['soda_water','cola','cranberry_juice','milk','beer','orange_juice','red_wine','champagne']);
-const toolForIngredient=ingredient=>WITHOUT_POURER.has(ingredient)?'none':'pourer';
-function nozzle(angle,tool='pourer'){const t=clamp(angle/95,0,1),k=t*t*(3-2*t),a=angle*Math.PI/180,offset=tool==='none'?34:0;return{x:550+50*k-Math.sin(a)*offset,y:130+60*k+Math.cos(a)*offset};}
+const CARBONATED=new Set(['soda_water','cola','tonic_water','beer','champagne']);
+const CANS=new Set(['soda_water','cola']);
+const toolForIngredient=id=>WITHOUT_POURER.has(id)?'none':'pourer';
+const POURER={rateScale:1,maxAngle:170,rampDegrees:57};
+function nozzle(angle,tool='pourer',grab=clamp(angle/95,0,1)){const u=grab*grab*(3-2*grab);return{x:450+80*u,y:105+115*u};}
 class Simulation{
- constructor({targetMl,unitMl,rate=17.5,startAngle=95,maxAngle=125,tiltSpeed=95,viscosity=.025}){
-  this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.tool='pourer';
-  this.startAngle=startAngle;this.maxAngle=maxAngle;this.tiltSpeed=tiltSpeed;this.viscosity=viscosity;
-  this.quantum=Math.max(.5,this.targetMl/180);this.supplyMl=Math.max(600,this.targetMl*4);
-  this.streamSerial=0;this.wasFlowing=false;
-  this.particles=[];this.grid=new Map();this.pairs=[];this.serial=0;this.accumulator=0;
-  this.emittedMl=0;this.caughtMl=0;this.airMl=0;this.spilledMl=0;this.nozzleMl=0;
-  this.flow=0;this.finishRequested=false;this.ready=false;this.quiet=0;this.time=0;this.maxSpeed=0;
-  this.glass={...GLASS};this.peakParticles=0;this.surfaceY=GLASS.bottom;
+ constructor({targetMl,unitMl=1,rate=42,ingredient=''}){
+  this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.ingredient=ingredient;
+  this.can=CANS.has(ingredient);this.carbonated=CARBONATED.has(ingredient);this.tool='pourer';this.pixel=true;
+  this.startAngle=98;this.maxAngle=this.can?175:170;this.tiltSpeed=this.can?380:420;this.grab=0;this.popped=false;this.gush=0;
+  this.glass={...GLASS};this.capacity=Math.max(260,this.targetMl*1.6);this.mlPx=(GLASS.bottom-GLASS.top-8)/this.capacity;
+  this.supplyMl=Math.max(this.can?350:600,this.targetMl*2);this.emittedMl=0;this.caughtMl=0;this.airMl=0;this.spilledMl=0;this.nozzleMl=0;
+  this.liquidMl=0;this.foamMl=0;this.foamDensity=.18;this.particles=[];this.splash=[];this.serial=0;this.streamSerial=0;this.peakParticles=0;
+  this.time=0;this.accumulator=0;this.flow=0;this.flowNow=0;this.wobble=0;this.quiet=0;this.maxSpeed=0;this.finishRequested=false;this.ready=false;this.surfaceY=GLASS.bottom;
  }
- setTool(tool,s){if(!['none','pourer'].includes(tool)||this.finishRequested||this.ready||s.held||s.angle>.05)return false;this.tool=tool;this.rate=this.baseRate*(tool==='none'?4:1);this.streamSerial++;return true;}
- requestFinish(s){this.finishRequested=true;s.held=false;}
- flowAt(angle){return clamp((angle-this.startAngle)/Math.max(1,Math.min(POURER.rampDegrees,this.maxAngle-this.startAngle)),0,1);}
- predicted(s){
-  const extraAngle=clamp(s.angle-this.startAngle,0,this.maxAngle-this.startAngle),ramp=Math.max(1,Math.min(POURER.rampDegrees,this.maxAngle-this.startAngle));
-  const tail=this.rate/this.tiltSpeed*(extraAngle<=ramp?extraAngle*extraAngle/(2*ramp):extraAngle-ramp/2);
-  return (this.caughtMl+this.airMl+Math.min(tail,Math.max(0,this.supplyMl-this.emittedMl)))/this.unitMl;
+ setTool(tool,s){if(!['none','pourer'].includes(tool)||s.held||s.angle>0||this.finishRequested)return false;this.tool=tool;this.rate=this.can?70:tool==='none'?95:42;return true;}
+ requestFinish(s){this.finishRequested=true;s.held=false;s.dragAngle=null;}
+ flowAt(angle){const start=this.can?65+85*this.emittedMl/this.supplyMl:this.popped||this.tool==='none'?80:98;this.startAngle=start;return Math.pow(clamp((angle-start)/55,0,1),this.can?1.4:1.6);}
+ predicted(){return(this.caughtMl+this.airMl)/this.unitMl;}
+ tick(s,dt){if(this.ready)return;this.accumulator+=clamp(dt,0,.2);while(this.accumulator>=STEP){this.accumulator-=STEP;this.step(s,STEP);}}
+ step(s,dt){
+  this.time+=dt;const held=s.held&&!this.finishRequested;
+  this.grab=clamp(this.grab+(held?4:-3)*dt,0,1);
+  const target=held&&this.grab>.6?clamp(s.dragAngle??(this.can?145:145),0,this.maxAngle):0;
+  s.angle+=clamp(target-s.angle,-this.tiltSpeed*dt,this.tiltSpeed*dt);
+  if(!this.can&&this.tool==='pourer'&&!this.popped&&s.angle>=160&&this.grab>.95){this.popped=true;this.popTime=this.time;this.gush=.55;const at=nozzle(s.angle,this.tool,this.grab);this.cap={x:at.x,y:at.y,vx:275,vy:-465,rotation:s.angle*Math.PI/180,spin:16};}
+  if(this.cap){const c=this.cap;c.vy+=1200*dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.rotation+=c.spin*dt;if(c.y>512&&c.vy>0){c.y=512;c.vy*=-.35;c.vx*=.6;c.spin*=.5;}}
+  this.flow=this.grab>.95?this.flowAt(s.angle):0;
+  this.flowNow=(this.popped?95:this.rate)*this.flow*(1+.28*Math.sin(this.time*15)*Math.sin(this.time*4.3));
+  if(this.gush>0){this.flowNow+=70/.55*2*(this.gush/.55);this.gush=Math.max(0,this.gush-dt);}
+  if(this.emittedMl>=this.supplyMl){this.flow=0;this.flowNow=0;}
+  const amount=Math.min(this.flowNow*dt,Math.max(0,this.supplyMl-this.emittedMl));
+  if(amount>0){const at=nozzle(s.angle,this.tool,this.grab),a=s.angle*Math.PI/180,speed=50+Math.min(this.flowNow,120)*1.3;
+   this.particles.push({id:this.serial++,x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,ml:amount,age:0,emissionFlow:this.flow,inside:false});this.emittedMl+=amount;}
+  const b=this.glass,keep=[];
+  for(const p of this.particles){p.age+=dt;const prevY=p.y;p.vy+=1200*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
+   // A stream can only enter through the open rim, not through the side wall.
+   if(!p.entered&&prevY<=b.top&&p.y>=b.top&&p.x>b.left+3&&p.x<b.right-3)p.entered=true;
+   if(p.entered){p.x=clamp(p.x,b.left+3,b.right-3);if(p.y>=Math.max(b.top,this.surfaceY-this.foamHeight()*.5)){
+    const fraction=this.carbonated?clamp(.03+.23*p.emissionFlow,0,.3):0;
+    this.foamMl+=p.ml*fraction;this.liquidMl+=p.ml*(1-fraction);this.wobble=clamp(this.wobble+p.ml*.13,0,1);
+    if(p.id%5===0)this.splash.push({x:p.x,y:this.surfaceY-this.foamHeight(),vx:Math.sin(p.id*2.4)*70,vy:-50-(p.id%7)*10,life:.35});continue;
+   }}
+   if(p.y>b.bottom+20||p.age>3){this.spilledMl+=p.ml;continue;}keep.push(p);
+  }
+  this.particles=keep;const decay=this.foamMl*(1-Math.exp(-.32*dt));this.foamMl-=decay;this.liquidMl+=decay;
+  if(this.liquidMl>this.capacity){this.spilledMl+=this.liquidMl-this.capacity;this.liquidMl=this.capacity;}
+  const room=Math.max(0,this.capacity-this.liquidMl)*this.foamDensity;
+  if(this.foamMl>room){this.spilledMl+=this.foamMl-room;this.foamMl=room;this.overflowTime=this.time;}
+  this.caughtMl=this.liquidMl+this.foamMl;this.airMl=this.particles.reduce((n,p)=>n+p.ml,0);this.surfaceY=b.bottom-this.liquidMl*this.mlPx;
+  for(const p of this.splash){p.life-=dt;p.vy+=800*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;}this.splash=this.splash.filter(p=>p.life>0).slice(-80);
+  this.wobble*=Math.exp(-3*dt);this.peakParticles=Math.max(this.peakParticles,this.particles.length);
+  s.value=this.caughtMl/this.unitMl;s.predicted=this.predicted();
+  if(this.finishRequested&&s.angle<.001&&this.airMl<1e-8){this.quiet+=dt;if(this.quiet>.2)this.ready=true;}else this.quiet=0;
  }
- tick(s,dt){
-  if(this.ready)return;
-  this.accumulator+=Math.max(0,Math.min(.2,dt));
-  while(this.accumulator+1e-10>=STEP){
-   this.accumulator=Math.max(0,this.accumulator-STEP);
-   const lifting=s.held&&!this.finishRequested;
-   // Re-tilt an already-used bottle promptly for small top-ups; never accelerate the release tail.
-   const liftRate=lifting&&this.emittedMl>0&&s.angle<this.startAngle?2:1;
-   s.angle=clamp(s.angle+(lifting?liftRate:-1)*this.tiltSpeed*STEP,0,this.maxAngle);
-   this.flow=this.flowAt(s.angle);this.time+=STEP;
-   if(this.flow>0&&!this.wasFlowing)this.streamSerial++;
-   this.wasFlowing=this.flow>0;
-   this.emit(s);this.solve(STEP);this.measure();
-   s.value=this.caughtMl/this.unitMl;s.predicted=this.predicted(s);
-   if(this.finishRequested&&s.angle===0&&this.airMl<1e-8&&this.maxSpeed<45)this.quiet+=STEP;
-   else this.quiet=0;
-   if(this.quiet>=.2){this.ready=true;break;}
-  }
- }
- emit(s){
-  if(this.particles.length>=MAX_PARTICLES-12){this.flow=0;return;}
-  const ml=Math.min(this.rate*this.flow*STEP,Math.max(0,this.supplyMl-this.emittedMl));
-  this.emittedMl+=ml;this.nozzleMl+=ml;
-  const flush=this.flow===0||this.emittedMl>=this.supplyMl-1e-8,at=nozzle(s.angle,this.tool),a=s.angle*Math.PI/180;
-  while(this.nozzleMl+1e-10>=this.quantum||(flush&&this.nozzleMl>1e-9)){
-   const mass=Math.min(this.quantum,this.nozzleMl);this.nozzleMl=Math.max(0,this.nozzleMl-mass);
-   const serial=this.serial++,lane=(serial%3)-1,wiggle=Math.sin(serial*2.399)*.15;
-   const speed=105+20*this.flow,spread=this.tool==='none'?2.2:.7,emissionWidth=this.tool==='none'?2:1;
-   const origin={x:at.x+lane*spread+wiggle,y:at.y,vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed};
-   this.particles.push({id:serial,stream:this.streamSerial,emissionFlow:this.flow,emissionWidth,x:at.x+lane*spread+wiggle,y:at.y,px:at.x,py:at.y,
-    vx:Math.sin(a)*speed+lane*.4,vy:-Math.cos(a)*speed,origin,ml:mass,inside:false,age:0,airAge:0,rho:0,near:0});
-  }
-  this.peakParticles=Math.max(this.peakParticles,this.particles.length);
- }
- neighbours(){
-  const ps=this.particles;this.grid.clear();this.pairs.length=0;
-  for(let i=0;i<ps.length;i++){
-   const p=ps[i];p.rho=0;p.near=0;
-   const x=Math.floor(p.x/H),y=Math.floor(p.y/H),key=x+y*128;
-   if(!this.grid.has(key))this.grid.set(key,[]);this.grid.get(key).push(i);
-  }
-  for(let i=0;i<ps.length;i++){
-   const p=ps[i],x=Math.floor(p.x/H),y=Math.floor(p.y/H);
-   for(let gx=x-1;gx<=x+1;gx++)for(let gy=y-1;gy<=y+1;gy++){
-    const cell=this.grid.get(gx+gy*128);if(!cell)continue;
-    for(const j of cell){
-     // Keep the narrow airborne jet ballistic; density pressure starts in the glass.
-     if(j<=i||!p.wet||!ps[j].wet)continue;const b=ps[j],dx=b.x-p.x,dy=b.y-p.y,d2=dx*dx+dy*dy;
-     if(d2>=H*H)continue;
-     const d=Math.max(.001,Math.sqrt(d2)),q=1-d/H,q2=q*q;
-     p.rho+=q2;b.rho+=q2;p.near+=q2*q;b.near+=q2*q;
-     this.pairs.push(i,j,dx/d,dy/d,q);
-    }
-   }
-  }
- }
- constrain(p){
-  const g=this.glass,r=3;
-  // Swept side walls: an outside droplet is not teleported into the vessel.
-  if(p.y>=g.top&&p.py<g.bottom+6){
-   const wasInside=p.px>=g.left&&p.px<=g.right;
-   if(wasInside||p.inside){
-    p.x=clamp(p.x,g.left+r,g.right-r);
-    if(p.y>g.bottom-r)p.y=g.bottom-r;
-   }else if(p.x>=g.left&&p.x<=g.right){
-    p.x=p.px<g.left?g.left-r:g.right+r;
-   }
-  }
- }
- solve(dt){
-  const ps=this.particles,dt2=dt*dt;
-  for(const p of ps){
-   p.px=p.x;p.py=p.y;p.age+=dt;p.vy+=1100*dt;
-   p.x+=p.vx*dt;p.y+=p.vy*dt;this.constrain(p);
-  }
-  for(let iteration=0;iteration<2;iteration++){
-   this.neighbours();
-   for(let k=0;k<this.pairs.length;k+=5){
-    const a=ps[this.pairs[k]],b=ps[this.pairs[k+1]],nx=this.pairs[k+2],ny=this.pairs[k+3],q=this.pairs[k+4];
-    // Density + near-density pressure, with a small negative-pressure cohesion limit.
-    const pressure=6200*(Math.max(-.3,a.rho-2.5)+Math.max(-.3,b.rho-2.5))*.5;
-    const near=14500*(a.near+b.near)*.5;
-    const d=clamp(dt2*(pressure*q+near*q*q)*.5,-.3,2);
-    a.x-=nx*d;a.y-=ny*d;b.x+=nx*d;b.y+=ny*d;
-   }
-   for(const p of ps)this.constrain(p);
-  }
-  for(const p of ps){
-   p.vx=clamp((p.x-p.px)/dt,-650,650);p.vy=clamp((p.y-p.py)/dt,-650,650);
-  }
-  // XSPH-style neighbour velocity smoothing. Uniform falling velocity is preserved.
-  for(let k=0;k<this.pairs.length;k+=5){
-   const a=ps[this.pairs[k]],b=ps[this.pairs[k+1]],q=this.pairs[k+4],mix=this.viscosity*q;
-   const dx=(b.vx-a.vx)*mix,dy=(b.vy-a.vy)*mix;
-   a.vx+=dx;a.vy+=dy;b.vx-=dx;b.vy-=dy;
-  }
- }
- measure(){
-  let caught=0,air=this.nozzleMl,surface=this.glass.bottom,maxSpeed=0;
-  const keep=[],g=this.glass;
-  for(const p of this.particles){
-   // A settled particle touching the rim still belongs to the glass (collision radius = 3).
-   const rim=p.wet?g.top-3:g.top;
-   p.inside=p.x>=g.left&&p.x<=g.right&&p.y>=rim&&p.y<=g.bottom;
-   p.wet=p.wet||p.inside;p.airAge=p.inside?0:p.airAge+STEP;
-   if(!p.inside&&(p.y>540||p.x<0||p.x>1000||p.airAge>8)){
-    this.spilledMl+=p.ml;continue;
-   }
-   keep.push(p);
-   if(p.inside){caught+=p.ml;surface=Math.min(surface,p.y);maxSpeed=Math.max(maxSpeed,Math.hypot(p.vx,p.vy));}
-   else air+=p.ml;
-  }
-  this.particles=keep;this.caughtMl=caught;this.airMl=air;this.maxSpeed=maxSpeed;this.surfaceY=surface;
- }
- // Rendering samples bridge only adjacent airborne parcels from one uninterrupted pour.
- // They carry no volume and never enter the solver or retained-ml accounting.
- renderParticles(s,{freeFall=false}={}){
-  // Bottle focus follows the SAME emitted parcels, but visually lets them fall past
-  // the hidden receiver. These positions never feed collision, volume or scoring.
-  const parcels=freeFall?this.particles.map(p=>{
-   const o=p.origin,t=p.age;
-   return {...p,x:o.x+o.vx*t,y:o.y+o.vy*t+550*t*(t+STEP),
-    vx:o.vx,vy:o.vy+1100*t,inside:false,wet:false,visualOnly:true};
-  }).filter(p=>p.y<580&&p.x>-40&&p.x<1040):this.particles;
-  const points=[...parcels];let previous=null,extra=0;
-  const bridge=(a,b)=>{
-   // Thin low-flow jets need closer display samples, not additional measured liquid.
-   const spacing=Math.max(1,6*Math.sqrt(Math.min(a.emissionFlow??1,b.emissionFlow??1)));
-   const steps=Math.ceil(Math.hypot(b.x-a.x,b.y-a.y)/spacing);
-   for(let i=1;i<steps&&extra<600;i++,extra++){
-    const t=i/steps;points.push({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t,
-     vx:a.vx+(b.vx-a.vx)*t,vy:a.vy+(b.vy-a.vy)*t,emissionFlow:(a.emissionFlow??1)+((b.emissionFlow??1)-(a.emissionFlow??1))*t,emissionWidth:(a.emissionWidth??1)+((b.emissionWidth??1)-(a.emissionWidth??1))*t,inside:false,visualOnly:true});
-   }
-  };
-  for(const p of parcels){
-   const fallingInGlass=p.inside&&p.vy>100&&p.y<this.glass.bottom-12;
-   if((p.wet&&!fallingInGlass)||p.emissionFlow<.015){previous=p;continue;}
-   const reachesPool=previous?.inside&&previous.y>=p.y&&Math.hypot(previous.x-p.x,previous.y-p.y)<110;
-   const previousFalling=previous&&(!previous.wet||(previous.inside&&previous.vy>100&&previous.y<this.glass.bottom-12));
-   if(previous&&previous.emissionFlow>=.015&&(previousFalling||reachesPool)&&previous.stream===p.stream&&p.id===previous.id+1)bridge(previous,p);
-   previous=p;
-  }
-  const head=parcels[parcels.length-1];
-  if(this.flow>=.015&&this.emittedMl<this.supplyMl-1e-8&&head&&!head.wet&&head.stream===this.streamSerial&&head.emissionFlow>=.015){
-   const at=nozzle(s.angle,this.tool),a=s.angle*Math.PI/180,speed=105+20*this.flow;
-   const tip={x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,emissionFlow:this.flow,emissionWidth:this.tool==='none'?2:1,inside:false,visualOnly:true};
-   bridge(head,tip);points.push(tip);
-  }
-  return points;
- }
- audit(){return {emitted:this.emittedMl,caught:this.caughtMl,air:this.airMl,spilled:this.spilledMl,error:this.emittedMl-this.caughtMl-this.airMl-this.spilledMl};}
+ foamHeight(){return this.foamMl/this.foamDensity*this.mlPx;}
+ renderParticles(){return this.particles;}
+ audit(){return{emitted:this.emittedMl,caught:this.caughtMl,air:this.airMl,spilled:this.spilledMl,error:this.emittedMl-this.caughtMl-this.airMl-this.spilledMl};}
 }
-function init(s,game){
- if(!['pour','fill_up'].includes(s.type))return;
- const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
- const visc=['grenadine','cream','coconut_milk'].includes(s.ingredient)?.065:.025;
- s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,rate:game.c('pour_emit_rate_ml_per_sec',70)*POURER.rateScale,
-  startAngle:game.c('pour_start_angle_deg',95),maxAngle:Math.min(POURER.maxAngle,game.c('pour_max_tilt_angle_deg',150)),
-  tiltSpeed:game.c('pour_tilt_speed_deg_per_sec',95),viscosity:visc});
- // Always configure the bottle for this ingredient, including fill-up and retries.
- game.pourTool=toolForIngredient(s.ingredient);
- s.fluid.setTool(game.pourTool,s);
-}
-const api={Simulation,init,nozzle,GLASS,STEP,POURER,toolForIngredient};
-if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
+function init(s,game){if(!['pour','fill_up'].includes(s.type))return;const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
+ s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,ingredient:s.ingredient});game.pourTool=toolForIngredient(s.ingredient);s.fluid.setTool(game.pourTool,s);}
+const api={Simulation,init,nozzle,GLASS,STEP,POURER,toolForIngredient};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -1,0 +1,11 @@
+Mixkit - Cupboard soft sliding door (1908)
+User-supplied file: mixkit-cupboard-soft-sliding-door-1908.wav
+Source page: https://mixkit.co/free-sound-effects/doors/
+License: Mixkit Sound Effects Free License
+https://mixkit.co/license/modal/sfxFree/
+
+Game-use derivative: home-door.wav
+First 0.300 seconds removed. 3 ms fade-in at the cut to avoid a click.
+44,100 Hz / stereo / 24-bit PCM; duration 2.120975 seconds.
+Original Desktop file remains unchanged. Playback gain 0.48 before shared SFX volume.
+Use within the game; not a standalone sound-pack or source-asset redistribution license.

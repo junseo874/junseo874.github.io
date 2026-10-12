@@ -16,7 +16,7 @@ class Campaign{
  get playView(){return this.session.developer?'developer':'game';}
  get blocking(){return !!this.dayTransition||this.view!=='game'&&this.view!=='developer';}
  resetInput(){this.releaseCinemaSkip();this.clearInput();this.outside.clearInput?.();this.control=false;this.g.gimmick&&(this.g.gimmick.held=false);}
- screen(view){this.resetInput();if(view!=='prologue'){global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);}this.view=view;this.host.classList.toggle('is-dev-console',view==='dev-console');this.host.classList.toggle('over-outside',view==='scene'&&this.outside.active&&!['terrace','black','johnny-memory'].includes(this.dialog?.background));this.host.hidden=!this.blocking;document.body.classList.toggle('campaign-main',this.active);document.body.classList.toggle('campaign-awakening',view==='awakening');this.host.classList.toggle('is-awakening',view==='awakening');this.app.inert=this.blocking;const outsideRoot=document.querySelector('#outside-root');if(outsideRoot)outsideRoot.inert=this.blocking;this.returnButton.hidden=view!=='developer'||this.outside.active||this.g.phase!=='ready';this.draw();}
+ screen(view){this.resetInput();if(view!=='prologue'){this.cinema?.player?.pause?.();global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);}this.view=view;this.host.classList.toggle('is-dev-console',view==='dev-console');this.host.classList.toggle('over-outside',view==='scene'&&this.outside.active&&!['terrace','black','johnny-memory'].includes(this.dialog?.background));this.host.hidden=!this.blocking;document.body.classList.toggle('campaign-main',this.active);document.body.classList.toggle('campaign-awakening',view==='awakening');this.host.classList.toggle('is-awakening',view==='awakening');this.app.inert=this.blocking;const outsideRoot=document.querySelector('#outside-root');if(outsideRoot)outsideRoot.inert=this.blocking;this.returnButton.hidden=view!=='developer'||this.outside.active||this.g.phase!=='ready';this.draw();}
  draw(){if(this.view==='game'||this.view==='developer'){this.host.hidden=true;return;}this.host.hidden=false;let body='';
   if(this.view==='picker')body='<div class="campaign-picker"><img class="picker-logo" src="'+path('title-logo.png')+'" alt="Project LUNA"><h1>어떤 방식으로 플레이할까요?</h1><div class="campaign-paths">'+button('<span>01 / STORY</span><strong>본편 플레이</strong><p>루나의 첫 출근부터, 네 번의 밤까지.</p>','title','story-path')+button('<span>02 / PLAYTEST</span><strong>개발자 시뮬레이터</strong><p>바 영업 · 기믹 · 외부 공간을 자유롭게 테스트합니다.</p>','developer','dev-path')+'</div></div>';
   if(this.view==='bar-door')body=global.LunaBarDoor.html(this.doorTransition?.direction||'in');
@@ -37,7 +37,7 @@ class Campaign{
   if(this.view==='prologue')body='<canvas class="campaign-prologue" width="480" height="270" aria-label="'+esc(this.cinema?.title||'루나의 꿈 회상 컷씬')+'"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스바를 3초간 누르면 컷씬을 건너뜁니다"><span>스페이스바를 꾹 누르면 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
   if(this.view==='ending')body='<div class="campaign-ending"><img src="'+path('title-logo.png')+'" alt="Project LUNA"><p>…조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>'+button('타이틀로','exit-run')+'</div>';
   this.host.innerHTML='<div class="campaign-stage view-'+this.view+'">'+body+'</div>';
-  if(this.view==='prologue'&&this.cinema){const c=this.cinema;c.player?.dispose();c.player=global.LunaCinemaPlayer(this.host.querySelector('canvas'),this.host.querySelector('.campaign-cinema-ui'),c.scene);c.renderer=c.player.renderer;c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55);this.paintCinemaSkip();}
+  if(this.view==='prologue'&&this.cinema){const c=this.cinema;c.player?.dispose();c.player=(c.studio?global.LunaStudioCinema.player:global.LunaCinemaPlayer)(this.host.querySelector('canvas'),this.host.querySelector('.campaign-cinema-ui'),c.scene);c.renderer=c.player.renderer;c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaSkip();}
   if(this.view==='scene'){this.paintLine();if(this.dialog?.background==='johnny-memory')global.LunaJohnnyMemory.sync(this.host,this.dialog,this.D);}if(this.view==='awakening')this.paintAwakening();
   this.host.querySelector('button,select,input')?.focus({preventScroll:true});
  }
@@ -58,22 +58,46 @@ class Campaign{
  optionsHTML(){return global.LunaStreetAudio.settingsHTML(this.g.lang)+global.LunaDialogueAudio.settingsHTML(this.g.lang)+'<label class="campaign-option"><span>배경 음악</span><input type="range" min="0" max="100" value="'+Math.round(this.bgm.volume*100)+'" data-campaign-input="bgm"><output>'+Math.round(this.bgm.volume*100)+'%</output></label><label class="campaign-option"><span>효과음</span><input type="range" min="0" max="100" value="'+Math.round(global.LunaSfx.volume*100)+'" data-campaign-input="sfx"><output>'+Math.round(global.LunaSfx.volume*100)+'%</output></label><label class="campaign-option"><span>대사 속도</span><input type="range" min=".5" max="3" step=".5" value="'+this.g.dialogSpeed+'" data-campaign-input="speed"><output>'+this.g.dialogSpeed+'×</output></label>'+button('배경 음악 '+(this.bgm.enabled?'켜짐':'꺼짐'),'music-toggle')+'<details><summary>조작 안내</summary><p>대사 진행: 클릭 / E / Space / Enter<br>대사 빠르게 넘기기: Control 누르기 (Mac은 ⌃ Control)<br>이동·좌석·선반 전환: A / D 또는 ← / →<br>외부 달리기: Shift · 상호작용: E<br>거리 전경: Y · 서비스 패널: Tab<br>개발자 콘솔: P (바 내부·외부)<br>코스터·칵테일 제공: 손님 앞으로 드래그<br>기믹: 각 화면의 조작 안내<br>설정·일시정지: ESC</p></details>'+button('돌아가기','resume','primary')+(this.active?button('타이틀로','ask-exit'):'');}
  drinkSrc(id){return(this.D.assets['recipe_cocktail_'+id]||this.D.assets['cocktail_'+id]||this.D.assets.item_old_fashioned).src;}
  portrait(actor){const states=this.D.characterLayers[actor];if(!states)return '';const keys=states[Object.keys(states).find(k=>k.endsWith('idle_default'))||Object.keys(states)[0]];return '<div class="campaign-portrait" aria-hidden="true">'+keys.map(k=>{const a=this.D.assets[k];return'<span style="background-image:url('+esc(a.src)+');background-size:'+((a.frames||1)*100)+'% 100%"></span>';}).join('')+'</div>';}
- sceneHTML(){const c=this.dialog;if(c.background==='johnny-memory')return global.LunaJohnnyMemory.html(c,this.D);const r=c.rows[c.index],textOnly=['street','city','home'].includes(c.background);if(c.background==='black')return '<div class="campaign-black-scene"><button class="campaign-speech" data-campaign="next" aria-label="다음 대사"><strong>'+esc(r.who||this.g.name(r.actor))+'</strong><p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p></button></div>';if(c.background==='terrace')return global.LunaTerrace.html(c);let image=c.background==='home'&&this.homeBackdrop?this.homeBackdrop:c.background==='city'&&this.cityBackdrop?this.cityBackdrop:c.background==='street'&&this.streetBackdrop?this.streetBackdrop:c.background==='lab'?path('lab.png'):c.background==='bar'?(this.D.assets.bar?.src||path('title-bg.png')):path('title-bg.png');return '<div class="campaign-story-bg '+esc(c.background)+'" style="background-image:url('+esc(image)+')"></div><div class="campaign-scene-label">'+esc(c.title)+'</div>'+this.portrait(r.actor)+(c.memory?'<aside class="campaign-memory-note"><small>조니의 제조 기록 · 배합 가안</small><strong>라이 위스키 45ml → 심플 시럽 5ml<br>→ 아로마틱 비터스 2ml → 스터</strong><span>올드패션드 잔 · 각 계량 허용 오차 ±5ml</span></aside>':'')+'<button class="campaign-speech '+(textOnly?'text-only ':'')+(r.actor==='luna'?'luna':'')+'" data-campaign="next" aria-label="다음 대사">'+(textOnly?'':'<strong>'+esc(r.who||Object.entries(this.data.actors).find(([n,id])=>id===r.actor)?.[0]||'')+'</strong>')+'<p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p><i aria-hidden="true">▾</i></button>';}
- paintLine(){if(!this.dialog)return;const r=this.dialog.rows[this.dialog.index],ink=this.host.querySelector('.campaign-ink');if(ink){if(this.dialog.background==='terrace')ink.innerHTML=global.LunaTerrace.textHTML(r,this.dialog.chars);else ink.textContent=r.text.slice(0,Math.floor(this.dialog.chars));}}
+ sceneHTML(){const c=this.dialog;if(c.background==='johnny-memory')return global.LunaJohnnyMemory.html(c,this.D);const r=c.rows[c.index],textOnly=['street','city','home'].includes(c.background);if(c.background==='black')return '<div class="campaign-black-scene"><button class="campaign-speech" data-campaign="next" aria-label="다음 대사"><strong>'+esc(r.who||this.g.name(r.actor))+'</strong><p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p></button></div>';if(c.background==='terrace')return global.LunaTerrace.html(c);let image=c.background==='home'&&this.homeBackdrop?this.homeBackdrop:c.background==='city'&&this.cityBackdrop?this.cityBackdrop:c.background==='street'&&this.streetBackdrop?this.streetBackdrop:c.background==='lab'?path('lab.png'):c.background==='bar'?(this.D.assets.bar?.src||path('title-bg.png')):path('title-bg.png');return '<div class="campaign-story-bg '+esc(c.background)+'" style="background-image:url('+esc(image)+')"></div><div class="campaign-scene-label">'+esc(c.title)+'</div>'+this.portrait(r.actor)+(c.memory?'<aside class="campaign-memory-note"><small>조니의 제조 기록 · 배합 가안</small><strong>라이 위스키 45ml → 심플 시럽 5ml<br>→ 아로마틱 비터스 2ml → 스터</strong><span>올드패션드 잔 · 각 계량 허용 오차 ±5ml</span></aside>':'')+'<button class="campaign-speech '+(textOnly?'text-only ':'')+(r.actor==='luna'?'luna':'')+'" data-campaign="next" aria-label="다음 대사">'+(textOnly?'':'<strong>'+esc(r.who||Object.entries(this.data.actors).find(([n,id])=>id===r.actor)?.[0]||'')+'</strong>')+'<p><span class="campaign-measure" aria-hidden="true">'+esc(r.text)+'</span><span class="campaign-ink"></span></p></button>';}
+ paintLine(){if(!this.dialog)return;const r=this.dialog.rows[this.dialog.index],ink=this.host.querySelector('.campaign-ink');if(ink){if(this.dialog.background==='terrace')ink.innerHTML=global.LunaTerrace.textHTML(r,this.dialog.chars);else ink.textContent=r.text.slice(0,Math.floor(this.dialog.chars));global.LunaDialogueCue.sync(ink.closest('.campaign-speech'),!!r.text&&this.dialog.chars>=r.text.length);}}
  scene(key,title,background,done,extra={}){const terrace=key==='night0'||key==='ending'||background==='terrace';if(terrace)background='terrace';const rows=Array.isArray(key)?key:terrace?global.LunaTerrace.rows(key,this.data):this.data.scenes[key];if(!rows?.length)throw Error('없는 본편 장면: '+key);this.dialog={rows,title,background,done,index:0,chars:0,...extra,homeToTerrace:false};if(terrace){this.retryLoad=()=>this.scene(key,title,background,done,extra);this.beginMemoryTransition(async()=>{const image=new Image();image.src=global.LunaTerrace.asset;await image.decode();},()=>this.screen('scene'),{terrace:true,revealDuration:1.8});}else this.screen('scene');}
  next(){if(this.dayTransition||this.memoryTransition)return;if(this.view==='prologue')return;if(this.view!=='scene')return;const c=this.dialog,r=c.rows[c.index];if(c.chars<r.text.length){c.chars=r.text.length;this.paintLine();return;}if(++c.index>=c.rows.length){this.dialog=null;c.done();return;}c.chars=0;if(r.cinemaAfter==='johnny-memory'){this.playJohnnyMemory(()=>{if(this.dialog!==c)return;this.screen('scene');});return;}if(r.cinemaAfter==='terrace-memory'){this.playTerraceMemory(()=>{if(this.dialog!==c)return;this.screen('scene');},r.memoryKey||'terraceMemory');return;}this.draw();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
- async newGame(){const day=0;this.serviceVersion='A';this.cancelMemoryTransition();this.cancelDayTransition();this.cancelDoorTransition();this.disposeCinema();this.token++;this.outside.exit(true);this.dialog=null;this.awakening=null;this.liftLogoPending=false;if(this.session.active)this.session.uninstall();this.session=new global.LunaCampaignEngine.Session(this.g,this.D,this.data);this.session.onStep=s=>this.storyStep(s);this.session.install({serviceVersion:this.serviceVersion});this.firstLift=false;this.morningSeen.clear();this.nightStarted=false;this.clearInput();this.g.lang='ko';this.ui.variant='original';this.ui.minigames=false;this.ui.outside=false;this.ui.inspector=false;this.ui.auto=false;this.g.speed=1;this.loadLabel=day===0?'루나의 꿈 회상을 불러오는 중':day+'일차 · 출근길을 준비하고 있습니다';this.loadPercent=0;this.screen('loading');const token=this.token;this.retryLoad=()=>this.newGame(day);try{for(const[i,name]of ['assets','sprites','stage','stage3','stage4','engine','sfx','scene5','player'].entries()){await this.script(name);if(token!==this.token)return;this.loadPercent=(i+1)/9*95;this.draw();}await new Promise(resolve=>global.Sprites.load(resolve));if(token!==this.token)return;global.Engine.initAnchors?.();global.Engine.setLineOverrides({});global.Engine.setTypingScale(1);
-  // Prepare the bar before the dream so no loading card interrupts waking up.
-  await Promise.all(Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src=>this.image(src)));if(token!==this.token)return;
-  // Only Luna’s dream opens the game; the other cutscenes remain for later.
-  const scenes=[global.buildScene5()];
-  this.cinema={scenes,index:0,scene:scenes[0],time:0,player:null,renderer:null};
-  this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;
-  this.screen('prologue');global.Sfx?.resume();
- }catch(e){if(token!==this.token)return;this.loadError=e.message;this.screen('load-error');}}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'manual-tv-20261012':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ async prepareStudio(id){
+  for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
+  await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
+  return global.LunaStudioCinema.prepare(id);
+ }
+ async newGame(){
+  this.serviceVersion='A';this.cancelMemoryTransition();this.cancelDayTransition();this.cancelDoorTransition();this.disposeCinema();const token=++this.token;
+  this.outside.exit(true);this.dialog=null;this.awakening=null;this.liftLogoPending=false;
+  if(this.session.active)this.session.uninstall();this.session=new global.LunaCampaignEngine.Session(this.g,this.D,this.data);this.session.onStep=s=>this.storyStep(s);this.session.install({serviceVersion:'A'});this.session.beginCommute(0);
+  this.firstLift=false;this.morningSeen.clear();this.nightStarted=false;this.clearInput();this.g.lang='ko';this.ui.day=0;this.ui.variant='original';this.ui.serviceVersion='A';this.ui.minigames=false;this.ui.outside=false;this.ui.inspector=false;this.ui.auto=false;this.g.speed=1;
+  this.loadLabel='폐기물처리장 · 첫 출근을 준비하고 있습니다';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.newGame();
+  try{
+   const scene=await this.prepareStudio('opening');if(token!==this.token)return;this.loadPercent=80;this.draw();
+   Object.assign(this.outside.config,{day:0,flow:'in',place:'home'});await this.outside.start({wakeAtSofa:true});if(token!==this.token)return;if(this.outside.loadError)throw Error(this.outside.loadError);
+   const model=this.outside.model;model.paused=true;
+   this.cinema={studio:true,memory:true,skipUntil:scene.clips.find(c=>c.type==='visual'&&c.actor==='house').start,title:'루나의 꿈 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
+    if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);this.render(true);this.outside.showControlsTutorial();
+    if(global.LunaStoryNotices.startGoal(this.g.progress,'first_commute','첫 출근하기!')&&this.session.carry)this.session.carry.objectives=structuredClone(this.g.progress.objectives);
+   }};
+   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+  }catch(e){if(token!==this.token)return;this.loadError=e.message;this.screen('load-error');}
+ }
+ playDayZeroTV(model){
+  if(model!==this.outside.model||model.config.day!==0||this.memoryTransition)return;
+  model.paused=true;this.outside.clearInput();model.backgroundStory.cancel();this.disposeCinema();
+  this.retryLoad=()=>this.playDayZeroTV(model);
+  this.beginMemoryTransition(()=>this.prepareStudio('documentary'),scene=>{
+   this.cinema={studio:true,memory:true,title:'TV 다큐 · 인공생명체의 역사',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
+    if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);
+   }};
+   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+  },{revealDuration:.8});
+ }
  // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
  beginMemoryTransition(prepare,commit,{terrace=false,revealDuration=1.15}={}){
   if(this.memoryTransition)return;
@@ -118,9 +142,42 @@ class Campaign{
   }catch(e){if(token!==this.token)return;this.loadError='BD 기록을 불러오지 못했어요. 재시도에는 추가 비용이 들지 않습니다. '+e.message;this.screen('load-error');}
  }
  releaseCinemaSkip(){if(this.cinemaHoldStart!=null)this.cinemaHintUntil=performance.now()+5000;this.cinemaHoldStart=null;}
- paintCinemaSkip(){const now=performance.now(),held=this.cinemaHoldStart!=null,progress=held?Math.min(1,(now-this.cinemaHoldStart)/3000):0,el=this.host.querySelector('.campaign-skip');if(el){el.classList.toggle('is-visible',held||now<(this.cinemaHintUntil||0));el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}return progress>=1;}
+ canSkipCinema(){const c=this.cinema;return !!c&&(c.skipUntil==null||c.time<c.skipUntil);}
+ tickCinemaDialogue(c,dt){
+  // Manual lines own their clock. Keep the scene alive, but never cross a
+  // dialogue boundary until a fresh key press acknowledges that line.
+  if(c.dialogueWait){c.dialogueWait.age+=dt;return;}
+  const next=Math.min(c.scene.end,c.time+dt);
+  const line=c.studio&&c.scene.clips.filter(l=>l.type==='dialogue'&&l.wait&&l.start+l.duration>c.time&&l.start<=next).sort((a,b)=>a.start-b.start)[0];
+  if(line){c.time=Math.max(c.time,line.start);c.dialogueWait={id:line.id,age:0,revealed:false};}
+  else c.time=next;
+ }
+ advanceCinemaDialogue(){
+  const c=this.cinema,w=c?.dialogueWait;if(!w)return;
+  const line=c.scene.clips.find(l=>l.id===w.id),parsed=global.StudioTags.parse(line.text);
+  const count=global.StudioTags.count(parsed,c.time-line.start+w.age,line.cps);
+  if(!w.revealed&&line.textEffect!=='instant'&&count<parsed.chars.length)w.revealed=true;
+  else{c.time=line.start+line.duration+.001;c.dialogueWait=null;}
+  c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
+ }
+ paintCinemaSkip(){
+  const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();this.cinemaHintUntil=0;}
+  const now=performance.now(),held=allowed&&this.cinemaHoldStart!=null,progress=held?Math.min(1,(now-this.cinemaHoldStart)/3000):0,el=this.host.querySelector('.campaign-skip');
+  if(el){el.hidden=!allowed;el.classList.toggle('is-visible',allowed&&(held||now<(this.cinemaHintUntil||0)));el.querySelector('span').textContent=this.cinema?.skipUntil!=null?'스페이스바를 꾹 누르면 폐기물처리장 대화 스킵':'스페이스바를 꾹 누르면 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
+  return progress>=1;
+ }
  disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);if(this.cinemaBgmMuted!=null){this.bgm.audio.muted=this.cinemaBgmMuted;this.cinemaBgmMuted=null;}}
- finishCinema(skipped=false){if(this.memoryTransition||this.view!=='prologue'||!this.cinema)return;if(this.cinema.memory){const done=this.cinema.returnTo;this.beginMemoryTransition(()=>null,()=>{this.disposeCinema(true);done();});return;}const returnTo=this.cinema.returnTo;if(returnTo){this.disposeCinema();returnTo();return;}this.bgm.setTransitionGain(0);this.disposeCinema(true);this.session.beginDay(0);this.g.startStoryPhase('bar');this.awakening={time:0,duration:3.3,fromWhite:!skipped};this.screen('awakening');this.render(true);}
+ finishCinema(skipped=false){if(this.memoryTransition||this.view!=='prologue'||!this.cinema)return;
+  if(skipped){
+   if(!this.canSkipCinema())return;
+   if(this.cinema.skipUntil!=null){
+    // Skip the dream only. Restart at the home's fade-in, including the alarm,
+    // blackout wake-up and every contact line; holding Space cannot skip again.
+    const c=this.cinema;c.player.pause?.();c.time=c.skipUntil;this.releaseCinemaSkip();this.cinemaHintUntil=0;
+    c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaSkip();return;
+   }
+  }
+  if(this.cinema.memory){const done=this.cinema.returnTo;this.beginMemoryTransition(()=>null,()=>{this.disposeCinema(true);done();});return;}const returnTo=this.cinema.returnTo;if(returnTo){this.disposeCinema();returnTo();return;}this.bgm.setTransitionGain(0);this.disposeCinema(true);this.session.beginDay(0);this.g.startStoryPhase('bar');this.awakening={time:0,duration:3.3,fromWhite:!skipped};this.screen('awakening');this.render(true);}
  paintAwakening(){const w=this.awakening;if(!w)return;const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};this.bgm.setTransitionGain(smooth(w.time/w.duration));const dark=this.host.querySelector('.campaign-wake-dark'),white=this.host.querySelector('.campaign-wake-white');if(dark)dark.style.opacity=1-smooth((w.time-1)/2.3);if(white)white.style.opacity=w.fromWhite?1-smooth(w.time/.7):0;}
 
  startBar(day,carry){this.runDoorTransition('in',()=>Promise.all(Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src=>this.image(src))),()=>{this.session.beginDay(day,carry);this.render(true);});}
@@ -154,6 +211,8 @@ class Campaign{
  completeMemory(){this.g.progress.flags.campaign_observation=true;this.scene('prepare','바 · 내일의 준비','bar',()=>{this.screen(this.playView);this.session.finishStep();this.render(true);});}
  previewCommute(model){if([2,3].includes(model.config.day))return global.LunaOutsideSamhoCommute.start(model);model.notionCommuteSeen=true;model.story.cancel();model.backgroundStory.cancel();this.streetBackdrop=this.outside.snapshot();this.scene('commute'+model.config.day,'출근길 · 삼호','street',()=>this.screen('developer'));}
  interactOutside(model,target){if(model!==this.outside.model||model.qa)return false;
+  if(target.id==='sofa'&&model.config.flow!=='out')return true;
+  if(target.id==='tv'&&model.config.day===0){this.playDayZeroTV(model);return true;}
   // Check on boarding the upward homeward lift, not when calling it or leaving home.
   if((this.active||this.session.developer)&&target.id==='elevator'&&model.scene==='street'&&model.level===0&&model.config.flow==='out'&&Math.abs(model.elevatorY-global.LunaResidence.layout.elevatorBottom)<=.01){const missing=this.dayEndRequirements(model.config.day);if(missing.length){this.outside.clearInput();this.showHomewardRequirements(missing);return true;}}
   if(!this.active){if(!this.session.developer)return false;
@@ -163,7 +222,7 @@ class Campaign{
    return false;
   }
   if(target.id==='bar'){if(this.session.route==='in'){this.outside.exit(true);this.startBar(this.session.day,this.session.carry);}else this.notice('오늘 영업은 끝났어요. 왼쪽 엘리베이터를 타고 집으로 돌아가세요.');return true;}
-  if(target.id==='sofa'){if(this.session.route==='out'){this.resumeView='game';this.screen('sleep');}else this.notice('새로운 하루가 시작됐어요. 문을 나서 바에 출근해 주세요.');return true;}
+  if(target.id==='sofa'){if(this.session.route==='out'){this.resumeView='game';this.screen('sleep');}return true;}
   return false;
  }
  quietLift(model){if(!this.active||this.session.day!==0||model.level!==0||this.firstLift)return false;this.firstLift=true;this.liftLogoPending=true;model.backgroundStory.cancel();model.story.cancel();return true;}
@@ -222,8 +281,8 @@ class Campaign{
 
  tick(dt){dt=Math.min(.05,Math.max(0,dt));if(this.memoryTransition)return this.tickMemoryTransition(dt);if(this.outside.active&&this.outside.devConsoleOpen&&!this.blocking)return false;if(this.doorTransition)return this.tickDoorTransition(dt);if(this.dayTransition)return this.tickDayTransition(dt);this.returnButton.hidden=this.view!=='developer'||this.outside.active||this.g.phase!=='ready';if(this.view==='scene'&&!document.hidden){const before=this.dialog.chars;this.dialog.chars+=dt*60*this.g.dialogSpeed;global.LunaDialogueAudio?.reveal(this.dialog.rows[this.dialog.index].text,before,this.dialog.chars);this.paintLine();if(this.dialog.background==='johnny-memory')global.LunaJohnnyMemory.sync(this.host,this.dialog,this.D,dt);if(this.control){this.skipAge+=dt;if(this.skipAge>.12){this.skipAge=0;this.next();}}}
   if(this.view==='prologue'&&!document.hidden){
-   const c=this.cinema,previous=c.time;c.time=Math.min(c.scene.end,c.time+dt);
-   c.player.render(c.time,previous,this.ui.gimmickAudio,global.LunaSfx.volume*.55);
+   const c=this.cinema,previous=c.time;this.tickCinemaDialogue(c,dt);
+   c.player.render(c.time,previous,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
    if(this.paintCinemaSkip()){this.finishCinema(true);return this.blocking;}
    if(c.time>=c.scene.end){if(++c.index<c.scenes.length){c.scene=c.scenes[c.index];c.time=0;global.Sfx?.silence();this.draw();}else this.finishCinema();}
   }
@@ -252,12 +311,12 @@ class Campaign{
   if(a==='replay-memory'){this.scene('johnny','조니의 기억','bar',()=>this.memoryQuiz(),{memory:true});return;}
   if(a==='confirm-observation'){if(this.host.querySelector('#observation-base').value!=='rye'||this.host.querySelector('#observation-order').value!=='right'){this.observationError='기록과 다른 항목이 있어요. 제조 기록을 다시 확인해 주세요.';this.draw();return;}this.completeMemory();}
  }
- key(e){if(this.memoryTransition||this.dayTransition||this.doorTransition)return true;if(this.g.overlay==='johnnyUnlock'&&!this.blocking)return false;
+ key(e){if(this.memoryTransition||this.dayTransition||this.doorTransition)return true;if(['game','developer'].includes(this.view)&&this.outside.controlsTutorialKey?.(e))return true;if(this.g.overlay==='johnnyUnlock'&&!this.blocking)return false;
   if(this.active&&e.code==='KeyP'&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&['game','dev-console'].includes(this.view)&&!this.outside.active){if(!e.repeat){if(this.view==='dev-console')this.devConsoleAction('dev-close');else{this.devResumeView=this.view;this.screen('dev-console');}}return true;}
   if(this.view==='dev-console'&&['Space','Enter'].includes(e.code)){if(!e.repeat)e.target.closest('#campaign-root button')?.click();return true;}
   if(this.view==='dev-console'&&e.code==='Escape'){if(!e.repeat)this.devConsoleAction('dev-close');return true;}
-if(this.outside.active&&this.outside.devConsoleOpen&&!this.blocking)return false;if(this.view==='game'&&e.code==='Escape'&&this.g.gimmick?.pourTestsOpen)return false;if(this.view==='prologue')global.Sfx?.resume();if(!this.active&&!this.blocking)return false;if(e.code==='F2')return true;if(e.code==='Escape'){if(!e.repeat){if(['options','notice','sleep','retry-drink'].includes(this.view))this.action('resume');else if(this.view==='confirm-exit')this.action('resume');else if(this.view==='title')this.toPicker();else if(!['picker','loading','load-error','ending'].includes(this.view)){this.resumeView=this.view;this.screen('options');}}return true;}
-  if(!this.blocking)return false;if(this.view==='prologue'){if(e.code==='Space'&&!e.repeat){this.cinemaHoldStart=performance.now();this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
+if(this.outside.active&&this.outside.devConsoleOpen&&!this.blocking)return false;if(this.view==='game'&&e.code==='Escape'&&this.g.gimmick?.pourTestsOpen)return false;if(this.view==='prologue'){global.Sfx?.resume();if(this.cinema?.studio)global.LunaStudioCinema.unlock();}if(!this.active&&!this.blocking)return false;if(e.code==='F2')return true;if(e.code==='Escape'){if(!e.repeat){if(['options','notice','sleep','retry-drink'].includes(this.view))this.action('resume');else if(this.view==='confirm-exit')this.action('resume');else if(this.view==='title')this.toPicker();else if(!['picker','loading','load-error','ending'].includes(this.view)){this.resumeView=this.view;this.screen('options');}}return true;}
+  if(!this.blocking)return false;if(this.view==='prologue'){if(!e.repeat&&['KeyE','Space','Enter'].includes(e.code)&&this.cinema?.dialogueWait){this.advanceCinemaDialogue();if(e.code==='Space'&&this.cinema?.scene.template==='documentary'&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code==='Space'&&!e.repeat&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
   if(['KeyE','Space','Enter'].includes(e.code)&&['scene','prologue'].includes(this.view)){if(!e.repeat)this.next();return true;}if(['ArrowUp','ArrowDown'].includes(e.code)&&['title','picker'].includes(this.view)){const list=[...this.host.querySelectorAll('button')],i=list.indexOf(document.activeElement);list[(i+(e.code==='ArrowDown'?1:-1)+list.length)%list.length]?.focus();return true;}
   return !['Enter','Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)||!e.target.closest('#campaign-root');
  }

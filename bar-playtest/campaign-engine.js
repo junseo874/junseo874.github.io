@@ -33,7 +33,7 @@ class Session{
  }
  uninstall(){if(!this.active)return;for(const[k,v]of Object.entries(this.original))this.data.tables[k]=v;for(const k of this.assetKeys)delete this.data.assets[k];this.g.campaignStep=null;this.g.createStoryOrder=this.savedCreateOrder;this.active=false;this.pendingStep=null;this.original=null;}
  // A fresh later-day start carries only established story prerequisites, never a previous run's money or choices.
- beginCommute(day){if(!Number.isInteger(day)||day<1||day>3)throw Error('시작 일차는 1~3일차여야 합니다.');if(!this.active)this.install();this.day=day;this.startDay=day;this.completed=[];this.events=[];this.pendingStep=null;
+ beginCommute(day){if(!Number.isInteger(day)||day<0||day>3)throw Error('시작 일차는 0~3일차여야 합니다.');if(!this.active)this.install();this.day=day;this.startDay=day;this.completed=[];this.events=[];this.pendingStep=null;
   const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});const flags=g.progress.flags;
   const prior=new Set(this.data.tables.scenes.filter(s=>Number(s.day)<day&&Number(s.day)>=0).map(s=>s.id));
   for(const step of this.data.tables.steps)if(prior.has(step.context)&&step.type==='enter')flags[step.actor+'_met']=true;
@@ -42,7 +42,7 @@ class Session{
  }
  beginDay(day,carry=null){if(!this.active)this.install();this.day=day;const g=this.g;g.reset(day,'full',1100+day,false,{variant:'original',serviceVersion:this.serviceVersion});if(carry){g.progress={...copy(carry),day,phase:'bar_open'};g.openingBalance=g.progress.money;}
   this.checkpoint=copy(g.progress);this.route='bar';this.events.push({event:'bar',day,money:g.progress.money});
-  const fresh=g.dailyUnlocks();if(day>0&&(fresh.ingredients.length||fresh.cocktails.length)){g.phase='arrival';g.pendingDailyUnlocks=true;g.overlay='dailyUnlocks';}else g.startStoryPhase('bar_open');g.changed();
+  const fresh=g.dailyUnlocks();if(day>0&&(fresh.ingredients.length||fresh.cocktails.length)){g.phase='arrival';g.pendingDailyUnlocks=true;g.overlay='dailyUnlocks';}else g.startStoryPhase(day===0?'bar':'bar_open');g.changed();
  }
  finishStep(){const s=this.pendingStep;if(!s)return;this.pendingStep=null;this.g.stepDone(s);}
  settle(){if(this.route!=='bar')return false;const g=this.g;if(!g.dailySettlement)return false;if(g.dailySettlement.status!=='paid')g.confirmDailySettlement();if(g.dailySettlement.status!=='paid')return false;this.route='out';this.carry=copy(g.progress);this.events.push({event:'commute-out',day:this.day,money:this.carry.money});return true;}

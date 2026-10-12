@@ -3,6 +3,7 @@
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),mix=(a,b,t)=>a+(b-a)*t,smooth=t=>t*t*(3-2*t);
 const PLACES={bar:'바 문 앞',homeDoor:'집 앞',home:'집 안'},FLOWS={in:'출근길',out:'퇴근길'};
 const R=global.LunaResidence.layout;
+const SOFA={id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7};
 const BOTTOM=R.elevatorBottom,TOP=R.elevatorTop,EX=R.elevatorX;
 // The fence-side sign is a local lookout, not a full-map camera toggle.
 const VIEWPOINT={x:-8.78,y:-.7,radius:.55,width:12};
@@ -53,16 +54,29 @@ class OutsideModel{
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
   this.thugFlags={};this.samhoCommuteFlags={};this.notionFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
-  this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
+  this.controlsTutorial=false;this.controlsInteractUntil=0;this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
  }
  wakeAtSofa(){
   if(this.scene!=='home'||this.qa)return false;
-  const sofa=this.targets().find(t=>t.id==='sofa');if(!sofa)return false;
+  const sofa=SOFA;
   this.x=sofa.x;this.y=sofa.y;this.facing=-1;this.anim='idle';this.animTime=0;this.updateNear();return true;
+ }
+ firstCommuteDirections(){
+  if(this.qa||this.config.day!==0||this.config.flow!=='in'||this.scene!=='street'||this.story.blocking)return false;
+  const campaign=global.lunaCampaign,key='day0_first_home_exit',flags=campaign?.active?(global.barGame.progress.flags??={}):this.story.flags;
+  if(flags[key])return false;
+  const rows=[
+   {type:'say',actor:'luna',text:'바의 위치는 엘리베이터를 타고 내려가서 우측으로 쭉 가면 된다고 했어.'},
+   {type:'say',actor:'luna',text:'가게 이름은 언노운...'}
+  ];
+  if(!this.story.beginRows(key,{x:this.x,y:this.y},rows,false))return false;
+  flags[key]=true;
+  if(campaign?.active&&campaign.session.carry)(campaign.session.carry.flags??={})[key]=true;
+  global.outsidePlaytest?.clearInput();this.anim='idle';this.animTime=0;return true;
  }
  targets(){
   if(this.qa)return global.LunaOutsideQA.targets(this);
-  if(this.scene==='home')return[{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},{id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7}];
+  if(this.scene==='home')return[...(this.config.day===0?[{id:'tv',label:'TV 다큐 보기',x:1.22,y:-.7}]:[]),{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},...(this.config.flow==='out'?[SOFA]:[])];
   if(this.level)return[...(global.LunaOutsideNotion?.targets(this)||[]),{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
   return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(global.LunaOutsideContent?.targets(this)||[]),...(global.LunaBDVendor?.targets(this)||[]),...(global.LunaOutsideShop?.targets(this)||[])];
  }
@@ -81,7 +95,10 @@ class OutsideModel{
   if(t.id==='elevator'){
    const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
    this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;if(!this.qa)global.lunaCampaign?.quietLift(this);}
-  }else if(t.id==='home'||t.id==='exit')this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false};
+  }else if(t.id==='home'||t.id==='exit'){
+   this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false};
+   global.LunaHomeDoorAudio?.play(()=>global.outsidePlaytest?.active&&global.outsidePlaytest.model===this&&!this.paused);
+  }
   else if(t.id==='bar')this.dialog={title:'바 입구',text:this.config.flow==='in'?'출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.':'퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'};
   else if(t.id==='sofa')this.dialog={title:'소파',text:'저장과 취침을 연결할 자리입니다. 지금은 공간 탐색 모드라 일차와 바 영업의 저장 데이터는 바뀌지 않습니다.'};
 
@@ -103,7 +120,7 @@ class OutsideModel{
     if(e.elapsed>=e.duration&&e.cameraReady){this.x=e.to;this.anim='idle';e.stage='active';this.story.begin(e.id,e.target);}return;}
    if(e.stage==='leaving'){this.anim='idle';this.animTime+=dt;if(e.cameraReady){this.encounter=null;this.updateNear();}return;}
   }
-  if(this.transition){const t=this.transition;t.time+=dt;if(t.time>=.38&&!t.swapped){t.swapped=true;this.scene=t.to;this.level=1;this.x=this.scene==='home'?-1.28:R.homeX;this.y=this.scene==='home'?-.7:R.upperY;this.elevatorY=TOP;this.revision++;}if(t.time>=.85){this.transition=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
+  if(this.transition){const t=this.transition;t.time+=dt;if(t.time>=.38&&!t.swapped){t.swapped=true;this.scene=t.to;this.level=1;this.x=this.scene==='home'?-1.28:R.homeX;this.y=this.scene==='home'?-.7:R.upperY;this.elevatorY=TOP;this.revision++;}if(t.time>=.85){this.transition=null;if(t.to==='street')this.firstCommuteDirections();this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+.382;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;const bounds=this.qa?[Math.min(-6,R.lowerMin),6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x;this.x=clamp(this.x+direction*speed*dt,...bounds);if(direction)this.facing=direction>0?1:-1;const next=Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
  }
@@ -172,7 +189,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  }
  function snapCamera(){cam={x:model.scene==='home'?clamp(model.x,.34,1.14):model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;}
  async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
- function exit(silent=false){notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
+ function exit(silent=false){global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
  function advanceDay(){
   if(!active||loading||loadError||model.qa||model.config.flow!=='out'||model.config.day>=3)return false;
   Object.assign(config,{day:model.config.day+1,flow:'in',place:'home'});
@@ -227,21 +244,57 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
+ const controlsDismissKeys=new Set();
+ function showControlsTutorial(){if(!active||model.scene!=='home'||model.config.day!==0||model.config.flow!=='in')return;clearInput();model.controlsTutorial=true;updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});}
+ function dismissControlsTutorial(){model.controlsTutorial=false;clearInput();updateHUD();host.focus({preventScroll:true});}
+ function controlsTutorialKey(e){
+  if(!active)return false;
+  // Consume the dismissing key until release, including movement key repeats.
+  if(controlsDismissKeys.has(e.code))return true;
+  if(!model.controlsTutorial||model.paused||loading||loadError||devOpen)return false;
+  if(!e.repeat){controlsDismissKeys.add(e.code);dismissControlsTutorial();}
+  return true;
+ }
+ function controlsKeyboard(){
+  const rows=[{x:47,y:27,keys:'1234567890-=',w:18},{x:55,y:45,keys:'QWERTYUIOP',w:18},{x:62,y:63,keys:'ASDFGHJKL',w:18},{x:71,y:81,keys:'ZXCVBNM',w:18}];
+  let keys='';
+  for(const row of rows)for(const [i,label]of [...row.keys].entries()){
+   const x=row.x+i*(row.w+4),active=['A','D','E'].includes(label);
+   keys+=`<g class="keyboard-key ${active?'keyboard-highlight':''}" ${active?'data-controls-key="Key'+label+'"':''}><rect x="${x}" y="${row.y}" width="${row.w}" height="14" rx="2"/>${active?'<text x="'+(x+9)+'" y="'+(row.y+10.5)+'">'+label+'</text>':''}</g>`;
+  }
+  return '<svg class="controls-keyboard" viewBox="0 0 380 146" aria-hidden="true"><path class="keyboard-cable" d="M189 14V3"/><rect class="keyboard-shadow" x="39" y="20" width="304" height="99" rx="9"/><rect class="keyboard-case" x="35" y="15" width="304" height="99" rx="8"/>'+keys+'<g class="keyboard-key"><rect x="242" y="63" width="35" height="32" rx="2"/><rect x="286" y="45" width="39" height="14" rx="2"/><rect x="286" y="63" width="17" height="14" rx="2"/><rect x="308" y="63" width="17" height="14" rx="2"/><rect x="286" y="81" width="17" height="14" rx="2"/><rect x="308" y="81" width="17" height="14" rx="2"/><rect x="48" y="99" width="39" height="9" rx="2"/><rect x="94" y="99" width="132" height="9" rx="2"/><rect x="233" y="99" width="44" height="9" rx="2"/></g><path class="controls-leader" d="M73 78C16 85 15 122 91 139M108 45C110 3 368 0 364 71S335 130 285 139"/><circle class="controls-dot" cx="73" cy="78" r="3"/><circle class="controls-dot" cx="108" cy="45" r="3"/></svg>';
+ }
+ function paintControlsTutorial(){
+  let panel=host.querySelector('.outside-controls-tutorial');
+  if(model.scene!=='home'||model.config.flow!=='in'||model.config.day!==0)model.controlsTutorial=false;
+  if(model.controlsTutorial&&!panel){
+   panel=document.createElement('section');panel.className='outside-controls-tutorial';panel.setAttribute('aria-label','이동과 상호작용 안내');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.tabIndex=-1;
+   panel.innerHTML='<button class="controls-close" data-outside-action="controls-close" aria-label="조작 안내 닫기">×</button><h2>이동과 상호작용</h2>'+controlsKeyboard()+'<div class="controls-examples"><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyA">A</kbd><kbd data-controls-key="KeyD">D</kbd></div><span>좌우 이동</span></div><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyE">E</kbd></div><span>상호작용</span></div></div>';
+   panel.insertAdjacentHTML('beforeend','<p class="controls-dismiss-hint">아무 키나 누르면 시작합니다</p>');
+   const shade=document.createElement('div');shade.className='outside-controls-shade';shade.append(panel);host.querySelector('.outside-stage').append(shade);
+  }
+  if(!panel)return;panel.hidden=!model.controlsTutorial||model.paused||loading||!!loadError||devOpen||!!model.dialog||model.story.blocking;
+  panel.parentElement.hidden=panel.hidden;
+  host.querySelector('.outside-hud').inert=!panel.hidden||model.paused||devOpen||!!model.dialog;
+  for(const key of panel.querySelectorAll('[data-controls-key]'))key.classList.toggle('is-pressed',key.dataset.controlsKey==='KeyE'?performance.now()<model.controlsInteractUntil:keys.has(key.dataset.controlsKey));
+ }
  function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&!loading&&!loadError&&!m.paused&&!devOpen;
-  const signature=JSON.stringify([loading,loadError,m.paused,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,viewpoint,m.story.blocking,m.encounter?.stage,devOpen,hintOpen]);
+  // Scripted pauses belong to the campaign/cutscene, not the outside ESC menu.
+  const showPauseMenu=m.paused&&!global.lunaCampaign?.blocking;
+  const signature=JSON.stringify([loading,loadError,m.paused,showPauseMenu,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,viewpoint,m.story.blocking,m.encounter?.stage,devOpen,hintOpen]);
   if(signature!==hudSignature){hudSignature=signature;
    host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button><button class="outside-viewpoint" aria-label="${panorama?'전경 보기에서 돌아오기':'거리 전경 보기'}" aria-pressed="${panorama}" data-outside-action="panorama" ${viewpoint?'':'hidden'}><kbd aria-hidden="true">Y</kbd></button>`;
    let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
-   else if(m.paused)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
+   else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
    else if(m.dialog)body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
   }
   const prompt=host.querySelector('.outside-interact');if(prompt&&near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}
   const lookout=host.querySelector('.outside-viewpoint');if(lookout&&viewpoint){const p=position(VIEWPOINT.x,model.y+.26);lookout.style.left=clamp(p.x,24,1256)+'px';lookout.style.top=clamp(p.y-12,42,696)+'px';}
-  updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
+  paintControlsTutorial();updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
 
  }
  function updateSpeech(){
@@ -255,13 +308,14 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML='<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
 
   el.querySelector('p').hidden=!v.full;
+  global.LunaDialogueCue.sync(el,!v.auto&&!v.choice&&!!v.full&&v.text===v.full);
   const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text){text.replaceChildren();const marks=v.emphasis||[];let rest=v.text;while(rest){let index=rest.length,word='';for(const mark of marks){const at=rest.indexOf(mark);if(at>=0&&at<index){index=at;word=mark;}}if(!word){text.append(document.createTextNode(rest));break;}if(index)text.append(document.createTextNode(rest.slice(0,index)));const span=document.createElement('span');span.className='outside-story-emphasis';span.textContent=word;text.append(span);rest=rest.slice(index+word.length);}}
   const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/cam.w,gap:22});
  }
- function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!document.hidden&&!devOpen&&!hintOpen){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
+ function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!document.hidden&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
  document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=Number(value)===99?99:clamp(Number(value)||0,0,3);},true);
- document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
- window.addEventListener('keydown',e=>{if(!active)return;if(devKey(e))return;
+ document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='controls-close'){dismissControlsTutorial();}else if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
+ window.addEventListener('keydown',e=>{if(!active)return;if(controlsTutorialKey(e)){e.preventDefault();e.stopImmediatePropagation();return;}if(devKey(e))return;
   if(hintOpen&&e.code!=='Tab'){if(e.metaKey||e.ctrlKey||e.altKey)return;e.preventDefault();e.stopImmediatePropagation();if(!e.repeat&&['Escape','Space','Enter','KeyE'].includes(e.code))dismissHint();return;}
   if(e.code==='Tab'){const scope=host.querySelector('.outside-overlay:not([hidden])')||(model.story.blocking?host.querySelector('.outside-speech'):host),buttons=[...(scope.matches('[tabindex="0"]')?[scope]:[]),...scope.querySelectorAll('button:not([hidden]):not(:disabled),[tabindex="0"]')].filter(b=>!b.closest('[inert]')&&b.getClientRects().length),i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?-1:1)+buttons.length)%buttons.length]?.focus();return;}
   if(global.lunaQA?.opened)return;
@@ -274,14 +328,14 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    if(['KeyE','Space','Enter'].includes(e.code)){e.preventDefault();const choice=e.target.closest('.bd-choices button');if(e.code!=='KeyE'&&!e.repeat&&choice&&!choice.disabled)choice.click();return;}
   }
   if(e.code==='KeyY'){if(!e.repeat)togglePanorama();return;}
-  if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();model.interact();updateHUD();return;}
+  if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();if(e.code==='KeyE')model.controlsInteractUntil=performance.now()+180;model.interact();updateHUD();return;}
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'].includes(e.code))keys.add(e.code);
  },true);
- window.addEventListener('keyup',e=>{keys.delete(e.code);});
- function loseFocus(){if(!active)return;if(devOpen)toggleDev(false);clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
+ window.addEventListener('keyup',e=>{keys.delete(e.code);controlsDismissKeys.delete(e.code);});
+ function loseFocus(){controlsDismissKeys.clear();if(!active)return;if(devOpen)toggleDev(false);clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
- return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
+ return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint};
 })(typeof window==='undefined'?globalThis:window);

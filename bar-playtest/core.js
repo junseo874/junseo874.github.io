@@ -11,6 +11,21 @@ const clean=s=>String(s??'').replace(/<[^>]*>/g,'');
 // Engine input/animation contract, inspected against Play.unity's NEW prefabs.
 // The web board normalizes the 960x540 (PPU100 / ortho2.7) craft view; see README.
 const OPEN={
+ init(s){if(s.type!=='open')return;Object.assign(s,{openPhase:'ready',powerPos:0,powerDirection:1,powerPerfect:false,roundMisses:0,openDelay:0});},
+ fail(s,offset=0){s.failures++;s.roundMisses++;s.beatTime=0;this.hit(s,false,offset);s.message='다시 타이밍을 맞춰 주세요';if(s.roundMisses>=3){s.openPhase='broken';s.openDelay=1.2;s.message='병이 깨졌어요 · 다시 시도';}else if(s.openPhase==='power')s.powerPos=0;},
+ press(s){
+  if(s.completed||['broken','power-done'].includes(s.openPhase))return false;
+  if(!s.started||s.openPhase==='ready'){s.started=true;s.openPhase='power';s.powerPos=0;s.message='초록 구간에서 힘을 맞춰 주세요';return true;}
+  if(s.openPhase==='power'){const d=Math.abs(s.powerPos-.78);if(d<=.152){s.powerPerfect=d<=.08;s.openPhase='power-done';s.openDelay=.45;s.message='힘 조절 성공 · 다음은 링 타이밍';}else this.fail(s,s.powerPos-.78);return true;}
+  const error=s.beatTime-1.1;
+  if(Math.abs(error)<=.14){s.completed=true;s.openPhase='pop';s.message='OPEN';this.hit(s,true,error,.2167);s.openFx.perfect=s.powerPerfect&&Math.abs(error)<=.065;}
+  else this.fail(s,error);return true;
+ },
+ tick(s,dt){
+  if(s.openPhase==='power'){s.powerPos+=s.powerDirection*1.1*dt;if(s.powerPos>=1){s.powerPos=1;s.powerDirection=-1;}if(s.powerPos<=0){s.powerPos=0;s.powerDirection=1;}}
+  else if(s.openPhase==='power-done'||s.openPhase==='broken'){s.openDelay-=dt;if(s.openDelay<=0){if(s.openPhase==='broken'){s.roundMisses=0;s.openPhase='power';s.powerPos=0;s.message='초록 구간에서 다시 시작';}else{s.openPhase='rhythm';s.beatTime=0;s.message='원이 링에 겹칠 때 누르세요';}}}
+  else if(s.openPhase==='rhythm'){s.beatTime+=dt;if(s.beatTime>1.24)this.fail(s,s.beatTime-1.1);}
+ },
  minigameHoldSec:4.1, // Allow 450ms delay + 3.5s fizz and a small render margin.
  hit(s,ok,offset=0,window=10){s.openFx={kind:ok?'success':'miss',perfect:ok&&Math.abs(offset)<=window*.3+1e-8,offset,age:0,serial:(s.openFx?.serial||0)+1};},
  visual(s,dt){if(s.type==='open'&&s.openFx)s.openFx.age=Math.min(OPEN.minigameHoldSec,s.openFx.age+dt);}
@@ -196,7 +211,7 @@ function scoreCraft(data,selected,actual,results,elapsed){
  const mix=selected.target_mix_method||selected.mix;if(['shake','stir'].includes(mix))expected.push({type:mix,ingredient:null});
  const buckets={};
  for(const r of expected){const a=results.find(x=>x.type===r.type&&x.ingredient===r.ingredient);let score=0;
-  if(a){if(r.type==='open')score=a.completed?Math.max(0,100-n(a.failures)*n(cfg.open_penalty_per_failure,15)):0;
+  if(a){if(r.type==='open')score=a.completed?100:0;
    else if(['shake','stir'].includes(r.type))score=clamp(n(a.completion)*100,0,100);
    else {if(r.target<=0||!Number.isFinite(a.value))throw Error('목표/결과 수량 누락: '+r.ingredient);score=band(data.tables.score_bands,'quantity',Math.abs(a.value-r.target)/r.target);}}
   const family=r.type==='fill_up'?'pour':r.type;(buckets[family]??=[]).push(score);
@@ -389,7 +404,7 @@ class Game{
  startCraft(){if(this.screen!=='prep'||this.isPaused())return false;if(this.tutorial?.beer){if(this.tutorial.kind!=='beerStart'||this.prep?.glass!==this.cocktail('bottle_beer').glass||!this.prep.opener||!this.prep.ingredients.includes('beer'))return false;this.tutorial=null;}if(this.tutorial&&(this.variant==='gpt'||this.tutorial.kind!=='prepStart'||this.prep?.glass!=='long_drink'||!['gin','soda_water'].every(id=>this.prep.ingredients.includes(id))))return false;if(this.screen!=='prep'||!this.prep?.glass||!this.prep.ingredients.length||this.isPaused())return false;if(this.prep.ingredients.includes('beer')&&!this.prep.opener){this.overlay='openerWarning';this.changed();return false;}return this.safe(()=>{this.craft={id:'craft_attempt_'+(++this.serial),actual:structuredClone(this.prep),queue:buildQueue(this.data,this.cocktail(this.prep.selected),this.prep),index:0,results:[],elapsed:0};this.screen='gimmick';this.nextGimmick();if(this.tutorial?.kind==='prepStart'){this.tutorial=null;this.progress.flags.day0_recipe_taught=true;this.log('tutorial_complete',{kind:'prep'});}this.changed();return true;});}
  nextGimmick(){const step=this.craft.queue[this.craft.index];if(!step){this.result=scoreCraft(this.data,this.cocktail(this.craft.actual.selected),this.craft.actual,this.craft.results,this.craft.elapsed);this.result.id=this.craft.id;this.resultContext.craft_grade=this.result.grade;this.screen='result';this.gimmick=null;this.log('craft_result',{id:this.craft.id,score:this.result.score,grade:this.result.grade});return;}
   if(step.type==='add'){this.craft.results.push({...step,value:step.target,completed:true,failures:0,completion:1});this.craft.index++;return this.nextGimmick();}
-  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?MIX.shakeTargetStacks:this.c('stir_target_stacks',10)};MIX.init(this.gimmick);POUR.init(this.gimmick,this);if(step.type==='open'&&this.day===1&&this.phase==='opening'&&this.craftStep?.arg==='tutorial_beer')this.gimmick.openTutorial=true;
+  this.gimmick={...step,started:false,elapsed:0,value:0,held:false,angle:0,failures:0,completed:false,success:0,attempts:0,beatTime:0,hit:false,beatSuccess:false,outcomes:[],stirPos:0,stirStep:0,circleTime:0,message:'',targetStacks:step.type==='shake'?MIX.shakeTargetStacks:this.c('stir_target_stacks',10)};MIX.init(this.gimmick);OPEN.init(this.gimmick);POUR.init(this.gimmick,this);if(step.type==='open'&&this.day===1&&this.phase==='opening'&&this.craftStep?.arg==='tutorial_beer')this.gimmick.openTutorial=true;
   if(this.gimmick.fluid&&this.day===0&&this.variant!=='gpt'&&!this.minigame&&this.currentOrder?.actor==='chris'&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_pour_taught)this.gimmick.pourTutorial={step:'target'};
  }
  startGimmick(){return this.gimmickInput(this.gimmick?.type==='stir'?'KeyW':'Space');}
@@ -403,11 +418,9 @@ class Game{
    if(dir===(g.stirPos+1)%4){g.stirPos=dir;g.stirStep++;g.spoonTarget+=90;g.stirMotionPending=Math.min(6,g.stirMotionPending+5);g.swirlSpeed=Math.min(420,g.swirlSpeed+160);g.message='';if(g.stirStep===4)this.finishStirCircle(true);}else this.finishStirCircle(false);this.changed();return true;
   }
   if(!['open','shake'].includes(g.type)||!(key==='Space'||g.type==='shake'&&key==='MouseLeft'))return false;
+  if(g.type==='open'){const accepted=OPEN.press(g);this.changed();return accepted;}
   if(!g.started){g.started=true;this.changed();return true;}
-  if(g.type==='open'){
-   const start=this.c('open_start_radius_px',165),target=this.c('open_target_radius_px',44),radius=start-(start-target)*g.beatTime/this.c('open_approach_sec',1.6);
-   if(Math.abs(radius-target)<=this.c('open_judge_window_px',10)){g.completed=true;g.message='OPEN';OPEN.hit(g,true,radius-target,this.c('open_judge_window_px',10));}else{g.failures++;g.beatTime=0;g.message='빗나감 · 다시 타이밍을 맞춰 주세요';OPEN.hit(g,false,radius-target);}
-  } else if(g.type==='shake'){MIX.shakeHit(g);}
+  if(g.type==='shake'){MIX.shakeHit(g);}
   this.changed();return true;
  }
  finishStirCircle(ok){const g=this.gimmick;g.outcomes.push(ok);g.attempts++;if(ok)g.success++;else g.failures++;g.attemptStartPos=g.stirPos;g.stirStep=0;g.circleTime=0;g.feedbackLeft=.35;g.message=ok?'GOOD':'MISS';if(g.attempts>=g.targetStacks)g.completed=true;}
@@ -514,8 +527,8 @@ class Game{
   }
   if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.finishGeneralService();}
  }
- tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;this.craft.elapsed+=dt;
-  if(g.type==='open'){g.beatTime+=dt;if(g.beatTime>this.c('open_approach_sec',1.6)*1.17){g.failures++;g.beatTime=0;g.message='MISS';OPEN.hit(g,false);}}
+ tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;if(g.type!=='open')this.craft.elapsed+=dt;
+  if(g.type==='open'){OPEN.tick(g,dt);}
   else if(g.type==='shake'){MIX.updatePath(g,this.rng);if(!g.feedbackLeft){g.hit=false;g.message='';}}
   else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',1.5))this.finishStirCircle(false);}
  }

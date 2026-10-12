@@ -1,0 +1,36 @@
+const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert=require('node:assert/strict');
+(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
+const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));
+await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.waitForFunction(()=>!!window.outsidePlaytest);
+if(await p.locator('.updates-close').count())await p.locator('.updates-close').click();
+await p.evaluate(()=>{barGame.reset(99,'practice',1);barGame.screen='bar';barGame.phase='regular';barGame.seats={L:{actor:'port',state:'STORY'},M:null,R:null};barGame.dialogue=barGame.makeLine('port','타이핑이 끝나면 다음 대사를 확인할 수 있습니다.');barGame.dialogSpeed=.001;barGame.changed();});
+await p.waitForTimeout(250);assert(await p.locator('.dialogue-box .dialogue-advance-cue').isHidden());
+await p.evaluate(()=>{barGame.dialogue.chars=100;barGame.changed();});await p.locator('.dialogue-box .dialogue-advance-cue').waitFor({state:'visible'});
+const box=await p.locator('.dialogue-box').boundingBox();
+await p.evaluate(()=>{barGame.dialogue.chars=0;barGame.changed();});await p.waitForTimeout(100);assert(await p.locator('.dialogue-box .dialogue-advance-cue').isHidden());assert.deepEqual(await p.locator('.dialogue-box').boundingBox(),box);
+await p.evaluate(()=>{barGame.reset(99,'general',7);barGame.seats.L={actor:'port',state:'STORY',lines:[barGame.makeLine('port','자동 대사입니다.')],lineIndex:0};barGame.seats.L.lines[0].chars=100;barGame.changed();});await p.waitForTimeout(100);assert(await p.locator('.dialogue-box .dialogue-advance-cue').isHidden());
+await p.evaluate(()=>{barGame.reset(0,'practice',1);barGame.dialogSpeed=1;});
+await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{place:'home',day:0,flow:'in'});await outsidePlaytest.start();});
+await p.waitForFunction(()=>!outsidePlaytest.loading);
+await p.evaluate(()=>{const m=outsidePlaytest.model;m.story.beginRows('cue-test',{x:m.x,y:m.y},[{type:'say',actor:'luna',text:'말풍선의 타이핑이 모두 끝난 뒤에만 다음 대사 표시가 나타납니다.'},{type:'say',actor:'luna',text:'새로운 대사는 표시를 숨기고 다시 시작합니다.'}],false);outsidePlaytest.refreshHUD();});
+const cue=p.locator('.outside-speech .dialogue-advance-cue');assert(await cue.isHidden());
+await p.keyboard.press('KeyE');await cue.waitFor({state:'visible'});
+await p.screenshot({path:'/private/tmp/dialogue-cue-outside.png'});
+await p.keyboard.press('KeyE');assert(await cue.isHidden());
+await p.waitForTimeout(1600);assert(await cue.isVisible());
+await p.evaluate(()=>{outsidePlaytest.model.story.speech.auto=true;outsidePlaytest.refreshHUD();});assert(await cue.isHidden());
+await p.evaluate(()=>{const s=outsidePlaytest.model.story.speech;s.auto=false;s.choice=true;outsidePlaytest.refreshHUD();});assert(await cue.isHidden());
+await p.evaluate(()=>{outsidePlaytest.exit();lunaCampaign.scene('workshop','포트 작업장','black',()=>lunaCampaign.screen('developer'));});
+await p.waitForFunction(()=>!lunaCampaign.memoryTransition);
+await p.evaluate(()=>{lunaCampaign.dialog.chars=0;lunaCampaign.paintLine();});assert(await p.locator('.campaign-speech .dialogue-advance-cue').isHidden());
+await p.evaluate(()=>{lunaCampaign.dialog.chars=1e6;lunaCampaign.paintLine();});assert(await p.locator('.campaign-speech .dialogue-advance-cue').isVisible());
+// The canvas adapter must use the same cue only for a completed, held manual line.
+await p.evaluate(()=>{lunaCampaign.dialog=null;lunaCampaign.screen('title');});
+await p.locator('[data-campaign="new"]').click();await p.waitForFunction(()=>lunaCampaign.view==='prologue',null,{timeout:60000});
+await p.evaluate(()=>{window.cueDraws=0;const old=LunaDialogueCue.draw;LunaDialogueCue.draw=(...a)=>{cueDraws++;old(...a);};lunaCampaign.finishCinema(true);const c=lunaCampaign,line=c.cinema.scene.clips.find(c=>c.track==='phone-lines');c.cinema.time=line.start-.01;c.tick(.02);});
+assert.equal(await p.evaluate(()=>cueDraws),0);await p.keyboard.press('KeyE');await p.waitForFunction(()=>cueDraws>0);
+await p.locator('.campaign-stage').screenshot({path:'/private/tmp/dialogue-cue-contact.png'});
+await p.keyboard.press('KeyE');await p.evaluate(()=>{cueDraws=0;});await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>cueDraws),0);
+assert.deepEqual(errors,[]);console.log('PASS bar typing/auto/stable layout; outside typing/reveal/advance/auto/choice; campaign cue; manual contact canvas cue and reset');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

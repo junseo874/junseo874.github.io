@@ -19,5 +19,14 @@ function layout(ctx,clip,width,worldScale){
  for(const line of rows){const h=Math.max(line.size*1.6,line.ascent+line.descent+base*.25),baseline=height+(h-line.ascent-line.descent)/2+line.ascent;for(const ch of line.glyphs)glyphs.push({...ch,y:baseline});height+=h;}
  return {parsed,glyphs:glyphs.map(ch=>({...ch,x:ch.x*ratio,y:ch.y*ratio,width:ch.width*ratio,fontSize:ch.fontSize*ratio,font:font(ch.fontSize*ratio,ch.bold)})),height:height*ratio,rows:rows.map(row=>({...row,width:row.width*ratio}))};
 }
-W.StudioTypography={layout};
+// Fit to the complete line, never to the currently revealed characters. Measure
+// in world units so typing, camera movement and zoom cannot reflow the bubble.
+function bubble(ctx,clip,worldScale){
+ const paddingX=.10,paddingY=.07,maxWidth=clip.bubbleWidth||2.55;
+ const text=layout(ctx,clip,Math.max(.1,maxWidth-2*paddingX)*worldScale,worldScale);
+ const width=Math.max(.35*worldScale,Math.max(0,...text.rows.map(row=>row.width))+2*paddingX*worldScale);
+ const height=Math.max(.26*worldScale,text.height+2*paddingY*worldScale);
+ return {text,width,height,paddingX:paddingX*worldScale,paddingY:paddingY*worldScale};
+}
+W.StudioTypography={layout,bubble};
 })(typeof window==='undefined'?globalThis:window);

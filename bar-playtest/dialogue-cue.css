@@ -1,0 +1,5 @@
+.dialogue-advance-cue{position:absolute;right:-7px;bottom:3px;width:16px;height:12px;display:block;pointer-events:none;z-index:3;animation:dialogue-cue-bob 1.1s ease-in-out infinite}
+.dialogue-advance-cue[hidden]{display:none!important}
+.dialogue-advance-cue svg{display:block;width:100%;height:100%;overflow:visible}
+@keyframes dialogue-cue-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+@media(prefers-reduced-motion:reduce){.dialogue-advance-cue{animation:none}}
