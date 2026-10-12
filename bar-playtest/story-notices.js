@@ -10,7 +10,7 @@ const entered=new WeakSet();let layer=null,serial=0;
 function emit(owner,kind,id='',delta=0){
  if(!owner)return;
  const event={owner,kind,actor:id,delta,serial:++serial};
- lanes[kind==='event'?'event':'people'].queue.push(event);
+ lanes[kind==='event'||kind.startsWith('goal-')?'event':'people'].queue.push(event);
  return event;
 }
 function meet(p,id){
@@ -26,6 +26,17 @@ function effects(p,before){
  }
 }
 function outsideProgress(m){return m.qa?(m.qa.shopProgress??={money:0,flags:{},affinity:{},inventory:{}}):W.barGame?.progress;}
+function startGoal(p,id,title){
+ if(!p||typeof id!=='string'||!/^[a-z][a-z0-9_-]*$/i.test(id)||typeof title!=='string'||!title.trim())return false;
+ p.objectives??={};if(Object.hasOwn(p.objectives,id))return false;
+ p.objectives[id]={title:title.trim(),status:'active'};
+ emit(p,'goal-new').title=title.trim();return true;
+}
+function completeGoal(p,id){
+ const goal=p?.objectives&&Object.hasOwn(p.objectives,id)?p.objectives[id]:null;
+ if(goal?.status!=='active')return false;
+ goal.status='completed';emit(p,'goal-complete').title=goal.title;return true;
+}
 function meetOutside(m,id){
  const p=outsideProgress(m);if(!meet(p,id))return false;
  // Preserve encounters made outside before the next bar/day restores the campaign carry.
@@ -37,6 +48,7 @@ function forced(m){
  entered.add(e);emit(outsideProgress(m),'event');return true;
 }
 function label(e,g){
+ if(e.kind.startsWith('goal-'))return e.title;
  if(e.kind==='meet')return '신규 인물 정보 등록!';
  if(e.kind==='event')return '새로운 이벤트 발생!';
  return (g.speakerName?.(e.actor)||g.name(e.actor))+' 호감도 '+(e.kind==='up'?'상승!':'하락!');
@@ -69,18 +81,19 @@ function tick(g,outside,campaign,dt){
   if(!lane.current&&lane.queue.length){
    lane.current=lane.queue.shift();lane.age=0;const e=lane.current;
    lane.el.dataset.kind=e.kind;lane.el.dataset.actor=e.actor;lane.el.dataset.serial=String(e.serial);
-   lane.el.querySelector('.story-notice-icon').textContent={meet:'＋',up:'↑',down:'↓',event:'!'}[e.kind];
-   lane.el.querySelector('small').textContent=e.kind==='meet'?'인물 정보':e.kind==='event'?'외부 이벤트':'관계 변화';
+   lane.el.querySelector('.story-notice-icon').textContent={meet:'＋',up:'↑',down:'↓',event:'!','goal-new':'◇','goal-complete':'✓'}[e.kind];
+   lane.el.querySelector('small').textContent={'goal-new':'새로운 목표','goal-complete':'목표 달성',meet:'인물 정보',event:'외부 이벤트'}[e.kind]||'관계 변화';
    lane.el.querySelector('strong').textContent=label(e,g);
-   W.LunaStoryNoticeAudio?.play(()=>lane.current===e&&!layer.hidden);
+   W.LunaStoryNoticeAudio?.play(()=>lane.current===e&&!layer.hidden,e.kind);
   }
   lane.el.hidden=!lane.current;if(!lane.current)continue;
   const enter=Math.min(1,lane.age/.25),exit=Math.max(0,(lane.age-2.95)/.35),visible=enter*(1-exit);
   lane.el.style.opacity=String(visible);
   const reduced=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  lane.el.style.transform=reduced?'none':'translateX('+((1-Math.pow(enter,1/3))*300+exit*300)+'px)';
+  const travel=lane.el.offsetWidth+32;
+  lane.el.style.transform=reduced?'none':'translateX('+((1-Math.pow(enter,1/3))*travel+exit*travel)+'px)';
  }
 }
 function clear(){W.LunaStoryNoticeAudio?.stop();for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}
-W.LunaStoryNotices={roster,meet,meetOutside,affinity,effects,forced,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
+W.LunaStoryNotices={roster,meet,meetOutside,affinity,effects,forced,startGoal,completeGoal,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
 })(typeof window==='undefined'?globalThis:window);

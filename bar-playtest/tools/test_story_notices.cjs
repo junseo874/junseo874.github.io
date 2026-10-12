@@ -21,4 +21,14 @@ N.clear();const qa={qa:{},encounter:{kind:'qa'}};N.meetOutside(qa,'bubi');assert
 N.clear();const saved=JSON.parse(JSON.stringify(g.progress));g.reset(1,'full',1,false);g.progress=saved;
 assert(!N.meet(g.progress,'samho'),'Carry/save does not announce known characters');assert.equal(N.pending.length,0);
 g.reset(0,'full',1,false);assert(N.meet(g.progress,'samho'),'New playthrough registers again');
-console.log('PASS: roster-only first meetings, real day 0 entry, exact positive/negative affinity, unchanged/invalid effects, forced-event dedup, outside aliases, carry continuity and QA isolation');
+N.clear();const baseline=JSON.stringify(g.progress);
+assert(!N.startGoal(g.progress,'','empty'));assert(!N.startGoal(g.progress,'bad id','bad'));assert(!N.startGoal(g.progress,'test','  '));
+assert(!N.completeGoal(g.progress,'constructor'));assert.equal(JSON.stringify(g.progress),baseline);
+assert(N.startGoal(g.progress,'test_goal','바로 출근하기'));assert(!N.startGoal(g.progress,'test_goal','duplicate'));
+assert.equal(N.pending[0].kind,'goal-new');assert.equal(N.pending[0].title,'바로 출근하기');
+assert(N.completeGoal(g.progress,'test_goal'));assert(!N.completeGoal(g.progress,'test_goal'));
+assert.equal(N.pending[1].kind,'goal-complete');assert.equal(g.progress.objectives.test_goal.status,'completed');
+N.clear();g.progress=JSON.parse(JSON.stringify(g.progress));assert(!N.startGoal(g.progress,'test_goal','reload'));assert(!N.completeGoal(g.progress,'test_goal'));assert.equal(N.pending.length,0);
+const withoutGoals={...g.progress};delete withoutGoals.objectives;
+assert.equal(JSON.stringify(withoutGoals),baseline,'Goal previews do not change money or other progress');
+console.log('PASS: existing story notices; resource goal registration/completion, validation, dedup and serialization');

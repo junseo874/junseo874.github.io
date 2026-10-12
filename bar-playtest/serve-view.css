@@ -14,7 +14,7 @@
 .currency-hud.currency-income{box-shadow:0 0 18px #ffd26b55}
 .currency-income .currency-value{color:#ffe59a}
 .currency-hud.currency-income .currency-delta{color:#ffe59a}
-.currency-hud .currency-delta{position:absolute;right:15px;top:41px;font-size:22px;color:#ffac9e;text-shadow:0 2px 5px #000;white-space:nowrap}
+.currency-hud .currency-delta{position:absolute;right:18px;top:52px;font-size:28px;color:#ffac9e;text-shadow:0 2px 5px #000;white-space:nowrap}
 .serve-score-detail .result-table{width:100%;font-size:14px}
 .serve-score-detail th{text-align:left;color:#9bcbd1;padding:8px 0}
 .serve-score-detail p{font-size:13px;line-height:1.7}
@@ -23,7 +23,8 @@
 .serve-grade-cuts{color:#cfc19e}
 
 /* Balance appears only while a money-change notification is active. */
-.currency-hud{z-index:60;background:#090d14f2;border:1px solid #c3a56480;animation:currency-notice-in .18s ease-out}
+.currency-hud{z-index:60;width:234px;max-width:calc(100% - 46px);height:47px;padding:0 20px 0 16px;gap:15px;border-radius:28px;background:#090d14f2;border:1px solid #c3a56480;animation:currency-notice-in .18s ease-out}
+.currency-hud svg{width:30px;height:30px}.currency-hud .currency-value{font-size:31px}
 .currency-hud.currency-spending{border-color:#e99c62}
 .currency-hud.currency-income{border-color:#ffd26b}
 @keyframes currency-notice-in{from{transform:translateY(-8px) scale(.96)}to{transform:translateY(0) scale(1)}}

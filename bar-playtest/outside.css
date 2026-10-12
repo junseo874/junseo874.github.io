@@ -26,10 +26,10 @@
 .outside-notices .currency-hud{right:23px;top:17px}
 /* Reuse the profile-registration card theme; retain the small upper-left
    acquisition slot and ingredient preview rather than moving it over people. */
-.outside-item-notice.story-notice{left:20px;right:auto;top:17px;width:270px;max-width:calc(100% - 40px);min-height:74px;padding:12px 14px;gap:12px}
-.outside-item-preview{display:grid;place-items:center;width:40px;height:44px;flex:0 0 40px;border:1px solid #477880;border-radius:5px;background:#0919238c}
-.outside-item-notice img{width:30px;height:38px;object-fit:contain;image-rendering:pixelated}
-.outside-item-notice.story-notice strong{font-size:14px;overflow-wrap:anywhere}
+.outside-item-notice.story-notice{left:20px;right:auto;top:17px;width:350px;max-width:calc(100% - 40px);min-height:96px;padding:16px 18px;gap:16px}
+.outside-item-preview{display:grid;place-items:center;width:52px;height:57px;flex:0 0 52px;border:1px solid #477880;border-radius:5px;background:#0919238c}
+.outside-item-notice img{width:39px;height:49px;object-fit:contain;image-rendering:pixelated}
+.outside-item-notice.story-notice strong{font-size:18px;overflow-wrap:anywhere}
 
 .outside-story-emphasis{color:#ff7777;font-weight:700}
 /* The entry page is a launch point; test configuration lives in the P drawer. */

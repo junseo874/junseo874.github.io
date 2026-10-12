@@ -6,3 +6,13 @@
 .lab.popup-mode .frame-wrap{width:100%;max-width:min(1440px,calc((100vh - 205px)*16/9))}.popup-actor{display:block;min-width:130px;font-size:11px;color:var(--muted)}.popup-actor select{margin-top:4px}
 .popup-mode #lab-note{max-width:680px}.popup-mode .lab-actions{align-items:end}
 @media(max-width:900px){.lab.popup-mode .popup-layout{grid-template-columns:1fr}.lab.popup-mode .popup-rail{display:flex;gap:5px;max-height:145px;flex-wrap:wrap}.popup-rail h3{width:100%;margin:0}.popup-rail button{width:auto;flex:1 0 150px;padding:6px}.popup-rail small{display:none}.lab.popup-mode .frame-wrap{max-width:100%}}
+/* Native fullscreen and browser-embedded fallback share the same uncluttered stage. */
+.lab.review-fullscreen{padding:0;overflow:hidden}
+.lab.review-fullscreen>header,.lab.review-fullscreen>footer,.lab.review-fullscreen .popup-rail{display:none}
+.lab.review-fullscreen .popup-layout{display:block;max-width:none;margin:0}
+.lab.review-fullscreen .frame-wrap,.frame-wrap:fullscreen{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;margin:0;aspect-ratio:auto;border:0;background:#000;z-index:30}
+.fullscreen-controls{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:6px;padding:5px;border:1px solid #42606c;border-radius:8px;background:#0b1521ed;box-shadow:0 4px 16px #0005;white-space:nowrap}
+.fullscreen-controls[hidden]{display:none}
+.fullscreen-controls button{font-size:12px;padding:6px 10px}
+.lab-actions{flex-wrap:wrap}
+@media(max-width:600px){.fullscreen-controls{top:6px}.fullscreen-controls button{font-size:11px;padding:5px 8px}}

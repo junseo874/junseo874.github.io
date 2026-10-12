@@ -8,12 +8,12 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview?.ready);
   const f=p.frames().find(f=>f.url().includes('resourceReview=1'));
   const rows=await p.evaluate(()=>resourceReview.rows.filter(r=>r.group==='common-popups'));
-  assert.equal(rows.length,14);assert.equal(new Set(rows.map(r=>r.id)).size,rows.length);
+  assert.equal(rows.length,15);assert.equal(new Set(rows.map(r=>r.id)).size,rows.length);
   assert(!await p.evaluate(()=>resourceReview.rows.some(r=>['fx:income','fx:expense','fx:unlock','fx:purchase'].includes(r.id))));
   assert(await p.evaluate(()=>ResourceMissing.build(resourceReview.rows).find(r=>r.id==='ui:ui:unlock').area==='바 내부'));
   await p.click('[data-group="common-popups"]');await p.click('[data-id="popup:meet"]');
   await f.locator('.story-notice-people').waitFor({state:'visible'});
-  assert.equal(await p.locator('#popup-rail button').count(),14);
+  assert.equal(await p.locator('#popup-rail button').count(),15);
   assert.equal(await f.locator('.story-notice-people strong').innerText(),'신규 인물 정보 등록!');
   const history=await p.evaluate(()=>window.history.length);
   await p.selectOption('#popup-actor','samho');await f.waitForFunction(()=>document.querySelector('.story-notice-people').dataset.actor==='samho');
@@ -25,6 +25,20 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.click('[data-popup="popup:event"]');await f.locator('.story-notice-event').waitFor({state:'visible'});
   assert.equal(await f.locator('.story-notice-event strong').innerText(),'새로운 이벤트 발생!');
   await p.waitForTimeout(400);await p.screenshot({path:'/private/tmp/resource-popup-event.png'});
+  await p.click('[data-popup="popup:goal"]');
+  assert.equal(await p.locator('#popup-actor').count(),0);
+  for(const state of ['bar-new','bar-complete','outside-new','outside-complete']){
+   await p.selectOption('#lab-state',state);
+   const complete=state.endsWith('complete');
+   await f.waitForFunction(kind=>document.querySelector('.story-notice-event:not([hidden])')?.dataset.kind===kind,complete?'goal-complete':'goal-new');
+   assert.equal(await f.locator('.story-notice-event small').innerText(),complete?'목표 달성':'새로운 목표');
+   assert.equal(await f.locator('.story-notice-event strong').innerText(),'바로 출근하기');
+   assert.equal(await f.locator('.story-notice-event').evaluate(el=>getComputedStyle(el).getPropertyValue('--notice-accent').trim()),complete?'#a2e3b3':'#89deed');
+   assert.equal(await f.evaluate(()=>LunaStoryNotices.pending.length),1);
+   assert.equal(await f.locator('.currency-hud').count(),0);
+  }
+  await p.click('#replay');await f.locator('.story-notice-event').waitFor({state:'visible'});
+  await p.waitForTimeout(400);await p.screenshot({path:'/private/tmp/resource-popup-goal.png'});
   await p.click('[data-popup="ui:income"]');await p.selectOption('#lab-state','outside-expense');
   await f.locator('.outside-money-notice .currency-spending').waitFor({state:'visible'});
   assert.equal(await f.evaluate(()=>barGame.progress.money),700);

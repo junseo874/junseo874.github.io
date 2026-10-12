@@ -15,7 +15,7 @@ W.LunaOutsideNotices={create(host,currency){
   const previous=current;
   if(!current&&queue.length)next();if(!current)return;age+=t;if(age>=2.8){next();if(!current)return;}
   if(current!==previous){const shown=current;W.LunaStoryNoticeAudio?.play(()=>current===shown&&layer.isConnected&&!item.hidden);}
-  const enter=Math.min(1,age/.24),leave=Math.max(0,(age-2.5)/.3),visible=enter*(1-leave);item.style.opacity=String(visible);item.style.transform=reduced.matches?'none':'translateX('+(-300*(1-(1-Math.pow(1-enter,3)))*(1-leave)-300*leave)+'px)';
+  const enter=Math.min(1,age/.24),leave=Math.max(0,(age-2.5)/.3),visible=enter*(1-leave),travel=item.offsetWidth+24;item.style.opacity=String(visible);item.style.transform=reduced.matches?'none':'translateX('+(-travel*Math.pow(1-enter,3)*(1-leave)-travel*leave)+'px)';
  }
  return{update,add(m,id){sync(m);const g=W.barGame,row=g.t.shelf_items.find(i=>i.id===id);if(row?.kind!=='ingredient'||!(g.data.assets['recipe_item_'+id]||g.data.assets['item_'+id]))return false;queue.push(id);update(m);return true;},dispose(){queue=[];current=null;layer.remove();currency.reset(W.barGame.progress);}};
 }};

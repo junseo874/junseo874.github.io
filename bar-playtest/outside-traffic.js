@@ -1,30 +1,39 @@
-/* Sparse, world-space hover traffic. Never follows the camera or changes
+/* Bidirectional, world-space hover traffic. Never follows the camera or changes
    gameplay coordinates. Render passes are occluded by the nearer city art. */
 (function(root){
 'use strict';
 const random=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
 const routes=[
- {id:0,depth:'mid',period:39,phase:12,duration:24,y:.85,spread:.12,width:.25},
- {id:1,depth:'far',period:53,phase:23,duration:37,y:7.8,spread:1.8,width:.17},
- {id:2,depth:'mid',period:61,phase:3,duration:28,y:4.8,spread:.6,width:.28}
+ // Dedicated opposing lanes: the return direction never waits for another cycle.
+ // Each lane retains a short empty interval; all paths start/end off the map.
+ {id:0,depth:'mid',direction:1,period:31,phase:12,duration:24,y:.85,spread:.08,width:.25},
+ {id:1,depth:'mid',direction:-1,period:32,phase:19,duration:25,y:1.16,spread:.08,width:.27},
+ {id:2,depth:'mid',direction:1,period:34,phase:2,duration:26,y:1.57,spread:.1,width:.24},
+ {id:3,depth:'mid',direction:-1,period:33,phase:9,duration:25,y:1.9,spread:.1,width:.26},
+ {id:4,depth:'mid',direction:1,period:35,phase:21,duration:27,y:4.8,spread:.2,width:.28},
+ {id:5,depth:'mid',direction:-1,period:36,phase:6,duration:28,y:5.4,spread:.2,width:.25},
+ {id:6,depth:'far',direction:1,period:41,phase:17,duration:33,y:7.8,spread:.4,width:.17},
+ {id:7,depth:'far',direction:-1,period:43,phase:29,duration:35,y:9.3,spread:.4,width:.18}
 ];
-const colors=[['#303e4b','#52606a'],['#3d3b43','#65606c'],['#364342','#59655f']];
+// Muted bodywork stays in the city's palette. Black has a lit roof/edge so it
+// reads as a vehicle against dark buildings rather than a featureless silhouette.
+const colors=[['#10171f','#29313c'],['#263e58','#496581'],['#254a47','#487b71'],['#603439','#875056'],['#7b7c70','#aaa99b'],['#72552d','#a08551'],['#463951','#705c7e']];
 function vehicles(m,depth){
  if(!m||m.qa||m.scene!=='street')return[];
  const time=Math.max(0,Number(m.time)||0),result=[];
  for(const r of routes){
   if(r.depth!==depth)continue;
   const cycle=Math.floor((time+r.phase)/r.period),seed=r.id*107+cycle*13+(Number(m.config?.day)||0)*31;
-  const delay=2+random(seed+1)*4,age=time+r.phase-cycle*r.period-delay;
-  const duration=r.duration+random(seed+2)*3;
+  const delay=1+random(seed+1)*2,age=time+r.phase-cycle*r.period-delay;
+  const duration=r.duration+random(seed+2)*2;
   if(age<0||age>=duration)continue;
-  const progress=age/duration,direction=(cycle+r.id)%2? -1:1;
+  const progress=age/duration,direction=r.direction;
   // Spawn beyond either playable street edge. Short edge fades are in world
   // space too, so panning/zooming cannot spawn, reset or teleport a vehicle.
   result.push({id:r.id+':'+cycle,depth,x:direction===1?-18+progress*27:9-progress*27,
    y:r.y+(random(seed+3)-.5)*r.spread+Math.sin(age*1.4+seed)*.006,
    direction,width:r.width*(.9+random(seed+4)*.2),variant:seed%2,
-   color:Math.floor(random(seed+5)*colors.length),
+   color:(r.id+cycle+(Number(m.config?.day)||0))%colors.length,
    alpha:(depth==='far'?.56:.82)*Math.min(1,age/.9,(duration-age)/.9)});
  }
  return result;
