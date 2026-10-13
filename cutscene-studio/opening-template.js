@@ -1,6 +1,7 @@
 /* Shared opening/documentary timelines for the editor and campaign playback. */
 (function(W){'use strict';
 const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
+const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
 const DREAM=[["dream-luna","…이해가 안 돼요."],["yuna","뭐가?"],["dream-luna","왜 제가 살아야 하죠? 유나가 아니라…"],["dream-luna","수석 연구원인 당신이 저보다 귀한 인력이잖아요."],["dream-luna","저 같은 대체 가능한 인공지능은"],["yuna","아니. 루나, 잘 들어."],["yuna","넌 대체할 수 없는 존재야."],["yuna","넌 밥도 먹고, 잠도 자고, 꿈도 꾸잖아."],["yuna","스스로 생각해서 말하고… 행동하기도 하고."],["yuna","내가… 보증할 수 있어. 넌 사람이라고."],["dream-luna","하지만…"],["yuna","그리고… 너도 무섭잖아. 죽는 게."],["yuna","그러니까 살아, 루나. 넌 찾을 수 있을 거야."],["yuna","너의 목표인…"]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 지금은 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
 const oldTemplate=M.template;
 const key=(t,value,ease='smooth')=>({id:'key-'+crypto.randomUUID(),t,value,ease});
@@ -42,16 +43,16 @@ function template(){
  actor('disposal','폐기처리장',0,0);actor('dream-luna','루나 · 꿈',1.815,-.94);actor('yuna','유나',.92,-.94);actor('house','크리스 집',0,-5.4);actor('home-luna','루나 · 기상',7.95,-2.75);actor('phone','크리스 · 통화',4.8,-.5);
  const put=(type,start,o)=>{const c=M.clip(type,M.round(start),o);p.clips.push(c);return c;};
  const visual=(actor,assetId,start,duration,x,y,scale=1,extra={})=>put('visual',start,{track:actor,actor,assetId,title:p.actors[actor].name,duration,from:{x,y},to:{x,y},scale,...extra});
- const line=(actor,start,text,track,duration,extra={})=>put('dialogue',start,{actor,text,track,title:p.actors[actor].name+' · '+StudioTags.parse(text).text.slice(0,20),duration:M.round(duration),wait:false,cps:24,offset:1.05,bubbleWidth:2.2,fontScale:75,...extra});
+ const line=(actor,start,text,track,duration,extra={})=>put('dialogue',start,{actor,text,track,title:p.actors[actor].name+' · '+StudioTags.parse(text).text.slice(0,20),duration:M.round(duration),wait:false,cps:DIALOGUE_CPS,offset:1.05,bubbleWidth:2.2,fontScale:75,...extra});
  const fx=(start,duration,effect,strength=1,track='fx',extra={})=>put('fx',start,{track,duration,effect,strength,title:effect,...extra});
  const cam=(start,duration,from,to,title)=>put('camera',start,{duration,from,to,ease:'smooth',title});
  p.chapters.push({name:'꿈 · 마지막 대화',time:0});
  let t=2.3;
- DREAM.forEach(([a,text],i)=>{let duration=Math.max(2.6,text.length/11+1.5);if(i===4)duration=4.4;
- // Center the tail on its speaker, just above their head. Only the interruption uses an upper row.
- const c=line(a,t,text,i===5?'interruption':'dream-lines',duration,{offset:i===5?1.30:.68,offsetX:0,overlay:i===4});
- if(i===5){c.text='[c:#eacb9c]아니.[/c] 루나, 잘 들어.';c.title='유나 · 루나의 말을 끊는다';}
- t+=duration+.35;if(i===4)t-=1.8;
+ DREAM.forEach(([a,text],i)=>{let duration=Math.max(1.8,text.length/15+1);if(i===4)duration=3.2;
+ // The interruption covers Luna's previous bubble on the same row, not above it.
+ const c=line(a,t,text,i===5?'interruption':'dream-lines',duration,{offset:.68,offsetX:0,overlay:i===4});
+ if(i===5){c.text='[c:#eacb9c]아니.[/c] 루나, 잘 들어.';c.title='유나 · 루나의 말을 끊는다';c.interruption=true;c.bubbleMinWidth=1.25;}
+ t+=duration+.12;if(i===4)t-=1.97;
  });
  const dreamEnd=M.round(t+1.2),homeStart=dreamEnd+1.5;
  // Enlarge only the room; keep the floor's source pixel (y=256) at the actors' feet.
@@ -79,7 +80,7 @@ function template(){
  put('audio',homeStart,{track:'room-audio',assetId:'opening-room',duration:houseEnd-homeStart,volume:.15,loop:true,fadeIn:.8,fadeOut:3,title:'집 · 실내 공기'});
  put('audio',homeStart+.8,{track:'alarm-audio',assetId:'opening-alarm',duration:3.6,volume:.55,loop:true,fadeIn:.12,fadeOut:.5,title:'알림 · 기상'});
  t=phoneStart+.8;
- PHONE.forEach(([a,text])=>{const remote=a==='phone',duration=Math.max(3.2,text.length/11+1.4);line('home-luna',t,remote?'[c:#50d9f5]'+text+'[/c]':text,'phone-lines',duration,{title:(remote?'크리스 · 연락':'루나')+' · '+text.slice(0,20),speaker:remote?'크리스':'루나',remote,wait:true,offset:1.05,offsetX:0,bubbleWidth:5.2,fontScale:170});t+=duration+.45;});
+ PHONE.forEach(([a,text])=>{const remote=a==='phone',duration=Math.max(3.2,text.length/11+1.4);line('home-luna',t,remote?'[c:#50d9f5]'+text+'[/c]':text,'phone-lines',duration,{title:(remote?'크리스 · 연락':'루나')+' · '+text.slice(0,20),speaker:remote?'크리스':'루나',remote,wait:true,offset:1.05,offsetX:0,bubbleStyle:'outside',bubbleWidth:420*15/1280,fontFamily:'game',fontScale:17/(.116*1280/15)*100});t+=duration+.45;});
  const finish=M.round(t+2);
  // Extend late clips to the actual final dialogue; timing follows the text length.
  for(const c of p.clips)if(['house','phone'].includes(c.track)||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
@@ -93,7 +94,7 @@ function documentary(){
  for(const [id,type,name]of [['tv','visual','다큐 이미지'],['tv-lines','dialogue','다큐 자막'],['camera','camera','고정 카메라'],['fx','fx','등장 / 종료'],['scan','fx','방송 주사선'],['audio','audio','앰비언스']])p.tracks.push({id,type,name,height:48,muted:false});
  const put=(type,start,o)=>{const c=M.clip(type,M.round(start),o);p.clips.push(c);return c;};
  let t=1;const starts=[];
- TV.forEach(text=>{starts.push(M.round(t));const duration=M.round(Math.max(3.3,text.length/12+1.4));put('dialogue',t,{track:'tv-lines',actor:'tv',text,title:text.slice(0,24),duration,wait:true,cps:24,layout:'documentary',fontScale:175,textEffect:'typewriter'});t+=duration+.16;});
+ TV.forEach(text=>{starts.push(M.round(t));const duration=M.round(Math.max(3.3,text.length/12+1.4));put('dialogue',t,{track:'tv-lines',actor:'tv',text,title:text.slice(0,24),duration,wait:true,cps:DIALOGUE_CPS,layout:'documentary',fontScale:175,textEffect:'typewriter'});t+=duration+.16;});
  p.duration=M.round(t+1);
  const chapters=[[0,'돌봄과 노동'],[9,'자아에 대한 의문'],[13,'디트로이트 전쟁'],[17,'폭격 이후의 폐허'],[21,'금지 협약']];
  chapters.forEach(([index,name],i)=>{const start=i?starts[index]:0,stop=i===4?p.duration:starts[chapters[i+1][0]];put('visual',start,{track:'tv',actor:'tv',assetId:'documentary-tv-'+i,title:name,duration:M.round(stop-start),from:{x:0,y:-2.7},to:{x:0,y:-2.7},scale:1,layer:-10});p.chapters.push({name,time:starts[index]});});
@@ -106,7 +107,7 @@ function documentary(){
  K.hydrate(p);return p;
 }
 M.template=id=>id==='opening'?template():id==='documentary'?documentary():oldTemplate(id);
-function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false){
+function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCount=null){
  if(!['tv','documentary'].includes(c.layout))return false;
  const a=s.actors[c.actor];if(!a?.active)return true;
  const k=1280/cam.w,asset=media.assets.get(a.assetId),screenW=asset.fw/asset.ppu*a.scale,screenH=asset.fh/asset.ppu*a.scale,x=640+(a.x-cam.x)*k,y=360-(a.y-cam.y)*k;
@@ -114,7 +115,7 @@ function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false){
  // World-space layout: no camera-dependent wrapping or screen-edge nudging.
  const centered=c.layout==='documentary',padding=centered?.8:.16;
  const {parsed,glyphs,height}=StudioTypography.layout(g,{...c,fontScale:c.fontScale*(centered?1:.625)},Math.max(.1,screenW-padding),1),h=Math.max(height+(centered?.28:.075),screenH*(centered?.18:asset.captionBand||0)),top=screenH-h-(centered?.18:0);
- const count=c.textEffect==='instant'||revealed?parsed.chars.length:StudioTags.count(parsed,Math.max(0,time-c.start)+waitAge,c.cps);
+ const count=visibleCount??(c.textEffect==='instant'||revealed?parsed.chars.length:StudioTags.count(parsed,Math.max(0,time-c.start)+waitAge,c.cps));
  g.fillStyle=centered?'rgba(5,10,16,.72)':'rgba(2,8,14,.96)';
  if(centered){g.beginPath();g.roundRect(.28,top,screenW-.56,h,.08);g.fill();g.strokeStyle='rgba(175,194,203,.28)';g.lineWidth=.008;g.stroke();}else g.fillRect(0,top,screenW,h);
  g.textBaseline='alphabetic';const rowWidths=new Map();

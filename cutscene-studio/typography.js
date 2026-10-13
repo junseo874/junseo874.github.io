@@ -3,8 +3,8 @@ function layout(ctx,clip,width,worldScale){
  // Measure at a fixed world reference so camera zoom cannot change wrapping.
  const ratio=worldScale/100;width=Math.round(width/ratio*1e6)/1e6;worldScale=100;
  const parsed=W.StudioTags.parse(clip.text),base=.116*worldScale*(clip.fontScale??100)/100;
- const family=W.StudioModel.fonts[clip.fontFamily]?.css||W.StudioModel.fonts.system.css;
- const font=(size,bold)=>(bold?'700 ':'500 ')+size+'px '+family;
+ const family=clip.fontFamily==='game'?'"LunaPixel", "StudioGame", sans-serif':W.StudioModel.fonts[clip.fontFamily]?.css||W.StudioModel.fonts.system.css;
+ const font=(size,bold)=>(bold?'700 ':(clip.bubbleStyle==='outside'?'400 ':'500 '))+size+'px '+family;
  const rows=[{glyphs:[],width:0,size:base,ascent:base*.85,descent:base*.25}];let row=rows[0];
  for(const [i,ch]of parsed.chars.entries()){
   const size=base*ch.size,style=font(size,ch.bold);ctx.font=style;
@@ -16,17 +16,28 @@ function layout(ctx,clip,width,worldScale){
   row.glyphs.push({...ch,i,x:row.width,font:style,fontSize:size,width:advance});row.width+=advance;row.size=Math.max(row.size,size);row.ascent=Math.max(row.ascent,metrics.actualBoundingBoxAscent||size*.85);row.descent=Math.max(row.descent,metrics.actualBoundingBoxDescent||size*.25);
  }
  let height=0;const glyphs=[];
- for(const line of rows){const h=Math.max(line.size*1.6,line.ascent+line.descent+base*.25),baseline=height+(h-line.ascent-line.descent)/2+line.ascent;for(const ch of line.glyphs)glyphs.push({...ch,y:baseline});height+=h;}
+ for(const line of rows){const h=Math.max(line.size*(clip.bubbleStyle==='outside'?1.65:1.6),line.ascent+line.descent+base*.25),baseline=height+(h-line.ascent-line.descent)/2+line.ascent;for(const ch of line.glyphs)glyphs.push({...ch,y:baseline});height+=h;}
  return {parsed,glyphs:glyphs.map(ch=>({...ch,x:ch.x*ratio,y:ch.y*ratio,width:ch.width*ratio,fontSize:ch.fontSize*ratio,font:font(ch.fontSize*ratio,ch.bold)})),height:height*ratio,rows:rows.map(row=>({...row,width:row.width*ratio}))};
 }
 // Fit to the complete line, never to the currently revealed characters. Measure
 // in world units so typing, camera movement and zoom cannot reflow the bubble.
 function bubble(ctx,clip,worldScale){
- const paddingX=.10,paddingY=.07,maxWidth=clip.bubbleWidth||2.55;
+ // Match outside.css's 17px/13px inset at the opening home's authored camera.
+ // Keep world-space sizing: zoom scales the finished bubble without reflowing it.
+ const unit=15/1280,outside=clip.bubbleStyle==='outside';
+ const paddingX=outside?17*unit:.10,paddingY=outside?13*unit:.07,maxWidth=clip.bubbleWidth||2.55;
  const text=layout(ctx,clip,Math.max(.1,maxWidth-2*paddingX)*worldScale,worldScale);
- const width=Math.max(.35*worldScale,Math.max(0,...text.rows.map(row=>row.width))+2*paddingX*worldScale);
+ const width=Math.max(Math.min(maxWidth,clip.bubbleMinWidth||.35)*worldScale,Math.max(0,...text.rows.map(row=>row.width))+2*paddingX*worldScale);
  const height=Math.max(.26*worldScale,text.height+2*paddingY*worldScale);
  return {text,width,height,paddingX:paddingX*worldScale,paddingY:paddingY*worldScale};
 }
-W.StudioTypography={layout,bubble};
+function paintBubble(ctx,clip,box,p,k){
+ const outside=clip.bubbleStyle==='outside',unit=15/1280*k,left=p.x-box.width/2,top=p.y-box.height;
+ const tail=outside?7*unit:.045*k,tip=outside?8*unit:.05*k;
+ ctx.fillStyle=clip.interruption?'#101c24':outside?'#080f1bed':'#101c24ed';ctx.strokeStyle=clip.remote?'#000':clip.textEffect==='emphasis'?'#eac582':outside?'#70dce6':'#81bfc4';
+ ctx.lineWidth=outside?unit:(clip.remote?.022:.009)*k;
+ ctx.beginPath();ctx.roundRect(left,top,box.width,box.height,outside?13*unit:.05*k);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.moveTo(p.x-tail,p.y);ctx.lineTo(p.x,p.y+tip);ctx.lineTo(p.x+tail,p.y);ctx.fill();ctx.stroke();
+}
+W.StudioTypography={layout,bubble,paintBubble};
 })(typeof window==='undefined'?globalThis:window);

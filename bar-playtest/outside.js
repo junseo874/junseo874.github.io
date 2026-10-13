@@ -44,7 +44,7 @@ function interactionAnchor(model,target,data){
  // These targets are embedded in shared art, or mark a lift boarding floor.
  if(target.id==='elevator')return{x:target.x,y:target.y+.518};
  if(target.id==='home')return{x:target.x,y:target.y+.87};
- if(target.id==='tv')return{x:1.22,y:-.26};
+ if(target.id==='tv')return{x:1.22,y:global.lunaCampaign?.storyVersion==='B'?-.26:-.55};
  if(target.id==='story-samho')return{x:target.x,y:target.y+.95};
  if(target.id==='sofa')return{x:2.557,y:-.27};
  return{x:target.x,y:target.y+.5};
@@ -69,7 +69,11 @@ class OutsideModel{
    {type:'say',actor:'luna',text:'바의 위치는 엘리베이터를 타고 내려가서 우측으로 쭉 가면 된다고 했어.'},
    {type:'say',actor:'luna',text:'가게 이름은 언노운...'}
   ];
-  if(!this.story.beginRows(key,{x:this.x,y:this.y},rows,false))return false;
+  if(!this.story.beginRows(key,{x:this.x,y:this.y},rows,false,()=>{
+   // Register the goal only after the player dismisses the final doorway line.
+   if(!campaign?.active||global.outsidePlaytest?.model!==this||this.config.day!==0||this.config.flow!=='in'||this.scene!=='street')return;
+   if(global.LunaStoryNotices.startGoal(global.barGame.progress,'first_commute','첫 출근하기!')&&campaign.session.carry)campaign.session.carry.objectives=structuredClone(global.barGame.progress.objectives);
+  }))return false;
   flags[key]=true;
   if(campaign?.active&&campaign.session.carry)(campaign.session.carry.flags??={})[key]=true;
   global.outsidePlaytest?.clearInput();this.anim='idle';this.animTime=0;return true;
@@ -203,7 +207,9 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function targetCamera(dt){
   if(!atViewpoint(model))panorama=false;
   if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7;
-  if(model.scene==='street'&&model.ride&&!model.ride.call){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
+  // Day-zero commute descent keeps the normal player-follow framing.
+  const closeCommuteLift=model.config.day===0&&model.config.flow==='in'&&model.ride?.to<model.ride?.from;
+  if(model.scene==='street'&&model.ride&&!model.ride.call&&!closeCommuteLift){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
   if(model.qa?.camera){({w,x,y}=model.qa.camera);}
   if(model.encounter){panorama=false;if(model.encounter.stage!=='leaving')({w,x,y}=model.encounter.camera);}
   if(!panorama)({w,x,y}=global.LunaOutsideResidents.frame(model,{w,x,y}));
@@ -292,7 +298,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
   }
-  const prompt=host.querySelector('.outside-interact');if(prompt&&near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}
+  const prompt=host.querySelector('.outside-interact');if(prompt){prompt.classList.toggle('outside-interact-ready',global.lunaCampaign?.storyVersion!=='B');if(near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}}
   const lookout=host.querySelector('.outside-viewpoint');if(lookout&&viewpoint){const p=position(VIEWPOINT.x,model.y+.26);lookout.style.left=clamp(p.x,24,1256)+'px';lookout.style.top=clamp(p.y-12,42,696)+'px';}
   paintControlsTutorial();updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
 

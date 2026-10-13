@@ -3,6 +3,38 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   const categories=['glass','tool','liquor','fridge'];
   const categoryName=id=>({glass:L('잔 선반','Glasses'),tool:L('도구 선반','Tools'),liquor:L('술 선반','Liquor'),fridge:L('냉장고','Fridge')})[id];
   const actors=new WeakMap(),seatSignals=new WeakMap(),lunaSpeechAnchors=new WeakMap();
+  // Keep decoded images alive. A network-cache hit alone does not guarantee a
+  // CSS background is ready to paint when idle changes to a multi-layer pose.
+  const poseImages=new Map();
+  function poseReady(pose){
+    if(typeof window.Image!=='function')return true;
+    return pose.keys.map(key=>{
+      const src=D.assets[key]?.src;if(!src)return false;
+      let entry=poseImages.get(src);
+      if(!entry){
+        entry={image:new window.Image(),ready:false};poseImages.set(src,entry);
+        const image=entry.image;
+        image.onload=()=>{
+          if(typeof image.decode==='function')image.decode().then(()=>{entry.ready=true;}).catch(()=>{});
+          else entry.ready=image.naturalWidth>0;
+        };
+        image.onerror=()=>{};image.src=src;
+      }
+      return entry.ready;
+    }).every(Boolean);
+  }
+  function paintedPose(guest,state,requested){
+    if(window.lunaCampaign?.storyVersion==='B')return requested;
+    // Warm both ends of normal speech before its first letter is displayed.
+    const idle=actorLayers(guest,'idle',false);
+    const idleReady=poseReady(idle);
+    poseReady(actorLayers(guest,'idle',true));
+    if(poseReady(requested))state.paintedPose=requested;
+    else if(!state.paintedPose&&idleReady)state.paintedPose=idle;
+    // Swap the complete pose only after every layer has decoded. On a failed
+    // request retain the last complete pose instead of removing the character.
+    return state.paintedPose||idle;
+  }
   function seatIndicator(seat){
     const guest=g.seats[seat];
     if(!guest)return {className:'seat-empty',state:'empty',label:seat+' · '+L('빈 좌석','Empty')};
@@ -165,7 +197,8 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       if(state.speech&&g.realTime>=speech.stopAt)state.speech=null;
     }
     const drinking=guest.actor==='samho'&&g.realTime<state.drinkUntil&&!state.speech;
-    const pose=state.speech?.pose||actorLayers(guest,drinking?'drink':speaking?d.expression:'idle',false);
+    const requestedPose=state.speech?.pose||actorLayers(guest,drinking?'drink':speaking?d.expression:'idle',false);
+    const pose=paintedPose(guest,state,requestedPose);
     const family=poseFamily(pose);
     if(family!==state.loopPose){state.loopPose=family;state.poseAt=g.realTime;}
     state.pose=pose.pose;
@@ -408,7 +441,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     ring?.classList.toggle('danger',s.started&&progress<.34);
   }
   function shakeBoard(s){
-    if(s.rhythm)return window.LunaShakeRhythm.board(s,L);
+    if(s.rhythm)return window.LunaShakeRhythm.board(s,L,window.LunaShakeRhythm.mainStoryLocked(g));
     const mix=window.LunaCore.MIX,at=(x,y)=>[55+x*118,42+y*118],points=mix.points.map(([x,y])=>at(x,y)),marker=at(...s.pathPoint);
     const candidates=[...s.nodes,...mix.points.map(([x,y],i)=>({x,y,id:'fixed:'+i,fixed:true}))],radius=mix.radius*118;
     const nodes=candidates.map(n=>{const p=at(n.x,n.y);return '<g data-shake-node="'+n.id+'"><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+radius+'" class="shake-judge-range"/><circle cx="'+p[0]+'" cy="'+p[1]+'" r="'+(n.fixed?10:8)+'" class="'+(n.fixed?'shake-turn':'shake-waypoint')+'"/></g>';}).join('');
@@ -419,10 +452,10 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       '<div class="shake-action">'+button(s.completed?L('완료','Complete'):s.started?L('클릭 / Space','Click / Space'):L('시작','Start'),'gimmickInput',s.completed?'disabled':'','mix-hit')+'</div></section>';
   }
   function mixHTML(s){
-    const stir=s.type==='stir';
-    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
-      ${!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
-      ${stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
+    const stir=s.type==='stir',locked=window.LunaShakeRhythm.mainStoryLocked(g);
+    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'} ${locked?'main-story-mix':''}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
+      ${!locked&&!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
+      ${!locked&&stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
       ${s.rhythm?'':button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold||s.rhythm&&!s.completed?'disabled':'','primary gimmick-finish')}</div>`;
   }

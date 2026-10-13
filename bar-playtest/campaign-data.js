@@ -4505,31 +4505,19 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "루나? 이제 시작하자고 했는데, 못 들었어?"
+      "text": "…그럼 이제 한번 시작해 볼까?"
     },
     {
       "type": "say",
       "actor": "luna",
       "who": "루나",
-      "text": "…아"
+      "text": "네. 준비됐습니다."
     },
     {
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "다른 생각을 하고 있었나 보군. 내가 설명한 건 기억하지?"
-    },
-    {
-      "type": "say",
-      "actor": "luna",
-      "who": "루나",
-      "text": "다시 한번 알려 주실 수 있나요?"
-    },
-    {
-      "type": "say",
-      "actor": "chris",
-      "who": "크리스",
-      "text": "…좋아. 다시 한번 해 보자."
+      "text": "…좋아. 한번 해 보자고."
     },
     {
       "type": "say",
@@ -4679,7 +4667,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "나쁘지 않아. 뭐… 만들기 어려운 칵테일도 아니긴 하지만.\n만드는 쪽에도 재능이 있는 것 같아서 다행이군."
+      "text": "나쁘지 않아. 뭐… 만들기 어려운 칵테일도 아니긴 하지만."
     },
     {
       "type": "say",
@@ -4697,19 +4685,25 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "처음이니까 그럴 수 있어. 만드는 것도 익숙해지면 나아지겠지.\n넌 다른 재능도 있으니까 너무 걱정하지 말고."
-    },
-    {
-      "type": "say",
-      "actor": "luna",
-      "who": "루나",
-      "text": "제게 다른 재능도 있었나요?"
+      "text": "처음이니까 그럴 수 있어. 만드는 것도 익숙해지면 나아지겠지."
     },
     {
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "너 정도 외모면 이 동네에선 남녀노소 누구나 좋아할 만하지. 그것도 재능이라면 재능이지."
+      "text": "너라면 손님들한테 호감을 얻기 쉬울 테니 약간의 실수 정도는 해도 괜찮을 거야."
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "제가요?"
+    },
+    {
+      "type": "say",
+      "actor": "chris",
+      "who": "크리스",
+      "text": "…넌 비호감으로 여겨질 외모는 아니니까 말이지."
     },
     {
       "type": "say",
@@ -4841,7 +4835,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "뭐, 나야 퇴근하고 술 한 잔할 수 있어서 좋지.\n저 예쁘장한 아가씨를 부려 먹을 생각은 아니겠지?"
+      "text": "뭐, 나야 퇴근하고 술 한잔할 수 있어서 좋지. 저 예쁘장한 아가씨를 부려 먹을 생각은 아니겠지?"
     },
     {
       "type": "say",
@@ -4859,7 +4853,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "그래, 나도 반가워, 아가씨. 여전히 딱딱한 말투구만.\n이 동네는 좀 지낼 만한 것 같아?"
+      "text": "그래, 나도 반가워, 아가씨. 여전히 딱딱한 말투구만. 이 동네는 좀 지낼 만한 것 같아?"
     },
     {
       "type": "say",
@@ -4889,13 +4883,13 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "몇 가지 정도는. 근데 재료가 별로 없어.\n지금은 진토닉이랑 진 피즈만 가능해."
+      "text": "몇 가지 정도는. 근데 재료가 별로 없어. 지금은 진토닉이랑 진 피즈만 가능해."
     },
     {
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "…이 상태로 어떻게 영업하겠다는 건지는 모르겠지만,\n그러면 진 피즈로 한 잔 부탁할게, 아가씨."
+      "text": "…이 상태로 어떻게 영업하겠다는 건지는 모르겠지만, 그러면 진 피즈로 한 잔 부탁할게, 아가씨."
     },
     {
       "type": "say",
@@ -4943,13 +4937,55 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "루나, 진 피즈에 대해서 알고 있나?"
+      "text": "좋아 이건 팁이니까 받아 두라고."
     },
     {
       "type": "say",
       "actor": "luna",
       "who": "루나",
-      "text": "진을 베이스로 하는 칵테일 아닙니까?"
+      "text": "..? 제가 갖는 돈인가요?"
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "그래. 루나 너가 이뻐서 주는 거니까 필요할 때 쓰라고."
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "감사합니다."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "루나 너가 앞으로 성실하게만 일한다면 아무리 이 그지같은 동네라도 팁 정도는 챙겨줄테니 열심히 해봐."
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "네 돈은 늘 중요하니까요."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "껄껄. 잘 알고있구만."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "그나저나.. 루나, 진 피즈에 대해서 알고 있나?"
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "진을 베이스로 하는 칵테일 아닌가요?"
     },
     {
       "type": "say",
@@ -4961,7 +4997,37 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "칵테일에 담긴 이야기, 그 칵테일이 탄생한 배경, 그런 역사도 알아야…"
+      "text": "어때, 내가 한번 재밌는 이야기 좀 해 줄까?"
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "네, 듣고 싶어요."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "좋아, 그러면 알려 주지. 칵테일에 담긴 이야기, 그 칵테일이 탄생한 배경, 그런 역사에 대해서…"
+    },
+    {
+      "type": "say",
+      "actor": "luna",
+      "who": "루나",
+      "text": "괜찮을 것 같아요."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "에이, 난 괜찮으니까 사양 말라고."
+    },
+    {
+      "type": "say",
+      "actor": "port",
+      "who": "포트",
+      "text": "자고로 바텐더란 칵테일에 담긴 이야기, 그 칵테일이 탄생한 배경, 그런 역사도 알아야…"
     },
     {
       "type": "say",
@@ -4979,7 +5045,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "chris",
       "who": "크리스",
-      "text": "오늘은 정식 영업이 아니라 일부터 가르쳐 보려는 거야.\n그런 건 나중에 알려 주라고."
+      "text": "오늘은 정식 영업이 아니라 일부터 가르쳐 보려는 거야. 그런 건 나중에 알려 주라고."
     },
     {
       "type": "say",
@@ -4991,7 +5057,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "이런 것도 모르고 일하면 반푼이지!\n제대로 된 바텐더라 할 수 없어."
+      "text": "이런 것도 모르고 일하면 반푼이지! 제대로 된 바텐더라 할 수 없어."
     },
     {
       "type": "say",
@@ -5039,7 +5105,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "그래, 이 주변 집들보단 네가 사는 빌딩이 낫겠네.\n루나만 괜찮다면야."
+      "text": "그래, 이 주변 집들보단 네가 사는 빌딩이 낫겠네. 루나만 괜찮다면야."
     },
     {
       "type": "say",
@@ -5063,7 +5129,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "어디서 어떻게 만들었는지는 몰라도,\n이렇게 사람과 똑같이 살 수 있다니."
+      "text": "어디서 어떻게 만들었는지는 몰라도, 이렇게 사람과 똑같이 살 수 있다니."
     },
     {
       "type": "say",
@@ -5075,7 +5141,7 @@ window.LUNA_CAMPAIGN_DATA={
       "type": "say",
       "actor": "port",
       "who": "포트",
-      "text": "어차피 이 동네엔 말 못 할 사연 있는 놈들뿐인데,\n그런 놈 하나 더 늘어난다고 누가 신경이나 쓰겠어?"
+      "text": "어차피 이 동네엔 말 못 할 사연 있는 놈들뿐인데, 그런 놈 하나 더 늘어난다고 누가 신경이나 쓰겠어?"
     },
     {
       "type": "say",

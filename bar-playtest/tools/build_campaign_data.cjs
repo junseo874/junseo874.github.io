@@ -138,7 +138,8 @@ data.scenes.ending=[
   }
 ];
 for(const day of [1,2,3]){data.opening[day]=speech(section(day,'### 오픈 전',day===3?'### 1부':'### 단골 손님'));data.bar[day]=compileBar(day);}
-data.day0Bar=speech(section(0,'### 바 · 튜토리얼과 첫 손님','### 크리스의 집'));
+// The scoped day-zero revision supersedes the older whole-campaign source snapshot.
+data.day0Bar=require('./day0-notion-20261013.json').lines.map(r=>({type:'say',actor:r.actor,who:{luna:'루나',chris:'크리스',port:'포트'}[r.actor],text:r.text}));
 // Remove production notes between the opening dialogue and the next section.
 for(const rows of Object.values(data.opening))for(const r of rows)r.text=r.text.split('오늘 추가되는')[0].split('오늘 확인할')[0].trim();
 // Current build decision: wine/champagne unlock on day 2; Aili orders gin fizz on day 1.

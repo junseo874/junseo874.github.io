@@ -92,6 +92,8 @@ console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous
   browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));await p.goto(BASE+"?test=speech");
+  if(await p.locator('[data-campaign="developer"]').count())await p.locator('[data-campaign="developer"]').click();
+  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   await p.evaluate(()=>{
     const g=barGame;g.reset(99,'general',7);for(let i=0;i<100;i++)g.tick(.1);
     const first=g.seats.L;g.queue=[];g.speed=0;g.cameraLeft=0;g.focus='L';g.overview=false;g.dialogSpeed=.15;

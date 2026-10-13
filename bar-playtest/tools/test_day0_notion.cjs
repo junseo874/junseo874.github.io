@@ -4,7 +4,9 @@ const dir=path.resolve(__dirname,'..'),ctx={window:{}};
 vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);
 const D=ctx.window.LUNA_DATA,C=require(dir+'/core.js'),R=require(dir+'/remix.js');
 const scene='d1_tutorial_chris',steps=D.tables.steps.filter(s=>s.context===scene);
-assert.equal(steps.filter(s=>s.type==='say').length,112);
+assert.equal(steps.filter(s=>s.type==='say').length,123);
+const spec=require('./day0-notion-20261013.json');
+assert.equal(JSON.stringify(steps.filter(s=>s.type==='say').map(s=>[s.actor,s['text.ko']])),JSON.stringify(spec.lines.map(s=>[s.actor,s.text])));
 assert.equal(new Set(steps.map(s=>s.row_id)).size,steps.length);
 assert(steps.filter(s=>s.type==='say').every(s=>s['text.ko']&&s['text.en']));
 assert(!steps.some(s=>/grade/.test(s.when||'')));
@@ -12,15 +14,21 @@ assert(!steps.some(s=>s.type==='exit'&&s.actor==='port'));
 assert.equal(steps.at(-1).type,'end_part');assert.equal(steps.at(-1).actor,'luna');
 function tick(g,sec){for(let t=0;t<sec;t+=.1)g.tick(.1);assert.equal(g.error,null);}
 let runs=0;
-for(const variant of ['original','gpt'])for(const lang of ['ko','en'])for(const choice of [1,2])for(const chrisWrong of [false,true])for(const portWrong of [false,true]){
+for(const variant of ['original','gpt'])for(const lang of ['ko','en'])for(const choice of [1,2])for(const portChoice of [1,2])for(const chrisWrong of [false,true])for(const portWrong of [false,true]){
  const g=new C.Game(D);R.attach(g);g.lang=lang;g.reset(0,'full',31,true,{variant});let chrisAttempts=0,portAttempts=0;
  for(let i=0;i<2000&&!g.finished;i++){
   assert.equal(g.error,null);
   if(g.transition){tick(g,1.2);continue;}
   if(g.tutorial){guide(g);continue;}
 
-  if(g.choice){assert.equal(g.choice.step.arg,'ch_day0_notion_tutorial');g.choose(choice);continue;}
-  if(g.dialogue){if(g.dialogue.id==='dlg_day0_notion_bar_122'){assert.equal(g.seats.R.actor,'chris');assert.equal(g.seats.L.actor,'port');}g.advance();g.advance();continue;}
+  if(g.choice){if(g.choice.step.arg==='ch_day0_notion_tutorial')g.choose(choice);else{assert.equal(g.choice.step.arg,'ch_day0_port_history');const before=g.progress.affinity.port||0;g.choose(portChoice);assert.equal(g.progress.affinity.port-before,portChoice===1?1:-1);}continue;}
+  if(g.dialogue){
+   if(g.dialogue.id==='dlg_day0_notion_bar_122'){assert.equal(g.seats.R.actor,'chris');assert.equal(g.seats.L.actor,'port');}
+   const tip=g.dialogue.id==='dlg_day0_revision_20261013_port_tip_offer',money=g.progress.money;
+   g.advance();g.advance();
+   if(tip){assert.equal(g.progress.money,money+100);assert.equal(g.progress.flags.day0_port_tip_received,true);}
+   continue;
+  }
   if(g.currentOrder&&g.story.steps[g.story.index]?.type==='craft'){
    const order=g.currentOrder,isChris=order.actor==='chris';
    const wrong=isChris?chrisWrong&&chrisAttempts++===0:portWrong;
@@ -39,6 +47,13 @@ for(const variant of ['original','gpt'])for(const lang of ['ko','en'])for(const 
  assert.equal(has(27),!chrisWrong);assert.equal(has(31),chrisWrong);assert.equal(has(34),chrisWrong);
  assert.equal(has(75),!portWrong);assert.equal(has(78),!portWrong);assert.equal(has(80),portWrong);assert.equal(has(82),portWrong);
  assert(has(36)&&has(85)&&has(120)&&has(122));assert.equal(portAttempts,1);
+ assert(ids.includes('dlg_day0_revision_20261013_chris_reassure'));
+ assert.equal(ids.filter(id=>id==='dlg_day0_revision_20261013_port_tip_offer').length,1);
+ assert.equal(g.progress.flags.day0_port_tip_received,true);
+ assert.equal(ids.includes('dlg_day0_revision_20261013_port_yes'),portChoice===1);
+ assert.equal(ids.includes('dlg_day0_revision_20261013_port_history'),portChoice===1);
+ assert.equal(ids.includes('dlg_day0_revision_20261013_port_no'),portChoice===2);
+ assert.equal(has(88),portChoice===2);assert.equal(ids.includes('dlg_day0_tutorial_recipe_display'),choice===2);
  assert.equal(g.transactions.length,chrisWrong?3:2);assert.equal(g.progress.flags.d1_tutorial_retry,false);
  assert.equal(g.transactionIds.size,g.transactions.length);assert.equal(g.currentOrder,null);
  assert(!g.logs.some(e=>e.event==='step'&&e.type==='exit'));

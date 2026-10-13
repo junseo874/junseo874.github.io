@@ -8,8 +8,10 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.locator('[data-campaign="developer"]').click();
   const updates=p.locator('.updates-confirm');if(await updates.isVisible())await updates.click();
   await p.evaluate(()=>barGame.reset(0,'full',1));
+  assert.equal(await p.evaluate(()=>LunaStoryNotices.pending.filter(e=>e.kind==='meet'&&e.actor==='chris').length),0,'Known Chris stays silent');
+  await p.evaluate(()=>LunaStoryNotices.meet(barGame.progress,'port'));
   await people.waitFor({state:'visible'});assert.equal(await people.locator('strong').textContent(),'신규 인물 정보 등록!');
-  assert.equal(await people.getAttribute('data-actor'),'chris');await p.waitForTimeout(300);
+  assert.equal(await people.getAttribute('data-actor'),'port');await p.waitForTimeout(300);
   const box=await people.boundingBox();assert(box.x>950&&box.y>300&&box.y<380,'Center-right notice');
   assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('#story-notices')).pointerEvents),'none');
   await p.screenshot({path:'/private/tmp/story-notice-meeting.png'});

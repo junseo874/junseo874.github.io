@@ -8,6 +8,8 @@ const motionSpeed=tier=>[1,1.25,1.5][tier];
 const noteSpeed=tier=>[1,1.25,1.5][tier];
 const keys={KeyA:0,ArrowLeft:0,KeyD:1,ArrowRight:1};
 const normalizeMode=mode=>mode==='drum'?'path':MODES.includes(mode)?mode:'fall';
+const mainStoryLocked=g=>!!root.lunaCampaign?.active&&root.lunaCampaign.storyVersion!=='B'&&!g?.minigame;
+const selectedSound=(g,preferred)=>mainStoryLocked(g)?2:Number(preferred)||1;
 function updatePath(s,rng){
  // Reuse the original geometry/pattern generator with a tempo-scaled clock,
  // leaving elapsed/craft time in real seconds.
@@ -53,7 +55,7 @@ function input(s,key){
 function visual(s,dt){const r=s.rhythm;r.uiAge+=dt;r.tierAge+=dt;if(r.playing&&!s.completed){r.clock+=dt*motionSpeed(r.tier);const clip=[1,2,3,0,5,6,7,4];s.motionFrame=clip[Math.floor(r.clock/.125)%clip.length];}}
 function attach(g,getMode=()=> 'fall'){
  const next=g.nextGimmick.bind(g),hit=g.gimmickInput.bind(g),tick=g.tickGimmick.bind(g),end=g.endGimmick.bind(g);
- g.nextGimmick=function(){const out=next();if(this.gimmick?.type==='shake'&&!this.gimmick.rhythm)init(this.gimmick,getMode());return out;};
+ g.nextGimmick=function(){const out=next();if(this.gimmick?.type==='shake'&&!this.gimmick.rhythm)init(this.gimmick,mainStoryLocked(this)?'path':getMode());return out;};
  g.gimmickInput=function(key){const s=this.gimmick;if(!s?.rhythm)return hit(key);if(this.screen!=='gimmick'||this.isPaused()||s.completed||this.remix?.hold)return false;const out=input(s,key);if(out)this.changed();return out;};
  g.tickGimmick=function(dt){const s=this.gimmick;if(!s?.rhythm)return tick(dt);if(this.isPaused())return;
   root.LunaCore.MIX.visual(s,dt);
@@ -61,7 +63,7 @@ function attach(g,getMode=()=> 'fall'){
   if(!s.started)return;s.elapsed+=dt;this.craft.elapsed+=dt;s.rhythm.trackTime+=dt*noteSpeed(s.rhythm.tier);if(s.rhythm.mode==='path')updatePath(s,this.rng);else expire(s);
  };
  g.endGimmick=function(){if(this.gimmick?.rhythm&&!this.gimmick.completed)return false;return end();};
- return {select(mode){const s=g.gimmick;if(!MODES.includes(mode)||!s?.rhythm||s.started||g.isPaused())return false;const age=s.rhythm.uiAge;init(s,mode);s.rhythm.uiAge=age;g.changed();return true;}};
+ return {select(mode){const s=g.gimmick;if(mainStoryLocked(g)||!MODES.includes(mode)||!s?.rhythm||s.started||g.isPaused())return false;const age=s.rhythm.uiAge;init(s,mode);s.rhythm.uiAge=age;g.changed();return true;}};
 }
 const names={fall:['세로 2레인','Falling lanes'],path:['왕복 노드','Round-trip nodes'],cross:['중앙 교대','Meet in the middle']};
 const pathAt=(x,y)=>[102+x*90,32+y*90];
@@ -118,9 +120,9 @@ function comboFire(r){
  return flames+sparks+burst;
 }
 function popup(s,L){const show=!s.started&&s.rhythm.uiAge<4,alpha=Math.min(1,s.rhythm.uiAge/.2,Math.max(0,(4-s.rhythm.uiAge)/.65));return '<div class="rhythm-intro" '+(!show?'hidden':'')+' style="opacity:'+alpha.toFixed(3)+'"><button data-act="gimmickInput" class="rhythm-start"><kbd>SPACE</kbd><span>'+L('쉐이킹 시작','Start shaking')+'</span></button></div>';}
-function board(s,L){
+function board(s,L,locked=false){
  const r=s.rhythm,mode=r.mode;
- return '<section class="mix-board rhythm-board" data-rhythm-mode="'+mode+'"><nav class="rhythm-modes" aria-label="'+L('쉐이킹 방식','Shaking style')+'">'+MODES.map((id,i)=>'<button data-act="shakeMode" data-id="'+id+'" aria-pressed="'+(mode===id)+'" '+(s.started?'disabled':'')+'><small>0'+(i+1)+'</small>'+L(...names[id])+'</button>').join('')+'</nav>'+
+ return '<section class="mix-board rhythm-board" data-rhythm-mode="'+mode+'">'+(locked?'':'<nav class="rhythm-modes" aria-label="'+L('쉐이킹 방식','Shaking style')+'">'+MODES.map((id,i)=>'<button data-act="shakeMode" data-id="'+id+'" aria-pressed="'+(mode===id)+'" '+(s.started?'disabled':'')+'><small>0'+(i+1)+'</small>'+L(...names[id])+'</button>').join('')+'</nav>')+
  '<div class="rhythm-score"><div class="rhythm-combo-wrap"><svg class="rhythm-combo-fire" viewBox="0 0 100 100" aria-hidden="true"></svg><b data-rhythm-combo>'+r.combo+'</b><span>COMBO</span><small class="rhythm-heat-label" data-rhythm-heat></small></div><span data-rhythm-count>'+s.attempts+' <em>/ '+s.targetStacks+'</em></span><div class="rhythm-verdict" data-rhythm-verdict></div></div>'+
  '<svg class="rhythm-stage" '+(mode==='path'?'data-shake-surface':'')+' viewBox="0 0 440 410" role="img" aria-label="'+(mode==='path'?L('이동점이 노드와 겹칠 때 클릭 또는 Space','Click or press Space when the marker overlaps a node'):L('노드가 판정선에 닿으면 A 또는 D','Press A or D when notes reach the target'))+'">'+stage(s)+'</svg>'+
  '<div class="rhythm-bottom"><div class="rhythm-progress">'+r.notes.map(n=>'<i data-rhythm-result="'+n.id+'" class="'+(n.status||'')+'"></i>').join('')+'</div><div class="rhythm-pads">'+(mode==='path'?'<button data-act="rhythmHit" data-id="Space" '+(s.completed?'disabled':'')+' aria-label="'+L('클릭 또는 Space로 노드 맞히기','Hit a node with click or Space')+'"><kbd>SPACE</kbd></button>':[0,1].map(l=>'<button data-act="rhythmHit" data-id="'+(l?'KeyD':'KeyA')+'" '+(s.completed?'disabled':'')+' class="rhythm-pad lane-'+l+'" aria-label="'+L(l?'오른쪽 입력 D':'왼쪽 입력 A',l?'Right input D':'Left input A')+'"><kbd>'+(l?'D':'A')+'</kbd><span aria-hidden="true">'+(l?'◆':'●')+'</span></button>').join(''))+'</div></div>'+popup(s,L)+'<div class="rhythm-count-in" data-rhythm-count-in></div><div class="rhythm-finish" data-rhythm-finish hidden></div></section>';
@@ -139,5 +141,5 @@ function sync(host,g){const s=g.gimmick;if(!s?.rhythm)return;const board=host.qu
  board.querySelectorAll('[data-rhythm-result]').forEach(el=>{el.className=r.notes[Number(el.dataset.rhythmResult)].status||'';});
  host.querySelector('.shake-screen').dataset.rhythmPlaying=String(r.playing&&!s.completed);
 }
-const api={MODES,WINDOW,PERFECT,normalizeMode,updatePath,comboTier,motionSpeed,noteSpeed,init,input,expire,visual,attach,board,sync};root.LunaShakeRhythm=api;if(typeof module!=='undefined')module.exports=api;
+const api={MODES,WINDOW,PERFECT,normalizeMode,mainStoryLocked,selectedSound,updatePath,comboTier,motionSpeed,noteSpeed,init,input,expire,visual,attach,board,sync};root.LunaShakeRhythm=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

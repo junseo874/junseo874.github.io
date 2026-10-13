@@ -9,6 +9,8 @@ const lanes={people:{queue:[],current:null,age:0},event:{queue:[],current:null,a
 const entered=new WeakSet();let layer=null,serial=0;
 function emit(owner,kind,id='',delta=0){
  if(!owner)return;
+ // Chris is already known: keep profile flags and affinity, but never announce discovery.
+ if(kind==='meet'&&id==='chris')return;
  const event={owner,kind,actor:id,delta,serial:++serial};
  lanes[kind==='event'||kind.startsWith('goal-')?'event':'people'].queue.push(event);
  return event;

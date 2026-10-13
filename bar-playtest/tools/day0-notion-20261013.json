@@ -1,0 +1,621 @@
+{
+  "source": "https://app.notion.com/p/3d81612298dc804ab205e2217df10216",
+  "scope": "바 내부: 크리스 튜토리얼 / 포트 첫 손님",
+  "lines": [
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "…그럼 이제 한번 시작해 볼까?"
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "네. 준비됐습니다."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "…좋아. 한번 해 보자고."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "자, 먼저 손님을 맞이하는 것부터 시작해 보자."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "일단 주변을 둘러봐. 바 테이블에 앉을 수 있는 자리가 총 몇 개지?"
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "총 3개로 보입니다."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그래. 손님이 앉을 수 있는 자리는 세 곳이야."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "그렇게 많진 않네요."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그렇지. 네가 다른 손님과 이야기하고 있어도, 아래 있는 장치가\n새로 들어온 손님이 있다는 걸 알려 줄 거야."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "좋아. 이제 다음으로 넘어가자."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "내가 손님이고, 방금 자리에 앉았다고 생각해 봐.\n무엇부터 해야 하지?"
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "바로 주문을 받으면 되나요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "주문을 묻기 전에 먼저 코스터를\n내어 드려. 그게 우리 가게 방식이야."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "이렇게요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "맞아. 이제 손님에게 무엇을 주문할지 물어보면 돼."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "“어떤 걸 주문하시겠어요?” 이렇게 말하면 되는 건가요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그래. 하지만… 너무 손님을 빤히 쳐다보지는 마."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "저번에 바텐더는 항상 손님을 관찰해야 한다고 하지 않으셨나요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그렇게 뚫어져라 쳐다보라는 건 아니었어."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "어렵네요."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "하나씩 해 보는 거지."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "일단 진토닉으로 한 잔 부탁해. 자세한 건 만들면서 알려줄게."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그래? 그러면 진토닉 한 잔 만드는 것부터 이어서 해 보자."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "네, 확인했습니다."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "만들기 전에 레시피부터 확인해 봐. 왼쪽 디스플레이에서\n우리 가게의 칵테일 레시피 DB를 볼 수 있어."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "음…"
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "어떤가요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "나쁘지 않아. 뭐… 만들기 어려운 칵테일도 아니긴 하지만."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "주문은 진토닉이었어. 선택한 재료랑 순서를 다시 보자."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "어디서 달라졌는지 확인하겠습니다."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "처음이니까 그럴 수 있어. 만드는 것도 익숙해지면 나아지겠지."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "너라면 손님들한테 호감을 얻기 쉬울 테니 약간의 실수 정도는 해도 괜찮을 거야."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "제가요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "…넌 비호감으로 여겨질 외모는 아니니까 말이지."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "전에 있던 곳에서는 그게 꼭 좋은 것만은 아니라고 배웠는데요."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "맞는 말이긴 하지. 하지만 여기서 일하는 건 안전할 거야. 장담하지."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "알겠습니다. 한 가지 궁금한 게 있는데, 왜 가게에 재료가 이것밖에 없는 거죠?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "말했잖아. 전에 사고가 터져서 반년 동안 영업을 못 했다고."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "무슨 사고였는지 듣지는 못했는데요."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "…갱들한테 휘말려서 한 사람이 죽었지. 이 동네에서는 흔한 일이야."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "죽은 사람이 원래 이 바를 운영하던 영감이었던 게 문제지."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "…혹시 지금은 제가 공감하거나… 위로의 말을 해야 하는 건가요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "…아니, 그러지 않아도 돼."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "아직 어려운 것 같네요."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "그런 것들도 차차 배워 가기로 했잖아. 조바심 낼 필요 없어."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "과연 이 일을 하면서 제가 성장할 수 있을까요?"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "난 그럴 수 있다고 생각해. 네가 온전히 이 일에 집중한다면."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "…"
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "왜?"
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "…일하기로 한 것이 잘못된 선택이 아닐까 생각 중입니다."
+    },
+    {
+      "section": 0,
+      "actor": "chris",
+      "text": "후회할지는 며칠 더 일해 보고 판단해."
+    },
+    {
+      "section": 0,
+      "actor": "luna",
+      "text": "알았습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "여어-"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "웬일로 불이 켜져 있길래 와 봤는데. 다시 영업하는 거야?"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "그래. 주변도 잠잠해졌으니 슬슬 다시 시작해 봐야지."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "뭐, 나야 퇴근하고 술 한잔할 수 있어서 좋지. 저 예쁘장한 아가씨를 부려 먹을 생각은 아니겠지?"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "그럴 리가."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "만나서 반갑습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그래, 나도 반가워, 아가씨. 여전히 딱딱한 말투구만. 이 동네는 좀 지낼 만한 것 같아?"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "이 건물 밖으로 나가 본 적이 없어서 잘 모르겠습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그렇구만. 일 배우는 건 할 만하고?"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "아직 배운 게 많지 않아서 잘 모르겠습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "음. 크리스, 이 아가씨 술은 만들 줄 아는 거지?"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "몇 가지 정도는. 근데 재료가 별로 없어. 지금은 진토닉이랑 진 피즈만 가능해."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "…이 상태로 어떻게 영업하겠다는 건지는 모르겠지만, 그러면 진 피즈로 한 잔 부탁할게, 아가씨."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "주문받았습니다."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "주문하신 진 피즈입니다."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "어떠세요?"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "크… 나쁘지 않네. 그래도 쓰던 재료는 똑같나 보구만."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "음? 아가씨. 내가 부탁한 건 진 피즈였는데."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "주문과 다르게 만들었네요. 확인할게요."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "결과를 보고 어디서 달라졌는지부터 찾아봐."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "좋아 이건 팁이니까 받아 두라고."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "..? 제가 갖는 돈인가요?"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그래. 루나 너가 이뻐서 주는 거니까 필요할 때 쓰라고."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "감사합니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "루나 너가 앞으로 성실하게만 일한다면 아무리 이 그지같은 동네라도 팁 정도는 챙겨줄테니 열심히 해봐."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "네 돈은 늘 중요하니까요."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "껄껄. 잘 알고있구만."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그나저나.. 루나, 진 피즈에 대해서 알고 있나?"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "진을 베이스로 하는 칵테일 아닌가요?"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "아니, 아니. 그것만 알고 칵테일을 만든다면 바텐더에 대한 모욕이라고."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "어때, 내가 한번 재밌는 이야기 좀 해 줄까?"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "네, 듣고 싶어요."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "좋아, 그러면 알려 주지. 칵테일에 담긴 이야기, 그 칵테일이 탄생한 배경, 그런 역사에 대해서…"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "괜찮을 것 같아요."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "에이, 난 괜찮으니까 사양 말라고."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "자고로 바텐더란 칵테일에 담긴 이야기, 그 칵테일이 탄생한 배경, 그런 역사도 알아야…"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "또 시작이군. 거기까지만 말해."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "…너도 이런 것들이 중요하다는 걸 알지 않나."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "오늘은 정식 영업이 아니라 일부터 가르쳐 보려는 거야. 그런 건 나중에 알려 주라고."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "그런 걸 알면 저한테 도움이 될까요?"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "이런 것도 모르고 일하면 반푼이지! 제대로 된 바텐더라 할 수 없어."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그래도… 시간은 많으니 나중에 말해 주도록 하지."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "알겠습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그래서, 이제 독립하기로 했다면서? 잠은 어디서 자려고?"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "당분간은 내 집에서 지내게 할 생각이다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "하, 너네 집에 잘 곳이 어디 있다고. 따로 내줄 방도 없는 데다 홀아비 냄새까지 풀풀 나는 집에 살면서."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "‘당분간’이라고 말했을 텐데."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "그렇게 좁은 편도 아니야. 거실에서 재우면 되지."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "그래, 이 주변 집들보단 네가 사는 빌딩이 낫겠네. 루나만 괜찮다면야."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "…"
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "잠은 자야 하지만, 수면 공간에 크게 영향을 받지는 않아요."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "아, 그래. 그랬지. 신기하단 말이야."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "어디서 어떻게 만들었는지는 몰라도, 이렇게 사람과 똑같이 살 수 있다니."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "영감. 전에도 말했지만, 그 이야기는 조심해."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "어차피 이 동네엔 말 못 할 사연 있는 놈들뿐인데, 그런 놈 하나 더 늘어난다고 누가 신경이나 쓰겠어?"
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "포트."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "알았어, 알았다고. 그래도 여기엔 너랑 루나밖에 없는데 무슨 상관이야."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "조심해서 나쁠 건 없지."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "하여간 겁만 많아서."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "그래도 덕분에 여기서 살 방법은 찾은 것 같네요."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "내가 사람 보는 눈은 있는데 말이야. 루나, 너는 크게 될 놈이야."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "반면 저 크리스라는 음침한 놈은 아주 인생의 밑바닥을 찍을 놈이지."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "…이제 다 마신 것 같은데. 슬슬 일어나시지?"
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "하, 이젠 손님까지 내쫓으려고 하네."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "루나, 먼저 내 집으로 가서 쉬고 있어."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "이 노친네도 돌려보내고, 금방 정리해서 갈 테니."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "네, 알겠습니다."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "하, 이놈이 연장자한테 못하는 말이 없군."
+    },
+    {
+      "section": 1,
+      "actor": "chris",
+      "text": "지금 보내 준 위치 안내를 따라 빌딩으로 가면 돼. 1803호야."
+    },
+    {
+      "section": 1,
+      "actor": "port",
+      "text": "잘 가라고, 아가씨."
+    },
+    {
+      "section": 1,
+      "actor": "luna",
+      "text": "네. 그럼 먼저 갈게요."
+    }
+  ]
+}

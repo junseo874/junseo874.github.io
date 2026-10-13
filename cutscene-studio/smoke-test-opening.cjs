@@ -40,7 +40,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
     fadeOut:p.clips.find(c=>c.effect==='fadeOut'&&Math.abs(c.start+c.duration-wake)<.001),
     fadeIn:p.clips.find(c=>c.effect==='fadeIn'&&c.start===wake),
     alarm:p.clips.find(c=>c.assetId==='opening-alarm'),
-    aligned:lines.filter(c=>['dream-lines','interruption'].includes(c.track)).every(c=>c.offsetX===0&&c.offset===(c.track==='interruption'?1.3:.68)),
+    aligned:lines.filter(c=>['dream-lines','interruption'].includes(c.track)).every(c=>c.offsetX===0&&c.offset===.68),
     overlap:interrupt.start<beneath.start+beneath.duration&&interrupt.start>beneath.start};
   });
   assert.deepEqual(first.issues,[]);assert.equal(first.count,first.expected);assert.equal(first.count,20);
@@ -50,7 +50,7 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
   assert.ok(first.fadeOut&&first.fadeIn&&first.alarm.start<first.wake&&first.alarm.start+first.alarm.duration>first.wake);
   for(const pose of first.poses){assert.deepEqual(pose.from,pose.to);for(const prop of ['x','y','rotation'])assert.ok(!pose.keyframes?.[prop]||pose.keyframes[prop].every(k=>k.value===pose.keyframes[prop][0].value));}
   assert.equal(first.samples[0].rotation,-90);assert.equal(first.samples[1].rotation,-90);assert.equal(first.samples[2].rotation,0);assert.equal(first.samples[3].rotation,0);
-  for(const [t,n]of [[20,'dream'],[first.home+1.8,'sleep'],[first.wake,'black'],[first.wake+.7,'awake'],[first.phone+2,'phone']])await screenshot(t,n);
+  for(const [t,n]of [[first.home-10,'dream'],[first.home+1.8,'sleep'],[first.wake,'black'],[first.wake+.7,'awake'],[first.phone+2,'phone']])await screenshot(t,n);
   await page.evaluate(()=>cutsceneStudio.seek(2));await page.locator('#play').click();await page.waitForTimeout(900);
   assert.ok(await page.evaluate(()=>cutsceneStudio.time>2.4&&StudioMedia.activeVoices>0));await page.locator('#play').click();
   const roundtrip=async()=>{const saved=await page.evaluate(()=>JSON.stringify(cutsceneStudio.project));await page.locator('#file').setInputFiles({name:'roundtrip.json',mimeType:'application/json',buffer:Buffer.from(saved)});await page.locator('#confirm-replace').click();assert.equal(await page.evaluate(()=>JSON.stringify(cutsceneStudio.project)),saved);};
@@ -63,7 +63,8 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
    let centered=true;
    for(const c of lines){const state=StudioModel.sample(p,c.start+.1),a=state.actors.tv,asset=StudioMedia.assets.get(a.assetId),w=asset.fw/asset.ppu*a.scale,rows=new Map();
     const original=g.fillText;g.fillText=function(text,x,y){const row=rows.get(y)||{left:x,right:x};row.left=Math.min(row.left,x);row.right=Math.max(row.right,x+this.measureText(text).width);rows.set(y,row);};
-    StudioOpening.dialogue(g,c,state,state.camera,c.start+.1);g.fillText=original;
+    // Centering is measured on the completed subtitle, not its typed prefix.
+    StudioOpening.dialogue(g,c,state,state.camera,c.start+.1,0,true);g.fillText=original;
     centered&&=[...rows.values()].every(r=>Math.abs((r.left+r.right)/2-w/2)<.015);
    }
    return {issues:StudioModel.issues(p),duration:p.duration,texts:lines.map(c=>c.text),source:StudioOpening.source.tv,centered,

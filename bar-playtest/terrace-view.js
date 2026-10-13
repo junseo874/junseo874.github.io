@@ -1,9 +1,9 @@
 (function(W){
 'use strict';
-const asset='assets/campaign/terrace-reference.png';
+const asset='assets/campaign/terrace-20261013.png';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Actor anchors are measured from the supplied 480 × 270 terrace composition.
-const seats={chris:{x:143/480*1280,y:165/270*720},luna:{x:177/480*1280,y:165/270*720}};
+const seats={chris:{x:163/480*1280,y:151/270*720},luna:{x:134/480*1280,y:151/270*720}};
 function rows(key,data){return data.scenes[key];}
 // Escape each text segment; reveal orange ingredient names with the same typing cursor.
 function textHTML(row,count=Infinity){
@@ -16,7 +16,7 @@ function textHTML(row,count=Infinity){
 function html(dialog){
  const row=dialog.rows[dialog.index],seat=seats[row.actor],speaker=seat?row.actor:'narration';
  const style=seat?'--speaker-x:'+seat.x+'px;--speaker-y:'+seat.y+'px;':'';
- return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><img class="terrace-art" src="'+asset+'" alt="도시 야경이 보이는 테라스에 왼쪽 크리스와 오른쪽 루나가 나란히 앉아 있다" draggable="false">'+
+ return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><img class="terrace-art" src="'+asset+'" alt="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다" draggable="false">'+
  '<span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
  '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사"><p><span class="campaign-measure" aria-hidden="true">'+textHTML(row)+'</span><span class="campaign-ink"></span></p></button></div>';
 }

@@ -1,6 +1,7 @@
 (function(){
 'use strict';
 window.LunaShakePolish=function({g,D,ui}){
+ const soundId=()=>window.LunaShakeRhythm.selectedSound(g,ui.shakeSound);
  let audio=null,active=null,selection=null;const voices=new Map(),buffers=new Map(),seen=new WeakMap(),loading=new Map();
  const beats=new WeakMap();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -21,12 +22,12 @@ window.LunaShakePolish=function({g,D,ui}){
  }
  function play(effect){
   if(ui.gimmickAudio===false||!audio||audio.state!=='running')return;
-  const channel=effect.ok?'ice':'hit',b=effect.ok?buffers.get(Number(ui.shakeSound)||1):missBuffer();
+  const channel=effect.ok?'ice':'hit',b=effect.ok?buffers.get(soundId()):missBuffer();
   // Never replay an old input after loading finishes, or fall back to the discarded synthetic success sound.
   if(!b)return;
   stop(channel);
   const current={gain:audio.createGain(),source:audio.createBufferSource()};voices.set(channel,current);
-  current.gain.gain.value=effect.ok?window.LunaSfx.level("shake"+(Number(ui.shakeSound)||1)):.65;current.gain.connect(window.LunaSfx.output(audio));current.source.buffer=b;current.source.playbackRate.value=effect.ok?[.98,1,1.02][effect.id%3]:1;current.source.connect(current.gain);
+  current.gain.gain.value=effect.ok?window.LunaSfx.level("shake"+soundId()):.65;current.gain.connect(window.LunaSfx.output(audio));current.source.buffer=b;current.source.playbackRate.value=effect.ok?[.98,1,1.02][effect.id%3]:1;current.source.connect(current.gain);
   current.source.onended=()=>{current.source.disconnect();current.gain.disconnect();if(voices.get(channel)===current)voices.delete(channel);};
   current.source.start();
  }
@@ -60,7 +61,7 @@ window.LunaShakePolish=function({g,D,ui}){
   const s=g.gimmick,screen=root.querySelector('.shake-screen');
   if(!screen||g.screen!=='gimmick'||s?.type!=='shake'){stop();active=null;return;}
   if(active!==s){stop();active=s;}
-  const selected=Number(ui.shakeSound)||1;
+  const selected=soundId();
   if(selection!==selected){stop('ice');selection=selected;}
   screen.dataset.shakeSound=selected;
   screen.dataset.shakeAudioReady=String(buffers.has(selected));

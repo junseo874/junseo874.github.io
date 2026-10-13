@@ -5,7 +5,7 @@ const templateParam=new URLSearchParams(location.search).get('template');
 const requestedTemplate=['opening','documentary'].includes(templateParam)?templateParam:null;
 // A direct template link uses a separate draft: opening it never replaces the main saved sequence.
 const revision=new URLSearchParams(location.search).get('revision');
-const openingRevision=requestedTemplate&&['20261012','20261012-lab-v2','20261012-lab-v3','20261012-split-v4','20261012-framing-v6'].includes(revision)?':'+revision:'';
+const openingRevision=requestedTemplate&&['20261012','20261012-lab-v2','20261012-lab-v3','20261012-split-v4','20261012-framing-v6','20261013-interruption'].includes(revision)?':'+revision:'';
 const STORAGE='unknown-cutscene-studio-v1'+(requestedTemplate?':'+requestedTemplate+openingRevision:''),D=window.LUNA_OUTSIDE_DATA,canvas=$('#stage'),ctx=canvas.getContext('2d'),images=new Map(),undo=[],redo=[];
 let project=M.template(requestedTemplate||undefined),selected=null,time=requestedTemplate?0:6.5,playing=false,waiting=null,waitAge=0,wall=0,previous=0,drag=null,scale=45,loop=false,passed=new Set(),revealed=new Set(),lastCamera=null,handles=[],saveTimer,ready=false;
 $('.template-fold').after($('#opening-chapters'));
@@ -75,7 +75,7 @@ function speech(c,s){
  const k=1280/lastCamera.w,p=projectPoint(a.x+(c.offsetX||0),a.y+c.offset);
  ctx.save();const box=StudioTypography.bubble(ctx,c,k),{parsed,glyphs}=box.text,w=box.width,h=box.height;
  const left=p.x-w/2,top=p.y-h,clock=time+waitAge;
- ctx.fillStyle='#101c24ed';ctx.strokeStyle=c.remote?'#000':c.textEffect==='emphasis'?'#eac582':'#81bfc4';ctx.lineWidth=(c.remote?.022:.009)*k;ctx.beginPath();ctx.roundRect(left,top,w,h,.05*k);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(p.x-.045*k,p.y);ctx.lineTo(p.x,p.y+.05*k);ctx.lineTo(p.x+.045*k,p.y);ctx.fill();ctx.stroke();
+ StudioTypography.paintBubble(ctx,c,box,p,k);
  const elapsed=Math.max(0,time-c.start)+(waiting?.id===c.id?waitAge:0),count=c.textEffect==='instant'||revealed.has(c.id)?parsed.chars.length:StudioTags.count(parsed,elapsed,c.cps);ctx.textBaseline='alphabetic';
  for(const ch of glyphs){if(ch.i>=count)continue;ctx.font=ch.font;ctx.fillStyle=ch.color||(c.textEffect==='emphasis'?'#f5d395':'#e2e8e5');const shake=ch.shake||(c.textEffect==='shake'?.8:0),dx=Math.sin(clock*49+ch.i*17)*k*.008*shake,dy=Math.cos(clock*61+ch.i*11)*k*.008*shake+(ch.wave?Math.sin(clock*7+ch.i*.5)*k*.018:0);let text=ch.ch;if(ch.censor&&text!==' ')text='▓▒█'[Math.floor(clock*8+ch.i)%3];else if(ch.noise&&text!==' ')text='░▐#?▒%01'[Math.floor(clock*15+ch.i*5)%8];ctx.fillText(text,left+box.paddingX+ch.x+dx,top+box.paddingY+ch.y+dy);}
  if(c.wait&&waiting?.id===c.id&&count>=parsed.chars.length)window.LunaDialogueCue.draw(ctx,{right:left+w,bottom:p.y,size:.116*k*(c.fontScale??100)/100*.9,clock});

@@ -29,6 +29,11 @@
 .shake-screen:has(.rhythm-board) .mix-cinema{border:1px solid #4d788a75;box-shadow:none}
 .shake-screen:has(.rhythm-board) .mix-cinema::after{border:0;box-shadow:inset 0 0 38px #81d5f120}
 .shake-screen:has(.rhythm-board) .mix-workspace{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:24px}
+/* Main story has no test selectors or reserved footer: fill the shared height. */
+.main-story-mix.shake-screen .mix-workspace{padding:22px;gap:22px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.main-story-mix.shake-screen .rhythm-board{padding:0 18px 18px}
+.main-story-mix.shake-screen .rhythm-score{height:68px}
+.main-story-mix.stir-screen .mix-workspace{padding-top:22px}
 @media(prefers-reduced-motion:reduce){.rhythm-burst,.note-aura,.target-halo{display:none}.rhythm-score b{transform:none}.rhythm-verdict,.rhythm-score b{text-shadow:none}}
 
 /* Combo heat stays local to the counter; note tempo rises separately; the real-time hit window stays unchanged. */
