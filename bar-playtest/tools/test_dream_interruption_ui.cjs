@@ -29,7 +29,7 @@ const assert=require('node:assert/strict');
   assert(result.painted.indexOf(result.back)<result.painted.indexOf(result.front));
   assert(result.overlap>1);assert(result.home<40);assert(result.gaps.every(g=>Math.abs(g-.12)<.003));assert(result.allManual);assert(result.cps.every(c=>c===55));
   await page.screenshot({path:'/private/tmp/dream-interruption-main.png'});
-  await page.goto('http://127.0.0.1:8123/cutscene-studio/?template=opening&revision=20261013-interruption');await page.waitForFunction(()=>cutsceneStudio.ready);
+  await page.goto('http://127.0.0.1:8123/cutscene-studio/?template=opening&revision=20261013-opening-dialogue');await page.waitForFunction(()=>cutsceneStudio.ready);
   await page.locator('#guides').uncheck();
   const studio=await page.evaluate(()=>{const p=cutsceneStudio.project,c=p.clips.find(c=>c.interruption);cutsceneStudio.select(null);cutsceneStudio.seek(c.start+.6);return {offset:c.offset,minWidth:c.bubbleMinWidth,duration:p.duration};});
   assert.equal(studio.offset,.68);assert.equal(studio.minWidth,1.25);assert.equal(studio.duration,result.duration);

@@ -1,0 +1,8 @@
+.studio-speech-layer{position:absolute;pointer-events:none;overflow:hidden;z-index:1}
+.studio-speech-stage{position:absolute;width:1280px;height:720px;transform-origin:0 0;font-family:"LunaPixel","StudioGame",sans-serif;font-weight:400;line-height:1.65}
+.studio-speech-bubble{pointer-events:none;--speech-unit:1}
+.studio-speech-bubble:after{width:calc(14px * var(--speech-unit));height:calc(14px * var(--speech-unit));bottom:calc(-8px * var(--speech-unit));border-width:calc(1px * var(--speech-unit))}
+.studio-speech-bubble p{font-weight:400}
+.studio-speech-interruption,.studio-speech-interruption:after{background:#080f1b}
+.studio-speech-remote,.studio-speech-remote:after{border-color:#000}
+.studio-speech-layer [hidden]{display:none!important}

@@ -1,14 +1,14 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../cutscene-studio/',document.currentScript.src),version='dream-interruption-20261013';
+const base=new URL('../../cutscene-studio/',document.currentScript.src),version='contact-direct-return-20261013';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
-  for(const name of ['tags','media','model','model-v2','keyframes','opening-template','typography','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
+  for(const name of ['tags','media','model','model-v2','keyframes','opening-template','typography','speech-layer','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
    const script=document.createElement('script');script.src=new URL(name+'.js?v='+version,base);script.onload=()=>{loaded.add(name);resolve();};script.onerror=()=>{script.remove();reject(Error('컷씬 모듈을 불러오지 못했습니다: '+name));};document.head.append(script);
   });
-  await StudioMedia.ready;StudioOpening.register();
+  await StudioMedia.ready;await document.fonts.load('17px LunaPixel');StudioOpening.register();
   for(const asset of StudioMedia.assets.values())if(asset.builtin&&asset.src)asset.src=new URL(asset.src,base).href;
  })().catch(error=>{ready=null;throw error;});
  await ready;
@@ -26,6 +26,7 @@ async function prepare(id){
 function player(canvas,ui,project){
  canvas.width=1280;canvas.height=720;ui.hidden=true;
  const ctx=canvas.getContext('2d'),playback={playbackOnly:true,project,waitAge:0},extras=StudioExtras(playback);
+ const speechLayer=canvas.parentElement?StudioSpeechLayer.create(canvas):null;
  let waiting=null;
  let time=0,lastCamera=project.camera,typeLine=null,typeCount=0;
  const clocks=clocksByProject.get(project)||new Map();clocksByProject.set(project,clocks);
@@ -46,6 +47,7 @@ function speech(c,s){
  if(StudioOpening.dialogue(ctx,c,s,lastCamera,time,waitAge,revealed,held,count))return;
  const a=s.actors[c.actor];if(!a||a.visible<.5||a.opacity<=0||a.asset&&!a.active)return;
  const k=1280/lastCamera.w,p=projectPoint(a.x+(c.offsetX||0),a.y+c.offset);
+ if(speechLayer?.paint(c,p,k,count,!!(c.wait&&held&&count>=StudioTags.parse(c.text).chars.length),time+waitAge))return;
  ctx.save();const box=StudioTypography.bubble(ctx,c,k),{parsed,glyphs}=box.text,w=box.width,h=box.height;
  const left=p.x-w/2,top=p.y-h,clock=time+waitAge;
  StudioTypography.paintBubble(ctx,c,box,p,k);
@@ -55,7 +57,7 @@ function speech(c,s){
  ctx.restore();
 }
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null){
-  waiting=dialogueWait;playback.waitAge=waiting?.age||0;
+  speechLayer?.begin();waiting=dialogueWait;playback.waitAge=waiting?.age||0;
   time=t;const s=StudioModel.sample(project,time);lastCamera={...s.camera};
   ctx.fillStyle='#090e16';ctx.fillRect(0,0,1280,720);ctx.imageSmoothingEnabled=false;
   for(const id of [...project.visibleActors].sort((a,b)=>(s.actors[a].layer||0)-(s.actors[b].layer||0))){const a=s.actors[id];if(a.visible>=.5)extras.drawAsset(ctx,a,lastCamera,time);}
@@ -66,13 +68,14 @@ function speech(c,s){
    if(f.effect==='noise'){ctx.globalAlpha=f.strength*.23;ctx.fillStyle='#b1d6da';for(let i=0;i<110;i++){const v=Math.sin(i*119.7+Math.floor(time*24)*37.9)*43758.54;ctx.fillRect((v-Math.floor(v))*1280,(i*83)%720,1+i%23,1+i%2);}ctx.globalAlpha=f.strength*.1;for(let y=0;y<720;y+=4)ctx.fillRect(0,y,1280,1);}
    ctx.restore();
   }
+  speechLayer?.end(s.fx);
   // Do not start audio while rendering a paused frame or fading into a sequence.
   StudioMedia.sync(project,time,soundOn&&previous!=null,1,volume);
   const c=s.dialogue,parsed=c&&StudioTags.parse(c.text),n=c?dialogueCount(c):0;
   if(soundOn&&previous!=null&&typeLine===c&&c?.textEffect!=='instant'&&n>typeCount)W.LunaDialogueAudio?.reveal(parsed.text,typeCount,n);
   typeLine=c;typeCount=n;
  }
- return {render,dialogueCount,renderer:{sample:t=>StudioModel.sample(project,t)},dispose(){StudioMedia.stop();},pause(){StudioMedia.stop();}};
+ return {render,dialogueCount,renderer:{sample:t=>StudioModel.sample(project,t)},dispose(){speechLayer?.dispose();StudioMedia.stop();},pause(){StudioMedia.stop();}};
 }
 W.LunaStudioCinema={prepare,player,unlock:()=>W.StudioMedia?.unlock().catch(()=>{})};
 })(window);

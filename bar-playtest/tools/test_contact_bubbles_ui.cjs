@@ -13,6 +13,6 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.evaluate(index=>{const c=lunaCampaign.cinema,line=c.scene.clips.filter(c=>c.track==='phone-lines')[index];c.time=line.start+.05;c.dialogueWait={id:line.id,age:20,revealed:true};c.player.render(c.time,null,false,.5,c.dialogueWait);},index);
   await p.screenshot({path:'/private/tmp/contact-bubble-'+index+'.png'});
  }
- await p.keyboard.press('KeyE');assert(await p.evaluate(()=>lunaCampaign.cinema.time>lunaCampaign.cinema.scene.clips.filter(c=>c.track==='phone-lines')[5].start));
+ await p.keyboard.press('KeyE');assert(await p.evaluate(()=>lunaCampaign.view==='game'&&!lunaCampaign.cinema&&outsidePlaytest.model.controlsTutorial));
  assert.deepEqual(errors,[]);console.log(JSON.stringify(stats));console.log('PASS: six manual phone lines, 17px game font, 17/13 padding, short fit, long wrapping, zoom invariance, cyan contact color and key progression.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

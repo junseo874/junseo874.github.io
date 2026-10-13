@@ -1,15 +1,26 @@
 const assert=require('node:assert/strict');
 const path=require('node:path');
 const os=require('node:os');
+const expectedDialogue=require('./opening-dialogue-20261013.json');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 (async()=>{
  const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true});
  try{
   const page=await browser.newPage({viewport:{width:1680,height:1080}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  const open=async id=>{await page.goto('http://127.0.0.1:8123/cutscene-studio/?template='+id+'&revision=20261012-framing-v6');await page.waitForFunction(()=>cutsceneStudio.ready);await page.locator('#guides').uncheck();await page.evaluate(()=>cutsceneStudio.select(null));};
+  const open=async id=>{await page.goto('http://127.0.0.1:8123/cutscene-studio/?template='+id+'&revision=20261013-opening-dialogue');await page.waitForFunction(()=>cutsceneStudio.ready);await page.locator('#guides').uncheck();await page.evaluate(()=>cutsceneStudio.select(null));};
   const screenshot=async(t,name)=>{await page.evaluate(t=>cutsceneStudio.seek(t),t);await page.locator('#stage').screenshot({path:path.join(os.tmpdir(),'split-'+name+'.png')});};
   await open('opening');
+  const dialogue=await page.evaluate(()=>{
+   const p=cutsceneStudio.project,plain=c=>StudioTags.parse(c.text).text;
+   const dream=p.clips.filter(c=>['dream-lines','interruption'].includes(c.track));
+   return {dream:dream.map(plain),phone:p.clips.filter(c=>c.track==='phone-lines').map(plain),
+    tv:StudioOpening.source.tv,noDreamColor:dream.every(c=>!c.text.includes('[c:'))};
+  });
+  assert.deepEqual(dialogue.dream,expectedDialogue.dream);
+  assert.deepEqual(dialogue.phone,expectedDialogue.phone);
+  assert.deepEqual(dialogue.tv,expectedDialogue.tv);
+  assert.ok(dialogue.noDreamColor);
   const cleanBackground=await page.evaluate(async()=>{
    const legacy=StudioMedia.assets.get('opening-disposal'),current=StudioMedia.assets.get('opening-disposal-clean');
    const digest=async url=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await(await fetch(url,{cache:'no-store'})).arrayBuffer()))].map(v=>v.toString(16).padStart(2,'0')).join('');
@@ -25,10 +36,14 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
    const lines=p.clips.filter(c=>c.type==='dialogue'),home=p.clips.find(c=>c.actor==='house'),poses=p.clips.filter(c=>c.type==='visual'&&c.actor==='home-luna'),wake=poses[1].start;
    const interrupt=p.clips.find(c=>c.track==='interruption'),beneath=lines.find(c=>c.overlay);
    const sample=t=>StudioModel.sample(p,t).actors['home-luna'];
+   const cutBefore=StudioModel.sample(p,home.start-.001),cutAfter=StudioModel.sample(p,home.start);
+   const black=s=>s.fx.some(f=>['fadeOut','fadeIn','flash'].includes(f.effect));
    return {issues:StudioModel.issues(p),duration:p.duration,count:lines.length,expected:StudioOpening.source.dream.length+StudioOpening.source.phone.length,
     noTV:!p.actors.tv&&!p.clips.some(c=>c.track==='tv-lines'||c.assetId?.startsWith('documentary-tv-')),
     fixedCameras:p.clips.filter(c=>c.type==='camera').every(c=>JSON.stringify(c.from)===JSON.stringify(c.to)),
     poses,home:home.start,wake,phone:p.chapters.at(-1).time,
+    hardCut:!black(cutBefore)&&!black(cutAfter)&&cutBefore.actors.disposal.active&&!cutBefore.actors.house.active&&!cutAfter.actors.disposal.active&&cutAfter.actors.house.active,
+    lastDreamEnd:Math.max(...lines.filter(c=>['dream-lines','interruption'].includes(c.track)).map(c=>c.start+c.duration)),
     room:p.clips.find(c=>c.type==='visual'&&c.actor==='disposal'),camera:p.camera,
     actorMidpoint:(p.actors.yuna.x+p.actors['dream-luna'].x)/2,
     bubblesInFrame:lines.filter(c=>['dream-lines','interruption'].includes(c.track)).every(c=>{
@@ -43,11 +58,14 @@ const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
     aligned:lines.filter(c=>['dream-lines','interruption'].includes(c.track)).every(c=>c.offsetX===0&&c.offset===.68),
     overlap:interrupt.start<beneath.start+beneath.duration&&interrupt.start>beneath.start};
   });
-  assert.deepEqual(first.issues,[]);assert.equal(first.count,first.expected);assert.equal(first.count,20);
+  assert.deepEqual(first.issues,[]);assert.equal(first.count,first.expected);assert.equal(first.count,16);
   assert.ok(first.noTV&&first.fixedCameras&&first.aligned&&first.overlap);
   assert.equal(first.room.scale,1.3);assert.equal(first.camera.w,4.8);assert.equal(first.camera.x,first.actorMidpoint);assert.ok(first.bubblesInFrame);
   assert.equal(first.poses.length,2);assert.equal(first.poses[0].start+first.poses[0].duration,first.wake);
-  assert.ok(first.fadeOut&&first.fadeIn&&first.alarm.start<first.wake&&first.alarm.start+first.alarm.duration>first.wake);
+  assert.ok(first.fadeOut&&first.fadeIn&&first.alarm.start<first.wake&&first.alarm.start+first.alarm.duration<first.wake);
+  assert.equal(first.alarm.loop,false);
+  assert.ok(first.hardCut);assert.equal(first.alarm.start,first.home);
+  assert(Math.abs(first.lastDreamEnd-first.home)<.001);
   for(const pose of first.poses){assert.deepEqual(pose.from,pose.to);for(const prop of ['x','y','rotation'])assert.ok(!pose.keyframes?.[prop]||pose.keyframes[prop].every(k=>k.value===pose.keyframes[prop][0].value));}
   assert.equal(first.samples[0].rotation,-90);assert.equal(first.samples[1].rotation,-90);assert.equal(first.samples[2].rotation,0);assert.equal(first.samples[3].rotation,0);
   for(const [t,n]of [[first.home-10,'dream'],[first.home+1.8,'sleep'],[first.wake,'black'],[first.wake+.7,'awake'],[first.phone+2,'phone']])await screenshot(t,n);

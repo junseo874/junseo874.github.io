@@ -7,7 +7,7 @@ const assert=require('node:assert/strict');
   await page.goto('http://127.0.0.1:8123/bar-playtest/');await page.evaluate(()=>lunaCampaign.newGame());
   await page.waitForFunction(()=>lunaCampaign.view==='prologue');
   // Finish the contact cutscene through its real return transition.
-  await page.evaluate(()=>{const c=lunaCampaign;c.cinema.time=c.cinema.scene.end-.01;});
+  await page.evaluate(()=>{const c=lunaCampaign,last=c.cinema.scene.clips.filter(c=>c.track==='phone-lines').at(-1);c.cinema.time=last.start;c.cinema.dialogueWait={id:last.id,age:99,revealed:true};c.advanceCinemaDialogue();});
   await page.waitForFunction(()=>lunaCampaign.view==='game'&&!lunaCampaign.memoryTransition);
   assert.equal(await page.evaluate(()=>!!barGame.progress.objectives?.first_commute),false);
   await page.keyboard.press('KeyE'); // Dismiss the controls tutorial, consuming this input.

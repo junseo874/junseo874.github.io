@@ -8,7 +8,7 @@ const assert=require('node:assert/strict');
   await p.goto('http://127.0.0.1:8123/bar-playtest/');
   await p.evaluate(()=>lunaCampaign.newGame('A'));
   await p.waitForFunction(()=>lunaCampaign.view==='prologue');
-  await p.evaluate(()=>{lunaCampaign.cinema.time=lunaCampaign.cinema.scene.end-.01;});
+  await p.evaluate(()=>{const c=lunaCampaign,last=c.cinema.scene.clips.filter(c=>c.track==='phone-lines').at(-1);c.cinema.time=last.start;c.cinema.dialogueWait={id:last.id,age:99,revealed:true};c.advanceCinemaDialogue();});
   await p.waitForFunction(()=>lunaCampaign.view==='game'&&!lunaCampaign.memoryTransition);
   await p.keyboard.press('KeyE');
   await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=1.22;m.updateNear();});

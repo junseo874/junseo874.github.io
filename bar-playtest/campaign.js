@@ -67,7 +67,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'dream-interruption-20261013':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'contact-direct-return-20261013':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -85,15 +85,15 @@ class Campaign{
     await new Promise(resolve=>global.Sprites.load(resolve));if(token!==this.token)return;
     global.Engine.initAnchors?.();global.Engine.setLineOverrides({});global.Engine.setTypingScale(1);
     const scene=global.buildScene5();this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'버전 B · 루나의 회상'};
-    this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();return;
+    this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();return;
    }
    const scene=await this.prepareStudio('opening');if(token!==this.token)return;this.loadPercent=80;this.draw();
    Object.assign(this.outside.config,{day:0,flow:'in',place:'home'});await this.outside.start({wakeAtSofa:true});if(token!==this.token)return;if(this.outside.loadError)throw Error(this.outside.loadError);
    const model=this.outside.model;model.paused=true;
-   this.cinema={studio:true,memory:true,skipUntil:scene.clips.find(c=>c.type==='visual'&&c.actor==='house').start,title:'루나의 꿈 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
+   this.cinema={studio:true,memory:true,returnTransition:'cut',skipUntil:scene.clips.find(c=>c.type==='visual'&&c.actor==='house').start,title:'루나의 꿈 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);this.render(true);this.outside.showControlsTutorial();
    }};
-   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
   }catch(e){if(token!==this.token)return;this.loadError=e.message;this.screen('load-error');}
  }
  playDayZeroTV(model){
@@ -104,7 +104,7 @@ class Campaign{
    this.cinema={studio:true,memory:true,title:'TV 다큐 · 인공생명체의 역사',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);
    }};
-   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
   },{revealDuration:.8});
  }
  // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
@@ -127,7 +127,7 @@ class Campaign{
    if(this.memoryTransition!==d)return true;d.phase='in';d.time=0;d.host.style.opacity='1';this.bgm.setTransitionGain(0);
   }else if(d.phase==='in'){
    const amount=smooth(d.time/d.revealDuration);d.host.style.opacity=1-amount;this.bgm.setTransitionGain(amount);
-   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.cinemaHintUntil=performance.now()+5000;this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
+   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
   }
   return true;
  }
@@ -140,17 +140,17 @@ class Campaign{
    return global.buildTerraceMemory(this.data.scenes[memoryKey],{day3:memoryKey==='terraceMemory3'});
   },scene=>{
    this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'유나와의 기억 · 폐기물 처리소',memoryKey,memory:true,returnTo:done};
-   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
   });
  }
  async playBDCinema(model){
   if(model!==this.outside.model||!this.outside.active)return;this.disposeCinema();const token=++this.token,day=model.config.day,flow=model.config.flow;this.loadLabel='BD 칩 · 연구소 로비 기록을 불러오는 중';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.playBDCinema(model);
   try{const scripts=['assets','sprites','stage','stage3','stage4','engine','sfx','scene1','player'];for(const [i,name] of scripts.entries()){await this.script(name);if(token!==this.token)return;this.loadPercent=(i+1)/scripts.length*95;this.draw();}await new Promise(resolve=>global.Sprites.load(resolve));if(token!==this.token)return;global.Engine.initAnchors?.();global.Engine.setLineOverrides({});global.Engine.setTypingScale(1);
    const scene=global.buildScene1();this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'BD 칩 · 연구소 로비 전투',returnTo:()=>{if(this.outside.model!==model||!this.outside.active||model.config.day!==day||model.config.flow!==flow)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);}};
-   this.cinemaHintUntil=performance.now()+5000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
   }catch(e){if(token!==this.token)return;this.loadError='BD 기록을 불러오지 못했어요. 재시도에는 추가 비용이 들지 않습니다. '+e.message;this.screen('load-error');}
  }
- releaseCinemaSkip(){if(this.cinemaHoldStart!=null)this.cinemaHintUntil=performance.now()+5000;this.cinemaHoldStart=null;}
+ releaseCinemaSkip(){if(this.cinemaHoldStart!=null&&this.storyVersion==='B')this.cinemaHintUntil=performance.now()+(this.storyVersion==='B'?5000:2000);this.cinemaHoldStart=null;}
  canSkipCinema(){const c=this.cinema;return !!c&&(c.skipUntil==null||c.time<c.skipUntil);}
  tickCinemaDialogue(c,dt){
   // Manual lines own their clock. Keep the scene alive, but never cross a
@@ -167,12 +167,14 @@ class Campaign{
   const count=c.player.dialogueCount(line);
   if(!w.revealed&&line.textEffect!=='instant'&&count<parsed.chars.length)w.revealed=true;
   else{c.time=line.start+line.duration+.001;c.dialogueWait=null;}
+  // Finish in this input event, before drawing the timeline's empty end frame.
+  if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return;}
   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
  }
  paintCinemaSkip(){
   const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();this.cinemaHintUntil=0;}
   const now=performance.now(),held=allowed&&this.cinemaHoldStart!=null,progress=held?Math.min(1,(now-this.cinemaHoldStart)/3000):0,el=this.host.querySelector('.campaign-skip');
-  if(el){el.hidden=!allowed;el.classList.toggle('is-visible',allowed&&(held||now<(this.cinemaHintUntil||0)));el.querySelector('span').textContent=this.cinema?.skipUntil!=null?'스페이스바를 꾹 누르면 폐기물처리장 대화 스킵':'스페이스바를 꾹 누르면 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
+  if(el){el.classList.toggle('is-compact',this.storyVersion!=='B');el.hidden=!allowed;el.classList.toggle('is-visible',allowed&&(held||now<(this.cinemaHintUntil||0)));el.querySelector('span').textContent=this.cinema?.skipUntil!=null?'스페이스바를 꾹 누르면 폐기물처리장 대화 스킵':'스페이스바를 꾹 누르면 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
   return progress>=1;
  }
  disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);if(this.cinemaBgmMuted!=null){this.bgm.audio.muted=this.cinemaBgmMuted;this.cinemaBgmMuted=null;}}
@@ -180,12 +182,13 @@ class Campaign{
   if(skipped){
    if(!this.canSkipCinema())return;
    if(this.cinema.skipUntil!=null){
-    // Skip the dream only. Restart at the home's fade-in, including the alarm,
+    // Skip the dream only. Restart at the hard cut to home, including the alarm,
     // blackout wake-up and every contact line; holding Space cannot skip again.
     const c=this.cinema;c.player.pause?.();c.time=c.skipUntil;this.releaseCinemaSkip();this.cinemaHintUntil=0;
     c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaSkip();return;
    }
   }
+  if(this.cinema.returnTransition==='cut'&&this.cinema.returnTo){const done=this.cinema.returnTo;this.resetInput();this.disposeCinema();done();return;}
   if(this.cinema.memory){const done=this.cinema.returnTo;this.beginMemoryTransition(()=>null,()=>{this.disposeCinema(true);done();});return;}const returnTo=this.cinema.returnTo;if(returnTo){this.disposeCinema();returnTo();return;}this.bgm.setTransitionGain(0);this.disposeCinema(true);this.session.beginDay(0);this.g.startStoryPhase('bar');this.awakening={time:0,duration:3.3,fromWhite:!skipped};this.screen('awakening');this.render(true);}
  paintAwakening(){const w=this.awakening;if(!w)return;const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};this.bgm.setTransitionGain(smooth(w.time/w.duration));const dark=this.host.querySelector('.campaign-wake-dark'),white=this.host.querySelector('.campaign-wake-white');if(dark)dark.style.opacity=1-smooth((w.time-1)/2.3);if(white)white.style.opacity=w.fromWhite?1-smooth(w.time/.7):0;}
 
@@ -334,7 +337,7 @@ class Campaign{
   if(this.view==='dev-console'&&['Space','Enter'].includes(e.code)){if(!e.repeat)e.target.closest('#campaign-root button')?.click();return true;}
   if(this.view==='dev-console'&&e.code==='Escape'){if(!e.repeat)this.devConsoleAction('dev-close');return true;}
 if(this.outside.active&&this.outside.devConsoleOpen&&!this.blocking)return false;if(this.view==='game'&&e.code==='Escape'&&this.g.gimmick?.pourTestsOpen)return false;if(this.view==='prologue'){global.Sfx?.resume();if(this.cinema?.studio)global.LunaStudioCinema.unlock();}if(!this.active&&!this.blocking)return false;if(e.code==='F2')return true;if(e.code==='Escape'){if(!e.repeat){if(['options','notice','sleep','retry-drink'].includes(this.view))this.action('resume');else if(this.view==='confirm-exit')this.action('resume');else if(this.view==='title')this.toPicker();else if(!['picker','loading','load-error','ending'].includes(this.view)){this.resumeView=this.view;this.screen('options');}}return true;}
-  if(!this.blocking)return false;if(this.view==='prologue'){if(!e.repeat&&['KeyE','Space','Enter'].includes(e.code)&&this.cinema?.dialogueWait){this.advanceCinemaDialogue();if(e.code==='Space'&&this.cinema?.scene.template==='documentary'&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code==='Space'&&!e.repeat&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
+  if(!this.blocking)return false;if(this.view==='prologue'){if(!e.repeat&&['KeyE','Space','Enter'].includes(e.code)&&this.cinema?.dialogueWait){this.advanceCinemaDialogue();if(e.code==='Space'&&this.cinema?.scene.template==='documentary'&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();if(this.storyVersion==='B')this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code==='Space'&&!e.repeat&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();if(this.storyVersion==='B')this.cinemaHintUntil=this.cinemaHoldStart+5000;this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
   if(['KeyE','Space','Enter'].includes(e.code)&&['scene','prologue'].includes(this.view)){if(!e.repeat)this.next();return true;}if(['ArrowUp','ArrowDown'].includes(e.code)&&['title','picker'].includes(this.view)){const list=[...this.host.querySelectorAll('button')],i=list.indexOf(document.activeElement);list[(i+(e.code==='ArrowDown'?1:-1)+list.length)%list.length]?.focus();return true;}
   return !['Enter','Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)||!e.target.closest('#campaign-root');
  }

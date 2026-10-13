@@ -23,7 +23,12 @@ function streetParallax(n,camera,model){
  // multipliers. All billboard pieces share their building's exact offset.
  return{x:n.x+(camera.x+7.85)*(1-speed[0]),y:n.y+camera.y*(1-speed[1])};
 }
-function atViewpoint(m){return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&Math.abs(m.x-VIEWPOINT.x)<=VIEWPOINT.radius&&!m.ride&&!m.transition&&!m.encounter&&!m.dialog&&!m.story.blocking;}
+// Version A day zero has no lookout interaction (keyboard and click share this guard).
+// Version B keeps its separately managed progression unchanged.
+function atViewpoint(m){return !!m&&(m.config.day!==0||global.lunaCampaign?.storyVersion==='B')&&!m.qa&&m.scene==='street'&&m.level===0&&Math.abs(m.x-VIEWPOINT.x)<=VIEWPOINT.radius&&!m.ride&&!m.transition&&!m.encounter&&!m.dialog&&!m.story.blocking;}
+function firstCommuteEntranceCue(m){
+ return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&m.config.day===0&&m.config.flow==='in'&&global.lunaCampaign?.storyVersion!=='B';
+}
 // Equal Unity sorting keys must not inherit serialized component/file-ID order.
 // Wall/fence dressing goes on the background, NPCs follow their sorting order,
 // and only genuine foreground art (railings/lift front) covers the player.
@@ -229,6 +234,22 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model),art=streetParallax(n,cam,model);drawSprite(sp,art.x,art.y+(y-n.y),n.sx,n.sy,facing,light?.26:1,light);
  }
+ function drawEntranceCue(){
+  if(!firstCommuteEntranceCue(model))return;
+  const door=data.scenes.street.nodes.find(n=>n.name==='Bar Spawn Point');if(!door)return;
+  const k=1280/cam.w,p=position(door.x,-.98);if(p.x+.3*k<0||p.x-.3*k>1280)return;
+  const still=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches,t=still?0:model.time;
+  const drift=still?0:Math.sin(t*Math.PI*2/2.4)*.014*k;
+  ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  // Two shallow chevrons projected onto the road, behind the player and rain.
+  for(let i=1;i>=0;i--){
+   const y=p.y+i*.105*k-drift,alpha=still?.7:.62+.16*Math.sin(t*Math.PI*2/2.4-i*.8);
+   ctx.beginPath();ctx.moveTo(p.x-.20*k,y+.07*k);ctx.lineTo(p.x,y);ctx.lineTo(p.x+.20*k,y+.07*k);
+   ctx.strokeStyle='#26c9ed';ctx.globalAlpha=alpha*.16;ctx.lineWidth=.030*k;ctx.stroke();
+   ctx.strokeStyle='#62e7ff';ctx.globalAlpha=alpha;ctx.lineWidth=.010*k;ctx.stroke();
+  }
+  ctx.restore();
+ }
  function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
   if(model.qa){global.LunaOutsideQA.draw({m:model,ctx,position,sprite:drawSprite,data,player:()=>{const a=data.animations[model.anim];drawSprite(a.frames[Math.floor(model.animTime*a.fps)%a.frames.length],model.x,model.y,1,1,model.facing>0);}});if(model.transition){ctx.fillStyle='rgba(6,10,18,'+Math.max(0,1-Math.abs(model.transition.time-.38)/.47)+')';ctx.fillRect(0,0,1280,720);}return;}
   const nodes=data.scenes[model.scene].nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
@@ -242,7 +263,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
     // foreground shops and the residence/lift naturally cover it afterwards.
     if(!farTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'far');farTraffic=true;}
     if(!midTraffic&&n.layer>=5){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'mid');midTraffic=true;}
-    if(n.name==='Luna'){global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);
+    if(n.name==='Luna'){drawEntranceCue();global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);
    }
   }
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
@@ -284,7 +305,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   host.querySelector('.outside-hud').inert=!panel.hidden||model.paused||devOpen||!!model.dialog;
   for(const key of panel.querySelectorAll('[data-controls-key]'))key.classList.toggle('is-pressed',key.dataset.controlsKey==='KeyE'?performance.now()<model.controlsInteractUntil:keys.has(key.dataset.controlsKey));
  }
- function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&!loading&&!loadError&&!m.paused&&!devOpen;
+ function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&(!panorama||global.lunaCampaign?.storyVersion==='B')&&!loading&&!loadError&&!m.paused&&!devOpen;
   // Scripted pauses belong to the campaign/cutscene, not the outside ESC menu.
   const showPauseMenu=m.paused&&!global.lunaCampaign?.blocking;
   const signature=JSON.stringify([loading,loadError,m.paused,showPauseMenu,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,viewpoint,m.story.blocking,m.encounter?.stage,devOpen,hintOpen]);
@@ -343,5 +364,5 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
  return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
-global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint};
+global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint,firstCommuteEntranceCue};
 })(typeof window==='undefined'?globalThis:window);

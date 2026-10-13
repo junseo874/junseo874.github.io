@@ -24,7 +24,7 @@ function layout(ctx,clip,width,worldScale){
 function bubble(ctx,clip,worldScale){
  // Match outside.css's 17px/13px inset at the opening home's authored camera.
  // Keep world-space sizing: zoom scales the finished bubble without reflowing it.
- const unit=15/1280,outside=clip.bubbleStyle==='outside';
+ const unit=(clip.bubbleReferenceWidth||15)/1280,outside=clip.bubbleStyle==='outside';
  const paddingX=outside?17*unit:.10,paddingY=outside?13*unit:.07,maxWidth=clip.bubbleWidth||2.55;
  const text=layout(ctx,clip,Math.max(.1,maxWidth-2*paddingX)*worldScale,worldScale);
  const width=Math.max(Math.min(maxWidth,clip.bubbleMinWidth||.35)*worldScale,Math.max(0,...text.rows.map(row=>row.width))+2*paddingX*worldScale);
@@ -32,7 +32,7 @@ function bubble(ctx,clip,worldScale){
  return {text,width,height,paddingX:paddingX*worldScale,paddingY:paddingY*worldScale};
 }
 function paintBubble(ctx,clip,box,p,k){
- const outside=clip.bubbleStyle==='outside',unit=15/1280*k,left=p.x-box.width/2,top=p.y-box.height;
+ const outside=clip.bubbleStyle==='outside',unit=(clip.bubbleReferenceWidth||15)/1280*k,left=p.x-box.width/2,top=p.y-box.height;
  const tail=outside?7*unit:.045*k,tip=outside?8*unit:.05*k;
  ctx.fillStyle=clip.interruption?'#101c24':outside?'#080f1bed':'#101c24ed';ctx.strokeStyle=clip.remote?'#000':clip.textEffect==='emphasis'?'#eac582':outside?'#70dce6':'#81bfc4';
  ctx.lineWidth=outside?unit:(clip.remote?.022:.009)*k;
