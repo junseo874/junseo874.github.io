@@ -8,12 +8,11 @@
 .outside-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#030812a8;backdrop-filter:blur(2px)}.outside-dialog{width:480px;max-height:580px;overflow:auto;background:#0c1522f8;border:1px solid #68d3df;border-radius:12px;padding:32px;box-shadow:0 20px 70px #0008}.outside-dialog h2{font-size:23px;font-weight:400;color:#94e9ed;margin:0 0 20px}.outside-dialog p{font-size:16px;line-height:1.9;color:#ccd7dc;margin:0 0 25px;word-break:keep-all}.outside-dialog button{margin:5px 5px 0 0}.outside-menu-actions{display:grid;gap:8px}.outside-menu-actions button{margin:0}.outside-object-dialog{width:540px}.outside-object-dialog>.primary{display:block;margin-left:auto}
 
 /* Version A prompts stay above ambient speech, but below modal overlays. */
-.outside-interact-ready{z-index:3;animation:outside-key-enable .28s ease-out both,outside-key-float 2.8s ease-in-out infinite}
-.outside-interact-ready:after{content:"";position:absolute;inset:-3px;border:1px solid #9deff0;border-radius:7px;pointer-events:none;animation:outside-key-ring .55s ease-out both}
+.outside-interact-ready{z-index:3;width:40px;height:40px;box-sizing:border-box;background:#86e4eb;border:2px solid #000;border-radius:50%;color:#000;box-shadow:0 3px 8px #0009,0 0 16px #86e4eb66;animation:outside-key-enable .28s ease-out both,outside-key-float 2.8s ease-in-out infinite}
+.outside-interact-ready kbd{font-size:24px;font-weight:700;text-shadow:none}
 @keyframes outside-key-float{0%,100%{transform:translate(-50%,-100%)}50%{transform:translate(-50%,calc(-100% - 2px))}}
-@keyframes outside-key-enable{from{opacity:0;box-shadow:0 2px 0 #06111d,0 0 2px #44cada10}to{opacity:1;box-shadow:0 2px 0 #06111d,0 0 12px #44cada30}}
-@keyframes outside-key-ring{from{opacity:.45;transform:scale(.94)}to{opacity:0;transform:scale(1.16)}}
-@media(prefers-reduced-motion:reduce){.outside-interact-ready,.outside-interact-ready:after{animation:none}.outside-interact-ready:after{display:none}}
+@keyframes outside-key-enable{from{opacity:0;box-shadow:0 3px 8px #0009,0 0 2px #86e4eb22}to{opacity:1;box-shadow:0 3px 8px #0009,0 0 16px #86e4eb66}}
+@media(prefers-reduced-motion:reduce){.outside-interact-ready{animation:none}}
 /* Anchored speech stays in the scene, beneath pause dialogs and above scenery. */
 /* Shared dialogue skin lives in speech-bubble.css. */
 
@@ -22,8 +21,8 @@
 /* Ambient NPC conversations are quieter and more compact than player dialogue. */
 .outside-background-speech{min-width:0;max-width:400px;padding:10px 14px;border-radius:11px}
 .outside-background-speech p{font-size:16px;line-height:1.55}
-.outside-background-speech[data-story-id="outside_day0_documentary_ambient"]{max-width:320px;padding:8px 11px;border-radius:10px}
-.outside-background-speech[data-story-id="outside_day0_documentary_ambient"] p{font-size:15px;line-height:1.5}
+.outside-background-speech:is([data-story-id="outside_day0_documentary_ambient"],[data-story-id="outside_day0_tv_news1"],[data-story-id="outside_day1_tv_news2"]){max-width:280px;padding:6px 9px;border-radius:8px}
+.outside-background-speech:is([data-story-id="outside_day0_documentary_ambient"],[data-story-id="outside_day0_tv_news1"],[data-story-id="outside_day1_tv_news2"]) p{font-size:13px;line-height:1.45}
 .outside-background-speech strong{font-size:16px}
 .outside-background-speech:after{width:12px;height:12px;bottom:-7px}
 

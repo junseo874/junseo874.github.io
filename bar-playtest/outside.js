@@ -49,7 +49,8 @@ function interactionAnchor(model,target,data){
  // These targets are embedded in shared art, or mark a lift boarding floor.
  if(target.id==='elevator')return{x:target.x,y:target.y+.518};
  if(target.id==='home')return{x:target.x,y:target.y+.87};
- if(target.id==='tv')return{x:1.22,y:global.lunaCampaign?.storyVersion==='B'?-.26:-.55};
+ // Keep A's prompt beside the hologram, clear of both its picture and subtitles.
+ if(target.id==='tv')return global.lunaCampaign?.storyVersion==='B'?{x:1.22,y:-.26}:{x:1.58,y:-.48};
  if(target.id==='story-samho')return{x:target.x,y:target.y+.95};
  if(target.id==='sofa')return{x:2.557,y:-.27};
  return{x:target.x,y:target.y+.5};

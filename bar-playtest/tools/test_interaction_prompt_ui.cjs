@@ -16,10 +16,22 @@ const assert=require('node:assert/strict');
   await p.waitForTimeout(700);
   const info=await p.locator('.outside-interact').evaluate(el=>{
    const b=document.querySelector('.outside-background-speech'),s=getComputedStyle(el),r=el.getBoundingClientRect(),br=b.getBoundingClientRect();
-   return {z:+s.zIndex,bubbleZ:+getComputedStyle(b).zIndex,y:r.y,bubbleBottom:br.bottom,animation:s.animationName};
+   const key=getComputedStyle(el.querySelector('kbd'));
+   return {z:+s.zIndex,bubbleZ:+getComputedStyle(b).zIndex,y:r.y,bubbleBottom:br.bottom,animation:s.animationName,background:s.backgroundColor,border:s.borderTopWidth,color:key.color,width:s.width,height:s.height,font:key.fontSize,weight:key.fontWeight,after:getComputedStyle(el,'::after').content};
   });
   assert(info.z>info.bubbleZ);assert(info.y>info.bubbleBottom);
   assert(info.animation.includes('outside-key-float'));
+  assert.equal(info.background,'rgb(134, 228, 235)');
+  assert.equal(info.border,'2px');assert.equal(info.color,'rgb(0, 0, 0)');
+  assert.equal(info.width,'40px');assert.equal(info.height,'40px');
+  assert.equal(info.font,'24px');assert.equal(info.weight,'700');
+  assert.deepEqual(await p.locator('.outside-interact').evaluate(el=>{const s=getComputedStyle(el);return [s.borderRadius,s.borderTopColor];}),['50%','rgb(0, 0, 0)']);
+  assert.deepEqual(await p.evaluate(()=>LunaOutside.interactionAnchor(outsidePlaytest.model,{id:'tv'},LUNA_OUTSIDE_DATA)),{x:1.58,y:-.48});
+  assert.equal(info.after,'none');
+  assert.deepEqual(await p.locator('.outside-background-speech[data-story-id="outside_day0_documentary_ambient"]').evaluate(el=>{
+   const s=getComputedStyle(el),p=getComputedStyle(el.querySelector('p'));
+   return [s.maxWidth,s.paddingTop,s.paddingLeft,p.fontSize];
+  }),['280px','6px','9px','13px']);
   // Freeze at exact float keyframes: motion is only two stage pixels.
   assert.equal(await p.locator('.outside-interact').evaluate(el=>{
    const a=el.getAnimations().find(a=>a.animationName==='outside-key-float');a.pause();a.currentTime=0;
@@ -39,8 +51,11 @@ const assert=require('node:assert/strict');
   await p.emulateMedia({reducedMotion:'no-preference'});
   await p.evaluate(()=>{lunaCampaign.storyVersion='B';outsidePlaytest.refreshHUD();});
   assert.equal(await p.locator('.outside-interact-ready').count(),0);
+  assert.equal(await p.locator('.outside-interact').evaluate(el=>getComputedStyle(el).borderTopWidth),'1px');
   await p.evaluate(()=>{lunaCampaign.storyVersion='A';outsidePlaytest.refreshHUD();});
-  await p.locator('.outside-interact').click();
+  // Use an actual pointer hit: the prompt intentionally never stops floating.
+  const target=await p.locator('.outside-interact').boundingBox();
+  await p.mouse.click(target.x+target.width/2,target.y+target.height/2);
   await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition);
   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.title),'TV 다큐 · 인공생명체의 역사');
   assert.deepEqual(errors,[]);
