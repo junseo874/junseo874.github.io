@@ -6,7 +6,7 @@ const path=n=>'assets/campaign/'+n;
 class Campaign{
  constructor(adapter){Object.assign(this,adapter);this.session=new global.LunaCampaignEngine.Session(this.g,this.D,global.LUNA_CAMPAIGN_DATA);this.session.onStep=s=>this.storyStep(s);this.data=global.LUNA_CAMPAIGN_DATA;this.serviceVersion='A';this.view='picker';this.dialog=null;this.token=0;this.loaded=new Set();this.scriptPromises=new Map();this.control=false;this.skipAge=0;this.firstLift=false;this.morningSeen=new Set();this.nightStarted=false;
   this.host=document.createElement('section');this.host.id='campaign-root';this.host.setAttribute('aria-label','LUNA 본편');document.body.append(this.host);this.returnButton=document.createElement('button');this.returnButton.id='campaign-developer-back';this.returnButton.textContent='← 플레이 모드 선택';this.returnButton.dataset.campaign='picker';this.returnButton.hidden=true;document.body.append(this.returnButton);
-  this.host.addEventListener('click',e=>{const b=e.target.closest('[data-campaign]');if(b&&!b.disabled)this.action(b.dataset.campaign);});this.returnButton.onclick=()=>this.toPicker();
+  this.host.addEventListener('click',e=>{const b=e.target.closest('[data-campaign]');if(b){if(!b.disabled)this.action(b.dataset.campaign);return;}if(e.button===0&&this.view==='prologue'&&this.cinema?.dialogueWait&&e.target.closest('.campaign-prologue,.studio-speech-layer')){e.preventDefault();this.advanceCinemaDialogue();}});this.returnButton.onclick=()=>this.toPicker();
   this.host.addEventListener('input',e=>{const k=e.target.dataset.campaignInput;if(k==='bgm')this.bgm.setVolume(Number(e.target.value)/100);if(k==='sfx')global.LunaSfx.setVolume(Number(e.target.value)/100);if(k==='speed')this.g.dialogSpeed=Number(e.target.value);const out=e.target.parentElement.querySelector('output');if(out)out.textContent=k==='speed'?e.target.value+'×':e.target.value+'%';});
   this.fit=()=>this.host.style.setProperty('--campaign-scale',Math.min(innerWidth/1280,innerHeight/720));window.addEventListener('resize',this.fit);this.fit();
   // Explicit simulator deep links remain useful; the normal entry always shows the two choices.
@@ -68,7 +68,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'intro-text-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'intro-unskippable-typing-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -158,9 +158,13 @@ class Campaign{
  advanceCinemaDialogue(){
   const c=this.cinema,w=c?.dialogueWait;if(!w)return;
   const line=c.scene.clips.find(l=>l.id===w.id),parsed=global.StudioTags.parse(line.text);
+  if(global.StudioOpening?.typingPending(line,Math.max(0,c.time-line.start)+w.age))return;
   const count=c.player.dialogueCount(line);
   if(!w.revealed&&line.textEffect!=='instant'&&count<parsed.chars.length)w.revealed=true;
-  else{c.time=line.start+line.duration+.001;c.dialogueWait=null;}
+  else{
+   if(line.introControls&&!line.introFade){const fade=c.scene.clips.find(l=>l.introFade);if(fade)fade.introPhaseOffset=Math.max(0,c.time-line.start)+w.age;}
+   c.time=line.start+line.duration+.001;c.dialogueWait=null;
+  }
   // Finish in this input event, before drawing the timeline's empty end frame.
   if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return;}
   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);

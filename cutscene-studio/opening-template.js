@@ -2,6 +2,19 @@
 (function(W){'use strict';
 const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
+// Match the main title menu's gothic font stack; story dialogue stays pixel art.
+const INTRO_UI_FONT='"Paperlogy", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
+const START_NOTICES=[
+ 'Project LUNA를 플레이해주셔서 감사합니다!\n\n이 게임은 편안한 상태에 한잔 마시면서 플레이하시는 게 최고로 좋습니다.\n\n그러니 편안히 게임을 즐겨주세요!',
+ '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로\n넘길 수 있습니다.'
+];
+const paceIntro=text=>text.replace(/\.{3}|\./g,dots=>dots==='...'?'.[T:0.3].[T:0.3].[T:0.3]':'.[T:0.4]');
+// These four story cards must finish naturally, including the final period's pause.
+function typingPending(c,elapsed){
+ if(c.layout!=='intro'||c.textEffect!=='typewriter')return false;
+ const parsed=StudioTags.parse(c.text);
+ return elapsed<parsed.chars.length/c.cps+parsed.pauses.reduce((sum,p)=>sum+p.duration,0);
+}
 const DREAM=[["intro","그러면... 약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
 const oldTemplate=M.template;
 // Sleep3 reference: body rests on the seat, head toward the right cushion.
@@ -63,12 +76,16 @@ function template(){
  const line=(actor,start,text,track,duration,extra={})=>put('dialogue',start,{actor,text,track,title:p.actors[actor].name+' · '+StudioTags.parse(text).text.slice(0,20),duration:M.round(duration),wait:false,cps:DIALOGUE_CPS,offset:1.05,bubbleWidth:2.2,fontScale:75,...extra});
  const fx=(start,duration,effect,strength=1,track='fx',extra={})=>put('fx',start,{track,duration,effect,strength,title:effect,...extra});
  const cam=(start,duration,from,to,title)=>put('camera',start,{duration,from,to,ease:'smooth',title});
- p.chapters.push({name:'도입 · 검은 화면의 마지막 부탁',time:0});
- // Contiguous instant cards: each fresh interaction advances exactly one line.
+ p.chapters.push({name:'시작 · 감사 인사와 플레이 안내',time:0},{name:'플레이 안내 · 페이드 아웃',time:2},{name:'도입 · 검은 화면 대기',time:5},{name:'마지막 부탁',time:7});
+ START_NOTICES.forEach((text,index)=>line('intro',index,text,'dream-lines',1,{wait:true,textEffect:'instant',layout:'intro',introNotice:true,introControls:index===1,fontFamily:'game',title:index?'플레이 안내':'플레이 감사 인사'}));
+ line('intro',2,START_NOTICES[1],'dream-lines',3,{wait:false,textEffect:'instant',layout:'intro',introNotice:true,introControls:true,introFade:true,fontFamily:'game',title:'플레이 안내 · 3초 페이드 아웃'});
+ fx(5,2,'black',1,'fx',{color:'#000000',title:'도입 · 2초간 검은 화면'});
+ // Contiguous manual cards, with pauses after punctuation as it appears.
  // The manual wait owns the clock, so these durations never auto-advance.
- let t=0;
+ let t=7;
  for(const [actor,text]of DREAM){
-  line(actor,t,text,'dream-lines',1,{wait:true,textEffect:'instant',layout:'intro',fontFamily:'game',title:'마지막 부탁 · '+text});
+  const paced=paceIntro(text);
+  line(actor,t,paced,'dream-lines',1,{wait:true,textEffect:'typewriter',cps:28,layout:'intro',fontFamily:'game',title:'마지막 부탁 · '+text});
   t+=1;
  }
  // The fourth acknowledgement cuts directly to the sleeping room and call SFX.
@@ -137,11 +154,53 @@ function documentary(){
  K.hydrate(p);return p;
 }
 M.template=id=>id==='opening'?template():id==='documentary'?documentary():oldTemplate(id);
+// Code-native input pictograms stay crisp at every game-window size.
+function introControls(g,clock){
+ const still=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+ const phase=clock%3.6,active=Math.floor(phase/1.2),beat=phase%1.2;
+ const press=still?0:Math.max(0,Math.min(1,(beat-.15)/.12,(.65-beat)/.12));
+ const box=(x,y,w,h,r,fill,stroke)=>{g.beginPath();g.roundRect(x,y,w,h,r);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=2;g.stroke();}};
+ g.save();g.textAlign='center';g.textBaseline='middle';
+ [400,640,880].forEach((x,index)=>{
+  const amount=index===active?press:0,ink=amount?'#68e8ef':'#bdcad3',offset=amount*6;
+  if(index<2){
+   const width=index===0?66:164;
+   box(x-width/2,472,width,60,8,'#15232b','#354852');
+   box(x-width/2,464+offset,width,58,8,amount?'#17383e':'#0b141b',ink);
+   g.fillStyle=ink;g.font='600 '+(index===0?30:20)+'px '+INTRO_UI_FONT;g.fillText(index===0?'E':'SPACE',x,493+offset);
+  }else{
+   box(x-29,451,58,82,25,'#0b141b',ink);
+   g.save();g.beginPath();g.roundRect(x-29,451,58,82,25);g.clip();
+   g.fillStyle=amount?'#68e8ef':'#28414c';g.fillRect(x-29,451+offset/2,28,35);g.restore();
+   g.strokeStyle=ink;g.lineWidth=2;g.beginPath();g.moveTo(x,452);g.lineTo(x,486);g.moveTo(x-28,486);g.lineTo(x+28,486);g.stroke();
+   box(x-3,464,6,13,3,'#c4d9df');
+  }
+  g.font='500 18px '+INTRO_UI_FONT;g.fillStyle='#8db5c4';g.fillText(['E키','스페이스바','마우스 왼쪽 버튼'][index],x,565);
+ });
+ g.restore();
+}
 function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCount=null){
  if(c.layout==='intro'){
+  const parsed=StudioTags.parse(c.text),count=visibleCount??(c.textEffect==='instant'||revealed?parsed.chars.length:StudioTags.count(parsed,Math.max(0,time-c.start)+waitAge,c.cps));
   g.save();g.fillStyle='#000';g.fillRect(0,0,1280,720);
-  g.fillStyle='#f1f4ef';g.font='32px "LunaPixel", "StudioGame", sans-serif';
-  g.textAlign='center';g.textBaseline='middle';g.fillText(c.text,640,360,1120);
+  if(c.introFade)g.globalAlpha=1-Math.max(0,Math.min(1,(time-c.start)/c.duration));
+  g.fillStyle=c.introNotice?'#a8c4cf':'#f1f4ef';g.font=c.introNotice?'500 28px '+INTRO_UI_FONT:'32px "LunaPixel", "StudioGame", sans-serif';
+  // Lay out the COMPLETE block first: partial text must not move as it grows.
+  const rows=[];let row=[];const textOf=r=>r.map(x=>x.ch).join('');
+  parsed.chars.forEach((ch,i)=>{
+   if(ch.ch==='\n'){rows.push(row);row=[];return;}
+   row.push({ch:ch.ch,i});
+   if(g.measureText(textOf(row)).width>1040){
+    const space=row.findLastIndex(x=>x.ch===' '),split=space>0?space:row.length-1;
+    rows.push(row.slice(0,split));row=row.slice(space>0?split+1:split);
+   }
+  });rows.push(row);
+  const lineHeight=c.introNotice?48:46;g.textAlign='left';g.textBaseline='middle';
+  rows.forEach((r,index)=>{
+   if(c.introNotice){g.font=(index===0?'600':'500')+' 28px '+INTRO_UI_FONT;g.fillStyle=index===0?(c.introControls?'#7bcedf':'#edfcff'):'#a8c4cf';}
+   g.fillText(textOf(r.filter(ch=>ch.i<count)),640-g.measureText(textOf(r)).width/2,(c.introControls?286:360)+(index-(rows.length-1)/2)*lineHeight);
+  });
+  if(c.introControls)introControls(g,Math.max(0,time-c.start)+waitAge+(c.introPhaseOffset||0));
   g.restore();return true;
  }
  if(!['tv','documentary'].includes(c.layout))return false;
@@ -160,5 +219,5 @@ function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCoun
  if(c.wait&&held&&count>=parsed.chars.length)W.LunaDialogueCue.draw(g,{right:screenW-(centered?.4:.08),bottom:top+h-.06,size:.18,clock:time+waitAge});
  g.restore();return true;
 }
-W.StudioOpening={register,template,rest,documentary,dialogue,source:{dream:DREAM,tv:TV,phone:PHONE}};
+W.StudioOpening={register,template,rest,documentary,dialogue,typingPending,source:{dream:DREAM,tv:TV,phone:PHONE}};
 })(window);
