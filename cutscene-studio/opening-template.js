@@ -4,13 +4,11 @@ const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
 // Match the main title menu's gothic font stack; story dialogue stays pixel art.
 const INTRO_UI_FONT='"Paperlogy", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
-const START_NOTICES=[
- 'Project LUNA를 플레이해주셔서 감사합니다!\n\n이 게임은 편안한 상태에 한잔 마시면서 플레이하시는 게 최고로 좋습니다.\n\n그러니 편안히 게임을 즐겨주세요!',
- '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로\n넘길 수 있습니다.'
-];
+const PLAY_GUIDE='—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로\n넘길 수 있습니다.';
 const paceIntro=text=>text.replace(/\.{3}|\./g,dots=>dots==='...'?'.[T:0.3].[T:0.3].[T:0.3]':'.[T:0.4]');
 // These four story cards must finish naturally, including the final period's pause.
 function typingPending(c,elapsed){
+ if(c.introFadeIn)return elapsed<c.introFadeIn;
  if(c.layout!=='intro'||c.textEffect!=='typewriter')return false;
  const parsed=StudioTags.parse(c.text);
  return elapsed<parsed.chars.length/c.cps+parsed.pauses.reduce((sum,p)=>sum+p.duration,0);
@@ -76,13 +74,13 @@ function template(){
  const line=(actor,start,text,track,duration,extra={})=>put('dialogue',start,{actor,text,track,title:p.actors[actor].name+' · '+StudioTags.parse(text).text.slice(0,20),duration:M.round(duration),wait:false,cps:DIALOGUE_CPS,offset:1.05,bubbleWidth:2.2,fontScale:75,...extra});
  const fx=(start,duration,effect,strength=1,track='fx',extra={})=>put('fx',start,{track,duration,effect,strength,title:effect,...extra});
  const cam=(start,duration,from,to,title)=>put('camera',start,{duration,from,to,ease:'smooth',title});
- p.chapters.push({name:'시작 · 감사 인사와 플레이 안내',time:0},{name:'플레이 안내 · 페이드 아웃',time:2},{name:'도입 · 검은 화면 대기',time:5},{name:'마지막 부탁',time:7});
- START_NOTICES.forEach((text,index)=>line('intro',index,text,'dream-lines',1,{wait:true,textEffect:'instant',layout:'intro',introNotice:true,introControls:index===1,fontFamily:'game',title:index?'플레이 안내':'플레이 감사 인사'}));
- line('intro',2,START_NOTICES[1],'dream-lines',3,{wait:false,textEffect:'instant',layout:'intro',introNotice:true,introControls:true,introFade:true,fontFamily:'game',title:'플레이 안내 · 3초 페이드 아웃'});
- fx(5,2,'black',1,'fx',{color:'#000000',title:'도입 · 2초간 검은 화면'});
+ p.chapters.push({name:'시작 · 플레이 안내',time:0},{name:'플레이 안내 · 페이드 아웃',time:1},{name:'도입 · 검은 화면 대기',time:4},{name:'마지막 부탁',time:6});
+ line('intro',0,PLAY_GUIDE,'dream-lines',1,{wait:true,textEffect:'instant',layout:'intro',introNotice:true,introControls:true,introFadeIn:1.5,fontFamily:'game',title:'플레이 안내 · 페이드 인'});
+ line('intro',1,PLAY_GUIDE,'dream-lines',3,{wait:false,textEffect:'instant',layout:'intro',introNotice:true,introControls:true,introFade:true,fontFamily:'game',title:'플레이 안내 · 3초 페이드 아웃'});
+ fx(4,2,'black',1,'fx',{color:'#000000',title:'도입 · 2초간 검은 화면'});
  // Contiguous manual cards, with pauses after punctuation as it appears.
  // The manual wait owns the clock, so these durations never auto-advance.
- let t=7;
+ let t=6;
  for(const [actor,text]of DREAM){
   const paced=paceIntro(text);
   line(actor,t,paced,'dream-lines',1,{wait:true,textEffect:'typewriter',cps:28,layout:'intro',fontFamily:'game',title:'마지막 부탁 · '+text});
@@ -183,6 +181,7 @@ function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCoun
  if(c.layout==='intro'){
   const parsed=StudioTags.parse(c.text),count=visibleCount??(c.textEffect==='instant'||revealed?parsed.chars.length:StudioTags.count(parsed,Math.max(0,time-c.start)+waitAge,c.cps));
   g.save();g.fillStyle='#000';g.fillRect(0,0,1280,720);
+  if(c.introFadeIn){const u=Math.max(0,Math.min(1,(time-c.start+waitAge)/c.introFadeIn));g.globalAlpha=u*u*(3-2*u);}
   if(c.introFade)g.globalAlpha=1-Math.max(0,Math.min(1,(time-c.start)/c.duration));
   g.fillStyle=c.introNotice?'#a8c4cf':'#f1f4ef';g.font=c.introNotice?'500 28px '+INTRO_UI_FONT:'32px "LunaPixel", "StudioGame", sans-serif';
   // Lay out the COMPLETE block first: partial text must not move as it grows.
