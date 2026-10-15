@@ -68,7 +68,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'holo-facing-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'sleep-position-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -261,7 +261,7 @@ class Campaign{
   if(d.time>=2.25&&!d.started){d.started=true;Promise.resolve().then(()=>{if(this.dayTransition===d)return d.prepare();}).then(()=>{if(this.dayTransition===d)d.ready=true;}).catch(e=>{if(this.dayTransition!==d)return;this.cancelDayTransition();this.nightStarted=false;this.loadError=e.message;this.retryLoad=()=>this.beginDayTransition(d.from,d.to,d.prepare);this.screen('load-error');});}
   if(d.ready&&d.time>=3.4&&d.revealAt==null)d.revealAt=d.time;
   this.paintDayTransition();
-  if(d.revealAt!=null&&d.time>=d.revealAt+.9){this.cancelDayTransition();this.screen(this.playView);this.render(true);}
+  if(d.revealAt!=null&&d.time>=d.revealAt+.9){this.cancelDayTransition();this.screen(this.cinema?.dailyWake?'prologue':this.playView);this.render(true);}
   return true;
  }
  dayEndRequirements(day,{memory=false}={}){return day===2?this.g.johnnyMissing({memory}):[];}
@@ -277,20 +277,33 @@ class Campaign{
    // A cancelled preview or a restarted test must not advance a different run.
    if(!this.session.developer||!this.outside.active||this.outside.model!==model||model.config.day!==day)return;
    if(day===3){this.screen('developer');this.outside.exit();this.notice('3일차 테라스 대화까지 마쳤습니다. 탐색을 다시 시작한 뒤 P 패널에서 일차를 바꿀 수 있어요.','외부 일차 테스트 완료');return;}
-   this.beginDayTransition(day,day+1,()=>{if(!this.session.developer||this.outside.model!==model)throw Error('외부 테스트가 변경되었습니다.');if(!this.outside.advanceDay())throw Error('다음 일차로 이동하지 못했습니다.');this.screen('developer');});
+   this.beginDayTransition(day,day+1,async()=>{const transition=this.dayTransition,scene=await this.prepareStudio('morning');if(this.dayTransition!==transition)return;if(!this.session.developer||this.outside.model!==model)throw Error('외부 테스트가 변경되었습니다.');if(!this.outside.advanceDay())throw Error('다음 일차로 이동하지 못했습니다.');this.startRestCinema(scene,()=>this.finishMorning(),true);});
   };
   this.playSleepScenes(day,finish);
  }
  playSleepScenes(day,finish){
   const complete=()=>{if(this.dayEndRequirements(day,{memory:true}).includes('johnny_memory')){this.playJohnnyMemory(finish);return;}finish();};
-  const terrace=()=>{const key=global.LunaTerrace.nightKey(day);if(key&&this.data.scenes[key]?.length)this.scene(key,'테라스','terrace',complete);else complete();};
+  const terrace=()=>{const key=global.LunaTerrace.nightKey(day);if(key&&this.data.scenes[key]?.length)this.scene(key,'테라스','terrace',complete);else this.playRestCinema('sleep',complete);};
   // Player-only interlude: no Luna knowledge/relationship flags are changed here.
-  if(day===1&&this.data.scenes.workshop?.length)this.scene('workshop','포트의 작업장','black',terrace);else terrace();
+  if(day===1&&this.data.scenes.workshop?.length)this.beginMemoryTransition(()=>null,()=>this.scene('workshop','포트의 작업장','black',terrace));else terrace();
+ }
+ startRestCinema(scene,done,dailyWake=false){
+  this.disposeCinema();this.dialog=null;if(this.outside.active)this.outside.model.paused=true;
+  this.cinema={studio:true,dailyWake,skipUntil:0,returnTransition:'cut',title:scene.name,scenes:[scene],index:0,scene,time:0,player:null,returnTo:done};
+  this.cinemaHintUntil=0;this.screen('prologue');
+ }
+ playRestCinema(kind,done){
+  this.retryLoad=()=>this.playRestCinema(kind,done);
+  this.beginMemoryTransition(()=>this.prepareStudio(kind),scene=>this.startRestCinema(scene,done),{revealDuration:.65});
+ }
+ finishMorning(){
+  if(this.outside.active){this.outside.model.paused=false;this.outside.clearInput();this.outside.model.updateNear();this.outside.tick(0);}
+  this.nightStarted=false;this.screen(this.playView);this.render(true);
  }
  sleep(){
-  if(this.nightStarted||!this.active||this.view!=='sleep'||this.session.route!=='out'||this.dayTransition)return;this.nightStarted=true;this.outside.model?.story.cancel();this.outside.model?.backgroundStory.cancel();this.outside.exit(true);
+  if(this.nightStarted||!this.active||this.view!=='sleep'||this.session.route!=='out'||this.dayTransition)return;this.nightStarted=true;this.outside.model?.story.cancel();this.outside.model?.backgroundStory.cancel();this.outside.clearInput();
   const d=this.session.day;
-  const finish=()=>{if(d===3){this.session.endDay();this.nightStarted=false;this.screen('ending');return;}this.beginDayTransition(d,d+1,async()=>{if(this.session.day===d&&!this.session.endDay())throw Error('일차 종료 상태를 확인해 주세요.');if(this.session.day!==d+1)throw Error('다음 일차 상태를 확인해 주세요.');this.nightStarted=false;await this.street('in','home',true);});};
+  const finish=()=>{if(d===3){this.session.endDay();this.nightStarted=false;this.outside.exit(true);this.screen('ending');return;}this.beginDayTransition(d,d+1,async()=>{const transition=this.dayTransition,scene=await this.prepareStudio('morning');if(this.dayTransition!==transition)return;if(this.session.day===d&&!this.session.endDay())throw Error('일차 종료 상태를 확인해 주세요.');if(this.session.day!==d+1)throw Error('다음 일차 상태를 확인해 주세요.');this.outside.exit(true);await this.street('in','home',true);if(this.dayTransition!==transition)return;this.startRestCinema(scene,()=>this.finishMorning(),true);});};
   this.playSleepScenes(d,finish);
  }
 

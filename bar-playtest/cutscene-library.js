@@ -4,6 +4,8 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const catalog=[
  {id:'opening-a',day:'0일차',title:'폐기물 처리장 → 루나의 기상',kind:'studio',key:'opening',description:'현재 도입부 전체 · 크리스의 연락까지'},
  {id:'wake-a',day:'0일차',title:'루나의 기상 · 크리스의 연락',kind:'studio',key:'opening',wake:true,description:'집에서 깨어나는 구간부터 재생'},
+ {id:'sleep',day:'외부 이벤트',title:'소파 · 잠든 루나',kind:'studio',key:'sleep',description:'테라스 대화가 없는 밤의 수면 장면'},
+ {id:'morning',day:'외부 이벤트',title:'다음 날 · 눈뜨기와 환복',kind:'studio',key:'morning',description:'수면 → 눈뜨기 → 암전 → 환복 후 기립'},
 
  {id:'tv',day:'0일차',title:'TV 다큐 · 인공생명체의 역사',kind:'studio',key:'documentary',description:'흑백 이미지 5장 · 키 입력으로 대사 진행'},
  {id:'bd',day:'외부 이벤트',title:'BD 기록 · 연구소 로비 전투',kind:'legacy',key:'scene1',description:'BD 칩에서 재생되는 전투 기록'}

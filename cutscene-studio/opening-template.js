@@ -4,6 +4,9 @@ const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
 const DREAM=[["dream-luna","…이해가 안 돼요."],["dream-luna","왜 제가 살아야 하죠? 수석 연구원인 유나가 저보다 귀한 인력이잖아요."],["dream-luna","저 같은 대체 가능한 인공지능은"],["yuna","아니. 루나, 넌… 대체할 수 있는 존재가 아니야."],["yuna","넌 밥도 먹고, 잠도 자고, 꿈도 꾸잖아."],["yuna","스스로 생각해서 말하고… 행동하기도 하고."],["yuna","내가… 보증할 수 있어. 넌 사람이라고."],["dream-luna","……"],["yuna","그리고… 너도 무섭잖아. 죽는 게."],["yuna","그러니까 여기서 빠져나가, 루나. 넌 찾을 수 있을 거야."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
 const oldTemplate=M.template;
+// Sleep3 reference: body rests on the seat, head toward the right cushion.
+// Use one pose for the opening, nightly sleep and morning eye-opening clips.
+const SOFA_SLEEP={x:7.6,y:-3.1,scale:4};
 const key=(t,value,ease='smooth')=>({id:'key-'+crypto.randomUUID(),t,value,ease});
 function register(){
  const add=(id,name,kind,extra)=>media.assets.set(id,{id,name,kind,builtin:true,...extra});
@@ -12,6 +15,10 @@ function register(){
  for(const [id,anim]of [['opening-yuna','yuna.stand'],['opening-luna','luna.stand']]){const d=Engine.ANIM[anim];add(id,id==='opening-yuna'?'유나 · 대기':'루나 · 대기','animation',{sheet:d.sheet,from:d.from,to:d.to,fps:d.fps,loop:true,ppu:100,align:'sheet'});}
  image('opening-home','크리스 집 · 기존 배경','../bar-playtest/assets/outside/outside_629b82812402bc.png',560,270);
  add('opening-luna-home','루나 · 평상복 대기','animation',{src:'../bar-playtest/assets/outside/outside_62634d34afb444.png',width:267,height:258,fw:89,fh:86,cols:3,count:9,fps:12,ppu:100,pivot:{x:.5,y:.4}});
+ // 12 x 2 cells, 130px each. Bottom row sleeps; top-row 8→11 opens the eyes.
+ const sleepSheet={src:'assets/opening/luna-sleep.png',width:1560,height:260,fw:130,fh:130,cols:12,ppu:100,pivot:{x:.5,y:32/130}};
+ add('opening-luna-sleep','루나 · 소파 수면','animation',{...sleepSheet,count:12,fps:6,frames:Array.from({length:12},(_,i)=>12+i)});
+ add('opening-luna-wake','루나 · 누운 채 눈뜨기','animation',{...sleepSheet,count:4,fps:5,frames:[8,9,10,11]});
  // Legacy saved clips must use the same clean background as newly created templates.
  const cleanDisposal='assets/opening/disposal-clean.png?v=ea9798152e00';
  image('opening-disposal','폐기물처리장 · 캐릭터 없는 배경 (이전 ID 호환)',cleanDisposal,833,324);
@@ -70,14 +77,15 @@ function template(){
  fx(0,2.2,'fadeIn');fx(0,homeStart,'noise',.18,'grain');fx(0,homeStart,'vignette',.5,'vignette');
  fx(dreamEnd-1,1,'noise',.5,'scan');
  put('audio',0,{track:'dream-audio',assetId:'opening-drone',duration:homeStart,volume:.22,loop:true,fadeIn:2.2,fadeOut:.015,title:'기억 · 낮은 잔향'});
- const wake=homeStart+2.75,holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
+ const eyes=homeStart+1.4,wake=homeStart+2.95,holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
  p.chapters.push({name:'집 · 연락음과 동시 전환 / 암전 후 기상',time:homeStart},{name:'크리스 · 통화',time:phoneStart});
  visual('house','opening-home',homeStart,houseEnd-homeStart,0,-5.4,4,{layer:-10});
  const homeCam={x:5,y:-1.2,w:15};
  cam(homeStart,houseEnd-homeStart,homeCam,homeCam,'집 · 알람부터 통화까지 고정 구도');
  fx(homeStart,houseEnd-homeStart,'vignette',.22,'vignette');
  // Swap two static poses precisely at full black, with no position/rotation interpolation.
- visual('home-luna','opening-luna-home',homeStart,wake-homeStart,7.95,-2.75,3.4,{rotation:-90,title:'루나 · 평상복 수면 자세',facing:'right',loop:false});
+ visual('home-luna','opening-luna-sleep',homeStart,eyes-homeStart,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{title:'루나 · 소파에서 잠든 모습',facing:'left',loop:true});
+ visual('home-luna','opening-luna-wake',eyes,wake-eyes,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{title:'루나 · 연락음에 눈을 뜸',facing:'left',loop:false});
  visual('home-luna','opening-luna-home',wake,houseEnd-wake,7.3,-3.15,3.4,{rotation:0,title:'루나 · 평상복 기상 대기',facing:'left'});
  fx(wake-.35,.35,'fadeOut');fx(wake,.5,'fadeIn');
  put('audio',homeStart,{track:'room-audio',assetId:'opening-room',duration:houseEnd-homeStart,volume:.15,loop:true,fadeIn:.8,fadeOut:3,title:'집 · 실내 공기'});
@@ -92,7 +100,23 @@ function template(){
  visual('phone','opening-holo-off',hangup,W.StudioHoloCall.duration,holo.x,holo.y,1,{loop:false,facing:'left',layer:2,title:'홀로콜 · 켜짐의 역순으로 종료'});
  // Extend late clips to the actual final dialogue; timing follows the text length.
  for(const c of p.clips)if(c.track==='house'||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
- p.duration=finish;p.openingNotes='폐기물처리장 → 연락음과 동시에 크리스 집으로 즉시 전환 (페이드 없음) → 짧은 암전 후 기상 → 통화. TV 다큐는 별도 템플릿으로 분리. 기상은 암전 중 수면/기립 자세 교체이며 위치·회전 보간이나 TV 줌아웃 없음. 연구소 배경 1.30배, 두 인물 중앙에 화면 폭 4.8로 고정. 화자 머리 위 말풍선 유지. 집에서는 평상복 루나 대기 애니메이션 사용. 기상 직후 가로 빛줄기와 화면 확장으로 홀로콜 켜짐. 크리스 연락은 홀로그램 위 검정 테두리·시안 글자 말풍선, 루나는 머리 위 기본 말풍선. 통화 대사는 키 입력으로 한 줄씩 진행. 마지막 대사를 넘기면 0.8초 동안 홀로콜을 역순으로 접어 끄고, 화면 페이드 없이 집 조작 튜토리얼로 연결. 경로 안내 카드 없음. 배경음은 임시 합성음, 첫 연락은 confirm_01.wav 사용.';
+ p.duration=finish;p.openingNotes='폐기물처리장 → 연락음과 동시에 크리스 집으로 즉시 전환 (페이드 없음) → 짧은 암전 후 기상 → 통화. TV 다큐는 별도 템플릿으로 분리. 수면 시트의 둘째 줄로 잠든 모습, 첫째 줄 8~11번으로 눈뜨기를 표시한 뒤 암전 중 환복한 기립 자세로 교체. 위치·회전 보간이나 TV 줌아웃 없음. 연구소 배경 1.30배, 두 인물 중앙에 화면 폭 4.8로 고정. 화자 머리 위 말풍선 유지. 집에서는 평상복 루나 대기 애니메이션 사용. 기상 직후 가로 빛줄기와 화면 확장으로 홀로콜 켜짐. 크리스 연락은 홀로그램 위 검정 테두리·시안 글자 말풍선, 루나는 머리 위 기본 말풍선. 통화 대사는 키 입력으로 한 줄씩 진행. 마지막 대사를 넘기면 0.8초 동안 홀로콜을 역순으로 접어 끄고, 화면 페이드 없이 집 조작 튜토리얼로 연결. 경로 안내 카드 없음. 배경음은 임시 합성음, 첫 연락은 confirm_01.wav 사용.';
+ K.hydrate(p);return p;
+}
+// Shared by daily sleep/morning playback and the developer cutscene gallery.
+function rest(kind='sleep'){
+ const morning=kind==='morning',end=morning?4.3:2.2;
+ const p={format:'unknown-cutscene',version:1,template:kind,name:morning?'아침 · 눈뜨기와 환복':'밤 · 소파에서 잠들기',background:'stage',duration:end,camera:{x:5,y:-1.2,w:15},actors:{house:{name:'집',x:0,y:-5.4,asset:true},luna:{name:'루나',x:SOFA_SLEEP.x,y:SOFA_SLEEP.y,asset:true}},visibleActors:['house','luna'],tracks:[{id:'house',type:'visual'},{id:'luna',type:'visual'},{id:'fx',type:'fx'}],clips:[],assets:[]};
+ const put=(type,start,o)=>p.clips.push(M.clip(type,start,o));
+ const visual=(actor,assetId,start,duration,x,y,scale,extra={})=>put('visual',start,{track:actor,actor,assetId,duration,from:{x,y},to:{x,y},scale,facing:'left',...extra});
+ visual('house','opening-home',0,end,0,-5.4,4,{layer:-10});
+ visual('luna','opening-luna-sleep',0,morning?.9:end,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:true});
+ if(morning){
+  visual('luna','opening-luna-wake',.9,1.7,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:false});
+  put('fx',2.2,{track:'fx',effect:'fadeOut',duration:.4,strength:1});
+  visual('luna','opening-luna-home',2.6,end-2.6,7.3,-3.15,3.4,{loop:true,title:'루나 · 환복 후 기립'});
+  put('fx',2.6,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
+ }
  K.hydrate(p);return p;
 }
 function documentary(){
@@ -130,5 +154,5 @@ function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCoun
  if(c.wait&&held&&count>=parsed.chars.length)W.LunaDialogueCue.draw(g,{right:screenW-(centered?.4:.08),bottom:top+h-.06,size:.18,clock:time+waitAge});
  g.restore();return true;
 }
-W.StudioOpening={register,template,documentary,dialogue,source:{dream:DREAM,tv:TV,phone:PHONE}};
+W.StudioOpening={register,template,rest,documentary,dialogue,source:{dream:DREAM,tv:TV,phone:PHONE}};
 })(window);

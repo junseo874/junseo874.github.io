@@ -31,7 +31,7 @@ window.StudioExtras=function(api){'use strict';
  function drawAsset(g,a,cam,time){const asset=A.assets.get(a.assetId);if(!a.active||!asset)return;const k=1280/cam.w,p={x:640+(a.x-cam.x)*k,y:360-(a.y-cam.y)*k},age=(a.age+(a.loop?api.waitAge:0))*a.animSpeed;g.save();g.translate(p.x,p.y);g.rotate(a.rotation*Math.PI/180);g.scale((a.facing==='right'?-1:1)*(a.flipX?-1:1),1);g.globalAlpha=a.opacity;g.globalCompositeOperation=a.blend;
   if(asset.procedural==='holo-call'&&window.StudioHoloCall)StudioHoloCall.draw(g,asset.holoMode,age,k,a.scale);
   else if(asset.sheet){const frames=asset.to-asset.from+1,frame=asset.from+(a.loop?Math.floor(age*asset.fps)%frames:Math.min(frames-1,Math.floor(age*asset.fps))),anchor=Sprites.animAnchor(asset.sheet,asset.from,asset.to,asset.align);Sprites.draw(g,asset.sheet,frame,0,0,{alpha:a.opacity,scale:k/100*a.scale,ax:anchor?.ax,ay:anchor?.ay});}
-  else{const im=A.getImage(asset.id);if(im?.complete&&im.naturalWidth){const n=a.loop?Math.floor(age*asset.fps)%asset.count:Math.min(asset.count-1,Math.floor(age*asset.fps)),w=asset.fw/asset.ppu*k*a.scale,h=asset.fh/asset.ppu*k*a.scale;
+  else{const im=A.getImage(asset.id);if(im?.complete&&im.naturalWidth){const frame=a.loop?Math.floor(age*asset.fps)%asset.count:Math.min(asset.count-1,Math.floor(age*asset.fps)),n=asset.frames?.[frame]??frame,w=asset.fw/asset.ppu*k*a.scale,h=asset.fh/asset.ppu*k*a.scale;
    if(asset.captionBand){
     // TV composition: keep the supplied picture intact above a fixed subtitle band.
     const pictureH=h*(1-asset.captionBand),pictureW=w*(1-asset.captionBand);
