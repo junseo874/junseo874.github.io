@@ -2,11 +2,18 @@
 (function(W){'use strict';
 const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
-const DREAM=[["dream-luna","…이해가 안 돼요."],["dream-luna","왜 제가 살아야 하죠? 수석 연구원인 유나가 저보다 귀한 인력이잖아요."],["dream-luna","저 같은 대체 가능한 인공지능은"],["yuna","아니. 루나, 넌… 대체할 수 있는 존재가 아니야."],["yuna","넌 밥도 먹고, 잠도 자고, 꿈도 꾸잖아."],["yuna","스스로 생각해서 말하고… 행동하기도 하고."],["yuna","내가… 보증할 수 있어. 넌 사람이라고."],["dream-luna","……"],["yuna","그리고… 너도 무섭잖아. 죽는 게."],["yuna","그러니까 여기서 빠져나가, 루나. 넌 찾을 수 있을 거야."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
+const DREAM=[["intro","그러면... 약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
 const oldTemplate=M.template;
 // Sleep3 reference: body rests on the seat, head toward the right cushion.
 // Use one pose for the opening, nightly sleep and morning eye-opening clips.
 const SOFA_SLEEP={x:7.6,y:-3.1,scale:4};
+// WAV: 113843 / 44100 seconds. Round UP to timeline precision so the tail
+// finishes before the room is revealed, including with audio muted/paused.
+const DRESSING_SECONDS=2.59;
+function dressing(put,start,track='dressing-audio'){
+ put('fx',start,{track:'fx',effect:'black',duration:DRESSING_SECONDS,strength:1,title:'환복 · 소리가 끝날 때까지 암전 유지'});
+ put('audio',start,{track,assetId:'opening-dressing',duration:DRESSING_SECONDS,volume:.75,loop:false,fadeIn:.008,fadeOut:.025,title:'루나 · 옷 갈아입기'});
+}
 const key=(t,value,ease='smooth')=>({id:'key-'+crypto.randomUUID(),t,value,ease});
 function register(){
  const add=(id,name,kind,extra)=>media.assets.set(id,{id,name,kind,builtin:true,...extra});
@@ -39,45 +46,34 @@ function register(){
  add('opening-drone','꿈 · 낮은 잔향 / 임시 합성','audio',{synth:'drone'});
  add('opening-room','실내 · 잔잔한 공기 / 임시 합성','audio',{synth:'room'});
  add('opening-alarm','크리스 · 첫 연락 (confirm_01)','audio',{src:'assets/opening/chris-contact-confirm.wav'});
+ add('opening-dressing','루나 · 옷 갈아입는 소리','audio',{src:'assets/opening/change-clothes.wav'});
  for(const [mode,label]of [['on','켜짐'],['idle','통화 중'],['off','꺼짐']])add('opening-holo-'+mode,'홀로콜 · '+label,'effect',{src:W.StudioHoloCall.thumbnail(),width:100,height:72,fw:100,fh:72,cols:1,count:1,fps:1,ppu:100,procedural:'holo-call',holoMode:mode});
 }
 function template(){
- const p={format:'unknown-cutscene',version:1,template:'opening',name:'게임 도입부 · 꿈에서 첫 출근까지',background:'stage',duration:300,camera:{x:.7,y:.5,w:6.8},actors:{},visibleActors:[],tracks:[],clips:[],assets:[],source:'https://app.notion.com/p/3f51612298dc807e996bd9abe58e89b2',chapters:[]};
+ const p={format:'unknown-cutscene',version:1,template:'opening',name:'게임 도입부 · 약속에서 첫 출근까지',background:'stage',duration:300,camera:{x:.7,y:.5,w:6.8},actors:{},visibleActors:[],tracks:[],clips:[],assets:[],source:'https://app.notion.com/p/3f51612298dc807e996bd9abe58e89b2',chapters:[]};
  const tr=(id,type,name)=>{p.tracks.push({id,type,name,height:48,muted:false});return id;};
- tr('camera','camera','카메라');tr('dream-lines','dialogue','꿈 · 대사');tr('interruption','dialogue','유나 · 말 끊기');tr('phone-lines','dialogue','통화 · 대사');
+ tr('camera','camera','카메라');tr('dream-lines','dialogue','도입 · 마지막 부탁');tr('phone-lines','dialogue','통화 · 대사');
  for(const id of ['fx','grain','vignette','scan'])tr(id,'fx',id==='fx'?'장면 전환':id==='grain'?'기억 노이즈':id==='scan'?'TV 주사선':'주변부 어둠');
- tr('dream-audio','audio','꿈 · 앰비언스');tr('room-audio','audio','집 · 앰비언스');tr('alarm-audio','audio','연락 알림');
+ tr('room-audio','audio','집 · 앰비언스');tr('alarm-audio','audio','연락 알림');
+ tr('dressing-audio','audio','환복 효과음');
  const actor=(id,name,x,y)=>{p.actors[id]={name,x,y,facing:'left',asset:true};p.visibleActors.push(id);tr(id,'visual',name);};
- actor('disposal','폐기처리장',0,0);actor('dream-luna','루나 · 꿈',1.815,-.94);actor('yuna','유나',.92,-.94);actor('house','크리스 집',0,-5.4);actor('home-luna','루나 · 기상',7.95,-2.75);actor('phone','크리스 · 통화',4.8,-.5);
+ actor('intro','마지막 부탁',0,0);actor('house','크리스 집',0,-5.4);actor('home-luna','루나 · 기상',7.95,-2.75);actor('phone','크리스 · 통화',4.8,-.5);
  const put=(type,start,o)=>{const c=M.clip(type,M.round(start),o);p.clips.push(c);return c;};
  const visual=(actor,assetId,start,duration,x,y,scale=1,extra={})=>put('visual',start,{track:actor,actor,assetId,title:p.actors[actor].name,duration,from:{x,y},to:{x,y},scale,...extra});
  const line=(actor,start,text,track,duration,extra={})=>put('dialogue',start,{actor,text,track,title:p.actors[actor].name+' · '+StudioTags.parse(text).text.slice(0,20),duration:M.round(duration),wait:false,cps:DIALOGUE_CPS,offset:1.05,bubbleWidth:2.2,fontScale:75,...extra});
  const fx=(start,duration,effect,strength=1,track='fx',extra={})=>put('fx',start,{track,duration,effect,strength,title:effect,...extra});
  const cam=(start,duration,from,to,title)=>put('camera',start,{duration,from,to,ease:'smooth',title});
- p.chapters.push({name:'꿈 · 마지막 대화',time:0});
- let t=2.3;
- DREAM.forEach(([a,text],i)=>{
- const interrupted=text==='저 같은 대체 가능한 인공지능은',interrupts=i>0&&DREAM[i-1][1]==='저 같은 대체 가능한 인공지능은';
- let duration=Math.max(1.8,text.length/15+1);if(interrupted)duration=3.2;
- // The interruption covers Luna's previous bubble on the same row, not above it.
- const c=line(a,t,text,interrupts?'interruption':'dream-lines',duration,{offset:.68,offsetX:0,overlay:interrupted,bubbleStyle:'outside',bubbleReferenceWidth:4.8,bubbleWidth:420*4.8/1280,fontFamily:'game',fontScale:17/(.116*1280/4.8)*100});
- if(interrupts){c.title='유나 · 루나의 말을 끊는다';c.interruption=true;c.bubbleMinWidth=1.25;}
- t+=duration+.12;if(interrupted)t-=1.97;
- });
- // The incoming call cuts off the dream immediately: no empty hold or dissolve.
- const dreamEnd=M.round(t-.12),homeStart=dreamEnd;
- // Enlarge only the room; keep the floor's source pixel (y=256) at the actors' feet.
- const roomScale=1.30,roomY=-.94-(324-256)/100*roomScale;
- visual('disposal','opening-disposal-clean',0,homeStart,0,roomY,roomScale,{layer:-10});
- visual('dream-luna','opening-luna',0,homeStart,1.815,-.94,1,{facing:'left',title:'루나 · 꿈 대기 애니메이션'});
- visual('yuna','opening-yuna',0,homeStart,.92,-.94,1,{facing:'right'});
- // Frame the midpoint of the two actors, with headroom for the interruption bubble.
- const dreamCam={x:(p.actors.yuna.x+p.actors['dream-luna'].x)/2,y:-.05,w:4.8};p.camera={...dreamCam};
- cam(0,dreamEnd,dreamCam,dreamCam,'꿈 · 폐기처리장 고정 구도');
- fx(0,2.2,'fadeIn');fx(0,homeStart,'noise',.18,'grain');fx(0,homeStart,'vignette',.5,'vignette');
- fx(dreamEnd-1,1,'noise',.5,'scan');
- put('audio',0,{track:'dream-audio',assetId:'opening-drone',duration:homeStart,volume:.22,loop:true,fadeIn:2.2,fadeOut:.015,title:'기억 · 낮은 잔향'});
- const eyes=homeStart+1.4,wake=homeStart+2.95,holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
+ p.chapters.push({name:'도입 · 검은 화면의 마지막 부탁',time:0});
+ // Contiguous instant cards: each fresh interaction advances exactly one line.
+ // The manual wait owns the clock, so these durations never auto-advance.
+ let t=0;
+ for(const [actor,text]of DREAM){
+  line(actor,t,text,'dream-lines',1,{wait:true,textEffect:'instant',layout:'intro',fontFamily:'game',title:'마지막 부탁 · '+text});
+  t+=1;
+ }
+ // The fourth acknowledgement cuts directly to the sleeping room and call SFX.
+ const homeStart=t;
+ const eyes=homeStart+1.4,blackAt=M.round(homeStart+2.95),wake=M.round(blackAt+DRESSING_SECONDS),holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
  p.chapters.push({name:'집 · 연락음과 동시 전환 / 암전 후 기상',time:homeStart},{name:'크리스 · 통화',time:phoneStart});
  visual('house','opening-home',homeStart,houseEnd-homeStart,0,-5.4,4,{layer:-10});
  const homeCam={x:5,y:-1.2,w:15};
@@ -87,7 +83,7 @@ function template(){
  visual('home-luna','opening-luna-sleep',homeStart,eyes-homeStart,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{title:'루나 · 소파에서 잠든 모습',facing:'left',loop:true});
  visual('home-luna','opening-luna-wake',eyes,wake-eyes,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{title:'루나 · 연락음에 눈을 뜸',facing:'left',loop:false});
  visual('home-luna','opening-luna-home',wake,houseEnd-wake,7.3,-3.15,3.4,{rotation:0,title:'루나 · 평상복 기상 대기',facing:'left'});
- fx(wake-.35,.35,'fadeOut');fx(wake,.5,'fadeIn');
+ fx(blackAt-.35,.35,'fadeOut');dressing(put,blackAt);fx(wake,.5,'fadeIn');
  put('audio',homeStart,{track:'room-audio',assetId:'opening-room',duration:houseEnd-homeStart,volume:.15,loop:true,fadeIn:.8,fadeOut:3,title:'집 · 실내 공기'});
  put('audio',homeStart,{track:'alarm-audio',assetId:'opening-alarm',duration:.73,volume:.55,loop:false,fadeIn:.005,fadeOut:.04,title:'크리스 · 첫 연락 / 꿈 깨우기'});
  // The caller is anchored to the left side of the holographic card, not Luna.
@@ -100,23 +96,27 @@ function template(){
  visual('phone','opening-holo-off',hangup,W.StudioHoloCall.duration,holo.x,holo.y,1,{loop:false,facing:'left',layer:2,title:'홀로콜 · 켜짐의 역순으로 종료'});
  // Extend late clips to the actual final dialogue; timing follows the text length.
  for(const c of p.clips)if(c.track==='house'||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
- p.duration=finish;p.openingNotes='폐기물처리장 → 연락음과 동시에 크리스 집으로 즉시 전환 (페이드 없음) → 짧은 암전 후 기상 → 통화. TV 다큐는 별도 템플릿으로 분리. 수면 시트의 둘째 줄로 잠든 모습, 첫째 줄 8~11번으로 눈뜨기를 표시한 뒤 암전 중 환복한 기립 자세로 교체. 위치·회전 보간이나 TV 줌아웃 없음. 연구소 배경 1.30배, 두 인물 중앙에 화면 폭 4.8로 고정. 화자 머리 위 말풍선 유지. 집에서는 평상복 루나 대기 애니메이션 사용. 기상 직후 가로 빛줄기와 화면 확장으로 홀로콜 켜짐. 크리스 연락은 홀로그램 위 검정 테두리·시안 글자 말풍선, 루나는 머리 위 기본 말풍선. 통화 대사는 키 입력으로 한 줄씩 진행. 마지막 대사를 넘기면 0.8초 동안 홀로콜을 역순으로 접어 끄고, 화면 페이드 없이 집 조작 튜토리얼로 연결. 경로 안내 카드 없음. 배경음은 임시 합성음, 첫 연락은 confirm_01.wav 사용.';
+ p.duration=finish;p.openingNotes='검은 화면 중앙의 네 문장을 상호작용 키로 한 문장씩 넘김. 마지막 문장을 넘기면 연락음과 동시에 크리스 집으로 전환. 눈뜨기 → 암전 중 환복 효과음 → 환복한 기립 자세 → 홀로콜. 통화 대사는 키 입력으로 진행하며 종료 후 집 조작 튜토리얼로 연결.';
  K.hydrate(p);return p;
 }
 // Shared by daily sleep/morning playback and the developer cutscene gallery.
 function rest(kind='sleep'){
- const morning=kind==='morning',end=morning?4.3:2.2;
+ const morning=kind==='morning',reveal=2.6+DRESSING_SECONDS,end=morning?4.3+DRESSING_SECONDS:2.2;
  const p={format:'unknown-cutscene',version:1,template:kind,name:morning?'아침 · 눈뜨기와 환복':'밤 · 소파에서 잠들기',background:'stage',duration:end,camera:{x:5,y:-1.2,w:15},actors:{house:{name:'집',x:0,y:-5.4,asset:true},luna:{name:'루나',x:SOFA_SLEEP.x,y:SOFA_SLEEP.y,asset:true}},visibleActors:['house','luna'],tracks:[{id:'house',type:'visual'},{id:'luna',type:'visual'},{id:'fx',type:'fx'}],clips:[],assets:[]};
  const put=(type,start,o)=>p.clips.push(M.clip(type,start,o));
  const visual=(actor,assetId,start,duration,x,y,scale,extra={})=>put('visual',start,{track:actor,actor,assetId,duration,from:{x,y},to:{x,y},scale,facing:'left',...extra});
  visual('house','opening-home',0,end,0,-5.4,4,{layer:-10});
  visual('luna','opening-luna-sleep',0,morning?.9:end,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:true});
  if(morning){
+  p.tracks.push({id:'dressing-audio',type:'audio',name:'환복 효과음',height:48,muted:false});
   visual('luna','opening-luna-wake',.9,1.7,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:false});
   put('fx',2.2,{track:'fx',effect:'fadeOut',duration:.4,strength:1});
-  visual('luna','opening-luna-home',2.6,end-2.6,7.3,-3.15,3.4,{loop:true,title:'루나 · 환복 후 기립'});
-  put('fx',2.6,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
+  dressing(put,2.6);
+  visual('luna','opening-luna-home',reveal,end-reveal,7.3,-3.15,3.4,{loop:true,title:'루나 · 환복 후 기립'});
+  put('fx',reveal,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
  }
+ for(const a of Object.values(p.actors))a.facing='left';
+ for(const t of p.tracks)Object.assign(t,{name:t.name||t.id,height:48,muted:false});
  K.hydrate(p);return p;
 }
 function documentary(){
@@ -138,6 +138,12 @@ function documentary(){
 }
 M.template=id=>id==='opening'?template():id==='documentary'?documentary():oldTemplate(id);
 function dialogue(g,c,s,cam,time,waitAge=0,revealed=false,held=false,visibleCount=null){
+ if(c.layout==='intro'){
+  g.save();g.fillStyle='#000';g.fillRect(0,0,1280,720);
+  g.fillStyle='#f1f4ef';g.font='32px "LunaPixel", "StudioGame", sans-serif';
+  g.textAlign='center';g.textBaseline='middle';g.fillText(c.text,640,360,1120);
+  g.restore();return true;
+ }
  if(!['tv','documentary'].includes(c.layout))return false;
  const a=s.actors[c.actor];if(!a?.active)return true;
  const k=1280/cam.w,asset=media.assets.get(a.assetId),screenW=asset.fw/asset.ppu*a.scale,screenH=asset.fh/asset.ppu*a.scale,x=640+(a.x-cam.x)*k,y=360-(a.y-cam.y)*k;

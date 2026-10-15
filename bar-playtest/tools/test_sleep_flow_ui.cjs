@@ -26,7 +26,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    await until(()=>lunaCampaign.cinema?.dailyWake&&!lunaCampaign.dayTransition);assert.equal(await p.evaluate(()=>lunaCampaign.session.day),1);
    assert(await p.evaluate(()=>outsidePlaytest.model.paused&&!lunaCampaign.canSkipCinema()));
    await p.evaluate(()=>{const c=lunaCampaign;c.cinema.time=1.9;c.cinema.player.render(1.9,null,false);});await p.screenshot({path:'/private/tmp/luna-morning-eyes.png'});
-   await p.evaluate(()=>{const c=lunaCampaign;c.cinema.time=3.5;c.cinema.player.render(3.5,null,false);});await p.screenshot({path:'/private/tmp/luna-morning-dressed.png'});
+   await p.evaluate(()=>{const c=lunaCampaign;c.cinema.time=c.cinema.scene.clips.find(x=>x.assetId==='opening-luna-home').start+.8;c.cinema.player.render(c.cinema.time,null,false);});await p.screenshot({path:'/private/tmp/luna-morning-dressed.png'});
    await until(()=>lunaCampaign.view==='game'&&!lunaCampaign.cinema);
    assert.equal(await p.evaluate(()=>outsidePlaytest.model.config.day),1);assert.equal(await p.evaluate(()=>outsidePlaytest.model.config.flow),'in');assert.equal(await p.evaluate(()=>outsidePlaytest.model.paused),false);
    assert.deepEqual(await p.evaluate(()=>lunaCampaign.session.completed),[0]);

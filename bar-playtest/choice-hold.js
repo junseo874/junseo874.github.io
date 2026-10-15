@@ -1,4 +1,4 @@
-/* Dialogue choices confirm only after 0.8 uninterrupted seconds of input. */
+/* Dialogue choices confirm only after 0.5 uninterrupted seconds of input. */
 (function(W){
  'use strict';
  W.LunaChoiceHold=function({root,choice,allowed,commit}){
@@ -18,7 +18,7 @@
   function tick(now){
    if(!valid()){cancel();return;}
    // A suspended/throttled tab never earns confirmation time on returning.
-   hold.progress+=Math.min(50,Math.max(0,now-hold.last))/800;hold.last=now;
+   hold.progress+=Math.min(50,Math.max(0,now-hold.last))/500;hold.last=now;
    paint();
    if(hold.progress>=1){const id=hold.el.dataset.id;cancel();commit(id);return;}
    raf=requestAnimationFrame(tick);

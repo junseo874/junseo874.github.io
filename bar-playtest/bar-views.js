@@ -365,7 +365,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
       ${pages>1?`<div class="shelf-pagination">${button('‹','shelfPage','data-id="-1" '+(!ui.shelfPage?'disabled':''))}<span>${ui.shelfPage+1} / ${pages}</span>${button('›','shelfPage','data-id="1" '+(ui.shelfPage===pages-1?'disabled':''))}</div>`:''}
       </div><div class="prep-controls">${button('← '+L('뒤로','Back'),'prepBack','title="'+L('뒤로 가면 선택이 모두 초기화됩니다.','Back clears every selection.')+'"','prep-back')}
         <div class="shelf-navigation"><div class="shelf-dots">${categories.map(id=>button(`<span></span><i>${categoryName(id)}</i>`,'tab',`data-id="${id}" aria-label="${categoryName(id)}" aria-pressed="${ui.tab===id}"`,ui.tab===id?'selected':'')).join('')}</div></div>
-        ${button(L('제조 시작','Start crafting'),'craft',!p.glass||!p.ingredients.length?'disabled':'','craft-start')}</div>
+        ${button('<img src="assets/ui/preparation/BTN_start.png" alt="">','craft','aria-label="'+L('제조 시작','Start crafting')+'" '+(!p.glass||!p.ingredients.length?'disabled':''),'craft-start')}</div>
       <div class="prep-inventory"><div class="inventory-scroll">${selected.map(id=>button(`${itemArt(id,'','inventory')}<span class="remove-mark">×</span><span class="inventory-item-name">${esc(itemName(id))}</span>`,id==='opener'?'pickOpener':'pick',`data-id="${id}" aria-label="${esc(itemName(id))} ${L('선택 해제','remove')}"`,'inventory-slot')).join('')}<div class="inventory-slot empty-slot" aria-hidden="true">＋</div></div></div>
       ${ui.recipeOpen?recipePanel(c):''}${tooltip}</div>`;
   }

@@ -22,7 +22,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   const reset=async()=>{await p.mouse.move(2,2);await p.evaluate(()=>setupChoice());await first().waitFor();};
   await first().click();assert.equal(await count(),0,'Tap is not confirmation');
   await p.keyboard.press('Enter');await p.keyboard.press('Space');assert.equal(await count(),0);
-  await first().hover();await p.mouse.down();await p.waitForTimeout(450);
+  await first().hover();await p.mouse.down();await p.waitForTimeout(200);
   assert((await progress())>.2&&(await progress())<.9);assert.equal(await count(),0);
   await p.screenshot({path:'/private/tmp/luna-choice-hold-half.png'});
   await p.mouse.up();assert.equal(await progress(),0);assert.equal(await count(),0);
@@ -30,15 +30,15 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await first().focus();await p.keyboard.down('Enter');await p.waitForTimeout(350);await p.keyboard.press('ArrowDown');await p.waitForTimeout(800);await p.keyboard.up('Enter');assert.equal(await count(),0,'Moving selection cancels');
   await first().focus();await p.keyboard.down('Space');await p.waitForTimeout(300);await p.evaluate(()=>{barGame.overlay='help';lunaCampaign.render(true);});await p.waitForTimeout(900);await p.keyboard.up('Space');assert.equal(await count(),0,'Overlay cancels');
   await reset();await p.keyboard.down('Enter');await p.waitForTimeout(300);await p.evaluate(()=>window.dispatchEvent(new Event('blur')));await p.waitForTimeout(900);await p.keyboard.up('Enter');assert.equal(await count(),0,'Blur cancels');
-  await reset();await first().hover();const selected=await first().getAttribute('data-id');await p.mouse.down();await p.waitForTimeout(750);assert.equal(await count(),0);
-  await p.waitForFunction(()=>confirmed.length===1);await p.waitForTimeout(300);const advances=await p.evaluate(()=>advanced);await p.mouse.up();await p.waitForTimeout(100);
+  await reset();await first().hover();const selected=await first().getAttribute('data-id');await p.mouse.down();await p.waitForTimeout(350);assert.equal(await count(),0);
+  await p.waitForFunction(()=>confirmed.length===1,null,{timeout:350});await p.waitForTimeout(300);const advances=await p.evaluate(()=>advanced);await p.mouse.up();await p.waitForTimeout(100);
   assert.equal(await count(),1);assert.equal(await p.evaluate(()=>confirmed[0].id),selected);assert.equal(await p.evaluate(()=>advanced),advances,'Release must not advance next line');
   for(const key of ['Enter','Space']){
-   await reset();const before=await count();await p.keyboard.down(key);await p.waitForTimeout(700);assert.equal(await count(),before);
-   await p.waitForFunction(n=>confirmed.length===n+1,before);const a=await p.evaluate(()=>advanced);
+   await reset();const before=await count();await p.keyboard.down(key);await p.waitForTimeout(300);assert.equal(await count(),before);
+   await p.waitForFunction(n=>confirmed.length===n+1,before,{timeout:350});const a=await p.evaluate(()=>advanced);
    await p.keyboard.down(key);await p.waitForTimeout(300);await p.keyboard.up(key);assert.equal(await count(),before+1);assert.equal(await p.evaluate(()=>advanced),a,'Held/released key does not advance following dialogue');
   }
   assert.equal(await p.evaluate(()=>barGame.error),null);assert.deepEqual(errors,[]);
-  console.log('PASS 0.8s mouse/Enter/Space hold, visible progress, short-tap/reset/leave/navigation/overlay/blur cancellation, one-shot confirmation and no next-line leak.');
+  console.log('PASS 0.5s mouse/Enter/Space hold, visible progress, short-tap/reset/leave/navigation/overlay/blur cancellation, one-shot confirmation and no next-line leak.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

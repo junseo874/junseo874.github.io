@@ -68,7 +68,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'sleep-position-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'intro-text-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -79,12 +79,12 @@ class Campaign{
   this.outside.exit(true);this.dialog=null;this.awakening=null;this.liftLogoPending=false;
   if(this.session.active)this.session.uninstall();this.storyVersion='A';this.data=global.LUNA_CAMPAIGN_DATA;this.session=new global.LunaCampaignEngine.Session(this.g,this.D,this.data);this.session.onStep=s=>this.storyStep(s);this.session.install({serviceVersion:'A'});this.session.beginCommute(0);
   this.firstLift=false;this.morningSeen.clear();this.nightStarted=false;this.clearInput();this.g.lang='ko';this.ui.day=0;this.ui.variant='original';this.ui.serviceVersion='A';this.ui.minigames=false;this.ui.outside=false;this.ui.cutscenes=false;this.ui.inspector=false;this.ui.auto=false;this.g.speed=1;
-  this.loadLabel='폐기물처리장 · 첫 출근을 준비하고 있습니다';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.newGame();
+  this.loadLabel='도입부 · 첫 출근을 준비하고 있습니다';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.newGame();
   try{
    const scene=await this.prepareStudio('opening');if(token!==this.token)return;this.loadPercent=80;this.draw();
    Object.assign(this.outside.config,{day:0,flow:'in',place:'home'});await this.outside.start({wakeAtSofa:true});if(token!==this.token)return;if(this.outside.loadError)throw Error(this.outside.loadError);
    const model=this.outside.model;model.paused=true;
-   this.cinema={studio:true,memory:true,returnTransition:'cut',skipUntil:scene.clips.find(c=>c.type==='visual'&&c.actor==='house').start,title:'루나의 꿈 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
+   this.cinema={studio:true,memory:true,returnTransition:'cut',skipUntil:0,title:'마지막 부탁 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);this.render(true);this.outside.showControlsTutorial();
    }};
    this.cinemaHintUntil=performance.now()+2000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();

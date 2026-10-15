@@ -2,7 +2,7 @@
 const M=W.StudioModel,oldTemplate=M.template,oldClip=M.clip,oldSample=M.sample;
 M.fonts={system:{name:'기본 고딕',css:'-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif'},game:{name:'게임 폰트',css:'"StudioGame", sans-serif'},serif:{name:'명조',css:'"AppleMyungjo", "Batang", serif'},mono:{name:'고정폭',css:'"SFMono-Regular", Consolas, "Apple SD Gothic Neo", monospace'}};
 Object.assign(M.kinds,{visual:{name:'에셋 / 오브젝트',icon:'▧',color:'#88b5df'},audio:{name:'사운드',icon:'♫',color:'#d0aa80'}});
-M.effects=['fadeIn','fadeOut','flash','shake','noise','letterbox','zoomPunch','vignette','tint','scanline','speedline','door'];
+M.effects=['fadeIn','fadeOut','black','flash','shake','noise','letterbox','zoomPunch','vignette','tint','scanline','speedline','door'];
 M.clip=function(type,start,extra={}){if(type==='visual')return{id:'clip-'+crypto.randomUUID(),type,track:'visual',title:'이미지 / 애니메이션',start,duration:4,assetId:'',actor:'',from:{x:-3,y:-.7},to:{x:-3,y:-.7},scale:1,rotation:0,opacity:1,layer:0,animSpeed:1,loop:true,facing:'left',ease:'linear',blend:'source-over',...extra};if(type==='audio')return{id:'clip-'+crypto.randomUUID(),type,track:'audio',title:'사운드',start,duration:2,assetId:'',volume:.5,fadeIn:0,fadeOut:.1,offset:0,loop:false,...extra};return oldClip(type,start,type==='dialogue'?{fontFamily:'system',fontScale:100,...extra}:extra);};
 M.normalize=p=>{p.assets??=[];p.tracks.forEach(t=>{t.height??=48;});p.clips.forEach(c=>{if(c.type==='dialogue'){c.fontFamily??='system';c.fontScale??=100;}});return p;};
 M.template=function(id){const p=M.normalize(oldTemplate(id));if(id!=='lab')return p;
@@ -35,7 +35,7 @@ M.validate=function(input){const p=M.copy(input),num=(n,a,b)=>typeof n==='number
   if(c.type==='move'&&(!['idle','walk','run'].includes(c.animation)||!num(c.animSpeed,.1,4)||!['left','right','auto'].includes(c.facing)))throw Error('동작 설정을 확인하세요.');
   if(c.type==='dialogue'&&(!str(c.text,4000)||typeof c.wait!=='boolean'||!num(c.cps,1,100)||!num(c.offset,.2,4)||!['typewriter','instant','emphasis','shake'].includes(c.textEffect)))throw Error('대사 설정을 확인하세요.');
   if(c.type==='dialogue'&&(!Object.hasOwn(M.fonts,c.fontFamily)||!num(c.fontScale,50,200)))throw Error('대사 글꼴·크기 설정을 확인하세요.');
-  if(c.type==='dialogue'&&(c.bubbleWidth!==undefined&&!num(c.bubbleWidth,.5,12)||c.offsetX!==undefined&&!num(c.offsetX,-10,10)||c.layout!==undefined&&!['bubble','tv','documentary'].includes(c.layout)||c.overlay!==undefined&&typeof c.overlay!=='boolean'))throw Error('대사 배치 설정을 확인하세요.');
+  if(c.type==='dialogue'&&(c.bubbleWidth!==undefined&&!num(c.bubbleWidth,.5,12)||c.offsetX!==undefined&&!num(c.offsetX,-10,10)||c.layout!==undefined&&!['bubble','tv','documentary','intro'].includes(c.layout)||c.overlay!==undefined&&typeof c.overlay!=='boolean'))throw Error('대사 배치 설정을 확인하세요.');
   if(c.type==='fx'&&(!M.effects.includes(c.effect)||!num(c.strength,0,1)||(c.color&&!/^#[\da-f]{6}$/i.test(c.color))))throw Error('화면 효과를 확인하세요.');
   if(c.type==='visual'&&(!id(c.assetId)||!num(c.scale,.05,10)||!num(c.rotation,-360,360)||!num(c.opacity,0,1)||!num(c.layer,-10,10)||!num(c.animSpeed,.1,4)||typeof c.loop!=='boolean'||!['left','right'].includes(c.facing)||!['source-over','screen','lighter'].includes(c.blend)))throw Error('에셋 클립 설정을 확인하세요.');
   if(c.type==='audio'&&(!id(c.assetId)||!num(c.volume,0,1)||!num(c.offset,0,600)||!num(c.fadeIn,0,600)||!num(c.fadeOut,0,600)||typeof c.loop!=='boolean'))throw Error('사운드 설정을 확인하세요.');

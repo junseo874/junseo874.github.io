@@ -2,7 +2,7 @@
 (function(W){'use strict';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const catalog=[
- {id:'opening-a',day:'0일차',title:'폐기물 처리장 → 루나의 기상',kind:'studio',key:'opening',description:'현재 도입부 전체 · 크리스의 연락까지'},
+ {id:'opening-a',day:'0일차',title:'마지막 부탁 → 루나의 기상',kind:'studio',key:'opening',description:'검은 화면의 네 문장 · 키 입력 후 크리스의 연락까지'},
  {id:'wake-a',day:'0일차',title:'루나의 기상 · 크리스의 연락',kind:'studio',key:'opening',wake:true,description:'집에서 깨어나는 구간부터 재생'},
  {id:'sleep',day:'외부 이벤트',title:'소파 · 잠든 루나',kind:'studio',key:'sleep',description:'테라스 대화가 없는 밤의 수면 장면'},
  {id:'morning',day:'외부 이벤트',title:'다음 날 · 눈뜨기와 환복',kind:'studio',key:'morning',description:'수면 → 눈뜨기 → 암전 → 환복 후 기립'},
@@ -41,7 +41,7 @@ async function play(c,id){
    if(!valid())return;
    const wakeAt=scene.clips?.find(x=>x.type==='visual'&&x.actor==='house')?.start||0;
    c.cinema={studio:entry.kind==='studio',scenes:[scene],index:0,scene,time:entry.wake?wakeAt:0,player:null,title:entry.title,returnTransition:'cut',returnTo:close};
-   if(entry.key==='opening')c.cinema.skipUntil=wakeAt;
+   if(entry.key==='opening')c.cinema.skipUntil=0;
    c.cinemaHintUntil=performance.now()+2000;c.cinemaBgmMuted=c.bgm.audio.muted;c.bgm.audio.muted=true;c.screen('prologue');if(entry.kind==='studio')W.LunaStudioCinema.unlock();else W.Sfx?.resume();
   }catch(error){if(!valid())return;c.loadError=error.message;c.screen('load-error');}
  };await load();

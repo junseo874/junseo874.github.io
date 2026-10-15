@@ -57,6 +57,7 @@ function create(canvas){
   for(const [id,entry]of entries)if(!used.has(id)){entry.el.remove();entries.delete(id);}
   let opacity=1;
   for(const f of effects)if(['fadeIn','fadeOut'].includes(f.effect))opacity*=1-(f.effect==='fadeIn'?1-f.u:f.u)*f.strength;
+  for(const f of effects)if(f.effect==='black')opacity*=1-f.strength;
   stage.style.opacity=String(Math.max(0,Math.min(1,opacity)));
  }
  return {begin,paint,end,dispose(){observer.disconnect();root.remove();entries.clear();}};
