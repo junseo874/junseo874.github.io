@@ -26,11 +26,11 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  // Switching to day zero also cancels an already active panorama.
  await page.evaluate(()=>{outsidePlaytest.model.config.day=0;});assert(Math.abs((await settle()).w-4.8)<.01);
  assert.equal(await page.locator('.outside-viewpoint').isVisible(),false);
- // Preserve the separate version B behavior.
- await page.evaluate(()=>{lunaCampaign.storyVersion='B';outsidePlaytest.refreshHUD();});
- assert.equal(await page.locator('.outside-viewpoint').isVisible(),true);
- await page.keyboard.press('KeyY');assert(Math.abs((await settle()).w-LUNA_WIDTH())<.01);
- assert.equal(await page.locator('.outside-viewpoint').isVisible(),true);
- assert.deepEqual(errors,[]);console.log('VIEWPOINT_OK: day-zero keyboard/click blocked, days 1–3 allowed, viewing prompt hidden, Y return/repeat guard, zone re-entry, pause guards, B preserved');
+
+
+
+
+
+ assert.deepEqual(errors,[]);console.log('VIEWPOINT_OK: day-zero keyboard/click blocked, days 1–3 allowed, viewing prompt hidden, Y return/repeat guard, zone re-entry, pause guards');
  }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
 function LUNA_WIDTH(){return 12;}

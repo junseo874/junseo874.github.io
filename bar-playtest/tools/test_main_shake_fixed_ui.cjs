@@ -35,16 +35,16 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   while(!s.completed){s.pathPoint=[...LunaCore.MIX.points[0]];g.gimmickInput('Space');}
  });
  await p.waitForFunction(()=>barGame.craft.results.some(r=>r.type==='shake'));
- // B and the developer mini-game retain their options and stored preferences.
- await p.evaluate(()=>{lunaCampaign.storyVersion='B';prepareShake();});
- await p.locator('.rhythm-modes').waitFor();assert.equal(await p.locator('[data-act="shakeMode"]').count(),3);
- assert.equal(await p.evaluate(()=>barGame.gimmick.rhythm.mode),'cross');
- await p.waitForFunction(()=>document.querySelector('.shake-screen')?.dataset.shakeSound==='1');
+
+
+
+
+
  await p.evaluate(()=>{lunaCampaign.developer();barGame.startMinigame('shake');});
  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
  await p.locator('.rhythm-modes').waitFor();await p.locator('[data-act="shakeMode"][data-id="fall"]').click();
  assert.equal(await p.evaluate(()=>barGame.gimmick.rhythm.mode),'fall');
  await p.locator('[data-act="shakeSound"][data-id="2"]').click();
  await p.waitForFunction(()=>document.querySelector('.shake-screen')?.dataset.shakeSound==='2');
- assert.deepEqual(errors,[]);console.log('MAIN_SHAKE_OK: fixed path + sound 2, no selectors, protected actions, viewport fit, input/completion, B/developer preserved.');
+ assert.deepEqual(errors,[]);console.log('MAIN_SHAKE_OK: fixed path + sound 2, no selectors, protected actions, viewport fit, input/completion, developer preserved.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

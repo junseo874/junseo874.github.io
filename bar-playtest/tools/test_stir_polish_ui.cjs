@@ -15,9 +15,11 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   AudioBufferSourceNode.prototype.stop=function(...args){if(this.testStir)this.testStir.stopped=true;return stop.apply(this,args);};
  });
  await p.goto(BASE+'?mode=minigames');
+ if(await p.locator('.updates-confirm').isVisible()){await p.locator('.updates-dismiss input').check();await p.locator('.updates-confirm').click();}
  const count=()=>p.evaluate(()=>stirAudio.length);
  async function key(k){await p.keyboard.press('Key'+k);await p.waitForTimeout(70);}
- for(const variant of ['original','gpt']){
+ // Standalone minigames now use the single original ruleset.
+ for(const variant of ['original']){
   await p.evaluate(v=>barGame.startMinigame('stir',v),variant);await p.locator('.stir-screen').waitFor();
   await p.locator('[data-act="stirSound"][data-id="1"]').click();
   await p.waitForFunction(()=>document.querySelector('.stir-screen')?.dataset.stirAudioReady==='true');
@@ -75,9 +77,10 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
  const failed=await browser.newPage();const failedErrors=[];failed.on('pageerror',e=>failedErrors.push(e.message));
  await failed.route('**/audio/stir_*.wav',r=>r.abort());await failed.goto(BASE+'?mode=minigames');
+ if(await failed.locator('.updates-confirm').isVisible())await failed.locator('.updates-confirm').click();
  await failed.evaluate(()=>barGame.startMinigame('stir','original'));await failed.locator('.stir-screen').waitFor();
  for(const k of ['W','D','S','A','W']){await failed.keyboard.press('Key'+k);await failed.waitForTimeout(50);}
  assert.equal(await failed.evaluate(()=>barGame.gimmick.success),1);assert.deepEqual(failedErrors,[]);
  await failed.close();
- console.log('STIR_POLISH_UI_OK: both recordings and rulesets; sustained loop, correct-input-only, fade/idle, switching, pause/mute, retry/exit, persisted selection, stable board, unchanged scoring, reduced motion and missing-audio fallback.');
+ console.log('STIR_POLISH_UI_OK: both recordings, current ruleset; sustained loop, correct-input-only, fade/idle, switching, pause/mute, retry/exit, persisted selection, stable board, unchanged scoring, reduced motion and missing-audio fallback.');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

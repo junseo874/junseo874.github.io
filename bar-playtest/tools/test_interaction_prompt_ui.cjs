@@ -49,16 +49,16 @@ const assert=require('node:assert/strict');
   await p.emulateMedia({reducedMotion:'reduce'});
   assert.equal(await p.locator('.outside-interact').evaluate(el=>getComputedStyle(el).animationName),'none');
   await p.emulateMedia({reducedMotion:'no-preference'});
-  await p.evaluate(()=>{lunaCampaign.storyVersion='B';outsidePlaytest.refreshHUD();});
-  assert.equal(await p.locator('.outside-interact-ready').count(),0);
-  assert.equal(await p.locator('.outside-interact').evaluate(el=>getComputedStyle(el).borderTopWidth),'1px');
-  await p.evaluate(()=>{lunaCampaign.storyVersion='A';outsidePlaytest.refreshHUD();});
+
+
+
+
   // Use an actual pointer hit: the prompt intentionally never stops floating.
   const target=await p.locator('.outside-interact').boundingBox();
   await p.mouse.click(target.x+target.width/2,target.y+target.height/2);
   await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition);
   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.title),'TV 다큐 · 인공생명체의 역사');
   assert.deepEqual(errors,[]);
-  console.log('INTERACTION_PROMPT_OK: TV screen anchor, foreground layer/hit target, 2px float, reduced motion, B preserved, documentary entry.');
+  console.log('INTERACTION_PROMPT_OK: TV screen anchor, foreground layer/hit target, 2px float, reduced motion, documentary entry.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

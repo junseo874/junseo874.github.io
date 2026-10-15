@@ -1,0 +1,11 @@
+.workspace>.start-screen.cutscene-library{padding:96px 48px 26px;justify-content:flex-start;background:radial-gradient(ellipse at 90% 0,#18323c,#0b1320 65%)}
+.cutscene-panel{width:100%;max-width:1120px;height:100%;min-height:0;display:flex;flex-direction:column}
+.cutscene-panel header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.cutscene-panel header small{color:#80cfd4;letter-spacing:3px;font-size:11px}
+.cutscene-panel h2{margin:9px 0;font-size:28px}.cutscene-panel p{font-size:13px;margin:0 0 16px;color:#a4b9c1}
+.cutscene-count{color:#a6e0de;white-space:nowrap;font-size:14px}
+body:has(#cutscene-preview-toolbar) .campaign-skip{top:100px;bottom:auto}
+.cutscene-filters{display:flex;gap:8px;align-items:center;margin-bottom:16px}.cutscene-filters button{font-size:13px;padding:9px 18px}.cutscene-filters button[aria-pressed=true]{background:#a5e6dd;color:#14282b;border-color:#a5e6dd}.cutscene-filters small{margin-left:auto;font-size:12px;color:#839da9}
+.cutscene-list{min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-content:start;gap:12px;padding:3px 9px 8px 3px;scrollbar-color:#486471 #101b26}
+.cutscene-card{text-align:left;display:flex;flex-direction:column;gap:12px;padding:19px 18px;background:#152330;border:1px solid #354c59;border-radius:7px;min-height:155px}.cutscene-card .cutscene-meta{font-size:11px;color:#80cfd4;letter-spacing:.5px}.cutscene-card strong{font-size:17px;font-weight:400;line-height:1.5}.cutscene-card>span:not(.cutscene-meta){font-size:12px;color:#a2b6be;line-height:1.5}.cutscene-card b{align-self:flex-end;margin-top:auto;font-size:12px;font-weight:400;color:#c9dfd8}.cutscene-card:hover{background:#203b47!important;border-color:#8adadd!important}
+#cutscene-preview-toolbar{position:fixed;top:12px;left:16px;right:16px;z-index:100000;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}#cutscene-preview-toolbar>span{background:#09131cdb;border:1px solid #41616b;border-radius:5px;padding:9px 12px;color:#cce4e5;font-size:13px}#cutscene-preview-toolbar button{pointer-events:auto;background:#101e29ed;border-color:#77bfc9;font-size:13px;padding:10px 14px}#cutscene-preview-toolbar kbd{margin-left:8px;font-size:10px}

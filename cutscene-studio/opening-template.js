@@ -32,6 +32,7 @@ function register(){
  add('opening-drone','꿈 · 낮은 잔향 / 임시 합성','audio',{synth:'drone'});
  add('opening-room','실내 · 잔잔한 공기 / 임시 합성','audio',{synth:'room'});
  add('opening-alarm','크리스 · 첫 연락 (confirm_01)','audio',{src:'assets/opening/chris-contact-confirm.wav'});
+ for(const [mode,label]of [['on','켜짐'],['idle','통화 중'],['off','꺼짐']])add('opening-holo-'+mode,'홀로콜 · '+label,'effect',{src:W.StudioHoloCall.thumbnail(),width:100,height:72,fw:100,fh:72,cols:1,count:1,fps:1,ppu:100,procedural:'holo-call',holoMode:mode});
 }
 function template(){
  const p={format:'unknown-cutscene',version:1,template:'opening',name:'게임 도입부 · 꿈에서 첫 출근까지',background:'stage',duration:300,camera:{x:.7,y:.5,w:6.8},actors:{},visibleActors:[],tracks:[],clips:[],assets:[],source:'https://app.notion.com/p/3f51612298dc807e996bd9abe58e89b2',chapters:[]};
@@ -69,7 +70,7 @@ function template(){
  fx(0,2.2,'fadeIn');fx(0,homeStart,'noise',.18,'grain');fx(0,homeStart,'vignette',.5,'vignette');
  fx(dreamEnd-1,1,'noise',.5,'scan');
  put('audio',0,{track:'dream-audio',assetId:'opening-drone',duration:homeStart,volume:.22,loop:true,fadeIn:2.2,fadeOut:.015,title:'기억 · 낮은 잔향'});
- const wake=homeStart+2.75,phoneStart=homeStart+5,houseEnd=phoneStart+40;
+ const wake=homeStart+2.75,holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
  p.chapters.push({name:'집 · 연락음과 동시 전환 / 암전 후 기상',time:homeStart},{name:'크리스 · 통화',time:phoneStart});
  visual('house','opening-home',homeStart,houseEnd-homeStart,0,-5.4,4,{layer:-10});
  const homeCam={x:5,y:-1.2,w:15};
@@ -77,18 +78,21 @@ function template(){
  fx(homeStart,houseEnd-homeStart,'vignette',.22,'vignette');
  // Swap two static poses precisely at full black, with no position/rotation interpolation.
  visual('home-luna','opening-luna-home',homeStart,wake-homeStart,7.95,-2.75,3.4,{rotation:-90,title:'루나 · 평상복 수면 자세',facing:'right',loop:false});
- visual('home-luna','opening-luna-home',wake,houseEnd-wake,7.3,-3.15,3.4,{rotation:0,title:'루나 · 평상복 기상 대기',facing:'right'});
+ visual('home-luna','opening-luna-home',wake,houseEnd-wake,7.3,-3.15,3.4,{rotation:0,title:'루나 · 평상복 기상 대기',facing:'left'});
  fx(wake-.35,.35,'fadeOut');fx(wake,.5,'fadeIn');
  put('audio',homeStart,{track:'room-audio',assetId:'opening-room',duration:houseEnd-homeStart,volume:.15,loop:true,fadeIn:.8,fadeOut:3,title:'집 · 실내 공기'});
  put('audio',homeStart,{track:'alarm-audio',assetId:'opening-alarm',duration:.73,volume:.55,loop:false,fadeIn:.005,fadeOut:.04,title:'크리스 · 첫 연락 / 꿈 깨우기'});
- t=phoneStart+.8;
- PHONE.forEach(([a,text])=>{const remote=a==='phone',duration=Math.max(3.2,text.length/11+1.4);line('home-luna',t,remote?'[c:#50d9f5]'+text+'[/c]':text,'phone-lines',duration,{title:(remote?'크리스 · 연락':'루나')+' · '+text.slice(0,20),speaker:remote?'크리스':'루나',remote,wait:true,offset:1.05,offsetX:0,bubbleStyle:'outside',bubbleWidth:420*15/1280,fontFamily:'game',fontScale:17/(.116*1280/15)*100});t+=duration+.45;});
- // The last acknowledgement hands directly to the playable home/tutorial.
- const finish=M.round(t-.45);
+ // The caller is anchored to the left side of the holographic card, not Luna.
+ const holo={x:6.25,y:-3};Object.assign(p.actors.phone,holo);
+ visual('phone','opening-holo-on',holoStart,W.StudioHoloCall.duration,holo.x,holo.y,1,{loop:false,facing:'left',layer:2,title:'홀로콜 · 가로 신호 후 화면 펼침'});
+ t=phoneStart+.12;
+ PHONE.forEach(([a,text])=>{const remote=a==='phone',duration=Math.max(3.2,text.length/11+1.4);line(a,t,remote?'[c:#50d9f5]'+text+'[/c]':text,'phone-lines',duration,{title:(remote?'크리스 · 연락':'루나')+' · '+text.slice(0,20),speaker:remote?'크리스':'루나',remote,wait:true,offset:remote?.86:1.05,offsetX:remote?-.28:0,bubbleStyle:'outside',bubbleWidth:420*15/1280,fontFamily:'game',fontScale:17/(.116*1280/15)*100});t+=duration+.45;});
+ const hangup=M.round(t-.45),finish=M.round(hangup+W.StudioHoloCall.duration);
+ visual('phone','opening-holo-idle',phoneStart,hangup-phoneStart,holo.x,holo.y,1,{loop:true,facing:'left',layer:2,title:'홀로콜 · 통화 유지 / 은은한 주사선'});
+ visual('phone','opening-holo-off',hangup,W.StudioHoloCall.duration,holo.x,holo.y,1,{loop:false,facing:'left',layer:2,title:'홀로콜 · 켜짐의 역순으로 종료'});
  // Extend late clips to the actual final dialogue; timing follows the text length.
- for(const c of p.clips)if(['house','phone'].includes(c.track)||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
- delete p.actors.phone;p.visibleActors=p.visibleActors.filter(id=>id!=='phone');p.tracks=p.tracks.filter(tr=>tr.id!=='phone');
- p.duration=finish;p.openingNotes='폐기물처리장 → 연락음과 동시에 크리스 집으로 즉시 전환 (페이드 없음) → 짧은 암전 후 기상 → 통화. TV 다큐는 별도 템플릿으로 분리. 기상은 암전 중 수면/기립 자세 교체이며 위치·회전 보간이나 TV 줌아웃 없음. 연구소 배경 1.30배, 두 인물 중앙에 화면 폭 4.8로 고정. 화자 머리 위 말풍선 유지. 집에서는 평상복 루나 대기 애니메이션 사용. 크리스 연락은 루나 위 검정 테두리·시안 글자 말풍선. 통화 대사는 키 입력으로 한 줄씩 진행. 마지막 대사를 넘기면 페이드나 대기 없이 집 조작 튜토리얼로 연결. 경로 안내 카드 없음. 배경음은 임시 합성음, 첫 연락은 confirm_01.wav 사용.';
+ for(const c of p.clips)if(c.track==='house'||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
+ p.duration=finish;p.openingNotes='폐기물처리장 → 연락음과 동시에 크리스 집으로 즉시 전환 (페이드 없음) → 짧은 암전 후 기상 → 통화. TV 다큐는 별도 템플릿으로 분리. 기상은 암전 중 수면/기립 자세 교체이며 위치·회전 보간이나 TV 줌아웃 없음. 연구소 배경 1.30배, 두 인물 중앙에 화면 폭 4.8로 고정. 화자 머리 위 말풍선 유지. 집에서는 평상복 루나 대기 애니메이션 사용. 기상 직후 가로 빛줄기와 화면 확장으로 홀로콜 켜짐. 크리스 연락은 홀로그램 위 검정 테두리·시안 글자 말풍선, 루나는 머리 위 기본 말풍선. 통화 대사는 키 입력으로 한 줄씩 진행. 마지막 대사를 넘기면 0.8초 동안 홀로콜을 역순으로 접어 끄고, 화면 페이드 없이 집 조작 튜토리얼로 연결. 경로 안내 카드 없음. 배경음은 임시 합성음, 첫 연락은 confirm_01.wav 사용.';
  K.hydrate(p);return p;
 }
 function documentary(){

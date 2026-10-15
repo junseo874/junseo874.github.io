@@ -14,9 +14,11 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    c.cinema.player.render(last.start,null,false,0,c.cinema.dialogueWait);
    return {lastEnd:last.start+last.duration,end:p.end,exitFade:p.clips.some(c=>c.type==='fx'&&c.effect==='fadeOut'&&c.start>=last.start)};
   });
-  assert(Math.abs(setup.end-setup.lastEnd)<.001);assert.equal(setup.exitFade,false);
+  assert(Math.abs(setup.end-setup.lastEnd-.8)<.001);assert.equal(setup.exitFade,false);
   await page.keyboard.press('KeyE');assert(await page.evaluate(()=>lunaCampaign.cinema.dialogueWait.revealed));
   await page.keyboard.down('KeyE');
+  assert.equal(await page.evaluate(()=>lunaCampaign.view),'prologue');
+  await page.waitForFunction(()=>lunaCampaign.view==='game'&&outsidePlaytest.model.controlsTutorial);
   const result=await page.evaluate(()=>({view:lunaCampaign.view,cinema:lunaCampaign.cinema,transition:!!lunaCampaign.memoryTransition,
    overlay:!!document.querySelector('.campaign-memory-transition'),tutorial:outsidePlaytest.model.controlsTutorial,
    paused:outsidePlaytest.model.paused,goal:!!barGame.progress.objectives?.first_commute,probe:returnProbe,
@@ -26,13 +28,13 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await page.keyboard.down('KeyE');assert(await page.evaluate(()=>outsidePlaytest.model.controlsTutorial));
   await page.keyboard.up('KeyE');assert(await page.locator('.outside-controls-tutorial').isVisible());
   await page.screenshot({path:'/private/tmp/contact-direct-tutorial.png'});
-  await page.keyboard.press('KeyD');
+  await page.waitForTimeout(1600);await page.keyboard.press('KeyD');
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.controlsTutorial),false);
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.x),result.location);
   // Documentary entry/exit retains its own fade policy.
   await page.evaluate(()=>lunaCampaign.playDayZeroTV(outsidePlaytest.model));
   await page.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition);
   assert.equal(await page.evaluate(()=>lunaCampaign.cinema.returnTransition),undefined);
-  assert.deepEqual(errors,[]);console.log('PASS: last line acknowledgement -> tutorial immediately, no fade/empty canvas frame, no accidental tutorial dismissal or movement, TV transition retained.');
+  assert.deepEqual(errors,[]);console.log('PASS: last line acknowledgement -> reverse holo shutdown -> tutorial, no fade/empty canvas frame, no accidental tutorial dismissal or movement, TV transition retained.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

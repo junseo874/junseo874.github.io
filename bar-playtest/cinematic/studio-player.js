@@ -1,11 +1,11 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../cutscene-studio/',document.currentScript.src),version='contact-direct-return-20261013';
+const base=new URL('../../cutscene-studio/',document.currentScript.src),version='holo-facing-20261016';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
-  for(const name of ['tags','media','model','model-v2','keyframes','opening-template','typography','speech-layer','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
+  for(const name of ['tags','media','model','model-v2','keyframes','holo-call','opening-template','typography','speech-layer','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
    const script=document.createElement('script');script.src=new URL(name+'.js?v='+version,base);script.onload=()=>{loaded.add(name);resolve();};script.onerror=()=>{script.remove();reject(Error('컷씬 모듈을 불러오지 못했습니다: '+name));};document.head.append(script);
   });
   await StudioMedia.ready;await document.fonts.load('17px LunaPixel');StudioOpening.register();

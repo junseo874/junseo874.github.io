@@ -7,6 +7,8 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await page.goto('http://127.0.0.1:8123/bar-playtest/');await page.evaluate(()=>lunaCampaign.newGame('A'));
   await page.waitForFunction(()=>lunaCampaign.view==='prologue');
   const hint=page.locator('.campaign-skip');
+  assert.equal(await hint.locator('span').textContent(),'스페이스 바를 눌러 스킵');
+  assert.match(await hint.getAttribute('aria-label'),/1\.5초/);
   assert(await hint.evaluate(el=>el.classList.contains('is-visible')));
   assert.equal(await hint.evaluate(el=>getComputedStyle(el).fontSize),'11px');
   const remaining=await page.evaluate(()=>lunaCampaign.cinemaHintUntil-performance.now());assert(remaining>0&&remaining<=2000);
@@ -17,16 +19,16 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   assert(+(await hint.locator('[role="progressbar"]').getAttribute('aria-valuenow'))>0);
   await page.keyboard.up('Space');await page.waitForTimeout(350);
   assert.equal(await hint.evaluate(el=>getComputedStyle(el).opacity),'0');
-  // Holding for three seconds still skips only the dream, not waking/contact.
+  // The 1.5-second threshold still skips only the dream, not waking/contact.
   await page.keyboard.down('Space');
-  await page.evaluate(()=>{lunaCampaign.cinemaHoldStart=performance.now()-3010;lunaCampaign.tick(.01);});
+  assert(await page.evaluate(()=>{const c=lunaCampaign;c.cinemaHoldStart=performance.now()-1450;c.tick(.01);const before=c.canSkipCinema()&&c.cinema.time<c.cinema.skipUntil;c.cinemaHoldStart=performance.now()-1510;c.tick(.01);return before;}));
   await page.keyboard.up('Space');
   assert(await page.evaluate(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.canSkipCinema()&&lunaCampaign.cinema.time>=lunaCampaign.cinema.skipUntil));
   assert(await hint.isHidden());
-  // Version B retains its old size and five-second hint after releasing Space.
-  await page.evaluate(()=>{const c=lunaCampaign;c.storyVersion='B';c.cinema.time=0;c.cinemaHoldStart=performance.now();c.releaseCinemaSkip();c.paintCinemaSkip();});
-  assert.equal(await hint.evaluate(el=>getComputedStyle(el).fontSize),'12px');
-  assert(await page.evaluate(()=>lunaCampaign.cinemaHintUntil-performance.now()>4500));
-  assert.deepEqual(errors,[]);console.log('PASS: A hint 2s / 11px / hidden after release, hold progress and 3s dream-only skip intact; B unchanged.');
+
+
+
+
+  assert.deepEqual(errors,[]);console.log('PASS: exact skip label, hint 2s / 11px, release reset, 1.5s threshold, dream-only skip with contact protected.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

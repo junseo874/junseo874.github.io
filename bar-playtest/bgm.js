@@ -59,6 +59,8 @@
     }
     syncLocation(campaign,outside){
       const view=campaign?.view==='options'?campaign.resumeView:campaign?.view;
+      // The entry lobby, title and story selection share the street's quiet loop.
+      if(['picker','title'].includes(view)){this.setLocation('street');return;}
       // Outside can preload behind the bar door: switch only when its new view is revealed.
       if(campaign?.doorTransition){if(campaign.doorTransition.revealAt!=null)this.setLocation(campaign.doorTransition.direction==='in'?'bar':'street');return;}
       if(['loading','memory-transition','day-transition','load-error'].includes(view))return;

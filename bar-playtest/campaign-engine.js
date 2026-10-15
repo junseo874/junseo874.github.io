@@ -11,18 +11,10 @@ class Session{
   const oldContexts=new Set(this.original.scenes.filter(s=>[1,2,3].includes(Number(s.day))).map(s=>s.id));
   t.steps=t.steps.filter(s=>!oldContexts.has(s.context));
   const stepRows=(rows,id)=>rows.map((r,i)=>({...r,context:id,seq:String(i+1),actor:r.actor||'luna',arg:r.arg||null,'text.ko':r.text||null,'text.en':r.text||null,dialogue_id:r.type==='say'?id+'_'+i:null,row_id:id+'_'+i}));
-  this.storyVersion=this.story.version==='B'?'B':'A';
-  if(this.storyVersion==='B'){
-   t.steps=t.steps.filter(s=>s.context!=='d1_tutorial_chris');
-   t.steps.push(...stepRows(this.story.day0Steps,'d1_tutorial_chris'));
-   t.bar_choices=[...t.bar_choices,...copy(this.story.choices)];
-   t.bar_choice_groups=[...t.bar_choice_groups,...[...new Set(this.story.choices.map(c=>c.context))].map(choice_group=>({choice_group,row_id:choice_group}))];
-  }
+  this.storyVersion='A';
   t.cocktails=copy(t.cocktails);t.shelf_items=copy(t.shelf_items);t.recipes=copy(t.recipes);t.characters=copy(t.characters);
   // Explicit story availability: Cosmo and its ingredients remain day 2.
   t.cocktails.find(c=>c.id==='dry_martini').unlock_day='1';t.shelf_items.find(c=>c.id==='dry_vermouth').unlock_day='1';
-  // B's writer explicitly orders champagne on day 1. A keeps the day-2 unlock.
-  if(this.storyVersion==='B')for(const table of [t.cocktails,t.shelf_items])for(const row of table)if(row.id==='champagne')row.unlock_day='1';
   const base=t.shelf_items.find(i=>i.id==='whiskey');
   const ids=RESTORATION.ingredients.map(r=>r[0]);t.shelf_items=t.shelf_items.filter(i=>!ids.includes(i.id));t.cocktails=t.cocktails.filter(c=>c.id!==RESTORATION.id);t.recipes=t.recipes.filter(r=>r.context!==RESTORATION.id);
   for(const [id,name,color,asset,category] of [['wild_dog','와일드 독','190,120,40','whiskey','base'],['bitters','비터스','145,67,33','kahlua','liqueur'],['sugar_cube','각설탕','240,237,209','sugar_cube','sugar']]){
@@ -34,7 +26,7 @@ class Session{
   t.recipes.push(...RESTORATION.ingredients.map(([ingredient,qty],i)=>({context:RESTORATION.id,action:ingredient==='sugar_cube'?'add':'pour',ingredient,qty:String(qty),unit:ingredient==='sugar_cube'?'개':'ml',is_core:true,scored:true,auto_apply:false,row_id:'campaign_recipe_'+i})));
   for(const prefix of ['cocktail_','recipe_cocktail_','table_cocktail_'])addAsset(prefix+RESTORATION.id,prefix+'godfather');
   for(const [id,name]of [['tom','톰'],['message','의뢰 연락 메시지'],['johnny','조니']])if(!t.characters.some(c=>c.id===id))t.characters.push({id,'name.ko':name,'name.en':name,affinity:false});
-  for(const day of [1,2,3])for(const phase of ['bar_open','bar']){const id='campaign_d'+day+'_'+phase;const rows=phase==='bar_open'?(this.storyVersion==='B'?this.story.opening[day]:[{type:'enter',actor:'chris',arg:'R'},...this.story.opening[day]]):this.story.bar[day];
+  for(const day of [1,2,3])for(const phase of ['bar_open','bar']){const id='campaign_d'+day+'_'+phase;const rows=phase==='bar_open'?[{type:'enter',actor:'chris',arg:'R'},...this.story.opening[day]]:this.story.bar[day];
    t.scenes.push({id,day:String(day),seq:'1',phase,trigger:'auto',title:day+'일차 본편',row_id:id});
    t.steps.push(...stepRows(rows,id));
   }

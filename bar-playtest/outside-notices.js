@@ -11,7 +11,7 @@ W.LunaOutsideNotices={create(host,currency){
  function showMoney(f,p){let el=money.firstElementChild;if(!f.active){money.replaceChildren();return;}if(!el){money.innerHTML=W.LunaCurrencyView.html(f,p,{lang:W.barGame.lang,reducedMotion:reduced.matches});return;}
   const income=f.delta>0,fmt=n=>Math.round(n).toLocaleString(),ko=W.barGame.lang==='ko';el.className='currency-hud '+(income?'currency-income':'currency-spending');el.style.opacity=f.opacity;el.setAttribute('aria-label',(income?(ko?'수입':'Income'):(ko?'차감':'Spent'))+' '+fmt(Math.abs(f.delta))+', '+(ko?'소지금':'Balance')+' '+fmt(p.money));el.querySelector('.currency-value').textContent=fmt(reduced.matches?p.money:f.displayed);const d=el.querySelector('.currency-delta');d.textContent=(income?'+':'−')+fmt(Math.abs(f.delta));d.style.transform='translateY('+(reduced.matches?0:-Math.min(12,f.elapsed*7))+'px)';
  }
- function update(m,dt=0){const p=sync(m),paused=document.hidden,t=paused?0:Math.min(.1,Math.max(0,dt));showMoney((m.qa?qaCurrency:currency).update(p,dt,paused),p);
+ function update(m,dt=0){const p=sync(m),paused=W.LunaFocusSettings?.hiddenPaused??document.hidden,t=paused?0:Math.min(.1,Math.max(0,dt));showMoney((m.qa?qaCurrency:currency).update(p,dt,paused),p);
   const previous=current;
   if(!current&&queue.length)next();if(!current)return;age+=t;if(age>=2.8){next();if(!current)return;}
   if(current!==previous){const shown=current;W.LunaStoryNoticeAudio?.play(()=>current===shown&&layer.isConnected&&!item.hidden);}

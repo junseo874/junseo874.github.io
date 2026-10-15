@@ -8,7 +8,7 @@ const motionSpeed=tier=>[1,1.25,1.5][tier];
 const noteSpeed=tier=>[1,1.25,1.5][tier];
 const keys={KeyA:0,ArrowLeft:0,KeyD:1,ArrowRight:1};
 const normalizeMode=mode=>mode==='drum'?'path':MODES.includes(mode)?mode:'fall';
-const mainStoryLocked=g=>!!root.lunaCampaign?.active&&root.lunaCampaign.storyVersion!=='B'&&!g?.minigame;
+const mainStoryLocked=g=>!!root.lunaCampaign?.active&&!g?.minigame;
 const selectedSound=(g,preferred)=>mainStoryLocked(g)?2:Number(preferred)||1;
 function updatePath(s,rng){
  // Reuse the original geometry/pattern generator with a tempo-scaled clock,

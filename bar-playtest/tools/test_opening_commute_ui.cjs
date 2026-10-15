@@ -10,10 +10,10 @@ const assert=require('node:assert/strict');
   await p.waitForFunction(()=>['prologue','load-error'].includes(lunaCampaign.view),null,{timeout:60000});
   assert.equal(await p.evaluate(()=>lunaCampaign.view),'prologue',await p.evaluate(()=>lunaCampaign.loadError));
   const state=await p.evaluate(()=>{const c=lunaCampaign,p=c.cinema.scene;return{template:p.template,lines:p.clips.filter(c=>c.type==='dialogue').length,phone:p.clips.filter(c=>c.track==='phone-lines'),visuals:p.clips.filter(c=>c.type==='visual'),day:c.session.day,route:c.session.route,home:outsidePlaytest.model.scene};});
-  assert.equal(state.template,'opening');assert.equal(state.lines,20);assert.equal(state.day,0);assert.equal(state.route,'in');assert.equal(state.home,'home');
+  assert.equal(state.template,'opening');assert.equal(state.lines,16);assert.equal(state.day,0);assert.equal(state.route,'in');assert.equal(state.home,'home');
   assert.equal(state.visuals.find(c=>c.actor==='dream-luna').assetId,'opening-luna');
   assert(state.visuals.filter(c=>c.actor==='home-luna').every(c=>c.assetId==='opening-luna-home'&&c.from.x===c.to.x&&c.from.y===c.to.y));
-  assert(!state.visuals.some(c=>c.actor==='phone'));assert(state.phone.every(c=>c.actor==='home-luna'&&c.offsetX===0));assert.equal(state.phone.filter(c=>c.remote&&c.text.includes('#50d9f5')).length,4);
+  assert.equal(state.visuals.filter(c=>c.actor==='phone').length,3);assert(state.phone.every(c=>c.actor===(c.remote?'phone':'home-luna')));assert.equal(state.phone.filter(c=>c.remote&&c.text.includes('#50d9f5')).length,4);
   for(const [name,t] of [['dream',10],['sleep',54.8],['home',state.phone[0].start+2],['contact-long',state.phone.at(-1).start+5]]){
    await p.evaluate(t=>{const c=lunaCampaign;c.cinema.time=t;c.cinema.player.render(t,null,false);},t);
    await p.locator('.campaign-stage').screenshot({path:'/private/tmp/main-opening-'+name+'.png'});

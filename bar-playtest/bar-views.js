@@ -24,7 +24,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     }).every(Boolean);
   }
   function paintedPose(guest,state,requested){
-    if(window.lunaCampaign?.storyVersion==='B')return requested;
+
     // Warm both ends of normal speech before its first letter is displayed.
     const idle=actorLayers(guest,'idle',false);
     const idleReady=poseReady(idle);
@@ -343,9 +343,9 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   function prepHTML(){
     const p=g.prep,c=g.cocktail(p.selected),{pages,positioned}=layout();
     const selected=[p.glass,p.tool,p.opener?'opener':null,...p.ingredients].filter(Boolean);
-    const hovered=positioned.find(o=>o.item.id===ui.hoverItem);
-    const tooltip=hovered?(()=>{const {item,x,y,h}=hovered;const below=y-h<120;
-      return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ${below?'below':''}" style="left:${Math.max(175,Math.min(785,x))/960*100}%;${below?'top':'bottom'}:${(below?y+18:540-y+h+18)/540*100}%"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item,'desc')||L('소개 문구 준비 중','Description pending'))}</span>${!a('item_'+item.id)?`<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용','Shared team placeholder artwork')}</small>`:''}</div>`;
+    const hovered=g.isPaused()?null:positioned.find(o=>o.item.id===ui.hoverItem);
+    const tooltip=hovered?(()=>{const {item}=hovered;
+      return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ingredient-pointer-tip"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item,'desc')||L('소개 문구 준비 중','Description pending'))}</span>${!a('item_'+item.id)?`<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용','Shared team placeholder artwork')}</small>`:''}</div>`;
     })():'';
     return `<div class="craft-screen prep-screen ${ui.recipeOpen?'prep-open':''}">${prepRecipeBrief(c)}
       <div class="prep-main"><div class="shelf-viewport"><div class="shelf-track" style="transform:translateX(${-categories.indexOf(ui.tab)*100}%)">
@@ -358,7 +358,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
           const bottom=(art.h-box[3])*ratio,centerOffset=ingredient?(art.w/2-(box[0]+box[2])/2)*ratio:0;
           return `<button class="shelf-item ${selected.includes(i.id)?'selected':''}" data-act="${i.id==='opener'?'pickOpener':'pick'}" data-id="${i.id}" data-hover-item="${i.id}" data-baseline="${y}" aria-label="${esc(itemName(i.id))}" aria-pressed="${selected.includes(i.id)}" ${hovered?.item.id===i.id?'aria-describedby="ingredient-tip"':''} style="left:${x/960*100}%;bottom:${(540-y)/540*100}%;width:${w/960*100}%;height:${h/540*100}%"><img class="shelf-sprite" src="${art.src}" alt="${esc(itemName(i.id))}" draggable="false" style="left:${50+centerOffset/w*100}%;width:${art.w*ratio/w*100}%;height:${art.h*ratio/h*100}%;bottom:${-bottom/h*100}%">${!a('item_'+i.id)?`<span class="shelf-placeholder-label">${esc(itemName(i.id))}</span>`:''}</button>`;
         }).join('')}
-        ${!placed.length?`<div class="shelf-empty">${L('오늘 해금된 항목이 없습니다.','Nothing unlocked here today.')}</div>`:''}${tab===ui.tab?tooltip:''}
+        ${!placed.length?`<div class="shelf-empty">${L('오늘 해금된 항목이 없습니다.','Nothing unlocked here today.')}</div>`:''}
       </div></div></div>`;}).join('')}</div></div>
       <button class="shelf-arrow prev" data-act="shelfCategory" data-id="-1" aria-label="${L('이전 선반','Previous shelf')}" ${ui.tab==='glass'?'disabled':''}><span aria-hidden="true">‹</span><small aria-hidden="true">A</small></button>
       <button class="shelf-arrow next" data-act="shelfCategory" data-id="1" aria-label="${L('다음 선반','Next shelf')}" ${ui.tab==='fridge'?'disabled':''}><span aria-hidden="true">›</span><small aria-hidden="true">D</small></button>
@@ -367,7 +367,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
         <div class="shelf-navigation"><div class="shelf-dots">${categories.map(id=>button(`<span></span><i>${categoryName(id)}</i>`,'tab',`data-id="${id}" aria-label="${categoryName(id)}" aria-pressed="${ui.tab===id}"`,ui.tab===id?'selected':'')).join('')}</div></div>
         ${button(L('제조 시작','Start crafting'),'craft',!p.glass||!p.ingredients.length?'disabled':'','craft-start')}</div>
       <div class="prep-inventory"><div class="inventory-scroll">${selected.map(id=>button(`${itemArt(id,'','inventory')}<span class="remove-mark">×</span><span class="inventory-item-name">${esc(itemName(id))}</span>`,id==='opener'?'pickOpener':'pick',`data-id="${id}" aria-label="${esc(itemName(id))} ${L('선택 해제','remove')}"`,'inventory-slot')).join('')}<div class="inventory-slot empty-slot" aria-hidden="true">＋</div></div></div>
-      ${ui.recipeOpen?recipePanel(c):''}</div>`;
+      ${ui.recipeOpen?recipePanel(c):''}${tooltip}</div>`;
   }
   function motionHTML(s,crop){
     const art=D.assets[s.type==='stir'?'mix_stir_motion':'mix_shake_motion'];
@@ -378,10 +378,21 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function mixGauge(s,vertical=false){
     const results=s.outcomes||[];
+    if(s.type==='stir')return `<div class="mix-gauge stir-resource-gauge" role="img" aria-label="${L('성공','Success')} ${s.success} / ${s.targetStacks}">${Array.from({length:s.targetStacks},(_,i)=>{
+      const result=i<results.length?(results[i]?'good':'miss'):i===s.attempts&&!s.completed?'current':'';
+      return `<i class="${result}">${i<results.length?`<svg viewBox="150 10 130 65" preserveAspectRatio="none" aria-hidden="true"><image href="assets/ui/stir/GAU_stir_${results[i]?'success':'fail'}.png" width="2124" height="89"/></svg>`:''}</i>`;
+    }).join('')}</div>`;
     return `<div class="mix-gauge ${vertical?'vertical':''}" role="img" aria-label="${L('성공','Success')} ${s.success} / ${s.targetStacks}">${Array.from({length:s.targetStacks},(_,i)=>`<i class="${i<results.length?(results[i]?'good':'miss'):i===s.attempts&&!s.completed?'current':''}"></i>`).join('')}</div>`;
+  }
+  // Vector digits keep the reference's digital timer sharp without an unavailable font.
+  function stirClock(time){
+    const segments=['abcedf','bc','abged','abgcd','fgbc','afgcd','afgecd','abc','abcdefg','abcdfg'];
+    const paths={a:'M3 0H15L17 2L15 4H3L1 2Z',b:'M16 3L18 5V14L16 16L14 14V5Z',c:'M16 17L18 19V28L16 30L14 28V19Z',d:'M3 29H15L17 31L15 33H3L1 31Z',e:'M2 17L4 19V28L2 30L0 28V19Z',f:'M2 3L4 5V14L2 16L0 14V5Z',g:'M3 14H15L17 16L15 18H3L1 16Z'};
+    let x=0;return `<svg class="stir-clock" viewBox="0 0 98 33" aria-hidden="true">${[...time].map(c=>{const at=x;x+=c===':'?10:22;return `<g transform="translate(${at} 0)">${c===':'?'<rect x="1" y="9" width="4" height="4"/><rect x="1" y="21" width="4" height="4"/>':[...segments[Number(c)]].map(k=>`<path d="${paths[k]}"/>`).join('')}</g>`;}).join('')}</svg>`;
   }
   function mixTimer(s){
     const sec=Math.floor(s.elapsed),time=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+    if(s.type==='stir')return `<div class="mix-timer" aria-label="${L('현재 기믹 시간','Step time')} ${time}"><img class="stir-timer-icon" src="assets/ui/stir/ICN_sitr_time.png" alt="">${stirClock(time)}</div>`;
     return `<div class="mix-timer" aria-label="${L('현재 기믹 시간','Step time')} ${time}"><svg viewBox="0 0 36 42" aria-hidden="true"><path d="M13 2h10M18 2v6M29 9l3-3"/><circle cx="18" cy="25" r="14"/><path d="M18 13v12h9"/></svg><span>${time}</span></div>`;
   }
   function iceTransform(x,y,spin,scale=1){return 'translate('+x+' '+y+') rotate('+spin+') scale('+scale+')';}
@@ -401,8 +412,8 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const pos=[[50,0],[100,50],[50,100],[0,50]],next=s.started?(s.stirPos+1)%4:0;
     const progress=stirProgress(s);
     return '<section class="mix-board stir-board">'+mixTimer(s)+
-      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><circle cx="100" cy="100" r="91" fill="#293c4d" stroke="#99acbf" stroke-width="5"/><circle cx="100" cy="100" r="85" fill="#d5e4e9" stroke="#fafcff" stroke-width="2"/><circle cx="100" cy="100" r="74" fill="#7eacbf" fill-opacity=".55"/>'+s.ice.map((c,index)=>iceShape(index,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 18V101" stroke="#222d40" stroke-width="6"/><path d="M100 18V101" stroke="#c3dbe4" stroke-width="2.5"/><ellipse cx="100" cy="22" rx="4.2" ry="7.5" fill="#dcebf2" stroke="#364559" stroke-width="1.5"/></g></svg>'+
-      '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><circle class="orbit-base" cx="200" cy="200" r="180"/><circle class="orbit-progress '+(s.started&&progress<.34?'danger':'')+'" cx="200" cy="200" r="180" pathLength="100" stroke-dasharray="'+progress*100+' 100" transform="rotate(-90 200 200)"/></svg>'+
+      '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="'+L('입력에 반응하는 숟가락과 얼음','Input-driven spoon and ice')+'"><defs><linearGradient id="stir-metal"><stop stop-color="#3a465d"/><stop offset=".2" stop-color="#c8d5e0"/><stop offset=".28" stop-color="#f3ffff"/><stop offset=".47" stop-color="#889fb4"/><stop offset=".7" stop-color="#e7f5fa"/><stop offset="1" stop-color="#65758c"/></linearGradient><radialGradient id="stir-well"><stop offset=".76" stop-color="#d9e6ec" stop-opacity="0"/><stop offset="1" stop-color="#172332" stop-opacity=".8"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#283548" stroke="#b4c9df" stroke-width="2"/><circle cx="100" cy="100" r="91" fill="url(#stir-metal)" stroke="#eefaff" stroke-width="1.5"/><circle cx="100" cy="100" r="88" fill="url(#stir-well)"/>'+s.ice.map((c,index)=>iceShape(index,100+c.x,100-c.y,c.size,-c.spin)).join('')+'<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="'+s.spoonAngle.toFixed(3)+'" transform="rotate('+s.spoonAngle+' 100 100)"><path d="M100 8V101" stroke="#222d40" stroke-width="3"/><path d="M100 8V101" stroke="#c3dbe4" stroke-width="1.2"/><path d="M99 15l2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4" fill="none" stroke="#71899c" stroke-width=".6"/><ellipse cx="100" cy="10" rx="2.4" ry="4.5" fill="url(#stir-metal)" stroke="#364559" stroke-width="1"/></g></svg>'+
+      '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="stir-time-mask"><circle class="orbit-progress '+(s.started&&progress<.34?'danger':'')+'" cx="200" cy="200" r="187" pathLength="100" stroke-dasharray="'+progress*100+' 100" transform="rotate(-90 200 200)"/></mask></defs><image href="assets/ui/stir/GAU_stir_round_B.png" width="400" height="400"/><image class="stir-time-fill" href="assets/ui/stir/GAU_stir_round_A.png" width="400" height="400" mask="url(#stir-time-mask)"/></svg>'+
       ['W','D','S','A'].map((k,i)=>'<button class="mix-direction '+(i===next&&!s.completed?'next':'')+' '+(s.started&&i===s.stirPos&&!s.completed?'pressed':'')+'" style="left:'+pos[i][0]+'%;top:'+pos[i][1]+'%" data-act="stir" data-id="Key'+k+'" aria-label="'+k+'" '+(s.completed?'disabled':'')+'>'+k+'</button>').join('')+
       '</div>'+mixGauge(s)+'</section>';
   }
@@ -456,7 +467,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'} ${locked?'main-story-mix':''}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
       ${!locked&&!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
       ${!locked&&stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
-      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div></div>${stir?stirBoard(s):shakeBoard(s)}</div>
+      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div></div>${stir?'<div class="mix-detail stir-detail" aria-hidden="true">'+motionHTML(s,[260,242,104,181])+'</div>':''}${stir?stirBoard(s):shakeBoard(s)}</div>
       ${s.rhythm?'':button(g.minigame?L('결과 보기 →','View result →'):s.completed?L('다음 →','Next →'):L('현재 기믹 마치기 →','Finish this step →'),'endGimmick',!s.started||g.remix?.hold||s.rhythm&&!s.completed?'disabled':'','primary gimmick-finish')}</div>`;
   }
   return {recipePanel,actorHTML,worldHTML,prepHTML,mixHTML,categories,syncCamera,syncStirMotion,dialogueAnchor,seatIndicator};

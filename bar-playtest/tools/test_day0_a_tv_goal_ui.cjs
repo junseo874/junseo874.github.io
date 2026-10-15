@@ -26,11 +26,11 @@ const assert=require('node:assert/strict');
    for(let i=0;i<33;i++){m.backgroundStory.channels.get(id).speech.elapsed=99;LunaOutsideTV.tick(m,.01);}
    LunaOutsideTV.tick(m,.01);return m.backgroundStory.channels.get(id).speech.index;
   }),0);
-  // Keep this new broadcast out of B, later days, QA, and the street.
-  for(const mode of ['B','day1','qa','street']){
+  // Keep this new broadcast out of later days, QA, and the street.
+  for(const mode of ['day1','qa','street']){
    assert.equal(await p.evaluate(mode=>{
     const m=outsidePlaytest.model,c=lunaCampaign,day=m.config.day,scene=m.scene;
-    if(mode==='B')c.storyVersion='B';if(mode==='day1')m.config.day=1;if(mode==='qa')m.qa={};if(mode==='street')m.scene='street';
+    if(mode==='day1')m.config.day=1;if(mode==='qa')m.qa={};if(mode==='street')m.scene='street';
     LunaOutsideTV.tick(m,.01);const present=m.backgroundStory.channels.has(LunaOutsideTV.documentaryId);
     c.storyVersion='A';m.config.day=day;m.scene=scene;m.qa=null;LunaOutsideTV.tick(m,.01);return present;
    },mode),false,mode);

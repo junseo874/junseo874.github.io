@@ -78,13 +78,29 @@ html,body{overflow:hidden;background:#03060b}
 .dialogue-wrap.player-speech{bottom:50px}.player-speech .dialogue-box{min-height:108px;padding:22px 38px 24px}.player-speech .dialogue-surface:before{top:auto;bottom:-10px;transform:rotate(225deg)}
 /* Composite body and tail before transparency so their overlap never darkens.
    Shared by general guests, regular guests and Luna; text remains fully opaque. */
-.dialogue-surface{position:absolute;inset:-1px;pointer-events:none;background:#090e18;border:1px solid #42c8d7;border-radius:19px;opacity:.85}
-.dialogue-surface:before{content:'';position:absolute;background:#090e18;border-left:1px solid #42c8d7;border-top:1px solid #42c8d7;left:calc(50% - 9px);width:18px;height:18px;top:-10px;transform:rotate(45deg)}
+/* Customer-screen reference: ~95% opaque fill. Compensate border alpha so
+   its existing contrast stays unchanged when the composite becomes denser. */
+.dialogue-surface{position:absolute;inset:-1px;pointer-events:none;background:#090e18;border:1px solid #42c8d7e4;border-radius:19px;opacity:.95}
+.dialogue-surface:before{content:'';position:absolute;background:#090e18;border-left:1px solid #42c8d7e4;border-top:1px solid #42c8d7e4;left:calc(50% - 9px);width:18px;height:18px;top:-10px;transform:rotate(45deg)}
 .dialogue-box>.speaker{position:relative}
-.choices{left:50%;right:auto;top:auto;bottom:88px;transform:translateX(-50%);width:800px;gap:7px;z-index:12}
-.choices button{position:relative;text-align:center;min-height:49px;border-radius:0;border:1px solid #8f979b;background:#0c111af5;color:#bfc3c7;font-size:19px;padding:11px 32px;clip-path:polygon(0 0,100% 0,100% 100%,16px 100%,0 calc(100% - 13px));box-shadow:none}
-.choices button:hover:not(:disabled),.choices button:focus-visible{border-color:#49e7f3;background:#14212ded;color:#5de8f6;box-shadow:inset 0 -2px #48d4e2}
-.choices button:hover:not(:disabled):before,.choices button:focus-visible:before{content:'▷';position:absolute;left:24px;top:12px;color:#5de8f6}.choices button small{font-size:11px}
+/* Supplied choice art shares a 2103x228 canvas; its frame is at 37,34–2065,190.
+   Keep transparent glow margins outside the hit area so both states align. */
+.choices{left:50%;right:auto;top:auto;bottom:94px;transform:translateX(-50%);width:675px;max-width:86%;gap:6px;z-index:12}
+.choices button{position:relative;isolation:isolate;text-align:center;min-height:51px;flex-shrink:0;border-radius:0;border:0;background:transparent;color:#bfc0c1;font-size:19px;line-height:1.35;padding:12px 60px;clip-path:none;box-shadow:none;outline:none;overflow-wrap:anywhere;transition:color .12s}
+.choices button:before{content:'';position:absolute;z-index:-1;left:-1.82446%;top:-21.79487%;width:103.69822%;height:146.15385%;background:url('assets/ui/choices/IMG_choice_A.png') center/100% 100% no-repeat;pointer-events:none}
+.choices button:after{content:'';position:absolute;left:17px;top:50%;width:34px;height:36px;transform:translateY(-50%);background:url('assets/ui/choices/IMG_choice_arrow.png') center/contain no-repeat;opacity:0;pointer-events:none}
+.choices button:hover:not(:disabled),.choices button:focus-visible{background:transparent;border:0;box-shadow:none;outline:none}
+.choices button:hover:not(:disabled),.choices:not(:has(button:not(:disabled):hover)) button:focus{color:#54dfea}
+.choices button:hover:not(:disabled):before,.choices:not(:has(button:not(:disabled):hover)) button:focus:before{background-image:url('assets/ui/choices/IMG_choice_B.png')}
+.choices button:hover:not(:disabled):after,.choices:not(:has(button:not(:disabled):hover)) button:focus:after{opacity:1}
+.choices button small{font-size:11px;line-height:1.4}
+/* The lower decorative strip is now the hold-to-confirm meter (0 → 100%). */
+.choices button{touch-action:none;user-select:none}
+.choices .choice-progress{position:absolute;left:6%;right:5%;bottom:0;height:4px;background:#161719;clip-path:polygon(2px 0,calc(100% - 2px) 0,100% 100%,0 100%);pointer-events:none}
+.choices .choice-progress i{display:block;width:100%;height:100%;background:#61eff5;transform-origin:left;transform:scaleX(var(--choice-progress,0));box-shadow:0 0 5px #54dfea}
+.choices button.choice-holding{color:#54dfea}
+.choices button.choice-holding:before{background-image:url('assets/ui/choices/IMG_choice_B.png')}
+.choices button.choice-holding:after{opacity:1}
 .stack{left:auto;right:20px;bottom:20px;padding:8px 9px}.stack img{width:62px}.stack small{display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;font-size:10px;margin-top:13px}.stack small kbd{font-size:11px;padding:2px 5px}.tray{right:20px;bottom:59px;padding:9px 14px;font-size:12px}.tray .drink-art{width:45px;height:73px}.tray h3{font-size:15px}.tray small{font-size:10px}
 .workspace>.modal-backdrop{padding:48px 25px 18px}.workspace>.inspector{top:48px;bottom:14px}.side-panel .panel-header{padding:13px 18px}.recipe-peek{top:70px}.workspace>.pause-full{z-index:30}
 .stage{container-type:size}.world{inset:auto;left:50%;top:50%;width: max(100cqw, calc(100cqh * 2041 / 792));height: max(100cqh, calc(100cqw * 792 / 2041));margin-left:calc(max(100cqw, 100cqh * 2041 / 792) / -2);margin-top:calc(max(100cqh, 100cqw * 792 / 2041) / -2);transform-origin:50% 57%}
@@ -189,6 +205,10 @@ html,body{overflow:hidden;background:#03060b}
 @container game (max-width:720px){.prep-recipe.recipe-preview{left:350px;width:calc(100% - 360px);min-width:0}}
 
 /* Names appear only on hover/focus, using the shelf tooltip appearance. */
+.prep-screen>.ingredient-pointer-tip{z-index:15;transform:none;width:max-content;min-width:0;max-width:min(290px,29cqw);padding:10px 11px;border-radius:6px;font-size:clamp(10px,1.5cqw,15px);text-align:left;pointer-events:none}
+.prep-screen>.ingredient-pointer-tip:after{display:none;content:none}
+.ingredient-pointer-tip strong{margin-bottom:5px}
+.ingredient-pointer-tip span{line-height:1.4}
 .recipe-icon-slot .recipe-item-tip{display:none;left:0;top:calc(100% + 8px);bottom:auto;transform:none;width:max-content;min-width:0;max-width:220px;padding:10px 12px;font-size:12px;z-index:10}
 .recipe-icon-slot .recipe-item-tip strong{margin:0;white-space:normal;word-break:keep-all}
 .recipe-icon-slot:hover,.recipe-icon-slot:focus-visible{z-index:2;border-color:#58ddeb;outline:none}

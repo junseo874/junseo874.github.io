@@ -7,6 +7,9 @@ const SOFA={id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7};
 const BOTTOM=R.elevatorBottom,TOP=R.elevatorTop,EX=R.elevatorX;
 // The fence-side sign is a local lookout, not a full-map camera toggle.
 const VIEWPOINT={x:-8.78,y:-.7,radius:.55,width:12};
+// Stop beside the scrap pile, leaving the final approach to the bar to the player.
+// Shift the start by the same amount to preserve the visible walk-in duration.
+const FIRST_COMMUTE_ARRIVAL={from:-1.55,to:0};
 // Speeds relative to the gameplay plane (1). Only independent art is listed:
 // doors, lift, railings, shop props, actors, speech and rain stay in world space.
 const STREET_DEPTH=Object.freeze({
@@ -25,9 +28,9 @@ function streetParallax(n,camera,model){
 }
 // Version A day zero has no lookout interaction (keyboard and click share this guard).
 // Version B keeps its separately managed progression unchanged.
-function atViewpoint(m){return !!m&&(m.config.day!==0||global.lunaCampaign?.storyVersion==='B')&&!m.qa&&m.scene==='street'&&m.level===0&&Math.abs(m.x-VIEWPOINT.x)<=VIEWPOINT.radius&&!m.ride&&!m.transition&&!m.encounter&&!m.dialog&&!m.story.blocking;}
+function atViewpoint(m){return !!m&&m.config.day!==0&&!m.qa&&m.scene==='street'&&m.level===0&&Math.abs(m.x-VIEWPOINT.x)<=VIEWPOINT.radius&&!m.ride&&!m.transition&&!m.encounter&&!m.dialog&&!m.story.blocking;}
 function firstCommuteEntranceCue(m){
- return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&m.config.day===0&&m.config.flow==='in'&&global.lunaCampaign?.storyVersion!=='B';
+ return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&m.config.day===0&&m.config.flow==='in';
 }
 // Equal Unity sorting keys must not inherit serialized component/file-ID order.
 // Wall/fence dressing goes on the background, NPCs follow their sorting order,
@@ -50,7 +53,7 @@ function interactionAnchor(model,target,data){
  if(target.id==='elevator')return{x:target.x,y:target.y+.518};
  if(target.id==='home')return{x:target.x,y:target.y+.87};
  // Keep A's prompt beside the hologram, clear of both its picture and subtitles.
- if(target.id==='tv')return global.lunaCampaign?.storyVersion==='B'?{x:1.22,y:-.26}:{x:1.58,y:-.48};
+ if(target.id==='tv')return {x:1.58,y:-.48};
  if(target.id==='story-samho')return{x:target.x,y:target.y+.95};
  if(target.id==='sofa')return{x:2.557,y:-.27};
  return{x:target.x,y:target.y+.5};
@@ -59,6 +62,7 @@ class OutsideModel{
  constructor(options={}){this.start(options);}
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
+  this.barArrival=null;this.commuteBoundarySide=0;
   this.thugFlags={};this.samhoCommuteFlags={};this.notionFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
   this.controlsTutorial=false;this.controlsInteractUntil=0;this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
  }
@@ -68,6 +72,7 @@ class OutsideModel{
   this.x=sofa.x;this.y=sofa.y;this.facing=-1;this.anim='idle';this.animTime=0;this.updateNear();return true;
  }
  firstCommuteDirections(){
+  if(this.isFirstCommute())return false;
   if(this.qa||this.config.day!==0||this.config.flow!=='in'||this.scene!=='street'||this.story.blocking)return false;
   const campaign=global.lunaCampaign,key='day0_first_home_exit',flags=campaign?.active?(global.barGame.progress.flags??={}):this.story.flags;
   if(flags[key])return false;
@@ -84,16 +89,26 @@ class OutsideModel{
   if(campaign?.active&&campaign.session.carry)(campaign.session.carry.flags??={})[key]=true;
   global.outsidePlaytest?.clearInput();this.anim='idle';this.animTime=0;return true;
  }
+ isFirstCommute(){return !this.qa&&this.config.day===0&&this.config.flow==='in';}
+ tickBarArrival(dt){
+  const arrival=this.barArrival;if(!arrival)return false;
+  this.x=Math.min(arrival.to,this.x+.48*dt);this.facing=1;this.anim='walk';this.animTime+=dt;
+  if(this.x>=arrival.to){
+   this.barArrival=null;this.anim='idle';this.animTime=0;global.outsidePlaytest?.clearInput();
+   this.story.beginRows('day0_bar_arrival',{x:this.x,y:this.y},[{type:'say',actor:'luna',text:"바 '언노운'... 여기인가보네."}],false,()=>global.outsidePlaytest?.clearInput());
+  }
+  this.updateNear();return true;
+ }
  targets(){
   if(this.qa)return global.LunaOutsideQA.targets(this);
   if(this.scene==='home')return[...(this.config.day===0?[{id:'tv',label:'TV 다큐 보기',x:1.22,y:-.7}]:[]),{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},...(this.config.flow==='out'?[SOFA]:[])];
   if(this.level)return[...(global.LunaOutsideNotion?.targets(this)||[]),{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
   return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(global.LunaOutsideContent?.targets(this)||[]),...(global.LunaBDVendor?.targets(this)||[]),...(global.LunaOutsideShop?.targets(this)||[])];
  }
- updateNear(){global.LunaStoryNotices?.forced(this);this.near=this.qa?.runtime||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
+ updateNear(){global.LunaStoryNotices?.forced(this);this.near=this.qa?.runtime||this.barArrival||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
  beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
  interact(){
-  if(this.paused||this.transition||this.encounter&&this.encounter.stage!=='active')return false;
+  if(this.paused||this.controlsTutorial||this.barArrival||this.transition||this.encounter&&this.encounter.stage!=='active')return false;
   if(this.story.blocking)return this.story.advance();
   if(this.ride)return false;
   if(this.dialog){this.dialog=null;this.updateNear();this.revision++;return true;}
@@ -106,7 +121,7 @@ class OutsideModel{
    const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
    this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12};this.anim='idle';if(!call){this.x=EX;if(!this.qa)global.lunaCampaign?.quietLift(this);}
   }else if(t.id==='home'||t.id==='exit'){
-   this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false};
+   this.transition={time:0,to:t.id==='home'?'home':'street',swapped:false,barArrival:t.id==='exit'&&this.isFirstCommute()};
    global.LunaHomeDoorAudio?.play(()=>global.outsidePlaytest?.active&&global.outsidePlaytest.model===this&&!this.paused);
   }
   else if(t.id==='bar')this.dialog={title:'바 입구',text:this.config.flow==='in'?'출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.':'퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'};
@@ -130,9 +145,37 @@ class OutsideModel{
     if(e.elapsed>=e.duration&&e.cameraReady){this.x=e.to;this.anim='idle';e.stage='active';this.story.begin(e.id,e.target);}return;}
    if(e.stage==='leaving'){this.anim='idle';this.animTime+=dt;if(e.cameraReady){this.encounter=null;this.updateNear();}return;}
   }
-  if(this.transition){const t=this.transition;t.time+=dt;if(t.time>=.38&&!t.swapped){t.swapped=true;this.scene=t.to;this.level=1;this.x=this.scene==='home'?-1.28:R.homeX;this.y=this.scene==='home'?-.7:R.upperY;this.elevatorY=TOP;this.revision++;}if(t.time>=.85){this.transition=null;if(t.to==='street')this.firstCommuteDirections();this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
+  if(this.transition){
+   const t=this.transition;t.time+=dt;
+   if(t.time>=.38&&!t.swapped){
+    t.swapped=true;this.scene=t.to;this.level=t.barArrival?0:1;
+    this.x=t.barArrival?FIRST_COMMUTE_ARRIVAL.from:this.scene==='home'?-1.28:R.homeX;
+    this.y=t.barArrival||this.scene==='home'?-.7:R.upperY;this.elevatorY=t.barArrival?BOTTOM:TOP;
+    if(t.barArrival){this.facing=1;this.backgroundStory.cancel();global.outsidePlaytest?.clearInput();}
+    this.revision++;
+   }
+   if(t.time>=.85){
+    this.transition=null;
+    if(t.barArrival)this.barArrival={to:FIRST_COMMUTE_ARRIVAL.to};else if(t.to==='street')this.firstCommuteDirections();
+    this.updateNear();this.revision++;
+   }
+   this.anim='idle';this.animTime+=dt;return;
+  }
+  if(this.tickBarArrival(dt))return;
   if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+.382;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
-  let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;const bounds=this.qa?[Math.min(-6,R.lowerMin),6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x;this.x=clamp(this.x+direction*speed*dt,...bounds);if(direction)this.facing=direction>0?1:-1;const next=Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
+  let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;
+  const restricted=this.isFirstCommute()&&this.scene==='street'&&this.level===0;
+  const bounds=restricted?[-.9,2.15]:this.qa?[Math.min(-6,R.lowerMin),6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x,desired=this.x+direction*speed*dt;
+  this.x=clamp(desired,...bounds);
+  if(restricted){
+   if(this.x>bounds[0]+.12&&this.x<bounds[1]-.12)this.commuteBoundarySide=0;
+   const side=desired<bounds[0]?-1:desired>bounds[1]?1:0;
+   if(side&&side!==this.commuteBoundarySide){
+    this.commuteBoundarySide=side;direction=0;global.outsidePlaytest?.clearInput();
+    this.story.beginRows('day0_commute_boundary',{x:this.x,y:this.y},[{type:'say',actor:'luna',text:'지금은 언노운 가게로 출근해야해.'}],false,()=>global.outsidePlaytest?.clearInput());
+   }
+  }
+  if(direction)this.facing=direction>0?1:-1;const next=!this.story.blocking&&Math.abs(this.x-old)>.00001?(input.run?'run':'walk'):'idle';if(next!==this.anim)this.animTime=0;this.anim=next;this.animTime+=dt;this.updateNear();
  }
 }
 function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
@@ -197,7 +240,10 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   else if(!['Enter','Space'].includes(e.code)||!e.target.closest('.outside-dev-console button')||e.repeat)e.preventDefault();
   return true;
  }
- function snapCamera(){cam={x:model.scene==='home'?clamp(model.x,.34,1.14):model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;}
+ function snapCamera(){
+  const arriving=model.scene==='street'&&(model.barArrival||model.transition?.barArrival);
+  cam={x:model.scene==='home'?clamp(model.x,.34,1.14):arriving?.65:model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;
+ }
  async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
  function exit(silent=false){global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
  function advanceDay(){
@@ -218,6 +264,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.scene==='street'&&model.ride&&!model.ride.call&&!closeCommuteLift){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
   if(model.qa?.camera){({w,x,y}=model.qa.camera);}
   if(model.encounter){panorama=false;if(model.encounter.stage!=='leaving')({w,x,y}=model.encounter.camera);}
+  if(model.scene==='street'&&(model.barArrival||model.transition?.barArrival))x=.65;
   if(!panorama)({w,x,y}=global.LunaOutsideResidents.frame(model,{w,x,y}));
   if(panorama){w=VIEWPOINT.width;x=VIEWPOINT.x;y=-1.48+w*720/1280/2;}
   if(!model.qa){if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);}
@@ -240,15 +287,13 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const door=data.scenes.street.nodes.find(n=>n.name==='Bar Spawn Point');if(!door)return;
   const k=1280/cam.w,p=position(door.x,-.98);if(p.x+.3*k<0||p.x-.3*k>1280)return;
   const still=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches,t=still?0:model.time;
-  const drift=still?0:Math.sin(t*Math.PI*2/2.4)*.014*k;
+  const drift=still?0:Math.sin(t*Math.PI*2/.9)*.012*k;
   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
-  // Two shallow chevrons projected onto the road, behind the player and rain.
-  for(let i=1;i>=0;i--){
-   const y=p.y+i*.105*k-drift,alpha=still?.7:.62+.16*Math.sin(t*Math.PI*2/2.4-i*.8);
-   ctx.beginPath();ctx.moveTo(p.x-.20*k,y+.07*k);ctx.lineTo(p.x,y);ctx.lineTo(p.x+.20*k,y+.07*k);
-   ctx.strokeStyle='#26c9ed';ctx.globalAlpha=alpha*.16;ctx.lineWidth=.030*k;ctx.stroke();
-   ctx.strokeStyle='#62e7ff';ctx.globalAlpha=alpha;ctx.lineWidth=.010*k;ctx.stroke();
-  }
+  // Match the bar tutorial's single, round-capped cyan arrow and gentle nudge.
+  ctx.translate(p.x,p.y-drift);ctx.scale(k/266.667,k/266.667);
+  ctx.strokeStyle='#c9ffff';ctx.lineWidth=3.5;ctx.globalAlpha=.88;
+  ctx.shadowColor='#4ae5f4';ctx.shadowBlur=6;
+  ctx.beginPath();ctx.moveTo(0,28);ctx.lineTo(0,0);ctx.moveTo(-10,10);ctx.lineTo(0,0);ctx.lineTo(10,10);ctx.stroke();
   ctx.restore();
  }
  function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
@@ -273,14 +318,21 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
  const controlsDismissKeys=new Set();
- function showControlsTutorial(){if(!active||model.scene!=='home'||model.config.day!==0||model.config.flow!=='in')return;clearInput();model.controlsTutorial=true;updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});}
- function dismissControlsTutorial(){model.controlsTutorial=false;clearInput();updateHUD();host.focus({preventScroll:true});}
+ let controlsUnlockAt=0;
+ function showControlsTutorial(){if(!active||model.scene!=='home'||model.config.day!==0||model.config.flow!=='in')return;clearInput();controlsUnlockAt=performance.now()+(model.isFirstCommute()?1500:0);model.controlsTutorial=true;updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});}
+ function dismissControlsTutorial(){
+  if(!model.controlsTutorial||performance.now()<controlsUnlockAt)return;
+  model.controlsTutorial=false;clearInput();
+  const campaign=global.lunaCampaign;
+  if(model.isFirstCommute()&&campaign?.active&&global.LunaStoryNotices.startGoal(global.barGame.progress,'first_commute','첫 출근하기!')&&campaign.session.carry)campaign.session.carry.objectives=structuredClone(global.barGame.progress.objectives);
+  updateHUD();host.focus({preventScroll:true});
+ }
  function controlsTutorialKey(e){
   if(!active)return false;
   // Consume the dismissing key until release, including movement key repeats.
   if(controlsDismissKeys.has(e.code))return true;
   if(!model.controlsTutorial||model.paused||loading||loadError||devOpen)return false;
-  if(!e.repeat){controlsDismissKeys.add(e.code);dismissControlsTutorial();}
+  if(!e.repeat){controlsDismissKeys.add(e.code);if(performance.now()>=controlsUnlockAt)dismissControlsTutorial();}
   return true;
  }
  function controlsKeyboard(){
@@ -297,16 +349,17 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.scene!=='home'||model.config.flow!=='in'||model.config.day!==0)model.controlsTutorial=false;
   if(model.controlsTutorial&&!panel){
    panel=document.createElement('section');panel.className='outside-controls-tutorial';panel.setAttribute('aria-label','이동과 상호작용 안내');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.tabIndex=-1;
-   panel.innerHTML='<button class="controls-close" data-outside-action="controls-close" aria-label="조작 안내 닫기">×</button><h2>이동과 상호작용</h2>'+controlsKeyboard()+'<div class="controls-examples"><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyA">A</kbd><kbd data-controls-key="KeyD">D</kbd></div><span>좌우 이동</span></div><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyE">E</kbd></div><span>상호작용</span></div></div>';
+   panel.innerHTML=(model.isFirstCommute()?'':'<button class="controls-close" data-outside-action="controls-close" aria-label="조작 안내 닫기">×</button>')+'<h2>이동과 상호작용</h2>'+controlsKeyboard()+'<div class="controls-examples"><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyA">A</kbd><kbd data-controls-key="KeyD">D</kbd></div><span>좌우 이동</span></div><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyE">E</kbd></div><span>상호작용</span></div></div>';
    panel.insertAdjacentHTML('beforeend','<p class="controls-dismiss-hint">아무 키나 누르면 시작합니다</p>');
    const shade=document.createElement('div');shade.className='outside-controls-shade';shade.append(panel);host.querySelector('.outside-stage').append(shade);
   }
   if(!panel)return;panel.hidden=!model.controlsTutorial||model.paused||loading||!!loadError||devOpen||!!model.dialog||model.story.blocking;
+  panel.querySelector('.controls-dismiss-hint').style.opacity=performance.now()<controlsUnlockAt?'.3':'1';
   panel.parentElement.hidden=panel.hidden;
   host.querySelector('.outside-hud').inert=!panel.hidden||model.paused||devOpen||!!model.dialog;
   for(const key of panel.querySelectorAll('[data-controls-key]'))key.classList.toggle('is-pressed',key.dataset.controlsKey==='KeyE'?performance.now()<model.controlsInteractUntil:keys.has(key.dataset.controlsKey));
  }
- function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&(!panorama||global.lunaCampaign?.storyVersion==='B')&&!loading&&!loadError&&!m.paused&&!devOpen;
+ function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&!panorama&&!loading&&!loadError&&!m.paused&&!devOpen;
   // Scripted pauses belong to the campaign/cutscene, not the outside ESC menu.
   const showPauseMenu=m.paused&&!global.lunaCampaign?.blocking;
   const signature=JSON.stringify([loading,loadError,m.paused,showPauseMenu,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,viewpoint,m.story.blocking,m.encounter?.stage,devOpen,hintOpen]);
@@ -315,12 +368,12 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
-   else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
+   else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaFocusSettings.settingsHTML()+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
    else if(m.dialog)body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
   }
-  const prompt=host.querySelector('.outside-interact');if(prompt){prompt.classList.toggle('outside-interact-ready',global.lunaCampaign?.storyVersion!=='B');if(near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}}
+  const prompt=host.querySelector('.outside-interact');if(prompt){prompt.classList.add('outside-interact-ready');if(near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}}
   const lookout=host.querySelector('.outside-viewpoint');if(lookout&&viewpoint){const p=position(VIEWPOINT.x,model.y+.26);lookout.style.left=clamp(p.x,24,1256)+'px';lookout.style.top=clamp(p.y-12,42,696)+'px';}
   paintControlsTutorial();updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
 
@@ -340,7 +393,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text){text.replaceChildren();const marks=v.emphasis||[];let rest=v.text;while(rest){let index=rest.length,word='';for(const mark of marks){const at=rest.indexOf(mark);if(at>=0&&at<index){index=at;word=mark;}}if(!word){text.append(document.createTextNode(rest));break;}if(index)text.append(document.createTextNode(rest.slice(0,index)));const span=document.createElement('span');span.className='outside-story-emphasis';span.textContent=word;text.append(span);rest=rest.slice(index+word.length);}}
   const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/cam.w,gap:22});
  }
- function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!document.hidden&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
+ function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!global.LunaFocusSettings.hiddenPaused&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
  document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=Number(value)===99?99:clamp(Number(value)||0,0,3);},true);
  document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='controls-close'){dismissControlsTutorial();}else if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
  window.addEventListener('keydown',e=>{if(!active)return;if(controlsTutorialKey(e)){e.preventDefault();e.stopImmediatePropagation();return;}if(devKey(e))return;
@@ -360,7 +413,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'].includes(e.code))keys.add(e.code);
  },true);
  window.addEventListener('keyup',e=>{keys.delete(e.code);controlsDismissKeys.delete(e.code);});
- function loseFocus(){controlsDismissKeys.clear();if(!active)return;if(devOpen)toggleDev(false);clearInput();if(!loading&&!loadError){model.paused=true;updateHUD();}}
+ function loseFocus(){controlsDismissKeys.clear();if(!active)return;if(devOpen)toggleDev(false);clearInput();if(global.LunaFocusSettings.enabled&&!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
  return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
