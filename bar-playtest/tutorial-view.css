@@ -26,17 +26,29 @@
 @keyframes day0-nudge{50%{transform:translateX(7px)}}
 @media(prefers-reduced-motion:reduce){.day0-click-arrow path{animation:none}.day0-guide[data-nearby="true"] .day0-guide-copy{transition:none}}
 
-/* Interactive Day 0 seat and drink lessons reuse the live indicator visuals. */
-.day0-seat-legend-backdrop{position:absolute;inset:0;z-index:42;display:grid;place-items:center;background:#020611a8}
-.day0-seat-legend{width:690px;max-height:660px;overflow:auto;padding:25px 28px;border:1px solid #58ddeb;border-radius:14px;background:#0b131df5;box-shadow:0 12px 50px #0008;color:#e2fcff}
-.day0-seat-legend h2{font-size:24px;font-weight:400;color:#9ef5f6;margin:0 0 20px}
-.day0-seat-legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.day0-seat-legend-row{display:flex;align-items:center;gap:13px;min-height:96px;padding:12px;border:1px solid #264551;border-radius:8px;background:#101e2a}
-.day0-seat-legend-row strong{display:block;font-weight:400;font-size:16px}.day0-seat-legend p{margin:7px 0 0;font-size:14px;line-height:1.5;color:#b5cbd1;word-break:keep-all}
-.seat-indicators.tutorial-seat-sample{position:static;flex:none;display:flex;width:36px;justify-content:center;pointer-events:none}.tutorial-seat-sample button span{width:18px;height:18px}
-.day0-seat-current{display:flex;gap:14px;align-items:center;padding:17px 12px;margin-top:12px;border-top:1px solid #29414b}.day0-seat-current p{margin:0}
-.day0-seat-legend>button{display:block;margin:10px auto 0;padding:12px 30px}.day0-seat-legend kbd{margin-left:8px;font-size:11px}
-.tutorial-seat-sample .demo-blink span{animation:day0-seat-blink .8s steps(1,end) infinite}
+/* Four static seat states: pictures and labels supplement each indicator color. */
+.day0-seat-legend-backdrop{position:absolute;inset:0;z-index:42;display:grid;place-items:center;background:#020611bd}
+.day0-seat-legend{box-sizing:border-box;width:1040px;max-width:calc(100% - 48px);max-height:calc(100% - 40px);overflow:auto;padding:26px 32px;border:1px solid #77d9e2;border-radius:3px;background:linear-gradient(145deg,#081820,#050e16 70%);box-shadow:0 0 0 4px #06121bcc,0 0 24px #66e5ec22,0 18px 55px #0009;color:#dffbff}
+.seat-legend-heading{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;padding-bottom:20px;border-bottom:1px solid #4f7b83}
+.seat-legend-heading small{display:block;color:#77a6b4;font-size:10px;letter-spacing:4px;margin-bottom:6px}
+.day0-seat-legend h2{font-size:30px;font-weight:400;color:#a4f8f5;margin:0;white-space:nowrap}
+.day0-seat-legend p{margin:0;font-size:16px;line-height:1.65;color:#c0d2dc;word-break:keep-all}
+.day0-seat-legend-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px}
+.day0-seat-legend-row{--seat-tone:#a4f8f5;--seat-dot:#8acbbb;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 14px 20px;min-width:0;border:1px solid #355964;border-radius:3px;background:#06131ab3}
+.day0-seat-legend-row::before,.day0-seat-legend-row::after{content:"";position:absolute;width:15px;height:4px;background:#95f5f4;transform:rotate(-45deg)}
+.day0-seat-legend-row::before{top:4px;left:-2px}.day0-seat-legend-row::after{bottom:4px;right:-2px}
+.day0-seat-legend-row[data-seat-state="empty"]{--seat-tone:#acbec5;--seat-dot:#494e54}
+.day0-seat-legend-row[data-seat-state="warn"]{--seat-tone:#ffc574;--seat-dot:#ffa747}
+.day0-seat-legend-row[data-seat-state="danger"]{--seat-tone:#ff817b;--seat-dot:#ff625b}
+.seat-color-label{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--seat-tone);font-size:12px}
+.seat-color-dot{display:block;width:28px;height:28px;border-radius:50%;background:var(--seat-dot);box-shadow:0 0 0 4px #051018,0 0 0 5px color-mix(in srgb,var(--seat-dot) 35%,transparent),0 0 16px color-mix(in srgb,var(--seat-dot) 22%,transparent)}
+.seat-state-picture{display:block;flex:none;width:72px;height:72px;margin:22px 0 18px;color:var(--seat-tone)}
+.day0-seat-legend h3{margin:0 0 10px;font-weight:400;font-size:21px;line-height:1.3;color:var(--seat-tone);white-space:nowrap}
+.day0-seat-legend-row p{width:100%;max-width:190px;min-height:80px;text-wrap:pretty}
+.seat-legend-footer{display:flex;align-items:center;gap:28px;margin-top:22px}
+.seat-legend-footer>span{height:1px;flex:1;background:linear-gradient(90deg,transparent,#456c76)}
+.seat-legend-footer>span:last-child{transform:rotate(180deg)}
+.seat-legend-footer button.primary{display:flex;align-items:center;justify-content:center;gap:22px;min-width:228px;margin:0;padding:12px 24px;border:1px solid #c2ffff;background:#a1f6f6;color:#08232e;font-size:21px;box-shadow:0 0 18px #84f8ff12}
+.seat-legend-footer button.primary:hover{background:#c4ffff;color:#08232e}.seat-legend-footer button:focus-visible{outline:2px solid #fff;outline-offset:5px}
+.seat-legend-footer kbd{padding:6px 10px;border:1px solid #6d9ba9;border-radius:3px;background:#0a2535;box-shadow:0 2px 0 #47717d;font-size:13px;color:#efffff}
 .bar-view[data-tutorial="serveDrink"] [data-drag="drink"]{touch-action:none}.bar-view[data-tutorial="serveDrink"] [data-drag="drink"]:focus-visible{outline:2px solid #baffff;outline-offset:4px}
-@keyframes day0-seat-blink{50%{opacity:.24;box-shadow:none}}
-@media(prefers-reduced-motion:reduce){.tutorial-seat-sample .demo-blink span{animation:none}}

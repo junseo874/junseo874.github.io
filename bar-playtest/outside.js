@@ -95,7 +95,7 @@ class OutsideModel{
   this.x=Math.min(arrival.to,this.x+.48*dt);this.facing=1;this.anim='walk';this.animTime+=dt;
   if(this.x>=arrival.to){
    this.barArrival=null;this.anim='idle';this.animTime=0;global.outsidePlaytest?.clearInput();
-   this.story.beginRows('day0_bar_arrival',{x:this.x,y:this.y},[{type:'say',actor:'luna',text:"바 '언노운'... 여기인가보네."}],false,()=>global.outsidePlaytest?.clearInput());
+   this.story.beginRows('day0_bar_arrival',{x:this.x,y:this.y},[{type:'say',actor:'luna',text:"바 '언노운' 여기인가보네."}],false,()=>global.outsidePlaytest?.clearInput());
   }
   this.updateNear();return true;
  }
@@ -179,6 +179,7 @@ class OutsideModel{
  }
 }
 function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
+ const glowRenderer=global.LunaInteractionGlow.create();let renderingNode=null;
  const data=global.LUNA_OUTSIDE_DATA,config={place:'bar',flow:'out',day:0},images=new Map(),keys=new Set();
  let active=false,loading=false,loadError='',model=null,host=null,canvas=null,ctx=null,cam={x:1,y:0,w:4.8},generation=0,hudSignature='',lastScene='',panorama=false,wakeSpawn=false,devOpen=false,notices=null,hintOpen=false,streetLocation=null;
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -245,7 +246,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   cam={x:model.scene==='home'?clamp(model.x,.34,1.14):arriving?.65:model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;
  }
  async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
- function exit(silent=false){global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
+ function exit(silent=false){global.LunaControlsTutorial.stop();global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
  function advanceDay(){
   if(!active||loading||loadError||model.qa||model.config.flow!=='out'||model.config.day>=3)return false;
   Object.assign(config,{day:model.config.day+1,flow:'in',place:'home'});
@@ -276,8 +277,9 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.encounter)model.encounter.cameraReady=Math.abs(cam.x-x)<.015&&Math.abs(cam.y-y)<.015&&Math.abs(cam.w-w)<.015;
  }
  function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
- function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.restore();}
- function renderNode(n){if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
+ function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);glowRenderer.paint(ctx,img,sp,renderingNode,x,y,w,h);ctx.restore();}
+ function renderNode(n){const previous=renderingNode;renderingNode=n;try{renderSceneNode(n);}finally{renderingNode=previous;}}
+ function renderSceneNode(n){if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
   const light=/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model),art=streetParallax(n,cam,model);drawSprite(sp,art.x,art.y+(y-n.y),n.sx,n.sy,facing,light?.26:1,light);
@@ -289,14 +291,24 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const still=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches,t=still?0:model.time;
   const drift=still?0:Math.sin(t*Math.PI*2/.9)*.012*k;
   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  // Trace the doorway below the sign, in the entrance sprite's pixel space.
+  // Keep the frame fixed to the art (only the arrow nudges), behind Luna.
+  const sp=door.sprite,outline=[[2,15],[36,15],[36,66],[2,66],[2,15]];
+  ctx.strokeStyle='#c9ffff';ctx.lineWidth=k*.008;ctx.globalAlpha=.96;
+  ctx.shadowColor='#4ae5f4';ctx.shadowBlur=7*k/266.667;
+  ctx.beginPath();outline.forEach(([x,y],i)=>{
+   const q=position(door.x+(x-sp.w*sp.pivot.x)*door.sx/sp.ppu,door.y+(sp.h*(1-sp.pivot.y)-y)*door.sy/sp.ppu);
+   if(i)ctx.lineTo(q.x,q.y);else ctx.moveTo(q.x,q.y);
+  });ctx.stroke();
   // Match the bar tutorial's single, round-capped cyan arrow and gentle nudge.
   ctx.translate(p.x,p.y-drift);ctx.scale(k/266.667,k/266.667);
-  ctx.strokeStyle='#c9ffff';ctx.lineWidth=3.5;ctx.globalAlpha=.88;
+  ctx.strokeStyle='#c9ffff';ctx.lineWidth=3.5;ctx.globalAlpha=.98;
   ctx.shadowColor='#4ae5f4';ctx.shadowBlur=6;
   ctx.beginPath();ctx.moveTo(0,28);ctx.lineTo(0,0);ctx.moveTo(-10,10);ctx.lineTo(0,0);ctx.lineTo(10,10);ctx.stroke();
   ctx.restore();
  }
- function draw(){if(!ctx||!model)return;ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
+ function interactionTarget(){const m=model;return m&&!m.paused&&!loading&&!loadError&&!devOpen&&!hintOpen&&!m.controlsTutorial&&!m.dialog&&!m.story.blocking&&!global.lunaCampaign?.blocking?m.near:null;}
+ function draw(){if(!ctx||!model)return;glowRenderer.begin(model.qa?null:interactionTarget(),model);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
   if(model.qa){global.LunaOutsideQA.draw({m:model,ctx,position,sprite:drawSprite,data,player:()=>{const a=data.animations[model.anim];drawSprite(a.frames[Math.floor(model.animTime*a.fps)%a.frames.length],model.x,model.y,1,1,model.facing>0);}});if(model.transition){ctx.fillStyle='rgba(6,10,18,'+Math.max(0,1-Math.abs(model.transition.time-.38)/.47)+')';ctx.fillRect(0,0,1280,720);}return;}
   const nodes=data.scenes[model.scene].nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
   if(model.scene==='home'){const bg=nodes.find(n=>n.name==='main_bg');if(bg)renderNode(bg);nodes.filter(n=>n.name!=='main_bg'&&n.name!=='ForeFore_Object').forEach(renderNode);}
@@ -318,10 +330,12 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
  const controlsDismissKeys=new Set();
- let controlsUnlockAt=0;
- function showControlsTutorial(){if(!active||model.scene!=='home'||model.config.day!==0||model.config.flow!=='in')return;clearInput();controlsUnlockAt=performance.now()+(model.isFirstCommute()?1500:0);model.controlsTutorial=true;updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});}
+ let controlsUnlockAt=0,controlsStep=0;
+ function showControlsTutorial(){if(!active||model.scene!=='home'||model.config.day!==0||model.config.flow!=='in'||model.controlsTutorial)return;clearInput();controlsStep=0;controlsUnlockAt=performance.now()+2000;model.controlsTutorial=true;updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});}
  function dismissControlsTutorial(){
-  if(!model.controlsTutorial||performance.now()<controlsUnlockAt)return;
+  if(!model.controlsTutorial||model.paused||loading||loadError||devOpen||performance.now()<controlsUnlockAt)return;
+  if(controlsStep===0){controlsStep=1;controlsUnlockAt=performance.now()+300;clearInput();updateHUD();host.querySelector('.outside-controls-tutorial')?.focus({preventScroll:true});return;}
+  global.LunaControlsTutorial.stop();
   model.controlsTutorial=false;clearInput();
   const campaign=global.lunaCampaign;
   if(model.isFirstCommute()&&campaign?.active&&global.LunaStoryNotices.startGoal(global.barGame.progress,'first_commute','첫 출근하기!')&&campaign.session.carry)campaign.session.carry.objectives=structuredClone(global.barGame.progress.objectives);
@@ -332,40 +346,41 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   // Consume the dismissing key until release, including movement key repeats.
   if(controlsDismissKeys.has(e.code))return true;
   if(!model.controlsTutorial||model.paused||loading||loadError||devOpen)return false;
-  if(!e.repeat){controlsDismissKeys.add(e.code);if(performance.now()>=controlsUnlockAt)dismissControlsTutorial();}
+  if(!e.repeat){controlsDismissKeys.add(e.code);if(e.code==='KeyE'&&!e.metaKey&&!e.ctrlKey&&!e.altKey&&performance.now()>=controlsUnlockAt)dismissControlsTutorial();}
   return true;
- }
- function controlsKeyboard(){
-  const rows=[{x:47,y:27,keys:'1234567890-=',w:18},{x:55,y:45,keys:'QWERTYUIOP',w:18},{x:62,y:63,keys:'ASDFGHJKL',w:18},{x:71,y:81,keys:'ZXCVBNM',w:18}];
-  let keys='';
-  for(const row of rows)for(const [i,label]of [...row.keys].entries()){
-   const x=row.x+i*(row.w+4),active=['A','D','E'].includes(label);
-   keys+=`<g class="keyboard-key ${active?'keyboard-highlight':''}" ${active?'data-controls-key="Key'+label+'"':''}><rect x="${x}" y="${row.y}" width="${row.w}" height="14" rx="2"/>${active?'<text x="'+(x+9)+'" y="'+(row.y+10.5)+'">'+label+'</text>':''}</g>`;
-  }
-  return '<svg class="controls-keyboard" viewBox="0 0 380 146" aria-hidden="true"><path class="keyboard-cable" d="M189 14V3"/><rect class="keyboard-shadow" x="39" y="20" width="304" height="99" rx="9"/><rect class="keyboard-case" x="35" y="15" width="304" height="99" rx="8"/>'+keys+'<g class="keyboard-key"><rect x="242" y="63" width="35" height="32" rx="2"/><rect x="286" y="45" width="39" height="14" rx="2"/><rect x="286" y="63" width="17" height="14" rx="2"/><rect x="308" y="63" width="17" height="14" rx="2"/><rect x="286" y="81" width="17" height="14" rx="2"/><rect x="308" y="81" width="17" height="14" rx="2"/><rect x="48" y="99" width="39" height="9" rx="2"/><rect x="94" y="99" width="132" height="9" rx="2"/><rect x="233" y="99" width="44" height="9" rx="2"/></g><path class="controls-leader" d="M73 78C16 85 15 122 91 139M108 45C110 3 368 0 364 71S335 130 285 139"/><circle class="controls-dot" cx="73" cy="78" r="3"/><circle class="controls-dot" cx="108" cy="45" r="3"/></svg>';
  }
  function paintControlsTutorial(){
   let panel=host.querySelector('.outside-controls-tutorial');
   if(model.scene!=='home'||model.config.flow!=='in'||model.config.day!==0)model.controlsTutorial=false;
   if(model.controlsTutorial&&!panel){
-   panel=document.createElement('section');panel.className='outside-controls-tutorial';panel.setAttribute('aria-label','이동과 상호작용 안내');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.tabIndex=-1;
-   panel.innerHTML=(model.isFirstCommute()?'':'<button class="controls-close" data-outside-action="controls-close" aria-label="조작 안내 닫기">×</button>')+'<h2>이동과 상호작용</h2>'+controlsKeyboard()+'<div class="controls-examples"><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyA">A</kbd><kbd data-controls-key="KeyD">D</kbd></div><span>좌우 이동</span></div><div class="controls-example"><div class="controls-keys"><kbd data-controls-key="KeyE">E</kbd></div><span>상호작용</span></div></div>';
-   panel.insertAdjacentHTML('beforeend','<p class="controls-dismiss-hint">아무 키나 누르면 시작합니다</p>');
+   panel=document.createElement('section');panel.className='outside-controls-tutorial';panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.tabIndex=-1;
    const shade=document.createElement('div');shade.className='outside-controls-shade';shade.append(panel);host.querySelector('.outside-stage').append(shade);
   }
-  if(!panel)return;panel.hidden=!model.controlsTutorial||model.paused||loading||!!loadError||devOpen||!!model.dialog||model.story.blocking;
-  panel.querySelector('.controls-dismiss-hint').style.opacity=performance.now()<controlsUnlockAt?'.3':'1';
-  panel.parentElement.hidden=panel.hidden;
+  if(!panel)return;
+  const wasVisible=panel.dataset.visible==='true';
+  panel.hidden=!model.controlsTutorial||model.paused||loading||!!loadError||devOpen||!!model.dialog||model.story.blocking;
+  panel.parentElement.hidden=panel.hidden;panel.dataset.visible=String(!panel.hidden);
+  if(panel.hidden){
+   if(wasVisible)global.LunaControlsTutorial.stop();
+   if(!model.controlsTutorial)delete panel.dataset.step;
+  }else{
+   if(panel.dataset.step!==String(controlsStep)){
+    global.LunaControlsTutorial.render(panel,controlsStep,images,data);
+    const step=controlsStep,owner=model;
+    void global.LunaControlsTutorial.play(()=>active&&model===owner&&model.controlsTutorial&&controlsStep===step&&!panel.hidden);
+   }
+   const locked=performance.now()<controlsUnlockAt;
+   panel.dataset.locked=String(locked);
+  }
   host.querySelector('.outside-hud').inert=!panel.hidden||model.paused||devOpen||!!model.dialog;
-  for(const key of panel.querySelectorAll('[data-controls-key]'))key.classList.toggle('is-pressed',key.dataset.controlsKey==='KeyE'?performance.now()<model.controlsInteractUntil:keys.has(key.dataset.controlsKey));
  }
  function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&!panorama&&!loading&&!loadError&&!m.paused&&!devOpen;
   // Scripted pauses belong to the campaign/cutscene, not the outside ESC menu.
   const showPauseMenu=m.paused&&!global.lunaCampaign?.blocking;
   const signature=JSON.stringify([loading,loadError,m.paused,showPauseMenu,m.dialog,m.scene,m.level,near?.id,near?.label,!!m.ride,m.ride?.call,panorama,viewpoint,m.story.blocking,m.encounter?.stage,devOpen,hintOpen]);
   if(signature!==hudSignature){hudSignature=signature;
-   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd></button><button class="outside-viewpoint" aria-label="${panorama?'전경 보기에서 돌아오기':'거리 전경 보기'}" aria-pressed="${panorama}" data-outside-action="panorama" ${viewpoint?'':'hidden'}><kbd aria-hidden="true">Y</kbd></button>`;
-   let body='';if(loading)body='<section class="outside-dialog"><h2>외부 공간 준비 중</h2><p>거리와 집의 리소스를 불러오고 있어요.</p>'+button('로비로','exit')+'</section>';
+   host.querySelector('.outside-dynamic').innerHTML=`<button class="outside-interact" aria-label="${esc(near?.label||'상호작용')}" data-outside-action="interact" ${near&&!m.paused?'':'hidden'}><kbd aria-hidden="true">E</kbd><span>상호작용</span></button><button class="outside-viewpoint" aria-label="${panorama?'전경 보기에서 돌아오기':'거리 전경 보기'}" aria-pressed="${panorama}" data-outside-action="panorama" ${viewpoint?'':'hidden'}><kbd aria-hidden="true">Y</kbd></button>`;
+   let body='';if(loading)body='<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">로딩 중<span class="resource-loading-dots"></span></span></div>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
    else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaFocusSettings.settingsHTML()+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
@@ -373,7 +388,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
   }
-  const prompt=host.querySelector('.outside-interact');if(prompt){prompt.classList.add('outside-interact-ready');if(near){const anchor=interactionAnchor(m,near,data),p=position(anchor.x,anchor.y);prompt.style.left=clamp(p.x,24,1256)+'px';prompt.style.top=clamp(p.y-10,42,696)+'px';}}
+  const prompt=host.querySelector('.outside-interact');if(prompt)prompt.hidden=!interactionTarget();
   const lookout=host.querySelector('.outside-viewpoint');if(lookout&&viewpoint){const p=position(VIEWPOINT.x,model.y+.26);lookout.style.left=clamp(p.x,24,1256)+'px';lookout.style.top=clamp(p.y-12,42,696)+'px';}
   paintControlsTutorial();updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
 
@@ -395,7 +410,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  }
  function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!global.LunaFocusSettings.hiddenPaused&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
  document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=Number(value)===99?99:clamp(Number(value)||0,0,3);},true);
- document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='controls-close'){dismissControlsTutorial();}else if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
+ document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
  window.addEventListener('keydown',e=>{if(!active)return;if(controlsTutorialKey(e)){e.preventDefault();e.stopImmediatePropagation();return;}if(devKey(e))return;
   if(hintOpen&&e.code!=='Tab'){if(e.metaKey||e.ctrlKey||e.altKey)return;e.preventDefault();e.stopImmediatePropagation();if(!e.repeat&&['Escape','Space','Enter','KeyE'].includes(e.code))dismissHint();return;}
   if(e.code==='Tab'){const scope=host.querySelector('.outside-overlay:not([hidden])')||(model.story.blocking?host.querySelector('.outside-speech'):host),buttons=[...(scope.matches('[tabindex="0"]')?[scope]:[]),...scope.querySelectorAll('button:not([hidden]):not(:disabled),[tabindex="0"]')].filter(b=>!b.closest('[inert]')&&b.getClientRects().length),i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?-1:1)+buttons.length)%buttons.length]?.focus();return;}
@@ -416,7 +431,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function loseFocus(){controlsDismissKeys.clear();if(!active)return;if(devOpen)toggleDev(false);clearInput();if(global.LunaFocusSettings.enabled&&!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
- return{get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
+ return{get interactionGlow(){return glowRenderer.snapshot();},get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint,firstCommuteEntranceCue};
 })(typeof window==='undefined'?globalThis:window);

@@ -13,6 +13,7 @@ const ui={serviceVersion:'A',outside:false,minigames:false,variant:'original',di
 // Reset the previous default once; subsequent explicit choices remain persistent.
 try{const mode=localStorage.getItem('luna.shake.mode.v1');ui.shakeMode=window.LunaShakeRhythm.normalizeMode(mode);}catch{ui.shakeMode='fall';}
 const shakeRhythm=window.LunaShakeRhythm.attach(g,()=>ui.shakeMode);
+const mixTutorial=window.LunaMixTutorial.attach(g);
 try{ui.shakeSound=localStorage.getItem('luna.shake.sound.v2')==='2'?2:1;}catch{}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const L=(ko,en)=>g.lang==='ko'?ko:en;const fmt=n=>Math.round(n).toLocaleString();const phase=()=>({ready:L('플레이테스트 준비','Playtest setup'),opening:L('개점 전 대화','Before opening'),general:L('일반 손님 영업','General guest service'),regular:L('단골 손님 영업','Regular guest service'),practice:L('제조 연습','Craft practice'),complete:L('영업 정산','Daily settlement'),gameover:L('게임오버','Game over')})[g.phase];
@@ -69,7 +70,7 @@ function startHTML(){if(ui.cutscenes)return window.LunaCutsceneLibrary.html(remi
 function recipeLines(c){return `<ul class="recipe-lines">${g.t.recipes.filter(r=>r.context===c.id).map(r=>`<li><span>${esc(g.name(r.ingredient))}</span><small>${r.qty??'—'} ${r.unit??''} · ${labelType(r.action)}</small></li>`).join('')}</ul><div class="recipe-note">${L('잔','Glass')}: ${esc(g.name(c.glass))}<br>${L('제조 방법','Method')}: ${c.mix} ${c.mix==='build'?L('· 별도 믹스 도구 없음','· no mixing tool'):''}<br>${L('제한 시간','Time limit')}: ${c.time_limit_sec}s</div>`;}
 function recipesHTML(){if(remix.active())return remixUI.recipesHTML();const available=g.cocktailsAvailable(),unlockedIds=new Set(available.map(c=>c.id)),all=g.t.cocktails.slice().sort((a,b)=>Number(unlockedIds.has(b.id))-Number(unlockedIds.has(a.id))||(unlockedIds.has(a.id)?String(a['name.ko']||a.id).localeCompare(String(b['name.ko']||b.id),'ko'):0));const peek=g.t.cocktails.find(c=>c.id===ui.peek);return `<aside class="side-panel resource-recipe-list"><div class="panel-header"><div class="row spread"><h2>${L('칵테일 레시피','Recipe book')}</h2>${resourceClose('closeRecipe','recipe_choice')}</div><small>※ ${L('레시피를 고르면 재료 담기로 이동합니다.','Choose a recipe to prepare ingredients.')}</small></div><div class="recipe-list">${all.map(c=>{const ok=available.some(x=>x.id===c.id);return `<button class="recipe-card ${ok?'':'locked'}" data-act="selectRecipe" data-id="${c.id}" data-hover-recipe="${c.id}" ${ok?'':'disabled'}>${drinkArt(c.id)}<div><strong>${ok?esc(g.text(c,'name')):'???'}</strong><small>${ok?`${c.mix.toUpperCase()} · ${money(c.price)}`:(c.id==='johnny_old_fashioned'?L('기억과 재료를 모두 모으면 해금','Unlock through memories and ingredients'):L(c.unlock_day+'일차 해금','Day '+c.unlock_day+' unlock'))}</small></div><span class="recipe-lock-mark">${ok?'':'◇'}</span></button>`;}).join('')}</div></aside>${peek&&available.includes(peek)?views.recipePanel(peek,{preview:true}):''}`;}
 function prepHTML(){return views.prepHTML();}
-function gimmickHTML(){const s=g.gimmick;if(!s)return '';if(s.fluid)return pourView.html(s);if(s.type==='open')return openView.html(s);if(['stir','shake'].includes(s.type))return views.mixHTML(s);return '<div class="craft-screen"><p class="critical">'+L('지원하지 않는 기믹: ','Unsupported gimmick: ')+esc(s.type)+'</p></div>'; }
+function gimmickHTML(){const s=g.gimmick;if(!s)return '';if(s.fluid)return pourView.html(s);if(s.type==='open')return openView.html(s);if(['stir','shake'].includes(s.type))return views.mixHTML(s)+mixTutorial.html(L);return '<div class="craft-screen"><p class="critical">'+L('지원하지 않는 기믹: ','Unsupported gimmick: ')+esc(s.type)+'</p></div>'; }
 function resultHTML(){return serveView.html();}
 function totalsHTML(){const t=g.totals();return `<div class="totals">${[['sale',L('판매','Sales')],['tip',L('팁','Tips')],['refund',remix.active()?L('배상','Compensation'):L('환불','Refunds')],['net',L('합계','Net')]].map(([k,v])=>`<div><small>${v}</small><strong>${fmt(t[k])}</strong></div>`).join('')}</div>`;}
 function salesHTML(){return `<div class="sales-balance"><span>${L('현재 소지금','Current balance')}</span><strong>${money(g.progress.money)}</strong></div>`+totalsHTML()+`<div class="table-scroll"><table class="data-table"><thead><tr><th>${L('제공한 칵테일','Drink')}</th><th>${L('최종 등급','Final grade')}</th><th>${L('합계','Net')}</th></tr></thead><tbody>${g.transactions.map(t=>`<tr><td>${esc(g.name(t.served))}</td><td>${t.grade.toUpperCase()}${!t.match?' · '+L('주문 불일치','Wrong order'):''}</td><td>${money(t.net)}</td></tr>`).join('')||`<tr><td colspan="3" class="empty">${L('아직 정산된 주문이 없습니다.','No settled orders yet.')}</td></tr>`}</tbody></table></div>`;}
@@ -220,6 +221,8 @@ function render(force=false){
  </main></div>`;
  if(force||html!==lastStructure){const template=document.createElement('template');template.innerHTML=html;morph(root,template.content);views.syncCamera(root);lastStructure=html;for(const [cls,top]of scrolls){const e=root.getElementsByClassName(cls)[0];if(e)e.scrollTop=top;}}
  syncRecipePointerTip();syncIngredientPointerTip();tutorialView.sync(root);choiceHold.sync();
+ const lesson=root.querySelector('.mix-tutorial');root.querySelector('.mix-screen')?.toggleAttribute('inert',!!lesson);
+ if(lesson&&!lesson.contains(document.activeElement))lesson.querySelector('button')?.focus({preventScroll:true});
  if(g.overlay==='johnnyUnlock'){const dialog=root.querySelector('.johnny-unlock');if(dialog&&!dialog.contains(document.activeElement))dialog.querySelector('[data-act="confirmJohnnyUnlock"]')?.focus({preventScroll:true});}
  if(g.overlay==='dailyUnlocks'){const dialog=root.querySelector('.daily-unlocks');if(dialog&&!dialog.contains(document.activeElement))dialog.querySelector('[data-act="confirmDailyUnlocks"]')?.focus({preventScroll:true});}
  if(['ingredientWarning','openerWarning'].includes(g.overlay)){const warning=root.querySelector('.ingredient-warning');if(warning&&!warning.contains(document.activeElement))warning.querySelector('button')?.focus({preventScroll:true});}
@@ -234,6 +237,7 @@ function toast(msg){const el=document.querySelector('#toast');el.textContent=msg
 function exportLog(){const payload={kind:'LUNA_WEB_PLAYTEST',createdAt:new Date().toISOString(),source:D.source,day:g.day,mode:g.mode,variant:g.variant,serviceVersion:g.serviceVersion,difficulty:g.remix?.difficulty,seed:g.seed,progress:g.progress,transactions:g.transactions,dailySettlement:g.dailySettlement,upkeepOverride:g.upkeepOverride,logs:g.logs,history:g.history,error:g.error};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const el=document.createElement('a');el.href=url;el.download=`luna-day${g.day}-${Date.now()}.json`;el.click();setTimeout(()=>URL.revokeObjectURL(url),3000);toast(L('테스트 로그를 내보냈습니다.','Test log exported.'));}
 function show(name){if(name==='dossier'){ui.dossierDetail=null;ui.dossierPreview=null;ui.inspector=false;}g.overlay=name;g.gimmick&&(g.gimmick.held=false);render();}
 function act(name,id,source){
+ if(mixTutorial.action(name,id)){render(true);return;}
  if(g.overlay==='johnnyUnlock'){if(name==='confirmJohnnyUnlock'){clearControlSkip();g.safe(()=>g.confirmJohnnyUnlock());render(true);}return;}
  if(name==='skipStoryCraft'){if(canSkipStoryCraft())g.safe(skipStoryCraft);render(true);return;}
  if(!tutorialView.allows(name,id,source))return;
@@ -286,6 +290,7 @@ const controlKeyId=e=>/^Control(Left|Right)$/.test(e.code)?e.code:'Control';
 function clearControlSkip(){controlKeys.clear();ui.readSkip=false;}
 window.addEventListener('keydown',e=>{
  if(outside.active)return;
+ if(mixTutorial.key(e)){render(true);return;}
  pourView.unlockAudio();
  remixUI.unlockAudio();openView.unlockAudio();shakePolish.unlockAudio();stirPolish.unlockAudio();
  if(g.overlay==='johnnyUnlock'){if(e.code==='Tab'){e.preventDefault();root.querySelector('[data-act="confirmJohnnyUnlock"]')?.focus({preventScroll:true});}else if(e.code==='Escape'||isControlKey(e)||e.code==='F2')e.preventDefault();return;}

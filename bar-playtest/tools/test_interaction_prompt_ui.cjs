@@ -5,60 +5,52 @@ const assert=require('node:assert/strict');
  try{
   const p=await browser.newPage({viewport:{width:1440,height:900}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
-  await p.goto('http://127.0.0.1:8123/bar-playtest/');
-  await p.evaluate(()=>lunaCampaign.newGame('A'));
-  await p.waitForFunction(()=>lunaCampaign.view==='prologue');
-  await p.evaluate(()=>{const c=lunaCampaign,last=c.cinema.scene.clips.filter(c=>c.track==='phone-lines').at(-1);c.cinema.time=last.start;c.cinema.dialogueWait={id:last.id,age:99,revealed:true};c.advanceCinemaDialogue();});
-  await p.waitForFunction(()=>lunaCampaign.view==='game'&&!lunaCampaign.memoryTransition);
-  await p.keyboard.press('KeyE');
-  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=1.22;m.updateNear();});
-  await p.locator('.outside-interact-ready').waitFor({state:'visible'});
-  await p.waitForTimeout(700);
-  const info=await p.locator('.outside-interact').evaluate(el=>{
-   const b=document.querySelector('.outside-background-speech'),s=getComputedStyle(el),r=el.getBoundingClientRect(),br=b.getBoundingClientRect();
-   const key=getComputedStyle(el.querySelector('kbd'));
-   return {z:+s.zIndex,bubbleZ:+getComputedStyle(b).zIndex,y:r.y,bubbleBottom:br.bottom,animation:s.animationName,background:s.backgroundColor,border:s.borderTopWidth,color:key.color,width:s.width,height:s.height,font:key.fontSize,weight:key.fontWeight,after:getComputedStyle(el,'::after').content};
+  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
+  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
+  await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:0,flow:'out',place:'home'});await outsidePlaytest.start();});
+  const results=await p.evaluate(()=>{
+   const a=outsidePlaytest,m=a.model,results=[];
+   for(const day of [0,1,2,3])for(const flow of ['in','out'])for(const place of ['home','homeDoor','bar']){
+    m.start({day,flow,place});
+    for(const target of m.targets()){
+     m.x=target.x;m.updateNear();a.snapCamera();a.refreshHUD();
+     const el=document.querySelector('.outside-interact'),s=getComputedStyle(el),key=el.querySelector('kbd').getBoundingClientRect(),label=el.querySelector('span').getBoundingClientRect();
+     results.push({day,flow,place,id:target.id,visible:!el.hidden,left:s.left,bottom:s.bottom,transform:s.transform,text:el.textContent,ordered:key.right<label.left,inline:el.style.cssText});
+    }
+   }
+   return results;
   });
-  assert(info.z>info.bubbleZ);assert(info.y>info.bubbleBottom);
-  assert(info.animation.includes('outside-key-float'));
-  assert.equal(info.background,'rgb(134, 228, 235)');
-  assert.equal(info.border,'2px');assert.equal(info.color,'rgb(0, 0, 0)');
-  assert.equal(info.width,'40px');assert.equal(info.height,'40px');
-  assert.equal(info.font,'24px');assert.equal(info.weight,'700');
-  assert.deepEqual(await p.locator('.outside-interact').evaluate(el=>{const s=getComputedStyle(el);return [s.borderRadius,s.borderTopColor];}),['50%','rgb(0, 0, 0)']);
-  assert.deepEqual(await p.evaluate(()=>LunaOutside.interactionAnchor(outsidePlaytest.model,{id:'tv'},LUNA_OUTSIDE_DATA)),{x:1.58,y:-.48});
-  assert.equal(info.after,'none');
-  assert.deepEqual(await p.locator('.outside-background-speech[data-story-id="outside_day0_documentary_ambient"]').evaluate(el=>{
-   const s=getComputedStyle(el),p=getComputedStyle(el.querySelector('p'));
-   return [s.maxWidth,s.paddingTop,s.paddingLeft,p.fontSize];
-  }),['280px','6px','9px','13px']);
-  // Freeze at exact float keyframes: motion is only two stage pixels.
-  assert.equal(await p.locator('.outside-interact').evaluate(el=>{
-   const a=el.getAnimations().find(a=>a.animationName==='outside-key-float');a.pause();a.currentTime=0;
-   const y0=new DOMMatrix(getComputedStyle(el).transform).m42;a.currentTime=1400;
-   return Math.abs(new DOMMatrix(getComputedStyle(el).transform).m42-y0);
-  }),2);
-  await p.screenshot({path:'/private/tmp/tv-interaction-prompt.png'});
-  // Even when speech overlaps, hit testing must reach the E button first.
-  assert(await p.locator('.outside-interact').evaluate(el=>{
-   const r=el.getBoundingClientRect(),b=document.querySelector('.outside-background-speech'),saved=b.style.cssText;
-   b.style.left=el.style.left;b.style.top=el.style.top;
-   const front=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('.outside-interact')===el;
-   b.style.cssText=saved;return front;
-  }));
-  await p.emulateMedia({reducedMotion:'reduce'});
-  assert.equal(await p.locator('.outside-interact').evaluate(el=>getComputedStyle(el).animationName),'none');
-  await p.emulateMedia({reducedMotion:'no-preference'});
-
-
-
-
-  // Use an actual pointer hit: the prompt intentionally never stops floating.
-  const target=await p.locator('.outside-interact').boundingBox();
-  await p.mouse.click(target.x+target.width/2,target.y+target.height/2);
-  await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition);
-  assert.equal(await p.evaluate(()=>lunaCampaign.cinema.title),'TV 다큐 · 인공생명체의 역사');
+  assert(results.length>20);
+  for(const r of results){
+   assert(r.visible,JSON.stringify(r));assert.equal(r.left,'28px');assert.equal(r.bottom,'28px');assert.equal(r.transform,'none');
+   assert.equal(r.text,'E상호작용');assert(r.ordered);assert.equal(r.inline,'');
+  }
+  const ids=new Set(results.map(r=>r.id));for(const id of ['tv','exit','sofa','home','elevator','bar'])assert(ids.has(id));
+  assert([...ids].some(id=>/resident|vendor|encounter|samho|smuggler/.test(id)),'Actual NPC targets covered');
+  await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:0,flow:'out',place:'home'});m.x=1.22;m.updateNear();a.snapCamera();a.tick(0);});
+  const prompt=p.locator('.outside-interact');
+  const checkStyle=async()=>{
+   const style=await prompt.evaluate(el=>{const s=getComputedStyle(el),k=getComputedStyle(el.querySelector('kbd'));return {background:s.backgroundColor,image:s.backgroundImage,border:s.borderTopWidth,shadow:s.boxShadow,font:s.fontSize,radius:k.borderRadius,width:k.width,height:k.height};});
+   assert.deepEqual(style,{background:'rgba(0, 0, 0, 0)',image:'none',border:'0px',shadow:'none',font:'17px',radius:'50%',width:'32px',height:'32px'});
+  };
+  await checkStyle();await prompt.hover();await checkStyle();await p.mouse.move(0,0);
+  for(const viewport of [{width:1440,height:900},{width:1920,height:1080},{width:900,height:700}]){
+   await p.setViewportSize(viewport);await p.waitForTimeout(150);
+   const r=await prompt.boundingBox(),stage=await p.locator('.outside-stage').boundingBox(),scale=stage.width/1280;
+   assert(Math.abs(r.x-stage.x-28*scale)<1);
+   assert(Math.abs(stage.y+stage.height-r.y-r.height-28*scale)<1);
+  }
+  await p.setViewportSize({width:1440,height:900});await p.waitForTimeout(150);
+  await p.screenshot({path:'/private/tmp/interaction-bottom-left.png'});
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=0;m.updateNear();outsidePlaytest.refreshHUD();});assert(await prompt.isHidden());
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=1.22;m.updateNear();outsidePlaytest.refreshHUD();});assert(await prompt.isVisible());
+  await p.keyboard.press('Escape');assert(await prompt.isHidden());await p.keyboard.press('Escape');assert(await prompt.isVisible());
+  // The relocated hint still performs the same interaction on click.
+  await prompt.click();
+  await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition,null,{timeout:60000});
+  assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.template),'documentary');
+  assert(await prompt.isHidden());
   assert.deepEqual(errors,[]);
-  console.log('INTERACTION_PROMPT_OK: TV screen anchor, foreground layer/hit target, 2px float, reduced motion, documentary entry.');
+  console.log('PASS '+results.length+' object/NPC targets / fixed bottom-left E + label / 3 viewport sizes / proximity and pause visibility / click enters TV');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -5,9 +5,24 @@ const track=(file)=>({url:new URL('audio/ambience/'+file,base),gain:null,buffer:
 const city=track('street-loop.ogg'),rain=track('rain-loop.ogg'),tracks=[city,rain];
 let volume=.55,context=null,unlocked=false,previous=0,away=false;
 try{const raw=localStorage.getItem(key),value=raw===null?null:JSON.parse(raw);if(typeof value==='number'&&Number.isFinite(value))volume=Math.max(0,Math.min(1,value));}catch{}
-function wanted(){
+function terraceContext(){
+ const c=global.lunaCampaign;
+ if(c?.dialog?.background!=='terrace'||c.dayTransition)return null;
+ const menu=c.view==='options'&&['scene','scene-choice'].includes(c.resumeView);
+ if(!['scene','scene-choice'].includes(c.view)&&!menu)return null;
+ const transition=c.memoryTransition;
+ if(transition&&transition.phase!=='in')return null;
+ // The outdoor renderer may still be paused inside the house, or absent
+ // entirely during a replay. Use the visible terrace, not that hidden room.
+ const day=c.session?.developer?(global.outsidePlaytest?.model?.config.day??c.session?.day):c.session?.day;
+ const reveal=transition?Math.max(0,Math.min(1,transition.time/transition.revealDuration)):1;
+ return {day,gain:.55*(menu?.45:1)*reveal*reveal*(3-2*reveal)};
+}
+function wanted(terrace){
  const outside=global.outsidePlaytest,campaign=global.lunaCampaign,m=outside?.model;
- if(away||document.hidden||!outside?.active||outside.loading||outside.loadError||m?.scene!=='street')return 0;
+ if(away||document.hidden)return 0;
+ if(terrace)return volume*terrace.gain;
+ if(!outside?.active||outside.loading||outside.loadError||m?.scene!=='street')return 0;
  const view=campaign?.view;
  const menu=view==='options'&&['game','developer'].includes(campaign.resumeView);
  if(campaign?.blocking&&!menu)return 0;
@@ -30,9 +45,11 @@ function unlock(e){
  }catch{}
 }
 function frame(now){
- const dt=previous?Math.min(.1,(now-previous)/1000):0;previous=now;city.target=wanted();
- // Share the exact visual weather rule, including indoor/QA exclusion. City ambience stays underneath.
- rain.target=global.LunaOutsideRain?.enabled(global.outsidePlaytest?.model)?city.target*.85:0;
+ const dt=previous?Math.min(.1,(now-previous)/1000):0;previous=now;const terrace=terraceContext();city.target=wanted(terrace);
+ // Terrace nights share the street weather schedule, but distant rain sits
+ // lower in the dialogue mix. Never mutate the paused outside model.
+ const weather=terrace?{scene:'street',config:{day:terrace.day,flow:'out'}}:global.outsidePlaytest?.model;
+ rain.target=global.LunaOutsideRain?.enabled(weather)?city.target*(terrace?.45:.85):0;
  for(const t of tracks){
   if(unlocked&&t.target>0){void prepare(t);if(t.buffer&&!t.source&&context?.state==='running'){t.source=context.createBufferSource();t.source.buffer=t.buffer;t.source.loop=true;t.source.connect(t.gain);t.source.start();}}
   // Real-time envelopes remain independent of paused game clocks; decoding starts from silence.

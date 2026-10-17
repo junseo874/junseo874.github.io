@@ -1,0 +1,9 @@
+.sound-symbol{display:block;font-size:48px;color:var(--cyan);line-height:1.2;text-align:center}
+.sound-kind{position:absolute;bottom:13px;left:8px;right:8px;text-align:center;font-size:11px;color:var(--muted)}
+.thumb:has(.sound-symbol){background:radial-gradient(ellipse at center,#254954,#101924 75%)}
+.sound-preview{margin:18px 0;padding:18px 12px;background:#0a1520;border:1px solid var(--line);border-radius:9px}
+.sound-preview audio{display:block;width:100%;min-width:0;margin:18px 0 12px}
+.sound-preview small{display:block;color:var(--muted);letter-spacing:0;line-height:1.7}
+.sound-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px}
+.sound-actions button{padding:6px 10px}.sound-actions input{width:auto}.sound-actions label{display:flex;align-items:center;gap:4px}
+.sound-preview [role=status]{font-size:12px;min-height:2em}

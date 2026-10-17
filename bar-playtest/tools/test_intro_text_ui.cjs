@@ -11,7 +11,7 @@ const lines=['그러면... 약속해줘. 루나.','포기하지 않겠다고.','
   await p.waitForFunction(()=>lunaCampaign.cinema?.dialogueWait);
   const notices=await p.evaluate(()=>lunaCampaign.cinema.scene.clips.filter(c=>c.introNotice&&!c.introFade).map(c=>StudioTags.parse(c.text).text));
   assert.deepEqual(notices,[
-   '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로\n넘길 수 있습니다.'
+   '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로 넘길 수 있습니다.'
   ]);
   const canvas=p.locator('#campaign-root canvas.campaign-prologue');
   assert(await p.evaluate(()=>{const c=lunaCampaign.cinema;return c.scene.clips.filter(l=>l.introNotice&&!l.introFade).length===1&&!c.scene.clips.some(l=>l.text?.includes('감사합니다'))&&c.scene.clips.find(l=>l.introFadeIn).introFadeIn===1.5;}));

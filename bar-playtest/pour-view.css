@@ -12,7 +12,11 @@
 .pour-top-readout>div{min-width:110px}
 .pour-top-readout span{display:block;font-size:14px;color:#a8bdc8;margin-bottom:5px}
 .pour-top-readout strong{display:block;font-size:28px;font-weight:normal;font-variant-numeric:tabular-nums;color:#85eff0}
-.pour-top-readout .pour-target-value{color:#f0d193}
+.fluid-screen{--pour-target-color:#f0d193}
+.pour-top-readout .pour-target-value{color:var(--pour-target-color)}
+.pour-ingredient-readout{position:absolute;left:26px;bottom:28px;max-width:40%;text-align:left;pointer-events:none}
+.pour-ingredient-readout span{display:block;font-size:14px;color:#a8bdc8;margin-bottom:7px}
+.pour-ingredient-readout strong{display:block;font-size:28px;font-weight:700;line-height:1.35;color:var(--pour-target-color);overflow-wrap:anywhere;text-shadow:0 2px 4px #0008}
 .pour-tilt-meter{position:absolute;top:28px;left:50%;transform:translateX(-50%);width:240px;max-width:24%;pointer-events:none;color:#b9c4cf;z-index:2;--tilt-position:0%;--tilt-start:58%;--tilt-range:36%;--tilt-warning:6%}
 .pour-tilt-meter>span{display:block;font-size:16px;margin-bottom:14px;text-align:center}
 .pour-tilt-track{position:relative;height:16px;background:#19202b;box-shadow:0 1px 0 #ffffff0a}

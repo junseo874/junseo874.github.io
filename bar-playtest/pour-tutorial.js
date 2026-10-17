@@ -11,13 +11,13 @@ W.LunaPourTutorial={
   // The pouring gesture is demonstrated by the idle mouse animation, not a text card.
   if(t.step==='pour'){layer.hidden=true;delete host.dataset.pourTutorialStep;return;}
   const steps={
-   target:['.pour-top-readout',L('목표량부터 확인해요','Check the target'),L('이번 재료의 목표량은 '+s.target+' '+s.unit+'예요. 현재량과 비교하며 따르고, 목표에서 ±5 ml 이내로 마치면 PERFECT예요.','This ingredient needs '+s.target+' '+s.unit+'. Compare the current amount as you pour. Finish within ±5 ml for PERFECT.'),1],
+   target:['.pour-top-readout',L('목표량부터 확인해요','Check the target'),L('이번 재료의 목표량은 '+s.target+' '+s.unit+'예요.','This ingredient needs '+s.target+' '+s.unit+'.'),1],
    pour:[s.started?'.pour-workspace':'.pour-hold',L('드래그로 기울기를 조절해요','Drag to control the tilt'),L('병이나 캔을 잡고 왼쪽 위로 드래그하세요. 기울일수록 빠르게 나와요. 놓으면 돌아오지만 남은 방울은 계속 떨어져요. 탄산 재료는 천천히 따라야 거품이 적어요.','Drag up-left to tilt. More tilt means faster flow. Release early: airborne drops still land. Pour carbonated drinks slowly to reduce foam.'),2],
-   finish:['.pour-finish',L('남은 방울까지 확인해요','Check the final drops'),L('현재량을 확인하세요. 부족하면 드래그해서 조금 더 따를 수 있어요. 준비되면 「마치고 다음 재료」를 누르세요. 마지막 방울까지 담긴 뒤 판정하고 다음 재료로 넘어가요.','Check the current amount. Drag to top up if needed, then choose Finish & continue. The final drops land before scoring and moving on.'),3]
+   finish:['.pour-finish',L('현재량을 확인해요','Check the current amount'),L('목표보다 조금 부족하면 더 따를 수 있어요. 준비되면 「따르기 마치기」를 누르세요.','If you are short of the target, pour a little more. When ready, choose Finish pouring.'),3]
   };
   const step=steps[t.step],target=host.querySelector(step[0]);if(!target){layer.hidden=true;return;}
   layer.dataset.step=t.step;host.dataset.pourTutorialStep=t.step;
-  if(layer.dataset.copy!==t.step){layer.dataset.copy=t.step;layer.innerHTML='<div class="pour-tutorial-focus"></div><span class="pour-tutorial-arrow" aria-hidden="true">➜</span><section class="pour-tutorial-card" aria-live="polite"><small>'+L('따르기 안내','POURING')+' · '+step[3]+'/3</small><h3></h3><p></p>'+(t.step==='target'?'<button data-act="pourTutorialNext">'+L('확인 · 따르기 시작','Continue · start pouring')+'</button>':'')+'</section>';layer.querySelector('h3').textContent=step[1];layer.querySelector('p').textContent=step[2];}
+  if(layer.dataset.copy!==t.step){layer.dataset.copy=t.step;layer.innerHTML='<div class="pour-tutorial-focus"></div><span class="pour-tutorial-arrow" aria-hidden="true">➜</span><section class="pour-tutorial-card" aria-live="polite"><h3></h3><p></p>'+(t.step==='target'?'<button data-act="pourTutorialNext">'+L('따르기 시작','Start pouring')+'</button>':'')+'</section>';layer.querySelector('h3').textContent=step[1];layer.querySelector('p').textContent=step[2];}
   const base=host.getBoundingClientRect(),r=target.getBoundingClientRect(),sx=host.offsetWidth/base.width,sy=host.offsetHeight/base.height,w=host.offsetWidth,h=host.offsetHeight;
   const box={x:(r.left-base.left)*sx-6,y:(r.top-base.top)*sy-6,w:r.width*sx+12,h:r.height*sy+12},ring=layer.querySelector('.pour-tutorial-focus'),card=layer.querySelector('.pour-tutorial-card'),arrow=layer.querySelector('.pour-tutorial-arrow');
   Object.assign(ring.style,{left:box.x+'px',top:box.y+'px',width:box.w+'px',height:box.h+'px'});

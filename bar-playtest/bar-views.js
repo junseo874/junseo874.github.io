@@ -208,7 +208,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const exiting=state.exitAt===null?0:Math.min(1,Math.max(0,(g.realTime-state.exitAt-(g.phase==='general'?2.5:0))/.45));
     const opacity=Math.min(entering,1-exiting),offset=(1-entering)*25+exiting*25;
     const box=actorBounds(guest),base=guest.actor==='bubi'?535:500;
-    const anchor=guest.appearance||guest.actor==='bubi'?box[3]:440;
+    const anchor=guest.appearance||guest.actor==='bubi'?box[3]:(D.webTableAnchors?.[guest.actor]??440);
     const top=base-anchor,centerOffset=275.5-(box[0]+box[2])/2;
     const [dx,dy]=poseOffset(guest,pose);
     const speechState=state.speech?(talking?'looping':'finishing'):'idle';

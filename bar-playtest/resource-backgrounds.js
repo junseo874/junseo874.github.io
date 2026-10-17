@@ -35,7 +35,9 @@ function build(F){
  add('door','out','바 출퇴근 · 문 로딩 화면','출입 / 로딩','코드 배경',[],{status:'code',launch:{type:'door',id:'in'},preview:'assets/resource-previews/ui_door_in.jpg',previewNote:'관련 실제 로딩 화면 · 문과 주변 소품 포함',note:'검은 배경에 거리 출입문·주변 소품과 따뜻한 빛을 조합합니다. 별도 풀샷 이미지가 아닙니다. 문 원본은 외부 거리의 바 출입문 항목에서 확인하세요.'});
  add('qa','out','99일차 · 가상 QA 무대','QA 무대','코드 배경',[],{status:'code',launch:{type:'outside',id:'outside_day0_store_passers'},preview:'assets/resource-previews/ui_outside_outside_day0_store_passers.jpg',previewNote:'관련 실제 QA 화면 · 테스트 인물 포함',note:'outside-qa.js에서 그리는 가상 바닥·격자 무대입니다. 거리 배경 이미지가 아니며 별도 아트 파일은 없습니다.'});
  const loading=F.document.createElement('canvas');loading.width=1280;loading.height=720;const ctx=loading.getContext('2d');ctx.scale(1,720/1280);const gradient=ctx.createRadialGradient(640,640,0,640,640,Math.hypot(640,640));gradient.addColorStop(0,'#112838');gradient.addColorStop(1,'#070a14');ctx.fillStyle=gradient;ctx.fillRect(0,0,1280,1280);
- add('loading','bar','공통 로딩 / 엔딩 · 어두운 그라디언트','타이틀 / 로딩','코드 배경',[raw('loading-gradient',loading.toDataURL(),'campaign.css · campaign-loading / campaign-ending')],{status:'code',launch:{type:'background',id:'loading'},note:'로고와 진행 표시 뒤에 깔리는 코드 그라디언트입니다. 별도 배경 아트는 사용하지 않습니다.'});
+ add('ending-gradient','bar','엔딩 · 어두운 그라디언트','타이틀 / 로딩','코드 배경',[raw('ending-gradient',loading.toDataURL(),'campaign.css · campaign-ending')],{status:'code',note:'엔딩 배경입니다. 공통 리소스 로딩 화면은 검은 배경과 좌측 하단 로딩 중… 표시를 사용합니다.'});
+ ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);
+ add('loading','bar','리소스 로딩 · 검은 배경','타이틀 / 로딩','코드 배경',[raw('loading-black',loading.toDataURL(),'loading-screen.css')],{status:'code',launch:{type:'background',id:'loading'},note:'검은 화면 좌측 하단에 로딩 중 문구를 표시합니다. 점은 1개 → 2개 → 3개로 반복됩니다.'});
  return rows;
 }
 function cinema(F){

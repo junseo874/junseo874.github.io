@@ -4,31 +4,37 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  try{
   const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('http://127.0.0.1:8123/bar-playtest/');await page.evaluate(()=>lunaCampaign.newGame('A'));
-  await page.waitForFunction(()=>lunaCampaign.view==='prologue');
+  await page.goto('http://127.0.0.1:8123/bar-playtest/');
+  if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
+  await page.evaluate(()=>lunaCampaign.newGame());
+  await page.waitForFunction(()=>lunaCampaign.cinema?.dialogueWait);
   const hint=page.locator('.campaign-skip');
-  assert.equal(await hint.locator('span').textContent(),'스페이스 바를 눌러 스킵');
-  assert.match(await hint.getAttribute('aria-label'),/1\.5초/);
-  assert(await hint.evaluate(el=>el.classList.contains('is-visible')));
-  assert.equal(await hint.evaluate(el=>getComputedStyle(el).fontSize),'11px');
-  const remaining=await page.evaluate(()=>lunaCampaign.cinemaHintUntil-performance.now());assert(remaining>0&&remaining<=2000);
-  await page.waitForTimeout(2400);
-  assert.equal(await hint.evaluate(el=>getComputedStyle(el).opacity),'0');
-  await page.keyboard.down('Space');await page.waitForTimeout(350);
-  assert.equal(await hint.evaluate(el=>getComputedStyle(el).opacity),'1');
-  assert(+(await hint.locator('[role="progressbar"]').getAttribute('aria-valuenow'))>0);
-  await page.keyboard.up('Space');await page.waitForTimeout(350);
-  assert.equal(await hint.evaluate(el=>getComputedStyle(el).opacity),'0');
-  // The 1.5-second threshold still skips only the dream, not waking/contact.
+  assert.match(await hint.getAttribute('aria-label'),/2초/);
+  assert(await hint.isHidden(),'Opening dialogue remains unskippable');
+  // Loaded scene used as a skippable documentary fixture with manual dialogue.
+  await page.evaluate(()=>{const c=lunaCampaign;c.cinema.skipUntil=c.cinema.scene.end-1;c.cinema.scene.template='documentary';c.paintCinemaSkip();});
+  const visible=()=>hint.evaluate(el=>el.classList.contains('is-visible'));
+  assert.equal(await visible(),false,'No unsolicited skip overlay');
   await page.keyboard.down('Space');
-  assert(await page.evaluate(()=>{const c=lunaCampaign;c.cinemaHoldStart=performance.now()-1450;c.tick(.01);const before=c.canSkipCinema()&&c.cinema.time<c.cinema.skipUntil;c.cinemaHoldStart=performance.now()-1510;c.tick(.01);return before;}));
+  assert.equal(await visible(),false,'Dialogue tap does not flash the overlay');
+  await page.keyboard.up('Space');assert.equal(await visible(),false);
+  const sample=ms=>page.evaluate(ms=>{const c=lunaCampaign;c.cinemaHoldStart=performance.now()-ms;const complete=c.paintCinemaSkip(),el=c.host.querySelector('.campaign-skip');return {complete,visible:el.classList.contains('is-visible'),progress:Number(el.querySelector('[role="progressbar"]').getAttribute('aria-valuenow'))};},ms);
+  assert.deepEqual(await sample(250),{complete:false,visible:false,progress:0});
+  const active=await sample(350);assert(active.visible&&active.progress>0&&!active.complete);
+  assert.equal((await sample(1150)).progress,50);
+  assert.equal((await sample(1950)).complete,false);
+  assert.equal((await sample(2010)).complete,true);
   await page.keyboard.up('Space');
+  assert.equal(await visible(),false);
+  assert.equal(await hint.locator('[role="progressbar"]').getAttribute('aria-valuenow'),'0');
+  await page.keyboard.down('Space');assert.equal(await visible(),false);
+  await page.evaluate(()=>window.dispatchEvent(new Event('blur')));
+  assert.equal(await page.evaluate(()=>lunaCampaign.cinemaHoldStart),null);
+  await page.keyboard.up('Space');
+  await page.evaluate(()=>{const c=lunaCampaign;c.screen('prologue');c.cinema.dialogueWait=null;c.cinemaHoldStart=performance.now()-2010;c.tick(.01);});
   assert(await page.evaluate(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.canSkipCinema()&&lunaCampaign.cinema.time>=lunaCampaign.cinema.skipUntil));
   assert(await hint.isHidden());
-
-
-
-
-  assert.deepEqual(errors,[]);console.log('PASS: exact skip label, hint 2s / 11px, release reset, 1.5s threshold, dream-only skip with contact protected.');
+  assert.deepEqual(errors,[]);
+  console.log('PASS: 300 ms silent activation, 2 s total hold, tap/release/focus reset, protected cutscene boundary.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

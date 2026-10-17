@@ -89,7 +89,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   (g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" draggable="false">'+
   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas></div>'+
-  '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div><small data-pour-detail></small></div></div>'+
+  '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div><small data-pour-detail></small></div>'+
+  '<div class="pour-ingredient-readout" role="status"><span>'+L('재료 이름','Ingredient')+'</span><strong data-pour-ingredient="'+esc(s.ingredient)+'">'+esc(g.name(s.ingredient))+'</strong></div></div>'+
   '<div class="pour-tilt-meter" data-pour-tilt role="meter" aria-label="'+L('기울이기','Tilt')+'" aria-valuemin="0" aria-valuemax="'+f.maxAngle+'" aria-valuenow="0"><span>'+L('기울이기','Tilt')+'</span><div class="pour-tilt-track"><i class="pour-tilt-range"></i><i class="pour-tilt-warning"></i><i class="pour-tilt-marker"></i></div></div>'+
   button(f.finishRequested?L('마지막 방울 정리 중…','Settling final drops…'):L('따르기 마치기 →','Finish pouring →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
  }

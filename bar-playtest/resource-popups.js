@@ -48,7 +48,7 @@ async function play(F,d,isCurrent){
  // Empty bar: no guest timers, dialogue or first-encounter side effects.
  g.screen='bar';g.phase='practice';g.seats={L:null,M:null,R:null};g.story=null;g.dialogue=null;g.craft=null;g.overlay=null;
  if(d.place==='outside')await startOutside(F);if(!isCurrent())return;
- const n=F.LunaStoryNotices,id=d.actor||'chris';n.clear();
+ const n=F.LunaStoryNotices,id=d.kind==='meet'&&d.actor==='chris'?'tom':d.actor||'tom';n.clear();
  if(d.type==='popup-goal'){
   const goalId='preview_commute';if(g.progress.objectives)delete g.progress.objectives[goalId];
   n.startGoal(g.progress,goalId,'바로 출근하기');

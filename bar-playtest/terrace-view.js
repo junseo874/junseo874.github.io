@@ -1,6 +1,6 @@
 (function(W){
 'use strict';
-const asset='assets/campaign/terrace-20261013.png';
+const asset='assets/campaign/terrace-20261018.png';
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Actor anchors are measured from the supplied 480 × 270 terrace composition.
 const seats={chris:{x:163/480*1280,y:151/270*720},luna:{x:134/480*1280,y:151/270*720}};

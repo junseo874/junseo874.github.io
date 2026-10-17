@@ -1,0 +1,32 @@
+/* Fixed 1280×720 stage is scaled by the outside view, including these popups. */
+#outside-root .outside-controls-shade{position:absolute;inset:0;display:grid;place-items:center;background:#02070cb8;z-index:60}
+#outside-root .outside-controls-shade[hidden]{display:none}
+#outside-root .outside-controls-tutorial{position:relative;width:800px;padding:32px 42px 26px;box-sizing:border-box;background:linear-gradient(145deg,#10263280,transparent 55%),#06121bf7;border:1px solid #6cbdc9;border-radius:12px 2px;box-shadow:0 0 0 5px #0a1923c9,0 20px 70px #0008,0 0 36px #65dce916;color:#d5edf0;outline:none}
+#outside-root .outside-controls-tutorial:before{content:'';position:absolute;top:-2px;left:26px;width:64px;height:3px;background:#9af9f5;box-shadow:0 0 12px #82f6ff66}
+#outside-root .controls-heading{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid #375361;padding-bottom:18px}
+#outside-root .controls-heading>div{grid-column:2;text-align:center}
+#outside-root .controls-heading small{display:inline-block;padding-left:5px;font-size:11px;letter-spacing:5px;color:#6b9ba8}
+#outside-root .controls-heading h2{font-size:34px;line-height:1.2;margin:8px 0 0;color:#b4faf6}
+#outside-root .controls-page{grid-column:3;justify-self:end;color:#aef8f2;font-size:18px;letter-spacing:3px}
+#outside-root .controls-page i{color:#64848f;font-style:normal}
+#outside-root .controls-movement{height:244px;display:flex;align-items:center;justify-content:center;gap:30px}
+#outside-root .controls-direction{display:grid;justify-items:center;gap:22px;color:#8eacb7;font-size:15px}
+#outside-root .controls-keycap{display:grid;place-items:center;box-sizing:border-box;width:70px;height:64px;border:2px solid #88c9d0;border-radius:9px;background:linear-gradient(#274858,#142e3e);box-shadow:0 7px 0 #08151f,0 8px 0 1px #527f8a,inset 0 0 0 4px #142e3b;color:#d4fffc;font:700 33px/1 ui-monospace,monospace;animation:controls-keypress 2.8s infinite}
+#outside-root .controls-direction:last-child .controls-keycap{animation-delay:1.4s}
+#outside-root .controls-arrow{font-size:33px;color:#669eac;margin-top:-32px}
+#outside-root .controls-luna{position:relative;display:grid;place-items:center;width:125px;height:200px}
+#outside-root .outside-controls-tutorial canvas{position:static;inset:auto;image-rendering:pixelated;object-fit:contain;display:block}
+#outside-root .controls-luna canvas{height:166px;width:auto;position:relative;z-index:1;filter:drop-shadow(0 0 10px #6bc4da30)}
+#outside-root .controls-floor{position:absolute;bottom:11px;width:124px;height:18px;border-radius:50%;background:#39788e30;border:1px solid #5193a344}
+#outside-root .controls-interaction{display:flex;justify-content:center;gap:22px;margin:20px 0 17px}
+#outside-root .controls-interaction figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;width:210px;height:178px;background:linear-gradient(#142e3a60,#12212b30);border:1px solid #365662;border-radius:5px}
+#outside-root .controls-object{height:105px;width:auto}
+#outside-root .controls-person{height:113px;width:auto;filter:brightness(3) drop-shadow(0 0 7px #6bbac140)}
+#outside-root .controls-interaction figcaption{color:#a4c4ce;font-size:16px}
+#outside-root .controls-interact-key{display:flex;justify-content:center;height:60px}
+#outside-root .controls-interact-key .controls-keycap{height:46px;width:53px;font-size:26px}
+#outside-root .controls-description{text-align:center;font-size:22px;line-height:1.65;word-break:keep-all;margin:8px 0 6px;color:#d4eff2}
+#outside-root .outside-controls-tutorial[data-step="1"] .controls-description{font-size:20px;margin-top:6px;white-space:nowrap}
+#outside-root .controls-progress-hint{margin:18px 0 0;text-align:center;font-size:14px;line-height:1.5;color:#86a6b3}
+@keyframes controls-keypress{0%,12%,36%,100%{transform:translateY(0);box-shadow:0 7px 0 #08151f,0 8px 0 1px #527f8a,inset 0 0 0 4px #142e3b}18%,29%{transform:translateY(5px);background:#397083;box-shadow:0 2px 0 #08151f,0 3px 0 1px #82c9cd,inset 0 0 0 4px #224d5d}}
+@media(prefers-reduced-motion:reduce){#outside-root .controls-keycap{animation:none}}

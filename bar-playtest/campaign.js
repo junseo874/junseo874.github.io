@@ -3,6 +3,7 @@
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,cls='')=>'<button class="'+cls+'" data-campaign="'+action+'">'+(cls==='title-choice'?'<span class="title-label" data-text="'+esc(label)+'">'+esc(label)+'</span>':label)+'</button>';
 const path=n=>'assets/campaign/'+n;
+const CINEMA_SKIP_HOLD_MS=2000,CINEMA_SKIP_REVEAL_MS=300;
 class Campaign{
  constructor(adapter){Object.assign(this,adapter);this.session=new global.LunaCampaignEngine.Session(this.g,this.D,global.LUNA_CAMPAIGN_DATA);this.session.onStep=s=>this.storyStep(s);this.data=global.LUNA_CAMPAIGN_DATA;this.serviceVersion='A';this.view='picker';this.dialog=null;this.token=0;this.loaded=new Set();this.scriptPromises=new Map();this.control=false;this.skipAge=0;this.firstLift=false;this.morningSeen=new Set();this.nightStarted=false;
   this.host=document.createElement('section');this.host.id='campaign-root';this.host.setAttribute('aria-label','LUNA 본편');document.body.append(this.host);this.returnButton=document.createElement('button');this.returnButton.id='campaign-developer-back';this.returnButton.textContent='← 플레이 모드 선택';this.returnButton.dataset.campaign='picker';this.returnButton.hidden=true;document.body.append(this.returnButton);
@@ -17,14 +18,17 @@ class Campaign{
  get blocking(){return !!this.dayTransition||this.view!=='game'&&this.view!=='developer';}
  resetInput(){this.releaseCinemaSkip();this.clearInput();this.outside.clearInput?.();this.control=false;this.g.gimmick&&(this.g.gimmick.held=false);}
  screen(view){this.resetInput();if(view!=='prologue'){this.cinema?.player?.pause?.();global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);}this.view=view;this.host.classList.toggle('is-dev-console',view==='dev-console');this.host.classList.toggle('over-outside',view==='scene'&&this.outside.active&&!['terrace','black','johnny-memory'].includes(this.dialog?.background));this.host.hidden=!this.blocking;document.body.classList.toggle('campaign-main',this.active);document.body.classList.toggle('campaign-awakening',view==='awakening');this.host.classList.toggle('is-awakening',view==='awakening');this.app.inert=this.blocking;const outsideRoot=document.querySelector('#outside-root');if(outsideRoot)outsideRoot.inert=this.blocking;this.returnButton.hidden=view!=='developer'||this.outside.active||this.g.phase!=='ready';this.draw();}
- draw(){if(this.view==='game'||this.view==='developer'){this.host.hidden=true;return;}this.host.hidden=false;let body='';
+ draw(){if(this.view==='game'||this.view==='developer'){this.host.hidden=true;return;}this.host.hidden=false;
+  // Progress callbacks must not recreate the dots and restart their animation.
+  if(this.view==='loading'&&this.host.querySelector('.view-loading .resource-loading'))return;
+  let body='';
   if(this.view==='picker')body='<div class="campaign-picker"><img class="picker-logo" src="'+path('title-logo.png')+'" alt="Project LUNA"><h1>어떤 방식으로 플레이할까요?</h1><div class="campaign-paths">'+button('<span>01 / STORY</span><strong>본편 플레이</strong><p>루나의 첫 출근부터, 네 번의 밤까지.</p>','title','story-path')+button('<span>02 / PLAYTEST</span><strong>개발자 시뮬레이터</strong><p>바 영업 · 기믹 · 외부 공간을 자유롭게 테스트합니다.</p>','developer','dev-path')+'</div></div>';
   if(this.view==='bar-door')body=global.LunaBarDoor.html(this.doorTransition?.direction||'in');
   if(this.view==='awakening')body='<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
   if(this.view==='title')body='<div class="campaign-title"><div class="title-logo"><img src="'+path('title-logo.png')+'" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>'+'<nav aria-label="타이틀 메뉴">'+button('새 게임','new','title-choice')+'<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>'+button('설정','options','title-choice')+button('종료','picker','title-choice')+'<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
 
   if(this.view==='scene-choice'){const r=this.dialog.rows[this.dialog.index];body=this.card('대답 선택',r.options.map(o=>button(esc(o.text),'scene-choice:'+o.seq)).join(''));}
-  if(this.view==='loading')body='<div class="campaign-loading" role="status"><img src="'+path('title-logo.png')+'" alt="LUNA"><p>'+esc(this.loadLabel||'밤을 준비하고 있습니다')+'</p><progress max="100" value="'+(this.loadPercent||0)+'"></progress><small>'+Math.round(this.loadPercent||0)+'%</small></div>';
+  if(this.view==='loading')body='<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">로딩 중<span class="resource-loading-dots"></span></span></div>';
   if(this.view==='load-error')body=this.card('리소스를 불러오지 못했어요','<p>'+esc(this.loadError)+'</p>'+button('다시 시도','retry-load')+button('타이틀로','title'));
   if(this.view==='options')body=this.card('설정',this.optionsHTML());
   if(this.view==='dev-console')body=this.devConsoleHTML();
@@ -36,7 +40,7 @@ class Campaign{
   if(this.view==='response')body=this.card('어떻게 이야기를 이어갈까요?',button('삼호가 확인한 조건부터 들어볼까요?','response:A')+button('그쪽에서는 애니멀이 맡는 일이라고 생각하고 있나요?','response:B'));
   if(this.view==='observation')body=this.card('조니의 관찰 메모','<p>기억에서 직접 본 내용만 정리해 주세요.</p><div class="observation-fields"><label>고른 베이스<select id="observation-base"><option value="">선택</option><option value="gin">진</option><option value="rye">라이 위스키</option><option value="vodka">보드카</option></select></label><label>재료를 넣은 순서<select id="observation-order"><option value="">선택</option><option value="wrong">시럽 → 비터스 → 위스키</option><option value="right">위스키 → 시럽 → 비터스 → 스터</option></select></label></div><p class="campaign-error" role="alert">'+esc(this.observationError||'')+'</p>'+button('제조 기록 다시 보기','replay-memory')+button('준비 목록 완성','confirm-observation','primary'));
   if(this.view==='scene')body=this.sceneHTML();
-  if(this.view==='prologue')body='<canvas class="campaign-prologue" width="480" height="270" aria-label="'+esc(this.cinema?.title||'루나의 꿈 회상 컷씬')+'"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스 바를 1.5초간 누르면 컷씬을 건너뜁니다"><span>스페이스 바를 눌러 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
+  if(this.view==='prologue')body='<canvas class="campaign-prologue" width="480" height="270" aria-label="'+esc(this.cinema?.title||'루나의 꿈 회상 컷씬')+'"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스 바를 2초간 누르면 컷씬을 건너뜁니다"><span>스페이스 바를 눌러 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
   if(this.view==='ending')body='<div class="campaign-ending"><img src="'+path('title-logo.png')+'" alt="Project LUNA"><p>…조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>'+button('타이틀로','exit-run')+'</div>';
   this.host.innerHTML='<div class="campaign-stage view-'+this.view+'">'+body+'</div>';
   this.titleLogo=this.view==='title'?global.LunaTitleLogo.mount(this.host.querySelector('.title-logo')):null;
@@ -68,7 +72,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'guide-fade-in-20261016':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'morning-zoom-20261018':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -87,7 +91,7 @@ class Campaign{
    this.cinema={studio:true,memory:true,returnTransition:'cut',skipUntil:0,title:'마지막 부탁 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);this.render(true);this.outside.showControlsTutorial();
    }};
-   this.cinemaHintUntil=performance.now()+2000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
   }catch(e){if(token!==this.token)return;this.loadError=e.message;this.screen('load-error');}
  }
  playDayZeroTV(model){
@@ -98,7 +102,7 @@ class Campaign{
    this.cinema={studio:true,memory:true,title:'TV 다큐 · 인공생명체의 역사',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);
    }};
-   this.cinemaHintUntil=performance.now()+2000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
   },{revealDuration:.8});
  }
  // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
@@ -121,7 +125,7 @@ class Campaign{
    if(this.memoryTransition!==d)return true;d.phase='in';d.time=0;d.host.style.opacity='1';this.bgm.setTransitionGain(0);
   }else if(d.phase==='in'){
    const amount=smooth(d.time/d.revealDuration);d.host.style.opacity=1-amount;this.bgm.setTransitionGain(amount);
-   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.cinemaHintUntil=performance.now()+2000;this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
+   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
   }
   return true;
  }
@@ -134,14 +138,14 @@ class Campaign{
    return global.buildTerraceMemory(this.data.scenes[memoryKey],{day3:memoryKey==='terraceMemory3'});
   },scene=>{
    this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'유나와의 기억 · 폐기물 처리소',memoryKey,memory:true,returnTo:done};
-   this.cinemaHintUntil=performance.now()+2000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
   });
  }
  async playBDCinema(model){
   if(model!==this.outside.model||!this.outside.active)return;this.disposeCinema();const token=++this.token,day=model.config.day,flow=model.config.flow;this.loadLabel='BD 칩 · 연구소 로비 기록을 불러오는 중';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.playBDCinema(model);
   try{const scripts=['assets','sprites','stage','stage3','stage4','engine','sfx','scene1','player'];for(const [i,name] of scripts.entries()){await this.script(name);if(token!==this.token)return;this.loadPercent=(i+1)/scripts.length*95;this.draw();}await new Promise(resolve=>global.Sprites.load(resolve));if(token!==this.token)return;global.Engine.initAnchors?.();global.Engine.setLineOverrides({});global.Engine.setTypingScale(1);
    const scene=global.buildScene1();this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'BD 칩 · 연구소 로비 전투',returnTo:()=>{if(this.outside.model!==model||!this.outside.active||model.config.day!==day||model.config.flow!==flow)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);}};
-   this.cinemaHintUntil=performance.now()+2000;this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
   }catch(e){if(token!==this.token)return;this.loadError='BD 기록을 불러오지 못했어요. 재시도에는 추가 비용이 들지 않습니다. '+e.message;this.screen('load-error');}
  }
  releaseCinemaSkip(){this.cinemaHoldStart=null;}
@@ -170,9 +174,11 @@ class Campaign{
   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
  }
  paintCinemaSkip(){
-  const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();this.cinemaHintUntil=0;}
-  const now=performance.now(),held=allowed&&this.cinemaHoldStart!=null,progress=held?Math.min(1,(now-this.cinemaHoldStart)/1500):0,el=this.host.querySelector('.campaign-skip');
-  if(el){el.classList.add('is-compact');el.hidden=!allowed;el.classList.toggle('is-visible',allowed&&(held||now<(this.cinemaHintUntil||0)));el.querySelector('span').textContent='스페이스 바를 눌러 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
+  const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();}
+  const held=allowed&&this.cinemaHoldStart!=null,elapsed=held?Math.max(0,performance.now()-this.cinemaHoldStart):0,visible=held&&elapsed>=CINEMA_SKIP_REVEAL_MS;
+  // The first 300 ms are a silent grace period; total hold time remains 2 seconds.
+  const progress=visible?Math.min(1,(elapsed-CINEMA_SKIP_REVEAL_MS)/(CINEMA_SKIP_HOLD_MS-CINEMA_SKIP_REVEAL_MS)):0,el=this.host.querySelector('.campaign-skip');
+  if(el){el.classList.add('is-compact');el.hidden=!allowed;el.classList.toggle('is-visible',visible);el.querySelector('span').textContent='스페이스 바를 눌러 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
   return progress>=1;
  }
  disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);if(this.cinemaBgmMuted!=null){this.bgm.audio.muted=this.cinemaBgmMuted;this.cinemaBgmMuted=null;}}
@@ -182,7 +188,7 @@ class Campaign{
    if(this.cinema.skipUntil!=null){
     // Skip the dream only. Restart at the hard cut to home, including the alarm,
     // blackout wake-up and every contact line; holding Space cannot skip again.
-    const c=this.cinema;c.player.pause?.();c.time=c.skipUntil;this.releaseCinemaSkip();this.cinemaHintUntil=0;
+    const c=this.cinema;c.player.pause?.();c.time=c.skipUntil;this.releaseCinemaSkip();
     c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaSkip();return;
    }
   }
@@ -294,7 +300,7 @@ class Campaign{
  startRestCinema(scene,done,dailyWake=false){
   this.disposeCinema();this.dialog=null;if(this.outside.active)this.outside.model.paused=true;
   this.cinema={studio:true,dailyWake,skipUntil:0,returnTransition:'cut',title:scene.name,scenes:[scene],index:0,scene,time:0,player:null,returnTo:done};
-  this.cinemaHintUntil=0;this.screen('prologue');
+  this.screen('prologue');
  }
  playRestCinema(kind,done){
   this.retryLoad=()=>this.playRestCinema(kind,done);

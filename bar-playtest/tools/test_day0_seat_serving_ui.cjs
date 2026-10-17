@@ -1,11 +1,11 @@
 const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');const assert=require('assert/strict');
 (async()=>{const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
 const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
-await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.locator('.updates-confirm').click();
+await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
 await p.evaluate(()=>barGame.reset(0,'full',7,true,{variant:'original'}));
 const settled=()=>p.waitForFunction(()=>!barGame.cameraMoving&&!barGame.cameraLeft&&!barGame.transition);
 const skipUntil=async fn=>{await p.keyboard.down('Control');await p.waitForFunction(fn);await p.keyboard.up('Control');};
-await settled();await skipUntil(()=>!!barGame.choice);await p.locator('.choices button').first().click();await skipUntil(()=>barGame.tutorial?.kind==='seatExplore');await settled();
+await settled();await skipUntil(()=>!!barGame.choice);await p.locator('.choices button').first().hover();await p.mouse.down();await p.waitForTimeout(550);await p.mouse.up();await skipUntil(()=>barGame.tutorial?.kind==='seatExplore');await settled();
 await p.locator('[data-guide="seatExplore"]').waitFor();assert.equal(await p.locator('.seat-indicators button').count(),3);
 const origin=await p.evaluate(()=>barGame.focus),initial=await p.locator('.counter-plane').getAttribute('style');assert.equal(origin,'R');
 await p.screenshot({path:'/private/tmp/day0-seat-explore.png'});
@@ -22,11 +22,11 @@ await p.waitForFunction(()=>!barGame.tutorial&&!!barGame.dialogue);await settled
 assert.equal(await p.evaluate(()=>barGame.dialogue.text),'총 3개로 보입니다.');
 await skipUntil(()=>barGame.tutorial?.kind==='seatIndicator');await p.locator('[data-guide="seatIndicator"]').waitFor();await p.screenshot({path:'/private/tmp/day0-seat-highlight.png'});
 await p.locator('[data-act="tutorialBarContinue"]').click();await p.getByRole('dialog',{name:'좌석 알림'}).waitFor();
-assert.equal(await p.locator('.day0-seat-legend-row').count(),6);assert.equal(await p.locator('.demo-blink').count(),2);assert.equal(await p.locator('.day0-seat-current .selected').count(),1);
+assert.equal(await p.locator('.day0-seat-legend-row').count(),4);assert.equal(await p.locator('.demo-blink').count(),0);assert.equal(await p.locator('.seat-state-picture').count(),4);
 const index=await p.evaluate(()=>barGame.story.index);await p.keyboard.down('Control');await p.waitForTimeout(400);await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.story.index),index);
 for(const vp of [{width:1280,height:720},{width:960,height:540},{width:600,height:800}]){await p.setViewportSize(vp);await p.waitForTimeout(150);assert(await p.locator('.day0-seat-legend').evaluate(e=>{const b=e.getBoundingClientRect();return b.top>=0&&b.left>=0&&b.bottom<=innerHeight&&b.right<=innerWidth;}));}
 await p.setViewportSize({width:1280,height:720});await p.waitForTimeout(150);await p.screenshot({path:'/private/tmp/day0-seat-legend.png'});
-await p.keyboard.press('Space');await p.waitForFunction(()=>!!barGame.dialogue);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'좋아, 이제 다음으로 넘어가자.');
+await p.keyboard.press('KeyE');await p.waitForFunction(()=>!!barGame.dialogue);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'좋아. 이제 다음으로 넘어가자.');
 await skipUntil(()=>barGame.tutorial?.kind==='coaster');
 const drag=async(source,target,valid=true)=>{const a=await p.locator(source).boundingBox(),z=valid?await p.locator(target).boundingBox():{x:80,y:220,width:20,height:20};await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(z.x+z.width/2,z.y+z.height*.8,{steps:12});await p.mouse.up();};
 await drag('[data-drag="coaster"]','[data-drop="R"]');await p.waitForFunction(()=>!!barGame.dialogue);await skipUntil(()=>barGame.tutorial?.kind==='recipe');

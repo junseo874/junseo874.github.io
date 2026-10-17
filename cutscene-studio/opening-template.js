@@ -4,7 +4,7 @@ const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
 // Match the main title menu's gothic font stack; story dialogue stays pixel art.
 const INTRO_UI_FONT='"Paperlogy", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
-const PLAY_GUIDE='—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로\n넘길 수 있습니다.';
+const PLAY_GUIDE='—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로 넘길 수 있습니다.';
 const paceIntro=text=>text.replace(/\.{3}|\./g,dots=>dots==='...'?'.[T:0.3].[T:0.3].[T:0.3]':'.[T:0.4]');
 // These four story cards must finish naturally, including the final period's pause.
 function typingPending(c,elapsed){
@@ -13,7 +13,7 @@ function typingPending(c,elapsed){
  const parsed=StudioTags.parse(c.text);
  return elapsed<parsed.chars.length/c.cps+parsed.pauses.reduce((sum,p)=>sum+p.duration,0);
 }
-const DREAM=[["intro","그러면... 약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 연락을 안 받지?"],["home-luna","…지금 일어났어요."],["phone","…깨워서 미안하지만 일어나야 돼."],["phone","빨리 준비해서 와. 첫 출근이다."],["home-luna","알겠어요."],["phone","오는 길은 우측 엘리베이터를 타고 쭉 오른쪽으로 걸어와서 ‘언노운’이라는 간판 쪽으로 오면 돼."]];
+const DREAM=[["intro","그러면... 약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요…"],PHONE=[["phone","루나. 왜 이렇게 늦게 받는 거지?"],["home-luna","…지금 일어났어요."],["phone","일어났으면 빨리 준비해서 와. 첫 출근인데 늦지 말라고."],["home-luna","알겠어요."],["phone","위치는 기억하겠지. 언노운이라고 적힌 곳으로 오면 돼."]];
 const oldTemplate=M.template;
 // Sleep3 reference: body rests on the seat, head toward the right cushion.
 // Use one pose for the opening, nightly sleep and morning eye-opening clips.
@@ -116,7 +116,7 @@ function template(){
 }
 // Shared by daily sleep/morning playback and the developer cutscene gallery.
 function rest(kind='sleep'){
- const morning=kind==='morning',reveal=2.6+DRESSING_SECONDS,end=morning?4.3+DRESSING_SECONDS:2.2;
+ const morning=kind==='morning',reveal=2.6+DRESSING_SECONDS,zoomStart=reveal+.7,zoomDuration=1.6,end=morning?zoomStart+zoomDuration+.15:2.2;
  const p={format:'unknown-cutscene',version:1,template:kind,name:morning?'아침 · 눈뜨기와 환복':'밤 · 소파에서 잠들기',background:'stage',duration:end,camera:{x:5,y:-1.2,w:15},actors:{house:{name:'집',x:0,y:-5.4,asset:true},luna:{name:'루나',x:SOFA_SLEEP.x,y:SOFA_SLEEP.y,asset:true}},visibleActors:['house','luna'],tracks:[{id:'house',type:'visual'},{id:'luna',type:'visual'},{id:'fx',type:'fx'}],clips:[],assets:[]};
  const put=(type,start,o)=>p.clips.push(M.clip(type,start,o));
  const visual=(actor,assetId,start,duration,x,y,scale,extra={})=>put('visual',start,{track:actor,actor,assetId,duration,from:{x,y},to:{x,y},scale,facing:'left',...extra});
@@ -127,8 +127,16 @@ function rest(kind='sleep'){
   visual('luna','opening-luna-wake',.9,1.7,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:false});
   put('fx',2.2,{track:'fx',effect:'fadeOut',duration:.4,strength:1});
   dressing(put,2.6);
-  visual('luna','opening-luna-home',reveal,end-reveal,7.3,-3.15,3.4,{loop:true,title:'루나 · 환복 후 기립'});
+  // The room is drawn at 4x the outside world's scale, using a 560px crop
+  // of the same 643px background. Match the waking spawn and follow camera
+  // in this coordinate system, so handing control back does not jump.
+  const bg=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
+  const housePoint=(x,y)=>({x:4*(x-bg.x)+bg.sprite.w*.02-11.2,y:4*(y-bg.y)});
+  const standing=housePoint(2.557,-.7),wide={...housePoint(1.14,.023),w:4.8*4};
+  visual('luna','opening-luna-home',reveal,end-reveal,standing.x,standing.y,4,{loop:true,title:'루나 · 환복 후 기립'});
   put('fx',reveal,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
+  p.tracks.push({id:'camera',type:'camera',name:'기상 후 줌아웃',height:48,muted:false});
+  put('camera',zoomStart,{track:'camera',duration:zoomDuration,from:{...p.camera},to:wide,ease:'smooth',title:'기상 후 · 플레이 화면으로 부드럽게 줌아웃'});
  }
  for(const a of Object.values(p.actors))a.facing='left';
  for(const t of p.tracks)Object.assign(t,{name:t.name||t.id,height:48,muted:false});

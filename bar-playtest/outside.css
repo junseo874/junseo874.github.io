@@ -4,15 +4,15 @@
 #outside-root:focus,#outside-root:focus-visible{outline:none}
 .outside-setup h2{margin:4px 0 22px}.outside-setup label{display:block;font-size:15px;color:#b7c7ca;margin:16px 0 9px}.outside-setup select{width:100%;background:#101b26;border:1px solid #455b64;color:#e4ebe8;padding:13px 15px;border-radius:5px}.outside-setup>.primary{width:100%;margin-top:27px;padding:15px}.start-screen .version-tabs button{padding-left:19px;padding-right:19px}
 #outside-root{position:fixed;inset:0;z-index:45;background:#05080e;overflow:hidden;color:#e5eeed;font:16px inherit}#outside-root .outside-stage{position:absolute;width:1280px;height:720px;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--outside-scale,1));overflow:hidden;background:#0b111b}#outside-root canvas{position:absolute;inset:0;width:1280px;height:720px;image-rendering:pixelated}#outside-root button{font-family:inherit;cursor:pointer}#outside-root button:focus-visible{outline:2px solid #79e4ef;outline-offset:4px}#outside-root [hidden],#outside-root .outside-hidden{display:none!important}
-.outside-interact,.outside-viewpoint{position:absolute;transform:translate(-50%,-100%);display:grid;place-items:center;width:32px;height:32px;padding:0;background:#101c25f2;border:1px solid #86e4eb;border-radius:5px;color:#c7ffff;box-shadow:0 2px 0 #06111d,0 0 12px #44cada30}.outside-interact kbd,.outside-viewpoint kbd{font:inherit;font-size:17px;line-height:1;background:none;color:inherit;border:0;padding:0;box-shadow:none}
+.outside-viewpoint{position:absolute;transform:translate(-50%,-100%);display:grid;place-items:center;width:32px;height:32px;padding:0;background:#101c25f2;border:1px solid #86e4eb;border-radius:5px;color:#c7ffff;box-shadow:0 2px 0 #06111d,0 0 12px #44cada30}.outside-viewpoint kbd{font:inherit;font-size:17px;line-height:1;background:none;color:inherit;border:0;padding:0;box-shadow:none}
 .outside-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#030812a8;backdrop-filter:blur(2px)}.outside-dialog{width:480px;max-height:580px;overflow:auto;background:#0c1522f8;border:1px solid #68d3df;border-radius:12px;padding:32px;box-shadow:0 20px 70px #0008}.outside-dialog h2{font-size:23px;font-weight:400;color:#94e9ed;margin:0 0 20px}.outside-dialog p{font-size:16px;line-height:1.9;color:#ccd7dc;margin:0 0 25px;word-break:keep-all}.outside-dialog button{margin:5px 5px 0 0}.outside-menu-actions{display:grid;gap:8px}.outside-menu-actions button{margin:0}.outside-object-dialog{width:540px}.outside-object-dialog>.primary{display:block;margin-left:auto}
 
-/* Version A prompts stay above ambient speech, but below modal overlays. */
-.outside-interact-ready{z-index:3;width:40px;height:40px;box-sizing:border-box;background:#86e4eb;border:2px solid #000;border-radius:50%;color:#000;box-shadow:0 3px 8px #0009,0 0 16px #86e4eb66;animation:outside-key-enable .28s ease-out both,outside-key-float 2.8s ease-in-out infinite}
-.outside-interact-ready kbd{font-size:24px;font-weight:700;text-shadow:none}
-@keyframes outside-key-float{0%,100%{transform:translate(-50%,-100%)}50%{transform:translate(-50%,calc(-100% - 2px))}}
-@keyframes outside-key-enable{from{opacity:0;box-shadow:0 3px 8px #0009,0 0 2px #86e4eb22}to{opacity:1;box-shadow:0 3px 8px #0009,0 0 16px #86e4eb66}}
-@media(prefers-reduced-motion:reduce){.outside-interact-ready{animation:none}}
+/* One stable interaction hint for every nearby object and person. */
+.outside-interact{position:absolute;left:28px;bottom:28px;z-index:3;display:flex;align-items:center;gap:10px;min-height:40px;padding:4px 0;box-sizing:border-box;border:0;border-radius:0;background:none;color:#d3f7f6;box-shadow:none;font-size:17px;line-height:1;white-space:nowrap;text-shadow:0 2px 4px #000}
+.outside-interact kbd{display:grid;place-items:center;box-sizing:border-box;width:32px;height:32px;background:#a5efed;border:1px solid #d3fffa;border-radius:50%;box-shadow:0 2px 5px #0008;color:#0b2933;text-shadow:none;font:700 19px/1 ui-monospace,monospace}
+.outside-interact:hover{background:none;color:#effffc;box-shadow:none}
+.outside-interact:hover kbd{background:#d3fffa}
+.outside-interact:active kbd{transform:translateY(1px);box-shadow:0 1px 3px #0008}
 /* Anchored speech stays in the scene, beneath pause dialogs and above scenery. */
 /* Shared dialogue skin lives in speech-bubble.css. */
 
@@ -49,35 +49,3 @@
 /* The entry page is a launch point; test configuration lives in the P drawer. */
 .outside-entry{text-align:center;width:390px;padding:36px!important}.outside-entry>small{font-size:11px;letter-spacing:2px;color:#7dcad0}.outside-entry h2{margin:12px 0 18px}.outside-entry p{font-size:15px;line-height:1.9;color:#9db8c6;margin:0 0 28px}.outside-entry kbd{border:1px solid #557985;border-radius:4px;padding:2px 7px;color:#c3f8f7}.outside-entry>button{width:100%;padding:15px}.outside-entry>span{display:block;margin-top:14px;font-size:11px;color:#8399a7}
 .outside-dev-days{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.outside-dev-days button{padding:9px 5px;text-align:center;font-size:13px}.outside-dev-days .outside-dev-qa{grid-column:1/-1}.outside-dev-days button[aria-pressed="true"]{background:#23525d;border-color:#a9f5ef;color:#dcfff9}.outside-dev-console section{margin-top:16px}.outside-dev-console section[hidden]{display:none}.outside-entry-hint{text-align:center;max-width:490px}.outside-entry-hint>kbd{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 22px;font-size:28px;color:#c6fbf8;border:1px solid #6cc8d0;border-radius:9px;background:#18313f;box-shadow:0 0 25px #6cc8d022}.outside-entry-hint p{font-size:15px;line-height:1.9}.outside-entry-hint .primary{min-width:140px;margin-top:15px}
-/* First morning: centered, dismiss-on-key instruction modal. */
-#outside-root .outside-controls-shade{position:absolute;inset:0;display:grid;place-items:center;background:#03080e88;z-index:60}
-#outside-root .outside-controls-shade[hidden]{display:none}
-#outside-root .controls-dismiss-hint{margin:25px 0 0;text-align:center;font-size:17px;color:#686e66}
-#outside-root .outside-controls-tutorial{position:relative;width:720px;padding:26px 40px 24px;box-sizing:border-box;background:repeating-linear-gradient(0deg,#e5e5df22 0 1px,transparent 1px 3px),#e9e9e3;border:5px double #555955;border-radius:0;outline:1px solid #d4d6ce;box-shadow:0 5px 0 #13191dc9,0 8px 24px #0005;z-index:5;color:#424944;animation:controls-enter .3s ease-out}
-#outside-root .outside-controls-tutorial h2{margin:0 0 8px;text-align:center;font-size:25px;font-weight:400;color:#484e49}
-#outside-root .controls-keyboard{display:block;width:100%;height:235px;overflow:visible}
-#outside-root .keyboard-cable{fill:none;stroke:#686c65;stroke-width:3;stroke-linecap:round}
-#outside-root .keyboard-shadow{fill:#73766c;opacity:.28}
-#outside-root .keyboard-case{fill:#dedfd7;stroke:#686c65;stroke-width:2.5}
-#outside-root .keyboard-key rect{fill:#f1f1e9;stroke:#85897f;stroke-width:1.3}
-#outside-root .keyboard-key text{fill:#494e46;font:700 11px monospace;text-anchor:middle}
-#outside-root .keyboard-highlight rect{stroke:#424c47;stroke-width:1.7;animation:controls-map-key 3.6s infinite}
-#outside-root .keyboard-highlight[data-controls-key="KeyD"] rect{animation-delay:.65s}
-#outside-root .keyboard-highlight[data-controls-key="KeyE"] rect{animation-delay:1.65s}
-#outside-root .keyboard-highlight.is-pressed rect{animation:none;fill:#93b6ae}
-#outside-root .controls-leader{fill:none;stroke:#c8796b;stroke-width:2;stroke-linecap:round}
-#outside-root .controls-dot{fill:#c8796b}
-#outside-root .controls-examples{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:0}
-#outside-root .controls-example{display:grid;justify-items:center;gap:16px;font-size:23px;line-height:1.2}
-#outside-root .controls-keys{display:flex;justify-content:center;gap:12px;height:49px}
-#outside-root .controls-keys kbd{display:grid;place-items:center;width:50px;height:46px;background:#f4f3ec;border:2px solid #656b62;border-radius:0;box-shadow:0 4px 0 #777c72;box-sizing:border-box;color:#444b43;font-family:inherit;font-size:29px;font-weight:600;animation:controls-key 3.6s infinite}
-#outside-root .controls-keys kbd[data-controls-key="KeyD"]{animation-delay:.65s}
-#outside-root .controls-keys kbd[data-controls-key="KeyE"]{animation-delay:1.65s}
-#outside-root .controls-keys kbd.is-pressed{animation:none;transform:translateY(3px);box-shadow:0 1px 0 #777c72;background:#b9d0c7}
-#outside-root .controls-close{position:absolute;right:9px;top:6px;background:none;border:0;color:#656b63;font-size:21px;padding:0 6px;line-height:25px}
-#outside-root .controls-close:hover{color:#171e19}
-#outside-root .controls-close:focus-visible{outline-color:#596c60}
-@keyframes controls-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes controls-key{0%,26%,100%{transform:translateY(0);box-shadow:0 4px 0 #777c72;background:#f4f3ec}8%,18%{transform:translateY(3px);box-shadow:0 1px 0 #777c72;background:#b9d0c7}}
-@keyframes controls-map-key{0%,26%,100%{fill:#f1f1e9}8%,18%{fill:#93b6ae}}
-@media(prefers-reduced-motion:reduce){#outside-root .outside-controls-tutorial,#outside-root .controls-keys kbd,#outside-root .keyboard-highlight rect{animation:none}}

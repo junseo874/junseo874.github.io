@@ -3,7 +3,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
-  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.locator('[data-campaign="developer"]').click();
+  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.evaluate(()=>lunaCampaign.screen('developer'));
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:0,flow:'in',place:'bar'});await outsidePlaytest.start();});
   await p.waitForFunction(()=>!outsidePlaytest.loading);
@@ -31,11 +31,17 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    return paths;
   },{t,x});
   const a=await sample(0,.35),b=await sample(.6,.35),c=await sample(0,.8);
-  assert.equal(a.length,1);assert.equal(b.length,1);
-  for(let i=0;i<1;i++)for(let j=0;j<a[i].points.length;j++){
+  assert.equal(a.length,2);assert.equal(b.length,2);
+  assert.equal(a[0].alpha,.96);assert.equal(a[1].alpha,.98);
+  assert.deepEqual(a[0],b[0],'Door frame must not bob with the arrow');
+  assert.equal(a[0].points.length,5);assert.deepEqual(a[0].points[0],a[0].points[4]);
+  const xs=a[0].points.map(p=>p[0]),ys=a[0].points.map(p=>p[1]);
+  assert(Math.abs(Math.max(...xs)-Math.min(...xs)-.34)<1e-6);
+  assert(Math.abs(Math.max(...ys)-Math.min(...ys)-.51)<1e-6);
+  for(let i=0;i<2;i++)for(let j=0;j<a[i].points.length;j++){
    assert(Math.abs(a[i].points[j][0]-c[i].points[j][0])<1e-6);
    assert(Math.abs(a[i].points[j][1]-c[i].points[j][1])<1e-6);
-   assert(a[i].points[j][1]<-.9&&a[i].points[j][1]>-1.3);
+   if(i===1)assert(a[i].points[j][1]<-.9&&a[i].points[j][1]>-1.3);
    assert(Math.abs(a[i].points[j][1]-b[i].points[j][1])<.02);
   }
   assert.notDeepEqual(a,b);
@@ -43,6 +49,6 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.emulateMedia({reducedMotion:'no-preference'});
   await sample(.6,.35);await p.screenshot({path:'/private/tmp/commute-entrance-cue.png'});
   await p.setViewportSize({width:1920,height:1080});await p.screenshot({path:'/private/tmp/commute-entrance-cue-full.png'});
-  assert.deepEqual(errors,[]);console.log('PASS: day 0 inbound only, B/home/upper-floor/QA excluded, bar tutorial cyan arrow, camera anchoring, subtle motion, reduced-motion support.');
+  assert.deepEqual(errors,[]);console.log('PASS: day 0 inbound only, home/upper-floor/QA excluded, fixed cyan doorway frame, higher opacity arrow, camera anchoring, subtle motion, reduced-motion support.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

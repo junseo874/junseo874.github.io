@@ -1,0 +1,60 @@
+/* First-morning controls: reuse actual game sprites, never animate the stills. */
+(function(W){
+'use strict';
+const soundURL=new URL('audio/controls-popup.wav',document.currentScript.src);
+let context,buffer,loading,voice,generation=0;
+async function prepare(){
+ try{
+  if(!context){const Audio=W.AudioContext||W.webkitAudioContext;if(!Audio)return;context=new Audio();}
+  if(context.state==='suspended')void context.resume().catch(()=>{});
+  if(!buffer&&!loading)loading=(async()=>{
+   const response=await fetch(soundURL);if(!response.ok)throw Error('HTTP '+response.status);
+   buffer=await context.decodeAudioData(await response.arrayBuffer());
+  })().catch(e=>console.warn('Controls popup sound unavailable:',e.message)).finally(()=>{loading=null;});
+  if(loading)await loading;
+ }catch(e){console.warn('Controls popup audio:',e.message);}
+}
+async function play(isCurrent=()=>true){
+ const token=++generation,requestedAt=performance.now();
+ if(document.hidden||W.LunaSfx?.volume===0)return;
+ await prepare();
+ if(token!==generation||!isCurrent()||performance.now()-requestedAt>500||document.hidden||!buffer||context.state!=='running'||W.LunaSfx?.volume===0)return;
+ if(voice){try{voice.stop();}catch{}}
+ const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;gain.gain.value=.42;
+ source.connect(gain);gain.connect(W.LunaSfx.output(context));voice=source;
+ source.onended=()=>{source.disconnect();gain.disconnect();if(voice===source)voice=null;};source.start();
+}
+function stop(){generation++;if(voice){try{voice.stop();}catch{}voice=null;}}
+// Trim transparent cell padding at render time; original sprite sheets stay intact.
+function drawStill(canvas,frame,images){
+ const image=images.get(frame.asset);if(!image)return;
+ const cell=document.createElement('canvas');cell.width=frame.w;cell.height=frame.h;
+ const ctx=cell.getContext('2d');ctx.drawImage(image,frame.x,frame.y,frame.w,frame.h,0,0,frame.w,frame.h);
+ const rgba=ctx.getImageData(0,0,frame.w,frame.h).data;
+ let left=frame.w,top=frame.h,right=-1,bottom=-1;
+ for(let y=0;y<frame.h;y++)for(let x=0;x<frame.w;x++)if(rgba[(y*frame.w+x)*4+3]>8){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);}
+ if(right<left)return;
+ canvas.width=right-left+1;canvas.height=bottom-top+1;
+ canvas.getContext('2d').drawImage(cell,left,top,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+}
+const key=letter=>'<kbd class="controls-keycap" aria-label="'+letter+'키">'+letter+'</kbd>';
+function render(panel,step,images,data){
+ const movement=step===0,title=movement?'이동':'상호작용';
+ panel.dataset.step=String(step);panel.setAttribute('aria-label',title+' 안내');panel.setAttribute('aria-description','E키를 눌러 진행합니다.');
+ panel.innerHTML='<header class="controls-heading"><div><small>TUTORIAL</small><h2>'+title+'</h2></div><span class="controls-page">'+(step+1)+' <i>/ 2</i></span></header>'+
+  (movement?'<div class="controls-movement"><div class="controls-direction">'+key('A')+'<span>왼쪽</span></div><span class="controls-arrow" aria-hidden="true">←</span><div class="controls-luna"><canvas role="img" aria-label="왼쪽으로 걷는 루나"></canvas><span class="controls-floor"></span></div><span class="controls-arrow" aria-hidden="true">→</span><div class="controls-direction">'+key('D')+'<span>오른쪽</span></div></div>':
+   '<div class="controls-interaction"><figure><canvas class="controls-object" role="img" aria-label="시바견 전단지"></canvas><figcaption>오브젝트</figcaption></figure><figure><canvas class="controls-person" role="img" aria-label="거리의 인물 실루엣"></canvas><figcaption>다른 인물</figcaption></figure></div><div class="controls-interact-key">'+key('E')+'</div>')+
+  '<p class="controls-description">'+(movement?'A와 D를 눌러 이동합니다.':'E키를 눌러 오브젝트나 다른 인물들과 상호작용할 수 있습니다.')+'</p><p class="controls-progress-hint">E키를 눌러 진행</p>';
+ if(movement)drawStill(panel.querySelector('canvas'),data.animations.walk.frames[2],images);
+ else{
+  const flyer=data.scenes.street.nodes.find(n=>n.name==='5 poster_shiba_wanted_day1');
+  if(flyer)drawStill(panel.querySelector('.controls-object'),flyer.sprite,images);
+  drawStill(panel.querySelector('.controls-person'),{asset:'ambient-M2',x:0,y:0,w:129,h:138},images);
+ }
+}
+document.addEventListener('pointerdown',()=>{void prepare();},{capture:true,passive:true});
+W.addEventListener('keydown',e=>{if(!e.repeat)void prepare();},true);
+W.addEventListener('blur',stop);W.addEventListener('pagehide',stop);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+W.LunaControlsTutorial={render,play,stop,get ready(){return !!buffer&&context?.state==='running';},get playing(){return !!voice;}};
+})(window);

@@ -1,0 +1,7 @@
+/* Resource loading only; error/retry screens and in-story transitions stay intact. */
+#campaign-root:has(.view-loading),#outside-root:has(.resource-loading){background:#000}
+.resource-loading{position:absolute;inset:0;display:block;height:100%;background:#000;color:#d5e6eb}
+.resource-loading-copy{position:absolute;left:44px;bottom:36px;font:500 22px/1.5 'Paperlogy','Apple SD Gothic Neo','Malgun Gothic',sans-serif;letter-spacing:.2px;white-space:nowrap}
+.resource-loading-dots{display:inline-block;width:1.5em}
+.resource-loading-dots::after{content:'.';animation:luna-loading-dots 1.5s step-end infinite}
+@keyframes luna-loading-dots{0%{content:'.'}33.333%{content:'..'}66.667%{content:'...'}}

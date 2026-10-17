@@ -4,7 +4,7 @@
 const labels={media:{static:'단일 / 정적 이미지',animation:'애니메이션',none:'이미지 없음 / 시점'},motion:{idle:'Idle · 대기',talk:'Talk · 대화',anger:'Anger · 분노',joy:'Joy · 기쁨',success:'Success · 성공',fail:'Fail · 실패',serious:'Serious · 진지',surprise:'Surprise · 놀람',drunk:'Drunk · 취함',drink:'Drink · 마시기',walk:'Walk · 걷기',run:'Run · 달리기',crawl:'Crawl · 기어가기',fall:'Fall · 낙하',shoot:'Shoot · 사격',stand_up:'Stand up · 일어서기',parts:'일반 손님 / 부위',seated:'착석',pov:'시점',other:'기타 동작'},usage:{hero:'완성 / 대표 이미지',recipe:'레시피 UI 이미지',table:'바 테이블 위',shelf:'선반 이미지',inventory:'담은 재료 UI'},kind:{ingredient:'재료',glass:'잔',tool:'도구'},topic:{service:'영업 / 손님 상태',dialogue:'말풍선 / 대화 / 선택지',recipe:'레시피 / 재료 준비',gimmick:'제조 기믹',popup:'팝업 / 설정 / 안내',art:'원본 UI 리소스',event:'런타임 이벤트',interaction:'NPC / 오브젝트 상호작용',space:'거리 / 집 / 이동',transition:'로딩 / 일차 전환'}};
 labels.popupKind={toast:'알림 / 자동 사라짐',dialog:'팝업 / 직접 닫기'};
 function decorate(r){
- const f={media:!r.layers?.length?'none':r.layers.some(l=>(l.frames||1)>1)?'animation':'static'};
+ const f={soundKind:r.audio?.kind,soundState:r.audio?.state,media:!r.layers?.length?'none':r.layers.some(l=>(l.frames||1)>1)?'animation':'static'};
  if(r.popupKind)f.popupKind=r.popupKind;
  if(r.effectCategory)f.effect=r.effectCategory;
  if(r.backgroundScreen){f.backgroundScreen=r.backgroundScreen;f.backgroundKind=r.backgroundKind;}
@@ -22,7 +22,7 @@ function decorate(r){
  if(r.group==='bar-items'){f.kind=r.itemKind||'ingredient';f.usage=r.id.split(':').at(-1);}
  if(['bar-ui','out-ui'].includes(r.group)){
   const d=r.launch||{},id=d.id||'';
-  if(r.id.startsWith('ui-art:'))f.topic='art';
+  if(r.id.startsWith('ui-art:')||r.id.startsWith('ui-source:'))f.topic='art';
   else if(d.type==='indicator')f.topic='service';
   else if(d.type==='qa')f.topic=id==='prep'?'recipe':['unlock','income','expense','dossier'].includes(id)?'popup':'service';
   else if(['solo','pair','scene','choices','terrace','johnny-memory'].includes(d.type))f.topic='dialogue';
@@ -36,7 +36,7 @@ function decorate(r){
  return {...r,facets:f};
 }
 function schema(group){
- if(group==='common-popups')return [['popupKind','표시 방식']];
+ if(group==='common-sounds')return [['soundKind','사운드 종류'],['soundState','사용 여부']];if(group==='common-popups')return [['popupKind','표시 방식']];
  if(group.endsWith('-backgrounds'))return [['backgroundScreen','사용 화면'],['backgroundKind','배경 / 레이어 종류']];
  if(group.endsWith('-fx'))return [['effect','연출 종류']];
  if(['bar-characters','out-characters'].includes(group))return [['actor','캐릭터'],['motion','동작 / 상태'],['media','리소스 형태']];
@@ -47,6 +47,6 @@ function schema(group){
 }
 const values=(r,key)=>Array.isArray(r.facets[key])?r.facets[key]:[r.facets[key]];
 const matches=(r,picked,skip)=>Object.entries(picked).every(([key,value])=>key===skip||value==='all'||values(r,key).includes(value));
-function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패 / 콤보',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'||key.startsWith('background')?[...present].map(v=>[v,v]):Object.entries(key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
+function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패 / 콤보',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'||key.startsWith('background')?[...present].map(v=>[v,v]):Object.entries(key==='soundKind'?ResourceSounds.kindNames:key==='soundState'?ResourceSounds.stateNames:key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
 const api={decorate,schema,options,matches,values};W.ResourceFilters=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -6,6 +6,13 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.evaluate(()=>lunaCampaign.newGame());
  await p.waitForFunction(()=>['prologue','load-error'].includes(lunaCampaign.view),null,{timeout:60000});assert.equal(await p.evaluate(()=>lunaCampaign.view),'prologue');
  const clips=await p.evaluate(()=>{const s=lunaCampaign.cinema.scene;StudioModel.validate(s);return {on:s.clips.find(c=>c.assetId==='opening-holo-on'),idle:s.clips.find(c=>c.assetId==='opening-holo-idle'),off:s.clips.find(c=>c.assetId==='opening-holo-off'),lines:s.clips.filter(c=>c.track==='phone-lines'),wake:s.clips.find(c=>c.actor==='home-luna'&&c.assetId==='opening-luna-home'),end:s.end};});
+ assert.deepEqual(clips.lines.map(c=>[c.actor,c.text.replace(/\[c:[^\]]+\]|\[\/c\]/g,'')]),[
+  ['phone','루나. 왜 이렇게 늦게 받는 거지?'],
+  ['home-luna','…지금 일어났어요.'],
+  ['phone','일어났으면 빨리 준비해서 와. 첫 출근인데 늦지 말라고.'],
+  ['home-luna','알겠어요.'],
+  ['phone','위치는 기억하겠지. 언노운이라고 적힌 곳으로 오면 돼.']
+ ]);
  assert.equal(clips.wake.facing,'left','Standing Luna faces the hologram on her left');
  assert.equal(clips.on.start,Math.round((clips.wake.start+.5)*100)/100);assert(Math.abs(clips.on.start+clips.on.duration-clips.idle.start)<.001);
  assert(Math.abs(clips.idle.start+clips.idle.duration-clips.off.start)<.001);assert(Math.abs(clips.off.start+clips.off.duration-clips.end)<.001);
