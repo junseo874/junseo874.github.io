@@ -38,11 +38,11 @@ function collect(rows,C,F){
 }
 function thumb(r){return '<span class="sound-symbol" aria-hidden="true">♫</span><span class="sound-kind">'+esc(kindNames[r.audio.kind])+' · '+esc(stateNames[r.audio.state])+'</span>';}
 function detail(r){const a=r.audio;return '<small>공통 / SOUND RESOURCE</small><h2>'+esc(r.title)+'</h2><p>'+esc(r.usage)+'</p><span class="badge registered">'+esc(stateNames[a.state])+'</span><section class="sound-preview" aria-label="사운드 미리 듣기"><span class="sound-symbol" aria-hidden="true">♫</span><audio id="sound-player" controls preload="metadata" aria-label="'+esc(r.title)+' 미리 듣기" src="'+esc(a.src)+'"></audio><div class="sound-actions"><button data-sound-play>재생</button><button data-sound-stop>처음으로</button><label><input type="checkbox" data-sound-loop> 반복 재생</label></div><p data-sound-status role="status">재생을 누르면 원본 소리를 들을 수 있습니다.</p><small>미리 듣기 음량은 게임 설정과 별개입니다. 게임 내 볼륨·필터·속도 조정 전 원본입니다.</small></section><div id="inspect-downloads">'+W.ResourceDownload.controls(r)+'</div><dl class="meta"><dt>분류 / 사용 상태</dt><dd>'+esc(kindNames[a.kind])+' / '+esc(stateNames[a.state])+'</dd><dt>사용하는 곳</dt><dd>'+esc(r.usage)+'</dd><dt>형식 / 길이</dt><dd>'+esc(a.src.split('.').at(-1).toUpperCase())+' · <span data-sound-duration>확인 중…</span></dd><dt>게임에서 반복 사용</dt><dd>'+(a.loop?'예 · 상황에 따라 재생 / 정지':'아니요 · 발생 시 재생')+'</dd><dt>연결 코드 / 출처</dt><dd>'+esc(a.source)+'</dd><dt>원본 파일</dt><dd><a href="'+esc(a.src)+'" target="_blank" rel="noopener">'+esc(a.src)+'</a></dd></dl>';}
-function stop(){if(!player)return;player.pause();player.removeAttribute('src');player.load();player=null;}
+function stop(){if(!player)return;const previous=player;volume=previous.volume;player=null;previous.pause();previous.removeAttribute('src');previous.load();}
 function bind(){
  const audio=player=document.querySelector('#sound-player'),root=audio.closest('.sound-preview'),status=root.querySelector('[data-sound-status]'),play=root.querySelector('[data-sound-play]');
  audio.volume=volume;
- audio.onvolumechange=()=>{volume=audio.volume;};
+ audio.onvolumechange=()=>{if(player===audio)volume=audio.volume;};
  audio.onloadedmetadata=()=>{const out=document.querySelector('[data-sound-duration]');if(out&&player===audio)out.textContent=Number.isFinite(audio.duration)?(audio.duration<1?audio.duration.toFixed(3)+'초':Math.floor(audio.duration/60)+'분 '+(audio.duration%60).toFixed(1)+'초'):'길이 확인 불가';};
  const failed=()=>{play.textContent='다시 재생';status.textContent='소리를 불러오지 못했습니다. 다시 재생하거나 원본을 다운로드해 주세요.';const out=document.querySelector('[data-sound-duration]');if(out)out.textContent='확인 불가';};
  audio.onerror=()=>{if(player===audio&&audio.hasAttribute('src'))failed();};

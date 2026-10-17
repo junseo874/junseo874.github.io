@@ -47,7 +47,7 @@ function baseFiltered(){return rows.filter(r=>r.group===group&&matchesStatus(r,c
 function filtered(){return baseFiltered().filter(r=>R.matches(r,picked()));}
 function filterHTML(){
  const base=baseFiltered(),all=rows.filter(r=>r.group===group),p=picked();
- return statusHTML()+R.schema(group).map(([key,label])=>{
+ return (group==='common-sounds'?'':statusHTML())+R.schema(group).map(([key,label])=>{
   const candidates=base.filter(r=>R.matches(r,p,key));
   return '<div class="facet-row" role="group" aria-label="'+label+'"><strong>'+label+'</strong><div class="facet-options">'+[['all','전체'],...R.options(all,key)].map(([value,title])=>{
    const n=value==='all'?candidates.length:candidates.filter(r=>R.values(r,key).includes(value)).length,active=(p[key]||'all')===value;
@@ -61,7 +61,7 @@ function render(){
  const missing=group==='missing';
  $('#nav').innerHTML='<button id="missing-resources" data-group="missing" aria-controls="missing-view" aria-current="'+missing+'" '+(!window.resourceReview?.ready?'disabled':'')+'>미제작 리소스<em>'+ResourceMissing.build(rows).length+'</em></button>'+['공통','바 내부','외부'].map(area=>'<h3>'+area+'</h3>'+C.groups.filter(g=>g[1]===area).map(([id,,label])=>'<button data-group="'+id+'" aria-current="'+(id===group)+'">'+label+'<em>'+rows.filter(r=>r.group===id).length+'</em></button>').join('')).join('');
  $('#catalog-view').hidden=missing;$('#missing-view').hidden=!missing;$('#inspector').hidden=missing;$('.workspace').classList.toggle('missing-mode',missing);
- if(missing){ResourceSounds.stop();window.resourceReview.missing.show();return;}
+ if(missing){if(selected?.audio){ResourceSounds.stop();selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}window.resourceReview.missing.show();return;}
  const gs=C.groups.find(g=>g[0]===group);$('#heading').textContent=gs[1]+' · '+gs[2];const list=filtered();$('#resource-filters').innerHTML=filterHTML();if(selected&&!list.some(r=>r.id===selected.id)){ResourceSounds.stop();selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}$('#count').textContent=list.length+'개 표시 / '+rows.filter(r=>r.group===group).length+'개';
  $('#totals').innerHTML=[['전체 항목',rows.length],['더미·대체·미등록',rows.filter(r=>['dummy','shared','missing'].includes(r.status)).length],['실제 화면 테스트',rows.filter(r=>r.launch).length]].map(([t,n])=>'<span><b>'+n+'</b>'+t+'</span>').join('');
  $('#grid').innerHTML=list.map(r=>'<button class="card '+(selected?.id===r.id?'selected':'')+'" data-id="'+E(r.id)+'"><div class="thumb">'+(r.audio?ResourceSounds.thumb(r):r.preview?'<img class="ui-shot" src="'+E(r.preview)+'" alt="'+E(r.title)+' 실제 화면 미리보기" loading="lazy" decoding="async"><span class="shot-label">실제 화면</span>':r.layers?.length?'<canvas data-thumb="'+E(r.id)+'" aria-label="'+E(r.title)+'"></canvas>':'<span class="symbol">'+(r.status==='missing'?'—':'▣')+'</span>')+'</div><div class="card-copy"><strong>'+E(r.title)+'</strong><p>'+E(r.usage)+'</p>'+badge(r)+'</div></button>').join('')||'<p class="empty">일치하는 항목이 없습니다.</p>';
