@@ -12,6 +12,7 @@ function collect(rows){
  const variants=(type,items)=>items.map(([id,label,extra])=>({id,label,launch:{type,id,...extra}}));
  dialog('controls','이동 / 상호작용 튜토리얼',variants('review-controls',[['movement','이동 · A / D'],['interaction','상호작용 · E']]),'.outside-controls-tutorial');
  dialog('seat-legend','좌석 알림 · 4가지 색상',variants('review-bar-tutorial',[['seatLegend','좌석 알림']]),'.day0-seat-legend');
+ dialog('serving-hud','코스터 / 칵테일 드래그 팝업',variants('review-serving',[['coaster','단골 첫 대사 · 코스터 제공'],['drink','완성 칵테일 제공']]),'.service-popup[data-drag]');
  for(const kind of ['stir','shake'])dialog('lesson-'+kind,(kind==='stir'?'스터':'쉐이킹')+' 첫 연습',variants('review-mix',['intro','practice','done'].map(id=>[id,{intro:'조작 안내',practice:'연습 중',done:'연습 완료'}[id],{kind} ])),'.mix-lesson-card');
  dialog('lesson-pour','따르기 튜토리얼',variants('review-pour',[['target','목표량 확인'],['finish','현재량 / 마치기']]),'.pour-tutorial-card');
  dialog('lesson-open','병따기 튜토리얼',variants('review-open',[['intro','시작 안내'],['retry','다시 시도'],['done','완료']]),'.opening-lesson-copy');
@@ -37,6 +38,11 @@ function collect(rows){
 }
 async function play(F,d){
  const g=F.barGame,c=F.lunaCampaign,q=F.lunaQA,o=F.outsidePlaytest;
+ if(d.type==='review-serving'){
+  if(d.id==='drink'){q.state.cocktail='bottle_beer';q.runSituation('serve');return;}
+  g.reset(1,'regular',42,false,{variant:'original'});g.phase='regular';g.focus='R';g.seats={L:null,M:null,R:{id:'tom',actor:'tom',state:'STORY',seated:true,coaster:false}};
+  g.story={scene:{id:'review-coaster'},index:0,steps:[{type:'say',actor:'tom','text.ko':'안녕. 오늘도 한 잔 부탁할게.'},{type:'say',actor:'luna','text.ko':'어서 오세요. 무엇으로 드릴까요?'},{type:'order',actor:'tom',arg:'exact:dry_martini'},{type:'craft',actor:'tom'}]};g.pump();g.dialogue.chars=g.dialogue.text.length;return;
+ }
  if(d.type==='review-controls'){
   c.ui.outside=true;Object.assign(o.config,{day:0,flow:'in',place:'home'});await o.start({showDevHint:false});o.model.story.cancel();o.model.backgroundStory.cancel();o.model.paused=false;o.showControlsTutorial();o.refreshHUD();
   if(d.id==='interaction'){await new Promise(r=>F.setTimeout(r,2050));o.controlsTutorialKey({code:'KeyE',repeat:false,preventDefault(){},stopImmediatePropagation(){}});F.dispatchEvent(new F.KeyboardEvent('keyup',{code:'KeyE',key:'e',bubbles:true}));o.refreshHUD();}return;

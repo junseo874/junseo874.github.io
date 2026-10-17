@@ -4,8 +4,8 @@
 const group='common-sounds',kindNames={music:'배경음악',ambience:'환경음',ui:'UI / 알림',scene:'이동 / 컷씬',craft:'제조 기믹',dialogue:'대사 출력음'},stateNames={active:'사용 중',option:'선택 가능',archive:'미사용 / 보관',master:'음악 원본'};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const entries=[
- ['ambience','street-loop.ogg','거리 환경음','외부 거리와 바 테라스 대화','street-audio.js','active',true,'audio/ambience/'],
- ['ambience','rain-loop.ogg','빗소리','비 오는 거리와 테라스 · 0–1일차','street-audio.js','active',true,'audio/ambience/'],
+ ['ambience','street-loop.wav','거리 환경음','외부 거리와 바 테라스 대화','street-audio.js','active',true,'audio/ambience/'],
+ ['ambience','rain-loop.wav','빗소리','비 오는 거리와 테라스 · 0–1일차','street-audio.js','active',true,'audio/ambience/'],
  ['ui','hover_clean.wav','호버 / 선택 이동','버튼 호버와 키보드 선택 이동','hover-audio.js'],
  ['ui','click_clean.wav','버튼 클릭','공통 UI 버튼 선택 / 확인','click-audio.js'],
  ['ui','controls-popup.wav','조작 튜토리얼 등장','이동·상호작용 팝업이 나타날 때','controls-tutorial.js'],
@@ -25,8 +25,7 @@ const entries=[
  ['ui','hover_holo_01.wav','이전 호버음','현재 호버는 hover_clean.wav 사용','이전 리소스','archive'],
  ['ui','story-notice-retro9.wav','이전 스토리 알림음','현재 알림은 message_01.wav 사용','이전 리소스','archive'],
  ['craft','pour_01_loop.wav','이전 따르기음','현재 따르기는 pour_02_loop.wav 사용','이전 리소스','archive'],
- ['music','LUNA_Track_02.mp3','Track 02 · MP3 원본','게임에는 M4A 변환본 사용','음악 원본 보관','master',false,'../sound/'],
- ['music','LUNA Track 02_master.wav','Track 02 · WAV 마스터','게임에는 M4A 변환본 사용','음악 원본 보관','master',false,'../sound/']
+ ['music','LUNA_Track_02.mp3','Track 02 · MP3 원본','게임에는 WAV 마스터에서 변환한 MP3 사용','음악 원본 보관','master',false,'../sound/']
 ];
 let player=null,volume=.35;
 function collect(rows,C,F){

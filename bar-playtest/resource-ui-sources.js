@@ -1,5 +1,7 @@
 // UI source PNG inventory, refreshed 2026-10-18. Generated from assets/ui.
 window.ResourceUISources=[
+  {"src":"assets/ui/serving/IMG_shadow_cocktail.png","w":297,"h":130},
+  {"src":"assets/ui/dialogue/GRD_textbox_5.png","w":1405,"h":208},
   {
     "src": "assets/ui/choices/IMG_choice_A.png",
     "w": 2103,

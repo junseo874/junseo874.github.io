@@ -252,13 +252,18 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
     const plane=(name,depth,content)=>`<div class="bar-scene-layer ${name}" data-depth="${depth}" data-camera-key="${key}" style="${transform(depth)}">${content}</div>`;
     const back=visible.filter(([,v])=>!!v.appearance),front=visible.filter(([,v])=>!v.appearance);
     const zones=(g.phase==='practice'?['M']:['L','M','R']).map(seat=>{
-      const guest=g.seats[seat];if(g.phase!=='practice'&&!guest)return '';
-      const canCoaster=general&&g.focus===seat&&guest.state==='WAIT_COASTER'||g.tutorial?.kind==='coaster'&&g.tutorial.seat===seat;
+      const guest=g.seats[seat],fade=g.tableFades?.[seat];
+      if(!guest&&fade){
+        const t=Math.min(1,fade.elapsed/fade.duration),opacity=1-t*t*(3-2*t);
+        return `<div class="coaster-zone native-coaster table-fade" data-fading-seat="${seat}" aria-hidden="true" style="left:${coords[seat]-60}px;top:${fade.baseline-124}px;opacity:${opacity};pointer-events:none">${fade.coaster?`<img class="coaster" src="${a('coaster')}" alt="" draggable="false">`:''}${fade.glass?(g.variant==='gpt'&&fade.glassEmpty?itemArt(fade.glassKind||g.cocktail(fade.glass).glass,'drink-art empty-glass'):drinkArt(fade.glass,'table')):''}</div>`;
+      }
+      if(g.phase!=='practice'&&!guest)return '';
+      const canCoaster=general&&g.focus===seat&&guest.state==='WAIT_COASTER'||g.tutorial?.kind==='coaster'&&g.tutorial.seat===seat||g.storyCoasterReady()&&g.storyCoaster.seat===seat;
       const canServe=!!g.drink&&(g.phase==='practice'||guest?.coaster&&(general?g.focus===seat&&guest.state==='WAIT_SERVE':g.currentOrder?.seat===seat));
       // Lower the entire serving anchor together: coaster, glass and drop target.
       // Keep it on the tabletop, below the regular guests' resting forearms.
       const baseline=general?548:560;
-      return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${ui.drag&&canServe?'<span class="seat-note">'+L('여기에 제공','Drop here')+'</span>':''}</div>`;
+      return `<div class="coaster-zone native-coaster ${ui.drag&&(canCoaster&&ui.drag==='coaster'||canServe&&ui.drag==='drink')?'drop-ready':''}" data-drop="${g.phase==='practice'?'L':seat}" data-table-baseline="${baseline}" style="left:${coords[seat]-60}px;top:${baseline-124}px">${guest?.coaster||g.phase==='practice'?`<img class="coaster" src="${a('coaster')}" alt="코스터" draggable="false">`:''}${guest?.glass?(g.variant==='gpt'&&guest.glassEmpty?itemArt(guest.glassKind||g.cocktail(guest.glass).glass,'drink-art empty-glass'):drinkArt(guest.glass,'table')):''}${(canCoaster||canServe)&&!g.cameraMoving&&!g.cameraLeft&&!g.transition?'<span class="delivery-cue" aria-hidden="true"><img src="assets/ui/serving/IMG_shadow_cocktail.png" class="delivery-shadow" draggable="false"><svg class="delivery-arrow" viewBox="0 0 40 48"><path d="M12 2H28V23H38L20 45L2 23H12Z"/></svg></span>':''}</div>`;
     }).join('');
     return `<div class="stage bar-stage${smoothStory?' story-camera-stable':''}" data-camera-width="${cameraWidth}">
       ${plane('far-plane',.88,`<img src="${a('bar_far')}" alt="">`)}

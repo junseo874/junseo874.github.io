@@ -46,7 +46,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  assert.deepEqual(errors,[]);
  // A missing track must not fall through to another location's music or retry forever.
  const broken=await b.newPage();let loads=0;
- await broken.route('**/assets/audio/*.m4a',r=>{loads++;return r.abort();});await harness(broken);await broken.evaluate(()=>barBgm.setLocation('street'));await broken.locator('button').click();await broken.waitForFunction(()=>barBgm.status==='error');assert.equal(loads,1);await broken.waitForTimeout(250);assert.equal(loads,1);
- await broken.unroute('**/assets/audio/*.m4a');await broken.evaluate(()=>{barBgm.setEnabled(false);barBgm.setEnabled(true);});await ready(broken,1);
+ await broken.route('**/assets/audio/*.mp3',r=>{loads++;return r.abort();});await harness(broken);await broken.evaluate(()=>barBgm.setLocation('street'));await broken.locator('button').click();await broken.waitForFunction(()=>barBgm.status==='error');assert.equal(loads,1);await broken.waitForTimeout(250);assert.equal(loads,1);
+ await broken.unroute('**/assets/audio/*.mp3');await broken.evaluate(()=>{barBgm.setEnabled(false);barBgm.setEnabled(true);});await ready(broken,1);
  console.log('PASS: all four real tracks decode; bar 1→3→4 loop; street 2/home 3; fade out/in, rapid return, mute/volume, cinema gain, one persistent audio, real home/terrace/door routing, bounded missing-file retry.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

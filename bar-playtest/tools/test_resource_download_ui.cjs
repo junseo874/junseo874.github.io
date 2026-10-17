@@ -4,7 +4,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  const p=await b.newPage({viewport:{width:1600,height:1000},acceptDownloads:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>window.resourceReview?.ready);
  const inventory=await p.evaluate(()=>({tom:resourceReview.rows.filter(r=>r.id.startsWith('actor:tom:')),raw:resourceReview.rows.filter(r=>r.id.startsWith('ui-source:')).length,popups:resourceReview.rows.filter(r=>r.popupKind).length,files:resourceReview.rows.filter(ResourceLatest.isScreen).flatMap(r=>(r.variants||[{id:'default'}]).flatMap(v=>[ResourceLatest.screen(r,v.id),...(r.popupKind?[ResourceLatest.popup(r,v.id)]:[])]))}));
- assert.equal(inventory.raw,62);assert(inventory.popups>=24);assert(inventory.tom.every(r=>r.status==='registered'&&r.layers[0].src.endsWith('char-tom-idle-20261018.png')));
+ assert.equal(inventory.raw,64);assert(inventory.popups>=24);assert(inventory.tom.every(r=>r.status==='registered'&&r.layers[0].src.endsWith('char-tom-idle-20261018.png')));
  for(const file of inventory.files){const png=fs.readFileSync(path.resolve(__dirname,'..',file));assert.equal(png.toString('hex',0,8),'89504e470d0a1a0a',file);assert(png.readUInt32BE(16)>0&&png.readUInt32BE(20)>0,file);}
  await p.click('[data-group="common-popups"]');await p.evaluate(()=>resourceReview.select('popup:controls'));
  await p.selectOption('#inspect-state','interaction');

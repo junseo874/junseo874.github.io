@@ -32,6 +32,23 @@ function atViewpoint(m){return !!m&&m.config.day!==0&&!m.qa&&m.scene==='street'&
 function firstCommuteEntranceCue(m){
  return !!m&&!m.qa&&m.scene==='street'&&m.level===0&&m.config.day===0&&m.config.flow==='in';
 }
+function firstHomeward(m){return !!m&&!m.qa&&m.config.day===0&&m.config.flow==='out';}
+function syncHomewardGoal(m){
+ const campaign=global.lunaCampaign;
+ if(!firstHomeward(m)||!campaign?.active||campaign.blocking||m.transition||global.outsidePlaytest?.model!==m)return;
+ const p=global.barGame.progress,notices=global.LunaStoryNotices;
+ const changed=m.scene==='street'?notices.startGoal(p,'first_homeward','집으로 가기!'):m.scene==='home'&&notices.completeGoal(p,'first_homeward');
+ if(changed&&campaign.session.carry)campaign.session.carry.objectives=structuredClone(p.objectives);
+}
+function homewardCues(m){
+ if(!firstHomeward(m)||m.scene!=='street'||m.ride&&!m.ride.call||m.transition)return [];
+ if(global.lunaCampaign?.active&&global.barGame?.progress.objectives?.first_homeward?.status==='completed')return [];
+ // Destination state for a fixed HUD; never anchored to the player or scenery.
+ const upper=m.level===1,targetX=upper?R.homeX:EX,delta=targetX-m.x,arrival=Math.abs(delta)<1.35;
+ return [{id:upper?'home':'lift',kind:arrival?'arrival':'route',direction:delta<0?'left':'right',
+  label:upper?'집으로':'엘리베이터로',destination:upper?'집 입구':'엘리베이터',
+  detail:upper?'귀가 경로':'위층으로 이동'}];
+}
 // Equal Unity sorting keys must not inherit serialized component/file-ID order.
 // Wall/fence dressing goes on the background, NPCs follow their sorting order,
 // and only genuine foreground art (railings/lift front) covers the player.
@@ -131,6 +148,7 @@ class OutsideModel{
  }
  tick(dt,input={}){
   dt=clamp(Number(dt)||0,0,.05);if(this.paused)return;
+  syncHomewardGoal(this);
   if(this.qa&&global.LunaOutsideQA.tick(this,dt))return;
   this.story.tick(dt);
   global.LunaOutsideStory.tickBackground(this,dt);
@@ -374,6 +392,28 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   }
   host.querySelector('.outside-hud').inert=!panel.hidden||model.paused||devOpen||!!model.dialog;
  }
+ function paintHomewardGuide(){
+  let el=host.querySelector('.outside-homeward-guide');
+  if(!el){
+   el=document.createElement('aside');el.className='outside-homeward-guide';el.setAttribute('aria-label','귀가 안내');el.dataset.visible='false';el.setAttribute('aria-hidden','true');
+   el.innerHTML='<div class="homeward-copy"><strong>집으로 가기</strong><small></small></div><span class="homeward-direction" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 12H6M11 7L6 12L11 17"/></svg></span>';
+   host.querySelector('.outside-stage').append(el);
+   // Establish the off-screen position before the first entrance transition.
+   el.getBoundingClientRect();
+  }
+  const m=model,cue=homewardCues(m)[0];
+  // Keep directions visible during conversations; boarding the lift hides them.
+  // Do not use hidden/display:none: the exit must finish sliding off-screen.
+  const visible=!!cue&&!m.paused&&!loading&&!loadError&&!devOpen&&!hintOpen&&!panorama&&!m.controlsTutorial&&!global.lunaCampaign?.blocking;
+  if(el.dataset.visible!==String(visible)){el.dataset.visible=String(visible);el.setAttribute('aria-hidden',String(!visible));}
+  if(!cue)return;
+  const atTarget=m.near?.id===(cue.id==='lift'?'elevator':'home');
+  const direction=atTarget?'up':cue.direction;
+  const detail=atTarget?(cue.id==='lift'?'E · 엘리베이터로 위층 이동':'E · 집에 들어가기'):(cue.direction==='left'?'왼쪽 ':'오른쪽 ')+(cue.id==='lift'?'엘리베이터로 이동':'집 입구로 이동');
+  if(el.dataset.direction!==direction)el.dataset.direction=direction;
+  el.dataset.destination=cue.id;
+  const copy=el.querySelector('small');if(copy.textContent!==detail)copy.textContent=detail;
+ }
  function updateHUD(){if(!host)return;notices?.update(model);const m=model,near=m.near,overlay=host.querySelector('.outside-overlay'),hud=host.querySelector('.outside-hud'),viewpoint=atViewpoint(m)&&!panorama&&!loading&&!loadError&&!m.paused&&!devOpen;
   // Scripted pauses belong to the campaign/cutscene, not the outside ESC menu.
   const showPauseMenu=m.paused&&!global.lunaCampaign?.blocking;
@@ -390,7 +430,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   }
   const prompt=host.querySelector('.outside-interact');if(prompt)prompt.hidden=!interactionTarget();
   const lookout=host.querySelector('.outside-viewpoint');if(lookout&&viewpoint){const p=position(VIEWPOINT.x,model.y+.26);lookout.style.left=clamp(p.x,24,1256)+'px';lookout.style.top=clamp(p.y-12,42,696)+'px';}
-  paintControlsTutorial();updateSpeech();paintDev();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
+  paintControlsTutorial();updateSpeech();paintDev();paintHomewardGuide();host.querySelector('.outside-speech').inert=devOpen;host.querySelectorAll('.outside-background-speech').forEach(el=>el.inert=devOpen);
 
  }
  function updateSpeech(){
@@ -433,5 +473,5 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
  return{get interactionGlow(){return glowRenderer.snapshot();},get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
-global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint,firstCommuteEntranceCue};
+global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint,firstCommuteEntranceCue,homewardCues};
 })(typeof window==='undefined'?globalThis:window);

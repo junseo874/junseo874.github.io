@@ -49,3 +49,14 @@
 /* The entry page is a launch point; test configuration lives in the P drawer. */
 .outside-entry{text-align:center;width:390px;padding:36px!important}.outside-entry>small{font-size:11px;letter-spacing:2px;color:#7dcad0}.outside-entry h2{margin:12px 0 18px}.outside-entry p{font-size:15px;line-height:1.9;color:#9db8c6;margin:0 0 28px}.outside-entry kbd{border:1px solid #557985;border-radius:4px;padding:2px 7px;color:#c3f8f7}.outside-entry>button{width:100%;padding:15px}.outside-entry>span{display:block;margin-top:14px;font-size:11px;color:#8399a7}
 .outside-dev-days{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.outside-dev-days button{padding:9px 5px;text-align:center;font-size:13px}.outside-dev-days .outside-dev-qa{grid-column:1/-1}.outside-dev-days button[aria-pressed="true"]{background:#23525d;border-color:#a9f5ef;color:#dcfff9}.outside-dev-console section{margin-top:16px}.outside-dev-console section[hidden]{display:none}.outside-entry-hint{text-align:center;max-width:490px}.outside-entry-hint>kbd{display:grid;place-items:center;width:52px;height:52px;margin:0 auto 22px;font-size:28px;color:#c6fbf8;border:1px solid #6cc8d0;border-radius:9px;background:#18313f;box-shadow:0 0 25px #6cc8d022}.outside-entry-hint p{font-size:15px;line-height:1.9}.outside-entry-hint .primary{min-width:140px;margin-top:15px}
+/* Screen-fixed wayfinding; only entry/exit moves, never pulses or intercepts input. */
+.outside-homeward-guide{position:absolute;left:28px;top:26px;width:220px;min-height:64px;display:flex;align-items:center;gap:12px;padding:11px 12px 11px 14px;background:linear-gradient(110deg,rgba(5,19,28,.9),rgba(5,19,28,.62));border-left:2px solid #83dce8;border-radius:0 5px 5px 0;pointer-events:none;user-select:none;color:#dbf6fa;z-index:2;transform:translateX(calc(-100% - 32px));opacity:0;visibility:hidden;transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .28s ease,visibility 0s linear .38s}
+.outside-homeward-guide[data-visible=true]{transform:translateX(0);opacity:1;visibility:visible;transition-delay:0s}
+@media(prefers-reduced-motion:reduce){.outside-homeward-guide{transition:none}}
+.outside-homeward-guide .homeward-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.outside-homeward-guide strong{font-size:16px;font-weight:400;line-height:1.25}
+.outside-homeward-guide small{font-size:10px;line-height:1.4;color:#a6bdc5;white-space:nowrap}
+.outside-homeward-guide .homeward-direction{flex:0 0 30px;width:30px;height:30px;display:grid;place-items:center;border:1px solid #74b9c8;border-radius:50%;background:#6cd6ea0a}
+.outside-homeward-guide svg{width:20px;height:20px;fill:none;stroke:#b1edf5;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.outside-homeward-guide[data-direction=right] svg{transform:rotate(180deg)}
+.outside-homeward-guide[data-direction=up] svg{transform:rotate(90deg)}

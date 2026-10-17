@@ -17,11 +17,19 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   });
   const buttons=p.locator('.choices button');await buttons.first().waitFor();
   assert.equal(await buttons.count(),4);
-  const styles=()=>buttons.evaluateAll(els=>els.map(el=>({bg:getComputedStyle(el,'::before').backgroundImage,arrow:getComputedStyle(el,'::after').opacity,box:el.getBoundingClientRect().toJSON()})));
+  const gauge=await buttons.first().evaluate(el=>{
+   const meter=el.querySelector('.choice-progress'),box=el.getBoundingClientRect(),r=meter.getBoundingClientRect();
+   return {height:r.height,width:r.width/box.width,left:(r.left-box.left)/box.width,right:(box.right-r.right)/box.width,bottom:(box.bottom-r.bottom)/box.height,idleWidth:parseFloat(getComputedStyle(meter,'::before').width)/r.width};
+  });
+  assert.equal(gauge.height,2);assert(Math.abs(gauge.width-.89)<.001);assert(Math.abs(gauge.left-.06)<.001);assert(Math.abs(gauge.right-.05)<.001);assert(Math.abs(gauge.bottom-4/156)<.001);assert(Math.abs(gauge.idleWidth-.14)<.001);
+  const styles=()=>buttons.evaluateAll(els=>els.map(el=>({bg:getComputedStyle(el,'::before').backgroundImage,arrow:getComputedStyle(el,'::after').opacity,gauge:getComputedStyle(el.querySelector('.choice-progress'),'::before').backgroundColor,box:el.getBoundingClientRect().toJSON()})));
   let s=await styles();assert(s[0].bg.includes('IMG_choice_B.png'));assert(s[1].bg.includes('IMG_choice_A.png'));assert.equal(s[0].box.width,675);
   await buttons.nth(1).hover();s=await styles();assert(s[1].bg.includes('IMG_choice_B.png'));assert(s[0].bg.includes('IMG_choice_A.png'));assert.equal(s[1].arrow,'1');assert.equal(s[0].arrow,'0');assert.equal(s[1].box.width,s[0].box.width);
+  assert.equal(s[1].gauge,'rgb(84, 223, 234)','Hovered gauge follows cyan choice highlight');assert.equal(s[0].gauge,'rgb(150, 155, 158)','Previous gauge returns to neutral');
+  await buttons.nth(3).hover();s=await styles();assert.equal(s[3].gauge,'rgb(150, 155, 158)','Disabled choice stays neutral');
   assert(await buttons.first().evaluate(el=>LunaUIAudioPolicy.allows(el,'hover')&&!LunaUIAudioPolicy.allows(el,'click')));
   await p.mouse.move(2,2);await buttons.first().focus();await p.keyboard.press('ArrowDown');assert(await buttons.nth(1).evaluate(el=>el===document.activeElement));
+  s=await styles();assert.equal(s[1].gauge,'rgb(84, 223, 234)','Keyboard focus uses the same cyan gauge');assert.equal(s[0].gauge,'rgb(150, 155, 158)');
   await buttons.first().focus();await p.screenshot({path:'/private/tmp/luna-choice-resources.png'});
   for(const size of [{width:960,height:540},{width:1920,height:1080}]){await p.setViewportSize(size);await p.waitForTimeout(100);const b=await p.locator('.choices').boundingBox();assert(b.x>=0&&b.y>=0&&b.x+b.width<=size.width&&b.y+b.height<=size.height);}
   await p.setViewportSize({width:1280,height:720});

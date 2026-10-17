@@ -1,7 +1,7 @@
 /* One persistent player; location fades never change the saved volume or cinema gain. */
 (function(){
   'use strict';
-  const tracks=[1,2,3,4].map(n=>({title:`LUNA Track 0${n}`,src:`assets/audio/luna-track-0${n}.m4a`}));
+  const tracks=[1,2,3,4].map(n=>({title:`LUNA Track 0${n}`,src:`assets/audio/luna-track-0${n}.mp3`}));
   const locations={home:{title:'집 · 테라스',tracks:[2],gain:1},street:{title:'외부 거리',tracks:[1],gain:.6},bar:{title:'바 내부',tracks:[0,2,3],gain:1}};
   const settingsKey='luna.bar.playtest.bgm.v1';
   class BarBgm{

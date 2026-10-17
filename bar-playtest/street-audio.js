@@ -2,7 +2,7 @@
 'use strict';
 const key='luna.street.ambience.volume.v1',base=document.currentScript.src;
 const track=(file)=>({url:new URL('audio/ambience/'+file,base),gain:null,buffer:null,source:null,pending:null,failed:false,level:0,target:0});
-const city=track('street-loop.ogg'),rain=track('rain-loop.ogg'),tracks=[city,rain];
+const city=track('street-loop.wav'),rain=track('rain-loop.wav'),tracks=[city,rain];
 let volume=.55,context=null,unlocked=false,previous=0,away=false;
 try{const raw=localStorage.getItem(key),value=raw===null?null:JSON.parse(raw);if(typeof value==='number'&&Number.isFinite(value))volume=Math.max(0,Math.min(1,value));}catch{}
 function terraceContext(){

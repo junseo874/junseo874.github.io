@@ -186,7 +186,7 @@ function millilitreData(data){
  return {...data,tables:{...data.tables,
   cocktails:data.tables.cocktails.map(c=>c.id==='dry_martini'?{...c,
    'recipe_desc.ko':'믹싱 글라스에 진 60ml와 드라이 베르무트 20ml를 넣고 스터한 뒤 칵테일 잔에 따른다.',
-   'recipe_desc.en':'Stir 60ml gin with 20ml dry vermouth in a mixing glass, then strain into a cocktail glass.'}:c),
+   'recipe_desc.en':'Stir 60ml gin with 20ml dry vermouth in a mixing glass, then strain into a cocktail glass.'}:c.id==='long_island'?{...c,unlock_day:'2'}:c),
   recipes:data.tables.recipes.map(r=>r.context==='dry_martini'&&Object.hasOwn(martini,r.ingredient)?{...r,qty:martini[r.ingredient],unit:'ml'}:convert(r,'qty','unit')),
   shelf_items:data.tables.shelf_items.map(r=>convert(r,'default_target_qty','default_target_unit'))}};
 }
@@ -241,13 +241,19 @@ class Game{
   const upkeepOverride=this.parseUpkeepOverride(settings.upkeepOverride);
   this.serviceVersion='A';this.qaKeepGeneral=false;this.day=Number(day);this.mode=mode;this.seed=Number(seed);this.rng=seeded(this.seed);this.progress={day:this.day,money:this.c('gold_start',300),reputation:0,phase:'bar_open',flags:{},affinity:{}};
   this.openingBalance=this.progress.money;this.upkeepOverride=upkeepOverride;this.dailySettlement=null;
-  this.pourTool='pourer';this.tutorial=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
+  this.tableFades={};this.pourTool='pourer';this.tutorial=null;this.storyCoaster=null;this.pendingDailyUnlocks=false;this.lastStoryLine=null;this.craftReminder=null;this.phase='ready';this.screen='bar';this.overlay=null;this.paused=false;this.hidden=false;this.cameraLeft=0;this.cameraMoving=false;this.focus='L';this.overview=false;this.seats={L:null,M:null,R:null};this.logs=[];this.history=[];this.transactions=[];this.transactionIds=new Set();this.serial=0;this.barTime=0;this.realTime=0;this.served=0;this.lost=0;this.prep=null;this.drink=null;this.gimmick=null;this.result=null;this.discardFeedback=null;this.error=null;this.dialogue=null;this.choice=null;this.transition=0;this.pendingTransition=null;this.story=null;this.currentOrder=null;this.resultContext={};this.effectVisual=null;this.barkLast={};this.finished=false;
   if(settings.storyPrerequisites)this.seedJohnnyPrerequisites();
   if(run){if(mode==='general')this.startGeneral();else if(mode==='regular')this.startStoryPhase('bar');else if(mode==='practice'){this.phase='practice';this.openRecipes();}else {const fresh=this.dailyUnlocks();if(mode==='full'&&this.day>0&&this.day!==99&&(fresh.ingredients.length||fresh.cocktails.length)){this.pendingDailyUnlocks=true;this.phase='arrival';this.overlay='dailyUnlocks';}else this.startStoryPhase('bar_open');}}
   this.changed();
  }
  log(event,details={}){this.logs.push({time:Math.round(this.realTime*100)/100,barTime:Math.round(this.barTime*100)/100,event,...details});if(this.logs.length>5000)this.logs.shift();}
  changed(){this.onChange(this);}
+ clearDepartedSeat(seat){
+  const guest=this.seats[seat];
+  if(guest&&(guest.coaster||guest.glass))this.tableFades[seat]={coaster:guest.coaster,glass:guest.glass,glassEmpty:guest.glassEmpty,glassKind:guest.glassKind,baseline:this.phase==='general'?548:560,elapsed:0,duration:.8};
+  this.seats[seat]=null;
+  return this.tableFades[seat]?.duration||0;
+ }
  ctx(extra={}){return{...this.progress,...this.resultContext,...extra};}
  safe(fn){try{return fn();}catch(e){this.error=e.message;this.log('DATA_ERROR',{message:e.message});this.changed();return false;}}
  isPaused(){return this.paused||this.hidden||!!this.error||!!this.overlay;}
@@ -262,6 +268,7 @@ class Game{
  dailyUnlocks(){return {ingredients:this.t.shelf_items.filter(r=>r.kind==='ingredient'&&n(r.unlock_day)===this.day&&!['wild_dog','bitters','sugar_cube'].includes(r.id)&&this.available(r)),cocktails:this.t.cocktails.filter(r=>r.status==='confirmed'&&n(r.unlock_day)===this.day&&r.id!=='johnny_old_fashioned'&&this.available(r))};}
  confirmDailyUnlocks(){if(!this.pendingDailyUnlocks||this.overlay!=='dailyUnlocks')return false;this.pendingDailyUnlocks=false;this.overlay=null;this.startStoryPhase('bar_open');this.changed();return true;}
  startStoryPhase(phase){
+  this.storyCoaster=null;
   this.phase=phase==='bar_open'?'opening':'regular';this.progress.phase=phase;this.screen='bar';this.seats={L:null,M:null,R:null};this.dialogue=null;this.choice=null;this.resultContext={};this.currentOrder=null;this.story={phase,autos:sortSeq(this.t.scenes.filter(s=>n(s.day)===this.day&&s.phase===phase&&s.trigger==='auto')),cursor:0,scene:null,index:0,steps:[]};
   this.log('phase_start',{phase:this.phase});this.nextScene();
  }
@@ -271,21 +278,21 @@ class Game{
   if(this.phase==='opening'){this.story=null;this.startGeneral();}
   else {if(this.currentOrder)throw Error('미처리 주문 상태에서 대본 종료');this.finishDay();}
  }
- loadScene(scene){this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));
+ loadScene(scene){this.storyCoaster=null;this.lastStoryLine=null;this.craftReminder=null;this.story.scene=scene;this.story.steps=sortSeq(this.t.steps.filter(s=>s.context===scene.id));
   this.story.index=0;this.resultContext={};this.log('scene',{id:scene.id});this.pump();}
  stepDone(step){applyEffects(step.effects,this.progress);this.story.index++;if(!this.checkJohnnyUnlock())this.pump();}
  pump(){
   for(let guard=0;guard<1000;guard++){
-   if(!this.story||this.error||this.tutorial||this.overlay==='johnnyUnlock')return;
+   if(!this.story||this.storyCoaster||this.error||this.tutorial||this.overlay==='johnnyUnlock')return;
    const s=this.story.steps[this.story.index];if(!s){this.nextScene();return;}
    if(!condition(s.when,this.ctx())){this.log('step_skipped',{scene:this.story.scene.id,seq:s.seq,when:s.when});this.story.index++;continue;}
    this.log('step',{scene:this.story.scene.id,seq:s.seq,type:s.type});
    if(s.type==='story_cue'){this.onStoryCue?.(s.arg);this.log('story_cue',{kind:s.arg});this.setTransition(s.arg==='door'?.9:.35,()=>this.stepDone(s));return;}
    if(this.campaignStep?.(s))return;
    if(s.type==='say'||s.type==='order'&&this.text(s)){
-    this.dialogue=this.makeLine(s.actor,this.text(s),s.dialogue_id,s.arg);this.dialogue.step=s;return;
+    this.dialogue=this.makeLine(s.actor,this.text(s),s.dialogue_id,s.arg);this.dialogue.step=s;if(this.storyCoasterEligible(s.actor)){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor&&!this.seats[k].coaster);if(seat)this.storyCoaster={seat,step:s,kind:'line'};}return;
    }
-   if(s.type==='order'){this.createStoryOrder(s);applyEffects(s.effects,this.progress);this.story.index++;continue;}
+   if(s.type==='order'){if(this.waitForStoryCoaster(s,'step'))return;this.createStoryOrder(s);applyEffects(s.effects,this.progress);this.story.index++;continue;}
    if(s.type==='enter'){
     const first=this.story.index,group=[s];if(s.sync==='no_wait'){const next=this.story.steps[first+1];if(!next||next.type!=='enter'||next.sync!=='wait')throw Error('동시 입장 쌍 오류');group.push(next);}
     const reserved=new Set(Object.keys(this.seats).filter(k=>this.seats[k]));
@@ -293,7 +300,7 @@ class Game{
     for(const e of group){this.seats[e.arg]={id:e.actor,actor:e.actor,seated:e.entrance==='seated',state:'STORY',coaster:false,glass:null,expression:'default'};if(root.LunaStoryNotices?.roster.includes(e.actor))root.LunaStoryNotices.meet(this.progress,e.actor);else this.progress.flags[e.actor+'_met']=true;applyEffects(e.effects,this.progress);}
     this.focus=s.arg;this.story.index+=group.length;if(group.every(e=>e.entrance==='seated'))continue;this.setTransition(0.8,()=>this.pump());return;
    }
-   if(s.type==='exit'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('퇴장 대상 없음: '+s.actor);this.seats[seat].state='EXITING';this.setTransition(0.5,()=>{this.seats[seat]=null;this.stepDone(s);});return;}
+   if(s.type==='exit'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('퇴장 대상 없음: '+s.actor);this.seats[seat].state='EXITING';this.setTransition(0.5,()=>{const fade=this.clearDepartedSeat(seat);if(fade)this.setTransition(fade,()=>this.stepDone(s));else this.stepDone(s);});return;}
    if(s.type==='tutorial'){
     if(this.day===0&&this.variant!=='gpt'&&!this.progress.flags.day0_skip_tutorial){
      this.progress.flags.day0_seats_revealed=true;
@@ -302,7 +309,7 @@ class Game{
     }
     this.stepDone(s);return;
    }
-   if(s.type==='coaster'){const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('코스터 대상 없음: '+s.actor);if(s.arg==='tutorial'&&this.day===0&&!this.progress.flags.day0_skip_tutorial){this.tutorial={kind:'coaster',seat,step:s};this.log('tutorial_wait',{kind:'coaster',seat});return;}this.seats[seat].coaster=true;this.log('story_coaster',{actor:s.actor,seat});this.setTransition(.45,()=>this.stepDone(s));return;}
+   if(s.type==='coaster'){if(!this.storyHasUpcomingOrder(s.actor)){this.stepDone(s);return;}if(this.waitForStoryCoaster(s,'step'))return;const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('코스터 대상 없음: '+s.actor);if(this.seats[seat].coaster){this.stepDone(s);return;}if(s.arg==='tutorial'&&this.day===0&&!this.progress.flags.day0_skip_tutorial){this.tutorial={kind:'coaster',seat,step:s};this.log('tutorial_wait',{kind:'coaster',seat});return;}this.seats[seat].coaster=true;this.log('story_coaster',{actor:s.actor,seat});this.setTransition(.45,()=>this.stepDone(s));return;}
    if(s.type==='choice'){const rows=sortSeq(this.t.bar_choices.filter(c=>c.context===s.arg));if(!rows.length)throw Error('선택지 세트 없음: '+s.arg);this.choice={step:s,rows};return;}
    if(s.type==='craft'){if(!this.currentOrder)throw Error('제조 전 주문 없음');this.screen='bar';this.craftReminder=this.lastStoryLine?{...this.lastStoryLine,chars:this.lastStoryLine.text.length}:null;this.craftStep=s;if(s.arg==='tutorial_beer'&&this.day===1){this.tutorial={kind:'recipe',beer:true,serviceOpened:false};this.log('tutorial_wait',{kind:'beer'});}if(s.arg==='tutorial_recipe'&&this.day===0&&!this.progress.flags.day0_skip_tutorial&&!this.progress.flags.day0_recipe_taught){this.tutorial={kind:'recipe',serviceOpened:false};this.log('tutorial_wait',{kind:'recipe'});}return;}
    if(s.type==='serve'){throw Error('제조 결과/서빙 입력 없이 serve에 도착');}
@@ -313,6 +320,26 @@ class Game{
   }
   throw Error('대본 무한 진행 차단');
  }
+ // Only guests ordering during this visit need a coaster. Do not look past
+ // their departure/re-entry or an unresolved choice into a different visit.
+ storyHasUpcomingOrder(actor,index=this.story?.index){
+  for(const s of this.story?.steps.slice(index)||[]){
+   if(!['choice','end_part'].includes(s.type)&&(s.actor!==actor||!['enter','exit','order'].includes(s.type)))continue;
+   // A future result/branch is not known yet; defer the gate until it resolves.
+   try{if(!condition(s.when,this.ctx()))continue;}catch{return false;}
+   if(s.type==='choice'||s.type==='end_part'||s.actor===actor&&['exit','enter'].includes(s.type))return false;
+   if(s.actor===actor&&s.type==='order')return true;
+  }
+  return false;
+ }
+ storyCoasterEligible(actor,index=this.story?.index){return this.phase==='regular'&&this.storyHasUpcomingOrder(actor,index)&&!(this.day===0&&actor==='chris'&&this.story?.steps.some(s=>s.type==='coaster'&&s.arg==='tutorial'));}
+ waitForStoryCoaster(step,kind){
+  if(!this.storyCoasterEligible(step.actor))return false;
+  const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===step.actor&&!this.seats[k].coaster);
+  if(!seat)return false;
+  this.storyCoaster={seat,step,kind};this.focus=seat;this.changed();return true;
+ }
+ storyCoasterReady(){return !!this.storyCoaster&&(this.storyCoaster.kind!=='line'||this.dialogue?.step===this.storyCoaster.step&&this.dialogue.chars>=this.dialogue.text.length);}
  setTransition(sec,fn){this.dialogue=null;this.transition=sec;this.pendingTransition=fn;}
  speakerName(actor){return actor==='tom'&&this.day===1&&this.phase==='regular'&&!this.progress.flags.tom_name_known?'???':this.name(actor);}
  makeLine(actor,text,id=null,expression='default'){
@@ -320,15 +347,16 @@ class Game{
   return{actor,text:clean(text),raw:text,id,expression:expression||'default',chars:0,hold:0,seen:false,timings,typeMs:0};
  }
  typeLine(line,dt){const before=line.chars;line.typeMs+=dt*this.dialogSpeed*TEXT_SPEED_BASE*1000;while(line.chars<line.text.length){const delay=line.timings?.[Math.floor(line.chars)]||this.c('typing_interval_ms',50);if(line.typeMs<delay)break;line.typeMs-=delay;line.chars++;}if(this.screen==='bar'&&this.currentDialogue()===line)root.LunaDialogueAudio?.reveal(line.text,before,line.chars);}
- finishLine(){const d=this.dialogue;if(!d)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id,anonymous:d.actor==='tom'&&this.speakerName(d.actor)==='???'});const s=d.step;this.lastStoryLine={...d,chars:d.text.length};this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
- advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.cameraMoving||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else this.safe(()=>this.finishLine());this.changed();return true;}
+ finishLine(){const d=this.dialogue;if(!d||this.storyCoaster)return;if(d.id)this.read.add(d.id);this.history.push({actor:d.actor,text:d.text,scene:this.story?.scene?.id,id:d.id,anonymous:d.actor==='tom'&&this.speakerName(d.actor)==='???'});const s=d.step;this.lastStoryLine={...d,chars:d.text.length};this.dialogue=null;if(s.type==='order')this.createStoryOrder(s);this.stepDone(s);}
+ advance(){if(this.isPaused()||this.transition>0||this.cameraLeft>0||this.cameraMoving||this.screen!=='bar'||!this.dialogue||this.phase==='general')return false;const d=this.dialogue;if(d.chars<d.text.length)d.chars=d.text.length;else {if(this.storyCoaster)return false;this.safe(()=>this.finishLine());}this.changed();return true;}
  choose(seq){if(!this.choice||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;return this.safe(()=>{const c=this.choice.rows.find(c=>n(c.seq)===Number(seq));if(!c||!condition(c.when,this.ctx()))return false;const target=c.goto?this.t.scenes.find(s=>s.id===c.goto&&n(s.day)===this.day):null;if(c.goto&&!target)throw Error('분기 씬 없음: '+c.goto);const step=this.choice.step;applyEffects(c.effects,this.progress);applyEffects(step.effects,this.progress);this.log('choice',{id:step.arg,seq:c.seq,goto:c.goto});this.choice=null;if(target)this.loadScene(target);else {this.story.index++;this.pump();}this.changed();return true;});}
  createStoryOrder(s){
   const freeChoice=s.arg==='free',id=freeChoice?this.cocktailsAvailable()[0]?.id:s.arg?.match(/^exact:(.+)$/)?.[1];if(!id)throw Error('미지원 주문 형식: '+s.arg);this.cocktail(id);const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===s.actor);if(!seat)throw Error('주문자 착석 정보 없음: '+s.actor);
-  if(this.currentOrder)throw Error('앞 주문이 미완료');this.resultContext={};this.currentOrder={id:'order_'+(++this.serial),actor:s.actor,seat,cocktail:id,...(freeChoice?{freeChoice:true}:{}),...(s.payment?{payment:s.payment}:{})};this.resultContext.ordered=id;this.seats[seat].coaster=true;this.seats[seat].order=this.currentOrder;this.log('order',{...this.currentOrder});
+  if(this.currentOrder)throw Error('앞 주문이 미완료');this.resultContext={};this.currentOrder={id:'order_'+(++this.serial),actor:s.actor,seat,cocktail:id,...(freeChoice?{freeChoice:true}:{}),...(s.payment?{payment:s.payment}:{})};this.resultContext.ordered=id;if(this.phase==='opening')this.seats[seat].coaster=true;this.seats[seat].order=this.currentOrder;this.log('order',{...this.currentOrder});
  }
  finishGeneralService(){this.startStoryPhase('bar');}
  startGeneral(){
+  this.storyCoaster=null;
   this.phase='general';this.progress.phase='bar_open';this.screen='bar';this.seats={L:null,M:null,R:null};this.story=null;this.dialogue=null;this.queue=sortSeq([...this.t.random_waves,...this.t.regular_slots].filter(s=>n(s.day)===this.day));this.queueIndex=0;this.spawnBlocked=false;this.spawnLeft=this.c('first_spawn_delay_sec',5)+n(this.queue[0]?.delay_sec);this.focus='L';
   this.log('phase_start',{phase:'general',slots:this.queue.length});if(!this.queue.length)this.finishGeneralService();
  }
@@ -346,7 +374,7 @@ class Game{
   for(const id of ids){const k=artKey(id);if(this.data.assets[k])layers.push(k);}
   return {gender,ids,layers,requested,missing};
  }
- spawn(){const slot=this.queue[this.queueIndex];if(!slot)return;const free=Object.keys(this.seats).filter(k=>!this.seats[k]);if(!free.length){this.spawnBlocked=true;return;}const seat=free[Math.floor(this.rng()*free.length)];if(free.length===3)this.focus=seat;
+ spawn(){const slot=this.queue[this.queueIndex];if(!slot)return;const free=Object.keys(this.seats).filter(k=>!this.seats[k]&&!this.tableFades[k]);if(!free.length){this.spawnBlocked=true;return;}const seat=free[Math.floor(this.rng()*free.length)];if(free.length===3)this.focus=seat;
   const p=this.t.personalities.find(p=>p.id===(slot.personality||'gentle'));const limit=clamp(this.c('coaster_base_sec')*n(p.patience_mult,1),this.c('coaster_min_sec'),this.c('coaster_max_sec'));
   const g={id:'guest_'+(++this.serial),actor:slot.character||slot.personality,slot,personality:p,appearance:slot.character?null:this.appearance(),seat,state:'WAIT_COASTER',coaster:false,glass:null,round:0,maxRounds:n(slot.max_rounds,1),coasterLimit:limit,left:limit,limit,warn:0,pendingWarn:0,reasking:false,lines:[],lineIndex:0,order:null,idleLeft:10,lastGrade:null};
   this.seats[seat]=g;this.setBarks(g,['call']);this.queueIndex++;this.spawnLeft=n(this.queue[this.queueIndex]?.delay_sec,this.c('spawn_delay_default_sec'));this.spawnBlocked=false;this.log('guest_enter',{guest:g.id,seat,personality:p.id,appearance:g.appearance?.ids});
@@ -363,6 +391,7 @@ class Game{
  }
  setBarks(g,situations,onDone=null){g.lines=situations.map(s=>this.bark(g,s,s==='ask_order'?'luna':null));g.lineIndex=0;g.lineDone=onDone;}
  coaster(seat=this.focus,input='shortcut'){
+  if(this.storyCoaster){const pending=this.storyCoaster;if(seat!==pending.seat||!['drag','keyboard'].includes(input)||!this.storyCoasterReady()||this.isPaused()||this.screen!=='bar'||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;const guest=this.seats[seat];if(!guest||guest.actor!==pending.step.actor||guest.coaster)return false;guest.coaster=true;this.storyCoaster=null;this.log('story_coaster',{actor:guest.actor,seat,input});if(pending.kind==='line')this.safe(()=>this.finishLine());else this.safe(()=>this.pump());this.changed();return true;}
   if(this.tutorial?.kind==='coaster'){const t=this.tutorial;if(this.isPaused()||this.screen!=='bar'||this.cameraMoving||this.cameraLeft>0||this.transition>0||seat!==t.seat||!['drag','keyboard'].includes(input))return false;this.seats[seat].coaster=true;this.tutorial=null;this.log('story_coaster',{actor:t.step.actor,seat,input});this.log('tutorial_complete',{kind:'coaster'});this.setTransition(.45,()=>this.stepDone(t.step));this.changed();return true;}
   if(this.phase!=='general'||this.screen!=='bar'||this.isPaused()||this.cameraLeft>0||seat!==this.focus)return false;
   const g=this.seats[seat];if(!g||g.state!=='WAIT_COASTER'||g.left<=0)return false;
@@ -485,7 +514,7 @@ class Game{
   const upkeep=this.upkeepInfo(),totals=this.totals(),before=this.progress.money;
   // Order revenue is already committed. Never add the displayed totals again.
   this.dailySettlement={id:'day_'+this.day+'_settlement',day:this.day,status:'pending',totals:{...totals},openingBalance:this.openingBalance,otherChanges:before-this.openingBalance-totals.net,balanceBefore:before,upkeep:upkeep.amount,source:upkeep.source,projectedBalance:before-upkeep.amount,shortfall:Math.max(0,upkeep.amount-before),balanceAfter:null};
-  this.tutorial=null;this.phase='complete';this.screen='settlement';this.dialogue=null;this.choice=null;this.story=null;this.currentOrder=null;this.drink=null;this.prep=null;this.gimmick=null;this.overlay=null;this.paused=false;this.transition=0;this.pendingTransition=null;this.seats={L:null,M:null,R:null};this.finished=true;this.log('day_complete',{day:this.day,orders:this.transactions.length,upkeep:upkeep.amount,upkeepSource:upkeep.source});this.changed();return true;
+  this.tutorial=null;this.phase='complete';this.screen='settlement';this.dialogue=null;this.choice=null;this.story=null;this.currentOrder=null;this.drink=null;this.prep=null;this.gimmick=null;this.overlay=null;this.paused=false;this.transition=0;this.pendingTransition=null;this.seats={L:null,M:null,R:null};this.tableFades={};this.finished=true;this.log('day_complete',{day:this.day,orders:this.transactions.length,upkeep:upkeep.amount,upkeepSource:upkeep.source});this.changed();return true;
  }
  confirmDailySettlement(){
   const s=this.dailySettlement;if(!s||s.status!=='pending'||this.screen!=='settlement'||this.error)return false;
@@ -502,6 +531,7 @@ class Game{
  debugCraft(grade='excellent'){if(!['prep','gimmick'].includes(this.screen))return;this.debugFill();if(this.screen==='prep')this.startCraft();const actual=this.craft.actual,selected=this.cocktail(actual.selected),queue=this.craft.queue;const results=queue.map(q=>({...q,value:q.target,completion:1,completed:true,failures:0}));this.result=scoreCraft(this.data,selected,actual,results,2);this.result.id=this.craft.id;this.result.grade=grade;this.result.score={excellent:100,good:85,decent:70,poor:45,sewage:0}[grade];this.result.debug=true;this.gimmick=null;this.screen='result';this.log('debug_craft',{grade});this.changed();}
  tick(dt){
   if(this.isPaused()||this.finished)return;dt=Math.max(0,Math.min(dt,0.2));this.realTime+=dt;
+  for(const [seat,fade]of Object.entries(this.tableFades)){fade.elapsed+=dt;if(fade.elapsed>=fade.duration)delete this.tableFades[seat];}
   if(this.transition>0){this.transition=Math.max(0,this.transition-dt);if(!this.transition){const fn=this.pendingTransition;this.pendingTransition=null;this.safe(fn);}return;}
   if(this.cameraLeft>0){this.cameraLeft=Math.max(0,this.cameraLeft-dt);if(!this.cameraLeft){if(!this.cameraSame)this.afterCamera();this.cameraSame=false;}}
   this.updateSeatTutorial();
@@ -519,19 +549,19 @@ class Game{
  }
  tickGeneral(realDt){
   const dt=realDt*this.speed;this.barTime+=dt;
-  if(this.queueIndex<this.queue.length){if(this.spawnBlocked){if(Object.values(this.seats).some(x=>!x)){this.spawnBlocked=false;this.spawnLeft=this.c('reseat_delay_sec',10);}}else {this.spawnLeft-=dt;if(this.spawnLeft<=0)this.spawn();}}
+  if(this.queueIndex<this.queue.length){if(this.spawnBlocked){if(Object.keys(this.seats).some(k=>!this.seats[k]&&!this.tableFades[k])){this.spawnBlocked=false;this.spawnLeft=this.c('reseat_delay_sec',10);}}else {this.spawnLeft-=dt;if(this.spawnLeft<=0)this.spawn();}}
   for(const g of Object.values(this.seats).filter(Boolean)){
    if(g.state==='WAIT_COASTER'||g.state==='WAIT_SERVE'){
     g.left-=dt;if(g.left<=0){this.leave(g,g.state==='WAIT_COASTER'?'leave_coaster':'leave_serve');continue;}
     const used=1-g.left/g.limit,level=used>=this.c('warn_red_ratio',0.8)?2:used>=this.c('warn_yellow_ratio',0.5)?1:0;if(level>g.warn)this.warn(g,level);
    }
-   if(g.state==='EXITING'){g.exitLeft-=dt;if(g.exitLeft<=0){this.log('guest_exit',{guest:g.id,seat:g.seat});this.seats[g.seat]=null;continue;}}
+   if(g.state==='EXITING'){g.exitLeft-=dt;if(g.exitLeft<=0){this.log('guest_exit',{guest:g.id,seat:g.seat});this.clearDepartedSeat(g.seat);continue;}}
    if(g.state==='REORDER_WAIT'){g.reorderLeft-=dt;if(g.reorderLeft<=0){g.state='ORDER_DIALOGUE';this.beginOrder(g,true);}}
    if(g.seat!==this.focus||this.cameraLeft>0||this.cameraMoving)continue;
    const line=g.lines[g.lineIndex];if(line){line.seen=true;if(line.chars<line.text.length)this.typeLine(line,realDt);else{line.hold+=realDt*this.dialogSpeed;if(line.hold>=this.c('order_bark_gap_sec',1.5)){this.history.push({actor:line.actor,text:line.text,id:line.id});g.lineIndex++;if(g.lineIndex>=g.lines.length){const fn=g.lineDone;g.lineDone=null;if(fn)fn();}}}}
    else if(g.state==='WAIT_SERVE'&&!g.reasking){g.idleLeft-=dt;if(g.idleLeft<=0){this.setBarks(g,['idle']);g.idleLeft=this.c('idle_min_sec',8)+this.rng()*(this.c('idle_max_sec',13)-this.c('idle_min_sec',8));}}
   }
-  if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)){this.drink=null;this.finishGeneralService();}
+  if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)&&!Object.keys(this.tableFades).length){this.drink=null;this.finishGeneralService();}
  }
  tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;if(g.type!=='open')this.craft.elapsed+=dt;
   if(g.type==='open'){OPEN.tick(g,dt);}

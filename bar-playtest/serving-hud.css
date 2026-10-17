@@ -1,0 +1,27 @@
+/* Share the supplied textbox's centre slice; omit the tail on draggable cards. */
+.dialogue-surface,.bar-view .service-popup:before{background:#0b0c15 url('assets/ui/dialogue/GRD_textbox_5.png') center/100% 100% no-repeat;opacity:.98}
+.dialogue-surface:before{background:#0b0c15}
+.bar-view .service-popup{isolation:isolate;background:transparent;border:0;border-radius:8px;box-shadow:none;touch-action:none;cursor:grab;user-select:none}
+.bar-view .service-popup:before{content:'';position:absolute;inset:0;z-index:-1;border:1px solid #659ab5;border-radius:8px;box-shadow:inset 0 0 8px #508ac933,0 0 5px #73b8e348;pointer-events:none}
+.bar-view .service-popup:focus-visible{outline:2px solid #a6faff;outline-offset:3px}
+.bar-view .service-popup[aria-disabled=true]{cursor:default}
+.bar-view .service-popup[aria-disabled=true]>*{opacity:.55}
+.bar-view .stack.service-popup{left:auto;right:22px;bottom:20px;width:166px;height:50px;padding:8px 12px;display:flex;align-items:center;gap:10px}
+.bar-view .stack.service-popup img{width:52px;height:28px;object-fit:contain;filter:none;flex:none}
+.bar-view .stack.service-popup small{display:block;margin:0;font-size:12px;line-height:1.4;text-align:left;color:#99b6ce}
+.bar-view .tray.drink-tray.service-popup{left:50%;right:auto;bottom:20px;transform:translateX(-50%);width:max-content;min-width:190px;max-width:340px;min-height:84px;padding:12px 20px;gap:16px}
+.bar-view .drink-tray.service-popup .drink-art{width:38px;height:60px;flex:none;pointer-events:none}
+.bar-view .drink-tray.service-popup h3{font-size:19px;line-height:1.3;color:#38dbef;overflow-wrap:anywhere}
+.bar-view .drink-tray.service-popup small{font-size:12px;line-height:1.5;color:#99b6ce}
+.bar-view:has(.stack.service-popup) .tray:not(.drink-tray){bottom:82px}
+.bar-scene-layer .native-coaster.drop-ready{border-color:transparent;background:transparent}
+.delivery-cue{position:absolute;inset:0;pointer-events:none}
+.bar-scene-layer .native-coaster>img.coaster{z-index:1}
+.bar-scene-layer .native-coaster>.drink-art{z-index:2}
+/* While awaiting a drop, the reference uses the shadow as the target marker. */
+.bar-scene-layer .native-coaster:has(.delivery-cue)>img.coaster{visibility:hidden}
+.bar-scene-layer .native-coaster .delivery-shadow{position:absolute;left:10px;top:88px;width:100px;height:44px;opacity:1;object-fit:contain;pointer-events:none}
+.delivery-arrow{position:absolute;left:40px;top:29px;width:40px;height:48px;fill:#b9fbff;stroke:#74ddeb;stroke-width:1;filter:drop-shadow(0 0 7px #65eaff);animation:delivery-nudge 1.2s ease-in-out infinite;pointer-events:none}
+.native-coaster.drop-ready .delivery-shadow{opacity:1}
+@keyframes delivery-nudge{0%,100%{transform:translateY(0)}55%{transform:translateY(7px)}}
+@media(prefers-reduced-motion:reduce){.delivery-arrow{animation:none}}
