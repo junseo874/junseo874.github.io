@@ -130,6 +130,8 @@ class OutsideModel{
   if(this.ride)return false;
   if(this.dialog){this.dialog=null;this.updateNear();this.revision++;return true;}
   this.updateNear();const t=this.near;if(!t)return false;
+  const inspection=global.LunaOutsideInspection?.forTarget(t);
+  if(inspection){this.dialog=inspection;this.anim='idle';this.animTime=0;this.updateNear();this.revision++;return true;}
   if(this.qa&&global.LunaOutsideQA.interact(this,t))return true;
   if(!this.qa&&global.lunaCampaign?.interactOutside(this,t))return true;
   if(this.story.interact(t)){this.anim='idle';this.animTime=0;return true;}
@@ -148,6 +150,9 @@ class OutsideModel{
  }
  tick(dt,input={}){
   dt=clamp(Number(dt)||0,0,.05);if(this.paused)return;
+  // Inspecting an image must not start a proximity scene or move the player
+  // through scripted/boundary updates behind the modal.
+  if(this.dialog?.kind==='inspection'){this.time+=dt;this.animTime+=dt;return;}
   syncHomewardGoal(this);
   if(this.qa&&global.LunaOutsideQA.tick(this,dt))return;
   this.story.tick(dt);
@@ -437,7 +442,9 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
    else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaFocusSettings.settingsHTML()+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
+   else if(m.dialog?.kind==='inspection')body=global.LunaOutsideInspection.html(m.dialog);
    else if(m.dialog)body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
+   overlay.classList.toggle('is-inspection',!showPauseMenu&&!hintOpen&&m.dialog?.kind==='inspection');
    overlay.innerHTML=body;overlay.hidden=!body;hud.inert=!!body||devOpen;
    if(body)overlay.querySelector('button')?.focus({preventScroll:true});
   }
@@ -455,11 +462,11 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  }
  function renderSpeech(el,v,background=false){el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
   const key=v.key+':'+v.canTreat;
-  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML=global.LunaExteriorTextbox.html()+'<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>';if(!v.auto&&!v.choice&&!devOpen)el.focus({preventScroll:true});}
+  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML=global.LunaExteriorTextbox.html()+'<p></p>';global.LunaExteriorTextbox.mountText(el.querySelector('p'),v.full,v.emphasis||[],background);if(!v.auto&&!v.choice&&!devOpen)el.focus({preventScroll:true});}
 
   el.querySelector('p').hidden=!v.full;
   global.LunaDialogueCue.sync(el,!v.auto&&!v.choice&&!!v.full&&v.text===v.full);
-  const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text){text.replaceChildren();const marks=v.emphasis||[];let rest=v.text;while(rest){let index=rest.length,word='';for(const mark of marks){const at=rest.indexOf(mark);if(at>=0&&at<index){index=at;word=mark;}}if(!word){text.append(document.createTextNode(rest));break;}if(index)text.append(document.createTextNode(rest.slice(0,index)));const span=document.createElement('span');span.className='outside-story-emphasis';span.textContent=word;text.append(span);rest=rest.slice(index+word.length);}}
+  global.LunaExteriorTextbox.revealText(el.querySelector('p'),Array.from(v.text).length);
   const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/renderCam.w,gap:22});
  }
  function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!global.LunaFocusSettings.hiddenPaused&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
@@ -472,7 +479,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(global.lunaQA?.opened)return;
   if(e.metaKey||e.ctrlKey||e.altKey)return;
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight','KeyE','KeyY','Escape','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}
-  if(e.code==='Escape'&&!e.repeat){menu();return;}
+  if(e.code==='Escape'&&!e.repeat){if(model.dialog?.kind==='inspection'&&!model.paused){clearInput();model.interact();updateHUD();host.focus({preventScroll:true});}else menu();return;}
   if(loading||loadError||model.paused)return;
   if(model.story.speech?.choice)return;
   if(e.code==='KeyY'){if(!e.repeat)togglePanorama();return;}

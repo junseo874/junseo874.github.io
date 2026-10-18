@@ -43,7 +43,7 @@ function create(parent,onChoose,state={}){
    panel.replaceChildren(marker);buttons=next.options.map((o,i)=>{const b=document.createElement('button');b.type='button';b.dataset.choice=o.id;b.disabled=!!o.disabled;b.style.setProperty('--choice-order',i);b.innerHTML='<span></span>';b.querySelector('span').textContent=o.label;if(o.disabled){const note=document.createElement('small');note.textContent=o.disabledReason||'선택할 수 없습니다 · 소지금 부족';b.querySelector('span').append(note);}b.addEventListener('keydown',key);panel.append(b);return b;});
    if(!fresh&&previous){const at=buttons.findIndex(b=>b.dataset.choice===previous);if(at>=0)state.index=at;}
    if(!buttons[state.index]||buttons[state.index].disabled)state.index=buttons.findIndex(b=>!b.disabled);
-   if(Number.isFinite(next.money)){const balance=document.createElement('small');balance.className='bd-balance';balance.textContent='소지금 '+next.money.toLocaleString('ko-KR')+'원';panel.append(balance);}
+   if(Number.isFinite(next.money)){const balance=document.createElement('small');balance.className='bd-balance';balance.textContent='소지금 '+next.money.toLocaleString('ko-KR')+'원';panel.insertBefore(balance,buttons[0]||null);}
    panel.setAttribute('aria-label',next.label||'대화 선택지');paint();
   }
   const head=next.head,w=panel.offsetWidth,h=panel.offsetHeight,right=next.facing===-1||next.facing==='left';

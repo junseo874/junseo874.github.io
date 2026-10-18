@@ -16,7 +16,8 @@
 .world-choices.outside-choices button:focus-visible,#outside-root .world-choices button:focus-visible{outline:1px solid var(--choice-glint);outline-offset:2px}
 .world-choices.outside-choices button:disabled{opacity:.5;cursor:not-allowed}
 .world-choices.outside-choices button small{display:block;font-size:11px;line-height:1.5;color:#d7ac9a}
-.world-choices .bd-balance{padding:3px 8px;color:#bad5dc;font-size:11px;text-shadow:0 1px 3px #000}
+.world-choices .bd-balance{justify-self:start;text-align:left;padding:3px 13px;color:#bad5dc;font-size:11px;line-height:1.4;text-shadow:0 1px 3px #000}
+.world-choices[data-side="left"] .bd-balance{justify-self:end;text-align:right}
 .world-choice-tutorial{position:absolute;left:16px;top:285px;z-index:3;width:350px;box-sizing:border-box;padding:16px 20px;border:1px solid #6cbdc9;border-radius:12px 2px;background:linear-gradient(145deg,#10263280,transparent 55%),#06121bf7;box-shadow:0 0 0 5px #0a1923c9,0 20px 70px #0008,0 0 36px #65dce916;pointer-events:none;color:#d5edf0;font:15px/1.5 LunaPixel,monospace;animation:world-choice-guide-in .3s ease-out both}
 .world-choice-tutorial:before{content:'';position:absolute;top:-2px;left:22px;width:48px;height:3px;background:#9af9f5;box-shadow:0 0 12px #82f6ff66}
 .world-choice-tutorial header{text-align:center;padding-bottom:12px;border-bottom:1px solid #375361}

@@ -1,0 +1,17 @@
+Use case: compositing / stylized-concept.
+Create a finished portrait-format wanted poster asset for a Korean cyberpunk pixel-art adventure game, approximately 2:3 aspect ratio. Flat front-facing poster alone filling the image, no surrounding wall or scene, no perspective mockup.
+Image 1 is the supplied actual Shiba character sprite to incorporate as the main portrait. Extract only the dog from its large white canvas, enlarge with crisp nearest-neighbor-style pixel edges. Preserve the exact reference identity, front-facing bust pose, friendly sly expression, orange-brown fur, cream muzzle and chest, upright ears, patterned neck scarf and red/gold neck trim. Do not redesign it as a generic dog or photorealistic dog. The dog portrait must be large and central, about 40% of poster height.
+Design: convincing in-world corporate security notice, restrained dystopian industrial printed graphic design. Weathered pale blue-gray/off-white paper, dark navy ink, small restrained cyan-blue accents, strong rectangular borders, slight pixel-art print wear at edges only. Pixel-art-compatible crisp lettering, highly readable accurate Korean typography. Serious official notice contrasting humorously with this cute dog. Clear hierarchy, generous but efficient margins, no ornamental excess. Top huge Korean headline, small WANTED beneath; central framed dog portrait; name prominently below; lower information sections and bold reporting footer. All text stays readable, no damage over text.
+Render ONLY the following text, exact Korean spelling:
+"현상수배"
+"WANTED"
+"이름 : 개시바"
+"인상착의"
+"황갈색 털 · 흰 주둥이와 가슴"
+"뾰족한 귀 · 목에 두른 무늬 스카프"
+"혐의"
+"공공질서 혼란 · 공무집행 방해"
+"사기 · 무전취식 · 인종차별"
+"발견 시 신고 1119"
+"코라테크 치안관리부"
+Do not invent a reward amount, additional crimes, logos, dates, authorities or other words. No western cowboy aesthetic. No gradients or blur on sprite, no extra characters. Finished polished game prop poster, not a screenshot or UI panel.
