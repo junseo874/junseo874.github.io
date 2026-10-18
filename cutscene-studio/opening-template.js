@@ -4,7 +4,7 @@ const M=StudioModel,media=StudioMedia,K=StudioKeyframes;
 const DIALOGUE_CPS=W.LunaOutsideStory?.cps??55;
 // Match the main title menu's gothic font stack; story dialogue stays pixel art.
 const INTRO_UI_FONT='"Paperlogy", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
-const PLAY_GUIDE='—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로 넘길 수 있습니다.';
+const PLAY_GUIDE='—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키 또는 스페이스바로 넘길 수 있습니다.';
 const paceIntro=text=>text.replace(/\.{3}|\./g,dots=>dots==='...'?'.[T:0.3].[T:0.3].[T:0.3]':'.[T:0.4]');
 // These four story cards must finish naturally, including the final period's pause.
 function typingPending(c,elapsed){
@@ -163,25 +163,17 @@ M.template=id=>id==='opening'?template():id==='documentary'?documentary():oldTem
 // Code-native input pictograms stay crisp at every game-window size.
 function introControls(g,clock){
  const still=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
- const phase=clock%3.6,active=Math.floor(phase/1.2),beat=phase%1.2;
+ const phase=clock%2.4,active=Math.floor(phase/1.2),beat=phase%1.2;
  const press=still?0:Math.max(0,Math.min(1,(beat-.15)/.12,(.65-beat)/.12));
  const box=(x,y,w,h,r,fill,stroke)=>{g.beginPath();g.roundRect(x,y,w,h,r);g.fillStyle=fill;g.fill();if(stroke){g.strokeStyle=stroke;g.lineWidth=2;g.stroke();}};
  g.save();g.textAlign='center';g.textBaseline='middle';
- [400,640,880].forEach((x,index)=>{
+ [520,760].forEach((x,index)=>{
   const amount=index===active?press:0,ink=amount?'#68e8ef':'#bdcad3',offset=amount*6;
-  if(index<2){
    const width=index===0?66:164;
    box(x-width/2,472,width,60,8,'#15232b','#354852');
    box(x-width/2,464+offset,width,58,8,amount?'#17383e':'#0b141b',ink);
    g.fillStyle=ink;g.font='600 '+(index===0?30:20)+'px '+INTRO_UI_FONT;g.fillText(index===0?'E':'SPACE',x,493+offset);
-  }else{
-   box(x-29,451,58,82,25,'#0b141b',ink);
-   g.save();g.beginPath();g.roundRect(x-29,451,58,82,25);g.clip();
-   g.fillStyle=amount?'#68e8ef':'#28414c';g.fillRect(x-29,451+offset/2,28,35);g.restore();
-   g.strokeStyle=ink;g.lineWidth=2;g.beginPath();g.moveTo(x,452);g.lineTo(x,486);g.moveTo(x-28,486);g.lineTo(x+28,486);g.stroke();
-   box(x-3,464,6,13,3,'#c4d9df');
-  }
-  g.font='500 18px '+INTRO_UI_FONT;g.fillStyle='#8db5c4';g.fillText(['E키','스페이스바','마우스 왼쪽 버튼'][index],x,565);
+  g.font='500 18px '+INTRO_UI_FONT;g.fillStyle='#8db5c4';g.fillText(['E키','스페이스바'][index],x,565);
  });
  g.restore();
 }

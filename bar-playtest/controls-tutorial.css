@@ -19,9 +19,9 @@
 #outside-root .controls-luna canvas{height:166px;width:auto;position:relative;z-index:1;filter:drop-shadow(0 0 10px #6bc4da30)}
 #outside-root .controls-floor{position:absolute;bottom:11px;width:124px;height:18px;border-radius:50%;background:#39788e30;border:1px solid #5193a344}
 #outside-root .controls-interaction{display:flex;justify-content:center;gap:22px;margin:20px 0 17px}
-#outside-root .controls-interaction figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;width:210px;height:178px;background:linear-gradient(#142e3a60,#12212b30);border:1px solid #365662;border-radius:5px}
-#outside-root .controls-object{height:105px;width:auto}
-#outside-root .controls-person{height:113px;width:auto;filter:brightness(3) drop-shadow(0 0 7px #6bbac140)}
+#outside-root .controls-interaction figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:256px;height:224px;background:linear-gradient(#142e3a60,#12212b30);border:1px solid #365662;border-radius:5px}
+#outside-root .controls-example{display:block;position:static;width:232px;height:180px;overflow:hidden;background:#08121a;border-radius:2px;image-rendering:pixelated}
+#outside-root .controls-target-mark{fill:none;stroke:#ff756b;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;filter:drop-shadow(0 0 2px #330c0c)}
 #outside-root .controls-interaction figcaption{color:#a4c4ce;font-size:16px}
 #outside-root .controls-interact-key{display:flex;justify-content:center;height:60px}
 #outside-root .controls-interact-key .controls-keycap{height:46px;width:53px;font-size:26px}

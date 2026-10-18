@@ -259,11 +259,11 @@ html,body{overflow:hidden;background:#03060b}
 @media(max-height:650px){.daily-unlocks{padding:15px 20px}.daily-unlocks header{padding-bottom:12px}.unlock-art{height:60px}.daily-unlocks h2{font-size:20px}.unlock-columns{margin-top:12px}.daily-unlocks footer{margin-top:12px;padding-top:12px}}
 @media(prefers-reduced-motion:reduce){.daily-unlocks{animation:none}}
 
-/* Preparation: an always-visible recipe note replaces the lower-left recipe toggle. */
+/* Preparation: a compact title reveals its checklist on hover or keyboard focus. */
 .corner-tools.prep-corner-tools{left:auto;right:18px;top:17px}
 .prep-screen .prep-recipe-brief{position:absolute;left:24px;top:18px;z-index:5;width:280px;max-width:calc(100% - 100px);padding:12px 15px;display:block;text-align:left;background:rgba(12,23,35,.65);border:1px solid #5b919f;border-radius:8px;box-shadow:none;color:#d9e7e9;line-height:1.4}
 .prep-screen .prep-recipe-brief:hover{background:rgba(18,38,52,.74);border-color:#94dce1;box-shadow:none}
-.prep-brief-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}.prep-brief-heading strong{font-size:19px;color:#a2ebea;overflow-wrap:anywhere;font-weight:400}.prep-brief-heading>span{font:22px/1 Arial,sans-serif;color:#99bec9}
+.prep-brief-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:0}.prep-brief-heading strong{font-size:19px;color:#a2ebea;overflow-wrap:anywhere;font-weight:400}.prep-brief-heading>span{font:22px/1 Arial,sans-serif;color:#99bec9}
 .prep-brief-ingredients{display:flex;flex-direction:column;gap:4px}.prep-brief-row{display:block;font-size:13px;line-height:1.4;overflow-wrap:anywhere}
 .prep-controls .prep-back{height:38px;padding:0 15px;font-size:14px}
 /* Keep the optional GPT helper clear of the shared recipe note. */
@@ -282,6 +282,21 @@ html,body{overflow:hidden;background:#03060b}
 .prep-brief-row.is-packed{color:#adf2e4}
 .prep-brief-row.is-packed .prep-brief-check{color:#c7fff4;background:#23574fbb;border-color:#8adccc}
 .prep-brief-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.prep-brief-reveal{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .24s cubic-bezier(.22,.61,.36,1),opacity .16s ease,visibility 0s .24s}
+.prep-brief-clip{display:block;min-height:0;overflow:hidden}
+.prep-brief-reveal .prep-brief-ingredients{margin-top:8px}
+.prep-recipe-brief:is(:hover,:focus-visible) .prep-brief-reveal{grid-template-rows:1fr;opacity:1;visibility:visible;transition-delay:0s}
+/* A softer, single-shot version of the title menu's cyan/rose signal slices. */
+.prep-brief-signal{position:relative;display:inline-block}
+.prep-brief-signal:before,.prep-brief-signal:after{content:attr(data-text);position:absolute;inset:0;pointer-events:none;opacity:0}
+.prep-brief-signal:before{color:#65e5ef;clip-path:inset(18% 0 56% 0);--brief-shift:1.5px}
+.prep-brief-signal:after{color:#bc9bb5;clip-path:inset(59% 0 15% 0);--brief-shift:-1.5px}
+.prep-recipe-brief:is(:hover,:focus-visible) .prep-brief-signal{animation:brief-signal .26s steps(1,end) 1}
+.prep-recipe-brief:is(:hover,:focus-visible) .prep-brief-signal:before,.prep-recipe-brief:is(:hover,:focus-visible) .prep-brief-signal:after{animation:brief-signal-slice .26s steps(1,end) 1}
+.prep-brief-reveal .prep-brief-signal,.prep-brief-reveal .prep-brief-signal:before,.prep-brief-reveal .prep-brief-signal:after{animation-delay:60ms!important}
+@keyframes brief-signal{0%,100%{text-shadow:none}18%,48%{text-shadow:1px 0 #65e5ef70,-1px 0 #bc9bb550}30%,65%{text-shadow:none}}
+@keyframes brief-signal-slice{0%,35%,70%,100%{opacity:0;transform:none}16%,52%{opacity:.5;transform:translateX(var(--brief-shift))}26%,62%{opacity:.25;transform:translateX(calc(var(--brief-shift) * -1))}}
+@media(prefers-reduced-motion:reduce){.prep-brief-reveal{transition:none}.prep-brief-signal,.prep-brief-signal:before,.prep-brief-signal:after{animation:none!important}}
 
 /* Developer-only story shortcut, also reachable above the day-0 recipe guide. */
 .dev-craft-skip{position:absolute;right:26px;bottom:26px;z-index:44;padding:12px 18px;background:#0b1b28eb;border:1px solid #68aeba;border-radius:7px;color:#bfeaf0;font-size:15px;cursor:pointer}

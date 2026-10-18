@@ -55,18 +55,19 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  assert.equal(await p.evaluate(()=>!!barGame.progress.objectives?.first_commute),false);
  assert.equal(await panel.locator('.controls-description').textContent(),'E키를 눌러 오브젝트나 다른 인물들과 상호작용할 수 있습니다.');
  await checkHint();
- assert.equal(await panel.locator('canvas').count(),2);
+ assert.equal(await panel.locator('svg.controls-example').count(),2);
  for(const viewport of [{width:1440,height:900},{width:1920,height:1080},{width:900,height:700}]){
   await p.setViewportSize(viewport);await p.waitForTimeout(150);
   const contained=await panel.locator('figure').evaluateAll(figures=>figures.every(figure=>{
-   const a=figure.getBoundingClientRect(),b=figure.querySelector('canvas').getBoundingClientRect();
+   const a=figure.getBoundingClientRect(),b=figure.querySelector('.controls-example').getBoundingClientRect();
    return b.left>=a.left&&b.top>=a.top&&b.right<=a.right&&b.bottom<=a.bottom;
   }));assert(contained,'Sprites must stay inside their cards');
   assert(await panel.evaluate(el=>el.scrollWidth===el.clientWidth),'Copy must fit the panel');
  }
  await p.setViewportSize({width:1440,height:900});
- const painted=await panel.locator('canvas').evaluateAll(nodes=>nodes.every(c=>c.width>1&&c.height>1&&Array.from(c.getContext('2d').getImageData(0,0,c.width,c.height).data).some((v,i)=>i%4===3&&v>0)));
- assert(painted,'Both real sprite images are rendered');
+ const painted=await panel.locator('.controls-example image').evaluateAll(nodes=>Promise.all(nodes.map(async el=>{const im=new Image();im.src=el.getAttribute('href');await im.decode();return im.naturalWidth>0;})));
+ assert(painted.every(Boolean),'Both supplied screenshots are loaded');
+ assert.equal(await panel.locator('.controls-target-mark').count(),2);
  assert.equal(await p.evaluate(()=>popupSounds.length),2);
  await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>popupSounds.length),2,'No repeated sound on render');
  await p.screenshot({path:'/private/tmp/controls-interaction.png'});

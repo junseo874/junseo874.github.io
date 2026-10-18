@@ -79,7 +79,7 @@ class OutsideModel{
  constructor(options={}){this.start(options);}
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
-  this.barArrival=null;this.commuteBoundarySide=0;
+  this.barArrival=null;this.commuteBoundarySide=0;this.beggarDeparture=null;
   this.thugFlags={};this.samhoCommuteFlags={};this.notionFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
   this.controlsTutorial=false;this.controlsInteractUntil=0;this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
  }
@@ -120,7 +120,7 @@ class OutsideModel{
   if(this.qa)return global.LunaOutsideQA.targets(this);
   if(this.scene==='home')return[...(this.config.day===0?[{id:'tv',label:'TV 다큐 보기',x:1.22,y:-.7}]:[]),{id:'exit',label:'밖으로 나가기',x:-1.581,y:-.7},...(this.config.flow==='out'?[SOFA]:[])];
   if(this.level)return[...(global.LunaOutsideNotion?.targets(this)||[]),{id:'home',label:'집에 들어가기',x:R.homeX,y:R.upperY},{id:'elevator',label:this.elevatorY>4?'엘리베이터 · 내려가기':'엘리베이터 호출',x:EX,y:R.upperY}];
-  return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(global.LunaOutsideContent?.targets(this)||[]),...(global.LunaBDVendor?.targets(this)||[]),...(global.LunaOutsideShop?.targets(this)||[])];
+  return[...(global.LunaOutsideEncounters?.targets(this)||[]),{id:'bar',label:'바 입구',x:1.0086,y:-.7},{id:'elevator',label:this.elevatorY<4?'엘리베이터 · 올라가기':'엘리베이터 호출',x:EX,y:-.7},...(global.LunaOutsideContent?.targets(this)||[]),...(global.LunaBDVendor?.targets(this)||[]),...(global.LunaOutsideShop?.targets(this)||[]),...(global.LunaOutsideBeggar?.targets(this)||[])];
  }
  updateNear(){global.LunaStoryNotices?.forced(this);this.near=this.qa?.runtime||this.barArrival||this.ride||this.transition||this.encounter||this.dialog||this.story?.blocking?null:this.targets().filter(t=>Math.abs(t.x-this.x)<(t.id==='elevator'?.62:.4)).sort((a,b)=>Math.abs(a.x-this.x)-Math.abs(b.x-this.x)||a.id.localeCompare(b.id))[0]||null;}
  beginEncounter(target){const e=global.LunaOutsideEncounters.prepare(this,target);if(!e)return false;this.story.cancel();this.encounter=e;this.facing=e.facing;this.updateNear();return true;}
@@ -152,7 +152,7 @@ class OutsideModel{
   if(this.qa&&global.LunaOutsideQA.tick(this,dt))return;
   this.story.tick(dt);
   global.LunaOutsideStory.tickBackground(this,dt);
-  this.time+=dt;this.noticeLeft=Math.max(0,this.noticeLeft-dt);
+  this.time+=dt;global.LunaOutsideBeggar?.tick(this,dt);this.noticeLeft=Math.max(0,this.noticeLeft-dt);
   if(global.LunaOutsideEncounters?.tick(this,dt))return;
   if(global.LunaOutsideNotion?.tick(this,dt))return;
   if(global.LunaOutsideThug?.tick(this,dt))return;
@@ -180,10 +180,10 @@ class OutsideModel{
    this.anim='idle';this.animTime+=dt;return;
   }
   if(this.tickBarArrival(dt))return;
-  if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+.382;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
+  if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+R.passengerOffset;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;
   const restricted=this.isFirstCommute()&&this.scene==='street'&&this.level===0;
-  const bounds=restricted?[-.9,2.15]:this.qa?[Math.min(-6,R.lowerMin),6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x,desired=this.x+direction*speed*dt;
+  const bounds=restricted?[-.9,2.15]:this.qa?[-12.81,6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x,desired=this.x+direction*speed*dt;
   this.x=clamp(desired,...bounds);
   if(restricted){
    if(this.x>bounds[0]+.12&&this.x<bounds[1]-.12)this.commuteBoundarySide=0;
@@ -200,11 +200,12 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  const glowRenderer=global.LunaInteractionGlow.create();let renderingNode=null;
  const data=global.LUNA_OUTSIDE_DATA,config={place:'bar',flow:'out',day:0},images=new Map(),keys=new Set();
  let active=false,loading=false,loadError='',model=null,host=null,canvas=null,ctx=null,cam={x:1,y:0,w:4.8},generation=0,hudSignature='',lastScene='',panorama=false,wakeSpawn=false,devOpen=false,notices=null,hintOpen=false,streetLocation=null;
+ let surface=global.LunaPixelCamera.surface(1280,720),renderCam={...cam},pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const button=(text,action,cls='')=>`<button class="${cls}" data-outside-action="${action}">${text}</button>`;
  function lobbyHTML(tabs){return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup outside-entry"><small>OUTSIDE EXPLORATION</small><h2>외부 공간</h2><p>거리와 집을 자유롭게 둘러보세요.<br>설정은 탐색 중 <kbd>P</kbd>를 눌러 변경할 수 있습니다.</p>${button('탐색 시작 →','start','primary')}<span>0일차 · 퇴근길 · 바 문 앞에서 시작</span></section></div>`;}
  async function loadImages(){await Promise.all(Object.entries(data.assets).map(([id,a])=>{if(images.has(id))return;return new Promise((resolve,reject)=>{const im=new Image(),timeout=setTimeout(()=>reject(Error(a.src)),15000);im.onload=()=>{clearTimeout(timeout);images.set(id,im);resolve();};im.onerror=()=>{clearTimeout(timeout);reject(Error(a.src));};im.src=a.src;});}));}
- function fit(){if(host)host.style.setProperty('--outside-scale',Math.min(innerWidth/1280,innerHeight/720));}
+ function fit(){if(!host)return;const previous=surface;surface=global.LunaPixelCamera.surface(innerWidth,innerHeight,devicePixelRatio);if(previous.w!==surface.w||previous.dpr!==surface.dpr)pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);host.style.setProperty('--outside-scale',surface.cssScale);host.style.setProperty('--outside-left',surface.left+'px');host.style.setProperty('--outside-top',surface.top+'px');if(canvas&&(canvas.width!==surface.w||canvas.height!==surface.h)){canvas.width=surface.w;canvas.height=surface.h;}}
  function clearInput(){keys.clear();}
  function devMoney(){return Math.max(0,Number(global.barGame?.progress.money)||0);}
  function devHTML(){return '<aside class="outside-dev-console" role="dialog" aria-label="외부 개발자 콘솔" hidden><header><div><small>DEVELOPER</small><h2>외부 개발자 콘솔</h2></div>'+button('P · 닫기','dev-close')+'</header><section class="outside-dev-days-section"><h3>일차</h3><div class="outside-dev-days">'+[0,1,2,3,99].map(day=>button(day===99?'99일차 · QA 가상 공간':day+'일차','dev-day-'+day,day===99?'outside-dev-qa':'')).join('')+'</div></section><section><h3>이동 상태 <small class="outside-dev-day"></small></h3><div class="outside-dev-flow">'+button('출근길','dev-flow-in')+button('퇴근길','dev-flow-out')+'</div></section><section><h3>위치 이동</h3>'+button('집 안','dev-home')+button('엘리베이터 앞 · 아래층','dev-elevator')+button('바 문 앞','dev-bar')+'</section><section><h3>현재 소지금</h3><output class="outside-dev-money" aria-live="polite"></output><div class="outside-dev-money-actions">'+button('−1,000원','dev-minus')+button('+1,000원','dev-plus')+'</div></section><p class="outside-dev-note"></p><p class="outside-dev-feedback" role="status"></p></aside>';}
@@ -262,6 +263,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function snapCamera(){
   const arriving=model.scene==='street'&&(model.barArrival||model.transition?.barArrival);
   cam={x:model.scene==='home'?clamp(model.x,.34,1.14):arriving?.65:model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;
+  pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
  }
  async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
  function exit(silent=false){global.LunaControlsTutorial.stop();global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
@@ -277,15 +279,28 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  }
  function targetCamera(dt){
   if(!atViewpoint(model))panorama=false;
-  if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7;
+  if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7,liftWidth=null,liftDisplayWidth=null;
   // Day-zero commute descent keeps the normal player-follow framing.
   const closeCommuteLift=model.config.day===0&&model.config.flow==='in'&&model.ride?.to<model.ride?.from;
-  if(model.scene==='street'&&model.ride&&!model.ride.call&&!closeCommuteLift){const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));w=mix(4.8,12.8,zoom);x=model.x+3.25*zoom;y=model.y+.7+1.0*zoom;}
+  if(model.scene==='street'&&model.ride&&!model.ride.call&&!closeCommuteLift){
+   const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));
+   w=mix(4.8,12.8,zoom);liftWidth=w;
+   liftDisplayWidth=mix(global.LunaPixelCamera.settledWidth(4.8,surface),global.LunaPixelCamera.settledWidth(12.8,surface),zoom);
+   // Ascending panorama: put Luna/lift at 6% of the displayed frame, not
+   // a fixed world offset. PPU-calibrated width varies with viewport/DPR.
+   // Use the same easing as the zoom so boarding and arrival stay continuous.
+   x=model.x+(r.to>r.from?liftDisplayWidth*.44:3.25)*zoom;
+   y=model.y+.7+1.0*zoom;
+  }
   if(model.qa?.camera){({w,x,y}=model.qa.camera);}
   if(model.encounter){panorama=false;if(model.encounter.stage!=='leaving')({w,x,y}=model.encounter.camera);}
   if(model.scene==='street'&&(model.barArrival||model.transition?.barArrival))x=.65;
   if(!panorama)({w,x,y}=global.LunaOutsideResidents.frame(model,{w,x,y}));
   if(panorama){w=VIEWPOINT.width;x=VIEWPOINT.x;y=-1.48+w*720/1280/2;}
+  // Keep endpoint PPU alignment while the zoom follows the original smooth
+  // cinematic curve. Quantizing this moving target caused 3x -> 2x -> 1x cuts.
+  const pixelGoal=w===liftWidth?liftDisplayWidth:global.LunaPixelCamera.settledWidth(w,surface);
+  pixelWidth=global.LunaPixelCamera.approachWidth(pixelWidth,pixelGoal,dt);
   if(!model.qa){if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);}
   // Constrain the visible bottom, not just the camera center, during zoom.
   const floor=data.scenes.street.nodes.find(n=>n.name==='1F Floor').y+.02;
@@ -294,18 +309,18 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(model.scene==='street')cam.y=Math.max(cam.y,floor+cam.w*720/1280/2);
   if(model.encounter)model.encounter.cameraReady=Math.abs(cam.x-x)<.015&&Math.abs(cam.y-y)<.015&&Math.abs(cam.w-w)<.015;
  }
- function position(x,y){const s=1280/cam.w;return{x:640+(x-cam.x)*s,y:360-(y-cam.y)*s};}
- function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=position(x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(sx)*scale,h=sp.h/sp.ppu*Math.abs(sy)*scale;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);glowRenderer.paint(ctx,img,sp,renderingNode,x,y,w,h);ctx.restore();}
+ function position(x,y){return global.LunaPixelCamera.position(x,y,renderCam);}
+ function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=global.LunaPixelCamera.sprite(sp,x,y,sx,sy,flip,renderCam,surface),w=p.w,h=p.h;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(p.x,p.y);ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);if(renderingNode?.neon)global.LunaStreetSigns.paint(ctx,img,sp,w,h);else ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);if(renderingNode?.name==='B_Obects')global.LunaWireSpark?.paint(ctx,img,images.get('street-wire-spark'),sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);glowRenderer.paint(ctx,img,sp,renderingNode,x,y,w,h);ctx.restore();}
  function renderNode(n){const previous=renderingNode;renderingNode=n;try{renderSceneNode(n);}finally{renderingNode=previous;}}
- function renderSceneNode(n){if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
+ function renderSceneNode(n){if(global.LunaOutsideBeggar?.drawNode(model,n,drawSprite))return;if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
   // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
-  const light=n.light||/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model),art=streetParallax(n,cam,model);drawSprite(sp,art.x,art.y+(y-n.y),n.sx,n.sy,facing,n.alpha??(light?.26:1),light);
+  const light=n.light||/City.*Light/.test(n.name);let sp=n.ambient?global.LunaOutsideAmbient.frame(n,model.time):n.sprite;const facing=global.LunaOutsideAmbient.facing(n,model),art=streetParallax(n,renderCam,model);drawSprite(sp,art.x,art.y+(y-n.y),n.sx,n.sy,facing,n.alpha??(light?.26:1),light);
  }
  function drawEntranceCue(){
   if(!firstCommuteEntranceCue(model))return;
   const door=data.scenes.street.nodes.find(n=>n.name==='Bar Spawn Point');if(!door)return;
-  const k=1280/cam.w,p=position(door.x,-.98);if(p.x+.3*k<0||p.x-.3*k>1280)return;
+  const k=1280/renderCam.w,p=position(door.x,-.98);if(p.x+.3*k<0||p.x-.3*k>1280)return;
   const still=global.matchMedia?.('(prefers-reduced-motion: reduce)').matches,t=still?0:model.time;
   const drift=still?0:Math.sin(t*Math.PI*2/.9)*.012*k;
   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
@@ -326,7 +341,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   ctx.restore();
  }
  function interactionTarget(){const m=model;return m&&!m.paused&&!loading&&!loadError&&!devOpen&&!hintOpen&&!m.controlsTutorial&&!m.dialog&&!m.story.blocking&&!global.lunaCampaign?.blocking?m.near:null;}
- function draw(){if(!ctx||!model)return;glowRenderer.begin(model.qa?null:interactionTarget(),model);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
+ function draw(){if(!ctx||!model)return;if(surface.dpr!==devicePixelRatio)fit();renderCam=global.LunaPixelCamera.view(cam,surface,{scene:model.scene,qa:!!model.qa,displayWidth:pixelWidth,floor:data.scenes.street.nodes.find(n=>n.name==='1F Floor').y+.02});ctx.setTransform(surface.factor,0,0,surface.factor,0,0);glowRenderer.begin(model.qa?null:interactionTarget(),model);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#090d19';ctx.fillRect(0,0,1280,720);if(loading||loadError)return;
   if(model.qa){global.LunaOutsideQA.draw({m:model,ctx,position,sprite:drawSprite,data,player:()=>{const a=data.animations[model.anim];drawSprite(a.frames[Math.floor(model.animTime*a.fps)%a.frames.length],model.x,model.y,1,1,model.facing>0);}});if(model.transition){ctx.fillStyle='rgba(6,10,18,'+Math.max(0,1-Math.abs(model.transition.time-.38)/.47)+')';ctx.fillRect(0,0,1280,720);}return;}
   const nodes=data.scenes[model.scene].nodes.slice().sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
   if(model.scene==='home'){const bg=nodes.find(n=>n.name==='main_bg');if(bg)renderNode(bg);nodes.filter(n=>n.name!=='main_bg'&&n.name!=='ForeFore_Object').forEach(renderNode);}
@@ -337,13 +352,13 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    for(const n of streetDrawOrder(nodes)){
     // Traffic is part of the scene, not an overlay: skyline silhouettes,
     // foreground shops and the residence/lift naturally cover it afterwards.
-    if(!farTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'far');farTraffic=true;}
-    if(!midTraffic&&n.layer>=5){global.LunaOutsideTraffic?.draw(ctx,model,cam,position,'mid');midTraffic=true;}
+    if(!farTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'far');farTraffic=true;}
+    if(!midTraffic&&n.layer>=5){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'mid');midTraffic=true;}
     if(n.name==='Luna'){drawEntranceCue();global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);
    }
   }
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
-  global.LunaOutsideRain?.draw(ctx,model,cam,position);
+  global.LunaOutsideRain?.draw(ctx,model,renderCam,position);
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
@@ -446,7 +461,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   el.querySelector('p').hidden=!v.full;
   global.LunaDialogueCue.sync(el,!v.auto&&!v.choice&&!!v.full&&v.text===v.full);
   const text=el.querySelector('.outside-speech-text,.outside-background-text');if(text.textContent!==v.text){text.replaceChildren();const marks=v.emphasis||[];let rest=v.text;while(rest){let index=rest.length,word='';for(const mark of marks){const at=rest.indexOf(mark);if(at>=0&&at<index){index=at;word=mark;}}if(!word){text.append(document.createTextNode(rest));break;}if(index)text.append(document.createTextNode(rest.slice(0,index)));const span=document.createElement('span');span.className='outside-story-emphasis';span.textContent=word;text.append(span);rest=rest.slice(index+word.length);}}
-  const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/cam.w,gap:22});
+  const p=position(v.anchor.x,v.anchor.y);global.LunaWorldSpeech.place(el,{...p,scale:4.8/renderCam.w,gap:22});
  }
  function tick(dt){if(!active)return;notices?.update(model,loading?0:dt);if(!loading&&!loadError&&!global.LunaFocusSettings.hiddenPaused&&!devOpen&&!hintOpen&&!model.controlsTutorial){const left=keys.has('KeyA')||keys.has('ArrowLeft'),right=keys.has('KeyD')||keys.has('ArrowRight');model.tick(dt,{move:Number(right)-Number(left),run:keys.has('ShiftLeft')||keys.has('ShiftRight')});if(!model.paused){targetCamera(Math.min(dt,.05));global.LunaOutsideResidents.tickView(model,cam);}}draw();updateHUD();}
  document.addEventListener('change',e=>{const key=e.target.dataset?.outsideSetting;if(!key)return;const value=e.target.value;if(key==='place'&&Object.hasOwn(PLACES,value))config.place=value;if(key==='flow'&&Object.hasOwn(FLOWS,value))config.flow=value;if(key==='day')config.day=Number(value)===99?99:clamp(Number(value)||0,0,3);},true);
@@ -470,8 +485,8 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  window.addEventListener('keyup',e=>{keys.delete(e.code);controlsDismissKeys.delete(e.code);});
  function loseFocus(){controlsDismissKeys.clear();if(!active)return;if(devOpen)toggleDev(false);clearInput();if(global.LunaFocusSettings.enabled&&!loading&&!loadError){model.paused=true;updateHUD();}}
  window.addEventListener('blur',loseFocus);document.addEventListener('visibilitychange',()=>{if(document.hidden)loseFocus();});window.addEventListener('resize',fit);
- function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene;try{if(view){cam={...view};model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;draw();}}
- return{get interactionGlow(){return glowRenderer.snapshot();},get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
+ function snapshot(view=null){if(!ctx||loading||loadError)return null;const oldCam=cam,oldScene=model.scene,oldPixelWidth=pixelWidth;try{if(view){cam={...view};pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);model.scene='street';}draw();return canvas.toDataURL('image/png');}finally{cam=oldCam;model.scene=oldScene;pixelWidth=oldPixelWidth;draw();}}
+ return{get interactionGlow(){return glowRenderer.snapshot();},get active(){return active;},get devConsoleOpen(){return devOpen;},get model(){return model;},get loading(){return loading;},get loadError(){return loadError;},get camera(){return{...cam};},get renderCamera(){return{...renderCam};},get pixelSurface(){return{...surface};},config,lobbyHTML,start,exit,advanceDay,showControlsTutorial,controlsTutorialKey,notifyItem:(m,id)=>active&&m===model&&notices?.add(m,id),tick,clearInput,snapshot,snapCamera,openDev:()=>toggleDev(true),devAction,refreshHUD:updateHUD};
 }
 global.LunaOutside={Model:OutsideModel,create,streetDrawOrder,streetParallax,interactionAnchor,viewpoint:VIEWPOINT,atViewpoint,firstCommuteEntranceCue,homewardCues};
 })(typeof window==='undefined'?globalThis:window);

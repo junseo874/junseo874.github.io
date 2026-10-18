@@ -4,6 +4,7 @@
 .pour-stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
 .pour-fallback{visibility:hidden}
 .pour-stage canvas[data-pixel-pour]{pointer-events:auto;touch-action:none;image-rendering:pixelated;cursor:inherit}
+.pour-stage canvas[data-pour-guide]{pointer-events:none;image-rendering:auto}
 .pour-top-readout{flex-wrap:wrap;max-width:650px}
 .pour-top-readout>small{flex-basis:100%;color:#a2b6bd;font-size:12px}
 .opening-phase{position:absolute;top:45px;left:0;right:0;text-align:center;color:#e7c88e;font-size:20px;pointer-events:none}

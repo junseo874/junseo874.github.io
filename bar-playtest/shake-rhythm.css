@@ -8,7 +8,7 @@
 .rhythm-modes button[aria-pressed=true]{border-bottom-color:#84dff4;color:#d2f4ff;text-shadow:0 0 10px #72d8ff88;background:linear-gradient(0deg,#3ab9e214,transparent)}
 .rhythm-modes button:disabled{opacity:.5}.rhythm-modes button[aria-pressed=true]:disabled{opacity:1}
 .rhythm-score{display:flex;align-items:center;justify-content:space-between;position:relative;height:75px;flex-shrink:0;color:#a5bccc;font-variant-numeric:tabular-nums;padding:0 4px}
-.rhythm-score>div:first-child{display:flex;gap:10px;align-items:baseline}.rhythm-score b{font-size:43px;font-weight:400;color:#e1faff;line-height:1;text-shadow:0 0 calc(8px + 14px * var(--rhythm-impact,0)) #6bdaff80;transform:scale(calc(1 + var(--rhythm-impact,0) * .08));transform-origin:left bottom}.rhythm-score span{font-size:11px;letter-spacing:2px}.rhythm-score em{font-style:normal;color:#647e90}
+.rhythm-score span{font-size:11px;letter-spacing:2px}.rhythm-score em{font-style:normal;color:#647e90}
 .rhythm-verdict{position:absolute;left:50%;top:26px;transform:translateX(-50%);font-size:18px;color:#deefff;letter-spacing:2px;text-shadow:0 0 14px #68d4ff;pointer-events:none;white-space:nowrap}.rhythm-verdict.miss{color:#d88b9d;text-shadow:none;letter-spacing:3px;font-size:16px}
 .rhythm-stage{display:block;flex:1;min-height:0;width:100%;overflow:hidden}
 .rhythm-track{stroke:#2a6a8840;stroke-width:64;fill:none}.rhythm-rail{stroke:#85b5ca26;stroke-width:1;fill:none}.rhythm-judge{stroke:#96e4ff9c;stroke-width:1;fill:none}
@@ -34,31 +34,7 @@
 .main-story-mix.shake-screen .rhythm-board{padding:0 18px 18px}
 .main-story-mix.shake-screen .rhythm-score{height:68px}
 .main-story-mix.stir-screen .mix-workspace{padding-top:22px}
-@media(prefers-reduced-motion:reduce){.rhythm-burst,.note-aura,.target-halo{display:none}.rhythm-score b{transform:none}.rhythm-verdict,.rhythm-score b{text-shadow:none}}
-
-/* Combo heat stays local to the counter; note tempo rises separately; the real-time hit window stays unchanged. */
-.rhythm-combo-wrap{position:relative;isolation:isolate;min-width:124px}
-.rhythm-combo-fire{position:absolute;left:-16px;top:-30px;width:108px;height:108px;overflow:visible;pointer-events:none;z-index:-1}
-.rhythm-combo-fire .combo-flame{filter:drop-shadow(0 0 4px #ed8e3d55)}
-.rhythm-heat-label{position:absolute;left:0;bottom:-18px;font:9px/1.2 system-ui,sans-serif;letter-spacing:2px;color:#efbd84;white-space:nowrap}
-.rhythm-board[data-combo-tier="1"] .rhythm-score b{color:#fff2d8;text-shadow:0 0 9px #efab6588,0 0 21px #d6873e66}
-.rhythm-board[data-combo-tier="2"] .rhythm-score b{color:#fff7dc;text-shadow:0 0 9px #ffd576,0 0 23px #fb8e4188;transform:scale(calc(1.06 + var(--rhythm-impact,0) * .1))}
-.rhythm-board[data-combo-tier="2"] .rhythm-heat-label{color:#ffcf83;letter-spacing:2.5px}
-.rhythm-board[data-combo-tier="2"] .rhythm-progress i.hit{background:#f0d89c;box-shadow:0 0 5px #ebb16c77}
-@media(prefers-reduced-motion:reduce){.rhythm-combo-fire{display:none}.rhythm-board[data-combo-tier] .rhythm-score b{transform:none;text-shadow:none}}
-
-/* Peripheral motion only: never move the judge line or cover incoming note labels. */
-.rhythm-speed-lines{fill:none;stroke:#89daee;stroke-width:1;pointer-events:none}
-.rhythm-note-tail{fill:none;stroke:currentColor;stroke-width:8;opacity:.16;filter:blur(3px);pointer-events:none}
-.rhythm-board[data-combo-tier="1"]{box-shadow:inset 0 0 60px #40b9d913}
-.rhythm-board[data-combo-tier="2"]{box-shadow:inset 0 0 75px #efaa4920}
-.rhythm-board[data-combo-tier="2"] .rhythm-speed-lines{stroke:#f3d18d;stroke-width:1.5}
-.shake-screen[data-rhythm-tier="1"] .mix-cinema{box-shadow:inset 0 0 25px #72d9e326}
-.shake-screen[data-rhythm-tier="2"] .mix-cinema{box-shadow:inset 0 0 40px #f1b86238}
-.shake-screen:has(.rhythm-board) .mix-cinema::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 45%,#70ceec);opacity:calc(var(--rhythm-surge,0) * .2)}
-.shake-screen[data-rhythm-tier="2"] .mix-cinema::before{background:radial-gradient(ellipse at center,transparent 40%,#f7ba64);opacity:calc(var(--rhythm-surge,0) * .28)}
-.rhythm-board[data-combo-tier="2"] .target-face{stroke:#e6e7cc;filter:drop-shadow(0 0 7px #b9d8ddaa)}
-@media(prefers-reduced-motion:reduce){.rhythm-speed-lines,.rhythm-note-tail,.shake-screen:has(.rhythm-board) .mix-cinema::before{display:none}}
+@media(prefers-reduced-motion:reduce){.rhythm-burst,.note-aura,.target-halo{display:none}.rhythm-verdict{text-shadow:none}}
 
 /* Restored generated-node route: the moving marker is distinct from static targets. */
 .rhythm-path-route{fill:none;stroke:#7eb7ce55;stroke-width:2}
@@ -69,5 +45,4 @@
 .rhythm-path-trail{fill:#ffd394;pointer-events:none}
 .rhythm-board[data-rhythm-mode=path] .rhythm-stage{cursor:pointer;touch-action:manipulation}
 .rhythm-board[data-rhythm-mode=path] .rhythm-pads button{width:160px}
-.rhythm-board[data-rhythm-mode=path][data-combo-tier="2"] .path-range{stroke:#dfbf7e88}
 @media(prefers-reduced-motion:reduce){.rhythm-path-trail{display:none}.rhythm-path-marker,.rhythm-path-node.in-range .path-range{filter:none}}

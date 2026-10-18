@@ -38,7 +38,7 @@ function paint(canvas,r,n,muted=new Set()){
  const ls=(r.layers||[]).filter(l=>!muted.has(l.key)).map(l=>({l,f:geometry(l,n%(l.frames||1))}));
  if(!r.stage)for(const {f}of ls){sw=Math.max(sw,f.cw);sh=Math.max(sh,f.ch);}
  const k=canvas.dataset.thumb?Math.min(1,220/sw,180/sh):Math.min(1,4096/sw,4096/sh);canvas.width=Math.max(1,Math.round(sw*k));canvas.height=Math.max(1,Math.round(sh*k));ctx.setTransform(k,0,0,k,0,0);ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,sw,sh);
- for(const {l,f}of ls){const im=image(f.src);if(!im?.complete||!im.naturalWidth)continue;if(l.placement){const p=l.placement;ctx.save();ctx.globalAlpha=l.alpha??1;ctx.globalCompositeOperation=l.blend||'source-over';ctx.translate(p.x+(p.flip?p.w:0),p.y+(p.flipY?p.h:0));ctx.scale(p.flip?-1:1,p.flipY?-1:1);ctx.drawImage(im,f.x,f.y,f.w,f.h,0,0,p.w,p.h);ctx.restore();continue;}const scale=r.stage?l.scale||1:1,ox=r.stage?(sw-f.w*scale)/2+(l.offset?.[0]||0):f.ox,oy=r.stage?sh-f.h*scale-(l.offset?.[1]||0):f.oy;ctx.drawImage(im,f.x,f.y,f.w,f.h,ox,oy,f.w*scale,f.h*scale);}
+ for(const {l,f}of ls){const im=image(f.src);if(!im?.complete||!im.naturalWidth)continue;if(l.placement){const p=l.placement;ctx.save();ctx.globalAlpha=l.alpha??1;ctx.globalCompositeOperation=l.blend||'source-over';ctx.translate(p.x+(p.flip?p.w:0),p.y+(p.flipY?p.h:0));ctx.scale(p.flip?-1:1,p.flipY?-1:1);if(l.neon)F.LunaStreetSigns.paint(ctx,im,{...f,pivot:{x:0,y:1}},p.w,p.h);else ctx.drawImage(im,f.x,f.y,f.w,f.h,0,0,p.w,p.h);ctx.restore();continue;}const scale=r.stage?l.scale||1:1,ox=r.stage?(sw-f.w*scale)/2+(l.offset?.[0]||0):f.ox,oy=r.stage?sh-f.h*scale-(l.offset?.[1]||0):f.oy;ctx.drawImage(im,f.x,f.y,f.w,f.h,ox,oy,f.w*scale,f.h*scale);}
 }
 function drawThumbs(){for(const c of document.querySelectorAll('canvas[data-thumb]')){const r=rows.find(r=>r.id===c.dataset.thumb);if(r)paint(c,r,0);}}
 function drawPreview(){if(!selected)return;paint($('#preview-canvas'),selected,step,disabled);const label=$('#frame-label');if(label)label.textContent=(step+1)+' / '+count(selected)+' 프레임';const slider=$('#frame-slider');if(slider)slider.value=step;}
@@ -104,7 +104,7 @@ async function launch(d,title,note,fromHistory=false){
   else if(['solo','pair'].includes(d.type)){g.day=3;g.screen='bar';g.phase='regular';g.seats={L:{id:'review-left',actor:d.type==='pair'?'samho':'chris',state:'STORY'},M:null,R:d.type==='pair'?{id:'review-right',actor:'tom',state:'STORY'}:null};g.focus='L';g.currentOrder=null;g.dialogue=g.makeLine(d.type==='pair'?'luna':'chris',d.type==='pair'?'삼호는 톰 걸 만들고 나서 주문을 받도록 하겠습니다.':'어서 와. 오늘도 잘 부탁하지.');g.dialogue.chars=g.dialogue.text.length;}
   else if(d.type==='scene'||d.type==='choices'){q.state.scene=d.id||'t99_dialogue';q.state.step='0';if(d.type==='choices'){const choice=g.t.steps.find(r=>r.type==='choice');if(!choice)throw Error('등록된 선택지 스텝이 없습니다.');q.state.scene=choice.context;q.state.step=String(g.t.steps.filter(r=>r.context===choice.context).sort((a,b)=>+a.seq-+b.seq).indexOf(choice));}q.runScene();}
   else if(d.type==='tutorial'){g.reset(0,'full',1,true,{variant:'original',serviceVersion:'A'});}
-  else if(d.type==='mini'){ui.minigames=true;g.startMinigame(d.id,'original');}
+  else if(d.type==='mini'){ui.minigames=true;if(d.id==='shake')ui.shakeMode='path';g.startMinigame(d.id,'original');}
   else if(d.type==='effect'){
    if(d.id==='camera'){
     g.day=3;g.phase='regular';g.screen='bar';g.focus='L';g.currentOrder=null;g.seats={L:{id:'fx-chris',actor:'chris',state:'STORY'},M:null,R:null};c.render(true);
@@ -115,11 +115,12 @@ async function launch(d,title,note,fromHistory=false){
    }else{
     ui.minigames=true;g.startMinigame(d.id,'original');const s=g.gimmick;
     if(d.id==='shake'){
-     F.LunaShakeRhythm.init(s,'fall');g.gimmickInput('Space');
-     for(let i=0;i<d.combo;i++){const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}
-     if(d.miss){const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyA':'KeyD');}
-     // Keep a short inspection interval before the next live note arrives.
-     for(const n of s.rhythm.notes)if(!n.status)n.time+=5;
+     g.progress.flags.mix_tutorial_shake=true;delete s.mixTutorial;
+     ui.shakeMode='path';F.LunaShakeRhythm.init(s,'path');g.gimmickInput('Space');
+     // Seek real route positions, then use the same Space input as gameplay.
+     const seek=hit=>{for(let i=0;i<6000;i++){s.rhythm.trackTime+=.005;F.LunaShakeRhythm.updatePath(s,g.rng);if(!!F.LunaCore.MIX.nearest(s)===hit)return;}throw Error('No matching shake route position');};
+     for(let i=0;i<(d.hits||0);i++){seek(false);seek(true);g.gimmickInput('Space');}
+     if(d.miss){seek(false);g.gimmickInput('Space');}
     }else if(d.id==='open'){
      g.gimmickInput('Space');s.powerPos=d.success?.78:0;g.gimmickInput('Space');
      if(d.success){for(let i=0;i<3;i++)g.tick(.2);s.beatTime=1.1;g.gimmickInput('Space');}
@@ -148,6 +149,7 @@ async function launch(d,title,note,fromHistory=false){
      if(d.id==='purchase'){o.notifyItem(m,'bitters');o.tick(0);}
      else{const drain=()=>{for(let i=0;i<30&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}};F.LunaOutsideShop.begin(m,{x:-2.68,y:-.596},false);drain();m.story.choose('shop-yes');drain();m.story.choose('shop-allowance-no');drain();o.tick(0);}
     }
+    if(d.id==='wire-spark'){const p=F.LunaWireSpark.anchor(F.LUNA_OUTSIDE_DATA);m.x=p.x+.65;m.time=0;m.story.cancel();m.backgroundStory.cancel();m.updateNear();o.snapCamera();o.tick(0);}
     if(d.id==='bd'){m.x=5.5;m.updateNear();o.snapCamera();F.LunaBDVendor.interact(m,{id:'bd-vendor',x:5.65,y:-.7});}
     if(d.id==='panorama'){m.x=F.LunaOutside.viewpoint.x;m.updateNear();o.snapCamera();o.refreshHUD();}
    }

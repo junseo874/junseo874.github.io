@@ -35,7 +35,7 @@ await p.evaluate(()=>{const g=barGame;g.tutorial=null;g.openRecipes();g.selectCo
 await p.locator('[data-act="offer"]:enabled').waitFor();await p.locator('[data-act="offer"]').click();await settled();await p.locator('[data-guide="serveDrink"]').waitFor();
 assert.equal(await p.locator('[data-act="serve"]').count(),0);assert.equal(await p.evaluate(()=>barGame.serve('R')),false);
 const transactions=await p.evaluate(()=>barGame.transactions.length);await drag('[data-drag="drink"]','[data-drop="R"]',false);assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'serveDrink');assert.equal(await p.evaluate(()=>barGame.transactions.length),transactions);
-assert.match(await p.locator('[data-guide="serveDrink"] .day0-drag-route').getAttribute('d'),/^M [\d. -]+ L [\d. -]+$/);await p.screenshot({path:'/private/tmp/day0-serve-drink.png'});await drag('[data-drag="drink"]','[data-drop="R"]');
+assert.equal(await p.locator('[data-guide-ring="target"]').getAttribute('width'),'0');assert(await p.locator('[data-drag="drink"]').isVisible());await p.screenshot({path:'/private/tmp/day0-serve-drink.png'});await drag('[data-drag="drink"]','[data-drop="R"]');
 await p.waitForFunction(()=>!barGame.tutorial&&!!barGame.dialogue);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'음…');assert.equal(await p.evaluate(()=>barGame.transactions.length),transactions+1);assert.equal(await p.evaluate(()=>barGame.progress.flags.day0_drink_taught),true);
 assert.deepEqual(errors,[]);console.log('DAY0_NEW_UI_OK: actual keyboard/arrows, both ends and return, camera wait, indicator legend, 3 viewport sizes, real drink drag, wrong-drop rejection and single settlement');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exit(1);});

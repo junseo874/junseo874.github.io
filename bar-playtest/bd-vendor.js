@@ -6,7 +6,7 @@ const rows=[say(id,'…뭐야.'),say('luna','안녕하세요.'),say(id,'손님�
 function visible(m){return !m.qa&&m.scene==='street'&&!m.level&&m.config.day>=1&&m.config.day<=3&&(!W.barGame?.progress.flags.bd_chip_purchased||m.story?.speech?.id===id);}
 function balance(){return Math.max(0,Number(W.barGame?.progress.money)||0);}
 function targets(m){return visible(m)&&!W.barGame?.progress.flags.bd_chip_purchased?[{id,label:'BD 칩 판매상',nodeName,x,y}]:[];}
-function interact(m,t){if(t.id!==id||!visible(m)||W.barGame?.progress.flags.bd_chip_purchased)return false;m.backgroundStory.cancel();m.facing=m.x<x?1:-1;return m.story.beginRows(id,t,rows);}
+function interact(m,t){if(t.id!==id||!visible(m)||W.barGame?.progress.flags.bd_chip_purchased)return false;m.facing=m.x<x?1:-1;return m.story.beginRows(id,t,rows);}
 function choiceView(){const money=balance();return {money,options:[{id:'buy',label:'구매한다. · 300원',disabled:money<cost},{id:'leave',label:'구매하지 않는다.',disabled:false}]};}
 function choose(m,choice){const story=m.story,s=story.speech;if(s?.id!==id||!s.choice)return false;
  if(choice==='leave'){story.cancel();return true;}

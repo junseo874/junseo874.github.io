@@ -2,13 +2,16 @@
 'use strict';
 // Reference-style ballistic pixel parcels. Foam stores liquid mass, never creates it.
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),STEP=1/120;
-const GLASS={left:520,right:662,top:250,bottom:470};
+const GLASS={left:480,right:622,top:330,bottom:525};
+// Rotate around one stationary grip. Picking up/releasing never translates it.
+const GRIP=Object.freeze({x:475,y:205,radius:85});
 const WITHOUT_POURER=new Set(['soda_water','cola','cranberry_juice','milk','beer','orange_juice','red_wine','champagne']);
 const CARBONATED=new Set(['soda_water','cola','tonic_water','beer','champagne']);
 const CANS=new Set(['soda_water','cola']);
 const toolForIngredient=id=>WITHOUT_POURER.has(id)?'none':'pourer';
 const POURER={rateScale:1,maxAngle:170,rampDegrees:57};
-function nozzle(angle,tool='pourer',grab=clamp(angle/95,0,1)){const u=grab*grab*(3-2*grab);return{x:450+80*u,y:105+115*u};}
+function nozzle(angle){const a=angle*Math.PI/180;return{x:GRIP.x+GRIP.radius*Math.sin(a),y:GRIP.y-GRIP.radius*Math.cos(a)};}
+function containerSize(bw,bh,can=false){const scale=Math.min((can?128:170)/bh,(can?110:90)/bw);return{w:bw*scale,h:bh*scale};}
 class Simulation{
  constructor({targetMl,unitMl=1,rate=42,ingredient=''}){
   this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.ingredient=ingredient;
@@ -65,5 +68,5 @@ class Simulation{
 }
 function init(s,game){if(!['pour','fill_up'].includes(s.type))return;const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,ingredient:s.ingredient});game.pourTool=toolForIngredient(s.ingredient);s.fluid.setTool(game.pourTool,s);}
-const api={Simulation,init,nozzle,GLASS,STEP,POURER,toolForIngredient};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
+const api={Simulation,init,nozzle,GRIP,containerSize,GLASS,STEP,POURER,toolForIngredient};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -62,7 +62,7 @@ function build(F){
  stateGroup('prep','재료 선택 / 레시피 패널','선반·인벤토리·간단 레시피와 펼친 상세 패널을 한 항목에서 확인합니다.',[{id:'shelf',label:'재료 선택 / 기본',launch:{type:'qa',id:'prep'}},{id:'detail',label:'레시피 상세 펼침',launch:{type:'prep-recipe'}}]);
  for(const [id,title]of [['service','서비스 패널'],['settings','설정 / 볼륨 / 언어'],['help','조작 설명'],['history','대사 기록'],['sales','매출'],['johnnyUnlock','히든 칵테일 해금']])ui('overlay:'+id,title,'게임의 실제 팝업을 표시합니다. 버튼 호버·포커스·닫기를 확인하세요.',{type:'overlay',id});
  stateGroup('warnings','경고 팝업','같은 경고 팝업에서 병따개 누락·재료 초과 상태를 바꿔 확인합니다. 확인 버튼의 호버·포커스·닫기도 테스트할 수 있습니다.',[['openerWarning','병따개 누락'],['ingredientWarning','재료 초과']].map(([id,label])=>({id,label,launch:{type:'overlay',id}})),'overlay:openerWarning');
- for(const [id,title]of [['open','병따기'],['pour','따르기'],['shake','쉐이킹'],['stir','스터']])ui('mini:'+id,title+' / 제조 기믹',id==='shake'?'실제 기믹 테스트. 버전 선택·시작 안내·노드·콤보 단계·실패 상태를 직접 조작합니다.':'실제 기믹의 안내·버튼·진행·판정·설정을 직접 확인합니다.',{type:'mini',id});
+ for(const [id,title]of [['open','병따기'],['pour','따르기'],['shake','쉐이킹'],['stir','스터']])ui('mini:'+id,title+' / 제조 기믹',id==='shake'?'기본 01 왕복 노드 · Space / 클릭. 시작 안내·노드·성공·실패를 확인하며, 02 세로 2레인·03 중앙 교대도 선택할 수 있습니다.':'실제 기믹의 안내·버튼·진행·판정·설정을 직접 확인합니다.',{type:'mini',id});
  stateGroup('mini:pour','따르기 / 필업','같은 따르기 UI에서 정량 따르기와 필업 상태를 전환해 확인합니다.',[{id:'pour',label:'정량 따르기',launch:{type:'mini',id:'pour'}},{id:'fill_up',label:'필업',launch:{type:'mini',id:'fill_up'}}]);
  // Day-by-day scripts belong to QA, not the UI resource inventory.
  // Keep UI artwork here, not background, character/mixing art or coaster props.
@@ -93,8 +93,8 @@ function build(F){
  for(const [id,title]of [['arrival','손님 입장 · 페이드 / 이동'],['exit','손님 퇴장'],['red','좌석 위험 · 점멸']])fx(id,'bar',title,id==='red'?'guidance':'transition','bar-views.js / bar-views.css',{type:'qa',id},'ui:'+id,'실제 손님 상태와 표시 효과를 확인합니다. 다시 실행하면 처음부터 재생합니다.');
  fx('tutorial','bar','튜토리얼 · 암전 / 강조 / 화살표','guidance','tutorial-view.js / tutorial-view.css',{type:'tutorial'},'ui:tutorial','대화를 진행해 코스터·선반·드래그 안내의 움직임과 주변 암전을 확인하세요.');
  fx('camera','bar','단골 1인 ↔ 2인 · 카메라 전환','camera','bar-views.js / bar-views.css',{type:'effect',id:'camera'},'ui:pair','1인 구도에서 2인 구도로 전환한 뒤 1인으로 돌아갑니다. 말풍선도 같은 월드 변환을 사용합니다.');
- for(const combo of [5,10])fx('shake-'+combo,'bar','쉐이킹 · '+combo+'콤보 / '+(combo===5?'1':'2')+'단계','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',combo},null,'실제 성공 입력으로 해당 콤보에 진입합니다. 불꽃·발광·속도선·애니메이션 가속을 비교하세요. 이후 직접 입력하거나 다시 실행할 수 있습니다.');
- fx('shake-miss','bar','쉐이킹 · MISS / 콤보 초기화','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',combo:5,miss:true},null,'5콤보 이후 실제 오입력을 재현합니다. MISS 피드백·불꽃 해제·캐릭터 정지와 다음 성공 시 재개를 확인하세요.');
+ fx('shake-hit','bar','쉐이킹 · 성공 판정','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',hits:1},null,'일정한 속도의 노드와 기본 성공 피드백을 확인하세요.');
+ fx('shake-miss','bar','쉐이킹 · MISS 판정','judgement','shake-rhythm.js / shake-polish.js',{type:'effect',id:'shake',hits:1,miss:true},null,'오입력의 MISS 피드백과 다음 성공 시 동작 재개를 확인하세요.');
  for(const success of [true,false])fx('open-'+(success?'hit':'miss'),'bar','병따기 · '+(success?'성공 / 캡 튕김 / 섬광':'실패 / 반동'),'judgement','open-view.js / core.js',{type:'effect',id:'open',success},null,'실제 병따기 판정과 캡·병따개·고리 효과를 바로 재생합니다. 짧은 효과는 다시 실행으로 반복 확인하세요.');
  fx('open-carbonation','bar','병따기 · 병 아래에서 올라오는 탄산 거품','fluid','open-carbonation.js / open-view.js',{type:'effect',id:'open',success:true},null,'뚜껑을 딴 직후 옅은 금색 고리 모양 기포가 병 아래에서 목까지 올라가 사라집니다. 성공할 때 한 번만 재생하며 다음 단계로 넘어가기 전 연출을 마칩니다.');
  for(const ingredient of ['gin','beer'])fx('pour-'+ingredient,'bar','따르기 · '+(ingredient==='gin'?'푸어러 / 가는 물줄기':'미장착 / 굵은 물줄기'),'fluid','pour-fluid.js / pour-view.js',{type:'effect',id:'pour',ingredient},null,'실제 재료별 입구·유량·잔에 쌓이는 액체를 재생합니다. 자동 시연 뒤 Space로 직접 따를 수 있습니다.');
@@ -111,6 +111,7 @@ function build(F){
  fx('panorama','out','전경 관찰 · 카메라 줌 / 복귀','camera','outside.js',{type:'exterior',id:'panorama'},'ui:exterior:panorama','관찰 지점에서 Y를 눌러 전경 확대와 복귀를 비교하세요.');
  fx('purchase','out','재료 획득 · 슬라이드 알림','notice','outside-notices.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','재화 변동 없이 좌측 재료 획득 알림만 재생합니다.');
  fx('street','out','거리 · 원경 / 중경 / 근경 / 전광판','environment','outside.js / outside-data.js',{type:'exterior',id:'street'},'ui:exterior:street','A/D 이동으로 레이어·가림·거리 전광판을 확인합니다. 코드와 기존 이미지로 구성된 현재 표현이며 별도 셰이더 원본이 등록됐다는 의미는 아닙니다.');
+ fx('wire-spark','out','폐전기함 · 전선 스파크 / 조명','environment','outside-wire-spark.js',{type:'exterior',id:'wire-spark'},null,'FX_WireSpark_01.gif의 4.64초 주기. 원본 전기 시트로 안쪽 전선 → 바깥 전선 → 끝의 섬광과 낙하 불꽃을 재생합니다. 표시등과 주변 반사광 포함.');
  for(const area of ['bar','out'])if(!groups.some(g=>g[0]===area+'-backgrounds'))groups.splice(groups.findIndex(g=>g[0]===area+'-ui'),0,[area+'-backgrounds',area==='bar'?'바 내부':'외부','배경 / 화면별 레이어']);
  rows.push(...W.ResourceBackgrounds.build(F));
  for(const r of rows)if(revisionUI.has(r.id))r.needsRevision=true;

@@ -2,8 +2,9 @@
 (function(W){
 'use strict';
 const root='assets/outside/street-20261018/';
-// Lower the cabin artwork, not Luna or the flat walking/boarding plane.
-const elevatorArtOffsetY=-.25;
+// Match the reference head-only framing above the front panel without making
+// Luna step up/down when entering the cabin from either flat walking plane.
+const elevatorArtOffsetY=-.11;
 const replacements=[
  ['Sky','sky.png',2880,1620],
  ['C_Back_Building_1','Layers/C_background_1.png',2880,605],
@@ -44,7 +45,16 @@ function apply(data){
  // 9.55 world-space railing edge and keep the doorway centered at homeX.
  const building=nodes.find(n=>n.name==='residence-building');
  building.x=R.homeX-5.83;building.y=14.32;
+ // OutSide.unity: the apartment is behind the ground, fence and street
+ // dressing, not in front of them. Keep the playable upper doorway anchor.
+ building.layer=5;building.order=-1;
  building.interactionRegions={home:[562,397,43,80]};
+ // Restore the engine's ground-plane composition. The full-width foreground
+ // hides the base of the apartment; city light washes its lower wall.
+ const foreground=nodes.find(n=>n.name==='B_ForeFore_Object_1');
+ Object.assign(foreground,{x:-7.85,y:-1.5,layer:10,order:0});
+ const cityLight=nodes.find(n=>n.name==='CityLight');
+ Object.assign(cityLight,{x:-6.72,y:-2.25,sx:1.193125,sy:1.3275325,alpha:1});
  const railing=nodes.find(n=>n.name==='residence-railing');
  // The complete foreground begins at building row 229. Its transparent corridor
  // reveals actors; the rail's top edge, diagonal braces and pillars cover them.
@@ -57,7 +67,10 @@ function apply(data){
  Object.assign(body,{x:R.elevatorX,y:R.elevatorBottom+elevatorArtOffsetY,sx:1,sy:1});
  // Exact opaque-pixel match: front sheet starts at body pixel (12,45).
  Object.assign(front,{x:R.elevatorX+.06,y:R.elevatorBottom+.09+elevatorArtOffsetY,sx:1,sy:1});
- Object.assign(rail,{x:R.elevatorX-.275,y:-1.5,sx:1,sy:1});
+ // Engine alignment, relative to the apartment's top-left (-22.25,14.37):
+ // rail center (-13.025,-.83). Its braces line up with the facade cutouts
+ // at every floor. Carry the same small doorway-anchor offset to the rail.
+ Object.assign(rail,{x:building.x+9.225,y:building.y-15.20,sx:1,sy:1,layer:6,order:0});
  // Control panel is baked into the new body; don't paint the retired panel over it.
  data.scenes.street.nodes=nodes.filter(n=>n.name!=='Elevator Door');
  function light(name,file,w,h,x,y){

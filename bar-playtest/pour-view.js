@@ -63,14 +63,16 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(!dragging||e.pointerId!==dragging.pointerId)return;const s=dragging.s;if(g.gimmick!==s||g.isPaused()||document.hidden){release();return;}
   const r=dragging.canvas.getBoundingClientRect(),scale=Math.min(r.width/1000,r.height/540);
   const x=(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y=(e.clientY-r.top-(r.height-540*scale)/2)/scale;
-  let angle=Math.atan2(-(x-530),y-220)*180/Math.PI;
-  if(angle< -90)angle=170;else if(angle<0)angle=0;
-  s.dragAngle=clamp(angle,0,s.fluid.maxAngle);
+  const grip=root.LunaPour.GRIP,dx=x-grip.x,dy=y-grip.y;
+  if(Math.hypot(dx,dy)<18){dragging.pointerAngle=null;return;}
+  const angle=Math.atan2(-dx,dy)*180/Math.PI;
+  if(dragging.pointerAngle!=null){const delta=((angle-dragging.pointerAngle+540)%360)-180;s.dragAngle=clamp(s.dragAngle+delta,0,s.fluid.maxAngle);}
+  dragging.pointerAngle=angle;
  }
  document.addEventListener('pointerdown',e=>{
   const canvas=e.target.closest('[data-pixel-pour]'),s=g.gimmick;
   if(!canvas||e.button!==0||g.screen!=='gimmick'||!s?.fluid||g.isPaused()||s.fluid.finishRequested)return;
-  e.preventDefault();unlockAudio();dragging={canvas,s,pointerId:e.pointerId};g.holdPour(true);pointer(e);
+  e.preventDefault();unlockAudio();dragging={canvas,s,pointerId:e.pointerId,pointerAngle:null};s.dragAngle=s.angle;g.holdPour(true);pointer(e);
   canvas.setPointerCapture?.(e.pointerId);
  });
  window.addEventListener('pointermove',pointer);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);window.addEventListener('blur',release);
@@ -88,7 +90,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  function html(s){const f=s.fluid;return '<div class="craft-screen fluid-screen pixel-fluid-screen">'+
   (g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" draggable="false">'+
-  '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas></div>'+
+  '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas><canvas data-pour-guide width="1000" height="540" aria-hidden="true"></canvas></div>'+
   '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div><small data-pour-detail></small></div>'+
   '<div class="pour-ingredient-readout" role="status"><span>'+L('재료 이름','Ingredient')+'</span><strong data-pour-ingredient="'+esc(s.ingredient)+'">'+esc(g.name(s.ingredient))+'</strong></div></div>'+
   '<div class="pour-tilt-meter" data-pour-tilt role="meter" aria-label="'+L('기울이기','Tilt')+'" aria-valuemin="0" aria-valuemax="'+f.maxAngle+'" aria-valuenow="0"><span>'+L('기울이기','Tilt')+'</span><div class="pour-tilt-track"><i class="pour-tilt-range"></i><i class="pour-tilt-warning"></i><i class="pour-tilt-marker"></i></div></div>'+
@@ -116,7 +118,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const travel=clamp((u-.16)/.65,0,1),eased=travel*travel*(3-2*travel),fade=Math.min(1,age*2);
   // A circular sweep keeps the curvature and arrowhead tangent consistent.
   // Match the main tutorial's flowing cyan dashes; adapt the grip height for cans.
-  const cx=438,cy=f.can?142:175,radius=f.can?88:112,start=Math.PI/2,end=3.96,a=start+(end-start)*eased;
+  const {x:cx,y:cy}=root.LunaPour.GRIP,radius=f.can?48:80,start=Math.PI/2,end=3.96,a=start+(end-start)*eased;
   const x=cx+Math.cos(a)*radius,y=cy+Math.sin(a)*radius;
   ctx.save();ctx.globalAlpha=fade*.62;ctx.strokeStyle='#baffff';ctx.lineWidth=2.4;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.shadowColor='#44d8e955';ctx.shadowBlur=4;ctx.setLineDash([10,8]);ctx.lineDashOffset=reduced?0:-age*30;
@@ -155,7 +157,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  }
  function bottle(ctx,s){const f=s.fluid,at=root.LunaPour.nozzle(s.angle,f.tool,f.grab),art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
   let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
-  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],h=f.can?128:210,w=bw/bh*h;
+  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],{w,h}=root.LunaPour.containerSize(bw,bh,f.can);
   ctx.save();ctx.translate(at.x,at.y);ctx.rotate(s.angle*Math.PI/180);ctx.imageSmoothingEnabled=false;
   const neck=f.tool==='pourer'&&!f.popped?23:0,cut=f.can?0:Math.round(bh*.065);
   if(img.complete&&img.naturalWidth)ctx.drawImage(img,box[0],box[1]+cut,bw,bh-cut,f.can?-w+12:-w/2,neck,w,h);
@@ -192,7 +194,6 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   ctx.fillStyle='#b0d1d5bb';ctx.fillRect(b.left,b.top,3,b.bottom-b.top);ctx.fillRect(b.right-3,b.top,3,b.bottom-b.top);ctx.fillRect(b.left,b.bottom-3,b.right-b.left,3);ctx.fillRect(b.left-3,b.top,b.right-b.left+6,2);ctx.fillStyle='#d6edef55';ctx.fillRect(b.left+9,b.top+10,3,b.bottom-b.top-30);
   if(mode()==='classic'){const y=snap(b.bottom-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
   bottle(ctx,s);
-  idleGuide(ctx,s);
   const age=f.popped?f.time-f.popTime:Infinity;
   if(age<.9){ctx.save();ctx.globalAlpha=Math.min(1,(.9-age)*2);ctx.font='bold 40px LunaPixel, sans-serif';ctx.fillStyle='#ffdf8a';ctx.textAlign='center';ctx.fillText(L('펑!','POP!'),667,110-age*37);ctx.restore();}
 
@@ -205,7 +206,13 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const f=s.fluid,age=f.popped?f.time-f.popTime:Infinity,reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const strength=!reduced&&age<.35?(.35-age)*40/2.184:0,dx=Math.sin(age*173)*strength*.5||0,dy=Math.cos(age*137)*strength*.5||0;
   const transform='translate('+dx+'px,'+dy+'px)';stage.style.transform=transform;const bg=rootElement.querySelector('.fluid-screen .gimmick-room-background');if(bg)bg.style.transform=transform;
-  draw(stage.querySelector('canvas').getContext('2d'),s);stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);
+  draw(stage.querySelector('[data-pixel-pour]').getContext('2d'),s);
+  // Keep pixel artwork untouched, but render gesture lines at display resolution.
+  const guide=stage.querySelector('[data-pour-guide]'),bounds=stage.getBoundingClientRect();
+  const resolution=Math.max(1,Math.ceil(Math.min(bounds.width/1000,bounds.height/540)*(root.devicePixelRatio||1)));
+  if(guide.width!==1000*resolution){guide.width=1000*resolution;guide.height=540*resolution;}
+  const guideContext=guide.getContext('2d');guideContext.setTransform(resolution,0,0,resolution,0,0);guideContext.clearRect(0,0,1000,540);idleGuide(guideContext,s);
+  stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);
   stage.dataset.renderer='pixel-canvas2d';stage.dataset.pourTool=f.tool;stage.dataset.carbonation=String(f.carbonated);stage.dataset.container=f.can?'can':'bottle';stage.dataset.foam=String(f.foamMl);stage.dataset.nozzle=JSON.stringify(root.LunaPour.nozzle(s.angle,f.tool,f.grab));
   stage.style.cursor=s.held?'grabbing':'grab';
   const set=(selector,value)=>{const e=rootElement.querySelector(selector);if(e)e.textContent=value;};
@@ -220,7 +227,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
    meter.style.setProperty('--tilt-warning',hasPourer?(f.maxAngle-end)/f.maxAngle*100+'%':'0%');
    meter.setAttribute('aria-valuenow',String(Math.round(s.angle)));
   }
-  set('[data-pour-detail]',(f.carbonated?L('현재량은 거품 속 음료까지 포함','Includes liquid held in foam'):'')+(f.spilledMl>.05?' · '+L('넘침 ','Spilled ')+f.spilledMl.toFixed(1)+' ml':''));
+  set('[data-pour-detail]',f.spilledMl>.05?L('넘침 ','Spilled ')+f.spilledMl.toFixed(1)+' ml':'');
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect)perfect.hidden=!s.pourFinishFx?.perfect;
   root.LunaPourTutorial?.sync(g,stage.closest('.fluid-screen'),L);
  }

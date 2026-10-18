@@ -1,7 +1,13 @@
 // Hand-authored art override: kept separate from the Unity importer output.
 (function(global){
 'use strict';
-const layout=Object.freeze({homeX:-16.36,upperY:9.62,elevatorX:-12.51,elevatorBottom:-1.09,elevatorTop:9.238,lowerMin:-12.81,upperMin:-21.65,upperMax:-12.28});
+// Reference framing: show the hips above the corridor rail, but only the head
+// above the lift's front panel. Both stops share one flat passenger offset.
+const upperY=9.74,passengerOffset=.39;
+// Ground access continues past the lift and drums to the black scrap wall.
+// near_foreground_1 row 270 ends at x=552: -22.25 + 5.52, plus the
+// foreground's ~.30 parallax offset and .13 actor clearance => -16.30.
+const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.51,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-21.65,upperMax:-12.28});
 function apply(data){
  if(data.residenceVersion===1)return data;
  const replaced=new Set(['1F Left Building','A_Fore_Building','A_Obect','A_Middle_Building_1','A_Middle_Building_2','A_ForeFore_Object_1','2F Floor','House Spawn Point']);

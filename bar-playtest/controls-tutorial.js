@@ -38,19 +38,25 @@ function drawStill(canvas,frame,images){
  canvas.getContext('2d').drawImage(cell,left,top,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
 }
 const key=letter=>'<kbd class="controls-keycap" aria-label="'+letter+'키">'+letter+'</kbd>';
+// Crop the supplied screenshots through matching SVG viewports. Keep their pixels
+// intact and put the target markers in a separate, resolution-independent layer.
+const interactionExamples={
+ object:{src:'assets/controls-20261018/interaction-tv.png',width:605,height:431,crop:'80 22 400 310',box:[160,57,267,215],label:'상호작용 가능한 TV'},
+ person:{src:'assets/controls-20261018/interaction-npc.png',width:506,height:448,crop:'68 112 400 310',box:[202,120,142,297],label:'상호작용 가능한 거리의 인물'}
+};
+function example(kind){
+ const e=interactionExamples[kind],[x,y,w,h]=e.box,l=19;
+ const corners=`M${x+l},${y}H${x}V${y+l} M${x+w-l},${y}H${x+w}V${y+l} M${x},${y+h-l}V${y+h}H${x+l} M${x+w-l},${y+h}H${x+w}V${y+h-l}`;
+ return '<svg class="controls-example controls-'+kind+'" viewBox="'+e.crop+'" role="img" aria-label="'+e.label+'"><image href="'+e.src+'" width="'+e.width+'" height="'+e.height+'"/><path class="controls-target-mark" d="'+corners+'"/></svg>';
+}
 function render(panel,step,images,data){
  const movement=step===0,title=movement?'이동':'상호작용';
  panel.dataset.step=String(step);panel.setAttribute('aria-label',title+' 안내');panel.setAttribute('aria-description','E키를 눌러 진행합니다.');
  panel.innerHTML='<header class="controls-heading"><div><small>TUTORIAL</small><h2>'+title+'</h2></div><span class="controls-page">'+(step+1)+' <i>/ 2</i></span></header>'+
   (movement?'<div class="controls-movement"><div class="controls-direction">'+key('A')+'<span>왼쪽</span></div><span class="controls-arrow" aria-hidden="true">←</span><div class="controls-luna"><canvas role="img" aria-label="왼쪽으로 걷는 루나"></canvas><span class="controls-floor"></span></div><span class="controls-arrow" aria-hidden="true">→</span><div class="controls-direction">'+key('D')+'<span>오른쪽</span></div></div>':
-   '<div class="controls-interaction"><figure><canvas class="controls-object" role="img" aria-label="시바견 전단지"></canvas><figcaption>오브젝트</figcaption></figure><figure><canvas class="controls-person" role="img" aria-label="거리의 인물 실루엣"></canvas><figcaption>다른 인물</figcaption></figure></div><div class="controls-interact-key">'+key('E')+'</div>')+
+   '<div class="controls-interaction"><figure>'+example('object')+'<figcaption>오브젝트</figcaption></figure><figure>'+example('person')+'<figcaption>다른 인물</figcaption></figure></div><div class="controls-interact-key">'+key('E')+'</div>')+
   '<p class="controls-description">'+(movement?'A와 D를 눌러 이동합니다.':'E키를 눌러 오브젝트나 다른 인물들과 상호작용할 수 있습니다.')+'</p><p class="controls-progress-hint">E키를 눌러 진행</p>';
  if(movement)drawStill(panel.querySelector('canvas'),data.animations.walk.frames[2],images);
- else{
-  const flyer=data.scenes.street.nodes.find(n=>n.name==='5 poster_shiba_wanted_day1');
-  if(flyer)drawStill(panel.querySelector('.controls-object'),flyer.sprite,images);
-  drawStill(panel.querySelector('.controls-person'),{asset:'ambient-M2',x:0,y:0,w:129,h:138},images);
- }
 }
 document.addEventListener('pointerdown',()=>{void prepare();},{capture:true,passive:true});
 W.addEventListener('keydown',e=>{if(!e.repeat)void prepare();},true);

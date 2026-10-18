@@ -47,6 +47,6 @@ function schema(group){
 }
 const values=(r,key)=>Array.isArray(r.facets[key])?r.facets[key]:[r.facets[key]];
 const matches=(r,picked,skip)=>Object.entries(picked).every(([key,value])=>key===skip||value==='all'||values(r,key).includes(value));
-function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패 / 콤보',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'||key.startsWith('background')?[...present].map(v=>[v,v]):Object.entries(key==='soundKind'?ResourceSounds.kindNames:key==='soundState'?ResourceSounds.stateNames:key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
+function options(rows,key){const present=new Set(rows.flatMap(r=>values(r,key)).filter(Boolean));const effects={transition:'등장 / 퇴장 / 화면 전환',camera:'카메라',guidance:'강조 / 유도',judgement:'성공 / 실패',fluid:'액체 / 회전',notice:'알림 / 해금',environment:'환경 / 배경',placeholder:'더미 효과'};return key==='actor'||key.startsWith('background')?[...present].map(v=>[v,v]):Object.entries(key==='soundKind'?ResourceSounds.kindNames:key==='soundState'?ResourceSounds.stateNames:key==='effect'?effects:labels[key]).filter(([v])=>present.has(v));}
 const api={decorate,schema,options,matches,values};W.ResourceFilters=api;if(typeof module!=='undefined')module.exports=api;
 })(typeof window==='undefined'?globalThis:window);

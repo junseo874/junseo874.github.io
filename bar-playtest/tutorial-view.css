@@ -1,5 +1,7 @@
 /* Day 0 uses the existing coaster and service controls, highlighted in place. */
 .day0-guide{position:absolute;inset:0;z-index:42;pointer-events:none}
+.day0-guide[data-guide="serveDrink"][data-dragging="true"] .day0-guide-copy{display:none}
+.day0-guide[data-guide="serveDrink"] .day0-drag-route,.day0-guide[data-guide="serveDrink"] .day0-click-arrow{display:none}
 .day0-guide-art{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .day0-guide-outline{fill:none;stroke:#a3faff;stroke-width:2;filter:drop-shadow(0 0 6px #50dbea);animation:day0-focus 1.4s ease-in-out infinite}
 .day0-drag-route{fill:none;stroke:#baffff;stroke-width:3;stroke-dasharray:12 9;filter:drop-shadow(0 0 5px #44d8e9);animation:day0-drag 1.4s linear infinite}
@@ -8,7 +10,9 @@
 .day0-guide[data-guide="recipe"] .day0-guide-copy{left:auto;right:22px;transform:none;max-width:400px}
 .bar-view[data-tutorial="coaster"] .stack{touch-action:none}.bar-view[data-tutorial="coaster"] .stack:focus-visible{outline:2px solid #baffff;outline-offset:4px}
 .bar-view[data-tutorial="recipe"] .service-handle{border-color:#affbff;animation:day0-focus 1.4s ease-in-out infinite}
-.service-layer.tutorial-service .service-actions [data-act="recipes"]{border:2px solid #affbff;background:#193745;box-shadow:0 0 18px #5bd7e64d;animation:day0-focus 1.4s ease-in-out infinite;color:#edffff}
+/* Keep the supplied button artwork fitted; a color-only background shorthand
+   resets its size/position and clips the full-size PNG in the tutorial. */
+.service-layer.tutorial-service .service-actions [data-act="recipes"]{border:0;background:transparent url('assets/ui/service_panel/BTN_service_B.png') center/100% 100% no-repeat;box-shadow:0 0 18px #5bd7e64d;animation:day0-focus 1.4s ease-in-out infinite;color:#edffff}
 .service-layer.tutorial-service .service-actions button:disabled{opacity:.25;cursor:not-allowed}
 .service-layer.tutorial-service .service-scrim{background:transparent}
 .service-layer.tutorial-service .service-panel>p{color:#c3f3f5}

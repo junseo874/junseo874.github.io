@@ -22,7 +22,7 @@ function state(m){if(m.qa)return m.qa.shopProgress||(m.qa.shopProgress={money:W.
 function sync(m){if(m.qa)return;const g=W.barGame,c=W.lunaCampaign;if(c?.session.carry){c.session.carry.money=g.progress.money;c.session.carry.flags={...g.progress.flags};c.session.carry.inventory={...g.progress.inventory};}g.changed();}
 function visible(m){return !m.qa&&m.scene==='street'&&!m.level&&m.config.day<=3&&(m.config.day>1||m.config.day===1&&m.config.flow==='out');}
 function targets(m){return visible(m)?[{id,nodeName:'shiba',label:'시BAR',x,y}]:[];}
-function begin(m,target,first){m.backgroundStory.cancel();return m.story.beginRows(id,target,first?intro:revisit);}
+function begin(m,target,first){return m.story.beginRows(id,target,first?intro:revisit);}
 function interact(m,t){if(t.id!==id||!visible(m))return false;m.facing=m.x<x?1:-1;return begin(m,t,!state(m).flags.shiba_shop_met);}
 function completeIntro(m){state(m).flags.shiba_shop_met=true;sync(m);}
 function choiceView(m){const money=Math.max(0,Number(state(m).money)||0),line=m.story.speech.line,stage=line.stage;if(stage==='allowance')return{money,label:'시BAR 용돈 선택',options:[{id:'shop-allowance-yes',label:'한다'},{id:'shop-allowance-no',label:'안 한다'}]};if(stage==='quiz'){const item=items.find(i=>i.id===line.item);return{money,label:'올드 패션드 퀴즈',options:[{id:'shop-answer-1',label:'옛날 방식의 칵테일',disabled:!item||owned(state(m),item)||money<item.price},{id:'shop-answer-2',label:'옛날 옛적 이야기'},{id:'shop-answer-3',label:'뭘 봐, 시바.'}]};}return {money,label:'시BAR 구매 선택',options:stage==='greeting'?[{id:'shop-yes',label:'한번 볼게요.'},{id:'shop-no',label:'아니요.'}]:[...items.filter(i=>!owned(state(m),i)).map(i=>({id:'shop-buy-'+i.id,label:i.label+' · '+i.price+'원',disabled:money<i.price})),{id:'shop-no',label:'구매하지 않는다.'}]};}

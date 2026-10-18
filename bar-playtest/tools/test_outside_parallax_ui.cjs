@@ -33,15 +33,15 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    const c=document.querySelector('#outside-root canvas').getContext('2d'),draw=c.drawImage,tr=c.translate,seen=[],data=LUNA_OUTSIDE_DATA;let xy;
    c.translate=function(x,y){xy=[x,y];return tr.call(this,x,y);};c.drawImage=function(img,...args){seen.push({src:img.src,xy});return draw.call(this,img,...args);};
    try{o.tick(0);}finally{c.translate=tr;c.drawImage=draw;}
-   return ['C_Middle_Building_2','Fence','B_ForeFore_Object_1'].map(name=>{const n=data.scenes.street.nodes.find(n=>n.name===name),v=LunaOutside.streetParallax(n,o.camera,m),cam=o.camera;return{name,actual:seen.find(s=>s.src.endsWith(data.assets[n.sprite.asset].src))?.xy,expected:[Math.round(640+(v.x-cam.x)*1280/cam.w),Math.round(360-(v.y-cam.y)*1280/cam.w)]};});
+   return ['C_Middle_Building_2','Fence','B_ForeFore_Object_1'].map(name=>{const n=data.scenes.street.nodes.find(n=>n.name===name),cam=o.renderCamera,v=LunaOutside.streetParallax(n,cam,m),p=LunaPixelCamera.sprite(n.sprite,v.x,v.y,n.sx,n.sy,false,cam,o.pixelSurface);return{name,actual:seen.find(s=>s.src?.endsWith(data.assets[n.sprite.asset].src))?.xy,expected:[p.x,p.y]};});
   });for(const d of drawing)assert.deepEqual(d.actual,d.expected,d.name);
   await p.keyboard.press('KeyY');await p.waitForTimeout(1500);assert(await p.evaluate(()=>outsidePlaytest.camera.w>11));
   await p.screenshot({path:'/private/tmp/parallax-panorama.png'});await p.keyboard.press('KeyY');
   // Traverse both directions of the real lift camera, including its zoom arc.
   for(const reverse of [false,true]){
-   await p.evaluate(reverse=>{const o=outsidePlaytest,m=o.model,R=LunaResidence.layout;m.start({day:3,flow:'out',place:reverse?'homeDoor':'bar'});m.x=R.elevatorX;m.ride={time:0,from:reverse?R.elevatorTop:R.elevatorBottom,to:reverse?R.elevatorBottom:R.elevatorTop,call:false,duration:12};m.y=m.ride.from+.382;o.snapCamera();},reverse);
+   await p.evaluate(reverse=>{const o=outsidePlaytest,m=o.model,R=LunaResidence.layout;m.start({day:3,flow:'out',place:reverse?'homeDoor':'bar'});m.x=R.elevatorX;m.ride={time:0,from:reverse?R.elevatorTop:R.elevatorBottom,to:reverse?R.elevatorBottom:R.elevatorTop,call:false,duration:12};m.y=m.ride.from+R.passengerOffset;o.snapCamera();},reverse);
    for(const t of [2,5,8,11,13]){
-    await p.evaluate(t=>{const o=outsidePlaytest,m=o.model,r=m.ride;r.time=t;const v=Math.max(0,Math.min(1,(t-.45)/12)),s=v*v*(3-2*v);m.elevatorY=r.from+(r.to-r.from)*s;m.y=m.elevatorY+.382;for(let i=0;i<100;i++)o.tick(.016);},t);
+    await p.evaluate(t=>{const o=outsidePlaytest,m=o.model,r=m.ride;r.time=t;const v=Math.max(0,Math.min(1,(t-.45)/12)),s=v*v*(3-2*v);m.elevatorY=r.from+(r.to-r.from)*s;m.y=m.elevatorY+LunaResidence.layout.passengerOffset;for(let i=0;i<100;i++)o.tick(.016);},t);
     await p.screenshot({path:`/private/tmp/parallax-lift-${reverse?'down':'up'}-${t}.png`});
    }
   }
