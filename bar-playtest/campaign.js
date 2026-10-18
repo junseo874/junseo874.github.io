@@ -42,11 +42,12 @@ class Campaign{
   if(this.view==='scene')body=this.sceneHTML();
   if(this.view==='prologue')body='<canvas class="campaign-prologue" width="480" height="270" aria-label="'+esc(this.cinema?.title||'루나의 꿈 회상 컷씬')+'"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스 바를 2초간 누르면 컷씬을 건너뜁니다"><span>스페이스 바를 눌러 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
   if(this.view==='ending')body='<div class="campaign-ending"><img src="'+path('title-logo.png')+'" alt="Project LUNA"><p>…조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>'+button('타이틀로','exit-run')+'</div>';
+  this.cinemaChoices?.dispose();this.cinemaChoices=null;
   this.host.innerHTML='<div class="campaign-stage view-'+this.view+'">'+body+'</div>';
   this.titleLogo=this.view==='title'?global.LunaTitleLogo.mount(this.host.querySelector('.title-logo')):null;
-  if(this.view==='prologue'&&this.cinema){const c=this.cinema;c.player?.dispose();c.player=(c.studio?global.LunaStudioCinema.player:global.LunaCinemaPlayer)(this.host.querySelector('canvas'),this.host.querySelector('.campaign-cinema-ui'),c.scene);c.renderer=c.player.renderer;c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaSkip();}
+  if(this.view==='prologue'&&this.cinema){const c=this.cinema;c.player?.dispose();c.player=(c.studio?global.LunaStudioCinema.player:global.LunaCinemaPlayer)(this.host.querySelector('canvas'),this.host.querySelector('.campaign-cinema-ui'),c.scene);c.renderer=c.player.renderer;c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaChoices();this.paintCinemaSkip();}
   if(this.view==='scene'){this.paintLine();if(this.dialog?.background==='johnny-memory')global.LunaJohnnyMemory.sync(this.host,this.dialog,this.D);}if(this.view==='awakening')this.paintAwakening();
-  this.host.querySelector('button,select,input')?.focus({preventScroll:true});
+  (this.host.querySelector('.world-choices .is-selected')||this.host.querySelector('button,select,input'))?.focus({preventScroll:true});
  }
  card(title,content){return'<div class="campaign-modal-shade"><section class="campaign-card" role="dialog" aria-modal="true"><h1>'+esc(title)+'</h1>'+content+'</section></div>';}
  devConsoleHTML(){return '<aside class="outside-dev-console campaign-dev-console" role="dialog" aria-modal="true" aria-label="본편 개발자 콘솔"><header><div><small>DEVELOPER · '+this.session.day+'일차</small><h2>본편 개발자 콘솔</h2></div>'+button('P · 닫기','dev-close')+'</header><section><h3>외부 위치로 이동</h3>'+button('집 안','dev-home')+button('엘리베이터 앞 · 아래층','dev-elevator')+button('바 문 앞','dev-bar')+'</section><section><h3>현재 소지금</h3><output class="outside-dev-money" aria-live="polite">'+Math.max(0,Number(this.g.progress.money)||0).toLocaleString('ko-KR')+'원</output><div class="outside-dev-money-actions">'+button('−1,000원','dev-minus')+button('+1,000원','dev-plus')+'</div></section><p class="outside-dev-note">콘솔을 연 동안 플레이가 일시 정지됩니다.<br>외부 이동 시 진행 중인 영업을 중단하고 같은 일차의 퇴근길로 이동합니다. 별도 정산은 하지 않습니다.<br>외부 콘솔에서 출근길·퇴근길을 변경할 수 있습니다.</p></aside>';}
@@ -72,7 +73,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'music-fades-20261018':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'head-choice-20261018':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -125,7 +126,7 @@ class Campaign{
    if(this.memoryTransition!==d)return true;d.phase='in';d.time=0;d.host.style.opacity='1';this.bgm.setTransitionGain(0,0);
   }else if(d.phase==='in'){
    const amount=smooth(d.time/d.revealDuration);d.host.style.opacity=1-amount;this.bgm.setTransitionGain(amount,0);
-   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
+   if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')(this.host.querySelector('.world-choices .is-selected')||this.host.querySelector('button,select,input'))?.focus({preventScroll:true});}
   }
   return true;
  }
@@ -160,11 +161,12 @@ class Campaign{
   else c.time=next;
  }
  advanceCinemaDialogue(){
-  const c=this.cinema,w=c?.dialogueWait;if(!w)return;
+  const c=this.cinema,w=c?.dialogueWait;if(!w||c.dialogueChoice)return;
   const line=c.scene.clips.find(l=>l.id===w.id),parsed=global.StudioTags.parse(line.text);
   if(global.StudioOpening?.typingPending(line,Math.max(0,c.time-line.start)+w.age))return;
   const count=c.player.dialogueCount(line);
   if(!w.revealed&&line.textEffect!=='instant'&&count<parsed.chars.length)w.revealed=true;
+  else if(line.choiceAfter){this.paintCinemaChoices();return;}
   else{
    if(line.introControls&&!line.introFade){const fade=c.scene.clips.find(l=>l.introFade);if(fade)fade.introPhaseOffset=Math.max(0,c.time-line.start)+w.age;}
    c.time=line.start+line.duration+.001;c.dialogueWait=null;
@@ -172,6 +174,27 @@ class Campaign{
   // Finish in this input event, before drawing the timeline's empty end frame.
   if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return;}
   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
+  this.paintCinemaChoices();
+ }
+ paintCinemaChoices(){
+  const c=this.cinema;if(this.view!=='prologue'||!c?.studio)return;
+  const line=c.dialogueWait&&c.scene.clips.find(l=>l.id===c.dialogueWait.id);
+  if(line?.choiceAfter&&!c.dialogueChoice&&c.player.dialogueCount(line)>=global.StudioTags.parse(line.text).chars.length)c.dialogueChoice={...line.choiceAfter,state:{},lineId:line.id};
+  const choice=c.dialogueChoice;if(!choice){this.cinemaChoices?.update(null);return;}
+  if(this.cinemaChoiceOwner!==choice){this.cinemaChoices?.dispose();this.cinemaChoices=null;this.cinemaChoiceOwner=choice;}
+  if(!this.cinemaChoices)this.cinemaChoices=global.LunaWorldChoices.create(this.host.querySelector('.campaign-stage'),id=>{
+   if(this.cinema!==c||this.view!=='prologue'||c.dialogueChoice!==choice)return;
+   const option=choice.options.find(o=>o.id===id);if(!option)return;
+   const response=c.scene.clips.find(l=>l.choiceResponse===choice.id);if(response)response.text=option.label;
+   const source=c.scene.clips.find(l=>l.id===choice.lineId);
+   c.dialogueChoice=null;c.dialogueWait=null;c.time=source.start+source.duration+.001;
+   this.cinemaChoices.update(null);this.resetInput();
+   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,null);
+  },choice.state);
+  const sample=c.renderer.sample(c.time),actor=sample.actors[choice.actor],cam=sample.camera;
+  if(!actor)return;
+  const k=1280/cam.w,head={x:640+(actor.x-cam.x)*k,y:360-(actor.y+.8-cam.y)*k};
+  this.cinemaChoices.update({...choice,key:choice.id,head,facing:actor.facing});
  }
  paintCinemaSkip(dt=0){
   const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();}
@@ -187,7 +210,7 @@ class Campaign{
   if(el){el.classList.add('is-compact');el.hidden=!allowed;el.classList.toggle('is-visible',visible);el.querySelector('span').textContent='스페이스 바를 2초간 눌러 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
   return progress>=1;
  }
- disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);this.bgm.setSuppressed('cinema',false);}
+ disposeCinema(keepMusicGain=false){this.cinemaChoices?.dispose();this.cinemaChoices=null;if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);this.bgm.setSuppressed('cinema',false);}
  finishCinema(skipped=false){if(this.memoryTransition||this.view!=='prologue'||!this.cinema)return;
   if(skipped){
    if(!this.canSkipCinema())return;
@@ -334,7 +357,7 @@ class Campaign{
    const c=this.cinema,previous=c.time;this.tickCinemaDialogue(c,dt);
    // A completed holo shutdown returns before drawing the timeline's empty end frame.
    if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return this.blocking;}
-   c.player.render(c.time,previous,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
+   c.player.render(c.time,previous,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);this.paintCinemaChoices();
    if(this.paintCinemaSkip(dt)){this.finishCinema(true);return this.blocking;}
    if(c.time>=c.scene.end){if(++c.index<c.scenes.length){c.scene=c.scenes[c.index];c.time=0;global.Sfx?.silence();this.draw();}else this.finishCinema();}
   }
@@ -368,7 +391,7 @@ class Campaign{
   if(this.view==='dev-console'&&['Space','Enter'].includes(e.code)){if(!e.repeat)e.target.closest('#campaign-root button')?.click();return true;}
   if(this.view==='dev-console'&&e.code==='Escape'){if(!e.repeat)this.devConsoleAction('dev-close');return true;}
 if(this.outside.active&&this.outside.devConsoleOpen&&!this.blocking)return false;if(this.view==='game'&&e.code==='Escape'&&this.g.gimmick?.pourTestsOpen)return false;if(this.view==='prologue'){global.Sfx?.resume();if(this.cinema?.studio)global.LunaStudioCinema.unlock();}if(!this.active&&!this.blocking)return false;if(e.code==='F2')return true;if(e.code==='Escape'){if(!e.repeat){if(['options','notice','sleep','retry-drink'].includes(this.view))this.action('resume');else if(this.view==='confirm-exit')this.action('resume');else if(this.view==='title')this.toPicker();else if(!['picker','loading','load-error','ending'].includes(this.view)){this.resumeView=this.view;this.screen('options');}}return true;}
-  if(!this.blocking)return false;if(this.view==='prologue'){if(!e.repeat&&['KeyE','Space','Enter'].includes(e.code)&&this.cinema?.dialogueWait){this.advanceCinemaDialogue();if(e.code==='Space'&&this.cinema?.scene.template==='documentary'&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.paintCinemaSkip();}return true;}if(e.code==='Space'&&!e.repeat&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
+  if(!this.blocking)return false;if(this.view==='prologue'&&this.cinema?.dialogueChoice){this.cinemaChoices?.key(e);return true;}if(this.view==='prologue'){if(!e.repeat&&['KeyE','Space','Enter'].includes(e.code)&&this.cinema?.dialogueWait){this.advanceCinemaDialogue();if(e.code==='Space'&&this.cinema?.scene.template==='documentary'&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.paintCinemaSkip();}return true;}if(e.code==='Space'&&!e.repeat&&this.canSkipCinema()){this.cinemaHoldStart=performance.now();this.paintCinemaSkip();}return true;}if(e.code.startsWith('Control')){this.control=true;return true;}if(e.code==='Tab'){const list=[...this.host.querySelectorAll('button:not(:disabled),input,select,summary')].filter(x=>x.getClientRects().length);const i=list.indexOf(document.activeElement);if(list.length)list[(i+(e.shiftKey?-1:1)+list.length)%list.length].focus();return true;}
   if(['KeyE','Space','Enter'].includes(e.code)&&['scene','prologue'].includes(this.view)){if(!e.repeat)this.next();return true;}if(['ArrowUp','ArrowDown'].includes(e.code)&&['title','picker'].includes(this.view)){const list=[...this.host.querySelectorAll('button')],i=list.indexOf(document.activeElement);list[(i+(e.code==='ArrowDown'?1:-1)+list.length)%list.length]?.focus();return true;}
   return !['Enter','Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.code)||!e.target.closest('#campaign-root');
  }

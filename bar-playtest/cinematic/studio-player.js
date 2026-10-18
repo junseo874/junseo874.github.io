@@ -1,7 +1,7 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../cutscene-studio/',document.currentScript.src),version='music-fades-20261018';
+const base=new URL('../../cutscene-studio/',document.currentScript.src),version='head-choice-20261018';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
@@ -49,13 +49,13 @@ function speech(c,s){
  if(StudioOpening.dialogue(ctx,c,s,lastCamera,time,waitAge,revealed,held,count))return;
  const a=s.actors[c.actor];if(!a||a.visible<.5||a.opacity<=0||a.asset&&!a.active)return;
  const k=1280/lastCamera.w,p=projectPoint(a.x+(c.offsetX||0),a.y+c.offset);
- if(speechLayer?.paint(c,p,k,count,!!(c.wait&&held&&count>=StudioTags.parse(c.text).chars.length),time+waitAge))return;
+ if(speechLayer?.paint(c,p,k,count,!!(c.wait&&!c.choiceAfter&&held&&count>=StudioTags.parse(c.text).chars.length),time+waitAge))return;
  ctx.save();const box=StudioTypography.bubble(ctx,c,k),{parsed,glyphs}=box.text,w=box.width,h=box.height;
  const left=p.x-w/2,top=p.y-h,clock=time+waitAge;
  StudioTypography.paintBubble(ctx,c,box,p,k);
  ctx.textBaseline='alphabetic';
  for(const ch of glyphs){if(ch.i>=count)continue;ctx.font=ch.font;ctx.fillStyle=ch.color||(c.textEffect==='emphasis'?'#f5d395':'#e2e8e5');const shake=ch.shake||(c.textEffect==='shake'?.8:0),dx=Math.sin(clock*49+ch.i*17)*k*.008*shake,dy=Math.cos(clock*61+ch.i*11)*k*.008*shake+(ch.wave?Math.sin(clock*7+ch.i*.5)*k*.018:0);let text=ch.ch;if(ch.censor&&text!==' ')text='▓▒█'[Math.floor(clock*8+ch.i)%3];else if(ch.noise&&text!==' ')text='░▐#?▒%01'[Math.floor(clock*15+ch.i*5)%8];ctx.fillText(text,left+box.paddingX+ch.x+dx,top+box.paddingY+ch.y+dy);}
- if(c.wait&&held&&count>=parsed.chars.length)W.LunaDialogueCue.draw(ctx,{right:left+w,bottom:p.y,size:.116*k*(c.fontScale??100)/100*.9,clock});
+ if(c.wait&&!c.choiceAfter&&held&&count>=parsed.chars.length)W.LunaDialogueCue.draw(ctx,{right:left+w,bottom:p.y,size:.116*k*(c.fontScale??100)/100*.9,clock});
  ctx.restore();
 }
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null){

@@ -4,7 +4,8 @@
    Crop the source's 11px white export margin. */
 .prep-screen .prep-inventory{height:146px;padding:18px 24px;border:0;border-top:1px solid #1a2530;background:transparent;gap:0;isolation:isolate}
 .prep-screen .prep-inventory::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:url('assets/ui/preparation/IMG_igd_backround.png') center bottom/100% calc(100% + 4px) no-repeat;filter:contrast(1.2) brightness(.94);opacity:.85}
-.prep-screen.prep-open .prep-inventory{padding-left:calc(var(--panel-width) + 12px)}
+/* The raised recipe panel does not overlap the tray; keep items stationary. */
+.prep-screen.prep-open .prep-inventory{padding-left:24px}
 .prep-screen .inventory-scroll{flex:0 1 auto;width:max-content;max-width:100%;min-width:0;height:100%;margin:0 auto;gap:12px;padding:3px 4px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
 .prep-screen .inventory-slot{width:93.333px;height:93.333px;padding:13px;border:0;border-radius:0;background:url('assets/ui/preparation/IMG_igd_box_A.png') center/100% 100% no-repeat;box-shadow:none}
 .prep-screen .inventory-slot:hover:not(:disabled),.prep-screen .inventory-slot:focus-visible{background:url('assets/ui/preparation/IMG_igd_box_A.png') center/100% 100% no-repeat;filter:brightness(1.18)}

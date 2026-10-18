@@ -271,7 +271,8 @@ html,body{overflow:hidden;background:#03060b}
 
 /* Keep the preparation detail above the bottom controls and selected-item tray.
    Recipe-list hover previews retain their separate full-height layout. */
-.prep-screen > #prep-recipe-detail{top:18px;bottom:199px}
+/* Leave 12px above the controls (160px bottom + 54px height). */
+.prep-screen > #prep-recipe-detail{top:18px;bottom:226px}
 
 /* Read-only selection checklist; clicking the card still opens recipe details. */
 .prep-brief-ingredients{max-height:230px;overflow-y:auto;scrollbar-width:thin}

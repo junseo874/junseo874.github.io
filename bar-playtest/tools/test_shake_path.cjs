@@ -6,7 +6,22 @@ for(const value of [undefined,null,'','invalid'])assert.equal(S.normalizeMode(va
 const defaultState={targetStacks:20};S.init(defaultState);assert.equal(defaultState.rhythm.mode,'path');
 function make(variant){const g=new C.Game(C.millilitreData(ctx.window.LUNA_DATA));R.attach(g);M.attach(g);S.attach(g,()=> 'path');g.startMinigame('shake',variant);return g;}
 function seek(g,match){for(let i=0;i<6000;i++){g.tick(.005);const n=C.MIX.nearest(g.gimmick);if(match(n))return n;}throw Error('No route target');}
+// The unwrapped core uses the same consume/rearm rules as the rhythm view.
+const raw={type:'shake',elapsed:0,targetStacks:20,attempts:0,success:0,failures:0,outcomes:[]};C.MIX.init(raw);
+assert(C.MIX.shakeHit(raw));assert.equal(C.MIX.shakeHit(raw),false);
+raw.elapsed=.6;C.MIX.updatePath(raw,()=>0);assert.deepEqual(raw.pathFixedHits,[]);
+raw.elapsed=6.1;C.MIX.updatePath(raw,()=>0);assert(C.MIX.shakeHit(raw));assert.equal(raw.success,2);
 for(const variant of ['original','gpt']){
+ const burst=make(variant);burst.gimmickInput('Space');for(let i=0;i<20;i++)burst.gimmickInput(i%2?'MouseLeft':'Space');
+ assert.equal(burst.gimmick.success,1);assert.equal(burst.gimmick.failures,19);assert(burst.gimmick.completed);
+ // Repeated presses within one fixed-node visit must not earn extra hits.
+ const spam=make(variant),ss=spam.gimmick;spam.gimmickInput('Space');spam.gimmickInput('Space');
+ assert.equal(ss.success,1);assert.equal(C.MIX.nearest(ss),null);
+ spam.tick(.035);spam.gimmickInput('MouseLeft');spam.tick(.035);spam.gimmickInput('Space');
+ assert.equal(ss.success,1);assert.equal(ss.failures,2);assert.deepEqual(ss.pathFixedHits,['fixed:0']);
+ seek(spam,n=>n?.id==='fixed:0');assert(ss.rhythm.trackTime>5);
+ spam.gimmickInput('Space');assert.equal(ss.success,2,'Returning to the same node rearms it');
+ spam.retryMinigame();assert.deepEqual(spam.gimmick.pathFixedHits,[],'Retry clears consumed nodes');
  const g=make(variant),s=g.gimmick;g.tick(.2);assert(s.rhythm.clock>0);assert(!s.started);
  assert.equal(g.gimmickInput('KeyA'),false);g.gimmickInput('Space');assert.equal(s.attempts,0);
  seek(g,n=>n&&!n.fixed);const node=C.MIX.nearest(s);assert(s.nodes.some(n=>n.id===node.id));g.gimmickInput('MouseLeft');assert.equal(s.success,1);assert(!s.nodes.some(n=>n.id===node.id));

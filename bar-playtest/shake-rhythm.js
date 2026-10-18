@@ -14,14 +14,14 @@ function updatePath(s,rng){
  // Reuse the original geometry/pattern generator with a fixed-rate clock,
  // leaving elapsed/craft time in real seconds.
  const path={...s,elapsed:s.rhythm.trackTime};root.LunaCore.MIX.updatePath(path,rng);
- for(const key of ['beatTime','beatIndex','patternTurn','patternIndex','nodes','pathPoint'])s[key]=path[key];
+ for(const key of ['beatTime','beatIndex','patternTurn','patternIndex','nodes','pathPoint','pathFixedHits'])s[key]=path[key];
 }
 function pathInput(s,key){
  if(!['Space','MouseLeft'].includes(key))return false;
  if(!s.started){s.started=true;return true;}
  if(s.completed)return false;
  const node=root.LunaCore.MIX.nearest(s),ok=!!node;
- if(node&&!node.fixed)s.nodes=s.nodes.filter(n=>n.id!==node.id);
+ root.LunaCore.MIX.consumePathNode(s,node);
  feedback(s,ok,s.rhythm.notes[s.attempts],PERFECT+.001);
  const effect=s.shakeEffects.at(-1);effect.x=node?.x??s.pathPoint[0];effect.y=node?.y??s.pathPoint[1];
  return true;

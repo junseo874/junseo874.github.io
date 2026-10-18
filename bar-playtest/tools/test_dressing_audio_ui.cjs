@@ -18,7 +18,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
     const sound=scene.clips.find(c=>c.assetId==='opening-dressing');
     // Isolate the dressing voice from the opening's looping room ambience.
     for(const track of scene.tracks)if(track.type==='audio'&&track.id!==sound.track)track.muted=true;
-    const black=scene.clips.find(c=>c.effect==='black');
+    const black=scene.clips.find(c=>c.effect==='black'&&Math.abs(c.start-sound.start)<.001);
     const fade=scene.clips.find(c=>c.effect==='fadeOut'&&Math.abs(c.start+c.duration-black.start)<.001);
     const reveal=scene.clips.find(c=>c.effect==='fadeIn'&&c.start>black.start);
     const standing=scene.clips.find(c=>c.assetId==='opening-luna-home');

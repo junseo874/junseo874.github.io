@@ -9,14 +9,14 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.evaluate(({variant,mode})=>{const g=barGame;g.startMinigame('shake',variant);g.progress.flags.mix_tutorial_shake=true;delete g.gimmick.mixTutorial;LunaShakeRhythm.init(g.gimmick,mode);g.gimmickInput('Space');window.testTick=g.tick;g.tick=()=>{};},{variant,mode});
   await p.locator('.rhythm-board').waitFor();
   for(const goal of [4,5,10,19]){
-   const state=await p.evaluate(goal=>{const g=barGame,s=g.gimmick;while(s.success<goal){if(s.rhythm.mode==='path'){s.pathPoint=[...LunaCore.MIX.points[0]];g.gimmickInput('Space');}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}}
+   const state=await p.evaluate(goal=>{const g=barGame,s=g.gimmick;for(let guard=0;s.success<goal&&guard<20000;guard++){if(s.rhythm.mode==='path'){g.tickGimmick(.005);if(LunaCore.MIX.nearest(s))g.gimmickInput('Space');}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}}if(s.success!==goal)throw Error('Shake target not reached');
     const track=s.rhythm.trackTime,clock=s.rhythm.clock,elapsed=s.elapsed;g.tickGimmick(.05);
     return {delta:s.rhythm.trackTime-track,motion:s.rhythm.clock-clock,real:s.elapsed-elapsed,success:s.success,combo:s.rhythm.combo??null,best:s.rhythm.best??null};},goal);
    assert.equal(state.success,goal);assert.equal(state.combo,null);assert.equal(state.best,null);assert(Math.abs(state.delta-.05)<1e-8);assert(Math.abs(state.motion-.05)<1e-8);assert(Math.abs(state.real-.05)<1e-8);await p.waitForTimeout(70);await absent();
   }
   if(variant==='original'&&mode==='path')await p.screenshot({path:'/private/tmp/shake-no-combo.png'});
   const paused=await p.evaluate(()=>{barGame.paused=true;return JSON.stringify(barGame.gimmick);});await p.evaluate(()=>barGame.tickGimmick(.2));assert.equal(await p.evaluate(()=>JSON.stringify(barGame.gimmick)),paused);
-  await p.evaluate(()=>{const g=barGame,s=g.gimmick;g.paused=false;if(s.rhythm.mode==='path'){s.pathPoint=[...LunaCore.MIX.points[0]];g.gimmickInput('Space');}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}g.tick=window.testTick;});
+  await p.evaluate(()=>{const g=barGame,s=g.gimmick;g.paused=false;if(s.rhythm.mode==='path'){for(let guard=0;!s.completed&&guard<20000;guard++){g.tickGimmick(.005);if(LunaCore.MIX.nearest(s))g.gimmickInput('Space');}}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}if(!s.completed)throw Error('Shake not complete');g.tick=window.testTick;});
   await p.locator('.minigame-result').waitFor();assert.equal(await p.evaluate(()=>barGame.minigame.result.score),100);assert(!/콤보|COMBO|Best combo/.test(await p.locator('.minigame-result').innerText()));assert.equal(await p.evaluate(()=>barGame.minigame.result.rhythm.bestCombo??null),null);
  }
  for(const variant of ['original','gpt']){

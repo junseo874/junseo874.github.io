@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=require('path');
 const dir=path.resolve(__dirname,'..'),ctx={window:{}};vm.runInNewContext(fs.readFileSync(dir+'/data.js','utf8'),ctx);const D=ctx.window.LUNA_DATA,C=require(dir+'/core.js'),R=require(dir+'/remix.js');
 function ticks(g,sec=1){for(let i=0;i<sec*10;i++)g.tick(.1);assert.equal(g.error,null);}
-function reach(g,predicate,choice=1){for(let i=0;i<1000;i++){if(predicate(g))return;if(['seatExplore','seatIndicator','seatLegend'].includes(g.tutorial?.kind)){if(g.tutorial.kind==='seatExplore'){const seats=['L','M','R'],delta=Math.sign(seats.indexOf(g.tutorialSeatTarget())-seats.indexOf(g.focus));g.focusSeat(seats[seats.indexOf(g.focus)+delta]);ticks(g);}else g.continueBarTutorial();continue;}if(g.transition){ticks(g);continue;}if(g.choice)g.choose(choice);else if(g.dialogue){g.advance();g.advance();}else ticks(g,.2);}throw Error('State not reached: '+g.story?.index);}
+function reach(g,predicate,choice=1){for(let i=0;i<1000;i++){if(predicate(g))return;if(['seatExplore','seatIndicator','seatLegend'].includes(g.tutorial?.kind)){if(g.tutorial.kind==='seatExplore'){const seats=['L','M','R'],delta=Math.sign(seats.indexOf(g.tutorialSeatTarget())-seats.indexOf(g.focus));g.focusSeat(seats[seats.indexOf(g.focus)+delta]);ticks(g);}else g.continueBarTutorial();continue;}if(g.transition||g.cameraLeft){ticks(g);continue;}if(g.storyCoaster){if(g.dialogue)g.dialogue.chars=g.dialogue.text.length;assert(g.coaster(g.storyCoaster.seat,'drag'));continue;}if(g.choice)g.choose(choice);else if(g.dialogue){g.advance();g.advance();}else ticks(g,.2);}throw Error('State not reached: '+g.story?.index);}
 for(const variant of ['original','gpt']){
  const g=new C.Game(D);R.attach(g);g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');const index=g.story.index;
  assert.equal(g.seats.R.coaster,false);ticks(g,10);assert.equal(g.story.index,index);assert.equal(g.advance(),false);assert.equal(g.openRecipes(),false);assert.equal(g.openTutorialService(),false);
@@ -19,7 +19,11 @@ for(const variant of ['original','gpt']){
  if(variant!=='gpt'){assert.equal(g.tutorial.kind,'prepGinAgain');g.pickItem('gin');assert.equal(g.tutorial.kind,'prepSodaNavigate');assert(g.tutorialEvent('shelf','fridge'));assert(g.tutorialEvent('hover'));g.pickItem('soda_water');assert.equal(g.tutorial.kind,'prepStart');g.overlay='settings';assert.equal(g.startCraft(),false);g.overlay=null;assert(g.startCraft());assert.equal(g.screen,'gimmick');assert.deepEqual(g.craft.actual.ingredients,['gin','soda_water']);assert.equal(g.craft.actual.glass,'long_drink');}
  assert.equal(g.tutorial,null);assert.equal(g.progress.flags.day0_recipe_taught,true);
  assert.equal(g.logs.filter(x=>x.event==='tutorial_complete').length,variant==='original'?5:3);
- g.reset(0,'full',4,true,{variant});reach(g,g=>g.currentOrder&&g.story?.steps[g.story.index]?.type==='craft',2);assert.equal(g.tutorial,null);assert(g.openRecipes());
+ g.reset(0,'full',4,true,{variant});reach(g,g=>!!g.storyCoaster,2);
+ assert(g.progress.flags.day0_skip_tutorial);assert.equal(g.seats.R.coaster,false);assert.equal(g.tutorial,null);
+ reach(g,g=>g.currentOrder&&g.story?.steps[g.story.index]?.type==='craft',2);
+ assert.equal(g.tutorial,null);assert(g.seats.R.coaster);assert(g.openRecipes());assert(g.selectCocktail('gin_tonic'));
+ g.debugCraft('excellent');g.offer();assert(g.serve('R','drag'));assert.equal(g.transactions.length,1);assert.equal(g.drink,null);ticks(g);
  g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');g.reset(1,'regular',4,true,{variant});assert.equal(g.tutorial,null);
  g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');assert.equal(g.coaster('R','keyboard'),true);ticks(g);assert.equal(g.dialogue.text,'이렇게요?');
  console.log('TUTORIAL_CORE_OK',variant,'waits, invalid inputs, pause/camera, idempotency, skip, reset, keyboard fallback');

@@ -197,7 +197,7 @@ class OutsideModel{
  }
 }
 function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
- const glowRenderer=global.LunaInteractionGlow.create();let renderingNode=null;
+ const glowRenderer=global.LunaInteractionGlow.create();let renderingNode=null,choiceUI=null;
  const data=global.LUNA_OUTSIDE_DATA,config={place:'bar',flow:'out',day:0},images=new Map(),keys=new Set();
  let active=false,loading=false,loadError='',model=null,host=null,canvas=null,ctx=null,cam={x:1,y:0,w:4.8},generation=0,hudSignature='',lastScene='',panorama=false,wakeSpawn=false,devOpen=false,notices=null,hintOpen=false,streetLocation=null;
  let surface=global.LunaPixelCamera.surface(1280,720),renderCam={...cam},pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
@@ -265,8 +265,8 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   cam={x:model.scene==='home'?clamp(model.x,.34,1.14):arriving?.65:model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;
   pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
  }
- async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
- function exit(silent=false){global.LunaControlsTutorial.stop();global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
+ async function start({wakeAtSofa=false,showDevHint=false}={}){if(active)return;wakeSpawn=wakeAtSofa;generation++;const token=generation;active=true;loading=true;loadError='';panorama=false;devOpen=false;hintOpen=false;streetLocation=null;clearInput();model=new OutsideModel(config);if(wakeSpawn)model.wakeAtSofa();snapCamera();host=document.createElement('section');host.id='outside-root';host.setAttribute('aria-label','외부 공간 탐색');host.tabIndex=-1;host.innerHTML='<div class="outside-stage"><canvas width="1280" height="720" aria-label="루나가 이동하는 거리와 집 내부" role="img"></canvas><div class="outside-hud"><div class="outside-dynamic"></div></div><div class="outside-speech" hidden></div><div class="outside-background-speech" hidden></div><div class="outside-overlay"></div>'+devHTML()+'</div>';document.body.append(host);choiceUI=global.LunaWorldChoices.create(host.querySelector('.outside-stage'),id=>{clearInput();model.story.choose(id);updateHUD();});notices=global.LunaOutsideNotices.create(host,currencyView);notices.update(model);document.querySelector('#app').hidden=true;canvas=host.querySelector('canvas');ctx=canvas.getContext('2d');fit();hudSignature='';draw();updateHUD();try{await loadImages();if(token!==generation)return;loading=false;hintOpen=showDevHint&&!global.lunaCampaign?.active;host.focus({preventScroll:true});}catch(e){if(token!==generation)return;loading=false;loadError='거리 리소스를 불러오지 못했습니다. 다시 시도해 주세요.';console.error('Outside asset load:',e.message);}updateHUD();}
+ function exit(silent=false){choiceUI?.dispose();choiceUI=null;global.LunaControlsTutorial.stop();global.LunaHomeDoorAudio?.stop();notices?.dispose();notices=null;generation++;active=false;loading=false;devOpen=false;hintOpen=false;clearInput();host?.remove();host=null;document.querySelector('#app').hidden=false;if(!silent)onExit();}
  function advanceDay(){
   if(!active||loading||loadError||model.qa||model.config.flow!=='out'||model.config.day>=3)return false;
   Object.assign(config,{day:model.config.day+1,flow:'in',place:'home'});
@@ -447,14 +447,15 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
 
  }
  function updateSpeech(){
-  renderSpeech(host.querySelector('.outside-speech'),model.story.view());
+  const v=model.story.view();renderSpeech(host.querySelector('.outside-speech'),v);
+  choiceUI?.update(v?.choice&&v.purchase&&!model.paused&&!loading&&!loadError&&!devOpen&&!hintOpen?{...v.purchase,key:v.key,head:position(model.x,model.y+.16),facing:model.facing}:null);
   const views=model.backgroundStory.views(),bubbles=[...host.querySelectorAll('.outside-background-speech')];
   while(bubbles.length<views.length){const el=document.createElement('div');el.className='outside-background-speech';host.querySelector('.outside-stage').insertBefore(el,host.querySelector('.outside-overlay'));bubbles.push(el);}
   bubbles.forEach((el,i)=>{if(i>=Math.max(1,views.length)){el.remove();return;}el.dataset.storyId=views[i]?.key.split(':')[0]||'';renderSpeech(el,views[i]||null,true);});
  }
  function renderSpeech(el,v,background=false){el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
   const key=v.key+':'+v.canTreat;
-  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML=global.LunaExteriorTextbox.html()+'<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
+  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML=global.LunaExteriorTextbox.html()+'<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>';if(!v.auto&&!v.choice&&!devOpen)el.focus({preventScroll:true});}
 
   el.querySelector('p').hidden=!v.full;
   global.LunaDialogueCue.sync(el,!v.auto&&!v.choice&&!!v.full&&v.text===v.full);
@@ -466,16 +467,14 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  document.addEventListener('click',e=>{if(active&&devOpen){const control=e.target.closest('.outside-dev-console [data-outside-action]');if(control&&!control.disabled){e.preventDefault();devAction(control.dataset.outsideAction);}return;}if(active&&!model.paused&&!loading&&!loadError&&e.target.closest('.outside-speech')&&!e.target.closest('button')&&model.story.blocking&&!model.story.speech.choice){e.preventDefault();clearInput();model.story.advance();updateHUD();return;}const b=e.target.closest('[data-outside-action]');if(!b)return;const a=b.dataset.outsideAction;e.preventDefault();if(a==='start'){Object.assign(config,{day:0,flow:'out',place:'bar'});start({showDevHint:true});return;}if(!active)return;if(a==='hint-close')dismissHint();else if(a==='exit')exit();else if(a==='retry'){exit();start();}else if(a==='menu')menu();else if(a==='restart'){clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';}else if(a==='bd-choice'){if(b.disabled)return;clearInput();model.story.choose(b.dataset.choice);}else if(a==='panorama')togglePanorama();else if(a==='interact'){clearInput();model.interact();}updateHUD();});
  window.addEventListener('keydown',e=>{if(!active)return;if(controlsTutorialKey(e)){e.preventDefault();e.stopImmediatePropagation();return;}if(devKey(e))return;
   if(hintOpen&&e.code!=='Tab'){if(e.metaKey||e.ctrlKey||e.altKey)return;e.preventDefault();e.stopImmediatePropagation();if(!e.repeat&&['Escape','Space','Enter','KeyE'].includes(e.code))dismissHint();return;}
+  if(choiceUI?.key(e))return;
   if(e.code==='Tab'){const scope=host.querySelector('.outside-overlay:not([hidden])')||(model.story.blocking?host.querySelector('.outside-speech'):host),buttons=[...(scope.matches('[tabindex="0"]')?[scope]:[]),...scope.querySelectorAll('button:not([hidden]):not(:disabled),[tabindex="0"]')].filter(b=>!b.closest('[inert]')&&b.getClientRects().length),i=buttons.indexOf(document.activeElement);e.preventDefault();buttons[(i+(e.shiftKey?-1:1)+buttons.length)%buttons.length]?.focus();return;}
   if(global.lunaQA?.opened)return;
   if(e.metaKey||e.ctrlKey||e.altKey)return;
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight','KeyE','KeyY','Escape','Space'].includes(e.code)){e.preventDefault();e.stopImmediatePropagation();}
   if(e.code==='Escape'&&!e.repeat){menu();return;}
   if(loading||loadError||model.paused)return;
-  if(model.story.speech?.choice){
-   if(e.code==='Tab'||e.code==='ArrowUp'||e.code==='ArrowDown'){e.preventDefault();const buttons=[...host.querySelectorAll('.bd-choices button:not(:disabled)')],i=buttons.indexOf(document.activeElement),delta=e.shiftKey||e.code==='ArrowUp'?-1:1;buttons[(i+delta+buttons.length)%buttons.length]?.focus();return;}
-   if(['KeyE','Space','Enter'].includes(e.code)){e.preventDefault();const choice=e.target.closest('.bd-choices button');if(e.code!=='KeyE'&&!e.repeat&&choice&&!choice.disabled)choice.click();return;}
-  }
+  if(model.story.speech?.choice)return;
   if(e.code==='KeyY'){if(!e.repeat)togglePanorama();return;}
   if((e.code==='KeyE'||e.code==='Space'&&model.story.blocking||e.code==='Enter'&&e.target.matches('.outside-speech[role="button"]'))&&!e.repeat){e.preventDefault();clearInput();if(e.code==='KeyE')model.controlsInteractUntil=performance.now()+180;model.interact();updateHUD();return;}
   if(['KeyA','KeyD','ArrowLeft','ArrowRight','ShiftLeft','ShiftRight'].includes(e.code))keys.add(e.code);

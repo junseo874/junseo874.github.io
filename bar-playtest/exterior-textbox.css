@@ -2,10 +2,12 @@
 #outside-root :is(.outside-speech,.outside-background-speech){
  --textbox-corner:22px;--textbox-tail:48px;
  border:0;border-radius:0;background:none;box-shadow:none;
- padding:18px 42px;min-height:58px;isolation:isolate;
+ /* Preview proportions: compact line spacing and padding, with a small
+    dedicated gutter for the advance arrow on manual dialogue. */
+ padding:14px 34px 14px 28px;min-width:110px;min-height:50px;isolation:isolate;
 }
 #outside-root :is(.outside-speech,.outside-background-speech)::after{content:none}
-#outside-root :is(.outside-speech,.outside-background-speech) p{text-align:center;color:#f4f5f7}
+#outside-root :is(.outside-speech,.outside-background-speech) p{text-align:center;line-height:1.45;color:#f4f5f7}
 #outside-root .exterior-textbox-skin{
  position:absolute;inset:0;z-index:-1;pointer-events:none;display:grid;
  grid-template-columns:var(--textbox-corner) minmax(0,1fr) var(--textbox-tail) minmax(0,1fr) var(--textbox-corner);
@@ -26,10 +28,9 @@
 .exterior-textbox-skin .piece-9{grid-area:3/3;height:calc(100% * 119 / 65)}
 .exterior-textbox-skin .piece-10{grid-area:3/4}
 .exterior-textbox-skin .piece-11{grid-area:3/5}
-#outside-root .outside-background-speech{padding:15px 25px;min-height:52px}
-#outside-root .outside-background-speech:is([data-story-id="outside_day0_documentary_ambient"],[data-story-id="outside_day0_tv_news1"],[data-story-id="outside_day1_tv_news2"]){padding:13px 22px;min-height:48px}
+#outside-root .outside-background-speech{padding:14px 28px}
 #outside-root .dialogue-advance-cue{
- right:7px;bottom:5px;width:32px;height:32px;
+ right:4px;bottom:5px;width:28px;height:28px;
  background:url('assets/exterior-textbox/IMG_textbox_arrow.png') center/contain no-repeat;
  image-rendering:pixelated;animation:exterior-textbox-arrow-bob 1.2s ease-in-out infinite;
 }

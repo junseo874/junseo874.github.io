@@ -19,7 +19,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    assert.equal(await page.evaluate(()=>barGame.gimmick.success),1);
    assert.equal(await page.locator('[data-rhythm-count]').count(),0);
    if(mode==='path')await page.screenshot({path:'/private/tmp/shake-counter-hidden.png'});
-   await page.evaluate(()=>{const s=barGame.gimmick;while(!s.completed){if(s.rhythm.mode==='path'){s.pathPoint=[...LunaCore.MIX.points[0]];barGame.gimmickInput('Space');}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;barGame.gimmickInput(n.lane?'KeyD':'KeyA');}}barGame.tick=window.savedCounterTick;});
+   await page.evaluate(()=>{const g=barGame,s=g.gimmick;for(let guard=0;!s.completed&&guard<20000;guard++){if(s.rhythm.mode==='path'){g.tickGimmick(.005);if(LunaCore.MIX.nearest(s))g.gimmickInput('Space');}else{const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyD':'KeyA');}}if(!s.completed)throw Error('Shake not complete');g.tick=window.savedCounterTick;});
    await page.locator('.minigame-result').waitFor();
    assert.equal(await page.evaluate(()=>barGame.minigame.result.targetStacks),20);
    await page.locator('[data-act="miniLobby"]').click();

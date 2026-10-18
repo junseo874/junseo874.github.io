@@ -40,7 +40,7 @@ const MIX={
   if(!['shake','stir'].includes(s.type))return;
   s.shakeEffects=[];
   s.motionFrame=0;s.motionAge=null;s.motionClip=0;s.nextMotionClip=0;s.feedbackLeft=0;s.hitEffect=null;
-  s.beatIndex=-1;s.pathPoint=[...this.points[0]];s.patternIndex=-1;s.patternTurn=-1;s.nodes=[];s.attemptStartPos=0;
+  s.beatIndex=-1;s.pathPoint=[...this.points[0]];s.patternIndex=-1;s.patternTurn=-1;s.nodes=[];s.pathFixedHits=[];s.attemptStartPos=0;
   s.spoonAngle=0;s.spoonTarget=0;s.swirlSpeed=0;s.stirMotionPending=0;s.stirMotionClock=0;
   const layout=[[-28.49,22.33,41.58,.9],[30.03,19.25,38.2536,-.75],[-.77,-31.57,34.9272,.65],[-30.03,-20.79,27.442802,-.85],[31.57,-26.95,29.106,.6],[3.85,37.73,24.1164,-.62]];
   s.ice=layout.map(([x,y,size,factor],i)=>({x,y,size,factor,spin:0,sideSpin:0,rest:Math.min(Math.hypot(x,y),72.5-size*.5),sideY:[28.2,29.208,30.216,32.484,31.98,33.492][i]}));
@@ -106,14 +106,21 @@ const MIX={
   const a=this.points[this.route[index%6]],b=this.points[this.route[(index+1)%6]];
   // Serialized ease=1 (Linear), not the C# field's default InOutQuad.
   s.pathPoint=s.elapsed<this.delay?[...this.points[0]]:[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+  // A fixed node rearms only after the marker has left its hit area.
+  s.pathFixedHits=(s.pathFixedHits||[]).filter(id=>{const [x,y]=this.points[Number(id.split(':')[1])];return Math.hypot(x-s.pathPoint[0],y-s.pathPoint[1])<=this.radius;});
  },
  nearest(s){
   const candidates=[...s.nodes,...this.points.map(([x,y],i)=>({id:'fixed:'+i,x,y,fixed:true}))];
-  return candidates.map(n=>({...n,distance:Math.hypot(n.x-s.pathPoint[0],n.y-s.pathPoint[1])})).filter(n=>n.distance<=this.radius).sort((a,b)=>a.distance-b.distance)[0]||null;
+  return candidates.filter(n=>!n.fixed||!(s.pathFixedHits||[]).includes(n.id)).map(n=>({...n,distance:Math.hypot(n.x-s.pathPoint[0],n.y-s.pathPoint[1])})).filter(n=>n.distance<=this.radius).sort((a,b)=>a.distance-b.distance)[0]||null;
+ },
+ consumePathNode(s,node){
+  if(!node)return;
+  if(node.fixed){s.pathFixedHits||=[];if(!s.pathFixedHits.includes(node.id))s.pathFixedHits.push(node.id);}
+  else s.nodes=s.nodes.filter(n=>n.id!==node.id);
  },
  shakeHit(s){
   const node=this.nearest(s),ok=!!node;
-  if(node&&!node.fixed)s.nodes=s.nodes.filter(n=>n.id!==node.id);
+  this.consumePathNode(s,node);
   s.attempts++;s.success+=ok?1:0;s.failures+=ok?0:1;s.outcomes.push(ok);s.hit=true;s.beatSuccess=ok;s.message=ok?'GOOD':'MISS';s.feedbackLeft=.35;
   s.hitEffect={x:node?.x??s.pathPoint[0],y:node?.y??s.pathPoint[1],ok,age:0};
   if(ok){s.motionClip=s.nextMotionClip;s.nextMotionClip=1-s.nextMotionClip;s.motionAge=0;s.motionFrame=this.shakeClips[s.motionClip][0];}
@@ -333,7 +340,7 @@ class Game{
   }
   return false;
  }
- storyCoasterEligible(actor,index=this.story?.index){return this.phase==='regular'&&this.storyHasUpcomingOrder(actor,index)&&!(this.day===0&&actor==='chris'&&this.story?.steps.some(s=>s.type==='coaster'&&s.arg==='tutorial'));}
+ storyCoasterEligible(actor,index=this.story?.index){return this.phase==='regular'&&this.storyHasUpcomingOrder(actor,index)&&!(this.day===0&&actor==='chris'&&!this.progress.flags.day0_skip_tutorial&&this.story?.steps.some(s=>s.type==='coaster'&&s.arg==='tutorial'));}
  waitForStoryCoaster(step,kind){
   if(!this.storyCoasterEligible(step.actor))return false;
   const seat=Object.keys(this.seats).find(k=>this.seats[k]?.actor===step.actor&&!this.seats[k].coaster);

@@ -43,7 +43,21 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   const ping=audio.createOscillator(),env=audio.createGain();ping.type='triangle';ping.frequency.setValueAtTime(480,now);ping.frequency.exponentialRampToValueAtTime(140,now+.16);env.gain.setValueAtTime(.13,now);env.gain.exponentialRampToValueAtTime(.0001,now+.22);ping.connect(env);env.connect(bus);ping.start(now);ping.stop(now+.23);
   ping.onended=()=>{ping.disconnect();env.disconnect();noise.disconnect();filter.disconnect();bus.disconnect();};
  }
- function lesson(s){if(!s.openTutorial||g.isPaused())return '';const text=s.completed?L('잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.'):!s.started?L('Space를 눌러 시작하세요. 먼저 힘 게이지가 움직여요.','Press Space to start. The outer ring will begin to shrink.'):s.failures?L('괜찮아요. 초록 힘 구간을 맞춘 뒤, 두 원이 겹칠 때 눌러 보세요.','Try again. Press Space when the outer ring meets the mint ring.'):L('초록 구간에서 힘을 맞추고, 이어서 원이 겹칠 때 누르면 열려요.','Press Space again when the outer ring meets the mint ring to pop the cap.');return '<div class="opening-lesson" data-open-lesson><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/><circle cx="640" cy="310" r="190" fill="black"/><rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';}
+ const lessonKey=s=>g.lang+':'+s.openPhase+':'+s.completed;
+ function lesson(s){
+  if(!s.openTutorial||g.isPaused())return '';
+  const copy={
+   ready:['Space를 눌러 시작하세요. 먼저 힘 게이지의 초록 구간을 맞춘 뒤, 원 타이밍을 맞춰요.','Press Space to start. First set the power in the green zone, then match the rings.'],
+   power:['힘 게이지가 초록 구간에 닿으면 Space를 한 번 누르세요.','Press Space once when the power marker reaches the green zone.'],
+   'power-done':['힘 조절 성공! 이제 두 원이 겹칠 때 Space를 누르세요.','Power set! Next, press Space when the two rings overlap.'],
+   rhythm:['움직이는 원과 민트색 원이 겹칠 때 Space를 한 번 누르세요.','Press Space once when the moving ring overlaps the mint ring.'],
+   broken:['병을 다시 준비하고 있어요. 잠시 뒤 힘 조절부터 다시 시작해요.','Preparing another bottle. Start again with the power gauge in a moment.'],
+   pop:['잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.']
+  };
+  const power=['ready','power','power-done'].includes(s.openPhase),text=L(...(copy[s.completed?'pop':s.openPhase]||copy.ready));
+  const spotlight=power?'<rect data-open-spotlight="power" x="374" y="196" width="100" height="318" rx="12" fill="black"/>':'<circle data-open-spotlight="rhythm" cx="640" cy="310" r="190" fill="black"/>';
+  return '<div class="opening-lesson" data-open-lesson="'+lessonKey(s)+'"><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/>'+spotlight+'<rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';
+ }
  function html(s){
   const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:window.LunaCore.OPEN.carbonationSec);
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
@@ -57,6 +71,10 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
  function sync(root){
   const canvas=root.querySelector('[data-opening-stage]'),s=g.gimmick;
   if(!canvas||g.screen!=='gimmick'||s?.type!=='open'){stopSound();active=null;return;}
+  const guide=root.querySelector('[data-open-lesson]');
+  if(!s.openTutorial||g.isPaused())guide?.remove();
+  else if(!guide)root.querySelector('.opening-screen')?.insertAdjacentHTML('beforeend',lesson(s));
+  else if(guide.dataset.openLesson!==lessonKey(s))guide.outerHTML=lesson(s);
   if(active!==s){stopSound();active=s;}
   if(g.isPaused()||ui.gimmickAudio===false)stopSound();
   canvas.dataset.openAudioReady=String(!!buffer);
@@ -71,7 +89,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   canvas.dataset.perfect=String(!!fx?.perfect);
   canvas.dataset.state=ok?'success':s.openPhase||'ready';
   canvas.dataset.carbonation='0';
-  const phaseLabel=root.querySelector('[data-open-phase]');if(phaseLabel)phaseLabel.textContent=L(({ready:'Space / 클릭으로 시작',power:'1 · 힘 조절 — 초록 구간에서 누르기','power-done':'힘 조절 성공',rhythm:'2 · 타이밍 — 두 원이 겹칠 때 누르기',broken:'병이 깨졌어요 · 다시 준비 중',pop:'병따기 완료'})[s.openPhase]||'','POWER → TIMING');
+  const phaseLabel=root.querySelector('[data-open-phase]');if(phaseLabel)phaseLabel.textContent=L(({ready:'Space / 클릭으로 시작',power:'1 · 힘 조절 — 초록 구간에서 누르기','power-done':'힘 조절 성공',rhythm:'2 · 타이밍 — 두 원이 겹칠 때 누르기',broken:'병이 깨졌어요 · 다시 준비 중',pop:'병따기 완료'})[s.openPhase]||'',({ready:'Space / click to start',power:'1 · POWER — press in the green zone','power-done':'Power set',rhythm:'2 · TIMING — press when the rings overlap',broken:'Bottle broken · preparing another',pop:'Bottle opened'})[s.openPhase]||'');
   const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1280,720);
   // The supplied room is a full-screen layer, independent of cap animation.
   const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e4740':'#19364926');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
@@ -108,11 +126,11 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
    const x=400,y=240,h=250;ctx.fillStyle='#17252fee';ctx.fillRect(x,y,30,h);
    ctx.fillStyle='#42775d';ctx.fillRect(x,y+h*(1-.932),30,h*.304);ctx.fillStyle='#8bc99b';ctx.fillRect(x,y+h*(1-.86),30,h*.16);
    ctx.fillStyle='#e8f6ee';ctx.fillRect(x-9,y+h*(1-s.powerPos)-2,48,4);
-   ctx.font='17px sans-serif';ctx.fillText('힘',x+4,y-18);
+   ctx.font='17px sans-serif';ctx.fillText(L('힘','POWER'),x,y-18);
   }
   if(!ok&&s.roundMisses){ctx.strokeStyle='#c8dbd4aa';ctx.lineWidth=2;for(let j=0;j<Math.min(3,s.roundMisses);j++){ctx.beginPath();ctx.moveTo(cx-28+j*22,cy+130+j*45);for(let i=1;i<6;i++)ctx.lineTo(cx-28+j*22+Math.sin(i*2+j)*19,cy+130+j*45+i*10);ctx.stroke();}}
   if(s.openPhase==='broken'){const age=1.2-s.openDelay;for(let i=0;i<36;i++){ctx.fillStyle=i%3?'#61432e':'#a2c5cb';ctx.fillRect(cx+Math.sin(i*2.4)*age*220,cy+90+i*8-age*180+age*age*160,4+i%3*2,7);}}
-  const label=root.querySelector('[data-open-feedback]');if(label){label.textContent=ok?(fx.perfect?'PERFECT!':'POP!'):s.openPhase==='broken'?'다시 시도':miss?'MISS':'';label.classList.toggle('miss',miss);label.classList.toggle('perfect',!!fx?.perfect);}
+  const label=root.querySelector('[data-open-feedback]');if(label){label.textContent=ok?(fx.perfect?'PERFECT!':'POP!'):s.openPhase==='broken'?L('다시 시도','TRY AGAIN'):miss?'MISS':'';label.classList.toggle('miss',miss);label.classList.toggle('perfect',!!fx?.perfect);}
  }
  return {html,sync,unlockAudio};
 };

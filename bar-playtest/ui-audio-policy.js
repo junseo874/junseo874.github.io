@@ -12,6 +12,7 @@
  function isChoice(el){return el.dataset.act==='choice'||el.dataset.campaign?.startsWith('scene-choice:')||!!el.closest('.choices,.outside-choices');}
  function allows(el,kind){
   const action=el.dataset.act||'';
+  if(el.closest('.world-choices'))return false;
   // Choice buttons retain hover feedback, never confirmation clicks. Handle
   // them before speech containers, which may also contain the choice buttons.
   if(isChoice(el))return kind==='hover';

@@ -28,7 +28,10 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await page.keyboard.down('KeyE');assert(await page.evaluate(()=>outsidePlaytest.model.controlsTutorial));
   await page.keyboard.up('KeyE');assert(await page.locator('.outside-controls-tutorial').isVisible());
   await page.screenshot({path:'/private/tmp/contact-direct-tutorial.png'});
-  await page.waitForTimeout(1600);await page.keyboard.press('KeyD');
+  await page.waitForTimeout(2100);await page.keyboard.press('KeyD');
+  assert.equal(await page.evaluate(()=>outsidePlaytest.model.controlsTutorial),true,'Movement does not dismiss the E-only controls guide');
+  await page.keyboard.press('KeyE');assert.equal(await page.locator('.outside-controls-tutorial').getAttribute('data-step'),'1');
+  await page.waitForTimeout(1600);await page.keyboard.press('KeyE');
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.controlsTutorial),false);
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.x),result.location);
   // Documentary entry/exit retains its own fade policy.

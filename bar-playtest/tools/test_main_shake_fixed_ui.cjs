@@ -29,10 +29,12 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   assert(Math.abs(boxes[0].h-boxes[1].h)<2);
  }
  await p.setViewportSize({width:1280,height:720});await p.screenshot({path:'/private/tmp/main-shake-fixed.png'});
+ while(await p.locator('.mix-tutorial').isVisible())await p.locator('[data-act="mixTutorialNext"]').click();
  await p.keyboard.press('Space');assert(await p.evaluate(()=>barGame.gimmick.started));
  await p.evaluate(()=>{
   const g=barGame,s=g.gimmick;
-  while(!s.completed){s.pathPoint=[...LunaCore.MIX.points[0]];g.gimmickInput('Space');}
+  for(let guard=0;!s.completed&&guard<20000;guard++){g.tickGimmick(.005);if(LunaCore.MIX.nearest(s))g.gimmickInput('Space');}
+  if(!s.completed)throw Error('Shake not complete');
  });
  await p.waitForFunction(()=>barGame.craft.results.some(r=>r.type==='shake'));
 
@@ -42,6 +44,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 
  await p.evaluate(()=>{lunaCampaign.developer();barGame.startMinigame('shake');});
  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
+ while(await p.locator('.mix-tutorial').isVisible())await p.locator('[data-act="mixTutorialNext"]').click();
  await p.locator('.rhythm-modes').waitFor();await p.locator('[data-act="shakeMode"][data-id="fall"]').click();
  assert.equal(await p.evaluate(()=>barGame.gimmick.rhythm.mode),'fall');
  await p.locator('[data-act="shakeSound"][data-id="2"]').click();
