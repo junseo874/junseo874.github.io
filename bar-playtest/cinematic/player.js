@@ -3,6 +3,7 @@
 (function(global){
 global.LunaCinemaPlayer=function(canvas,ui,sc){
   const bubble=ui.querySelector('.bubble');
+  global.LunaExteriorTextbox.attach(bubble);
   const rd=new Engine.Renderer(canvas,sc);
   rd.opts.sfxLabel=false;
   let t=0,scale=1280/Engine.VW,soundOn=true,playing=true;
@@ -87,13 +88,13 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
       return domW(txtEl, ln || ' ');
     })) + 2;
     // Size for dialogue text only; speaker identity stays in the scene data.
-    const min5 = domW(txtEl, '가나다라마');
     const cb = getComputedStyle(bubble);
     const padX = parseFloat(cb.paddingLeft) + parseFloat(cb.paddingRight) +
                  parseFloat(cb.borderLeftWidth) + parseFloat(cb.borderRightWidth);
     // box-sizing:border-box라 style.width는 패딩·보더 포함 폭이다 — 내용 폭에 padX를 더해 지정
-    const inner = Math.min(Math.max(natural, min5), 1280 * 0.62 - padX);
+    const inner = Math.min(Math.max(natural, 110-padX), 420-padX);
     bubble.style.width = Math.ceil(inner + padX) + 'px';
+    global.LunaExteriorTextbox.fit(bubble,ghostEl,true);
   }
 
   /* 화면 페이드·암전·화이트홀드의 현재 가림 정도(0~1) — 말풍선도 같이 사라지게 */
@@ -146,6 +147,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     const p=rd.project(cam,st?st.x:lineAnchor.x,st?st.y-lineAnchor.head:lineAnchor.y);
     global.LunaWorldSpeech.place(bubble,{x:p.x*scale,y:p.y*scale,scale:cam.z,gap:(l.below?7:6)*scale,below:!!l.below});
     const tail=bubble.querySelector('.tail');tail.style.left='calc(50% - '+4*scale+'px)';tail.style.display=lineAnchor.actor||l.at?'':'none';
+    bubble.classList.toggle('exterior-tail-less',!(lineAnchor.actor||l.at));
 
   }
 

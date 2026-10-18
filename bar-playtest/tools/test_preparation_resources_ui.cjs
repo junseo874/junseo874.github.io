@@ -12,7 +12,11 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   assert(tray.background.includes('IMG_igd_backround.png'));assert.equal(tray.filter,'contrast(1.2) brightness(0.94)');assert.equal(tray.base,'rgba(0, 0, 0, 0)');assert.equal(tray.backgroundOpacity,'0.85');assert.equal(tray.opacity,'1');assert.equal(tray.itemFilter,'none');assert((await bg('.empty-slot')).includes('IMG_igd_box_B.png'));
   assert((await bg('.shelf-dots button.selected span')).includes('IMG_indicator_B.png'));assert(await p.locator('.shelf-arrow.prev').isDisabled());
   await p.locator('.shelf-arrow.next').hover();assert((await bg('.shelf-arrow.next')).includes('BTN_arrow_R_B.png'));await p.locator('.shelf-arrow.next').click();await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>lunaCampaign.ui.tab),'tool');
-  await p.locator('.shelf-dots [data-id="liquor"]').click();await p.waitForTimeout(500);await p.locator('.shelf-item[data-id="gin"]').click();assert.equal(await p.locator('.inventory-slot[data-id="gin"]').count(),1);
+  await p.locator('.shelf-dots [data-id="liquor"]').click();await p.waitForTimeout(500);
+  assert((await bg('.shelf-scene[data-category="liquor"]')).includes('a_5aefa124a3ff.png?v=warm-shelf-20261019'));
+  const shelf=await p.evaluate(async()=>{const a=barData.assets.prep_liquor,i=new Image();i.src=a.src;await i.decode();return [i.naturalWidth,i.naturalHeight];});assert.deepEqual(shelf,[960,540]);
+  await p.screenshot({path:'/private/tmp/luna-new-liquor-shelf.png'});
+  await p.locator('.shelf-item[data-id="gin"]').click();assert.equal(await p.locator('.inventory-slot[data-id="gin"]').count(),1);
   await p.evaluate(()=>{barGame.pickItem(barGame.cocktail('gin_tonic').glass);lunaCampaign.render(true);});assert(await start.isEnabled());
   assert((await bg('.inventory-slot[data-id="gin"]')).includes('IMG_igd_box_A.png'));
   assert.equal(await p.locator('.inventory-slot[data-id="gin"] .remove-mark').isVisible(),false);

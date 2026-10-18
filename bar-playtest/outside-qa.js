@@ -3,8 +3,16 @@
 'use strict';
 const labels=Object.fromEntries(W.LunaOutsideContent.events.map(e=>[e.id,e.label]));
 let liftLogo=null;
+const choiceOptions=[
+ {id:'look',label:'주변을 둘러본다.'},
+ {id:'ask',label:'이 거리에 대해 물어본다.'},
+ {id:'think',label:'당장은 결정하지 않고 조금 더 생각해 본다.'},
+ {id:'leave',label:'대화를 마친다.'}
+];
+const choiceRows=[{type:'qa-choice',actor:'qa-guide',who:'테스트 안내자',text:'어떻게 할까?'}];
 const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
+ {id:'ui:choice-four',label:'선택지 4개 · 외부 대화 UI',qaChoice:true,note:'W / S · 휠 이동 / E 또는 클릭 확정 · 네 가지 결과 · 반복 가능'},
  ...W.LunaOutsideNotion.qaCases.map(c=>({...c,note:'최신 외부 이야기 · 런타임 이동/선택 · QA 소지금 별도'})),
  ...Object.keys(W.LUNA_OUTSIDE_DIALOGUES).map(id=>{const e=W.LunaOutsideEncounters.cases.find(c=>c.id===id);return{id,label:labels[id]||(e?.kind==='pair'?'NPC끼리 대화':'NPC와 대화')+' · '+id.replace('demo_out_',''),source:id,auto:!!W.LunaOutsideContent.events.find(c=>c.id===id)?.auto,encounter:e,note:W.LunaOutsideContent.events.find(e=>e.id===id)?.persistent?'모든 일차 · 출근길/퇴근길':labels[id]};}),
  ...[{id:'shop:allowance',label:'시BAR · 300원 이하 용돈 선택',shop:true,first:true,shopDay:2,money:300},{id:'shop:first',label:'시BAR · 첫 대화',shop:true,first:true},{id:'shop:repeat',label:'시BAR · 재방문·구매 선택',shop:true,first:false},{id:'shop:quiz-bitters',label:'시BAR · 와일드 독 보유 → 비터스 구매·퀴즈',shop:true,first:false,owned:'wild_dog'},{id:'shop:quiz-wild-dog',label:'시BAR · 비터스 보유 → 와일드 독 구매·퀴즈',shop:true,first:false,owned:'bitters'}].map(c=>({...c,note:'1일차 퇴근길부터 · QA 구매는 본편 소지금에 영향 없음'})),
@@ -13,11 +21,12 @@ function catalog(){return [
  ];}
 function init(m,options){if(m.config.day!==99){m.qa=null;return;}const c=catalog().find(c=>c.id===options.qaCase)||catalog()[0];m.qa={caseId:c.id,activation:options.qaActivation||'source',triggered:false,inRange:false,done:false,runtime:null,camera:null,people:[],events:[]};m.scene='street';m.level=0;m.x=-1.15;m.y=-.7;m.elevatorY=W.LunaResidence.layout.elevatorBottom;m.facing=1;m.notionCommuteSeen=true;
  const r=W.LunaResidence.layout;
+ if(c.qaChoice)m.x=-.3;
  if(c.id.startsWith('lift-')){m.x=r.elevatorX-.8;if(c.id==='lift-down'){m.level=1;m.y=r.upperY;m.elevatorY=r.elevatorTop;}if(c.id==='lift-call')m.elevatorY=r.elevatorTop;}
  if(c.id==='home-in'){m.level=1;m.y=r.upperY;m.x=r.homeX-.7;m.elevatorY=r.elevatorTop;}
  if(c.id==='home-out'){m.scene='home';m.level=1;m.x=-.9;}
  if(c.id==='sofa'){m.scene='home';m.level=1;m.x=1.85;}
- const rows=c.shop?W.LunaOutsideShop.intro:c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:c.scene?W.LUNA_CAMPAIGN_DATA.scenes[c.scene]:[];
+ const rows=c.qaChoice?choiceRows:c.shop?W.LunaOutsideShop.intro:c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:c.scene?W.LUNA_CAMPAIGN_DATA.scenes[c.scene]:[];
  const ids=c.encounter?.members||[...new Set(rows.filter(r=>r.actor&&!['luna','narrator','sign','tv'].includes(r.actor)).map(r=>r.actor))];m.qa.people=ids.map((id,i)=>({id,name:W.LunaOutsideEncounters.actor(id)?.name||rows.find(r=>r.actor===id)?.who||W.barGame?.name(id)||id,x:.1+i*.65,y:-.7,kind:['M1','M2','W1'][i%3]}));
 }
 function target(m){const c=catalog().find(c=>c.id===m.qa.caseId),r=W.LunaResidence.layout;let id='qa-event',x=0,y=-.7;
@@ -29,6 +38,7 @@ function target(m){const c=catalog().find(c=>c.id===m.qa.caseId),r=W.LunaResiden
 function isAuto(m){const c=catalog().find(c=>c.id===m.qa.caseId);return !c.physical&&(m.qa.activation==='proximity'||m.qa.activation==='source'&&c.auto);}
 function targets(m){return isAuto(m)?[]:[target(m)];}
 function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.story.cancel();m.backgroundStory.cancel();m.qa.done=false;m.qa.triggered=true;m.qa.events.push({event:'begin',time:m.time,id:c.id});
+ if(c.qaChoice){m.story.beginRows(c.id,t,choiceRows,false);return;}
  if(c.encounter?.activation==='forced'){W.LunaOutsideEncounters.start(m);return;}
  if(c.notion){m.qa.shopProgress={money:1000,flags:{},inventory:{}};W.LunaOutsideNotion.start(m,c.notion);return;}
  if(['commute2','commute3'].includes(c.scene)){W.LunaOutsideSamhoCommute.start(m);return;}
@@ -39,6 +49,14 @@ function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.st
  m.qa.camera={x:-.2,y:-.12,w:3.6};m.qa.runtime={elapsed:0,from:m.x,to:-.65,start};
 }
 function interact(m,t){if(!m.qa||t.id!=='qa-event')return false;begin(m);return true;}
+function choiceView(m){if(!m.qa||m.story.speech?.line?.type!=='qa-choice')return null;return {label:'외부 선택지 4개 테스트',options:choiceOptions};}
+function choose(m,id){
+ if(!choiceView(m))return false;
+ const index=choiceOptions.findIndex(o=>o.id===id);if(index<0)return false;
+ const option=choiceOptions[index];m.qa.events.push({event:'choice',time:m.time,id:m.qa.caseId,option:id,index:index+1});
+ m.story.beginRows('ui:choice-four:result',target(m),[{type:'say',actor:'qa-guide',who:'테스트 안내자',text:(index+1)+'번 선택: '+option.label+' 대화를 닫고 E를 누르면 다시 테스트할 수 있어요.'}],false);
+ return true;
+}
 function tick(m,dt){const q=m.qa;if(!q)return false;
  if(q.runtime){const r=q.runtime;r.elapsed+=dt;const p=Math.min(1,r.elapsed/.65);m.x=r.from+(r.to-r.from)*(p*p*(3-2*p));m.facing=m.x<0?1:-1;m.anim=p<1?'walk':'idle';m.animTime+=dt;m.time+=dt;if(p===1)r.start();return true;}
  if(q.triggered&&!q.done&&!m.encounter&&!m.story.speech&&!m.ride){q.done=true;q.camera=null;q.events.push({event:'complete',time:m.time,id:q.caseId});}
@@ -65,5 +83,5 @@ function draw({m,ctx,position,sprite,data,player}){const q=m.qa,c=catalog().find
  if(c.id==='lift-logo'&&m.ride&&m.ride.time>3&&m.ride.time<10){ctx.save();ctx.globalAlpha=Math.min(1,(m.ride.time-3)/1.5,(10-m.ride.time)/1.5);if(!liftLogo){liftLogo=new Image();liftLogo.src='assets/campaign/title-logo.png';}const shade=ctx.createLinearGradient(1280*.54,0,1280,0);shade.addColorStop(0,'rgba(0,0,0,0)');shade.addColorStop(.55,'rgba(0,0,0,.24)');shade.addColorStop(1,'rgba(0,0,0,.48)');ctx.fillStyle=shade;ctx.fillRect(1280*.54,0,1280*.46,720);if(liftLogo.complete&&liftLogo.naturalWidth){const width=380,height=width*liftLogo.naturalHeight/liftLogo.naturalWidth;ctx.drawImage(liftLogo,1280-90-width,185,width,height);ctx.font='22px LunaPixel, sans-serif';ctx.textAlign='center';ctx.textBaseline='top';ctx.fillStyle='#f2f8fc';ctx.shadowColor='#000';ctx.shadowBlur=6;ctx.shadowOffsetY=2;ctx.fillText('Team. SimChung',1000,393);}ctx.restore();}
  ctx.fillStyle='#8cb4c3';ctx.font='15px sans-serif';ctx.textAlign='left';ctx.fillText('QA 99 / 가상 스테이지',24,100);ctx.fillStyle='#c5e6e6';ctx.fillText(c.label,24,124);ctx.fillStyle='#7993a3';ctx.font='12px sans-serif';ctx.fillText((isAuto(m)?'범위 접근 자동 재생':'접근 후 E')+' · Esc 설정 · Tab으로 QA 대상 변경',24,145);
 }
-W.LunaOutsideQA={catalog,init,targets,target,tick,interact,anchor,draw};
+W.LunaOutsideQA={catalog,init,targets,target,tick,interact,choiceView,choose,anchor,draw};
 })(typeof window==='undefined'?globalThis:window);

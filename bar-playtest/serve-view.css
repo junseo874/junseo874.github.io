@@ -1,6 +1,11 @@
 .serve-presentation{position:absolute;inset:0;z-index:20;overflow:hidden;background:#0d0e18}
-.serve-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
-.serve-carbonation{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+/* A scaled ancestor transform rasterizes the whole scene a second time, even
+   when the canvas itself is device-pixel aligned. Layout zoom keeps serving
+   UI at its existing size without stretching an intermediate scene texture. */
+.app-shell:has(.serve-presentation){zoom:var(--game-scale,1);transform:translate(-50%,-50%)}
+.serve-canvas{position:absolute;left:0;top:0;image-rendering:pixelated}
+.serve-loading{position:absolute;inset:0;display:grid;place-items:center;color:#c4d8df;font-size:18px;pointer-events:none}
+.serve-carbonation{position:absolute;left:0;top:0;image-rendering:pixelated;pointer-events:none}
 .serve-grade{position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:48px;letter-spacing:4px;color:#f8e1a1;text-shadow:0 3px 0 #251e18,0 0 18px #0b0c18;pointer-events:none}
 .serve-grade[data-grade=poor],.serve-grade[data-grade=sewage]{color:#efa294}
 .serve-actions{position:absolute;bottom:24px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:flex-start}
@@ -16,6 +21,7 @@
 .currency-income .currency-value{color:#ffe59a}
 .currency-hud.currency-income .currency-delta{color:#ffe59a}
 .currency-hud .currency-delta{position:absolute;right:18px;top:52px;font-size:28px;color:#ffac9e;text-shadow:0 2px 5px #000;white-space:nowrap}
+.currency-unit-losses{display:contents;pointer-events:none}
 .serve-score-detail .result-table{width:100%;font-size:14px}
 .serve-score-detail th{text-align:left;color:#9bcbd1;padding:8px 0}
 .serve-score-detail p{font-size:13px;line-height:1.7}

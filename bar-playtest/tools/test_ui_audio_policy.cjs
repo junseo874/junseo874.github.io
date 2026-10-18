@@ -25,6 +25,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   ['recipe card','<div class="recipe-list"><button data-act="selectRecipe">레시피</button></div>',0,0],
   ['recipe detail','<div class="prep-recipe"><button>닫기</button></div>',0,0],
   ['recipe toggle','<button data-act="togglePrepRecipe">상세 레시피</button>',0,0],
+  ['craft start','<button data-act="craft">제조 시작</button>',1,0],
   ['settings kept','<button>설정</button>',1,1]
  ];
  for(const [label,html,hover,click] of cases){

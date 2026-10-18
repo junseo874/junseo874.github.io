@@ -1,6 +1,20 @@
 (function(W){
 'use strict';
 const asset='assets/campaign/terrace-20261018.png';
+// The old composite is reference art only. Preserve the supplied sheets byte-for-byte.
+const assets={city:'assets/terrace-20261019/city.png',building:'assets/terrace-20261019/building.png',characters:'assets/terrace-20261019/characters.png',balustrade:'assets/terrace-20261019/balustrade.png'};
+const animation={frames:8,width:129,height:138,fps:6};
+let prepared=null;
+function prepare(){
+ if(!prepared)prepared=Promise.all(Object.values(assets).map(src=>{const image=new Image();image.src=src;return image.decode();})).catch(error=>{prepared=null;throw error;});
+ return prepared;
+}
+function paintCharacters(dialog,host){
+ const actors=host.querySelector('.terrace-characters');if(!actors)return;
+ const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
+ actors.dataset.frame=String(frame);actors.style.backgroundPosition=(-frame*animation.width)+'px 0px';
+}
+function tick(dialog,dt){dialog.terraceTime=(dialog.terraceTime||0)+Math.max(0,Math.min(.05,Number(dt)||0));}
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Actor anchors are measured from the supplied 480 × 270 terrace composition.
 const seats={chris:{x:163/480*1280,y:151/270*720},luna:{x:134/480*1280,y:151/270*720}};
@@ -16,16 +30,18 @@ function textHTML(row,count=Infinity){
 function html(dialog){
  const row=dialog.rows[dialog.index],seat=seats[row.actor],speaker=seat?row.actor:'narration';
  const style=seat?'--speaker-x:'+seat.x+'px;--speaker-y:'+seat.y+'px;':'';
- return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><img class="terrace-art" src="'+asset+'" alt="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다" draggable="false">'+
+ return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><div class="terrace-art" role="img" aria-label="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다"><img class="terrace-city" src="'+assets.city+'" alt="" draggable="false"><canvas class="terrace-sign-scanlines" width="480" height="270" aria-hidden="true"></canvas><img class="terrace-building" src="'+assets.building+'" alt="" draggable="false"><span class="terrace-characters" style="background-image:url('+assets.characters+')" aria-hidden="true"></span><img class="terrace-balustrade" src="'+assets.balustrade+'" alt="" draggable="false"></div>'+
  '<span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
  '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사">'+W.LunaExteriorTextbox.html()+'<p></p></button></div>';
 }
 function paint(dialog,host){
+ W.LunaSignScanlines?.paintTerrace(host,dialog.terraceTime||0);
+ paintCharacters(dialog,host);
  const bubble=host.querySelector('.terrace-speech'),paragraph=bubble?.querySelector('p');if(!paragraph)return;
  const row=dialog.rows[dialog.index];
  if(!paragraph.dataset.mounted){W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.mounted='true';}
  W.LunaExteriorTextbox.revealText(paragraph,Array.from(row.text.slice(0,Math.floor(dialog.chars))).length);
  W.LunaDialogueCue.sync(bubble,!!row.text&&dialog.chars>=row.text.length);
 }
-W.LunaTerrace={asset,seats,rows,html,paint,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===2?'night2':day===3?'ending':null};
+W.LunaTerrace={asset,assets,animation,prepare,tick,seats,rows,html,paint,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===2?'night2':day===3?'ending':null};
 })(window);

@@ -14,7 +14,7 @@
 /* Keep the supplied button artwork fitted; a color-only background shorthand
    resets its size/position and clips the full-size PNG in the tutorial. */
 .service-layer.tutorial-service .service-actions [data-act="recipes"]{border:0;background:transparent url('assets/ui/service_panel/BTN_service_B.png') center/100% 100% no-repeat;box-shadow:0 0 18px #5bd7e64d;animation:day0-focus 1.4s ease-in-out infinite;color:#edffff}
-.service-layer.tutorial-service .service-actions button:disabled{opacity:.25;cursor:not-allowed}
+.service-layer.tutorial-service .service-actions button:disabled{opacity:.25;cursor:var(--luna-cursor-not-allowed,not-allowed)}
 .service-layer.tutorial-service .service-scrim{background:transparent}
 .service-layer.tutorial-service .service-panel>p{color:#c3f3f5}
 @keyframes day0-focus{50%{filter:drop-shadow(0 0 9px #55dae9)}}

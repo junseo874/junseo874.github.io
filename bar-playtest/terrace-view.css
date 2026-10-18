@@ -1,9 +1,15 @@
 /* A locked wide composition: speech moves between seats, never the camera. */
 .terrace-scene{position:absolute;inset:0;background:#080f1b}
-.terrace-art{display:block;width:1280px;height:720px;image-rendering:pixelated;pointer-events:none;user-select:none}
+.terrace-art{position:absolute;inset:0 auto auto 0;width:480px;height:270px;transform:scale(calc(8 / 3));transform-origin:0 0;image-rendering:pixelated;pointer-events:none;user-select:none}
+.terrace-art>img{position:absolute;display:block;image-rendering:pixelated}
+.terrace-city,.terrace-building{inset:0;width:480px;height:270px}
+.terrace-sign-scanlines{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
+/* Original 480×270 preview alignment; the pair shares one 129×138 frame. */
+.terrace-characters{position:absolute;left:85px;top:98px;width:129px;height:138px;background-repeat:no-repeat;background-size:1032px 138px;image-rendering:pixelated}
+.terrace-balustrade{left:86px;top:179px;width:133px;height:19px}
 .terrace-seat{position:absolute;top:402.67px;width:2px;height:2px;pointer-events:none}
 .terrace-seat.chris{left:434.67px}.terrace-seat.luna{left:357.33px}
-.campaign-stage .terrace-speech{width:max-content;max-width:420px;box-sizing:border-box;outline:0;transition:none;cursor:pointer}
+.campaign-stage .terrace-speech{width:max-content;max-width:420px;box-sizing:border-box;outline:0;transition:none;cursor:var(--luna-cursor-pointer,pointer)}
 .campaign-stage .terrace-bubble{left:var(--speaker-x);bottom:calc(720px - var(--speaker-y) + 22px);transform:translateX(-50%)}
 .campaign-stage .terrace-speech p{margin:0;font-size:17px;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;text-wrap:wrap}
 .campaign-stage .terrace-narration{left:50%;bottom:42px;max-width:750px;text-align:center}

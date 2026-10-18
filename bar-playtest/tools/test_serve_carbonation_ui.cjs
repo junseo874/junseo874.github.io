@@ -52,15 +52,15 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    // Export the transparent effect alone to inspect clipping and density.
    await page.locator('.serve-carbonation').screenshot({path:'/private/tmp/carbonation-'+id+'-layer.png'});
    const stats=await page.locator('.serve-carbonation').evaluate(c=>{
-    const d=c.getContext('2d').getImageData(0,0,1280,720).data;let count=0,outside=0;
-    for(let y=0;y<720;y++)for(let x=0;x<1280;x++)if(d[(y*1280+x)*4+3]){count++;if(x<510||x>760||y<210||y>570)outside++;}
+    const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data,k=Number(c.dataset.pixelScale);let count=0,outside=0;
+    for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]){count++;if(x<410*k||x>560*k||y<160*k||y>405*k)outside++;}
     return {count,outside};
    });
    assert(stats.count>60&&stats.count<2200,JSON.stringify({id,stats}));assert.equal(stats.outside,0);
    if(id==='bottle_beer'){
     await page.setViewportSize({width:960,height:600});await page.waitForTimeout(250);
     await page.screenshot({path:'/private/tmp/carbonation-beer-small.png'});
-    const bounds=await page.locator('.serve-carbonation').boundingBox();assert(Math.abs(bounds.width/bounds.height-16/9)<.01);
+    const bounds=await page.locator('.serve-carbonation').boundingBox(),art=await page.locator('.serve-canvas').boundingBox();assert(Math.abs(bounds.width/bounds.height-954/540)<.01);assert.deepEqual(bounds,art);
     await page.setViewportSize({width:1280,height:720});
    }
   }

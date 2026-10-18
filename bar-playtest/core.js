@@ -571,12 +571,18 @@ class Game{
   }
   if(!this.qaKeepGeneral&&this.queueIndex>=this.queue.length&&Object.values(this.seats).every(g=>!g)&&!Object.keys(this.tableFades).length){this.drink=null;this.finishGeneralService();}
  }
- tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;if(g.type!=='open')this.craft.elapsed+=dt;
+ tickGimmick(dt){const g=this.gimmick;if(!g)return;if(g.fluid){if(!g.started)return;if(!g.fluid.finishRequested||g.angle>0){g.elapsed+=dt;this.craft.elapsed+=dt;}g.fluid.tick(g,dt);this.chargePourOverflow(g.fluid);if(g.fluid.ready){if(g.pourFinishFx)g.pourFinishFx.age+=dt;this.endGimmick();}return;}MIX.visual(g,dt);OPEN.visual(g,dt);if(!g.started||g.completed)return;g.elapsed+=dt;if(g.type!=='open')this.craft.elapsed+=dt;
   if(g.type==='open'){OPEN.tick(g,dt);}
   else if(g.type==='shake'){MIX.updatePath(g,this.rng);if(!g.feedbackLeft){g.hit=false;g.message='';}}
   else if(g.type==='stir'){g.circleTime+=dt;if(g.circleTime>=this.c('stir_circle_limit_sec',1.5))this.finishStirCircle(false);}
  }
  currentDialogue(){if(this.cameraMoving||this.cameraLeft>0||this.transition>0)return null;if(this.phase==='general'){const g=this.seats[this.focus];return !this.cameraLeft?g?.lines?.[g.lineIndex]:null;}return this.dialogue;}
+ chargePourOverflow(fluid){
+  const whole=Math.floor(fluid.overflowMl+1e-8),cost=Math.max(0,whole-fluid.overflowCharged);if(!cost)return;
+  fluid.overflowCharged=whole;this.progress.money-=cost;
+  // Monotonic receipt lets the HUD show individual -1 ticks without audio.
+  this.progress.pourWaste=(this.progress.pourWaste||0)+cost;this.changed();
+ }
  totals(){return this.transactions.reduce((a,t)=>({sale:a.sale+t.sale,tip:a.tip+t.tip,refund:a.refund+t.refund,net:a.net+t.net}),{sale:0,tip:0,refund:0,net:0});}
 }
 const api={Game,MIX,OPEN,POUR,GRADES,millilitreData,condition,applyEffects,scoreCraft,buildQueue,band,seeded,clean,n,clamp};

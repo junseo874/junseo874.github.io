@@ -51,7 +51,7 @@ function forced(m){
 }
 function label(e,g){
  if(e.kind.startsWith('goal-'))return e.title;
- if(e.kind==='meet')return '신규 인물 정보 등록!';
+ if(e.kind==='meet')return g.name(e.actor);
  if(e.kind==='event')return '새로운 이벤트 발생!';
  return (g.speakerName?.(e.actor)||g.name(e.actor))+' 호감도 '+(e.kind==='up'?'상승!':'하락!');
 }
@@ -83,8 +83,16 @@ function tick(g,outside,campaign,dt){
   if(!lane.current&&lane.queue.length){
    lane.current=lane.queue.shift();lane.age=0;const e=lane.current;
    lane.el.dataset.kind=e.kind;lane.el.dataset.actor=e.actor;lane.el.dataset.serial=String(e.serial);
-   lane.el.querySelector('.story-notice-icon').textContent={meet:'＋',up:'↑',down:'↓',event:'!','goal-new':'◇','goal-complete':'✓'}[e.kind];
-   lane.el.querySelector('small').textContent={'goal-new':'새로운 목표','goal-complete':'목표 달성',meet:'인물 정보',event:'외부 이벤트'}[e.kind]||'관계 변화';
+   let icon=lane.el.querySelector('.story-notice-icon');
+   if(e.kind==='meet')icon?.remove();
+   else{
+    if(!icon){icon=document.createElement('span');icon.className='story-notice-icon';icon.setAttribute('aria-hidden','true');lane.el.prepend(icon);}
+    icon.textContent={up:'↑',down:'↓',event:'!','goal-new':'◇','goal-complete':'✓'}[e.kind];
+    if(e.kind==='up'||e.kind==='down'){
+     const arrow=document.createElement('span');arrow.className='story-notice-arrow';arrow.textContent=icon.textContent;icon.replaceChildren(arrow);
+    }
+   }
+   lane.el.querySelector('small').textContent={'goal-new':'새로운 목표','goal-complete':'목표 달성',meet:'새로운 인물!',event:'외부 이벤트'}[e.kind]||'관계 변화';
    lane.el.querySelector('strong').textContent=label(e,g);
    W.LunaStoryNoticeAudio?.play(()=>lane.current===e&&!layer.hidden,e.kind);
   }

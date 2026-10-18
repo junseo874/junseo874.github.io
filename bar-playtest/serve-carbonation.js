@@ -2,23 +2,24 @@
  * Coordinates are in each final sprite's native pixels, not a rectangular particle box.
  * Bubbles stay inside the liquid; condensation belongs to the front of the glass. */
 (function(){
- const k=1280/959;
+ // Final frame of the current 954×539 full-screen drink layers.
+ const transform=[0,0,1280/954,720/539];
  const profiles={
-  gin_tonic:{transform:[0,0,k],count:32,top:180,bottom:386,
-   outline:[[411,172],[556,180],[550,363],[535,381],[507,390],[448,387],[426,372]],
+  gin_tonic:{transform,count:32,top:172,bottom:386,
+   outline:[[413,165],[553,168],[550,365],[535,389],[447,389],[428,370],[426,305],[416,260]],
    // Rosemary/lime sit in front of the liquid: do not paint bubbles over the garnish.
-   garnish:[[482,180],[553,150],[547,204],[520,220],[503,263],[480,282],[473,248]],
+   garnish:[[474,145],[560,130],[556,188],[520,207],[486,259],[472,244]],
    beads:[[425,203],[448,256],[465,327],[540,239],[530,302],[440,354],[512,366]],
    drops:[[435,226],[535,277],[464,305]]},
-  gin_fizz:{transform:[315*k,-12*k,.91*k],count:28,top:238,bottom:446,
-   outline:[[106,230],[253,230],[249,405],[237,438],[218,449],[145,451],[121,435],[114,403]],
-   garnish:[[213,302],[249,299],[237,350],[203,389],[194,383]],
-   beads:[[117,260],[133,310],[169,384],[241,271],[232,406],[151,426],[215,435]],
-   drops:[[126,283],[237,365],[162,348]]},
-  bottle_beer:{transform:[640-200*(370/345)/2,190,370/345],count:34,top:113,bottom:277,
-   outline:[[24,109],[176,109],[164,176],[147,247],[139,277],[124,283],[73,283],[62,274],[47,208],[31,151]],
-   beads:[[35,132],[60,176],[141,161],[85,238],[135,244],[69,263],[119,203]],
-   drops:[[48,146],[147,181],[81,219]]}
+  gin_fizz:{transform,count:28,top:180,bottom:396,
+   outline:[[414,172],[553,172],[548,380],[530,401],[445,401],[427,380],[425,310],[413,253]],
+   garnish:[[513,256],[551,254],[541,312],[498,346],[492,332]],
+   beads:[[428,203],[446,250],[475,345],[539,221],[531,368],[452,380],[510,388]],
+   drops:[[437,224],[535,328],[470,301]]},
+  bottle_beer:{transform,count:34,top:201,bottom:357,
+   outline:[[420,200],[550,200],[537,276],[523,359],[458,359],[456,335],[456,318],[447,294],[447,284],[432,260]],
+   beads:[[435,220],[462,254],[536,227],[485,322],[520,332],[468,342],[512,278]],
+   drops:[[448,235],[528,270],[478,300]]}
  };
  const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
  const fract=n=>n-Math.floor(n);
@@ -56,7 +57,7 @@
   const p=profiles[id],s=sample(id,seconds);
   if(!p||seconds<0){canvas.dataset.active='false';return;}
   canvas.dataset.active='true';canvas.dataset.time=String(s.time);canvas.dataset.cocktail=id;
-  ctx.save();const [x,y,scale]=transform||p.transform;ctx.translate(x,y);ctx.scale(scale,scale);
+  ctx.save();const [x,y,scale,scaleY=scale]=transform||p.transform;ctx.translate(x,y);ctx.scale(scale,scaleY);
   ctx.globalAlpha=clamp(seconds/.6);ctx.imageSmoothingEnabled=false;
   const fade=ctx.globalAlpha;
   ctx.save();ctx.beginPath();path(ctx,p.outline);ctx.clip();
@@ -65,17 +66,17 @@
    ctx.globalAlpha=fade*b.alpha;ctx.fillStyle='#fffde4';
    // Tiny pixel dots, with a hollow highlight only on the occasional larger bubble.
    const bx=Math.round(b.x),by=Math.round(b.y);
-   if(b.r>1){ctx.strokeStyle='#fffde4';ctx.lineWidth=.65;ctx.beginPath();ctx.arc(bx,by,1.25,0,Math.PI*2);ctx.stroke();}
-   else ctx.fillRect(bx,by,1,b.r>.8?2:1);
+   if(b.r>1){ctx.strokeStyle='#fffde4';ctx.lineWidth=.65;ctx.beginPath();ctx.arc(bx,by,1.45,0,Math.PI*2);ctx.stroke();}
+   else ctx.fillRect(bx-.1,by-.1,1.2,b.r>.8?2.3:1.2);
   }
   ctx.restore();ctx.save();ctx.beginPath();path(ctx,p.outline);ctx.clip();
   function bead(x,y,r,alpha,length=0){
-   x=Math.round(x);y=Math.round(y);ctx.globalAlpha=fade*alpha;
+   x=Math.round(x);y=Math.round(y);ctx.globalAlpha=fade*alpha;r*=1.15;
    // A subdued lower edge and a warm-white highlight read as water, not glitter.
    ctx.strokeStyle='rgba(104,94,57,.28)';ctx.lineWidth=.8;
    ctx.beginPath();ctx.ellipse(x+.4,y+.7,r,r+length*.28,0,0,Math.PI*2);ctx.stroke();
    if(length){ctx.fillStyle='rgba(255,255,234,.22)';ctx.fillRect(x,y-length-2,.8,length+1);}
-   ctx.fillStyle='rgba(255,255,239,.8)';ctx.fillRect(x-1,y-1,1,2+length*.25);
+   ctx.fillStyle='rgba(255,255,239,.8)';ctx.fillRect(x-1,y-1,1.15,2.3+length*.25);
    ctx.fillStyle='rgba(255,255,239,.3)';ctx.fillRect(x,y,1,1);
   }
   p.beads.forEach(([bx,by],i)=>bead(bx,by,.75+(i%3)*.2,.52));

@@ -8,7 +8,7 @@
 .pour-top-readout{flex-wrap:wrap;max-width:650px}
 .pour-top-readout>small{flex-basis:100%;color:#a2b6bd;font-size:12px}
 .opening-phase{position:absolute;top:45px;left:0;right:0;text-align:center;color:#e7c88e;font-size:20px;pointer-events:none}
-.opening-screen .opening-stage{cursor:pointer;touch-action:manipulation;pointer-events:auto}
+.opening-screen .opening-stage{cursor:var(--luna-cursor-pointer,pointer);touch-action:manipulation;pointer-events:auto}
 .pour-top-readout{position:absolute;top:28px;left:26px;display:flex;gap:24px;pointer-events:none;text-align:left;color:#d8e6ed}
 .pour-top-readout>div{min-width:110px}
 .pour-top-readout span{display:block;font-size:14px;color:#a8bdc8;margin-bottom:5px}

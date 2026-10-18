@@ -3,7 +3,9 @@
 'use strict';
 const D=W.LUNA_DATA,key='char_shiba_static';
 D.assets[key]={src:'assets/char-shiba-idle-20261019.png',w:551,h:530,frames:1,frameWidth:551,frameHeight:530,fps:0,static:true,alphaBBox:[219,271,347,422],source:'User supplied Shiba_Idle.png, 2026-10-19'};
-D.characterLayers.shiba={idle_default:[key],idle_talk:[key]};
+const talkKey='char_shiba_talk';
+D.assets[talkKey]={...D.assets[key],src:'assets/char-shiba-talk-20261019.png',source:'User supplied Shiba_Idle2.png, 2026-10-19'};
+D.characterLayers.shiba={idle_default:[key],idle_talk:[talkKey]};
 D.webPoseOffsets.shiba={idle_default:[0,0],idle_talk:[0,0]};
 // Preserve the supplied full actor canvas and align its torso cut to the bar.
 D.webActorBounds.shiba=[219,271,347,422];

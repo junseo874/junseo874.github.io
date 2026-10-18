@@ -28,7 +28,7 @@
 .resource-profile .affinity-bar{height:auto;display:flex;gap:0;width:100%}
 .resource-profile .affinity-bar i{flex:1;height:auto;aspect-ratio:291/66;background:transparent url('assets/ui/profile/profile_window/IMG_friendship_B.png') center/100% 100% no-repeat;box-shadow:none}
 .resource-profile .affinity-bar i.filled{background-image:url('assets/ui/profile/profile_window/IMG_friendship_A.png');box-shadow:none}
-.resource-profile .guest-card.unmet{opacity:1;background:transparent url('assets/ui/profile/IMG_card_A.png') center/100% 100% no-repeat;cursor:default}
+.resource-profile .guest-card.unmet{opacity:1;background:transparent url('assets/ui/profile/IMG_card_A.png') center/100% 100% no-repeat;cursor:var(--luna-cursor-default,default)}
 .resource-profile .guest-card.unmet:after{background-image:url('assets/ui/profile/IMG_card_A_frame.png')}
 .resource-profile .profile-silhouette{filter:brightness(0);opacity:.45;pointer-events:none}
 .resource-profile .profile-silhouette .dossier-portrait{width:100%;height:100%}

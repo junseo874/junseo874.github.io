@@ -1,7 +1,7 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../cutscene-studio/',document.currentScript.src),version='head-choice-20261018';
+const base=new URL('../../cutscene-studio/',document.currentScript.src),version='shared-exterior-20261019';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
@@ -26,7 +26,7 @@ async function prepare(id){
 function player(canvas,ui,project){
  canvas.width=1280;canvas.height=720;ui.hidden=true;
  const ctx=canvas.getContext('2d'),playback={playbackOnly:true,project,waitAge:0},extras=StudioExtras(playback);
- const speechLayer=canvas.parentElement?StudioSpeechLayer.create(canvas):null;
+ const speechLayer=canvas.parentElement?W.LunaCinemaSpeech.create(canvas):null;
  let waiting=null;
  let time=0,lastCamera=project.camera,typeLine=null,typeCount=0;
  const clocks=clocksByProject.get(project)||new Map();clocksByProject.set(project,clocks);
@@ -46,6 +46,12 @@ function player(canvas,ui,project){
 function speech(c,s){
  const held=waiting?.id===c.id,waitAge=held?waiting.age:0,revealed=held&&waiting.revealed;
  const count=dialogueCount(c);
+ // Documentary dialogue is a bottom caption with the same compact skin and
+ // content-fitted padding as outside dialogue, not a TV-width backdrop.
+ if(c.layout==='documentary'){
+  if(s.actors[c.actor]?.active)speechLayer?.paint(c,{x:640,y:686},1280/lastCamera.w,count,!!(c.wait&&held&&count>=StudioTags.parse(c.text).chars.length),time+waitAge);
+  return;
+ }
  if(StudioOpening.dialogue(ctx,c,s,lastCamera,time,waitAge,revealed,held,count))return;
  const a=s.actors[c.actor];if(!a||a.visible<.5||a.opacity<=0||a.asset&&!a.active)return;
  const k=1280/lastCamera.w,p=projectPoint(a.x+(c.offsetX||0),a.y+c.offset);

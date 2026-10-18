@@ -44,6 +44,56 @@ function apply(data){
  data.signLightVersion=1;return data;
 }
 const cache=new WeakMap();
+// Only one faulty tube per cluster. Coordinates are in the Light2D atlas,
+// not screen space. Letter-only masks retain the plaque, trim and other tubes.
+const faults=[
+ {id:'street-neon-service-strip',region:[339,115,29,1]},
+ {id:'street-neon-vertical-left',region:[0,90,15,15]},
+ {id:'street-neon-restaurant-cluster',region:[718,71,31,30]},
+ {id:'street-neon-shiba-cluster',region:[95,110,11,11],letterMask:'top-letter'},
+ {id:'street-neon-upper-left',region:[61,43,26,25],letterMask:'outlined-d'}
+];
+const faultCache=new WeakMap();
+function faultLevel(id,time=0,still=false){
+ if(still)return 1;
+ const index=faults.findIndex(f=>f.id===id);if(index<0)return 1;
+ // Staggered faults cannot black out the street together. Each lamp gets
+ // a short irregular two-interruption episode, followed by ~11 s of rest.
+ const t=Math.max(0,time),slot=Math.floor(t/2.4);
+ if(slot%faults.length!==index)return 1;
+ const seed=Math.sin((slot+1)*127.1)*43758.5453,r=seed-Math.floor(seed);
+ const age=t-slot*2.4-(.4+r*1.1);
+ if(age<0||age>=.70)return 1;
+ if(age<.12+r*.05)return .07;
+ if(age<.34)return 1;
+ if(age<.57)return .04;
+ return .3+.7*(age-.57)/.13;
+}
+function faultParts(image,sp,fault){
+ let entries=faultCache.get(image);if(!entries){entries=new Map();faultCache.set(image,entries);}
+ const key=[fault.id,sp.x,sp.y,sp.w,sp.h].join(':');if(entries.has(key))return entries.get(key);
+ const base=document.createElement('canvas');base.width=sp.w;base.height=sp.h;
+ const bc=base.getContext('2d');bc.drawImage(image,sp.x,sp.y,sp.w,sp.h,0,0,sp.w,sp.h);
+ const [x,y,w,h]=fault.region,l=x-sp.x,top=y-sp.y;
+ const tube=document.createElement('canvas');tube.width=w;tube.height=h;
+ const tc=tube.getContext('2d');tc.drawImage(image,x,y,w,h,0,0,w,h);
+ if(fault.letterMask){
+  // The full letter includes both its violet core and gold outline/bevel.
+  // The D's lower-right gold pixels also border "ance": native row limits
+  // separate that lettering from D without blacking out the shared plaque.
+  const pixels=tc.getImageData(0,0,w,h),back=bc.getImageData(l,top,w,h);
+  for(let i=0;i<pixels.data.length;i+=4){
+   const r=pixels.data[i],g=pixels.data[i+1],b=pixels.data[i+2],a=pixels.data[i+3];
+   const px=x+(i/4)%w,py=y+Math.floor(i/4/w),violet=r>90&&g<90&&b>180;
+   const gold=fault.letterMask==='outlined-d'?(r===255&&g===170&&b===78||r===228&&g===141&&b===66):(r===190&&g===144&&b===53||r===232&&g===177&&b===66);
+   const dRight={58:78,59:78,60:77,61:77,62:75,63:75};
+   const selected=a===255&&(violet||gold)&&(fault.letterMask!=='outlined-d'||px<=(dRight[py]??86));
+   if(selected)back.data[i+3]=0;else pixels.data[i+3]=0;
+  }
+  tc.putImageData(pixels,0,0);bc.putImageData(back,l,top);
+ }else bc.clearRect(l,top,w,h);
+ const result={base,tube,l,top,w,h};entries.set(key,result);return result;
+}
 function bloom(image,sp){
  let frames=cache.get(image);if(!frames){frames=new Map();cache.set(image,frames);}
  const key=[sp.x,sp.y,sp.w,sp.h].join(':');if(frames.has(key))return frames.get(key);
@@ -52,13 +102,23 @@ function bloom(image,sp){
  const canvas=document.createElement('canvas');canvas.width=source.width;canvas.height=source.height;
  const ctx=canvas.getContext('2d');
  // Native-pixel radii keep the same physical spread while the camera zooms.
- // No flicker: a stable emissive core and two restrained falloff distances.
+ // Each emissive core and its two falloff distances share the same gain.
  ctx.globalAlpha=.28;ctx.filter='blur(7px)';ctx.drawImage(source,0,0);
  ctx.globalAlpha=.48;ctx.filter='blur(2px)';ctx.drawImage(source,0,0);
  const value={canvas,pad};frames.set(key,value);return value;
 }
 // Draw in the caller's sprite-local transform. Actors/rails still draw later.
-function paint(ctx,image,sp,width,height){
+function paint(ctx,image,sp,width,height,id=null,time=0,still=false){
+ const level=faultLevel(id,time,still),fault=level<1&&faults.find(f=>f.id===id);
+ if(fault){
+  const p=faultParts(image,sp,fault),px=width/sp.w,py=height/sp.h;
+  const left=-width*sp.pivot.x,top=-height*(1-sp.pivot.y);
+  ctx.save();ctx.translate(left,top);
+  paint(ctx,p.base,{x:0,y:0,w:sp.w,h:sp.h,pivot:{x:0,y:1}},width,height);
+  ctx.translate(p.l*px,p.top*py);ctx.globalAlpha*=level;
+  paint(ctx,p.tube,{x:0,y:0,w:p.w,h:p.h,pivot:{x:0,y:1}},p.w*px,p.h*py);
+  ctx.restore();return;
+ }
  const {canvas,pad}=bloom(image,sp),px=width/sp.w,py=height/sp.h;
  const left=-width*sp.pivot.x,top=-height*(1-sp.pivot.y);
  ctx.save();ctx.globalCompositeOperation='screen';ctx.imageSmoothingEnabled=true;
@@ -66,6 +126,6 @@ function paint(ctx,image,sp,width,height){
  ctx.imageSmoothingEnabled=false;
  ctx.drawImage(image,sp.x,sp.y,sp.w,sp.h,left,top,width,height);ctx.restore();
 }
-W.LunaStreetSigns={apply,paint,signs};
+W.LunaStreetSigns={apply,paint,signs,faults,faultLevel};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

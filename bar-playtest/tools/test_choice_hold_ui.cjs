@@ -19,15 +19,22 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   const first=()=>p.locator('.choices button:not(:disabled)').first();
   const count=()=>p.evaluate(()=>confirmed.length);
   const progress=()=>first().evaluate(el=>Number(el.style.getPropertyValue('--choice-progress')));
+  const glitch=()=>first().locator('.choice-label').evaluate(el=>({name:getComputedStyle(el).animationName,repeat:getComputedStyle(el).animationIterationCount,before:getComputedStyle(el,'::before').animationName,after:getComputedStyle(el,'::after').animationName,text:el.textContent,copy:el.dataset.text,time:el.getAnimations().find(a=>a.animationName==='title-signal')?.currentTime}));
   const reset=async()=>{await p.mouse.move(2,2);await p.evaluate(()=>setupChoice());await first().waitFor();};
   await first().click();assert.equal(await count(),0,'Tap is not confirmation');
+  assert.equal((await glitch()).name,'none','Hover/focus alone does not glitch');
   await p.keyboard.press('Enter');await p.keyboard.press('Space');assert.equal(await count(),0);
   await first().hover();await p.mouse.down();await p.waitForTimeout(200);
   assert((await progress())>.2&&(await progress())<.9);assert.equal(await count(),0);
+  const running=await glitch();assert.equal(running.name,'title-signal');assert.equal(running.repeat,'infinite');assert.equal(running.before,'title-signal-slice');assert.equal(running.after,'title-signal-slice');assert.equal(running.text,running.copy,'The complete choice text is duplicated into the title slices');
+  await p.waitForTimeout(120);assert((await glitch()).time>running.time+70,'The same animation keeps running across hold progress updates');
   await p.screenshot({path:'/private/tmp/luna-choice-hold-half.png'});
   await p.mouse.up();assert.equal(await progress(),0);assert.equal(await count(),0);
+  assert.equal((await glitch()).name,'none');assert.equal((await glitch()).before,'none');assert.equal((await glitch()).after,'none','All slices stop immediately on release');
   await p.mouse.down();await p.waitForTimeout(250);await p.mouse.move(2,2);await p.waitForTimeout(850);await p.mouse.up();assert.equal(await count(),0,'Leaving cancels');
+  assert.equal((await glitch()).name,'none','Leaving the option removes the effect');
   await first().focus();await p.keyboard.down('Enter');await p.waitForTimeout(250);await p.keyboard.press('ArrowDown');await p.waitForTimeout(800);await p.keyboard.up('Enter');assert.equal(await count(),0,'Moving selection cancels');
+  assert.equal((await glitch()).name,'none');
   await first().focus();await p.keyboard.down('Space');await p.waitForTimeout(200);await p.evaluate(()=>{barGame.overlay='help';lunaCampaign.render(true);});await p.waitForTimeout(900);await p.keyboard.up('Space');assert.equal(await count(),0,'Overlay cancels');
   await reset();await p.keyboard.down('Enter');await p.waitForTimeout(200);await p.evaluate(()=>window.dispatchEvent(new Event('blur')));await p.waitForTimeout(900);await p.keyboard.up('Enter');assert.equal(await count(),0,'Blur cancels');
   await reset();await first().hover();const selected=await first().getAttribute('data-id');await p.mouse.down();await p.waitForTimeout(430);assert.equal(await count(),0,'Must not confirm at the old 0.4-second threshold');
@@ -39,6 +46,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    await p.keyboard.down(key);await p.waitForTimeout(200);await p.keyboard.up(key);assert.equal(await count(),before+1);assert.equal(await p.evaluate(()=>advanced),a,'Held/released key does not advance following dialogue');
   }
   assert.equal(await p.evaluate(()=>barGame.error),null);assert.deepEqual(errors,[]);
+  await reset();await p.emulateMedia({reducedMotion:'reduce'});await first().focus();await p.keyboard.down('Space');await p.waitForTimeout(100);assert.equal((await glitch()).name,'none','Respect the same reduced-motion policy as the title');await p.keyboard.up('Space');
   console.log('PASS 0.5s mouse/Enter/Space hold, visible progress, short-tap/reset/leave/navigation/overlay/blur cancellation, one-shot confirmation and no next-line leak.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

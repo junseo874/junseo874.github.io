@@ -6,5 +6,5 @@
 .outside-dialog .dialogue-audio-settings select{max-width:190px}
 .dialogue-audio-settings select{min-width:0;max-width:260px;background:#142731;color:#e7f4f5;border:1px solid #6195a3;border-radius:5px;padding:8px;font:inherit}
 .dialogue-audio-settings button{white-space:nowrap;padding:8px 12px;font:inherit}
-.dialogue-audio-settings button:disabled{opacity:.4;cursor:default}
+.dialogue-audio-settings button:disabled{opacity:.4;cursor:var(--luna-cursor-default,default)}
 @media(max-width:600px){.dialogue-audio-settings{flex-wrap:wrap}.dialogue-audio-settings label{flex-wrap:wrap}}

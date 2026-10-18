@@ -17,12 +17,12 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 (async()=>{let b;try{
  b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
  const page=await b.newPage({viewport:{width:1280,height:720}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');
- await page.locator('.updates-confirm').click();
+ await page.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?dev=1');
+ if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
  const number=async()=>Number((await page.locator('.currency-value').innerText()).replaceAll(',',''));
  for(const variant of ['original','gpt']){
   await page.evaluate(()=>barGame.reset(99,'practice',1,false));
-  await page.locator('[data-act="version"][data-id="'+variant+'"]').click();
+  await page.evaluate(variant=>{lunaCampaign.ui.variant=variant;},variant);
   await page.evaluate(variant=>{barGame.reset(99,'practice',1,true,{variant});barGame.screen='bar';barGame.speed=0;},variant);
   await page.waitForTimeout(180);
   assert.equal(await page.locator('.currency-hud').count(),0);

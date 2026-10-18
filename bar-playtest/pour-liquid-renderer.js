@@ -8,9 +8,9 @@ const rgba=(rgb,a)=>'rgba('+rgb.join(',')+','+clamp(a,0,1)+')';
 function surfaceAt(f,x){
  const b=f.glass,u=clamp((x-b.left-3)/(b.right-b.left-6),0,1)*(f.surface.length-1),i=Math.floor(u);
  const wave=f.surface[i]+(f.surface[Math.min(i+1,f.surface.length-1)]-f.surface[i])*(u-i);
- const depth=b.bottom-f.surfaceY,local=x-f.impactX;
+ const depth=b.bottom-3-f.surfaceY,local=x-f.impactX;
  const trough=f.impact*(5*Math.exp(-local*local/85)-2.2*Math.exp(-((Math.abs(local)-17)**2)/120));
- return clamp(f.surfaceY+(wave+trough)*Math.min(1,depth/10),b.top+1,b.bottom-1);
+ return clamp(f.surfaceY+(wave+trough)*Math.min(1,depth/10),b.top+1,b.bottom-3);
 }
 function liquidPath(ctx,f){const b=f.glass;ctx.beginPath();ctx.moveTo(b.left+3,b.bottom);for(let x=b.left+3;x<=b.right-3;x+=2)ctx.lineTo(x,pixel(surfaceAt(f,x)));ctx.lineTo(b.right-3,b.bottom);ctx.closePath();}
 function plume(ctx,f,style){
@@ -87,6 +87,10 @@ function drawStream(ctx,s,style){
  const f=s.fluid,groups=[];let group=[];
  for(const p of f.particles){const previous=group.at(-1);if(previous&&(p.id!==previous.id+1||Math.hypot(p.x-previous.x,p.y-previous.y)>42)){groups.push(group);group=[];}group.push(p);}if(group.length)groups.push(group);
  ctx.save();
+ // Above the rim the incoming stream is free. Below it every ribbon edge,
+ // rounded pixel and highlight must stay inside the same cavity as the fill.
+ const b=f.glass;
+ ctx.beginPath();ctx.rect(0,0,ctx.canvas.width,b.top);ctx.rect(b.left+3,b.top,b.right-b.left-6,b.bottom-b.top-3);ctx.clip();
  for(const points of groups){
   // One filled ribbon per continuous parcel group avoids translucent blocks
   // piling up at joins. Detached trailing groups remain genuine falling drops.
@@ -99,8 +103,35 @@ function drawStream(ctx,s,style){
   ctx.strokeStyle=style.highlight||rgba(style.rgb.map(c=>Math.min(255,c+50)),.45);ctx.globalAlpha=.3;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=1;
  }
  ctx.fillStyle=style.highlight||rgba(style.rgb,.85);
+ ctx.beginPath();ctx.rect(b.left+3,0,b.right-b.left-6,b.bottom-3);ctx.clip();
  for(const p of f.splash){ctx.globalAlpha=clamp(p.life/.2,0,1)*.75;ctx.fillRect(pixel(p.x),pixel(p.y),2,Math.abs(p.vy)>70?4:2);}
  ctx.restore();
 }
-W.LunaPourLiquid={drawLiquid,drawStream,surfaceAt};
+function drawOverflow(ctx,s,style){
+ const f=s.fluid,b=f.glass,drops=f.overflowDrops||[];if(!drops.length)return;
+ ctx.save();
+ // The only permitted escape is over the lip, then DOWN THE OUTSIDE.
+ // Interior waves/stream remain clipped; no holes in the walls or base.
+ ctx.beginPath();ctx.rect(b.left-35,b.top-5,38,b.bottom-b.top+17);ctx.rect(b.right-3,b.top-5,38,b.bottom-b.top+17);ctx.clip();
+ for(const side of [-1,1]){
+  const edge=side<0?b.left:b.right,points=drops.filter(p=>p.side===side).sort((a,b)=>a.y-b.y);
+  if(f.overflowRate>.5){
+   ctx.fillStyle=rgba(style.rgb,Math.max(.6,style.alpha));
+   ctx.fillRect(edge-3,b.top-2,6,5);
+   if(f.foamHeight()>2){ctx.fillStyle=style.foam||'#fff1cd';ctx.fillRect(edge-3,b.top-3,6,4);}
+  }
+  let prev=null;
+  for(const p of points){
+   const width=p.foam>.03?6:4,x=pixel(p.x)+side*Math.round(Math.sin(p.age*9+p.id*.25)),y=pixel(p.y);
+   const alpha=Math.min(1,(b.bottom+12-y)/22),from=prev&&y-prev.y<19?prev.y:y-2;
+   ctx.globalAlpha=alpha;ctx.fillStyle=rgba(style.rgb,Math.max(.64,style.alpha));ctx.fillRect(x-width/2,from,width,Math.max(3,y-from+2));
+   ctx.globalAlpha=alpha*.65;ctx.fillStyle=style.highlight||'#d7faff';ctx.fillRect(x-1,from,2,Math.max(2,y-from));
+   if(p.foam>.03){ctx.globalAlpha=alpha*.9;ctx.fillStyle=style.foam||'#fff1cd';ctx.fillRect(x-width/2,y-2,width,4);ctx.fillStyle=style.shade||'#cbbd88';ctx.fillRect(x+1,y,2,2);}
+   else if(f.carbonated&&p.id%3===0){ctx.globalAlpha=alpha*.85;ctx.fillStyle=style.bubble||'#e3faff';ctx.fillRect(x-1,y-2,2,2);}
+   prev={x,y};
+  }
+ }
+ ctx.restore();
+}
+W.LunaPourLiquid={drawLiquid,drawStream,drawOverflow,surfaceAt};
 })(window);

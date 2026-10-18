@@ -34,7 +34,7 @@ const server=http.createServer((req,res)=>{
  assert.equal(coverage,8);
  await page.keyboard.press('e');await page.locator('.outside-inspection').waitFor({state:'visible'});
  await page.waitForFunction(()=>document.querySelector('.outside-inspection-image')?.naturalWidth>0);
- assert.equal(await page.locator('#outside-inspection-description').textContent(),'어떤 개를 현상 수배하는 포스터로 보인다.');
+ assert.equal(await page.locator('#outside-inspection-description').textContent(),'누군가 수배하는 포스터.');
  assert.equal(await page.locator('.outside-inspection-caption .textbox-piece').count(),11);
  assert.equal(await page.locator('#outside-root .outside-speech:visible').count(),0);
  await page.keyboard.press('Space');assert.equal(await page.locator('.outside-inspection:visible').count(),1);
@@ -49,7 +49,10 @@ const server=http.createServer((req,res)=>{
   const stage=await page.locator('#outside-root .outside-stage').boundingBox(),scale=stage.width/1280,stageBottom=stage.y+stage.height;
   assert(caption.x>=0&&caption.x+caption.width<=width&&caption.x>exit.x+exit.width,'Caption fits beside exit');
   assert(Math.abs(stageBottom-caption.y-caption.height-28*scale)<1,'Caption pinned to screen bottom');
-  assert(caption.y-b.y-b.height>90*scale,'Caption separated from poster');
+  assert(Math.abs(b.height/scale-528)<1,'Poster enlarged by 10 percent');
+  assert(caption.height/scale<46&&caption.width/scale<260,'Compact description bubble '+JSON.stringify({caption,scale}));
+  assert.equal(await page.locator('#outside-inspection-description').evaluate(e=>getComputedStyle(e).fontSize),'16px');
+  assert(caption.y-b.y-b.height>64*scale,'Caption separated from enlarged poster');
   assert.equal(await page.locator('.outside-inspection-caption .piece-9:visible').count(),0,'No tail');
   assert(exit.x>=0&&exit.x<width*.1&&exit.y+exit.height<=height,'Bottom-left exit');
  }

@@ -1,30 +1,68 @@
 /* One-shot serving presentation. Original PNG sheets remain unchanged. */
-window.LUNA_SERVE_SHEETS={
-  gin_tonic:{src:'assets/serve-gin-tonic.png',cols:6,w:959,h:540,sx:2,sy:3,dx:961,dy:543,full:true},
-  cosmopolitan:{src:'assets/serve-cosmo.png',cols:5,w:376,h:531,x:340,y:-10,scale:.85},
-  dry_martini:{src:'assets/serve-dry-martini.png',cols:5,w:376,h:531,x:340,y:-10,scale:.85},
-  gin_fizz:{src:'assets/serve-gin-fizz.png',cols:5,w:336,h:496,x:315,y:-12,scale:.91},
-  kahlua_milk:{src:'assets/serve-kahlua.png',cols:5,w:285,h:479,x:364,y:-16,scale:.93}
- };
+// The supplied 5738×2707 atlases contain 6×5 cells, with 2px gutters.
+// All layers share the same full-screen coordinates; no per-drink repositioning.
+window.LUNA_SERVE_BACKGROUND={src:'assets/serve-20261019/background.png',cols:6,frames:30,fps:20,w:954,h:539,sx:2,sy:2,dx:956,dy:541,atlasWidth:5738,atlasHeight:2707};
+window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
+ gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',
+ gin_fizz:'ginfizz',kahlua_milk:'kahluaMilk',bottle_beer:'beer',
+ screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'
+}).map(([id,file])=>[id,{...window.LUNA_SERVE_BACKGROUND,src:'assets/serve-20261019/give_drink_'+file+'.png',layered:true}]));
+// Composite in native texels, then present on the physical display pixel grid.
+// The extra transparent row makes the native stage divisible by two on small
+// displays; it is padding, never a stretch of the 539px source frame.
+window.LunaServePixels={
+ layout(rect,dpr=1){
+  const w=954,h=540,fit=Math.min(rect.width*dpr/w,rect.height*dpr/h);
+  const scale=fit>=1?Math.floor(fit):1/Math.pow(2,Math.ceil(Math.log2(1/Math.max(.01,fit))));
+  const width=Math.max(1,Math.round(w*scale)),height=Math.max(1,Math.round(h*scale));
+  const sx=rect.width/1280,sy=rect.height/720;
+  // Align the origin to both CSS and device pixels. Half-CSS-pixel origins on
+  // Retina can shift the compositor's nearest-neighbour sampling by one texel.
+  const gcd=(a,b)=>b?gcd(b,a%b):a,ratio=Math.round(dpr*100),quantum=ratio/gcd(ratio,100);
+  const snap=v=>Math.round(v/quantum)*quantum;
+  return {width,height,scale,left:(snap(rect.left*dpr+(rect.width*dpr-width)/2)/dpr-rect.left)/sx,
+   top:(snap(rect.top*dpr+(rect.height*dpr-height)/2)/dpr-rect.top)/sy,
+   cssWidth:width/dpr/sx,cssHeight:height/dpr/sy};
+ },
+ fit(canvas,layout){
+  if(canvas.width!==layout.width)canvas.width=layout.width;
+  if(canvas.height!==layout.height)canvas.height=layout.height;
+  // Layout zoom cancels the UI zoom before rasterization. A scale transform
+  // would introduce another filtered texture, especially below 100% UI size.
+  // Translation alone avoids CSS layout's 1/64px offset rounding at odd DPRs.
+  const zoom=layout.cssWidth/layout.width;
+  Object.assign(canvas.style,{left:'0px',top:'0px',width:layout.width+'px',height:layout.height+'px',zoom,transformOrigin:'0 0',
+   transform:`translate(${layout.left/zoom}px,${layout.top/zoom}px)`});
+  canvas.dataset.pixelScale=String(layout.scale);
+ }
+};
 window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
- const sheets=window.LUNA_SERVE_SHEETS;
+ const sheets=window.LUNA_SERVE_SHEETS,background=window.LUNA_SERVE_BACKGROUND;
  const images=new Map(),duration=1.5;
  let current=null;
+ const native=document.createElement('canvas');native.width=954;native.height=540;
+ const nativeContext=native.getContext('2d');
  function image(src){
   if(!images.has(src)){const img=new Image(),entry={img,ready:false,failed:false};images.set(src,entry);
    img.onload=()=>entry.ready=true;img.onerror=()=>entry.failed=true;img.src=src;}
   return images.get(src);
  }
- image('assets/serve-background.png');
+ image(background.src);
  const visible=()=>['result','discarding'].includes(g.screen)&&!!g.result;
  function state(){
   if(!visible()){current=null;return null;}
-  if(current?.result!==g.result)current={result:g.result,startedAt:null,elapsed:0,frame:0,ready:false};
-  const sheet=sheets[g.result.selected],bg=image('assets/serve-background.png'),art=sheet?image(sheet.src):null;
-  const loaded=(sheet?.full?art.ready||art.failed:bg.ready||bg.failed)&&(!art||art.ready||art.failed);
+  if(current?.result!==g.result){
+   current={result:g.result,startedAt:null,elapsed:0,frame:0,ready:false};
+   // Large RGBA atlases are decoded on demand; don't retain every drink sheet.
+   const keep=sheets[g.result.selected]?.src;
+   for(const src of images.keys())if(src!==background.src&&src!==keep)images.delete(src);
+  }
+  const sheet=sheets[g.result.selected],bg=image(background.src),art=sheet?image(sheet.src):null;
+  const loaded=(bg.ready||bg.failed)&&(!art||art.ready||art.failed);
+  current.loaded=loaded;
   if(loaded&&current.startedAt===null)current.startedAt=g.realTime;
   current.elapsed=current.startedAt===null?0:Math.max(0,g.realTime-current.startedAt);
-  current.frame=Math.min(29,Math.floor(current.elapsed*20));
+  current.frame=Math.min(background.frames-1,Math.floor(current.elapsed*background.fps));
   current.ready=loaded&&current.elapsed>=duration;
   return current;
  }
@@ -34,7 +72,8 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   const r=s.result,declined=g.screen==='discarding',sheet=sheets[r.selected],failed=sheet&&image(sheet.src).failed;
   return '<section class="serve-presentation" aria-label="'+L('칵테일 제공','Present drink')+'" '+(g.isPaused()?'inert':'')+' data-ready="'+s.ready+'" data-cocktail="'+esc(r.selected)+'">'+
    '<canvas class="serve-canvas" width="1280" height="720" aria-label="'+esc(g.name(r.selected))+'"></canvas>'+
-   (!sheet||failed?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
+   (!s.loaded?'<div class="serve-loading" role="status">'+L('제공 장면 불러오는 중…','Loading drink presentation…')+'</div>':'')+
+   (s.loaded&&(!sheet||failed)?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
    (window.LunaServeCarbonation?.profiles[r.selected]?'<canvas class="serve-carbonation" width="1280" height="720" aria-hidden="true"></canvas>':'')+
    (s.ready?'<div class="serve-grade" role="status" data-grade="'+esc(r.grade)+'">'+esc(r.grade.toUpperCase())+'</div>':'')+
    (s.ready&&!declined?'<div class="serve-actions">'+button(L('버리기','Discard'),'discard',ready()?'':'disabled','serve-discard')+'<div class="serve-offer">'+button(L('제공하기','Offer drink'),'offer',ready()?'':'disabled','primary')+button(L('판정 결과','Score details'),'serveDetails',ready()?'':'disabled','serve-details-button')+'</div></div>':'')+
@@ -42,35 +81,26 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
  }
  function sync(root){
   const s=state(),canvas=root.querySelector('.serve-canvas');if(!s||!canvas)return;
+  const rect=canvas.parentElement.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  const layout=window.LunaServePixels.layout(rect,window.devicePixelRatio||1);
+  window.LunaServePixels.fit(canvas,layout);
   const ctx=canvas.getContext('2d');if(!ctx)return;
-  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,1280,720);
-  const bg=image('assets/serve-background.png'),sheet=sheets[s.result.selected],art=sheet?image(sheet.src):null;
-  if(sheet?.full&&art.ready){
-   ctx.drawImage(art.img,sheet.sx+s.frame%sheet.cols*sheet.dx,sheet.sy+Math.floor(s.frame/sheet.cols)*sheet.dy,sheet.w,sheet.h,0,0,1280,720);
-  }else{
-   if(bg.ready)ctx.drawImage(bg.img,0,6,959,540,0,0,1280,720);
-   if(art?.ready){
-    const k=1280/959;
-    ctx.drawImage(art.img,s.frame%sheet.cols*sheet.w,Math.floor(s.frame/sheet.cols)*sheet.h,sheet.w,sheet.h,sheet.x*k,sheet.y*k,sheet.w*sheet.scale*k,sheet.h*sheet.scale*k);
-   }
-  }
+  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,canvas.width,canvas.height);
+  nativeContext.imageSmoothingEnabled=false;nativeContext.clearRect(0,0,native.width,native.height);
+  const bg=image(background.src),sheet=sheets[s.result.selected],art=sheet?image(sheet.src):null;
+  const draw=(entry,layout)=>nativeContext.drawImage(entry.img,layout.sx+s.frame%layout.cols*layout.dx,layout.sy+Math.floor(s.frame/layout.cols)*layout.dy,layout.w,layout.h,0,0,layout.w,layout.h);
+  if(s.loaded){if(bg.ready)draw(bg,background);if(art?.ready)draw(art,sheet);}
+  ctx.drawImage(native,0,0,canvas.width,canvas.height);
   canvas.dataset.frame=String(s.frame);
   canvas.dataset.source=art?.failed?'fallback':sheet?.src||'fallback';
+  canvas.dataset.background=background.src;
   const fx=root.querySelector('.serve-carbonation');
   if(fx){
+   window.LunaServePixels.fit(fx,layout);
    // Fallback artwork can have different dimensions; never attach the sheet mask to it.
-   const fallback=root.querySelector('.serve-fallback'),img=fallback?.querySelector('img');
-   let time=s.elapsed-duration,transform;
-   if(fallback){
-    if(s.result.selected!=='bottle_beer'||!img?.complete||!img.naturalWidth)time=-1;
-    else {
-     const box=img.getBoundingClientRect(),stage=canvas.getBoundingClientRect(),unit=1280/stage.width;
-     const fit=Math.min(box.width/img.naturalWidth,box.height/img.naturalHeight);
-     transform=[(box.left-stage.left+(box.width-img.naturalWidth*fit)/2)*unit,
-      (box.top-stage.top+(box.height-img.naturalHeight*fit)/2)*unit,fit*unit];
-    }
-   }
-   window.LunaServeCarbonation.draw(fx,s.result.selected,time,transform);
+   const fallback=!sheet||art?.failed;
+   const time=fallback||!s.loaded?-1:s.elapsed-duration;
+   window.LunaServeCarbonation.draw(fx,s.result.selected,time,[0,0,layout.scale,layout.scale]);
   }
  }
  function detailsHTML(){

@@ -1,0 +1,29 @@
+/* Native 32px cursors: no mouse-follow overlay, input capture, or animation. */
+:root{
+ --luna-cursor-default:url("assets/ui/cursors/default.svg") 4 3,default;
+ --luna-cursor-pointer:url("assets/ui/cursors/pointer.svg") 14 3,pointer;
+ --luna-cursor-pressed:url("assets/ui/cursors/pressed.svg") 14 5,pointer;
+ --luna-cursor-grab:url("assets/ui/cursors/grab.svg") 16 15,grab;
+ --luna-cursor-grabbing:url("assets/ui/cursors/grabbing.svg") 16 16,grabbing;
+ --luna-cursor-not-allowed:url("assets/ui/cursors/not-allowed.svg") 16 16,not-allowed;
+ --luna-cursor-text:url("assets/ui/cursors/text.svg") 16 16,text;
+ --luna-cursor-ew-resize:url("assets/ui/cursors/ew-resize.svg") 16 16,ew-resize;
+ --luna-cursor-ns-resize:url("assets/ui/cursors/ns-resize.svg") 16 16,ns-resize;
+ --luna-cursor-crosshair:url("assets/ui/cursors/crosshair.svg") 16 16,crosshair;
+ --luna-cursor-wait:url("assets/ui/cursors/wait.svg") 16 16,wait;
+ --luna-cursor-zoom-in:url("assets/ui/cursors/zoom-in.svg") 13 12,zoom-in;
+}
+html,body{cursor:var(--luna-cursor-default,default)}
+a[href],button,select,summary,[role="button"],[role="tab"],input:is([type="button"],[type="submit"],[type="reset"],[type="checkbox"],[type="radio"]),label:has(input:is([type="checkbox"],[type="radio"])){cursor:var(--luna-cursor-pointer,pointer)}
+:is(a[href],button,[role="button"]):active,.choice-holding{cursor:var(--luna-cursor-pressed,pointer)!important}
+textarea,input:not([type]),input:is([type="text"],[type="search"],[type="email"],[type="url"],[type="tel"],[type="number"],[type="password"]),[contenteditable="true"]{cursor:var(--luna-cursor-text,text)}
+input[type="range"]{cursor:var(--luna-cursor-ew-resize,ew-resize)!important}
+input[type="range"]::-webkit-slider-thumb{cursor:var(--luna-cursor-ew-resize,ew-resize)}
+input[type="range"]::-moz-range-thumb{cursor:var(--luna-cursor-ew-resize,ew-resize)}
+/* Follow the real drag ghost's lifecycle, including release/cancel/blur. */
+html:has(#drag-ghost:not([hidden])) *,html:has([data-fluid-stage][data-cursor-held="true"]) *{cursor:var(--luna-cursor-grabbing,grabbing)!important}
+/* Disabled always wins, even over active/drag styling and nested icons. */
+:is(:disabled,[aria-disabled="true"],[inert]),:is(:disabled,[aria-disabled="true"],[inert]) *{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
+input[type="range"]:disabled::-webkit-slider-thumb{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
+input[type="range"]:disabled::-moz-range-thumb{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
+[aria-busy="true"],[aria-busy="true"] *{cursor:var(--luna-cursor-wait,wait)!important}

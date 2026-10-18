@@ -1,14 +1,14 @@
 /* Screen-space inspection, independent of world-camera zoom. */
 #outside-root .outside-overlay.is-inspection{background:#030812b5;backdrop-filter:blur(1px)}
 .outside-inspection{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:44px 64px 100px}
-.outside-inspection-image{display:block;flex:none;width:auto;height:480px;max-width:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 12px 24px #0009)}
-#outside-root .outside-inspection-caption{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:max-content;max-width:min(740px,calc(100% - 320px));padding:16px 28px}
+.outside-inspection-image{display:block;flex:none;width:auto;height:528px;max-width:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 12px 24px #0009)}
+#outside-root .outside-inspection-caption{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);width:max-content;max-width:min(740px,calc(100% - 320px));min-height:0;padding:10px 20px;--textbox-corner:16px}
 /* Inspection descriptions are screen captions, not a character's speech.
    Bridge the lower edge with the existing straight tile, without the tail. */
 #outside-root .outside-inspection-caption .piece-9,
 #outside-root .outside-inspection-caption .piece-10{display:none}
 #outside-root .outside-inspection-caption .piece-8{grid-area:3/2/4/5}
-#outside-root .outside-inspection-caption p{margin:0;font-size:20px;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
+#outside-root .outside-inspection-caption p{margin:0;font-size:16px;line-height:1.4;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
 #outside-root .outside-inspection-exit{position:absolute;left:28px;bottom:28px;display:flex;align-items:center;gap:10px;min-height:40px;margin:0;padding:4px 0;border:0;border-radius:0;background:none;color:#d3f7f6;box-shadow:none;font-size:17px;line-height:1;text-shadow:0 2px 4px #000}
 .outside-inspection-exit kbd{display:grid;place-items:center;width:32px;height:32px;background:#a5efed;border:1px solid #d3fffa;border-radius:50%;box-shadow:0 2px 5px #0008;color:#0b2933;text-shadow:none;font:700 19px/1 ui-monospace,monospace}
 #outside-root .outside-inspection-exit:hover{color:#fff}

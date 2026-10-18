@@ -42,6 +42,6 @@
 .rhythm-path-node.in-range .path-range{fill:#5dd6ff30;stroke:#ccf6ff;stroke-width:2;filter:drop-shadow(0 0 5px #81dfff)}
 .rhythm-path-marker{fill:#ffe7ba;stroke:#fff6e4;stroke-width:2;filter:drop-shadow(0 0 7px #efb65b);pointer-events:none}
 .rhythm-path-trail{fill:#ffd394;pointer-events:none}
-.rhythm-board[data-rhythm-mode=path] .rhythm-stage{cursor:pointer;touch-action:manipulation}
+.rhythm-board[data-rhythm-mode=path] .rhythm-stage{cursor:var(--luna-cursor-pointer,pointer);touch-action:manipulation}
 .rhythm-board[data-rhythm-mode=path] .rhythm-pads button{width:160px}
 @media(prefers-reduced-motion:reduce){.rhythm-path-trail{display:none}.rhythm-path-marker,.rhythm-path-node.in-range .path-range{filter:none}}

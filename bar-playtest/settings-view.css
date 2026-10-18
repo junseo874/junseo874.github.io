@@ -1,0 +1,39 @@
+/* Shared game-native settings. The cyan selection plate and close icon reuse shipped UI art. */
+.luna-settings{--ls-line:#315463;--ls-muted:#88a6b3;--ls-cyan:#43d6ee;position:relative;width:1000px;height:540px;display:flex;flex-direction:column;background:#0b1720;color:#e1f1f3;border:1px solid #59899b;box-shadow:0 22px 90px #000b,0 0 0 6px #0a111ab3;font:16px LunaPixel,sans-serif;text-align:left;isolation:isolate}
+.luna-settings *{box-sizing:border-box}.luna-settings [hidden]{display:none!important}
+.luna-settings:before,.luna-settings:after{content:'';position:absolute;pointer-events:none;width:52px;height:5px;background:#9ce6eb;left:-1px;top:-1px}.luna-settings:after{left:auto;top:auto;right:-1px;bottom:-1px;width:100px;background:#467486}
+.luna-settings button,.luna-settings select{font:inherit;border:1px solid var(--ls-line);border-radius:0;background:#142b37;color:#cfe8ef;padding:10px 14px;min-height:36px;cursor:var(--luna-cursor-pointer,pointer);box-shadow:none}
+.luna-settings button:hover{background:#234551;border-color:#7ecad6}.luna-settings button:disabled{opacity:.4;cursor:var(--luna-cursor-default,default)}
+.luna-settings :is(button,input,select):focus-visible{outline:2px solid #d3fbff;outline-offset:3px}
+.ls-header{height:80px;flex:none;display:flex;align-items:center;gap:22px;padding:20px 26px;border-bottom:1px solid var(--ls-line);background:#112530}
+.ls-brand{display:flex;align-items:center;gap:18px}.ls-brand>img{width:42px;height:42px;image-rendering:pixelated;opacity:.85}
+.luna-settings small{font-size:12px;color:var(--ls-muted);letter-spacing:.6px}
+.luna-settings .ls-header h1{font-size:30px;line-height:1;margin:0;color:#e4f5f8;font-weight:400}
+
+.luna-settings .ls-close{margin-left:auto;background:none;border:none;padding:0;min-height:0;width:40px;height:40px}.ls-close img{width:100%;height:100%;image-rendering:pixelated}
+.ls-body{display:flex;flex:1;min-height:0}.ls-nav{width:218px;flex:none;border-right:1px solid var(--ls-line);padding:26px 16px;position:relative;background:#0a141d}
+.luna-settings .ls-nav button{display:flex;align-items:center;gap:16px;width:100%;margin:0 0 10px;padding:13px 12px;border:0;background:transparent;min-height:50px;text-align:left;color:#9fb7c2}
+.ls-nav button b{margin-left:auto;font-size:23px;font-weight:400;visibility:hidden}
+.luna-settings .ls-nav button[aria-selected=true]{background:#43d6ee url('assets/ui-parts-20261019/choices/selected-background-left.png') center/100% 100% no-repeat;color:#082434}.ls-nav button[aria-selected=true] b{visibility:visible}
+
+.ls-content{flex:1;min-width:0;padding:23px 30px 22px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#476e7c #0b1720}
+.luna-settings h2{font-size:21px;margin:7px 0 0;font-weight:400;color:#def4f6}
+.ls-row{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:62px;padding:12px 0;border-bottom:1px solid #1b3440}.ls-label{min-width:0}.ls-label strong{display:block;font-size:15px;font-weight:400}.ls-label small{display:block;margin-top:6px;line-height:1.5;font-size:11px;letter-spacing:0;max-width:340px}
+.ls-control{display:flex;align-items:center;gap:12px;flex:none}.ls-control output{width:42px;text-align:right;color:#ace9ec;font:13px monospace}
+.luna-settings input[type=range]{appearance:none;width:180px;height:5px;margin:14px 0;cursor:var(--luna-cursor-pointer,pointer);border:0;border-radius:0;background:linear-gradient(to right,#60cedc var(--level),#263e4b var(--level));accent-color:#60cedc}
+.luna-settings input[type=range]::-webkit-slider-thumb{appearance:none;width:10px;height:19px;background:#c4f3f6;border:2px solid #203e4b;border-radius:0;box-shadow:0 0 0 1px #75bac7}.luna-settings input[type=range]::-moz-range-thumb{width:8px;height:17px;background:#c4f3f6;border:1px solid #75bac7;border-radius:0}
+.luna-settings select{font-size:13px;min-width:190px;padding:8px 10px}.luna-settings .ls-toggle{display:flex;align-items:center;justify-content:center;gap:11px;min-width:96px;padding:8px 12px;font-size:13px}.ls-toggle i{width:9px;height:9px;background:#526672}.luna-settings .ls-toggle[aria-checked=true]{color:#a9eff4;border-color:#447c89}.ls-toggle[aria-checked=true] i{background:#4cd5e5}
+.ls-preview{display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:8px 0;color:#6f95a5;font-size:11px}.luna-settings .ls-preview button{font-size:12px;min-height:30px;padding:5px 10px}
+.ls-info{display:flex;gap:15px;margin-top:25px;padding:16px;background:#102731;border-left:2px solid #538b98;color:#97bdc8}.ls-info>span{color:#6ee2e9;font:22px monospace}.ls-info p{margin:0;font-size:12px;line-height:1.8}
+.ls-key-groups{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}.ls-key-groups section:last-child{grid-column:1/-1}.luna-settings .ls-key-groups h3{font-size:13px;font-weight:400;color:#63cfdf;border-bottom:1px solid #294450;padding-bottom:8px;margin:10px 0}.ls-key-groups section>div{display:flex;justify-content:space-between;gap:10px;margin:10px 0;font-size:12px;color:#aec6d0}.ls-key-groups section:last-child>div{display:inline-flex;width:49%;padding-right:20px}.luna-settings kbd{font:11px LunaPixel,sans-serif;color:#d4e9ed;border:1px solid #3a5968;padding:3px 6px;background:#152630;white-space:nowrap}.ls-footnote{font-size:11px;color:#7297a8;margin-top:20px}
+.ls-footer{height:64px;flex:none;display:flex;align-items:center;justify-content:flex-end;padding:12px 26px;border-top:1px solid var(--ls-line);background:#0e202b;gap:15px}/* Keep live setting feedback accessible without adding visible footer copy. */
+.ls-feedback{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.ls-footer>div{display:flex;gap:10px}.luna-settings .ls-footer button{font-size:13px;padding:10px 15px}.luna-settings .ls-reset{background:none;border-color:transparent;color:#87a5b4}.luna-settings .ls-exit{background:none;color:#c0a3a4;border-color:#54494e}.luna-settings .ls-primary{background:#53cede;color:#09232e;border-color:#95edf1}.ls-primary kbd{margin-left:10px;color:#174957;background:#9be8eb;border:0;font-size:10px}
+.ls-confirm{position:absolute;inset:0;z-index:5;background:#050d15e8;display:grid;place-items:center}.ls-confirm>div{width:500px;border:1px solid #618d9e;background:#122531;padding:30px;box-shadow:0 12px 50px #0008}.ls-confirm p{font-size:14px;line-height:1.8;color:#a5bfca;margin:20px 0 28px}.ls-confirm>div>div{display:flex;justify-content:flex-end;gap:12px}
+.view-options{display:grid;place-items:center;background:#080f19!important}.view-options:before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,#163d4826,transparent 55%)}
+.modal-backdrop:has(.luna-settings){padding:0;background:#020912b8}.outside-overlay:has(.luna-settings){backdrop-filter:none;background:#020912b8}
+@media(prefers-reduced-motion:reduce){.luna-settings *{transition:none!important}}
+.luna-settings .ls-nav button{transition:none}
+.luna-settings input[type=range]{min-height:0;padding:0;box-shadow:none}
+#ls-sound .ls-row{min-height:58px;padding:9px 0}
+.ls-switch-pair{display:grid;grid-template-columns:1fr 1fr;gap:26px}.ls-switch-pair .ls-label small{font-size:10px}.ls-switch-pair .ls-row{border:0}
+body:has(.luna-settings) .qa-launch{display:none}

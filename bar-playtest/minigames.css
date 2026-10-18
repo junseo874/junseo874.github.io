@@ -1,4 +1,14 @@
 /* Standalone skills reuse the bar's artwork, input and judgement routines. */
+.modal.mini-ingredient-modal{width:740px;max-width:90%;padding:24px;background:#0c1926;border:1px solid #416879;box-shadow:0 18px 70px #0009}
+.mini-ingredient-modal .modal-title h2{font-size:23px;color:#50d9f5}
+.mini-ingredient-modal>p{font-size:13px;color:#a9becb;margin:0 0 18px;line-height:1.7}
+.mini-ingredient-modal>p>span{float:right;color:#e8cc91}
+.mini-ingredient-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;max-height:396px;overflow:auto;padding:3px;overscroll-behavior:contain;scrollbar-color:#416879 #0c1926}
+.mini-ingredient-card{display:flex;align-items:center;gap:10px;min-height:66px;min-width:0;padding:8px 10px;text-align:left;background:#142736;border:1px solid #304b5e;border-radius:4px;color:#dce9ee;font-size:13px}
+.mini-ingredient-card img{flex:0 0 36px;width:36px;height:48px;object-fit:contain;image-rendering:pixelated}
+.mini-ingredient-card span{line-height:1.5;overflow-wrap:anywhere}
+.mini-ingredient-card:hover:not(:disabled),.mini-ingredient-card:focus-visible{background:#1b3a4b;border-color:#50d9f5;outline:1px solid #50d9f5;outline-offset:1px}
+.mini-ingredient-modal>footer{display:flex;justify-content:flex-end;margin-top:16px}
 .workspace>.start-screen.minigame-lobby{display:flex;align-items:stretch;justify-content:center;padding:104px 54px 40px;background:radial-gradient(ellipse at 90% 20%,#1b424b80,transparent 60%),#0c1723;overflow:hidden}
 .minigame-heading h1{font-size:32px;margin:15px 0 10px}.minigame-heading>p{font-size:13px;margin-bottom:18px}
 .minigame-options{display:flex;align-items:center;justify-content:center;gap:44px;padding:15px 20px;border:1px solid #395260;border-radius:6px;background:#162938a6}.minigame-options>div>span{display:block;font-size:11px;color:#91acb7;margin-bottom:7px}.minigame-options button{font-size:12px;padding:9px 13px}.minigame-options button.selected{background:#a5e6dd;color:#16302f;border-color:#a5e6dd}.minigame-options>p{margin:0 0 0 auto;max-width:285px;font-size:11px;line-height:1.8}

@@ -169,8 +169,9 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   ctx.fillStyle='#25344066';ctx.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
   root.LunaPourLiquid.drawLiquid(ctx,s,style);
   root.LunaPourLiquid.drawStream(ctx,s,style);
+  root.LunaPourLiquid.drawOverflow(ctx,s,style);
   ctx.fillStyle='#b0d1d5bb';ctx.fillRect(b.left,b.top,3,b.bottom-b.top);ctx.fillRect(b.right-3,b.top,3,b.bottom-b.top);ctx.fillRect(b.left,b.bottom-3,b.right-b.left,3);ctx.fillRect(b.left-3,b.top,b.right-b.left+6,2);ctx.fillStyle='#d6edef55';ctx.fillRect(b.left+9,b.top+10,3,b.bottom-b.top-30);
-  if(mode()==='classic'){const y=snap(b.bottom-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
+  if(mode()==='classic'){const y=snap(b.bottom-3-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
   bottle(ctx,s);
   const age=f.popped?f.time-f.popTime:Infinity;
   if(age<.9){ctx.save();ctx.globalAlpha=Math.min(1,(.9-age)*2);ctx.font='bold 40px LunaPixel, sans-serif';ctx.fillStyle='#ffdf8a';ctx.textAlign='center';ctx.fillText(L('펑!','POP!'),667,110-age*37);ctx.restore();}
@@ -192,7 +193,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const guideContext=guide.getContext('2d');guideContext.setTransform(resolution,0,0,resolution,0,0);guideContext.clearRect(0,0,1000,540);idleGuide(guideContext,s);
   stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);
   stage.dataset.renderer='pixel-canvas2d';stage.dataset.pourTool=f.tool;stage.dataset.carbonation=String(f.carbonated);stage.dataset.container=f.can?'can':'bottle';stage.dataset.foam=String(f.foamMl);stage.dataset.nozzle=JSON.stringify(f.nozzle());
-  stage.style.cursor=s.held?'grabbing':'grab';
+  stage.style.cursor=s.held?'var(--luna-cursor-grabbing,grabbing)':'var(--luna-cursor-grab,grab)';
+  stage.dataset.cursorHeld=String(!!s.held&&!g.isPaused());
   const set=(selector,value)=>{const e=rootElement.querySelector(selector);if(e)e.textContent=value;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);
   const meter=rootElement.querySelector('[data-pour-tilt]');

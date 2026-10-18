@@ -14,7 +14,9 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await p.click('[data-group="common-popups"]');await p.click('[data-id="popup:meet"]');
   await f.locator('.story-notice-people').waitFor({state:'visible'});
   assert.equal(await p.locator('#popup-rail button').count(),15);
-  assert.equal(await f.locator('.story-notice-people strong').innerText(),'신규 인물 정보 등록!');
+  assert.equal(await f.locator('.story-notice-people small').innerText(),'새로운 인물!');
+  assert.equal(await f.locator('.story-notice-people strong').innerText(),await f.evaluate(()=>barGame.name(document.querySelector('.story-notice-people').dataset.actor)));
+  assert.equal(await f.locator('.story-notice-people .story-notice-icon').count(),0);
   const history=await p.evaluate(()=>window.history.length);
   await p.selectOption('#popup-actor','samho');await f.waitForFunction(()=>document.querySelector('.story-notice-people').dataset.actor==='samho');
   await p.waitForTimeout(400);await p.screenshot({path:'/private/tmp/resource-popup-lab.png'});

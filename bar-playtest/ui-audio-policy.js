@@ -20,7 +20,7 @@
   if(el.closest('#app')&&W.barGame?.screen==='recipe'&&!W.barGame.overlay)return false;
   if(el.closest('#app')&&['service','recipe'].includes(W.barGame?.overlay))return false;
   // Selecting/removing any shelf item is a physical action, not a menu click.
-  if(kind==='click'&&(action==='pick'||action==='pickOpener'||el.hasAttribute('data-hover-item')))return false;
+  if(kind==='click'&&(action==='craft'||action==='pick'||action==='pickOpener'||el.hasAttribute('data-hover-item')))return false;
   return true;
  }
  W.LunaUIAudioPolicy={allows,isChoice};

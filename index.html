@@ -47,7 +47,7 @@
   }
 
   body {
-    cursor: crosshair;
+    cursor:var(--luna-cursor-crosshair,crosshair);
     background-image:
       linear-gradient(var(--grid) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid) 1px, transparent 1px),
@@ -104,7 +104,7 @@
   .hud-top a.gh:hover { color: var(--cyan); }
   .hud-top #sndBtn {
     font-family: inherit; font-size: 11px; letter-spacing: .08em;
-    background: none; border: none; cursor: pointer;
+    background: none; border: none; cursor:var(--luna-cursor-pointer,pointer);
     color: var(--dim); transition: color .2s;
   }
   .hud-top #sndBtn:hover { color: var(--amber); }
@@ -383,6 +383,7 @@
     #boot { display: none; }
   }
 </style>
+<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
 </head>
 <body>
 

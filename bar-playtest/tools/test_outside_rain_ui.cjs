@@ -30,10 +30,10 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   }
   await page.evaluate(()=>{const o=outsidePlaytest;o.openDev();o.devAction('dev-day-0');o.devAction('dev-flow-out');o.devAction('dev-home');o.devAction('dev-close');});
   assert.equal(await page.evaluate(()=>LunaOutsideRain.enabled(outsidePlaytest.model)),false);
-  await page.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:0,flow:'out',place:'bar'});m.x=-8.78;m.time=3;m.paused=false;outsidePlaytest.snapCamera();});
+  await page.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:1,flow:'out',place:'bar'});m.x=-8.78;m.time=3;m.paused=false;outsidePlaytest.snapCamera();});
   await page.keyboard.press('KeyY');await page.waitForTimeout(1500);
   await page.screenshot({path:'/private/tmp/luna-rain-panorama.png'});
-  assert(await page.evaluate(()=>outsidePlaytest.camera.w>10));
+  assert(await page.evaluate(()=>outsidePlaytest.camera.w>10.2&&outsidePlaytest.camera.w<=10.41));
   assert.deepEqual(errors,[]);
   console.log('PASS browser: rain rendering, P console day/route switches, indoor exclusion, panoramic zoom, no JS errors');
  }finally{await browser.close();}

@@ -6,7 +6,7 @@ const R=global.LunaResidence.layout;
 const SOFA={id:'sofa',label:'소파 살펴보기',x:2.557,y:-.7};
 const BOTTOM=R.elevatorBottom,TOP=R.elevatorTop,EX=R.elevatorX;
 // The fence-side sign is a local lookout, not a full-map camera toggle.
-const VIEWPOINT={x:-8.78,y:-.7,radius:.55,width:12};
+const VIEWPOINT={x:-8.78,y:-.7,radius:.55,width:10.4,previousWidth:12,rangeScale:2/3*1.3,easeRate:2.5};
 // Stop beside the scrap pile, leaving the final approach to the bar to the player.
 // Shift the start by the same amount to preserve the visible walk-in duration.
 const FIRST_COMMUTE_ARRIVAL={from:-1.55,to:0};
@@ -79,7 +79,7 @@ class OutsideModel{
  constructor(options={}){this.start(options);}
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
-  this.barArrival=null;this.commuteBoundarySide=0;this.beggarDeparture=null;this.liftLogoSeen=false;
+  global.LunaLiftDust?.reset(this);this.barArrival=null;this.commuteBoundarySide=0;this.beggarDeparture=null;this.liftLogoSeen=false;
   this.thugFlags={};this.samhoCommuteFlags={};this.notionFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
   this.controlsTutorial=false;this.controlsInteractUntil=0;this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
  }
@@ -200,7 +200,7 @@ class OutsideModel{
    this.anim='idle';this.animTime+=dt;return;
   }
   if(this.tickBarArrival(dt))return;
-  if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(!r.call){this.x=EX;this.y=this.elevatorY+R.passengerOffset;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
+  if(this.ride){const r=this.ride;r.time+=dt;const p=smooth(clamp((r.time-.45)/r.duration,0,1));this.elevatorY=mix(r.from,r.to,p);if(p===1)global.LunaLiftDust?.land(this,r);if(!r.call){this.x=EX;this.y=this.elevatorY+R.passengerOffset;}if(r.time>=r.duration+1.1){if(!r.call){this.level=r.to===TOP?1:0;this.y=this.level?R.upperY:-.7;this.arrivals++;}this.elevatorY=r.to;this.ride=null;this.updateNear();this.revision++;}this.anim='idle';this.animTime+=dt;return;}
   let direction=this.dialog||this.story.blocking?0:clamp(input.move||0,-1,1),speed=input.run?1.2:.7;
   const restricted=this.isFirstCommute()&&this.scene==='street'&&this.level===0;
   const bounds=restricted?[-.9,2.15]:this.qa?[-12.81,6.1]:this.scene==='home'?[-1.5,3.4]:this.level?[R.upperMin,R.upperMax]:[R.lowerMin,6.1],old=this.x,desired=this.x+direction*speed*dt;
@@ -221,6 +221,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  const data=global.LUNA_OUTSIDE_DATA,config={place:'bar',flow:'out',day:0},images=new Map(),keys=new Set();
  let active=false,loading=false,loadError='',model=null,host=null,canvas=null,ctx=null,cam={x:1,y:0,w:4.8},generation=0,hudSignature='',lastScene='',panorama=false,wakeSpawn=false,devOpen=false,notices=null,hintOpen=false,streetLocation=null;
  let surface=global.LunaPixelCamera.surface(1280,720),renderCam={...cam},pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
+ let panoramaTween=false;
  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const button=(text,action,cls='')=>`<button class="${cls}" data-outside-action="${action}">${text}</button>`;
  function lobbyHTML(tabs){return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup outside-entry"><small>OUTSIDE EXPLORATION</small><h2>외부 공간</h2><p>거리와 집을 자유롭게 둘러보세요.<br>설정은 탐색 중 <kbd>P</kbd>를 눌러 변경할 수 있습니다.</p>${button('탐색 시작 →','start','primary')}<span>0일차 · 퇴근길 · 바 문 앞에서 시작</span></section></div>`;}
@@ -281,6 +282,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   return true;
  }
  function snapCamera(){
+  panoramaTween=false;
   const arriving=model.scene==='street'&&(model.barArrival||model.transition?.barArrival);
   cam={x:model.scene==='home'?clamp(model.x,.34,1.14):arriving?.65:model.x,y:model.scene==='home'?.023:model.y+.7,w:4.8};lastScene=model.scene;
   pixelWidth=global.LunaPixelCamera.settledWidth(cam.w,surface);
@@ -295,7 +297,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function menu(){if(loading||loadError)return;clearInput();model.paused=!model.paused;hudSignature='';updateHUD();}
  function togglePanorama(){
   if(loading||loadError||devOpen||model.paused||!atViewpoint(model))return false;
-  panorama=!panorama;clearInput();updateHUD();return true;
+  panorama=!panorama;panoramaTween=true;clearInput();updateHUD();return true;
  }
  function targetCamera(dt){
   if(!atViewpoint(model))panorama=false;
@@ -317,18 +319,24 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   if(panorama){w=VIEWPOINT.width;x=VIEWPOINT.x;y=-1.48+w*720/1280/2;}
   // Keep endpoint PPU alignment while the zoom follows the original smooth
   // cinematic curve. Quantizing this moving target caused 3x -> 2x -> 1x cuts.
-  const pixelGoal=w===liftWidth?liftDisplayWidth:global.LunaPixelCamera.settledWidth(w,surface);
-  pixelWidth=global.LunaPixelCamera.approachWidth(pixelWidth,pixelGoal,dt);
+  // Scale the original *visible* panorama, not its quantized logical width.
+  // The tighter 2/3 framing is now 1.3x wider, without a PPU snapping jump.
+  // Only Y viewing uses this framing; normal/lift PPU endpoints stay intact.
+  const pixelGoal=panorama?global.LunaPixelCamera.settledWidth(VIEWPOINT.previousWidth,surface)*VIEWPOINT.rangeScale:w===liftWidth?liftDisplayWidth:global.LunaPixelCamera.settledWidth(w,surface);
+  if(model.scene!=='street'||model.ride||model.encounter||model.qa)panoramaTween=false;
+  const rate=panorama||panoramaTween?VIEWPOINT.easeRate:5;
+  pixelWidth=global.LunaPixelCamera.approachWidth(pixelWidth,pixelGoal,dt*rate/5);
   if(!model.qa){if(model.scene==='home')x=clamp(x,.34,1.14);else x=clamp(x,-22.25+w/2,6.55-w/2);}
   // Constrain the visible bottom, not just the camera center, during zoom.
   const floor=data.scenes.street.nodes.find(n=>n.name==='1F Floor').y+.02;
   if(model.scene==='street')y=Math.max(y,floor+w*720/1280/2);
-  const t=1-Math.exp(-dt*5);cam.x=mix(cam.x,x,t);cam.y=mix(cam.y,y,t);cam.w=mix(cam.w,w,t);
+  const t=1-Math.exp(-dt*rate);cam.x=mix(cam.x,x,t);cam.y=mix(cam.y,y,t);cam.w=mix(cam.w,w,t);
   if(model.scene==='street')cam.y=Math.max(cam.y,floor+cam.w*720/1280/2);
+  if(!panorama&&Math.abs(pixelWidth-pixelGoal)<.001&&Math.abs(cam.w-w)<.001&&Math.abs(cam.x-x)<.001&&Math.abs(cam.y-y)<.001)panoramaTween=false;
   if(model.encounter)model.encounter.cameraReady=Math.abs(cam.x-x)<.015&&Math.abs(cam.y-y)<.015&&Math.abs(cam.w-w)<.015;
  }
  function position(x,y){return global.LunaPixelCamera.position(x,y,renderCam);}
- function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=global.LunaPixelCamera.sprite(sp,x,y,sx,sy,flip,renderCam,surface),w=p.w,h=p.h;if(p.x+w<0||p.x-w>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(p.x,p.y);ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);if(renderingNode?.neon)global.LunaStreetSigns.paint(ctx,img,sp,w,h);else ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);if(renderingNode?.name==='B_Obects')global.LunaWireSpark?.paint(ctx,img,images.get('street-wire-spark'),sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);glowRenderer.paint(ctx,img,sp,renderingNode,x,y,w,h);ctx.restore();}
+ function drawSprite(sp,x,y,sx=1,sy=1,flip=false,alpha=1,glow=false){const img=images.get(sp.asset);if(!img)return;const p=global.LunaPixelCamera.sprite(sp,x,y,sx,sy,flip,renderCam,surface),w=p.w,h=p.h,rayReach=renderingNode?.lightRotation?Math.abs(h*Math.sin(renderingNode.lightRotation)):0;if(p.x+w+rayReach<0||p.x-w-rayReach>1280||p.y+h<0||p.y-h>720)return;ctx.save();ctx.globalAlpha=alpha;if(glow)ctx.globalCompositeOperation='screen';ctx.translate(p.x,p.y);if(renderingNode?.lightRotation)ctx.rotate(-renderingNode.lightRotation);ctx.scale((sx<0?-1:1)*(flip?-1:1),sy<0?-1:1);if(renderingNode?.neon)global.LunaStreetSigns.paint(ctx,img,sp,w,h,renderingNode.id,model.time,global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);if(model.scene==='street'&&!model.qa)global.LunaWallLighting?.paintSprite(ctx,renderingNode?.name,img,sp,w,h);if(model.scene==='street')global.LunaSignScanlines?.paintSprite(ctx,renderingNode?.name,sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);if(model.scene==='street'&&!model.qa)global.LunaVentSteam?.paintSprite(ctx,renderingNode?.name,sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);if(renderingNode?.name==='B_Obects')global.LunaWireSpark?.paint(ctx,img,images.get('street-wire-spark'),sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);if(model.scene==='street'&&!model.qa)global.LunaBarrelFire?.paintSprite(ctx,renderingNode?.name,sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);global.LunaLiftDust?.paintSprite(ctx,model,renderingNode?.name,sp,w,h,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);glowRenderer.paint(ctx,img,sp,renderingNode,x,y,w,h);ctx.restore();}
  function renderNode(n){const previous=renderingNode;renderingNode=n;try{renderSceneNode(n);}finally{renderingNode=previous;}}
  function renderSceneNode(n){if(global.LunaOutsideBeggar?.drawNode(model,n,drawSprite))return;if(global.LunaOutsideResidents.drawNode(model,n,drawSprite,ctx,position))return;if(global.LunaOutsideEncounters.drawNode(model,n,drawSprite))return;if(!global.LunaOutsideContent.visibleNode(model,n))return;if(n.name==='shiba'){if(global.LunaOutsideShop.visible(model)){const a=data.animations.shiba;drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length],n.x,n.y,n.sx,n.sy,n.flip);}return;}if(n.name==='Samho'&&[2,3].includes(model.config.day)){global.LunaOutsideSamhoCommute.draw(model,drawSprite);return;}if(n.name==='Samho'&&global.lunaCampaign?.session.active&&model.config.flow==='in'&&model.config.day>=2){const phase=model.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;drawSprite({...n.sprite,x:frame*84},n.x,n.y,n.sx,n.sy,global.LunaOutsideAmbient.faceTarget(n.x,model.x));return;}if(!n.active||n.name==='Luna'||n.name==='Square'||/SAMHO|samho|Samho|Bubi/.test(n.name))return;if(n.ambient&&!(n.bdVendor?global.LunaBDVendor.visible(model):global.LunaOutsideAmbient.visible(model,n)))return;
   let y=n.y;if(model.scene==='street'&&n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name))y+=model.elevatorY-BOTTOM;
@@ -366,17 +374,21 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   const drawPlayer=()=>{const anim=data.animations[model.anim],frame=anim.frames[Math.floor(model.animTime*anim.fps)%anim.frames.length];drawSprite(frame,model.x,model.y,1,1,model.facing>0);};
   if(model.scene==='home'){drawPlayer();nodes.filter(n=>n.name==='ForeFore_Object').forEach(renderNode);}
   else {
-   let farTraffic=false,midTraffic=false;
+   let farTraffic=false,midTraffic=false,nearTraffic=false,groundRain=false;
    for(const n of streetDrawOrder(nodes)){
+    // Ground impacts belong to the road, behind the frontmost silhouettes
+    // (and elevator front). Falling rain gets a separate foreground pass.
+    if(!groundRain&&n.layer>=10){global.LunaOutsideRain?.draw(ctx,model,renderCam,position,'splashes');groundRain=true;}
     // Traffic is part of the scene, not an overlay: skyline silhouettes,
     // foreground shops and the residence/lift naturally cover it afterwards.
-    if(!farTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'far');farTraffic=true;}
-    if(!midTraffic&&n.layer>=5){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'mid');midTraffic=true;}
+    if(!farTraffic&&n.name==='C_Back_Building_2'){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'far');farTraffic=true;}
+    if(!midTraffic&&n.layer>=3){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'mid');midTraffic=true;}
+    if(!nearTraffic&&n.layer>=6){global.LunaOutsideTraffic?.draw(ctx,model,renderCam,position,'near');nearTraffic=true;}
     if(n.name==='Luna'){drawEntranceCue();global.LunaOutsideThug?.draw(model,drawSprite,ctx,position);global.LunaOutsideNotion?.draw(model,drawSprite,ctx,position);drawPlayer();}else renderNode(n);
    }
   }
   if(model.scene==='home'){const edge=position(3.537,0).x;ctx.fillStyle='#090d19';ctx.fillRect(edge,0,Math.max(0,1280-edge),720);}
-  global.LunaOutsideRain?.draw(ctx,model,renderCam,position);
+  global.LunaOutsideRain?.draw(ctx,model,renderCam,position,'drops');
   const shade=ctx.createLinearGradient(0,0,0,720);shade.addColorStop(0,'rgba(4,8,16,.25)');shade.addColorStop(.25,'rgba(4,8,16,0)');shade.addColorStop(.85,'rgba(4,8,16,0)');shade.addColorStop(1,'rgba(4,8,16,.3)');ctx.fillStyle=shade;ctx.fillRect(0,0,1280,720);
   if(model.transition){const t=model.transition.time,alpha=t<.38?t/.38:1-(t-.38)/.47;ctx.fillStyle=`rgba(6,10,18,${clamp(alpha,0,1)})`;ctx.fillRect(0,0,1280,720);}
  }
@@ -456,7 +468,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    let body='';if(loading)body='<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">로딩 중<span class="resource-loading-dots"></span></span></div>';
    else if(loadError)body='<section class="outside-dialog"><h2>불러오기 실패</h2><p>'+loadError+'</p>'+button('다시 시도','retry')+button('로비로','exit')+'</section>';
    else if(hintOpen)body='<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>'+button('확인','hint-close','primary')+'</section>';
-   else if(showPauseMenu)body='<section class="outside-dialog" role="dialog" aria-modal="true" aria-label="외부 공간 설정"><h2>설정 · 조작 안내</h2>'+global.LunaFocusSettings.settingsHTML()+global.LunaStreetAudio.settingsHTML()+global.LunaDialogueAudio.settingsHTML()+'<p>A / D · ← / → : 이동<br>Shift : 누르는 동안 달리기<br>E : 상호작용 · 대사 진행<br>Space : 대사 진행<br>Y : 철망 앞 Y 표시에서 전경 보기 / 돌아오기<br>P : 개발자 콘솔 · 위치 / 이동 상태 / 일차 / 소지금<br>Esc : 설정 열기 / 닫기 · 일시정지<br>말풍선 클릭 : 대사 진행</p><div class="outside-menu-actions">'+button('계속하기','menu','primary')+button('같은 위치에서 다시 시작','restart')+button('탐색 시작 화면으로','exit')+'</div></section>';
+   else if(showPauseMenu)body=global.LunaSettings.html({context:'outside',onClose:()=>{menu();host.focus({preventScroll:true});},exitLabel:'탐색 시작 화면으로',onExit:()=>exit(),onRestart:()=>{clearInput();model.start(config);if(wakeSpawn)model.wakeAtSofa();panorama=false;snapCamera();hudSignature='';updateHUD();host.focus({preventScroll:true});}});
    else if(m.dialog?.kind==='inspection')body=global.LunaOutsideInspection.html(m.dialog);
    else if(m.dialog&&m.dialog.kind!=='sofa')body='<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="'+esc(m.dialog.title)+'"><h2>'+esc(m.dialog.title)+'</h2><p>'+esc(m.dialog.text)+'</p>'+button('닫기 · E','interact','primary')+'</section>';
    overlay.classList.toggle('is-inspection',!showPauseMenu&&!hintOpen&&m.dialog?.kind==='inspection');

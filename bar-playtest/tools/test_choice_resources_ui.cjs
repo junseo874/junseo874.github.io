@@ -33,6 +33,16 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
   await buttons.first().focus();await p.screenshot({path:'/private/tmp/luna-choice-resources.png'});
   for(const size of [{width:960,height:540},{width:1920,height:1080}]){await p.setViewportSize(size);await p.waitForTimeout(100);const b=await p.locator('.choices').boundingBox();assert(b.x>=0&&b.y>=0&&b.x+b.width<=size.width&&b.y+b.height<=size.height);}
   await p.setViewportSize({width:1280,height:720});
+  await p.evaluate(()=>{choiceFixture.rows[0]['text.ko']='안녕하세요. 오늘부터 함께 일하게 된 루나입니다. 아직은 서툴지만 손님에게 어울리는 한 잔을 만들어 보고 싶어요.';lunaCampaign.render(true);});
+  await p.mouse.move(2,2);await buttons.first().focus();
+  const before=await buttons.first().boundingBox();
+  assert(await buttons.first().locator('.choice-label').evaluate(el=>el.offsetHeight>parseFloat(getComputedStyle(el).lineHeight)*1.5),'Long labels wrap');
+  await p.keyboard.down('Space');await p.waitForTimeout(120);
+  assert.equal(await buttons.first().locator('.choice-label').evaluate(el=>getComputedStyle(el).animationName),'title-signal');
+  assert.equal(await buttons.nth(1).locator('.choice-label').evaluate(el=>getComputedStyle(el).animationName),'none','Other choices remain still');
+  const during=await buttons.first().boundingBox();assert.equal(during.width,before.width);assert.equal(during.height,before.height,'Glitch does not shift the multiline choice layout');
+  await p.screenshot({path:'/private/tmp/luna-choice-hold-glitch-multiline.png'});await p.keyboard.up('Space');
+  assert.equal(await buttons.first().locator('.choice-label').evaluate(el=>getComputedStyle(el).animationName),'none');
   // Use an actual script choice to verify the unchanged keyboard confirmation path.
   await p.evaluate(()=>{
    const g=barGame,step=g.t.steps.find(s=>s.type==='choice'&&g.t.scenes.some(c=>c.id===s.context&&Number(c.day)===g.day));

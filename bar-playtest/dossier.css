@@ -13,7 +13,7 @@
 .guest-card{height:clamp(230px,43vh,440px);min-width:0;position:relative;display:flex;flex-direction:column;align-items:stretch;padding:20px 16px 23px;overflow:hidden;border:1px solid #376473;border-radius:0;background:linear-gradient(155deg,#173443,#10202e);clip-path:polygon(0 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,0 100%);color:#dbece6}
 .guest-card:hover,.guest-card:focus-visible,.guest-card.selected{border-color:var(--profile-accent);background:linear-gradient(155deg,#214655,#15303b);outline:1px solid var(--profile-accent);outline-offset:-3px}
 .guest-card:hover:after,.guest-card:focus-visible:after,.guest-card.selected:after{content:'';position:absolute;right:0;top:0;bottom:0;width:6px;background:var(--profile-accent)}
-.guest-card.unmet{opacity:1;background:repeating-linear-gradient(0deg,#152432 0px,#152432 3px,#18303b 4px);border-color:#294350;color:#66828b;align-items:center;justify-content:center;cursor:default}
+.guest-card.unmet{opacity:1;background:repeating-linear-gradient(0deg,#152432 0px,#152432 3px,#18303b 4px);border-color:#294350;color:#66828b;align-items:center;justify-content:center;cursor:var(--luna-cursor-default,default)}
 .guest-card.unmet>span{font-size:64px;font-weight:400;text-shadow:0 0 25px #529b9d22}
 .dossier-portrait{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;width:100%}
 .portrait-canvas{position:relative;width:100%;max-height:100%;flex-shrink:0}

@@ -33,4 +33,4 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
 
  assert.deepEqual(errors,[]);console.log('VIEWPOINT_OK: day-zero keyboard/click blocked, days 1–3 allowed, viewing prompt hidden, Y return/repeat guard, zone re-entry, pause guards');
  }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
-function LUNA_WIDTH(){return 12;}
+function LUNA_WIDTH(){return 10.4;}

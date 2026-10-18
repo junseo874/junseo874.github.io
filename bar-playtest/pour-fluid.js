@@ -35,13 +35,15 @@ class Simulation{
   this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.ingredient=ingredient;
   this.can=CANS.has(ingredient);this.carbonated=CARBONATED.has(ingredient);this.tool='pourer';this.pixel=true;
   this.startAngle=98;this.maxAngle=this.can?175:170;this.tiltSpeed=this.can?380:420;this.grab=0;this.popped=false;this.gush=0;
-  this.glass={...GLASS};this.capacity=Math.max(260,this.targetMl*1.6);this.mlPx=(GLASS.bottom-GLASS.top-8)/this.capacity;
+  this.glass={...GLASS};this.capacity=Math.max(260,this.targetMl*1.6);this.mlPx=(GLASS.bottom-GLASS.top-3)/this.capacity;
   this.supplyMl=Math.max(this.can?350:600,this.targetMl*2);this.emittedMl=0;this.caughtMl=0;this.airMl=0;this.spilledMl=0;this.nozzleMl=0;
   this.material=materialFor(ingredient);
+  // Only liquid crossing a full rim is billable; a missed stream is separate.
+  this.overflowMl=0;this.overflowFoamMl=0;this.overflowCharged=0;this.overflowDrops=[];this.overflowCarry=0;this.overflowSerial=0;this.overflowRate=0;
   this.motion={...nozzle(),vx:0,vy:0};
   this.liquidMl=0;this.foamMl=0;this.retainedFoamMl=0;this.foamDensity=this.material.foamDensity;this.particles=[];this.splash=[];this.serial=0;this.streamSerial=0;this.peakParticles=0;
   this.surface=new Float64Array(49);this.surfaceVelocity=new Float64Array(49);this.impact=0;this.impactX=(GLASS.left+GLASS.right)/2;
-  this.time=0;this.accumulator=0;this.flow=0;this.flowNow=0;this.wobble=0;this.quiet=0;this.maxSpeed=0;this.finishRequested=false;this.ready=false;this.surfaceY=GLASS.bottom;
+  this.time=0;this.accumulator=0;this.flow=0;this.flowNow=0;this.wobble=0;this.quiet=0;this.maxSpeed=0;this.finishRequested=false;this.ready=false;this.surfaceY=GLASS.bottom-3;
  }
  setTool(tool,s){if(!['none','pourer'].includes(tool)||s.held||s.angle>0||this.finishRequested)return false;this.tool=tool;this.rate=this.can?70:tool==='none'?95:42;return true;}
  requestFinish(s){this.finishRequested=true;s.held=false;s.dragAngle=null;s.pourOffset=null;}
@@ -85,16 +87,34 @@ class Simulation{
      const x=b.left+3+j/(this.surface.length-1)*(b.right-b.left-6),d=x-p.x;
      this.surfaceVelocity[j]+=p.ml*4*(Math.exp(-d*d/80)-.5*Math.exp(-((Math.abs(d)-17)**2)/100));
     }
-    if(p.id%5===0)this.splash.push({x:p.x,y:this.surfaceY-this.foamHeight(),vx:Math.sin(p.id*2.4)*70,vy:-50-(p.id%7)*10,life:.35});continue;
+    const depth=b.bottom-3-this.surfaceY,splashStrength=clamp(depth/12,0,1);
+    if(p.id%5===0&&splashStrength>.08)this.splash.push({x:p.x,y:this.surfaceY-this.foamHeight(),vx:Math.sin(p.id*2.4)*70*splashStrength,vy:-(50+(p.id%7)*10)*splashStrength,life:.35});continue;
    }}
    if(p.y>b.bottom+20||p.age>3){this.spilledMl+=p.ml;continue;}keep.push(p);
   }
   this.particles=keep;const decay=Math.max(0,this.foamMl-this.retainedFoamMl)*(1-Math.exp(-this.material.foamDecay*dt));this.foamMl-=decay;this.liquidMl+=decay;
-  if(this.liquidMl>this.capacity){this.spilledMl+=this.liquidMl-this.capacity;this.liquidMl=this.capacity;}
-  const room=Math.max(0,this.capacity-this.liquidMl)*this.foamDensity;
-  if(this.foamMl>room){this.retainedFoamMl*=room/this.foamMl;this.spilledMl+=this.foamMl-room;this.foamMl=room;this.overflowTime=this.time;}
-  this.caughtMl=this.liquidMl+this.foamMl;this.airMl=this.particles.reduce((n,p)=>n+p.ml,0);this.surfaceY=b.bottom-this.liquidMl*this.mlPx;
-  for(const p of this.splash){p.life-=dt;p.vy+=800*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;}this.splash=this.splash.filter(p=>p.life>0).slice(-80);
+  // Foam occupies more volume than its liquid mass. Displace the mixture at
+  // the open rim, preserving the head instead of deleting all beer foam.
+  const occupied=this.liquidMl+this.foamMl/this.foamDensity;
+  let overflow=0,foamOut=0;
+  if(occupied>this.capacity){
+   const loss=1-this.capacity/occupied,liquidOut=this.liquidMl*loss;
+   foamOut=this.foamMl*loss;overflow=liquidOut+foamOut;
+   this.liquidMl-=liquidOut;this.foamMl-=foamOut;this.retainedFoamMl*=1-loss;
+   this.spilledMl+=overflow;this.overflowMl+=overflow;this.overflowFoamMl+=foamOut;this.overflowTime=this.time;
+  }
+  this.overflowRate+=(overflow/dt-this.overflowRate)*(1-Math.exp(-dt*12));
+  this.overflowCarry+=overflow;
+  while(this.overflowCarry>=.6){
+   this.overflowCarry-=.6;const id=this.overflowSerial++,side=id%3===0?1:-1;
+   this.overflowDrops.push({id,side,x:side<0?b.left-1:b.right+1,y:b.top-1,age:0,foam:foamOut/Math.max(overflow,1e-9),vy:36+(id%5)*7});
+  }
+  for(const p of this.overflowDrops){p.age+=dt;p.vy+=340*dt;p.y+=p.vy*dt;p.x+=(p.side*(5+Math.min(18,p.age*18)))*dt;}
+  this.overflowDrops=this.overflowDrops.filter(p=>p.age<1.35&&p.y<b.bottom+12).slice(-240);
+  this.caughtMl=this.liquidMl+this.foamMl;this.airMl=this.particles.reduce((n,p)=>n+p.ml,0);this.surfaceY=b.bottom-3-this.liquidMl*this.mlPx;
+  // Visual droplets rejoin the surface or stop at the wall; they never travel
+  // through the base while their lifetime runs out. They carry no extra mass.
+  for(const p of this.splash){p.life-=dt;p.vy+=800*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.x<b.left+3||p.x>=b.right-3||p.y>=b.bottom-3||(p.vy>0&&p.y>=this.surfaceY-this.foamHeight()))p.life=0;}this.splash=this.splash.filter(p=>p.life>0).slice(-80);
   // Damped, coupled height samples: impact makes a trough and reflected waves.
   // Visual displacement has zero mean; never changes measured liquid volume.
   const heights=this.surface,vel=this.surfaceVelocity;
@@ -108,7 +128,7 @@ class Simulation{
  }
  foamHeight(){return this.foamMl/this.foamDensity*this.mlPx;}
  renderParticles(){return this.particles;}
- audit(){return{emitted:this.emittedMl,caught:this.caughtMl,air:this.airMl,spilled:this.spilledMl,error:this.emittedMl-this.caughtMl-this.airMl-this.spilledMl};}
+  audit(){return{emitted:this.emittedMl,caught:this.caughtMl,air:this.airMl,spilled:this.spilledMl,overflow:this.overflowMl,error:this.emittedMl-this.caughtMl-this.airMl-this.spilledMl};}
 }
 function init(s,game){if(!['pour','fill_up'].includes(s.type))return;const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,ingredient:s.ingredient});game.pourTool=toolForIngredient(s.ingredient);s.fluid.setTool(game.pourTool,s);}
