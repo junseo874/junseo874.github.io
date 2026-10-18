@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
-let F,navigation,rows=[],group=({popups:'common-popups',sounds:'common-sounds'})[new URLSearchParams(location.search).get('tab')]||'bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
+let F,navigation,rows=[],group=({popups:'common-popups',sounds:'common-sounds',extract:'extraction'})[new URLSearchParams(location.search).get('tab')]||'bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
 const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>'+(r.needsRevision?'<span class="revision-tag">수정 필요</span>':'');
 const variantSelections=new Map();let indicatorPreview=null;
 let popupActor='tom';
@@ -58,9 +58,11 @@ function filterHTML(){
 function clearFilters(){facetsByGroup.set(group,{});$('#search').value='';statusesByGroup.delete(group);render();}
 
 function render(){
- const missing=group==='missing';
+ const missing=group==='missing',extracting=group==='extraction';
  $('#nav').innerHTML='<button id="missing-resources" data-group="missing" aria-controls="missing-view" aria-current="'+missing+'" '+(!window.resourceReview?.ready?'disabled':'')+'>미제작 리소스<em>'+ResourceMissing.build(rows).length+'</em></button>'+['공통','바 내부','외부'].map(area=>'<h3>'+area+'</h3>'+C.groups.filter(g=>g[1]===area).map(([id,,label])=>'<button data-group="'+id+'" aria-current="'+(id===group)+'">'+label+'<em>'+rows.filter(r=>r.group===id).length+'</em></button>').join('')).join('');
- $('#catalog-view').hidden=missing;$('#missing-view').hidden=!missing;$('#inspector').hidden=missing;$('.workspace').classList.toggle('missing-mode',missing);
+ $('#nav').insertAdjacentHTML('afterbegin','<button data-group="extraction" aria-controls="extraction-view" aria-current="'+extracting+'">리소스 추출 <em>개별 PNG</em></button>');
+ $('#catalog-view').hidden=missing||extracting;$('#missing-view').hidden=!missing;$('#inspector').hidden=missing||extracting;$('.workspace').classList.toggle('missing-mode',missing);$('.workspace').classList.toggle('extraction-mode',extracting);
+ if(extracting){ResourceSounds.stop();selected=null;ResourceExtraction.show(rows,F?.barData?.assets);$('#totals').innerHTML='<span><b>'+ResourceExtraction.entries.length+'</b>개별 그래픽</span><span><b>PNG</b>원본 / 프레임 다운로드</span>';return;}ResourceExtraction.hide();
  if(missing){if(selected?.audio){ResourceSounds.stop();selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}window.resourceReview.missing.show();return;}
  const gs=C.groups.find(g=>g[0]===group);$('#heading').textContent=gs[1]+' · '+gs[2];const list=filtered();$('#resource-filters').innerHTML=filterHTML();if(selected&&!list.some(r=>r.id===selected.id)){ResourceSounds.stop();selected=null;$('#inspector').innerHTML='<p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>';}$('#count').textContent=list.length+'개 표시 / '+rows.filter(r=>r.group===group).length+'개';
  $('#totals').innerHTML=[['전체 항목',rows.length],['더미·대체·미등록',rows.filter(r=>['dummy','shared','missing'].includes(r.status)).length],['실제 화면 테스트',rows.filter(r=>r.launch).length]].map(([t,n])=>'<span><b>'+n+'</b>'+t+'</span>').join('');

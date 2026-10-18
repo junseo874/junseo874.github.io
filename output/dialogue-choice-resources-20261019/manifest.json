@@ -1,0 +1,102 @@
+{
+  "scale": 1,
+  "keyColor": "#50d9f5",
+  "assets": [
+    {
+      "file": "choices/selected-background-right.png",
+      "width": 64,
+      "height": 32,
+      "description": "선택 배경, 루나의 오른쪽에 선택지가 있을 때. 글자 없는 가변 폭용 기본 조각."
+    },
+    {
+      "file": "choices/selected-background-left.png",
+      "width": 64,
+      "height": 32,
+      "description": "선택 배경, 루나의 왼쪽에 선택지가 있을 때. 글자 없는 가변 폭용 기본 조각."
+    },
+    {
+      "file": "choices/inactive-line.png",
+      "width": 2,
+      "height": 30,
+      "description": "비활성 선택지 세로선. 나머지 배경은 없음."
+    },
+    {
+      "file": "choices/key-e.png",
+      "width": 32,
+      "height": 34,
+      "description": "22×24 키 표시 + 사방 5px 투명 여유(원본 발광 보존)."
+    },
+    {
+      "file": "choices/key-frame.png",
+      "width": 32,
+      "height": 34,
+      "description": "22×24 키 표시 + 사방 5px 투명 여유(원본 발광 보존)."
+    },
+    {
+      "file": "choices/pointer-right.png",
+      "width": 5,
+      "height": 6,
+      "description": "E키 옆 오른쪽 방향 삼각형."
+    },
+    {
+      "file": "choices/pointer-left.png",
+      "width": 5,
+      "height": 6,
+      "description": "E키 옆 왼쪽 방향 삼각형."
+    },
+    {
+      "file": "tutorial/key-w.png",
+      "width": 27,
+      "height": 30,
+      "description": "튜토리얼 키 27×28 + 아래 그림자 2px."
+    },
+    {
+      "file": "tutorial/key-s.png",
+      "width": 27,
+      "height": 30,
+      "description": "튜토리얼 키 27×28 + 아래 그림자 2px."
+    },
+    {
+      "file": "tutorial/key-e.png",
+      "width": 27,
+      "height": 30,
+      "description": "튜토리얼 키 27×28 + 아래 그림자 2px."
+    },
+    {
+      "file": "tutorial/mouse-wheel.png",
+      "width": 24,
+      "height": 32,
+      "description": "휠이 강조된 마우스 아이콘."
+    },
+    {
+      "file": "tutorial/triangle-up.png",
+      "width": 12,
+      "height": 10,
+      "description": "선 없는 방향 삼각형."
+    },
+    {
+      "file": "tutorial/triangle-down.png",
+      "width": 12,
+      "height": 10,
+      "description": "선 없는 방향 삼각형."
+    },
+    {
+      "file": "tutorial/panel-background.png",
+      "width": 510,
+      "height": 400,
+      "description": "글자·상단 장식 없는 패널. 본체350×230, 위치80,60. 그림자 보존용 투명 여유 포함."
+    },
+    {
+      "file": "tutorial/panel-accent.png",
+      "width": 80,
+      "height": 35,
+      "description": "상단 장식48×3 + 발광 여유."
+    },
+    {
+      "file": "tutorial/divider.png",
+      "width": 308,
+      "height": 1,
+      "description": "패널 구분선."
+    }
+  ]
+}
