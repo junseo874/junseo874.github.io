@@ -1,5 +1,6 @@
 .serve-presentation{position:absolute;inset:0;z-index:20;overflow:hidden;background:#0d0e18}
 .serve-canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+.serve-carbonation{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
 .serve-grade{position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:48px;letter-spacing:4px;color:#f8e1a1;text-shadow:0 3px 0 #251e18,0 0 18px #0b0c18;pointer-events:none}
 .serve-grade[data-grade=poor],.serve-grade[data-grade=sewage]{color:#efa294}
 .serve-actions{position:absolute;bottom:24px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:flex-start}

@@ -19,6 +19,10 @@ const out=path.resolve(__dirname,'../assets/resource-exports-20261018');
    await p.evaluate(r=>resourceReview.launch(r.d,r.title,r.note),r);
    const note=await p.locator('#lab-note').evaluate(e=>e.classList.contains('error')?e.textContent:null);if(note)throw Error(note);
    await f.evaluate(()=>document.fonts.ready);
+   if(r.d.type==='serve'){
+    await f.locator('.serve-presentation[data-ready=true]').waitFor({timeout:10000});
+    await p.waitForTimeout(900); // Include the ongoing carbonation after the one-shot presentation.
+   }
    await p.waitForTimeout(r.d.type==='review-opening'?1800:r.d.type==='terrace'||r.d.type==='johnny-memory'?2900:r.d.type==='day-transition'?2050:r.d.type==='door'?3350:r.d.type==='outside'?1400:r.popup?400:700);
    await f.evaluate(()=>{if(barGame.dialogue)barGame.dialogue.chars=barGame.dialogue.text.length;if(lunaCampaign.dialog){const d=lunaCampaign.dialog;if(d.rows[d.index]){d.chars=d.rows[d.index].text.length;lunaCampaign.paintLine();}}for(const s of [outsidePlaytest.model?.story,outsidePlaytest.model?.backgroundStory])if(s?.speech)s.speech.elapsed=99;outsidePlaytest.refreshHUD();});
    if(errors.length)throw Error(errors.join('; '));

@@ -45,7 +45,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
  }
  function lesson(s){if(!s.openTutorial||g.isPaused())return '';const text=s.completed?L('잘했어요. 다음을 눌러 제조를 이어가세요.','Well done. Select Next to continue.'):!s.started?L('Space를 눌러 시작하세요. 먼저 힘 게이지가 움직여요.','Press Space to start. The outer ring will begin to shrink.'):s.failures?L('괜찮아요. 초록 힘 구간을 맞춘 뒤, 두 원이 겹칠 때 눌러 보세요.','Try again. Press Space when the outer ring meets the mint ring.'):L('초록 구간에서 힘을 맞추고, 이어서 원이 겹칠 때 누르면 열려요.','Press Space again when the outer ring meets the mint ring to pop the cap.');return '<div class="opening-lesson" data-open-lesson><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/><circle cx="640" cy="310" r="190" fill="black"/><rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';}
  function html(s){
-  const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:.65);
+  const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:window.LunaCore.OPEN.carbonationSec);
   return '<div class="craft-screen opening-screen">'+(g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<canvas class="opening-stage" data-opening-stage width="1280" height="720" role="img" aria-label="'+L('맥주병 뚜껑에 초점을 맞춘 병따기','Bottle opening focused on the cap')+'"></canvas>'+
@@ -70,6 +70,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   if(fx&&seen.get(s)!==fx.serial&&!g.isPaused()){seen.set(s,fx.serial);if(fx.age<.12)sound(ok,fx.perfect);}
   canvas.dataset.perfect=String(!!fx?.perfect);
   canvas.dataset.state=ok?'success':s.openPhase||'ready';
+  canvas.dataset.carbonation='0';
   const phaseLabel=root.querySelector('[data-open-phase]');if(phaseLabel)phaseLabel.textContent=L(({ready:'Space / 클릭으로 시작',power:'1 · 힘 조절 — 초록 구간에서 누르기','power-done':'힘 조절 성공',rhythm:'2 · 타이밍 — 두 원이 겹칠 때 누르기',broken:'병이 깨졌어요 · 다시 준비 중',pop:'병따기 완료'})[s.openPhase]||'','POWER → TIMING');
   const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1280,720);
   // The supplied room is a full-screen layer, independent of cap animation.
@@ -80,6 +81,11 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   if(bottle.complete&&bottle.naturalWidth){
    // beer.png: cap x33..54, y66..72. Body retains the native alpha and neck.
    ctx.drawImage(bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
+   if(ok&&s.ingredient==='beer'){
+    ctx.save();ctx.scale(scale,scale);
+    canvas.dataset.carbonation=String(window.LunaOpenCarbonation.draw(ctx,t,reduced.matches));
+    ctx.restore();
+   }
    if(ok){ctx.fillStyle='#38291c';ctx.beginPath();ctx.ellipse(0,3*scale,8*scale,1.5*scale,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#af9669';ctx.lineWidth=2;ctx.stroke();}
    ctx.save();
    if(ok){const launch=fx.perfect?1.2:1;ctx.translate(260*t*launch,-690*t*launch+300*t*t);ctx.rotate(-12*t*launch);ctx.globalAlpha=Math.max(0,1-(t-.65)*2);}

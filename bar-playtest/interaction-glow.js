@@ -36,7 +36,7 @@ function region(target,node,sp,x,y,model){
   if(target.id==='tv')return [0,0,53,34];
  }
  // The apartment doorway is baked into the residence layer, above the railing.
- if(target.id==='home'&&name==='residence-building')return [567,438,44,77];
+ if(target.id==='home'&&name==='residence-building')return node.interactionRegions?.home||[567,438,44,77];
  if(target.id==='elevator'){
   const atFloor=(model.elevatorY>4)===(model.level===1);
   if(atFloor&&name==='Elevator')return full;

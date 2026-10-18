@@ -35,6 +35,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   return '<section class="serve-presentation" aria-label="'+L('칵테일 제공','Present drink')+'" '+(g.isPaused()?'inert':'')+' data-ready="'+s.ready+'" data-cocktail="'+esc(r.selected)+'">'+
    '<canvas class="serve-canvas" width="1280" height="720" aria-label="'+esc(g.name(r.selected))+'"></canvas>'+
    (!sheet||failed?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
+   (window.LunaServeCarbonation?.profiles[r.selected]?'<canvas class="serve-carbonation" width="1280" height="720" aria-hidden="true"></canvas>':'')+
    (s.ready?'<div class="serve-grade" role="status" data-grade="'+esc(r.grade)+'">'+esc(r.grade.toUpperCase())+'</div>':'')+
    (s.ready&&!declined?'<div class="serve-actions">'+button(L('버리기','Discard'),'discard',ready()?'':'disabled','serve-discard')+'<div class="serve-offer">'+button(L('제공하기','Offer drink'),'offer',ready()?'':'disabled','primary')+button(L('판정 결과','Score details'),'serveDetails',ready()?'':'disabled','serve-details-button')+'</div></div>':'')+
    '</section>';
@@ -55,6 +56,22 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   }
   canvas.dataset.frame=String(s.frame);
   canvas.dataset.source=art?.failed?'fallback':sheet?.src||'fallback';
+  const fx=root.querySelector('.serve-carbonation');
+  if(fx){
+   // Fallback artwork can have different dimensions; never attach the sheet mask to it.
+   const fallback=root.querySelector('.serve-fallback'),img=fallback?.querySelector('img');
+   let time=s.elapsed-duration,transform;
+   if(fallback){
+    if(s.result.selected!=='bottle_beer'||!img?.complete||!img.naturalWidth)time=-1;
+    else {
+     const box=img.getBoundingClientRect(),stage=canvas.getBoundingClientRect(),unit=1280/stage.width;
+     const fit=Math.min(box.width/img.naturalWidth,box.height/img.naturalHeight);
+     transform=[(box.left-stage.left+(box.width-img.naturalWidth*fit)/2)*unit,
+      (box.top-stage.top+(box.height-img.naturalHeight*fit)/2)*unit,fit*unit];
+    }
+   }
+   window.LunaServeCarbonation.draw(fx,s.result.selected,time,transform);
+  }
  }
  function detailsHTML(){
   const r=g.result;if(!r)return '';

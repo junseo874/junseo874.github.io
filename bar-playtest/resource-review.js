@@ -120,7 +120,10 @@ async function launch(d,title,note,fromHistory=false){
      if(d.miss){const n=s.rhythm.notes.find(n=>!n.status);s.rhythm.trackTime=n.time;g.gimmickInput(n.lane?'KeyA':'KeyD');}
      // Keep a short inspection interval before the next live note arrives.
      for(const n of s.rhythm.notes)if(!n.status)n.time+=5;
-    }else if(d.id==='open'){g.gimmickInput('Space');s.beatTime=d.success?g.c('open_approach_sec',1.6):0;g.gimmickInput('Space');}
+    }else if(d.id==='open'){
+     g.gimmickInput('Space');s.powerPos=d.success?.78:0;g.gimmickInput('Space');
+     if(d.success){for(let i=0;i<3;i++)g.tick(.2);s.beatTime=1.1;g.gimmickInput('Space');}
+    }
     else if(d.id==='pour'){
      g.craft.queue=[{type:'pour',ingredient:d.ingredient,target:360,unit:'ml'}];g.craft.index=0;g.nextGimmick();g.holdPour(true);c.render(true);
      await new Promise(resolve=>F.setTimeout(resolve,2500));if(token!==launchEpoch)return;g.holdPour(false);
