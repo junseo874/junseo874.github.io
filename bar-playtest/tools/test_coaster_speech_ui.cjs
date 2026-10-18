@@ -20,6 +20,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
       g.story={scene:{id:'coaster-speech-test'},steps:[{type:'say',actor:'chris','text.ko':'안녕하세요.'},{type:'say',actor:'luna','text.ko':'주문하시겠어요?'},{type:'order',actor:'chris',arg:'exact:dry_martini'}],index:0};g.pump();g.dialogue.chars=g.dialogue.text.length;
      }
     }
+    if(kind==='general'){const line=g.seats.L.lines[0];line.chars=line.text.length;}
     g.overview=false;g.cameraLeft=0;g.transition=0;c.screen(c.playView);c.render(true);
    },kind);
    await p.waitForFunction(()=>!barGame.cameraMoving&&!barGame.cameraLeft&&!barGame.transition);

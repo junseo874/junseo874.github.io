@@ -99,12 +99,12 @@ function attach(g){
   if(s.type==='open'&&!s.completed)return false;
   s.held=false;const remaining=s.type==='open'?Math.max(.85,(this.minigame?C.OPEN.minigameHoldSec:C.OPEN.carbonationSec)-(s.openFx?.age||0)):.85;this.remix.hold={remaining,step:s};cue('step');return true;
  };
- g.tick=function(dt){
+ g.tick=function(dt,options){
   if(active()&&!this.isPaused()&&!this.finished){
    const d=Math.max(0,Math.min(dt,.2));this.remix.resultLock=Math.max(0,this.remix.resultLock-d);
    if(this.remix.hold){this.realTime+=d;C.MIX.visual(this.remix.hold.step,d);C.OPEN.visual(this.remix.hold.step,d);this.remix.hold.remaining-=d;if(this.remix.hold.remaining<=0){this.remix.hold=null;base.endGimmick();}return;}
   }
-  base.tick(dt);
+  base.tick(dt,options);
  };
  for(const key of ['offer','discard'])g[key]=function(){if(active()&&this.remix.resultLock>0)return false;return base[key]();};
  g.resolveServe=function(order,drink){const result=base.resolveServe(order,drink);return active()?{...result,experimentalDebug:!!drink.debug}:result;};
@@ -113,7 +113,7 @@ function attach(g){
   return base.setBarks(guest,[situations[0]],()=>{guest.state='DRINKING';guest.drinkLeft=this.remix.episode?2:1.2;guest.lines=[];guest.afterDrink=()=>{guest.glassEmpty=true;guest.state='REACTION';base.setBarks(guest,[situations[1]],onDone);};});
  };
  g.serve=function(seat,input){const glass=this.drink?.actual?.glass,ok=base.serve(seat,input);if(active()&&ok&&this.seats[seat]){this.seats[seat].glassKind=glass;this.seats[seat].glassEmpty=false;}return ok;};
- g.tickGeneral=function(dt){if(active()&&this.remix.episode)for(const guest of Object.values(this.seats).filter(Boolean)){if(['WAIT_COASTER','WAIT_SERVE'].includes(guest.state)){guest.left=guest.limit;guest.idleLeft=3600;}}base.tickGeneral(dt);if(active())for(const guest of Object.values(this.seats).filter(x=>x?.state==='DRINKING')){guest.drinkLeft-=dt*this.speed;if(guest.drinkLeft<=0){const fn=guest.afterDrink;guest.afterDrink=null;fn?.();}};};
+ g.tickGeneral=function(dt,holdSpeech){if(active()&&this.remix.episode)for(const guest of Object.values(this.seats).filter(Boolean)){if(['WAIT_COASTER','WAIT_SERVE'].includes(guest.state)){guest.left=guest.limit;guest.idleLeft=3600;}}base.tickGeneral(dt,holdSpeech);if(active())for(const guest of Object.values(this.seats).filter(x=>x?.state==='DRINKING')){guest.drinkLeft-=dt*this.speed;if(guest.drinkLeft<=0){const fn=guest.afterDrink;guest.afterDrink=null;fn?.();}};};
  g.settle=function(result,guest){
   const previous=this.transactionIds.has(result.orderId),trx=base.settle(result,guest);
   if(!active()||previous||!trx||this.phase==='practice')return trx;
