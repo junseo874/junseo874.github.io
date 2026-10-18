@@ -42,7 +42,7 @@ async function play(c,id){
    const wakeAt=scene.clips?.find(x=>x.type==='visual'&&x.actor==='house')?.start||0;
    c.cinema={studio:entry.kind==='studio',scenes:[scene],index:0,scene,time:entry.wake?wakeAt:0,player:null,title:entry.title,returnTransition:'cut',returnTo:close};
    if(entry.key==='opening')c.cinema.skipUntil=0;
-   c.cinemaHintUntil=performance.now()+2000;c.cinemaBgmMuted=c.bgm.audio.muted;c.bgm.audio.muted=true;c.screen('prologue');if(entry.kind==='studio')W.LunaStudioCinema.unlock();else W.Sfx?.resume();
+   c.cinemaHintUntil=performance.now()+2000;c.bgm.setSuppressed('cinema',true);c.screen('prologue');if(entry.kind==='studio')W.LunaStudioCinema.unlock();else W.Sfx?.resume();
   }catch(error){if(!valid())return;c.loadError=error.message;c.screen('load-error');}
  };await load();
 }

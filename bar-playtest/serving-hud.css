@@ -22,8 +22,8 @@
 .delivery-cue{position:absolute;inset:0;pointer-events:none}
 .bar-scene-layer .native-coaster>img.coaster{z-index:1}
 .bar-scene-layer .native-coaster>.drink-art{z-index:2}
-/* While awaiting a drop, the reference uses the shadow as the target marker. */
-.bar-scene-layer .native-coaster:has(.delivery-cue)>img.coaster{visibility:hidden}
+/* Keep placed coasters visible during pickup, dragging and drink delivery.
+   Only the initial coaster-placement step needs a shadow on the bare table. */
 .bar-scene-layer .native-coaster .delivery-shadow{position:absolute;left:10px;top:88px;width:100px;height:44px;opacity:1;object-fit:contain;pointer-events:none}
 .delivery-arrow{position:absolute;left:40px;top:29px;width:40px;height:48px;fill:#b9fbff;stroke:#74ddeb;stroke-width:1;filter:drop-shadow(0 0 7px #65eaff);animation:delivery-nudge 1.2s ease-in-out infinite;pointer-events:none}
 .native-coaster.drop-ready .delivery-shadow{opacity:1}

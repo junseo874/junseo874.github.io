@@ -79,7 +79,7 @@ class OutsideModel{
  constructor(options={}){this.start(options);}
  start({place='bar',flow='out',day=0,...qaOptions}={}){
   this.config={place:Object.hasOwn(PLACES,place)?place:'bar',flow:Object.hasOwn(FLOWS,flow)?flow:'out',day:Number(day)===99?99:clamp(Math.floor(Number(day)||0),0,3)};
-  this.barArrival=null;this.commuteBoundarySide=0;this.beggarDeparture=null;
+  this.barArrival=null;this.commuteBoundarySide=0;this.beggarDeparture=null;this.liftLogoSeen=false;
   this.thugFlags={};this.samhoCommuteFlags={};this.notionFlags={};this.scene=this.config.place==='home'?'home':'street';this.level=this.config.place==='bar'?0:1;this.x=this.config.place==='bar'?1:this.config.place==='home'?-1.28:R.homeX;this.y=this.scene==='home'||!this.level?-.7:R.upperY;
   this.controlsTutorial=false;this.controlsInteractUntil=0;this.elevatorY=this.level?TOP:BOTTOM;this.facing=this.config.place==='bar'?-1:1;this.anim='idle';this.animTime=0;this.time=0;this.paused=false;this.ride=null;this.transition=null;this.encounter=null;this.dialog=null;this.near=null;this.notice='';this.noticeLeft=0;this.arrivals=0;this.revision=0;this.story=new global.LunaOutsideStory.Story(this);this.backgroundStory=new global.LunaOutsideStory.BackgroundStories(this);this.playedAmbient=new Set();this.tvNewsInRange=false;this.notionCommuteSeen=false;global.LunaOutsideQA?.init(this,qaOptions);this.updateNear();
  }
@@ -220,7 +220,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
   c?.debugOutsideDay(day,config.flow);
   model=new OutsideModel(config);
   if(day!==99&&streetLocation){const {place,...position}=streetLocation;Object.assign(model,position);model.updateNear();}
-  if(c){c.outsideSleep=null;c.liftLogoPending=false;document.querySelector('#campaign-lift-logo')?.remove();}
+  if(c){c.outsideSleep=null;c.liftLogoPending=false;document.querySelector('#campaign-lift-reveal')?.remove();}
   wakeSpawn=false;panorama=false;snapCamera();draw();
   global.barGame?.log('debug_outside_day',{from:m.config.day,to:day,flow:config.flow});
   host.querySelector('.outside-dev-feedback').textContent=day===99?'99일차 QA 공간으로 이동했습니다. 패널을 닫고 Tab으로 상황을 선택하세요.':day+'일차 · '+FLOWS[config.flow]+'로 변경했습니다.';
@@ -237,7 +237,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    // Preserve the exact location (and any lift trip); only the route and its event state change.
    m.config.flow=flow;config.flow=flow;
    if(c?.active){c.session.day=m.config.day;c.session.route=flow;c.session.carry=JSON.parse(JSON.stringify(g.progress));c.session.pendingStep=null;c.morningSeen.delete(m.config.day);c.nightStarted=false;}
-   if(c){c.outsideSleep=null;c.liftLogoPending=false;document.querySelector('#campaign-lift-logo')?.remove();}
+   if(c){c.outsideSleep=null;c.liftLogoPending=false;document.querySelector('#campaign-lift-reveal')?.remove();}
    g.log('debug_commute',{day:m.config.day,flow,source:'outside-console'});m.updateNear();m.revision++;
    host.querySelector('.outside-dev-feedback').textContent=m.config.day+'일차 · '+FLOWS[flow]+'로 변경했습니다.';
   }
@@ -247,7 +247,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
    clearInput();m.story.cancel();m.backgroundStory.cancel();m.ride=null;m.transition=null;m.encounter=null;m.dialog=null;m.paused=false;m.notice='';m.noticeLeft=0;
    // Keep QA isolated; select a normal day before teleporting into the city.
    const home=action==='dev-home';m.scene=home?'home':'street';m.level=home?1:0;m.x=home?-1.28:action==='dev-elevator'?EX:1.0086;m.y=-.7;m.elevatorY=home?TOP:BOTTOM;m.facing=home?1:action==='dev-elevator'?1:-1;m.anim='idle';m.animTime=0;m.config.place=home?'home':'bar';config.place=m.config.place;wakeSpawn=false;panorama=false;
-   if(c){c.liftLogoPending=false;document.querySelector('#campaign-lift-logo')?.remove();}
+   if(c){c.liftLogoPending=false;document.querySelector('#campaign-lift-reveal')?.remove();}
    m.updateNear();m.revision++;snapCamera();draw();host.querySelector('.outside-dev-feedback').textContent=home?'집 안으로 이동했습니다.':action==='dev-elevator'?'아래층 엘리베이터 앞으로 이동했습니다.':'바 문 앞으로 이동했습니다.';
   }
   hudSignature='';updateHUD();paintDev();
@@ -280,16 +280,14 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  function targetCamera(dt){
   if(!atViewpoint(model))panorama=false;
   if(lastScene!==model.scene)snapCamera();let w=4.8,x=model.x,y=model.scene==='home'?.023:model.y+.7,liftWidth=null,liftDisplayWidth=null;
-  // Day-zero commute descent keeps the normal player-follow framing.
-  const closeCommuteLift=model.config.day===0&&model.config.flow==='in'&&model.ride?.to<model.ride?.from;
-  if(model.scene==='street'&&model.ride&&!model.ride.call&&!closeCommuteLift){
+  if(model.scene==='street'&&model.ride&&!model.ride.call){
    const r=model.ride,p=clamp((r.time-.45)/r.duration,0,1),zoom=smooth(clamp(r.time/3,0,1))*(1-smooth(clamp((p-.73)/.27,0,1)));
    w=mix(4.8,12.8,zoom);liftWidth=w;
    liftDisplayWidth=mix(global.LunaPixelCamera.settledWidth(4.8,surface),global.LunaPixelCamera.settledWidth(12.8,surface),zoom);
-   // Ascending panorama: put Luna/lift at 6% of the displayed frame, not
+   // Both directions share the ascent panorama: Luna/lift at 6% of the frame, not
    // a fixed world offset. PPU-calibrated width varies with viewport/DPR.
    // Use the same easing as the zoom so boarding and arrival stay continuous.
-   x=model.x+(r.to>r.from?liftDisplayWidth*.44:3.25)*zoom;
+   x=model.x+liftDisplayWidth*.44*zoom;
    y=model.y+.7+1.0*zoom;
   }
   if(model.qa?.camera){({w,x,y}=model.qa.camera);}
@@ -456,7 +454,7 @@ function create({onExit=()=>{},currencyView=global.LunaCurrencyView()}={}){
  }
  function renderSpeech(el,v,background=false){el.hidden=!v||model.paused||loading||!!loadError;if(!v){el.dataset.key='';return;}
   const key=v.key+':'+v.canTreat;
-  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML='<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
+  if(el.dataset.key!==key){el.dataset.key=key;el.classList.toggle('is-auto',v.auto);el.setAttribute('role',v.auto?'status':v.choice?'group':'button');el.tabIndex=!v.auto&&!v.choice?0:-1;el.setAttribute('aria-label','대화');el.innerHTML=global.LunaExteriorTextbox.html()+'<p><span class="outside-speech-measure" aria-hidden="true">'+esc(v.full)+'</span><span class="'+(background?'outside-background-text':'outside-speech-text')+'" aria-label="'+esc(v.full)+'"></span></p>'+(v.purchase?'<div class="outside-choices bd-choices" role="group" aria-label="'+esc(v.purchase.label||'BD 칩 구매 선택')+'">'+v.purchase.options.map(o=>'<button data-outside-action="bd-choice" data-choice="'+o.id+'" '+(o.disabled?'disabled aria-disabled="true"':'')+'>'+esc(o.label)+(o.disabled?'<small>소지금이 부족합니다</small>':'')+'</button>').join('')+'<small class="bd-balance">소지금 '+v.purchase.money.toLocaleString('ko-KR')+'원</small></div>':'');if(!v.auto&&!devOpen)(el.querySelector('button:not(:disabled)')||el).focus({preventScroll:true});}
 
   el.querySelector('p').hidden=!v.full;
   global.LunaDialogueCue.sync(el,!v.auto&&!v.choice&&!!v.full&&v.text===v.full);

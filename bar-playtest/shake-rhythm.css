@@ -8,7 +8,6 @@
 .rhythm-modes button[aria-pressed=true]{border-bottom-color:#84dff4;color:#d2f4ff;text-shadow:0 0 10px #72d8ff88;background:linear-gradient(0deg,#3ab9e214,transparent)}
 .rhythm-modes button:disabled{opacity:.5}.rhythm-modes button[aria-pressed=true]:disabled{opacity:1}
 .rhythm-score{display:flex;align-items:center;justify-content:space-between;position:relative;height:75px;flex-shrink:0;color:#a5bccc;font-variant-numeric:tabular-nums;padding:0 4px}
-.rhythm-score span{font-size:11px;letter-spacing:2px}.rhythm-score em{font-style:normal;color:#647e90}
 .rhythm-verdict{position:absolute;left:50%;top:26px;transform:translateX(-50%);font-size:18px;color:#deefff;letter-spacing:2px;text-shadow:0 0 14px #68d4ff;pointer-events:none;white-space:nowrap}.rhythm-verdict.miss{color:#d88b9d;text-shadow:none;letter-spacing:3px;font-size:16px}
 .rhythm-stage{display:block;flex:1;min-height:0;width:100%;overflow:hidden}
 .rhythm-track{stroke:#2a6a8840;stroke-width:64;fill:none}.rhythm-rail{stroke:#85b5ca26;stroke-width:1;fill:none}.rhythm-judge{stroke:#96e4ff9c;stroke-width:1;fill:none}

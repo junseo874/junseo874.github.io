@@ -1,0 +1,43 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),path=require('node:path');
+const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+(async()=>{
+ const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
+ try{
+  const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
+  if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
+  await page.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:3,flow:'out',place:'bar'});await outsidePlaytest.start();});
+  await page.waitForFunction(()=>!outsidePlaytest.loading);
+  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;window.stepTextbox=o.tick;o.tick=()=>{};m.story.cancel();m.backgroundStory.cancel();m.x=-3;m.y=-.7;o.snapCamera();stepTextbox(0);});
+  const bubble=page.locator('.outside-speech'),cue=bubble.locator('.dialogue-advance-cue');
+  for(const [name,text]of [['short','오늘도 수고했어.'],['two-lines','오늘은 바람이 꽤 차네.\n잠깐 쉬었다가 집으로 돌아가자.'],['long','오래된 간판 아래에서 누군가 이야기를 나누고 있다. 새로운 말풍선은 긴 대사에서도 테두리와 모서리가 찌그러지지 않고, 읽기 편하게 여러 줄로 이어져야 한다.']]){
+   await page.evaluate(text=>{const o=outsidePlaytest,m=o.model;m.story.beginRows('skin-'+text,{x:m.x,y:m.y},[{type:'say',actor:'luna',text},{type:'say',actor:'luna',text:'다음 대사입니다.'}],false);o.refreshHUD();},text);
+   assert(await cue.isHidden());assert.equal(await bubble.locator('.textbox-piece').count(),11);
+   const before=await bubble.boundingBox();await page.keyboard.press('KeyE');assert(await cue.isVisible());
+   assert.deepEqual(await bubble.boundingBox(),before,'Typing must not resize the bubble');
+   const layout=await bubble.evaluate(el=>{const b=el.getBoundingClientRect(),p=el.querySelector('p').getBoundingClientRect(),c=el.querySelector('.dialogue-advance-cue').getBoundingClientRect(),tail=el.querySelector('.piece-9').getBoundingClientRect();return {align:getComputedStyle(el.querySelector('p')).textAlign,background:getComputedStyle(el).backgroundColor,arrow:getComputedStyle(el.querySelector('.dialogue-advance-cue')).backgroundImage,animation:getComputedStyle(el.querySelector('.dialogue-advance-cue')).animationName,inside:c.left>=p.right&&c.right<=b.right&&c.top>=b.top&&c.bottom<=b.bottom,center:Math.abs((tail.left+tail.right-b.left-b.right)/2),extension:tail.bottom-b.bottom};});
+   assert.equal(layout.align,'center');assert.equal(layout.background,'rgba(0, 0, 0, 0)');assert(layout.arrow.includes('IMG_textbox_arrow.png'));assert.equal(layout.animation,'exterior-textbox-arrow-bob');assert(layout.inside,'Arrow must not overlap text');assert(layout.center<1);assert(layout.extension>15&&layout.extension<24);
+   await page.waitForTimeout(180);await page.screenshot({path:'/private/tmp/exterior-textbox-'+name+'.png'});
+   await bubble.click();assert(await cue.isHidden(),'Click still advances and hides cue for new typing');
+  }
+  // Ambient speech shares the art, never the manual progression cue.
+  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.story.cancel();m.backgroundStory.cancel();m.backgroundStory.beginRows('skin-ambient',{x:m.x,y:m.y},[{type:'say',actor:'luna',text:'밤공기가 차갑네.\n따뜻한 거라도 마실까?'}],true);m.backgroundStory.speech.elapsed=.6;o.refreshHUD();});
+  assert.equal(await page.locator('.outside-background-speech:not([hidden]) .textbox-piece').count(),11);
+  assert(await page.locator('.outside-background-speech .dialogue-advance-cue').isHidden());
+  await page.screenshot({path:'/private/tmp/exterior-textbox-ambient.png'});
+  // Choice layout and affordability remain functional with the new skin.
+  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.config.day=0;m.backgroundStory.cancel();barGame.progress.money=100;LunaOutsideBeggar.interact(m,{id:'street-beggar',x:-7.30,y:-.94});for(let i=0;i<20&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}m.x=-7.30;o.snapCamera();stepTextbox(0);o.refreshHUD();});
+  assert(await bubble.locator('.outside-choices').isVisible());assert(await cue.isHidden());
+  assert(await bubble.locator('[data-choice="beggar-pay"]').isDisabled());
+  await page.screenshot({path:'/private/tmp/exterior-textbox-choice.png'});
+  await bubble.locator('[data-choice="beggar-refuse"]').click();
+  await page.evaluate(()=>{outsidePlaytest.model.story.speech.elapsed=99;outsidePlaytest.refreshHUD();});
+  await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await cue.evaluate(e=>getComputedStyle(e).animationName),'none');
+  for(const width of [640,1920]){await page.setViewportSize({width,height:width*9/16});await page.waitForTimeout(100);const b=await bubble.boundingBox();assert(b.x>=0&&b.x+b.width<=width&&b.y>=0);await page.screenshot({path:'/private/tmp/exterior-textbox-'+width+'.png'});}
+  // Ship the originals, including the artist's preview; do not bake test text into live UI.
+  for(const name of fs.readdirSync('/Users/lee/Desktop/exterior_textbox'))if(name.endsWith('.png'))assert(fs.readFileSync('/Users/lee/Desktop/exterior_textbox/'+name).equals(fs.readFileSync(path.join(__dirname,'../assets/exterior-textbox',name))));
+  assert.deepEqual(errors,[]);console.log('PASS original 11-piece art, centered short/long/ambient/choice bubbles, stable typing, next-line controls, inset arrow, reduced motion, viewport scaling');
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

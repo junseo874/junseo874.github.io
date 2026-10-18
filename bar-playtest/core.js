@@ -394,9 +394,9 @@ class Game{
  coaster(seat=this.focus,input='shortcut'){
   if(this.storyCoaster){const pending=this.storyCoaster;if(seat!==pending.seat||!['drag','keyboard'].includes(input)||!this.storyCoasterReady()||this.isPaused()||this.screen!=='bar'||this.cameraMoving||this.cameraLeft>0||this.transition>0)return false;const guest=this.seats[seat];if(!guest||guest.actor!==pending.step.actor||guest.coaster)return false;guest.coaster=true;this.storyCoaster=null;this.log('story_coaster',{actor:guest.actor,seat,input});if(pending.kind==='line')this.safe(()=>this.finishLine());else this.safe(()=>this.pump());this.changed();return true;}
   if(this.tutorial?.kind==='coaster'){const t=this.tutorial;if(this.isPaused()||this.screen!=='bar'||this.cameraMoving||this.cameraLeft>0||this.transition>0||seat!==t.seat||!['drag','keyboard'].includes(input))return false;this.seats[seat].coaster=true;this.tutorial=null;this.log('story_coaster',{actor:t.step.actor,seat,input});this.log('tutorial_complete',{kind:'coaster'});this.setTransition(.45,()=>this.stepDone(t.step));this.changed();return true;}
-  if(this.phase!=='general'||this.screen!=='bar'||this.isPaused()||this.cameraLeft>0||seat!==this.focus)return false;
-  const g=this.seats[seat];if(!g||g.state!=='WAIT_COASTER'||g.left<=0)return false;
-  g.coaster=true;g.state='ORDER_DIALOGUE';this.beginOrder(g,false);this.log('coaster',{guest:g.id,seat});this.changed();return true;
+  if(this.phase!=='general'||!['drag','keyboard'].includes(input)||this.screen!=='bar'||this.isPaused()||this.cameraMoving||this.cameraLeft>0||this.transition>0||seat!==this.focus)return false;
+  const g=this.seats[seat];if(!g||g.coaster||g.state!=='WAIT_COASTER'||g.left<=0)return false;
+  g.coaster=true;g.state='ORDER_DIALOGUE';this.beginOrder(g,false);this.log('coaster',{guest:g.id,seat,input});this.changed();return true;
  }
  beginOrder(g,reorder){
   const candidates=this.cocktailsAvailable();if(!candidates.length)throw Error('무작위 주문 후보 없음');g.nextCocktail=g.slot.order||candidates[Math.floor(this.rng()*candidates.length)].id;
@@ -530,7 +530,7 @@ class Game{
  }
  debugFill(){if(this.screen!=='prep')return;const c=this.cocktail(this.prep.selected);this.prep.glass=c.glass;this.prep.tool=(c.mix==='shake'?'shaker':c.mix==='stir'?'mixing_glass':null);this.prep.ingredients=this.t.recipes.filter(r=>r.context===c.id&&!r.auto_apply).map(r=>r.ingredient);this.prep.opener=this.prep.ingredients.includes('beer');this.log('debug_recipe_fill');this.changed();}
  debugCraft(grade='excellent'){if(!['prep','gimmick'].includes(this.screen))return;this.debugFill();if(this.screen==='prep')this.startCraft();const actual=this.craft.actual,selected=this.cocktail(actual.selected),queue=this.craft.queue;const results=queue.map(q=>({...q,value:q.target,completion:1,completed:true,failures:0}));this.result=scoreCraft(this.data,selected,actual,results,2);this.result.id=this.craft.id;this.result.grade=grade;this.result.score={excellent:100,good:85,decent:70,poor:45,sewage:0}[grade];this.result.debug=true;this.gimmick=null;this.screen='result';this.log('debug_craft',{grade});this.changed();}
- tick(dt){
+ tick(dt,{holdSpeech=false}={}){
   if(this.isPaused()||this.finished)return;dt=Math.max(0,Math.min(dt,0.2));this.realTime+=dt;
   for(const [seat,fade]of Object.entries(this.tableFades)){fade.elapsed+=dt;if(fade.elapsed>=fade.duration)delete this.tableFades[seat];}
   if(this.transition>0){this.transition=Math.max(0,this.transition-dt);if(!this.transition){const fn=this.pendingTransition;this.pendingTransition=null;this.safe(fn);}return;}
@@ -545,10 +545,10 @@ class Game{
   }
   if(this.screen==='gimmick'){this.tickGimmick(dt);return;}
   if(this.screen!=='bar')return;
-  if(this.phase==='general')this.safe(()=>this.tickGeneral(dt));
-  else if(this.dialogue&&!this.cameraMoving&&this.cameraLeft===0){this.typeLine(this.dialogue,dt);}
+  if(this.phase==='general')this.safe(()=>this.tickGeneral(dt,holdSpeech));
+  else if(!holdSpeech&&this.dialogue&&!this.cameraMoving&&this.cameraLeft===0){this.typeLine(this.dialogue,dt);}
  }
- tickGeneral(realDt){
+ tickGeneral(realDt,holdSpeech=false){
   const dt=realDt*this.speed;this.barTime+=dt;
   if(this.queueIndex<this.queue.length){if(this.spawnBlocked){if(Object.keys(this.seats).some(k=>!this.seats[k]&&!this.tableFades[k])){this.spawnBlocked=false;this.spawnLeft=this.c('reseat_delay_sec',10);}}else {this.spawnLeft-=dt;if(this.spawnLeft<=0)this.spawn();}}
   for(const g of Object.values(this.seats).filter(Boolean)){
@@ -558,7 +558,7 @@ class Game{
    }
    if(g.state==='EXITING'){g.exitLeft-=dt;if(g.exitLeft<=0){this.log('guest_exit',{guest:g.id,seat:g.seat});this.clearDepartedSeat(g.seat);continue;}}
    if(g.state==='REORDER_WAIT'){g.reorderLeft-=dt;if(g.reorderLeft<=0){g.state='ORDER_DIALOGUE';this.beginOrder(g,true);}}
-   if(g.seat!==this.focus||this.cameraLeft>0||this.cameraMoving)continue;
+   if(g.seat!==this.focus||this.cameraLeft>0||this.cameraMoving||holdSpeech)continue;
    const line=g.lines[g.lineIndex];if(line){line.seen=true;if(line.chars<line.text.length)this.typeLine(line,realDt);else{line.hold+=realDt*this.dialogSpeed;if(line.hold>=this.c('order_bark_gap_sec',1.5)){this.history.push({actor:line.actor,text:line.text,id:line.id});g.lineIndex++;if(g.lineIndex>=g.lines.length){const fn=g.lineDone;g.lineDone=null;if(fn)fn();}}}}
    else if(g.state==='WAIT_SERVE'&&!g.reasking){g.idleLeft-=dt;if(g.idleLeft<=0){this.setBarks(g,['idle']);g.idleLeft=this.c('idle_min_sec',8)+this.rng()*(this.c('idle_max_sec',13)-this.c('idle_min_sec',8));}}
   }

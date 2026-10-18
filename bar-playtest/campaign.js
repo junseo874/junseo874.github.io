@@ -3,7 +3,7 @@
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const button=(label,action,cls='')=>'<button class="'+cls+'" data-campaign="'+action+'">'+(cls==='title-choice'?'<span class="title-label" data-text="'+esc(label)+'">'+esc(label)+'</span>':label)+'</button>';
 const path=n=>'assets/campaign/'+n;
-const CINEMA_SKIP_HOLD_MS=2000,CINEMA_SKIP_REVEAL_MS=300;
+const CINEMA_SKIP_HOLD_MS=2000,CINEMA_SKIP_REVEAL_MS=300,CINEMA_SKIP_INTRO_SECONDS=1.5;
 class Campaign{
  constructor(adapter){Object.assign(this,adapter);this.session=new global.LunaCampaignEngine.Session(this.g,this.D,global.LUNA_CAMPAIGN_DATA);this.session.onStep=s=>this.storyStep(s);this.data=global.LUNA_CAMPAIGN_DATA;this.serviceVersion='A';this.view='picker';this.dialog=null;this.token=0;this.loaded=new Set();this.scriptPromises=new Map();this.control=false;this.skipAge=0;this.firstLift=false;this.morningSeen=new Set();this.nightStarted=false;
   this.host=document.createElement('section');this.host.id='campaign-root';this.host.setAttribute('aria-label','LUNA 본편');document.body.append(this.host);this.returnButton=document.createElement('button');this.returnButton.id='campaign-developer-back';this.returnButton.textContent='← 플레이 모드 선택';this.returnButton.dataset.campaign='picker';this.returnButton.hidden=true;document.body.append(this.returnButton);
@@ -72,7 +72,7 @@ class Campaign{
  continueScene(){const c=this.dialog;if(!c)return;while(c.index<c.rows.length){const r=c.rows[c.index];if(r.when){if(!global.LunaCore.condition(r.when,this.g.ctx())){c.index++;continue;}}if(r.type==='choice'){this.screen('scene-choice');return;}if(this.view==='scene')this.draw();else this.screen('scene');return;}this.dialog=null;c.done();}
  async preload(label,urls,done){const token=++this.token;this.loadLabel=label;this.loadPercent=0;this.screen('loading');const unique=[...new Set(urls.filter(Boolean))];const retry=()=>this.preload(label,urls,done);this.retryLoad=retry;try{let n=0;await Promise.all(unique.map(src=>this.image(src).then(()=>{if(token===this.token){this.loadPercent=++n/unique.length*100;this.draw();}})));if(token!==this.token)return;done();}catch(e){if(token!==this.token)return;this.loadError='네트워크 연결을 확인해 주세요. 실패한 리소스: '+e.message;this.screen('load-error');}}
  image(src){if(this.loaded.has(src))return Promise.resolve();return new Promise((resolve,reject)=>{const im=new Image(),timer=setTimeout(()=>reject(Error(src)),20000);im.onload=()=>{clearTimeout(timer);this.loaded.add(src);resolve();};im.onerror=()=>{clearTimeout(timer);reject(Error(src));};im.src=src;});}
- script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'guide-keyboard-20261018':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
+ script(name){if(this.scriptPromises.has(name))return this.scriptPromises.get(name);const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='cinematic/'+name+'.js?v='+(name==='studio-player'?'music-fades-20261018':name==='player'?'world-fixed-20261003':name==='terrace-memory'?'day3-notion-20261004':'dream-opening-1');s.onload=resolve;s.onerror=()=>{this.scriptPromises.delete(name);s.remove();reject(Error(s.src));};document.head.append(s);});this.scriptPromises.set(name,p);return p;}
  async prepareStudio(id){
   for(const name of ['assets','sprites','stage','stage3','stage4','engine','studio-player'])await this.script(name);
   await new Promise(resolve=>global.Sprites.load(resolve));global.Engine.initAnchors?.();
@@ -91,7 +91,7 @@ class Campaign{
    this.cinema={studio:true,memory:true,returnTransition:'cut',skipUntil:0,title:'마지막 부탁 · 첫 출근',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);this.render(true);this.outside.showControlsTutorial();
    }};
-   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.bgm.setSuppressed('cinema',true);this.screen('prologue');global.LunaStudioCinema.unlock();
   }catch(e){if(token!==this.token)return;this.loadError=e.message;this.screen('load-error');}
  }
  playDayZeroTV(model){
@@ -102,14 +102,14 @@ class Campaign{
    this.cinema={studio:true,memory:true,title:'TV 다큐 · 인공생명체의 역사',scenes:[scene],index:0,scene,time:0,player:null,returnTo:()=>{
     if(model!==this.outside.model)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);
    }};
-   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.LunaStudioCinema.unlock();
+   this.bgm.setSuppressed('cinema',true);this.screen('prologue');global.LunaStudioCinema.unlock();
   },{revealDuration:.8});
  }
  // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
  beginMemoryTransition(prepare,commit,{terrace=false,revealDuration=1.15}={}){
   if(this.memoryTransition)return;
   this.resetInput();const host=document.createElement('div');host.className='campaign-memory-transition';host.setAttribute('aria-label',terrace?'테라스 장면 전환':'회상 장면 전환');this.host.classList.toggle('terrace-entering',terrace);host.setAttribute('role','status');host.style.opacity='0';document.body.append(host);
-  const d={host,terrace,revealDuration,phase:'out',time:0,ready:false,commit,value:null,error:null};this.memoryTransition=d;this.view='memory-transition';this.host.inert=true;
+  const d={host,terrace,revealDuration,bgmFrom:this.bgm.transitionGain,phase:'out',time:0,ready:false,commit,value:null,error:null};this.bgm.setTransitionGain(d.bgmFrom,0);this.memoryTransition=d;this.view='memory-transition';this.host.inert=true;
   Promise.resolve().then(prepare).then(value=>{if(this.memoryTransition===d){d.value=value;d.ready=true;}}).catch(error=>{if(this.memoryTransition===d){d.error=error;d.ready=true;}});
  }
  cancelMemoryTransition(){this.memoryTransition?.host.remove();this.memoryTransition=null;this.host.classList.remove('terrace-entering');this.host.inert=false;this.bgm.setTransitionGain(1);}
@@ -117,14 +117,14 @@ class Campaign{
   const d=this.memoryTransition;if(!d)return false;if(global.LunaFocusSettings.hiddenPaused)return true;
   const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};d.time+=dt;
   if(d.phase==='out'){
-   const alpha=smooth(d.time/.9);d.host.style.opacity=alpha;this.bgm.setTransitionGain(1-alpha);
+   const alpha=smooth(d.time/.9);d.host.style.opacity=alpha;this.bgm.setTransitionGain(d.bgmFrom*(1-alpha),0);
    if(d.time>=.9){d.phase='hold';d.time=0;d.host.style.opacity='1';}
   }else if(d.phase==='hold'&&d.time>=.2&&d.ready){
    if(d.error){this.cancelMemoryTransition();this.loadError=(d.terrace?'테라스를 불러오지 못했어요. ':'회상을 불러오지 못했어요. ')+d.error.message;this.screen('load-error');return true;}
    try{d.commit(d.value);}catch(error){this.cancelMemoryTransition();this.loadError=error.message;this.screen('load-error');return true;}
-   if(this.memoryTransition!==d)return true;d.phase='in';d.time=0;d.host.style.opacity='1';this.bgm.setTransitionGain(0);
+   if(this.memoryTransition!==d)return true;d.phase='in';d.time=0;d.host.style.opacity='1';this.bgm.setTransitionGain(0,0);
   }else if(d.phase==='in'){
-   const amount=smooth(d.time/d.revealDuration);d.host.style.opacity=1-amount;this.bgm.setTransitionGain(amount);
+   const amount=smooth(d.time/d.revealDuration);d.host.style.opacity=1-amount;this.bgm.setTransitionGain(amount,0);
    if(d.time>=d.revealDuration){this.cancelMemoryTransition();this.resetInput();if(this.view==='prologue')this.host.querySelector('button,select,input')?.focus({preventScroll:true});}
   }
   return true;
@@ -138,14 +138,14 @@ class Campaign{
    return global.buildTerraceMemory(this.data.scenes[memoryKey],{day3:memoryKey==='terraceMemory3'});
   },scene=>{
    this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'유나와의 기억 · 폐기물 처리소',memoryKey,memory:true,returnTo:done};
-   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.bgm.setSuppressed('cinema',true);this.screen('prologue');global.Sfx?.resume();
   });
  }
  async playBDCinema(model){
   if(model!==this.outside.model||!this.outside.active)return;this.disposeCinema();const token=++this.token,day=model.config.day,flow=model.config.flow;this.loadLabel='BD 칩 · 연구소 로비 기록을 불러오는 중';this.loadPercent=0;this.screen('loading');this.retryLoad=()=>this.playBDCinema(model);
   try{const scripts=['assets','sprites','stage','stage3','stage4','engine','sfx','scene1','player'];for(const [i,name] of scripts.entries()){await this.script(name);if(token!==this.token)return;this.loadPercent=(i+1)/scripts.length*95;this.draw();}await new Promise(resolve=>global.Sprites.load(resolve));if(token!==this.token)return;global.Engine.initAnchors?.();global.Engine.setLineOverrides({});global.Engine.setTypingScale(1);
    const scene=global.buildScene1();this.cinema={scenes:[scene],index:0,scene,time:0,player:null,renderer:null,title:'BD 칩 · 연구소 로비 전투',returnTo:()=>{if(this.outside.model!==model||!this.outside.active||model.config.day!==day||model.config.flow!==flow)return;model.paused=false;this.outside.clearInput();model.updateNear();this.outside.tick(0);this.screen(this.playView);}};
-   this.cinemaBgmMuted=this.bgm.audio.muted;this.bgm.audio.muted=true;this.screen('prologue');global.Sfx?.resume();
+   this.bgm.setSuppressed('cinema',true);this.screen('prologue');global.Sfx?.resume();
   }catch(e){if(token!==this.token)return;this.loadError='BD 기록을 불러오지 못했어요. 재시도에는 추가 비용이 들지 않습니다. '+e.message;this.screen('load-error');}
  }
  releaseCinemaSkip(){this.cinemaHoldStart=null;}
@@ -173,15 +173,21 @@ class Campaign{
   if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return;}
   c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
  }
- paintCinemaSkip(){
+ paintCinemaSkip(dt=0){
   const allowed=this.canSkipCinema();if(!allowed){this.releaseCinemaSkip();}
-  const held=allowed&&this.cinemaHoldStart!=null,elapsed=held?Math.max(0,performance.now()-this.cinemaHoldStart):0,visible=held&&elapsed>=CINEMA_SKIP_REVEAL_MS;
-  // The first 300 ms are a silent grace period; total hold time remains 2 seconds.
-  const progress=visible?Math.min(1,(elapsed-CINEMA_SKIP_REVEAL_MS)/(CINEMA_SKIP_HOLD_MS-CINEMA_SKIP_REVEAL_MS)):0,el=this.host.querySelector('.campaign-skip');
-  if(el){el.classList.add('is-compact');el.hidden=!allowed;el.classList.toggle('is-visible',visible);el.querySelector('span').textContent='스페이스 바를 눌러 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
+  const playing=this.view==='prologue'&&!this.memoryTransition&&!this.dayTransition&&!global.LunaFocusSettings.hiddenPaused;
+  // This clock belongs to the cinematic, not its DOM or timeline. Redraws and
+  // pause/resume cannot restart it, and loading/fades do not consume the hint.
+  if(allowed&&playing)this.cinema.skipHintAge=Math.min(CINEMA_SKIP_INTRO_SECONDS,(this.cinema.skipHintAge||0)+Math.max(0,dt));
+  const intro=allowed&&playing&&(this.cinema.skipHintAge||0)<CINEMA_SKIP_INTRO_SECONDS;
+  const held=allowed&&this.cinemaHoldStart!=null,elapsed=held?Math.max(0,performance.now()-this.cinemaHoldStart):0,holdVisible=held&&elapsed>=CINEMA_SKIP_REVEAL_MS,visible=intro||holdVisible;
+  // Hold progress waits 300 ms even when the introduction is visible; total
+  // hold time remains 2 seconds. Merely displaying the hint cannot skip.
+  const progress=holdVisible?Math.min(1,(elapsed-CINEMA_SKIP_REVEAL_MS)/(CINEMA_SKIP_HOLD_MS-CINEMA_SKIP_REVEAL_MS)):0,el=this.host.querySelector('.campaign-skip');
+  if(el){el.classList.add('is-compact');el.hidden=!allowed;el.classList.toggle('is-visible',visible);el.querySelector('span').textContent='스페이스 바를 2초간 눌러 스킵';el.querySelector('i').style.transform='scaleX('+progress+')';el.querySelector('[role="progressbar"]').setAttribute('aria-valuenow',Math.round(progress*100));}
   return progress>=1;
  }
- disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);if(this.cinemaBgmMuted!=null){this.bgm.audio.muted=this.cinemaBgmMuted;this.cinemaBgmMuted=null;}}
+ disposeCinema(keepMusicGain=false){if(!keepMusicGain)this.bgm.setTransitionGain(1);this.releaseCinemaSkip();this.cinema?.player?.dispose();this.cinema=null;global.Sfx?.silence();global.Sfx?.setEnabled(false);global.Sfx?.setLowpass(0);this.bgm.setSuppressed('cinema',false);}
  finishCinema(skipped=false){if(this.memoryTransition||this.view!=='prologue'||!this.cinema)return;
   if(skipped){
    if(!this.canSkipCinema())return;
@@ -194,7 +200,7 @@ class Campaign{
   }
   if(this.cinema.returnTransition==='cut'&&this.cinema.returnTo){const done=this.cinema.returnTo;this.resetInput();this.disposeCinema();done();return;}
   if(this.cinema.memory){const done=this.cinema.returnTo;this.beginMemoryTransition(()=>null,()=>{this.disposeCinema(true);done();});return;}const returnTo=this.cinema.returnTo;if(returnTo){this.disposeCinema();returnTo();return;}this.bgm.setTransitionGain(0);this.disposeCinema(true);this.session.beginDay(0);this.g.startStoryPhase('bar');this.awakening={time:0,duration:3.3,fromWhite:!skipped};this.screen('awakening');this.render(true);}
- paintAwakening(){const w=this.awakening;if(!w)return;const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};this.bgm.setTransitionGain(smooth(w.time/w.duration));const dark=this.host.querySelector('.campaign-wake-dark'),white=this.host.querySelector('.campaign-wake-white');if(dark)dark.style.opacity=1-smooth((w.time-1)/2.3);if(white)white.style.opacity=w.fromWhite?1-smooth(w.time/.7):0;}
+ paintAwakening(){const w=this.awakening;if(!w)return;const smooth=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};this.bgm.setTransitionGain(smooth(w.time/w.duration),0);const dark=this.host.querySelector('.campaign-wake-dark'),white=this.host.querySelector('.campaign-wake-white');if(dark)dark.style.opacity=1-smooth((w.time-1)/2.3);if(white)white.style.opacity=w.fromWhite?1-smooth(w.time/.7):0;}
 
  startBar(day,carry){this.runDoorTransition('in',()=>Promise.all(Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src=>this.image(src))),()=>{
   this.session.beginDay(day,carry);
@@ -250,7 +256,13 @@ class Campaign{
   if(target.id==='sofa'){if(this.session.route==='out'){this.resumeView='game';this.screen('sleep');}return true;}
   return false;
  }
- quietLift(model){if(!this.active||this.session.day!==0||model.level!==0||this.firstLift)return false;this.firstLift=true;this.liftLogoPending=true;model.backgroundStory.cancel();model.story.cancel();return true;}
+ quietLift(model){
+  const ride=model.ride;
+  if(!(this.active||this.session.developer)||model.config.day!==0||model.config.flow!=='out'||model.scene!=='street'||model.level!==0||!ride||ride.call||ride.to<=ride.from||ride.titleReveal||(this.active?this.firstLift:model.liftLogoSeen))return false;
+  // Mark this ride, not an earlier commute/call. An interrupted ride before
+  // the title appears must not consume the first homeward reveal.
+  ride.titleReveal=true;this.liftLogoPending=true;model.backgroundStory.cancel();model.story.cancel();return true;
+ }
  notice(text,title='루나'){this.resumeView=this.view==='game'?'game':this.view;this.noticeText=text;this.noticeTitle=title;this.screen('notice');}
  beginDayTransition(from,to,prepare){
   if(this.dayTransition)return;
@@ -323,16 +335,16 @@ class Campaign{
    // A completed holo shutdown returns before drawing the timeline's empty end frame.
    if(c.returnTransition==='cut'&&!c.dialogueWait&&c.time>=c.scene.end){this.finishCinema();return this.blocking;}
    c.player.render(c.time,previous,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait);
-   if(this.paintCinemaSkip()){this.finishCinema(true);return this.blocking;}
+   if(this.paintCinemaSkip(dt)){this.finishCinema(true);return this.blocking;}
    if(c.time>=c.scene.end){if(++c.index<c.scenes.length){c.scene=c.scenes[c.index];c.time=0;global.Sfx?.silence();this.draw();}else this.finishCinema();}
   }
   if(this.view==='awakening'&&!global.LunaFocusSettings.hiddenPaused){this.awakening.time+=dt;this.paintAwakening();if(this.awakening.time>=this.awakening.duration){this.awakening=null;this.screen(this.playView);this.render(true);}}
   if(this.session.developer&&this.view==='developer'&&this.outside.active&&!this.outside.loading){const m=this.outside.model;if(!m.qa&&!m.paused&&!m.ride&&!m.transition&&!m.dialog&&!m.story.blocking&&m.config.flow==='in'&&m.config.day===3&&m.scene==='street'&&m.level===0&&Math.abs(m.x+5.99)<.7&&!m.notionCommuteSeen)this.previewCommute(m);}
-  if(this.active&&this.view==='game'&&this.outside.active&&!this.outside.loading){const m=this.outside.model;
-   let reveal=document.querySelector('#campaign-lift-reveal');const show=this.liftLogoPending&&m.ride&&!m.ride.call&&m.ride.time>3&&m.ride.time<10;
+  if((this.active||this.session.developer)&&this.view===this.playView&&this.outside.active&&!this.outside.loading){const m=this.outside.model;
+   let reveal=document.querySelector('#campaign-lift-reveal');const show=this.liftLogoPending&&m.config.day===0&&m.config.flow==='out'&&m.ride?.titleReveal&&!m.ride.call&&m.ride.to>m.ride.from&&m.ride.time>3&&m.ride.time<10;
    if(show&&!reveal){reveal=document.createElement('div');reveal.id='campaign-lift-reveal';const shade=document.createElement('div');shade.className='campaign-lift-shade';shade.setAttribute('aria-hidden','true');const logo=document.createElement('img');logo.id='campaign-lift-logo';logo.src=path('title-logo.png');logo.alt='Project LUNA';const team=document.createElement('div');team.className='campaign-lift-team';team.textContent='Team. SimChung';reveal.append(shade,logo,team);document.querySelector('.outside-stage').append(reveal);}
-   if(show)reveal.style.opacity=Math.max(0,Math.min(1,(m.ride.time-3)/1.5,(10-m.ride.time)/1.5));else reveal?.remove();if(this.liftLogoPending&&!m.ride)this.liftLogoPending=false;
-  }
+   if(show){this.firstLift=true;m.liftLogoSeen=true;reveal.style.opacity=Math.max(0,Math.min(1,(m.ride.time-3)/1.5,(10-m.ride.time)/1.5));}else reveal?.remove();if(this.liftLogoPending&&!m.ride)this.liftLogoPending=false;
+  }else document.querySelector('#campaign-lift-reveal')?.remove();
   return this.blocking;
  }
  intercept(name){if(!this.active){if(this.session.developer&&name==='offer'){const issues=this.session.problems(this.g.result);if(issues.length){this.drinkIssues=issues;this.resumeView='developer';this.screen('retry-drink');return true;}}return false;}if(['inspector','debugEndDay','debugFill','debugCraft','version','start','applyUpkeep','export'].includes(name))return true;

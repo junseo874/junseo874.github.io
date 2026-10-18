@@ -12,7 +12,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  const outgoing=await p.evaluate(()=>{const volume=barBgm.audio.volume;barBgm.setLocation('street');barBgm.applyVolume();return {before:volume,after:barBgm.audio.volume};});assert.equal(outgoing.after,outgoing.before);
  await p.waitForTimeout(300);
  const fade=await p.evaluate(()=>({index:barBgm.index,gain:barBgm.locationGain,status:barBgm.status}));assert.equal(fade.index,2);assert(fade.gain>0&&fade.gain<1);assert.equal(fade.status,'fading');
- await ready(p,1);assert.equal(await p.evaluate(()=>barBgm.audio.loop),true);
+ await ready(p,1);assert.equal(await p.evaluate(()=>barBgm.audio.loop),false,'Single-track locations restart through a fade, not a hard native loop');
  assert(Math.abs(await p.evaluate(()=>barBgm.audio.volume)-.18)<1e-9,'Street BGM should be 60% of the saved volume');
  assert(Math.abs(await p.evaluate(()=>barBgm.audio.duration)-durations[1])<.2);
  await p.evaluate(()=>barBgm.setLocation('home'));await ready(p,2);
@@ -20,7 +20,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  const before=await p.evaluate(()=>barBgm.audio.currentTime);await p.evaluate(()=>barBgm.setLocation('home'));await p.waitForTimeout(180);assert(await p.evaluate(t=>barBgm.audio.currentTime>t,before));
  // A quick return cancels the old destination and retains the home track.
  await p.evaluate(()=>barBgm.setLocation('street'));await p.waitForTimeout(200);await p.evaluate(()=>barBgm.setLocation('home'));await ready(p,2);assert(await p.evaluate(t=>barBgm.audio.currentTime>t,before));
- await p.evaluate(()=>{barBgm.setVolume(.4);barBgm.setTransitionGain(.5);});assert.equal(await p.evaluate(()=>barBgm.audio.volume),.2);
+ await p.evaluate(()=>{barBgm.setVolume(.4);barBgm.setTransitionGain(.5);});await p.waitForFunction(()=>!barBgm.gainFades.size);assert.equal(await p.evaluate(()=>barBgm.audio.volume),.2);
  await p.evaluate(()=>barBgm.setLocation('bar'));await ready(p,0);assert.equal(await p.evaluate(()=>barBgm.audio.volume),.2);assert.equal(await p.evaluate(()=>barBgm.audio.loop),false);
  assert.deepEqual(await p.evaluate(()=>JSON.parse(localStorage.getItem('luna.bar.playtest.bgm.v1'))),{enabled:true,volume:.4});
  await p.evaluate(()=>{barBgm.setEnabled(false);barBgm.setLocation('street');});await p.waitForTimeout(1000);assert(await p.evaluate(()=>barBgm.audio.paused));

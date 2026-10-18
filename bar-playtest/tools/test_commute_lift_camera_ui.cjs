@@ -26,7 +26,7 @@ const assert=require('node:assert/strict');
    }
    return results;
   });
-  for(const s of results){if(s.day===0&&s.flow==='in'&&s.down)assert(Math.abs(s.max-4.8)<.001,JSON.stringify(s));else assert(s.max>12,JSON.stringify(s));}
-  assert.deepEqual(errors,[]);console.log(JSON.stringify(results));console.log('PASS: day-zero commute descent stays at 4.8 with vertical tracking; other days, return trips and ascent retain zoom-out.');
+  for(const s of results)assert(s.max>12,JSON.stringify(s));
+  assert.deepEqual(errors,[]);console.log(JSON.stringify(results));console.log('PASS: all days and commute directions use the same panorama zoom with vertical tracking.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -100,14 +100,13 @@ function popup(s,L){const show=!s.started&&s.rhythm.uiAge<4,alpha=Math.min(1,s.r
 function board(s,L,locked=false){
  const r=s.rhythm,mode=r.mode;
  return '<section class="mix-board rhythm-board" data-rhythm-mode="'+mode+'">'+(locked?'':'<nav class="rhythm-modes" aria-label="'+L('쉐이킹 방식','Shaking style')+'">'+MODES.map((id,i)=>'<button data-act="shakeMode" data-id="'+id+'" aria-pressed="'+(mode===id)+'" '+(s.started?'disabled':'')+'><small>0'+(i+1)+'</small>'+L(...names[id])+'</button>').join('')+'</nav>')+
- '<div class="rhythm-score"><span data-rhythm-count>'+s.attempts+' <em>/ '+s.targetStacks+'</em></span><div class="rhythm-verdict" data-rhythm-verdict></div></div>'+
+ '<div class="rhythm-score"><div class="rhythm-verdict" data-rhythm-verdict></div></div>'+
  '<svg class="rhythm-stage" '+(mode==='path'?'data-shake-surface':'')+' viewBox="0 0 440 410" role="img" aria-label="'+(mode==='path'?L('이동점이 노드와 겹칠 때 클릭 또는 Space','Click or press Space when the marker overlaps a node'):L('노드가 판정선에 닿으면 A 또는 D','Press A or D when notes reach the target'))+'">'+stage(s)+'</svg>'+
  '<div class="rhythm-bottom"><div class="rhythm-progress">'+r.notes.map(n=>'<i data-rhythm-result="'+n.id+'" class="'+(n.status||'')+'"></i>').join('')+'</div><div class="rhythm-pads">'+(mode==='path'?'<button data-act="rhythmHit" data-id="Space" '+(s.completed?'disabled':'')+' aria-label="'+L('클릭 또는 Space로 노드 맞히기','Hit a node with click or Space')+'"><kbd>SPACE</kbd></button>':[0,1].map(l=>'<button data-act="rhythmHit" data-id="'+(l?'KeyD':'KeyA')+'" '+(s.completed?'disabled':'')+' class="rhythm-pad lane-'+l+'" aria-label="'+L(l?'오른쪽 입력 D':'왼쪽 입력 A',l?'Right input D':'Left input A')+'"><kbd>'+(l?'D':'A')+'</kbd><span aria-hidden="true">'+(l?'◆':'●')+'</span></button>').join(''))+'</div></div>'+popup(s,L)+'<div class="rhythm-count-in" data-rhythm-count-in></div><div class="rhythm-finish" data-rhythm-finish hidden></div></section>';
 }
 function sync(host,g){const s=g.gimmick;if(!s?.rhythm)return;const board=host.querySelector('.rhythm-board');if(!board)return;const L=(a,b)=>g.lang==='ko'?a:b,r=s.rhythm;
  board.dataset.noteSpeed=noteSpeed();board.dataset.motionSpeed=motionSpeed();
  board.querySelector('.rhythm-stage').innerHTML=stage(s);
- board.querySelector('[data-rhythm-count]').innerHTML=s.attempts+' <em>/ '+s.targetStacks+'</em>';
  const verdict=board.querySelector('[data-rhythm-verdict]');
  verdict.textContent=s.feedbackLeft?s.message:'';verdict.classList.toggle('miss',!s.beatSuccess);verdict.style.opacity=String(Math.min(1,s.feedbackLeft/.16));
  const intro=board.querySelector('.rhythm-intro');intro.hidden=s.started||r.uiAge>=4;intro.style.opacity=String(Math.min(1,r.uiAge/.2,Math.max(0,(4-r.uiAge)/.65)));

@@ -81,7 +81,7 @@ const assert=require('assert/strict');
  await p.keyboard.press('Escape');assert.equal(await p.locator('.topbar').count(),0);assert.equal(await p.locator('.help-corner').getAttribute('aria-label'),'Controls');
  // Reminders remain right-aligned; finished drinks must be centered, including English labels.
  for(const lang of ['ko','en']){
-  await p.evaluate(lang=>{const g=barGame;g.lang=lang;g.reset(99,'general',7);g.dialogSpeed=20;for(let i=0;i<53;i++)g.tick(.1);g.coaster();for(let i=0;i<50;i++)g.tick(.1);},lang);
+  await p.evaluate(lang=>{const g=barGame;g.lang=lang;g.reset(99,'general',7);g.dialogSpeed=20;for(let i=0;i<53;i++)g.tick(.1);g.coaster(g.focus,'drag');for(let i=0;i<50;i++)g.tick(.1);},lang);
   await p.locator('[data-act="reask"]').waitFor();await p.waitForTimeout(150);
   const clearDock=()=>p.evaluate(()=>{const stack=document.querySelector('.stack').getBoundingClientRect(),tray=document.querySelector('.tray').getBoundingClientRect(),shell=document.querySelector('.app-shell').getBoundingClientRect();return tray.bottom<stack.top&&tray.top>=shell.top&&tray.right<=shell.right&&tray.left>=shell.left;});
   assert(await clearDock(),'Reminder overlaps coaster');await p.screenshot({path:'/private/tmp/bar-dock-reask-'+lang+'.png'});

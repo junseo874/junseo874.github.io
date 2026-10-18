@@ -13,7 +13,7 @@ for(let day=0;day<=3;day++){
   if(g.choice){g.choose(2);continue;}if(g.dialogue){g.advance();g.advance();continue;}
   if(g.phase==='general'){
    const waiting=Object.entries(g.seats).find(([seat,v])=>v&&['WAIT_COASTER','WAIT_SERVE'].includes(v.state));
-   if(waiting){const [seat,v]=waiting;if(g.focus!==seat){g.focusSeat(seat);tick();continue;}if(v.state==='WAIT_COASTER'){g.coaster(seat);tick();continue;}
+   if(waiting){const [seat,v]=waiting;if(g.focus!==seat){g.focusSeat(seat);tick();continue;}if(v.state==='WAIT_COASTER'){g.coaster(seat,'drag');tick();continue;}
     if(v.order&&g.screen==='bar'){g.openRecipes();g.selectCocktail(v.order.cocktail);g.debugCraft('good');g.offer();g.serve(seat);attempts++;continue;}}
    tick();continue;
   }

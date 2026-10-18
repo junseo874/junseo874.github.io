@@ -50,13 +50,18 @@ function example(kind){
  return '<svg class="controls-example controls-'+kind+'" viewBox="'+e.crop+'" role="img" aria-label="'+e.label+'"><image href="'+e.src+'" width="'+e.width+'" height="'+e.height+'"/><path class="controls-target-mark" d="'+corners+'"/></svg>';
 }
 function render(panel,step,images,data){
- const movement=step===0,title=movement?'이동':'상호작용';
+ const movement=step===0,title=movement?'이동 · 달리기':'상호작용';
  panel.dataset.step=String(step);panel.setAttribute('aria-label',title+' 안내');panel.setAttribute('aria-description','E키를 눌러 진행합니다.');
  panel.innerHTML='<header class="controls-heading"><div><small>TUTORIAL</small><h2>'+title+'</h2></div><span class="controls-page">'+(step+1)+' <i>/ 2</i></span></header>'+
-  (movement?'<div class="controls-movement"><div class="controls-direction">'+key('A')+'<span>왼쪽</span></div><span class="controls-arrow" aria-hidden="true">←</span><div class="controls-luna"><canvas role="img" aria-label="왼쪽으로 걷는 루나"></canvas><span class="controls-floor"></span></div><span class="controls-arrow" aria-hidden="true">→</span><div class="controls-direction">'+key('D')+'<span>오른쪽</span></div></div>':
+  (movement?'<div class="controls-motion-cards"><section class="controls-motion-card"><h3>걷기</h3><div class="controls-motion-example"><span class="controls-arrow" aria-hidden="true">←</span><div class="controls-luna"><canvas data-motion="walk" role="img" aria-label="왼쪽으로 걷는 루나"></canvas><span class="controls-floor"></span></div><span class="controls-arrow" aria-hidden="true">→</span></div><div class="controls-motion-keys">'+key('A')+'<span>/</span>'+key('D')+'</div><p class="controls-motion-caption">A는 왼쪽 · D는 오른쪽</p></section><section class="controls-motion-card controls-run-card"><h3>달리기</h3><div class="controls-motion-example"><span class="controls-arrow" aria-hidden="true">←</span><div class="controls-luna"><canvas data-motion="run" role="img" aria-label="보폭을 넓혀 달리는 루나"></canvas><span class="controls-floor"></span></div><span class="controls-arrow" aria-hidden="true">→</span></div><div class="controls-motion-keys">'+key('Shift')+'<span>+</span>'+key('A')+'<span>/</span>'+key('D')+'</div><p class="controls-motion-caption">Shift를 누른 채 이동</p></section></div>':
    '<div class="controls-interaction"><figure>'+example('object')+'<figcaption>오브젝트</figcaption></figure><figure>'+example('person')+'<figcaption>다른 인물</figcaption></figure></div><div class="controls-interact-key">'+key('E')+'</div>')+
-  '<p class="controls-description">'+(movement?'A와 D를 눌러 이동합니다.':'E키를 눌러 오브젝트나 다른 인물들과 상호작용할 수 있습니다.')+'</p><p class="controls-progress-hint">E키를 눌러 진행</p>';
- if(movement)drawStill(panel.querySelector('canvas'),data.animations.walk.frames[2],images);
+  '<p class="controls-description">'+(movement?'A와 D를 눌러 이동합니다.\nShift를 누른 채 이동하면 달립니다.':'E키를 눌러 오브젝트나 다른 인물들과 상호작용할 수 있습니다.')+'</p><p class="controls-progress-hint">E키를 눌러 진행</p>';
+ if(movement)for(const [motion,index]of [['walk',2],['run',0]]){
+  const canvas=panel.querySelector('[data-motion="'+motion+'"]');drawStill(canvas,data.animations[motion].frames[index],images);
+  // Match native pixel size across both poses; do not stretch a running pose
+  // to the walking silhouette's height. Keep the examples as still images.
+  canvas.style.height=canvas.height*3+'px';
+ }
 }
 document.addEventListener('pointerdown',()=>{void prepare();},{capture:true,passive:true});
 W.addEventListener('keydown',e=>{if(!e.repeat)void prepare();},true);

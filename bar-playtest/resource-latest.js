@@ -1,7 +1,7 @@
 /* Review-only fixtures use the current game's renderers. No save/story mutations outside the lab. */
 (function(W){
 'use strict';
-const version='20261018',root='assets/resource-exports-'+version+'/',revision='wire-spark-20261018';
+const version='20261018',root='assets/resource-exports-'+version+'/',revision='controls-run-20261018';
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
 const screen=(r,v)=>root+stem(r,v)+'.png?v='+revision;
@@ -10,8 +10,8 @@ const isScreen=r=>!!r.launch&&(['bar-ui','out-ui','common-popups','bar-fx','out-
 function collect(rows){
  const dialog=(id,title,variants,selector)=>rows.push({id:'popup:'+id,group:'common-popups',title,usage:'최신 게임 UI · 상태별 PNG 다운로드',status:'code',layers:[],popupKind:'dialog',exportSelector:selector,variants,launch:variants[0].launch,note:'현재 게임의 실제 UI로 표시합니다. PNG는 1280×720 화면 기준으로 생성한 기본 인물·문구의 정적 이미지입니다. 선택 상태별 팝업만 / 전체 화면을 각각 다운로드할 수 있습니다.'});
  const variants=(type,items)=>items.map(([id,label,extra])=>({id,label,launch:{type,id,...extra}}));
- dialog('controls','0일차 · 이동 튜토리얼',variants('review-controls',[['movement','이동 · A / D']]),'.outside-controls-tutorial');
- rows.at(-1).note+=' 첫 이동 안내: 루나 이미지, A / D 이동 키, E키 진행 안내를 확인합니다.';
+ dialog('controls','0일차 · 이동 / 달리기 튜토리얼',variants('review-controls',[['movement','걷기 · A / D + 달리기 · Shift']]),'.outside-controls-tutorial');
+ rows.at(-1).note+=' 첫 이동 안내: 원본 루나 걷기·달리기 이미지, A / D 이동 키, Shift를 누른 채 이동하는 달리기 안내, E키 진행 안내를 확인합니다.';
  dialog('controls-interaction','0일차 · 상호작용 튜토리얼',variants('review-controls',[['interaction','상호작용 · E']]),'.outside-controls-tutorial');
  rows.at(-1).note+=' 최신 TV / NPC 이미지와 빨간 상호작용 대상 표시, E키 안내를 확인합니다.';
  dialog('seat-legend','좌석 알림 · 4가지 색상',variants('review-bar-tutorial',[['seatLegend','좌석 알림']]),'.day0-seat-legend');

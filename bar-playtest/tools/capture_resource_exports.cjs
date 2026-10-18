@@ -28,6 +28,7 @@ const out=path.resolve(__dirname,'../assets/resource-exports-20261018');
    await p.waitForTimeout(r.d.type==='review-opening'?1800:r.d.type==='terrace'||r.d.type==='johnny-memory'?2900:r.d.type==='day-transition'?2050:r.d.type==='door'?3350:r.d.type==='outside'?1400:r.popup?400:700);
    await f.evaluate(()=>{if(barGame.dialogue)barGame.dialogue.chars=barGame.dialogue.text.length;if(lunaCampaign.dialog){const d=lunaCampaign.dialog;if(d.rows[d.index]){d.chars=d.rows[d.index].text.length;lunaCampaign.paintLine();}}for(const s of [outsidePlaytest.model?.story,outsidePlaytest.model?.backgroundStory])if(s?.speech)s.speech.elapsed=99;outsidePlaytest.refreshHUD();});
    if(r.d.type==='exterior'&&r.d.id==='wire-spark')await f.evaluate(()=>{const m=outsidePlaytest.model;window.__wirePNGTick=m.tick;m.tick=()=>{};m.time=2.94;outsidePlaytest.tick(0);});
+   if(r.id==='ui:world-speech')await f.evaluate(()=>{const o=outsidePlaytest,m=o.model;window.__textboxPNGTick=m.tick;m.tick=()=>{};for(const story of [m.story,...m.backgroundStory.channels.values()])if(story.speech)story.speech.elapsed=story.speech.chars.length/55+.01;o.refreshHUD();});
    if(errors.length)throw Error(errors.join('; '));
    if(r.popup)await f.locator(r.selector).filter({visible:true}).first().waitFor({state:'visible',timeout:3500});
    await p.locator('#game').screenshot({path:path.join(out,r.file+'.png')});
@@ -53,7 +54,7 @@ const out=path.resolve(__dirname,'../assets/resource-exports-20261018');
    }
    console.log('OK',i+1+'/'+selected.length,r.file);
   }catch(error){failures.push(r.file+': '+error.message);console.log('FAIL',r.file,error.message);}
-  finally{await f.evaluate(()=>{document.querySelectorAll('style').forEach(el=>{if(el.textContent.includes('[data-png-export]'))el.remove();});document.querySelectorAll('[data-png-export],[data-png-ancestor]').forEach(el=>{delete el.dataset.pngExport;delete el.dataset.pngAncestor;});if(window.__wirePNGTick){outsidePlaytest.model.tick=window.__wirePNGTick;delete window.__wirePNGTick;}if(window.__pngRAF){const {original,pending}=__pngRAF;window.requestAnimationFrame=original;delete window.__pngRAF;pending.forEach(fn=>original(fn));}});}
+  finally{await f.evaluate(()=>{document.querySelectorAll('style').forEach(el=>{if(el.textContent.includes('[data-png-export]'))el.remove();});document.querySelectorAll('[data-png-export],[data-png-ancestor]').forEach(el=>{delete el.dataset.pngExport;delete el.dataset.pngAncestor;});if(window.__textboxPNGTick){outsidePlaytest.model.tick=window.__textboxPNGTick;delete window.__textboxPNGTick;}if(window.__wirePNGTick){outsidePlaytest.model.tick=window.__wirePNGTick;delete window.__wirePNGTick;}if(window.__pngRAF){const {original,pending}=__pngRAF;window.requestAnimationFrame=original;delete window.__pngRAF;pending.forEach(fn=>original(fn));}});}
   await p.evaluate(()=>resourceReview.close());
  }
  if(failures.length)throw Error(failures.join('\n'));

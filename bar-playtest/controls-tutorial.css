@@ -18,6 +18,18 @@
 #outside-root .outside-controls-tutorial canvas{position:static;inset:auto;image-rendering:pixelated;object-fit:contain;display:block}
 #outside-root .controls-luna canvas{height:166px;width:auto;position:relative;z-index:1;filter:drop-shadow(0 0 10px #6bc4da30)}
 #outside-root .controls-floor{position:absolute;bottom:11px;width:124px;height:18px;border-radius:50%;background:#39788e30;border:1px solid #5193a344}
+#outside-root .controls-motion-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0 14px}
+#outside-root .controls-motion-card{padding:15px 14px 12px;min-width:0;border:1px solid #365662;border-radius:5px;background:linear-gradient(#142e3a60,#12212b30);text-align:center}
+#outside-root .controls-motion-card h3{font-size:20px;line-height:1.3;color:#b4faf6;margin:0}
+#outside-root .controls-motion-example{height:174px;display:flex;align-items:center;justify-content:center;gap:12px}
+#outside-root .controls-motion-example .controls-luna{height:174px;width:124px}
+#outside-root .controls-motion-example .controls-floor{bottom:4px}
+#outside-root .controls-motion-example .controls-arrow{margin:0;font-size:28px}
+#outside-root .controls-motion-keys{height:57px;display:flex;justify-content:center;align-items:center;gap:10px;color:#8eacb7;font-size:17px}
+#outside-root .controls-motion-keys .controls-keycap{width:44px;height:42px;font-size:24px;border-radius:6px}
+#outside-root .controls-run-card .controls-keycap:first-child{width:88px;font-size:20px;color:#c6fffb;border-color:#adf6ed}
+#outside-root .controls-motion-caption{margin:9px 0 0;font-size:14px;line-height:1.5;color:#a4c4ce}
+#outside-root .outside-controls-tutorial[data-step="0"] .controls-description{font-size:19px;line-height:1.6;white-space:pre-line}
 #outside-root .controls-interaction{display:flex;justify-content:center;gap:22px;margin:20px 0 17px}
 #outside-root .controls-interaction figure{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:256px;height:224px;background:linear-gradient(#142e3a60,#12212b30);border:1px solid #365662;border-radius:5px}
 #outside-root .controls-example{display:block;position:static;width:232px;height:180px;overflow:hidden;background:#08121a;border-radius:2px;image-rendering:pixelated}

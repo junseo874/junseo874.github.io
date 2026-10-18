@@ -8,9 +8,17 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.evaluate(()=>resourceReview.launch({type:'review-controls',id:'movement'},'이동',''));
  const panel=f.locator('.outside-controls-tutorial');await panel.waitFor();
  assert.equal(await panel.getAttribute('data-step'),'0');
- assert.equal(await panel.locator('.controls-luna canvas').count(),1);
+ assert.equal(await panel.locator('.controls-luna canvas').count(),2);
  await f.evaluate(()=>outsidePlaytest.controlsTutorialKey({code:'KeyE',repeat:false,preventDefault(){},stopImmediatePropagation(){}}));
  assert.equal(await panel.getAttribute('data-step'),'0','Initial lock retained');
+ assert.equal(await panel.locator('h2').textContent(),'이동 · 달리기');
+ assert.equal(await panel.locator('.controls-run-card .controls-keycap').allTextContents().then(a=>a.join('+')),'Shift+A+D');
+ const poses=await panel.locator('.controls-luna canvas').evaluateAll(cs=>cs.map(c=>({pose:c.dataset.motion,w:c.width,h:c.height,png:c.toDataURL(),height:parseFloat(c.style.height),animation:getComputedStyle(c).animationName,painted:[...c.getContext('2d').getImageData(0,0,c.width,c.height).data].some((v,i)=>i%4===3&&v>0)})));
+ assert(poses.every(c=>c.painted&&c.height===c.h*3&&c.animation==='none'));assert.notEqual(poses[0].png,poses[1].png,'Use the running pose, not a duplicated walking image');
+ for(const viewport of [{width:1280,height:720},{width:640,height:360},{width:1920,height:1080}]){
+  await p.setViewportSize(viewport);assert(await panel.evaluate(el=>el.scrollWidth===el.clientWidth));
+  assert(await panel.locator('.controls-motion-card').evaluateAll(cards=>cards.every(card=>{const a=card.getBoundingClientRect();return [...card.querySelectorAll('canvas,kbd')].every(e=>{const b=e.getBoundingClientRect();return b.left>=a.left&&b.right<=a.right&&b.top>=a.top&&b.bottom<=a.bottom;});})));
+ }
  await p.waitForTimeout(2150);
  await f.evaluate(()=>{dispatchEvent(new KeyboardEvent('keyup',{code:'KeyE',bubbles:true}));outsidePlaytest.controlsTutorialKey({code:'KeyE',repeat:false,preventDefault(){},stopImmediatePropagation(){}});});
  assert.equal(await panel.getAttribute('data-step'),'1');
@@ -22,7 +30,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    return {size:[b.width,b.height],crop:[v.width,v.height],natural:[im.naturalWidth,im.naturalHeight],color:getComputedStyle(mark).stroke,inside:mb.x>=v.x&&mb.y>=v.y&&mb.x+mb.width<=v.x+v.width&&mb.y+mb.height<=v.y+v.height};
   }));return rows;
  });
- assert.equal(checks.length,2);assert.deepEqual(checks[0].size,checks[1].size);assert.deepEqual(checks[0].crop,[400,310]);assert.deepEqual(checks[1].crop,[400,310]);
+ assert.equal(checks.length,2);assert(checks[0].size.every((n,i)=>Math.abs(n-checks[1].size[i])<.1));assert.deepEqual(checks[0].crop,[400,310]);assert.deepEqual(checks[1].crop,[400,310]);
  assert.deepEqual(checks.map(c=>c.natural),[[605,431],[506,448]]);assert(checks.every(c=>c.inside&&c.color==='rgb(255, 117, 107)'));
  assert.equal(await panel.locator('.controls-progress-hint').textContent(),'E키를 눌러 진행');
  assert.equal(await panel.locator('.controls-interact-key kbd').textContent(),'E');

@@ -17,7 +17,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
  await p.waitForFunction(()=>outsidePlaytest.model.controlsTutorial);
  assert(await panel.isVisible());assert.equal(await panel.getAttribute('aria-modal'),'true');
  assert.equal(await panel.getAttribute('data-step'),'0');
- assert.equal(await panel.locator('.controls-description').textContent(),'A와 D를 눌러 이동합니다.');
+ assert.equal(await panel.locator('.controls-description').textContent(),'A와 D를 눌러 이동합니다.\nShift를 누른 채 이동하면 달립니다.');
  const checkHint=async()=>{
   assert(await panel.evaluate(el=>{const p=el.getBoundingClientRect(),heading=el.querySelector('.controls-heading>div'),r=heading.getBoundingClientRect();return getComputedStyle(heading).textAlign==='center'&&Math.abs(r.x+r.width/2-p.x-p.width/2)<1;}),'Tutorial label and title centered on the popup');
   assert.equal(await panel.locator('.controls-progress-hint').textContent(),'E키를 눌러 진행');

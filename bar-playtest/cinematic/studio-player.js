@@ -1,7 +1,7 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../cutscene-studio/',document.currentScript.src),version='guide-keyboard-20261018';
+const base=new URL('../../cutscene-studio/',document.currentScript.src),version='music-fades-20261018';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
@@ -72,12 +72,12 @@ function speech(c,s){
   }
   speechLayer?.end(s.fx);
   // Do not start audio while rendering a paused frame or fading into a sequence.
-  StudioMedia.sync(project,time,soundOn&&previous!=null,1,volume);
+  StudioMedia.sync(project,time,soundOn&&previous!=null,1,volume,{fadeIn:.6,fadeOut:.5});
   const c=s.dialogue,parsed=c&&StudioTags.parse(c.text),n=c?dialogueCount(c):0;
   if(soundOn&&previous!=null&&typeLine===c&&c?.textEffect!=='instant'&&n>typeCount)W.LunaDialogueAudio?.reveal(parsed.text,typeCount,n);
   typeLine=c;typeCount=n;
  }
- return {render,dialogueCount,renderer:{sample:t=>StudioModel.sample(project,t)},dispose(){speechLayer?.dispose();StudioMedia.stop();},pause(){StudioMedia.stop();}};
+ return {render,dialogueCount,renderer:{sample:t=>StudioModel.sample(project,t)},dispose(){speechLayer?.dispose();StudioMedia.stop(.5);},pause(){StudioMedia.stop(.5);}};
 }
 W.LunaStudioCinema={prepare,player,unlock:()=>W.StudioMedia?.unlock().catch(()=>{})};
 })(window);
