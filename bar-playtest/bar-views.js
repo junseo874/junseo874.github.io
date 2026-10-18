@@ -220,7 +220,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
         let frame=bodyFrame,partY=0;
         const mouth=/(?:mouth_\d+|face_bottom(?:_talk|_default)?)$/.test(k);
         const eyes=/eyes(?:_\d+)?$/.test(k);
-        if(mouth&&frames>1){
+        if(mouth&&frames>1&&!s.syncToBody){
           if(state.speech){
             frame=Math.floor(Math.max(0,g.realTime-state.speech.startedAt)/speechCycle*frames)%frames;
             if(state.speech.stopAt!==null){
@@ -230,7 +230,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
             }
           }else if(guest.appearance)frame=frames-1;
         }
-        if(eyes&&frames>1){
+        if(eyes&&frames>1&&!s.syncToBody){
           if(guest.appearance)frame=blinkFrame(state,3,[0,1,2,1,0,3]);
           else if(guest.actor==='chris'&&family.toLowerCase().endsWith('idle'))frame=blinkFrame(state,0,[1,2,1,0]);
           else if(guest.actor==='bubi')frame=blinkFrame(state,0,[1,2,3,0]);
@@ -470,7 +470,7 @@ window.LunaBarViews=function({D,g,ui,L,esc,a,button,itemArt,drinkArt,recipeLines
   }
   function mixHTML(s){
     const stir=s.type==='stir',locked=window.LunaShakeRhythm.mainStoryLocked(g);
-    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'} ${locked?'main-story-mix':''}">${g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):''}
+    return `<div class="craft-screen mix-screen ${stir?'stir-screen':'shake-screen'} ${locked?'main-story-mix':''}">
       ${!locked&&!stir?'<div class="shake-sound-picker" role="group" aria-label="'+L('쉐이킹 효과음 선택','Shaker sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'shakeSound','data-id="'+id+'" aria-pressed="'+(ui.shakeSound===id)+'"','shake-sound-option')).join('')+'<small data-shake-audio-status aria-live="polite"></small></div>':''}
       ${!locked&&stir?'<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="'+L('스터 효과음 선택','Stir sound selection')+'">'+[1,2].map(id=>button(L('사운드 '+id,'Sound '+id),'stirSound','data-id="'+id+'" aria-pressed="'+(ui.stirSound===id)+'"','shake-sound-option')).join('')+'<small data-stir-audio-status aria-live="polite"></small></div>':''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir?'gimmick_stir':'gimmick_shake')}')">${motionHTML(s,stir?[102,0,450,550]:[350,0,650,600])}</div></div>${stir?'<div class="mix-detail stir-detail" aria-hidden="true">'+motionHTML(s,[260,242,104,181])+'</div>':''}${stir?stirBoard(s):shakeBoard(s)}</div>

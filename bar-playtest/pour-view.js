@@ -58,21 +58,31 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  const images=new Map();let dragging=null;const idleState=new WeakMap();
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),snap=v=>Math.round(v/3)*3;
  function mode(){return ui.pourPresentation==='clean'?'clean':'classic';}
- function release(){if(dragging){dragging.s.held=false;dragging.s.dragAngle=null;dragging=null;}}
+ function release(){if(dragging){dragging.s.held=false;dragging.s.dragAngle=null;dragging.s.pourOffset=null;dragging=null;}}
+ function pointerPoint(canvas,e){
+  const r=canvas.getBoundingClientRect(),scale=Math.min(r.width/1000,r.height/540);
+  return{x:(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y:(e.clientY-r.top-(r.height-540*scale)/2)/scale};
+ }
  function pointer(e){
   if(!dragging||e.pointerId!==dragging.pointerId)return;const s=dragging.s;if(g.gimmick!==s||g.isPaused()||document.hidden){release();return;}
-  const r=dragging.canvas.getBoundingClientRect(),scale=Math.min(r.width/1000,r.height/540);
-  const x=(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y=(e.clientY-r.top-(r.height-540*scale)/2)/scale;
-  const grip=root.LunaPour.GRIP,dx=x-grip.x,dy=y-grip.y;
-  if(Math.hypot(dx,dy)<18){dragging.pointerAngle=null;return;}
+  const {x,y}=pointerPoint(dragging.canvas,e),dx=x-dragging.anchor.x,dy=y-dragging.anchor.y;
+  // Ignore the singularity next to the lip, where a tiny hand movement used
+  // to cause a large angular jump. Resume from the current tilt on re-entry.
+  if(Math.hypot(dx,dy)<36){dragging.pointerAngle=null;return;}
   const angle=Math.atan2(-dx,dy)*180/Math.PI;
   if(dragging.pointerAngle!=null){const delta=((angle-dragging.pointerAngle+540)%360)-180;s.dragAngle=clamp(s.dragAngle+delta,0,s.fluid.maxAngle);}
+  else{dragging.startAngle=s.dragAngle;dragging.startVector={x:dx,y:dy};}
   dragging.pointerAngle=angle;
+  // Radial hand travel moves the lip as well. A circular gesture rotates
+  // around the lip; pulling outward adds a bounded, spring-smoothed offset.
+  const turn=(s.dragAngle-dragging.startAngle)*Math.PI/180,c=Math.cos(turn),sn=Math.sin(turn),v=dragging.startVector;
+  s.pourOffset={x:clamp((dx-(v.x*c-v.y*sn))*.08,-8,8),y:clamp((dy-(v.x*sn+v.y*c))*.08,-6,6)};
  }
  document.addEventListener('pointerdown',e=>{
   const canvas=e.target.closest('[data-pixel-pour]'),s=g.gimmick;
   if(!canvas||e.button!==0||g.screen!=='gimmick'||!s?.fluid||g.isPaused()||s.fluid.finishRequested)return;
-  e.preventDefault();unlockAudio();dragging={canvas,s,pointerId:e.pointerId,pointerAngle:null};s.dragAngle=s.angle;g.holdPour(true);pointer(e);
+  e.preventDefault();unlockAudio();const at=s.fluid.nozzle(),p=pointerPoint(canvas,e);
+  dragging={canvas,s,pointerId:e.pointerId,pointerAngle:null,anchor:at,startAngle:s.angle,startVector:{x:p.x-at.x,y:p.y-at.y}};s.dragAngle=s.angle;s.pourOffset=null;g.holdPour(true);pointer(e);
   canvas.setPointerCapture?.(e.pointerId);
  });
  window.addEventListener('pointermove',pointer);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);window.addEventListener('blur',release);
@@ -88,10 +98,9 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   return false;
  }
  function html(s){const f=s.fluid;return '<div class="craft-screen fluid-screen pixel-fluid-screen">'+
-  (g.minigame?button(L('다른 기믹 선택','Other minigames'),'miniExit','','gimmick-exit'):'')+
   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" draggable="false">'+
   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas><canvas data-pour-guide width="1000" height="540" aria-hidden="true"></canvas></div>'+
-  '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div><small data-pour-detail></small></div>'+
+  '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div>'+
   '<div class="pour-ingredient-readout" role="status"><span>'+L('재료 이름','Ingredient')+'</span><strong data-pour-ingredient="'+esc(s.ingredient)+'">'+esc(g.name(s.ingredient))+'</strong></div></div>'+
   '<div class="pour-tilt-meter" data-pour-tilt role="meter" aria-label="'+L('기울이기','Tilt')+'" aria-valuemin="0" aria-valuemax="'+f.maxAngle+'" aria-valuenow="0"><span>'+L('기울이기','Tilt')+'</span><div class="pour-tilt-track"><i class="pour-tilt-range"></i><i class="pour-tilt-warning"></i><i class="pour-tilt-marker"></i></div></div>'+
   button(f.finishRequested?L('마지막 방울 정리 중…','Settling final drops…'):L('따르기 마치기 →','Finish pouring →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
@@ -117,8 +126,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches,u=reduced?.5:(age%3)/3;
   const travel=clamp((u-.16)/.65,0,1),eased=travel*travel*(3-2*travel),fade=Math.min(1,age*2);
   // A circular sweep keeps the curvature and arrowhead tangent consistent.
-  // Match the main tutorial's flowing cyan dashes; adapt the grip height for cans.
-  const {x:cx,y:cy}=root.LunaPour.GRIP,radius=f.can?48:80,start=Math.PI/2,end=3.96,a=start+(end-start)*eased;
+  // Match the flowing cyan tutorial dashes; sweep around the lip for both cans and bottles.
+  const {x:cx,y:cy}=f.nozzle(),radius=f.can?64:100,start=Math.PI/2,end=3.96,a=start+(end-start)*eased;
   const x=cx+Math.cos(a)*radius,y=cy+Math.sin(a)*radius;
   ctx.save();ctx.globalAlpha=fade*.62;ctx.strokeStyle='#baffff';ctx.lineWidth=2.4;ctx.lineCap='round';ctx.lineJoin='round';
   ctx.shadowColor='#44d8e955';ctx.shadowBlur=4;ctx.setLineDash([10,8]);ctx.lineDashOffset=reduced?0:-age*30;
@@ -126,7 +135,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   ctx.save();ctx.translate(cx+Math.cos(end)*radius,cy+Math.sin(end)*radius);ctx.rotate(end+Math.PI/2);
   ctx.beginPath();ctx.moveTo(-10,-7);ctx.lineTo(0,0);ctx.lineTo(-10,7);ctx.stroke();ctx.restore();
   ctx.shadowBlur=0;
-  // Pause at the grip, press, drag, then fade out before returning (no backward swipe).
+  // Pause on the body, press, drag, then fade out (no backward swipe).
   const cursorAlpha=reduced?1:Math.min(clamp(u/.08,0,1),clamp((1-u)/.14,0,1)),pressed=reduced||(u>=.1&&u<.86);
   ctx.globalAlpha=fade*.9*cursorAlpha;ctx.translate(x,y);ctx.fillStyle='#101c25';ctx.beginPath();ctx.roundRect(-10,-15,20,30,8);ctx.fill();ctx.stroke();
   ctx.fillStyle=pressed?'#9ae6ea':'#29434c';ctx.beginPath();ctx.moveTo(0,-13);ctx.lineTo(0,-2);ctx.lineTo(-8,-2);ctx.lineTo(-8,-7);ctx.quadraticCurveTo(-8,-13,0,-13);ctx.fill();
@@ -143,19 +152,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const item=g.t.shelf_items.find(i=>i.id===id),values=String(item?.color||'200,230,240').split(',').map(Number);
   return{rgb:values.length===3&&values.every(Number.isFinite)?values:[200,230,240],alpha:Math.max(.4,Number(item?.liquid_alpha)||.6)};
  }
- function carbonation(ctx,s,sy,t){
-  const f=s.fluid,b=f.glass;if(!f.carbonated||f.liquidMl<=1)return;
-  const style=fizzStyles[s.ingredient]||fizzStyles.soda_water,depth=b.bottom-sy,count=Math.min(66,Math.max(12,Math.floor(depth*.55)));
-  ctx.save();ctx.beginPath();ctx.rect(b.left+4,sy,b.right-b.left-8,Math.max(0,depth-3));ctx.clip();
-  for(let i=0;i<count;i++){
-   // Narrow columns rise at different speeds, expanding slightly near the surface.
-   const phase=(t*(.25+i%5*.065)+i*.137)%1,x=snap(b.left+9+(i*37%(b.right-b.left-22))+Math.sin(t*3+i)*2),y=snap(b.bottom-4-phase*depth),size=phase>.55&&i%3===0?5:3;
-   ctx.globalAlpha=.45+phase*.45;ctx.strokeStyle=style.bubble;ctx.lineWidth=1;
-   if(size===5)ctx.strokeRect(x,y,size,size);else{ctx.fillStyle=style.bubble;ctx.fillRect(x,y,2,2);}
-  }
-  ctx.restore();
- }
- function bottle(ctx,s){const f=s.fluid,at=root.LunaPour.nozzle(s.angle,f.tool,f.grab),art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
+ function bottle(ctx,s){const f=s.fluid,at=f.nozzle(),art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
   let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
   const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],{w,h}=root.LunaPour.containerSize(bw,bh,f.can);
   ctx.save();ctx.translate(at.x,at.y);ctx.rotate(s.angle*Math.PI/180);ctx.imageSmoothingEnabled=false;
@@ -166,31 +163,12 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(f.cap&&f.time-f.popTime<2.4){const c=f.cap;ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rotation);ctx.fillStyle='#52616a';ctx.fillRect(-5,-13,10,26);ctx.fillStyle='#cfdddf';ctx.fillRect(-3,-13,3,23);ctx.fillStyle='#14212c';ctx.fillRect(-8,9,16,8);ctx.restore();}
  }
  function draw(ctx,s){
-  const f=s.fluid,b=f.glass,{rgb,alpha}=appearance(s.ingredient),color='rgba('+rgb.join(',')+','+alpha+')',sy=snap(f.surfaceY),fh=snap(f.foamHeight()),t=f.time;
+  const f=s.fluid,b=f.glass,style=appearance(s.ingredient);
   ctx.clearRect(0,0,1000,540);ctx.imageSmoothingEnabled=false;
   ctx.fillStyle='#0005';ctx.fillRect(b.left-20,b.bottom+6,b.right-b.left+40,6);
   ctx.fillStyle='#25344066';ctx.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
-  ctx.save();ctx.beginPath();ctx.rect(b.left+3,b.top,b.right-b.left-6,b.bottom-b.top);ctx.clip();
-  if(f.liquidMl>.02){ctx.fillStyle=color;ctx.fillRect(b.left+3,sy,b.right-b.left-6,b.bottom-sy);
-   for(let x=b.left+3;x<b.right-3;x+=3){const wave=Math.round(Math.sin(x*.1+t*9)*f.wobble*2)*3;ctx.fillStyle='#d9e6edaa';ctx.fillRect(snap(x),sy+wave,3,3);}
-  }
-  carbonation(ctx,s,sy,t);
-  if(fh>0){const style=fizzStyles[s.ingredient]||fizzStyles.soda_water,top=sy-fh;ctx.fillStyle=style.foam;ctx.fillRect(b.left+3,top,b.right-b.left-6,fh);
-   for(let x=b.left+3;x<b.right-3;x+=3){const wave=Math.round(Math.sin(x*.3+t*5))*3;ctx.fillRect(snap(x),top+wave,3,4);}
-   ctx.save();ctx.beginPath();ctx.rect(b.left+3,top,b.right-b.left-6,fh);ctx.clip();
-   for(let i=0;i<Math.min(150,Math.ceil(fh*2));i++){const seed=Math.sin(i*127.1+7.3)*43758.5453,seedY=Math.sin(i*311.7+19.1)*19341.137,x=snap(b.left+6+(seed-Math.floor(seed))*(b.right-b.left-15)),y=snap(top+((seedY-Math.floor(seedY))+t*.012)%1*Math.max(3,fh));ctx.strokeStyle=style.shade;ctx.lineWidth=1;ctx.strokeRect(x,y,i%3?3:5,3);ctx.fillStyle=style.highlight;ctx.fillRect(x,y,2,1);}
-   ctx.restore();
-   // A few surface bubbles burst above the foam instead of reading as flat fill.
-   for(let i=0;i<7;i++){const u=(t*1.7+i*.19)%1;if(u>.45)continue;const x=snap(b.left+10+i*19),y=snap(top-2-u*8);ctx.fillStyle=style.highlight;ctx.globalAlpha=(1-u/.45)*.8;ctx.fillRect(x-2-u*5,y,2,2);ctx.fillRect(x+2+u*5,y,2,2);}ctx.globalAlpha=1;
-  }
-  ctx.restore();
-  ctx.fillStyle=color;
-  for(let i=0;i<f.particles.length;i++){const a=f.particles[i],z=f.particles[i+1];const w=f.tool==='none'||f.popped?5:3;
-   if(z&&z.id===a.id+1){const n=Math.min(80,Math.ceil(Math.hypot(z.x-a.x,z.y-a.y)/2));for(let k=0;k<=n;k++)ctx.fillRect(snap(a.x+(z.x-a.x)*k/Math.max(1,n)),snap(a.y+(z.y-a.y)*k/Math.max(1,n)),w,3);}
-   else ctx.fillRect(snap(a.x),snap(a.y),w,3);
-   if(f.carbonated&&i%7===0){ctx.fillStyle=(fizzStyles[s.ingredient]||fizzStyles.soda_water).bubble;ctx.fillRect(snap(a.x),snap(a.y),2,2);ctx.fillStyle=color;}
-  }
-  ctx.fillStyle='#e8f1e9bb';for(const p of f.splash)ctx.fillRect(snap(p.x),snap(p.y),3,3);
+  root.LunaPourLiquid.drawLiquid(ctx,s,style);
+  root.LunaPourLiquid.drawStream(ctx,s,style);
   ctx.fillStyle='#b0d1d5bb';ctx.fillRect(b.left,b.top,3,b.bottom-b.top);ctx.fillRect(b.right-3,b.top,3,b.bottom-b.top);ctx.fillRect(b.left,b.bottom-3,b.right-b.left,3);ctx.fillRect(b.left-3,b.top,b.right-b.left+6,2);ctx.fillStyle='#d6edef55';ctx.fillRect(b.left+9,b.top+10,3,b.bottom-b.top-30);
   if(mode()==='classic'){const y=snap(b.bottom-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
   bottle(ctx,s);
@@ -213,7 +191,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(guide.width!==1000*resolution){guide.width=1000*resolution;guide.height=540*resolution;}
   const guideContext=guide.getContext('2d');guideContext.setTransform(resolution,0,0,resolution,0,0);guideContext.clearRect(0,0,1000,540);idleGuide(guideContext,s);
   stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);
-  stage.dataset.renderer='pixel-canvas2d';stage.dataset.pourTool=f.tool;stage.dataset.carbonation=String(f.carbonated);stage.dataset.container=f.can?'can':'bottle';stage.dataset.foam=String(f.foamMl);stage.dataset.nozzle=JSON.stringify(root.LunaPour.nozzle(s.angle,f.tool,f.grab));
+  stage.dataset.renderer='pixel-canvas2d';stage.dataset.pourTool=f.tool;stage.dataset.carbonation=String(f.carbonated);stage.dataset.container=f.can?'can':'bottle';stage.dataset.foam=String(f.foamMl);stage.dataset.nozzle=JSON.stringify(f.nozzle());
   stage.style.cursor=s.held?'grabbing':'grab';
   const set=(selector,value)=>{const e=rootElement.querySelector(selector);if(e)e.textContent=value;};
   set('[data-pour-value]',s.value.toFixed(2)+' '+s.unit);
@@ -227,7 +205,6 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
    meter.style.setProperty('--tilt-warning',hasPourer?(f.maxAngle-end)/f.maxAngle*100+'%':'0%');
    meter.setAttribute('aria-valuenow',String(Math.round(s.angle)));
   }
-  set('[data-pour-detail]',f.spilledMl>.05?L('넘침 ','Spilled ')+f.spilledMl.toFixed(1)+' ml':'');
   const perfect=rootElement.querySelector('[data-pour-perfect]');if(perfect)perfect.hidden=!s.pourFinishFx?.perfect;
   root.LunaPourTutorial?.sync(g,stage.closest('.fluid-screen'),L);
  }

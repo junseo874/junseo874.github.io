@@ -1,0 +1,22 @@
+Pouring receiving glass v2 — orthographic side view
+Mode: built-in image_gen edit.
+Input: pour-receiver-glass-v1.png
+Output: pour-receiver-glass-v2-side.png
+Status: image concept only; not integrated into game.
+
+Final prompt:
+Use case: precise-object-edit.
+Asset type: transparent empty glass sprite for a side-view pixel-art pouring minigame.
+Input image 1: EDIT TARGET, the previous generated glass. Keep its game-sprite material language and restrained pixel-cluster glass reflections, but REBUILD its geometry and viewpoint according to the following explicit corrections.
+
+PRIMARY CHANGES:
+1. STRICT ORTHOGRAPHIC SIDE ELEVATION, camera perfectly horizontal at the glass. Not above, not a three-quarter view, not looking down. The top opening is viewed exactly edge-on. There is NO visible ellipse or oval and NO view into the opening. The lip is only a delicate, straight, horizontal light-gray line with tiny thickness, not a deep rim or band.
+2. STRAIGHT PARALLEL WALLS: identical width at top, middle, and bottom. Left and right sides fall perfectly vertically. A clean tall rectangular cylinder silhouette. NO taper, no sloping sides, no narrowing lower body, no waist, no bulge. Only the outer bottom corners may have a tiny 1–2 logical-pixel rounding.
+3. REMOVE ALL WARM LIGHT: no gold, yellow, orange, brown or warm cream rim highlights. Use neutral white, cool silver-gray and the faintest pale blue reflection. No colored fringe, no red specks.
+4. The thick glass bottom is also viewed SIDE-ON as a short straight horizontal glass band, with small pixelated neutral/cool reflection facets. No ellipse, oval pedestal, curved foot, or visible upper surface of the base. No stem.
+
+COMPOSITION AND STYLE:
+One centered upright empty glass, complete object with safe transparent margin. Tall tumbler silhouette, width about 65% of height. Crisp consistent pixel-art contours and sparse small specular clusters, fine side strokes, understated base highlights. Not photorealistic, not painterly, not a metallic frame. Preserve the idea of the previous art but prioritize the NEW side-view rectangular geometry over its old silhouette.
+Maintain genuinely transparent PNG background AND a fully transparent clear center, suitable for putting animated liquid behind the sprite. Do not fill the interior with black, white, gray or blue. No checkerboard baked in. Only edge contours, small glass highlights and the bottom band should contain visible pixels.
+No liquid, bubbles, foam, bottle, props, tabletop, shadow, text, measurement lines, UI, watermark, or extra glasses.
+Output only this revised single empty glass sprite.

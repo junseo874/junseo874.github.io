@@ -1,0 +1,17 @@
+Pour receiver glass v4 — clean three-tone pixel art
+Mode: built-in image_gen edit, followed by exact-size and palette normalization.
+Final output: pour-receiver-glass-v4-3tone-200x345.png
+Validated dimensions: 200 x 345 pixels.
+Validated opaque palette: #EEF4F7, #9BAFBB, #4D6573 (3 colors total).
+Alpha: 0 or 255 only. Transparent background and empty interior retained.
+Normalization: nearest-neighbor resize; nearest fixed-palette color; remove isolated components smaller than 3 pixels.
+Status: concept sprite, not integrated into the game.
+
+Generation prompt:
+Use case: precise-object-edit.
+Input image 1 is the EDIT TARGET: an existing 200 x 345 pixel empty glass sprite.
+Edit ONLY its pixel color shading and reflection clusters to make it clean intentional limited-palette pixel art. Do not redesign, reposition, crop, enlarge, or change the geometry.
+Keep the exact existing 200 x 345 canvas and existing sprite placement/proportions: same-width top and bottom, perfectly parallel vertical walls, true orthographic SIDE view, a flat horizontal edge-on rim with no ellipse, a small straight weighted base, no stem. Preserve transparent outside AND the fully empty transparent interior.
+PALETTE: use ONLY THREE opaque solid colors for the entire visible glass: highlight #EEF4F7, midtone #9BAFBB, shadow #4D6573. These are three brightness steps of ONE cool blue-gray glass hue, no additional hues or shades. Transparency is the only other state. No semi-transparent gradients or anti-alias colors.
+Remove the noisy scattered specks, dozens of near-duplicate colors, mottled dithering and gradients from the original. Consolidate highlights into a few clean connected purposeful pixel clusters: long sparse straight side-edge segments and 2 or 3 simple flat reflection facets along the base. Use restrained 1–2 pixel edge thickness at the requested resolution. No checkerboard dithering, no tiny isolated confetti pixels, no blurred transitions. Clean pixel-perfect edges and distinct three-step shading, not continuous gradients.
+Keep the glass EMPTY. No gray background fill, no liquid, foam, bubbles, extra decorations, text, labels, marks or UI. No warm yellow/gold light. Preserve the side-on silhouette and alpha background exactly. The requested final PNG is precisely 200 pixels wide by 345 pixels tall, NOT an upscaled presentation.

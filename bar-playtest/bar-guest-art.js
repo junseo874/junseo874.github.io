@@ -2,16 +2,23 @@
 (function(W){
 'use strict';
 const D=W.LUNA_DATA,key='char_shiba_static';
-D.assets[key]={src:'assets/char-shiba-static.png',w:83,h:111,frames:1,frameWidth:83,frameHeight:111,fps:0,static:true,displayScale:2,alphaBBox:[0,0,83,111],source:'User supplied bar guest Shiba portrait, 2026-10-02, codex-clipboard-cfe0bc9f-c130-40da-8df8-51d9c88e7d12.png'};
+D.assets[key]={src:'assets/char-shiba-idle-20261019.png',w:551,h:530,frames:1,frameWidth:551,frameHeight:530,fps:0,static:true,alphaBBox:[219,271,347,422],source:'User supplied Shiba_Idle.png, 2026-10-19'};
 D.characterLayers.shiba={idle_default:[key],idle_talk:[key]};
-D.webPoseOffsets.shiba={idle_default:[0,-90],idle_talk:[0,-90]};
-// 2× source pixels in the shared 551×530 actor canvas, feet/paws at table anchor 440.
-D.webActorBounds.shiba=[192.5,218,358.5,440];
+D.webPoseOffsets.shiba={idle_default:[0,0],idle_talk:[0,0]};
+// Preserve the supplied full actor canvas and align its torso cut to the bar.
+D.webActorBounds.shiba=[219,271,347,422];
+D.webTableAnchors={...D.webTableAnchors,shiba:422};
 // Preserve Tom's full human canvas. His torso ends at y=420; the coat and
 // resting forearms extend to y=441 and should overlap the countertop.
-const tom='char_tom_static';
-D.assets[tom]={src:'assets/char-tom-idle-20261018.png',w:551,h:530,frames:1,frameWidth:551,frameHeight:530,fps:0,static:true,alphaBBox:[96,109,454,441],source:'User supplied Tom_Idle.png, 2026-10-18'};
-D.characterLayers.tom={idle_default:[tom],idle_talk:[tom]};
+const tomParts={body:[96,204,454,441],face_top:[218,109,361,267],eyes:[257,201,313,220],eyebrow:[258,193,308,209],face_bottom_default:[250,218,315,265]};
+const tomLayers=Object.entries(tomParts).map(([part,alphaBBox])=>{
+ const id='char_tom_idle_'+part;
+ D.assets[id]={src:'assets/tom-idle-20261019/'+part+'.png',w:2204,h:530,frames:4,frameWidth:551,frameHeight:530,fps:2.5,syncToBody:true,alphaBBox,source:'User supplied '+part+'.png, 2026-10-19'};
+ return id;
+});
+// These are coordinated idle frames, not independent blink/articulation frames.
+// Use the same authored cycle while speaking until talk-specific art is supplied.
+D.characterLayers.tom={idle_default:tomLayers,idle_talk:[...tomLayers]};
 D.webPoseOffsets.tom={idle_default:[0,0],idle_talk:[0,0]};
 D.webActorBounds.tom=[96,109,454,441];
 D.webTableAnchors={...D.webTableAnchors,tom:420};
