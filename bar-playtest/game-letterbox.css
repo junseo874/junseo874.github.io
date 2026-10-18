@@ -1,0 +1,34 @@
+/* Permanent viewport matte. Independent of every scene, fade, and camera.
+   No JS resize delay: the aperture follows the same centered 1280:720 frame. */
+:root{
+ --letterbox-x:max(0px,calc((100vw - 100dvh * 16 / 9) / 2));
+ --letterbox-y:max(0px,calc((100dvh - 100vw * 9 / 16) / 2));
+}
+html,body,#outside-root{background:#000!important}
+#game-letterbox{
+ all:initial;position:fixed;inset:0;z-index:2147483647;
+ pointer-events:none;isolation:isolate;contain:strict;
+ opacity:1!important;filter:none!important;mix-blend-mode:normal!important;
+ animation:none!important;transition:none!important;
+}
+#game-letterbox>i{
+ all:initial;display:block;position:absolute;background:#000!important;
+ pointer-events:auto;opacity:1!important;filter:none!important;
+ mix-blend-mode:normal!important;animation:none!important;transition:none!important;
+}
+#game-letterbox>.letterbox-top{top:0;left:0;right:0;height:var(--letterbox-y)}
+#game-letterbox>.letterbox-bottom{bottom:0;left:0;right:0;height:var(--letterbox-y)}
+#game-letterbox>.letterbox-left{top:0;bottom:0;left:0;width:var(--letterbox-x)}
+#game-letterbox>.letterbox-right{top:0;bottom:0;right:0;width:var(--letterbox-x)}
+/* Viewport-mounted controls still belong inside the playable frame. */
+#campaign-developer-back{left:calc(var(--letterbox-x) + 20px);top:calc(var(--letterbox-y) + 15px)}
+.qa-launch{right:calc(var(--letterbox-x) + 18px);bottom:calc(var(--letterbox-y) + 16px)}
+#cutscene-preview-toolbar{left:calc(var(--letterbox-x) + 16px);right:calc(var(--letterbox-x) + 16px);top:calc(var(--letterbox-y) + 12px)}
+#toast{bottom:calc(var(--letterbox-y) + min(95px,calc(100vw * 95 / 1280),calc(100dvh * 95 / 720)));max-width:min(80%,calc(min(100vw,177.777778dvh) - 32px))}
+/* Native dialogs occupy the browser top layer, above any z-index. Confine
+   their backdrop to the aperture and keep their controls inside it too. */
+body>dialog::backdrop{clip-path:inset(var(--letterbox-y) var(--letterbox-x))}
+body>.updates-dialog{
+ width:min(620px,calc(min(100vw,177.777778dvh) - 32px));
+ max-height:calc(min(100dvh,56.25vw) - 32px);
+}

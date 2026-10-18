@@ -18,8 +18,12 @@ function complete(m){flags(m)[doneKey(m)]=true;flags(m).samho_met=true;const c=W
 function tick(m,dt){let e=m.encounter;if(e?.kind!==id){if(!m.qa&&visible(m)&&!m.encounter&&!m.paused&&!m.transition&&!m.ride&&!m.dialog&&!m.story.blocking&&m.x>=xFor(m)-.86&&m.x<=xFor(m)+.86){start(m);return true;}return false;}
  e.elapsed+=dt;m.animTime+=dt;m.anim='idle';
  if(e.stage==='entering'){const p=Math.min(1,e.elapsed/.65);m.x=e.from+(e.to-e.from)*p*p*(3-2*p);if(Math.abs(e.to-e.from)>.03&&p<1)m.anim='walk';if(p===1&&e.cameraReady){e.stage='active';m.story.beginRows(isQA(m)?'runtime:'+sceneKey(m):id,e.target,(W.lunaCampaign?.active&&!m.qa?W.lunaCampaign.data:W.LUNA_CAMPAIGN_DATA).scenes[sceneKey(m)]);}}
- else if(e.stage==='depart'){const p=Math.min(1,e.elapsed/1.8);e.npcX=e.departFrom+e.direction*p*1.65;e.alpha=1-Math.max(0,(p-.65)/.35);e.target.x=e.npcX;if(p===1){e.stage='active';m.story.speech.index++;m.story.seek();}}
- else if(e.stage==='active'&&!m.story.speech){e.stage='leaving';e.elapsed=0;e.cameraReady=false;}
+ else if(e.stage==='depart'){const exit=W.LunaOutsideNPCExit.sample(e.elapsed,e.departFrom,e.direction);e.npcX=exit.x;e.alpha=exit.alpha;e.target.x=e.npcX;if(exit.done){e.stage='active';if(m.story.speech){m.story.speech.index++;m.story.seek();}}}
+ else if(e.stage==='active'&&!m.story.speech){
+  // Day 3 has no explicit departure row: fade before clearing its encounter too.
+  if(e.alpha>0){action(m);return true;}
+  e.stage='leaving';e.elapsed=0;e.cameraReady=false;
+ }
  else if(e.stage==='leaving'&&e.elapsed>.4&&e.cameraReady)complete(m);
  return true;
 }

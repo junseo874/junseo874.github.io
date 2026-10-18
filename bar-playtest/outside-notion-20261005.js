@@ -84,12 +84,13 @@ function tick(m,dt){let e=m.encounter;
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;
  if(e.stage==='entering'){const p=Math.min(1,e.elapsed/.65);m.x=e.from+(e.to-e.from)*p*p*(3-2*p);if(p<1&&Math.abs(e.to-e.from)>.02)m.anim='walk';if(p===1&&e.cameraReady){e.stage='active';m.story.beginRows(e.kind,e.target,e.kind===thug?intro:contractRows);}}
  else if(['dealer-exit','approach','samho-exit'].includes(e.stage)){
-  const p=Math.min(1,e.elapsed/(e.stage==='approach'?.95:1.8)),smooth=p*p*(3-2*p);
-  if(e.stage==='dealer-exit'){e.dealerX=e.actionX-p*1.8;e.dealerAlpha=1-Math.max(0,(p-.7)/.3);}
+  const approaching=e.stage==='approach',exit=approaching?null:W.LunaOutsideNPCExit.sample(e.elapsed,e.actionX,e.stage==='dealer-exit'?-1:1);
+  const p=Math.min(1,e.elapsed/.95),smooth=p*p*(3-2*p);
+  if(e.stage==='dealer-exit'){e.dealerX=exit.x;e.dealerAlpha=exit.alpha;}
   if(e.stage==='approach'){e.npcX=e.actionX+(m.x-.75-e.actionX)*smooth;}
-  if(e.stage==='samho-exit'){e.npcX=e.actionX+p*2;e.alpha=1-Math.max(0,(p-.7)/.3);}
+  if(e.stage==='samho-exit'){e.npcX=exit.x;e.alpha=exit.alpha;}
   e.target.x=e.npcX;
-  if(p===1){e.stage='active';m.story.speech.index++;m.story.seek();}
+  if(approaching?p===1:exit.done){e.stage='active';m.story.speech.index++;m.story.seek();}
  }else if(e.stage==='active'&&!m.story.speech){e.stage='leaving';e.elapsed=0;e.cameraReady=false;}
  else if(e.stage==='leaving'&&e.cameraReady&&e.elapsed>.4){save(m,e.kind===thug?'day2_thug_done':'day3_contract_done');m.encounter=null;if(m.qa){m.qa.done=true;m.qa.camera=null;}W.outsidePlaytest?.clearInput();m.updateNear();}
  return true;

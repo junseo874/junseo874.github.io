@@ -7,21 +7,25 @@ window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
  gin_fizz:'ginfizz',kahlua_milk:'kahluaMilk',bottle_beer:'beer',
  screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'
 }).map(([id,file])=>[id,{...window.LUNA_SERVE_BACKGROUND,src:'assets/serve-20261019/give_drink_'+file+'.png',layered:true}]));
-// Composite in native texels, then present on the physical display pixel grid.
-// The extra transparent row makes the native stage divisible by two on small
-// displays; it is padding, never a stretch of the 539px source frame.
+// Compose unchanged source texels on a 960x540 (16:9) stage: 3px padding
+// on each side, 1px below. Then sample ONCE to the display's physical pixels.
+// Integer-only enlargement made framing shrink/jump as the window or DPR
+// changed. Pixel alignment must not choose the size of the composition.
 window.LunaServePixels={
  layout(rect,dpr=1){
-  const w=954,h=540,fit=Math.min(rect.width*dpr/w,rect.height*dpr/h);
-  const scale=fit>=1?Math.floor(fit):1/Math.pow(2,Math.ceil(Math.log2(1/Math.max(.01,fit))));
-  const width=Math.max(1,Math.round(w*scale)),height=Math.max(1,Math.round(h*scale));
   const sx=rect.width/1280,sy=rect.height/720;
-  // Align the origin to both CSS and device pixels. Half-CSS-pixel origins on
-  // Retina can shift the compositor's nearest-neighbour sampling by one texel.
-  const gcd=(a,b)=>b?gcd(b,a%b):a,ratio=Math.round(dpr*100),quantum=ratio/gcd(ratio,100);
-  const snap=v=>Math.round(v/quantum)*quantum;
-  return {width,height,scale,left:(snap(rect.left*dpr+(rect.width*dpr-width)/2)/dpr-rect.left)/sx,
-   top:(snap(rect.top*dpr+(rect.height*dpr-height)/2)/dpr-rect.top)/sy,
+  // Keep the raster within the stage and on the CSS/device pixel lattice.
+  // At fractional DPR this can inset the edges by at most a few physical
+  // pixels, never by a percentage of the composition.
+  const gcd=(a,b)=>b?gcd(b,a%b):a,ratio=Math.round(dpr*100),lattice=ratio/gcd(ratio,100);
+  // Arbitrary browser zoom (e.g. DPR 1.3333) must not turn a rational
+  // approximation into a huge 133px inset. Prefer physical pixels there.
+  const quantum=lattice<=5?lattice:1;
+  const start=v=>Math.ceil((v-1e-5)/quantum)*quantum,end=v=>Math.floor((v+1e-5)/quantum)*quantum;
+  const x=start(rect.left*dpr),y=start(rect.top*dpr);
+  const width=Math.max(1,end(rect.right*dpr)-x),height=Math.max(1,end(rect.bottom*dpr)-y);
+  return {width,height,scale:width/960,scaleY:height/540,left:(x/dpr-rect.left)/sx,
+   top:(y/dpr-rect.top)/sy,
    cssWidth:width/dpr/sx,cssHeight:height/dpr/sy};
  },
  fit(canvas,layout){
@@ -40,8 +44,9 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
  const sheets=window.LUNA_SERVE_SHEETS,background=window.LUNA_SERVE_BACKGROUND;
  const images=new Map(),duration=1.5;
  let current=null;
- const native=document.createElement('canvas');native.width=954;native.height=540;
+ const native=document.createElement('canvas');native.width=960;native.height=540;
  const nativeContext=native.getContext('2d');
+ const nativeFX=document.createElement('canvas');nativeFX.width=960;nativeFX.height=540;
  function image(src){
   if(!images.has(src)){const img=new Image(),entry={img,ready:false,failed:false};images.set(src,entry);
    img.onload=()=>entry.ready=true;img.onerror=()=>entry.failed=true;img.src=src;}
@@ -88,7 +93,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,canvas.width,canvas.height);
   nativeContext.imageSmoothingEnabled=false;nativeContext.clearRect(0,0,native.width,native.height);
   const bg=image(background.src),sheet=sheets[s.result.selected],art=sheet?image(sheet.src):null;
-  const draw=(entry,layout)=>nativeContext.drawImage(entry.img,layout.sx+s.frame%layout.cols*layout.dx,layout.sy+Math.floor(s.frame/layout.cols)*layout.dy,layout.w,layout.h,0,0,layout.w,layout.h);
+  const draw=(entry,layout)=>nativeContext.drawImage(entry.img,layout.sx+s.frame%layout.cols*layout.dx,layout.sy+Math.floor(s.frame/layout.cols)*layout.dy,layout.w,layout.h,3,0,layout.w,layout.h);
   if(s.loaded){if(bg.ready)draw(bg,background);if(art?.ready)draw(art,sheet);}
   ctx.drawImage(native,0,0,canvas.width,canvas.height);
   canvas.dataset.frame=String(s.frame);
@@ -100,7 +105,10 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
    // Fallback artwork can have different dimensions; never attach the sheet mask to it.
    const fallback=!sheet||art?.failed;
    const time=fallback||!s.loaded?-1:s.elapsed-duration;
-   window.LunaServeCarbonation.draw(fx,s.result.selected,time,[0,0,layout.scale,layout.scale]);
+   window.LunaServeCarbonation.draw(nativeFX,s.result.selected,time,[3,0,1,1]);
+   const fc=fx.getContext('2d');fc.imageSmoothingEnabled=false;fc.clearRect(0,0,fx.width,fx.height);
+   fc.drawImage(nativeFX,0,0,fx.width,fx.height);
+   for(const key of ['active','time','cocktail']){if(nativeFX.dataset[key]!==undefined)fx.dataset[key]=nativeFX.dataset[key];else delete fx.dataset[key];}
   }
  }
  function detailsHTML(){

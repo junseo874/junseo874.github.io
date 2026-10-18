@@ -263,7 +263,7 @@ html,body{overflow:hidden;background:#03060b}
 .daily-unlocks footer button{min-width:230px;padding:12px 26px;font-size:15px;border:1px solid #77dce2;background:#3c909c2e;color:#b8f8f4;border-radius:7px}
 .daily-unlocks button:hover{background:#448f9c60}.daily-unlocks :focus-visible{outline:2px solid #8cecf1;outline-offset:2px}
 @keyframes unlock-arrive{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@media(max-height:650px){.daily-unlocks{padding:15px 20px}.daily-unlocks header{padding-bottom:12px}.unlock-art{height:60px}.daily-unlocks h2{font-size:20px}.unlock-columns{margin-top:12px}.daily-unlocks footer{margin-top:12px;padding-top:12px}}
+/* The 1280×720 game stage scales this popup; viewport media rules would resize it twice. */
 @media(prefers-reduced-motion:reduce){.daily-unlocks{animation:none}}
 
 /* Preparation: a compact title reveals its checklist on hover or keyboard focus. */
@@ -329,4 +329,3 @@ html,body{overflow:hidden;background:#03060b}
 .johnny-unlock-item img{width:36px;height:48px;object-fit:contain;image-rendering:pixelated}
 .johnny-unlock-item span{flex:1;font-size:15px}.johnny-unlock-item b{color:#a5d4d6;font-size:13px;font-weight:400}
 .johnny-unlock :focus-visible{outline:0;box-shadow:0 0 14px #62dbe32b;border-color:#b2f3ef}
-@media(max-width:560px){.johnny-unlock-body{grid-template-columns:1fr;gap:10px}.johnny-unlock-drink .drink-art{height:95px}.johnny-unlock{padding:16px}.johnny-unlock h2{font-size:19px}}

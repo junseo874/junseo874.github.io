@@ -1,0 +1,68 @@
+/* One 1280 × 720 coordinate system for UI mounted outside scene stages.
+   Scene children already inherit their stage scale and must NOT be scaled twice. */
+:root{--ui-scale:1}
+@supports (transform:scale(tan(atan2(1px,1px)))){
+ :root{--ui-scale:tan(atan2(min(100vw,calc(100dvh * 16 / 9)),1280px))}
+}
+#story-notices,#qa-lab,.campaign-day-transition,.campaign-memory-transition{
+ inset:auto;left:50%;top:50%;width:1280px;height:720px;
+ transform:translate(-50%,-50%) scale(var(--ui-scale,1));
+ transform-origin:center;overflow:hidden;
+}
+.app-shell{overflow:hidden}
+.day-transition-title{font-size:56px}
+
+/* Logical sizes stay stable even on portrait browser windows. */
+#story-notices .story-notice{right:24px;width:350px;max-width:1232px;padding:20px 22px;gap:16px;max-height:640px;overflow:hidden}
+#story-notices .story-notice strong{font-size:19px}
+#story-notices .story-notice-event{bottom:30px}
+#story-notices .story-notice[data-kind="meet"]{width:max-content;min-width:220px;padding:16px 20px;gap:0}
+#story-notices .story-notice[data-kind="meet"] strong{font-size:22px}
+#qa-lab .qa-panel{width:1060px;height:660px;max-width:1232px;max-height:672px}
+#qa-lab .qa-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+#qa-lab .qa-panel header{padding:18px 24px}
+#qa-lab .qa-body{padding:6px 24px 24px}
+#qa-lab .qa-tabs{padding:12px 24px}
+#qa-lab .qa-panel h2{font-size:23px}
+#qa-lab .qa-preview{height:330px}
+#qa-lab .qa-preview .qa-actor-canvas{width:343px;height:330px}
+
+body>.qa-launch{
+ left:auto;top:auto;right:calc(var(--letterbox-x) + 18px * var(--ui-scale));
+ bottom:calc(var(--letterbox-y) + 16px * var(--ui-scale));
+ transform:scale(var(--ui-scale));transform-origin:bottom right;font-size:14px;padding:10px 16px;
+}
+body>.qa-launch.is-outside{
+ right:auto;bottom:auto;left:calc(var(--letterbox-x) + 18px * var(--ui-scale));
+ top:calc(var(--letterbox-y) + 18px * var(--ui-scale));
+ transform-origin:top left;font-size:16px;min-height:52px;padding:12px 18px;gap:12px;
+}
+#campaign-developer-back{
+ left:calc(var(--letterbox-x) + 20px * var(--ui-scale));top:calc(var(--letterbox-y) + 15px * var(--ui-scale));
+ transform:scale(var(--ui-scale));transform-origin:top left;
+}
+#cutscene-preview-toolbar{
+ right:auto;left:calc(var(--letterbox-x) + 16px * var(--ui-scale));top:calc(var(--letterbox-y) + 12px * var(--ui-scale));
+ width:1248px;transform:scale(var(--ui-scale));transform-origin:top left;
+}
+#toast{
+ bottom:calc(var(--letterbox-y) + 95px * var(--ui-scale));
+ width:max-content;max-width:1000px;max-height:560px;overflow:hidden;overflow-wrap:anywhere;
+ transform:translateX(-50%) scale(var(--ui-scale));transform-origin:bottom center;
+}
+#drag-ghost{transform:scale(var(--ui-scale)) translate(-50%,-80%);transform-origin:top left}
+
+/* Native top-layer dialogs cannot inherit a scene transform. Their content
+   scrolls in logical space; close/confirm controls always remain in frame. */
+body>.updates-dialog{
+ position:fixed;inset:auto;left:50%;top:50%;margin:0;
+ width:620px;max-width:none;max-height:640px;
+ transform:translate(-50%,-50%) scale(var(--ui-scale));transform-origin:center;
+}
+body>.updates-dialog .updates-header{padding:22px 26px}
+body>.updates-dialog .updates-footer{padding:19px 26px;gap:20px}
+body>.updates-dialog .updates-list{padding:0 26px}
+body>.updates-dialog .updates-header h2{font-size:24px}
+body>.updates-dialog .updates-entry p{font-size:16px}
+body>.updates-dialog .updates-entry .updates-note{font-size:13px}
+body>.updates-dialog .updates-footer p{font-size:12px}

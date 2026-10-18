@@ -17,7 +17,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    await p.setViewportSize({width,height:720});
    await p.evaluate(()=>{barGame.reset(99,'practice',1,true);barGame.screen='bar';LunaStoryNotices.clear();delete barGame.progress.flags.shiba_met;LunaStoryNotices.meet(barGame.progress,'shiba');});
    const c=p.locator('.story-notice-people');await c.waitFor({state:'visible'});await p.waitForTimeout(300);
-   const box=await c.boundingBox();assert(box.x>=0&&box.x+box.width<=width);assert(box.width>=220&&box.width<300&&box.height<100);
+   const box=await c.boundingBox(),scale=Math.min(width/1280,720/720);assert(box.x>=0&&box.x+box.width<=width);assert(box.width/scale>=220&&box.width/scale<300&&box.height/scale<100);
    assert(await c.evaluate(el=>el.scrollWidth<=el.clientWidth&&el.querySelector('strong').scrollWidth<=el.querySelector('strong').clientWidth));
    await p.screenshot({path:'/private/tmp/new-person-'+width+'.png'});
   }

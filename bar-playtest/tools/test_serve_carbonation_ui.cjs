@@ -60,7 +60,7 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    if(id==='bottle_beer'){
     await page.setViewportSize({width:960,height:600});await page.waitForTimeout(250);
     await page.screenshot({path:'/private/tmp/carbonation-beer-small.png'});
-    const bounds=await page.locator('.serve-carbonation').boundingBox(),art=await page.locator('.serve-canvas').boundingBox();assert(Math.abs(bounds.width/bounds.height-954/540)<.01);assert.deepEqual(bounds,art);
+    const bounds=await page.locator('.serve-carbonation').boundingBox(),art=await page.locator('.serve-canvas').boundingBox();assert(Math.abs(bounds.width/bounds.height-16/9)<.01);assert.deepEqual(bounds,art);
     await page.setViewportSize({width:1280,height:720});
    }
   }

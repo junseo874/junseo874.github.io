@@ -9,6 +9,13 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
    await page.waitForFunction(()=>window.LunaServeView&&window.LunaServePixels);
+   assert(await page.evaluate(()=>{
+    for(const dpr of [.8,1,1.1,1.25,4/3,1.5,1.75,2,2.625,3,3.5])for(const width of [390,640,953,955,1103,1921,2048]){
+     const rect={left:13.3,top:41.7,width,height:width*9/16};rect.right=rect.left+rect.width;rect.bottom=rect.top+rect.height;
+     const r=LunaServePixels.layout(rect,dpr);
+     if(rect.width*dpr-r.width>10||rect.height*dpr-r.height>10||r.width>rect.width*dpr+.01||r.height>rect.height*dpr+.01)return false;
+    }return true;
+   }),'Browser zoom must not reintroduce quantized framing or overscan');
    if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
    await page.evaluate(()=>{
     const root=document.createElement('div');root.id='ppu-fixture';root.style='position:fixed;left:0;top:0;z-index:999999;width:1280px;height:720px;transform-origin:0 0;background:#0d0e18';
@@ -23,13 +30,13 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
      const f=ppuFixture,scale=Math.min(innerWidth/1280,innerHeight/720);
      f.root.style.zoom=scale;f.root.style.left=(innerWidth-1280*scale)/2/scale+'px';f.root.style.top=(innerHeight-720*scale)/2/scale+'px';
      const images=await Promise.all([LUNA_SERVE_BACKGROUND,LUNA_SERVE_SHEETS.dry_martini].map(async sheet=>{const im=new Image();im.src=sheet.src;await im.decode();return {im,sheet};}));
-     const native=document.createElement('canvas');native.width=954;native.height=540;const nc=native.getContext('2d');nc.imageSmoothingEnabled=false;
+     const native=document.createElement('canvas');native.width=960;native.height=540;const nc=native.getContext('2d');nc.imageSmoothingEnabled=false;
      const expected=document.createElement('canvas'),actual=f.root.querySelector('.serve-canvas'),fx=f.root.querySelector('.serve-carbonation');
      for(let frame=0;frame<30;frame++){
       f.g.realTime=frame/20+.001;f.view.sync(f.root);
       if(Number(actual.dataset.frame)!==frame)throw Error('Wrong animation frame');
-      nc.clearRect(0,0,954,540);
-      for(const {im,sheet:s} of images)nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,0,0,s.w,s.h);
+      nc.clearRect(0,0,960,540);
+      for(const {im,sheet:s} of images)nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,3,0,s.w,s.h);
       expected.width=actual.width;expected.height=actual.height;const ec=expected.getContext('2d');ec.imageSmoothingEnabled=false;ec.drawImage(native,0,0,expected.width,expected.height);
       if(expected.toDataURL()!==actual.toDataURL())throw Error('Frame resampled or wrong atlas crop: '+frame);
      }
@@ -37,7 +44,8 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
      for(const [label,value] of [['left',b.left*dpr],['top',b.top*dpr],['width',b.width*dpr],['height',b.height*dpr]])if(Math.abs(value-Math.round(value))>.015)throw Error(label+' not on physical pixel grid: '+value);
      if(Math.abs(b.width*dpr-actual.width)>.015||Math.abs(b.height*dpr-actual.height)>.015)throw Error('Second CSS resampling');
      if(JSON.stringify(b.toJSON())!==JSON.stringify(fb.toJSON()))throw Error('FX and sprite grids differ');
-     if(k>=1&&!Number.isInteger(k))throw Error('Fractional enlargement');
+     const stage=f.root.getBoundingClientRect();
+     if(b.width/stage.width<.99||b.height/stage.height<.99)throw Error('Composition shrank instead of fitting the viewport');
      const flat=document.createElement('canvas');flat.width=actual.width;flat.height=actual.height;const fc=flat.getContext('2d');fc.fillStyle='#0d0e18';fc.fillRect(0,0,flat.width,flat.height);fc.drawImage(actual,0,0);
      return {dpr,viewport:[innerWidth,innerHeight],scale:k,frames:30,png:flat.toDataURL(),crop:{left:Math.round(b.left*dpr),top:Math.round(b.top*dpr),width:actual.width,height:actual.height}};
     });

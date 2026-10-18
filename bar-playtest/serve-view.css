@@ -6,7 +6,8 @@
 .serve-canvas{position:absolute;left:0;top:0;image-rendering:pixelated}
 .serve-loading{position:absolute;inset:0;display:grid;place-items:center;color:#c4d8df;font-size:18px;pointer-events:none}
 .serve-carbonation{position:absolute;left:0;top:0;image-rendering:pixelated;pointer-events:none}
-.serve-grade{position:absolute;top:55px;left:50%;transform:translateX(-50%);font-size:48px;letter-spacing:4px;color:#f8e1a1;text-shadow:0 3px 0 #251e18,0 0 18px #0b0c18;pointer-events:none}
+/* Keep the central presentation clear, including the tall gin-tonic garnish. */
+.serve-grade{position:absolute;top:55px;left:90px;font-size:48px;letter-spacing:4px;color:#f8e1a1;text-shadow:0 3px 0 #251e18,0 0 18px #0b0c18;pointer-events:none}
 .serve-grade[data-grade=poor],.serve-grade[data-grade=sewage]{color:#efa294}
 .serve-actions{position:absolute;bottom:24px;left:90px;right:90px;display:flex;justify-content:space-between;align-items:flex-start}
 .serve-offer{display:flex;flex-direction:column;align-items:center;gap:9px}

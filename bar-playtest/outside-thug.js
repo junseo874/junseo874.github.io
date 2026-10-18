@@ -21,8 +21,8 @@ function tick(m,dt){let e=m.encounter;
   if(t>=.85)e.hurt=true;
   if(t>=1.65){e.stage='active';m.story.speech.index++;m.story.seek();}
  }else if(e.stage==='depart'){
-  const p=Math.min(1,e.elapsed/1.8);e.npcX=e.from+p*1.7;e.alpha=1-Math.max(0,(p-.65)/.35);e.target.x=e.npcX;
-  if(p===1){e.stage='active';m.story.speech.index++;m.story.seek();}
+  const exit=W.LunaOutsideNPCExit.sample(e.elapsed,e.from);e.npcX=exit.x;e.alpha=exit.alpha;e.target.x=e.npcX;
+  if(exit.done){e.stage='active';m.story.speech.index++;m.story.seek();}
  }else if(e.stage==='active'&&!m.story.speech){e.stage='leaving';e.elapsed=0;e.cameraReady=false;}
  else if(e.stage==='leaving'&&e.cameraReady&&e.elapsed>.4){save(m,'day1_thug_done',true);m.encounter=null;W.outsidePlaytest?.clearInput();m.updateNear();}
  return true;
@@ -37,8 +37,7 @@ function draw(m,sprite,ctx,position){if(!visible(m))return;const e=m.encounter?.
  ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();
  const sp={asset:'ambient-M2',x:(Math.floor(m.time*3.8)%6)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};// Source idle faces left: mirror only to look right, including the exit walk.
  sprite(sp,x,y,1,1,e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha);
- // A short pixel-art arm thrust, followed by the forearm held close to the body.
- if(e&&(e.stage==='punch'&&e.elapsed>.58&&e.elapsed<.92||e.hurt)&&alpha>0){const hit=e.stage==='punch'&&e.elapsed<.92,a=position(x-.04,y+.35),b=position(hit?m.x+.07:x-.13,y+(hit?.34:.3));ctx.save();ctx.globalAlpha=alpha;ctx.strokeStyle='#51585c';ctx.lineWidth=8;ctx.lineCap='square';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.fillStyle='#77796c';ctx.fillRect(b.x-4,b.y-4,8,8);ctx.restore();}
+ // The existing body lunge/recoil conveys the hit. Do not draw an extra limb.
  ctx.restore();
 }
 W.LunaOutsideThug={id,intro,paid,refused,visible,start,tick,action,choose,choiceView,draw};
