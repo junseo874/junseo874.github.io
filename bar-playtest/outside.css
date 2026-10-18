@@ -1,4 +1,6 @@
 /* Logical 1280×720 UI; exterior canvas uses the device-pixel backing size. */
+.outside-save-feedback{position:absolute;right:32px;bottom:28px;z-index:8;pointer-events:none;font:20px LunaPixel,sans-serif;color:#eefaff;text-shadow:0 2px 3px #030812,0 0 6px #030812}
+.world-choices.outside-choices[aria-label="소파 선택지"]{width:max-content}
 /* The stage receives programmatic keyboard focus after entry/P/QA. It is not a
    selectable control; suppress its browser outline without removing child focus cues. */
 #outside-root:focus,#outside-root:focus-visible{outline:none}

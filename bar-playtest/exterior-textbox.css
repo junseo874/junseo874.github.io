@@ -1,14 +1,14 @@
-/* Scope to exploration speech: bar dialogue and cinematic skins stay intact. */
-#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption){
+/* Exploration and terrace share the authored skin; other cinematic skins stay intact. */
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech){
  --textbox-corner:22px;--textbox-tail:48px;
  border:0;border-radius:0;background:none;box-shadow:none;
  /* Preview proportions: compact line spacing and padding, with a small
     dedicated gutter for the advance arrow on manual dialogue. */
  padding:14px 34px 14px 28px;min-width:110px;min-height:50px;isolation:isolate;
 }
-#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption)::after{content:none}
-#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption) p{text-align:center;line-height:1.45;color:#f4f5f7}
-#outside-root .exterior-textbox-skin{
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech)::after{content:none}
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech) p{text-align:center;line-height:1.45;color:#f4f5f7}
+:is(#outside-root,.terrace-scene) .exterior-textbox-skin{
  position:absolute;inset:0;z-index:-1;pointer-events:none;display:grid;
  grid-template-columns:var(--textbox-corner) minmax(0,1fr) var(--textbox-tail) minmax(0,1fr) var(--textbox-corner);
  grid-template-rows:var(--textbox-corner) minmax(0,1fr) var(--textbox-corner);
@@ -29,12 +29,12 @@
 .exterior-textbox-skin .piece-10{grid-area:3/4}
 .exterior-textbox-skin .piece-11{grid-area:3/5}
 #outside-root .outside-background-speech{padding:14px 28px}
-#outside-root .dialogue-advance-cue{
+:is(#outside-root,.terrace-scene) .dialogue-advance-cue{
  right:4px;bottom:5px;width:28px;height:28px;
  background:url('assets/exterior-textbox/IMG_textbox_arrow.png') center/contain no-repeat;
  image-rendering:pixelated;animation:exterior-textbox-arrow-bob 1.2s ease-in-out infinite;
 }
-#outside-root .dialogue-advance-cue svg{display:none}
-#outside-root .outside-speech:focus-visible .exterior-textbox-skin{filter:drop-shadow(0 0 2px #7cb5cd)}
+:is(#outside-root,.terrace-scene) .dialogue-advance-cue svg{display:none}
+:is(#outside-root .outside-speech,.terrace-scene .terrace-speech):focus-visible .exterior-textbox-skin{filter:drop-shadow(0 0 2px #7cb5cd)}
 @keyframes exterior-textbox-arrow-bob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(2px)}}
-@media(prefers-reduced-motion:reduce){#outside-root .dialogue-advance-cue{animation:none}}
+@media(prefers-reduced-motion:reduce){:is(#outside-root,.terrace-scene) .dialogue-advance-cue{animation:none}}

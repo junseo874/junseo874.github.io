@@ -3,6 +3,7 @@
 .extract-tools{display:flex;flex-wrap:wrap;gap:14px;margin:20px 0;align-items:end}
 .extract-tools label{min-width:160px;flex:1;font-size:12px;color:var(--muted)}
 .extract-tools input,.extract-tools select{margin-top:5px}
+.extract-shortcuts{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.extract-shortcuts button{font-size:12px;padding:6px 10px}
 .extract-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px}
 .extract-card{border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel);min-width:0}
 .extract-art{height:170px;display:grid;place-items:center;background:repeating-conic-gradient(#263444 0 25%,#182431 0 50%) 0/20px 20px;position:relative;padding:12px}

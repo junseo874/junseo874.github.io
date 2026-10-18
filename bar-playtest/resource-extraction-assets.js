@@ -6,6 +6,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 2,
     "h": 30,
+    "partKind": "border",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -14,6 +15,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 32,
     "h": 34,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -22,6 +24,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 32,
     "h": 34,
+    "partKind": "border",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -30,6 +33,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 5,
     "h": 6,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -38,6 +42,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 5,
     "h": 6,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -46,6 +51,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 64,
     "h": 32,
+    "partKind": "background",
     "note": "텍스트 없는 가변 폭 배경 · 모서리 보존 권장"
   },
   {
@@ -54,6 +60,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 64,
     "h": 32,
+    "partKind": "background",
     "note": "텍스트 없는 가변 폭 배경 · 모서리 보존 권장"
   },
   {
@@ -62,6 +69,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 32,
     "h": 32,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -70,6 +78,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 48,
     "h": 48,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -78,6 +87,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 308,
     "h": 1,
+    "partKind": "decoration",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -86,6 +96,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 27,
     "h": 30,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -94,6 +105,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 27,
     "h": 30,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -102,6 +114,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 27,
     "h": 30,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -110,6 +123,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 24,
     "h": 32,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -118,6 +132,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 80,
     "h": 35,
+    "partKind": "decoration",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -126,6 +141,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 510,
     "h": 400,
+    "partKind": "background",
     "note": "본체 350×230 · 그림자용 투명 여백 포함"
   },
   {
@@ -134,6 +150,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 12,
     "h": 10,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -142,6 +159,7 @@ window.ResourceExtractionAssets=[
     "category": "UI · 분리 그래픽",
     "w": 12,
     "h": 10,
+    "partKind": "icon",
     "note": "현재 게임 디자인 · 투명 PNG"
   },
   {
@@ -675,5 +693,23942 @@ window.ResourceExtractionAssets=[
     "category": "UI · 원본 조각",
     "w": 83,
     "h": 83
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-new-934adff6baf4ed8c-background.png",
+    "title": "팝업 · 새로운 목표 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "background",
+    "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본 팝업 · 새로운 목표 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-new-166ce9928c7fe48d-border.png",
+    "title": "팝업 · 새로운 목표 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "border",
+    "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본 팝업 · 새로운 목표 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-new-85fac6ab2c6b0f74-shadow.png",
+    "title": "팝업 · 새로운 목표 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 188,
+    "partKind": "shadow",
+    "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본 팝업 · 새로운 목표 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-new"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-new-bb56a4ce1e957ba7-border.png",
+    "title": "팝업 · 새로운 목표 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 새로운 목표 span.story-notice-icon 기본 팝업 · 새로운 목표 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-goal-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-new-1f3fe2e64fe4d4e5-icon.png",
+    "title": "팝업 · 새로운 목표 · 아이콘 (◇)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 새로운 목표 span.story-notice-icon 기본 팝업 · 새로운 목표 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-goal-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "◇"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-complete-691f5f630c7d3c3d-background.png",
+    "title": "팝업 · 목표 달성 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "background",
+    "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본 팝업 · 목표 달성 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-complete-7dedfdcde2221f51-border.png",
+    "title": "팝업 · 목표 달성 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "border",
+    "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본 팝업 · 목표 달성 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-complete-c1b0a52b2cf1a815-shadow.png",
+    "title": "팝업 · 목표 달성 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 188,
+    "partKind": "shadow",
+    "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본 팝업 · 목표 달성 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-goal-complete"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-complete-d1bb07c168cf1a0f-border.png",
+    "title": "팝업 · 목표 달성 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 목표 달성 span.story-notice-icon 기본 팝업 · 목표 달성 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-goal-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-goal-complete-74a7943fd218f630-icon.png",
+    "title": "팝업 · 목표 달성 · 아이콘 (✓)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 목표 달성 span.story-notice-icon 기본 팝업 · 목표 달성 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-goal-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "✓"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-event-6bf7690abc2cd489-background.png",
+    "title": "팝업 · 이벤트 발생 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본 팝업 · 이벤트 발생 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-event"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-event-83e5ce5a9d368dbc-border.png",
+    "title": "팝업 · 이벤트 발생 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본 팝업 · 이벤트 발생 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-event"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-event-ed8eb121e7954485-shadow.png",
+    "title": "팝업 · 이벤트 발생 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본 팝업 · 이벤트 발생 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "notification-event"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-event-80461ed2f9ea6d81-border.png",
+    "title": "팝업 · 이벤트 발생 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 이벤트 발생 span.story-notice-icon 기본 팝업 · 이벤트 발생 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-event"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-event-22a3719e6120f437-icon.png",
+    "title": "팝업 · 이벤트 발생 · 아이콘 (!)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 이벤트 발생 span.story-notice-icon 기본 팝업 · 이벤트 발생 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-event"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "!"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-meet-048d2a16f8534a6f-background.png",
+    "title": "팝업 · 인물정보 등록 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본 팝업 · 인물정보 등록 · .story-notice.story-notice-people · 배경",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-meet"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-meet-815786479d9539eb-border.png",
+    "title": "팝업 · 인물정보 등록 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본 팝업 · 인물정보 등록 · .story-notice.story-notice-people · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-meet"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-meet-5ee3f5b3329acda1-shadow.png",
+    "title": "팝업 · 인물정보 등록 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본 팝업 · 인물정보 등록 · .story-notice.story-notice-people · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-meet"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-meet-db04dd5ec4f903d3-border.png",
+    "title": "팝업 · 인물정보 등록 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 인물정보 등록 span.story-notice-icon 기본 팝업 · 인물정보 등록 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-meet"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-meet-7e825997b29cef4a-icon.png",
+    "title": "팝업 · 인물정보 등록 · 아이콘 (＋)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 인물정보 등록 span.story-notice-icon 기본 팝업 · 인물정보 등록 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-meet"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "＋"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-up-048d2a16f8534a6f-background.png",
+    "title": "팝업 · 호감도 상승 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본 팝업 · 호감도 상승 · .story-notice.story-notice-people · 배경",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-up-815786479d9539eb-border.png",
+    "title": "팝업 · 호감도 상승 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본 팝업 · 호감도 상승 · .story-notice.story-notice-people · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-up-5ee3f5b3329acda1-shadow.png",
+    "title": "팝업 · 호감도 상승 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본 팝업 · 호감도 상승 · .story-notice.story-notice-people · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-up"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-up-db04dd5ec4f903d3-border.png",
+    "title": "팝업 · 호감도 상승 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 호감도 상승 span.story-notice-icon 기본 팝업 · 호감도 상승 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-up-e25606c6ada3fef8-icon.png",
+    "title": "팝업 · 호감도 상승 · 아이콘 (↑)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 호감도 상승 span.story-notice-icon 기본 팝업 · 호감도 상승 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "↑"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-down-1028b25b907e7f41-background.png",
+    "title": "팝업 · 호감도 하락 · 패널 배경",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본 팝업 · 호감도 하락 · .story-notice.story-notice-people · 배경",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-down-80961ce4974bf0cc-border.png",
+    "title": "팝업 · 호감도 하락 · 패널 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본 팝업 · 호감도 하락 · .story-notice.story-notice-people · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-down-1f57e2430e5a07cb-shadow.png",
+    "title": "팝업 · 호감도 하락 · 패널 그림자",
+    "category": "UI · 팝업 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본 팝업 · 호감도 하락 · .story-notice.story-notice-people · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "notification-down"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-down-b61036dfc2cc03d2-border.png",
+    "title": "팝업 · 호감도 하락 · 아이콘 테두리",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "팝업 · 호감도 하락 span.story-notice-icon 기본 팝업 · 호감도 하락 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/notification-down-94eff1cb8f7aa960-icon.png",
+    "title": "팝업 · 호감도 하락 · 아이콘 (↓)",
+    "category": "UI · 팝업 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "팝업 · 호감도 하락 span.story-notice-icon 기본 팝업 · 호감도 하락 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "notification-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "↓"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/27f26378b4233e70-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 34,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 누름 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 누름 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 기본 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 호버 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 누름 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 기본 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 호버 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 누름 | 단골 정보 · 기본 button.help-corner 기본 | 단골 정보 · 기본 button.help-corner 호버 | 단골 정보 · 기본 button.help-corner 누름 | 말풍선 / 2인 구도 · 기본 button.help-corner 기본 | 말풍선 / 2인 구도 · 기본 button.help-corner 호버 | 말풍선 / 2인 구도 · 기본 button.help-corner 누름 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 기본 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 호버 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 누름 | 바 대화 / 선택지 · 기본 button.help-corner 기본 | 바 대화 / 선택지 · 기본 button.help-corner 호버 | 바 대화 / 선택지 · 기본 button.help-corner 누름 | 좌석 인디케이터 · 빈 좌석 button.help-corner 기본 | 좌석 인디케이터 · 빈 좌석 button.help-corner 호버 | 좌석 인디케이터 · 빈 좌석 button.help-corner 누름 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 기본 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 호버 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 누름 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 기본 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 호버 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 누름 | 서비스 패널 · 기본 button.help-corner 기본 | 서비스 패널 · 기본 button.help-corner 호버 | 서비스 패널 · 기본 button.help-corner 누름 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 기본 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 호버 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 누름 | 조작 설명 · 기본 button.help-corner 기본 | 조작 설명 · 기본 button.help-corner 호버 | 조작 설명 · 기본 button.help-corner 누름 | 대사 기록 · 기본 button.help-corner 기본 | 대사 기록 · 기본 button.help-corner 호버 | 대사 기록 · 기본 button.help-corner 누름 | 매출 · 기본 button.help-corner 기본 | 매출 · 기본 button.help-corner 호버 | 매출 · 기본 button.help-corner 누름 | 히든 칵테일 해금 · 기본 button.help-corner 기본 | 히든 칵테일 해금 · 기본 button.help-corner 호버 | 히든 칵테일 해금 · 기본 button.help-corner 누름 | 경고 팝업 · 병따개 누락 button.help-corner 기본 | 경고 팝업 · 병따개 누락 button.help-corner 호버 | 경고 팝업 · 병따개 누락 button.help-corner 누름 | 경고 팝업 · 재료 초과 button.help-corner 기본 | 경고 팝업 · 재료 초과 button.help-corner 호버 | 경고 팝업 · 재료 초과 button.help-corner 누름 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 기본 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 호버 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 누름 | 일차 전환 / Day 숫자 · 기본 button.help-corner 기본 | 일차 전환 / Day 숫자 · 기본 button.help-corner 호버 | 일차 전환 / Day 숫자 · 기본 button.help-corner 누름 | 신규 인물 정보 등록 · 바 내부 button.help-corner 기본 | 신규 인물 정보 등록 · 바 내부 button.help-corner 호버 | 신규 인물 정보 등록 · 바 내부 button.help-corner 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 누름 | 타이틀 화면 button.help-corner 기본 | 타이틀 화면 button.help-corner 호버 | 타이틀 화면 button.help-corner 누름 칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 배경",
+    "sourceSelector": "button.help-corner",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/93f3e9042bee918b-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 34,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 누름 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 누름 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 기본 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 호버 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 누름 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 기본 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 호버 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 누름 | 단골 정보 · 기본 button.help-corner 기본 | 단골 정보 · 기본 button.help-corner 호버 | 단골 정보 · 기본 button.help-corner 누름 | 말풍선 / 2인 구도 · 기본 button.help-corner 기본 | 말풍선 / 2인 구도 · 기본 button.help-corner 호버 | 말풍선 / 2인 구도 · 기본 button.help-corner 누름 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 기본 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 호버 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 누름 | 바 대화 / 선택지 · 기본 button.help-corner 기본 | 바 대화 / 선택지 · 기본 button.help-corner 호버 | 바 대화 / 선택지 · 기본 button.help-corner 누름 | 좌석 인디케이터 · 빈 좌석 button.help-corner 기본 | 좌석 인디케이터 · 빈 좌석 button.help-corner 호버 | 좌석 인디케이터 · 빈 좌석 button.help-corner 누름 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 기본 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 호버 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 누름 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 기본 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 호버 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 누름 | 서비스 패널 · 기본 button.help-corner 기본 | 서비스 패널 · 기본 button.help-corner 호버 | 서비스 패널 · 기본 button.help-corner 누름 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 기본 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 호버 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 누름 | 조작 설명 · 기본 button.help-corner 기본 | 조작 설명 · 기본 button.help-corner 호버 | 조작 설명 · 기본 button.help-corner 누름 | 대사 기록 · 기본 button.help-corner 기본 | 대사 기록 · 기본 button.help-corner 호버 | 대사 기록 · 기본 button.help-corner 누름 | 매출 · 기본 button.help-corner 기본 | 매출 · 기본 button.help-corner 호버 | 매출 · 기본 button.help-corner 누름 | 히든 칵테일 해금 · 기본 button.help-corner 기본 | 히든 칵테일 해금 · 기본 button.help-corner 호버 | 히든 칵테일 해금 · 기본 button.help-corner 누름 | 경고 팝업 · 병따개 누락 button.help-corner 기본 | 경고 팝업 · 병따개 누락 button.help-corner 호버 | 경고 팝업 · 병따개 누락 button.help-corner 누름 | 경고 팝업 · 재료 초과 button.help-corner 기본 | 경고 팝업 · 재료 초과 button.help-corner 호버 | 경고 팝업 · 재료 초과 button.help-corner 누름 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 기본 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 호버 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 누름 | 일차 전환 / Day 숫자 · 기본 button.help-corner 기본 | 일차 전환 / Day 숫자 · 기본 button.help-corner 호버 | 일차 전환 / Day 숫자 · 기본 button.help-corner 누름 | 신규 인물 정보 등록 · 바 내부 button.help-corner 기본 | 신규 인물 정보 등록 · 바 내부 button.help-corner 호버 | 신규 인물 정보 등록 · 바 내부 button.help-corner 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 누름 | 타이틀 화면 button.help-corner 기본 | 타이틀 화면 button.help-corner 호버 | 타이틀 화면 button.help-corner 누름 칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 테두리",
+    "sourceSelector": "button.help-corner",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0eeca0617b44ff8c-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 166,
+    "h": 50,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 포커스 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 기본 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 호버 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 누름 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 포커스 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 기본 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 호버 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 누름 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 포커스 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 기본 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 호버 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 누름 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 포커스 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 기본 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 호버 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 누름 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 포커스 | 매출 · 기본 div.stack.service-popup.draggable::before 기본 | 매출 · 기본 div.stack.service-popup.draggable::before 호버 | 매출 · 기본 div.stack.service-popup.draggable::before 누름 | 매출 · 기본 div.stack.service-popup.draggable::before 포커스 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 기본 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 호버 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 누름 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 배경",
+    "sourceSelector": "div.stack.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 166,
+      "h": 50
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/90af83e4c76c8e46-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 166,
+    "h": 50,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 포커스 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 기본 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 호버 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 누름 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 포커스 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 기본 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 호버 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 누름 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 포커스 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 기본 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 호버 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 누름 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 포커스 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 기본 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 호버 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 누름 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 포커스 | 매출 · 기본 div.stack.service-popup.draggable::before 기본 | 매출 · 기본 div.stack.service-popup.draggable::before 호버 | 매출 · 기본 div.stack.service-popup.draggable::before 누름 | 매출 · 기본 div.stack.service-popup.draggable::before 포커스 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 기본 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 호버 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 누름 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 테두리",
+    "sourceSelector": "div.stack.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 166,
+      "h": 50
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/315f54090014f52d-shadow.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 그림자",
+    "category": "UI · 기타 분리",
+    "w": 262,
+    "h": 146,
+    "partKind": "shadow",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.stack.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.stack.service-popup.draggable::before 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 빈 좌석 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 입장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 손님 있음 / 일반 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 퇴장 / 점멸 div.stack.service-popup.draggable::before 포커스 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 기본 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 호버 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 누름 | 좌석 인디케이터 · 3좌석 점유 div.stack.service-popup.draggable::before 포커스 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 기본 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 호버 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 누름 | 서비스 패널 · 기본 div.stack.service-popup.draggable::before 포커스 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 기본 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 호버 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 누름 | 설정 / 볼륨 / 언어 · 기본 div.stack.service-popup.draggable::before 포커스 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 기본 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 호버 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 누름 | 조작 설명 · 기본 div.stack.service-popup.draggable::before 포커스 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 기본 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 호버 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 누름 | 대사 기록 · 기본 div.stack.service-popup.draggable::before 포커스 | 매출 · 기본 div.stack.service-popup.draggable::before 기본 | 매출 · 기본 div.stack.service-popup.draggable::before 호버 | 매출 · 기본 div.stack.service-popup.draggable::before 누름 | 매출 · 기본 div.stack.service-popup.draggable::before 포커스 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 기본 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 호버 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 누름 | 히든 칵테일 해금 · 기본 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 div.stack.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.stack.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 그림자",
+    "sourceSelector": "div.stack.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 166,
+      "h": 50
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/469d253173881069-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 84,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 배경",
+    "sourceSelector": "div.tray.drink-tray.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 84
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6d356b0e1583d99b-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 84,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 테두리",
+    "sourceSelector": "div.tray.drink-tray.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 84
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ba21a34b6ef11aa6-shadow.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 장식 그림자",
+    "category": "UI · 기타 분리",
+    "w": 286,
+    "h": 180,
+    "partKind": "shadow",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.tray.drink-tray.service-popup.draggable::before 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.tray.drink-tray.service-popup.draggable::before 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.tray.drink-tray.service-popup.draggable::before 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 그림자",
+    "sourceSelector": "div.tray.drink-tray.service-popup.draggable::before",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 190,
+      "h": 84
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f3b17bdbb5712648-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 62,
+    "h": 62,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.service-handle 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.service-handle 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.service-handle 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.service-handle 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.service-handle 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.service-handle 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.service-handle 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.service-handle 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.service-handle 누름 | 소지금 알림 / 증감 · 소지금 증가 button.service-handle 기본 | 소지금 알림 / 증감 · 소지금 증가 button.service-handle 호버 | 소지금 알림 / 증감 · 소지금 증가 button.service-handle 누름 | 소지금 알림 / 증감 · 소지금 차감 button.service-handle 기본 | 소지금 알림 / 증감 · 소지금 차감 button.service-handle 호버 | 소지금 알림 / 증감 · 소지금 차감 button.service-handle 누름 | 단골 정보 · 기본 button.service-handle 기본 | 단골 정보 · 기본 button.service-handle 호버 | 단골 정보 · 기본 button.service-handle 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.service-handle 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.service-handle 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.service-handle 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.service-handle 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.service-handle 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.service-handle 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.service-handle 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.service-handle 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.service-handle 누름 | 좌석 인디케이터 · 빈 좌석 button.service-handle 기본 | 좌석 인디케이터 · 빈 좌석 button.service-handle 호버 | 좌석 인디케이터 · 빈 좌석 button.service-handle 누름 | 좌석 인디케이터 · 입장 / 점멸 button.service-handle 기본 | 좌석 인디케이터 · 입장 / 점멸 button.service-handle 호버 | 좌석 인디케이터 · 입장 / 점멸 button.service-handle 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.service-handle 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.service-handle 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.service-handle 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.service-handle 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.service-handle 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.service-handle 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.service-handle 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.service-handle 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.service-handle 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.service-handle 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.service-handle 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.service-handle 누름 | 좌석 인디케이터 · 3좌석 점유 button.service-handle 기본 | 좌석 인디케이터 · 3좌석 점유 button.service-handle 호버 | 좌석 인디케이터 · 3좌석 점유 button.service-handle 누름 | 서비스 패널 · 기본 button.service-handle 기본 | 서비스 패널 · 기본 button.service-handle 호버 | 서비스 패널 · 기본 button.service-handle 누름 | 설정 / 볼륨 / 언어 · 기본 button.service-handle 기본 | 설정 / 볼륨 / 언어 · 기본 button.service-handle 호버 | 설정 / 볼륨 / 언어 · 기본 button.service-handle 누름 | 조작 설명 · 기본 button.service-handle 기본 | 조작 설명 · 기본 button.service-handle 호버 | 조작 설명 · 기본 button.service-handle 누름 | 대사 기록 · 기본 button.service-handle 기본 | 대사 기록 · 기본 button.service-handle 호버 | 대사 기록 · 기본 button.service-handle 누름 | 매출 · 기본 button.service-handle 기본 | 매출 · 기본 button.service-handle 호버 | 매출 · 기본 button.service-handle 누름 | 히든 칵테일 해금 · 기본 button.service-handle 기본 | 히든 칵테일 해금 · 기본 button.service-handle 호버 | 히든 칵테일 해금 · 기본 button.service-handle 누름 | 신규 인물 정보 등록 · 바 내부 button.service-handle 기본 | 신규 인물 정보 등록 · 바 내부 button.service-handle 호버 | 신규 인물 정보 등록 · 바 내부 button.service-handle 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 button.service-handle 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 button.service-handle 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 button.service-handle 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 button.service-handle 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 button.service-handle 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 button.service-handle 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.service-handle 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.service-handle 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.service-handle 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.service-handle 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.service-handle 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.service-handle 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.service-handle 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.service-handle 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.service-handle 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.service-handle 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.service-handle 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.service-handle 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.service-handle 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.service-handle 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.service-handle 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.service-handle 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.service-handle 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.service-handle 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.service-handle 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.service-handle 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.service-handle 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.service-handle 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.service-handle 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.service-handle 누름 칵테일 드래그 / 제공 · 정상 칵테일 · .service-handle · 배경",
+    "sourceSelector": "button.service-handle",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 62,
+      "h": 62
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/414174d1475d9ebc-icon.png",
+    "title": "칵테일 드래그 / 제공 · 키 표시 아이콘 (Tab)",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 10,
+    "partKind": "icon",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 kbd 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 kbd 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 kbd 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 kbd 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 kbd 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 kbd 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 kbd 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 kbd 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 kbd 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 kbd 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 kbd 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 kbd 포커스 | 소지금 알림 / 증감 · 소지금 증가 kbd 기본 | 소지금 알림 / 증감 · 소지금 증가 kbd 호버 | 소지금 알림 / 증감 · 소지금 증가 kbd 누름 | 소지금 알림 / 증감 · 소지금 증가 kbd 포커스 | 소지금 알림 / 증감 · 소지금 차감 kbd 기본 | 소지금 알림 / 증감 · 소지금 차감 kbd 호버 | 소지금 알림 / 증감 · 소지금 차감 kbd 누름 | 소지금 알림 / 증감 · 소지금 차감 kbd 포커스 | 단골 정보 · 기본 kbd 기본 | 단골 정보 · 기본 kbd 호버 | 단골 정보 · 기본 kbd 누름 | 단골 정보 · 기본 kbd 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 주문 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 주문 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 주문 kbd 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 kbd 포커스 | 좌석 인디케이터 · 빈 좌석 kbd 기본 | 좌석 인디케이터 · 빈 좌석 kbd 호버 | 좌석 인디케이터 · 빈 좌석 kbd 누름 | 좌석 인디케이터 · 빈 좌석 kbd 포커스 | 좌석 인디케이터 · 입장 / 점멸 kbd 기본 | 좌석 인디케이터 · 입장 / 점멸 kbd 호버 | 좌석 인디케이터 · 입장 / 점멸 kbd 누름 | 좌석 인디케이터 · 입장 / 점멸 kbd 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 기본 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 호버 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 누름 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 kbd 기본 | 좌석 인디케이터 · 퇴장 / 점멸 kbd 호버 | 좌석 인디케이터 · 퇴장 / 점멸 kbd 누름 | 좌석 인디케이터 · 퇴장 / 점멸 kbd 포커스 | 좌석 인디케이터 · 3좌석 점유 kbd 기본 | 좌석 인디케이터 · 3좌석 점유 kbd 호버 | 좌석 인디케이터 · 3좌석 점유 kbd 누름 | 좌석 인디케이터 · 3좌석 점유 kbd 포커스 | 서비스 패널 · 기본 kbd 기본 | 서비스 패널 · 기본 kbd 호버 | 서비스 패널 · 기본 kbd 누름 | 서비스 패널 · 기본 kbd 포커스 | 설정 / 볼륨 / 언어 · 기본 kbd 기본 | 설정 / 볼륨 / 언어 · 기본 kbd 호버 | 설정 / 볼륨 / 언어 · 기본 kbd 누름 | 설정 / 볼륨 / 언어 · 기본 kbd 포커스 | 조작 설명 · 기본 kbd 기본 | 조작 설명 · 기본 kbd 호버 | 조작 설명 · 기본 kbd 누름 | 조작 설명 · 기본 kbd 포커스 | 대사 기록 · 기본 kbd 기본 | 대사 기록 · 기본 kbd 호버 | 대사 기록 · 기본 kbd 누름 | 대사 기록 · 기본 kbd 포커스 | 매출 · 기본 kbd 기본 | 매출 · 기본 kbd 호버 | 매출 · 기본 kbd 누름 | 매출 · 기본 kbd 포커스 | 히든 칵테일 해금 · 기본 kbd 기본 | 히든 칵테일 해금 · 기본 kbd 호버 | 히든 칵테일 해금 · 기본 kbd 누름 | 히든 칵테일 해금 · 기본 kbd 포커스 | 신규 인물 정보 등록 · 바 내부 kbd 기본 | 신규 인물 정보 등록 · 바 내부 kbd 호버 | 신규 인물 정보 등록 · 바 내부 kbd 누름 | 신규 인물 정보 등록 · 바 내부 kbd 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 kbd 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 kbd 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 kbd 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 kbd 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 kbd 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 kbd 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 kbd 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 kbd 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 kbd 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 kbd 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 kbd 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 kbd 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 kbd 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 kbd 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 kbd 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 kbd 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 kbd 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 kbd 포커스 칵테일 드래그 / 제공 · 정상 칵테일 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 10
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Tab"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/947b90a2f3fd3b81-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 기본 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 호버 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 누름 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 기본 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 호버 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 누름 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 포커스 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 기본 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 호버 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 누름 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 포커스 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim · 테두리",
+    "sourceSelector": "button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 4,
+      "y": 4,
+      "w": 24,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리 · 효과 여백 4px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3e624f19de1eff80-background.png",
+    "title": "칵테일 드래그 / 제공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 span 기본 칵테일 드래그 / 제공 · 정상 칵테일 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:serve--serve"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8cadefa45e16004f-background.png",
+    "title": "칵테일 드래그 / 제공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 span 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 span 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 span 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 span 기본 | 좌석 인디케이터 · 빈 좌석 span 기본 | 좌석 인디케이터 · 입장 / 점멸 span 기본 | 좌석 인디케이터 · 손님 있음 / 일반 span 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 span 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 span 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span 기본 | 서비스 패널 · 기본 span 기본 | 설정 / 볼륨 / 언어 · 기본 span 기본 | 조작 설명 · 기본 span 기본 | 대사 기록 · 기본 span 기본 | 매출 · 기본 span 기본 | 히든 칵테일 해금 · 기본 span 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 span 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 span 기본 칵테일 드래그 / 제공 · 정상 칵테일 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f947f68cf7286372-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 261,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.remix-context.original-service-tip 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.remix-context.original-service-tip 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.remix-context.original-service-tip 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.remix-context.original-service-tip 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.remix-context.original-service-tip 기본 칵테일 드래그 / 제공 · 정상 칵테일 · .remix-context.original-service-tip · 배경",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 261,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b3d58ce3cdbeb04c-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 261,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 div.remix-context.original-service-tip 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 div.remix-context.original-service-tip 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 div.remix-context.original-service-tip 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 div.remix-context.original-service-tip 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 div.remix-context.original-service-tip 기본 칵테일 드래그 / 제공 · 정상 칵테일 · .remix-context.original-service-tip · 테두리",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 261,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e08d1636915ffded-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 147,
+    "h": 37,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 누름 | 완성·등급·버리기 · 기본 button.qa-launch 기본 | 완성·등급·버리기 · 기본 button.qa-launch 호버 | 완성·등급·버리기 · 기본 button.qa-launch 누름 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 누름 | 정산 / 결과 · 정산 성공 button.qa-launch 기본 | 정산 / 결과 · 정산 성공 button.qa-launch 호버 | 정산 / 결과 · 정산 성공 button.qa-launch 누름 | 정산 / 결과 · 유지비 부족 button.qa-launch 기본 | 정산 / 결과 · 유지비 부족 button.qa-launch 호버 | 정산 / 결과 · 유지비 부족 button.qa-launch 누름 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 기본 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 호버 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 누름 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 기본 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 호버 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 누름 | 단골 정보 · 기본 button.qa-launch 기본 | 단골 정보 · 기본 button.qa-launch 호버 | 단골 정보 · 기본 button.qa-launch 누름 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 기본 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 호버 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 누름 | 말풍선 / 2인 구도 · 기본 button.qa-launch 기본 | 말풍선 / 2인 구도 · 기본 button.qa-launch 호버 | 말풍선 / 2인 구도 · 기본 button.qa-launch 누름 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 기본 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 호버 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 누름 | 바 대화 / 선택지 · 기본 button.qa-launch 기본 | 바 대화 / 선택지 · 기본 button.qa-launch 호버 | 바 대화 / 선택지 · 기본 button.qa-launch 누름 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 기본 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 호버 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 누름 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 기본 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 호버 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 누름 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 기본 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 호버 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 누름 | 서비스 패널 · 기본 button.qa-launch 기본 | 서비스 패널 · 기본 button.qa-launch 호버 | 서비스 패널 · 기본 button.qa-launch 누름 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 기본 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 호버 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 누름 | 조작 설명 · 기본 button.qa-launch 기본 | 조작 설명 · 기본 button.qa-launch 호버 | 조작 설명 · 기본 button.qa-launch 누름 | 대사 기록 · 기본 button.qa-launch 기본 | 대사 기록 · 기본 button.qa-launch 호버 | 대사 기록 · 기본 button.qa-launch 누름 | 매출 · 기본 button.qa-launch 기본 | 매출 · 기본 button.qa-launch 호버 | 매출 · 기본 button.qa-launch 누름 | 히든 칵테일 해금 · 기본 button.qa-launch 기본 | 히든 칵테일 해금 · 기본 button.qa-launch 호버 | 히든 칵테일 해금 · 기본 button.qa-launch 누름 | 경고 팝업 · 병따개 누락 button.qa-launch 기본 | 경고 팝업 · 병따개 누락 button.qa-launch 호버 | 경고 팝업 · 병따개 누락 button.qa-launch 누름 | 경고 팝업 · 재료 초과 button.qa-launch 기본 | 경고 팝업 · 재료 초과 button.qa-launch 호버 | 경고 팝업 · 재료 초과 button.qa-launch 누름 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 기본 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 호버 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 누름 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 기본 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 호버 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 누름 칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 배경",
+    "sourceSelector": "button.qa-launch",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:result--default",
+      "ui:result--default",
+      "ui:result--default",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 147,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a3d075ef5c7c41c3-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 147,
+    "h": 37,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 누름 | 완성·등급·버리기 · 기본 button.qa-launch 기본 | 완성·등급·버리기 · 기본 button.qa-launch 호버 | 완성·등급·버리기 · 기본 button.qa-launch 누름 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 누름 | 정산 / 결과 · 정산 성공 button.qa-launch 기본 | 정산 / 결과 · 정산 성공 button.qa-launch 호버 | 정산 / 결과 · 정산 성공 button.qa-launch 누름 | 정산 / 결과 · 유지비 부족 button.qa-launch 기본 | 정산 / 결과 · 유지비 부족 button.qa-launch 호버 | 정산 / 결과 · 유지비 부족 button.qa-launch 누름 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 기본 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 호버 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 누름 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 기본 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 호버 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 누름 | 단골 정보 · 기본 button.qa-launch 기본 | 단골 정보 · 기본 button.qa-launch 호버 | 단골 정보 · 기본 button.qa-launch 누름 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 기본 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 호버 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 누름 | 말풍선 / 2인 구도 · 기본 button.qa-launch 기본 | 말풍선 / 2인 구도 · 기본 button.qa-launch 호버 | 말풍선 / 2인 구도 · 기본 button.qa-launch 누름 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 기본 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 호버 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 누름 | 바 대화 / 선택지 · 기본 button.qa-launch 기본 | 바 대화 / 선택지 · 기본 button.qa-launch 호버 | 바 대화 / 선택지 · 기본 button.qa-launch 누름 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 기본 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 호버 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 누름 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 기본 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 호버 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 누름 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 기본 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 호버 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 누름 | 서비스 패널 · 기본 button.qa-launch 기본 | 서비스 패널 · 기본 button.qa-launch 호버 | 서비스 패널 · 기본 button.qa-launch 누름 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 기본 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 호버 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 누름 | 조작 설명 · 기본 button.qa-launch 기본 | 조작 설명 · 기본 button.qa-launch 호버 | 조작 설명 · 기본 button.qa-launch 누름 | 대사 기록 · 기본 button.qa-launch 기본 | 대사 기록 · 기본 button.qa-launch 호버 | 대사 기록 · 기본 button.qa-launch 누름 | 매출 · 기본 button.qa-launch 기본 | 매출 · 기본 button.qa-launch 호버 | 매출 · 기본 button.qa-launch 누름 | 히든 칵테일 해금 · 기본 button.qa-launch 기본 | 히든 칵테일 해금 · 기본 button.qa-launch 호버 | 히든 칵테일 해금 · 기본 button.qa-launch 누름 | 경고 팝업 · 병따개 누락 button.qa-launch 기본 | 경고 팝업 · 병따개 누락 button.qa-launch 호버 | 경고 팝업 · 병따개 누락 button.qa-launch 누름 | 경고 팝업 · 재료 초과 button.qa-launch 기본 | 경고 팝업 · 재료 초과 button.qa-launch 호버 | 경고 팝업 · 재료 초과 button.qa-launch 누름 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 기본 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 호버 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 누름 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 기본 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 호버 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 누름 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 호버 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 누름 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 기본 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 호버 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 누름 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 기본 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 호버 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 누름 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 호버 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 누름 칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 테두리",
+    "sourceSelector": "button.qa-launch",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:serve--missing",
+      "ui:result--default",
+      "ui:result--default",
+      "ui:result--default",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:dossier--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 147,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/31eb57a2deed8dcb-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 34,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 포커스 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 포커스 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 포커스 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 포커스 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 포커스 | 단골 정보 · 기본 button.help-corner 포커스 | 말풍선 / 2인 구도 · 기본 button.help-corner 포커스 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 포커스 | 바 대화 / 선택지 · 기본 button.help-corner 포커스 | 좌석 인디케이터 · 빈 좌석 button.help-corner 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 포커스 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 포커스 | 서비스 패널 · 기본 button.help-corner 포커스 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 포커스 | 조작 설명 · 기본 button.help-corner 포커스 | 대사 기록 · 기본 button.help-corner 포커스 | 매출 · 기본 button.help-corner 포커스 | 히든 칵테일 해금 · 기본 button.help-corner 포커스 | 경고 팝업 · 병따개 누락 button.help-corner 포커스 | 경고 팝업 · 재료 초과 button.help-corner 포커스 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 포커스 | 일차 전환 / Day 숫자 · 기본 button.help-corner 포커스 | 신규 인물 정보 등록 · 바 내부 button.help-corner 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 포커스 | 타이틀 화면 button.help-corner 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 배경 / 포커스",
+    "sourceSelector": "button.help-corner",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e6cc2c030831bd48-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 34,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.help-corner 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.help-corner 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.help-corner 포커스 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.help-corner 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.help-corner 포커스 | 소지금 알림 / 증감 · 소지금 증가 button.help-corner 포커스 | 소지금 알림 / 증감 · 소지금 차감 button.help-corner 포커스 | 신규 재료·레시피 해금 · 1일차 해금 button.help-corner 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.help-corner 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.help-corner 포커스 | 단골 정보 · 기본 button.help-corner 포커스 | 말풍선 / 2인 구도 · 기본 button.help-corner 포커스 | 말풍선 / 1인 · 단골 1인 대화 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.help-corner 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.help-corner 포커스 | 바 대화 / 선택지 · 기본 button.help-corner 포커스 | 좌석 인디케이터 · 빈 좌석 button.help-corner 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.help-corner 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.help-corner 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.help-corner 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.help-corner 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.help-corner 포커스 | 좌석 인디케이터 · 3좌석 점유 button.help-corner 포커스 | 서비스 패널 · 기본 button.help-corner 포커스 | 설정 / 볼륨 / 언어 · 기본 button.help-corner 포커스 | 조작 설명 · 기본 button.help-corner 포커스 | 대사 기록 · 기본 button.help-corner 포커스 | 매출 · 기본 button.help-corner 포커스 | 히든 칵테일 해금 · 기본 button.help-corner 포커스 | 경고 팝업 · 병따개 누락 button.help-corner 포커스 | 경고 팝업 · 재료 초과 button.help-corner 포커스 | 독립 대사창 / 검은 화면 · 기본 button.help-corner 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.help-corner 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.help-corner 포커스 | 일차 전환 / Day 숫자 · 기본 button.help-corner 포커스 | 신규 인물 정보 등록 · 바 내부 button.help-corner 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 button.help-corner 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 button.help-corner 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.help-corner 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.help-corner 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.help-corner 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.help-corner 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.help-corner 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.help-corner 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.help-corner 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.help-corner 포커스 | 타이틀 화면 button.help-corner 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 테두리 / 포커스",
+    "sourceSelector": "button.help-corner",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7f584dcb67e8d299-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 62,
+    "h": 62,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.service-handle 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.service-handle 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.service-handle 포커스 | 소지금 알림 / 증감 · 소지금 증가 button.service-handle 포커스 | 소지금 알림 / 증감 · 소지금 차감 button.service-handle 포커스 | 단골 정보 · 기본 button.service-handle 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.service-handle 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.service-handle 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.service-handle 포커스 | 좌석 인디케이터 · 빈 좌석 button.service-handle 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.service-handle 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.service-handle 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.service-handle 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.service-handle 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.service-handle 포커스 | 좌석 인디케이터 · 3좌석 점유 button.service-handle 포커스 | 서비스 패널 · 기본 button.service-handle 포커스 | 설정 / 볼륨 / 언어 · 기본 button.service-handle 포커스 | 조작 설명 · 기본 button.service-handle 포커스 | 대사 기록 · 기본 button.service-handle 포커스 | 매출 · 기본 button.service-handle 포커스 | 히든 칵테일 해금 · 기본 button.service-handle 포커스 | 신규 인물 정보 등록 · 바 내부 button.service-handle 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 button.service-handle 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 button.service-handle 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.service-handle 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.service-handle 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.service-handle 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.service-handle 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.service-handle 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.service-handle 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.service-handle 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.service-handle 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .service-handle · 배경 / 포커스",
+    "sourceSelector": "button.service-handle",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:dossier--default",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 62,
+      "h": 62
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/db3e59291eeb148a-background.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 147,
+    "h": 37,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 포커스 | 완성·등급·버리기 · 기본 button.qa-launch 포커스 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 포커스 | 정산 / 결과 · 정산 성공 button.qa-launch 포커스 | 정산 / 결과 · 유지비 부족 button.qa-launch 포커스 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 포커스 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 포커스 | 단골 정보 · 기본 button.qa-launch 포커스 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 포커스 | 말풍선 / 2인 구도 · 기본 button.qa-launch 포커스 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 포커스 | 바 대화 / 선택지 · 기본 button.qa-launch 포커스 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 포커스 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 포커스 | 서비스 패널 · 기본 button.qa-launch 포커스 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 포커스 | 조작 설명 · 기본 button.qa-launch 포커스 | 대사 기록 · 기본 button.qa-launch 포커스 | 매출 · 기본 button.qa-launch 포커스 | 히든 칵테일 해금 · 기본 button.qa-launch 포커스 | 경고 팝업 · 병따개 누락 button.qa-launch 포커스 | 경고 팝업 · 재료 초과 button.qa-launch 포커스 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 포커스 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 배경 / 포커스",
+    "sourceSelector": "button.qa-launch",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:result--default",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:recipes--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 147,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/01804f63b7e7b69c-border.png",
+    "title": "칵테일 드래그 / 제공 · 정상 칵테일 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 147,
+    "h": 37,
+    "partKind": "border",
+    "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 button.qa-launch 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.qa-launch 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.qa-launch 포커스 | 완성·등급·버리기 · 기본 button.qa-launch 포커스 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.qa-launch 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.qa-launch 포커스 | 정산 / 결과 · 정산 성공 button.qa-launch 포커스 | 정산 / 결과 · 유지비 부족 button.qa-launch 포커스 | 소지금 알림 / 증감 · 소지금 증가 button.qa-launch 포커스 | 소지금 알림 / 증감 · 소지금 차감 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 1일차 해금 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.qa-launch 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.qa-launch 포커스 | 단골 정보 · 기본 button.qa-launch 포커스 | 레시피 목록 / 상세 / 잠김 · 기본 button.qa-launch 포커스 | 말풍선 / 2인 구도 · 기본 button.qa-launch 포커스 | 말풍선 / 1인 · 단골 1인 대화 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.qa-launch 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.qa-launch 포커스 | 바 대화 / 선택지 · 기본 button.qa-launch 포커스 | 좌석 인디케이터 · 빈 좌석 button.qa-launch 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.qa-launch 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.qa-launch 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.qa-launch 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.qa-launch 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.qa-launch 포커스 | 좌석 인디케이터 · 3좌석 점유 button.qa-launch 포커스 | 서비스 패널 · 기본 button.qa-launch 포커스 | 설정 / 볼륨 / 언어 · 기본 button.qa-launch 포커스 | 조작 설명 · 기본 button.qa-launch 포커스 | 대사 기록 · 기본 button.qa-launch 포커스 | 매출 · 기본 button.qa-launch 포커스 | 히든 칵테일 해금 · 기본 button.qa-launch 포커스 | 경고 팝업 · 병따개 누락 button.qa-launch 포커스 | 경고 팝업 · 재료 초과 button.qa-launch 포커스 | 일차 전환 / Day 숫자 · 기본 button.qa-launch 포커스 | 신규 인물 정보 등록 · 바 내부 button.qa-launch 포커스 | 호감도 상승 / 하락 · 바 내부 · 상승 button.qa-launch 포커스 | 호감도 상승 / 하락 · 바 내부 · 하락 button.qa-launch 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 button.qa-launch 포커스 | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 button.qa-launch 포커스 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.qa-launch 포커스 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 button.qa-launch 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 코스터 제공 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.qa-launch 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 맥주 레시피 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.qa-launch 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.qa-launch 포커스 칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 테두리 / 포커스",
+    "sourceSelector": "button.qa-launch",
+    "sourceStates": [
+      "ui:serve--serve",
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:result--default",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:dossier--default",
+      "ui:recipes--default",
+      "ui:pair--default",
+      "ui:solo--regular",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:choices--default",
+      "ui:indicators--empty",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:day-transition--default",
+      "popup:meet--bar",
+      "popup:affinity--bar-up",
+      "popup:affinity--bar-down",
+      "popup:goal--bar-new",
+      "popup:goal--bar-complete",
+      "popup:seat-legend--seatLegend",
+      "popup:serving-hud--coaster",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--serveDrink",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 147,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7ae54a10f3faad9f-background.png",
+    "title": "칵테일 드래그 / 제공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "칵테일 드래그 / 제공 · 잘못된 칵테일 span 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 span 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 span 기본 | 좌석 인디케이터 · 입장 / 점멸 span 기본 | 좌석 인디케이터 · 손님 있음 / 일반 span 기본 | 좌석 인디케이터 · 3좌석 점유 span 기본 | 서비스 패널 · 기본 span 기본 | 설정 / 볼륨 / 언어 · 기본 span 기본 | 조작 설명 · 기본 span 기본 | 대사 기록 · 기본 span 기본 | 매출 · 기본 span 기본 | 히든 칵테일 해금 · 기본 span 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 span 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 span 기본 칵테일 드래그 / 제공 · 잘못된 칵테일 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fe15d750e28a2d04-shadow.png",
+    "title": "칵테일 드래그 / 제공 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 110,
+    "partKind": "shadow",
+    "contexts": "칵테일 드래그 / 제공 · 잘못된 칵테일 span 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 span 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 span 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 span 기본 | 좌석 인디케이터 · 입장 / 점멸 span 기본 | 좌석 인디케이터 · 손님 있음 / 일반 span 기본 | 좌석 인디케이터 · 3좌석 점유 span 기본 | 서비스 패널 · 기본 span 기본 | 설정 / 볼륨 / 언어 · 기본 span 기본 | 조작 설명 · 기본 span 기본 | 대사 기록 · 기본 span 기본 | 매출 · 기본 span 기본 | 히든 칵테일 해금 · 기본 span 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 span 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 span 기본 칵테일 드래그 / 제공 · 잘못된 칵테일 ·  · 그림자",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:serve--wrong",
+      "ui:serve--missing",
+      "ui:solo--order",
+      "ui:solo--reask",
+      "ui:solo--reorder",
+      "ui:indicators--arrival",
+      "ui:indicators--wait",
+      "ui:indicators--full",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "popup:serving-hud--drink",
+      "popup:bar-guides--serveDrink"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ea3271d49d975bf5-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 53,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 누름 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 기본 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 호버 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 누름 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 기본 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 호버 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 누름 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 기본 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 호버 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 누름 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 기본 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 호버 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 누름 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 기본 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 호버 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 배경",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ccde43fee7febd27-border.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 53,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 누름 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 기본 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 호버 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 누름 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 기본 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 호버 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 누름 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 기본 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 호버 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 누름 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 기본 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 호버 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 누름 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 기본 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 호버 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 테두리",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6d882dade51aea6e-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 24,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 span.prep-brief-heading::before 기본 | 경고 팝업 · 병따개 누락 span.prep-brief-heading::before 기본 | 경고 팝업 · 재료 초과 span.prep-brief-heading::before 기본 | 독립 대사창 / 검은 화면 · 기본 span.prep-brief-heading::before 기본 | 바 출입 / 로딩 · 입장 / 문 열림 span.prep-brief-heading::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.prep-brief-heading::before 기본 | 일차 전환 / Day 숫자 · 기본 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 span.prep-brief-heading::before 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 맥주 잔 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 병따개 선택 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 span.prep-brief-heading::before 기본 | 맥주 제조 튜토리얼 · 제조 시작 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 안내 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 span.prep-brief-heading::before 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 span.prep-brief-heading::before 기본 | 타이틀 화면 span.prep-brief-heading::before 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-brief-heading::before · 배경",
+    "sourceSelector": "span.prep-brief-heading::before",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e320656ec7d2809f-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.prev 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.prev 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.prev 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.prev 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.prev 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.prev 누름 | 경고 팝업 · 병따개 누락 button.shelf-arrow.prev 기본 | 경고 팝업 · 병따개 누락 button.shelf-arrow.prev 호버 | 경고 팝업 · 병따개 누락 button.shelf-arrow.prev 누름 | 경고 팝업 · 재료 초과 button.shelf-arrow.prev 기본 | 경고 팝업 · 재료 초과 button.shelf-arrow.prev 호버 | 경고 팝업 · 재료 초과 button.shelf-arrow.prev 누름 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.prev 기본 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.prev 호버 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.prev 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.prev 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.prev 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.prev 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.prev 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.prev 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.prev 누름 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.prev 기본 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.prev 호버 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.prev 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.prev 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.prev 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.prev 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.prev 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.prev 누름 | 타이틀 화면 button.shelf-arrow.prev 기본 | 타이틀 화면 button.shelf-arrow.prev 호버 | 타이틀 화면 button.shelf-arrow.prev 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.prev · 배경",
+    "sourceSelector": "button.shelf-arrow.prev",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/53f280701fbec4f5-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.next 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.next 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.next 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.next 누름 | 경고 팝업 · 병따개 누락 button.shelf-arrow.next 기본 | 경고 팝업 · 병따개 누락 button.shelf-arrow.next 누름 | 경고 팝업 · 재료 초과 button.shelf-arrow.next 기본 | 경고 팝업 · 재료 초과 button.shelf-arrow.next 누름 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.next 기본 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.next 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.next 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.next 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.next 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.next 누름 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.next 기본 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.next 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.next 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.next 누름 | 타이틀 화면 button.shelf-arrow.next 기본 | 타이틀 화면 button.shelf-arrow.next 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.next · 배경",
+    "sourceSelector": "button.shelf-arrow.next",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8d47facb95473c45-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 78,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 누름 | 경고 팝업 · 병따개 누락 button.prep-back 기본 | 경고 팝업 · 병따개 누락 button.prep-back 호버 | 경고 팝업 · 병따개 누락 button.prep-back 누름 | 경고 팝업 · 재료 초과 button.prep-back 기본 | 경고 팝업 · 재료 초과 button.prep-back 호버 | 경고 팝업 · 재료 초과 button.prep-back 누름 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 기본 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 호버 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 누름 | 일차 전환 / Day 숫자 · 기본 button.prep-back 기본 | 일차 전환 / Day 숫자 · 기본 button.prep-back 호버 | 일차 전환 / Day 숫자 · 기본 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 누름 | 타이틀 화면 button.prep-back 기본 | 타이틀 화면 button.prep-back 호버 | 타이틀 화면 button.prep-back 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 배경",
+    "sourceSelector": "button.prep-back",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 78,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5792f95d06b9658b-border.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 78,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 기본 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 호버 | 재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 누름 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 누름 | 경고 팝업 · 병따개 누락 button.prep-back 기본 | 경고 팝업 · 병따개 누락 button.prep-back 호버 | 경고 팝업 · 병따개 누락 button.prep-back 누름 | 경고 팝업 · 재료 초과 button.prep-back 기본 | 경고 팝업 · 재료 초과 button.prep-back 호버 | 경고 팝업 · 재료 초과 button.prep-back 누름 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 기본 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 호버 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 누름 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 기본 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 누름 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 누름 | 일차 전환 / Day 숫자 · 기본 button.prep-back 기본 | 일차 전환 / Day 숫자 · 기본 button.prep-back 호버 | 일차 전환 / Day 숫자 · 기본 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 누름 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 기본 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 누름 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 기본 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 누름 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 누름 | 타이틀 화면 button.prep-back 기본 | 타이틀 화면 button.prep-back 호버 | 타이틀 화면 button.prep-back 누름 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 테두리",
+    "sourceSelector": "button.prep-back",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "popup:campaign-dialogs--load-error",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 78,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/31af094eb0c8533c-background.png",
+    "title": "재료 선택 / 레시피 패널 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 40,
+    "h": 40,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 span 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 span 기본 | 경고 팝업 · 병따개 누락 span 기본 | 경고 팝업 · 재료 초과 span 기본 | 독립 대사창 / 검은 화면 · 기본 span 기본 | 바 출입 / 로딩 · 입장 / 문 열림 span 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span 기본 | 일차 전환 / Day 숫자 · 기본 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 span 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 span 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 span 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 span 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 span 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 span 기본 | 맥주 제조 튜토리얼 · 맥주 잔 span 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 span 기본 | 맥주 제조 튜토리얼 · 병따개 선택 span 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 span 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 span 기본 | 맥주 제조 튜토리얼 · 제조 시작 span 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 span 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 span 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 span 기본 | 본편 · 확인 / 안내 팝업 · 안내 span 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 span 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 span 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 span 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 span 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 span 기본 | 타이틀 화면 span 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 40,
+      "h": 40
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/530f0289392dcb00-background.png",
+    "title": "재료 선택 / 레시피 패널 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 40,
+    "h": 40,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 span 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 span 기본 | 경고 팝업 · 병따개 누락 span 기본 | 경고 팝업 · 재료 초과 span 기본 | 독립 대사창 / 검은 화면 · 기본 span 기본 | 바 출입 / 로딩 · 입장 / 문 열림 span 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span 기본 | 일차 전환 / Day 숫자 · 기본 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 span 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 span 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 span 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 span 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 span 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 span 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 span 기본 | 맥주 제조 튜토리얼 · 맥주 잔 span 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 span 기본 | 맥주 제조 튜토리얼 · 병따개 선택 span 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 span 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 span 기본 | 맥주 제조 튜토리얼 · 제조 시작 span 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 span 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 span 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 span 기본 | 본편 · 확인 / 안내 팝업 · 안내 span 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 span 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 span 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 span 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 span 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 span 기본 | 타이틀 화면 span 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 40,
+      "h": 40
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0697bcdc8de0e40b-border.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 146,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 div.prep-inventory 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.prep-inventory 기본 | 경고 팝업 · 병따개 누락 div.prep-inventory 기본 | 경고 팝업 · 재료 초과 div.prep-inventory 기본 | 독립 대사창 / 검은 화면 · 기본 div.prep-inventory 기본 | 바 출입 / 로딩 · 입장 / 문 열림 div.prep-inventory 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.prep-inventory 기본 | 일차 전환 / Day 숫자 · 기본 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.prep-inventory 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.prep-inventory 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 안내 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 div.prep-inventory 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 div.prep-inventory 기본 | 타이틀 화면 div.prep-inventory 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-inventory · 테두리",
+    "sourceSelector": "div.prep-inventory",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 146
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d5d2c54d5da0e8a0-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 145,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 div.prep-inventory::before 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.prep-inventory::before 기본 | 경고 팝업 · 병따개 누락 div.prep-inventory::before 기본 | 경고 팝업 · 재료 초과 div.prep-inventory::before 기본 | 독립 대사창 / 검은 화면 · 기본 div.prep-inventory::before 기본 | 바 출입 / 로딩 · 입장 / 문 열림 div.prep-inventory::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.prep-inventory::before 기본 | 일차 전환 / Day 숫자 · 기본 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.prep-inventory::before 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.prep-inventory::before 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 안내 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 div.prep-inventory::before 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 div.prep-inventory::before 기본 | 타이틀 화면 div.prep-inventory::before 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-inventory::before · 배경",
+    "sourceSelector": "div.prep-inventory::before",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 145
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dde9098d5ff908b2-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 93,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 div.inventory-slot.empty-slot 기본 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.inventory-slot.empty-slot 기본 | 경고 팝업 · 병따개 누락 div.inventory-slot.empty-slot 기본 | 경고 팝업 · 재료 초과 div.inventory-slot.empty-slot 기본 | 독립 대사창 / 검은 화면 · 기본 div.inventory-slot.empty-slot 기본 | 바 출입 / 로딩 · 입장 / 문 열림 div.inventory-slot.empty-slot 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.inventory-slot.empty-slot 기본 | 일차 전환 / Day 숫자 · 기본 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.inventory-slot.empty-slot 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.inventory-slot.empty-slot 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 안내 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 div.inventory-slot.empty-slot 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 div.inventory-slot.empty-slot 기본 | 타이틀 화면 div.inventory-slot.empty-slot 기본 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .inventory-slot.empty-slot · 배경",
+    "sourceSelector": "div.inventory-slot.empty-slot",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/219ecb918d064208-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 53,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 포커스 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 포커스 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 포커스 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 포커스 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 배경 / 포커스",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/362933843dd6d0dc-border.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 53,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 경고 팝업 · 병따개 누락 button.recipe-toggle.prep-recipe-brief 포커스 | 경고 팝업 · 재료 초과 button.recipe-toggle.prep-recipe-brief 포커스 | 독립 대사창 / 검은 화면 · 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.recipe-toggle.prep-recipe-brief 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.recipe-toggle.prep-recipe-brief 포커스 | 일차 전환 / Day 숫자 · 기본 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.recipe-toggle.prep-recipe-brief 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.recipe-toggle.prep-recipe-brief 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.recipe-toggle.prep-recipe-brief 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.recipe-toggle.prep-recipe-brief 포커스 | 타이틀 화면 button.recipe-toggle.prep-recipe-brief 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 테두리 / 포커스",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/37c6d6ee977ba41f-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.prev 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.prev 포커스 | 경고 팝업 · 병따개 누락 button.shelf-arrow.prev 포커스 | 경고 팝업 · 재료 초과 button.shelf-arrow.prev 포커스 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.prev 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.prev 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.prev 포커스 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.prev 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.prev 누름 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.prev 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.prev 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.prev 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.prev 포커스 | 타이틀 화면 button.shelf-arrow.prev 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.prev · 배경 / 포커스",
+    "sourceSelector": "button.shelf-arrow.prev",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f68ff9cc32c57e06-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.next 호버 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.next 호버 | 경고 팝업 · 병따개 누락 button.shelf-arrow.next 호버 | 경고 팝업 · 재료 초과 button.shelf-arrow.next 호버 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.next 호버 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.next 호버 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.next 호버 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.next 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.next 호버 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.next 호버 | 타이틀 화면 button.shelf-arrow.next 호버 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.next · 배경 / 호버",
+    "sourceSelector": "button.shelf-arrow.next",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerOpener",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f1745c0dcef49897-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.shelf-arrow.next 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.shelf-arrow.next 포커스 | 경고 팝업 · 병따개 누락 button.shelf-arrow.next 포커스 | 경고 팝업 · 재료 초과 button.shelf-arrow.next 포커스 | 독립 대사창 / 검은 화면 · 기본 button.shelf-arrow.next 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.shelf-arrow.next 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.shelf-arrow.next 포커스 | 일차 전환 / Day 숫자 · 기본 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.next 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.next 누름 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.next 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.next 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.next 누름 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.next 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.shelf-arrow.next 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.shelf-arrow.next 포커스 | 타이틀 화면 button.shelf-arrow.next 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.next · 배경 / 포커스",
+    "sourceSelector": "button.shelf-arrow.next",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f23024286ca62e73-background.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 78,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 포커스 | 경고 팝업 · 병따개 누락 button.prep-back 포커스 | 경고 팝업 · 재료 초과 button.prep-back 포커스 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 포커스 | 일차 전환 / Day 숫자 · 기본 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 포커스 | 타이틀 화면 button.prep-back 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 배경 / 포커스",
+    "sourceSelector": "button.prep-back",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 78,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6f9455e7abc9c912-border.png",
+    "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 78,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 button.prep-back 포커스 | 재료 선택 / 레시피 패널 · 레시피 상세 펼침 button.prep-back 포커스 | 경고 팝업 · 병따개 누락 button.prep-back 포커스 | 경고 팝업 · 재료 초과 button.prep-back 포커스 | 독립 대사창 / 검은 화면 · 기본 button.prep-back 포커스 | 바 출입 / 로딩 · 입장 / 문 열림 button.prep-back 포커스 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 button.prep-back 포커스 | 일차 전환 / Day 숫자 · 기본 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 잔 선택 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 설명 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.prep-back 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 맥주 잔 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 병따개 선택 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 냉장고 이동 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 병맥주 선택 button.prep-back 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 대화 응답 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 button.prep-back 포커스 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button.prep-back 포커스 | 타이틀 화면 button.prep-back 포커스 재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 테두리 / 포커스",
+    "sourceSelector": "button.prep-back",
+    "sourceStates": [
+      "ui:prep--shelf",
+      "ui:prep--detail",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:terrace:workshop--default",
+      "ui:door:in--in",
+      "ui:door:in--out",
+      "ui:day-transition--default",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 78,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1e543507508fa8f0-background.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 294,
+    "h": 476,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 #prep-recipe-detail 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 배경",
+    "sourceSelector": "#prep-recipe-detail",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 294,
+      "h": 476
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2c9aeccba5f0a608-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 294,
+    "h": 476,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 #prep-recipe-detail 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 테두리",
+    "sourceSelector": "#prep-recipe-detail",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 294,
+      "h": 476
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2512caac89adb04b-shadow.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 390,
+    "h": 572,
+    "partKind": "shadow",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 #prep-recipe-detail 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 #prep-recipe-detail 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 그림자",
+    "sourceSelector": "#prep-recipe-detail",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 294,
+      "h": 476
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0a4522c14dba5f70-border.png",
+    "title": "재료 선택 / 레시피 패널 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 26,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 button 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b2cb0bb8f5783e1d-icon.png",
+    "title": "재료 선택 / 레시피 패널 · 버튼 아이콘 (×)",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 26,
+    "partKind": "icon",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 button 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 아이콘",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "×"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c6e4ae02ef42c6c9-border.png",
+    "title": "재료 선택 / 레시피 패널 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 41,
+    "h": 21,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 span 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 41,
+      "h": 21
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/84e345ed16dfe92e-border.png",
+    "title": "재료 선택 / 레시피 패널 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 48,
+    "h": 21,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 span 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 span 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 21
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/001ede70deba552b-background.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 155,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.recipe-hero 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.recipe-hero 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.recipe-hero 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-hero · 배경",
+    "sourceSelector": "div.recipe-hero",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 155
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c0a69a9b61b7b2d9-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 155,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.recipe-hero 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.recipe-hero 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.recipe-hero 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-hero · 테두리",
+    "sourceSelector": "div.recipe-hero",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 155
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d0d3ab5555d6d0b3-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.recipe-icon-grid 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.recipe-icon-grid 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.recipe-icon-grid 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-grid · 테두리",
+    "sourceSelector": "div.recipe-icon-grid",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ecd57d7d2d6a64d5-background.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 아이콘 배경",
+    "category": "UI · 기타 분리",
+    "w": 56,
+    "h": 56,
+    "partKind": "background",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.recipe-icon-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.recipe-icon-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.recipe-icon-slot 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-slot · 배경",
+    "sourceSelector": "div.recipe-icon-slot",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 56,
+      "h": 56
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3259b2096eda5499-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 56,
+    "h": 56,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 div.recipe-icon-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.recipe-icon-slot 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.recipe-icon-slot 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-slot · 테두리",
+    "sourceSelector": "div.recipe-icon-slot",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 56,
+      "h": 56
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8d92c5fcdfb2d418-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 15,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 h3 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 h3 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 h3 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · h3 · 테두리",
+    "sourceSelector": "h3",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 15
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11a8f368d85e79ce-border.png",
+    "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 30,
+    "partKind": "border",
+    "contexts": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 li 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 li 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 li 기본 재료 선택 / 레시피 패널 · 레시피 상세 펼침 · li · 테두리",
+    "sourceSelector": "li",
+    "sourceStates": [
+      "ui:prep--detail",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2c577def2110828d-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 div.modal-backdrop 기본 | 정산 / 결과 · 유지비 부족 div.modal-backdrop 기본 | 설정 / 볼륨 / 언어 · 기본 div.modal-backdrop 기본 | 조작 설명 · 기본 div.modal-backdrop 기본 | 대사 기록 · 기본 div.modal-backdrop 기본 | 매출 · 기본 div.modal-backdrop 기본 | 경고 팝업 · 병따개 누락 div.modal-backdrop 기본 | 경고 팝업 · 재료 초과 div.modal-backdrop 기본 정산 / 결과 · 정산 성공 · .modal-backdrop · 배경",
+    "sourceSelector": "div.modal-backdrop",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e76f830d8acb3624-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 654,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 section.modal.wide 기본 | 정산 / 결과 · 유지비 부족 section.modal.wide 기본 | 조작 설명 · 기본 section.modal.wide 기본 정산 / 결과 · 정산 성공 · .modal.wide · 배경",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0fec093afe05a184-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 654,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 section.modal.wide 기본 | 정산 / 결과 · 유지비 부족 section.modal.wide 기본 | 조작 설명 · 기본 section.modal.wide 기본 정산 / 결과 · 정산 성공 · .modal.wide · 테두리",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/edd9f38079201714-shadow.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 996,
+    "h": 750,
+    "partKind": "shadow",
+    "contexts": "정산 / 결과 · 정산 성공 section.modal.wide 기본 | 정산 / 결과 · 유지비 부족 section.modal.wide 기본 | 조작 설명 · 기본 section.modal.wide 기본 정산 / 결과 · 정산 성공 · .modal.wide · 그림자",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 900,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/365631870948fe21-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 div.sales-balance 기본 | 정산 / 결과 · 유지비 부족 div.sales-balance 기본 | 매출 · 기본 div.sales-balance 기본 정산 / 결과 · 정산 성공 · .sales-balance · 배경",
+    "sourceSelector": "div.sales-balance",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5361bf3fd46eacbe-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 61,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 div.sales-balance 기본 | 정산 / 결과 · 유지비 부족 div.sales-balance 기본 | 매출 · 기본 div.sales-balance 기본 정산 / 결과 · 정산 성공 · .sales-balance · 테두리",
+    "sourceSelector": "div.sales-balance",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/50d6eb93c8f71198-background.png",
+    "title": "정산 / 결과 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 203,
+    "h": 79,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 div 기본 | 정산 / 결과 · 유지비 부족 div 기본 | 매출 · 기본 div 기본 정산 / 결과 · 정산 성공 ·  · 배경",
+    "sourceSelector": "div",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 203,
+      "h": 79
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/45491f04285f6834-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 383,
+    "h": 36,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 배경",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 383,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2fa10bcfe3df30b2-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 383,
+    "h": 36,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 테두리",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 383,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4ebcf5d7b55141f7-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 286,
+    "h": 36,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 배경",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 286,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b3f9c4cadc0704d7-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 286,
+    "h": 36,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 테두리",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 286,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/96bceba08d0b8f8e-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 173,
+    "h": 36,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 배경",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 173,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d69f024f92404735-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 173,
+    "h": 36,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 th 기본 | 정산 / 결과 · 유지비 부족 th 기본 | 매출 · 기본 th 기본 정산 / 결과 · 정산 성공 · th · 테두리",
+    "sourceSelector": "th",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 173,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ffb848296fcec126-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 36,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 td.empty 기본 | 정산 / 결과 · 유지비 부족 td.empty 기본 | 매출 · 기본 td.empty 기본 정산 / 결과 · 정산 성공 · td.empty · 테두리",
+    "sourceSelector": "td.empty",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1b325293af8be857-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 248,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 div.upkeep-ledger 기본 | 정산 / 결과 · 유지비 부족 div.upkeep-ledger 기본 정산 / 결과 · 정산 성공 · .upkeep-ledger · 배경",
+    "sourceSelector": "div.upkeep-ledger",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 248
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a19691daca622edd-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 248,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 div.upkeep-ledger 기본 | 정산 / 결과 · 유지비 부족 div.upkeep-ledger 기본 정산 / 결과 · 정산 성공 · .upkeep-ledger · 테두리",
+    "sourceSelector": "div.upkeep-ledger",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 248
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5818ce82f1f173ef-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 div.ledger-subtotal 기본 | 정산 / 결과 · 유지비 부족 div.ledger-subtotal 기본 정산 / 결과 · 정산 성공 · .ledger-subtotal · 테두리",
+    "sourceSelector": "div.ledger-subtotal",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/31e1a08502a799f4-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 24,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 small.badge 기본 | 정산 / 결과 · 유지비 부족 small.badge 기본 정산 / 결과 · 정산 성공 · small.badge · 배경",
+    "sourceSelector": "small.badge",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ae5c341f63eed63f-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 24,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 small.badge 기본 | 정산 / 결과 · 유지비 부족 small.badge 기본 정산 / 결과 · 정산 성공 · small.badge · 테두리",
+    "sourceSelector": "small.badge",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/723d8a72c1762f26-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 48,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 div.ledger-result.good 기본 정산 / 결과 · 정산 성공 · .ledger-result.good · 테두리",
+    "sourceSelector": "div.ledger-result.good",
+    "sourceStates": [
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/63d6d31673e1fd05-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 898,
+    "h": 72,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 div.settlement-actions 기본 정산 / 결과 · 정산 성공 · .settlement-actions · 배경",
+    "sourceSelector": "div.settlement-actions",
+    "sourceStates": [
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 898,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8fbdc6d18d921817-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 898,
+    "h": 72,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 div.settlement-actions 기본 정산 / 결과 · 정산 성공 · .settlement-actions · 테두리",
+    "sourceSelector": "div.settlement-actions",
+    "sourceStates": [
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 898,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a02f99bff3684620-background.png",
+    "title": "정산 / 결과 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 129,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 button 기본 | 정산 / 결과 · 정산 성공 button 호버 | 정산 / 결과 · 정산 성공 button 누름 | 정산 / 결과 · 유지비 부족 button 기본 | 정산 / 결과 · 유지비 부족 button 호버 | 정산 / 결과 · 유지비 부족 button 누름 정산 / 결과 · 정산 성공 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 129,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6572a540f82ae39e-border.png",
+    "title": "정산 / 결과 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 129,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 button 기본 | 정산 / 결과 · 정산 성공 button 호버 | 정산 / 결과 · 정산 성공 button 누름 | 정산 / 결과 · 유지비 부족 button 기본 | 정산 / 결과 · 유지비 부족 button 호버 | 정산 / 결과 · 유지비 부족 button 누름 정산 / 결과 · 정산 성공 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 129,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7da135278bc3a8a2-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 162,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 button.primary 기본 | 정산 / 결과 · 정산 성공 button.primary 호버 | 정산 / 결과 · 정산 성공 button.primary 누름 정산 / 결과 · 정산 성공 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 162,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/79f2333550e44c11-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 162,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 button.primary 기본 | 정산 / 결과 · 정산 성공 button.primary 호버 | 정산 / 결과 · 정산 성공 button.primary 누름 정산 / 결과 · 정산 성공 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--settlement",
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 162,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/afdb22f4bd163a14-background.png",
+    "title": "정산 / 결과 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 129,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 button 포커스 | 정산 / 결과 · 유지비 부족 button 포커스 정산 / 결과 · 정산 성공 ·  · 배경 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 129,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dc7c28e89b22a5c9-border.png",
+    "title": "정산 / 결과 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 129,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 button 포커스 | 정산 / 결과 · 유지비 부족 button 포커스 정산 / 결과 · 정산 성공 ·  · 테두리 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:settlement--settlement",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 129,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8b9522af69f8dc95-background.png",
+    "title": "정산 / 결과 · 정산 성공 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 162,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 정산 성공 button.primary 포커스 정산 / 결과 · 정산 성공 · .primary · 배경 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 162,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8966277588751d86-border.png",
+    "title": "정산 / 결과 · 정산 성공 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 162,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 정산 성공 button.primary 포커스 정산 / 결과 · 정산 성공 · .primary · 테두리 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:settlement--settlement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 162,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/784c8ccb5ee75c05-border.png",
+    "title": "정산 / 결과 · 유지비 부족 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 48,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 유지비 부족 div.ledger-result.bad 기본 정산 / 결과 · 유지비 부족 · .ledger-result.bad · 테두리",
+    "sourceSelector": "div.ledger-result.bad",
+    "sourceStates": [
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/254ab8a2acfbc6d4-background.png",
+    "title": "정산 / 결과 · 유지비 부족 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 898,
+    "h": 78,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 유지비 부족 div.settlement-actions 기본 정산 / 결과 · 유지비 부족 · .settlement-actions · 배경",
+    "sourceSelector": "div.settlement-actions",
+    "sourceStates": [
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 898,
+      "h": 78
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b6c8935d45bcd870-border.png",
+    "title": "정산 / 결과 · 유지비 부족 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 898,
+    "h": 78,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 유지비 부족 div.settlement-actions 기본 정산 / 결과 · 유지비 부족 · .settlement-actions · 테두리",
+    "sourceSelector": "div.settlement-actions",
+    "sourceStates": [
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 898,
+      "h": 78
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a61c860e068858b6-background.png",
+    "title": "정산 / 결과 · 유지비 부족 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 45,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 유지비 부족 button.danger 기본 | 정산 / 결과 · 유지비 부족 button.danger 호버 | 정산 / 결과 · 유지비 부족 button.danger 누름 정산 / 결과 · 유지비 부족 · .danger · 배경",
+    "sourceSelector": "button.danger",
+    "sourceStates": [
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 118,
+      "h": 45
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/08d01859a3050239-border.png",
+    "title": "정산 / 결과 · 유지비 부족 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 45,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 유지비 부족 button.danger 기본 | 정산 / 결과 · 유지비 부족 button.danger 호버 | 정산 / 결과 · 유지비 부족 button.danger 누름 정산 / 결과 · 유지비 부족 · .danger · 테두리",
+    "sourceSelector": "button.danger",
+    "sourceStates": [
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt",
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 118,
+      "h": 45
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/56d6a48709283ee6-background.png",
+    "title": "정산 / 결과 · 유지비 부족 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 45,
+    "partKind": "background",
+    "contexts": "정산 / 결과 · 유지비 부족 button.danger 포커스 정산 / 결과 · 유지비 부족 · .danger · 배경 / 포커스",
+    "sourceSelector": "button.danger",
+    "sourceStates": [
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 118,
+      "h": 45
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/acde890dbf74d648-border.png",
+    "title": "정산 / 결과 · 유지비 부족 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 45,
+    "partKind": "border",
+    "contexts": "정산 / 결과 · 유지비 부족 button.danger 포커스 정산 / 결과 · 유지비 부족 · .danger · 테두리 / 포커스",
+    "sourceSelector": "button.danger",
+    "sourceStates": [
+      "ui:settlement--bankrupt"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 118,
+      "h": 45
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9e4b9f18fb5f2838-background.png",
+    "title": "소지금 알림 / 증감 · 소지금 증가 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 234,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "소지금 알림 / 증감 · 소지금 증가 div.currency-hud.currency-income 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 div.currency-hud.currency-income 기본 소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 배경",
+    "sourceSelector": "div.currency-hud.currency-income",
+    "sourceStates": [
+      "ui:income--income",
+      "ui:income--outside-income"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/58f0e12de1f1f86e-border.png",
+    "title": "소지금 알림 / 증감 · 소지금 증가 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 234,
+    "h": 47,
+    "partKind": "border",
+    "contexts": "소지금 알림 / 증감 · 소지금 증가 div.currency-hud.currency-income 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 div.currency-hud.currency-income 기본 소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 테두리",
+    "sourceSelector": "div.currency-hud.currency-income",
+    "sourceStates": [
+      "ui:income--income",
+      "ui:income--outside-income"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/36480f0c67f55154-shadow.png",
+    "title": "소지금 알림 / 증감 · 소지금 증가 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 330,
+    "h": 143,
+    "partKind": "shadow",
+    "contexts": "소지금 알림 / 증감 · 소지금 증가 div.currency-hud.currency-income 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 div.currency-hud.currency-income 기본 소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 그림자",
+    "sourceSelector": "div.currency-hud.currency-income",
+    "sourceStates": [
+      "ui:income--income",
+      "ui:income--outside-income"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a194d18bf060639f-icon.png",
+    "title": "소지금 알림 / 증감 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 30,
+    "h": 30,
+    "partKind": "icon",
+    "contexts": "소지금 알림 / 증감 · 소지금 증가 svg 기본 | 소지금 알림 / 증감 · 소지금 차감 svg 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 svg 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 svg 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg 기본 소지금 알림 / 증감 · 소지금 증가 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "ui:income--income",
+      "ui:income--expense",
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 30,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f5ee51ef92038e7e-background.png",
+    "title": "소지금 알림 / 증감 · 소지금 차감 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 234,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "소지금 알림 / 증감 · 소지금 차감 div.currency-hud.currency-spending 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 div.currency-hud.currency-spending 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 div.currency-hud.currency-spending 기본 소지금 알림 / 증감 · 소지금 차감 · .currency-hud.currency-spending · 배경",
+    "sourceSelector": "div.currency-hud.currency-spending",
+    "sourceStates": [
+      "ui:income--expense",
+      "ui:income--outside-expense",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/add6239584f776ed-border.png",
+    "title": "소지금 알림 / 증감 · 소지금 차감 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 234,
+    "h": 47,
+    "partKind": "border",
+    "contexts": "소지금 알림 / 증감 · 소지금 차감 div.currency-hud.currency-spending 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 div.currency-hud.currency-spending 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 div.currency-hud.currency-spending 기본 소지금 알림 / 증감 · 소지금 차감 · .currency-hud.currency-spending · 테두리",
+    "sourceSelector": "div.currency-hud.currency-spending",
+    "sourceStates": [
+      "ui:income--expense",
+      "ui:income--outside-expense",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c4c8d899bc547a41-shadow.png",
+    "title": "소지금 알림 / 증감 · 소지금 차감 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 330,
+    "h": 143,
+    "partKind": "shadow",
+    "contexts": "소지금 알림 / 증감 · 소지금 차감 div.currency-hud.currency-spending 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 div.currency-hud.currency-spending 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 div.currency-hud.currency-spending 기본 소지금 알림 / 증감 · 소지금 차감 · .currency-hud.currency-spending · 그림자",
+    "sourceSelector": "div.currency-hud.currency-spending",
+    "sourceStates": [
+      "ui:income--expense",
+      "ui:income--outside-expense",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 234,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/aee05c8f4afdcdff-background.png",
+    "title": "소지금 알림 / 증감 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "background",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 포커스 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 기본 | 재료 획득 알림 / 외부 · 기본 kbd 포커스 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 기본 | 상호작용 키 안내 / E · 상호작용 / E kbd 포커스 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 기본 | 신규 인물 정보 등록 · 외부 거리 kbd 포커스 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 기본 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 포커스 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 오브젝트 관찰 kbd 기본 | 오브젝트 관찰 kbd 누름 | 오브젝트 관찰 kbd 포커스 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 기본 | 외부 상호작용 / 전경 kbd 포커스 | 외부 상호작용 / 전경 kbd 호버 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/989715952bd8702e-border.png",
+    "title": "소지금 알림 / 증감 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 포커스 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 기본 | 재료 획득 알림 / 외부 · 기본 kbd 포커스 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 기본 | 상호작용 키 안내 / E · 상호작용 / E kbd 포커스 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 기본 | 신규 인물 정보 등록 · 외부 거리 kbd 포커스 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 기본 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 포커스 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 오브젝트 관찰 kbd 기본 | 오브젝트 관찰 kbd 누름 | 오브젝트 관찰 kbd 포커스 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 기본 | 외부 상호작용 / 전경 kbd 포커스 | 외부 상호작용 / 전경 kbd 호버 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d7472dab94f58ac8-shadow.png",
+    "title": "소지금 알림 / 증감 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 128,
+    "partKind": "shadow",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 포커스 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 기본 | 재료 획득 알림 / 외부 · 기본 kbd 포커스 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 기본 | 상호작용 키 안내 / E · 상호작용 / E kbd 포커스 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 기본 | 신규 인물 정보 등록 · 외부 거리 kbd 포커스 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 기본 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 포커스 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 오브젝트 관찰 kbd 기본 | 오브젝트 관찰 kbd 누름 | 오브젝트 관찰 kbd 포커스 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 기본 | 외부 상호작용 / 전경 kbd 포커스 | 외부 상호작용 / 전경 kbd 호버 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 그림자",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/01a4a725019168f0-icon.png",
+    "title": "소지금 알림 / 증감 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "icon",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 기본 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 포커스 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 포커스 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 기본 | 재료 획득 알림 / 외부 · 기본 kbd 포커스 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 기본 | 상호작용 키 안내 / E · 상호작용 / E kbd 포커스 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 기본 | 신규 인물 정보 등록 · 외부 거리 kbd 포커스 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 포커스 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 기본 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 포커스 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 포커스 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 오브젝트 관찰 kbd 기본 | 오브젝트 관찰 kbd 누름 | 오브젝트 관찰 kbd 포커스 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 기본 | 외부 상호작용 / 전경 kbd 포커스 | 외부 상호작용 / 전경 kbd 호버 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-inspection",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/df61ed27b53971ce-background.png",
+    "title": "소지금 알림 / 증감 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "background",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 호버 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 배경 / 호버",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a4aca97fbdc3fe63-border.png",
+    "title": "소지금 알림 / 증감 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 호버 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 테두리 / 호버",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/037a4258b6450be5-shadow.png",
+    "title": "소지금 알림 / 증감 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 128,
+    "partKind": "shadow",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 호버 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 그림자 / 호버",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c995289b3599ad05-icon.png",
+    "title": "소지금 알림 / 증감 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "icon",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 호버 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 호버 | 재료 획득 알림 / 외부 · 기본 kbd 호버 | 상호작용 키 안내 / E · 상호작용 / E kbd 호버 | 신규 인물 정보 등록 · 외부 거리 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 호버 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 호버 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 호버 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 호버 | 오브젝트 관찰 kbd 호버 | 외부 상호작용 / 전경 kbd 호버 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 아이콘 / 호버",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-inspection",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ae22b5209240f245-background.png",
+    "title": "소지금 알림 / 증감 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "background",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 배경 / 누름",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9719f3239f0bdae4-border.png",
+    "title": "소지금 알림 / 증감 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 테두리 / 누름",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/04c564bf7a724bc7-shadow.png",
+    "title": "소지금 알림 / 증감 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 128,
+    "partKind": "shadow",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 그림자 / 누름",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0635324ab074528f-icon.png",
+    "title": "소지금 알림 / 증감 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 32,
+    "partKind": "icon",
+    "contexts": "소지금 알림 / 증감 · 외부 거리 · 증가 kbd 누름 | 소지금 알림 / 증감 · 외부 거리 · 차감 kbd 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 kbd 누름 | 재료 획득 알림 / 외부 · 기본 kbd 누름 | 상호작용 키 안내 / E · 상호작용 / E kbd 누름 | 신규 인물 정보 등록 · 외부 거리 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 상승 kbd 누름 | 호감도 상승 / 하락 · 외부 거리 · 하락 kbd 누름 | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 kbd 누름 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 kbd 누름 | 외부 상호작용 / 전경 kbd 누름 소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 아이콘 / 누름",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:income--outside-income",
+      "ui:income--outside-expense",
+      "ui:warnings--homeward",
+      "ui:exterior:purchase--default",
+      "ui:exterior:street--e",
+      "popup:meet--outside",
+      "popup:affinity--outside-up",
+      "popup:affinity--outside-down",
+      "popup:event--outside",
+      "popup:goal--outside-new",
+      "popup:goal--outside-complete",
+      "fixture-outside-key"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/054d2a1732438c75-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 div.modal-backdrop.daily-unlocks-backdrop 기본 | 신규 재료·레시피 해금 · 2일차 해금 div.modal-backdrop.daily-unlocks-backdrop 기본 | 신규 재료·레시피 해금 · 3일차 해금 div.modal-backdrop.daily-unlocks-backdrop 기본 | 히든 칵테일 해금 · 기본 div.modal-backdrop.daily-unlocks-backdrop 기본 신규 재료·레시피 해금 · 1일차 해금 · .modal-backdrop.daily-unlocks-backdrop · 배경",
+    "sourceSelector": "div.modal-backdrop.daily-unlocks-backdrop",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/db7017e6a1bfeb62-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 507,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 배경",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 507
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ca0fce44577c99a6-border.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 507,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 테두리",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 507
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/81b929b9d6c11b0a-shadow.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 1176,
+    "h": 603,
+    "partKind": "shadow",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 그림자",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-1"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 1080,
+      "h": 507
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/92d9010836c77cca-border.png",
+    "title": "신규 재료·레시피 해금 · 제목 영역 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1018,
+    "h": 115,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 header 기본 | 신규 재료·레시피 해금 · 2일차 해금 header 기본 | 신규 재료·레시피 해금 · 3일차 해금 header 기본 신규 재료·레시피 해금 · 1일차 해금 ·  · 테두리",
+    "sourceSelector": "header",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1018,
+      "h": 115
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5c4c970142c690c7-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 55,
+    "h": 23,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 span.unlock-day 기본 | 신규 재료·레시피 해금 · 2일차 해금 span.unlock-day 기본 | 신규 재료·레시피 해금 · 3일차 해금 span.unlock-day 기본 신규 재료·레시피 해금 · 1일차 해금 · .unlock-day · 배경",
+    "sourceSelector": "span.unlock-day",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9d53f3214af8c2d7-border.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 55,
+    "h": 23,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 span.unlock-day 기본 | 신규 재료·레시피 해금 · 2일차 해금 span.unlock-day 기본 | 신규 재료·레시피 해금 · 3일차 해금 span.unlock-day 기본 신규 재료·레시피 해금 · 1일차 해금 · .unlock-day · 테두리",
+    "sourceSelector": "span.unlock-day",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/61b43470b6700a67-background.png",
+    "title": "신규 재료·레시피 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 18,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 span 기본 | 신규 재료·레시피 해금 · 2일차 해금 span 기본 | 신규 재료·레시피 해금 · 3일차 해금 span 기본 신규 재료·레시피 해금 · 1일차 해금 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0fdb0ee204818246-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 116,
+    "h": 102,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 article.unlock-card 기본 | 신규 재료·레시피 해금 · 2일차 해금 article.unlock-card 기본 신규 재료·레시피 해금 · 1일차 해금 · article.unlock-card · 배경",
+    "sourceSelector": "article.unlock-card",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/adc410b9675247cc-border.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 116,
+    "h": 102,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 article.unlock-card 기본 | 신규 재료·레시피 해금 · 2일차 해금 article.unlock-card 기본 신규 재료·레시피 해금 · 1일차 해금 · article.unlock-card · 테두리",
+    "sourceSelector": "article.unlock-card",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/711ba1e49b82662e-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 106,
+    "h": 58,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 div.unlock-art 기본 | 신규 재료·레시피 해금 · 2일차 해금 div.unlock-art 기본 신규 재료·레시피 해금 · 1일차 해금 · .unlock-art · 배경",
+    "sourceSelector": "div.unlock-art",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 106,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2ca43c39e467556b-border.png",
+    "title": "신규 재료·레시피 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1018,
+    "h": 60,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 footer 기본 | 신규 재료·레시피 해금 · 2일차 해금 footer 기본 | 신규 재료·레시피 해금 · 3일차 해금 footer 기본 신규 재료·레시피 해금 · 1일차 해금 ·  · 테두리",
+    "sourceSelector": "footer",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1018,
+      "h": 60
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b72f0e86fcab7729-background.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 230,
+    "h": 41,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 포커스 신규 재료·레시피 해금 · 1일차 해금 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 230,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f83dd69a24a9e213-border.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 230,
+    "h": 41,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 1일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 1일차 해금 button.primary 포커스 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 2일차 해금 button.primary 포커스 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 기본 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 호버 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 누름 | 신규 재료·레시피 해금 · 3일차 해금 button.primary 포커스 신규 재료·레시피 해금 · 1일차 해금 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-1",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-2",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3",
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 230,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1e08b2fc0a84ef16-background.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 618,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 배경",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 618
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/53a5a001f9dcd516-border.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 618,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 테두리",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 618
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/944ee882a25c1b5c-shadow.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 1176,
+    "h": 714,
+    "partKind": "shadow",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 그림자",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 1080,
+      "h": 618
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4a5dd11676776237-background.png",
+    "title": "신규 재료·레시피 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 18,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 span 기본 신규 재료·레시피 해금 · 2일차 해금 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/66706c79115690a9-background.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 116,
+    "h": 119,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 article.unlock-card 기본 신규 재료·레시피 해금 · 2일차 해금 · article.unlock-card · 배경",
+    "sourceSelector": "article.unlock-card",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 119
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e410296725134311-border.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 116,
+    "h": 119,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 2일차 해금 article.unlock-card 기본 신규 재료·레시피 해금 · 2일차 해금 · article.unlock-card · 테두리",
+    "sourceSelector": "article.unlock-card",
+    "sourceStates": [
+      "ui:unlock--day-2"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 119
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b8e7abf9b3e9cbf2-background.png",
+    "title": "신규 재료·레시피 해금 · 3일차 해금 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 329,
+    "partKind": "background",
+    "contexts": "신규 재료·레시피 해금 · 3일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 배경",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 329
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/be6ed26c46bed8b5-border.png",
+    "title": "신규 재료·레시피 해금 · 3일차 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1080,
+    "h": 329,
+    "partKind": "border",
+    "contexts": "신규 재료·레시피 해금 · 3일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 테두리",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1080,
+      "h": 329
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2f6c223f7abdc24e-shadow.png",
+    "title": "신규 재료·레시피 해금 · 3일차 해금 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 1176,
+    "h": 425,
+    "partKind": "shadow",
+    "contexts": "신규 재료·레시피 해금 · 3일차 해금 section.daily-unlocks 기본 신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 그림자",
+    "sourceSelector": "section.daily-unlocks",
+    "sourceStates": [
+      "ui:unlock--day-3"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 1080,
+      "h": 329
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7bf93e78f030d006-background.png",
+    "title": "단골 정보 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 217,
+    "h": 316,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 button.guest-card.unmet 기본 | 단골 정보 · 기본 button.guest-card.unmet 누름 단골 정보 · 기본 · .guest-card.unmet · 배경",
+    "sourceSelector": "button.guest-card.unmet",
+    "sourceStates": [
+      "ui:dossier--default",
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 217,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/84526db4cfbb3b73-background.png",
+    "title": "단골 정보 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 217,
+    "h": 316,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 button.guest-card.unmet::after 기본 | 단골 정보 · 기본 button.guest-card.unmet::after 누름 단골 정보 · 기본 · .guest-card.unmet::after · 배경",
+    "sourceSelector": "button.guest-card.unmet::after",
+    "sourceStates": [
+      "ui:dossier--default",
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 217,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/80dab06bfec08c1c-background.png",
+    "title": "단골 정보 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 409,
+    "h": 393,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 span 기본 단골 정보 · 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 409,
+      "h": 393
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/37e24765e6fbcd19-background.png",
+    "title": "단골 정보 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 409,
+    "h": 393,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 span 기본 단골 정보 · 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 409,
+      "h": 393
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/87ba54f59cc087e1-background.png",
+    "title": "단골 정보 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 409,
+    "h": 393,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 span 기본 단골 정보 · 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 409,
+      "h": 393
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f9d58ccfd990368f-background.png",
+    "title": "단골 정보 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 409,
+    "h": 393,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 span 기본 단골 정보 · 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 409,
+      "h": 393
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/17b5ba261c912475-background.png",
+    "title": "단골 정보 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 409,
+    "h": 393,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 span 기본 단골 정보 · 기본 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 409,
+      "h": 393
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/173e571f04ffae73-background.png",
+    "title": "단골 정보 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 48,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 footer.dossier-footer 기본 단골 정보 · 기본 · .dossier-footer · 배경",
+    "sourceSelector": "footer.dossier-footer",
+    "sourceStates": [
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e0ba30620dbe9090-background.png",
+    "title": "단골 정보 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 217,
+    "h": 316,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 button.guest-card.unmet 호버 | 단골 정보 · 기본 button.guest-card.unmet 포커스 단골 정보 · 기본 · .guest-card.unmet · 배경 / 호버",
+    "sourceSelector": "button.guest-card.unmet",
+    "sourceStates": [
+      "ui:dossier--default",
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 217,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/44494f21d0c2abdc-background.png",
+    "title": "단골 정보 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 6,
+    "h": 316,
+    "partKind": "background",
+    "contexts": "단골 정보 · 기본 button.guest-card.unmet::after 호버 | 단골 정보 · 기본 button.guest-card.unmet::after 포커스 단골 정보 · 기본 · .guest-card.unmet::after · 배경 / 호버",
+    "sourceSelector": "button.guest-card.unmet::after",
+    "sourceStates": [
+      "ui:dossier--default",
+      "ui:dossier--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0170a79f75d46c90-background.png",
+    "title": "레시피 목록 / 상세 / 잠김 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 428,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "레시피 목록 / 상세 / 잠김 · 기본 aside.side-panel.resource-recipe-list 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 aside.side-panel.resource-recipe-list 기본 | 맥주 제조 튜토리얼 · 맥주 레시피 aside.side-panel.resource-recipe-list 기본 레시피 목록 / 상세 / 잠김 · 기본 · .side-panel.resource-recipe-list · 배경",
+    "sourceSelector": "aside.side-panel.resource-recipe-list",
+    "sourceStates": [
+      "ui:recipes--default",
+      "popup:bar-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 428,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a6cb3aa906ac18a6-background.png",
+    "title": "레시피 목록 / 상세 / 잠김 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 355,
+    "h": 88,
+    "partKind": "background",
+    "contexts": "레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card 기본 | 레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card.locked 기본 | 레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card 누름 | 레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card.locked 호버 | 레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card.locked 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card.locked 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card.locked 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card.locked 누름 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card 기본 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card.locked 기본 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card 누름 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card.locked 호버 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card.locked 누름 레시피 목록 / 상세 / 잠김 · 기본 · .recipe-card · 배경",
+    "sourceSelector": "button.recipe-card",
+    "sourceStates": [
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "ui:recipes--default",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 355,
+      "h": 88
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3d0ee2b6d2921a89-background.png",
+    "title": "레시피 목록 / 상세 / 잠김 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 355,
+    "h": 88,
+    "partKind": "background",
+    "contexts": "레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card 호버 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card 호버 레시피 목록 / 상세 / 잠김 · 기본 · .recipe-card · 배경 / 호버",
+    "sourceSelector": "button.recipe-card",
+    "sourceStates": [
+      "ui:recipes--default",
+      "popup:beer-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 355,
+      "h": 88
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fdf5b0009c78458a-background.png",
+    "title": "레시피 목록 / 상세 / 잠김 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 355,
+    "h": 88,
+    "partKind": "background",
+    "contexts": "레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card 포커스 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card 포커스 레시피 목록 / 상세 / 잠김 · 기본 · .recipe-card · 배경 / 포커스",
+    "sourceSelector": "button.recipe-card",
+    "sourceStates": [
+      "ui:recipes--default",
+      "popup:beer-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 355,
+      "h": 88
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/76a1c1a036ea7e74-background.png",
+    "title": "레시피 목록 / 상세 / 잠김 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 355,
+    "h": 88,
+    "partKind": "background",
+    "contexts": "레시피 목록 / 상세 / 잠김 · 기본 button.recipe-card.locked 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card.locked 포커스 | 맥주 제조 튜토리얼 · 맥주 레시피 button.recipe-card.locked 포커스 레시피 목록 / 상세 / 잠김 · 기본 · .recipe-card.locked · 배경 / 포커스",
+    "sourceSelector": "button.recipe-card.locked",
+    "sourceStates": [
+      "ui:recipes--default",
+      "popup:bar-guides--recipeSelect",
+      "popup:beer-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 355,
+      "h": 88
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/71cc6f7b7e91b812-background.png",
+    "title": "말풍선 / 2인 구도 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 494,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "말풍선 / 2인 구도 · 기본 span.dialogue-surface 기본 말풍선 / 2인 구도 · 기본 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:pair--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 494,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4e007a6d69844056-border.png",
+    "title": "말풍선 / 2인 구도 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 494,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "말풍선 / 2인 구도 · 기본 span.dialogue-surface 기본 말풍선 / 2인 구도 · 기본 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:pair--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 494,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/561603c18f46a649-background.png",
+    "title": "말풍선 / 2인 구도 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 27,
+    "h": 27,
+    "partKind": "background",
+    "contexts": "말풍선 / 2인 구도 · 기본 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 span.dialogue-surface::before 기본 말풍선 / 2인 구도 · 기본 · .dialogue-surface::before · 배경",
+    "sourceSelector": "span.dialogue-surface::before",
+    "sourceStates": [
+      "ui:pair--default",
+      "ui:solo--order",
+      "ui:solo--reask"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/60c0e75074ae6815-border.png",
+    "title": "말풍선 / 2인 구도 · 기본 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 27,
+    "h": 27,
+    "partKind": "border",
+    "contexts": "말풍선 / 2인 구도 · 기본 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 span.dialogue-surface::before 기본 말풍선 / 2인 구도 · 기본 · .dialogue-surface::before · 테두리",
+    "sourceSelector": "span.dialogue-surface::before",
+    "sourceStates": [
+      "ui:pair--default",
+      "ui:solo--order",
+      "ui:solo--reask"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/34e1eec2cd6851bd-icon.png",
+    "title": "말풍선 / 2인 구도 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 16,
+    "h": 12,
+    "partKind": "icon",
+    "contexts": "말풍선 / 2인 구도 · 기본 svg 기본 | 말풍선 / 1인 · 단골 1인 대화 svg 기본 말풍선 / 2인 구도 · 기본 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "ui:pair--default",
+      "ui:solo--regular"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 12
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11fc21b6f3b1f778-background.png",
+    "title": "말풍선 / 1인 · 단골 1인 대화 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 306,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 단골 1인 대화 span.dialogue-surface 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 span.dialogue-surface 기본 말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--regular",
+      "popup:serving-hud--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 306,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ead6a964a1202276-border.png",
+    "title": "말풍선 / 1인 · 단골 1인 대화 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 306,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 단골 1인 대화 span.dialogue-surface 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 span.dialogue-surface 기본 말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--regular",
+      "popup:serving-hud--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 306,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3dd7c468e3b1639b-background.png",
+    "title": "말풍선 / 1인 · 단골 1인 대화 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 27,
+    "h": 27,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 단골 1인 대화 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 입장 / 점멸 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 3좌석 점유 span.dialogue-surface::before 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 span.dialogue-surface::before 기본 말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface::before · 배경",
+    "sourceSelector": "span.dialogue-surface::before",
+    "sourceStates": [
+      "ui:solo--regular",
+      "ui:solo--reorder",
+      "ui:indicators--arrival",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "popup:serving-hud--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/031f6de92cb6493f-border.png",
+    "title": "말풍선 / 1인 · 단골 1인 대화 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 27,
+    "h": 27,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 단골 1인 대화 span.dialogue-surface::before 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 입장 / 점멸 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span.dialogue-surface::before 기본 | 좌석 인디케이터 · 3좌석 점유 span.dialogue-surface::before 기본 | 코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공 span.dialogue-surface::before 기본 말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface::before · 테두리",
+    "sourceSelector": "span.dialogue-surface::before",
+    "sourceStates": [
+      "ui:solo--regular",
+      "ui:solo--reorder",
+      "ui:indicators--arrival",
+      "ui:indicators--exit",
+      "ui:indicators--full",
+      "popup:serving-hud--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a01c4ff0fe548a08-background.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 313,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 주문 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--order"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 313,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/32f60be320a33cf1-border.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 313,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 주문 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--order"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 313,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2fa29b14fec71627-background.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 316,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--reask"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 316,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/893c985a57abc9b6-border.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 316,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--reask"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 316,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2e1655fed37eb282-background.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 68,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.tray 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.tray 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.tray 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.tray 기본 | 서비스 패널 · 기본 div.tray 기본 | 설정 / 볼륨 / 언어 · 기본 div.tray 기본 | 조작 설명 · 기본 div.tray 기본 | 대사 기록 · 기본 div.tray 기본 | 매출 · 기본 div.tray 기본 | 히든 칵테일 해금 · 기본 div.tray 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .tray · 배경",
+    "sourceSelector": "div.tray",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/17d2ab105f7e43a7-border.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 68,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.tray 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.tray 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.tray 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.tray 기본 | 서비스 패널 · 기본 div.tray 기본 | 설정 / 볼륨 / 언어 · 기본 div.tray 기본 | 조작 설명 · 기본 div.tray 기본 | 대사 기록 · 기본 div.tray 기본 | 매출 · 기본 div.tray 기본 | 히든 칵테일 해금 · 기본 div.tray 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .tray · 테두리",
+    "sourceSelector": "div.tray",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d622a585937f5938-background.png",
+    "title": "말풍선 / 1인 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 82,
+    "h": 52,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 누름 | 서비스 패널 · 기본 button 기본 | 서비스 패널 · 기본 button 호버 | 서비스 패널 · 기본 button 누름 | 설정 / 볼륨 / 언어 · 기본 button 기본 | 설정 / 볼륨 / 언어 · 기본 button 호버 | 설정 / 볼륨 / 언어 · 기본 button 누름 | 조작 설명 · 기본 button 기본 | 조작 설명 · 기본 button 호버 | 조작 설명 · 기본 button 누름 | 대사 기록 · 기본 button 기본 | 대사 기록 · 기본 button 호버 | 대사 기록 · 기본 button 누름 | 매출 · 기본 button 기본 | 매출 · 기본 button 호버 | 매출 · 기본 button 누름 | 히든 칵테일 해금 · 기본 button 기본 | 히든 칵테일 해금 · 기본 button 호버 | 히든 칵테일 해금 · 기본 button 누름 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 82,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7846310aeb5897a3-border.png",
+    "title": "말풍선 / 1인 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 82,
+    "h": 52,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 누름 | 서비스 패널 · 기본 button 기본 | 서비스 패널 · 기본 button 호버 | 서비스 패널 · 기본 button 누름 | 설정 / 볼륨 / 언어 · 기본 button 기본 | 설정 / 볼륨 / 언어 · 기본 button 호버 | 설정 / 볼륨 / 언어 · 기본 button 누름 | 조작 설명 · 기본 button 기본 | 조작 설명 · 기본 button 호버 | 조작 설명 · 기본 button 누름 | 대사 기록 · 기본 button 기본 | 대사 기록 · 기본 button 호버 | 대사 기록 · 기본 button 누름 | 매출 · 기본 button 기본 | 매출 · 기본 button 호버 | 매출 · 기본 button 누름 | 히든 칵테일 해금 · 기본 button 기본 | 히든 칵테일 해금 · 기본 button 호버 | 히든 칵테일 해금 · 기본 button 누름 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 82,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0ed3ff68deb15c56-background.png",
+    "title": "말풍선 / 1인 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 18,
+    "h": 19,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 기본 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 호버 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 누름 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 포커스 | 서비스 패널 · 기본 kbd 기본 | 서비스 패널 · 기본 kbd 호버 | 서비스 패널 · 기본 kbd 누름 | 서비스 패널 · 기본 kbd 포커스 | 설정 / 볼륨 / 언어 · 기본 kbd 기본 | 설정 / 볼륨 / 언어 · 기본 kbd 호버 | 설정 / 볼륨 / 언어 · 기본 kbd 누름 | 설정 / 볼륨 / 언어 · 기본 kbd 포커스 | 조작 설명 · 기본 kbd 기본 | 조작 설명 · 기본 kbd 호버 | 조작 설명 · 기본 kbd 누름 | 조작 설명 · 기본 kbd 포커스 | 대사 기록 · 기본 kbd 기본 | 대사 기록 · 기본 kbd 호버 | 대사 기록 · 기본 kbd 누름 | 대사 기록 · 기본 kbd 포커스 | 매출 · 기본 kbd 기본 | 매출 · 기본 kbd 호버 | 매출 · 기본 kbd 누름 | 매출 · 기본 kbd 포커스 | 히든 칵테일 해금 · 기본 kbd 기본 | 히든 칵테일 해금 · 기본 kbd 호버 | 히든 칵테일 해금 · 기본 kbd 누름 | 히든 칵테일 해금 · 기본 kbd 포커스 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a041caa9cba19c3f-border.png",
+    "title": "말풍선 / 1인 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 18,
+    "h": 19,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 기본 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 호버 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 누름 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 포커스 | 서비스 패널 · 기본 kbd 기본 | 서비스 패널 · 기본 kbd 호버 | 서비스 패널 · 기본 kbd 누름 | 서비스 패널 · 기본 kbd 포커스 | 설정 / 볼륨 / 언어 · 기본 kbd 기본 | 설정 / 볼륨 / 언어 · 기본 kbd 호버 | 설정 / 볼륨 / 언어 · 기본 kbd 누름 | 설정 / 볼륨 / 언어 · 기본 kbd 포커스 | 조작 설명 · 기본 kbd 기본 | 조작 설명 · 기본 kbd 호버 | 조작 설명 · 기본 kbd 누름 | 조작 설명 · 기본 kbd 포커스 | 대사 기록 · 기본 kbd 기본 | 대사 기록 · 기본 kbd 호버 | 대사 기록 · 기본 kbd 누름 | 대사 기록 · 기본 kbd 포커스 | 매출 · 기본 kbd 기본 | 매출 · 기본 kbd 호버 | 매출 · 기본 kbd 누름 | 매출 · 기본 kbd 포커스 | 히든 칵테일 해금 · 기본 kbd 기본 | 히든 칵테일 해금 · 기본 kbd 호버 | 히든 칵테일 해금 · 기본 kbd 누름 | 히든 칵테일 해금 · 기본 kbd 포커스 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f168c306f7cc823b-icon.png",
+    "title": "말풍선 / 1인 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 18,
+    "h": 19,
+    "partKind": "icon",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 kbd 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 기본 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 호버 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 누름 | 좌석 인디케이터 · 손님 있음 / 일반 kbd 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 kbd 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 kbd 포커스 | 서비스 패널 · 기본 kbd 기본 | 서비스 패널 · 기본 kbd 호버 | 서비스 패널 · 기본 kbd 누름 | 서비스 패널 · 기본 kbd 포커스 | 설정 / 볼륨 / 언어 · 기본 kbd 기본 | 설정 / 볼륨 / 언어 · 기본 kbd 호버 | 설정 / 볼륨 / 언어 · 기본 kbd 누름 | 설정 / 볼륨 / 언어 · 기본 kbd 포커스 | 조작 설명 · 기본 kbd 기본 | 조작 설명 · 기본 kbd 호버 | 조작 설명 · 기본 kbd 누름 | 조작 설명 · 기본 kbd 포커스 | 대사 기록 · 기본 kbd 기본 | 대사 기록 · 기본 kbd 호버 | 대사 기록 · 기본 kbd 누름 | 대사 기록 · 기본 kbd 포커스 | 매출 · 기본 kbd 기본 | 매출 · 기본 kbd 호버 | 매출 · 기본 kbd 누름 | 매출 · 기본 kbd 포커스 | 히든 칵테일 해금 · 기본 kbd 기본 | 히든 칵테일 해금 · 기본 kbd 호버 | 히든 칵테일 해금 · 기본 kbd 누름 | 히든 칵테일 해금 · 기본 kbd 포커스 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 19
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/72baa140ba04134e-background.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 275,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.remix-context.original-service-tip 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .remix-context.original-service-tip · 배경",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 275,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/caf0e764218bb583-border.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 275,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 손님 있음 / 일반 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 div.remix-context.original-service-tip 기본 말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .remix-context.original-service-tip · 테두리",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 275,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a2ee0c168d533ff1-background.png",
+    "title": "말풍선 / 1인 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 82,
+    "h": 52,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 포커스 | 서비스 패널 · 기본 button 포커스 | 설정 / 볼륨 / 언어 · 기본 button 포커스 | 조작 설명 · 기본 button 포커스 | 대사 기록 · 기본 button 포커스 | 매출 · 기본 button 포커스 | 히든 칵테일 해금 · 기본 button 포커스 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 배경 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 82,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/79809c4ffe961e31-border.png",
+    "title": "말풍선 / 1인 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 82,
+    "h": 52,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 button 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button 포커스 | 서비스 패널 · 기본 button 포커스 | 설정 / 볼륨 / 언어 · 기본 button 포커스 | 조작 설명 · 기본 button 포커스 | 대사 기록 · 기본 button 포커스 | 매출 · 기본 button 포커스 | 히든 칵테일 해금 · 기본 button 포커스 말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 테두리 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:solo--reask",
+      "ui:indicators--wait",
+      "ui:indicators--orange",
+      "ui:indicators--red",
+      "ui:overlay:service--default",
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 82,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f44f956ce6dd29d-background.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 282,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 추가 주문 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 추가 주문 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--reorder"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 282,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8d1cf0a0e947ce76-border.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 282,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "말풍선 / 1인 · 일반 손님 / 추가 주문 span.dialogue-surface 기본 말풍선 / 1인 · 일반 손님 / 추가 주문 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:solo--reorder"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 282,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f45594cad85ca676-background.png",
+    "title": "좌석 인디케이터 · 입장 / 점멸 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 269,
+    "h": 108,
+    "partKind": "background",
+    "contexts": "좌석 인디케이터 · 입장 / 점멸 span.dialogue-surface 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span.dialogue-surface 기본 | 좌석 인디케이터 · 3좌석 점유 span.dialogue-surface 기본 좌석 인디케이터 · 입장 / 점멸 · .dialogue-surface · 배경",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:indicators--arrival",
+      "ui:indicators--exit",
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 269,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/20c42794a73f9188-border.png",
+    "title": "좌석 인디케이터 · 입장 / 점멸 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 269,
+    "h": 108,
+    "partKind": "border",
+    "contexts": "좌석 인디케이터 · 입장 / 점멸 span.dialogue-surface 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span.dialogue-surface 기본 | 좌석 인디케이터 · 3좌석 점유 span.dialogue-surface 기본 좌석 인디케이터 · 입장 / 점멸 · .dialogue-surface · 테두리",
+    "sourceSelector": "span.dialogue-surface",
+    "sourceStates": [
+      "ui:indicators--arrival",
+      "ui:indicators--exit",
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 269,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/be89029c307cba1c-background.png",
+    "title": "좌석 인디케이터 · 입장 / 점멸 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 249,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "좌석 인디케이터 · 입장 / 점멸 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 3좌석 점유 div.remix-context.original-service-tip 기본 좌석 인디케이터 · 입장 / 점멸 · .remix-context.original-service-tip · 배경",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:indicators--arrival",
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 249,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/25869397fd577ae8-border.png",
+    "title": "좌석 인디케이터 · 입장 / 점멸 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 249,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "좌석 인디케이터 · 입장 / 점멸 div.remix-context.original-service-tip 기본 | 좌석 인디케이터 · 3좌석 점유 div.remix-context.original-service-tip 기본 좌석 인디케이터 · 입장 / 점멸 · .remix-context.original-service-tip · 테두리",
+    "sourceSelector": "div.remix-context.original-service-tip",
+    "sourceStates": [
+      "ui:indicators--arrival",
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 249,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7d43195e68a999d9-background.png",
+    "title": "좌석 인디케이터 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "좌석 인디케이터 · 인내심 절반 / 주황 span 기본 좌석 인디케이터 · 인내심 절반 / 주황 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--orange"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/db3189de776e10f4-shadow.png",
+    "title": "좌석 인디케이터 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 110,
+    "partKind": "shadow",
+    "contexts": "좌석 인디케이터 · 인내심 절반 / 주황 span 기본 좌석 인디케이터 · 인내심 절반 / 주황 ·  · 그림자",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--orange"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0de9641741d5d5ef-background.png",
+    "title": "좌석 인디케이터 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "좌석 인디케이터 · 인내심 10초 이하 / 빨강 span 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span 기본 좌석 인디케이터 · 인내심 10초 이하 / 빨강 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--red",
+      "ui:indicators--exit"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1eb5495fe7baf26d-shadow.png",
+    "title": "좌석 인디케이터 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 110,
+    "partKind": "shadow",
+    "contexts": "좌석 인디케이터 · 인내심 10초 이하 / 빨강 span 기본 | 좌석 인디케이터 · 퇴장 / 점멸 span 기본 좌석 인디케이터 · 인내심 10초 이하 / 빨강 ·  · 그림자",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--red",
+      "ui:indicators--exit"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c27442e95870e106-background.png",
+    "title": "좌석 인디케이터 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "좌석 인디케이터 · 3좌석 점유 span 기본 좌석 인디케이터 · 3좌석 점유 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/31944b369d9988c8-shadow.png",
+    "title": "좌석 인디케이터 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 110,
+    "partKind": "shadow",
+    "contexts": "좌석 인디케이터 · 3좌석 점유 span 기본 좌석 인디케이터 · 3좌석 점유 ·  · 그림자",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "ui:indicators--full"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 14,
+      "h": 14
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a35c094aa4596aac-background.png",
+    "title": "서비스 패널 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "서비스 패널 · 기본 button.service-scrim 기본 | 서비스 패널 · 기본 button.service-scrim 호버 | 서비스 패널 · 기본 button.service-scrim 누름 서비스 패널 · 기본 · .service-scrim · 배경",
+    "sourceSelector": "button.service-scrim",
+    "sourceStates": [
+      "ui:overlay:service--default",
+      "ui:overlay:service--default",
+      "ui:overlay:service--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/63292c48e24d17c1-background.png",
+    "title": "서비스 패널 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 296,
+    "h": 323,
+    "partKind": "background",
+    "contexts": "서비스 패널 · 기본 #service-panel 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 #service-panel 기본 서비스 패널 · 기본 · #service-panel · 배경",
+    "sourceSelector": "#service-panel",
+    "sourceStates": [
+      "ui:overlay:service--default",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 296,
+      "h": 323
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6502abf3fee5658c-border.png",
+    "title": "서비스 패널 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 296,
+    "h": 323,
+    "partKind": "border",
+    "contexts": "서비스 패널 · 기본 #service-panel 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 #service-panel 기본 서비스 패널 · 기본 · #service-panel · 테두리",
+    "sourceSelector": "#service-panel",
+    "sourceStates": [
+      "ui:overlay:service--default",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 296,
+      "h": 323
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0498033a8380589a-shadow.png",
+    "title": "서비스 패널 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 392,
+    "h": 419,
+    "partKind": "shadow",
+    "contexts": "서비스 패널 · 기본 #service-panel 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 #service-panel 기본 서비스 패널 · 기본 · #service-panel · 그림자",
+    "sourceSelector": "#service-panel",
+    "sourceStates": [
+      "ui:overlay:service--default",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 296,
+      "h": 323
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e4e28faa39f4fd6c-background.png",
+    "title": "서비스 패널 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 254,
+    "h": 55,
+    "partKind": "background",
+    "contexts": "서비스 패널 · 기본 button 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 기본 서비스 패널 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:service--default",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 254,
+      "h": 55
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2be3e241e4f5118b-background.png",
+    "title": "서비스 패널 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "서비스 패널 · 기본 button.service-scrim 포커스 서비스 패널 · 기본 · .service-scrim · 배경 / 포커스",
+    "sourceSelector": "button.service-scrim",
+    "sourceStates": [
+      "ui:overlay:service--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cf84e2eb90a506b9-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 654,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 section.modal 기본 설정 / 볼륨 / 언어 · 기본 · .modal · 배경",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5717e3112b4218bf-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 654,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 section.modal 기본 설정 / 볼륨 / 언어 · 기본 · .modal · 테두리",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c36bd5f070048da8-shadow.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 746,
+    "h": 750,
+    "partKind": "shadow",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 section.modal 기본 설정 / 볼륨 / 언어 · 기본 · .modal · 그림자",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 650,
+      "h": 654
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a585880921658e22-background.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 31,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 | 조작 설명 · 기본 button 기본 | 대사 기록 · 기본 button 기본 | 매출 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 31
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b47ec62fdf6fbfcc-border.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 31,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 | 조작 설명 · 기본 button 기본 | 대사 기록 · 기본 button 기본 | 매출 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 31
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7dbd567b251bddee-icon.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 아이콘 (×)",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 31,
+    "partKind": "icon",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 | 조작 설명 · 기본 button 기본 | 대사 기록 · 기본 button 기본 | 매출 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 아이콘",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "ui:overlay:help--default",
+      "ui:overlay:history--default",
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 31
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "×"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/24bced543484ef8b-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 592,
+    "h": 72,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 div.settings-row 기본 | 설정 / 볼륨 / 언어 · 기본 label.settings-row 기본 설정 / 볼륨 / 언어 · 기본 · .settings-row · 테두리",
+    "sourceSelector": "div.settings-row",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 592,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/eb4e0c206a5d1ab9-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 89,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 배경",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 89,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/026d4f378f3faf29-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 89,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 테두리",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 89,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6bb8ea412f2193f6-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 배경",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2467ae87e4588bd0-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 테두리",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ea65f843382e01ce-background.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b981f630859ae766-border.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/859b82275d2cce92-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 181,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 배경",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 181,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/83bcef41b6976f1a-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 181,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 테두리",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 181,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ed7b28ef0a96a1ca-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 input 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 input 기본 설정 / 볼륨 / 언어 · 기본 · input · 배경",
+    "sourceSelector": "input",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/562aa2add6eb55c9-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 input 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 input 기본 설정 / 볼륨 / 언어 · 기본 · input · 테두리",
+    "sourceSelector": "input",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d8532bcdd2e13a8a-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 592,
+    "h": 62,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 div.dialogue-audio-settings 기본 설정 / 볼륨 / 언어 · 기본 · .dialogue-audio-settings · 테두리",
+    "sourceSelector": "div.dialogue-audio-settings",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 592,
+      "h": 62
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/106cf4de74ec65a9-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 204,
+    "h": 36,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 배경",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 204,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/68d1c5187ce2713b-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 204,
+    "h": 36,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 select 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 select 기본 설정 / 볼륨 / 언어 · 기본 · select · 테두리",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "ui:overlay:settings--default",
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 204,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4f1bdf956d41a755-background.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 95,
+    "h": 34,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 95,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e5fc003fdb094e8f-border.png",
+    "title": "설정 / 볼륨 / 언어 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 95,
+    "h": 34,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 button 기본 설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 95,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/70e1af0f6f264ea4-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 592,
+    "h": 52,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 label.settings-row 기본 설정 / 볼륨 / 언어 · 기본 · label.settings-row · 테두리",
+    "sourceSelector": "label.settings-row",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 592,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2135384d2f967c06-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 13,
+    "h": 13,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 input 기본 설정 / 볼륨 / 언어 · 기본 · input · 배경",
+    "sourceSelector": "input",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 13,
+      "h": 13
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/602032edcbf7d423-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 592,
+    "h": 55,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 div.settings-row 기본 설정 / 볼륨 / 언어 · 기본 · .settings-row · 테두리",
+    "sourceSelector": "div.settings-row",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 592,
+      "h": 55
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/026ccd58ef102932-background.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 18,
+    "partKind": "background",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 #sfx-volume 기본 설정 / 볼륨 / 언어 · 기본 · #sfx-volume · 배경",
+    "sourceSelector": "#sfx-volume",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/acfa4fd773ff7877-border.png",
+    "title": "설정 / 볼륨 / 언어 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 18,
+    "partKind": "border",
+    "contexts": "설정 / 볼륨 / 언어 · 기본 #sfx-volume 기본 설정 / 볼륨 / 언어 · 기본 · #sfx-volume · 테두리",
+    "sourceSelector": "#sfx-volume",
+    "sourceStates": [
+      "ui:overlay:settings--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2b1e15bffae1dd7c-background.png",
+    "title": "조작 설명 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 414,
+    "h": 255,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 section 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "section",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 414,
+      "h": 255
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/be1a0f51aace9aab-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 포커스 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/42ed835d4f54ddc7-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 포커스 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/614480f214515880-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (A)",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "A"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9db38181d296ee96-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d28a5dacdc3a7a79-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 kbd 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 kbd 포커스 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/057f8d20fb8499c0-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 43,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 43,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11c0e2eb4bf7392d-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 43,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 43,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/633ae2363ac1edfc-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Enter)",
+    "category": "UI · 기타 분리",
+    "w": 43,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 43,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Enter"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/95bfb03b2c5a61c1-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 호버 | 병따기 / 제조 기믹 · 기본 kbd 누름 | 병따기 / 제조 기믹 · 기본 kbd 포커스 | 병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 시작 안내 kbd 호버 | 병따기 튜토리얼 · 시작 안내 kbd 누름 | 병따기 튜토리얼 · 시작 안내 kbd 포커스 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 호버 | 병따기 튜토리얼 · 다시 시도 kbd 누름 | 병따기 튜토리얼 · 다시 시도 kbd 포커스 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fc3f669bbab7fdfb-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 호버 | 병따기 / 제조 기믹 · 기본 kbd 누름 | 병따기 / 제조 기믹 · 기본 kbd 포커스 | 병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 시작 안내 kbd 호버 | 병따기 튜토리얼 · 시작 안내 kbd 누름 | 병따기 튜토리얼 · 시작 안내 kbd 포커스 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 호버 | 병따기 튜토리얼 · 다시 시도 kbd 누름 | 병따기 튜토리얼 · 다시 시도 kbd 포커스 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/221b08aebc445acf-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Space)",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 기본 | 병따기 / 제조 기믹 · 기본 kbd 호버 | 병따기 / 제조 기믹 · 기본 kbd 누름 | 병따기 / 제조 기믹 · 기본 kbd 포커스 | 병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 시작 안내 kbd 호버 | 병따기 튜토리얼 · 시작 안내 kbd 누름 | 병따기 튜토리얼 · 시작 안내 kbd 포커스 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 호버 | 병따기 튜토리얼 · 다시 시도 kbd 누름 | 병따기 튜토리얼 · 다시 시도 kbd 포커스 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Space"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/91a72c40dd63b577-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/52ebfa13c50e10b3-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f3e3a7ae1a557b90-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Ctrl)",
+    "category": "UI · 기타 분리",
+    "w": 34,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 34,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Ctrl"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ad7c1b6401832723-background.png",
+    "title": "조작 설명 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 414,
+    "h": 212,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 section 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "section",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 414,
+      "h": 212
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3214fbe5f951e154-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 31,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 31,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3b83589417057d40-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 31,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 31,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7f00734109a74286-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Tab)",
+    "category": "UI · 기타 분리",
+    "w": 31,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 31,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Tab"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/31e036b6a73ae822-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/74a9eaf77c93835c-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ddf2a53e06088729-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 19,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3d35abb66f38ed7a-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 19,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f3c4399c9e21d22d-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Y)",
+    "category": "UI · 기타 분리",
+    "w": 19,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 19,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Y"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5bcd5191611c7adf-background.png",
+    "title": "조작 설명 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cf27bae564841be3-border.png",
+    "title": "조작 설명 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/898f198aa4855d72-icon.png",
+    "title": "조작 설명 · 키 표시 아이콘 (Esc)",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "조작 설명 · 기본 kbd 기본 조작 설명 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Esc"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/91b42bdb98ae65f6-background.png",
+    "title": "조작 설명 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 842,
+    "h": 1,
+    "partKind": "background",
+    "contexts": "조작 설명 · 기본 div.divider 기본 조작 설명 · 기본 · .divider · 배경",
+    "sourceSelector": "div.divider",
+    "sourceStates": [
+      "ui:overlay:help--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 842,
+      "h": 1
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0f2d3441e4a0f356-background.png",
+    "title": "대사 기록 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 191,
+    "partKind": "background",
+    "contexts": "대사 기록 · 기본 section.modal 기본 대사 기록 · 기본 · .modal · 배경",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:history--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 191
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9aae41257deb338d-border.png",
+    "title": "대사 기록 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 191,
+    "partKind": "border",
+    "contexts": "대사 기록 · 기본 section.modal 기본 대사 기록 · 기본 · .modal · 테두리",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:history--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 191
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4c174ff8c7549fa4-shadow.png",
+    "title": "대사 기록 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 746,
+    "h": 287,
+    "partKind": "shadow",
+    "contexts": "대사 기록 · 기본 section.modal 기본 대사 기록 · 기본 · .modal · 그림자",
+    "sourceSelector": "section.modal",
+    "sourceStates": [
+      "ui:overlay:history--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 650,
+      "h": 191
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b262acb2f67a91e6-border.png",
+    "title": "대사 기록 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 592,
+    "h": 82,
+    "partKind": "border",
+    "contexts": "대사 기록 · 기본 div.history-line 기본 대사 기록 · 기본 · .history-line · 테두리",
+    "sourceSelector": "div.history-line",
+    "sourceStates": [
+      "ui:overlay:history--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 592,
+      "h": 82
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e97305fd1a3bd368-background.png",
+    "title": "매출 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 365,
+    "partKind": "background",
+    "contexts": "매출 · 기본 section.modal.wide 기본 매출 · 기본 · .modal.wide · 배경",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 365
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6397653e33aad84a-border.png",
+    "title": "매출 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 365,
+    "partKind": "border",
+    "contexts": "매출 · 기본 section.modal.wide 기본 매출 · 기본 · .modal.wide · 테두리",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 365
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ddb6fddfe16b1846-shadow.png",
+    "title": "매출 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 996,
+    "h": 461,
+    "partKind": "shadow",
+    "contexts": "매출 · 기본 section.modal.wide 기본 매출 · 기본 · .modal.wide · 그림자",
+    "sourceSelector": "section.modal.wide",
+    "sourceStates": [
+      "ui:overlay:sales--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 900,
+      "h": 365
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ccacf2656795cf7c-background.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 820,
+    "h": 528,
+    "partKind": "background",
+    "contexts": "히든 칵테일 해금 · 기본 section.daily-unlocks.johnny-unlock 기본 히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 배경",
+    "sourceSelector": "section.daily-unlocks.johnny-unlock",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 820,
+      "h": 528
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c2d62a90c8d9ff09-border.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 820,
+    "h": 528,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 section.daily-unlocks.johnny-unlock 기본 히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 테두리",
+    "sourceSelector": "section.daily-unlocks.johnny-unlock",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 820,
+      "h": 528
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b081fc81fd6b64c-shadow.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 916,
+    "h": 624,
+    "partKind": "shadow",
+    "contexts": "히든 칵테일 해금 · 기본 section.daily-unlocks.johnny-unlock 기본 히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 그림자",
+    "sourceSelector": "section.daily-unlocks.johnny-unlock",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 820,
+      "h": 528
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fbe96eb71ec26c38-border.png",
+    "title": "히든 칵테일 해금 · 제목 영역 테두리",
+    "category": "UI · 기타 분리",
+    "w": 758,
+    "h": 115,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 header 기본 히든 칵테일 해금 · 기본 ·  · 테두리",
+    "sourceSelector": "header",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 758,
+      "h": 115
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d931aed7cb2befde-background.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 172,
+    "h": 23,
+    "partKind": "background",
+    "contexts": "히든 칵테일 해금 · 기본 span.unlock-day 기본 히든 칵테일 해금 · 기본 · .unlock-day · 배경",
+    "sourceSelector": "span.unlock-day",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 172,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/97ddaa3c1405563e-border.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 172,
+    "h": 23,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 span.unlock-day 기본 히든 칵테일 해금 · 기본 · .unlock-day · 테두리",
+    "sourceSelector": "span.unlock-day",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 172,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1e401d5706465a9c-background.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 339,
+    "h": 266,
+    "partKind": "background",
+    "contexts": "히든 칵테일 해금 · 기본 div.johnny-unlock-drink 기본 히든 칵테일 해금 · 기본 · .johnny-unlock-drink · 배경",
+    "sourceSelector": "div.johnny-unlock-drink",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 339,
+      "h": 266
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/80137f48775d2f40-background.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 389,
+    "h": 63,
+    "partKind": "background",
+    "contexts": "히든 칵테일 해금 · 기본 div.johnny-unlock-item 기본 히든 칵테일 해금 · 기본 · .johnny-unlock-item · 배경",
+    "sourceSelector": "div.johnny-unlock-item",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 389,
+      "h": 63
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/40b443cdff6ea08f-border.png",
+    "title": "히든 칵테일 해금 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 389,
+    "h": 63,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 div.johnny-unlock-item 기본 히든 칵테일 해금 · 기본 · .johnny-unlock-item · 테두리",
+    "sourceSelector": "div.johnny-unlock-item",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 389,
+      "h": 63
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6be85babb9391a06-border.png",
+    "title": "히든 칵테일 해금 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 758,
+    "h": 60,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 footer 기본 히든 칵테일 해금 · 기본 ·  · 테두리",
+    "sourceSelector": "footer",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 758,
+      "h": 60
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5f2cdb7dc03c6d33-background.png",
+    "title": "히든 칵테일 해금 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 230,
+    "h": 41,
+    "partKind": "background",
+    "contexts": "히든 칵테일 해금 · 기본 button.primary 기본 | 히든 칵테일 해금 · 기본 button.primary 호버 | 히든 칵테일 해금 · 기본 button.primary 누름 | 히든 칵테일 해금 · 기본 button.primary 포커스 히든 칵테일 해금 · 기본 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 230,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/729de075db1bdbbc-border.png",
+    "title": "히든 칵테일 해금 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 230,
+    "h": 41,
+    "partKind": "border",
+    "contexts": "히든 칵테일 해금 · 기본 button.primary 기본 | 히든 칵테일 해금 · 기본 button.primary 호버 | 히든 칵테일 해금 · 기본 button.primary 누름 | 히든 칵테일 해금 · 기본 button.primary 포커스 히든 칵테일 해금 · 기본 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 230,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3c6637cf43924e4e-shadow.png",
+    "title": "히든 칵테일 해금 · 기본 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 326,
+    "h": 137,
+    "partKind": "shadow",
+    "contexts": "히든 칵테일 해금 · 기본 button.primary 기본 | 히든 칵테일 해금 · 기본 button.primary 호버 | 히든 칵테일 해금 · 기본 button.primary 누름 | 히든 칵테일 해금 · 기본 button.primary 포커스 히든 칵테일 해금 · 기본 · .primary · 그림자",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default",
+      "ui:overlay:johnnyUnlock--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 230,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/37767111da83f384-background.png",
+    "title": "경고 팝업 · 병따개 누락 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 620,
+    "h": 237,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 병따개 누락 section.modal.ingredient-warning 기본 경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 배경",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--openerWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 620,
+      "h": 237
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/507e16d780052daa-border.png",
+    "title": "경고 팝업 · 병따개 누락 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 620,
+    "h": 237,
+    "partKind": "border",
+    "contexts": "경고 팝업 · 병따개 누락 section.modal.ingredient-warning 기본 경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 테두리",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--openerWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 620,
+      "h": 237
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/709abe475658033f-shadow.png",
+    "title": "경고 팝업 · 병따개 누락 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 716,
+    "h": 333,
+    "partKind": "shadow",
+    "contexts": "경고 팝업 · 병따개 누락 section.modal.ingredient-warning 기본 경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 그림자",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--openerWarning"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 620,
+      "h": 237
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/534edaf0a85e2bd5-background.png",
+    "title": "경고 팝업 · 병따개 누락 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 병따개 누락 button.primary 기본 | 경고 팝업 · 병따개 누락 button.primary 호버 | 경고 팝업 · 병따개 누락 button.primary 누름 | 경고 팝업 · 병따개 누락 button.primary 포커스 | 경고 팝업 · 재료 초과 button.primary 기본 | 경고 팝업 · 재료 초과 button.primary 호버 | 경고 팝업 · 재료 초과 button.primary 누름 | 경고 팝업 · 재료 초과 button.primary 포커스 경고 팝업 · 병따개 누락 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7637a96182466140-border.png",
+    "title": "경고 팝업 · 병따개 누락 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "경고 팝업 · 병따개 누락 button.primary 기본 | 경고 팝업 · 병따개 누락 button.primary 호버 | 경고 팝업 · 병따개 누락 button.primary 누름 | 경고 팝업 · 병따개 누락 button.primary 포커스 | 경고 팝업 · 재료 초과 button.primary 기본 | 경고 팝업 · 재료 초과 button.primary 호버 | 경고 팝업 · 재료 초과 button.primary 누름 | 경고 팝업 · 재료 초과 button.primary 포커스 경고 팝업 · 병따개 누락 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--openerWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning",
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c510a271906102a5-background.png",
+    "title": "경고 팝업 · 재료 초과 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 620,
+    "h": 314,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 재료 초과 section.modal.ingredient-warning 기본 경고 팝업 · 재료 초과 · .modal.ingredient-warning · 배경",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 620,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/072febcc3ba675fa-border.png",
+    "title": "경고 팝업 · 재료 초과 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 620,
+    "h": 314,
+    "partKind": "border",
+    "contexts": "경고 팝업 · 재료 초과 section.modal.ingredient-warning 기본 경고 팝업 · 재료 초과 · .modal.ingredient-warning · 테두리",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 620,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2d5c52049c50a6cc-shadow.png",
+    "title": "경고 팝업 · 재료 초과 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 716,
+    "h": 410,
+    "partKind": "shadow",
+    "contexts": "경고 팝업 · 재료 초과 section.modal.ingredient-warning 기본 경고 팝업 · 재료 초과 · .modal.ingredient-warning · 그림자",
+    "sourceSelector": "section.modal.ingredient-warning",
+    "sourceStates": [
+      "ui:warnings--ingredientWarning"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 620,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/71b4d3c0716fa0ec-background.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 안내 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 대화 응답 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 div.campaign-modal-shade 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 div.campaign-modal-shade 기본 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-modal-shade · 배경",
+    "sourceSelector": "div.campaign-modal-shade",
+    "sourceStates": [
+      "ui:warnings--homeward",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--response",
+      "popup:campaign-dialogs--menu",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4b2faa2d8a76c251-background.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 289,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 section.campaign-card 기본 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "ui:warnings--homeward"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 289
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d23ed5c296795aa6-border.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 289,
+    "partKind": "border",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 section.campaign-card 기본 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "ui:warnings--homeward"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 289
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6c8e0b18b359d7e8-shadow.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 385,
+    "partKind": "shadow",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 section.campaign-card 기본 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "ui:warnings--homeward"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 289
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/906f7c12b6653994-background.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 포커스 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b5fbcb857283565e-border.png",
+    "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 기본 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 호버 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 누름 | 경고 팝업 · 외부 · 귀가 전 할 일 안내 button.primary 포커스 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 안내 button.primary 포커스 경고 팝업 · 외부 · 귀가 전 할 일 안내 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "ui:warnings--homeward",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--notice"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7052011bebd391ce-background.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.opening-hit 기본 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 호버 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 누름 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 배경",
+    "sourceSelector": "button.primary.opening-hit",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3c5dc857f3eaaf1c-border.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.opening-hit 기본 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 호버 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 누름 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 테두리",
+    "sourceSelector": "button.primary.opening-hit",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6d212ece7856b7ad-background.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 46,
+    "partKind": "background",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 기본 | 병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 호버 | 병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 누름 병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ec6714c0dcc67357-border.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 46,
+    "partKind": "border",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 기본 | 병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 호버 | 병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 누름 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 기본 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 호버 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 누름 병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/33ffaf26777e39cd-background.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 포커스 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 배경 / 포커스",
+    "sourceSelector": "button.primary.opening-hit",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/521d394b9f81d1bc-border.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 190,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 포커스 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 테두리 / 포커스",
+    "sourceSelector": "button.primary.opening-hit",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 190,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/da35f792b2da8de6-background.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 46,
+    "partKind": "background",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 포커스 병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경 / 포커스",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fa4e26db8ff9b3bc-border.png",
+    "title": "병따기 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 46,
+    "partKind": "border",
+    "contexts": "병따기 / 제조 기믹 · 기본 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 시작 안내 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 다시 시도 button.primary.gimmick-finish 포커스 | 병따기 튜토리얼 · 완료 button.primary.gimmick-finish 포커스 병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리 / 포커스",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:open--default",
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/01a2ae694ee59291-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 게이지 배경",
+    "category": "UI · 기타 분리",
+    "w": 240,
+    "h": 16,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 div.pour-tilt-track 기본 | 따르기 / 필업 · 필업 div.pour-tilt-track 기본 | 따르기 튜토리얼 · 목표량 확인 div.pour-tilt-track 기본 | 따르기 튜토리얼 · 현재량 / 마치기 div.pour-tilt-track 기본 따르기 / 필업 · 정량 따르기 · .pour-tilt-track · 배경",
+    "sourceSelector": "div.pour-tilt-track",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 16
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/aeb59caeae3a544e-shadow.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 게이지 그림자",
+    "category": "UI · 기타 분리",
+    "w": 336,
+    "h": 112,
+    "partKind": "shadow",
+    "contexts": "따르기 / 필업 · 정량 따르기 div.pour-tilt-track 기본 | 따르기 / 필업 · 필업 div.pour-tilt-track 기본 | 따르기 튜토리얼 · 목표량 확인 div.pour-tilt-track 기본 | 따르기 튜토리얼 · 현재량 / 마치기 div.pour-tilt-track 기본 따르기 / 필업 · 정량 따르기 · .pour-tilt-track · 그림자",
+    "sourceSelector": "div.pour-tilt-track",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 240,
+      "h": 16
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7a182fcd57d7b2de-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 16,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 i.pour-tilt-range 기본 | 따르기 튜토리얼 · 목표량 확인 i.pour-tilt-range 기본 | 따르기 튜토리얼 · 현재량 / 마치기 i.pour-tilt-range 기본 따르기 / 필업 · 정량 따르기 · i.pour-tilt-range · 배경",
+    "sourceSelector": "i.pour-tilt-range",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 16
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/46b6c283867991c3-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 16,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 i.pour-tilt-warning 기본 | 따르기 튜토리얼 · 목표량 확인 i.pour-tilt-warning 기본 | 따르기 튜토리얼 · 현재량 / 마치기 i.pour-tilt-warning 기본 따르기 / 필업 · 정량 따르기 · i.pour-tilt-warning · 배경",
+    "sourceSelector": "i.pour-tilt-warning",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 16
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d434de0ac5fb6ef4-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 4,
+    "h": 26,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 i.pour-tilt-marker 기본 | 따르기 / 필업 · 필업 i.pour-tilt-marker 기본 | 따르기 튜토리얼 · 목표량 확인 i.pour-tilt-marker 기본 | 따르기 튜토리얼 · 현재량 / 마치기 i.pour-tilt-marker 기본 따르기 / 필업 · 정량 따르기 · i.pour-tilt-marker · 배경",
+    "sourceSelector": "i.pour-tilt-marker",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 4,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3bad1fbec4ebdae3-shadow.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 122,
+    "partKind": "shadow",
+    "contexts": "따르기 / 필업 · 정량 따르기 i.pour-tilt-marker 기본 | 따르기 / 필업 · 필업 i.pour-tilt-marker 기본 | 따르기 튜토리얼 · 목표량 확인 i.pour-tilt-marker 기본 | 따르기 튜토리얼 · 현재량 / 마치기 i.pour-tilt-marker 기본 따르기 / 필업 · 정량 따르기 · i.pour-tilt-marker · 그림자",
+    "sourceSelector": "i.pour-tilt-marker",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 4,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f7944058671c0480-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 157,
+    "h": 46,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 기본 | 따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 호버 | 따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 누름 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 기본 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 호버 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 누름 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 기본 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 호버 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 누름 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 기본 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 호버 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 누름 따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 배경",
+    "sourceSelector": "button.pour-finish.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--pour",
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "ui:mini:pour--fill_up",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish",
+      "popup:lesson-pour--finish",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 157,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/590c558b3ce0353a-border.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 157,
+    "h": 46,
+    "partKind": "border",
+    "contexts": "따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 기본 | 따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 호버 | 따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 누름 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 기본 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 호버 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 누름 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 기본 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 호버 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 누름 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 기본 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 호버 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 누름 따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 테두리",
+    "sourceSelector": "button.pour-finish.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--pour",
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "ui:mini:pour--fill_up",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish",
+      "popup:lesson-pour--finish",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 157,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b9c01994265a9ee6-background.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 157,
+    "h": 46,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 포커스 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 포커스 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 포커스 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 포커스 따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 배경 / 포커스",
+    "sourceSelector": "button.pour-finish.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 157,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/78589aa8eebc20a8-border.png",
+    "title": "따르기 / 필업 · 정량 따르기 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 157,
+    "h": 46,
+    "partKind": "border",
+    "contexts": "따르기 / 필업 · 정량 따르기 button.pour-finish.gimmick-finish 포커스 | 따르기 / 필업 · 필업 button.pour-finish.gimmick-finish 포커스 | 따르기 튜토리얼 · 목표량 확인 button.pour-finish.gimmick-finish 포커스 | 따르기 튜토리얼 · 현재량 / 마치기 button.pour-finish.gimmick-finish 포커스 따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 테두리 / 포커스",
+    "sourceSelector": "button.pour-finish.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:pour--pour",
+      "ui:mini:pour--fill_up",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 157,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b28eca808c74499-background.png",
+    "title": "따르기 / 필업 · 필업 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 151,
+    "h": 16,
+    "partKind": "background",
+    "contexts": "따르기 / 필업 · 필업 i.pour-tilt-range 기본 따르기 / 필업 · 필업 · i.pour-tilt-range · 배경",
+    "sourceSelector": "i.pour-tilt-range",
+    "sourceStates": [
+      "ui:mini:pour--fill_up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 151,
+      "h": 16
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0d3ae10a5d01dfc4-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 호버 | 쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 누름 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/991772dffd295638-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 호버 | 쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 누름 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/99bc34f6b418c4be-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 기본 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ebece681252ceaca-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 기본 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bd0ee27027984442-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 629,
+    "h": 589,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-cinema 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-cinema · 배경",
+    "sourceSelector": "div.mix-cinema",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 629,
+      "h": 589
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d85b90416c7b0f63-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 629,
+    "h": 589,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-cinema 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-cinema 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-cinema · 테두리",
+    "sourceSelector": "div.mix-cinema",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 629,
+      "h": 589
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c16a24249bfd4e9a-shadow.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 장식 그림자",
+    "category": "UI · 기타 분리",
+    "w": 724,
+    "h": 683,
+    "partKind": "shadow",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-cinema::after 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-cinema::after 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-cinema::after · 그림자",
+    "sourceSelector": "div.mix-cinema::after",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 628,
+      "h": 587
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9664a8cfd930d4b3-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 583,
+    "h": 589,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-board.rhythm-board 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-board.rhythm-board 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board · 배경",
+    "sourceSelector": "section.mix-board.rhythm-board",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 583,
+      "h": 589
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/17cd4935f59c61d1-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 210,
+    "h": 283,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-board.rhythm-board::before 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-board.rhythm-board::before 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board::before · 배경",
+    "sourceSelector": "section.mix-board.rhythm-board::before",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 210,
+      "h": 283
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f153364e781d523a-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 583,
+    "h": 589,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-board.rhythm-board::after 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-board.rhythm-board::after 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board::after · 배경",
+    "sourceSelector": "section.mix-board.rhythm-board::after",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 583,
+      "h": 589
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f7151aef2d816047-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 539,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 nav.rhythm-modes 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 nav.rhythm-modes 기본 쉐이킹 / 제조 기믹 · 기본 · nav.rhythm-modes · 테두리",
+    "sourceSelector": "nav.rhythm-modes",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 539,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/75e45a8f0b1dbc78-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 170,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 기본 | 쉐이킹 / 제조 기믹 · 기본 button 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 170,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b4c0f4d17334b0a1-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 170,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 기본 | 쉐이킹 / 제조 기믹 · 기본 button 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 170,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/27334518b22f25bb-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 3,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 i 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 i 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 i 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 i 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 i 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 i 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 i 기본 쉐이킹 / 제조 기믹 · 기본 · i · 배경",
+    "sourceSelector": "i",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 3
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fb3230610e0912a6-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/abeec6f482247d83-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/29ac028a16d0700c-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 아이콘 (SPACE)",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "SPACE"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/44f412f5e574d783-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 키 표시 아이콘 (SPACE)",
+    "category": "UI · 기타 분리",
+    "w": 43,
+    "h": 17,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 kbd 기본 | 쉐이킹 / 제조 기믹 · 기본 kbd 호버 | 쉐이킹 / 제조 기믹 · 기본 kbd 누름 | 쉐이킹 / 제조 기믹 · 기본 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 43,
+      "h": 17
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "SPACE"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dcd44169731ad48e-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 37,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 kbd 기본 | 쉐이킹 / 제조 기믹 · 기본 kbd 호버 | 쉐이킹 / 제조 기믹 · 기본 kbd 누름 | 쉐이킹 / 제조 기믹 · 기본 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c3e2ec098f658dad-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 37,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 kbd 기본 | 쉐이킹 / 제조 기믹 · 기본 kbd 호버 | 쉐이킹 / 제조 기믹 · 기본 kbd 누름 | 쉐이킹 / 제조 기믹 · 기본 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0f65ff43b7e4a035-shadow.png",
+    "title": "쉐이킹 / 제조 기믹 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 189,
+    "h": 133,
+    "partKind": "shadow",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 kbd 기본 | 쉐이킹 / 제조 기믹 · 기본 kbd 호버 | 쉐이킹 / 제조 기믹 · 기본 kbd 누름 | 쉐이킹 / 제조 기믹 · 기본 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 그림자",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 93,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/158f00fe1545095a-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 키 표시 아이콘 (SPACE)",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 37,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 kbd 기본 | 쉐이킹 / 제조 기믹 · 기본 kbd 호버 | 쉐이킹 / 제조 기믹 · 기본 kbd 누름 | 쉐이킹 / 제조 기믹 · 기본 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "SPACE"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6035329629da453a-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-tutorial 기본 | 스터 / 제조 기믹 · 기본 div.mix-tutorial 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-tutorial 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-tutorial 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-tutorial 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-tutorial · 배경",
+    "sourceSelector": "div.mix-tutorial",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d180dea7dbfedde7-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 571,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-lesson-card 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 배경",
+    "sourceSelector": "section.mix-lesson-card",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 571
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ea47997abde7fe85-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 900,
+    "h": 571,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-lesson-card 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 테두리",
+    "sourceSelector": "section.mix-lesson-card",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 900,
+      "h": 571
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0e17024fbb879cc5-shadow.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 996,
+    "h": 667,
+    "partKind": "shadow",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 / 제조 기믹 · 기본 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-lesson-card 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-lesson-card 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 그림자",
+    "sourceSelector": "section.mix-lesson-card",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 900,
+      "h": 571
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/901684f6148119c1-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 3,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 section.mix-lesson-card::before 기본 | 스터 / 제조 기믹 · 기본 section.mix-lesson-card::before 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 section.mix-lesson-card::before 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 section.mix-lesson-card::before 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 section.mix-lesson-card::before 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card::before · 배경",
+    "sourceSelector": "section.mix-lesson-card::before",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 3
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e0ffd3676aa060aa-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 제목 영역 테두리",
+    "category": "UI · 기타 분리",
+    "w": 838,
+    "h": 76,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 header 기본 | 스터 / 제조 기믹 · 기본 header 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 header 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 header 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 header 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
+    "sourceSelector": "header",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 838,
+      "h": 76
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/332146c938428b23-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 405,
+    "h": 346,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 figure.mix-guide-image.mix-shake-preview 기본 | 스터 / 제조 기믹 · 기본 figure.mix-guide-image 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 figure.mix-guide-image 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 figure.mix-guide-image 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 쉐이킹 / 제조 기믹 · 기본 · figure.mix-guide-image.mix-shake-preview · 배경",
+    "sourceSelector": "figure.mix-guide-image.mix-shake-preview",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 405,
+      "h": 346
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dd400c7ff6206a43-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 405,
+    "h": 346,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 figure.mix-guide-image.mix-shake-preview 기본 | 스터 / 제조 기믹 · 기본 figure.mix-guide-image 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 figure.mix-guide-image 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 figure.mix-guide-image 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 figure.mix-guide-image.mix-shake-preview 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 figure.mix-guide-image.mix-shake-preview 기본 쉐이킹 / 제조 기믹 · 기본 · figure.mix-guide-image.mix-shake-preview · 테두리",
+    "sourceSelector": "figure.mix-guide-image.mix-shake-preview",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 405,
+      "h": 346
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/818df6e3a9315c14-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 405,
+    "h": 52,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-guide-keystrip 기본 | 스터 / 제조 기믹 · 기본 div.mix-guide-keystrip 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-guide-keystrip 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-guide-keystrip · 배경",
+    "sourceSelector": "div.mix-guide-keystrip",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 405,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4e66f8294be02e20-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 405,
+    "h": 52,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 div.mix-guide-keystrip 기본 | 스터 / 제조 기믹 · 기본 div.mix-guide-keystrip 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 div.mix-guide-keystrip 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 div.mix-guide-keystrip 기본 쉐이킹 / 제조 기믹 · 기본 · .mix-guide-keystrip · 테두리",
+    "sourceSelector": "div.mix-guide-keystrip",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 405,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/73d1cd66741c23f6-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 838,
+    "h": 59,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 footer 기본 | 스터 / 제조 기믹 · 기본 footer 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 footer 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 footer 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 footer 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
+    "sourceSelector": "footer",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 838,
+      "h": 59
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7beb4c8df79c764b-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 기본 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 호버 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 누름 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 포커스 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 기본 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 호버 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 누름 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 포커스 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-next · 배경",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cc57d23d6dad3e1b-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 기본 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 호버 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 누름 | 쉐이킹 / 제조 기믹 · 기본 button.mix-lesson-next 포커스 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 기본 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 호버 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 누름 | 스터 / 제조 기믹 · 기본 button.mix-lesson-next 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.mix-lesson-next 포커스 쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-next · 테두리",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:shake--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f5d36515bb627723-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 539,
+    "h": 382,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage · 아이콘",
+    "sourceSelector": "svg.rhythm-stage",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 539,
+      "h": 382
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8fac7ff35aec4211-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 241,
+    "h": 346,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / polyline.rhythm-path-route 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / polyline.rhythm-path-route 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / polyline.rhythm-path-route 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / polyline.rhythm-path-route · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / polyline.rhythm-path-route",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 241,
+      "h": 346
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6a0d2831d6d489d0-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / g.rhythm-path-node 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-path-node",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5c837c5b8da0458e-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-range 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-range",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7df066988cf8ec12-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 23,
+    "h": 23,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-core 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-core",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 23,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ecb27e89755eef6b-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 52,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / g.rhythm-path-node 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-path-node",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6368d0d22c478c51-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 52,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-range 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-range",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d32bfcb397bec388-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 23,
+    "h": 23,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-core 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-core",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 23,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8dd9b1e1d56e607a-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / g.rhythm-path-node 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-path-node",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/66032aacd6b229db-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-range 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-range",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2fd8db63ba6a3bb2-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 23,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-core 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-core",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 23,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6a69da2b13d0b568-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-path-node 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / g.rhythm-path-node 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-path-node",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4257fc3e2811acbc-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 51,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-range 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-range 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-range",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1eb37432ea5fa602-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 23,
+    "h": 23,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.path-core 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.path-core 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.path-core",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 23,
+      "h": 23
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/099c89fdd9014536-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 25,
+    "h": 25,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg.rhythm-stage / circle.rhythm-path-marker 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg.rhythm-stage / circle.rhythm-path-marker 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg.rhythm-stage / circle.rhythm-path-marker 기본 쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.rhythm-path-marker · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.rhythm-path-marker",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 25,
+      "h": 25
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/13aad69c762467da-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg 기본 쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/97c255d500e954af-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 101,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / g.mix-shake-callout 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 / 제조 기믹 · 기본 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 101
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f52bded1d2335ecb-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 54,
+    "h": 55,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-ring-back 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 54,
+      "h": 55
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1877d5705586fef3-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 53,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-ring 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cd95fdd148af79d2-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 29,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / path.mix-shake-leader 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 / 제조 기믹 · 기본 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/87610fa7dd64c377-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-badge 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4d794ea7abad7a5b-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 117,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / g.mix-shake-callout 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 / 제조 기믹 · 기본 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 118,
+      "h": 117
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/255cb80c5e76dd06-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 70,
+    "h": 71,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-ring-back 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 70,
+      "h": 71
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8c39b318bf949c1f-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 68,
+    "h": 69,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-ring 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 68,
+      "h": 69
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/300a3c350cee0349-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 31,
+    "h": 30,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / path.mix-shake-leader 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 / 제조 기믹 · 기본 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 31,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a9d0d64d4d138137-icon.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 svg / circle.mix-shake-badge 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/61f1294a27c57f10-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 포커스 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 배경 / 포커스",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6466ba8380235944-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 30,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.shake-sound-option 포커스 쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 테두리 / 포커스",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f3cf65b8a0f5a62-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 170,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 호버 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리 / 호버",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 170,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/eff16a014de137ec-background.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 170,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 배경 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 170,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/60d1a2d200d0754f-border.png",
+    "title": "쉐이킹 / 제조 기믹 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 170,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "쉐이킹 / 제조 기믹 · 기본 button 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내 button 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button 포커스 쉐이킹 / 제조 기믹 · 기본 ·  · 테두리 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:mini:shake--default",
+      "popup:lesson-shake--path-0",
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 170,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6ab67059d82dcdb7-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 스터 / 제조 기믹 · 기본 button.shake-sound-option 호버 | 스터 / 제조 기믹 · 기본 button.shake-sound-option 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 누름 스터 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cc0fcacafe070b4d-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 스터 / 제조 기믹 · 기본 button.shake-sound-option 호버 | 스터 / 제조 기믹 · 기본 button.shake-sound-option 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 누름 스터 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/eb741a7adeabe15a-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 기본 스터 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dfe5a6295e0026cd-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 기본 스터 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e563de33e91b523b-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 400,
+    "h": 674,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-cinematic 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-cinematic 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-cinematic 기본 스터 / 제조 기믹 · 기본 · .mix-cinematic · 배경",
+    "sourceSelector": "div.mix-cinematic",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 400,
+      "h": 674
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3361a7dd438b3668-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 400,
+    "h": 674,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-cinematic::after 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-cinematic::after 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-cinematic::after 기본 스터 / 제조 기믹 · 기본 · .mix-cinematic::after · 배경",
+    "sourceSelector": "div.mix-cinematic::after",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 400,
+      "h": 674
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/37a66f84588aef53-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 388,
+    "h": 664,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-cinema 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-cinema 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-cinema 기본 스터 / 제조 기믹 · 기본 · .mix-cinema · 배경",
+    "sourceSelector": "div.mix-cinema",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 388,
+      "h": 664
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6eaa6a613d5f46e8-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 388,
+    "h": 664,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-cinema::after 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-cinema::after 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-cinema::after 기본 스터 / 제조 기믹 · 기본 · .mix-cinema::after · 테두리",
+    "sourceSelector": "div.mix-cinema::after",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 388,
+      "h": 664
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ebfe615f40775782-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1171,
+    "h": 664,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-motion 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-motion 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-motion 기본 스터 / 제조 기믹 · 기본 · .mix-motion · 배경",
+    "sourceSelector": "div.mix-motion",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1171,
+      "h": 664
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/02f371637f9625d5-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 325,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-detail.stir-detail 기본 스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 배경",
+    "sourceSelector": "div.mix-detail.stir-detail",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 325
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a05c82095756c8da-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 325,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-detail.stir-detail 기본 스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 테두리",
+    "sourceSelector": "div.mix-detail.stir-detail",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 325
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/35dc6f779872aa08-shadow.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 283,
+    "h": 421,
+    "partKind": "shadow",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-detail.stir-detail 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-detail.stir-detail 기본 스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 그림자",
+    "sourceSelector": "div.mix-detail.stir-detail",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 187,
+      "h": 325
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/505908314705b7dc-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 기본 | 스터 / 제조 기믹 · 기본 button.mix-direction.next 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 누름 스터 / 제조 기믹 · 기본 · .mix-direction.next · 배경",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6a25d0b87882fc88-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (W)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 기본 | 스터 / 제조 기믹 · 기본 button.mix-direction.next 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 누름 스터 / 제조 기믹 · 기본 · .mix-direction.next · 아이콘",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "W"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5a9a8713ce838265-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 기본 | 스터 / 제조 기믹 · 기본 button.mix-direction 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 누름 스터 / 제조 기믹 · 기본 · .mix-direction · 배경",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6478a4adb53c9ee1-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 기본 | 스터 / 제조 기믹 · 기본 button.mix-direction 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 누름 스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e8bf6c14400c0ecc-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (S)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 기본 스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "S"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b113db65b794ce3d-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (A)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 기본 스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "A"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e235b15d279ce221-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 게이지 배경",
+    "category": "UI · 기타 분리",
+    "w": 708,
+    "h": 30,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 div.mix-gauge.stir-resource-gauge 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 div.mix-gauge.stir-resource-gauge 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 div.mix-gauge.stir-resource-gauge 기본 스터 / 제조 기믹 · 기본 · .mix-gauge.stir-resource-gauge · 배경",
+    "sourceSelector": "div.mix-gauge.stir-resource-gauge",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 708,
+      "h": 30
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dba72198397f8890-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 69,
+    "h": 20,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 i.current 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 i.current 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 i.current 기본 스터 / 제조 기믹 · 기본 · i.current · 테두리",
+    "sourceSelector": "i.current",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 69,
+      "h": 20
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c099ccbc8dbddfde-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 69,
+    "h": 20,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 i 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 i 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 i 기본 스터 / 제조 기믹 · 기본 · i · 테두리",
+    "sourceSelector": "i",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 69,
+      "h": 20
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ce5c9592457f3e8a-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 24,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 기본 | 스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 호버 | 스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 누름 스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7bd0d745def7348e-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 24,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 기본 | 스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 호버 | 스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 누름 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 누름 스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f56c89516883879-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 360,
+    "h": 360,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 svg.stir-live-glass 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 svg.stir-live-glass 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 svg.stir-live-glass 기본 스터 / 제조 기믹 · 기본 · .stir-live-glass · 아이콘",
+    "sourceSelector": "svg.stir-live-glass",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 360,
+      "h": 360
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/08895f2a080b3795-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 416,
+    "h": 416,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 svg.stir-orbit 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 svg.stir-orbit 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 svg.stir-orbit 기본 스터 / 제조 기믹 · 기본 · .stir-orbit · 아이콘",
+    "sourceSelector": "svg.stir-orbit",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 416,
+      "h": 416
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1c33e20a557e52fb-icon.png",
+    "title": "스터 / 제조 기믹 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 svg 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 svg 기본 스터 / 제조 기믹 · 기본 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8655a1e79844c3bd-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 542,
+    "h": 550,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 svg / g.mix-guide-marks 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 svg / g.mix-guide-marks 기본 스터 / 제조 기믹 · 기본 ·  / g.mix-guide-marks · 아이콘",
+    "sourceSelector": "svg / g.mix-guide-marks",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 542,
+      "h": 550
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f71fb54b4275f670-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 포커스 스터 / 제조 기믹 · 기본 · .shake-sound-option · 배경 / 포커스",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/534d92c830d753f4-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 26,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 button.shake-sound-option 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.shake-sound-option 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.shake-sound-option 포커스 스터 / 제조 기믹 · 기본 · .shake-sound-option · 테두리 / 포커스",
+    "sourceSelector": "button.shake-sound-option",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9f66321ae3588a78-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 호버 스터 / 제조 기믹 · 기본 · .mix-direction.next · 배경 / 호버",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bf538c66bf27e7b7-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (W)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 호버 스터 / 제조 기믹 · 기본 · .mix-direction.next · 아이콘 / 호버",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "W"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/73fe55b276f8f862-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 포커스 스터 / 제조 기믹 · 기본 · .mix-direction.next · 배경 / 포커스",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/742d79ee65a5c013-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (W)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction.next 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction.next 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction.next 포커스 스터 / 제조 기믹 · 기본 · .mix-direction.next · 아이콘 / 포커스",
+    "sourceSelector": "button.mix-direction.next",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "W"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/463e51014768ce48-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 호버 스터 / 제조 기믹 · 기본 · .mix-direction · 배경 / 호버",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/322f120fa559a379-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 호버 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 호버 스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘 / 호버",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/566386daf61292f4-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 포커스 스터 / 제조 기믹 · 기본 · .mix-direction · 배경 / 포커스",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a54f3c3274cc61b7-icon.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 61,
+    "h": 61,
+    "partKind": "icon",
+    "contexts": "스터 / 제조 기믹 · 기본 button.mix-direction 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.mix-direction 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-direction 포커스 스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘 / 포커스",
+    "sourceSelector": "button.mix-direction",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 61,
+      "h": 61
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c516eda0616c157c-background.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 24,
+    "partKind": "background",
+    "contexts": "스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 포커스 스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경 / 포커스",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4c99f5ab01c9dd2e-border.png",
+    "title": "스터 / 제조 기믹 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 24,
+    "partKind": "border",
+    "contexts": "스터 / 제조 기믹 · 기본 button.primary.gimmick-finish 포커스 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 button.primary.gimmick-finish 포커스 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.primary.gimmick-finish 포커스 스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리 / 포커스",
+    "sourceSelector": "button.primary.gimmick-finish",
+    "sourceStates": [
+      "ui:mini:stir--default",
+      "popup:lesson-stir--stir-0",
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8993024bbda7e7df-background.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 225,
+    "h": 54,
+    "partKind": "background",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 기본 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 호버 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 누름 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 배경",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6e089eb56ef20ef5-border.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 225,
+    "h": 54,
+    "partKind": "border",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 기본 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 호버 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 누름 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 테두리",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4e765f837b804fdb-shadow.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 321,
+    "h": 150,
+    "partKind": "shadow",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 기본 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 호버 | 월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 누름 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 그림자",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f2d215f78ce9983-background.png",
+    "title": "월드 말풍선 / 외부 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "월드 말풍선 / 외부 · 기본 kbd 기본 | 월드 말풍선 / 외부 · 기본 kbd 호버 | 월드 말풍선 / 외부 · 기본 kbd 누름 | 월드 말풍선 / 외부 · 기본 kbd 포커스 월드 말풍선 / 외부 · 기본 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/504d9619e9f87e4d-border.png",
+    "title": "월드 말풍선 / 외부 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 28,
+    "partKind": "border",
+    "contexts": "월드 말풍선 / 외부 · 기본 kbd 기본 | 월드 말풍선 / 외부 · 기본 kbd 호버 | 월드 말풍선 / 외부 · 기본 kbd 누름 | 월드 말풍선 / 외부 · 기본 kbd 포커스 월드 말풍선 / 외부 · 기본 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fef57eec78f90ab6-icon.png",
+    "title": "월드 말풍선 / 외부 · 키 표시 아이콘 (Tab)",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 kbd 기본 | 월드 말풍선 / 외부 · 기본 kbd 호버 | 월드 말풍선 / 외부 · 기본 kbd 누름 | 월드 말풍선 / 외부 · 기본 kbd 포커스 월드 말풍선 / 외부 · 기본 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default",
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Tab"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/91ce786b74f5f4ea-background.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 418,
+    "h": 76,
+    "partKind": "background",
+    "contexts": "월드 말풍선 / 외부 · 기본 span.exterior-textbox-skin::before 기본 월드 말풍선 / 외부 · 기본 · .exterior-textbox-skin::before · 배경",
+    "sourceSelector": "span.exterior-textbox-skin::before",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 418,
+      "h": 76
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/260121dda91ebb53-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-1 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-1 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-1 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-1 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-1",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/521647ebbef89ee3-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 376,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-2 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-2 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-2",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 376,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cce0e9239dbacfe4-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-3 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-3 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-3 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-3 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-3",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dd94e331422adb48-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 34,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-4 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-4 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-4",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0ec423fa658a7bca-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 376,
+    "h": 34,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-5 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-5 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-5",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 376,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d20822e5c344e345-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 34,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-6 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-6 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-6",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e459bf6f78868fab-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-7 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-7 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-7 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-7 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-7",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1a384b92c42b4199-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 164,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-8 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-8 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-8",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 164,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11787a6b3767435f-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 48,
+    "h": 41,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-9 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-9 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-9 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-9 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-9",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 41
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f149da3fda6d6281-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 164,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-10 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-10 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-10",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 164,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b3c8d1bd7f6b823-icon.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "월드 말풍선 / 외부 · 기본 svg.textbox-piece.piece-11 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-11 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-11 기본 월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-11 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-11",
+    "sourceStates": [
+      "ui:world-speech--default",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a9ab4efc614b713f-background.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 225,
+    "h": 54,
+    "partKind": "background",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 포커스 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 배경 / 포커스",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c70525c9eba66c6c-border.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 225,
+    "h": 54,
+    "partKind": "border",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 포커스 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 테두리 / 포커스",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/61f68ebbe2434679-shadow.png",
+    "title": "월드 말풍선 / 외부 · 기본 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 321,
+    "h": 150,
+    "partKind": "shadow",
+    "contexts": "월드 말풍선 / 외부 · 기본 button.qa-launch.is-outside 포커스 월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 그림자 / 포커스",
+    "sourceSelector": "button.qa-launch.is-outside",
+    "sourceStates": [
+      "ui:world-speech--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 225,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c2905b3b9abdf0d3-background.png",
+    "title": "독립 대사창 / 검은 화면 · 기본 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 760,
+    "h": 110,
+    "partKind": "background",
+    "contexts": "독립 대사창 / 검은 화면 · 기본 button.campaign-speech 기본 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 호버 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 누름 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 포커스 독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 배경",
+    "sourceSelector": "button.campaign-speech",
+    "sourceStates": [
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 760,
+      "h": 110
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b35654f6e227e42-border.png",
+    "title": "독립 대사창 / 검은 화면 · 기본 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 760,
+    "h": 110,
+    "partKind": "border",
+    "contexts": "독립 대사창 / 검은 화면 · 기본 button.campaign-speech 기본 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 호버 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 누름 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 포커스 독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 테두리",
+    "sourceSelector": "button.campaign-speech",
+    "sourceStates": [
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 760,
+      "h": 110
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7ccec41ab6922686-shadow.png",
+    "title": "독립 대사창 / 검은 화면 · 기본 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 856,
+    "h": 206,
+    "partKind": "shadow",
+    "contexts": "독립 대사창 / 검은 화면 · 기본 button.campaign-speech 기본 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 호버 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 누름 | 독립 대사창 / 검은 화면 · 기본 button.campaign-speech 포커스 독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 그림자",
+    "sourceSelector": "button.campaign-speech",
+    "sourceStates": [
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default",
+      "ui:terrace:workshop--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 760,
+      "h": 110
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e66317ccf288bf9b-icon.png",
+    "title": "독립 대사창 / 검은 화면 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 16,
+    "h": 12,
+    "partKind": "icon",
+    "contexts": "독립 대사창 / 검은 화면 · 기본 svg 기본 독립 대사창 / 검은 화면 · 기본 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "ui:terrace:workshop--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 12
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/60299f01f9a73514-background.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 96,
+    "partKind": "background",
+    "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본 재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 배경",
+    "sourceSelector": "div.outside-item-notice.story-notice",
+    "sourceStates": [
+      "ui:exterior:purchase--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 96
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/92816d50d7ff45f2-border.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 96,
+    "partKind": "border",
+    "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본 재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 테두리",
+    "sourceSelector": "div.outside-item-notice.story-notice",
+    "sourceStates": [
+      "ui:exterior:purchase--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 96
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e6cba15c8eb6a8c2-shadow.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 192,
+    "partKind": "shadow",
+    "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본 재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 그림자",
+    "sourceSelector": "div.outside-item-notice.story-notice",
+    "sourceStates": [
+      "ui:exterior:purchase--default"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 96
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f0af90d5f11c22f5-background.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 57,
+    "partKind": "background",
+    "contexts": "재료 획득 알림 / 외부 · 기본 span.outside-item-preview 기본 재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 배경",
+    "sourceSelector": "span.outside-item-preview",
+    "sourceStates": [
+      "ui:exterior:purchase--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 57
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/36367b8d77bbdd84-border.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 52,
+    "h": 57,
+    "partKind": "border",
+    "contexts": "재료 획득 알림 / 외부 · 기본 span.outside-item-preview 기본 재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 테두리",
+    "sourceSelector": "span.outside-item-preview",
+    "sourceStates": [
+      "ui:exterior:purchase--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 52,
+      "h": 57
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/df1924c067105553-background.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 51,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 span.exterior-textbox-skin::before 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .exterior-textbox-skin::before · 배경",
+    "sourceSelector": "span.exterior-textbox-skin::before",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/749a8fcf47e719eb-background.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 24,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 누름 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 배경",
+    "sourceSelector": "kbd.world-choice-confirm",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4fbb4ed1b0de87aa-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 24,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 누름 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 테두리",
+    "sourceSelector": "kbd.world-choice-confirm",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8ac6e9322a96e751-shadow.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 118,
+    "h": 120,
+    "partKind": "shadow",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 누름 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 그림자",
+    "sourceSelector": "kbd.world-choice-confirm",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 22,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0c9547c1afa32363-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 24,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 누름 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 아이콘",
+    "sourceSelector": "kbd.world-choice-confirm",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 24
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d04ae4795fb89578-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 5,
+    "h": 6,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm::after 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm::after 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm::after 누름 | 외부 대화 / 선택지 · 상점 / 소지금 부족 kbd.world-choice-confirm::after 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm::after · 테두리",
+    "sourceSelector": "kbd.world-choice-confirm::after",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 5,
+      "h": 6
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6d7e43c517a2f916-border.png",
+    "title": "외부 대화 / 선택지 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 54,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button 누름 외부 대화 / 선택지 · 상점 / 소지금 부족 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/66e762eeb69bceb8-background.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 32,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 누름 외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 배경",
+    "sourceSelector": "button.is-selected",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c0f84ea35466d795-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 기본 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 호버 | 외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 누름 외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 테두리",
+    "sourceSelector": "button.is-selected",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/048d2a16f8534a6f-background.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 배경",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "popup:meet--bar",
+      "popup:meet--outside",
+      "popup:affinity--bar-up",
+      "popup:affinity--outside-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/815786479d9539eb-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "popup:meet--bar",
+      "popup:meet--outside",
+      "popup:affinity--bar-up",
+      "popup:affinity--outside-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5ee3f5b3329acda1-shadow.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "popup:meet--bar",
+      "popup:meet--outside",
+      "popup:affinity--bar-up",
+      "popup:affinity--outside-up"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/db04dd5ec4f903d3-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "popup:meet--bar",
+      "popup:meet--outside",
+      "popup:affinity--bar-up",
+      "popup:affinity--outside-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7e825997b29cef4a-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘 (＋)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "popup:meet--bar",
+      "popup:meet--outside"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "＋"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fccbfa1863fe2de3-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-2 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-2 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-2",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/70dd01e31559d00d-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 9,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-4 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-4 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-4 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-4",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 9
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fa06ee4da6d12fed-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 9,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-5 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-5 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-5",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 9
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ba6a4c5376027668-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 22,
+    "h": 9,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-6 기본 | 외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-6 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-6 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-6",
+    "sourceStates": [
+      "ui:exterior:poor--poor",
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 9
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1edaddde0a169199-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 49,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-8 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-8 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-8",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 49,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d35ea00621daf466-icon.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 49,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 svg.textbox-piece.piece-10 기본 외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-10 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-10",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 49,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3f4a0f4e73b8148d-border.png",
+    "title": "외부 대화 / 선택지 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 54,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 ·  · 테두리 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/29f77342c3e8d7f7-background.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 32,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 배경 / 포커스",
+    "sourceSelector": "button.is-selected",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3bc5274b225ceea5-border.png",
+    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 32,
+    "partKind": "border",
+    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 button.is-selected 포커스 외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 테두리 / 포커스",
+    "sourceSelector": "button.is-selected",
+    "sourceStates": [
+      "ui:exterior:poor--poor"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/44f0dd163d00e366-background.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 116,
+    "h": 51,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 span.exterior-textbox-skin::before 기본 외부 대화 / 선택지 · 구매 확인 · .exterior-textbox-skin::before · 배경",
+    "sourceSelector": "span.exterior-textbox-skin::before",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 116,
+      "h": 51
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/826519f261f279e4-background.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 span.dialogue-advance-cue 기본 외부 대화 / 선택지 · 구매 확인 · .dialogue-advance-cue · 배경",
+    "sourceSelector": "span.dialogue-advance-cue",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/83e562907a21330e-icon.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 74,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-2 기본 외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-2 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-2",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 74,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2a28d912cd2c007c-icon.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 74,
+    "h": 9,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-5 기본 외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-5 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-5",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 74,
+      "h": 9
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dcfeea23cc5dfd86-icon.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 13,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-8 기본 외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-8 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-8",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 13,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/20acdee3ed63edbd-icon.png",
+    "title": "외부 대화 / 선택지 · 구매 확인 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 13,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "외부 대화 / 선택지 · 구매 확인 svg.textbox-piece.piece-10 기본 외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-10 · 아이콘",
+    "sourceSelector": "svg.textbox-piece.piece-10",
+    "sourceStates": [
+      "ui:exterior:poor--bd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 13,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/88927a8ab79fd856-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 610,
+    "h": 494,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-wall-halo 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-wall-halo 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-wall-halo · 배경",
+    "sourceSelector": "div.bar-door-wall-halo",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 610,
+      "h": 494
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/105739b2437d6dd2-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 242,
+    "h": 74,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sign 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sign 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 배경",
+    "sourceSelector": "div.bar-door-sign",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 242,
+      "h": 74
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4849b7a71bed104b-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 242,
+    "h": 74,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sign 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sign 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 테두리",
+    "sourceSelector": "div.bar-door-sign",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 242,
+      "h": 74
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b1fddfaf77241db4-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 338,
+    "h": 170,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sign 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sign 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 그림자",
+    "sourceSelector": "div.bar-door-sign",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 242,
+      "h": 74
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8fb6982bc68b70cd-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 2,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-ground 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-ground 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-ground · 배경",
+    "sourceSelector": "div.bar-door-ground",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 2
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/efbc7b91f037e813-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 51,
+    "h": 81,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 배경",
+    "sourceSelector": "div.bar-door-prop.bin",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 51,
+      "h": 81
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/82c19337c8f7aeaa-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 51,
+    "h": 81,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 테두리",
+    "sourceSelector": "div.bar-door-prop.bin",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 51,
+      "h": 81
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/897a55440c7f7eab-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 147,
+    "h": 177,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 그림자",
+    "sourceSelector": "div.bar-door-prop.bin",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 51,
+      "h": 81
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/65772609cd8ade44-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 13,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin::before 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::before · 배경",
+    "sourceSelector": "div.bar-door-prop.bin::before",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 13
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2bc7296595d34a7b-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 13,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin::before 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::before · 테두리",
+    "sourceSelector": "div.bar-door-prop.bin::before",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 13
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/78065bb8cde8ed4a-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 테두리",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 8,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bin::after 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bin::after 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::after · 테두리",
+    "sourceSelector": "div.bar-door-prop.bin::after",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 8
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/990a4fb7dca8674c-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 41,
+    "h": 52,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.left-bag 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.left-bag 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.left-bag · 배경",
+    "sourceSelector": "div.bar-door-prop.left-bag",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 41,
+      "h": 52
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1da61c609fd7c521-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 58,
+    "h": 73,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-prop.bags 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-prop.bags 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bags · 배경",
+    "sourceSelector": "div.bar-door-prop.bags",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 73
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a83343d72f2a2002-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 216,
+    "h": 328,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-frame 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-frame 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 배경",
+    "sourceSelector": "div.bar-door-frame",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 216,
+      "h": 328
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9acc441980ccad6d-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 216,
+    "h": 328,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-frame 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-frame 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 테두리",
+    "sourceSelector": "div.bar-door-frame",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 216,
+      "h": 328
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/673301ec7eca24e7-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 312,
+    "h": 424,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-frame 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-frame 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 그림자",
+    "sourceSelector": "div.bar-door-frame",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 216,
+      "h": 328
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b3ab3fcd69b29c26-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 232,
+    "h": 5,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-rail 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-rail 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-rail · 배경",
+    "sourceSelector": "div.bar-door-rail",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 232,
+      "h": 5
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/921722904c2b39d9-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 328,
+    "h": 101,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-rail 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-rail 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-rail · 그림자",
+    "sourceSelector": "div.bar-door-rail",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 232,
+      "h": 5
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/117246e5eb0cd59d-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 202,
+    "h": 314,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-aperture 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-aperture 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-aperture · 배경",
+    "sourceSelector": "div.bar-door-aperture",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/88d42194b7a47ea4-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 202,
+    "h": 314,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-interior 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-interior 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior · 배경",
+    "sourceSelector": "div.bar-door-interior",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a7ef2b643d598301-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 298,
+    "h": 410,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-interior 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-interior 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior · 그림자",
+    "sourceSelector": "div.bar-door-interior",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/badbf75b75c63a07-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 174,
+    "h": 7,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-interior::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-interior::before 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior::before · 배경",
+    "sourceSelector": "div.bar-door-interior::before",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 174,
+      "h": 7
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/39446146bde974bd-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 그림자",
+    "category": "UI · 기타 분리",
+    "w": 270,
+    "h": 103,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-interior::before 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-interior::before 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior::before · 그림자",
+    "sourceSelector": "div.bar-door-interior::before",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 174,
+      "h": 7
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/816404e7daa5aa30-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 202,
+    "h": 314,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 i 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 i 기본 바 출입 / 로딩 · 입장 / 문 열림 · i · 배경",
+    "sourceSelector": "i",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/91a4fddd7cbbbd0e-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 202,
+    "h": 314,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-leaf 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-leaf 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 배경",
+    "sourceSelector": "div.bar-door-leaf",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0af5b3f1303bf4f6-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 202,
+    "h": 314,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-leaf 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-leaf 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 테두리",
+    "sourceSelector": "div.bar-door-leaf",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e38efc6192de79ed-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 298,
+    "h": 410,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-leaf 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-leaf 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 그림자",
+    "sourceSelector": "div.bar-door-leaf",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 202,
+      "h": 314
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fa12f7bc33239621-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 149,
+    "h": 49,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-window 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-window 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 배경",
+    "sourceSelector": "span.bar-door-window",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 149,
+      "h": 49
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8cc528bae54bae0a-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 149,
+    "h": 49,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-window 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-window 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 테두리",
+    "sourceSelector": "span.bar-door-window",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 149,
+      "h": 49
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/737245d85473e53e-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 245,
+    "h": 145,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-window 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-window 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 그림자",
+    "sourceSelector": "span.bar-door-window",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 149,
+      "h": 49
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e37d0e4c7e064166-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 125,
+    "h": 31,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-window::after 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-window::after 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window::after · 배경",
+    "sourceSelector": "span.bar-door-window::after",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 125,
+      "h": 31
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2011d53717a17611-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 6,
+    "h": 48,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-grip 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-grip 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 배경",
+    "sourceSelector": "span.bar-door-grip",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dd56db17d9dce2c5-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 6,
+    "h": 48,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-grip 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-grip 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 테두리",
+    "sourceSelector": "span.bar-door-grip",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/811c569a4a10f178-shadow.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 144,
+    "partKind": "shadow",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-grip 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-grip 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 그림자",
+    "sourceSelector": "span.bar-door-grip",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 6,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/68e2b3566e8f6404-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 228,
+    "h": 8,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sill 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sill 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sill · 배경",
+    "sourceSelector": "div.bar-door-sill",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 228,
+      "h": 8
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fd6a9c542fe49826-border.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 228,
+    "h": 8,
+    "partKind": "border",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sill 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sill 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sill · 테두리",
+    "sourceSelector": "div.bar-door-sill",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 228,
+      "h": 8
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9c9a0e829cc741d0-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 게이지 배경",
+    "category": "UI · 기타 분리",
+    "w": 60,
+    "h": 2,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 span.bar-door-load-track 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 span.bar-door-load-track 기본 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-load-track · 배경",
+    "sourceSelector": "span.bar-door-load-track",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 60,
+      "h": 2
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9004cd4f180c8947-background.png",
+    "title": "바 출입 / 로딩 · 입장 / 문 열림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 2,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 입장 / 문 열림 i 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 i 기본 바 출입 / 로딩 · 입장 / 문 열림 · i · 배경",
+    "sourceSelector": "i",
+    "sourceStates": [
+      "ui:door:in--in",
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 2
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/905ccc1863eb9d6e-background.png",
+    "title": "바 출입 / 로딩 · 퇴장 / 문 닫힘 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 494,
+    "h": 123,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-light-floor 기본 바 출입 / 로딩 · 퇴장 / 문 닫힘 · .bar-door-light-floor · 배경",
+    "sourceSelector": "div.bar-door-light-floor",
+    "sourceStates": [
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 494,
+      "h": 123
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7d88406d1e191062-background.png",
+    "title": "바 출입 / 로딩 · 퇴장 / 문 닫힘 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 428,
+    "h": 390,
+    "partKind": "background",
+    "contexts": "바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-spill 기본 바 출입 / 로딩 · 퇴장 / 문 닫힘 · .bar-door-spill · 배경",
+    "sourceSelector": "div.bar-door-spill",
+    "sourceStates": [
+      "ui:door:in--out"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 428,
+      "h": 390
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/063bfb06f4e0c333-background.png",
+    "title": "일차 전환 / Day 숫자 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "일차 전환 / Day 숫자 · 기본 #campaign-developer-back 기본 | 일차 전환 / Day 숫자 · 기본 #campaign-developer-back 호버 | 일차 전환 / Day 숫자 · 기본 #campaign-developer-back 누름 일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 배경",
+    "sourceSelector": "#campaign-developer-back",
+    "sourceStates": [
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b6f8c5363545657c-border.png",
+    "title": "일차 전환 / Day 숫자 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "일차 전환 / Day 숫자 · 기본 #campaign-developer-back 기본 | 일차 전환 / Day 숫자 · 기본 #campaign-developer-back 호버 | 일차 전환 / Day 숫자 · 기본 #campaign-developer-back 누름 일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 테두리",
+    "sourceSelector": "#campaign-developer-back",
+    "sourceStates": [
+      "ui:day-transition--default",
+      "ui:day-transition--default",
+      "ui:day-transition--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ed32bc77f6df01de-background.png",
+    "title": "일차 전환 / Day 숫자 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1438,
+    "h": 808,
+    "partKind": "background",
+    "contexts": "일차 전환 / Day 숫자 · 기본 div.day-transition-shade 기본 일차 전환 / Day 숫자 · 기본 · .day-transition-shade · 배경",
+    "sourceSelector": "div.day-transition-shade",
+    "sourceStates": [
+      "ui:day-transition--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1438,
+      "h": 808
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b14314ef9faaee50-background.png",
+    "title": "일차 전환 / Day 숫자 · 기본 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "일차 전환 / Day 숫자 · 기본 #campaign-developer-back 포커스 일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 배경 / 포커스",
+    "sourceSelector": "#campaign-developer-back",
+    "sourceStates": [
+      "ui:day-transition--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2c9bb9d23826ae02-border.png",
+    "title": "일차 전환 / Day 숫자 · 기본 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "일차 전환 / Day 숫자 · 기본 #campaign-developer-back 포커스 일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 테두리 / 포커스",
+    "sourceSelector": "#campaign-developer-back",
+    "sourceStates": [
+      "ui:day-transition--default"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e25606c6ada3fef8-icon.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 상승 · 아이콘 (↑)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본 호감도 상승 / 하락 · 바 내부 · 상승 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:affinity--bar-up",
+      "popup:affinity--outside-up"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "↑"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1028b25b907e7f41-background.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 배경",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "popup:affinity--bar-down",
+      "popup:affinity--outside-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/80961ce4974bf0cc-border.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "popup:affinity--bar-down",
+      "popup:affinity--outside-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f57e2430e5a07cb-shadow.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-people",
+    "sourceStates": [
+      "popup:affinity--bar-down",
+      "popup:affinity--outside-down"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b61036dfc2cc03d2-border.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:affinity--bar-down",
+      "popup:affinity--outside-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/94eff1cb8f7aa960-icon.png",
+    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · 아이콘 (↓)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:affinity--bar-down",
+      "popup:affinity--outside-down"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "↓"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6bf7690abc2cd489-background.png",
+    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "background",
+    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:event--outside"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/83e5ce5a9d368dbc-border.png",
+    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 90,
+    "partKind": "border",
+    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:event--outside"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ed8eb121e7954485-shadow.png",
+    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 186,
+    "partKind": "shadow",
+    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:event--outside"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 90
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/80461ed2f9ea6d81-border.png",
+    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:event--outside"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/22a3719e6120f437-icon.png",
+    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · 아이콘 (!)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:event--outside"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "!"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/934adff6baf4ed8c-background.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "background",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-new",
+      "popup:goal--outside-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/166ce9928c7fe48d-border.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "border",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-new",
+      "popup:goal--outside-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/85fac6ab2c6b0f74-shadow.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 188,
+    "partKind": "shadow",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-new",
+      "popup:goal--outside-new"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bb56a4ce1e957ba7-border.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:goal--bar-new",
+      "popup:goal--outside-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1f3fe2e64fe4d4e5-icon.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · 아이콘 (◇)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:goal--bar-new",
+      "popup:goal--outside-new"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "◇"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/691f5f630c7d3c3d-background.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "background",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 배경",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-complete",
+      "popup:goal--outside-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7dedfdcde2221f51-border.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 92,
+    "partKind": "border",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 테두리",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-complete",
+      "popup:goal--outside-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c1b0a52b2cf1a815-shadow.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 446,
+    "h": 188,
+    "partKind": "shadow",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 그림자",
+    "sourceSelector": "div.story-notice.story-notice-event",
+    "sourceStates": [
+      "popup:goal--bar-complete",
+      "popup:goal--outside-complete"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 350,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d1bb07c168cf1a0f-border.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 테두리",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:goal--bar-complete",
+      "popup:goal--outside-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/74a7943fd218f630-icon.png",
+    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · 아이콘 (✓)",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 아이콘",
+    "sourceSelector": "span.story-notice-icon",
+    "sourceStates": [
+      "popup:goal--bar-complete",
+      "popup:goal--outside-complete"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "✓"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c49664fd6b50ec99-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift div.outside-controls-shade 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E div.outside-controls-shade 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-shade · 배경",
+    "sourceSelector": "div.outside-controls-shade",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/85d3ba9f095319b1-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 593,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.outside-controls-tutorial 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 배경",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 593
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/82cf4b186aceb994-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 593,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.outside-controls-tutorial 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 테두리",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 593
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/491dd2ff542c6cb5-shadow.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 896,
+    "h": 689,
+    "partKind": "shadow",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.outside-controls-tutorial 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 그림자",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 800,
+      "h": 593
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4fb4300274c25aa1-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 3,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.outside-controls-tutorial::before 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E section.outside-controls-tutorial::before 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial::before · 배경",
+    "sourceSelector": "section.outside-controls-tutorial::before",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 3
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7403a627cf0c7efb-shadow.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 장식 그림자",
+    "category": "UI · 기타 분리",
+    "w": 160,
+    "h": 99,
+    "partKind": "shadow",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.outside-controls-tutorial::before 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E section.outside-controls-tutorial::before 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial::before · 그림자",
+    "sourceSelector": "section.outside-controls-tutorial::before",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 64,
+      "h": 3
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b68af7c5243e22d8-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 제목 영역 테두리",
+    "category": "UI · 기타 분리",
+    "w": 714,
+    "h": 83,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift header.controls-heading 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E header.controls-heading 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-heading · 테두리",
+    "sourceSelector": "header.controls-heading",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 714,
+      "h": 83
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/202b5d7d4c1e7219-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 348,
+    "h": 316,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.controls-motion-card 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.controls-motion-card.controls-run-card 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-motion-card · 배경",
+    "sourceSelector": "section.controls-motion-card",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 348,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6aa2eac350ffbe12-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 348,
+    "h": 316,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.controls-motion-card 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift section.controls-motion-card.controls-run-card 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-motion-card · 테두리",
+    "sourceSelector": "section.controls-motion-card",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 348,
+      "h": 316
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c2617c49bf41cd3b-icon.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 아이콘 (←)",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 40,
+    "partKind": "icon",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift span.controls-arrow 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-arrow · 아이콘",
+    "sourceSelector": "span.controls-arrow",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 40
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "←"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/869d8299a16494a4-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 18,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift span.controls-floor 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-floor · 배경",
+    "sourceSelector": "span.controls-floor",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 124,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/56a07231e28949a2-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 18,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift span.controls-floor 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-floor · 테두리",
+    "sourceSelector": "span.controls-floor",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 124,
+      "h": 18
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/207f3c96e0907ed8-icon.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 패널 아이콘 (→)",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 40,
+    "partKind": "icon",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift span.controls-arrow 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-arrow · 아이콘",
+    "sourceSelector": "span.controls-arrow",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 40
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "→"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/880881e3d6e3796d-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 호버 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 누름 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 포커스 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 배경",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/21e537e7c881303f-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 호버 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 누름 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 포커스 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 테두리",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/824764dace821574-shadow.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 140,
+    "h": 138,
+    "partKind": "shadow",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 호버 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 누름 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 포커스 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 그림자",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 44,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0b95b4b5f88fd367-icon.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 아이콘 (A)",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 42,
+    "partKind": "icon",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 호버 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 누름 | 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 포커스 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement",
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "A"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5363cfdda4836c1f-icon.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 42,
+    "partKind": "icon",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a45af87a4defea48-background.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 배경",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b2794f28fd85b4d6-border.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 테두리",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3e4103925a0ede14-shadow.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 184,
+    "h": 138,
+    "partKind": "shadow",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 그림자",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 88,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1c8c326d80725edf-icon.png",
+    "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · 키 표시 아이콘 (Shift)",
+    "category": "UI · 기타 분리",
+    "w": 88,
+    "h": 42,
+    "partKind": "icon",
+    "contexts": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift kbd.controls-keycap 기본 0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls--movement"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 88,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Shift"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3d59e5b8ef8b14d4-background.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 542,
+    "partKind": "background",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E section.outside-controls-tutorial 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 배경",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 542
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d4b225056005d1e4-border.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 800,
+    "h": 542,
+    "partKind": "border",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E section.outside-controls-tutorial 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 테두리",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 800,
+      "h": 542
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d14501994296a23a-shadow.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 896,
+    "h": 638,
+    "partKind": "shadow",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E section.outside-controls-tutorial 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 그림자",
+    "sourceSelector": "section.outside-controls-tutorial",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 800,
+      "h": 542
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a6caa9d8896ca7ac-background.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 256,
+    "h": 224,
+    "partKind": "background",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E figure 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · figure · 배경",
+    "sourceSelector": "figure",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 224
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7ddab472da22180e-border.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 256,
+    "h": 224,
+    "partKind": "border",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E figure 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · figure · 테두리",
+    "sourceSelector": "figure",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 224
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/065641bdd48e6430-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 714,
+    "h": 60,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E div.controls-interact-key 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-interact-key · 아이콘",
+    "sourceSelector": "div.controls-interact-key",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 714,
+      "h": 60
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3b0c2bf5e1eee123-background.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 53,
+    "h": 46,
+    "partKind": "background",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 호버 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 누름 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 포커스 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 배경",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 53,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/46c62bb1e7fcb539-border.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 53,
+    "h": 46,
+    "partKind": "border",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 호버 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 누름 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 포커스 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 테두리",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 53,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/07f1cf0d04eb2fe1-shadow.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 149,
+    "h": 142,
+    "partKind": "shadow",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 호버 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 누름 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 포커스 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 그림자",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 53,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a2bc6477e8226d90-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 53,
+    "h": 46,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 기본 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 호버 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 누름 | 0일차 · 상호작용 튜토리얼 · 상호작용 · E kbd.controls-keycap 포커스 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 아이콘",
+    "sourceSelector": "kbd.controls-keycap",
+    "sourceStates": [
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction",
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 53,
+      "h": 46
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c3360d95117f440b-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 232,
+    "h": 180,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E svg.controls-example.controls-object 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-object · 아이콘",
+    "sourceSelector": "svg.controls-example.controls-object",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 232,
+      "h": 180
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1c6dd46bdcef0770-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 276,
+    "h": 223,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E svg.controls-example.controls-object / path.controls-target-mark 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-object / path.controls-target-mark · 아이콘",
+    "sourceSelector": "svg.controls-example.controls-object / path.controls-target-mark",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 276,
+      "h": 223
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a68ac664624dcb8f-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 232,
+    "h": 180,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E svg.controls-example.controls-person 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-person · 아이콘",
+    "sourceSelector": "svg.controls-example.controls-person",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 232,
+      "h": 180
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e0eac9cdd618ce16-icon.png",
+    "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 151,
+    "h": 306,
+    "partKind": "icon",
+    "contexts": "0일차 · 상호작용 튜토리얼 · 상호작용 · E svg.controls-example.controls-person / path.controls-target-mark 기본 0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-person / path.controls-target-mark · 아이콘",
+    "sourceSelector": "svg.controls-example.controls-person / path.controls-target-mark",
+    "sourceStates": [
+      "popup:controls-interaction--interaction"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 151,
+      "h": 306
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dfcc9e04f1d8d39b-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 div.day0-seat-legend-backdrop 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend-backdrop · 배경",
+    "sourceSelector": "div.day0-seat-legend-backdrop",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6011f28d42b4f936-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1040,
+    "h": 570,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 section.day0-seat-legend 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 배경",
+    "sourceSelector": "section.day0-seat-legend",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1040,
+      "h": 570
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/885bc2c200fd3506-border.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 1040,
+    "h": 570,
+    "partKind": "border",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 section.day0-seat-legend 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 테두리",
+    "sourceSelector": "section.day0-seat-legend",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1040,
+      "h": 570
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/abb9da33eb92c78d-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 1136,
+    "h": 666,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 section.day0-seat-legend 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 그림자",
+    "sourceSelector": "section.day0-seat-legend",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 1040,
+      "h": 570
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/64b1ba90f1e2a700-border.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 제목 영역 테두리",
+    "category": "UI · 기타 분리",
+    "w": 974,
+    "h": 107,
+    "partKind": "border",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 header.seat-legend-heading 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-legend-heading · 테두리",
+    "sourceSelector": "header.seat-legend-heading",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 974,
+      "h": 107
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0c39152fc6bde197-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 232,
+    "h": 315,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 article.day0-seat-legend-row 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row · 배경",
+    "sourceSelector": "article.day0-seat-legend-row",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 232,
+      "h": 315
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/58c969ff221d5bbd-border.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 232,
+    "h": 315,
+    "partKind": "border",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 article.day0-seat-legend-row 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row · 테두리",
+    "sourceSelector": "article.day0-seat-legend-row",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 232,
+      "h": 315
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/af2132c0b6d8f487-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 장식 배경",
+    "category": "UI · 기타 분리",
+    "w": 14,
+    "h": 14,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 article.day0-seat-legend-row::before 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 article.day0-seat-legend-row::after 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row::before · 배경",
+    "sourceSelector": "article.day0-seat-legend-row::before",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 15,
+      "h": 4
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c8b550f27040eb93-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e6cfd786a306a791-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 124,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b490f124539695d9-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0d4cebf30f2a69df-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 124,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d59cab1255d0775d-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a4334daf0f79437e-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 124,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a956c8096c3a243d-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 28,
+    "h": 28,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f9c4f6ce3f6ab6b8-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 124,
+    "h": 124,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 i.seat-color-dot 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
+    "sourceSelector": "i.seat-color-dot",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 28,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/88685d4627a8362d-background.png",
+    "title": "좌석 알림 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 345,
+    "h": 1,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 span 기본 좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 배경",
+    "sourceSelector": "span",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 345,
+      "h": 1
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3c95d4097d42a243-background.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 228,
+    "h": 53,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 228,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bfdc16668aff4233-border.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 228,
+    "h": 53,
+    "partKind": "border",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 228,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0249810c0f222d5b-shadow.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 324,
+    "h": 149,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 button.primary 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 그림자",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 228,
+      "h": 53
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d51f1e1898fcb09c-background.png",
+    "title": "좌석 알림 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 29,
+    "h": 27,
+    "partKind": "background",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 kbd 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3dda1e9e3fce4751-border.png",
+    "title": "좌석 알림 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 29,
+    "h": 27,
+    "partKind": "border",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 kbd 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ab723c7b740becca-shadow.png",
+    "title": "좌석 알림 · 키 표시 그림자",
+    "category": "UI · 기타 분리",
+    "w": 125,
+    "h": 123,
+    "partKind": "shadow",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 kbd 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 그림자",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 29,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/50e025fa2b81ea69-icon.png",
+    "title": "좌석 알림 · 키 표시 아이콘 (E)",
+    "category": "UI · 기타 분리",
+    "w": 29,
+    "h": 27,
+    "partKind": "icon",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 kbd 기본 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 호버 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 누름 | 좌석 알림 · 4가지 색상 · 좌석 알림 kbd 포커스 좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend",
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 29,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a0e528db3194a680-icon.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 72,
+    "partKind": "icon",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 svg.seat-state-picture 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
+    "sourceSelector": "svg.seat-state-picture",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8d6553bc95f3b887-icon.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 72,
+    "partKind": "icon",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 svg.seat-state-picture 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
+    "sourceSelector": "svg.seat-state-picture",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4c3b9a80efeb302f-icon.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 72,
+    "partKind": "icon",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 svg.seat-state-picture 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
+    "sourceSelector": "svg.seat-state-picture",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/be945bd74f441b77-icon.png",
+    "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 72,
+    "h": 72,
+    "partKind": "icon",
+    "contexts": "좌석 알림 · 4가지 색상 · 좌석 알림 svg.seat-state-picture 기본 좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
+    "sourceSelector": "svg.seat-state-picture",
+    "sourceStates": [
+      "popup:seat-legend--seatLegend"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/48c5559fc4cbc1a0-background.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 74,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 포커스 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-prev · 배경",
+    "sourceSelector": "button.mix-lesson-prev",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 74,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f9709fdb8ff77dcd-border.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 74,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 누름 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-prev 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-prev 포커스 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-prev · 테두리",
+    "sourceSelector": "button.mix-lesson-prev",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 74,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c1bff348eb367861-background.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 누름 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-next · 배경",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4aed09d3cba6b8ec-border.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 호버 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 누름 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-next · 테두리",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/afab832c57624eaa-icon.png",
+    "title": "스터 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 svg 기본 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c1a88dc827e74867-icon.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 433,
+    "h": 496,
+    "partKind": "icon",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 svg / g.mix-guide-marks 기본 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 ·  / g.mix-guide-marks · 아이콘",
+    "sourceSelector": "svg / g.mix-guide-marks",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 433,
+      "h": 496
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/975835be5f4bc39c-background.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 포커스 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-next · 배경 / 포커스",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bbbfa9afa2143511-border.png",
+    "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 110,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.mix-lesson-next 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.mix-lesson-next 포커스 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-next · 테두리 / 포커스",
+    "sourceSelector": "button.mix-lesson-next",
+    "sourceStates": [
+      "popup:lesson-stir--stir-1",
+      "popup:lesson-shake--path-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 110,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/671094cec23bc0e5-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/289d38e040cda085-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 115,
+    "h": 114,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 115,
+      "h": 114
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/61f0544efd54f113-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 70,
+    "h": 70,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 70,
+      "h": 70
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/385e5312870f5e3b-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 68,
+    "h": 68,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 68,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e383f73ed51917fb-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 33,
+    "h": 32,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 33,
+      "h": 32
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5f18e1cd689d7e1d-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 33,
+    "h": 33,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--path-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 33,
+      "h": 33
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ea09faa89bd48919-background.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 배경",
+    "sourceSelector": "button.rhythm-pad.lane-0",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8b57aafa1ec0a027-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 테두리",
+    "sourceSelector": "button.rhythm-pad.lane-0",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0c33df749774fbfd-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 키 표시 아이콘 (A)",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 17,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 17
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "A"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d2140af02378ee41-background.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 배경",
+    "sourceSelector": "button.rhythm-pad.lane-1",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/318808cb454b8a7b-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 테두리",
+    "sourceSelector": "button.rhythm-pad.lane-1",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/23f6ed77427ca939-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 키 표시 아이콘 (D)",
+    "category": "UI · 기타 분리",
+    "w": 20,
+    "h": 17,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 kbd 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 kbd 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 17
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "D"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4c1b77e7b9a2ed1c-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 539,
+    "h": 382,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage · 아이콘",
+    "sourceSelector": "svg.rhythm-stage",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 539,
+      "h": 382
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b68a9986b7bff139-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 208,
+    "h": 421,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / path.rhythm-track 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / path.rhythm-track 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-track · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.rhythm-track",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 208,
+      "h": 421
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c23b57ae8c3e0267-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 239,
+    "h": 341,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / path.rhythm-rail 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / path.rhythm-rail 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-rail · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.rhythm-rail",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 239,
+      "h": 341
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f6d934f6c30965ec-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 95,
+    "h": 95,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-target 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / g.rhythm-target 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-target",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 95,
+      "h": 95
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b40fc1b3fb409034-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 93,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-halo 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-halo 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-halo",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/52502a5619c698e3-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 77,
+    "h": 77,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-orbit 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-orbit 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-orbit · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-orbit",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 77,
+      "h": 77
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/59b5050515bd0448-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 59,
+    "h": 59,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-face 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-face 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-face",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 59,
+      "h": 59
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d8ba4b3e995f1bd9-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 84,
+    "h": 85,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / path.target-ticks 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / path.target-ticks 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.target-ticks · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.target-ticks",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 84,
+      "h": 85
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9e87a66c592ce1a9-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 11,
+    "h": 11,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-center 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-center 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-center · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-center",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 11,
+      "h": 11
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b7bafa8dcbe0e942-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 94,
+    "h": 95,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-target 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / g.rhythm-target 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-target",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 94,
+      "h": 95
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/549b40cb43a11667-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 92,
+    "h": 93,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-halo 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-halo 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-halo",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 92,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4d5293b6d1114506-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 77,
+    "h": 77,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-orbit 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-orbit 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-orbit · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-orbit",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 77,
+      "h": 77
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4a428dc6a5f05389-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 58,
+    "h": 59,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-face 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-face 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-face",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 59
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/40866071348de125-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 85,
+    "h": 85,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / path.target-ticks 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / path.target-ticks 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.target-ticks · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.target-ticks",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 85,
+      "h": 85
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5a4bf9b9a593af57-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 11,
+    "h": 11,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-center 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / circle.target-center 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-center · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-center",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 11,
+      "h": 11
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0a5baf636bbe9155-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 18,
+    "h": 271,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-ruler 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / g.rhythm-ruler 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-ruler · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-ruler",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 271
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/18e8b8907b8db52f-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 97,
+    "h": 40,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / g.note-aura 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / g.note-aura 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.note-aura · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.note-aura",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 97,
+      "h": 40
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9cfb667336252a14-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 36,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg.rhythm-stage / g.note-body 기본 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg.rhythm-stage / g.note-body 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.note-body · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.note-body",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ae88ab945e538a69-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9160d706b2b511e5-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 165,
+    "h": 163,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 165,
+      "h": 163
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1680eb0fcf9d3df2-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 117,
+    "h": 117,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 117,
+      "h": 117
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6442ea69073dcea1-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 115,
+    "h": 115,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 115,
+      "h": 115
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5c35c255ccb5bf6e-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 37,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 37
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/50c20c846cf1cd76-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/259a84206bdbc474-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 150,
+    "h": 148,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 150,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b64f4fc0b71a9e5-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 102,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0511b875cefded5c-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 100,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c95dc068c49e9014-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 35,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f46c424b9263e6de-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/279202d10ae51c95-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 누름 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 테두리 / 호버",
+    "sourceSelector": "button.rhythm-pad.lane-0",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/de3c4db584b2815b-background.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 배경 / 포커스",
+    "sourceSelector": "button.rhythm-pad.lane-0",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/79a6f71327b012a7-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-0 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-0 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 테두리 / 포커스",
+    "sourceSelector": "button.rhythm-pad.lane-0",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d732ee25c4019257-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 누름 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 호버 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 누름 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 호버 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 누름 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 테두리 / 호버",
+    "sourceSelector": "button.rhythm-pad.lane-1",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9d9dbf1fb6303d71-background.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 배경 / 포커스",
+    "sourceSelector": "button.rhythm-pad.lane-1",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e862d69fc0927620-border.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 120,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 button.rhythm-pad.lane-1 포커스 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 button.rhythm-pad.lane-1 포커스 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 테두리 / 포커스",
+    "sourceSelector": "button.rhythm-pad.lane-1",
+    "sourceStates": [
+      "popup:lesson-shake--fall-0",
+      "popup:lesson-shake--fall-1",
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 120,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b8b57a8313e5ac42-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a68155c5201b2ad9-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 150,
+    "h": 148,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 150,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5d4a8953296f545f-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 102,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9f541667bdac17bd-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 100,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e2b31aa0e16cc1ed-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 35,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/73d513cdc2ed8df8-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--fall-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a84bb124243c7f0c-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 539,
+    "h": 382,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage · 아이콘",
+    "sourceSelector": "svg.rhythm-stage",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 539,
+      "h": 382
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1a6e81a8ad7376d5-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 417,
+    "h": 74,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / path.rhythm-rail 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / path.rhythm-rail 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-rail · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.rhythm-rail",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 417,
+      "h": 74
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1570d046289fa197-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 94,
+    "h": 94,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-target 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / g.rhythm-target 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-target",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 94,
+      "h": 94
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d5aad2ff571dfa53-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 92,
+    "h": 92,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-halo 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / circle.target-halo 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-halo",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 92,
+      "h": 92
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/140dfd3769c1d4be-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 76,
+    "h": 76,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-orbit 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / circle.target-orbit 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-orbit · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-orbit",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 76,
+      "h": 76
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/901af868f21163ea-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 58,
+    "h": 58,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-face 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / circle.target-face 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-face",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/55fdea99a0b13fe6-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 84,
+    "h": 85,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / path.target-ticks 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / path.target-ticks 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.target-ticks · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.target-ticks",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 84,
+      "h": 85
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bf2e12f8b385f380-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 11,
+    "h": 10,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / circle.target-center 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / circle.target-center 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-center · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / circle.target-center",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 11,
+      "h": 10
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4b3824e8be55eadf-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 403,
+    "h": 10,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-ruler 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / g.rhythm-ruler 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-ruler · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-ruler",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 403,
+      "h": 10
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/606f7bf5d7ea7428-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 150,
+    "h": 17,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / g.rhythm-direction 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / g.rhythm-direction 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-direction · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.rhythm-direction",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 150,
+      "h": 17
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/408e6bba4ceb8464-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 55,
+    "h": 54,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / g.note-aura 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / g.note-aura 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.note-aura · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.note-aura",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 54
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/426051166d422bd1-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 51,
+    "h": 50,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / g.note-body 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / g.note-body 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.note-body · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / g.note-body",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 51,
+      "h": 50
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a74a97559a62a030-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 33,
+    "h": 13,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg.rhythm-stage / path.note-shine 기본 | 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg.rhythm-stage / path.note-shine 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.note-shine · 아이콘",
+    "sourceSelector": "svg.rhythm-stage / path.note-shine",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0",
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 33,
+      "h": 13
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e4eab7ec9c499e9b-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2763b56ce7a680c9-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 125,
+    "h": 123,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 125,
+      "h": 123
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5f49b219dfe3fa03-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 77,
+    "h": 77,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 77,
+      "h": 77
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/90a3afef5abc1c2c-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 75,
+    "h": 75,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 75,
+      "h": 75
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1e77b65839dd7b8d-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 32,
+    "h": 31,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 31
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/16e9f4c98eef7e4f-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 39,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fe49d83ae31fb700-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 150,
+    "h": 148,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 150,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d561fb175c3d2651-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 102,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f024f2c0a3e72020-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 100,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7b1cc2eee6eecd5a-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 35,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b1a69d06a6e92957-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--cross-0"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/636b6329e1b175a1-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 387,
+    "h": 300,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 387,
+      "h": 300
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9b2588bd24848ebc-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 150,
+    "h": 148,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg / g.mix-shake-callout 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / g.mix-shake-callout · 아이콘",
+    "sourceSelector": "svg / g.mix-shake-callout",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 150,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/44eeaba4e38a0910-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 102,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg / circle.mix-shake-ring-back 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring-back",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 102
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e2c18d89a98031a3-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 100,
+    "h": 100,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg / circle.mix-shake-ring 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / circle.mix-shake-ring · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-ring",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2fae94647bf43e07-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 35,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg / path.mix-shake-leader 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / path.mix-shake-leader · 아이콘",
+    "sourceSelector": "svg / path.mix-shake-leader",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cccb087d7a36c966-icon.png",
+    "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 39,
+    "h": 38,
+    "partKind": "icon",
+    "contexts": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 svg / circle.mix-shake-badge 기본 쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / circle.mix-shake-badge · 아이콘",
+    "sourceSelector": "svg / circle.mix-shake-badge",
+    "sourceStates": [
+      "popup:lesson-shake--cross-1"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 39,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ea3a3f669e4f4405-border.png",
+    "title": "따르기 튜토리얼 · 목표량 확인 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 256,
+    "h": 60,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 div.pour-tutorial-focus 기본 따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-focus · 테두리",
+    "sourceSelector": "div.pour-tutorial-focus",
+    "sourceStates": [
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 60
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/55cd05ef20f4d397-background.png",
+    "title": "따르기 튜토리얼 · 목표량 확인 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 310,
+    "h": 148,
+    "partKind": "background",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 section.pour-tutorial-card 기본 따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-card · 배경",
+    "sourceSelector": "section.pour-tutorial-card",
+    "sourceStates": [
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 310,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8bfccac9fb4232fa-border.png",
+    "title": "따르기 튜토리얼 · 목표량 확인 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 310,
+    "h": 148,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 section.pour-tutorial-card 기본 따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-card · 테두리",
+    "sourceSelector": "section.pour-tutorial-card",
+    "sourceStates": [
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 310,
+      "h": 148
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c8e680fada1d909f-background.png",
+    "title": "따르기 튜토리얼 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 268,
+    "h": 35,
+    "partKind": "background",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 button 기본 | 따르기 튜토리얼 · 목표량 확인 button 호버 | 따르기 튜토리얼 · 목표량 확인 button 누름 따르기 튜토리얼 · 목표량 확인 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 268,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b6d14f526d4687a9-border.png",
+    "title": "따르기 튜토리얼 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 268,
+    "h": 35,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 button 기본 | 따르기 튜토리얼 · 목표량 확인 button 호버 | 따르기 튜토리얼 · 목표량 확인 button 누름 따르기 튜토리얼 · 목표량 확인 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target",
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 268,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d5b116aaf019c3aa-background.png",
+    "title": "따르기 튜토리얼 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 268,
+    "h": 35,
+    "partKind": "background",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 button 포커스 따르기 튜토리얼 · 목표량 확인 ·  · 배경 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 268,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7f5a7c61b326262c-border.png",
+    "title": "따르기 튜토리얼 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 268,
+    "h": 35,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 목표량 확인 button 포커스 따르기 튜토리얼 · 목표량 확인 ·  · 테두리 / 포커스",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:lesson-pour--target"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 268,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cc130c52dfb4db7b-background.png",
+    "title": "따르기 튜토리얼 · 현재량 / 마치기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 244,
+    "h": 48,
+    "partKind": "background",
+    "contexts": "따르기 튜토리얼 · 현재량 / 마치기 div.pour-top-readout 기본 따르기 튜토리얼 · 현재량 / 마치기 · .pour-top-readout · 배경",
+    "sourceSelector": "div.pour-top-readout",
+    "sourceStates": [
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 244,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0d12c4c6efd93a70-shadow.png",
+    "title": "따르기 튜토리얼 · 현재량 / 마치기 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 340,
+    "h": 144,
+    "partKind": "shadow",
+    "contexts": "따르기 튜토리얼 · 현재량 / 마치기 div.pour-top-readout 기본 따르기 튜토리얼 · 현재량 / 마치기 · .pour-top-readout · 그림자",
+    "sourceSelector": "div.pour-top-readout",
+    "sourceStates": [
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 244,
+      "h": 48
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/75e15a6e7b297b68-border.png",
+    "title": "따르기 튜토리얼 · 현재량 / 마치기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 169,
+    "h": 58,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 현재량 / 마치기 div.pour-tutorial-focus 기본 따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-focus · 테두리",
+    "sourceSelector": "div.pour-tutorial-focus",
+    "sourceStates": [
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 169,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0d67ab3bf67d9231-background.png",
+    "title": "따르기 튜토리얼 · 현재량 / 마치기 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 310,
+    "h": 146,
+    "partKind": "background",
+    "contexts": "따르기 튜토리얼 · 현재량 / 마치기 section.pour-tutorial-card 기본 따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-card · 배경",
+    "sourceSelector": "section.pour-tutorial-card",
+    "sourceStates": [
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 310,
+      "h": 146
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/939e2e3ee2f748cd-border.png",
+    "title": "따르기 튜토리얼 · 현재량 / 마치기 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 310,
+    "h": 146,
+    "partKind": "border",
+    "contexts": "따르기 튜토리얼 · 현재량 / 마치기 section.pour-tutorial-card 기본 따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-card · 테두리",
+    "sourceSelector": "section.pour-tutorial-card",
+    "sourceStates": [
+      "popup:lesson-pour--finish"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 310,
+      "h": 146
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/711e3d1e4af864b2-background.png",
+    "title": "병따기 튜토리얼 · 시작 안내 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 290,
+    "h": 217,
+    "partKind": "background",
+    "contexts": "병따기 튜토리얼 · 시작 안내 div.opening-lesson-copy 기본 | 병따기 튜토리얼 · 다시 시도 div.opening-lesson-copy 기본 병따기 튜토리얼 · 시작 안내 · .opening-lesson-copy · 배경",
+    "sourceSelector": "div.opening-lesson-copy",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 290,
+      "h": 217
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/657b28f26f45df7c-border.png",
+    "title": "병따기 튜토리얼 · 시작 안내 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 290,
+    "h": 217,
+    "partKind": "border",
+    "contexts": "병따기 튜토리얼 · 시작 안내 div.opening-lesson-copy 기본 | 병따기 튜토리얼 · 다시 시도 div.opening-lesson-copy 기본 병따기 튜토리얼 · 시작 안내 · .opening-lesson-copy · 테두리",
+    "sourceSelector": "div.opening-lesson-copy",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 290,
+      "h": 217
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8a1b6805a3307423-background.png",
+    "title": "병따기 튜토리얼 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 27,
+    "partKind": "background",
+    "contexts": "병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 호버 | 병따기 튜토리얼 · 완료 kbd 누름 | 병따기 튜토리얼 · 완료 kbd 포커스 병따기 튜토리얼 · 시작 안내 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fb656056e80f7b32-border.png",
+    "title": "병따기 튜토리얼 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 27,
+    "partKind": "border",
+    "contexts": "병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 호버 | 병따기 튜토리얼 · 완료 kbd 누름 | 병따기 튜토리얼 · 완료 kbd 포커스 병따기 튜토리얼 · 시작 안내 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c22aaf0f4ab36e1d-icon.png",
+    "title": "병따기 튜토리얼 · 키 표시 아이콘 (SPACE)",
+    "category": "UI · 기타 분리",
+    "w": 57,
+    "h": 27,
+    "partKind": "icon",
+    "contexts": "병따기 튜토리얼 · 시작 안내 kbd 기본 | 병따기 튜토리얼 · 다시 시도 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 기본 | 병따기 튜토리얼 · 완료 kbd 호버 | 병따기 튜토리얼 · 완료 kbd 누름 | 병따기 튜토리얼 · 완료 kbd 포커스 병따기 튜토리얼 · 시작 안내 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 57,
+      "h": 27
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "SPACE"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/421d22c29e11e484-icon.png",
+    "title": "병따기 튜토리얼 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "병따기 튜토리얼 · 시작 안내 svg 기본 | 병따기 튜토리얼 · 다시 시도 svg 기본 | 병따기 튜토리얼 · 완료 svg 기본 병따기 튜토리얼 · 시작 안내 ·  · 아이콘",
+    "sourceSelector": "svg",
+    "sourceStates": [
+      "popup:lesson-open--intro",
+      "popup:lesson-open--retry",
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e46518684864fefa-background.png",
+    "title": "병따기 튜토리얼 · 완료 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 290,
+    "h": 151,
+    "partKind": "background",
+    "contexts": "병따기 튜토리얼 · 완료 div.opening-lesson-copy 기본 병따기 튜토리얼 · 완료 · .opening-lesson-copy · 배경",
+    "sourceSelector": "div.opening-lesson-copy",
+    "sourceStates": [
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 290,
+      "h": 151
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7fefe47efd863ceb-border.png",
+    "title": "병따기 튜토리얼 · 완료 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 290,
+    "h": 151,
+    "partKind": "border",
+    "contexts": "병따기 튜토리얼 · 완료 div.opening-lesson-copy 기본 병따기 튜토리얼 · 완료 · .opening-lesson-copy · 테두리",
+    "sourceSelector": "div.opening-lesson-copy",
+    "sourceStates": [
+      "popup:lesson-open--done"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 290,
+      "h": 151
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1782a5b4d9ae057b-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 58,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 배경",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3b8ae9b5a570578e-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 58,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 테두리",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2f2d37cf68d6087b-shadow.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 416,
+    "h": 154,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 술 선반 이동 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 냉장고 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병따개 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 냉장고 이동 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 그림자",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepNavigate",
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepSodaNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 320,
+      "h": 58
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8c39743de8ac7f17-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/334049c6d35ecf2f-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 69,
+    "h": 65,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 69,
+      "h": 65
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9bf4a1ac0af453f1-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 이동 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--seatExplore"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fb784d58f9b298be-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 89,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 배경",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 89
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1af4fb866101dafe-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 89,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 테두리",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 89
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0425eb8e8d1f3a43-shadow.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 416,
+    "h": 185,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 그림자",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 320,
+      "h": 89
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2fe7597017b8b6bf-background.png",
+    "title": "바 튜토리얼 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 35,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ab5f2657339a99d6-border.png",
+    "title": "바 튜토리얼 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 35,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 기본 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 호버 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 누름 | 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 button 포커스 | 바 튜토리얼 · 단계별 안내 · 레시피 읽기 button 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--seatIndicator",
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 35
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d28ab720ea113db5-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d2c6553d43eec43c-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--seatIndicator"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/407874e911a2c8c6-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 42,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 배경",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e8192c3434375669-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 42,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 테두리",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a51ea66dc84e54fd-shadow.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 416,
+    "h": 138,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 닫기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 잔 선택 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 재료 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 div.day0-guide-copy 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 맥주 잔 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 병맥주 선택 div.day0-guide-copy 기본 | 맥주 제조 튜토리얼 · 제조 시작 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 그림자",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--coaster",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--prepRecipeClose",
+      "popup:bar-guides--prepGlass",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerGlass",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 320,
+      "h": 42
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a2bca7f3fcf33cc7-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 30,
+    "h": 36,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 svg.coaster-pickup-arrow 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .coaster-pickup-arrow · 아이콘",
+    "sourceSelector": "svg.coaster-pickup-arrow",
+    "sourceStates": [
+      "popup:bar-guides--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 30,
+      "h": 36
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9c9a3c503544e009-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3afd96bf84742467-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 71,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 코스터 제공 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--coaster"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 71
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/159132e48defbf3c-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 62,
+    "h": 62,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 button.service-handle 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.service-handle 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button.service-handle 누름 바 튜토리얼 · 단계별 안내 · 서비스 패널 · .service-handle · 배경",
+    "sourceSelector": "button.service-handle",
+    "sourceStates": [
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 62,
+      "h": 62
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cc3087dd0c6a0bed-background.png",
+    "title": "바 튜토리얼 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 254,
+    "h": 55,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 button 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 포커스 바 튜토리얼 · 단계별 안내 · 서비스 패널 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 254,
+      "h": 55
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c4fcfc354227e3d2-shadow.png",
+    "title": "바 튜토리얼 · 버튼 그림자",
+    "category": "UI · 기타 분리",
+    "w": 350,
+    "h": 151,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 button 기본 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 호버 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 누름 | 바 튜토리얼 · 단계별 안내 · 서비스 패널 button 포커스 바 튜토리얼 · 단계별 안내 · 서비스 패널 ·  · 그림자",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe",
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 254,
+      "h": 55
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/47182d7c76d2b621-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c13a8fc928222099-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 275,
+    "h": 75,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 275,
+      "h": 75
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/28afe51426ec821c-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ec38a64a10b1656a-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 62,
+    "h": 62,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 서비스 패널 button.service-handle 포커스 바 튜토리얼 · 단계별 안내 · 서비스 패널 · .service-handle · 배경 / 포커스",
+    "sourceSelector": "button.service-handle",
+    "sourceStates": [
+      "popup:bar-guides--recipe"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 62,
+      "h": 62
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/380f478c6d84a4d3-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 355,
+    "h": 88,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 선택 button.recipe-card 포커스 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-card · 배경",
+    "sourceSelector": "button.recipe-card",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect",
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 355,
+      "h": 88
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e2883eb739e4c680-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 338,
+    "h": 652,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 aside.prep-recipe.recipe-preview.recipe-peek 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 배경",
+    "sourceSelector": "aside.prep-recipe.recipe-preview.recipe-peek",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 338,
+      "h": 652
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d312627ce42a06a5-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 338,
+    "h": 652,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 aside.prep-recipe.recipe-preview.recipe-peek 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 테두리",
+    "sourceSelector": "aside.prep-recipe.recipe-preview.recipe-peek",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 338,
+      "h": 652
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/831ad53cfa67a7ad-shadow.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 434,
+    "h": 748,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 aside.prep-recipe.recipe-preview.recipe-peek 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 그림자",
+    "sourceSelector": "aside.prep-recipe.recipe-preview.recipe-peek",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 338,
+      "h": 652
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8f61e6f0c1a7e201-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 273,
+    "h": 137,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 div.recipe-hero 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-hero · 배경",
+    "sourceSelector": "div.recipe-hero",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 273,
+      "h": 137
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/de13a34fb5a58c69-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 273,
+    "h": 137,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 div.recipe-hero 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-hero · 테두리",
+    "sourceSelector": "div.recipe-hero",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 273,
+      "h": 137
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e1ea7e67a5d33306-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 273,
+    "h": 98,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 div.recipe-icon-grid 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-grid · 테두리",
+    "sourceSelector": "div.recipe-icon-grid",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 273,
+      "h": 98
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/86db16fdd6ec7575-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘 배경",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 64,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 div.recipe-icon-slot 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-slot · 배경",
+    "sourceSelector": "div.recipe-icon-slot",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/290a7ba39413ce1f-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘 테두리",
+    "category": "UI · 기타 분리",
+    "w": 64,
+    "h": 64,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 div.recipe-icon-slot 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-slot · 테두리",
+    "sourceSelector": "div.recipe-icon-slot",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/de4f8a4785ccabfb-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 273,
+    "h": 15,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 h3 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · h3 · 테두리",
+    "sourceSelector": "h3",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 273,
+      "h": 15
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/61e15bf7bbf911ba-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ce069b36c543c709-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 376,
+    "h": 108,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 376,
+      "h": 108
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ce4b0669772c2ec2-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 선택 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 레시피 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--recipeSelect"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/75a9c196da5c3c2c-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 135,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 포커스 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .recipe-toggle.prep-recipe-brief · 배경",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 135
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/df5dceea1387eae3-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 280,
+    "h": 135,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 기본 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 호버 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 누름 | 바 튜토리얼 · 단계별 안내 · 레시피 열기 button.recipe-toggle.prep-recipe-brief 포커스 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .recipe-toggle.prep-recipe-brief · 테두리",
+    "sourceSelector": "button.recipe-toggle.prep-recipe-brief",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen",
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 280,
+      "h": 135
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/221622fa6edfa36e-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 15,
+    "h": 15,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 span.prep-brief-check 기본 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .prep-brief-check · 배경",
+    "sourceSelector": "span.prep-brief-check",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 15,
+      "h": 15
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7696695b265aafdc-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 15,
+    "h": 15,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 span.prep-brief-check 기본 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .prep-brief-check · 테두리",
+    "sourceSelector": "span.prep-brief-check",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 15,
+      "h": 15
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/85083988ac35068c-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3a57d089075e0dce-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 301,
+    "h": 155,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 301,
+      "h": 155
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6d9844ee2a8038bf-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeOpen"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11f6551082201aa0-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 105,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 배경",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 105
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/348ee0deb62a61df-border.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 320,
+    "h": 105,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 테두리",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 105
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5933524835f2455b-shadow.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 패널 그림자",
+    "category": "UI · 기타 분리",
+    "w": 416,
+    "h": 201,
+    "partKind": "shadow",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 div.day0-guide-copy 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 그림자",
+    "sourceSelector": "div.day0-guide-copy",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 320,
+      "h": 105
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c4f56381fec861f6-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/35800c2cd1b03b92-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 315,
+    "h": 496,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 315,
+      "h": 496
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1a90025d30299265-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeRead"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5898556f7b74d14f-border.png",
+    "title": "바 튜토리얼 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 26,
+    "partKind": "border",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 button 기본 바 튜토리얼 · 단계별 안내 · 레시피 닫기 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f6e5ea5ac6a0e609-icon.png",
+    "title": "바 튜토리얼 · 버튼 아이콘 (×)",
+    "category": "UI · 기타 분리",
+    "w": 24,
+    "h": 26,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 button 기본 바 튜토리얼 · 단계별 안내 · 레시피 닫기 ·  · 아이콘",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 24,
+      "h": 26
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "×"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/42ad2ea6acf268df-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 레시피 닫기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1329f8cd45258ce4-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 44,
+    "h": 47,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 레시피 닫기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 44,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c9ab33b67395bbd9-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 레시피 닫기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepRecipeClose"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/899aefee9f58a30c-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 잔 선택 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/11939d515233a9cd-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 140,
+    "h": 274,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 잔 선택 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 140,
+      "h": 274
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/83bbfd1959063b1f-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 잔 선택 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b944bf8bcd32d41b-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 svg.day0-guide-art 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepNavigate",
+      "popup:beer-guides--beerToolNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8e8bb262726e43a8-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 47,
+    "h": 68,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 | 맥주 제조 튜토리얼 · 도구 선반 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepNavigate",
+      "popup:beer-guides--beerToolNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 47,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/35b5a1fbc287eca3-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/28a24c2e3173952a-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 도구 선반 이동 button.shelf-arrow.next 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.next 호버 바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .shelf-arrow.next · 배경 / 호버",
+    "sourceSelector": "button.shelf-arrow.next",
+    "sourceStates": [
+      "popup:bar-guides--prepNavigate",
+      "popup:beer-guides--beerToolNavigate",
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f77cf559fe4b9ad3-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 설명 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 설명 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 재료 설명 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepHover"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fe9a0416a039b04f-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 설명 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 97,
+    "h": 249,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 설명 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 재료 설명 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepHover"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 97,
+      "h": 249
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/dbef7d3c68335d5a-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 설명 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 설명 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 재료 담기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 설명 button.shelf-arrow.prev 호버 | 바 튜토리얼 · 단계별 안내 · 탄산수 담기 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 병따개 선택 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 냉장고 이동 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 병맥주 선택 button.shelf-arrow.prev 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.shelf-arrow.prev 호버 바 튜토리얼 · 단계별 안내 · 재료 설명 · .shelf-arrow.prev · 배경 / 호버",
+    "sourceSelector": "button.shelf-arrow.prev",
+    "sourceStates": [
+      "popup:bar-guides--prepHover",
+      "popup:bar-guides--prepAdd",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepSodaHover",
+      "popup:bar-guides--prepSodaAdd",
+      "popup:beer-guides--beerOpener",
+      "popup:beer-guides--beerFridgeNavigate",
+      "popup:beer-guides--beerAdd",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3020cc18a0bbf410-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 담기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 재료 담기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/828332e08c9eb5ae-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 97,
+    "h": 249,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 담기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 재료 담기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 97,
+      "h": 249
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/adaf444dd5fda2a9-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 담기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 재료 담기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/72a393f51860cf35-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 93,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 button.inventory-slot 기본 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.inventory-slot 호버 | 바 튜토리얼 · 단계별 안내 · 재료 빼기 button.inventory-slot 누름 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.inventory-slot 기본 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.inventory-slot 호버 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.inventory-slot 누름 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.inventory-slot 기본 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.inventory-slot 호버 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.inventory-slot 누름 | 맥주 제조 튜토리얼 · 제조 시작 button.inventory-slot 기본 | 맥주 제조 튜토리얼 · 제조 시작 button.inventory-slot 호버 | 맥주 제조 튜토리얼 · 제조 시작 button.inventory-slot 누름 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .inventory-slot · 배경",
+    "sourceSelector": "button.inventory-slot",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/020fa25215ed3009-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 93,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 button.inventory-slot 기본 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .inventory-slot · 배경",
+    "sourceSelector": "button.inventory-slot",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ca39a4e31c998c14-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4a9b6248732919ec-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 114,
+    "h": 114,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 114,
+      "h": 114
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5179d00f6850493d-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a4c220f972ae6013-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 93,
+    "h": 93,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 재료 빼기 button.inventory-slot 포커스 | 바 튜토리얼 · 단계별 안내 · 진 다시 담기 button.inventory-slot 포커스 | 바 튜토리얼 · 단계별 안내 · 제조 시작 button.inventory-slot 포커스 | 맥주 제조 튜토리얼 · 제조 시작 button.inventory-slot 포커스 바 튜토리얼 · 단계별 안내 · 재료 빼기 · .inventory-slot · 배경 / 포커스",
+    "sourceSelector": "button.inventory-slot",
+    "sourceStates": [
+      "popup:bar-guides--prepRemove",
+      "popup:bar-guides--prepGinAgain",
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 93,
+      "h": 93
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b2c63f0fb94b987b-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 진 다시 담기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepGinAgain"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bd35d766deefca32-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 97,
+    "h": 249,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 진 다시 담기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepGinAgain"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 97,
+      "h": 249
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5d9f51eb70208434-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 진 다시 담기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepGinAgain"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/efb1aea03ad5a606-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0e12fac125083d96-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 47,
+    "h": 68,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 47,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fbcf6246b2b51e98-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b22d518f04ad54c9-background.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 26,
+    "h": 47,
+    "partKind": "background",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 button.shelf-arrow.prev 호버 바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .shelf-arrow.prev · 배경 / 호버",
+    "sourceSelector": "button.shelf-arrow.prev",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 26,
+      "h": 47
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/188d692df13d9966-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 탄산수 설명 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaHover"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/58c54ba0a85495e6-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 130,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 탄산수 설명 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaHover"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 130
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3f0ebb414f1ca53f-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 탄산수 담기 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/6936e79612e8fc99-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 130,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 탄산수 담기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 130
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2c612785ddd18e4e-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 탄산수 담기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepSodaAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b2941f6b9a63f5b6-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 제조 시작 svg.day0-guide-art 기본 | 맥주 제조 튜토리얼 · 제조 시작 svg.day0-guide-art 기본 바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1fd413bd39efdc52-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 187,
+    "h": 74,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 제조 시작 svg.day0-guide-art / rect.day0-guide-outline 기본 | 맥주 제조 튜토리얼 · 제조 시작 svg.day0-guide-art / rect.day0-guide-outline 기본 바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:bar-guides--prepStart",
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 187,
+      "h": 74
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/14ff37e70b3a3ea0-icon.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "바 튜토리얼 · 단계별 안내 · 제조 시작 svg.day0-guide-art / g.day0-click-arrow 기본 바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:bar-guides--prepStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/23423d30c7a7b8ac-icon.png",
+    "title": "맥주 제조 튜토리얼 · 맥주 잔 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 맥주 잔 svg.day0-guide-art 기본 맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:beer-guides--beerGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/51f1a0ad949039cb-icon.png",
+    "title": "맥주 제조 튜토리얼 · 맥주 잔 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 141,
+    "h": 274,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 맥주 잔 svg.day0-guide-art / rect.day0-guide-outline 기본 맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:beer-guides--beerGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 141,
+      "h": 274
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9f6cc42a5a3f5922-icon.png",
+    "title": "맥주 제조 튜토리얼 · 맥주 잔 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 28,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 맥주 잔 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerGlass"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 28
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/1a413a6cb3a3fade-icon.png",
+    "title": "맥주 제조 튜토리얼 · 도구 선반 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 도구 선반 이동 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 도구 선반 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerToolNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/38a8be6febf375c1-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병따개 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병따개 선택 svg.day0-guide-art 기본 맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:beer-guides--beerOpener"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/32ca8de90dfcbaf4-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병따개 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 207,
+    "h": 327,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병따개 선택 svg.day0-guide-art / rect.day0-guide-outline 기본 맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:beer-guides--beerOpener"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 207,
+      "h": 327
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/498973e57e33d76a-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병따개 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 36,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병따개 선택 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerOpener"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/43629f5c4b43e57e-icon.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 냉장고 이동 svg.day0-guide-art 기본 맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5e993888bd296115-icon.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 47,
+    "h": 68,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 냉장고 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 47,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/33aee7f4e6f21999-icon.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 47,
+    "h": 68,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 냉장고 이동 svg.day0-guide-art / rect.day0-guide-outline 기본 맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 47,
+      "h": 68
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/cd4e66a05a38cf91-icon.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 냉장고 이동 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerFridgeNavigate"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/229091b69a7945ba-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병맥주 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 1280,
+    "h": 720,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병맥주 선택 svg.day0-guide-art 기본 맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art · 아이콘",
+    "sourceSelector": "svg.day0-guide-art",
+    "sourceStates": [
+      "popup:beer-guides--beerAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1280,
+      "h": 720
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/798801ac95169a07-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병맥주 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 145,
+    "h": 229,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병맥주 선택 svg.day0-guide-art / rect.day0-guide-outline 기본 맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / rect.day0-guide-outline",
+    "sourceStates": [
+      "popup:beer-guides--beerAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 145,
+      "h": 229
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/278fca7c7637ca43-icon.png",
+    "title": "맥주 제조 튜토리얼 · 병맥주 선택 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 병맥주 선택 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerAdd"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e3f8cb9657c611d5-icon.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 아이콘",
+    "category": "UI · 기타 분리",
+    "w": 37,
+    "h": 29,
+    "partKind": "icon",
+    "contexts": "맥주 제조 튜토리얼 · 제조 시작 svg.day0-guide-art / g.day0-click-arrow 기본 맥주 제조 튜토리얼 · 제조 시작 · .day0-guide-art / g.day0-click-arrow · 아이콘",
+    "sourceSelector": "svg.day0-guide-art / g.day0-click-arrow",
+    "sourceStates": [
+      "popup:beer-guides--beerStart"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 29
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7a3b74ad48557092-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 228,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 안내 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 228
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ee7e433690454444-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 228,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 안내 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 228
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3f5d84cb57df8cf0-shadow.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 324,
+    "partKind": "shadow",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 타이틀 복귀 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 안내 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 로딩 오류 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--confirm-exit",
+      "popup:campaign-dialogs--notice",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 228
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c33d00098c4652e2-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 156,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button 기본 본편 · 확인 / 안내 팝업 · 하루 마치기 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 156,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a5c08b264c3565b2-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 156,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button 기본 본편 · 확인 / 안내 팝업 · 하루 마치기 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 156,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/a531b2a8bb3e8fe9-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 누름 본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7142d149daa05327-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 누름 본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink",
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/166664ccaf191dab-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 포커스 본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 배경 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ca26496c30bbd6da-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 하루 마치기 button.primary 포커스 | 본편 · 확인 / 안내 팝업 · 주문 재확인 button.primary 포커스 본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 테두리 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--sleep",
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/28c7dd29fa79a1be-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 button 기본 본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--confirm-exit"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e7e0a823976f8b6c-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 122,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 button 기본 본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--confirm-exit"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 122,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b66702b6b601a9db-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 167,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 button 기본 본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--confirm-exit"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 167,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/447343b84af9cd1f-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 167,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 button 기본 본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--confirm-exit"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 167,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2394611f4f9625b6-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 225,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 주문 재확인 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 225
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0fd65e24ee0a4c3b-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 225,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 주문 재확인 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 225
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/57df3312ab1f8e2d-shadow.png",
+    "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 321,
+    "partKind": "shadow",
+    "contexts": "본편 · 확인 / 안내 팝업 · 주문 재확인 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 225
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e659508b9716c803-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 137,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 주문 재확인 button 기본 본편 · 확인 / 안내 팝업 · 주문 재확인 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 137,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7569df7494986b67-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 137,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 주문 재확인 button 기본 본편 · 확인 / 안내 팝업 · 주문 재확인 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--retry-drink"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 137,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c1eb483d3c35da62-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 640,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 640
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4666107541d6ab7f-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 640,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 640
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d91eb265579046bd-shadow.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 736,
+    "partKind": "shadow",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 640
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/46029e2f02a26072-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 72,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 label.settings-row 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · label.settings-row · 테두리",
+    "sourceSelector": "label.settings-row",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 72
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9f302bf93f8ebf70-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 181,
+    "h": 39,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 select 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · select · 배경",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 181,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/510e03cd1ada149b-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 181,
+    "h": 39,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 select 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · select · 테두리",
+    "sourceSelector": "select",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 181,
+      "h": 39
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/0ede4e5b7a295227-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 70,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 div.dialogue-audio-settings 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .dialogue-audio-settings · 테두리",
+    "sourceSelector": "div.dialogue-audio-settings",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 70
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e2bdef4ba947ce85-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 95,
+    "h": 34,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button 기본 본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 95,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/00f7ec348e16fd04-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 95,
+    "h": 34,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button 기본 본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 95,
+      "h": 34
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8cb0a375e6719ae5-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 431,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 input 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · input · 배경",
+    "sourceSelector": "input",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 431,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c8d7ed05e256f9d7-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 431,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 input 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · input · 테두리",
+    "sourceSelector": "input",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 431,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7e61b5cff04c0014-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 141,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 누름 본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 141,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f696c3f6a6f54e11-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 141,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 누름 본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation",
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 141,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2b958b98974f5bde-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 배경",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e5b4e8e40fe0a930-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 기본 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 호버 | 본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 누름 | 본편 · 확인 / 안내 팝업 · 로딩 오류 button 기본 본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 테두리",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--options",
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/acb412b2922a5768-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 포커스 본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 배경 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/74d322b748ecb4d7-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 102,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 button.primary 포커스 본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 테두리 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--options"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 102,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2360351d64774940-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 426,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 426
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/665978ecc5a72dd5-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 426,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 426
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/bae09168c8099ca3-shadow.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 522,
+    "partKind": "shadow",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 426
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8b2b63c41ea00e16-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 #observation-base 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-base · 배경",
+    "sourceSelector": "#observation-base",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/aa2ba2122d9eac43-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 #observation-base 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-base · 테두리",
+    "sourceSelector": "#observation-base",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/ae137a4c2c5e8195-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 #observation-order 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-order · 배경",
+    "sourceSelector": "#observation-order",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4daa54bd0383347b-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 650,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 #observation-order 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-order · 테두리",
+    "sourceSelector": "#observation-order",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 650,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/baa12782d36618d4-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 176,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 176,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/2a59596f237eeb02-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 176,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button 기본 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 176,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/abab129a095e6d5d-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 141,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 포커스 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .primary · 배경 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 141,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/b972e19180869bc8-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 141,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 button.primary 포커스 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .primary · 테두리 / 포커스",
+    "sourceSelector": "button.primary",
+    "sourceStates": [
+      "popup:campaign-dialogs--observation"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 141,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f0a44d63a4e47812-background.png",
+    "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · 카드 배경",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 233,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 배경",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 233
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7c14033d3b388ff1-border.png",
+    "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · 카드 테두리",
+    "category": "UI · 기타 분리",
+    "w": 720,
+    "h": 233,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 테두리",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 720,
+      "h": 233
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/fce8724fa409ad96-shadow.png",
+    "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · 카드 그림자",
+    "category": "UI · 기타 분리",
+    "w": 816,
+    "h": 329,
+    "partKind": "shadow",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 section.campaign-card 기본 본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 그림자",
+    "sourceSelector": "section.campaign-card",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 48,
+      "y": 48,
+      "w": 720,
+      "h": 233
+    },
+    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/7303f8355aa17a46-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 289,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 button 기본 본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 289,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8e64c83466fbc380-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 289,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 button 기본 본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 289,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/5c164cc48e57ddfa-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 403,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 button 기본 본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 403,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8e58be9d3a4b21a0-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 403,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 대화 응답 button 기본 본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--response"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 403,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/905a66feb903bbcd-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 209,
+    "h": 145,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 추천 칵테일 button 기본 본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 209,
+      "h": 145
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/891d0ae0404cc02d-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 209,
+    "h": 145,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 추천 칵테일 button 기본 본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 209,
+      "h": 145
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/3118eb6afd351bbb-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 209,
+    "h": 145,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 추천 칵테일 button 기본 본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 209,
+      "h": 145
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/49f7e7f74b7cda4f-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 209,
+    "h": 145,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 추천 칵테일 button 기본 본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--menu"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 209,
+      "h": 145
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/413cf447239073b6-background.png",
+    "title": "본편 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 107,
+    "h": 43,
+    "partKind": "background",
+    "contexts": "본편 · 확인 / 안내 팝업 · 로딩 오류 button 기본 본편 · 확인 / 안내 팝업 · 로딩 오류 ·  · 배경",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 107,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/06d717ee4bfa382a-border.png",
+    "title": "본편 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 107,
+    "h": 43,
+    "partKind": "border",
+    "contexts": "본편 · 확인 / 안내 팝업 · 로딩 오류 button 기본 본편 · 확인 / 안내 팝업 · 로딩 오류 ·  · 테두리",
+    "sourceSelector": "button",
+    "sourceStates": [
+      "popup:campaign-dialogs--load-error"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 107,
+      "h": 43
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c8a0a2674714de3d-background.png",
+    "title": "타이틀 화면 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 318,
+    "h": 66,
+    "partKind": "background",
+    "contexts": "타이틀 화면 button.title-choice 기본 | 타이틀 화면 button.title-choice 누름 | 타이틀 화면 button.title-choice 포커스 타이틀 화면 · .title-choice · 배경",
+    "sourceSelector": "button.title-choice",
+    "sourceStates": [
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 318,
+      "h": 66
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/790eab250b52396e-background.png",
+    "title": "타이틀 화면 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 16,
+    "h": 59,
+    "partKind": "background",
+    "contexts": "타이틀 화면 button.title-choice::before 기본 | 타이틀 화면 button.title-choice::before 호버 | 타이틀 화면 button.title-choice::before 누름 | 타이틀 화면 button.title-choice::before 포커스 타이틀 화면 · .title-choice::before · 배경",
+    "sourceSelector": "button.title-choice::before",
+    "sourceStates": [
+      "extra-title",
+      "extra-title",
+      "extra-title",
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 59
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e4025578aca9dc41-background.png",
+    "title": "타이틀 화면 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 318,
+    "h": 66,
+    "partKind": "background",
+    "contexts": "타이틀 화면 button.title-choice 기본 타이틀 화면 · .title-choice · 배경",
+    "sourceSelector": "button.title-choice",
+    "sourceStates": [
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 318,
+      "h": 66
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4f6a354db797a0f6-border.png",
+    "title": "타이틀 화면 · 패널 테두리",
+    "category": "UI · 기타 분리",
+    "w": 38,
+    "h": 12,
+    "partKind": "border",
+    "contexts": "타이틀 화면 span.title-menu-index 기본 타이틀 화면 · .title-menu-index · 테두리",
+    "sourceSelector": "span.title-menu-index",
+    "sourceStates": [
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 38,
+      "h": 12
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/234382b4e3f96b5e-background.png",
+    "title": "타이틀 화면 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 318,
+    "h": 66,
+    "partKind": "background",
+    "contexts": "타이틀 화면 button.title-choice 호버 타이틀 화면 · .title-choice · 배경 / 호버",
+    "sourceSelector": "button.title-choice",
+    "sourceStates": [
+      "extra-title"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 318,
+      "h": 66
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/01172a73b8781aa6-background.png",
+    "title": "컷씬 스킵 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 기본 | 컷씬 스킵 안내 button.campaign-skip.is-visible 누름 컷씬 스킵 안내 · .campaign-skip.is-visible · 배경",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip",
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/09b849e4135a55a9-border.png",
+    "title": "컷씬 스킵 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 기본 | 컷씬 스킵 안내 button.campaign-skip.is-visible 누름 컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip",
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/f6cb525f906b9baa-background.png",
+    "title": "컷씬 스킵 안내 · 키 표시 배경",
+    "category": "UI · 기타 분리",
+    "w": 46,
+    "h": 22,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 kbd 기본 | 컷씬 스킵 안내 kbd 호버 | 컷씬 스킵 안내 kbd 누름 | 컷씬 스킵 안내 kbd 포커스 컷씬 스킵 안내 ·  · 배경",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 46,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/4b7394c56ce25012-border.png",
+    "title": "컷씬 스킵 안내 · 키 표시 테두리",
+    "category": "UI · 기타 분리",
+    "w": 46,
+    "h": 22,
+    "partKind": "border",
+    "contexts": "컷씬 스킵 안내 kbd 기본 | 컷씬 스킵 안내 kbd 호버 | 컷씬 스킵 안내 kbd 누름 | 컷씬 스킵 안내 kbd 포커스 컷씬 스킵 안내 ·  · 테두리",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 46,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c78e7a11a011f5fc-icon.png",
+    "title": "컷씬 스킵 안내 · 키 표시 아이콘 (Space)",
+    "category": "UI · 기타 분리",
+    "w": 46,
+    "h": 22,
+    "partKind": "icon",
+    "contexts": "컷씬 스킵 안내 kbd 기본 | 컷씬 스킵 안내 kbd 호버 | 컷씬 스킵 안내 kbd 누름 | 컷씬 스킵 안내 kbd 포커스 컷씬 스킵 안내 ·  · 아이콘",
+    "sourceSelector": "kbd",
+    "sourceStates": [
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip",
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 46,
+      "h": 22
+    },
+    "note": "설명 텍스트 제외 · 아이콘만 분리",
+    "iconGlyph": "Space"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/62c39337796d51c9-background.png",
+    "title": "컷씬 스킵 안내 · 게이지 배경",
+    "category": "UI · 기타 분리",
+    "w": 108,
+    "h": 2,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 div.campaign-skip-track 기본 컷씬 스킵 안내 · .campaign-skip-track · 배경",
+    "sourceSelector": "div.campaign-skip-track",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 108,
+      "h": 2
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/e57da2ed6a302986-background.png",
+    "title": "컷씬 스킵 안내 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 108,
+    "h": 2,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 i 기본 컷씬 스킵 안내 · i · 배경",
+    "sourceSelector": "i",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 108,
+      "h": 2
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/9753c2bc4a910050-background.png",
+    "title": "컷씬 스킵 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 호버 컷씬 스킵 안내 · .campaign-skip.is-visible · 배경 / 호버",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/d97c568199958de5-border.png",
+    "title": "컷씬 스킵 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 호버 컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리 / 호버",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/8161af4ccc32a040-background.png",
+    "title": "컷씬 스킵 안내 · 버튼 배경",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "background",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 포커스 컷씬 스킵 안내 · .campaign-skip.is-visible · 배경 / 포커스",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/c0ba1411f38b1db6-border.png",
+    "title": "컷씬 스킵 안내 · 버튼 테두리",
+    "category": "UI · 기타 분리",
+    "w": 128,
+    "h": 38,
+    "partKind": "border",
+    "contexts": "컷씬 스킵 안내 button.campaign-skip.is-visible 포커스 컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리 / 포커스",
+    "sourceSelector": "button.campaign-skip.is-visible",
+    "sourceStates": [
+      "fixture-skip"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 38
+    },
+    "note": "설명 텍스트 제외 · 테두리만 분리"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/84f7fd071a6a2559-background.png",
+    "title": "오브젝트 관찰 · 패널 배경",
+    "category": "UI · 기타 분리",
+    "w": 1278,
+    "h": 718,
+    "partKind": "background",
+    "contexts": "오브젝트 관찰 div.outside-overlay.is-inspection 기본 오브젝트 관찰 · .outside-overlay.is-inspection · 배경",
+    "sourceSelector": "div.outside-overlay.is-inspection",
+    "sourceStates": [
+      "fixture-inspection"
+    ],
+    "contentRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1278,
+      "h": 718
+    },
+    "note": "설명 텍스트 제외 · 배경만 분리"
+  },
+  {
+    "src": "assets/a_45d0daf42db3.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 2041,
+    "h": 792,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_3f53af246970.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 2041,
+    "h": 792,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_436e152a79bf.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 2041,
+    "h": 792,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_6e05a16c09bd.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 83,
+    "h": 27,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_425b64ec3ae4.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 216,
+    "h": 411,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_a4a82d2114bc.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 345,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_bcad42172f17.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_87c6d631a89a.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_a0586424b54b.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_d0ea7458f19a.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_a4e2aeec1c2b.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_1e2229dd9d93.png",
+    "title": "타이틀 화면 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 95,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_e87b4b063fec.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_23a50d3c59ff.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 119,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_5773a27ad1cc.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 223,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/tequila-registered.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_e0bceb89e71d.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_bf0352564188.png",
+    "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/orange-juice-registered.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 223,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_b7102b77e302.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 119,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_bde1f3bd7144.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 223,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/cocktails-20261018/representative/beer_final.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 345,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/cocktails-20261018/representative/screwdriver_final.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 345,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/cocktails-20261018/representative/tequila_sunrise_final.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 216,
+    "h": 411,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_f4a13972f075.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 337,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_5faf512444c4.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 223,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_89c29065faee.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 93,
+    "h": 223,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_f3bf72232c7b.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_5222f2619de0.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_07735e48a6ef.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 57,
+    "h": 171,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_b3503b8d6b10.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 36,
+    "h": 146,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_dbbfe3ad1003.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 635,
+    "h": 635,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_950fbcb9e395.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 635,
+    "h": 635,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_79542e331d75.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 635,
+    "h": 635,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_71fbc96eb46f.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 635,
+    "h": 635,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_4fab5f875d06.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 635,
+    "h": 635,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_d8002c015189.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 198,
+    "h": 327,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_b9e30d4f1ab8.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 345,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_473a2ff63013.png",
+    "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 200,
+    "h": 345,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_958304481b25.png",
+    "title": "맥주 제조 튜토리얼 · 맥주 레시피 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 384,
+    "h": 634,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_91b9ac581bdd.png",
+    "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 69,
+    "h": 112,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/campaign/johnny-johnny_old_fashioned.png",
+    "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 175,
+    "h": 192,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/campaign/johnny-wild_dog.png",
+    "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 128,
+    "h": 192,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/campaign/johnny-bitters.png",
+    "title": "재료 획득 알림 / 외부 · 기본 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 107,
+    "h": 160,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/campaign/johnny-sugar_cube.png",
+    "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 60,
+    "h": 64,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_e6775ed48afd.png",
+    "title": "병따기 튜토리얼 · 완료 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 490,
+    "h": 280,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_cd7f4659eecf.png",
+    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 384,
+    "h": 634,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_58522ab9d42b.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 70,
+    "h": 115,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_7ff91522221d.png",
+    "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 70,
+    "h": 115,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/a_4cd669c9db04.png",
+    "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 70,
+    "h": 115,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-normal-background.png",
+    "title": "게임 시작 안내 · E키 기본 · 배경",
+    "category": "UI · 기타 분리",
+    "partKind": "background",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-normal-border.png",
+    "title": "게임 시작 안내 · E키 기본 · 테두리",
+    "category": "UI · 기타 분리",
+    "partKind": "border",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-normal-icon.png",
+    "title": "게임 시작 안내 · E키 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "partKind": "icon",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-pressed-background.png",
+    "title": "게임 시작 안내 · E키 누름 · 배경",
+    "category": "UI · 기타 분리",
+    "partKind": "background",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-pressed-border.png",
+    "title": "게임 시작 안내 · E키 누름 · 테두리",
+    "category": "UI · 기타 분리",
+    "partKind": "border",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-e-pressed-icon.png",
+    "title": "게임 시작 안내 · E키 누름 · 아이콘",
+    "category": "UI · 기타 분리",
+    "partKind": "icon",
+    "w": 68,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음",
+    "iconGlyph": "E"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-normal-background.png",
+    "title": "게임 시작 안내 · SPACE키 기본 · 배경",
+    "category": "UI · 기타 분리",
+    "partKind": "background",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-normal-border.png",
+    "title": "게임 시작 안내 · SPACE키 기본 · 테두리",
+    "category": "UI · 기타 분리",
+    "partKind": "border",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-normal-icon.png",
+    "title": "게임 시작 안내 · SPACE키 기본 · 아이콘",
+    "category": "UI · 기타 분리",
+    "partKind": "icon",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음",
+    "iconGlyph": "SPACE"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-pressed-background.png",
+    "title": "게임 시작 안내 · SPACE키 누름 · 배경",
+    "category": "UI · 기타 분리",
+    "partKind": "background",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-pressed-border.png",
+    "title": "게임 시작 안내 · SPACE키 누름 · 테두리",
+    "category": "UI · 기타 분리",
+    "partKind": "border",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
+  },
+  {
+    "src": "assets/ui-extracted-20261019/intro-space-pressed-icon.png",
+    "title": "게임 시작 안내 · SPACE키 누름 · 아이콘",
+    "category": "UI · 기타 분리",
+    "partKind": "icon",
+    "w": 166,
+    "h": 71,
+    "sourceStates": [
+      "ui:opening-guide--default"
+    ],
+    "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음",
+    "iconGlyph": "SPACE"
   }
 ];

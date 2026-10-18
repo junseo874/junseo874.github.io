@@ -18,7 +18,14 @@ function html(dialog){
  const style=seat?'--speaker-x:'+seat.x+'px;--speaker-y:'+seat.y+'px;':'';
  return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><img class="terrace-art" src="'+asset+'" alt="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다" draggable="false">'+
  '<span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
- '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사"><p><span class="campaign-measure" aria-hidden="true">'+textHTML(row)+'</span><span class="campaign-ink"></span></p></button></div>';
+ '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사">'+W.LunaExteriorTextbox.html()+'<p></p></button></div>';
 }
-W.LunaTerrace={asset,seats,rows,html,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===2?'night2':day===3?'ending':null};
+function paint(dialog,host){
+ const bubble=host.querySelector('.terrace-speech'),paragraph=bubble?.querySelector('p');if(!paragraph)return;
+ const row=dialog.rows[dialog.index];
+ if(!paragraph.dataset.mounted){W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.mounted='true';}
+ W.LunaExteriorTextbox.revealText(paragraph,Array.from(row.text.slice(0,Math.floor(dialog.chars))).length);
+ W.LunaDialogueCue.sync(bubble,!!row.text&&dialog.chars>=row.text.length);
+}
+W.LunaTerrace={asset,seats,rows,html,paint,textHTML,nightKey:day=>day===0?'night0':day===1?'night1':day===2?'night2':day===3?'ending':null};
 })(window);
