@@ -67,12 +67,12 @@ function speech(c,s){
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null){
   speechLayer?.begin();waiting=dialogueWait;playback.waitAge=waiting?.age||0;
   time=t;const s=StudioModel.sample(project,time);lastCamera={...s.camera};
-  ctx.fillStyle='#090e16';ctx.fillRect(0,0,1280,720);ctx.imageSmoothingEnabled=false;
+  ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);ctx.imageSmoothingEnabled=false;
   for(const id of [...project.visibleActors].sort((a,b)=>(s.actors[a].layer||0)-(s.actors[b].layer||0))){const a=s.actors[id];if(a.visible>=.5)extras.drawAsset(ctx,a,lastCamera,time);}
   for(const c of project.clips.filter(c=>c.type==='dialogue'&&c.overlay&&c.id!==s.dialogue?.id&&time>=c.start&&time<c.start+c.duration))speech(c,s);
   if(s.dialogue)speech(s.dialogue,s);
   for(const f of s.fx){ctx.save();extras.fx(ctx,f,time);
-   if(['fadeIn','fadeOut','flash'].includes(f.effect)){ctx.fillStyle=f.effect==='flash'?'#e6f6f5':'#020407';ctx.globalAlpha=(f.effect==='fadeIn'?1-f.u:f.effect==='fadeOut'?f.u:Math.sin(Math.PI*f.u))*f.strength;ctx.fillRect(0,0,1280,720);}
+   if(['fadeIn','fadeOut','flash'].includes(f.effect)){ctx.fillStyle=f.effect==='flash'?'#e6f6f5':'#000';ctx.globalAlpha=(f.effect==='fadeIn'?1-f.u:f.effect==='fadeOut'?f.u:Math.sin(Math.PI*f.u))*f.strength;ctx.fillRect(0,0,1280,720);}
    if(f.effect==='noise'){ctx.globalAlpha=f.strength*.23;ctx.fillStyle='#b1d6da';for(let i=0;i<110;i++){const v=Math.sin(i*119.7+Math.floor(time*24)*37.9)*43758.54;ctx.fillRect((v-Math.floor(v))*1280,(i*83)%720,1+i%23,1+i%2);}ctx.globalAlpha=f.strength*.1;for(let y=0;y<720;y+=4)ctx.fillRect(0,y,1280,1);}
    ctx.restore();
   }

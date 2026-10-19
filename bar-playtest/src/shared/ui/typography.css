@@ -36,7 +36,7 @@ button,input,select,textarea{font-family:inherit}
 /* Preparation / recipe reference: pixel names, smooth descriptions and tags. */
 .ingredient-tip strong,.prep-recipe-heading h2,.prep-recipe.recipe-preview h2,
 .recipe-card strong,.recipe-list h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
-.recipe-card small{font-family:var(--font-ui);font-weight:500}
+.recipe-card small{font-family:var(--font-latin);font-weight:600}
 .ingredient-tip span,.ingredient-tip small,.recipe-tags span,
 .prep-recipe section p,.prep-recipe .recipe-lines,.prep-recipe .recipe-note{
   font-family:var(--font-ui);font-weight:500;letter-spacing:-.01em;
@@ -44,7 +44,7 @@ button,input,select,textarea{font-family:inherit}
 .recipe-tags span{letter-spacing:-.04em}
 .prep-recipe-heading>small,.profile-english-name{font-family:var(--font-latin);font-weight:500;letter-spacing:-.025em}
 .prep-recipe section h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
-.craft-start,.inventory-label,.inventory-item-name,.service-actions button,.service-panel p,.service-panel>small{font-family:var(--font-ui);font-weight:500}
+.inventory-label,.inventory-item-name,.service-actions button,.service-panel p,.service-panel>small{font-family:var(--font-ui);font-weight:500}
 .service-panel h2{font-family:var(--font-dialogue);font-weight:700}
 
 /* Profile and screens without a font sheet use the same name/body hierarchy. */
@@ -53,7 +53,7 @@ button,input,select,textarea{font-family:inherit}
 .profile-section p,.profile-facts,.profile-data-note,.dossier-footer p,
 .luna-settings,.end-shift,.end-shift button,.minigame-lobby,
 .minigame-result,.campaign-card,.daily-unlocks,.tutorial-overlay{
-  font-family:var(--font-ui);
+  font-family:var(--font-ui);font-weight:500;
 }
 .profile-section h3,.luna-settings h2,.luna-settings .ls-header h1,
 .ls-nav button b,.end-shift h1,.minigame-card h2,.daily-unlocks h2{font-family:var(--font-dialogue);font-weight:700}
@@ -65,3 +65,25 @@ button,input,select,textarea{font-family:inherit}
 .stir-screen .mix-direction{font-weight:600;letter-spacing:-.05em}
 .mix-timer{font-family:var(--font-dialogue);font-variant-numeric:tabular-nums}
 .stir-screen .mix-timer{font-family:LunaDigital,var(--font-dialogue);font-weight:400;font-size:29px;letter-spacing:0;text-shadow:0 0 21px #4587a58c}
+
+/* Notification headings, messages and symbols use the supplied true bold face. */
+.story-notice small,.story-notice strong,.story-notice-icon{font-family:var(--font-dialogue);font-weight:700}
+
+/* Serving reference: Paperlogy 5 drag hint / Paperlogy 7 coaster label.
+   Names retain Stardust Bold, matching dialogue and ingredient names. */
+.bar-view .drink-tray.service-popup h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
+.bar-view .drink-tray.service-popup small{font-family:var(--font-ui);font-weight:500;letter-spacing:-.01em}
+.bar-view .stack.service-popup small{font-family:var(--font-ui);font-weight:700;letter-spacing:-.01em}
+
+/* Audited against recipe_choice.png and the preparation PSD text layers.
+   The Korean craft button and profile footer are original text-bearing art;
+   these rules also cover their translated / text-based equivalents. */
+.craft-start{font-family:var(--font-ui);font-weight:600}
+.resource-recipe-list .panel-header h2,.prep-brief-heading strong{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.025em}
+.resource-recipe-list .panel-header>small{font-family:var(--font-ui);font-weight:500;letter-spacing:-.01em}
+.resource-recipe-list .panel-header>small strong{font-weight:500}
+.dossier-footer p strong{font-weight:700}
+.prep-recipe-heading h2,.prep-recipe.recipe-preview h2{letter-spacing:-.025em}
+.service-eyebrow{font-family:var(--font-latin);font-weight:500}
+.recipe-item-tip,.profile-section p,.profile-facts,.profile-data-note{font-family:var(--font-ui);font-weight:500}
+.recipe-item-tip strong{font-family:var(--font-dialogue);font-weight:700}

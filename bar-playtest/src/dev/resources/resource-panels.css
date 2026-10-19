@@ -34,7 +34,6 @@
 .resource-recipe-list .recipe-card small{font-size:11px;line-height:1.2;margin-top:5px;color:#6488a3}
 .resource-recipe-list .recipe-card:is(:hover,:focus-visible):not(:disabled) small{color:#8cb6c8}
 .resource-recipe-list .recipe-card.locked{opacity:.4}
-.resource-recipe-list .recipe-lock-mark{font-size:16px}
 .resource-recipe-list+.prep-recipe.recipe-preview{left:447px;top:34px;bottom:34px;width:338px;display:flex;border-radius:9px;box-shadow:inset 0 0 9px #75bfff38,0 0 4px #87d0ff70}
 .resource-recipe-list+.recipe-preview .prep-recipe-heading{padding:27px 30px 5px}
 .resource-recipe-list+.recipe-preview .prep-recipe-heading>small{font-size:13px}

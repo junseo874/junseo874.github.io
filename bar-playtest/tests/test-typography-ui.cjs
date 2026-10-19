@@ -35,5 +35,47 @@ const { load, chrome } = require('../../tools/lib/test-runtime.cjs');
       assert(fonts.every(font => font.isCustomFont), `${id} must not silently fall back: ${JSON.stringify(fonts)}`);
     }
     console.log('PASS 12 font/weight combinations: actual Korean, Latin and numeric webfont rendering');
+    await page.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');
+    await page.waitForFunction(() => resourceReview.ready);
+    const cases = [
+      ['ui:serve', [
+        ['.drink-tray h3', 'LunaPixel', '700'],
+        ['.drink-tray small', 'Paperlogy', '500'],
+        ['.stack.service-popup small', 'Paperlogy', '700'],
+      ]],
+      ['ui:prep', [
+        ['.prep-brief-heading strong', 'LunaPixel', '700'],
+        ['.craft-start', 'Paperlogy', '600'],
+      ]],
+      ['ui:recipes', [
+        ['.resource-recipe-list .panel-header h2', 'LunaPixel', '700'],
+        ['.resource-recipe-list .panel-header>small', 'Paperlogy', '500'],
+        ['.resource-recipe-list .panel-header>small strong', 'Paperlogy', '500'],
+        ['.recipe-card strong', 'LunaPixel', '700'],
+        ['.recipe-card small', 'Pretendard', '600'],
+      ]],
+      ['overlay:service', [
+        ['.service-panel h2', 'LunaPixel', '700'],
+        ['.service-actions button', 'Paperlogy', '500'],
+        ['.service-eyebrow', 'Pretendard', '500'],
+      ]],
+    ];
+    for (const [id, checks] of cases) {
+      await page.evaluate(id => {
+        const row = resourceReview.rows.find(row => row.id === id);
+        resourceReview.launch(row ? row.launch : {type:'overlay', id:id.split(':')[1]}, id, '');
+      }, id);
+      const frame = page.frames().find(frame => frame.url().includes('resourceReview=1'));
+      for (const [selector, family, weight] of checks) {
+        await frame.locator(selector).first().waitFor({state:'attached'});
+        const actual = await frame.locator(selector).first().evaluate(element => {
+          const style = getComputedStyle(element);
+          return {family:style.fontFamily.split(',')[0].replaceAll('"',''), weight:style.fontWeight};
+        });
+        assert.deepEqual(actual, {family, weight}, `${id}: ${selector}`);
+      }
+      await page.evaluate(() => resourceReview.close());
+    }
+    console.log('PASS serving, preparation, recipe and service text roles: actual scene font families and weights');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -28,6 +28,10 @@ const {chromium}=require(deps+'playwright'),sharp=require(deps+'sharp');
    await p.evaluate(()=>outsidePlaytest.start());await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);await p.evaluate(()=>lunaCampaign.screen('developer'));assert(await p.locator('#campaign-root').isHidden());await audit('street',1920,800);
    await p.evaluate(()=>{outsidePlaytest.model.paused=true;outsidePlaytest.refreshHUD();});await audit('street pause',900,900);assert(await p.locator('#campaign-root').isHidden());await p.evaluate(()=>{outsidePlaytest.model.paused=false;outsidePlaytest.refreshHUD();});
    const input=await p.evaluate(()=>({outside:document.elementFromPoint(10,10)?.parentElement?.id,inside:document.elementFromPoint(innerWidth/2,innerHeight/2)?.closest('#game-letterbox')?.id}));assert.equal(input.outside,'game-letterbox');assert(!input.inside,'Matte must not intercept gameplay');
+   // Home artwork has its own dark matte; the browser surround must stay black.
+   await p.evaluate(()=>{outsidePlaytest.model.scene='home';outsidePlaytest.model.qa=false;outsidePlaytest.model.x=-1;outsidePlaytest.snapCamera();});
+   for(const [w,h]of [[1440,900],[1920,800],[1001,777]])await audit('Chris home outer surround',w,h);
+   await p.evaluate(()=>{outsidePlaytest.model.scene='street';outsidePlaytest.snapCamera();});
    // Stress fades, debug overlays and dragged art beneath the permanent matte.
    await p.evaluate(()=>{const e=document.createElement('div');e.id='letterbox-test-flash';e.style.cssText='position:fixed;inset:0;background:#fff;z-index:2147483646;pointer-events:none';document.body.append(e);});
    for(const [w,h]of [[1440,900],[1920,800],[390,844],[1001,777]])await audit('full-viewport white transition',w,h);

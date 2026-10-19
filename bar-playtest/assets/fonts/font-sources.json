@@ -18,5 +18,16 @@
     "download": "https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2"
   },
   "withoutReference": "Settings, settlement and tutorial explanations use Paperlogy; names/headings retain Stardust. Existing geometry is preserved.",
-  "originalFont": "font.ttf (NeoDunggeunmo Pro) retained, no longer used by the game page"
+  "originalFont": "font.ttf (NeoDunggeunmo Pro) retained, no longer used by the game page",
+  "textRoleAudit": {
+    "serving-user-reference": {
+      "drinkName": "Stardust 700",
+      "dragHint": "Paperlogy 500",
+      "coasterLabel": "Paperlogy 700"
+    },
+    "ingredient_selection_V1.psd": "Extracted original text layers: craft start Paperlogy 600; descriptions/tags Paperlogy 500; names Stardust Bold; English Pretendard Medium. Craft button and ESC use original text-bearing PNGs.",
+    "recipe_choice.png": "User-confirmed: title Stardust Bold 700; hint entirely Paperlogy Medium 500; type/price Pretendard SemiBold 600. Cocktail names retain Stardust Bold 700.",
+    "profile_widow.png": "Pixel headings/names 700, smooth body 500. Original Korean footer artwork preserves its partial bold emphasis.",
+    "withoutFontSpecification": "Visual matching is inferred where no PSD text layer or font sheet is provided."
+  }
 }

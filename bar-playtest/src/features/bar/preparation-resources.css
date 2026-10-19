@@ -35,3 +35,42 @@
 /* Keep the existing concise recipe checklist; add its supplied button icon. */
 .prep-screen .prep-brief-heading{padding-left:32px;position:relative}
 .prep-screen .prep-brief-heading:before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:24px;height:24px;background:url('../../../assets/ui/preparation/BTN_recipe.png') center/contain no-repeat}
+
+/* Recipe detail uses the supplied panel, halftone hero and ingredient tiles.
+   Reference coordinates are scaled from 3840×2160 to the 1280×720 stage. */
+.prep-recipe,.resource-recipe-list+.prep-recipe.recipe-preview{
+ border:0;border-radius:0;box-shadow:none;
+ background:transparent url('../../../assets/ui/preparation/recipes/IMG_recipe_box.png') center/100% 100% no-repeat;
+}
+.prep-recipe .recipe-hero{
+ border:0;clip-path:none;aspect-ratio:841/431;
+ background:transparent url('../../../assets/ui/preparation/recipes/IMG_cocktail_box.png') center/100% 100% no-repeat;
+}
+.prep-recipe .recipe-icon-grid>div{
+ border:0;background:transparent url('../../../assets/ui/preparation/recipes/IMG_recipe_igd_box.png') center/100% 100% no-repeat;
+}
+.prep-recipe .prep-recipe-heading>small{text-transform:uppercase;color:#6281a0}
+.prep-recipe .recipe-tags span{color:#6281a0;border-color:#6281a0}
+.prep-recipe .recipe-tags span:first-child{color:#dcb076;border-color:#dcb076}
+.prep-recipe section h3{color:#b1b9c3;border-color:#377da7}
+.prep-recipe section p{color:#8f969f}
+.prep-recipe .prep-recipe-heading button{width:25px;height:37px;font-size:0;padding:0;border:0;border-radius:0;background:url('../../../assets/ui/preparation/recipes/BTN_recipe_close.png') center top/25px 25px no-repeat,url('../../../assets/ui/preparation/recipes/IMG_ESC.png') center bottom/25px 12px no-repeat}
+.resource-recipe-list+.prep-recipe.recipe-preview{left:442px;top:30px;bottom:30px;width:346px}
+.resource-recipe-list+.recipe-preview .prep-recipe-heading{padding:33px 35px 0;flex:none;height:84px}
+.resource-recipe-list+.recipe-preview .prep-recipe-heading>small{font-size:13.57px;line-height:17px;max-width:100%}
+.resource-recipe-list+.recipe-preview h2{font-size:23.16px;line-height:30px;margin:3px 0 0}
+.resource-recipe-list+.recipe-preview .prep-recipe-scroll{padding:8px 35px 36px;scrollbar-gutter:auto;scrollbar-width:none;mask-image:linear-gradient(#000 0%,#000 calc(100% - 45px),transparent calc(100% - 10px))}
+.resource-recipe-list+.recipe-preview .prep-recipe-scroll::-webkit-scrollbar{display:none}
+.resource-recipe-list+.recipe-preview .recipe-tags{gap:5px;margin:0 0 20px}
+.resource-recipe-list+.recipe-preview .recipe-tags span{font-size:10.56px;line-height:14px;padding:3px 13px;white-space:nowrap}
+.resource-recipe-list+.recipe-preview .recipe-hero{aspect-ratio:841/431;margin-bottom:17px}
+.resource-recipe-list+.recipe-preview .recipe-hero .drink-art{height:85%;width:80%}
+.resource-recipe-list+.recipe-preview .recipe-icon-grid{gap:6px;padding:17px 0 19px;margin:0 0 19px;border-color:#29323f}
+.resource-recipe-list+.recipe-preview .recipe-icon-grid>div{padding:5px}
+.resource-recipe-list+.recipe-preview section{margin:0 0 16px}
+.resource-recipe-list+.recipe-preview section h3{font-size:14.15px;line-height:18px;margin:0 0 10px;padding-left:9px;border-left-width:2px}
+.resource-recipe-list+.recipe-preview section p{font-size:12.37px;line-height:16.15px;margin:0}
+/* The list header and cards follow the same source spacing. */
+.resource-recipe-list .panel-header{height:130px;padding:34px 22px 16px 31px}
+.resource-recipe-list .recipe-list{padding-left:31px;padding-top:0}
+.resource-recipe-list .recipe-card{height:88px;margin-bottom:4px}

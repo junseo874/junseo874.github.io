@@ -1206,7 +1206,7 @@
       ctx.setTransform(surface.factor, 0, 0, surface.factor, 0, 0);
       glowRenderer.begin(model.qa ? null : interactionTarget(), model);
       ctx.imageSmoothingEnabled = false;
-      ctx.fillStyle = '#090d19';
+      ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, 1280, 720);
       if (loading || loadError) return;
       if (advanceParallax) global.LunaStreetParallax.update(model, data.scenes.street.nodes);
@@ -1223,7 +1223,7 @@
           }
         });
         if (model.transition) {
-          ctx.fillStyle = 'rgba(6,10,18,' + Math.max(0, 1 - Math.abs(model.transition.time - .38) / .47) + ')';
+          ctx.fillStyle = 'rgba(0,0,0,' + Math.max(0, 1 - Math.abs(model.transition.time - .38) / .47) + ')';
           ctx.fillRect(0, 0, 1280, 720);
         }
         return;
@@ -1278,21 +1278,21 @@
       }
       if (model.scene === 'home') {
         const edge = position(3.537, 0).x;
-        ctx.fillStyle = '#090d19';
+        ctx.fillStyle = '#000';
         ctx.fillRect(edge, 0, Math.max(0, 1280 - edge), 720);
       }
       global.LunaOutsideRain?.draw(ctx, model, renderCam, position, 'drops');
       const shade = ctx.createLinearGradient(0, 0, 0, 720);
-      shade.addColorStop(0, 'rgba(4,8,16,.25)');
-      shade.addColorStop(.25, 'rgba(4,8,16,0)');
-      shade.addColorStop(.85, 'rgba(4,8,16,0)');
-      shade.addColorStop(1, 'rgba(4,8,16,.3)');
+      shade.addColorStop(0, 'rgba(0,0,0,.25)');
+      shade.addColorStop(.25, 'rgba(0,0,0,0)');
+      shade.addColorStop(.85, 'rgba(0,0,0,0)');
+      shade.addColorStop(1, 'rgba(0,0,0,.3)');
       ctx.fillStyle = shade;
       ctx.fillRect(0, 0, 1280, 720);
       if (model.transition) {
         const t = model.transition.time,
           alpha = t < .38 ? t / .38 : 1 - (t - .38) / .47;
-        ctx.fillStyle = `rgba(6,10,18,${clamp(alpha, 0, 1)})`;
+        ctx.fillStyle = `rgba(0,0,0,${clamp(alpha, 0, 1)})`;
         ctx.fillRect(0, 0, 1280, 720);
       }
     }

@@ -1,0 +1,11 @@
+{
+  "source": "9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes",
+  "files": [
+    "BTN_recipe_close.png",
+    "IMG_recipe_igd_box.png",
+    "IMG_recipe_box.png",
+    "IMG_ESC.png",
+    "IMG_cocktail_box.png"
+  ],
+  "copy": "Original bytes, dimensions and alpha preserved"
+}
