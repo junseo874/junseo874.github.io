@@ -45,6 +45,13 @@ function paintCity(ctx,image,x,y,w,h,cameraOffset){
  const crop=cityCrop(cameraOffset,W.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
  ctx.drawImage(image,crop.x,crop.y,crop.w,crop.h,x,y,w,h);
 }
+// The supplied room has a one-pixel cyan export fringe along the floor.
+// Extend the adjacent floor pixel instead, in source space, so zooming cannot
+// magnify it into a bright scanline. Share this with the waking cutscene.
+function paintRoom(ctx,image,x,y,w,h){
+ ctx.drawImage(image,x,y,w,h);
+ ctx.drawImage(image,26,237,534,1,x+w*26/643,y+h*238/270,w*534/643,h/270);
+}
 // Fence-local coordinates: keep the separate rail at its authored position, but
 // join its footing to the room floor and occlude the city below that floor.
 function paintFence(ctx,image,x,y,w,h){
@@ -52,9 +59,9 @@ function paintFence(ctx,image,x,y,w,h){
  ctx.save();ctx.translate(x,y);ctx.scale(w/56,h/55);
  ctx.fillStyle='#010107';ctx.fillRect(-27,41,85,31);
  ctx.fillStyle='#6c6a82';ctx.fillRect(-27,38,85,2);
- ctx.fillStyle='#82b2aa';ctx.fillRect(-27,40,85,1);
+ ctx.fillStyle='#6c6a82';ctx.fillRect(-27,40,85,1);
  ctx.restore();
 }
-W.LunaHomeArt={root,layers,apply,cameraX,cityCrop,paintCity,paintFence};
+W.LunaHomeArt={root,layers,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

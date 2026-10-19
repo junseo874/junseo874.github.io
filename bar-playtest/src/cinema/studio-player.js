@@ -1,7 +1,7 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../../cutscene-studio/',document.currentScript.src),version='home-fence-seam-20261020';
+const base=new URL('../../../cutscene-studio/',document.currentScript.src),version='stable-floor-20261020';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
@@ -64,7 +64,19 @@ function speech(c,s){
  if(c.wait&&!c.choiceAfter&&held&&count>=parsed.chars.length)W.LunaDialogueCue.draw(ctx,{right:left+w,bottom:p.y,size:.116*k*(c.fontScale??100)/100*.9,clock});
  ctx.restore();
 }
+ function matchMorningCamera(){
+  const outside=W.outsidePlaytest;
+  if(project.template!=='morning'||!outside?.active||outside.model?.scene!=='home')return;
+  const clip=project.clips.find(c=>c.type==='camera'),bg=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
+  if(!clip||!bg)return;
+  // Gameplay rounds the zoom and viewport edges to physical pixels. Use that
+  // rendered endpoint, including after a resize, rather than its logical 4.8 width.
+  const camera=W.LunaPixelCamera.view(outside.camera,outside.pixelSurface,{scene:'home'});
+  const endpoint={x:4*(camera.x-bg.x)+bg.sprite.w*.02-11.2,y:4*(camera.y-bg.y),w:camera.w*4};
+  for(const [axis,value] of Object.entries(endpoint))W.StudioKeyframes.endpoint(clip,'to',axis,value);
+ }
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null){
+  matchMorningCamera();
   speechLayer?.begin();waiting=dialogueWait;playback.waitAge=waiting?.age||0;
   time=t;const s=StudioModel.sample(project,time);lastCamera={...s.camera};
   ctx.fillStyle='#000';ctx.fillRect(0,0,1280,720);ctx.imageSmoothingEnabled=false;
@@ -83,6 +95,7 @@ function speech(c,s){
   if(soundOn&&previous!=null&&typeLine===c&&c?.textEffect!=='instant'&&n>typeCount)W.LunaDialogueAudio?.reveal(parsed.text,typeCount,n);
   typeLine=c;typeCount=n;
  }
+ matchMorningCamera();
  return {render,dialogueCount,renderer:{sample:t=>StudioModel.sample(project,t)},dispose(){speechLayer?.dispose();StudioMedia.stop(.5);},pause(){StudioMedia.stop(.5);}};
 }
 W.LunaStudioCinema={prepare,player,unlock:()=>W.StudioMedia?.unlock().catch(()=>{})};

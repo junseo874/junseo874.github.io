@@ -24,6 +24,25 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const layout=await bubble.evaluate(el=>{const b=el.getBoundingClientRect(),p=el.querySelector('p').getBoundingClientRect(),c=el.querySelector('.dialogue-advance-cue').getBoundingClientRect(),tail=el.querySelector('.piece-9').getBoundingClientRect();return {align:getComputedStyle(el.querySelector('p')).textAlign,background:getComputedStyle(el).backgroundColor,arrow:getComputedStyle(el.querySelector('.dialogue-advance-cue')).backgroundImage,animation:getComputedStyle(el.querySelector('.dialogue-advance-cue')).animationName,inside:c.left>=p.right&&c.right<=b.right&&c.top>=b.top&&c.bottom<=b.bottom,center:Math.abs((tail.left+tail.right-b.left-b.right)/2),extension:tail.bottom-b.bottom};});
    assert.equal(layout.align,'center');assert.equal(layout.background,'rgba(0, 0, 0, 0)');assert(layout.arrow.includes('IMG_textbox_arrow.png'));assert.equal(layout.animation,'exterior-textbox-arrow-bob');assert(layout.inside,'Arrow must not overlap text');assert(layout.center<1);assert(layout.extension>15&&layout.extension<24);
    await page.waitForTimeout(180);await page.screenshot({path:'/private/tmp/exterior-textbox-'+name+'.png'});
+   if(name==='tiny'){
+    // Check rendered ink, not just tile dimensions: severe downsampling used
+    // to erase the straight edges while corners and the tail remained intact.
+    const probes=await bubble.evaluate(el=>[2,4,6,8,10].map(id=>{
+     const r=el.querySelector('.piece-'+id).getBoundingClientRect();
+     return {id,x:[4,6].includes(id)?(id===4?r.left:r.right-3):r.left+r.width/2-1,
+      y:[4,6].includes(id)?r.top+r.height/2-1:(id===2?r.top:r.bottom-3),
+      w:[4,6].includes(id)?3:2,h:[4,6].includes(id)?2:3};
+    }));
+    const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
+    const {data,info}=await sharp(await page.screenshot()).removeAlpha().raw().toBuffer({resolveWithObject:true});
+    for(const p of probes){let visible=false;
+     for(let y=Math.floor(p.y);y<=Math.ceil(p.y+p.h);y++)for(let x=Math.floor(p.x);x<=Math.ceil(p.x+p.w);x++){
+      const k=(y*info.width+x)*info.channels,r=data[k],g=data[k+1],b=data[k+2];
+      if(g>85&&b>100&&r<b*.8)visible=true;
+     }
+     assert(visible,'Short bubble retains cyan border on tile '+p.id);
+    }
+   }
    await bubble.click();assert(await cue.isHidden(),'Click still advances and hides cue for new typing');
   }
   // Ambient speech shares the art, never the manual progression cue.

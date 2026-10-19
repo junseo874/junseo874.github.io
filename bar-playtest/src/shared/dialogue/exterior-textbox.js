@@ -4,11 +4,15 @@
 const sizes=[[66,67],[1144,67],[67,67],[66,117],[1144,117],[67,117],[66,67],[478,67],[145,121],[525,67],[67,67]];
 const assetBase=new URL('assets/ui/exterior-textbox/',new URL('../../../',document.currentScript.src).href).href;
 function html(){
- // Each export has a one-pixel transparent gutter. Crop only that gutter
- // using the SVG viewport, so stretched edges meet without transparent seams.
- return '<span class="exterior-textbox-skin" aria-hidden="true">'+sizes.map(([w,h],i)=>
-  '<svg class="textbox-piece piece-'+(i+1)+'" viewBox="1 1 '+(w-2)+' '+(h-2)+'" preserveAspectRatio="none" focusable="false"><image href="'+assetBase+'GRD_textbox_'+(i+1)+'.png" width="'+w+'" height="'+h+'"/></svg>'
- ).join('')+'</span>';
+ // Keep corners and the tail intact. Sample a narrow central strip for
+ // straight edges: compressing a 1144px image into a tiny cell makes the
+ // browser's image minification blur even the perpendicular 4px border.
+ return '<span class="exterior-textbox-skin" aria-hidden="true">'+sizes.map(([w,h],i)=>{
+  const horizontal=[1,4,7,9].includes(i),vertical=[3,4,5].includes(i);
+  const x=horizontal?Math.floor(w/2)-2:1,y=vertical?Math.floor(h/2)-2:1;
+  const width=horizontal?4:w-2,height=vertical?4:h-2;
+  return '<svg class="textbox-piece piece-'+(i+1)+'" viewBox="'+[x,y,width,height].join(' ')+'" preserveAspectRatio="none" focusable="false"><image href="'+assetBase+'GRD_textbox_'+(i+1)+'.png" width="'+w+'" height="'+h+'"/></svg>';
+ }).join('')+'</span>';
 }
 // Lay out the complete styled sentence once. Appending a growing prefix makes
 // keep-all words jump between lines and recentres each line on every keystroke.

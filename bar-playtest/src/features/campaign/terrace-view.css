@@ -3,9 +3,12 @@
 .terrace-art{position:absolute;inset:0 auto auto 0;width:480px;height:270px;transform:scale(calc(8 / 3));transform-origin:0 0;image-rendering:pixelated;pointer-events:none;user-select:none}
 .terrace-art>img{position:absolute;display:block;image-rendering:pixelated}
 .terrace-city,.terrace-building{inset:0;width:480px;height:270px}
-.terrace-sign-scanlines,.terrace-rain{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
+.terrace-sign-scanlines{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
+.terrace-rain{position:absolute;inset:0;width:1280px;height:720px;z-index:30;image-rendering:pixelated;pointer-events:none}
+.terrace-glass{position:absolute;inset:0;width:1280px;height:720px;z-index:1;image-rendering:pixelated;pointer-events:none}
+.campaign-stage .terrace-speech{z-index:2}
 /* Original 480×270 preview alignment; the pair shares one 129×138 frame. */
-.terrace-characters{position:absolute;left:85px;top:98px;width:129px;height:138px;background-repeat:no-repeat;background-size:1032px 138px;image-rendering:pixelated}
+.terrace-characters{position:absolute;left:85px;top:98px;width:129px;height:138px;background-repeat:no-repeat;background-size:1032px 138px;image-rendering:pixelated;clip-path:inset(0 0 39px 0)}
 .terrace-balustrade{left:86px;top:179px;width:133px;height:19px}
 .terrace-seat{position:absolute;top:402.67px;width:2px;height:2px;pointer-events:none}
 .terrace-seat.chris{left:434.67px}.terrace-seat.luna{left:357.33px}

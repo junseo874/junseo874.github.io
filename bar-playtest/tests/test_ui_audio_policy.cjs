@@ -50,5 +50,14 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    if(!LunaUIAudioPolicy.allows(el,'click')||!LunaUIAudioPolicy.allows(el,'hover'))throw Error('Other interaction sound changed');
   }finally{window.outsidePlaytest=saved;}
  });
- assert.deepEqual(errors,[]);console.log('PASS quiet poster entry/exit, dialogue, choices hover-only, tutorials, drags, service/recipes; other interactions and settings retained.');
+ await p.evaluate(()=>{
+  const saved=window.barGame,holder=document.createElement('div'),el=document.createElement('button');holder.id='app';holder.append(el);
+  try{for(const screen of ['gimmick','result','discarding','minigame_result']){
+   window.barGame={screen,overlay:null};
+   if(LunaUIAudioPolicy.allows(el,'click'))throw Error(screen+' click must be silent');
+   if(!LunaUIAudioPolicy.allows(el,'hover'))throw Error('Hover feedback must remain');
+   window.barGame.overlay='settings';if(!LunaUIAudioPolicy.allows(el,'click'))throw Error('Settings click must remain');
+  }}finally{window.barGame=saved;}
+ });
+ assert.deepEqual(errors,[]);console.log('PASS silent crafting/serving clicks, poster, dialogue and retained settings/hover feedback.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

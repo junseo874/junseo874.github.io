@@ -60,7 +60,7 @@ function foam(ctx,f,style){
 }
 function drawLiquid(ctx,s,style){
  const f=s.fluid,b=f.glass;if(f.liquidMl<.02)return;
- ctx.save();ctx.beginPath();ctx.rect(b.left+3,b.top,b.right-b.left-6,b.bottom-b.top-3);ctx.clip();
+ ctx.save();ctx.beginPath();W.LunaPour.cavityPath(ctx,b);ctx.clip();
  liquidPath(ctx,f);ctx.save();ctx.clip();
  const grad=ctx.createLinearGradient(0,f.surfaceY,0,b.bottom);
  grad.addColorStop(0,rgba(style.rgb,style.alpha));grad.addColorStop(1,rgba(style.rgb.map(c=>Math.round(c*.77)),Math.min(1,style.alpha+.1)));
@@ -90,7 +90,7 @@ function drawStream(ctx,s,style){
  // Above the rim the incoming stream is free. Below it every ribbon edge,
  // rounded pixel and highlight must stay inside the same cavity as the fill.
  const b=f.glass;
- ctx.beginPath();ctx.rect(0,0,ctx.canvas.width,b.top);ctx.rect(b.left+3,b.top,b.right-b.left-6,b.bottom-b.top-3);ctx.clip();
+ ctx.beginPath();ctx.rect(0,0,ctx.canvas.width,b.top);W.LunaPour.cavityPath(ctx,b);ctx.clip();
  for(const points of groups){
   // One filled ribbon per continuous parcel group avoids translucent blocks
   // piling up at joins. Detached trailing groups remain genuine falling drops.
@@ -103,7 +103,7 @@ function drawStream(ctx,s,style){
   ctx.strokeStyle=style.highlight||rgba(style.rgb.map(c=>Math.min(255,c+50)),.45);ctx.globalAlpha=.3;ctx.lineWidth=1;ctx.stroke();ctx.globalAlpha=1;
  }
  ctx.fillStyle=style.highlight||rgba(style.rgb,.85);
- ctx.beginPath();ctx.rect(b.left+3,0,b.right-b.left-6,b.bottom-3);ctx.clip();
+ ctx.beginPath();ctx.rect(b.left+3,0,b.right-b.left-6,b.top);W.LunaPour.cavityPath(ctx,b);ctx.clip();
  for(const p of f.splash){ctx.globalAlpha=clamp(p.life/.2,0,1)*.75;ctx.fillRect(pixel(p.x),pixel(p.y),2,Math.abs(p.vy)>70?4:2);}
  ctx.restore();
 }

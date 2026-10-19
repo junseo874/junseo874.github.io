@@ -257,7 +257,7 @@
     return worldHTML() + skipStoryCraftHTML() + `<div class="hud-right">${g.currentOrder ? `<span class="badge">${esc(g.speakerName(g.currentOrder.actor))} · ${esc(g.currentOrder.freeChoice ? L('자유 주문', 'Your choice') : g.name(g.currentOrder.cocktail))}</span>` : ''}</div>${g.screen === 'bar' ? dialogueHTML() : ''}${g.choice && g.screen === 'bar' && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0 ? `<div class="choices">${g.choice.rows.map(c => {
       const ok = C.condition(c.when, g.ctx());
       return button(`<span class="choice-progress" aria-hidden="true"><i></i></span><span class="title-label choice-label" data-text="${esc(g.text(c))}">${esc(g.text(c))}</span>${!ok ? `<small>${esc(g.text(c, 'lock_reason'))}</small>` : ''}`, 'choice', `data-id="${c.seq}" ${ok ? '' : 'disabled'}`);
-    }).join('')}</div>` : ''}${(g.phase === 'general' || g.tutorial?.kind === 'coaster' || g.storyCoasterReady() || g.currentOrder) && g.screen === 'bar' ? `<div class="stack service-popup draggable" ${canCoaster ? 'data-drag="coaster"' : ''} role="button" tabindex="${canCoaster ? 0 : -1}" aria-disabled="${!canCoaster}" aria-label="코스터 제공">${canCoaster && !ui.drag && !g.cameraMoving && !g.cameraLeft && !g.transition ? '<svg class="coaster-pickup-arrow" viewBox="0 0 40 48" aria-hidden="true"><path d="M12 2H28V23H38L20 45L2 23H12Z"/></svg>' : ''}<img src="${a('coaster')}" draggable="false" alt="코스터 묶음"><small><span>${L('코스터 드래그', 'Drag coaster')}</span></small></div>${guest?.state === 'WAIT_SERVE' && !g.drink ? `<div class="tray">${button('<span>' + L('주문 되묻기', 'Ask again') + '</span><kbd>E</kbd>', 'reask', guest.reasking ? 'disabled' : '')}</div>` : ''}` : ''}${g.drink && g.screen === 'bar' ? `<div class="tray drink-tray service-popup draggable${ui.drag === 'drink' ? ' is-dragging' : ''}" data-drag="drink" role="button" tabindex="0" aria-label="완성 칵테일 드래그">${drinkArt(g.drink.selected)}<div class="drink-tray-info"><h3>${esc(g.name(g.drink.selected))}</h3><small>${L('코스터로 드래그', 'Drag onto the coaster')}</small></div></div>` : ''}${!g.tutorial && g.currentOrder && g.screen === 'bar' && !g.drink && !g.dialogue && !g.choice && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0 ? `<div class="center-hint story-craft-prompt">${button(L('레시피를 열어 제조하기', 'Open recipes to craft'), 'recipes', g.isPaused() ? 'disabled' : '', 'primary')}</div>` : ''}`;
+    }).join('')}</div>` : ''}${(g.phase === 'general' || g.tutorial?.kind === 'coaster' || g.storyCoasterReady() || g.currentOrder) && g.screen === 'bar' ? `<div class="stack service-popup draggable" ${canCoaster ? 'data-drag="coaster"' : ''} role="button" tabindex="${canCoaster ? 0 : -1}" aria-disabled="${!canCoaster}" aria-label="코스터 제공">${canCoaster && !ui.drag && !g.cameraMoving && !g.cameraLeft && !g.transition ? '<svg class="coaster-pickup-arrow" viewBox="0 0 40 48" aria-hidden="true"><path d="M12 2H28V23H38L20 45L2 23H12Z"/></svg>' : ''}<img src="${a('coaster')}" draggable="false" alt="코스터 묶음"><small><span>${L('코스터 드래그', 'Drag coaster')}</span></small></div>${guest?.state === 'WAIT_SERVE' && !g.drink ? `<div class="tray">${button('<span>' + L('주문 되묻기', 'Ask again') + '</span><kbd>E</kbd>', 'reask', guest.reasking ? 'disabled' : '')}</div>` : ''}` : ''}${g.drink && g.screen === 'bar' ? `<div class="tray drink-tray service-popup draggable${ui.drag === 'drink' ? ' is-dragging' : ''}" data-drag="drink" role="button" tabindex="0" aria-label="완성 칵테일 드래그">${drinkArt(g.drink.selected, 'table')}<div class="drink-tray-info"><h3>${esc(g.name(g.drink.selected))}</h3><small>${L('코스터로 드래그', 'Drag onto the coaster')}</small></div></div>` : ''}${!g.tutorial && g.currentOrder && g.screen === 'bar' && !g.drink && !g.dialogue && !g.choice && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0 ? `<div class="center-hint story-craft-prompt">${button(L('레시피를 열어 제조하기', 'Open recipes to craft'), 'recipes', g.isPaused() ? 'disabled' : '', 'primary')}</div>` : ''}`;
   }
   function upkeepInputHTML() {
     const row = D.tables.days.find(d => Number(d.day) === ui.day),
@@ -676,15 +676,20 @@
   }
   function syncRecipePointerTip() {
     const slot = recipePointer?.slot;
+    const inventoryTip=root.querySelector('.inventory-pointer-tip');
+    if(inventoryTip)inventoryTip.hidden=true;
     if (!slot?.isConnected || !slot.matches(':hover')) return;
-    const tip = slot.querySelector('.recipe-item-tip'),
-      scroll = slot.closest('.prep-recipe-scroll');
+    const inventory=slot.matches('.inventory-slot');
+    const tip = inventory ? inventoryTip : slot.querySelector('.recipe-item-tip'),
+      scroll = slot.closest(inventory ? '.prep-screen' : '.prep-recipe-scroll');
     if (!tip || !scroll) return;
-    const r = slot.getBoundingClientRect(),
+    if(inventory){tip.querySelector('strong').textContent=slot.querySelector('.inventory-item-name')?.textContent||'';tip.hidden=false;}
+    const anchor=inventory?scroll:slot;
+    const r = anchor.getBoundingClientRect(),
       bounds = scroll.getBoundingClientRect(),
       t = tip.getBoundingClientRect();
-    const sx = r.width / slot.offsetWidth,
-      sy = r.height / slot.offsetHeight;
+    const sx = r.width / anchor.offsetWidth,
+      sy = r.height / anchor.offsetHeight;
     if (!sx || !sy) return;
     let x = recipePointer.x + 14,
       y = recipePointer.y + 14;
@@ -692,8 +697,8 @@
     if (y + t.height > bounds.bottom - 8) y = recipePointer.y - t.height - 14;
     x = Math.max(bounds.left + 4, Math.min(x, bounds.right - t.width - 8));
     y = Math.max(bounds.top + 4, Math.min(y, bounds.bottom - t.height - 8));
-    tip.style.left = (x - r.left) / sx - slot.clientLeft + 'px';
-    tip.style.top = (y - r.top) / sy - slot.clientTop + 'px';
+    tip.style.left = (x - r.left) / sx - anchor.clientLeft + 'px';
+    tip.style.top = (y - r.top) / sy - anchor.clientTop + 'px';
   }
   const choiceHold = window.LunaChoiceHold({
     root,
@@ -1243,7 +1248,7 @@
     if (['gin', 'soda_water'].includes(el.dataset.hoverItem)) g.tutorialEvent('hover');
   }
   function trackRecipePointer(e) {
-    const slot = e.target.closest('.recipe-icon-slot');
+    const slot = e.target.closest('.recipe-icon-slot,.prep-inventory button.inventory-slot');
     recipePointer = slot ? {
       slot,
       x: e.clientX,
@@ -1255,6 +1260,7 @@
   root.addEventListener('pointerover', trackRecipePointer);
   root.addEventListener('pointerleave', () => {
     recipePointer = null;
+    syncRecipePointerTip();
   });
   root.addEventListener('pointerover', hoverIngredient);
   root.addEventListener('focusin', hoverIngredient);
@@ -1323,7 +1329,7 @@
       clearTimeout(toast.timer);
       document.querySelector('#toast').classList.remove('visible');
       const ghost = document.querySelector('#drag-ghost');
-      ghost.innerHTML = ui.drag === 'coaster' ? `<img src="${a('coaster')}" alt="">` : drinkArt(g.drink.selected);
+      ghost.innerHTML = ui.drag === 'coaster' ? `<img src="${a('coaster')}" alt="">` : drinkArt(g.drink.selected, 'table');
       ghost.hidden = false;
       window.LunaGameViewport.positionDrag(e.clientX, e.clientY);
       render();
@@ -1550,7 +1556,7 @@
         const delta = ['KeyA', 'ArrowLeft'].includes(e.code) ? -1 : 1;
         g.focusSeat(['L', 'M', 'R'][Math.max(0, Math.min(2, ['L', 'M', 'R'].indexOf(g.focus) + delta))]);
       }
-    } else if (['Space', 'Enter'].includes(e.code)) {
+    } else if (['KeyE', 'Space', 'Enter'].includes(e.code)) {
       e.preventDefault();
       g.advance();
     }

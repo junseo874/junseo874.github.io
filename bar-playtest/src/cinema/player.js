@@ -4,6 +4,7 @@
 global.LunaCinemaPlayer=function(canvas,ui,sc){
   const bubble=ui.querySelector('.bubble');
   global.LunaExteriorTextbox.attach(bubble);
+  bubble.style.paddingRight='28px'; // No advance badge in legacy memory bubbles.
   const rd=new Engine.Renderer(canvas,sc);
   rd.opts.sfxLabel=false;
   let t=0,scale=1280/Engine.VW,soundOn=true,playing=true;
@@ -63,7 +64,11 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
       visEl.appendChild(sp);
       charSpans.push(sp);
     }
-    ghostEl.textContent = l.text;                  // 박스 폭 = 원문 글자 폭이라 크기는 원문 기준
+    // Use one in-flow glyph layout for both sizing and typing. A plain-text
+    // ghost wraps differently from individually styled spans in Korean.
+    ghostEl.textContent = '';
+    ghostEl.style.display = 'none';
+    visEl.style.position = 'relative';
     /* 말풍선 폭을 명시적으로 고정한다.
        - 말풍선 내부의 shrink-to-fit은 잦은 내용 교체 때 직전 값을 재사용하는 문제가 있었고
        - canvas measureText는 픽셀 웹폰트(Galmuri)의 DOM 렌더 폭과 다르게 나온다.
@@ -94,7 +99,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     // box-sizing:border-box라 style.width는 패딩·보더 포함 폭이다 — 내용 폭에 padX를 더해 지정
     const inner = Math.min(Math.max(natural, 110-padX), 420-padX);
     bubble.style.width = Math.ceil(inner + padX) + 'px';
-    global.LunaExteriorTextbox.fit(bubble,ghostEl,true);
+    global.LunaExteriorTextbox.fit(bubble,visEl,true);
   }
 
   /* 화면 페이드·암전·화이트홀드의 현재 가림 정도(0~1) — 말풍선도 같이 사라지게 */
@@ -140,7 +145,10 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
       const id=l.actor||((isRadio||isPa)?sc.radioActor:null),a=id?sc.actors[id]:null;
       if(l.at)lineAnchor={x:l.at[0],y:l.at[1]};
       else if(a){const st=sc.actorState(a,l.t),anim=Engine.ANIM[st.anim.v];
-        lineAnchor={actor:a,head:Sprites.contentHeight(anim.sheet)*st.scale+8};
+        const sheet=Sprites.get(anim.sheet),frames=sheet.frames.slice(anim.from,anim.to+1);
+        const anchor=anim.anchor||Sprites.animAnchor(anim.sheet,anim.from,anim.to,anim.align||'sheet');
+        const head=anchor?anchor.ay-Math.min(...frames.map(f=>f.oy)):Sprites.contentHeight(anim.sheet);
+        lineAnchor={actor:a,head:head*st.scale+2};
       }else {const origin=rd.camera(l.t);lineAnchor={x:origin.x,y:origin.y};}
     }
     const st=lineAnchor.actor?sc.actorState(lineAnchor.actor,t):null;

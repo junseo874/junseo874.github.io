@@ -27,7 +27,9 @@ root.LunaDay0Tutorial=function({g,ui,L}){
  function navigationSelector(){const tabs=['glass','tool','liquor','fridge'],destination=stage()==='beerToolNavigate'?'tool':['prepSodaNavigate','beerFridgeNavigate'].includes(stage())?'fridge':'liquor';return '.shelf-arrow.'+(tabs.indexOf(ui.tab)<tabs.indexOf(destination)?'next':'prev');}
  function nearby(root,box,secondary){
   const copy=root.querySelector('.day0-guide-copy'),arrow=root.querySelector('.day0-click-arrow');if(!copy||!box)return;
-  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),w=320,h=copy.getBoundingClientRect().height/(root.querySelector('.workspace').getBoundingClientRect().height/720),gap=52;
+  // Measure in layout coordinates: transformed screen bounds can feed rounded
+  // scale/hover changes back into the position on every animation frame.
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),w=320,h=copy.offsetHeight,gap=52;
   const right=box.x+box.width+gap,left=box.x-gap-w,cy=box.y+box.height/2;
   let x,y,dir;
   if(right+w<=1264){x=right;y=clamp(cy-h/2,16,704-h);dir='left';}
@@ -35,7 +37,8 @@ root.LunaDay0Tutorial=function({g,ui,L}){
   else {x=clamp(box.x+box.width/2-w/2,16,944);y=box.y>h+gap?box.y-h-gap:box.y+box.height+gap;dir=y<box.y?'down':'up';}
   // Keep the nearby explanation separate from an ingredient's own hover label.
   if(secondary&&x<secondary.x+secondary.width&&x+w>secondary.x&&y<secondary.y+secondary.height&&y+h>secondary.y)y=clamp(secondary.y-h-16,16,704-h);
-  Object.assign(copy.style,{left:x+'px',top:clamp(y,16,704-h)+'px',right:'auto',bottom:'auto',transform:'none'});
+  const px=Math.round(x),py=Math.round(clamp(y,16,704-h));
+  if(copy.style.left!==px+'px'||copy.style.top!==py+'px')Object.assign(copy.style,{left:px+'px',top:py+'px',right:'auto',bottom:'auto',transform:'none'});
   const click=!['coaster','serveDrink'].includes(stage())&&!['prepHover','prepSodaHover'].includes(stage());arrow.style.display=click?'':'none';if(!click)return;
   const target=stage()==='prepRecipeRead'?root.querySelector('[data-act="tutorialContinue"]'):null;
   let ax,ay,angle;if(target){ax=x-22;ay=y+h-30;angle=0;}else if(dir==='left'){ax=box.x+box.width+27;ay=cy;angle=180;}else if(dir==='right'){ax=box.x-27;ay=cy;angle=0;}else {ax=box.x+box.width/2;ay=dir==='down'?box.y-27:box.y+box.height+27;angle=dir==='down'?90:270;}

@@ -1102,7 +1102,8 @@
       ctx.translate(p.x, p.y);
       if (renderingNode?.lightRotation) ctx.rotate(-renderingNode.lightRotation);
       ctx.scale((sx < 0 ? -1 : 1) * (flip ? -1 : 1), sy < 0 ? -1 : 1);
-      if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, cam.x - renderingNode.x);
+      if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
+      else if (renderingNode?.name === 'main_bg' && model.scene === 'home') global.LunaHomeArt.paintRoom(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       if (model.scene === 'street' && !model.qa) global.LunaWallLighting?.paintSprite(ctx, renderingNode?.name, img, sp, w, h);
@@ -1223,7 +1224,7 @@
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, 1280, 720);
       if (loading || loadError) return;
-      if (advanceParallax) global.LunaStreetParallax.update(model, data.scenes.street.nodes);
+      if (advanceParallax) global.LunaStreetParallax.update(model, data.scenes.street.nodes, { x: cam.x, locked: panorama || panoramaTween || !!model.ride });
       if (model.qa) {
         global.LunaOutsideQA.draw({
           m: model,
@@ -1301,6 +1302,7 @@
       shade.addColorStop(1, 'rgba(0,0,0,.3)');
       ctx.fillStyle = shade;
       ctx.fillRect(0, 0, 1280, 720);
+      global.LunaRainGlass?.draw(ctx, model, {camera:renderCam});
       if (model.transition) {
         const t = model.transition.time,
           alpha = t < .38 ? t / .38 : 1 - (t - .38) / .47;

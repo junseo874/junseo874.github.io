@@ -12,6 +12,8 @@
  function isChoice(el){return el.dataset.act==='choice'||el.dataset.campaign?.startsWith('scene-choice:')||!!el.closest('.choices,.outside-choices');}
  function allows(el,kind){
   const action=el.dataset.act||'';
+  // Gameplay confirmations have their own physical sounds, never UI clicks.
+  if(kind==='click'&&el.closest('#app')&&!W.barGame?.overlay&&['gimmick','result','discarding','minigame_result'].includes(W.barGame?.screen))return false;
   // Poster viewing is silent, including the exit button's automatic focus cue.
   if(el.closest('.outside-inspection'))return false;
   if(el.dataset.outsideAction==='interact'&&el.closest('#outside-root')&&W.outsidePlaytest?.model?.near?.id==='wanted-poster')return false;

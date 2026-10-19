@@ -51,8 +51,15 @@ const sharp=load('sharp');
    return {seam:Array.from(ctx.getImageData(585,198,1,4).data),edge:Array.from(ctx.getImageData(558,238,85,1).data),below:Array.from(ctx.getImageData(558,239,85,31).data)};
   });
   assert.deepEqual(floorPixels.seam.slice(0,4),[1,1,4,255],'Fence top rail reaches the exterior opening without a blue one-pixel slit');
-  for(let i=0;i<floorPixels.edge.length;i+=4)assert.deepEqual(floorPixels.edge.slice(i,i+4),[130,178,170,255],'Continuous footing across the entire exterior width');
+  for(let i=0;i<floorPixels.edge.length;i+=4)assert.deepEqual(floorPixels.edge.slice(i,i+4),[108,106,130,255],'Neutral footing without a magnified cyan fringe');
   for(let i=0;i<floorPixels.below.length;i+=4)assert.deepEqual(floorPixels.below.slice(i,i+4),[1,1,7,255],'No city visible below the footing');
+  const roomFringe=await page.evaluate(async()=>{
+   const im=new Image();im.src=LunaHomeArt.root+'Chrishouse2.png';await im.decode();
+   const cv=document.createElement('canvas');cv.width=643;cv.height=270;const ctx=cv.getContext('2d');
+   LunaHomeArt.paintRoom(ctx,im,0,0,643,270);
+   return [50,320,500].map(x=>[Array.from(ctx.getImageData(x,237,1,1).data),Array.from(ctx.getImageData(x,238,1,1).data)]);
+  });
+  for(const [floor,edge]of roomFringe)assert.deepEqual(edge,floor,'Room floor extends without the cyan source fringe');
   await page.screenshot({path:'/private/tmp/chris-home-game.png'});
   const audit=await page.evaluate(async()=>{
    const data=LUNA_OUTSIDE_DATA,bg=data.scenes.home.nodes.find(n=>n.name==='main_bg');

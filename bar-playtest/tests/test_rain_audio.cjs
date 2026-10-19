@@ -17,7 +17,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.evaluate(()=>rainSources[0].playbackRate.value=40);await p.waitForTimeout(1000);await p.evaluate(()=>rainSources[0].playbackRate.value=1);
   assert.equal(await p.evaluate(()=>rainSources.length),1,'No restart across multiple loop boundaries');
   const set=(day,flow,place='bar')=>p.evaluate(({day,flow,place})=>{outsidePlaytest.model.start({day,flow,place});outsidePlaytest.snapCamera();},{day,flow,place});
-  for(const [day,flow,raining] of [[1,'out',true],[2,'in',true],[2,'out',false],[1,'in',false],[3,'out',false],[0,'in',false]]){
+  for(const [day,flow,raining] of [[1,'out',true],[2,'in',true],[2,'out',false],[1,'in',true],[3,'out',false],[0,'in',false]]){
    await set(day,flow);await p.waitForTimeout(120);
    assert.equal(await p.evaluate(()=>LunaStreetAudio.state.rain.target>0),raining,day+'/'+flow);
    assert(await p.evaluate(()=>LunaStreetAudio.state.playing),'City continues underneath');

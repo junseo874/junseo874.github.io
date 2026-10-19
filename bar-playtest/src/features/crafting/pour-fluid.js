@@ -2,7 +2,16 @@
 'use strict';
 // Reference-style ballistic pixel parcels. Foam stores liquid mass, never creates it.
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),STEP=1/120;
-const GLASS={left:480,right:622,top:330,bottom:525};
+// Supplied 160×270 art at 0.75 scale. Cavity follows native x=16..143,
+// y=0..256, with clipped lower corners; retain the established rim/fill height.
+const GLASS_ART=Object.freeze({src:'assets/ui/pour/receiver-glass.png',x:491,y:330,w:120,h:202.5});
+const GLASS={left:500,right:601,top:330,bottom:525};
+function wallsAt(y,b=GLASS){const inset=clamp(y-(b.bottom-3-3),0,3);return{left:b.left+3+inset,right:b.right-3-inset};}
+function cavityPath(ctx,b=GLASS){
+ const l=b.left+3,r=b.right-3,f=b.bottom-3;
+ ctx.moveTo(l,b.top);ctx.lineTo(r,b.top);ctx.lineTo(r,f-3);ctx.lineTo(r-3,f);
+ ctx.lineTo(l+3,f);ctx.lineTo(l,f-3);ctx.closePath();
+}
 // The lip is the rotation origin. Its translation is an independent, damped
 // hand motion, not the former circular orbit around the bottle's center.
 const MOUTH=Object.freeze({x:510,y:205,pourX:516,pourY:213});
@@ -76,7 +85,7 @@ class Simulation{
   for(const p of this.particles){p.age+=dt;const prevY=p.y;p.vy+=1200*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
    // A stream can only enter through the open rim, not through the side wall.
    if(!p.entered&&prevY<=b.top&&p.y>=b.top&&p.x>b.left+3&&p.x<b.right-3)p.entered=true;
-   if(p.entered){p.x=clamp(p.x,b.left+3,b.right-3);if(p.y>=Math.max(b.top,this.surfaceY-this.foamHeight()*.5)){
+   if(p.entered){const walls=wallsAt(p.y,b);p.x=clamp(p.x,walls.left,walls.right);if(p.y>=Math.max(b.top,this.surfaceY-this.foamHeight()*.5)){
     const fraction=foamFraction(this.material,p);
     // Reserve 25% of each beer foam addition, including later top-ups.
     // This is part of foamMl, not extra liquid or a visual-only volume.
@@ -132,5 +141,5 @@ class Simulation{
 }
 function init(s,game){if(!['pour','fill_up'].includes(s.type))return;const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,ingredient:s.ingredient});game.pourTool=toolForIngredient(s.ingredient);s.fluid.setTool(game.pourTool,s);}
-const api={Simulation,init,nozzle,MOUTH,containerSize,GLASS,STEP,POURER,toolForIngredient,materialFor,foamFraction};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
+const api={Simulation,init,nozzle,MOUTH,containerSize,GLASS,GLASS_ART,cavityPath,wallsAt,STEP,POURER,toolForIngredient,materialFor,foamFraction};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

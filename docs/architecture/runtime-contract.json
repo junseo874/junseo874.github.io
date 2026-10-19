@@ -584,6 +584,18 @@
     ],
     [
       "script",
+      "src/features/outside/effects/rain-glass-simulation.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/rain-glass-renderer.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/outside-rain-glass.js"
+    ],
+    [
+      "script",
       "src/features/outside/effects/outside-traffic.js"
     ],
     [

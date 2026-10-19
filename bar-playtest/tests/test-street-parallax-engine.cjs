@@ -94,3 +94,23 @@ near(P.position(node('C_Middle_Building_2'), m).x, node('C_Middle_Building_2').x
 m.qa = {}; P.update(m, nodes);
 assert.deepEqual(P.position(node('C_Middle_Object_1'), m), { x: node('C_Middle_Object_1').x, y: node('C_Middle_Object_1').y });
 console.log('ENGINE_PARALLAX_OK: 30/60/120fps, subpixel accumulation/reversal, parent transforms, fixed layers, vertical lift, teleport/re-enable/run reset and QA isolation');
+
+// A reversing player must not yank the scenery against the still-easing view.
+for (const fps of [30,60,120]) {
+ const renderer=P.create(nodes), actor={scene:'street',x:0}, camera={x:0,locked:false};
+ renderer.update(actor,camera);
+ let last=renderer.position(node('C_Middle_Building_2')).x, previousCamera=0;
+ for(let frame=0;frame<fps*4;frame++){
+  actor.x += (Math.floor(frame/(fps*.4))%2 ? -1 : 1)*1.5/fps;
+  camera.x += (actor.x-camera.x)*(1-Math.exp(-5/fps));
+  renderer.update(actor,camera);
+  const next=renderer.position(node('C_Middle_Building_2')).x;
+  near(next-last,(camera.x-previousCamera)*.5);
+  assert(Math.abs(next-last)<.026,'No coarse source-pixel jump');
+  previousCamera=camera.x;last=next;
+ }
+ const before=last;
+ actor.x+=.1;renderer.update(actor,camera);
+ near(renderer.position(node('C_Middle_Building_2')).x,before);
+}
+console.log('PASS camera-synchronized reversals at 30/60/120fps and stationary-camera isolation');

@@ -228,6 +228,10 @@ html,body{overflow:hidden;background:#03060b}
 .recipe-icon-slot:hover .recipe-item-tip,.recipe-icon-slot:focus-visible .recipe-item-tip{display:block}
 
 .recipe-icon-slot .recipe-item-tip:after{display:none;content:none}
+.prep-screen>.inventory-pointer-tip{position:absolute;z-index:40;pointer-events:none;transform:none;bottom:auto;width:max-content;min-width:0;max-width:220px;padding:10px 12px;font-size:12px}
+.prep-screen>.inventory-pointer-tip[hidden]{display:none}
+.inventory-pointer-tip strong{margin:0;white-space:normal;word-break:keep-all}
+.inventory-pointer-tip:after{display:none;content:none}
 
 /* The completed order line stays visible while waiting to begin story crafting. */
 .story-craft-prompt{position:absolute;top:50%;bottom:auto;left:50%;transform:translate(-50%,-50%);width:max-content;max-width:min(360px,calc(100cqw - 40px));padding:18px 22px;text-align:center;background:#000e;border:1px solid #68777f;border-radius:12px;box-shadow:0 8px 28px #0009;z-index:12}

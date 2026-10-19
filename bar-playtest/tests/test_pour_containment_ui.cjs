@@ -25,8 +25,10 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
      if(i%24===0||(f.liquidMl>0&&f.liquidMl<4&&i%3===0)){check(f);if(f.liquidMl>0&&f.liquidMl<4)firstFill++;}
     }
     // Force rounded ribbons, foam and droplets onto all cavity boundaries.
-    f.particles=[{id:1,x:482,y:515,age:0,emissionFlow:1,entered:true},{id:2,x:621,y:521,age:0,emissionFlow:1,entered:true}];
-    f.splash=[{x:478,y:521,life:.2,vy:100},{x:622,y:522,life:.2,vy:100},{x:510,y:525,life:.2,vy:100}];check(f);
+    const b=f.glass;
+    f.particles=[{id:1,x:b.left+2,y:b.bottom-10,age:0,emissionFlow:1,entered:true},{id:2,x:b.right-1,y:b.bottom-4,age:0,emissionFlow:1,entered:true}];
+    f.splash=[{x:b.left-2,y:b.bottom-4,life:.2,vy:100},{x:b.right,y:b.bottom-3,life:.2,vy:100},{x:550,y:b.bottom,life:.2,vy:100}];check(f);
+    if(ctx.getImageData(b.left+3,b.bottom-4,1,1).data[3]||ctx.getImageData(b.right-4,b.bottom-4,1,1).data[3])throw Error('Liquid crosses the supplied chamfered base corners');
    }
    // Incoming stream remains visible above the open rim.
    const f=new LunaPour.Simulation({ingredient:'gin',targetMl:100});

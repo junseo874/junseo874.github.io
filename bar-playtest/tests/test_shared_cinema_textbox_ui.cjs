@@ -23,7 +23,22 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  // The old engine-backed memory player uses the same skin too.
  await p.evaluate(async()=>{const c=lunaCampaign;c.disposeCinema();for(const name of ['sfx','terrace-memory','player'])await c.script(name);Engine.initAnchors();const scene=buildTerraceMemory(c.data.scenes.terraceMemory);c.cinema={scene,time:scene.lines[0].t+1};c.screen('prologue');});
  assert.equal(await p.locator('.campaign-cinema-ui .bubble .textbox-piece').count(),11);
- assert.equal(await p.locator('.campaign-cinema-ui .bubble').evaluate(e=>getComputedStyle(e).padding),'14px 34px 14px 28px');
+ assert.equal(await p.locator('.campaign-cinema-ui .bubble').evaluate(e=>getComputedStyle(e).padding),'14px 28px');
+ for(const viewport of [{width:1280,height:720},{width:960,height:700}]){
+  await p.setViewportSize(viewport);
+  const count=await p.evaluate(()=>lunaCampaign.cinema.scene.lines.length);
+  for(let i=0;i<count;i++){
+   const layout=await p.evaluate(i=>{
+    const c=lunaCampaign.cinema,l=c.scene.lines[i];c.player.render(l.t+l.lead+.01,null,false,0);
+    const b=document.querySelector('.campaign-cinema-ui .bubble'),v=b.querySelector('.vis'),early=b.offsetHeight;
+    c.player.render(l.t+l.lead+Math.min(1,l.dur||1),null,false,0);
+    const br=b.getBoundingClientRect(),vr=v.getBoundingClientRect(),s=getComputedStyle(b);
+    return {early,height:b.offsetHeight,inside:vr.top>=br.top&&vr.bottom<=br.bottom,wrapped:v.scrollWidth<=v.clientWidth+1,equal:s.paddingLeft===s.paddingRight};
+   },i);
+   assert(layout.inside&&layout.wrapped&&layout.equal,'Memory line '+i+' must fit with equal margins');
+   assert.equal(layout.early,layout.height,'Typing must not resize memory bubble');
+  }
+ }
  await p.screenshot({path:'/private/tmp/memory-common-textbox.png'});
  await p.evaluate(()=>{lunaCampaign.disposeCinema();lunaCampaign.scene([{actor:'luna',text:'짧은 대사. 그리고 다음 줄에서도 움직이지 않게 확인해 봅니다.'}],'테스트','street',()=>{});lunaCampaign.dialog.chars=2;lunaCampaign.paintLine();});
  const before=await p.locator('.campaign-speech').boundingBox();await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.paintLine();});assert.deepEqual(await p.locator('.campaign-speech').boundingBox(),before);assert.equal(await p.locator('.campaign-speech .textbox-piece').count(),11);

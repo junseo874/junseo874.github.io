@@ -5,8 +5,9 @@ const asset='assets/backgrounds/campaign/terrace-20261018.png';
 const assets={city:'assets/backgrounds/terrace/city.png?v=city-replacement-20261019',building:'assets/backgrounds/terrace/building.png',characters:'assets/backgrounds/terrace/characters.png',balustrade:'assets/backgrounds/terrace/balustrade.png'};
 const animation={frames:8,width:129,height:138,fps:6};
 let prepared=null;
+const preparedImages=new Map(),glassSources=new WeakMap();
 function prepare(){
- if(!prepared)prepared=Promise.all(Object.values(assets).map(src=>{const image=new Image();image.src=src;return image.decode();})).catch(error=>{prepared=null;throw error;});
+ if(!prepared)prepared=Promise.all(Object.values(assets).map(src=>{const image=new Image();image.src=src;return image.decode().then(()=>preparedImages.set(src,image));})).catch(error=>{prepared=null;throw error;});
  return prepared;
 }
 function paintCharacters(dialog,host){
@@ -30,24 +31,40 @@ function textHTML(row,count=Infinity){
 function html(dialog){
  const row=dialog.rows[dialog.index],seat=seats[row.actor],speaker=seat?row.actor:'narration';
  const style=seat?'--speaker-x:'+seat.x+'px;--speaker-y:'+seat.y+'px;':'';
- return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><div class="terrace-art" role="img" aria-label="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다"><img class="terrace-city" src="'+assets.city+'" alt="" draggable="false"><canvas class="terrace-sign-scanlines" width="480" height="270" aria-hidden="true"></canvas><canvas class="terrace-rain" width="480" height="270" aria-hidden="true"></canvas><img class="terrace-building" src="'+assets.building+'" alt="" draggable="false"><span class="terrace-characters" style="background-image:url('+assets.characters+')" aria-hidden="true"></span><img class="terrace-balustrade" src="'+assets.balustrade+'" alt="" draggable="false"></div>'+
- '<span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
- '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사">'+W.LunaExteriorTextbox.html()+'<p></p></button></div>';
+ return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><div class="terrace-art" role="img" aria-label="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다"><img class="terrace-city" src="'+assets.city+'" alt="" draggable="false"><canvas class="terrace-sign-scanlines" width="480" height="270" aria-hidden="true"></canvas><img class="terrace-building" src="'+assets.building+'" alt="" draggable="false"><span class="terrace-characters" style="background-image:url('+assets.characters+')" aria-hidden="true"></span><img class="terrace-balustrade" src="'+assets.balustrade+'" alt="" draggable="false"></div>'+
+ '<canvas class="terrace-glass" width="1280" height="720" aria-hidden="true"></canvas><span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
+ '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사">'+W.LunaExteriorTextbox.html()+'<p></p></button><canvas class="terrace-rain" width="1280" height="720" aria-hidden="true"></canvas></div>';
 }
 function weather(dialog){return dialog.terraceWeather||{scene:'street',config:{day:W.lunaCampaign?.session?.day??0,flow:'in'}};}
+function paintGlass(dialog,host,state){
+ const canvas=host.querySelector('.terrace-glass');if(!canvas)return;
+ const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
+ const city=host.querySelector('.terrace-city'),building=host.querySelector('.terrace-building'),rail=host.querySelector('.terrace-balustrade'),actors=preparedImages.get(assets.characters);
+ if(!actors||![city,building,rail].every(image=>image?.complete&&image.naturalWidth))return;
+ let source=glassSources.get(canvas);if(!source){source=document.createElement('canvas');source.width=480;source.height=270;glassSources.set(canvas,source);}
+ // Match the actual art layers and animation frame. Do not sample a static
+ // preview: every lit sign, actor and foreground rail participates in refraction.
+ const c=source.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#080f1b';c.fillRect(0,0,480,270);
+ c.drawImage(city,0,0,480,270);const signs=host.querySelector('.terrace-sign-scanlines');if(signs)c.drawImage(signs,0,0);
+ c.drawImage(building,0,0,480,270);
+ const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
+ c.drawImage(actors,frame*129,0,129,99,85,98,129,99);c.drawImage(rail,86,179,133,19);
+ W.LunaRainGlass?.draw(ctx,state,{source,owner:dialog});
+}
 function paintRain(dialog,host){
  const canvas=host.querySelector('.terrace-rain');if(!canvas)return;
- const ctx=canvas.getContext('2d');ctx.clearRect(0,0,480,270);
+ const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);
  const state={...weather(dialog),time:(dialog.terraceWeatherTime||0)+(dialog.terraceTime||0)};
- ctx.save();ctx.scale(480/1280,270/720);
+ ctx.save();
  const cam={x:0,y:0,w:4.8},scale=1280/cam.w;
  W.LunaOutsideRain?.draw(ctx,state,cam,(x,y)=>({x:640+x*scale,y:360-y*scale}),'drops');
  ctx.restore();
+ paintGlass(dialog,host,state);
 }
 function paint(dialog,host){
- paintRain(dialog,host);
  W.LunaSignScanlines?.paintTerrace(host,dialog.terraceTime||0);
  paintCharacters(dialog,host);
+ paintRain(dialog,host);
  const bubble=host.querySelector('.terrace-speech'),paragraph=bubble?.querySelector('p');if(!paragraph)return;
  const row=dialog.rows[dialog.index];
  if(!paragraph.dataset.mounted){W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.mounted='true';}

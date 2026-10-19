@@ -24,7 +24,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.x=-2.87;m.paused=false;m.time=2.5;window.rainPreviewTick=m.tick;m.tick=()=>{};o.snapCamera();o.tick(0);});
   await page.screenshot({path:'/private/tmp/luna-rain-ground-shop.png'});
   await page.evaluate(()=>{outsidePlaytest.model.tick=window.rainPreviewTick;delete window.rainPreviewTick;});
-  for(const [day,flow,expected] of [[0,'out',true],[0,'in',false],[1,'out',true],[1,'in',false],[2,'in',true],[2,'out',false],[3,'out',false]]){
+  for(const [day,flow,expected] of [[0,'out',true],[0,'in',false],[1,'out',true],[1,'in',true],[2,'in',true],[2,'out',false],[3,'out',false]]){
    const result=await page.evaluate(({day,flow})=>{const o=outsidePlaytest;o.openDev();o.devAction('dev-day-'+day);o.devAction('dev-flow-'+flow);o.devAction('dev-close');return LunaOutsideRain.enabled(o.model);},{day,flow});
    assert.equal(result,expected,day+'/'+flow);
   }

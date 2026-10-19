@@ -34,6 +34,8 @@ window.StudioExtras=function(api){'use strict';
   else{const im=A.getImage(asset.id);if(im?.complete&&im.naturalWidth){const frame=a.loop?Math.floor(age*asset.fps)%asset.count:Math.min(asset.count-1,Math.floor(age*asset.fps)),n=asset.frames?.[frame]??frame,w=asset.fw/asset.ppu*k*a.scale,h=asset.fh/asset.ppu*k*a.scale;
    if(asset.id==='opening-home-home-city'&&window.LunaHomeArt){
     LunaHomeArt.paintCity(g,im,-w/2,-h,w,h,(cam.x-a.x)/a.scale);
+   }else if(asset.id==='opening-home'&&window.LunaHomeArt){
+    LunaHomeArt.paintRoom(g,im,-w/2,-h,w,h);
    }else if(asset.id==='opening-home-home-fence'&&window.LunaHomeArt){
     LunaHomeArt.paintFence(g,im,-w/2,-h,w,h);
    }else if(asset.captionBand){

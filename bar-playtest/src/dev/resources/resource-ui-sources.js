@@ -1,5 +1,6 @@
 // Original UI PNG inventory used by resource review.
 window.ResourceUISources=[
+{"src":"assets/ui/pour/receiver-glass.png","w":160,"h":270},
 {"src": "assets/ui/outside/IMG_interaction.png", "w": 63, "h": 64},
 {"src": "assets/ui/outside/IMG_quest_background.png", "w": 745, "h": 195},
 {"src": "assets/ui/outside/IMG_quest_light.png", "w": 44, "h": 232},

@@ -6,18 +6,20 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
-  for(const day of [1,2,3]){
+  for(const [day,width,height] of [[1,1280,720],[2,1440,900],[3,1920,1080]]){
+   await p.setViewportSize({width,height});
    await p.evaluate(async day=>{
     const c=lunaCampaign;c.disposeCinema();c.outside.exit(true);c.session.uninstall();c.session.beginCommute(day);
     Object.assign(c.outside.config,{day,flow:'in',place:'home'});await c.outside.start({wakeAtSofa:true});
     const scene=await c.prepareStudio('morning');c.startRestCinema(scene,()=>c.finishMorning(),true);
    },day);
+   await p.waitForFunction(()=>!!lunaCampaign.cinema?.player);
    const info=await p.evaluate(()=>{
     const c=lunaCampaign,s=c.cinema.scene,z=s.clips.find(x=>x.type==='camera'),fade=s.clips.find(x=>x.effect==='fadeIn');
     return {start:z.start,duration:z.duration,end:s.end,fadeEnd:fade.start+fade.duration,cameras:[0,.25,.5,.75,1].map(u=>StudioModel.sample(s,z.start+z.duration*u).camera)};
    });
    assert(info.start>info.fadeEnd,'Zoom begins after the dressed reveal');assert.equal(info.duration,1.6);
-   assert.equal(info.cameras[0].w,15);assert.equal(info.cameras[4].w,19.2);
+   assert.equal(info.cameras[0].w,15);assert.equal(info.cameras[4].w,await p.evaluate(()=>outsidePlaytest.renderCamera.w*4));
    for(let i=1;i<info.cameras.length;i++)assert(info.cameras[i].w>info.cameras[i-1].w);
    const seek=t=>p.evaluate(t=>{const c=lunaCampaign;c.cinema.time=t;c.cinema.player.render(t,null,false);},t);
    await seek(info.start);if(day===1)await p.screenshot({path:'/private/tmp/morning-zoom-close.png'});
@@ -28,16 +30,19 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await seek(info.end-.1);if(day===1)await p.screenshot({path:'/private/tmp/morning-zoom-wide.png'});
    const cityDepth=await p.evaluate(()=>{
     const calls=[],paint=LunaHomeArt.paintCity,c=lunaCampaign;
+    const roomPaint=LunaHomeArt.paintRoom;let roomCalls=0;
+    LunaHomeArt.paintRoom=(...args)=>{roomCalls++;return roomPaint(...args);};
     LunaHomeArt.paintCity=(...args)=>{calls.push(LunaHomeArt.cityCrop(args[6]));return paint(...args);};
     c.cinema.player.render(c.cinema.scene.end-.001,null,false);
     const cinema=calls.at(-1);calls.length=0;
     outsidePlaytest.tick(0);const game=calls.at(-1);
-    LunaHomeArt.paintCity=paint;return {cinema,game};
+    LunaHomeArt.paintCity=paint;LunaHomeArt.paintRoom=roomPaint;return {cinema,game,roomCalls};
    });
    assert(cityDepth.cinema&&cityDepth.game,'Both render paths use city depth');
+   assert(cityDepth.roomCalls>=2,'Cinema and gameplay both remove the floor fringe');
    assert(Math.abs(cityDepth.cinema.x-cityDepth.game.x)<.001,'City parallax remains aligned across morning handoff');
    const alignment=await p.evaluate(()=>{
-    const c=lunaCampaign,s=StudioModel.sample(c.cinema.scene,c.cinema.scene.end-.001),cam=s.camera,out=outsidePlaytest.camera,bg=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
+    const c=lunaCampaign,s=StudioModel.sample(c.cinema.scene,c.cinema.scene.end-.001),cam=s.camera,out=outsidePlaytest.renderCamera,bg=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
     const screen=(x,y,v)=>[640+(x-v.x)*1280/v.w,360-(y-v.y)*1280/v.w];
     const points=[[425,184],[519,224],[302,159],[610,175]].map(([u,v])=>({cinema:screen(-11.2+u*.04,5.4-v*.04,cam),game:screen(bg.x+(u-bg.sprite.w*.5)/100,bg.y+(bg.sprite.h*.5-v)/100,out)}));
     points.push({cinema:screen(s.actors.luna.x,s.actors.luna.y,cam),game:screen(outsidePlaytest.model.x,outsidePlaytest.model.y,out)});

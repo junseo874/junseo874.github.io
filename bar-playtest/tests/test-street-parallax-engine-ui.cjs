@@ -30,10 +30,14 @@ const { chromium } = runtime.load('playwright');
     assert.deepEqual(await page.evaluate(() => parallaxPositions()), initial, 'camera-only zoom never moves background transforms');
     await page.screenshot({ path: '/private/tmp/engine-parallax-panorama.png' });
     await page.keyboard.press('KeyY');
+    await page.evaluate(() => { for (let i = 0; i < 600; i++) parallaxStep(1 / 60); });
+    const cameraBefore = await page.evaluate(() => outsidePlaytest.camera.x);
+    const walkStart = await page.evaluate(() => parallaxPositions());
     await page.evaluate(() => { for (let i = 0; i < 240; i++) { outsidePlaytest.model.x += 1 / 60; parallaxStep(1 / 60); } });
     const walked = await page.evaluate(() => parallaxPositions());
+    const cameraTravel = await page.evaluate(() => outsidePlaytest.camera.x) - cameraBefore;
     for (const [name, ratio] of Object.entries({ C_Middle_Building_1: .2, C_Middle_Building_2: .5, C_Middle_Building_3: .05 })) {
-      assert(Math.abs(walked[name].x - initial[name].x - 4 * ratio) < 1e-8, name);
+      assert(Math.abs(walked[name].x - walkStart[name].x - cameraTravel * ratio) < 1e-8, name);
       assert.equal(walked[name].y, initial[name].y);
     }
     for (const name of ['Sky', 'C_Back_Building_1', 'C_Back_Building_2', 'B_ForeFore_Object_1', 'Fence', 'CityLight'])
@@ -78,11 +82,11 @@ const { chromium } = runtime.load('playwright');
       m.start({ day: 3, flow: 'out', place: 'bar' }); m.x = -7; o.snapCamera(); parallaxStep(0);
       m.tick = modelStep; o.tick = parallaxStep;
     });
-    const beforeWalk = await page.evaluate(() => ({ x: outsidePlaytest.model.x, layers: parallaxPositions() }));
+    const beforeWalk = await page.evaluate(() => ({ x: outsidePlaytest.model.x, cameraX: outsidePlaytest.camera.x, layers: parallaxPositions() }));
     await page.keyboard.down('KeyD'); await page.waitForTimeout(800); await page.keyboard.up('KeyD');
-    const afterWalk = await page.evaluate(() => ({ x: outsidePlaytest.model.x, layers: parallaxPositions() }));
+    const afterWalk = await page.evaluate(() => ({ x: outsidePlaytest.model.x, cameraX: outsidePlaytest.camera.x, layers: parallaxPositions() }));
     assert(afterWalk.x > beforeWalk.x + .2);
-    assert(Math.abs(afterWalk.layers.C_Middle_Building_2.x - beforeWalk.layers.C_Middle_Building_2.x - (afterWalk.x - beforeWalk.x) * .5) <= .011);
+    assert(Math.abs(afterWalk.layers.C_Middle_Building_2.x - beforeWalk.layers.C_Middle_Building_2.x - (afterWalk.cameraX - beforeWalk.cameraX) * .5) <= .011);
     await page.setViewportSize({ width: 1280, height: 720 });
     // Inspect the full home-to-bar route with accumulated offsets, not fresh-spawn screenshots only.
     await page.evaluate(() => {
@@ -133,11 +137,29 @@ const { chromium } = runtime.load('playwright');
       const o = outsidePlaytest; o.model.story.cancel(); o.model.backgroundStory.cancel();
       parallaxStep(0); o.tick = parallaxStep;
     });
-    const resumedBefore = await page.evaluate(() => ({ x: outsidePlaytest.model.x, layers: parallaxPositions() }));
+    const resumedBefore = await page.evaluate(() => ({ x: outsidePlaytest.model.x, cameraX: outsidePlaytest.camera.x, layers: parallaxPositions() }));
     await page.keyboard.down('KeyD'); await page.waitForTimeout(600); await page.keyboard.up('KeyD');
-    const resumedAfter = await page.evaluate(() => ({ x: outsidePlaytest.model.x, layers: parallaxPositions() }));
+    const resumedAfter = await page.evaluate(() => ({ x: outsidePlaytest.model.x, cameraX: outsidePlaytest.camera.x, layers: parallaxPositions() }));
     assert(resumedAfter.x > resumedBefore.x + .1, 'normal walking resumes after arrival');
-    assert(Math.abs(resumedAfter.layers.C_Middle_Building_2.x - resumedBefore.layers.C_Middle_Building_2.x - (resumedAfter.x - resumedBefore.x) * .5) <= .011, 'only new walking contributes, with no cinematic catch-up');
+    assert(Math.abs(resumedAfter.layers.C_Middle_Building_2.x - resumedBefore.layers.C_Middle_Building_2.x - (resumedAfter.cameraX - resumedBefore.cameraX) * .5) <= .011, 'resumed background movement stays synchronized with the camera');
+    // Reproduce the video's rapid reversals at the workshop. Scenery must
+    // never move against camera travel or jump on a player direction change.
+    const reversal=await page.evaluate(()=>{
+      const o=outsidePlaytest,m=o.model;o.tick=()=>{};m.tick=()=>{};
+      m.start({day:3,flow:'out',place:'bar'});m.x=-3;
+      m.story.cancel();m.backgroundStory.cancel();o.snapCamera();parallaxStep(0);
+      let lastCamera=o.camera.x,last=parallaxPositions().C_Middle_Building_2.x,maxError=0,maxStep=0;
+      for(let i=0;i<240;i++){
+        m.x+=(Math.floor(i/24)%2?-1:1)*1.5/60;parallaxStep(1/60);
+        const next=parallaxPositions().C_Middle_Building_2.x,dx=o.camera.x-lastCamera;
+        maxError=Math.max(maxError,Math.abs(next-last-dx*.5));
+        maxStep=Math.max(maxStep,Math.abs(next-last));last=next;lastCamera=o.camera.x;
+      }
+      return {maxError,maxStep};
+    });
+    assert(reversal.maxError<1e-8,'Reversal follows eased camera, not immediate player delta');
+    assert(reversal.maxStep<.013,'No source-pixel stepping during repeated reversals');
+    await page.screenshot({path:'/private/tmp/parallax-reversal-fixed.png'});
     assert.deepEqual(errors, []);
     console.log('ENGINE_PARALLAX_UI_OK: real walking/render transforms, panorama, fixed layers, lift, teleport, snapshot and resize');
   } finally { await browser.close(); }

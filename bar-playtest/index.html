@@ -6,7 +6,7 @@
 <title>Project LUNA · 본편 & 시뮬레이터</title>
 <link rel="stylesheet" href="src/app/styles.css?v=black-scene-background-20261019">
 <link rel="stylesheet" href="src/shared/ui/dossier.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="src/features/bar/bar-views.css?v=unified-ui-20261019">
+<link rel="stylesheet" href="src/features/bar/bar-views.css?v=inventory-tip-20261020">
 <link rel="stylesheet" href="src/features/bar/remix.css">
 <link rel="stylesheet" href="src/features/crafting/minigames.css?v=ingredient-picker-20261019">
 <link rel="stylesheet" href="src/features/crafting/pour-view.css?v=cyan-cursors-20261019">
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="src/dev/qa/qa-lab.css?v=cyan-cursors-20261019">
 <link rel="stylesheet" href="src/features/bar/remix-experience.css?v=remove-gpt-outside-20261003">
 <link rel="stylesheet" href="src/features/crafting/shake-rhythm.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="src/features/campaign/terrace-view.css?v=terrace-return-weather-20261020">
+<link rel="stylesheet" href="src/features/campaign/terrace-view.css?v=engine-optics-20261020">
 <link rel="stylesheet" href="src/shared/platform/game-input-guard.css?v=game-browser-guard-20261019">
 <link rel="stylesheet" href="src/features/crafting/pour-tutorial.css?v=1">
 <link rel="stylesheet" href="src/shared/ui/story-notices.css?v=half-size-notices-20261019">
@@ -87,7 +87,7 @@
 </script>
 <script src="src/features/bar/cocktail-art.js?v=20261018">
 </script>
-<script src="src/features/crafting/pour-fluid.js?v=rim-overflow-20261019">
+<script src="src/features/crafting/pour-fluid.js?v=receiver-glass-20261020">
 </script>
 <script src="src/shared/ui/story-notices.js?v=affinity-arrows-20261019">
 </script>
@@ -103,7 +103,7 @@
 </script>
 <script src="src/shared/audio/home-door-audio.js?v=1">
 </script>
-<script src="src/shared/audio/ui-audio-policy.js?v=silent-poster-20261019">
+<script src="src/shared/audio/ui-audio-policy.js?v=silent-crafting-20261020">
 </script>
 <script src="src/shared/audio/click-audio.js?v=ui-mix-20261016">
 </script>
@@ -123,15 +123,15 @@
 </script>
 <script src="src/shared/dialogue/world-speech.js?v=world-fixed-20261003">
 </script>
-<script src="src/features/bar/bar-views.js?v=serve-return-camera-20261019">
+<script src="src/features/bar/bar-views.js?v=inventory-tip-20261020">
 </script>
 <script src="src/shared/audio/bgm.js?v=music-fades-20261018">
 </script>
 <script src="src/features/crafting/pour-tutorial.js?v=notion-copy-20261017">
 </script>
-<script src="src/features/crafting/pour-liquid-renderer.js?v=rim-overflow-20261019">
+<script src="src/features/crafting/pour-liquid-renderer.js?v=receiver-glass-20261020">
 </script>
-<script src="src/features/crafting/pour-view.js?v=rim-overflow-20261019">
+<script src="src/features/crafting/pour-view.js?v=receiver-glass-20261020">
 </script>
 <script src="src/features/crafting/open-carbonation.js?v=20261018">
 </script>
@@ -151,11 +151,11 @@
 </script>
 <script src="src/dev/qa/ctrl-diagnostic.js?v=2">
 </script>
-<script src="src/features/tutorials/tutorial-view.js?v=static-outline-20261019">
+<script src="src/features/tutorials/tutorial-view.js?v=stable-guide-20261020">
 </script>
 <script src="data/runtime/outside-scene-data.js?v=notion-sync-20261005">
 </script>
-<script src="src/features/outside/home-art.js?v=home-fence-seam-20261020">
+<script src="src/features/outside/home-art.js?v=stable-floor-20261020">
 </script>
 <script src="src/features/outside/outside-residence.js?v=lift-support-center-20261019">
 </script>
@@ -207,7 +207,7 @@
 </script>
 <script src="src/dev/qa/outside-qa.js?v=remove-bd-vendor-20261019">
 </script>
-<script src="src/features/campaign/terrace-view.js?v=terrace-return-weather-20261020">
+<script src="src/features/campaign/terrace-view.js?v=engine-optics-20261020">
 </script>
 <script src="src/features/bar/bar-door-transition.js?v=opening-notion-20261017">
 </script>
@@ -217,12 +217,15 @@
 </script>
 <script src="src/shared/dialogue/world-choices.js?v=balance-header-20261019">
 </script>
-<script src="src/features/campaign/campaign.js?v=terrace-return-weather-20261020">
+<script src="src/features/campaign/campaign.js?v=morning-camera-match-20261020">
 </script>
 <script src="src/features/outside/outside-notices.js?v=focus-setting-20261016">
 </script>
-<script src="src/features/outside/effects/outside-rain.js?v=window-droplets-visible-20261020">
+<script src="src/features/outside/effects/outside-rain.js?v=day1-morning-rain-20261020">
 </script>
+<script src="src/features/outside/effects/rain-glass-simulation.js?v=bounded-rain-20261020"></script>
+<script src="src/features/outside/effects/rain-glass-renderer.js?v=bounded-rain-20261020"></script>
+<script src="src/features/outside/effects/outside-rain-glass.js?v=engine-optics-20261020"></script>
 <script src="src/features/outside/effects/outside-traffic.js?v=three-depth-traffic-20261019">
 </script>
 <script src="src/features/tutorials/controls-tutorial.js?v=controls-run-20261018">
@@ -231,13 +234,13 @@
 </script>
 <script src="src/shared/platform/pixel-camera.js?v=smooth-ppu-20261018">
 </script>
-<script src="src/shared/dialogue/exterior-textbox.js?v=ink-fit-20261019">
+<script src="src/shared/dialogue/exterior-textbox.js?v=border-strips-20261020">
 </script>
 <script src="src/features/outside/outside-inspection.js?v=compact-poster-20261019">
 </script>
-<script src="src/features/outside/outside-parallax.js?v=cutscene-parallax-lock-20261019">
+<script src="src/features/outside/outside-parallax.js?v=camera-parallax-20261020">
 </script>
-<script src="src/features/outside/outside.js?v=home-window-rain-20261020">
+<script src="src/features/outside/outside.js?v=engine-optics-20261020">
 </script>
 <script src="src/features/campaign/cutscene-library.js?v=remove-bd-vendor-20261019">
 </script>
@@ -249,7 +252,7 @@
 </script>
 <script src="src/cinema/exterior-speech.js?v=ink-fit-20261019">
 </script>
-<script src="src/app/app.js?v=serve-return-camera-20261019">
+<script src="src/app/app.js?v=inventory-tip-20261020">
 </script>
 </body>
 </html>

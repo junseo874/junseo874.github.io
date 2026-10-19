@@ -55,6 +55,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  window.addEventListener('pagehide',()=>stopAudio(true));
 
 
+ const receiver=new Image();receiver.src=root.LunaPour.GLASS_ART.src;
  const images=new Map();let dragging=null;const idleState=new WeakMap();
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),snap=v=>Math.round(v/3)*3;
  function mode(){return ui.pourPresentation==='clean'?'clean':'classic';}
@@ -166,11 +167,15 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const f=s.fluid,b=f.glass,style=appearance(s.ingredient);
   ctx.clearRect(0,0,1000,540);ctx.imageSmoothingEnabled=false;
   ctx.fillStyle='#0005';ctx.fillRect(b.left-20,b.bottom+6,b.right-b.left+40,6);
-  ctx.fillStyle='#25344066';ctx.fillRect(b.left,b.top,b.right-b.left,b.bottom-b.top);
+  const art=root.LunaPour.GLASS_ART,loaded=receiver.complete&&receiver.naturalWidth;
+  if(loaded)ctx.drawImage(receiver,art.x,art.y,art.w,art.h);
   root.LunaPourLiquid.drawLiquid(ctx,s,style);
   root.LunaPourLiquid.drawStream(ctx,s,style);
   root.LunaPourLiquid.drawOverflow(ctx,s,style);
-  ctx.fillStyle='#b0d1d5bb';ctx.fillRect(b.left,b.top,3,b.bottom-b.top);ctx.fillRect(b.right-3,b.top,3,b.bottom-b.top);ctx.fillRect(b.left,b.bottom-3,b.right-b.left,3);ctx.fillRect(b.left-3,b.top,b.right-b.left+6,2);ctx.fillStyle='#d6edef55';ctx.fillRect(b.left+9,b.top+10,3,b.bottom-b.top-30);
+  // Opaque interior art stays behind the liquid; redraw only the authored
+  // rim/walls/base above it so no stream or foam paints over the frame.
+  if(loaded){ctx.save();ctx.beginPath();ctx.rect(0,0,1000,540);root.LunaPour.cavityPath(ctx,b);ctx.clip('evenodd');ctx.drawImage(receiver,art.x,art.y,art.w,art.h);ctx.restore();}
+
   if(mode()==='classic'){const y=snap(b.bottom-3-f.targetMl*f.mlPx);ctx.fillStyle='#e4c885';for(let x=b.left-9;x<b.right+12;x+=10)ctx.fillRect(x,y,6,2);}
   bottle(ctx,s);
   const age=f.popped?f.time-f.popTime:Infinity;

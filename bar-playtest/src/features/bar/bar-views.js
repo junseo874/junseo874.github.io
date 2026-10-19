@@ -608,7 +608,7 @@ window.LunaBarViews = function ({
         <div class="shelf-navigation"><div class="shelf-dots">${categories.map(id => button(`<span></span><i>${categoryName(id)}</i>`, 'tab', `data-id="${id}" aria-label="${categoryName(id)}" aria-pressed="${ui.tab === id}"`, ui.tab === id ? 'selected' : '')).join('')}</div></div>
         ${button('<img src="assets/ui/preparation/BTN_start.png" alt="">', 'craft', 'aria-label="' + L('제조 시작', 'Start crafting') + '" ' + (!p.glass || !p.ingredients.length ? 'disabled' : ''), 'craft-start')}</div>
       <div class="prep-inventory"><div class="inventory-scroll">${selected.map(id => button(`${itemArt(id, '', 'inventory')}<span class="remove-mark">×</span><span class="inventory-item-name">${esc(itemName(id))}</span>`, id === 'opener' ? 'pickOpener' : 'pick', `data-id="${id}" aria-label="${esc(itemName(id))} ${L('선택 해제', 'remove')}"`, 'inventory-slot')).join('')}<div class="inventory-slot empty-slot" aria-hidden="true">＋</div></div></div>
-      ${ui.recipeOpen ? recipePanel(c) : ''}${tooltip}</div>`;
+      ${ui.recipeOpen ? recipePanel(c) : ''}${tooltip}<div class="ingredient-tip recipe-item-tip inventory-pointer-tip" role="tooltip" hidden><strong></strong></div></div>`;
   }
   function motionHTML(s, crop) {
     const art = D.assets[s.type === 'stir' ? 'mix_stir_motion' : 'mix_shake_motion'];
