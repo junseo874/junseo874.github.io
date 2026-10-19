@@ -126,7 +126,6 @@
       if (this.view === 'options') body = this.optionsHTML();
       if (this.view === 'dev-console') body = this.devConsoleHTML();
       if (this.view === 'confirm-exit') body = this.card('타이틀로 돌아갈까요?', '<p>진행 상황은 저장되지 않습니다.</p>' + button('계속 플레이', 'resume') + button('타이틀로 돌아가기', 'exit-run'));
-      if (this.view === 'sleep') body = this.card('하루를 마칠까요?', '<p>오늘의 이야기를 마치고 휴식을 취합니다.</p>' + button('조금 더 둘러보기', 'resume') + button('하루 마치기', 'sleep-confirm', 'primary'));
       if (this.view === 'notice') body = this.card(this.noticeTitle || '안내', '<p>' + esc(this.noticeText).replace(/\n/g, '<br>') + '</p>' + button('확인', 'resume', 'primary'));
       if (this.view === 'retry-drink') body = this.card('주문을 다시 확인해 주세요', '<ul>' + this.drinkIssues.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul>' + button('판정 화면으로', 'resume') + button('다시 만들기', 'remake', 'primary'));
       if (this.view === 'menu') body = this.card('어떤 한 잔을 추천할까요?', '<p>' + esc(this.g.name(this.session.pendingStep?.actor || 'samho')) + '에게 제공할 칵테일을 골라 주세요.</p><div class="campaign-menu">' + this.g.cocktailsAvailable().map(c => button('<img src="' + esc(this.drinkSrc(c.id)) + '" alt=""><span>' + esc(this.g.name(c.id)) + '</span>', 'drink:' + c.id)).join('') + '</div>');
@@ -289,6 +288,9 @@
         homeToTerrace: false
       };
       if (terrace) {
+        const source = this.outside.active ? this.outside.model : null;
+        this.dialog.terraceWeather = {scene:'street',config:{day:source?.config.day ?? this.session.day,flow:source?.config.flow ?? 'in'}};
+        this.dialog.terraceWeatherTime = source?.time || 0;
         this.retryLoad = () => this.scene(key, title, background, done, extra);
         this.beginMemoryTransition(() => global.LunaTerrace.prepare(), () => this.screen('scene'), {
           terrace: true,
@@ -389,7 +391,7 @@
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
-        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'black-scene-background-20261019' : name === 'player' ? 'ink-fit-20261019' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
+        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'home-fence-seam-20261020' : name === 'player' ? 'ink-fit-20261019' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);
@@ -1120,10 +1122,7 @@
         return true;
       }
       if (target.id === 'sofa') {
-        if (this.session.route === 'out') {
-          this.resumeView = 'game';
-          this.screen('sleep');
-        }
+        if (this.session.route === 'out') this.sleep();
         return true;
       }
       return false;
@@ -1320,7 +1319,7 @@
       this.render(true);
     }
     sleep() {
-      if (this.nightStarted || !this.active || this.view !== 'sleep' || this.session.route !== 'out' || this.dayTransition) return;
+      if (this.nightStarted || !this.active || this.view !== this.playView || this.session.route !== 'out' || this.dayTransition || this.memoryTransition) return;
       this.nightStarted = true;
       this.outside.model?.story.cancel();
       this.outside.model?.backgroundStory.cancel();
@@ -1591,10 +1590,6 @@
         this.next();
         return;
       }
-      if (a === 'sleep-confirm') {
-        this.sleep();
-        return;
-      }
       if (a === 'remake') {
         this.g.cancelCraft();
         this.g.selectCocktail(this.g.currentOrder.cocktail);
@@ -1670,7 +1665,7 @@
       if (e.code === 'F2') return true;
       if (e.code === 'Escape') {
         if (!e.repeat) {
-          if (['options', 'notice', 'sleep', 'retry-drink'].includes(this.view)) this.action('resume');else if (this.view === 'confirm-exit') this.action('resume');else if (this.view === 'title') this.toPicker();else if (!['picker', 'loading', 'load-error', 'ending'].includes(this.view)) {
+          if (['options', 'notice', 'retry-drink'].includes(this.view)) this.action('resume');else if (this.view === 'confirm-exit') this.action('resume');else if (this.view === 'title') this.toPicker();else if (!['picker', 'loading', 'load-error', 'ending'].includes(this.view)) {
             this.resumeView = this.view;
             this.screen('options');
           }

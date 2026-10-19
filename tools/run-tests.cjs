@@ -4,6 +4,7 @@ const { spawn } = require('node:child_process');
 const root = path.resolve(__dirname, '..');
 const game = name => 'bar-playtest/tests/' + name + '.cjs';
 const suites = {
+  data: ['bar-playtest/tests/test-csv-catalog.cjs', 'bar-playtest/tests/test-shared-data-projection.cjs', 'tools/build-shared-data.cjs', 'bar-playtest/tests/test-shared-data-ui.cjs'],
   smoke: ['tools/check-structure.cjs', 'tools/check-site.cjs', ...[
     'test_shiba_shop', 'test_day0_tutorial', 'test_resource_missing',
     'test_bd_vendor_removed_ui', 'test_current_serve_sheets_ui', 'test-resource-preview-paths-ui'
@@ -13,10 +14,10 @@ const suites = {
     'test-game-input-guard-ui', 'test-delivery-hitbox-ui', 'test-settings-resume-ui'].map(game),
   outside: ['test_bd_vendor_removed_ui', 'test_day1_thug_ui', 'test_outside_console_ui',
     'test_ambient_interaction_pause_ui', 'test_interaction_prompt_ui', 'test-outside-resize-qa-ui',
-    'test-street-parallax-engine', 'test-street-parallax-engine-ui'].map(game),
+    'test-street-parallax-engine', 'test-street-parallax-engine-ui', 'test-home-city-parallax', 'test-home-art-ui', 'test-home-weather-ui', 'test_upper_crate_boundary_ui', 'test-lift-npc-presence-ui'].map(game),
   cinema: ['bar-playtest/tests/test_cutscene_library_ui.cjs', 'cutscene-studio/tests/smoke-test.cjs', game('test-bar-entry-dialogue-ui')],
   site: ['tools/check-structure.cjs', 'tools/check-site.cjs', 'tools/test-entrypoints.cjs'],
-  craft: ['test-mix-completion', 'test-mix-completion-ui', 'test_current_serve_sheets_ui', 'test_serve_fallback_sizes_ui',
+  craft: ['test-mix-completion', 'test-mix-completion-ui', 'test_current_serve_sheets_ui', 'test-serve-return-camera-ui', 'test_serve_fallback_sizes_ui',
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';

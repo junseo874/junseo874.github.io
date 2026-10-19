@@ -1,0 +1,6 @@
+﻿"setting","value_type","sale_rate","tip_rate","refund_rate","dataset_id","row_id","parent_id","parent_field","source_order","template_id","web_row_id"
+"excellent","","1","0.2","0","balance","shared_c301dd807cb5d37a","shared_2786dc1dec6a8614","settlement_rules","0","shared_settlementrules_dd7153b5e6758b29","settlement_rules_excellent"
+"good","","1","0","0","balance","shared_344143b7b09438a7","shared_2786dc1dec6a8614","settlement_rules","1","shared_settlementrules_d6088b0d11df3e3a","settlement_rules_good"
+"decent","","1","0","0","balance","shared_742ec14f573f2c16","shared_2786dc1dec6a8614","settlement_rules","2","shared_settlementrules_d6088b0d11df3e3a","settlement_rules_decent"
+"poor","","1","0","0","balance","shared_b87c503e97b664f9","shared_2786dc1dec6a8614","settlement_rules","3","shared_settlementrules_d6088b0d11df3e3a","settlement_rules_poor"
+"sewage","","0","0","1","balance","shared_e1fcff9a92467c75","shared_2786dc1dec6a8614","settlement_rules","4","shared_settlementrules_d6088b0d11df3e3a","settlement_rules_sewage"

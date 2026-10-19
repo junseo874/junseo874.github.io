@@ -3,7 +3,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
 (async()=>{
  const root=path.resolve(__dirname,'..'),dir=path.join(root,'assets/backgrounds/terrace');
- const sources={city:'/Users/lee/Desktop/project/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace_BG_City.png',building:'/Users/lee/Desktop/project/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace.png',balustrade:'/Users/lee/Desktop/project/9_ArtResources/02.Environments/04.Terrace/01.Sprites/balustrade.png',characters:'/Users/lee/Desktop/project/9_ArtResources/01.Characters/02.Outside/01.Luna/Terrace/Terrace.png'};
+ const sources={city:'/Users/lee/Desktop/Terrace_BG_City.png',building:'/Users/lee/Desktop/project/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace.png',balustrade:'/Users/lee/Desktop/project/9_ArtResources/02.Environments/04.Terrace/01.Sprites/balustrade.png',characters:'/Users/lee/Desktop/project/9_ArtResources/01.Characters/02.Outside/01.Luna/Terrace/Terrace.png'};
  for(const [name,src]of Object.entries(sources))if(fs.existsSync(src))assert(fs.readFileSync(src).equals(fs.readFileSync(path.join(dir,name+'.png'))),'Original bytes: '+name);
  const frames=[];for(let i=0;i<8;i++)frames.push(await sharp(path.join(dir,'characters.png')).extract({left:i*129,top:0,width:129,height:138}).png().toBuffer());
  assert(new Set(frames.map(b=>b.toString('base64'))).size>1,'Supplied sheet has distinct poses');

@@ -1,0 +1,6 @@
+﻿"taste_tier","excellent","good","decent","poor","sewage","dataset_id","row_id","parent_id","parent_field","source_order","template_id","web_row_id"
+"love","6","4","1","-1","-2","balance","shared_ff468477ac0b2043","shared_2786dc1dec6a8614","affinity_matrix","0","shared_affinitymatrix_9a335dcb3031b4fd","affinity_matrix_1"
+"good","4","3","1","-1","-2","balance","shared_c8aa67eb1db30b0a","shared_2786dc1dec6a8614","affinity_matrix","1","shared_affinitymatrix_9a335dcb3031b4fd","affinity_matrix_2"
+"ok","2","1","0","-1","-3","balance","shared_c4b4d0815dcf1e97","shared_2786dc1dec6a8614","affinity_matrix","2","shared_affinitymatrix_9a335dcb3031b4fd","affinity_matrix_3"
+"dislike","1","0","-1","-2","-4","balance","shared_8c31893558ce1919","shared_2786dc1dec6a8614","affinity_matrix","3","shared_affinitymatrix_9a335dcb3031b4fd","affinity_matrix_4"
+"miss","-4","-4","-4","-4","-4","balance","shared_d6aebfda94b4f9a7","shared_2786dc1dec6a8614","affinity_matrix","4","shared_affinitymatrix_9a335dcb3031b4fd","affinity_matrix_5"

@@ -1,0 +1,5 @@
+﻿"dataset_id","row_id","parent_id","parent_field","source_order","template_id","value"
+"script/home","shared_b206cc0dd5bbe3c4","shared_5f06be043fe97bbf","web_fields.emphasis","0","shared_presentationvalues_1ce6428f5ee5360e","와일드 독"
+"script/home","shared_bdb3c1ab4784554d","shared_5f06be043fe97bbf","web_fields.emphasis","1","shared_presentationvalues_1ce6428f5ee5360e","비터스"
+"script/home","shared_34650f509cc64402","shared_5f06be043fe97bbf","web_fields.emphasis","2","shared_presentationvalues_1ce6428f5ee5360e","각설탕"
+"script/street","shared_de08ba5ea579266a","shared_9ac737fffde9bc37","web_fields.emphasis","0","shared_presentationvalues_1ce6428f5ee5360e","안 좋은 일"

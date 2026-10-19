@@ -1,0 +1,4 @@
+rain-house.wav
+Source: user-provided rain_house.wav, 2026-10-20.
+Copied byte-for-byte without re-encoding. No third-party license inferred.
+Use: rainy-weather Chris house ambience; shared ambience/SFX volume controls.

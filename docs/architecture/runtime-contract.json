@@ -448,6 +448,10 @@
     ],
     [
       "script",
+      "src/features/outside/home-art.js"
+    ],
+    [
+      "script",
       "src/features/outside/outside-residence.js"
     ],
     [
@@ -795,6 +799,10 @@
     [
       "script",
       "../bar-playtest/data/runtime/outside-scene-data.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/features/outside/home-art.js"
     ],
     [
       "script",

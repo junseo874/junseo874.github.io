@@ -1,0 +1,8 @@
+﻿"tag","value","kind","dataset_id","row_id","parent_id","parent_field","source_order","template_id","web_row_id"
+"world","#6EC1FF","color","text_tags","shared_7510d34156638307","@text_tags","\N","0","shared_texttags_303fc390c84fb3ee","text_tags_world"
+"name","#FFD479","color","text_tags","shared_c051ce4391869a91","@text_tags","\N","1","shared_texttags_303fc390c84fb3ee","text_tags_name"
+"order","#8FE388","color","text_tags","shared_6469ba6ed25a5af9","@text_tags","\N","2","shared_texttags_303fc390c84fb3ee","text_tags_order"
+"slow","120","speed_ms","text_tags","shared_eae3b1fa690187a3","@text_tags","\N","3","shared_texttags_303fc390c84fb3ee","text_tags_slow"
+"fast","20","speed_ms","text_tags","shared_d8a8898b36a7d05e","@text_tags","\N","4","shared_texttags_303fc390c84fb3ee","text_tags_fast"
+"big","130","size_pct","text_tags","shared_dca3b9c3871b00a1","@text_tags","\N","5","shared_texttags_303fc390c84fb3ee","text_tags_big"
+"small","80","size_pct","text_tags","shared_52033278924f90bc","@text_tags","\N","6","shared_texttags_303fc390c84fb3ee","text_tags_small"

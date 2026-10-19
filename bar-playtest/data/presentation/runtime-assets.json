@@ -1,0 +1,4353 @@
+{
+  "assets": {
+    "bar": {
+      "src": "assets/backgrounds/bar/bar.png",
+      "w": 2041,
+      "h": 792,
+      "source": "1. 배경 (내부)/1. 대화 화면/대화화면 풀샷.png",
+      "alphaBBox": [
+        0,
+        0,
+        2041,
+        792
+      ]
+    },
+    "bar_far": {
+      "src": "assets/backgrounds/bar/bar-far.png",
+      "w": 2041,
+      "h": 792,
+      "source": "1. 배경 (내부)/1. 대화 화면/대화화면 원경.png",
+      "alphaBBox": [
+        0,
+        0,
+        2041,
+        792
+      ]
+    },
+    "bar_mid": {
+      "src": "assets/backgrounds/bar/bar-mid.png",
+      "w": 2041,
+      "h": 792,
+      "source": "1. 배경 (내부)/1. 대화 화면/대화화면 중경.png",
+      "alphaBBox": [
+        197,
+        309,
+        1913,
+        536
+      ]
+    },
+    "bar_front": {
+      "src": "assets/backgrounds/bar/bar-front.png",
+      "w": 2041,
+      "h": 792,
+      "source": "1. 배경 (내부)/1. 대화 화면/대화화면 근경.png",
+      "alphaBBox": [
+        0,
+        0,
+        2041,
+        792
+      ]
+    },
+    "prep_glass": {
+      "src": "assets/backgrounds/bar/prep-glass.png",
+      "w": 480,
+      "h": 270,
+      "source": "glass_selection.png",
+      "alphaBBox": [
+        0,
+        0,
+        480,
+        270
+      ]
+    },
+    "prep_tool": {
+      "src": "assets/backgrounds/bar/prep-tool.png",
+      "w": 480,
+      "h": 270,
+      "source": "1. 배경 (내부)/2. 재료 담는 화면/도구 고르기.png",
+      "alphaBBox": [
+        0,
+        0,
+        480,
+        270
+      ]
+    },
+    "prep_liquor": {
+      "src": "assets/backgrounds/bar/prep-liquor.png?v=warm-shelf-20261019",
+      "w": 960,
+      "h": 540,
+      "source": "1. 배경 (내부)/2. 재료 담는 화면/일반 선반.png",
+      "alphaBBox": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    "prep_fridge": {
+      "src": "assets/backgrounds/bar/prep-fridge.png",
+      "w": 960,
+      "h": 540,
+      "source": "refrigerator_shelf.png",
+      "alphaBBox": [
+        0,
+        0,
+        960,
+        540
+      ]
+    },
+    "gimmick": {
+      "src": "assets/backgrounds/bar/gimmick.png",
+      "w": 490,
+      "h": 280,
+      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/칵테일 제조 기믹.png",
+      "alphaBBox": [
+        0,
+        0,
+        490,
+        280
+      ]
+    },
+    "gimmick_shake": {
+      "src": "assets/backgrounds/bar/gimmick-shake.png",
+      "w": 970,
+      "h": 550,
+      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/쉐이킹 기믹.png",
+      "alphaBBox": [
+        0,
+        0,
+        970,
+        550
+      ]
+    },
+    "gimmick_stir": {
+      "src": "assets/backgrounds/bar/gimmick-stir.png",
+      "w": 970,
+      "h": 550,
+      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/스터 기믹.png",
+      "alphaBBox": [
+        0,
+        0,
+        970,
+        550
+      ]
+    },
+    "coaster": {
+      "src": "assets/ui/imported/coaster.png",
+      "w": 83,
+      "h": 27,
+      "source": "6. 칵테일-재료 리소스/8. 코스터/코스터.png",
+      "alphaBBox": [
+        1,
+        1,
+        82,
+        26
+      ]
+    },
+    "dialogue": {
+      "src": "assets/ui/imported/dialogue.png",
+      "w": 1625,
+      "h": 446,
+      "source": "8. UI/3. 메인 화면/GRD_textbox.png",
+      "alphaBBox": [
+        5,
+        5,
+        1620,
+        441
+      ]
+    },
+    "dialogue_luna": {
+      "src": "assets/ui/imported/dialogue-luna.png",
+      "w": 1625,
+      "h": 358,
+      "source": "8. UI/3. 메인 화면/GRD_textbox_luna.png",
+      "alphaBBox": [
+        5,
+        6,
+        1620,
+        352
+      ]
+    },
+    "choice": {
+      "src": "assets/ui/imported/choice.png",
+      "w": 2103,
+      "h": 228,
+      "source": "8. UI/3. 메인 화면/IMG_choice_A.png",
+      "alphaBBox": [
+        37,
+        34,
+        2065,
+        190
+      ]
+    },
+    "next": {
+      "src": "assets/ui/imported/next.png",
+      "w": 31,
+      "h": 30,
+      "source": "8. UI/3. 메인 화면/IMG_textbox_Next.png",
+      "alphaBBox": [
+        0,
+        0,
+        31,
+        30
+      ]
+    },
+    "money": {
+      "src": "assets/ui/imported/money.png",
+      "w": 542,
+      "h": 108,
+      "source": "8. UI/3. 메인 화면/IMG_money.png",
+      "alphaBBox": [
+        0,
+        2,
+        542,
+        105
+      ]
+    },
+    "logo": {
+      "src": "assets/ui/imported/logo.png",
+      "w": 1340,
+      "h": 660,
+      "source": "8. UI/1. 로고/IMG_logo_white.png",
+      "alphaBBox": [
+        56,
+        109,
+        1283,
+        558
+      ]
+    },
+    "item_gin": {
+      "src": "assets/items/item-gin.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/진.png",
+      "alphaBBox": [
+        10,
+        24,
+        46,
+        170
+      ]
+    },
+    "item_whiskey": {
+      "src": "assets/items/item-whiskey.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/조니워커_위스키.png",
+      "alphaBBox": [
+        8,
+        15,
+        48,
+        170
+      ]
+    },
+    "item_vodka": {
+      "src": "assets/items/item-vodka.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/그레이구스_보드카.png",
+      "alphaBBox": [
+        10,
+        1,
+        47,
+        170
+      ]
+    },
+    "item_rum": {
+      "src": "assets/items/item-rum.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/바카디_럼.png",
+      "alphaBBox": [
+        12,
+        24,
+        45,
+        170
+      ]
+    },
+    "item_grenadine": {
+      "src": "assets/items/item-grenadine.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/그레나딘_시럽.png",
+      "alphaBBox": [
+        10,
+        19,
+        47,
+        170
+      ]
+    },
+    "item_sour_mix": {
+      "src": "assets/items/item-sour-mix.png",
+      "w": 57,
+      "h": 171,
+      "source": "6. 칵테일-재료 리소스/3. 일반 선반/사워믹스.png",
+      "alphaBBox": [
+        9,
+        12,
+        48,
+        170
+      ]
+    },
+    "item_beer": {
+      "src": "assets/items/item-beer.png",
+      "w": 93,
+      "h": 223,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/병맥주.png",
+      "alphaBBox": [
+        22,
+        66,
+        65,
+        222
+      ]
+    },
+    "item_soda_water": {
+      "src": "assets/items/item-soda-water.png",
+      "w": 93,
+      "h": 119,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/탄산수.png",
+      "alphaBBox": [
+        21,
+        36,
+        66,
+        118
+      ]
+    },
+    "item_cola": {
+      "src": "assets/items/item-cola.png",
+      "w": 93,
+      "h": 119,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/콜라.png",
+      "alphaBBox": [
+        24,
+        30,
+        68,
+        118
+      ]
+    },
+    "item_champagne": {
+      "src": "assets/items/item-champagne.png",
+      "w": 93,
+      "h": 223,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/샴페인.png",
+      "alphaBBox": [
+        20,
+        20,
+        73,
+        222
+      ]
+    },
+    "item_dry_vermouth": {
+      "src": "assets/items/item-dry-vermouth.png",
+      "w": 93,
+      "h": 223,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/마티니_드라이버무스.png",
+      "alphaBBox": [
+        19,
+        28,
+        74,
+        222
+      ]
+    },
+    "item_red_wine": {
+      "src": "assets/items/item-red-wine.png",
+      "w": 93,
+      "h": 223,
+      "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/레드와인.png",
+      "alphaBBox": [
+        23,
+        35,
+        70,
+        222
+      ]
+    },
+    "item_shaker": {
+      "src": "assets/items/item-shaker.png",
+      "w": 70,
+      "h": 115,
+      "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/쉐이커.png",
+      "alphaBBox": [
+        11,
+        1,
+        61,
+        108
+      ]
+    },
+    "item_mixing_glass": {
+      "src": "assets/items/item-mixing-glass.png",
+      "w": 70,
+      "h": 115,
+      "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/믹싱 글라스.png",
+      "alphaBBox": [
+        1,
+        19,
+        69,
+        114
+      ]
+    },
+    "item_opener": {
+      "src": "assets/items/item-opener.png",
+      "w": 70,
+      "h": 115,
+      "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/병따개.png",
+      "alphaBBox": [
+        13,
+        63,
+        58,
+        107
+      ]
+    },
+    "item_long_drink": {
+      "src": "assets/items/item-long-drink.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/롱드링크잔.png",
+      "alphaBBox": [
+        4,
+        17,
+        41,
+        94
+      ]
+    },
+    "item_cocktail": {
+      "src": "assets/items/item-cocktail.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/칵테일잔.png",
+      "alphaBBox": [
+        3,
+        18,
+        44,
+        94
+      ]
+    },
+    "item_sour": {
+      "src": "assets/items/item-sour.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/사워잔.png",
+      "alphaBBox": [
+        7,
+        1,
+        40,
+        94
+      ]
+    },
+    "item_wine": {
+      "src": "assets/items/item-wine.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/와인잔.png",
+      "alphaBBox": [
+        4,
+        1,
+        39,
+        94
+      ]
+    },
+    "item_mug": {
+      "src": "assets/items/item-mug.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/맥주잔.png",
+      "alphaBBox": [
+        4,
+        18,
+        41,
+        94
+      ]
+    },
+    "item_old_fashioned": {
+      "src": "assets/items/item-old-fashioned.png",
+      "w": 45,
+      "h": 95,
+      "source": "6. 칵테일-재료 리소스/1. 잔 - 재료 담는 화면/올드패션.png",
+      "alphaBBox": [
+        1,
+        41,
+        42,
+        94
+      ]
+    },
+    "cocktail_gin_tonic": {
+      "src": "assets/cocktails/static/cocktail-gin-tonic.png",
+      "w": 216,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 216,
+      "frameHeight": 411,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진토닉_완성.png",
+      "alphaBBox": [
+        4,
+        1,
+        215,
+        408
+      ]
+    },
+    "cocktail_gin_fizz": {
+      "src": "assets/cocktails/static/cocktail-gin-fizz.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진피즈_완성.png",
+      "alphaBBox": [
+        13,
+        5,
+        187,
+        343
+      ]
+    },
+    "cocktail_dry_martini": {
+      "src": "assets/cocktails/static/cocktail-dry-martini.png",
+      "w": 200,
+      "h": 337,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 337,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/드라이마티니_완성.png",
+      "alphaBBox": [
+        0,
+        0,
+        200,
+        337
+      ]
+    },
+    "cocktail_cosmopolitan": {
+      "src": "assets/cocktails/static/cocktail-cosmopolitan.png",
+      "w": 198,
+      "h": 327,
+      "frames": 1,
+      "frameWidth": 198,
+      "frameHeight": 327,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/코스모폴리탄_완성.png",
+      "alphaBBox": [
+        0,
+        0,
+        198,
+        327
+      ]
+    },
+    "cocktail_kahlua_milk": {
+      "src": "assets/cocktails/static/cocktail-kahlua-milk.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/깔루아밀크_완성.png",
+      "alphaBBox": [
+        2,
+        90,
+        200,
+        342
+      ]
+    },
+    "cocktail_godfather": {
+      "src": "assets/cocktails/static/cocktail-godfather.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/갓파더_완성.png",
+      "alphaBBox": [
+        1,
+        107,
+        200,
+        345
+      ]
+    },
+    "guest_m_eyebrow_6": {
+      "src": "assets/characters/guests/guest-m-eyebrow-6.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_6.png",
+      "alphaBBox": [
+        238,
+        173,
+        312,
+        183
+      ]
+    },
+    "guest_m_eyebrow_4": {
+      "src": "assets/characters/guests/guest-m-eyebrow-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_4.png",
+      "alphaBBox": [
+        242,
+        176,
+        308,
+        184
+      ]
+    },
+    "guest_m_eyebrow_5": {
+      "src": "assets/characters/guests/guest-m-eyebrow-5.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_5.png",
+      "alphaBBox": [
+        240,
+        177,
+        310,
+        184
+      ]
+    },
+    "guest_m_eyebrow_1": {
+      "src": "assets/characters/guests/guest-m-eyebrow-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_1.png",
+      "alphaBBox": [
+        241,
+        177,
+        309,
+        182
+      ]
+    },
+    "guest_m_Acc_1": {
+      "src": "assets/characters/guests/guest-m-acc-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/Acc_1.png",
+      "alphaBBox": [
+        229,
+        251,
+        317,
+        343
+      ]
+    },
+    "guest_m_eyebrow_2": {
+      "src": "assets/characters/guests/guest-m-eyebrow-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_2.png",
+      "alphaBBox": [
+        241,
+        177,
+        309,
+        182
+      ]
+    },
+    "guest_m_Acc_2": {
+      "src": "assets/characters/guests/guest-m-acc-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/Acc_2.png",
+      "alphaBBox": [
+        141,
+        353,
+        197,
+        426
+      ]
+    },
+    "guest_m_eyebrow_3": {
+      "src": "assets/characters/guests/guest-m-eyebrow-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_3.png",
+      "alphaBBox": [
+        238,
+        173,
+        312,
+        183
+      ]
+    },
+    "guest_m_eyes_4": {
+      "src": "assets/characters/guests/guest-m-eyes-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyes_4.png",
+      "alphaBBox": [
+        243,
+        183,
+        307,
+        190
+      ]
+    },
+    "guest_m_body": {
+      "src": "assets/characters/guests/guest-m-body.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/body.png",
+      "alphaBBox": [
+        148,
+        117,
+        401,
+        440
+      ]
+    },
+    "guest_m_eyes_3": {
+      "src": "assets/characters/guests/guest-m-eyes-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyes_3.png",
+      "alphaBBox": [
+        242,
+        183,
+        308,
+        192
+      ]
+    },
+    "guest_m_eyes_2": {
+      "src": "assets/characters/guests/guest-m-eyes-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyes_2.png",
+      "alphaBBox": [
+        241,
+        182,
+        309,
+        192
+      ]
+    },
+    "guest_m_eyes_1": {
+      "src": "assets/characters/guests/guest-m-eyes-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/eyes_1.png",
+      "alphaBBox": [
+        242,
+        183,
+        308,
+        192
+      ]
+    },
+    "guest_m_hair_1": {
+      "src": "assets/characters/guests/guest-m-hair-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/hair_1.png",
+      "alphaBBox": [
+        233,
+        97,
+        342,
+        215
+      ]
+    },
+    "guest_m_hair_2": {
+      "src": "assets/characters/guests/guest-m-hair-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/hair_2.png",
+      "alphaBBox": [
+        233,
+        118,
+        321,
+        195
+      ]
+    },
+    "guest_m_cyberware_1": {
+      "src": "assets/characters/guests/guest-m-cyberware-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/cyberware_1.png",
+      "alphaBBox": [
+        362,
+        345,
+        399,
+        360
+      ]
+    },
+    "guest_m_cyberware_3": {
+      "src": "assets/characters/guests/guest-m-cyberware-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/cyberware_3.png",
+      "alphaBBox": [
+        150,
+        186,
+        229,
+        440
+      ]
+    },
+    "guest_m_cyberware_2": {
+      "src": "assets/characters/guests/guest-m-cyberware-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/cyberware_2.png",
+      "alphaBBox": [
+        278,
+        275,
+        315,
+        290
+      ]
+    },
+    "guest_m_mouth_2": {
+      "src": "assets/characters/guests/guest-m-mouth-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_2.png",
+      "alphaBBox": [
+        265,
+        221,
+        288,
+        229
+      ]
+    },
+    "guest_m_mouth_3": {
+      "src": "assets/characters/guests/guest-m-mouth-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_3.png",
+      "alphaBBox": [
+        266,
+        222,
+        285,
+        225
+      ]
+    },
+    "guest_m_mouth_1": {
+      "src": "assets/characters/guests/guest-m-mouth-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_1.png",
+      "alphaBBox": [
+        264,
+        223,
+        286,
+        231
+      ]
+    },
+    "guest_m_mouth_4": {
+      "src": "assets/characters/guests/guest-m-mouth-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_4.png",
+      "alphaBBox": [
+        265,
+        221,
+        285,
+        227
+      ]
+    },
+    "guest_m_mouth_5": {
+      "src": "assets/characters/guests/guest-m-mouth-5.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_5.png",
+      "alphaBBox": [
+        263,
+        219,
+        287,
+        230
+      ]
+    },
+    "guest_m_top_1": {
+      "src": "assets/characters/guests/guest-m-top-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/top_1.png",
+      "alphaBBox": [
+        144,
+        247,
+        404,
+        440
+      ]
+    },
+    "guest_m_top_3": {
+      "src": "assets/characters/guests/guest-m-top-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/top_3.png",
+      "alphaBBox": [
+        183,
+        257,
+        368,
+        440
+      ]
+    },
+    "guest_m_top_2": {
+      "src": "assets/characters/guests/guest-m-top-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/top_2.png",
+      "alphaBBox": [
+        136,
+        259,
+        413,
+        440
+      ]
+    },
+    "guest_f_eyebrow_6": {
+      "src": "assets/characters/guests/guest-f-eyebrow-6.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_6.png",
+      "alphaBBox": [
+        242,
+        216,
+        310,
+        224
+      ]
+    },
+    "guest_f_eyebrow_4": {
+      "src": "assets/characters/guests/guest-f-eyebrow-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_4.png",
+      "alphaBBox": [
+        252,
+        218,
+        300,
+        223
+      ]
+    },
+    "guest_f_eyebrow_5": {
+      "src": "assets/characters/guests/guest-f-eyebrow-5.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_5.png",
+      "alphaBBox": [
+        244,
+        218,
+        308,
+        222
+      ]
+    },
+    "guest_f_eyebrow_1": {
+      "src": "assets/characters/guests/guest-f-eyebrow-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_1.png",
+      "alphaBBox": [
+        253,
+        218,
+        299,
+        226
+      ]
+    },
+    "guest_f_Acc_1": {
+      "src": "assets/characters/guests/guest-f-acc-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/Acc_1.png",
+      "alphaBBox": [
+        259,
+        275,
+        293,
+        285
+      ]
+    },
+    "guest_f_eyebrow_2": {
+      "src": "assets/characters/guests/guest-f-eyebrow-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_2.png",
+      "alphaBBox": [
+        242,
+        215,
+        310,
+        225
+      ]
+    },
+    "guest_f_Acc_3": {
+      "src": "assets/characters/guests/guest-f-acc-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/Acc_3.png",
+      "alphaBBox": [
+        196,
+        369,
+        228,
+        440
+      ]
+    },
+    "guest_f_Acc_2": {
+      "src": "assets/characters/guests/guest-f-acc-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/Acc_2.png",
+      "alphaBBox": [
+        189,
+        288,
+        363,
+        440
+      ]
+    },
+    "guest_f_eyebrow_3": {
+      "src": "assets/characters/guests/guest-f-eyebrow-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_3.png",
+      "alphaBBox": [
+        245,
+        218,
+        307,
+        225
+      ]
+    },
+    "guest_f_eyes_4": {
+      "src": "assets/characters/guests/guest-f-eyes-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyes_4.png",
+      "alphaBBox": [
+        244,
+        222,
+        308,
+        235
+      ]
+    },
+    "guest_f_body": {
+      "src": "assets/characters/guests/guest-f-body.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/body.png",
+      "alphaBBox": [
+        196,
+        153,
+        356,
+        440
+      ]
+    },
+    "guest_f_eyes_3": {
+      "src": "assets/characters/guests/guest-f-eyes-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyes_3.png",
+      "alphaBBox": [
+        242,
+        223,
+        310,
+        235
+      ]
+    },
+    "guest_f_eyes_2": {
+      "src": "assets/characters/guests/guest-f-eyes-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyes_2.png",
+      "alphaBBox": [
+        243,
+        223,
+        309,
+        236
+      ]
+    },
+    "guest_f_eyes_1": {
+      "src": "assets/characters/guests/guest-f-eyes-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/eyes_1.png",
+      "alphaBBox": [
+        244,
+        225,
+        308,
+        233
+      ]
+    },
+    "guest_f_hair_1": {
+      "src": "assets/characters/guests/guest-f-hair-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/hair_1.png",
+      "alphaBBox": [
+        219,
+        134,
+        343,
+        282
+      ]
+    },
+    "guest_f_hair_2": {
+      "src": "assets/characters/guests/guest-f-hair-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/hair_2.png",
+      "alphaBBox": [
+        221,
+        147,
+        323,
+        300
+      ]
+    },
+    "guest_f_mouth_2": {
+      "src": "assets/characters/guests/guest-f-mouth-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_2.png",
+      "alphaBBox": [
+        268,
+        256,
+        284,
+        266
+      ]
+    },
+    "guest_f_mouth_3": {
+      "src": "assets/characters/guests/guest-f-mouth-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_3.png",
+      "alphaBBox": [
+        269,
+        257,
+        283,
+        261
+      ]
+    },
+    "guest_f_mouth_1": {
+      "src": "assets/characters/guests/guest-f-mouth-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_1.png",
+      "alphaBBox": [
+        266,
+        256,
+        286,
+        265
+      ]
+    },
+    "guest_f_mouth_4": {
+      "src": "assets/characters/guests/guest-f-mouth-4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_4.png",
+      "alphaBBox": [
+        268,
+        256,
+        285,
+        261
+      ]
+    },
+    "guest_f_mouth_5": {
+      "src": "assets/characters/guests/guest-f-mouth-5.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_5.png",
+      "alphaBBox": [
+        270,
+        257,
+        282,
+        260
+      ]
+    },
+    "guest_f_top_1": {
+      "src": "assets/characters/guests/guest-f-top-1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/top_1.png",
+      "alphaBBox": [
+        221,
+        349,
+        331,
+        405
+      ]
+    },
+    "guest_f_top_3": {
+      "src": "assets/characters/guests/guest-f-top-3.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/top_3.png",
+      "alphaBBox": [
+        194,
+        296,
+        358,
+        440
+      ]
+    },
+    "guest_f_top_2": {
+      "src": "assets/characters/guests/guest-f-top-2.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/top_2.png",
+      "alphaBBox": [
+        221,
+        294,
+        331,
+        417
+      ]
+    },
+    "char_chris_Chris_idle_default_body": {
+      "src": "assets/characters/chris/char-chris-chris-idle-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        152,
+        167,
+        468,
+        472
+      ]
+    },
+    "char_chris_Chris_idle_default_face_top": {
+      "src": "assets/characters/chris/char-chris-chris-idle-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        208,
+        90,
+        318,
+        195
+      ]
+    },
+    "char_chris_Chris_idle_default_eyes": {
+      "src": "assets/characters/chris/char-chris-chris-idle-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        213,
+        150,
+        298,
+        181
+      ]
+    },
+    "char_chris_Chris_idle_default_eyebrow": {
+      "src": "assets/characters/chris/char-chris-chris-idle-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        220,
+        147,
+        276,
+        161
+      ]
+    },
+    "char_chris_Chris_idle_default_face_bottom_default": {
+      "src": "assets/characters/chris/char-chris-chris-idle-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        233,
+        191,
+        293,
+        224
+      ]
+    },
+    "char_chris_Chris_idle_talk_body": {
+      "src": "assets/characters/chris/char-chris-chris-idle-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        152,
+        167,
+        468,
+        472
+      ]
+    },
+    "char_chris_Chris_idle_talk_face_top": {
+      "src": "assets/characters/chris/char-chris-chris-idle-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        208,
+        90,
+        318,
+        195
+      ]
+    },
+    "char_chris_Chris_idle_talk_eyes": {
+      "src": "assets/characters/chris/char-chris-chris-idle-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        213,
+        150,
+        298,
+        181
+      ]
+    },
+    "char_chris_Chris_idle_talk_eyebrow": {
+      "src": "assets/characters/chris/char-chris-chris-idle-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        220,
+        147,
+        276,
+        161
+      ]
+    },
+    "char_chris_Chris_idle_talk_face_bottom_talk": {
+      "src": "assets/characters/chris/char-chris-chris-idle-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        233,
+        190,
+        294,
+        225
+      ]
+    },
+    "char_port_port_idle_default_body": {
+      "src": "assets/characters/port/char-port-port-idle-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_idle_default_face_top": {
+      "src": "assets/characters/port/char-port-port-idle-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_idle_default_eyes": {
+      "src": "assets/characters/port/char-port-port-idle-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_idle_default_eyebrow": {
+      "src": "assets/characters/port/char-port-port-idle-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        227,
+        184,
+        302,
+        201
+      ]
+    },
+    "char_port_port_idle_default_face_bottom_default": {
+      "src": "assets/characters/port/char-port-port-idle-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        232,
+        223,
+        305,
+        260
+      ]
+    },
+    "char_port_port_idle_talk_body": {
+      "src": "assets/characters/port/char-port-port-idle-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_idle_talk_face_top": {
+      "src": "assets/characters/port/char-port-port-idle-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_idle_talk_eyes": {
+      "src": "assets/characters/port/char-port-port-idle-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_idle_talk_eyebrow": {
+      "src": "assets/characters/port/char-port-port-idle-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        227,
+        184,
+        302,
+        201
+      ]
+    },
+    "char_port_port_idle_talk_face_bottom_talk": {
+      "src": "assets/characters/port/char-port-port-idle-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_idle/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        232,
+        223,
+        307,
+        261
+      ]
+    },
+    "char_port_port_joy_default_body": {
+      "src": "assets/characters/port/char-port-port-joy-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_joy_default_face_top": {
+      "src": "assets/characters/port/char-port-port-joy-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_joy_default_eyes": {
+      "src": "assets/characters/port/char-port-port-joy-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_joy_default_eyebrow": {
+      "src": "assets/characters/port/char-port-port-joy-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        181,
+        299,
+        198
+      ]
+    },
+    "char_port_port_joy_default_face_bottom_default": {
+      "src": "assets/characters/port/char-port-port-joy-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        232,
+        223,
+        305,
+        260
+      ]
+    },
+    "char_port_port_joy_talk_body": {
+      "src": "assets/characters/port/char-port-port-joy-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_joy_talk_face_top": {
+      "src": "assets/characters/port/char-port-port-joy-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_joy_talk_eyes": {
+      "src": "assets/characters/port/char-port-port-joy-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_joy_talk_eyebrow": {
+      "src": "assets/characters/port/char-port-port-joy-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        181,
+        299,
+        198
+      ]
+    },
+    "char_port_port_joy_talk_face_bottom_talk": {
+      "src": "assets/characters/port/char-port-port-joy-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_joy/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        231,
+        223,
+        306,
+        261
+      ]
+    },
+    "char_port_port_anger_default_body": {
+      "src": "assets/characters/port/char-port-port-anger-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_anger_default_face_top": {
+      "src": "assets/characters/port/char-port-port-anger-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_anger_default_eyes": {
+      "src": "assets/characters/port/char-port-port-anger-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_anger_default_eyebrow": {
+      "src": "assets/characters/port/char-port-port-anger-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        228,
+        185,
+        303,
+        205
+      ]
+    },
+    "char_port_port_anger_default_face_bottom_default": {
+      "src": "assets/characters/port/char-port-port-anger-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        232,
+        223,
+        305,
+        260
+      ]
+    },
+    "char_port_port_anger_talk_body": {
+      "src": "assets/characters/port/char-port-port-anger-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        92,
+        201,
+        465,
+        475
+      ]
+    },
+    "char_port_port_anger_talk_face_top": {
+      "src": "assets/characters/port/char-port-port-anger-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        214,
+        123,
+        315,
+        223
+      ]
+    },
+    "char_port_port_anger_talk_eyes": {
+      "src": "assets/characters/port/char-port-port-anger-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        229,
+        192,
+        300,
+        218
+      ]
+    },
+    "char_port_port_anger_talk_eyebrow": {
+      "src": "assets/characters/port/char-port-port-anger-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        228,
+        185,
+        303,
+        205
+      ]
+    },
+    "char_port_port_anger_talk_face_bottom_talk": {
+      "src": "assets/characters/port/char-port-port-anger-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/포트/port_anger/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        232,
+        223,
+        307,
+        261
+      ]
+    },
+    "char_port_port_serious_default_body": {
+      "src": "assets/characters/port/char-port-port-serious-default-body.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/default/body.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        0,
+        78,
+        373,
+        352
+      ]
+    },
+    "char_port_port_serious_default_face_top": {
+      "src": "assets/characters/port/char-port-port-serious-default-face-top.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        122,
+        0,
+        223,
+        100
+      ]
+    },
+    "char_port_port_serious_default_eyes": {
+      "src": "assets/characters/port/char-port-port-serious-default-eyes.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        137,
+        69,
+        208,
+        96
+      ]
+    },
+    "char_port_port_serious_default_eyebrows": {
+      "src": "assets/characters/port/char-port-port-serious-default-eyebrows.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/default/eyebrows.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        137,
+        61,
+        207,
+        78
+      ]
+    },
+    "char_port_port_serious_default_face_bottom_default": {
+      "src": "assets/characters/port/char-port-port-serious-default-face-bottom-default.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        140,
+        100,
+        213,
+        137
+      ]
+    },
+    "char_port_port_serious_talk_body": {
+      "src": "assets/characters/port/char-port-port-serious-talk-body.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/talk/body.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        0,
+        78,
+        373,
+        352
+      ]
+    },
+    "char_port_port_serious_talk_face_top": {
+      "src": "assets/characters/port/char-port-port-serious-talk-face-top.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        122,
+        0,
+        223,
+        100
+      ]
+    },
+    "char_port_port_serious_talk_eyes": {
+      "src": "assets/characters/port/char-port-port-serious-talk-eyes.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        137,
+        69,
+        208,
+        96
+      ]
+    },
+    "char_port_port_serious_talk_eyebrows": {
+      "src": "assets/characters/port/char-port-port-serious-talk-eyebrows.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/talk/eyebrows.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        137,
+        61,
+        207,
+        78
+      ]
+    },
+    "char_port_port_serious_talk_face_bottom_talk": {
+      "src": "assets/characters/port/char-port-port-serious-talk-face-bottom-talk.png",
+      "w": 1492,
+      "h": 352,
+      "source": "4. 캐릭터 (내부)/포트/port_serious/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 373,
+      "frameHeight": 352,
+      "fps": 12,
+      "alphaBBox": [
+        139,
+        100,
+        214,
+        138
+      ]
+    },
+    "char_aili_idle_default_body": {
+      "src": "assets/characters/aili/char-aili-idle-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        154,
+        140,
+        413,
+        440
+      ]
+    },
+    "char_aili_idle_default_face_top": {
+      "src": "assets/characters/aili/char-aili-idle-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        192,
+        98,
+        357,
+        210
+      ]
+    },
+    "char_aili_idle_default_eyes": {
+      "src": "assets/characters/aili/char-aili-idle-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        250,
+        157,
+        305,
+        180
+      ]
+    },
+    "char_aili_idle_default_eyebrow": {
+      "src": "assets/characters/aili/char-aili-idle-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        257,
+        151,
+        295,
+        161
+      ]
+    },
+    "char_aili_idle_default_face_bottom_default": {
+      "src": "assets/characters/aili/char-aili-idle-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        254,
+        180,
+        308,
+        208
+      ]
+    },
+    "char_aili_idle_talk_body": {
+      "src": "assets/characters/aili/char-aili-idle-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        154,
+        140,
+        413,
+        440
+      ]
+    },
+    "char_aili_idle_talk_face_top": {
+      "src": "assets/characters/aili/char-aili-idle-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        192,
+        98,
+        357,
+        210
+      ]
+    },
+    "char_aili_idle_talk_eyes": {
+      "src": "assets/characters/aili/char-aili-idle-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        250,
+        157,
+        305,
+        180
+      ]
+    },
+    "char_aili_idle_talk_eyebrow": {
+      "src": "assets/characters/aili/char-aili-idle-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        257,
+        151,
+        295,
+        161
+      ]
+    },
+    "char_aili_idle_talk_face_bottom_talk": {
+      "src": "assets/characters/aili/char-aili-idle-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/아일리/idle/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        254,
+        180,
+        308,
+        208
+      ]
+    },
+    "char_samho_idle_default_body": {
+      "src": "assets/characters/samho/char-samho-idle-default-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/default/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        57,
+        130,
+        448,
+        441
+      ]
+    },
+    "char_samho_idle_default_face_top": {
+      "src": "assets/characters/samho/char-samho-idle-default-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/default/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        226,
+        164,
+        327,
+        294
+      ]
+    },
+    "char_samho_idle_default_eyes": {
+      "src": "assets/characters/samho/char-samho-idle-default-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/default/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        284,
+        215,
+        310,
+        230
+      ]
+    },
+    "char_samho_idle_default_eyebrow": {
+      "src": "assets/characters/samho/char-samho-idle-default-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/default/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        284,
+        205,
+        307,
+        216
+      ]
+    },
+    "char_samho_idle_default_face_bottom_default": {
+      "src": "assets/characters/samho/char-samho-idle-default-face-bottom-default.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/default/face_bottom_default.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        259,
+        238,
+        295,
+        269
+      ]
+    },
+    "char_samho_idle_talk_body": {
+      "src": "assets/characters/samho/char-samho-idle-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/talk/body.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        57,
+        130,
+        448,
+        441
+      ]
+    },
+    "char_samho_idle_talk_face_top": {
+      "src": "assets/characters/samho/char-samho-idle-talk-face-top.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/talk/face_top.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        226,
+        164,
+        327,
+        294
+      ]
+    },
+    "char_samho_idle_talk_eyes": {
+      "src": "assets/characters/samho/char-samho-idle-talk-eyes.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/talk/eyes.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        284,
+        215,
+        310,
+        230
+      ]
+    },
+    "char_samho_idle_talk_eyebrow": {
+      "src": "assets/characters/samho/char-samho-idle-talk-eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/talk/eyebrow.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        284,
+        205,
+        307,
+        216
+      ]
+    },
+    "char_samho_idle_talk_face_bottom_talk": {
+      "src": "assets/characters/samho/char-samho-idle-talk-face-bottom-talk.png",
+      "w": 2204,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/삼호/idle/talk/face_bottom_talk.png",
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        259,
+        238,
+        295,
+        269
+      ]
+    },
+    "char_bubi_idle_default_body": {
+      "src": "assets/characters/bubi/char-bubi-idle-default-body.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/default/body.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        212,
+        285,
+        347,
+        476
+      ]
+    },
+    "char_bubi_idle_default_face_top": {
+      "src": "assets/characters/bubi/char-bubi-idle-default-face-top.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/default/face_top.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        204,
+        253,
+        279,
+        332
+      ]
+    },
+    "char_bubi_idle_default_eyes": {
+      "src": "assets/characters/bubi/char-bubi-idle-default-eyes.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/default/eyes.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        220,
+        295,
+        268,
+        305
+      ]
+    },
+    "char_bubi_idle_talk_body": {
+      "src": "assets/characters/bubi/char-bubi-idle-talk-body.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/talk/body.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        212,
+        285,
+        347,
+        476
+      ]
+    },
+    "char_bubi_idle_talk_face_top": {
+      "src": "assets/characters/bubi/char-bubi-idle-talk-face-top.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/talk/face_top.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        204,
+        253,
+        279,
+        332
+      ]
+    },
+    "char_bubi_idle_talk_eyes": {
+      "src": "assets/characters/bubi/char-bubi-idle-talk-eyes.png",
+      "w": 4408,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/부비/idle/talk/eyes.png",
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "alphaBBox": [
+        220,
+        295,
+        268,
+        305
+      ]
+    },
+    "font": {
+      "src": "assets/fonts/font.ttf"
+    },
+    "guest_m_talk_body": {
+      "src": "assets/characters/guests/guest-m-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/bady.png",
+      "alphaBBox": [
+        148,
+        224,
+        401,
+        441
+      ]
+    },
+    "guest_m_talk_eyes_1": {
+      "src": "assets/characters/guests/guest-m-talk-eyes-1.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/eyes_1.png",
+      "alphaBBox": [
+        226,
+        118,
+        324,
+        216
+      ]
+    },
+    "guest_m_talk_mouth_1": {
+      "src": "assets/characters/guests/guest-m-talk-mouth-1.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/face_bottom_1.png",
+      "alphaBBox": [
+        242,
+        216,
+        308,
+        246
+      ]
+    },
+    "guest_m_talk_eyes_2": {
+      "src": "assets/characters/guests/guest-m-talk-eyes-2.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/eyes_2.png",
+      "alphaBBox": [
+        226,
+        118,
+        324,
+        216
+      ]
+    },
+    "guest_m_talk_mouth_2": {
+      "src": "assets/characters/guests/guest-m-talk-mouth-2.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/face_bottom_2.png",
+      "alphaBBox": [
+        242,
+        216,
+        308,
+        246
+      ]
+    },
+    "guest_m_talk_eyes_3": {
+      "src": "assets/characters/guests/guest-m-talk-eyes-3.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/eyes_3.png",
+      "alphaBBox": [
+        226,
+        118,
+        324,
+        216
+      ]
+    },
+    "guest_m_talk_mouth_3": {
+      "src": "assets/characters/guests/guest-m-talk-mouth-3.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/남/talk/face_bottom_3.png",
+      "alphaBBox": [
+        242,
+        216,
+        308,
+        246
+      ]
+    },
+    "guest_f_talk_body": {
+      "src": "assets/characters/guests/guest-f-talk-body.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/body.png",
+      "alphaBBox": [
+        196,
+        268,
+        356,
+        440
+      ]
+    },
+    "guest_f_talk_eyes_1": {
+      "src": "assets/characters/guests/guest-f-talk-eyes-1.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_top_1.png",
+      "alphaBBox": [
+        226,
+        153,
+        326,
+        250
+      ]
+    },
+    "guest_f_talk_mouth_1": {
+      "src": "assets/characters/guests/guest-f-talk-mouth-1.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_bottom_1.png",
+      "alphaBBox": [
+        244,
+        250,
+        308,
+        277
+      ]
+    },
+    "guest_f_talk_eyes_2": {
+      "src": "assets/characters/guests/guest-f-talk-eyes-2.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_top_2.png",
+      "alphaBBox": [
+        226,
+        153,
+        326,
+        250
+      ]
+    },
+    "guest_f_talk_mouth_2": {
+      "src": "assets/characters/guests/guest-f-talk-mouth-2.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_bottom_2.png",
+      "alphaBBox": [
+        244,
+        250,
+        308,
+        277
+      ]
+    },
+    "guest_f_talk_eyes_3": {
+      "src": "assets/characters/guests/guest-f-talk-eyes-3.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_top_3.png",
+      "alphaBBox": [
+        226,
+        153,
+        326,
+        250
+      ]
+    },
+    "guest_f_talk_mouth_3": {
+      "src": "assets/characters/guests/guest-f-talk-mouth-3.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/NPC/여/talk/face_bottom_3.png",
+      "alphaBBox": [
+        244,
+        250,
+        308,
+        277
+      ]
+    },
+    "char_bubi_idle_default_face_bottom": {
+      "src": "assets/characters/bubi/char-bubi-idle-default-face-bottom.png",
+      "w": 4408,
+      "h": 530,
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/부비/idle/default/face_bottom.png",
+      "alphaBBox": [
+        223,
+        318,
+        262,
+        330
+      ]
+    },
+    "char_bubi_idle_talk_face_bottom": {
+      "src": "assets/characters/bubi/char-bubi-idle-talk-face-bottom.png",
+      "w": 4408,
+      "h": 530,
+      "frames": 8,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/부비/idle/talk/face_bottom.png",
+      "alphaBBox": [
+        223,
+        318,
+        262,
+        331
+      ]
+    },
+    "char_chris_anger_full": {
+      "src": "assets/characters/chris/char-chris-anger-full.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/크리스/enger.png",
+      "alphaBBox": [
+        128,
+        90,
+        435,
+        457
+      ]
+    },
+    "char_chris_joy_full": {
+      "src": "assets/characters/chris/char-chris-joy-full.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/크리스/fun.png",
+      "alphaBBox": [
+        129,
+        91,
+        468,
+        472
+      ]
+    },
+    "expr_aili_success": {
+      "src": "assets/characters/expressions/expr-aili-success.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/아일리/drink/success.png",
+      "alphaBBox": [
+        135,
+        110,
+        390,
+        440
+      ]
+    },
+    "expr_aili_fail": {
+      "src": "assets/characters/expressions/expr-aili-fail.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/아일리/drink/fail.png",
+      "alphaBBox": [
+        173,
+        98,
+        370,
+        441
+      ]
+    },
+    "expr_chris_success": {
+      "src": "assets/characters/chris/char-chris-joy-full.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/크리스/fun.png",
+      "alphaBBox": [
+        129,
+        91,
+        468,
+        472
+      ]
+    },
+    "expr_chris_fail": {
+      "src": "assets/characters/chris/char-chris-anger-full.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/크리스/enger.png",
+      "alphaBBox": [
+        128,
+        90,
+        435,
+        457
+      ]
+    },
+    "expr_port_event_surprise": {
+      "src": "assets/characters/expressions/expr-port-event-surprise.png",
+      "w": 641,
+      "h": 550,
+      "frames": 1,
+      "frameWidth": 641,
+      "frameHeight": 550,
+      "fps": 12,
+      "source": "engine/08.AddressableResource/Aniamtations/Port/surprise/surprise.png",
+      "alphaBBox": [
+        186,
+        0,
+        641,
+        418
+      ]
+    },
+    "expr_samho_success": {
+      "src": "assets/characters/expressions/expr-samho-success.png",
+      "w": 386,
+      "h": 301,
+      "frames": 1,
+      "frameWidth": 386,
+      "frameHeight": 301,
+      "fps": 12,
+      "source": "engine/08.AddressableResource/Aniamtations/3/drink/success.png",
+      "alphaBBox": [
+        0,
+        0,
+        386,
+        301
+      ]
+    },
+    "expr_samho_fail": {
+      "src": "assets/characters/expressions/expr-samho-fail.png",
+      "w": 386,
+      "h": 310,
+      "frames": 1,
+      "frameWidth": 386,
+      "frameHeight": 310,
+      "fps": 12,
+      "source": "engine/08.AddressableResource/Aniamtations/3/drink/fail.png",
+      "alphaBBox": [
+        0,
+        0,
+        386,
+        310
+      ]
+    },
+    "expr_samho_drunk": {
+      "src": "assets/characters/expressions/expr-samho-drunk.png",
+      "w": 530,
+      "h": 338,
+      "frames": 1,
+      "frameWidth": 530,
+      "frameHeight": 338,
+      "fps": 12,
+      "source": "engine/08.AddressableResource/Aniamtations/3/drink/default.png",
+      "alphaBBox": [
+        53,
+        34,
+        511,
+        319
+      ]
+    },
+    "char_samho_drink_body": {
+      "src": "assets/characters/samho/char-samho-drink-body.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/삼호/drink/body.png",
+      "alphaBBox": [
+        63,
+        245,
+        521,
+        530
+      ]
+    },
+    "char_samho_drink_face_bottom": {
+      "src": "assets/characters/samho/char-samho-drink-face-bottom.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 12,
+      "source": "4. 캐릭터 (내부)/삼호/drink/face_bottom.png",
+      "alphaBBox": [
+        244,
+        354,
+        279,
+        383
+      ]
+    },
+    "recipe_item_gin": {
+      "src": "assets/items/recipe-item-gin.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/진.png",
+      "alphaBBox": [
+        72,
+        17,
+        108,
+        163
+      ]
+    },
+    "recipe_item_beer": {
+      "src": "assets/items/recipe-item-beer.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/병맥주.png",
+      "alphaBBox": [
+        72,
+        25,
+        108,
+        155
+      ]
+    },
+    "recipe_item_red_wine": {
+      "src": "assets/items/recipe-item-red-wine.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/레드와인.png",
+      "alphaBBox": [
+        71,
+        13,
+        110,
+        168
+      ]
+    },
+    "recipe_item_champagne": {
+      "src": "assets/items/recipe-item-champagne.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/샴페인.png",
+      "alphaBBox": [
+        69,
+        9,
+        112,
+        172
+      ]
+    },
+    "recipe_item_soda_water": {
+      "src": "assets/items/recipe-item-soda-water.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/프레스카_탄산수.png",
+      "alphaBBox": [
+        68,
+        49,
+        113,
+        131
+      ]
+    },
+    "item_tequila": {
+      "src": "assets/items/item-tequila.png",
+      "w": 57,
+      "h": 171,
+      "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 12,
+      "source": "6_Cocktail_and_Ingredient_Assets/3_Regular_Shelf/tequila.png",
+      "alphaBBox": [
+        9,
+        23,
+        47,
+        170
+      ]
+    },
+    "recipe_item_tequila": {
+      "src": "assets/items/recipe-item-tequila.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/데낄라.png",
+      "alphaBBox": [
+        71,
+        17,
+        109,
+        164
+      ]
+    },
+    "recipe_item_vodka": {
+      "src": "assets/items/recipe-item-vodka.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/그레이구스_보드카.png",
+      "alphaBBox": [
+        72,
+        6,
+        109,
+        175
+      ]
+    },
+    "recipe_item_rum": {
+      "src": "assets/items/recipe-item-rum.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/바카디_럼.png",
+      "alphaBBox": [
+        74,
+        17,
+        107,
+        163
+      ]
+    },
+    "item_orange_juice": {
+      "src": "assets/items/item-orange-juice.png",
+      "w": 93,
+      "h": 223,
+      "frames": 1,
+      "frameWidth": 93,
+      "frameHeight": 223,
+      "fps": 12,
+      "source": "01.Game/03.Content/03.Crafting/02.Ingredients/Refrigerator/01.Sprites/orange_juice.png",
+      "alphaBBox": [
+        25,
+        56,
+        65,
+        222
+      ]
+    },
+    "recipe_item_orange_juice": {
+      "src": "assets/items/recipe-item-orange-juice.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/오렌지주스.png",
+      "alphaBBox": [
+        71,
+        14,
+        109,
+        167
+      ]
+    },
+    "item_ginger_ale": {
+      "src": "assets/items/item-ginger-ale.png",
+      "w": 42,
+      "h": 91,
+      "frames": 1,
+      "frameWidth": 42,
+      "frameHeight": 91,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/재료 이미지/진저에일.png",
+      "alphaBBox": [
+        0,
+        0,
+        42,
+        91
+      ]
+    },
+    "recipe_item_ginger_ale": {
+      "src": "assets/items/recipe-item-ginger-ale.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/진저에일.png",
+      "alphaBBox": [
+        69,
+        45,
+        111,
+        136
+      ]
+    },
+    "recipe_item_cola": {
+      "src": "assets/items/recipe-item-cola.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/콜라.png",
+      "alphaBBox": [
+        68,
+        46,
+        112,
+        134
+      ]
+    },
+    "recipe_item_whiskey": {
+      "src": "assets/items/recipe-item-whiskey.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/조니워커_위스키.png",
+      "alphaBBox": [
+        70,
+        13,
+        110,
+        168
+      ]
+    },
+    "recipe_item_dry_vermouth": {
+      "src": "assets/items/recipe-item-dry-vermouth.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/마티니_드라이버무스.png",
+      "alphaBBox": [
+        68,
+        10,
+        112,
+        171
+      ]
+    },
+    "recipe_item_grenadine": {
+      "src": "assets/items/recipe-item-grenadine.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/그레나딘_시럽.png",
+      "alphaBBox": [
+        72,
+        15,
+        109,
+        166
+      ]
+    },
+    "recipe_item_sour_mix": {
+      "src": "assets/items/recipe-item-sour-mix.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/사워믹스.png",
+      "alphaBBox": [
+        70,
+        6,
+        111,
+        174
+      ]
+    },
+    "recipe_item_shaker": {
+      "src": "assets/items/recipe-item-shaker.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/레시피용 도구/보스턴 쉐이커.png",
+      "alphaBBox": [
+        65,
+        37,
+        115,
+        144
+      ]
+    },
+    "inventory_item_shaker": {
+      "src": "assets/items/inventory-item-shaker.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/2. 도구 - 재료 담는 화면/쉐이커.png",
+      "alphaBBox": [
+        32,
+        4,
+        82,
+        111
+      ]
+    },
+    "recipe_item_mixing_glass": {
+      "src": "assets/items/recipe-item-mixing-glass.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/레시피용 도구/믹싱 글라스.png",
+      "alphaBBox": [
+        67,
+        13,
+        114,
+        168
+      ]
+    },
+    "inventory_item_mixing_glass": {
+      "src": "assets/items/inventory-item-mixing-glass.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/2. 도구 - 재료 담는 화면/믹싱 글라스.png",
+      "alphaBBox": [
+        23,
+        10,
+        91,
+        105
+      ]
+    },
+    "recipe_item_opener": {
+      "src": "assets/items/recipe-item-opener.png",
+      "w": 180,
+      "h": 180,
+      "frames": 1,
+      "frameWidth": 180,
+      "frameHeight": 180,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/레시피용 도구/병따개.png",
+      "alphaBBox": [
+        68,
+        68,
+        113,
+        112
+      ]
+    },
+    "inventory_item_opener": {
+      "src": "assets/items/inventory-item-opener.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/2. 도구 - 재료 담는 화면/병따개.png",
+      "alphaBBox": [
+        35,
+        35,
+        80,
+        79
+      ]
+    },
+    "inventory_item_cocktail": {
+      "src": "assets/items/inventory-item-cocktail.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/칵테일잔.png",
+      "alphaBBox": [
+        37,
+        19,
+        78,
+        95
+      ]
+    },
+    "inventory_item_long_drink": {
+      "src": "assets/items/inventory-item-long-drink.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/롱드링크잔.png",
+      "alphaBBox": [
+        39,
+        19,
+        76,
+        96
+      ]
+    },
+    "inventory_item_old_fashioned": {
+      "src": "assets/items/inventory-item-old-fashioned.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/올드패션.png",
+      "alphaBBox": [
+        37,
+        31,
+        78,
+        84
+      ]
+    },
+    "inventory_item_sour": {
+      "src": "assets/items/inventory-item-sour.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/사워잔.png",
+      "alphaBBox": [
+        41,
+        11,
+        74,
+        104
+      ]
+    },
+    "inventory_item_wine": {
+      "src": "assets/items/inventory-item-wine.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/와인잔.png",
+      "alphaBBox": [
+        40,
+        11,
+        75,
+        104
+      ]
+    },
+    "inventory_item_mug": {
+      "src": "assets/items/inventory-item-mug.png",
+      "w": 115,
+      "h": 115,
+      "frames": 1,
+      "frameWidth": 115,
+      "frameHeight": 115,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/재료담는화면_인벤토리_재료 이미지/1. 잔 - 재료 담는 화면/맥주잔.png",
+      "alphaBBox": [
+        39,
+        19,
+        76,
+        95
+      ]
+    },
+    "item_dummy": {
+      "src": "assets/items/item-dummy.png",
+      "w": 36,
+      "h": 146,
+      "frames": 1,
+      "frameWidth": 36,
+      "frameHeight": 146,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/재료 이미지/진.png",
+      "alphaBBox": [
+        0,
+        0,
+        36,
+        146
+      ]
+    },
+    "recipe_cocktail_gin_tonic": {
+      "src": "assets/cocktails/static/cocktail-gin-tonic.png",
+      "w": 216,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 216,
+      "frameHeight": 411,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진토닉_완성.png",
+      "alphaBBox": [
+        4,
+        1,
+        215,
+        408
+      ]
+    },
+    "table_cocktail_gin_tonic": {
+      "src": "assets/cocktails/static/table-cocktail-gin-tonic.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/7. 칵테일 - 바 테이블 위/완성 칵테일/진토닉.png",
+      "alphaBBox": [
+        11,
+        1,
+        68,
+        111
+      ]
+    },
+    "recipe_cocktail_gin_fizz": {
+      "src": "assets/cocktails/static/cocktail-gin-fizz.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진피즈_완성.png",
+      "alphaBBox": [
+        13,
+        5,
+        187,
+        343
+      ]
+    },
+    "table_cocktail_gin_fizz": {
+      "src": "assets/cocktails/static/table-cocktail-gin-fizz.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/7. 칵테일 - 바 테이블 위/완성 칵테일/진피즈.png",
+      "alphaBBox": [
+        11,
+        18,
+        58,
+        111
+      ]
+    },
+    "recipe_cocktail_red_wine": {
+      "src": "assets/cocktails/static/recipe-cocktail-red-wine.png",
+      "w": 635,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 635,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/레드와인_완성본.png",
+      "alphaBBox": [
+        125,
+        0,
+        509,
+        634
+      ]
+    },
+    "cocktail_red_wine": {
+      "src": "assets/cocktails/static/cocktail-red-wine.png",
+      "w": 384,
+      "h": 634,
+      "frames": 1,
+      "frameWidth": 384,
+      "frameHeight": 634,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/레드와인_완성본.png",
+      "alphaBBox": [
+        0,
+        0,
+        384,
+        634
+      ]
+    },
+    "recipe_cocktail_champagne": {
+      "src": "assets/cocktails/static/recipe-cocktail-champagne.png",
+      "w": 635,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 635,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/샴페인_완성본.png",
+      "alphaBBox": [
+        125,
+        0,
+        509,
+        634
+      ]
+    },
+    "cocktail_champagne": {
+      "src": "assets/cocktails/static/cocktail-champagne.png",
+      "w": 384,
+      "h": 634,
+      "frames": 1,
+      "frameWidth": 384,
+      "frameHeight": 634,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/샴페인_완성본.png",
+      "alphaBBox": [
+        0,
+        0,
+        384,
+        634
+      ]
+    },
+    "recipe_cocktail_screwdriver": {
+      "src": "assets/cocktails/completed/representative/screwdriver_final.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/screwdriver_final.png"
+    },
+    "cocktail_screwdriver": {
+      "src": "assets/cocktails/completed/representative/screwdriver_final.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/screwdriver_final.png"
+    },
+    "recipe_cocktail_tequila_sunrise": {
+      "src": "assets/cocktails/completed/representative/tequila_sunrise_final.png",
+      "w": 216,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 216,
+      "frameHeight": 411,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/tequila_sunrise_final.png"
+    },
+    "cocktail_tequila_sunrise": {
+      "src": "assets/cocktails/completed/representative/tequila_sunrise_final.png",
+      "w": 216,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 216,
+      "frameHeight": 411,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/tequila_sunrise_final.png"
+    },
+    "recipe_cocktail_long_island": {
+      "src": "assets/cocktails/static/recipe-cocktail-long-island.png",
+      "w": 635,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 635,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/롱아일랜드아이스티_완성본.png",
+      "alphaBBox": [
+        158,
+        6,
+        476,
+        628
+      ]
+    },
+    "cocktail_long_island": {
+      "src": "assets/cocktails/static/cocktail-long-island.png",
+      "w": 367,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 367,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/롱아일랜드아이스티_완성본.png",
+      "alphaBBox": [
+        25,
+        11,
+        343,
+        633
+      ]
+    },
+    "recipe_cocktail_whiskey_sour": {
+      "src": "assets/cocktails/static/recipe-cocktail-whiskey-sour.png",
+      "w": 635,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 635,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/위스키사워_완성본.png",
+      "alphaBBox": [
+        210,
+        18,
+        425,
+        617
+      ]
+    },
+    "cocktail_whiskey_sour": {
+      "src": "assets/cocktails/static/cocktail-whiskey-sour.png",
+      "w": 300,
+      "h": 601,
+      "frames": 1,
+      "frameWidth": 300,
+      "frameHeight": 601,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/위스키사워_완성본.png",
+      "alphaBBox": [
+        41,
+        2,
+        256,
+        601
+      ]
+    },
+    "recipe_cocktail_dry_martini": {
+      "src": "assets/cocktails/static/cocktail-dry-martini.png",
+      "w": 200,
+      "h": 337,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 337,
+      "fps": 12,
+      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/드라이마티니_완성.png",
+      "alphaBBox": [
+        0,
+        0,
+        200,
+        337
+      ]
+    },
+    "recipe_cocktail_bacardi": {
+      "src": "assets/cocktails/static/recipe-cocktail-bacardi.png",
+      "w": 635,
+      "h": 635,
+      "frames": 1,
+      "frameWidth": 635,
+      "frameHeight": 635,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/바카디_완성본.png",
+      "alphaBBox": [
+        135,
+        16,
+        499,
+        618
+      ]
+    },
+    "cocktail_bacardi": {
+      "src": "assets/cocktails/static/cocktail-bacardi.png",
+      "w": 364,
+      "h": 602,
+      "frames": 1,
+      "frameWidth": 364,
+      "frameHeight": 602,
+      "fps": 12,
+      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/바카디_완성본.png",
+      "alphaBBox": [
+        0,
+        0,
+        364,
+        602
+      ]
+    },
+    "mix_stir_motion": {
+      "src": "assets/ui/imported/mix-stir-motion.png",
+      "w": 5820,
+      "h": 550,
+      "frames": 6,
+      "frameWidth": 970,
+      "frameHeight": 550,
+      "fps": 12,
+      "source": "7. scene/스터 애니메이션/스터-Sheet.png",
+      "alphaBBox": [
+        99,
+        0,
+        517,
+        506
+      ]
+    },
+    "mix_shake_motion": {
+      "src": "assets/ui/imported/mix-shake-motion.png",
+      "w": 10240,
+      "h": 720,
+      "frames": 8,
+      "frameWidth": 1280,
+      "frameHeight": 720,
+      "fps": 12,
+      "source": "7. scene/쉐이킹 애니메이션/shake_nbg.png",
+      "alphaBBox": [
+        374,
+        0,
+        943,
+        720
+      ]
+    },
+    "mix_stir_reference": {
+      "src": "assets/ui/imported/mix-stir-reference.png",
+      "w": 3840,
+      "h": 2160,
+      "frames": 1,
+      "frameWidth": 3840,
+      "frameHeight": 2160,
+      "fps": 12,
+      "source": "reference/bar-interior/10.png",
+      "alphaBBox": [
+        0,
+        0,
+        3840,
+        2160
+      ]
+    },
+    "cocktail_bottle_beer": {
+      "src": "assets/cocktails/completed/representative/beer_final.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/beer_final.png"
+    },
+    "recipe_cocktail_bottle_beer": {
+      "src": "assets/cocktails/completed/representative/beer_final.png",
+      "w": 200,
+      "h": 345,
+      "frames": 1,
+      "frameWidth": 200,
+      "frameHeight": 345,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/beer_final.png"
+    },
+    "table_cocktail_bottle_beer": {
+      "src": "assets/cocktails/completed/table/beer.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "source": "Latest supplied cocktail artwork, 2026-10-18 / table/beer.png"
+    },
+    "char_tom_static": {
+      "src": "assets/characters/tom/char-tom-static.png",
+      "w": 345,
+      "h": 321,
+      "frames": 1,
+      "frameWidth": 345,
+      "frameHeight": 321,
+      "fps": 0,
+      "alphaBBox": [
+        0,
+        0,
+        345,
+        321
+      ],
+      "source": "/var/folders/jj/t3_fl0fx0q1fk81pcmlw26100000gn/T/codex-clipboard-7994c827-8337-4e84-be5b-774b7700486c.png",
+      "static": true
+    },
+    "item_wild_dog": {
+      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
+      "w": 128,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        37,
+        0,
+        91,
+        190
+      ]
+    },
+    "recipe_item_wild_dog": {
+      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
+      "w": 128,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        37,
+        0,
+        91,
+        190
+      ]
+    },
+    "item_sugar_cube": {
+      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
+      "w": 60,
+      "h": 64,
+      "frames": 1,
+      "alphaBBox": [
+        6,
+        6,
+        57,
+        62
+      ]
+    },
+    "recipe_item_sugar_cube": {
+      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
+      "w": 60,
+      "h": 64,
+      "frames": 1,
+      "alphaBBox": [
+        6,
+        6,
+        57,
+        62
+      ]
+    },
+    "inventory_item_sugar_cube": {
+      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
+      "w": 60,
+      "h": 64,
+      "frames": 1,
+      "alphaBBox": [
+        6,
+        6,
+        57,
+        62
+      ]
+    },
+    "cocktail_johnny_old_fashioned": {
+      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
+      "w": 175,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        22,
+        19,
+        168,
+        178
+      ]
+    },
+    "inventory_item_wild_dog": {
+      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
+      "w": 128,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        37,
+        0,
+        91,
+        190
+      ]
+    },
+    "item_bitters": {
+      "src": "assets/backgrounds/campaign/johnny-bitters.png",
+      "w": 107,
+      "h": 160,
+      "frames": 1,
+      "alphaBBox": [
+        31,
+        5,
+        76,
+        155
+      ]
+    },
+    "recipe_item_bitters": {
+      "src": "assets/backgrounds/campaign/johnny-bitters.png",
+      "w": 107,
+      "h": 160,
+      "frames": 1,
+      "alphaBBox": [
+        31,
+        5,
+        76,
+        155
+      ]
+    },
+    "inventory_item_bitters": {
+      "src": "assets/backgrounds/campaign/johnny-bitters.png",
+      "w": 107,
+      "h": 160,
+      "frames": 1,
+      "alphaBBox": [
+        31,
+        5,
+        76,
+        155
+      ]
+    },
+    "recipe_cocktail_johnny_old_fashioned": {
+      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
+      "w": 175,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        22,
+        19,
+        168,
+        178
+      ]
+    },
+    "table_cocktail_johnny_old_fashioned": {
+      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
+      "w": 175,
+      "h": 192,
+      "frames": 1,
+      "alphaBBox": [
+        22,
+        19,
+        168,
+        178
+      ]
+    }
+  },
+  "characterLayers": {
+    "chris": {
+      "Chris_idle_default": [
+        "char_chris_Chris_idle_default_body",
+        "char_chris_Chris_idle_default_face_top",
+        "char_chris_Chris_idle_default_eyes",
+        "char_chris_Chris_idle_default_eyebrow",
+        "char_chris_Chris_idle_default_face_bottom_default"
+      ],
+      "Chris_idle_talk": [
+        "char_chris_Chris_idle_talk_body",
+        "char_chris_Chris_idle_talk_face_top",
+        "char_chris_Chris_idle_talk_eyes",
+        "char_chris_Chris_idle_talk_eyebrow",
+        "char_chris_Chris_idle_talk_face_bottom_talk"
+      ],
+      "anger_default": [
+        "char_chris_anger_full"
+      ],
+      "anger_talk": [
+        "char_chris_anger_full"
+      ],
+      "joy_default": [
+        "char_chris_joy_full"
+      ],
+      "joy_talk": [
+        "char_chris_joy_full"
+      ],
+      "success_default": [
+        "expr_chris_success"
+      ],
+      "success_talk": [
+        "expr_chris_success"
+      ],
+      "fail_default": [
+        "expr_chris_fail"
+      ],
+      "fail_talk": [
+        "expr_chris_fail"
+      ]
+    },
+    "port": {
+      "port_idle_default": [
+        "char_port_port_idle_default_body",
+        "char_port_port_idle_default_face_top",
+        "char_port_port_idle_default_eyes",
+        "char_port_port_idle_default_eyebrow",
+        "char_port_port_idle_default_face_bottom_default"
+      ],
+      "port_idle_talk": [
+        "char_port_port_idle_talk_body",
+        "char_port_port_idle_talk_face_top",
+        "char_port_port_idle_talk_eyes",
+        "char_port_port_idle_talk_eyebrow",
+        "char_port_port_idle_talk_face_bottom_talk"
+      ],
+      "port_joy_default": [
+        "char_port_port_joy_default_body",
+        "char_port_port_joy_default_face_top",
+        "char_port_port_joy_default_eyes",
+        "char_port_port_joy_default_eyebrow",
+        "char_port_port_joy_default_face_bottom_default"
+      ],
+      "port_joy_talk": [
+        "char_port_port_joy_talk_body",
+        "char_port_port_joy_talk_face_top",
+        "char_port_port_joy_talk_eyes",
+        "char_port_port_joy_talk_eyebrow",
+        "char_port_port_joy_talk_face_bottom_talk"
+      ],
+      "port_anger_default": [
+        "char_port_port_anger_default_body",
+        "char_port_port_anger_default_face_top",
+        "char_port_port_anger_default_eyes",
+        "char_port_port_anger_default_eyebrow",
+        "char_port_port_anger_default_face_bottom_default"
+      ],
+      "port_anger_talk": [
+        "char_port_port_anger_talk_body",
+        "char_port_port_anger_talk_face_top",
+        "char_port_port_anger_talk_eyes",
+        "char_port_port_anger_talk_eyebrow",
+        "char_port_port_anger_talk_face_bottom_talk"
+      ],
+      "port_serious_default": [
+        "char_port_port_serious_default_body",
+        "char_port_port_serious_default_face_top",
+        "char_port_port_serious_default_eyes",
+        "char_port_port_serious_default_eyebrows",
+        "char_port_port_serious_default_face_bottom_default"
+      ],
+      "port_serious_talk": [
+        "char_port_port_serious_talk_body",
+        "char_port_port_serious_talk_face_top",
+        "char_port_port_serious_talk_eyes",
+        "char_port_port_serious_talk_eyebrows",
+        "char_port_port_serious_talk_face_bottom_talk"
+      ],
+      "event_surprise_default": [
+        "expr_port_event_surprise"
+      ],
+      "event_surprise_talk": [
+        "expr_port_event_surprise"
+      ]
+    },
+    "aili": {
+      "idle_default": [
+        "char_aili_idle_default_body",
+        "char_aili_idle_default_face_top",
+        "char_aili_idle_default_eyes",
+        "char_aili_idle_default_eyebrow",
+        "char_aili_idle_default_face_bottom_default"
+      ],
+      "idle_talk": [
+        "char_aili_idle_talk_body",
+        "char_aili_idle_talk_face_top",
+        "char_aili_idle_talk_eyes",
+        "char_aili_idle_talk_eyebrow",
+        "char_aili_idle_talk_face_bottom_talk"
+      ],
+      "success_default": [
+        "expr_aili_success"
+      ],
+      "success_talk": [
+        "expr_aili_success"
+      ],
+      "fail_default": [
+        "expr_aili_fail"
+      ],
+      "fail_talk": [
+        "expr_aili_fail"
+      ]
+    },
+    "samho": {
+      "idle_default": [
+        "char_samho_idle_default_body",
+        "char_samho_idle_default_face_top",
+        "char_samho_idle_default_eyes",
+        "char_samho_idle_default_eyebrow",
+        "char_samho_idle_default_face_bottom_default"
+      ],
+      "idle_talk": [
+        "char_samho_idle_talk_body",
+        "char_samho_idle_talk_face_top",
+        "char_samho_idle_talk_eyes",
+        "char_samho_idle_talk_eyebrow",
+        "char_samho_idle_talk_face_bottom_talk"
+      ],
+      "success_default": [
+        "expr_samho_success"
+      ],
+      "success_talk": [
+        "expr_samho_success"
+      ],
+      "fail_default": [
+        "expr_samho_fail"
+      ],
+      "fail_talk": [
+        "expr_samho_fail"
+      ],
+      "drunk_default": [
+        "expr_samho_drunk"
+      ],
+      "drunk_talk": [
+        "expr_samho_drunk"
+      ],
+      "drink_default": [
+        "char_samho_drink_body",
+        "char_samho_drink_face_bottom"
+      ]
+    },
+    "bubi": {
+      "idle_default": [
+        "char_bubi_idle_default_body",
+        "char_bubi_idle_default_face_top",
+        "char_bubi_idle_default_eyes",
+        "char_bubi_idle_default_face_bottom"
+      ],
+      "idle_talk": [
+        "char_bubi_idle_talk_body",
+        "char_bubi_idle_talk_face_top",
+        "char_bubi_idle_talk_eyes",
+        "char_bubi_idle_talk_face_bottom"
+      ]
+    },
+    "tom": {
+      "idle_default": [
+        "char_tom_static"
+      ],
+      "idle_talk": [
+        "char_tom_static"
+      ]
+    }
+  },
+  "source": {
+    "branch": "2-System-Refactoring",
+    "importedAt": "2026-09-23T18:28:42",
+    "csvRoot": "/Users/lee/Desktop/project/Human-Bartender/HumanBartender/Assets/StreamingAssets/csv",
+    "files": [
+      {
+        "file": "settings/days.csv",
+        "rows": 4,
+        "sha256": "88e44afaa1a468a272f6c34090ba7deec9969a3a40907856a6a55debd5fa287c"
+      },
+      {
+        "file": "settings/balance_config.csv",
+        "rows": 95,
+        "sha256": "069298c1ba917b0b0be438578e16cf2e1928b7a764882fc9a50b768533f30539"
+      },
+      {
+        "file": "settings/score_bands.csv",
+        "rows": 10,
+        "sha256": "a3491dcb96a65293479f895d0e6a4c6bcc5f6c32227673f64074de38b8a6da04"
+      },
+      {
+        "file": "settings/grade_cuts.csv",
+        "rows": 5,
+        "sha256": "31ce23cc8923e22bea635d52b0bd7aaa6e355b1bc1e05773143ccccd0649f0f8"
+      },
+      {
+        "file": "settings/settlement_rules.csv",
+        "rows": 5,
+        "sha256": "a4c0cdf11b5ce1c3ce8c37df5315b36b709416de07f320f373a38fa898fcc134"
+      },
+      {
+        "file": "settings/affinity_matrix.csv",
+        "rows": 5,
+        "sha256": "98a0c05591312eb52d9b57a984b3c63f8e6a565e4d782e806ee8320cf4313991"
+      },
+      {
+        "file": "settings/ui_strings.csv",
+        "rows": 60,
+        "sha256": "b1cc1657d7e46a68f4873b9feb93bde026e7da65f83c95afc71aebd80d4047f3"
+      },
+      {
+        "file": "settings/text_tags.csv",
+        "rows": 7,
+        "sha256": "5685e6cd355c95ec28787177fee6fead852ce176a35ae91b4ad349f2054318bf"
+      },
+      {
+        "file": "craft/cocktails.csv",
+        "rows": 29,
+        "sha256": "5c68f6edcb113756d9553d9a1d835155987141a6d3292ec6cede58ea8da19405"
+      },
+      {
+        "file": "craft/recipes.csv",
+        "rows": 71,
+        "sha256": "f5e990f2bff01cc7ceb394f1e1379fbb1bf780ec9a3f6d7b1d1f00ac65c6df1f"
+      },
+      {
+        "file": "craft/shelf_items.csv",
+        "rows": 42,
+        "sha256": "3bc26f0d2b0dbca02819f26b0e2175f6fa3213af14ee53ad644af4f08e498bb0"
+      },
+      {
+        "file": "craft/cocktail_tags.csv",
+        "rows": 73,
+        "sha256": "77bde741cc6f23b70fcf81d0476004a8421466ca7b6dda234039316e9148e62d"
+      },
+      {
+        "file": "craft/tastes.csv",
+        "rows": 10,
+        "sha256": "7baccd12f70751878f90ff5f410ced57b9b9d2641b099b5005a9555fc074ecf8"
+      },
+      {
+        "file": "craft/order_rules.csv",
+        "rows": 4,
+        "sha256": "859e4877e60958cf5583a355eb4b667d257e9122881a7f205709b5f785a8bcb8"
+      },
+      {
+        "file": "guests/random_waves.csv",
+        "rows": 9,
+        "sha256": "7d0ca12ce04647bb1b1a47fb4e6f6eaf870be594bc0250feb9940d64feab4ba2"
+      },
+      {
+        "file": "guests/regular_slots.csv",
+        "rows": 1,
+        "sha256": "adfa7d6bbb1a1a1d14b4975b71e8829040de45cf445230952dccd51654f00da1"
+      },
+      {
+        "file": "guests/barks.csv",
+        "rows": 169,
+        "sha256": "1c74a08d622d99134a632f6c3b26fd4924c79fce81210b5ccda3988e1ee02cdc"
+      },
+      {
+        "file": "guests/bark_situations.csv",
+        "rows": 24,
+        "sha256": "060d2aa42dc3e0b7620d07639bd414ad29b5bce9c8d50077192b87f796e7e818"
+      },
+      {
+        "file": "guests/personalities.csv",
+        "rows": 5,
+        "sha256": "05215818ae297985196d52d17c9dce4f5fbb264ea973b84b4ffe4b086a44cf06"
+      },
+      {
+        "file": "guests/guest_parts.csv",
+        "rows": 32,
+        "sha256": "6fb1c90da9f14c89328b5d5ec02e211385411f84f0c1d8fbd164840e843bf41f"
+      },
+      {
+        "file": "guests/guest_exclusions.csv",
+        "rows": 6,
+        "sha256": "4a5c1929e23358a5b515c02e1c903ac1dd9166dfd4b5f6ece1c1a2d86ca49567"
+      },
+      {
+        "file": "guests/guest_personalities.csv",
+        "rows": 0,
+        "sha256": "3ea56141662bebd607f30a646559dd52c68ec7ec6742e39d89bc642f897df06b"
+      },
+      {
+        "file": "guests/guest_settings.csv",
+        "rows": 1,
+        "sha256": "3f12b720470493002424c2296a3820aa6dee53bff88271aaf1b4e8b653f9fbe6"
+      },
+      {
+        "file": "story/scenes.csv",
+        "rows": 23,
+        "sha256": "b7ec256add78f753bedcde0ec90170a6f475585f7df7eeab9e6a47854c13fdbd"
+      },
+      {
+        "file": "story/steps.csv",
+        "rows": 490,
+        "sha256": "6c102719e00dad1ec6207697716a29cc7bf03fb5b1986109259c4a13c68ad6e8"
+      },
+      {
+        "file": "story/bar_choices.csv",
+        "rows": 33,
+        "sha256": "6bea883a2110ebb2b40e1cacfd44be1cfa979e70219051b946cb8fc0b7270145"
+      },
+      {
+        "file": "story/bar_choice_groups.csv",
+        "rows": 13,
+        "sha256": "b0891b90e85cd6d8026bdf27002ffafde4b461e42678826a00e13798f133ad16"
+      },
+      {
+        "file": "characters/characters.csv",
+        "rows": 21,
+        "sha256": "23e9b0f066a5354ca4e7f1f26537bc57761b1f8a811945b5e2121b9e4d1610dc"
+      },
+      {
+        "file": "characters/dossier.csv",
+        "rows": 20,
+        "sha256": "44aafc1a4a1bfb1f23a75b64503054ea714f7ad0882c685231ab0c79ca26370f"
+      }
+    ],
+    "webRegularDay1": {
+      "url": "https://app.notion.com/p/3d81612298dc8031a832edd231cda609?pvs=204",
+      "lastEdited": "2026-10-02T08:09:29.972Z",
+      "scope": "개시바 방문 포함 단골 손님 영업",
+      "dialogues": 216,
+      "orders": [
+        "player_choice_unpaid",
+        "dry_martini",
+        "champagne"
+      ]
+    },
+    "webDay0Bar": {
+      "url": "https://app.notion.com/p/3d81612298dc804ab205e2217df10216",
+      "revision": "2026-10-13",
+      "scope": "바 내부: 크리스 튜토리얼 / 포트 첫 손님",
+      "dialogues": 123,
+      "portChoiceAffinity": {
+        "accept": 1,
+        "decline": -1
+      }
+    }
+  },
+  "webRules": {
+    "repeatOrderCost": 0.1,
+    "repeatOrderKey": "KeyE",
+    "coasterKey": "Space",
+    "dossierThresholds": [
+      0,
+      10,
+      30
+    ]
+  },
+  "webArtRules": {
+    "actorCanvas": [
+      551,
+      530
+    ],
+    "sourceFps": 12,
+    "animationCycleSeconds": 1,
+    "generalTalkVariants": [
+      1,
+      2,
+      3
+    ],
+    "missingTalk": "keep_original_static_parts",
+    "specPage": "https://app.notion.com/p/3dc1612298dc8056b6a9f9a0e355ab62"
+  },
+  "webPoseOffsets": {
+    "chris": {},
+    "port": {
+      "port_serious_default": [
+        3,
+        -55
+      ],
+      "port_serious_talk": [
+        3,
+        -55
+      ],
+      "event_surprise_default": [
+        -68,
+        77
+      ],
+      "event_surprise_talk": [
+        -68,
+        77
+      ]
+    },
+    "aili": {},
+    "samho": {
+      "success_default": [
+        -22,
+        -89
+      ],
+      "success_talk": [
+        -22,
+        -89
+      ],
+      "fail_default": [
+        -22,
+        -89
+      ],
+      "fail_talk": [
+        -22,
+        -89
+      ],
+      "drunk_default": [
+        -40,
+        -70
+      ],
+      "drunk_talk": [
+        -40,
+        -70
+      ],
+      "drink_default": [
+        -40,
+        -89
+      ]
+    },
+    "bubi": {},
+    "tom": {}
+  },
+  "webActorBounds": {
+    "chris": [
+      152,
+      90,
+      468,
+      472
+    ],
+    "port": [
+      92,
+      123,
+      465,
+      475
+    ],
+    "aili": [
+      154,
+      98,
+      413,
+      440
+    ],
+    "samho": [
+      57,
+      130,
+      448,
+      441
+    ],
+    "bubi": [
+      204,
+      253,
+      347,
+      476
+    ],
+    "tom": [
+      103,
+      119,
+      448,
+      440
+    ]
+  },
+  "mixView": {
+    "stirCupCrop": [
+      2035,
+      495,
+      1030,
+      1070
+    ],
+    "referenceFolder": "/Users/lee/Desktop/아트 작업물 2/배경/1. 바 내부",
+    "stirReferenceSize": [
+      3840,
+      2160
+    ],
+    "shakeReferenceSize": [
+      1920,
+      1080
+    ],
+    "motionCycleSeconds": 1,
+    "note": "View only. Existing stir and shake scoring is unchanged."
+  }
+}

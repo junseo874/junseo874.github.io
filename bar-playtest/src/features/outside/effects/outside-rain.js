@@ -10,7 +10,8 @@ const random=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(
 // This is a fixed world-space band, independent of the actor/lift/camera.
 const ROAD_BACK=-1.08,ROAD_DEPTH=.22;
 const impactY=seed=>ROAD_BACK-random(seed)*ROAD_DEPTH;
-function enabled(m){return !!m&&!m.qa&&m.scene==='street'&&((Number(m.config.day)===0||Number(m.config.day)===1)&&m.config.flow==='out'||Number(m.config.day)===2&&m.config.flow==='in');}
+function wet(m){return !!m&&!m.qa&&((Number(m.config.day)===0||Number(m.config.day)===1)&&m.config.flow==='out'||Number(m.config.day)===2&&m.config.flow==='in');}
+function enabled(m){return m?.scene==='street'&&wet(m);}
 function particles(m,cam){
  const drops=[],splashes=[];if(!enabled(m))return {drops,splashes};
  // Use the full simulation clock: quantizing to 15 Hz made a fast drop jump
@@ -59,5 +60,35 @@ function draw(ctx,m,cam,position,pass='all'){
  }
  ctx.restore();
 }
-root.LunaOutsideRain={enabled,particles,draw};
+// Native house apertures. Rain is behind the room sheet; glass beads are
+// confined to the two exposed panes below the blinds, before props and actors.
+const HOME_OPENINGS=[[339,132,124,51],[585,22,58,53],[585,95,58,143]];
+const HOME_GLASS=[[340,156,54,24],[400,156,60,24]];
+function drawHome(ctx,m,cam,position,bg,pass){
+ if(m?.scene!=='home'||!wet(m)||!bg)return;
+ const sp=bg.sprite,left=bg.x-sp.w*sp.pivot.x/sp.ppu,top=bg.y+sp.h*(1-sp.pivot.y)/sp.ppu;
+ const at=(x,y)=>position(left+x/sp.ppu,top-y/sp.ppu),scale=1280/cam.w/sp.ppu;
+ ctx.save();ctx.beginPath();
+ for(const [x,y,w,h]of pass==='glass'?HOME_GLASS:HOME_OPENINGS){const p=at(x,y);ctx.rect(p.x,p.y,w*scale,h*scale);}
+ ctx.clip();
+ if(pass==='rain'){
+  // Reuse exactly the street drop field and speed, never its splash pass.
+  draw(ctx,{...m,scene:'street'},cam,position,'drops');
+ }else{
+  const time=root.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:(m.time||0);
+  for(const [pane,[x,y,w,h]]of HOME_GLASS.entries())for(let i=0;i<12;i++){
+   const seed=i+pane*43,period=5+random(seed+300)*5,age=mod(time+random(seed+310)*period,period)/period;
+   const travel=Math.max(0,(age-.48)/.52),px=x+2+random(seed+320)*(w-4)+Math.sin(travel*5+seed)*.3;
+   const py=y+random(seed+330)*h+travel*travel*h;
+   const p=at(px,py),radius=(.35+Math.min(age/.48,1)*.45)*scale;
+   // A bead grows in place, then leaves a faint narrow trail as it slides.
+   ctx.fillStyle='#aacdd8';ctx.globalAlpha=.18*(1-travel);
+   if(travel>0)ctx.fillRect(p.x-radius*.25,p.y-Math.min(5,travel*12)*scale,Math.max(.4,radius*.5),Math.min(5,travel*12)*scale);
+   ctx.globalAlpha=.36*(1-travel*.7);ctx.fillRect(p.x-radius/2,p.y-radius/2,radius,radius*1.5);
+   ctx.fillStyle='#e0faff';ctx.globalAlpha=.50*(1-travel*.7);ctx.fillRect(p.x-radius/2,p.y-radius/2,Math.max(.4,radius*.4),Math.max(.4,radius*.4));
+  }
+ }
+ ctx.restore();
+}
+root.LunaOutsideRain={enabled,particles,draw,wet,drawHome,homeOpenings:HOME_OPENINGS,homeGlass:HOME_GLASS};
 })(typeof window==='undefined'?globalThis:window);

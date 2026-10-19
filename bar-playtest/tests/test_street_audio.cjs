@@ -29,7 +29,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.evaluate(()=>{lunaCampaign.resumeView='developer';lunaCampaign.screen('options');});await p.locator('.campaign-card [data-street-volume]').waitFor({state:'visible'});assert.equal(await p.locator('.campaign-card [data-street-volume]').inputValue(),'55');
   await p.evaluate(()=>lunaCampaign.screen('loading'));await p.waitForTimeout(2500);assert.equal(await p.evaluate(()=>LunaStreetAudio.state.playing),false,'Blocked campaign transitions silence street assets/audio/effects');
   await p.evaluate(()=>lunaCampaign.screen('developer'));await p.waitForFunction(()=>LunaStreetAudio.state.playing);
-  await p.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await p.evaluate(()=>LunaStreetAudio.state.playing),false,'Blur immediately silences ambience');
+  await p.evaluate(()=>window.dispatchEvent(new Event('blur')));assert.equal(await p.evaluate(()=>LunaStreetAudio.state.playing),true,'Blur keeps ambience playing');
   await p.mouse.click(10,10);await p.evaluate(()=>outsidePlaytest.model.paused=false);await p.waitForFunction(()=>LunaStreetAudio.state.playing);
   await p.evaluate(()=>outsidePlaytest.exit(true));await p.waitForTimeout(2500);assert.equal(await p.evaluate(()=>LunaStreetAudio.state.playing),false,'No street sound inside bar/lobby');
   await p.evaluate(()=>LunaStreetAudio.setVolume(.3));await p.reload();await p.waitForFunction(()=>!!window.LunaStreetAudio);assert.equal(await p.evaluate(()=>LunaStreetAudio.volume),.3);assert.equal(await p.evaluate(()=>LunaStreetAudio.state.playing),false);

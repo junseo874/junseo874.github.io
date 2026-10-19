@@ -44,21 +44,21 @@ W.LunaOutsideEncounters.cases.push({id:reopening,activation:'proximity',kind:'pa
 const tradeEvent=C.events.find(e=>e.id==='outside_day1_samho_smuggler');Object.assign(tradeEvent,{auto:true,kind:'forced',trigger:'proximity'});
 const thug='day2-corridor-thug',info='day2-thug-information',contract='day3-samho-contract',samho='contract-samho',dealer='contract-smuggler';
 const n=t=>say(thug,t),l=t=>say('luna',t),s=t=>say(samho,t),d=t=>say(dealer,t);
-const intro=[n('…또 만났네?'),l('…'),n('그래도 이웃인데 인사는 하고 지내자고.'),l('안녕하세요.'),n('그래, 반갑다.'),n('혹시라도 물어볼 거 있으면 물어봐. 물론 맨입으로는 힘들겠지만.')];
-const infoRows={
+const intro=W.LUNA_DATA?.sharedStory?.['notion/intro']||[n('…또 만났네?'),l('…'),n('그래도 이웃인데 인사는 하고 지내자고.'),l('안녕하세요.'),n('그래, 반갑다.'),n('혹시라도 물어볼 거 있으면 물어봐. 물론 맨입으로는 힘들겠지만.')];
+const infoRows=W.LUNA_DATA?.sharedStory?Object.fromEntries(['gang','coratech','chris'].map(key=>[key,W.LUNA_DATA.sharedStory['notion/info/'+key]])):{
  gang:[l('갱에 대해서 알려 주실 수 있나요?'),...['그냥 돈만 되면 뭐든 하는 인간 말종 같은 새끼들이라고 생각해.','이 동네엔 갱도 여럿 있어서 다른 동네보다 위험한 편이지.','유명한 놈들은 애니멀 갱, 하이드럭 갱, 나이트 러너 갱 정도야.','애니멀은 자기네 사람만 안 건드리면 웬만해선 문제없어.','나머지 놈들은 그냥 보이면 피하는 게 상책이고.','너같이 예쁘장한 애는 잘못 걸리면 납치돼서 어디로 팔려 갈지도 모른다고.'].map(n),l('…알려 주셔서 감사해요.')],
  coratech:[l('코라테크에 대해서 알려 주실 수 있나요?'),...['…대체 어디서 왔길래 그런 걸 물어보는 거야?','그냥 우리나라 산업은 전부 그놈들 손에 있다고 생각해.','무역, 물류, 군수, 기술 연구, 바이오… 손 안 댄 분야가 없지.','정부랑 계약 맺고 일하는 기업이라는데, 행정 업무까지 맡아서 하고 있으니.','사실상 정부나 다름없어.','하지만 그런 놈들도 이쪽 나이트타운으로는 영향력이 잘 안 닿긴 하지. 워낙 무법지대라서 말이야.'].map(n),l('…알려 주셔서 감사해요.')],
  chris:[l('크리스에 대해서 알려 주실 수 있나요?'),...['…그놈은 나도 잘 몰라.','이 동네에 들어온 지 그렇게 오래되진 않았는데, 온 지 얼마 안 돼서 갱 패거리랑 시비가 붙었거든.','그때 혼자서 일곱 놈을 상대했어. 몇은 죽고, 나머지는 반병신이 됐지.','그 뒤로 한동안은 아무도 그놈한테 말조차 못 걸었어.','그런데 어느 날 보니까 바에서 일하고 있더라고. 무슨 바람이 불었는지는 몰라도.','누구는 살아서 은퇴한 전설적인 용병이라 하고, 누구는 코라테크가 몰래 키운 암살자라 하던데.'].map(n),l('…알려 주셔서 감사해요.')]
 };
 const action=action=>({type:'notion-action',action});
-const contractRows=[s('그렇게 돼서 의뢰는 못 할 것 같아. 미안하게 됐어.'),d('…그러면 돈은 대체 어떻게 갚을 거지? 장기를 팔아도 그만한 돈은 안 나올 텐데.'),s('못 들었나 본데, 나 이제 갱 소속이야.'),d('갱에 들어갔다고 이제 배짱을 부리기로 한 건가? 아무리 톰이라도 그럴 순 없을 텐데.'),s('곧 일 몇 개만 하면 금방 갚는다고, 등신아.'),d('…그럼 기다리지. 의뢰는 없었던 걸로 하자고.'),s('그래. 금방 보낼 테니까 기다려.'),d('그러지. 혹시라도 떼먹는다면 우린 전쟁도 일으킬 수 있으니까 조심해라.'),s('네, 네. 알았으니까 가 봐.'),action('dealer-exit'),action('approach'),s('루나? 퇴근했나 보네?'),l('맞아요. 그나저나 의뢰는 잘 안된 것 같네요.'),s('음… 난 오히려 이쪽이 더 잘된 것 같아.'),say(samho,'계속 꺼림칙했거든. 그 일을 맡았으면 안 좋은 일이 생겼을지도 몰라.',{emphasis:['안 좋은 일']}),s('덕분이야, 루나. 네가 보스랑 얘기할 수 있게 도와줘서, 나도 이제 애니멀에 들어가기로 했어.'),s('물론 어디 가서 자랑할 만한 곳은 아니지만… 여긴 나이트타운이니까.'),l('전 그저 술만 만들었는걸요.'),s('하하. 그렇게 말 안 해도 돼. 너 덕분에 잘 풀린 건데, 뭐.'),s('아무튼 나도 이제 할 일이 생겨서, 먼저 가 볼게.'),s('다음에 또 놀러 갈 테니까 그때 보자!'),l('안녕히 가세요.'),action('samho-exit')];
+const contractRows=W.LUNA_DATA?.sharedStory?.['notion/contract']||[s('그렇게 돼서 의뢰는 못 할 것 같아. 미안하게 됐어.'),d('…그러면 돈은 대체 어떻게 갚을 거지? 장기를 팔아도 그만한 돈은 안 나올 텐데.'),s('못 들었나 본데, 나 이제 갱 소속이야.'),d('갱에 들어갔다고 이제 배짱을 부리기로 한 건가? 아무리 톰이라도 그럴 순 없을 텐데.'),s('곧 일 몇 개만 하면 금방 갚는다고, 등신아.'),d('…그럼 기다리지. 의뢰는 없었던 걸로 하자고.'),s('그래. 금방 보낼 테니까 기다려.'),d('그러지. 혹시라도 떼먹는다면 우린 전쟁도 일으킬 수 있으니까 조심해라.'),s('네, 네. 알았으니까 가 봐.'),action('dealer-exit'),action('approach'),s('루나? 퇴근했나 보네?'),l('맞아요. 그나저나 의뢰는 잘 안된 것 같네요.'),s('음… 난 오히려 이쪽이 더 잘된 것 같아.'),say(samho,'계속 꺼림칙했거든. 그 일을 맡았으면 안 좋은 일이 생겼을지도 몰라.',{emphasis:['안 좋은 일']}),s('덕분이야, 루나. 네가 보스랑 얘기할 수 있게 도와줘서, 나도 이제 애니멀에 들어가기로 했어.'),s('물론 어디 가서 자랑할 만한 곳은 아니지만… 여긴 나이트타운이니까.'),l('전 그저 술만 만들었는걸요.'),s('하하. 그렇게 말 안 해도 돼. 너 덕분에 잘 풀린 건데, 뭐.'),s('아무튼 나도 이제 할 일이 생겨서, 먼저 가 볼게.'),s('다음에 또 놀러 갈 테니까 그때 보자!'),l('안녕히 가세요.'),action('samho-exit')];
 const qaCases=[{id:'runtime:thug2',label:'2일차 출근길 · 불량배 재회',notion:thug,auto:true},{id:'runtime:thug-info',label:'2일차 출근길 · 불량배 정보 구매 (50원)',notion:info,auto:false},{id:'runtime:samho-contract',label:'3일차 퇴근길 · 삼호의 계약 종료',notion:contract,auto:true}];
 const mode=m=>qaCases.find(c=>c.id===m.qa?.caseId)?.notion;
 const state=m=>m.qa?(m.qa.shopProgress??={money:1000,flags:{},inventory:{}}):W.barGame.progress;
 const flags=m=>m.qa?state(m).flags:W.lunaCampaign?.active?(W.barGame.progress.flags??={}):(m.notionFlags??={});
 function save(m,key){flags(m)[key]=true;const c=W.lunaCampaign;if(!m.qa&&c?.active&&c.session.carry){c.session.carry.flags??={};c.session.carry.flags[key]=true;}}
 const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m.level===1&&m.config.day===2&&m.config.flow==='in';
-const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&!m.level&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
+const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
 const tx=m=>m.qa?.25:R.homeX+.7;
 const base=m=>m.qa?-.45:R.elevatorX+1.35;
 const thugY=m=>m.qa?-.7:R.upperY;
@@ -78,7 +78,7 @@ function tick(m,dt){let e=m.encounter;
  if(![thug,contract].includes(e?.kind)){
   if(m.qa||m.encounter||m.paused||m.transition||m.ride||m.dialog||m.story.blocking)return false;
   if(visibleThug(m)&&!flags(m).day2_thug_done&&m.x>=R.homeX+.12&&m.x<=R.upperMax)return start(m,thug);
-  if(visibleContract(m)&&Math.abs(m.x-(base(m)+1.7))<.8)return start(m,contract);
+  if(!m.level&&visibleContract(m)&&Math.abs(m.x-(base(m)+1.7))<.8)return start(m,contract);
   return false;
  }
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;
@@ -120,5 +120,6 @@ function draw(m,sprite,ctx,position){
   idle('M1',dx,-.94,stage==='dealer-exit'?dx-1:x,e?.kind===contract?e.dealerAlpha:1);
  }
 }
+for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;
 W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract};
 })(window);

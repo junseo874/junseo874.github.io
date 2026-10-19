@@ -1,0 +1,7 @@
+﻿"day","seq","order","personality","delay_sec","max_rounds","branch_choice","dataset_id","row_id","parent_id","parent_field","source_order","template_id","web_row_id"
+"1","1","bottle_beer","gentle","0","1","false","random_waves","shared_0114dc6bcb5f02f1","@random_waves","\N","0","shared_randomwaves_cc01b847b0f451cb","random_waves_1"
+"1","2","gin_fizz","chatty","20","1","false","random_waves","shared_4f5ce8c1a361ffc2","@random_waves","\N","1","shared_randomwaves_cc01b847b0f451cb","random_waves_2"
+"2","1","screwdriver","chatty","0","1","false","random_waves","shared_8750dede1e1afd2c","@random_waves","\N","2","shared_randomwaves_cc01b847b0f451cb","random_waves_5"
+"2","2","godfather","rough","20","1","false","random_waves","shared_21258c894dea8336","@random_waves","\N","3","shared_randomwaves_cc01b847b0f451cb","random_waves_6"
+"99","1","gin_tonic","gentle","0","1","false","random_waves","shared_7682aa8e67be3733","@random_waves","\N","4","shared_randomwaves_cc01b847b0f451cb","random_waves_8"
+"99","2","\N","chatty","20","2","false","random_waves","shared_64b4c4d8629f58ed","@random_waves","\N","5","shared_randomwaves_b4081ee8d4e2ab20","random_waves_9"

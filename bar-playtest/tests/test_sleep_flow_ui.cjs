@@ -14,7 +14,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const c=lunaCampaign;c.cancelMemoryTransition();c.cancelDayTransition();c.disposeCinema();c.outside.exit(true);c.session.uninstall();c.session.beginCommute(day);c.session.route='out';c.nightStarted=false;c.data=structuredClone(LUNA_CAMPAIGN_DATA);
    if(!terrace)c.data.scenes[LunaTerrace.nightKey(day)]=[];
    if(day===2){c.g.progress.inventory={...c.g.progress.inventory,wild_dog:1,bitters:1};c.g.progress.flags.campaign_observation=true;c.session.carry=structuredClone(c.g.progress);}
-   Object.assign(c.outside.config,{day,flow:'out',place:'home'});await c.outside.start();c.screen('sleep');c.sleep();
+   Object.assign(c.outside.config,{day,flow:'out',place:'home'});await c.outside.start();c.screen(c.playView);c.interactOutside(c.outside.model,{id:'sofa'});
   },{day,terrace});}
   async function until(fn){for(let i=0;i<400;i++){if(await p.evaluate(fn))return;await p.evaluate(()=>{for(let j=0;j<6;j++)lunaCampaign.tick(.05);});await p.waitForTimeout(15);}throw Error('Sleep flow stalled: '+await p.evaluate(()=>JSON.stringify({view:lunaCampaign.view,loadError:lunaCampaign.loadError,transition:lunaCampaign.memoryTransition?.phase,day:!!lunaCampaign.dayTransition})));}
   for(const terrace of [false,true]){

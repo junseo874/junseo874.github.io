@@ -3,9 +3,9 @@
 'use strict';
 const id='day1-corridor-thug',R=W.LunaResidence.layout,home=R.homeX,npcX=home+.7;
 const say=(actor,text)=>({type:'say',actor,text}),n=text=>say(id,text),l=text=>say('luna',text);
-const intro=[n('…뭐야, 너.'),l('누구신가요?'),n('여기 사는 사람인데. 너, 그 집에 사는 거야?'),l('어제부터 지내고 있습니다.'),n('하. 그 남자, 세상 무뚝뚝한 척은 다 하더니. 이런 어린 여자나 꼬시고 있었어?'),n('즐길 건 다 즐기면서 살고 있었구만.'),l('무슨 일이신가요?'),n('…별건 아니고. 여기 새로 들어오면 입주 비용을 내야 하는데, 알고 있어?'),l('그런 비용이 있다는 말은 듣지 못했습니다.'),n('그래? 그럼 나한테 500원만 줘. 내가 대신 처리해 줄 테니까.'),{type:'thug-choice',actor:id,text:'입주 비용으로 500원을 건네시겠습니까?'}];
-const paid=[n('뭐야. 생각보다 고분고분하잖아?'),n('너, 나랑 같이 살 생각은 없어? 내가 그 남자보단 따뜻하게 대해 줄 수 있는데.'),l('그럴 생각은 없습니다.'),n('칫. 이런 건 또 딱 잘라 거절하네.'),n('뭐, 됐어. 아침부터 돈도 생기고, 오늘은 운이 좋네.'),l('…입주 비용을 처리해 주시는 거 아니었나요?'),n('아, 알아서 한다니까. 넌 가던 길이나 가.'),{type:'thug-action',action:'depart'},l('…')];
-const refused=[l('그 돈을 드리기는 어려울 것 같습니다.'),n('하. 이젠 너 같은 애송이까지 날 무시하네.'),{type:'thug-action',action:'punch'},n('큭…!'),l('…?'),n('뭐야… 너, 몸이 왜 이렇게 단단해? 무슨 쇳덩이도 아니고.'),n('칫… 오늘은 그냥 간다. 운 좋은 줄 알아.'),{type:'thug-action',action:'depart'}];
+const intro=W.LUNA_DATA?.sharedStory?.['thug/intro']||[n('…뭐야, 너.'),l('누구신가요?'),n('여기 사는 사람인데. 너, 그 집에 사는 거야?'),l('어제부터 지내고 있습니다.'),n('하. 그 남자, 세상 무뚝뚝한 척은 다 하더니. 이런 어린 여자나 꼬시고 있었어?'),n('즐길 건 다 즐기면서 살고 있었구만.'),l('무슨 일이신가요?'),n('…별건 아니고. 여기 새로 들어오면 입주 비용을 내야 하는데, 알고 있어?'),l('그런 비용이 있다는 말은 듣지 못했습니다.'),n('그래? 그럼 나한테 500원만 줘. 내가 대신 처리해 줄 테니까.'),{type:'thug-choice',actor:id,text:'입주 비용으로 500원을 건네시겠습니까?'}];
+const paid=W.LUNA_DATA?.sharedStory?.['thug/paid']||[n('뭐야. 생각보다 고분고분하잖아?'),n('너, 나랑 같이 살 생각은 없어? 내가 그 남자보단 따뜻하게 대해 줄 수 있는데.'),l('그럴 생각은 없습니다.'),n('칫. 이런 건 또 딱 잘라 거절하네.'),n('뭐, 됐어. 아침부터 돈도 생기고, 오늘은 운이 좋네.'),l('…입주 비용을 처리해 주시는 거 아니었나요?'),n('아, 알아서 한다니까. 넌 가던 길이나 가.'),{type:'thug-action',action:'depart'},l('…')];
+const refused=W.LUNA_DATA?.sharedStory?.['thug/refused']||[l('그 돈을 드리기는 어려울 것 같습니다.'),n('하. 이젠 너 같은 애송이까지 날 무시하네.'),{type:'thug-action',action:'punch'},n('큭…!'),l('…?'),n('뭐야… 너, 몸이 왜 이렇게 단단해? 무슨 쇳덩이도 아니고.'),n('칫… 오늘은 그냥 간다. 운 좋은 줄 알아.'),{type:'thug-action',action:'depart'}];
 function flags(m){return W.lunaCampaign?.session.active&&!W.lunaCampaign.session.developer?(W.barGame.progress.flags??={}):(m.thugFlags??={});}
 function save(m,key,value){flags(m)[key]=value;const c=W.lunaCampaign;if(c?.session.active&&!c.session.developer&&c.session.carry){c.session.carry.flags??={};c.session.carry.flags[key]=value;}}
 function visible(m){return !m.qa&&m.scene==='street'&&m.level===1&&m.config.day===1&&m.config.flow==='in'&&!flags(m).day1_thug_done;}

@@ -725,10 +725,11 @@
   ${remix.active() && liveBar ? remixUI.hudHTML() : originalServiceTipHTML()}${g.phase === 'ready' ? startHTML() : ''}${g.screen === 'recipe' ? recipesHTML() : ''}${g.screen === 'prep' ? prepHTML() + (remix.active() ? remixUI.prepHTML() : '') : ''}${g.screen === 'gimmick' ? gimmickHTML() + (remix.active() ? remixUI.gimmickHTML() : '') : ''}${g.screen === 'minigame_result' ? miniUI.resultHTML() : ''}${['result', 'discarding'].includes(g.screen) ? resultHTML() : ''}${g.screen === 'settlement' ? settlementHTML() : ''}${g.screen === 'gameover' ? gameoverHTML() : ''}${g.paused ? `<div class="pause-full">${button('▶ ' + L('계속하기', 'Resume'), 'pause')}</div>` : ''}${overlayHTML()}${tutorialView.html()}${g.error ? errorHTML() : ''}${inspectorHTML()}${g.effectVisual && g.realTime < g.effectVisual.until && g.effectVisual.kind === 'fx' ? '<div class="effect-flash"></div>' : ''}
  </main></div>`;
     if (force || html !== lastStructure) {
+      const returningFromServe = liveBar && !!root.querySelector('.serve-presentation');
       const template = document.createElement('template');
       template.innerHTML = html;
       morph(root, template.content);
-      views.syncCamera(root);
+      views.syncCamera(root, {snap: returningFromServe});
       lastStructure = html;
       for (const [cls, top] of scrolls) {
         const e = root.getElementsByClassName(cls)[0];

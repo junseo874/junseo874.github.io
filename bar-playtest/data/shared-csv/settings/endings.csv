@@ -1,0 +1,6 @@
+﻿"id","priority","when","scene_id","note","dataset_id","row_id","parent_id","parent_field","source_order","template_id"
+"bad_1","1","flag.rios_accepted","ed_bad1","[예약] 최종일 리오스 제안 수락 선택지에서 flag.rios_accepted = true 설정 후 사용 — 현재 데모 미도달","endings","shared_3bc51ceedd91ea17","@endings","\N","0","shared_endings_630bcad25acddeab"
+"happy_1","2","affinity.aili >= 100 && affinity.tom >= 100 && affinity.port >= 100 && affinity.sunha >= 100","ed_happy1","벡터 고발, 전체 생존","endings","shared_446dcb1d14852332","@endings","\N","1","shared_endings_630bcad25acddeab"
+"happy_2","3","affinity.aili >= 100 && affinity.tom >= 100 && affinity.port >= 100","ed_happy2","언노운 이사, 전체 생존","endings","shared_73224d20fe016c00","@endings","\N","2","shared_endings_630bcad25acddeab"
+"normal_1","4","alive.haru && affinity.haru >= 100","ed_normal1","하루 루트, 크리스 사망","endings","shared_27352837b3bb5d0d","@endings","\N","3","shared_endings_630bcad25acddeab"
+"bad_2","5","\N","ed_bad2","폴백 — 납치","endings","shared_5ab72c8e4ba22380","@endings","\N","4","shared_endings_94a1e22a2f7e731f"

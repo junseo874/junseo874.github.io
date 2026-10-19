@@ -32,7 +32,7 @@ function collect(rows){
    r.note='현재 웹에 전용 UI PNG가 적용되어 있습니다. 텍스트·배치·일부 효과는 코드로 구성하며 최종 아트 승인 여부와는 별개입니다.';
   }
   if(r.id.startsWith('actor:tom:')){r.status='registered';r.note='2026-10-18 Tom_Idle 원본. 정적 이미지이며 대화 중에도 같은 포즈를 사용합니다. 팔이 카운터에 놓이도록 본편에서 y=420 기준으로 정렬합니다.';}
-  if(r.id==='ui:exterior:street'){r.title='상호작용 키 안내 / E';r.note='화면 좌측 하단의 원형 E 키와 상호작용 텍스트를 확인합니다. 대상의 시안색 윤곽선도 함께 표시합니다.';r.variants=r.variants.filter(v=>v.id==='e');}
+  if(r.id==='ui:exterior:street'){r.title='상호작용 키 안내 / E';r.note='제공된 IMG_interaction 사각 E 키와 페이퍼로지 Bold 상호작용 텍스트를 화면 좌측 하단에서 확인합니다. 대상의 시안색 윤곽선도 함께 표시합니다.';r.variants=r.variants.filter(v=>v.id==='e');}
   if(r.id==='ui:prep')r.needsRevision=false;
   if(r.id==='outside:terrace-chris')r.previewNote='최신 테라스 배경 · 오른쪽 크리스 / 왼쪽 루나 · 배경 합성 이미지';
   if(isScreen(r)){r.preview=screen(r);r.previewNote='최신 게임 화면 · '+version+' · PNG 다운로드 가능';}

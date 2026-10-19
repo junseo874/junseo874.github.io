@@ -12,6 +12,9 @@
  function isChoice(el){return el.dataset.act==='choice'||el.dataset.campaign?.startsWith('scene-choice:')||!!el.closest('.choices,.outside-choices');}
  function allows(el,kind){
   const action=el.dataset.act||'';
+  // Poster viewing is silent, including the exit button's automatic focus cue.
+  if(el.closest('.outside-inspection'))return false;
+  if(el.dataset.outsideAction==='interact'&&el.closest('#outside-root')&&W.outsidePlaytest?.model?.near?.id==='wanted-poster')return false;
   if(el.closest('.world-choices'))return false;
   // Choice buttons retain hover feedback, never confirmation clicks. Handle
   // them before speech containers, which may also contain the choice buttons.

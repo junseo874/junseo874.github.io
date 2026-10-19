@@ -461,15 +461,15 @@
       ...data,
       tables: {
         ...data.tables,
-        cocktails: data.tables.cocktails.map(c => c.id === 'dry_martini' ? {
+        cocktails: data.tables.cocktails.map(c => !data.sharedCsv && c.id === 'dry_martini' ? {
           ...c,
           'recipe_desc.ko': '믹싱 글라스에 진 60ml와 드라이 베르무트 20ml를 넣고 스터한 뒤 칵테일 잔에 따른다.',
           'recipe_desc.en': 'Stir 60ml gin with 20ml dry vermouth in a mixing glass, then strain into a cocktail glass.'
-        } : c.id === 'long_island' ? {
+        } : !data.sharedCsv && c.id === 'long_island' ? {
           ...c,
           unlock_day: '2'
         } : c),
-        recipes: data.tables.recipes.map(r => r.context === 'dry_martini' && Object.hasOwn(martini, r.ingredient) ? {
+        recipes: data.tables.recipes.map(r => !data.sharedCsv && r.context === 'dry_martini' && Object.hasOwn(martini, r.ingredient) ? {
           ...r,
           qty: martini[r.ingredient],
           unit: 'ml'

@@ -185,6 +185,7 @@
       global.LunaLiftDust?.reset(this);
       this.barArrival = null;
       this.commuteBoundarySide = 0;
+      this.crateBoundaryNoticed = false;
       this.beggarDeparture = null;
       this.liftLogoSeen = false;
       this.thugFlags = {};
@@ -241,9 +242,7 @@
         this.noticeLeft = 2;
       } else if (id === 'sleep') {
         const campaign = global.lunaCampaign;
-        if (!this.qa && campaign?.interactOutside(this, SOFA)) {
-          if (campaign.view === 'sleep') campaign.sleep();
-        } else this.dialog = {
+        if (this.qa || !campaign?.interactOutside(this, SOFA)) this.dialog = {
           title: '소파',
           text: '공간 탐색 모드에서는 하루가 바뀌지 않습니다.'
         };
@@ -546,6 +545,19 @@
         old = this.x,
         desired = this.x + direction * speed * dt;
       this.x = clamp(desired, ...bounds);
+      if (!this.qa && this.scene === 'street' && this.level === 1) {
+        // Rearm only after walking away, not when a held key resumes after speech.
+        if (this.x > R.upperMin + .12) this.crateBoundaryNoticed = false;
+        if (direction < 0 && desired < R.upperMin && !this.crateBoundaryNoticed && !this.story.speech) {
+          this.crateBoundaryNoticed = true;
+          this.facing = -1;
+          direction = 0;
+          global.outsidePlaytest?.clearInput();
+          this.story.beginRows('upper_crates_blocked', { x: this.x, y: this.y }, [{
+            type: 'say', actor: 'luna', text: '물건들로 막혀있네.'
+          }], false, () => global.outsidePlaytest?.clearInput());
+        }
+      }
       if (restricted) {
         if (this.x > bounds[0] + .12 && this.x < bounds[1] - .12) this.commuteBoundarySide = 0;
         const side = desired < bounds[0] ? -1 : desired > bounds[1] ? 1 : 0;
@@ -878,7 +890,7 @@
       panoramaTween = false;
       const arriving = model.scene === 'street' && (model.barArrival || model.transition?.barArrival);
       cam = {
-        x: model.scene === 'home' ? clamp(model.x, .34, 1.14) : arriving ? .65 : model.x,
+        x: model.scene === 'home' ? global.LunaHomeArt.cameraX(model.x, 4.8) : arriving ? .65 : model.x,
         y: model.scene === 'home' ? .023 : model.y + .7,
         w: 4.8
       };
@@ -1060,7 +1072,7 @@
       const rate = panorama || panoramaTween ? VIEWPOINT.easeRate : 5;
       pixelWidth = global.LunaPixelCamera.approachWidth(pixelWidth, pixelGoal, dt * rate / 5);
       if (!model.qa) {
-        if (model.scene === 'home') x = clamp(x, .34, 1.14);else x = clamp(x, -22.25 + w / 2, 6.55 - w / 2);
+        if (model.scene === 'home') x = global.LunaHomeArt.cameraX(x, w);else x = clamp(x, -22.25 + w / 2, 6.55 - w / 2);
       }
       // Constrain the visible bottom, not just the camera center, during zoom.
       const floor = data.scenes.street.nodes.find(n => n.name === '1F Floor').y + .02;
@@ -1090,7 +1102,9 @@
       ctx.translate(p.x, p.y);
       if (renderingNode?.lightRotation) ctx.rotate(-renderingNode.lightRotation);
       ctx.scale((sx < 0 ? -1 : 1) * (flip ? -1 : 1), sy < 0 ? -1 : 1);
-      if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
+      if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, cam.x - renderingNode.x);
+      else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
+      else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       if (model.scene === 'street' && !model.qa) global.LunaWallLighting?.paintSprite(ctx, renderingNode?.name, img, sp, w, h);
       if (model.scene === 'street') global.LunaSignScanlines?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       if (model.scene === 'street' && !model.qa) global.LunaVentSteam?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
@@ -1137,8 +1151,8 @@
       if (!n.active || n.name === 'Luna' || n.name === 'Square' || /SAMHO|samho|Samho|Bubi/.test(n.name)) return;
       if (n.ambient && !global.LunaOutsideAmbient.visible(model, n)) return;
       let y = n.y;
-      if (model.scene === 'street' && n.ancestry.includes('Elevator') && ['Elevator', 'Elevator Fore', 'Elevator Door'].includes(n.name)) y += model.elevatorY - BOTTOM;
-      // Keep the imported sprite cutouts and world coordinates; only the debug swatches at the right of the house atlas are masked by room bounds.
+      if (model.scene === 'street' && n.ancestry.includes('Elevator') && ['Elevator', 'Elevator Connector', 'Elevator Fore', 'Elevator Door'].includes(n.name)) y += model.elevatorY - BOTTOM;
+      // Preserve the supplied sprite cutouts and world coordinates, including the exterior.
       const light = n.light || /City.*Light/.test(n.name);
       let sp = n.ambient ? global.LunaOutsideAmbient.frame(n, model.time) : n.sprite;
       const facing = global.LunaOutsideAmbient.facing(n, model),
@@ -1230,9 +1244,12 @@
       }
       const nodes = data.scenes[model.scene].nodes.slice().sort((a, b) => a.layer - b.layer || a.order - b.order || b.z - a.z);
       if (model.scene === 'home') {
+        nodes.filter(n => n.name === 'home-city').forEach(renderNode);
         const bg = nodes.find(n => n.name === 'main_bg');
+        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'rain');
         if (bg) renderNode(bg);
-        nodes.filter(n => n.name !== 'main_bg' && n.name !== 'ForeFore_Object').forEach(renderNode);
+        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'glass');
+        nodes.filter(n => !['home-city', 'main_bg', 'ForeFore_Object', 'home-fence'].includes(n.name)).forEach(renderNode);
       }
       const drawPlayer = () => {
         const anim = data.animations[model.anim],
@@ -1241,7 +1258,7 @@
       };
       if (model.scene === 'home') {
         drawPlayer();
-        nodes.filter(n => n.name === 'ForeFore_Object').forEach(renderNode);
+        nodes.filter(n => ['ForeFore_Object', 'home-fence'].includes(n.name)).forEach(renderNode);
       } else {
         let farTraffic = false,
           midTraffic = false,
@@ -1275,11 +1292,6 @@
             drawPlayer();
           } else renderNode(n);
         }
-      }
-      if (model.scene === 'home') {
-        const edge = position(3.537, 0).x;
-        ctx.fillStyle = '#000';
-        ctx.fillRect(edge, 0, Math.max(0, 1280 - edge), 720);
       }
       global.LunaOutsideRain?.draw(ctx, model, renderCam, position, 'drops');
       const shade = ctx.createLinearGradient(0, 0, 0, 720);
@@ -1385,7 +1397,7 @@
         el.setAttribute('aria-label', '귀가 안내');
         el.dataset.visible = 'false';
         el.setAttribute('aria-hidden', 'true');
-        el.innerHTML = '<div class="homeward-copy"><strong>집으로 가기</strong><small></small></div><span class="homeward-direction" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M18 12H6M11 7L6 12L11 17"/></svg></span>';
+        el.innerHTML = '<div class="homeward-copy"><strong>집으로 가기</strong><small></small></div>';
         host.querySelector('.outside-stage').append(el);
         // Establish the off-screen position before the first entrance transition.
         el.getBoundingClientRect();

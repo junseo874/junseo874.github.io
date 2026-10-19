@@ -2,8 +2,8 @@
 'use strict';
 const key='luna.street.ambience.volume.v1',base=new URL('../../../',document.currentScript.src).href;
 const track=(file)=>({url:new URL('assets/audio/effects/ambience/'+file,base),gain:null,buffer:null,source:null,pending:null,failed:false,level:0,target:0});
-const city=track('street-loop.wav'),rain=track('rain-loop.wav'),tracks=[city,rain];
-let volume=.55,context=null,unlocked=false,previous=0,away=false;
+const city=track('street-loop.wav'),rain=track('rain-loop.wav'),house=track('rain-house.wav'),tracks=[city,rain,house];
+let volume=.55,context=null,unlocked=false,previous=0;
 try{const raw=localStorage.getItem(key),value=raw===null?null:JSON.parse(raw);if(typeof value==='number'&&Number.isFinite(value))volume=Math.max(0,Math.min(1,value));}catch{}
 function terraceContext(){
  const c=global.lunaCampaign;
@@ -16,11 +16,10 @@ function terraceContext(){
  // entirely during a replay. Use the visible terrace, not that hidden room.
  const day=c.session?.developer?(global.outsidePlaytest?.model?.config.day??c.session?.day):c.session?.day;
  const reveal=transition?Math.max(0,Math.min(1,transition.time/transition.revealDuration)):1;
- return {day,gain:.55*(menu?.45:1)*reveal*reveal*(3-2*reveal)};
+ return {day,weather:global.LunaTerrace.weather(c.dialog),gain:.55*(menu?.45:1)*reveal*reveal*(3-2*reveal)};
 }
 function wanted(terrace){
  const outside=global.outsidePlaytest,campaign=global.lunaCampaign,m=outside?.model;
- if(away||document.hidden)return 0;
  if(terrace)return volume*terrace.gain;
  if(!outside?.active||outside.loading||outside.loadError||m?.scene!=='street')return 0;
  const view=campaign?.view;
@@ -30,6 +29,18 @@ function wanted(terrace){
  if(!speaking)for(const story of m.backgroundStory?.channels?.values()||[]){const a=story.view()?.anchor;if(a&&Math.abs(a.x-m.x)<4&&Math.abs(a.y-m.y)<1.6){speaking=true;break;}}
  return volume*(menu||m.paused||outside.devConsoleOpen ? .45 : speaking ? .65 : 1);
 }
+function houseWanted(terrace){
+ const o=global.outsidePlaytest,m=o?.model,c=global.lunaCampaign;
+ if(terrace||!o?.active||o.loading||o.loadError||m?.scene!=='home'||!global.LunaOutsideRain?.wet(m))return 0;
+ const menu=c?.view==='options'&&['game','developer'].includes(c.resumeView);
+ if(c?.blocking&&!menu)return 0;
+ // Room entrance is left; window and terrace openings are on the right.
+ const nodes=global.LUNA_OUTSIDE_DATA?.scenes?.home?.nodes||[];
+ const door=nodes.find(n=>n.name==='Room_Entrance')?.x??-1.621;
+ const terraceX=nodes.find(n=>n.name==='Terrace_Entrance')?.x??3.364;
+ const t=Math.max(0,Math.min(1,(m.x-door)/(terraceX-door))),near=t*t*(3-2*t);
+ return volume*(.42+.43*near)*((menu||m.paused||o.devConsoleOpen) ? .45 : 1);
+}
 function stop(t){if(t.source){try{t.source.stop();}catch{}t.source.disconnect();t.source=null;}}
 async function prepare(t){
  if(!context||t.buffer||t.pending||t.failed)return;
@@ -38,7 +49,7 @@ async function prepare(t){
 }
 function unlock(e){
  if(!e.isTrusted||e.repeat)return;
- unlocked=true;away=false;
+ unlocked=true;
  try{
   if(!context){const Context=global.AudioContext||global.webkitAudioContext;if(!Context)return;context=new Context();for(const t of tracks){t.gain=context.createGain();t.gain.gain.value=0;t.gain.connect(global.LunaSfx.output(context));}}
   if(context.state==='suspended')context.resume().catch(()=>{});
@@ -48,19 +59,19 @@ function frame(now){
  const dt=previous?Math.min(.1,(now-previous)/1000):0;previous=now;const terrace=terraceContext();city.target=wanted(terrace);
  // Terrace nights share the street weather schedule, but distant rain sits
  // lower in the dialogue mix. Never mutate the paused outside model.
- const weather=terrace?{scene:'street',config:{day:terrace.day,flow:'out'}}:global.outsidePlaytest?.model;
- rain.target=global.LunaOutsideRain?.enabled(weather)?city.target*(terrace?.45:.85):0;
+ const weather=terrace?terrace.weather:global.outsidePlaytest?.model;
+ rain.target=global.LunaOutsideRain?.enabled(weather)?city.target*.85:0;
+ house.target=houseWanted(terrace);
  for(const t of tracks){
   if(unlocked&&t.target>0){void prepare(t);if(t.buffer&&!t.source&&context?.state==='running'){t.source=context.createBufferSource();t.source.buffer=t.buffer;t.source.loop=true;t.source.connect(t.gain);t.source.start();}}
   // Real-time envelopes remain independent of paused game clocks; decoding starts from silence.
   const destination=t.source?t.target:0;
-  t.level+=(destination-t.level)*(1-Math.exp(-dt/(destination>t.level?(t===rain?.7:.45):(t===rain?.35:.24))));
+  t.level+=(destination-t.level)*(1-Math.exp(-dt/(t===house?.65:destination>t.level?(t===rain?.7:.45):(t===rain?.35:.24))));
   if(t.gain)t.gain.gain.value=t.level;
   if(t.target===0&&t.level<.0005){t.level=0;if(t.gain)t.gain.gain.value=0;stop(t);}
  }
  requestAnimationFrame(frame);
 }
-function silence(){away=true;for(const t of tracks){t.level=0;t.target=0;if(t.gain)t.gain.gain.value=0;stop(t);}}
 function setVolume(value){
  if(!Number.isFinite(value))return;volume=Math.max(0,Math.min(1,value));
  if(volume===0)for(const t of tracks){t.level=0;t.target=0;if(t.gain)t.gain.gain.value=0;stop(t);}
@@ -71,10 +82,10 @@ function settingsHTML(lang='ko'){
  return '<label class="street-audio-setting"><span>'+(lang==='en'?'Street ambience':'외부 거리 환경음')+'</span><input aria-label="'+(lang==='en'?'Street ambience volume':'외부 거리 환경음 음량')+'" type="range" min="0" max="100" step="1" data-street-volume value="'+Math.round(volume*100)+'"><output>'+Math.round(volume*100)+'%</output></label>';
 }
 global.addEventListener('pointerdown',unlock,true);global.addEventListener('keydown',unlock,true);
-global.addEventListener('blur',silence);global.addEventListener('focus',()=>{away=false;});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)silence();else away=false;});
+// Ambient loops keep their Web Audio source/playhead across focus and tab changes.
+// Scene transitions and explicit volume controls still own fading and stopping.
 document.addEventListener('input',e=>{if(e.target.matches('[data-street-volume]'))setVolume(Number(e.target.value)/100);},true);
 const status=t=>({ready:!!t.buffer,playing:!!t.source,level:t.level,target:t.target,failed:t.failed,duration:t.buffer?.duration||0});
-global.LunaStreetAudio={settingsHTML,setVolume,get volume(){return volume;},get state(){return{...status(city),rain:status(rain)};}};
+global.LunaStreetAudio={settingsHTML,setVolume,get volume(){return volume;},get state(){return{...status(city),rain:status(rain),house:status(house)};}};
 requestAnimationFrame(frame);
 })(window);

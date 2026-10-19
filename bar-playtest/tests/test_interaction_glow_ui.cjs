@@ -9,8 +9,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
   assert.equal(result.near,id);assert.equal(result.glow.target,id);assert.equal(result.glow.drawn.length,1,JSON.stringify(result));
   if(id==='sofa'){
    const draw=result.glow.drawn[0];assert.equal(draw.node,'main_bg');assert.equal(draw.asset,'629b82812402bc');
-   assert.deepEqual(draw.region.slice(0,4),[410,180,110,53]);
-   assert(draw.region[4].every(([x,y])=>x>=0&&y>=0&&x<=110&&y<=53),'Contour remains inside the current sofa bounds');
+   assert.deepEqual(draw.region.slice(0,4),[410,180,109,53]);
+   assert(draw.region[4].every(([x,y])=>x>=0&&y>=0&&x<=109&&y<=53),'Contour remains inside the current sofa bounds');
    assert.equal(await p.evaluate(()=>{const node=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='IntractObjects');return LunaInteractionGlow.region({id:'sofa'},node,node.sprite,node.x,node.y,outsidePlaytest.model);}),null,'Never reuse the loose blanket atlas as the full sofa');
    // The old guessed polygon floated above the backrest and rounded across
    // empty space at the left. Check the mask itself in source-pixel space.
@@ -19,10 +19,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
     const c=document.createElement('canvas');c.width=sp.w;c.height=sp.h;const ctx=c.getContext('2d');
     const glow=LunaInteractionGlow.create();glow.begin({id:'sofa'},outsidePlaytest.model);
     ctx.translate(sp.w*sp.pivot.x,sp.h*(1-sp.pivot.y));glow.paint(ctx,null,sp,node,node.x,node.y,sp.w,sp.h);
-    return [[450,183],[424,190],[465,178],[410,229]].map(([x,y])=>ctx.getImageData(x,y,1,1).data[3]);
+    return [[490,183],[424,190],[490,179],[410,229],[434,200],[433,198],[430,200],[425,201]].map(([x,y])=>ctx.getImageData(x,y,1,1).data[3]);
    });
    assert(pixels[0]>200&&pixels[1]>200,'Outline hugs the real backrest');
    assert(pixels[2]<80&&pixels[3]<80,'No old floating arc over or to the left of the sofa');
+   assert(pixels[4]>200&&pixels[5]>200,'Outline follows the inward armrest edge in Chrishouse2');
+   assert(pixels[6]<80&&pixels[7]<80,'No contour crossing the visible blue wall inside the armrest recess');
   }
   assert(await p.locator('.outside-interact').isVisible());
   await p.screenshot({path:'/private/tmp/glow-'+id+'-'+place+'.png'});

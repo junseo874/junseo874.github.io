@@ -65,6 +65,14 @@ function apply(data){
  // New elevator art is already drawn at gameplay pixel scale (old art was .6).
  const body=nodes.find(n=>n.name==='Elevator'),front=nodes.find(n=>n.name==='Elevator Fore'),rail=nodes.find(n=>n.name==='Elevator Line');
  Object.assign(body,{x:R.elevatorX,y:R.elevatorBottom+elevatorArtOffsetY,sx:1,sy:1});
+ // The motor/connector covers the guide frame and cable (layer 6), while
+ // the apartment foreground railing (layer 10) still occludes it upstairs.
+ // Keep the split so neither the cable nor the connector cuts through the cabin.
+ const connectorHeight=35,fullBody={...body.sprite};
+ nodes.push({...body,id:body.id+'-connector',go:body.go+'-connector',name:'Elevator Connector',
+  y:body.y+(fullBody.h-connectorHeight)/fullBody.ppu,layer:7,order:0,
+  sprite:{...fullBody,h:connectorHeight}});
+ body.sprite={...fullBody,y:connectorHeight,h:fullBody.h-connectorHeight};
  // Exact opaque-pixel match: front sheet starts at body pixel (12,45).
  Object.assign(front,{x:R.elevatorX+.06,y:R.elevatorBottom+.09+elevatorArtOffsetY,sx:1,sy:1});
  // Engine alignment, relative to the apartment's top-left (-22.25,14.37):

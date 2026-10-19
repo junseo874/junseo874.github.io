@@ -1,7 +1,7 @@
 /* Playback adapter: use the same timeline, sprite renderer and subtitle layout
    as Cutscene Studio; never read or overwrite the editor's saved drafts. */
 (function(W){'use strict';
-const base=new URL('../../../cutscene-studio/',document.currentScript.src),version='shared-exterior-20261019';
+const base=new URL('../../../cutscene-studio/',document.currentScript.src),version='home-fence-seam-20261020';
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{

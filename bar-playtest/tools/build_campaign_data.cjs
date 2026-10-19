@@ -1,4 +1,5 @@
 const fs=require('fs'),path=require('path');const root=path.resolve(__dirname,'..');const put=(name,text)=>fs.writeFileSync(path.join(root,name),text);
+if(fs.existsSync(path.join(root,'data/shared-csv/system/table_index.csv')))throw Error('Shared CSV is authoritative. Use node tools/build-shared-data.cjs --write; legacy story regeneration is disabled.');
 const source=JSON.parse(fs.readFileSync(root+'/tools/campaign-notion-source.json','utf8'));
 const actors={'유나':'yuna','개시바':'shiba','시바견':'shiba','루나':'luna','크리스':'chris','톰':'tom','아일리':'aili','포트':'port','삼호':'samho','조니':'johnny','과거의 톰':'tom','기억 속 루나':'luna','연구원':'researcher','주거층 주민':'resident','의뢰 연락 메시지':'message','삼호가 보내는 메시지':'samho','보안부 3팀 팀장':'captain','진입조｜무전':'radio','보안부 대원 A':'soldier','경계조 A｜무전':'radio'};
 const clean=s=>s.replace(/\*\*/g,'').trim().replace(/한잔/g,'한 잔').replace(/할 만한 거 같아/g,'할 만한 것 같아').replace(/아직까진/g,'아직까지는').replace(/시작해보자/g,'시작해 보자').replace(/받아줘/g,'받아 줘').replace(/꺼야/g,'거야').replace(/네 알겠어요\./g,'네, 알겠어요.').replace(/평범한 일인 거 같은데/g,'평범한 일인 것 같은데').replace(/\(뭐지\.\.\.\)/g,'(뭐지…)');

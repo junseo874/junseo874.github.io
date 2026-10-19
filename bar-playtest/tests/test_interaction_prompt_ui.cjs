@@ -22,7 +22,7 @@ const assert=require('node:assert/strict');
   });
   assert(results.length>20);
   for(const r of results){
-   assert(r.visible,JSON.stringify(r));assert.equal(r.left,'28px');assert.equal(r.bottom,'28px');assert.equal(r.transform,'none');
+   assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
    const expected={tv:'TV 보기',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
    assert(expected[r.id],'Unclassified target '+r.id);assert.equal(r.text,'E'+expected[r.id]);assert(r.ordered);assert.equal(r.inline,'');
   }
@@ -33,14 +33,16 @@ const assert=require('node:assert/strict');
   const prompt=p.locator('.outside-interact');
   const checkStyle=async()=>{
    const style=await prompt.evaluate(el=>{const s=getComputedStyle(el),k=getComputedStyle(el.querySelector('kbd'));return {background:s.backgroundColor,image:s.backgroundImage,border:s.borderTopWidth,shadow:s.boxShadow,font:s.fontSize,radius:k.borderRadius,width:k.width,height:k.height};});
-   assert.deepEqual(style,{background:'rgba(0, 0, 0, 0)',image:'none',border:'0px',shadow:'none',font:'17px',radius:'50%',width:'32px',height:'32px'});
+   assert.deepEqual(style,{background:'rgba(0, 0, 0, 0)',image:'none',border:'0px',shadow:'none',font:'18px',radius:'0px',width:'22px',height:'22px'});
   };
+  const typography=await prompt.evaluate(el=>{const s=getComputedStyle(el),key=getComputedStyle(el.querySelector('kbd'));return {font:s.fontFamily,weight:s.fontWeight,key:key.backgroundImage};});
+  assert(typography.font.includes('Paperlogy'));assert.equal(typography.weight,'700');assert(typography.key.includes('/assets/ui/outside/IMG_interaction.png'));
   await checkStyle();await prompt.hover();await checkStyle();await p.mouse.move(0,0);
   for(const viewport of [{width:1440,height:900},{width:1920,height:1080},{width:900,height:700}]){
    await p.setViewportSize(viewport);await p.waitForTimeout(150);
    const r=await prompt.boundingBox(),stage=await p.locator('.outside-stage').boundingBox(),scale=stage.width/1280;
-   assert(Math.abs(r.x-stage.x-28*scale)<1);
-   assert(Math.abs(stage.y+stage.height-r.y-r.height-28*scale)<1);
+   assert(Math.abs(r.x-stage.x-36*scale)<1);
+   assert(Math.abs(stage.y+stage.height-r.y-r.height-16*scale)<1);
   }
   await p.setViewportSize({width:1440,height:900});await p.waitForTimeout(150);
   await p.screenshot({path:'/private/tmp/interaction-bottom-left.png'});

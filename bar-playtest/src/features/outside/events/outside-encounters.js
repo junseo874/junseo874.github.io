@@ -6,7 +6,7 @@ const actors={'store-pair-left':{name:'행인 1',color:'#d6b987'},'store-pair-ri
 const trading=[{id:'trade-samho',kind:'samho',x:3.6,y:-.7,top:-.24,faces:'trade-smuggler'},{id:'trade-smuggler',kind:'M1',x:4.32,y:-.94,top:-.38,faces:'trade-samho'}];
 const cases=[{id:'outside_day0_store_passers',activation:'proximity',kind:'pair',members:['store-pair-left','store-pair-right']},{id:'outside_day0_building_residents',activation:'upper-corridor-visible',kind:'pair',members:['resident-left','resident-right']},{id:'outside_day0_port_pair',activation:'proximity',kind:'pair',members:['bar-pair-left','bar-pair-right']},{id:trade,activation:'forced',kind:'pair',members:trading.map(p=>p.id)}];
 function actor(id){const resident=global.LunaOutsideResidents?.actor(id);if(resident)return resident;const p=trading.find(p=>p.id===id)||global.LunaOutsideAmbient.placements.find(p=>p.id===id);return p?{...p,name:'행인',...actors[id],top:p.top??p.y+(p.kind==='M2'?.61:p.kind==='W1'?.53:.56)}:null;}
-function tradeVisible(m){return !m.qa&&global.LunaOutsideContent.active(m,global.LunaOutsideContent.events.find(e=>e.id===trade));}
+function tradeVisible(m){return !m.qa&&global.LunaOutsideContent.present(m,global.LunaOutsideContent.events.find(e=>e.id===trade));}
 function targets(){return [];}
 const flags=m=>m.qa?(m.qa.storyFlags??={}):global.lunaCampaign?.active?(global.barGame.progress.flags??={}):(m.notionFlags??={});
 function start(m){
@@ -19,7 +19,7 @@ function start(m){
 function tick(m,dt){
  const e=m.encounter;
  if(e?.kind!=='smuggler-trade'){
-  if(!m.qa&&!m.encounter&&!m.paused&&!m.transition&&!m.ride&&!m.dialog&&!m.story.blocking&&tradeVisible(m)&&!flags(m).day1_trade_done&&m.x>=2.7&&m.x<=5)return start(m);
+  if(!m.qa&&!m.level&&!m.encounter&&!m.paused&&!m.transition&&!m.ride&&!m.dialog&&!m.story.blocking&&tradeVisible(m)&&!flags(m).day1_trade_done&&m.x>=2.7&&m.x<=5)return start(m);
   return false;
  }
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;

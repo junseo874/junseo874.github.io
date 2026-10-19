@@ -107,6 +107,7 @@ g.LUNA_OUTSIDE_DIALOGUES.outside_day0_tv_news1=rows('outside_day0_tv_news1',[
     "Moving on to our next story…"
   ]
 ]);
+for(const [key,lines]of Object.entries(g.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))g.LUNA_OUTSIDE_DIALOGUES[key.slice(8)]=lines;
 const events=[
  {id:'outside_day0_tv_news1',label:'0일차 퇴근길 · TV 뉴스 1 · 집 안',day:0,flow:'out',scene:'home',auto:true,kind:'broadcast',title:'TV 뉴스 1'},
  {id:'outside_day0_store_passers',label:'0일차 퇴근길 · 행인 대사 1 · 편의점 앞',day:0,flow:'out',auto:true,kind:'pair'},
@@ -115,11 +116,13 @@ const events=[
  {id:pair,label:'0일차 퇴근길 · 포트 가게 앞 NPC 대화',day:0,flow:'out',auto:true,kind:'pair'},
  {id:poster,label:'상시 · 개시바 지명수배 포스터',persistent:true,auto:false,kind:'object',title:'지명수배',object:'wanted-poster',node:'5 poster_shiba_wanted_day1',x:-1.9849996,y:-.7}
 ];
-const active=(m,e)=>m.scene===(e.scene||'street')&&(e.scene==='home'||!m.level)&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
+// Presence belongs to the location/day, not the floor Luna currently occupies.
+const present=(m,e)=>!!e&&m.scene===(e.scene||'street')&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
+const active=(m,e)=>present(m,e)&&(e.scene==='home'||!m.level);
 // Keep original atlases for animation QA, but retired street props never render.
 const retired=new Set(['1 experiment_recruit','3 poster_help_wanted','7 poster_human_trafficking','10 real_estate_posting']);
-g.LunaOutsideContent={source,events,active,
+g.LunaOutsideContent={source,events,active,present,
  targets:m=>events.filter(e=>e.kind==='object'&&active(m,e)).map(e=>({id:e.object,source:e.id,nodeName:e.node,label:e.title+' 살펴보기',x:e.x,y:e.y})),
- visibleNode:(m,n)=>!retired.has(n.name)&&(!events.some(e=>e.node===n.name)||events.some(e=>e.node===n.name&&active(m,e)))
+ visibleNode:(m,n)=>!retired.has(n.name)&&(!events.some(e=>e.node===n.name)||events.some(e=>e.node===n.name&&present(m,e)))
 };
 })(typeof window==='undefined'?globalThis:window);

@@ -1,0 +1,4 @@
+﻿"id","target_location","target_phase","target_spot","effect","note","dataset_id","row_id","parent_id","parent_field","source_order","template_id"
+"enter_bar","bar","bar","\N","fade","바 정문에서 E → 바 입장. bar_open·1부·2부 분기는 BarController가 현재 일차 데이터로 결정","transitions","shared_944d6ac27f5f300c","@transitions","\N","0","shared_transitions_60a4e3c3b6660f38"
+"enter_home","home","home","home_spawn_entry","fade","집 현관에서 E → 집 내부 입장","transitions","shared_5770eee6826499ce","@transitions","\N","1","shared_transitions_4751ba5d5333a413"
+"exit_home","street","commute_in","home_door","fade","집 현관에서 상호작용 → 출근길 거리의 home_door에서 생성","transitions","shared_3c48858d89e6e0f3","@transitions","\N","2","shared_transitions_4751ba5d5333a413"

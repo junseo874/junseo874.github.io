@@ -31,7 +31,9 @@ function register(){
  const image=(id,name,src,w,h,kind='object')=>add(id,name,kind,{src,width:w,height:h,fw:w,fh:h,cols:1,count:1,fps:1,ppu:100});
  const svg=(id,name,body)=>image(id,name,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">'+body+'</svg>'),960,540);
  for(const [id,anim]of [['opening-yuna','yuna.stand'],['opening-luna','luna.stand']]){const d=Engine.ANIM[anim];add(id,id==='opening-yuna'?'유나 · 대기':'루나 · 대기','animation',{sheet:d.sheet,from:d.from,to:d.to,fps:d.fps,loop:true,ppu:100,align:'sheet'});}
- image('opening-home','크리스 집 · 기존 배경','../bar-playtest/assets/outside/chris-house-interior-full-shot-ver4-629b82.png',560,270);
+ for(const layer of W.LunaHomeArt.layers){
+  image(layer.name==='main_bg'?'opening-home':'opening-home-'+layer.name,'크리스 집 · '+layer.name,'../bar-playtest/'+W.LunaHomeArt.root+layer.file,layer.w,layer.h);
+ }
  add('opening-luna-home','루나 · 평상복 대기','animation',{src:'../bar-playtest/assets/outside/luna-v2-idle-sheet-62634d.png',width:267,height:258,fw:89,fh:86,cols:3,count:9,fps:12,ppu:100,pivot:{x:.5,y:.4}});
  // 12 x 2 cells, 130px each. Bottom row sleeps; top-row 8→11 opens the eyes.
  const sleepSheet={src:'assets/opening/luna-sleep.png',width:1560,height:260,fw:130,fh:130,cols:12,ppu:100,pivot:{x:.5,y:32/130}};
@@ -59,6 +61,14 @@ function register(){
  add('opening-alarm','크리스 · 첫 연락 (confirm_01)','audio',{src:'assets/opening/chris-contact-confirm.wav'});
  add('opening-dressing','루나 · 옷 갈아입는 소리','audio',{src:'assets/opening/change-clothes.wav'});
  for(const [mode,label]of [['on','켜짐'],['idle','통화 중'],['off','꺼짐']])add('opening-holo-'+mode,'홀로콜 · '+label,'effect',{src:W.StudioHoloCall.thumbnail(),width:100,height:72,fw:100,fh:72,cols:1,count:1,fps:1,ppu:100,procedural:'holo-call',holoMode:mode});
+}
+function houseVisuals(p,visual,start,duration){
+ for(const [index,layer] of W.LunaHomeArt.layers.entries()){
+  const main=layer.name==='main_bg',actor=main?'house':'house-'+layer.name;
+  const w=layer.w,x=-11.2+(layer.x+w/2)*.04,y=5.4-(layer.y+layer.h)*.04;
+  if(!main){p.actors[actor]={name:'집 · '+layer.name,x,y,facing:'left',asset:true};p.visibleActors.push(actor);p.tracks.push({id:actor,type:'visual',name:'집 · '+layer.name,height:48,muted:false});}
+  visual(actor,main?'opening-home':'opening-home-'+layer.name,start,duration,x,y,4,{layer:index-11});
+ }
 }
 function template(){
  const p={format:'unknown-cutscene',version:1,template:'opening',name:'게임 도입부 · 약속에서 첫 출근까지',background:'stage',duration:300,camera:{x:.7,y:.5,w:6.8},actors:{},visibleActors:[],tracks:[],clips:[],assets:[],source:'https://app.notion.com/p/3f51612298dc807e996bd9abe58e89b2',chapters:[]};
@@ -90,7 +100,7 @@ function template(){
  const homeStart=t;
  const eyes=homeStart+1.4,blackAt=M.round(homeStart+2.95),wake=M.round(blackAt+DRESSING_SECONDS),holoStart=wake+.5,phoneStart=holoStart+W.StudioHoloCall.duration,houseEnd=phoneStart+40;
  p.chapters.push({name:'집 · 연락음과 동시 전환 / 암전 후 기상',time:homeStart},{name:'크리스 · 통화',time:phoneStart});
- visual('house','opening-home',homeStart,houseEnd-homeStart,0,-5.4,4,{layer:-10});
+ houseVisuals(p,visual,homeStart,houseEnd-homeStart);
  const homeCam={x:5,y:-1.2,w:15};
  cam(homeStart,houseEnd-homeStart,homeCam,homeCam,'집 · 알람부터 통화까지 고정 구도');
  fx(homeStart,houseEnd-homeStart,'vignette',.22,'vignette');
@@ -110,7 +120,7 @@ function template(){
  visual('phone','opening-holo-idle',phoneStart,hangup-phoneStart,holo.x,holo.y,1,{loop:true,facing:'left',layer:2,title:'홀로콜 · 통화 유지 / 은은한 주사선'});
  visual('phone','opening-holo-off',hangup,W.StudioHoloCall.duration,holo.x,holo.y,1,{loop:false,facing:'left',layer:2,title:'홀로콜 · 켜짐의 역순으로 종료'});
  // Extend late clips to the actual final dialogue; timing follows the text length.
- for(const c of p.clips)if(c.track==='house'||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
+ for(const c of p.clips)if(c.track.startsWith('house')||c.track==='home-luna'&&c.start===wake||c.track==='room-audio'||c.track==='vignette'&&c.start===homeStart||c.type==='camera'&&c.start===homeStart)c.duration=finish-c.start;
  p.duration=finish;p.openingNotes='검은 화면 중앙의 네 문장을 상호작용 키로 한 문장씩 넘김. 마지막 문장을 넘기면 연락음과 동시에 크리스 집으로 전환. 눈뜨기 → 암전 중 환복 효과음 → 환복한 기립 자세 → 홀로콜. 통화 대사는 키 입력으로 진행하며 종료 후 집 조작 튜토리얼로 연결.';
  K.hydrate(p);return p;
 }
@@ -120,19 +130,19 @@ function rest(kind='sleep'){
  const p={format:'unknown-cutscene',version:1,template:kind,name:morning?'아침 · 눈뜨기와 환복':'밤 · 소파에서 잠들기',background:'stage',duration:end,camera:{x:5,y:-1.2,w:15},actors:{house:{name:'집',x:0,y:-5.4,asset:true},luna:{name:'루나',x:SOFA_SLEEP.x,y:SOFA_SLEEP.y,asset:true}},visibleActors:['house','luna'],tracks:[{id:'house',type:'visual'},{id:'luna',type:'visual'},{id:'fx',type:'fx'}],clips:[],assets:[]};
  const put=(type,start,o)=>p.clips.push(M.clip(type,start,o));
  const visual=(actor,assetId,start,duration,x,y,scale,extra={})=>put('visual',start,{track:actor,actor,assetId,duration,from:{x,y},to:{x,y},scale,facing:'left',...extra});
- visual('house','opening-home',0,end,0,-5.4,4,{layer:-10});
+ houseVisuals(p,visual,0,end);
  visual('luna','opening-luna-sleep',0,morning?.9:end,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:true});
  if(morning){
   p.tracks.push({id:'dressing-audio',type:'audio',name:'환복 효과음',height:48,muted:false});
   visual('luna','opening-luna-wake',.9,1.7,SOFA_SLEEP.x,SOFA_SLEEP.y,SOFA_SLEEP.scale,{loop:false});
   put('fx',2.2,{track:'fx',effect:'fadeOut',duration:.4,strength:1});
   dressing(put,2.6);
-  // The room is drawn at 4x the outside world's scale, using a 560px crop
-  // of the same 643px background. Match the waking spawn and follow camera
+  // The complete room is drawn at 4x the outside world's scale.
+  // Match the waking spawn and follow camera
   // in this coordinate system, so handing control back does not jump.
   const bg=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
   const housePoint=(x,y)=>({x:4*(x-bg.x)+bg.sprite.w*.02-11.2,y:4*(y-bg.y)});
-  const standing=housePoint(2.557,-.7),wide={...housePoint(1.14,.023),w:4.8*4};
+  const standing=housePoint(2.557,-.7),wide={...housePoint(W.LunaHomeArt.cameraX(2.557,4.8),.023),w:4.8*4};
   visual('luna','opening-luna-home',reveal,end-reveal,standing.x,standing.y,4,{loop:true,title:'루나 · 환복 후 기립'});
   put('fx',reveal,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
   p.tracks.push({id:'camera',type:'camera',name:'기상 후 줌아웃',height:48,muted:false});

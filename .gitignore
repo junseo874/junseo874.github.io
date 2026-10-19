@@ -5,3 +5,4 @@ node_modules/
 LUNA-Bar-Playtest.zip
 playwright-report/
 test-results/
+artifacts/shared-data-backup/

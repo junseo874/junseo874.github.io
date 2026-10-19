@@ -44,9 +44,17 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const c=lunaCampaign;c.cancelMemoryTransition();c.cancelDayTransition();c.disposeCinema();c.dialog=null;c.outsideSleep=null;c.outside.exit(true);c.session.uninstall();c.session.beginCommute(0);c.session.route='out';c.nightStarted=false;
    Object.assign(c.outside.config,{day:0,flow:'out',place:'home'});await c.outside.start();c.screen('game');c.outside.model.wakeAtSofa();c.outside.refreshHUD();
   });
+  // Record every screen, including synchronous renders between browser paints.
+  // The removed confirmation used to render and immediately dismiss itself.
+  await page.evaluate(()=>{
+   const c=lunaCampaign,screen=c.screen.bind(c);window.sofaScreens=[];
+   c.screen=function(view,...args){sofaScreens.push(view);return screen(view,...args);};
+  });
   await page.keyboard.press('KeyE');await choices.waitFor({state:'visible'});await page.keyboard.press('KeyE');
   assert.equal(await page.evaluate(()=>lunaCampaign.nightStarted),true);
   assert.equal(await choices.isVisible(),false);
+  assert.equal(await page.evaluate(()=>sofaScreens.includes('sleep')),false,'No transient end-of-day confirmation');
+  assert.equal(await page.locator('[data-campaign="sleep-confirm"]').count(),0);
   assert.deepEqual(errors,[]);
   console.log('PASS sofa choices: navigation/wrap, movement lock, cancel/reopen, feedback expiry, no save writes, developer and campaign sleep.');
  }finally{await browser.close();}

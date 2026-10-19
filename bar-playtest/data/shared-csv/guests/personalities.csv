@@ -1,0 +1,6 @@
+﻿"id","name.ko","name.en","tip_mult","patience_mult","think_chance","dataset_id","row_id","parent_id","parent_field","source_order","template_id","web_row_id"
+"gentle","온화형","Gentle","1","1.2","1","personalities","shared_25ca25cb0086ffa0","@personalities","\N","0","shared_personalities_ff52d71ce993cd48","personalities_gentle"
+"rough","거친형","Rough","1.1","0.8","0.3","personalities","shared_0a2f73792db74a2e","@personalities","\N","1","shared_personalities_3f15d735130322bc","personalities_rough"
+"touchy","예민형","Touchy","1","0.9","0.8","personalities","shared_53637e25a8f38a56","@personalities","\N","2","shared_personalities_d22a748532660bb7","personalities_touchy"
+"quiet","과묵형","Quiet","1.1","1.1","0.5","personalities","shared_7905badd980211eb","@personalities","\N","3","shared_personalities_3f15d735130322bc","personalities_quiet"
+"chatty","수다형","Chatty","1","1","1","personalities","shared_ed4e4dbdcaaf7d38","@personalities","\N","4","shared_personalities_c726a081a38b27f8","personalities_chatty"

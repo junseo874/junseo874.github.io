@@ -191,7 +191,14 @@ window.LunaBarViews = function ({
       key
     };
   }
-  function syncCamera(root) {
+  function syncCamera(root, {snap = false} = {}) {
+    // A serving-screen return reveals the destination immediately. Finish only
+    // camera transforms, including parallax layers, before measuring speech.
+    if (snap) root.querySelectorAll('.bar-scene-layer').forEach(el => {
+      el.getAnimations().forEach(animation => {
+        if (animation.transitionProperty === 'transform') animation.finish();
+      });
+    });
     const plane = root.querySelector('.counter-plane'),
       layout = cameraLayout();
     // Use the live matrix, including the in-flight camera transition, not its target.

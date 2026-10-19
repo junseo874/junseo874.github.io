@@ -12,6 +12,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   ['bar dialogue','<div class="dialogue-wrap"><button data-act="advance">말풍선</button></div>',0,0],
   ['bar choice','<div class="choices"><button data-act="choice">선택지</button></div>',1,0],
   ['outside dialogue','<button class="outside-speech">대사</button>',0,0],
+  ['poster exit','<section class="outside-inspection"><button data-outside-action="interact">나가기</button></section>',0,0],
   ['seat A/D','<button data-act="seat">A</button>',0,0],
   ['shelf A/D','<button data-act="shelfCategory">D</button>',0,0],
   ['coaster','<button data-drag="coaster">코스터</button>',0,0],
@@ -38,5 +39,16 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  }
  await p.mouse.move(5,5);await p.evaluate(()=>document.querySelector('#audio-policy-fixture').innerHTML='<div class="choices"><button data-act="choice">새 선택지</button></div>');
  const before=await p.evaluate(()=>uiCues.hover);await p.locator('#audio-policy-fixture button').focus();await p.waitForTimeout(160);assert.equal(await p.evaluate(()=>uiCues.hover),before,'Auto-focus is silent');
- assert.deepEqual(errors,[]);console.log('PASS quiet dialogue, choices hover-only, A/D, tutorials, drags, service/recipes, settings retained, no automatic choice cue.');
+ await p.evaluate(()=>{
+  const saved=window.outsidePlaytest,m={near:null},el=document.createElement('button'),holder=document.createElement('div');
+  holder.id='outside-root';holder.append(el);el.dataset.outsideAction='interact';
+  try{
+   window.outsidePlaytest={model:m};
+   m.near={id:'wanted-poster'};
+   if(LunaUIAudioPolicy.allows(el,'click')||LunaUIAudioPolicy.allows(el,'hover'))throw Error('Poster entry must be silent');
+   m.near={id:'elevator'};
+   if(!LunaUIAudioPolicy.allows(el,'click')||!LunaUIAudioPolicy.allows(el,'hover'))throw Error('Other interaction sound changed');
+  }finally{window.outsidePlaytest=saved;}
+ });
+ assert.deepEqual(errors,[]);console.log('PASS quiet poster entry/exit, dialogue, choices hover-only, tutorials, drags, service/recipes; other interactions and settings retained.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

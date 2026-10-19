@@ -5,6 +5,8 @@ from PIL import Image
 from asset_paths import output_path
 
 APP = Path(__file__).resolve().parents[1]
+if (APP/'data/shared-csv/system/table_index.csv').exists():
+    raise SystemExit('Shared CSV is authoritative. Use node tools/build-shared-data.cjs --write; this legacy importer would overwrite current content.')
 PROJECT = Path('/Users/lee/Desktop/project')
 CSV = PROJECT/'Human-Bartender/HumanBartender/Assets/StreamingAssets/csv'
 ART = next(p for p in PROJECT.iterdir() if unicodedata.normalize('NFC',p.name).startswith('9. 그래픽'))

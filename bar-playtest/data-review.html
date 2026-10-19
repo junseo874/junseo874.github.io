@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>공통 CSV 데이터 · LUNA</title>
+<link rel="stylesheet" href="src/dev/data/data-review.css">
+</head>
+<body>
+<header><a href="index.html?dev=1">← 시뮬레이터</a><h1>공통 CSV 데이터</h1><a href="resource-review.html">리소스 확인</a></header>
+<main>
+<section class="controls" aria-label="데이터 선택">
+<label>표<select id="table" disabled></select></label>
+<label>데이터 묶음<select id="dataset" disabled><option value="">전체</option></select></label>
+<label class="search">검색<input id="search" type="search" placeholder="이름, 대사, ID 검색" disabled></label>
+<label class="metadata"><input id="metadata" type="checkbox">구조 열 표시</label>
+<a id="download" hidden download>CSV 내려받기</a>
+</section>
+<p id="status" role="status">CSV를 확인하는 중…</p>
+<div class="table-scroll" tabindex="0" aria-label="CSV 데이터 표"><table><thead id="head"></thead><tbody id="rows"></tbody></table></div>
+<nav class="pages" aria-label="페이지"><button id="previous" disabled>이전</button><span id="page"></span><button id="next" disabled>다음</button></nav>
+<details><summary>편집·동기화 안내</summary><p>이 화면은 공통 원본 CSV를 보여줍니다. CSV 수정 후 웹 데이터를 다시 생성하고 엔진에 동기화해야 플레이에 반영됩니다. 내려받기는 검색 결과가 아닌 선택한 표 전체입니다.</p><p><code>\N</code>은 값 없음, <code>\E</code>는 빈 문자열입니다. 구조 열의 ID와 연결 관계를 임의로 지우지 마세요.</p><p>웹에서 수정: <code>node tools/sync-shared-data.cjs --to-engine</code><br>엔진에서 수정: <code>node tools/sync-shared-data.cjs --from-engine</code><br>일치 여부 검사: <code>node tools/sync-shared-data.cjs --check</code></p></details>
+</main>
+<script src="src/shared/data/csv-catalog.js"></script>
+<script src="src/dev/data/data-review.js"></script>
+</body></html>

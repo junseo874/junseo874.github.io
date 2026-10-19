@@ -32,7 +32,11 @@ window.StudioExtras=function(api){'use strict';
   if(asset.procedural==='holo-call'&&window.StudioHoloCall)StudioHoloCall.draw(g,asset.holoMode,age,k,a.scale);
   else if(asset.sheet){const frames=asset.to-asset.from+1,frame=asset.from+(a.loop?Math.floor(age*asset.fps)%frames:Math.min(frames-1,Math.floor(age*asset.fps))),anchor=Sprites.animAnchor(asset.sheet,asset.from,asset.to,asset.align);Sprites.draw(g,asset.sheet,frame,0,0,{alpha:a.opacity,scale:k/100*a.scale,ax:anchor?.ax,ay:anchor?.ay});}
   else{const im=A.getImage(asset.id);if(im?.complete&&im.naturalWidth){const frame=a.loop?Math.floor(age*asset.fps)%asset.count:Math.min(asset.count-1,Math.floor(age*asset.fps)),n=asset.frames?.[frame]??frame,w=asset.fw/asset.ppu*k*a.scale,h=asset.fh/asset.ppu*k*a.scale;
-   if(asset.captionBand){
+   if(asset.id==='opening-home-home-city'&&window.LunaHomeArt){
+    LunaHomeArt.paintCity(g,im,-w/2,-h,w,h,(cam.x-a.x)/a.scale);
+   }else if(asset.id==='opening-home-home-fence'&&window.LunaHomeArt){
+    LunaHomeArt.paintFence(g,im,-w/2,-h,w,h);
+   }else if(asset.captionBand){
     // TV composition: keep the supplied picture intact above a fixed subtitle band.
     const pictureH=h*(1-asset.captionBand),pictureW=w*(1-asset.captionBand);
     g.fillStyle='#02080e';g.fillRect(-w/2,-h,w,h);

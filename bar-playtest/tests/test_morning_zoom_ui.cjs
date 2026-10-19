@@ -26,10 +26,20 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>lunaCampaign.view),'options');
    const paused=await p.evaluate(()=>lunaCampaign.cinema.time);await p.waitForTimeout(120);assert.equal(await p.evaluate(()=>lunaCampaign.cinema.time),paused);await p.keyboard.press('Escape');
    await seek(info.end-.1);if(day===1)await p.screenshot({path:'/private/tmp/morning-zoom-wide.png'});
+   const cityDepth=await p.evaluate(()=>{
+    const calls=[],paint=LunaHomeArt.paintCity,c=lunaCampaign;
+    LunaHomeArt.paintCity=(...args)=>{calls.push(LunaHomeArt.cityCrop(args[6]));return paint(...args);};
+    c.cinema.player.render(c.cinema.scene.end-.001,null,false);
+    const cinema=calls.at(-1);calls.length=0;
+    outsidePlaytest.tick(0);const game=calls.at(-1);
+    LunaHomeArt.paintCity=paint;return {cinema,game};
+   });
+   assert(cityDepth.cinema&&cityDepth.game,'Both render paths use city depth');
+   assert(Math.abs(cityDepth.cinema.x-cityDepth.game.x)<.001,'City parallax remains aligned across morning handoff');
    const alignment=await p.evaluate(()=>{
     const c=lunaCampaign,s=StudioModel.sample(c.cinema.scene,c.cinema.scene.end-.001),cam=s.camera,out=outsidePlaytest.camera,bg=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
     const screen=(x,y,v)=>[640+(x-v.x)*1280/v.w,360-(y-v.y)*1280/v.w];
-    const points=[[425,184],[519,224],[302,159]].map(([u,v])=>({cinema:screen(-11.2+u*.04,5.4-v*.04,cam),game:screen(bg.x+(u-bg.sprite.w*.5)/100,bg.y+(bg.sprite.h*.5-v)/100,out)}));
+    const points=[[425,184],[519,224],[302,159],[610,175]].map(([u,v])=>({cinema:screen(-11.2+u*.04,5.4-v*.04,cam),game:screen(bg.x+(u-bg.sprite.w*.5)/100,bg.y+(bg.sprite.h*.5-v)/100,out)}));
     points.push({cinema:screen(s.actors.luna.x,s.actors.luna.y,cam),game:screen(outsidePlaytest.model.x,outsidePlaytest.model.y,out)});
     return {points,scale:s.actors.luna.scale/cam.w,outScale:1/out.w};
    });

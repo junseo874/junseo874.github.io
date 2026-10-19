@@ -24,12 +24,25 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 이동·제조 튜토리얼 | `bar-playtest/src/features/tutorials/` |
 | 리소스 검수·다운로드 | `bar-playtest/src/dev/resources/` |
 | 99일차·테스트 상황 | `bar-playtest/src/dev/qa/` |
-| 원본 테이블·캐릭터 이미지 등록 | `bar-playtest/data/runtime/game-data.js` |
+| 공통 게임 데이터 원본 | `bar-playtest/data/shared-csv/` (Unity CSV 구조) |
+| 캐릭터 이미지·표현 리소스 등록 | `bar-playtest/data/presentation/runtime-assets.json` |
 | 거리 장면·스프라이트 좌표 | `bar-playtest/data/runtime/outside-scene-data.js` |
-| 이야기 대사 | `bar-playtest/data/runtime/campaign-data.js`, `outside-dialogues.js` |
+| 본편·거리 공통 대사 | `bar-playtest/data/shared-csv/story/` → 생성된 런타임 뷰 |
 | 컷씬 편집 | `cutscene-studio/src/`, `styles/` |
 
 ## 로딩·경로 계약
+
+### 공통 CSV (2026-10-19)
+
+`bar-playtest/data-review.html`에서 44개 표를 검색하고 CSV를 내려받을 수 있습니다. Unity의 `Assets/StreamingAssets/csv`와 동일한 4개 메타데이터 파일 및 44개 데이터 표를 사용합니다. 웹 최신 대사와 레시피를 우선하고, 엔진 전용 캐릭터·아이템은 보존했습니다. BD 판매상 장면은 제외했습니다.
+
+수정 원본은 `data/shared-csv/`입니다. `data/runtime/game-data.js`, `campaign-data.js`는 배포용 생성 결과이므로 직접 수정하지 않습니다. 웹에서 변경 후 `node tools/sync-shared-data.cjs --to-engine`, 엔진에서 변경 후 `--from-engine`을 실행합니다. 다른 엔진 경로는 마지막 인자로 지정합니다. 양쪽을 동시에 수정하면 충돌로 중단하며 자동 덮어쓰지 않습니다. `--check`로 양쪽 파일 및 웹 생성 결과의 일치를 검사합니다. 웹만 생성할 때는 `node tools/build-shared-data.cjs --write`를 사용합니다.
+
+CSV 구조의 ID·부모 연결·타입 정의는 유지해야 합니다. `web-views.json`은 기존 웹의 테이블/장면 연결 정보입니다. 기존 행 값 변경은 바로 반영되지만 새 행·새 장면을 추가할 때는 해당 뷰 연결도 등록해야 합니다. `count` 단위는 엔진에서 사용하며 웹에는 기존처럼 `개`로 표시합니다. `web_*` 열은 웹 표현 정보입니다.
+
+초기 원본 백업은 로컬 `artifacts/shared-data-backup/`에 있습니다(버전 관리 제외). 이미 배포한 뒤 초기 마이그레이션을 다시 실행할 수 없도록 막았습니다. 구형 import/build_campaign 생성 도구도 덮어쓰기를 차단합니다. 검증은 `node tools/run-tests.cjs data`로 실행합니다.
+
+현재 공통화 범위는 게임 테이블, 본편 캠페인, 등록된 거리 인물·상점·불량배 대사입니다. 컷씬 편집기 연출 프로젝트, 동적으로 조립하는 일부 이벤트 선택 문구·진행 로직, 이미지 좌표·애니메이션은 여전히 웹 모듈에 있습니다. CSV 일치는 양 플랫폼의 플레이 동작 일치까지 보증하지 않으므로 Unity 실제 플레이 검증은 별도로 필요합니다.
 
 1. `index.html`의 CSS/JS 순서는 기능 의존성과 CSS 우선순위의 일부입니다. 정리 전 순서를 보존합니다.
 2. 브라우저 JS에서 `assets/...`는 **페이지 주소** 기준입니다. 파일을 `src/` 안에 옮겼다고 모든 이미지에 `../../../`를 붙이면 안 됩니다.

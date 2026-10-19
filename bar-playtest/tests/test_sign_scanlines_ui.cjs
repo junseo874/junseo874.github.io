@@ -74,7 +74,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     for(const r of LunaSignScanlines.masks[key]){ctx.beginPath();r.points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.stroke();}
    }
   });await p.screenshot({path:'/private/tmp/scanlines-mask-audit.png'});
-  for(const key of ['C_Middle_Building_1','C_Middle_Building_2','C_Middle_Building_3'])await p.locator('[data-audit="'+key+'"]').screenshot({path:'/private/tmp/scanlines-mask-'+key+'.png'});
+  for(const key of ['C_Middle_Building_1','C_Middle_Building_2','C_Middle_Building_3','terrace'])await p.locator('[data-audit="'+key+'"]').screenshot({path:'/private/tmp/scanlines-mask-'+key+'.png'});
   assert.deepEqual(errors,[]);console.log('PASS '+audit.reduce((s,a)=>s+a.count,0)+' sign masks: no outside pixels, restrained opacity, cached motion, reduced-motion static, street/terrace integration and foreground occlusion.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
