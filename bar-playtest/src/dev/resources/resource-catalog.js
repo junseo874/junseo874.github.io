@@ -3,9 +3,9 @@
 'use strict';
 const groups=[['bar-characters','바 내부','캐릭터 / 애니메이션'],['bar-drinks','바 내부','칵테일 · 용도별 이미지'],['bar-items','바 내부','재료 / 도구 / 잔'],['bar-serve','바 내부','제공하기 컷씬'],['bar-ui','바 내부','UI / 화면 테스트'],['out-characters','외부','캐릭터 / 컷씬 동작'],['out-ui','외부','UI / 이벤트 테스트']];
 const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체·공용',missing:'미등록',code:'코드 UI·연출'};
-// Screen behavior exists, but dedicated UI artwork is not yet in production.
-// Explicit owner confirmation; a screen capture is not a finished UI asset.
-const pendingUIArt=new Set(['recipes','dossier','overlay:service','overlay:settings','overlay:history','overlay:johnnyUnlock','unlock','mini:shake','mini:stir','mini:pour','result']);
+// Remaining screens without a supplied full UI art set.
+// A screenshot alone is not an art set; restored recipe/profile/service/stir assets are inventoried below.
+const pendingUIArt=new Set(['overlay:settings','overlay:history','overlay:johnnyUnlock','unlock','mini:shake','mini:pour','result']);
 // Owner-confirmed gaps: a shared bottle or temporary drawing is not dedicated item art.
 const pendingItemArt=new Set(['cointreau','cranberry_juice','triple_sec','kahlua','milk','amaretto','wild_dog','bitters','sugar_cube']);
 const revisionUI=new Set(['ui:prep','ui:pair','ui:mini:shake','ui:mini:stir']);

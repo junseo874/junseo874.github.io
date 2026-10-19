@@ -13,7 +13,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert((await bg('.shelf-dots button.selected span')).includes('IMG_indicator_B.png'));assert(await p.locator('.shelf-arrow.prev').isDisabled());
   await p.locator('.shelf-arrow.next').hover();assert((await bg('.shelf-arrow.next')).includes('BTN_arrow_R_B.png'));await p.locator('.shelf-arrow.next').click();await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>lunaCampaign.ui.tab),'tool');
   await p.locator('.shelf-dots [data-id="liquor"]').click();await p.waitForTimeout(500);
-  assert((await bg('.shelf-scene[data-category="liquor"]')).includes('a_5aefa124a3ff.png?v=warm-shelf-20261019'));
+  const liquorSource=await p.evaluate(()=>new URL(barData.assets.prep_liquor.src,location.href).href);assert((await bg('.shelf-scene[data-category="liquor"]')).includes(liquorSource),'Render the current registered shelf resource');
   const shelf=await p.evaluate(async()=>{const a=barData.assets.prep_liquor,i=new Image();i.src=a.src;await i.decode();return [i.naturalWidth,i.naturalHeight];});assert.deepEqual(shelf,[960,540]);
   await p.screenshot({path:'/private/tmp/luna-new-liquor-shelf.png'});
   await p.locator('.shelf-item[data-id="gin"]').click();assert.equal(await p.locator('.inventory-slot[data-id="gin"]').count(),1);

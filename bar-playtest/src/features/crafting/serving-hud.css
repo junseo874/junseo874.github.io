@@ -1,6 +1,5 @@
-/* Share the supplied textbox's centre slice; omit the tail on draggable cards. */
-.dialogue-surface,.bar-view .service-popup:before{background:#0b0c15 url('../../../assets/ui/dialogue/GRD_textbox_5.png') center/100% 100% no-repeat;opacity:.98}
-.dialogue-surface:before{background:#0b0c15}
+/* Supplied card art is applied below, retaining the established drag geometry. */
+.bar-view .service-popup:before{background:#0b0c15 url('../../../assets/ui/dialogue/GRD_textbox_5.png') center/100% 100% no-repeat;opacity:.98}
 .bar-view .service-popup{isolation:isolate;background:transparent;border:0;border-radius:8px;box-shadow:none;touch-action:none;cursor:var(--luna-cursor-grab,grab);user-select:none}
 .bar-view .service-popup:before{content:'';position:absolute;inset:0;z-index:-1;border:1px solid #659ab5;border-radius:8px;box-shadow:inset 0 0 8px #508ac933,0 0 5px #73b8e348;pointer-events:none}
 .bar-view .service-popup:focus-visible{outline:2px solid #a6faff;outline-offset:3px}
@@ -32,3 +31,16 @@
 .native-coaster.drop-ready .delivery-shadow{opacity:1}
 @keyframes delivery-nudge{0%,100%{transform:translateY(0)}55%{transform:translateY(7px)}}
 @media(prefers-reduced-motion:reduce){.delivery-arrow{animation:none}}
+
+/* Supplied draggable-card frames include their own border, glow and shading. */
+.bar-view .service-popup:before{border:0;border-radius:0;box-shadow:none;opacity:1;background-color:transparent}
+.bar-view .stack.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_coaster.png')}
+.bar-view .drink-tray.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_cocktail.png')}
+/* Render each complete original frame in one pass. Border-image slicing leaves
+   translucent seams at fractional viewport scales; a single background does not. */
+.dialogue-surface{inset:-24px -1px -1px;border:0;border-radius:0;background:transparent url('../../../assets/ui/dialogue/GRD_textbox.png') center/100% 100% no-repeat;opacity:.98}
+.dialogue-surface:before,.player-speech .dialogue-surface:before{content:none}
+.player-speech .dialogue-surface{inset:-1px -1px -24px;background-image:url('../../../assets/ui/dialogue/GRD_textbox_luna.png')}
+
+/* Keep the advance marker inside the source frame, clear of its rounded edge. */
+.dialogue-box>.dialogue-advance-cue{right:17px;bottom:18px}

@@ -1,7 +1,15 @@
-// UI source PNG inventory, refreshed 2026-10-18. Generated from assets/ui.
+// Original UI PNG inventory used by resource review.
 window.ResourceUISources=[
-  {"src":"assets/ui/serving/IMG_shadow_cocktail.png","w":297,"h":130},
-  {"src":"assets/ui/dialogue/GRD_textbox_5.png","w":1405,"h":208},
+  {
+    "src": "assets/ui/serving/IMG_shadow_cocktail.png",
+    "w": 297,
+    "h": 130
+  },
+  {
+    "src": "assets/ui/dialogue/GRD_textbox_5.png",
+    "w": 1405,
+    "h": 208
+  },
   {
     "src": "assets/ui/choices/IMG_choice_A.png",
     "w": 2103,
@@ -311,5 +319,65 @@ window.ResourceUISources=[
     "src": "assets/ui/title/street-full.png",
     "w": 2880,
     "h": 1620
+  },
+  {
+    "src": "assets/ui/serving/IMG_box_coaster.png",
+    "w": 524,
+    "h": 176
+  },
+  {
+    "src": "assets/ui/serving/IMG_box_cocktail.png",
+    "w": 593,
+    "h": 280
+  },
+  {
+    "src": "assets/ui/dialogue/GRD_textbox.png",
+    "w": 1625,
+    "h": 446
+  },
+  {
+    "src": "assets/ui/dialogue/GRD_textbox_luna.png",
+    "w": 1625,
+    "h": 358
+  },
+  {
+    "src": "assets/ui/preparation/GRD_igd_info_A.png",
+    "w": 47,
+    "h": 226
+  },
+  {
+    "src": "assets/ui/preparation/GRD_igd_info_B.png",
+    "w": 184,
+    "h": 226
+  },
+  {
+    "src": "assets/ui/preparation/GRD_igd_info_D.png",
+    "w": 46,
+    "h": 226
+  },
+  {
+    "src": "assets/ui/preparation/recipes/BTN_recipe_close.png",
+    "w": 76,
+    "h": 76
+  },
+  {
+    "src": "assets/ui/preparation/recipes/IMG_recipe_igd_box.png",
+    "w": 191,
+    "h": 191
+  },
+  {
+    "src": "assets/ui/preparation/recipes/IMG_recipe_box.png",
+    "w": 1038,
+    "h": 1980
+  },
+  {
+    "src": "assets/ui/preparation/recipes/IMG_ESC.png",
+    "w": 76,
+    "h": 36
+  },
+  {
+    "src": "assets/ui/preparation/recipes/IMG_cocktail_box.png",
+    "w": 841,
+    "h": 431
   }
 ];

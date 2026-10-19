@@ -180,9 +180,11 @@
     return ['regular', 'opening'].includes(g.phase) && g.screen === 'bar' && g.currentOrder && !g.drink && !g.dialogue && !g.choice && g.story?.steps[g.story.index]?.type === 'craft' && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0 ? g.craftReminder : null;
   }
   function dialogueHTML() {
-    if (ui.drag) return '';
+    // The next scene is prepared under the door before it is revealed. Do not
+    // expose its pending speech until the door and camera have settled.
+    if (ui.drag || campaign?.doorTransition) return '';
     const reminder = storyCraftReminder(),
-      d = g.currentDialogue() || (g.phase === 'general' ? g.seats[g.focus]?.lines?.[g.seats[g.focus]?.lineIndex] : g.dialogue) || reminder;
+      d = g.currentDialogue() || reminder;
     if (!d) return '';
     const interactive = g.phase !== 'general' && !reminder && !g.storyCoaster,
       player = d.actor === 'luna';

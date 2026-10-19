@@ -3,8 +3,8 @@
 .service-handle span,.service-handle kbd{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
 .service-handle:hover{filter:brightness(1.2)}
 .service-handle:focus-visible{outline:1px solid #85d8ec;outline-offset:3px}
-.resource-service-panel{left:23px;bottom:160px;width:296px;padding:23px 20px 22px;border:1px solid #6999b8;border-radius:9px;background:radial-gradient(#7394aa18 .6px,transparent .8px) 0 0/9px 9px,linear-gradient(#121620f9,#090d17fc);box-shadow:inset 0 0 9px #75bfff38,0 0 4px #87d0ff70}
-.resource-service-panel header{align-items:flex-start;margin-bottom:19px;gap:8px}
+.resource-service-panel{left:26.667px;bottom:160px;width:296px;padding:23px 22px 18px;border:1px solid #6999b8;border-radius:9px;background:radial-gradient(#7394aa18 .6px,transparent .8px) 0 0/9px 9px,linear-gradient(#121620f9,#090d17fc);box-shadow:inset 0 0 9px #75bfff38,0 0 4px #87d0ff70}
+.resource-service-panel header{align-items:flex-start;margin-bottom:15px;gap:8px}
 .service-eyebrow{display:block;font-size:13px;color:#64849f;line-height:1.3;margin:0 0 5px}
 .resource-service-panel h2{font-size:23px;color:#45ddf5;line-height:1.25}
 .resource-close,.resource-service-panel header .resource-close{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;width:32px;flex:none;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;font-size:0}
@@ -12,7 +12,7 @@
 .resource-close .resource-esc{width:31px;height:15px}
 .resource-close:hover:not(:disabled){background:transparent;border:0;filter:brightness(1.4)}
 .resource-close:focus-visible{outline:1px solid #7bcee5;outline-offset:3px}
-.resource-service-panel .service-actions{gap:4px}
+.resource-service-panel .service-actions{gap:4px;margin-inline:-4px}
 .resource-service-panel .service-actions button{width:100%;height:55px;flex:none;padding:0 15px 0 46px;border:0;border-radius:0;background:transparent url('../../../assets/ui/service_panel/BTN_service_A.png') center/100% 100% no-repeat;box-shadow:none;font-size:15px;color:#929ba8;line-height:1.25;text-align:left}
 .resource-service-panel .service-actions button:is(:hover,:focus-visible):not(:disabled){background-image:url('../../../assets/ui/service_panel/BTN_service_B.png');color:#b3deeb;outline:none}
 .resource-service-panel .service-actions button:disabled{opacity:.35}

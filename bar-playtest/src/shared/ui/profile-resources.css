@@ -70,3 +70,9 @@
 .resource-profile .profile-section.locked h3{color:#617381}
 .resource-profile .profile-locked{background:transparent;padding:4px 0;font-size:19px}
 .resource-profile .portrait-placeholder{height:100%;width:100%;font-size:12px}
+
+/* Pointer/keyboard inspection highlights one card, including after a selection. */
+.resource-profile .dossier-grid:has(.guest-card:is(:hover,:focus-visible):not(:disabled)) .guest-card.selected:not(:hover):not(:focus-visible){background:transparent url('../../../assets/ui/profile/IMG_card_B.png') center/100% 100% no-repeat}
+.resource-profile .dossier-grid:has(.guest-card:is(:hover,:focus-visible):not(:disabled)) .guest-card.selected:not(:hover):not(:focus-visible):after{inset:0;background-image:url('../../../assets/ui/profile/IMG_card_B_frame.png');background-size:100% 100%}
+.resource-profile .profile-english-name{text-transform:uppercase;letter-spacing:-.025em}
+.resource-profile .profile-body{mask-image:linear-gradient(#000 0%,#000 calc(100% - 24px),transparent)}

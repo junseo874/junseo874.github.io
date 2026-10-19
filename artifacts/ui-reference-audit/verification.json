@@ -1,0 +1,11 @@
+{
+  "checked": "2026-10-19",
+  "originalReferenceScreens": 10,
+  "extraServingState": true,
+  "longDialogueTypingStable": true,
+  "sourceFramesNoDuplicateTail": true,
+  "profileSingleHighlight": true,
+  "stirPressedNextFrames": true,
+  "browserErrors": [],
+  "missingAssets": []
+}

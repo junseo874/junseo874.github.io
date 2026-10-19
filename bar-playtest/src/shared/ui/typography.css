@@ -87,3 +87,9 @@ button,input,select,textarea{font-family:inherit}
 .service-eyebrow{font-family:var(--font-latin);font-weight:500}
 .recipe-item-tip,.profile-section p,.profile-facts,.profile-data-note{font-family:var(--font-ui);font-weight:500}
 .recipe-item-tip strong{font-family:var(--font-dialogue);font-weight:700}
+
+/* Unspecified secondary dialogs follow the established title/body/action roles. */
+.modal{font-family:var(--font-ui);font-weight:500}
+.modal h2,.modal h3{font-family:var(--font-dialogue);font-weight:700}
+.modal button{font-family:var(--font-ui);font-weight:600}
+.modal .recipe-lines,.modal .recipe-note{font-family:var(--font-ui);font-weight:500}
