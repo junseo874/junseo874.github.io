@@ -611,7 +611,8 @@ body{
 ::-webkit-scrollbar-thumb{background:#262a35;border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:#3d4250}
 </style>
-<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="bar-playtest/src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="bar-playtest/src/shared/ui/cursors.js?v=layout-20261019"></script>
 </head>
 <body>
 
@@ -619,14 +620,22 @@ body{
 
 <div id="topbar">
   <div class="logo">LUNA · TEST TOOL</div>
-  <div class="tag">DAY <b id="tb-day">0</b></div>
-  <div class="tag">SCENE <b id="tb-scene">day_test</b></div>
-  <div class="tag">CUSTOMER <b id="tb-customer">port</b></div>
-  <div class="spacer"></div>
-  <div id="hud-money">💰 <b id="hud-money-val">€0</b></div>
-  <div id="hud-mastery">🛠 <b id="hud-mastery-val">Lv.0</b></div>
-  <div class="stat">NODE <b id="tb-node">—</b></div>
-  <div class="stat">STEP <b id="tb-step">0</b></div>
+  <div class="tag">DAY <b id="tb-day">0</b>
+</div>
+  <div class="tag">SCENE <b id="tb-scene">day_test</b>
+</div>
+  <div class="tag">CUSTOMER <b id="tb-customer">port</b>
+</div>
+  <div class="spacer">
+</div>
+  <div id="hud-money">💰 <b id="hud-money-val">€0</b>
+</div>
+  <div id="hud-mastery">🛠 <b id="hud-mastery-val">Lv.0</b>
+</div>
+  <div class="stat">NODE <b id="tb-node">—</b>
+</div>
+  <div class="stat">STEP <b id="tb-step">0</b>
+</div>
 </div>
 
 <div id="main">
@@ -635,9 +644,11 @@ body{
     <div id="screen-host">
 
       <!-- TOP-LEFT: PARAM CHANGE POPUPS -->
-      <div id="param-popup-stack"></div>
+      <div id="param-popup-stack">
+</div>
       <!-- TOP-RIGHT: ECON / MASTERY TOASTS -->
-      <div id="econ-toast-stack"></div>
+      <div id="econ-toast-stack">
+</div>
 
       <!-- DIALOGUE SCREEN -->
       <div id="dlg-screen" class="screen active">
@@ -661,15 +672,29 @@ body{
               <div class="cb-meta" id="cb-right-meta">—</div>
             </div>
           </div>
-          <div id="fade-overlay"></div>
+          <div id="fade-overlay">
+</div>
         </div>
-        <div id="choices-box" class="hidden"></div>
+        <div id="choices-box" class="hidden">
+</div>
         <div id="dlg-box">
-          <div id="spk-bar"><span id="spk-name">…</span><span id="spk-type"></span></div>
-          <div id="txt-area"><span id="txt-content"></span><span id="txt-cursor"></span></div>
+          <div id="spk-bar">
+<span id="spk-name">…</span>
+<span id="spk-type">
+</span>
+</div>
+          <div id="txt-area">
+<span id="txt-content">
+</span>
+<span id="txt-cursor">
+</span>
+</div>
           <div id="adv-hint" class="hidden">SPACE ▸ ENTER ▸ CLICK</div>
         </div>
-        <div id="end-overlay"><h2>— END OF TEST —</h2><p>처음부터 다시 시작하려면 RESTART 버튼을 누르세요.</p></div>
+        <div id="end-overlay">
+<h2>— END OF TEST —</h2>
+<p>처음부터 다시 시작하려면 RESTART 버튼을 누르세요.</p>
+</div>
       </div>
 
       <!-- CRAFT SCREEN -->
@@ -680,22 +705,30 @@ body{
           <div id="craft-event-id">EVENT: —</div>
         </div>
         <div id="craft-body">
-          <div id="ingr-panel"></div>
+          <div id="ingr-panel">
+</div>
           <div id="cart-panel">
             <h3>담은 재료</h3>
-            <div id="cart-list"><div id="cart-empty">재료를 선택하세요</div></div>
+            <div id="cart-list">
+<div id="cart-empty">재료를 선택하세요</div>
+</div>
             <div id="sel-recipe">
-              <div class="sr-name"></div>
-              <div class="sr-kw"></div>
-              <div class="sr-method"></div>
-              <div class="sr-ingr"></div>
+              <div class="sr-name">
+</div>
+              <div class="sr-kw">
+</div>
+              <div class="sr-method">
+</div>
+              <div class="sr-ingr">
+</div>
             </div>
           </div>
         </div>
         <div id="craft-footer">
           <button onclick="openRecipe()">📖 레시피 검색</button>
           <button onclick="resetCart()">🗑 초기화</button>
-          <div style="flex:1"></div>
+          <div style="flex:1">
+</div>
           <button class="method-btn" onclick="startMini('shake')">쉐이킹</button>
           <button class="method-btn" onclick="startMini('stir')">스터</button>
           <button class="method-btn" onclick="startMini('build')">빌드</button>
@@ -706,8 +739,10 @@ body{
       <div id="mini-screen" class="screen">
         <div id="mini-inner">
           <div id="mini-title">제조 중</div>
-          <div id="mini-method"></div>
-          <div id="mini-keys"></div>
+          <div id="mini-method">
+</div>
+          <div id="mini-keys">
+</div>
           <div id="mini-timer">8.0</div>
           <div id="mini-meta">PERFECT: 0 errors · NORMAL: 1-2 errors · FAIL: timeout</div>
           <div id="mini-msg">표시된 W A S D 키를 순서대로 입력하세요</div>
@@ -723,7 +758,8 @@ body{
       <button class="tb" onclick="openSettlement()">💰 정산</button>
       <button class="tb danger" onclick="restartGame()">🔄 RESTART</button>
       <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-left:18px">SPACE/ENTER 진행 · BACKSPACE 뒤로</span>
-      <span id="prog">NODE <b>—</b></span>
+      <span id="prog">NODE <b>—</b>
+</span>
     </div>
   </div>
 
@@ -731,13 +767,29 @@ body{
   <div id="right-pane">
 
     <div class="dbg-section">
-      <h3>📍 CURRENT NODE <span class="badge" id="badge-type">—</span></h3>
+      <h3>📍 CURRENT NODE <span class="badge" id="badge-type">—</span>
+</h3>
       <div class="dbg-body" id="dbg-node">
-        <div class="row id"><span>ID</span><span id="dn-id">—</span></div>
-        <div class="row"><span>SPEAKER</span><span id="dn-speaker">—</span></div>
-        <div class="row"><span>EXPRESSION</span><span id="dn-expr">—</span></div>
-        <div class="row"><span>NEXT</span><span id="dn-next">—</span></div>
-        <div class="row tr"><span>TRIGGER</span><span id="dn-trigger">—</span></div>
+        <div class="row id">
+<span>ID</span>
+<span id="dn-id">—</span>
+</div>
+        <div class="row">
+<span>SPEAKER</span>
+<span id="dn-speaker">—</span>
+</div>
+        <div class="row">
+<span>EXPRESSION</span>
+<span id="dn-expr">—</span>
+</div>
+        <div class="row">
+<span>NEXT</span>
+<span id="dn-next">—</span>
+</div>
+        <div class="row tr">
+<span>TRIGGER</span>
+<span id="dn-trigger">—</span>
+</div>
       </div>
     </div>
 
@@ -747,13 +799,19 @@ body{
         <div id="dbg-slots">
           <div class="dbg-slot" id="ds-left">
             <div class="slot-name">LEFT</div>
-            <div class="slot-char"><span class="slot-empty-tag">empty</span></div>
-            <div class="slot-expr"></div>
+            <div class="slot-char">
+<span class="slot-empty-tag">empty</span>
+</div>
+            <div class="slot-expr">
+</div>
           </div>
           <div class="dbg-slot" id="ds-right">
             <div class="slot-name">RIGHT</div>
-            <div class="slot-char"><span class="slot-empty-tag">empty</span></div>
-            <div class="slot-expr"></div>
+            <div class="slot-char">
+<span class="slot-empty-tag">empty</span>
+</div>
+            <div class="slot-expr">
+</div>
           </div>
         </div>
       </div>
@@ -761,11 +819,13 @@ body{
 
     <div class="dbg-section">
       <h3>📊 STATS</h3>
-      <div class="dbg-body" id="dbg-affinity"></div>
+      <div class="dbg-body" id="dbg-affinity">
+</div>
     </div>
 
     <div class="dbg-section" style="flex:1;display:flex;flex-direction:column;min-height:0">
-      <h3>⚡ TRIGGER HISTORY <span class="badge" id="badge-trigs">0</span></h3>
+      <h3>⚡ TRIGGER HISTORY <span class="badge" id="badge-trigs">0</span>
+</h3>
       <div class="dbg-body scroll" id="dbg-trigger-log" style="flex:1;overflow-y:auto">
         <div style="color:var(--dim);font-size:11px;font-family:'JetBrains Mono',monospace">— No triggers yet —</div>
       </div>
@@ -778,39 +838,72 @@ body{
 <!-- DIALOGUE LOG OVERLAY -->
 <div id="log-ov" class="overlay">
   <div class="ov-window">
-    <div class="ov-header"><h2>📜 대화 로그</h2><button class="ov-close" onclick="closeLog()">CLOSE ✕</button></div>
-    <div id="log-body" class="ov-body"></div>
+    <div class="ov-header">
+<h2>📜 대화 로그</h2>
+<button class="ov-close" onclick="closeLog()">CLOSE ✕</button>
+</div>
+    <div id="log-body" class="ov-body">
+</div>
   </div>
 </div>
 
 <!-- TRIGGER LOG OVERLAY -->
 <div id="trig-ov" class="overlay">
   <div class="ov-window">
-    <div class="ov-header"><h2>⚡ 트리거 실행 기록 (상세)</h2><button class="ov-close" onclick="closeTrigLog()">CLOSE ✕</button></div>
-    <div id="trig-body" class="ov-body" style="font-family:'JetBrains Mono',monospace;font-size:11px"></div>
+    <div class="ov-header">
+<h2>⚡ 트리거 실행 기록 (상세)</h2>
+<button class="ov-close" onclick="closeTrigLog()">CLOSE ✕</button>
+</div>
+    <div id="trig-body" class="ov-body" style="font-family:'JetBrains Mono',monospace;font-size:11px">
+</div>
   </div>
 </div>
 
 <!-- RECIPE OVERLAY -->
 <div id="recipe-ov" class="overlay">
   <div class="ov-window" style="max-width:1100px;height:90%">
-    <div class="ov-header"><h2>📖 레시피 검색</h2><button class="ov-close" onclick="closeRecipe()">CLOSE ✕</button></div>
-    <div id="filter-box"></div>
+    <div class="ov-header">
+<h2>📖 레시피 검색</h2>
+<button class="ov-close" onclick="closeRecipe()">CLOSE ✕</button>
+</div>
+    <div id="filter-box">
+</div>
     <div id="recipe-body">
-      <div id="recipe-list"></div>
+      <div id="recipe-list">
+</div>
       <div id="recipe-detail">
         <div id="rd-empty">← 좌측에서 칵테일을 선택하세요</div>
         <div id="rd-content">
-          <div id="rd-name"></div>
-          <div id="rd-name-en"></div>
-          <div id="rd-kw"></div>
+          <div id="rd-name">
+</div>
+          <div id="rd-name-en">
+</div>
+          <div id="rd-kw">
+</div>
           <div id="rd-method-box">
-            <div><span class="label">제조법</span><span class="val" id="rd-method"></span></div>
-            <div><span class="label">기주</span><span class="val" id="rd-base"></span></div>
-            <div><span class="label">가격</span><span class="val price" id="rd-price"></span></div>
+            <div>
+<span class="label">제조법</span>
+<span class="val" id="rd-method">
+</span>
+</div>
+            <div>
+<span class="label">기주</span>
+<span class="val" id="rd-base">
+</span>
+</div>
+            <div>
+<span class="label">가격</span>
+<span class="val price" id="rd-price">
+</span>
+</div>
           </div>
-          <div id="rd-desc"></div>
-          <div id="rd-ingr"><h4>재료</h4><div id="rd-ingr-list"></div></div>
+          <div id="rd-desc">
+</div>
+          <div id="rd-ingr">
+<h4>재료</h4>
+<div id="rd-ingr-list">
+</div>
+</div>
           <button id="rd-select-btn" onclick="selectRecipe()">이 레시피 선택</button>
         </div>
       </div>
@@ -821,12 +914,17 @@ body{
 <!-- SETTLEMENT OVERLAY -->
 <div id="settlement-ov" class="overlay">
   <div class="ov-window" style="max-width:560px">
-    <div class="ov-header"><h2>💰 일일 정산</h2><button class="ov-close" onclick="closeSettlement()">CLOSE ✕</button></div>
-    <div class="ov-body" id="settlement-body"></div>
+    <div class="ov-header">
+<h2>💰 일일 정산</h2>
+<button class="ov-close" onclick="closeSettlement()">CLOSE ✕</button>
+</div>
+    <div class="ov-body" id="settlement-body">
+</div>
   </div>
 </div>
 
-</div><!-- /app-frame -->
+</div>
+<!-- /app-frame -->
 
 <script>
 // ═══════════════════════════════════════════════════════════════

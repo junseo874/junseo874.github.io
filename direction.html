@@ -428,24 +428,30 @@
     100%{transform:scale(.9) translateY(-8px);opacity:0;}
   }
 </style>
-<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="bar-playtest/src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="bar-playtest/src/shared/ui/cursors.js?v=layout-20261019"></script>
 </head>
 <body>
 
 <!-- CRT stack — 로비와 동일 -->
-<div class="crt-overlay"></div>
-<div class="vignette"></div>
-<div class="noise"></div>
+<div class="crt-overlay">
+</div>
+<div class="vignette">
+</div>
+<div class="noise">
+</div>
 
 <!-- HUD — 로비와 동일 -->
 <header class="hud-top">
-  <span class="dot"></span>
+  <span class="dot">
+</span>
   <span class="sys">L.U.N.A_OS</span>
   <span>//</span>
   <span>DIRECTION</span>
   <span>—</span>
   <span>한 잔의 선택</span>
-  <span class="spacer"></span>
+  <span class="spacer">
+</span>
   <span id="hudClock">--:--:--</span>
   <button id="mute" type="button" onclick="SND.toggle(this)" title="소리 켜기/끄기">[♪ SOUND ON]</button>
   <a class="lobby" href="index.html">[⟵ LOBBY]</a>
@@ -453,16 +459,26 @@
 
 <div id="boot">
   <div class="boot-inner">
-    <div class="boot-glass" id="boot-glass"></div>
+    <div class="boot-glass" id="boot-glass">
+</div>
     <div class="boot-title">BAR <b>언노운</b> — 오픈 준비 중</div>
-    <div class="boot-pct"><span id="boot-num">0</span><span class="pctsign"> %</span></div>
-    <div class="boot-bar"><div class="fill" id="boot-fill"></div></div>
+    <div class="boot-pct">
+<span id="boot-num">0</span>
+<span class="pctsign"> %</span>
+</div>
+    <div class="boot-bar">
+<div class="fill" id="boot-fill">
+</div>
+</div>
     <div class="boot-log" id="boot-log">시스템 점검 중…</div>
   </div>
 </div>
-<div id="bg"></div>
-<div id="scene"></div>
-<div id="progress"></div>
+<div id="bg">
+</div>
+<div id="scene">
+</div>
+<div id="progress">
+</div>
 
 <script>
 /* ══════════ 전역 상태 ══════════ */

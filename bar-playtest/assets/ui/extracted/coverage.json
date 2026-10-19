@@ -1,0 +1,675 @@
+{
+  "generatedAt": "2026-10-18T18:48:33.748Z",
+  "sourceHashes": {
+    "capture_all_ui_graphics.cjs": "5ea698fc6ec28cb62fb7c04feca091c841333eb893053ecae67a38688c3f7353",
+    "ui-graphic-snapshot.js": "182638d76a722777d8f82a199baa92b2a0f7bcedb1995d2a7dde7a96b8fd3c90"
+  },
+  "states": [
+    {
+      "id": "notification-goal-new",
+      "title": "새로운 목표",
+      "paintLayers": 5
+    },
+    {
+      "id": "notification-goal-complete",
+      "title": "목표 달성",
+      "paintLayers": 5
+    },
+    {
+      "id": "notification-event",
+      "title": "이벤트 발생",
+      "paintLayers": 5
+    },
+    {
+      "id": "notification-meet",
+      "title": "인물정보 등록",
+      "paintLayers": 5
+    },
+    {
+      "id": "notification-up",
+      "title": "호감도 상승",
+      "paintLayers": 5
+    },
+    {
+      "id": "notification-down",
+      "title": "호감도 하락",
+      "paintLayers": 5
+    },
+    {
+      "id": "ui:serve--serve",
+      "title": "칵테일 드래그 / 제공 · 정상 칵테일",
+      "paintLayers": 74
+    },
+    {
+      "id": "ui:serve--wrong",
+      "title": "칵테일 드래그 / 제공 · 잘못된 칵테일",
+      "paintLayers": 75
+    },
+    {
+      "id": "ui:serve--missing",
+      "title": "칵테일 드래그 / 제공 · 필수 재료 누락",
+      "paintLayers": 75
+    },
+    {
+      "id": "ui:result--default",
+      "title": "완성·등급·버리기 · 기본",
+      "paintLayers": 8
+    },
+    {
+      "id": "ui:prep--shelf",
+      "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본",
+      "paintLayers": 48
+    },
+    {
+      "id": "ui:prep--detail",
+      "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침",
+      "paintLayers": 61
+    },
+    {
+      "id": "ui:settlement--settlement",
+      "title": "정산 / 결과 · 정산 성공",
+      "paintLayers": 49
+    },
+    {
+      "id": "ui:settlement--bankrupt",
+      "title": "정산 / 결과 · 유지비 부족",
+      "paintLayers": 49
+    },
+    {
+      "id": "ui:income--income",
+      "title": "소지금 알림 / 증감 · 소지금 증가",
+      "paintLayers": 45
+    },
+    {
+      "id": "ui:income--expense",
+      "title": "소지금 알림 / 증감 · 소지금 차감",
+      "paintLayers": 45
+    },
+    {
+      "id": "ui:income--outside-income",
+      "title": "소지금 알림 / 증감 · 외부 거리 · 증가",
+      "paintLayers": 32
+    },
+    {
+      "id": "ui:income--outside-expense",
+      "title": "소지금 알림 / 증감 · 외부 거리 · 차감",
+      "paintLayers": 32
+    },
+    {
+      "id": "ui:unlock--day-1",
+      "title": "신규 재료·레시피 해금 · 1일차 해금",
+      "paintLayers": 67
+    },
+    {
+      "id": "ui:unlock--day-2",
+      "title": "신규 재료·레시피 해금 · 2일차 해금",
+      "paintLayers": 91
+    },
+    {
+      "id": "ui:unlock--day-3",
+      "title": "신규 재료·레시피 해금 · 3일차 해금",
+      "paintLayers": 34
+    },
+    {
+      "id": "ui:dossier--default",
+      "title": "단골 정보 · 기본",
+      "paintLayers": 97
+    },
+    {
+      "id": "ui:recipes--default",
+      "title": "레시피 목록 / 상세 / 잠김 · 기본",
+      "paintLayers": 22
+    },
+    {
+      "id": "ui:pair--default",
+      "title": "말풍선 / 2인 구도 · 기본",
+      "paintLayers": 21
+    },
+    {
+      "id": "ui:solo--regular",
+      "title": "말풍선 / 1인 · 단골 1인 대화",
+      "paintLayers": 21
+    },
+    {
+      "id": "ui:solo--order",
+      "title": "말풍선 / 1인 · 일반 손님 / 주문",
+      "paintLayers": 65
+    },
+    {
+      "id": "ui:solo--reask",
+      "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기",
+      "paintLayers": 89
+    },
+    {
+      "id": "ui:solo--reorder",
+      "title": "말풍선 / 1인 · 일반 손님 / 추가 주문",
+      "paintLayers": 65
+    },
+    {
+      "id": "ui:choices--default",
+      "title": "바 대화 / 선택지 · 기본",
+      "paintLayers": 16
+    },
+    {
+      "id": "ui:indicators--empty",
+      "title": "좌석 인디케이터 · 빈 좌석",
+      "paintLayers": 60
+    },
+    {
+      "id": "ui:indicators--arrival",
+      "title": "좌석 인디케이터 · 입장 / 점멸",
+      "paintLayers": 67
+    },
+    {
+      "id": "ui:indicators--wait",
+      "title": "좌석 인디케이터 · 손님 있음 / 일반",
+      "paintLayers": 85
+    },
+    {
+      "id": "ui:indicators--orange",
+      "title": "좌석 인디케이터 · 인내심 절반 / 주황",
+      "paintLayers": 85
+    },
+    {
+      "id": "ui:indicators--red",
+      "title": "좌석 인디케이터 · 인내심 10초 이하 / 빨강",
+      "paintLayers": 85
+    },
+    {
+      "id": "ui:indicators--exit",
+      "title": "좌석 인디케이터 · 퇴장 / 점멸",
+      "paintLayers": 65
+    },
+    {
+      "id": "ui:indicators--full",
+      "title": "좌석 인디케이터 · 3좌석 점유",
+      "paintLayers": 69
+    },
+    {
+      "id": "ui:overlay:service--default",
+      "title": "서비스 패널 · 기본",
+      "paintLayers": 93
+    },
+    {
+      "id": "ui:overlay:settings--default",
+      "title": "설정 / 볼륨 / 언어 · 기본",
+      "paintLayers": 117
+    },
+    {
+      "id": "ui:overlay:help--default",
+      "title": "조작 설명 · 기본",
+      "paintLayers": 127
+    },
+    {
+      "id": "ui:overlay:history--default",
+      "title": "대사 기록 · 기본",
+      "paintLayers": 91
+    },
+    {
+      "id": "ui:overlay:sales--default",
+      "title": "매출 · 기본",
+      "paintLayers": 103
+    },
+    {
+      "id": "ui:overlay:johnnyUnlock--default",
+      "title": "히든 칵테일 해금 · 기본",
+      "paintLayers": 110
+    },
+    {
+      "id": "ui:warnings--openerWarning",
+      "title": "경고 팝업 · 병따개 누락",
+      "paintLayers": 60
+    },
+    {
+      "id": "ui:warnings--ingredientWarning",
+      "title": "경고 팝업 · 재료 초과",
+      "paintLayers": 60
+    },
+    {
+      "id": "ui:warnings--homeward",
+      "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내",
+      "paintLayers": 40
+    },
+    {
+      "id": "ui:mini:open--default",
+      "title": "병따기 / 제조 기믹 · 기본",
+      "paintLayers": 37
+    },
+    {
+      "id": "ui:mini:pour--pour",
+      "title": "따르기 / 필업 · 정량 따르기",
+      "paintLayers": 14
+    },
+    {
+      "id": "ui:mini:pour--fill_up",
+      "title": "따르기 / 필업 · 필업",
+      "paintLayers": 13
+    },
+    {
+      "id": "ui:mini:shake--default",
+      "title": "쉐이킹 / 제조 기믹 · 기본",
+      "paintLayers": 112
+    },
+    {
+      "id": "ui:mini:stir--default",
+      "title": "스터 / 제조 기믹 · 기본",
+      "paintLayers": 79
+    },
+    {
+      "id": "ui:world-speech--default",
+      "title": "월드 말풍선 / 외부 · 기본",
+      "paintLayers": 45
+    },
+    {
+      "id": "ui:terrace:workshop--default",
+      "title": "독립 대사창 / 검은 화면 · 기본",
+      "paintLayers": 53
+    },
+    {
+      "id": "ui:exterior:purchase--default",
+      "title": "재료 획득 알림 / 외부 · 기본",
+      "paintLayers": 33
+    },
+    {
+      "id": "ui:exterior:street--e",
+      "title": "상호작용 키 안내 / E · 상호작용 / E",
+      "paintLayers": 28
+    },
+    {
+      "id": "ui:exterior:poor--poor",
+      "title": "외부 대화 / 선택지 · 상점 / 소지금 부족",
+      "paintLayers": 58
+    },
+    {
+      "id": "ui:exterior:poor--bd",
+      "title": "외부 대화 / 선택지 · 구매 확인",
+      "paintLayers": 13
+    },
+    {
+      "id": "ui:door:in--in",
+      "title": "바 출입 / 로딩 · 입장 / 문 열림",
+      "paintLayers": 78
+    },
+    {
+      "id": "ui:door:in--out",
+      "title": "바 출입 / 로딩 · 퇴장 / 문 닫힘",
+      "paintLayers": 80
+    },
+    {
+      "id": "ui:day-transition--default",
+      "title": "일차 전환 / Day 숫자 · 기본",
+      "paintLayers": 57
+    },
+    {
+      "id": "popup:meet--bar",
+      "title": "신규 인물 정보 등록 · 바 내부",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:meet--outside",
+      "title": "신규 인물 정보 등록 · 외부 거리",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:affinity--bar-up",
+      "title": "호감도 상승 / 하락 · 바 내부 · 상승",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:affinity--bar-down",
+      "title": "호감도 상승 / 하락 · 바 내부 · 하락",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:affinity--outside-up",
+      "title": "호감도 상승 / 하락 · 외부 거리 · 상승",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:affinity--outside-down",
+      "title": "호감도 상승 / 하락 · 외부 거리 · 하락",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:event--outside",
+      "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:goal--bar-new",
+      "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:goal--bar-complete",
+      "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:goal--outside-new",
+      "title": "새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:goal--outside-complete",
+      "title": "새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성",
+      "paintLayers": 33
+    },
+    {
+      "id": "popup:controls--movement",
+      "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift",
+      "paintLayers": 51
+    },
+    {
+      "id": "popup:controls-interaction--interaction",
+      "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E",
+      "paintLayers": 32
+    },
+    {
+      "id": "popup:seat-legend--seatLegend",
+      "title": "좌석 알림 · 4가지 색상 · 좌석 알림",
+      "paintLayers": 104
+    },
+    {
+      "id": "popup:serving-hud--coaster",
+      "title": "코스터 / 칵테일 드래그 팝업 · 단골 첫 대사 · 코스터 제공",
+      "paintLayers": 32
+    },
+    {
+      "id": "popup:serving-hud--drink",
+      "title": "코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공",
+      "paintLayers": 75
+    },
+    {
+      "id": "popup:lesson-stir--stir-0",
+      "title": "스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내",
+      "paintLayers": 79
+    },
+    {
+      "id": "popup:lesson-stir--stir-1",
+      "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내",
+      "paintLayers": 87
+    },
+    {
+      "id": "popup:lesson-shake--path-0",
+      "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 노드 / 조작 안내",
+      "paintLayers": 112
+    },
+    {
+      "id": "popup:lesson-shake--path-1",
+      "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내",
+      "paintLayers": 115
+    },
+    {
+      "id": "popup:lesson-shake--fall-0",
+      "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내",
+      "paintLayers": 126
+    },
+    {
+      "id": "popup:lesson-shake--fall-1",
+      "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내",
+      "paintLayers": 129
+    },
+    {
+      "id": "popup:lesson-shake--cross-0",
+      "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내",
+      "paintLayers": 121
+    },
+    {
+      "id": "popup:lesson-shake--cross-1",
+      "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내",
+      "paintLayers": 124
+    },
+    {
+      "id": "popup:lesson-pour--target",
+      "title": "따르기 튜토리얼 · 목표량 확인",
+      "paintLayers": 25
+    },
+    {
+      "id": "popup:lesson-pour--finish",
+      "title": "따르기 튜토리얼 · 현재량 / 마치기",
+      "paintLayers": 19
+    },
+    {
+      "id": "popup:lesson-open--intro",
+      "title": "병따기 튜토리얼 · 시작 안내",
+      "paintLayers": 43
+    },
+    {
+      "id": "popup:lesson-open--retry",
+      "title": "병따기 튜토리얼 · 다시 시도",
+      "paintLayers": 43
+    },
+    {
+      "id": "popup:lesson-open--done",
+      "title": "병따기 튜토리얼 · 완료",
+      "paintLayers": 31
+    },
+    {
+      "id": "popup:bar-guides--seatExplore",
+      "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동",
+      "paintLayers": 47
+    },
+    {
+      "id": "popup:bar-guides--seatIndicator",
+      "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터",
+      "paintLayers": 66
+    },
+    {
+      "id": "popup:bar-guides--coaster",
+      "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공",
+      "paintLayers": 59
+    },
+    {
+      "id": "popup:bar-guides--recipe",
+      "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:bar-guides--recipeSelect",
+      "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택",
+      "paintLayers": 46
+    },
+    {
+      "id": "popup:bar-guides--prepRecipeOpen",
+      "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:bar-guides--prepRecipeRead",
+      "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기",
+      "paintLayers": 81
+    },
+    {
+      "id": "popup:bar-guides--prepRecipeClose",
+      "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기",
+      "paintLayers": 67
+    },
+    {
+      "id": "popup:bar-guides--prepGlass",
+      "title": "바 튜토리얼 · 단계별 안내 · 잔 선택",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:bar-guides--prepNavigate",
+      "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:bar-guides--prepHover",
+      "title": "바 튜토리얼 · 단계별 안내 · 재료 설명",
+      "paintLayers": 53
+    },
+    {
+      "id": "popup:bar-guides--prepAdd",
+      "title": "바 튜토리얼 · 단계별 안내 · 재료 담기",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:bar-guides--prepRemove",
+      "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:bar-guides--prepGinAgain",
+      "title": "바 튜토리얼 · 단계별 안내 · 진 다시 담기",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:bar-guides--prepSodaNavigate",
+      "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:bar-guides--prepSodaHover",
+      "title": "바 튜토리얼 · 단계별 안내 · 탄산수 설명",
+      "paintLayers": 53
+    },
+    {
+      "id": "popup:bar-guides--prepSodaAdd",
+      "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:bar-guides--prepStart",
+      "title": "바 튜토리얼 · 단계별 안내 · 제조 시작",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:bar-guides--serveDrink",
+      "title": "바 튜토리얼 · 단계별 안내 · 칵테일 제공",
+      "paintLayers": 75
+    },
+    {
+      "id": "popup:beer-guides--recipeSelect",
+      "title": "맥주 제조 튜토리얼 · 맥주 레시피",
+      "paintLayers": 22
+    },
+    {
+      "id": "popup:beer-guides--beerGlass",
+      "title": "맥주 제조 튜토리얼 · 맥주 잔",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:beer-guides--beerToolNavigate",
+      "title": "맥주 제조 튜토리얼 · 도구 선반 이동",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:beer-guides--beerOpener",
+      "title": "맥주 제조 튜토리얼 · 병따개 선택",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:beer-guides--beerFridgeNavigate",
+      "title": "맥주 제조 튜토리얼 · 냉장고 이동",
+      "paintLayers": 55
+    },
+    {
+      "id": "popup:beer-guides--beerAdd",
+      "title": "맥주 제조 튜토리얼 · 병맥주 선택",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:beer-guides--beerStart",
+      "title": "맥주 제조 튜토리얼 · 제조 시작",
+      "paintLayers": 60
+    },
+    {
+      "id": "popup:campaign-dialogs--sleep",
+      "title": "본편 · 확인 / 안내 팝업 · 하루 마치기",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:campaign-dialogs--confirm-exit",
+      "title": "본편 · 확인 / 안내 팝업 · 타이틀 복귀",
+      "paintLayers": 48
+    },
+    {
+      "id": "popup:campaign-dialogs--retry-drink",
+      "title": "본편 · 확인 / 안내 팝업 · 주문 재확인",
+      "paintLayers": 54
+    },
+    {
+      "id": "popup:campaign-dialogs--notice",
+      "title": "본편 · 확인 / 안내 팝업 · 안내",
+      "paintLayers": 52
+    },
+    {
+      "id": "popup:campaign-dialogs--options",
+      "title": "본편 · 확인 / 안내 팝업 · 본편 설정",
+      "paintLayers": 70
+    },
+    {
+      "id": "popup:campaign-dialogs--observation",
+      "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모",
+      "paintLayers": 58
+    },
+    {
+      "id": "popup:campaign-dialogs--response",
+      "title": "본편 · 확인 / 안내 팝업 · 대화 응답",
+      "paintLayers": 48
+    },
+    {
+      "id": "popup:campaign-dialogs--menu",
+      "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일",
+      "paintLayers": 68
+    },
+    {
+      "id": "popup:campaign-dialogs--load-error",
+      "title": "본편 · 확인 / 안내 팝업 · 로딩 오류",
+      "paintLayers": 48
+    },
+    {
+      "id": "ui:opening-guide--default",
+      "title": "게임 시작 · 플레이 안내 · 기본",
+      "paintLayers": 12,
+      "renderer": "cutscene-studio/src/opening-template.js / introControls"
+    },
+    {
+      "id": "extra-title",
+      "title": "타이틀 화면",
+      "paintLayers": 52
+    },
+    {
+      "id": "fixture-skip",
+      "title": "컷씬 스킵 안내",
+      "paintLayers": 31
+    },
+    {
+      "id": "fixture-inspection",
+      "title": "오브젝트 관찰",
+      "paintLayers": 29
+    },
+    {
+      "id": "fixture-outside-key",
+      "title": "외부 상호작용 / 전경",
+      "paintLayers": 28
+    }
+  ],
+  "failures": [],
+  "emptyPaintLayersExcluded": [
+    {
+      "key": "64838690defda2d8",
+      "source": "kbd",
+      "kind": "background"
+    },
+    {
+      "key": "00747122babd7794",
+      "source": "kbd",
+      "kind": "border"
+    },
+    {
+      "key": "317fa94f34049118",
+      "source": "button.is-selected",
+      "kind": "shadow"
+    },
+    {
+      "key": "946b687b75d6ab6a",
+      "source": "button.is-selected",
+      "kind": "shadow"
+    }
+  ],
+  "assets": 990,
+  "scope": "현재 리소스 확인에 등록된 플레이어 UI 전체 상태, 목표/이벤트/인물/호감도 6종, 타이틀/외부 키/관찰/스킵 UI. 게임 장면·캐릭터 합성·대사 텍스트·동적 액체 시뮬레이션 제외."
+}

@@ -1,4 +1,250 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Project LUNA · 본편 & 시뮬레이터</title><link rel="stylesheet" href="styles.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="dossier.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="bar-views.css?v=unified-ui-20261019"><link rel="stylesheet" href="remix.css"><link rel="stylesheet" href="minigames.css?v=ingredient-picker-20261019"><link rel="stylesheet" href="pour-view.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="gimmick-polish.css?v=mix-no-combo-20261018"><link rel="stylesheet" href="serve-view.css?v=centered-grade-lowered-drink-20261019"><link rel="stylesheet" href="updates.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="tutorial-view.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="speech-bubble.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="../cutscene-studio/speech-layer.css?v=1"><link rel="stylesheet" href="outside.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="controls-tutorial.css?v=controls-run-20261018"><link rel="stylesheet" href="bar-door-transition.css?v=door-1"><link rel="stylesheet" href="campaign.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="cinematic/player.css?v=world-fixed-20261003"><link rel="stylesheet" href="qa-lab.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="remix-experience.css?v=remove-gpt-outside-20261003"><link rel="stylesheet" href="shake-rhythm.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="terrace-view.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="game-input-guard.css?v=1"><link rel="stylesheet" href="pour-tutorial.css?v=1"><link rel="stylesheet" href="story-notices.css?v=affinity-arrows-20261019"><link rel="stylesheet" href="dialogue-cue.css?v=1"><link rel="stylesheet" href="resource-panels.css?v=1"><link rel="stylesheet" href="profile-resources.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="stir-resources.css?v=1"><link rel="stylesheet" href="title-resources.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="cutscene-library.css?v=1"><link rel="stylesheet" href="preparation-resources.css?v=audit-fixes-20261018"><link rel="stylesheet" href="loading-screen.css?v=1"><link rel="stylesheet" href="mix-tutorial.css?v=unified-ui-20261019"><link rel="stylesheet" href="serving-hud.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="exterior-textbox.css?v=ink-fit-20261019"><link rel="stylesheet" href="world-choices.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="outside-inspection.css?v=compact-poster-20261019"><link rel="stylesheet" href="settings-view.css?v=cyan-cursors-20261019"><link rel="stylesheet" href="settlement-view.css?v=closing-popup-20261019"><link rel="stylesheet" href="cursors.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="game-letterbox.css?v=pure-black-20261019"><link rel="stylesheet" href="game-viewport.css?v=unified-ui-20261019"><script src="game-viewport.js?v=unified-ui-20261019"></script></head>
-<body><div id="game-letterbox" aria-hidden="true"><i class="letterbox-top"></i><i class="letterbox-bottom"></i><i class="letterbox-left"></i><i class="letterbox-right"></i></div><script src="focus-settings.js?v=1"></script><script src="settings-view.js?v=clean-copy-20261019"></script><script src="settlement-view.js?v=closing-popup-20261019"></script><script src="dialogue-cue.js?v=1"></script><script src="game-input-guard.js?v=1"></script><div id="app"></div><div id="drag-ghost" hidden></div><div id="toast" role="status"></div><noscript>이 시뮬레이터는 JavaScript가 필요합니다.</noscript><script src="data.js?v=warm-shelf-20261019"></script><script src="bar-guest-art.js?v=shiba-talk-20261019"></script><script src="item-art-reuse.js?v=registered-20261005"></script><script src="cocktail-art.js?v=20261018"></script><script src="pour-fluid.js?v=rim-overflow-20261019"></script><script src="story-notices.js?v=affinity-arrows-20261019"></script><script src="core.js?v=rim-overflow-20261019"></script><script src="remix.js?v=coaster-speech-20261018"></script><script src="sfx-audio.js?v=ui-mix-20261016"></script><script src="story-notice-audio.js?v=goal-complete-20261012"></script><script src="currency-audio.js?v=1"></script><script src="home-door-audio.js?v=1"></script><script src="ui-audio-policy.js?v=glass-contained-20261019"></script><script src="click-audio.js?v=ui-mix-20261016"></script><script src="hover-audio.js?v=quiet-world-choice-20261019"></script><link rel="stylesheet" href="dialogue-audio.css?v=cyan-cursors-20261019"><script src="dialogue-audio.js?v=1"></script><link rel="stylesheet" href="street-audio.css?v=1"><script src="street-audio.js?v=wav-20261018"></script><script src="remix-ui.js?v=coaster-e-key-20261018"></script><script src="minigames.js?v=ingredient-picker-20261019"></script><script src="shake-rhythm.js?v=audit-fixes-20261018"></script><script src="world-speech.js?v=world-fixed-20261003"></script><script src="bar-views.js?v=clean-gimmick-ui-20261019"></script><script src="bgm.js?v=music-fades-20261018"></script><script src="pour-tutorial.js?v=notion-copy-20261017"></script><script src="pour-liquid-renderer.js?v=rim-overflow-20261019"></script><script src="pour-view.js?v=rim-overflow-20261019"></script><script src="open-carbonation.js?v=20261018"></script><script src="open-view.js?v=clean-gimmick-ui-20261019"></script><script src="shake-polish.js?v=mix-no-combo-20261018"></script><script src="stir-polish.js?v=mix-no-combo-20261018"></script><script src="serve-carbonation.js?v=glass-contained-20261019"></script><script src="serve-view.js?v=centered-grade-lowered-drink-20261019"></script><script src="currency-view.js?v=overlap-loss-20261019"></script><script src="updates.js?v=resource-review-20261005"></script><script src="ctrl-diagnostic.js?v=2"></script><script src="tutorial-view.js?v=static-outline-20261019"></script><script src="outside-data.js?v=notion-sync-20261005"></script><script src="outside-residence.js?v=upper-crate-stop-20261019"></script><script src="outside-art.js?v=luna-floor-height-20261018"></script><script src="sign-scanlines.js?v=exclude-menu-20261019"></script><script src="outside-wall-lighting.js?v=full-engine-lighting-20261019"></script><script src="outside-sign-lights.js?v=letter-outline-faults-20261019"></script><script src="outside-barrel-fire.js?v=rising-pixel-fire-20261019"></script><script src="outside-lift-dust.js?v=landing-20261019"></script><script src="outside-vent-steam.js?v=local-exhaust-20261019"></script><script src="outside-wire-spark.js?v=wire-spark-20261018"></script><script src="outside-dialogue-data.js?v=notion-sync-20261005"></script><script src="outside-ambient.js?v=notion-sync-20261005"></script><script src="outside-beggar.js?v=beggar-20261018"></script><script src="bd-vendor.js?v=ambient-interaction-pause-20261018"></script><script src="outside-residents.js?v=outside-revision-20261005"></script><script src="outside-encounters.js?v=outside-revision-20261005"></script><script src="outside-npc-exit.js?v=short-exit-20261019"></script><script src="outside-thug.js?v=short-exit-20261019"></script><script src="outside-shop.js?v=ambient-interaction-pause-20261018"></script><script src="outside-samho-commute.js?v=short-exit-20261019"></script><script src="outside-tv.js?v=single-story-20261016"></script><script src="outside-notion-20261005.js?v=short-exit-20261019"></script><script src="outside-story.js?v=four-choices-20261019"></script><script src="campaign-data.js?v=day0-a-tv-tip-goal-20261013"></script><script src="campaign-engine.js?v=single-story-20261016"></script><script src="qa-lab.js?v=ordering-coaster-20261018"></script><script src="outside-qa.js?v=four-choices-20261019"></script><script src="terrace-view.js?v=sign-scanlines-20261019"></script><script src="bar-door-transition.js?v=opening-notion-20261017"></script><script src="johnny-memory.js?v=johnny-unlock-20261005"></script><script src="title-logo.js?v=1"></script><script src="world-choices.js?v=balance-header-20261019"></script><script src="campaign.js?v=settings-panel-20261019"></script><script src="outside-notices.js?v=focus-setting-20261016"></script><script src="outside-rain.js?v=continuous-rain-20261019"></script><script src="outside-traffic.js?v=three-depth-traffic-20261019"></script><script src="controls-tutorial.js?v=controls-run-20261018"></script><script src="interaction-glow.js?v=street-art-20261018"></script><script src="pixel-camera.js?v=smooth-ppu-20261018"></script><script src="exterior-textbox.js?v=ink-fit-20261019"></script><script src="outside-inspection.js?v=compact-poster-20261019"></script><script src="outside.js?v=target-action-labels-20261019"></script><script src="cutscene-library.js?v=music-fades-20261018"></script><script src="choice-hold.js?v=500ms-20261018"></script><script src="mix-tutorial-examples.js?v=image-guide-20261018"></script><script src="mix-tutorial.js?v=clear-nodes-20261018"></script><script src="cinematic/exterior-speech.js?v=ink-fit-20261019"></script><script src="app.js?v=unified-ui-20261019-rim-overflow-20261019"></script></body></html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project LUNA · 본편 & 시뮬레이터</title>
+<link rel="stylesheet" href="src/app/styles.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/shared/ui/dossier.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/bar/bar-views.css?v=unified-ui-20261019">
+<link rel="stylesheet" href="src/features/bar/remix.css">
+<link rel="stylesheet" href="src/features/crafting/minigames.css?v=ingredient-picker-20261019">
+<link rel="stylesheet" href="src/features/crafting/pour-view.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/crafting/gimmick-polish.css?v=mix-no-combo-20261018">
+<link rel="stylesheet" href="src/features/crafting/serve-view.css?v=centered-grade-lowered-drink-20261019">
+<link rel="stylesheet" href="src/app/updates.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/tutorials/tutorial-view.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/shared/dialogue/speech-bubble.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="../cutscene-studio/styles/speech-layer.css?v=1">
+<link rel="stylesheet" href="src/features/outside/outside.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/tutorials/controls-tutorial.css?v=controls-run-20261018">
+<link rel="stylesheet" href="src/features/bar/bar-door-transition.css?v=door-1">
+<link rel="stylesheet" href="src/features/campaign/campaign.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/cinema/player.css?v=world-fixed-20261003">
+<link rel="stylesheet" href="src/dev/qa/qa-lab.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/bar/remix-experience.css?v=remove-gpt-outside-20261003">
+<link rel="stylesheet" href="src/features/crafting/shake-rhythm.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/campaign/terrace-view.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/shared/platform/game-input-guard.css?v=1">
+<link rel="stylesheet" href="src/features/crafting/pour-tutorial.css?v=1">
+<link rel="stylesheet" href="src/shared/ui/story-notices.css?v=affinity-arrows-20261019">
+<link rel="stylesheet" href="src/shared/dialogue/dialogue-cue.css?v=1">
+<link rel="stylesheet" href="src/dev/resources/resource-panels.css?v=1">
+<link rel="stylesheet" href="src/shared/ui/profile-resources.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/crafting/stir-resources.css?v=1">
+<link rel="stylesheet" href="src/features/campaign/title-resources.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/campaign/cutscene-library.css?v=1">
+<link rel="stylesheet" href="src/features/bar/preparation-resources.css?v=audit-fixes-20261018">
+<link rel="stylesheet" href="src/shared/ui/loading-screen.css?v=1">
+<link rel="stylesheet" href="src/features/tutorials/mix-tutorial.css?v=unified-ui-20261019">
+<link rel="stylesheet" href="src/features/crafting/serving-hud.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/shared/dialogue/exterior-textbox.css?v=ink-fit-20261019">
+<link rel="stylesheet" href="src/shared/dialogue/world-choices.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/features/outside/outside-inspection.css?v=compact-poster-20261019">
+<link rel="stylesheet" href="src/shared/ui/settings-view.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/shared/ui/settlement-view.css?v=closing-popup-20261019">
+<link rel="stylesheet" href="src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="src/shared/ui/cursors.js?v=layout-20261019"></script>
+<link rel="stylesheet" href="src/shared/platform/game-letterbox.css?v=pure-black-20261019">
+<link rel="stylesheet" href="src/shared/platform/game-viewport.css?v=unified-ui-20261019">
+<script src="src/shared/platform/game-viewport.js?v=unified-ui-20261019">
+</script>
+</head>
+<body>
+<div id="game-letterbox" aria-hidden="true">
+<i class="letterbox-top">
+</i>
+<i class="letterbox-bottom">
+</i>
+<i class="letterbox-left">
+</i>
+<i class="letterbox-right">
+</i>
+</div>
+<script src="src/shared/platform/focus-settings.js?v=1">
+</script>
+<script src="src/shared/ui/settings-view.js?v=clean-copy-20261019">
+</script>
+<script src="src/shared/ui/settlement-view.js?v=closing-popup-20261019">
+</script>
+<script src="src/shared/dialogue/dialogue-cue.js?v=1">
+</script>
+<script src="src/shared/platform/game-input-guard.js?v=1">
+</script>
+<div id="app">
+</div>
+<div id="drag-ghost" hidden>
+</div>
+<div id="toast" role="status">
+</div>
+<noscript>이 시뮬레이터는 JavaScript가 필요합니다.</noscript>
+<script src="data/runtime/game-data.js?v=warm-shelf-20261019">
+</script>
+<script src="src/features/bar/bar-guest-art.js?v=shiba-talk-20261019">
+</script>
+<script src="src/features/bar/item-art-reuse.js?v=registered-20261005">
+</script>
+<script src="src/features/bar/cocktail-art.js?v=20261018">
+</script>
+<script src="src/features/crafting/pour-fluid.js?v=rim-overflow-20261019">
+</script>
+<script src="src/shared/ui/story-notices.js?v=affinity-arrows-20261019">
+</script>
+<script src="src/core/core.js?v=rim-overflow-20261019">
+</script>
+<script src="src/features/bar/remix.js?v=coaster-speech-20261018">
+</script>
+<script src="src/shared/audio/sfx-audio.js?v=ui-mix-20261016">
+</script>
+<script src="src/shared/audio/story-notice-audio.js?v=goal-complete-20261012">
+</script>
+<script src="src/shared/audio/currency-audio.js?v=1">
+</script>
+<script src="src/shared/audio/home-door-audio.js?v=1">
+</script>
+<script src="src/shared/audio/ui-audio-policy.js?v=glass-contained-20261019">
+</script>
+<script src="src/shared/audio/click-audio.js?v=ui-mix-20261016">
+</script>
+<script src="src/shared/audio/hover-audio.js?v=quiet-world-choice-20261019">
+</script>
+<link rel="stylesheet" href="src/shared/audio/dialogue-audio.css?v=cyan-cursors-20261019">
+<script src="src/shared/audio/dialogue-audio.js?v=1">
+</script>
+<link rel="stylesheet" href="src/shared/audio/street-audio.css?v=1">
+<script src="src/shared/audio/street-audio.js?v=wav-20261018">
+</script>
+<script src="src/features/bar/remix-ui.js?v=coaster-e-key-20261018">
+</script>
+<script src="src/features/crafting/minigames.js?v=ingredient-picker-20261019">
+</script>
+<script src="src/features/crafting/shake-rhythm.js?v=audit-fixes-20261018">
+</script>
+<script src="src/shared/dialogue/world-speech.js?v=world-fixed-20261003">
+</script>
+<script src="src/features/bar/bar-views.js?v=clean-gimmick-ui-20261019">
+</script>
+<script src="src/shared/audio/bgm.js?v=music-fades-20261018">
+</script>
+<script src="src/features/crafting/pour-tutorial.js?v=notion-copy-20261017">
+</script>
+<script src="src/features/crafting/pour-liquid-renderer.js?v=rim-overflow-20261019">
+</script>
+<script src="src/features/crafting/pour-view.js?v=rim-overflow-20261019">
+</script>
+<script src="src/features/crafting/open-carbonation.js?v=20261018">
+</script>
+<script src="src/features/crafting/open-view.js?v=clean-gimmick-ui-20261019">
+</script>
+<script src="src/features/crafting/shake-polish.js?v=mix-no-combo-20261018">
+</script>
+<script src="src/features/crafting/stir-polish.js?v=mix-no-combo-20261018">
+</script>
+<script src="src/features/crafting/serve-carbonation.js?v=glass-contained-20261019">
+</script>
+<script src="src/features/crafting/serve-view.js?v=centered-grade-lowered-drink-20261019">
+</script>
+<script src="src/shared/ui/currency-view.js?v=overlap-loss-20261019">
+</script>
+<script src="src/app/updates.js?v=resource-review-20261005">
+</script>
+<script src="src/dev/qa/ctrl-diagnostic.js?v=2">
+</script>
+<script src="src/features/tutorials/tutorial-view.js?v=static-outline-20261019">
+</script>
+<script src="data/runtime/outside-scene-data.js?v=notion-sync-20261005">
+</script>
+<script src="src/features/outside/outside-residence.js?v=upper-crate-stop-20261019">
+</script>
+<script src="src/features/outside/outside-art.js?v=luna-floor-height-20261018">
+</script>
+<script src="src/features/outside/effects/sign-scanlines.js?v=exclude-menu-20261019">
+</script>
+<script src="src/features/outside/effects/outside-wall-lighting.js?v=full-engine-lighting-20261019">
+</script>
+<script src="src/features/outside/effects/outside-sign-lights.js?v=letter-outline-faults-20261019">
+</script>
+<script src="src/features/outside/effects/outside-barrel-fire.js?v=rising-pixel-fire-20261019">
+</script>
+<script src="src/features/outside/effects/outside-lift-dust.js?v=landing-20261019">
+</script>
+<script src="src/features/outside/effects/outside-vent-steam.js?v=local-exhaust-20261019">
+</script>
+<script src="src/features/outside/effects/outside-wire-spark.js?v=wire-spark-20261018">
+</script>
+<script src="data/runtime/outside-dialogues.js?v=notion-sync-20261005">
+</script>
+<script src="src/features/outside/events/outside-ambient.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/outside/events/outside-beggar.js?v=beggar-20261018">
+</script>
+<script src="src/features/outside/events/outside-residents.js?v=outside-revision-20261005">
+</script>
+<script src="src/features/outside/events/outside-encounters.js?v=outside-revision-20261005">
+</script>
+<script src="src/features/outside/events/outside-npc-exit.js?v=short-exit-20261019">
+</script>
+<script src="src/features/outside/events/outside-thug.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/outside/events/outside-shop.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/outside/events/outside-samho-commute.js?v=short-exit-20261019">
+</script>
+<script src="src/features/outside/events/outside-tv.js?v=single-story-20261016">
+</script>
+<script src="src/features/outside/events/outside-events.js?v=short-exit-20261019">
+</script>
+<script src="src/features/outside/events/outside-story.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="data/runtime/campaign-data.js?v=day0-a-tv-tip-goal-20261013">
+</script>
+<script src="src/features/campaign/campaign-engine.js?v=single-story-20261016">
+</script>
+<script src="src/dev/qa/qa-lab.js?v=ordering-coaster-20261018">
+</script>
+<script src="src/dev/qa/outside-qa.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/campaign/terrace-view.js?v=sign-scanlines-20261019">
+</script>
+<script src="src/features/bar/bar-door-transition.js?v=opening-notion-20261017">
+</script>
+<script src="src/features/campaign/johnny-memory.js?v=johnny-unlock-20261005">
+</script>
+<script src="src/features/campaign/title-logo.js?v=1">
+</script>
+<script src="src/shared/dialogue/world-choices.js?v=balance-header-20261019">
+</script>
+<script src="src/features/campaign/campaign.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/outside/outside-notices.js?v=focus-setting-20261016">
+</script>
+<script src="src/features/outside/effects/outside-rain.js?v=continuous-rain-20261019">
+</script>
+<script src="src/features/outside/effects/outside-traffic.js?v=three-depth-traffic-20261019">
+</script>
+<script src="src/features/tutorials/controls-tutorial.js?v=controls-run-20261018">
+</script>
+<script src="src/shared/platform/interaction-glow.js?v=street-art-20261018">
+</script>
+<script src="src/shared/platform/pixel-camera.js?v=smooth-ppu-20261018">
+</script>
+<script src="src/shared/dialogue/exterior-textbox.js?v=ink-fit-20261019">
+</script>
+<script src="src/features/outside/outside-inspection.js?v=compact-poster-20261019">
+</script>
+<script src="src/features/outside/outside.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/features/campaign/cutscene-library.js?v=remove-bd-vendor-20261019">
+</script>
+<script src="src/shared/dialogue/choice-hold.js?v=500ms-20261018">
+</script>
+<script src="data/runtime/tutorial-examples.js?v=image-guide-20261018">
+</script>
+<script src="src/features/tutorials/mix-tutorial.js?v=clear-nodes-20261018">
+</script>
+<script src="src/cinema/exterior-speech.js?v=ink-fit-20261019">
+</script>
+<script src="src/app/app.js?v=unified-ui-20261019-rim-overflow-20261019">
+</script>
+</body>
+</html>

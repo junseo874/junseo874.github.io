@@ -2433,22 +2433,28 @@
     .zoom-btn { opacity: 1; }
   }
 </style>
-<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="bar-playtest/src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="bar-playtest/src/shared/ui/cursors.js?v=layout-20261019"></script>
 </head>
 <body>
 
 <!-- Overlays -->
-<div class="noise"></div>
-<div class="vignette"></div>
-<div class="crt-overlay"></div>
+<div class="noise">
+</div>
+<div class="vignette">
+</div>
+<div class="crt-overlay">
+</div>
 
 <!-- HUD top bar — 로비와 동일 포맷 -->
 <div class="hud-top">
-  <span class="pulse"></span>
+  <span class="pulse">
+</span>
   <span class="tag-cyan">L.U.N.A_OS</span>
   <span>//</span>
   <span>PROJECT_BRIEF</span>
-  <span class="spacer"></span>
+  <span class="spacer">
+</span>
   <span class="tag-amber">NEO-SEOUL</span>
   <span>|</span>
   <span class="clock" id="clock">--:--:--</span>
@@ -2458,35 +2464,53 @@
 </div>
 
 <!-- Side nav -->
-<nav class="side-nav" id="sideNav"></nav>
+<nav class="side-nav" id="sideNav">
+</nav>
 
 <!-- SLIDES -->
 <main class="slides" id="slides">
 
   <!-- ============================================ COVER ============================================ -->
   <section class="slide" id="s-cover" data-name="COVER" data-num="00">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
-    <div class="corner-bracket bl"></div>
-    <div class="corner-bracket br"></div>
-    <h1 class="neon-title fade-up"><span class="ch">L</span><span class="dotchar">.</span><span class="ch">U</span><span class="dotchar">.</span><span class="ch">N</span><span class="dotchar">.</span><span class="ch">A</span></h1>
-    <div class="tag-line fade-up d1">HUMAN&nbsp;<span>BARTENDER</span></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
+    <div class="corner-bracket bl">
+</div>
+    <div class="corner-bracket br">
+</div>
+    <h1 class="neon-title fade-up">
+<span class="ch">L</span>
+<span class="dotchar">.</span>
+<span class="ch">U</span>
+<span class="dotchar">.</span>
+<span class="ch">N</span>
+<span class="dotchar">.</span>
+<span class="ch">A</span>
+</h1>
+    <div class="tag-line fade-up d1">HUMAN&nbsp;<span>BARTENDER</span>
+</div>
     <div class="scroll-cue">SCROLL</div>
   </section>
 
   <!-- ============================================ GAMEPLAY ============================================ -->
   <section class="slide" id="s-gameplay" data-name="GAMEPLAY" data-num="01">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 01 / SECTION ]</span>
-      <h2 class="slide-title">게임 <span class="accent">플레이</span></h2>
+      <h2 class="slide-title">게임 <span class="accent">플레이</span>
+</h2>
       <span class="slide-subtitle">// LIVE PROTOTYPE FOOTAGE</span>
     </header>
     <div class="content">
       <div class="video-frame fade-up d1">
-        <video src="video/Prototype.mp4" autoplay muted loop playsinline controls></video>
-        <button class="zoom-btn" data-zoom-type="video" data-zoom-src="video/Prototype.mp4" data-zoom-title="GAMEPLAY · PROTOTYPE">EXPAND</button>
+        <video src="assets/prototype/video/Prototype.mp4" autoplay muted loop playsinline controls>
+</video>
+        <button class="zoom-btn" data-zoom-type="video" data-zoom-src="assets/prototype/video/Prototype.mp4" data-zoom-title="GAMEPLAY · PROTOTYPE">EXPAND</button>
       </div>
       <aside class="info-panel fade-up d2">
         <h3>// CORE LOOP</h3>
@@ -2505,52 +2529,72 @@
 
   <!-- ============================================ CHARACTERS ============================================ -->
   <section class="slide" id="s-characters" data-name="CHARACTERS" data-num="02">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 02 / SECTION ]</span>
-      <h2 class="slide-title">캐릭터 <span class="accent">CAST</span></h2>
+      <h2 class="slide-title">캐릭터 <span class="accent">CAST</span>
+</h2>
       <span class="slide-subtitle">// 6 PROFILES LOADED</span>
     </header>
     <div class="char-stage fade-up d1">
       <button class="nav-arrow" id="charPrev" aria-label="이전 캐릭터">◀</button>
       <div class="char-main">
         <div class="char-img-wrap">
-          <img class="char-img zoomable" id="charImg" src="character/0_0.png" alt="character"/>
+          <img class="char-img zoomable" id="charImg" src="assets/prototype/character/0_0.png" alt="character"/>
           <button class="zoom-btn" data-zoom-type="image" data-zoom-target="#charImg" data-zoom-title="CHARACTER">EXPAND</button>
         </div>
         <div class="char-info">
           <div class="char-id" id="charId">CHARACTER · 01 / 06</div>
-          <div class="char-name" id="charName">루나<span class="en" id="charNameEn">LUNA</span></div>
+          <div class="char-name" id="charName">루나<span class="en" id="charNameEn">LUNA</span>
+</div>
           <div class="char-bio" id="charBio">차분하고 사색적인 바의 단골 손님. 늘 같은 자리에 앉아 같은 잔을 비운다.</div>
           <div class="char-stats" id="charStats">
-            <div><span>AGE</span><span>--</span></div>
-            <div><span>ROLE</span><span>--</span></div>
-            <div><span>DRINK</span><span>--</span></div>
-            <div><span>MOOD</span><span>--</span></div>
+            <div>
+<span>AGE</span>
+<span>--</span>
+</div>
+            <div>
+<span>ROLE</span>
+<span>--</span>
+</div>
+            <div>
+<span>DRINK</span>
+<span>--</span>
+</div>
+            <div>
+<span>MOOD</span>
+<span>--</span>
+</div>
           </div>
         </div>
       </div>
       <button class="nav-arrow" id="charNext" aria-label="다음 캐릭터">▶</button>
     </div>
-    <div class="char-thumbs fade-up d2" id="charThumbs"></div>
+    <div class="char-thumbs fade-up d2" id="charThumbs">
+</div>
   </section>
 
   <!-- ============================================ BAR INTERIOR ============================================ -->
   <section class="slide" id="s-bar-in" data-name="BAR INTERIOR" data-num="03">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 03 / SECTION ]</span>
-      <h2 class="slide-title">바 <span class="accent">내부</span></h2>
+      <h2 class="slide-title">바 <span class="accent">내부</span>
+</h2>
       <span class="slide-subtitle">// LOCATION_INT_001</span>
     </header>
     <div class="content">
       <div class="bg-frame fade-up d1">
         <span class="label">// BG_INT_BAR</span>
-        <img class="zoomable" src="Background/background_0.png" alt="bar interior" data-zoom-type="image" data-zoom-src="Background/background_0.png" data-zoom-title="BG_INT_BAR · 바 내부" />
+        <img class="zoomable" src="assets/prototype/backgrounds/background_0.png" alt="bar interior" data-zoom-type="image" data-zoom-src="assets/prototype/backgrounds/background_0.png" data-zoom-title="BG_INT_BAR · 바 내부" />
         <span class="coord">37.5247°N · 126.9876°E</span>
-        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="Background/background_0.png" data-zoom-title="BG_INT_BAR · 바 내부">EXPAND</button>
+        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/backgrounds/background_0.png" data-zoom-title="BG_INT_BAR · 바 내부">EXPAND</button>
       </div>
       <aside class="info-stack">
         <div class="info-card fade-up d2">
@@ -2577,19 +2621,22 @@
 
   <!-- ============================================ BAR EXTERIOR ============================================ -->
   <section class="slide" id="s-bar-out" data-name="BAR EXTERIOR" data-num="04">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 04 / SECTION ]</span>
-      <h2 class="slide-title">바 <span class="accent">외부</span></h2>
+      <h2 class="slide-title">바 <span class="accent">외부</span>
+</h2>
       <span class="slide-subtitle">// STREET LEVEL · ELEVATOR ACCESS</span>
     </header>
     <div class="content">
       <div class="bg-stage fade-up d1">
-        <img class="zoomable" src="Background/background_1.png" alt="bar exterior" data-zoom-type="image" data-zoom-src="Background/background_1.png" data-zoom-title="BG_EXT_STREET · 바 외부" />
-        <button class="map-btn left" data-video="video/map_0.mp4" data-title="엘레베이터">엘레베이터 보기</button>
-        <button class="map-btn right" data-video="video/map_1.mp4" data-title="거리">거리 보기</button>
-        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="Background/background_1.png" data-zoom-title="BG_EXT_STREET · 바 외부">EXPAND</button>
+        <img class="zoomable" src="assets/prototype/backgrounds/background_1.png" alt="bar exterior" data-zoom-type="image" data-zoom-src="assets/prototype/backgrounds/background_1.png" data-zoom-title="BG_EXT_STREET · 바 외부" />
+        <button class="map-btn left" data-video="assets/prototype/video/map_0.mp4" data-title="엘레베이터">엘레베이터 보기</button>
+        <button class="map-btn right" data-video="assets/prototype/video/map_1.mp4" data-title="거리">거리 보기</button>
+        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/backgrounds/background_1.png" data-zoom-title="BG_EXT_STREET · 바 외부">EXPAND</button>
       </div>
       <div class="bar-out-actions fade-up d2">
         <button class="bar-out-btn" id="prevBgBtn">이전 배경 사진 보기 ▸</button>
@@ -2599,24 +2646,27 @@
 
   <!-- ============================================ UI ============================================ -->
   <section class="slide" id="s-ui" data-name="UI" data-num="05">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 05 / SECTION ]</span>
-      <h2 class="slide-title">U<span class="accent">I</span></h2>
+      <h2 class="slide-title">U<span class="accent">I</span>
+</h2>
       <span class="slide-subtitle">// INTERFACE PREVIEW</span>
     </header>
     <div class="ui-stage fade-up d1">
       <div class="ui-pair">
         <div class="ui-card">
           <span class="ui-tag">UI · 01</span>
-          <img class="zoomable" src="UI/UI_0.png" alt="UI 01" data-zoom-type="image" data-zoom-src="UI/UI_0.png" data-zoom-title="UI · 01"/>
-          <button class="zoom-btn" data-zoom-type="image" data-zoom-src="UI/UI_0.png" data-zoom-title="UI · 01">EXPAND</button>
+          <img class="zoomable" src="assets/prototype/ui/UI_0.png" alt="UI 01" data-zoom-type="image" data-zoom-src="assets/prototype/ui/UI_0.png" data-zoom-title="UI · 01"/>
+          <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/ui/UI_0.png" data-zoom-title="UI · 01">EXPAND</button>
         </div>
         <div class="ui-card">
           <span class="ui-tag">UI · 02</span>
-          <img class="zoomable" src="UI/UI_1.png" alt="UI 02" data-zoom-type="image" data-zoom-src="UI/UI_1.png" data-zoom-title="UI · 02"/>
-          <button class="zoom-btn" data-zoom-type="image" data-zoom-src="UI/UI_1.png" data-zoom-title="UI · 02">EXPAND</button>
+          <img class="zoomable" src="assets/prototype/ui/UI_1.png" alt="UI 02" data-zoom-type="image" data-zoom-src="assets/prototype/ui/UI_1.png" data-zoom-title="UI · 02"/>
+          <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/ui/UI_1.png" data-zoom-title="UI · 02">EXPAND</button>
         </div>
       </div>
       <div class="ui-actions fade-up d2">
@@ -2628,28 +2678,37 @@
 
   <!-- ============================================ COCKTAIL ============================================ -->
   <section class="slide" id="s-cocktail" data-name="COCKTAIL" data-num="06">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 06 / SECTION ]</span>
-      <h2 class="slide-title">칵<span class="accent">테일</span></h2>
+      <h2 class="slide-title">칵<span class="accent">테일</span>
+</h2>
       <span class="slide-subtitle">// MENU · 7 SLOTS · CLICK TO INSPECT</span>
     </header>
-    <div class="cocktail-grid fade-up d1" id="cocktailGrid"></div>
+    <div class="cocktail-grid fade-up d1" id="cocktailGrid">
+</div>
   </section>
 
   <!-- ============================================ CUTSCENES ============================================ -->
   <section class="slide" id="s-cutscene" data-name="CUTSCENES" data-num="07">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 07 / SECTION ]</span>
-      <h2 class="slide-title">컷씬 <span class="accent">장면</span></h2>
+      <h2 class="slide-title">컷씬 <span class="accent">장면</span>
+</h2>
       <span class="slide-subtitle">// SIDE-VIEW SEQUENCES · CLICK TO PREVIEW</span>
     </header>
     <div class="cut-grid">
       <div class="cut-cell fade-up d1" data-cut="lab">
-        <div class="cut-bg"><img src="Background/background_2.png" alt="lab" /></div>
+        <div class="cut-bg">
+<img src="assets/prototype/backgrounds/background_2.png" alt="lab" />
+</div>
         <div class="cut-content">
           <div class="cut-num">CUTSCENE · 01</div>
           <div class="cut-title">연구소</div>
@@ -2658,7 +2717,9 @@
         </div>
       </div>
       <div class="cut-cell fade-up d2" data-cut="street">
-        <div class="cut-bg"><img src="Background/background_1.png" alt="street" /></div>
+        <div class="cut-bg">
+<img src="assets/prototype/backgrounds/background_1.png" alt="street" />
+</div>
         <div class="cut-content">
           <div class="cut-num">CUTSCENE · 02</div>
           <div class="cut-title">외부 거리</div>
@@ -2667,7 +2728,9 @@
         </div>
       </div>
       <div class="cut-cell fade-up d3" data-cut="bar">
-        <div class="cut-bg"><img src="Background/background_0.png" alt="bar" /></div>
+        <div class="cut-bg">
+<img src="assets/prototype/backgrounds/background_0.png" alt="bar" />
+</div>
         <div class="cut-content">
           <div class="cut-num">CUTSCENE · 03</div>
           <div class="cut-title">바 내부</div>
@@ -2680,11 +2743,14 @@
 
   <!-- ============================================ GAME SYSTEM ============================================ -->
   <section class="slide" id="s-system" data-name="GAME SYSTEM" data-num="08">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 08 / SECTION ]</span>
-      <h2 class="slide-title">게임 <span class="accent">시스템</span></h2>
+      <h2 class="slide-title">게임 <span class="accent">시스템</span>
+</h2>
       <span class="slide-subtitle">// CORE MECHANICS · 3 LAYERS</span>
     </header>
     <div class="sys-grid fade-up d1">
@@ -2787,17 +2853,21 @@
 
   <!-- ============================================ ADDITIONAL DIRECTION (Intro.mp4) ============================================ -->
   <section class="slide" id="s-direction" data-name="DIRECTION" data-num="09">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 09 / SECTION ]</span>
-      <h2 class="slide-title">추가 <span class="accent">연출</span></h2>
+      <h2 class="slide-title">추가 <span class="accent">연출</span>
+</h2>
       <span class="slide-subtitle">// CINEMATIC INTRO</span>
     </header>
     <div class="content">
       <div class="intro-frame fade-up d1">
-        <video src="video/Intro.mp4" autoplay muted loop playsinline controls></video>
-        <button class="zoom-btn" data-zoom-type="video" data-zoom-src="video/Intro.mp4" data-zoom-title="INTRO SEQUENCE">EXPAND</button>
+        <video src="assets/prototype/video/Intro.mp4" autoplay muted loop playsinline controls>
+</video>
+        <button class="zoom-btn" data-zoom-type="video" data-zoom-src="assets/prototype/video/Intro.mp4" data-zoom-title="INTRO SEQUENCE">EXPAND</button>
       </div>
       <div class="caption fade-up d2">
         <span>///</span>&nbsp; 인트로 시퀀스 · 분위기 톤 셋업 &nbsp;<span>///</span>
@@ -2807,11 +2877,14 @@
 
   <!-- ============================================ PLANNED MECHANICS ============================================ -->
   <section class="slide" id="s-mechanic" data-name="MECHANICS" data-num="10">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 10 / SECTION ]</span>
-      <h2 class="slide-title">추가 예정 <span class="accent">메카닉</span></h2>
+      <h2 class="slide-title">추가 예정 <span class="accent">메카닉</span>
+</h2>
       <span class="slide-subtitle">// 3 SYSTEMS · TO BE INTEGRATED</span>
     </header>
     <div class="mech-grid">
@@ -2821,8 +2894,9 @@
           <span class="name">숙련도</span>
         </div>
         <div class="video-wrap">
-          <video src="video/Test_1.mp4" autoplay muted loop playsinline controls></video>
-          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="video/Test_1.mp4" data-zoom-title="숙련도 · PROFICIENCY">EXPAND</button>
+          <video src="assets/prototype/video/Test_1.mp4" autoplay muted loop playsinline controls>
+</video>
+          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="assets/prototype/video/Test_1.mp4" data-zoom-title="숙련도 · PROFICIENCY">EXPAND</button>
         </div>
         <div class="mech-foot">
           <div class="tagline">손에 익을수록 더 빠르고 정확하게.</div>
@@ -2835,8 +2909,9 @@
           <span class="name">호감도 / 운명</span>
         </div>
         <div class="video-wrap">
-          <video src="video/Test_0.mp4" autoplay muted loop playsinline controls></video>
-          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="video/Test_0.mp4" data-zoom-title="호감도 / 운명 · AFFINITY">EXPAND</button>
+          <video src="assets/prototype/video/Test_0.mp4" autoplay muted loop playsinline controls>
+</video>
+          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="assets/prototype/video/Test_0.mp4" data-zoom-title="호감도 / 운명 · AFFINITY">EXPAND</button>
         </div>
         <div class="mech-foot">
           <div class="tagline">관계의 깊이가 분기를 만든다.</div>
@@ -2849,8 +2924,9 @@
           <span class="name">경제</span>
         </div>
         <div class="video-wrap">
-          <video src="video/Test_2.mp4" autoplay muted loop playsinline controls></video>
-          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="video/Test_2.mp4" data-zoom-title="경제 · ECONOMY">EXPAND</button>
+          <video src="assets/prototype/video/Test_2.mp4" autoplay muted loop playsinline controls>
+</video>
+          <button class="zoom-btn" data-zoom-type="video" data-zoom-src="assets/prototype/video/Test_2.mp4" data-zoom-title="경제 · ECONOMY">EXPAND</button>
         </div>
         <div class="mech-foot">
           <div class="tagline">바를 굴리는 건 결국 현금흐름.</div>
@@ -2862,14 +2938,18 @@
 
   <!-- ============================================ ADDITIONAL CHARACTERS ============================================ -->
   <section class="slide" id="s-extra" data-name="EXTRA CAST" data-num="11">
-    <div class="corner-bracket tl"></div>
-    <div class="corner-bracket tr"></div>
+    <div class="corner-bracket tl">
+</div>
+    <div class="corner-bracket tr">
+</div>
     <header class="slide-header">
       <span class="slide-num">[ 11 / SECTION ]</span>
-      <h2 class="slide-title">추가 <span class="accent">캐릭터</span></h2>
+      <h2 class="slide-title">추가 <span class="accent">캐릭터</span>
+</h2>
       <span class="slide-subtitle">// 7 PROFILES · DRAFT · CLICK TO INSPECT</span>
     </header>
-    <div class="extra-grid" id="extraGrid"></div>
+    <div class="extra-grid" id="extraGrid">
+</div>
   </section>
 
 </main>
@@ -2878,15 +2958,18 @@
 <div class="modal-back" id="modalBack">
   <div class="modal" id="modalBox">
     <button class="modal-close" id="modalClose">×</button>
-    <div id="modalContent"></div>
+    <div id="modalContent">
+</div>
   </div>
 </div>
 
 <!-- ============ LIGHTBOX (single media zoom) ============ -->
 <div class="lightbox-back" id="lightboxBack">
   <button class="lightbox-close" id="lightboxClose">×</button>
-  <div class="lightbox-content" id="lightboxContent"></div>
-  <div class="lightbox-caption" id="lightboxCaption"></div>
+  <div class="lightbox-content" id="lightboxContent">
+</div>
+  <div class="lightbox-caption" id="lightboxCaption">
+</div>
 </div>
 
 <script>
@@ -3047,7 +3130,7 @@
     const c = characters[charIdx];
     charImg.classList.add('swap');
     setTimeout(() => {
-      charImg.src = 'character/' + c.id + '.png';
+      charImg.src = 'assets/prototype/character/' + c.id + '.png';
       charImg.classList.remove('swap');
     }, 200);
     charId.textContent = 'CHARACTER · ' + String(charIdx + 1).padStart(2, '0') + ' / ' + String(characters.length).padStart(2, '0');
@@ -3064,7 +3147,7 @@
   characters.forEach((c, i) => {
     const t = document.createElement('div');
     t.className = 'thumb';
-    t.innerHTML = '<img src="character/' + c.id + '.png" alt="' + c.name + '"/><div class="label">' + c.name + '</div>';
+    t.innerHTML = '<img src="assets/prototype/character/' + c.id + '.png" alt="' + c.name + '"/><div class="label">' + c.name + '</div>';
     t.addEventListener('click', () => { charIdx = i; renderCharacter(); });
     charThumbs.appendChild(t);
   });
@@ -3085,7 +3168,7 @@
     card.className = 'extra-card';
     card.innerHTML = `
       <span class="ec-tag">EXTRA_0${i}</span>
-      <div class="ec-img-wrap"><img src="dummy_character/${c.id}.png" alt="${c.name}"/></div>
+      <div class="ec-img-wrap"><img src="assets/prototype/placeholder-characters/${c.id}.png" alt="${c.name}"/></div>
       <div class="ec-foot">
         <span class="ec-name">${c.name}</span>
         <span class="ec-id">${c.role}</span>
@@ -3127,7 +3210,7 @@
     slot.dataset.idx = i;
     slot.innerHTML = `
       <span class="cock-num">DRINK · ${String(i + 1).padStart(2, '0')}</span>
-      <div class="cock-img"><img src="cocktail/C_${i}.png" alt="${c.ko}"/></div>
+      <div class="cock-img"><img src="assets/prototype/cocktail/C_${i}.png" alt="${c.ko}"/></div>
       <div class="cock-foot">
         <div class="cock-meta">
           <span class="cock-name">${c.ko}</span>
@@ -3144,8 +3227,8 @@
     const buildMedia = (prefix, label) => `
       <div class="cock-media-item">
         <span class="cmi-tag">// ${label}</span>
-        <img src="cocktail/${prefix}_${idx}.gif" alt="${label} ${idx}" onload="window.__cockLoaded()" onerror="window.__imgFallback(this)"/>
-        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="cocktail/${prefix}_${idx}.gif" data-zoom-title="${c.ko} · ${label}">EXPAND</button>
+        <img src="assets/prototype/cocktail/${prefix}_${idx}.gif" alt="${label} ${idx}" onload="window.__cockLoaded()" onerror="window.__imgFallback(this)"/>
+        <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/cocktail/${prefix}_${idx}.gif" data-zoom-title="${c.ko} · ${label}">EXPAND</button>
       </div>`;
     openModal(`
       <div class="cock-modal">
@@ -3175,8 +3258,8 @@
         <div class="cock-media-grid" style="grid-template-columns: 1fr;">
           <div class="cock-media-item">
             <span class="cmi-tag">// DETAIL</span>
-            <img src="UI/UI_2.png" alt="UI detail"/>
-            <button class="zoom-btn" data-zoom-type="image" data-zoom-src="UI/UI_2.png" data-zoom-title="UI · 03 DETAIL">EXPAND</button>
+            <img src="assets/prototype/ui/UI_2.png" alt="UI detail"/>
+            <button class="zoom-btn" data-zoom-type="image" data-zoom-src="assets/prototype/ui/UI_2.png" data-zoom-title="UI · 03 DETAIL">EXPAND</button>
           </div>
         </div>
       </div>
@@ -3187,8 +3270,8 @@
     const cells = [];
     for (let i = 0; i < 15; i++) {
       cells.push(`
-        <div class="ing-cell" data-zoom-type="image" data-zoom-src="ingredient/I_${i}.png" data-zoom-title="INGREDIENT · ${String(i).padStart(2,'0')}">
-          <img class="zoomable" src="ingredient/I_${i}.png" alt="ingredient ${i}" data-zoom-type="image" data-zoom-src="ingredient/I_${i}.png" data-zoom-title="INGREDIENT · ${String(i).padStart(2,'0')}"/>
+        <div class="ing-cell" data-zoom-type="image" data-zoom-src="assets/prototype/ingredient/I_${i}.png" data-zoom-title="INGREDIENT · ${String(i).padStart(2,'0')}">
+          <img class="zoomable" src="assets/prototype/ingredient/I_${i}.png" alt="ingredient ${i}" data-zoom-type="image" data-zoom-src="assets/prototype/ingredient/I_${i}.png" data-zoom-title="INGREDIENT · ${String(i).padStart(2,'0')}"/>
           <span class="ing-id">I_${String(i).padStart(2,'0')}</span>
         </div>`);
     }
@@ -3208,7 +3291,7 @@
     const cells = [10, 11, 12].map((n, i) => `
       <div class="pbg-cell">
         <span class="pbg-tag">PREV · ${String(i + 1).padStart(2, '0')}</span>
-        <img class="zoomable" src="Background/background_${n}.png" alt="prev bg ${n}" data-zoom-type="image" data-zoom-src="Background/background_${n}.png" data-zoom-title="PREV BG · background_${n}.png"/>
+        <img class="zoomable" src="assets/prototype/backgrounds/background_${n}.png" alt="prev bg ${n}" data-zoom-type="image" data-zoom-src="assets/prototype/backgrounds/background_${n}.png" data-zoom-title="PREV BG · background_${n}.png"/>
       </div>`).join('');
     openModal(`
       <div class="cock-modal">
@@ -3733,7 +3816,7 @@
   document.querySelectorAll('#s-cutscene .cut-cell').forEach(cell => {
     cell.addEventListener('click', () => {
       const d = cutData[cell.dataset.cut];
-      const imgs = d.files.map(f => `<img src="gif/${f}.gif" alt="frame ${f}"/>`).join('');
+      const imgs = d.files.map(f => `<img src="assets/prototype/animations/${f}.gif" alt="frame ${f}"/>`).join('');
       const single = d.files.length === 1 ? ' single' : '';
       openModal(`
         <div class="modal-title">// ${d.title}</div>
@@ -3766,7 +3849,7 @@
     const tags = c.tags.map(t => `<span>${t}</span>`).join('');
     openModal(`
       <div class="extra-info">
-        <div class="ei-img"><img src="dummy_character/${c.id}.png" alt="${c.name}"/></div>
+        <div class="ei-img"><img src="assets/prototype/placeholder-characters/${c.id}.png" alt="${c.name}"/></div>
         <div class="ei-detail">
           <h3>${c.name}</h3>
           <div class="ei-role">// ${c.role}</div>

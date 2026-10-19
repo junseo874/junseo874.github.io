@@ -1,7 +1,7 @@
 // Scoped, repeatable data migration. All other days/art/settings are preserved.
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),spec=require('./day0-notion-20261013.json');
-const ctx={window:{}};for(const file of ['data.js','campaign-data.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),ctx);
+const ctx={window:{}};for(const file of ['data/runtime/game-data.js','data/runtime/campaign-data.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),ctx);
 const data=ctx.window.LUNA_DATA,campaign=ctx.window.LUNA_CAMPAIGN_DATA,scene='d1_tutorial_chris',choiceId='ch_day0_port_history';
 const stable=d=>JSON.stringify({...d,tables:{...d.tables,steps:d.tables.steps.filter(r=>r.context!==scene),bar_choices:d.tables.bar_choices.filter(r=>!['ch_day0_notion_tutorial',choiceId].includes(r.context)),bar_choice_groups:d.tables.bar_choice_groups.filter(r=>r.choice_group!==choiceId)},source:{...d.source,webDay0Bar:undefined}});
 const before=stable(data),otherCampaign=JSON.stringify({...campaign,day0Bar:undefined});
@@ -73,6 +73,6 @@ const names={chris:'크리스',luna:'루나',port:'포트'};
 campaign.day0Bar=spoken.map(s=>({type:'say',actor:s.actor,who:names[s.actor],text:s['text.ko']}));
 assert.equal(stable(data),before,'Unexpected changes outside day-zero bar data');assert.equal(JSON.stringify({...campaign,day0Bar:undefined}),otherCampaign);
 // Mechanical serialization of generated data only; authoring lives in this migration/spec.
-fs.writeFileSync(path.join(root,'data.js'),'window.LUNA_DATA='+JSON.stringify(data)+';\n');
-fs.writeFileSync(path.join(root,'campaign-data.js'),'window.LUNA_CAMPAIGN_DATA='+JSON.stringify(campaign,null,2)+';\n');
+fs.writeFileSync(path.join(root,'data/runtime/game-data.js'),'window.LUNA_DATA='+JSON.stringify(data)+';\n');
+fs.writeFileSync(path.join(root,'data/runtime/campaign-data.js'),'window.LUNA_CAMPAIGN_DATA='+JSON.stringify(campaign,null,2)+';\n');
 console.log('DAY0_UPDATED',spoken.length,'spoken lines, tutorial choice + two exclusive Port affinity branches; unrelated data preserved.');

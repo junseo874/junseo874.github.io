@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('source_dir', type=Path)
 parser.add_argument('--ffmpeg', default='ffmpeg', help='Path to an FFmpeg executable with libmp3lame')
 args = parser.parse_args()
-destination = Path(__file__).resolve().parents[1] / 'assets' / 'audio'
+destination = Path(__file__).resolve().parents[1] / 'assets' / 'audio' / 'music'
 destination.mkdir(parents=True, exist_ok=True)
 
 def convert(number):

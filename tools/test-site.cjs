@@ -1,8 +1,8 @@
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('./lib/test-runtime.cjs').load('playwright');
 const assert=require('assert/strict');
 const BASE=process.env.LUNA_SITE_URL||'http://127.0.0.1:8123/';
 (async()=>{let browser;try{
-  browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
+  browser=await chromium.launch({executablePath:require('./lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
   const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'}),errors=[],missing=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('response',r=>{if(r.url().startsWith(BASE)&&r.status()>=400)missing.push(r.status()+' '+r.url());});

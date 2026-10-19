@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http');
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('./lib/test-runtime.cjs').load('playwright');
 const root=path.resolve(__dirname,'..');
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.ttf':'font/ttf','.wav':'audio/wav'};
 const server=http.createServer((req,res)=>{
@@ -11,7 +11,7 @@ const server=http.createServer((req,res)=>{
 });
 (async()=>{let browser;try{
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
- browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
+ browser=await chromium.launch({executablePath:require('./lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/bar-playtest/`);

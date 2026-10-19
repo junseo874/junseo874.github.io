@@ -1,0 +1,72 @@
+/* Profile_V2 / profile_window: original UI layers, live portraits and progress. */
+.resource-profile{position:absolute;background:#09131b url('../../../assets/ui/profile/BG_profile.png') center/100% 100% no-repeat;--profile-accent:#9ce7f9;color:#aab7c3}
+.resource-profile:before{display:none}
+.resource-profile .dossier-list-shell{padding:0}
+.resource-profile .dossier-header{height:22.2%;min-height:0;align-items:center}
+.resource-profile .dossier-heading{width:170px;height:71px;display:block;position:relative;margin-top:8px}
+.resource-profile .profile-title-art{display:block;width:100%;height:100%;object-fit:contain}
+.resource-profile .dossier-heading h2{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden;font-size:26px}
+.resource-profile[data-language="en"] .profile-title-art{display:none}
+.resource-profile[data-language="en"] .dossier-heading{width:320px;display:grid;place-items:center}
+.resource-profile[data-language="en"] .dossier-heading h2{position:static;clip-path:none;width:auto;height:auto;color:#4bdcf8;letter-spacing:1px}
+.resource-profile .profile-close{position:absolute;right:5.1%;top:35%;width:39px;display:flex;flex-direction:column;align-items:center;gap:5px;border:0;border-radius:0;padding:0;background:transparent;box-shadow:none;z-index:5}
+.resource-profile .profile-close img{width:39px;height:39px;object-fit:contain;image-rendering:auto;pointer-events:none}
+.resource-profile .profile-close .profile-esc{width:36px;height:17px}
+.resource-profile .profile-close:hover:not(:disabled){background:transparent;filter:brightness(1.35)}
+.resource-profile .profile-close:focus-visible{outline:1px solid #9ce7f9;outline-offset:3px}
+.resource-profile .dossier-list-scroll{padding:0 8.1% 20px 13.5%;margin-right:4.6%;scrollbar-width:auto;scrollbar-color:auto;scrollbar-gutter:stable;overflow-x:hidden}
+.resource-profile .dossier-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 20px}
+.resource-profile .guest-card{height:auto;aspect-ratio:658/959;display:block;min-width:0;padding:0;border:0;border-radius:0;clip-path:none;background:transparent url('../../../assets/ui/profile/IMG_card_B.png') center/100% 100% no-repeat;overflow:visible;box-shadow:none;isolation:isolate;color:#edf4f8}
+.resource-profile .guest-card:after{content:'';position:absolute;inset:0;width:auto;background:transparent url('../../../assets/ui/profile/IMG_card_B_frame.png') center/100% 100% no-repeat;pointer-events:none;z-index:3}
+/* C has 17px of glow padding; align its inner frame with the normal B frame. */
+.resource-profile .guest-card:is(:hover,:focus-visible,.selected):not(:disabled){background:transparent url('../../../assets/ui/profile/IMG_card_C.png') center/105.17% 103.44% no-repeat;outline:none}
+.resource-profile .guest-card:is(:hover,:focus-visible,.selected):not(:disabled):after{inset:-1.72% -2.59%;background:transparent url('../../../assets/ui/profile/IMG_card_C_frame.png') center/100% 100% no-repeat;width:auto}
+.resource-profile .guest-card>.dossier-portrait,.resource-profile .profile-silhouette{position:absolute;inset:7.5% .8% .6%;width:auto;height:auto;overflow:hidden;clip-path:polygon(0 0,100% 0,100% 93%,90% 100%,0 100%);display:flex;justify-content:center;align-items:flex-start}
+.resource-profile .portrait-canvas.portrait-cropped{width:110%;max-height:none}
+.resource-profile .guest-card-caption{position:absolute;z-index:2;bottom:1%;left:.8%;right:.8%;padding:17% 12% 6%;background:linear-gradient(transparent,#000d 57%,#000f);clip-path:polygon(0 0,100% 0,100% 70%,89% 100%,0 100%)}
+.resource-profile .guest-card-caption>span{font-size:23px;line-height:1.3;margin:0 0 10px;color:#edf4f8;text-shadow:0 0 4px #addefe77}
+.resource-profile .affinity-bar{height:auto;display:flex;gap:0;width:100%}
+.resource-profile .affinity-bar i{flex:1;height:auto;aspect-ratio:291/66;background:transparent url('../../../assets/ui/profile/profile_window/IMG_friendship_B.png') center/100% 100% no-repeat;box-shadow:none}
+.resource-profile .affinity-bar i.filled{background-image:url('../../../assets/ui/profile/profile_window/IMG_friendship_A.png');box-shadow:none}
+.resource-profile .guest-card.unmet{opacity:1;background:transparent url('../../../assets/ui/profile/IMG_card_A.png') center/100% 100% no-repeat;cursor:var(--luna-cursor-default,default)}
+.resource-profile .guest-card.unmet:after{background-image:url('../../../assets/ui/profile/IMG_card_A_frame.png')}
+.resource-profile .profile-silhouette{filter:brightness(0);opacity:.45;pointer-events:none}
+.resource-profile .profile-silhouette .dossier-portrait{width:100%;height:100%}
+.resource-profile .profile-unknown-icon{position:absolute;z-index:2;top:39%;left:39%;width:22%;height:auto;opacity:.9;pointer-events:none}
+.resource-profile .dossier-footer{min-height:0;height:6.6%;flex:none;border:0;background:transparent url('../../../assets/ui/profile/BG_profile_bar.png') center/100% 100% no-repeat;padding:0 16px;justify-content:center}
+.resource-profile .dossier-footer p{font-size:14px;color:#617382;max-width:none;text-align:center}
+.resource-profile:not([data-language="en"]) .dossier-footer p{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.resource-profile[data-language="en"] .dossier-footer{background:#080f14}
+.resource-profile .dossier-list-scroll::-webkit-scrollbar{width:18px}
+.resource-profile .dossier-list-scroll::-webkit-scrollbar-track{background:transparent url('../../../assets/ui/profile/IMG_scroll_track.png') center/100% 100% no-repeat}
+.resource-profile .dossier-list-scroll::-webkit-scrollbar-thumb{background:transparent url('../../../assets/ui/profile/IMG_scroll_thumb.png') center/100% 100% no-repeat;border-radius:0;min-height:40px}
+
+.resource-profile .dossier-detail-backdrop{padding:0;background:#02080caa}
+.resource-profile .dossier-detail{width:70%;height:77.8%;max-width:none;grid-template-columns:40% 60%;grid-template-rows:minmax(0,1fr);border:0;background:transparent;box-shadow:0 0 8px #83d7f44d;overflow:visible}
+.resource-profile .profile-left{position:relative;padding:0;margin:0;gap:0;border:0;background:transparent url('../../../assets/ui/profile/profile_window/IMG_card_L.png') center/100% 100% no-repeat;overflow:hidden}
+.resource-profile .profile-left:after{content:'';position:absolute;inset:0;background:url('../../../assets/ui/profile/profile_window/IMG_card_L_frame.png') center/100% 100% no-repeat;pointer-events:none;z-index:3}
+.resource-profile .profile-left>.dossier-portrait{position:absolute;inset:8% 1% .6% 2%;width:auto;height:auto;container-type:size}
+.resource-profile .profile-left .portrait-canvas{width:max(108cqw,calc(100cqh * var(--portrait-ratio, .85)))}
+.resource-profile .profile-affinity{position:absolute;z-index:2;bottom:.8%;left:2%;right:.8%;margin:0;padding:24% 9% 5%;background:linear-gradient(transparent,#000e 65%,#000);gap:0}
+.resource-profile .profile-affinity>span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.resource-profile .profile-right{position:relative;padding:0 29px 40px 46px;background:transparent url('../../../assets/ui/profile/profile_window/IMG_card_R.png') center/100% 100% no-repeat;overflow:hidden}
+.resource-profile .profile-right:after{content:'';position:absolute;inset:0;background:url('../../../assets/ui/profile/profile_window/IMG_card_R_frame.png') center/100% 100% no-repeat;pointer-events:none}
+.resource-profile .profile-right header{position:relative;flex:none;height:120px;padding:34px 60px 18px 0;border:0}
+.resource-profile .profile-english-name{display:block;font-size:16px;line-height:1.2;color:#7495af;margin-bottom:10px}
+.resource-profile .profile-right h2{font-size:28px;line-height:1.2;color:#46d9f2;margin:0}
+.resource-profile .profile-right .profile-close{top:29px;right:0;width:36px}
+.resource-profile .profile-right .profile-close img{width:36px;height:36px}
+.resource-profile .profile-right .profile-close .profile-esc{width:34px;height:16px}
+.resource-profile .profile-body{padding:0 21px 20px 0;margin:0;scrollbar-width:auto;scrollbar-color:auto;scrollbar-gutter:stable}
+.resource-profile .profile-body::-webkit-scrollbar{width:18px}
+.resource-profile .profile-body::-webkit-scrollbar-track{background:transparent url('../../../assets/ui/profile/profile_window/IMG_scroll_track.png') center/100% 100% no-repeat}
+.resource-profile .profile-body::-webkit-scrollbar-thumb{background:transparent url('../../../assets/ui/profile/profile_window/IMG_scroll_thumb.png') center/100% 100% no-repeat;border-radius:0;min-height:32px}
+.resource-profile .profile-section{padding:0 0 28px;border:0}
+.resource-profile .profile-section h3{border-left:3px solid #3389aa;padding-left:10px;font-size:17px;line-height:1.2;color:#adb9c4;margin:0 0 19px}
+.resource-profile .profile-section p,.resource-profile .profile-facts{font-size:15px;line-height:1.7;color:#929da7}
+.resource-profile .profile-facts{gap:3px}
+.resource-profile .profile-facts>div{grid-template-columns:76px 1fr;gap:18px}
+.resource-profile .profile-facts dt,.resource-profile .profile-facts dd{color:#929da7}
+.resource-profile .profile-section.locked h3{color:#617381}
+.resource-profile .profile-locked{background:transparent;padding:4px 0;font-size:19px}
+.resource-profile .portrait-placeholder{height:100%;width:100%;font-size:12px}

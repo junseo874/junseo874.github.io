@@ -1,9 +1,9 @@
 // Capture only real game board regions; markers are a separate SVG UI layer.
 const fs=require('node:fs'),path=require('node:path');
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 (async()=>{
- const out=path.resolve(__dirname,'../assets/mix-tutorial-20261018');fs.mkdirSync(out,{recursive:true});
- const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
+ const out=path.resolve(__dirname,'../assets/tutorials/mixing');fs.mkdirSync(out,{recursive:true});
+ const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
   const p=await b.newPage({viewport:{width:1280,height:720},deviceScaleFactor:2});
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
@@ -32,9 +32,9 @@ const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime
     return{clip,marks};
    },{mode,page});
    const id=mode+'-'+page;await p.screenshot({path:path.join(out,id+'.png'),clip:region.clip});
-   data[id]={src:'assets/mix-tutorial-20261018/'+id+'.png',w:region.clip.width,h:region.clip.height,marks:region.marks};
+   data[id]={src:'assets/tutorials/mixing/'+id+'.png',w:region.clip.width,h:region.clip.height,marks:region.marks};
   }
-  fs.writeFileSync(path.resolve(__dirname,'../mix-tutorial-examples.js'),'/* Generated from real game board crops by tools/capture_mix_tutorial_examples.cjs. */\nwindow.LunaMixExamples='+JSON.stringify(data,null,1)+';\n');
+  fs.writeFileSync(path.resolve(__dirname,'../data/runtime/tutorial-examples.js'),'/* Generated from real game board crops by tools/capture_mix_tutorial_examples.cjs. */\nwindow.LunaMixExamples='+JSON.stringify(data,null,1)+';\n');
   console.log('Captured 8 real board regions and marker coordinates');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

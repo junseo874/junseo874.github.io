@@ -1,0 +1,25 @@
+const assert=require('node:assert/strict');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+(async()=>{const b=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true});try{
+ const p=await b.newPage({viewport:{width:1600,height:1100}}),errors=[];p.setDefaultTimeout(15000);p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/cutscene-studio/');await p.waitForFunction(()=>cutsceneStudio.ready);
+ const clip=await p.evaluate(()=>cutsceneStudio.project.clips.find(c=>c.type==='camera')),item=()=>p.locator('[data-clip="'+clip.id+'"]'),get=()=>p.evaluate(id=>cutsceneStudio.project.clips.find(c=>c.id===id),clip.id),snapshot=()=>p.evaluate(()=>JSON.stringify(cutsceneStudio.project));
+ const clickClip=async()=>{await item().scrollIntoViewIfNeeded();await item().click({position:{x:25,y:12}});};
+ const blank=async()=>{const area=p.locator('[data-track="'+clip.track+'"] .lane-area');await area.click({position:{x:15*45,y:10}});};
+ const cleared=async()=>{assert.equal(await p.locator('.clip.selected,.timeline-key.active,.key-property.selected').count(),0);assert.equal(await p.evaluate(()=>cutsceneStudio.scene.target),null);assert.equal(await p.locator('[data-field=title]').count(),0);assert.equal(await p.locator('#delete-timeline-key').isDisabled(),true);};
+ const initial=await snapshot();await clickClip();assert.equal(await item().evaluate(el=>el.classList.contains('selected')),true);await blank();await cleared();assert.equal(await snapshot(),initial);console.log('PASS blank timeline clears selection');
+ await clickClip();await p.keyboard.press('Escape');await cleared();await p.keyboard.press('Delete');assert.equal(await snapshot(),initial);
+ await clickClip();const canvas=p.locator('#stage'),r=await canvas.boundingBox();await p.mouse.click(r.x+r.width*.1,r.y+r.height*.1);await cleared();
+ await clickClip();await p.locator('[data-timeline-view=keys]').click();const key=(await get()).keyframes.x[0];await p.locator('[data-kf-id="'+key.id+'"]').click();assert.equal(await p.locator('#delete-timeline-key').isDisabled(),false);await p.keyboard.press('Escape');await cleared();
+ await p.locator('[data-kf-id="'+key.id+'"]').click();await p.locator('[data-key-group="'+clip.id+'"] [data-key-channel=x]').click({position:{x:10*45,y:10}});await cleared();
+ await p.locator('[data-timeline-view=clips]').click();
+ const startDrag=async()=>{await item().scrollIntoViewIfNeeded();const r=await item().boundingBox();await p.mouse.move(r.x+25,r.y+12);await p.mouse.down();await p.mouse.move(r.x+115,r.y+12,{steps:6});};
+ await startDrag();assert.notEqual((await get()).start,clip.start);await p.keyboard.press('Escape');await p.mouse.up();assert.equal(await snapshot(),initial);await p.mouse.move(900,500);assert.equal(await snapshot(),initial);console.log('PASS Escape cancels drag without changing data');
+ await startDrag();await p.evaluate(()=>window.dispatchEvent(new Event('blur')));await p.mouse.up();assert.equal(await snapshot(),initial);await p.mouse.move(850,500);assert.equal(await snapshot(),initial);
+ await startDrag();await p.mouse.up();const moved=await snapshot();assert.notEqual(moved,initial);await p.mouse.move(950,500);assert.equal(await snapshot(),moved);await p.locator('#undo').click();assert.equal(await snapshot(),initial);
+ // Release outside the timeline still ends the gesture.
+ await startDrag();await p.mouse.move(1150,500,{steps:4});await p.mouse.up();const outside=await snapshot();await p.mouse.move(1000,450);assert.equal(await snapshot(),outside);await p.locator('#undo').click();assert.equal(await snapshot(),initial);
+ await p.locator('#gates').uncheck();await p.evaluate(()=>cutsceneStudio.seek(0));await p.locator('#play').click();await p.waitForFunction(()=>cutsceneStudio.time>.15);await p.locator('#play').click();assert.equal(await p.evaluate(()=>cutsceneStudio.playing),false);
+ await clickClip();await p.locator('#duplicate').click();const all=await p.evaluate(()=>cutsceneStudio.project.clips),copied=all.at(-1),originalIds=new Set(Object.values((await get()).keyframes).flat().map(k=>k.id));assert.ok(Object.values(copied.keyframes).flat().every(k=>!originalIds.has(k.id)));await p.locator('[data-timeline-view=keys]').click();const copiedKey=copied.keyframes.x[0];await p.locator('[data-kf-id="'+copiedKey.id+'"]').click();await p.keyboard.press('Delete');assert.deepEqual(await get(),clip);await p.locator('#undo').click();await p.locator('#undo').click();assert.equal(await snapshot(),initial);
+ await p.evaluate(id=>cutsceneStudio.select(id),clip.id);await p.locator('#delete').click();assert.equal(await get(),undefined);await cleared();await p.locator('#undo').click();assert.equal(await snapshot(),initial);
+ await p.locator('[data-timeline-view=clips]').click();await clickClip();await p.keyboard.press('Escape');await cleared();assert.deepEqual(errors,[]);console.log('PASS scene/clip/key deselection, safe Delete, drag capture/release/blur/cancel/undo, duplicate key independence, clip deletion in key view and playback');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exit(1);});

@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project L.U.N.A — 이전 전체 흐름 프로토타입 (Day 1~3)</title>
 <link rel="stylesheet" href="css/style.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="bar-playtest/src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="bar-playtest/src/shared/ui/cursors.js?v=layout-20261019"></script>
 </head>
 <body>
 <div id="stage">
@@ -15,7 +16,8 @@
     <span id="hud-day">DAY 1</span>
     <span id="hud-gold">300G</span>
     <span id="hud-rep">평판 0</span>
-    <span id="hud-remain"></span>
+    <span id="hud-remain">
+</span>
     <button id="btn-close-early" class="btn tiny" style="display:none">🚪 조기 마감</button>
     <button id="hud-lang" class="btn tiny">EN</button>
   </div>
@@ -25,20 +27,29 @@
     <div class="title-inner">
       <p class="title-sub">PROJECT · 이전 프로토타입 보관본</p>
       <h1>L.U.N.A</h1>
-      <p class="title-tag">웹 프로토타입 — 하루 사이클 Day 1~3<br><small>출근길 · 입고 · 1부 영업 · 2부 스토리 · 정산 · 퇴근길 · 집 · 꿈</small></p>
+      <p class="title-tag">웹 프로토타입 — 하루 사이클 Day 1~3<br>
+<small>출근길 · 입고 · 1부 영업 · 2부 스토리 · 정산 · 퇴근길 · 집 · 꿈</small>
+</p>
       <div class="btn-row">
         <button id="btn-new-game" class="btn primary big">새 게임</button>
         <button id="btn-continue" class="btn big" style="display:none">이어하기</button>
       </div>
       <p class="title-help">🖱 드래그: 코스터/잔 서빙 · ←→/버튼: 이동 · E/버튼: 조사</p>
-      <p class="title-help">이 페이지는 과거 전체 흐름 확인용입니다. 현행 바 내부 테스트는 <a href="bar-playtest/" style="color:#80e6ee">바 영업 플레이테스트</a>를 이용해 주세요. · <a href="index.html" style="color:#80e6ee">로비</a></p>
+      <p class="title-help">이 페이지는 과거 전체 흐름 확인용입니다. 현행 바 내부 테스트는 <a href="bar-playtest/" style="color:#80e6ee">바 영업 플레이테스트</a>를 이용해 주세요. · <a href="index.html" style="color:#80e6ee">로비</a>
+</p>
     </div>
   </section>
 
   <!-- 출퇴근 (횡스크롤) -->
   <section id="screen-commute" class="screen">
-    <div id="commute-label" class="area-label"></div>
-    <div id="commute-view"><div id="commute-strip"></div><div id="commute-ground"></div></div>
+    <div id="commute-label" class="area-label">
+</div>
+    <div id="commute-view">
+<div id="commute-strip">
+</div>
+<div id="commute-ground">
+</div>
+</div>
     <div id="commute-controls">
       <button id="btn-left" class="btn move">◀</button>
       <button id="btn-interact" class="btn primary" style="display:none">조사하기</button>
@@ -48,24 +59,53 @@
 
   <!-- 바 내부 — 포커스 카메라: 한 화면에 손님 1명, 좌우는 잘린 실루엣 -->
   <section id="screen-bar" class="screen">
-    <div id="slot-indicator"></div>
+    <div id="slot-indicator">
+</div>
     <div id="bar-viewport">
       <div id="bar-world">
-        <div class="bar-backdrop"></div>
+        <div class="bar-backdrop">
+</div>
         <div class="seat" data-seat="0" onclick="Bar.onSeatTap(0)">
-          <div class="float-text"></div><div class="seat-guest"></div>
-          <div class="discontent-bar"><div class="discontent-fill"></div></div>
-          <div class="seat-coaster"></div><div class="seat-stool"></div>
+          <div class="float-text">
+</div>
+<div class="seat-guest">
+</div>
+          <div class="discontent-bar">
+<div class="discontent-fill">
+</div>
+</div>
+          <div class="seat-coaster">
+</div>
+<div class="seat-stool">
+</div>
         </div>
         <div class="seat" data-seat="1" onclick="Bar.onSeatTap(1)">
-          <div class="float-text"></div><div class="seat-guest"></div>
-          <div class="discontent-bar"><div class="discontent-fill"></div></div>
-          <div class="seat-coaster"></div><div class="seat-stool"></div>
+          <div class="float-text">
+</div>
+<div class="seat-guest">
+</div>
+          <div class="discontent-bar">
+<div class="discontent-fill">
+</div>
+</div>
+          <div class="seat-coaster">
+</div>
+<div class="seat-stool">
+</div>
         </div>
         <div class="seat" data-seat="2" onclick="Bar.onSeatTap(2)">
-          <div class="float-text"></div><div class="seat-guest"></div>
-          <div class="discontent-bar"><div class="discontent-fill"></div></div>
-          <div class="seat-coaster"></div><div class="seat-stool"></div>
+          <div class="float-text">
+</div>
+<div class="seat-guest">
+</div>
+          <div class="discontent-bar">
+<div class="discontent-fill">
+</div>
+</div>
+          <div class="seat-coaster">
+</div>
+<div class="seat-stool">
+</div>
         </div>
       </div>
     </div>
@@ -74,16 +114,23 @@
       <button class="btn move" onclick="Bar.focusSlot(Bar.focus + 1)">▶</button>
     </div>
     <div class="bar-counter">
-      <div id="coaster-tray" title="코스터"></div>
-      <div id="glass-tray"></div>
+      <div id="coaster-tray" title="코스터">
+</div>
+      <div id="glass-tray">
+</div>
     </div>
-    <div id="luna-bubble"></div>
+    <div id="luna-bubble">
+</div>
   </section>
 
   <!-- 집 -->
   <section id="screen-home" class="screen">
-    <div id="home-label" class="area-label"></div>
-    <div id="home-view"><div id="home-strip"></div></div>
+    <div id="home-label" class="area-label">
+</div>
+    <div id="home-view">
+<div id="home-strip">
+</div>
+</div>
     <div id="home-controls">
       <button class="btn move" id="home-left">◀</button>
       <button class="btn primary" id="btn-home-act" style="display:none">조사하기</button>
@@ -92,34 +139,48 @@
   </section>
 
   <!-- 꿈 -->
-  <section id="screen-dream" class="screen"></section>
+  <section id="screen-dream" class="screen">
+</section>
 
   <!-- 엔딩(프로토 종료) -->
-  <section id="screen-end" class="screen"><div id="end-body" class="panel"></div></section>
+  <section id="screen-end" class="screen">
+<div id="end-body" class="panel">
+</div>
+</section>
 
   <!-- 대화 박스 (전역) -->
   <div id="dialog">
-    <div class="dlg-portrait"></div>
-    <div class="dlg-body"><div class="dlg-name"></div><div class="dlg-text"></div></div>
+    <div class="dlg-portrait">
+</div>
+    <div class="dlg-body">
+<div class="dlg-name">
+</div>
+<div class="dlg-text">
+</div>
+</div>
     <div class="dlg-next">▼</div>
   </div>
-  <div id="choice-box"></div>
+  <div id="choice-box">
+</div>
 
   <!-- 제조 오버레이 (주문 단말 패널 — 시뮬레이터 방식) -->
   <div id="ov-craft" class="overlay">
     <div class="craft-panel">
       <div class="craft-head">
         <span id="craft-timer">⏱</span>
-        <span id="craft-order-banner"></span>
+        <span id="craft-order-banner">
+</span>
       </div>
-      <div id="craft-stage"></div>
+      <div id="craft-stage">
+</div>
     </div>
   </div>
 
   <!-- 레시피 노트 -->
   <div id="ov-note" class="overlay">
     <div class="panel note-panel">
-      <div id="note-body"></div>
+      <div id="note-body">
+</div>
       <button id="note-close" class="btn">닫기</button>
     </div>
   </div>
@@ -127,7 +188,8 @@
   <!-- 한줄평 / 제공·버리기 -->
   <div id="ov-review" class="overlay">
     <div class="panel">
-      <div id="review-body"></div>
+      <div id="review-body">
+</div>
       <div class="btn-row">
         <button id="btn-review-discard" class="btn ghost">🗑 버리기</button>
         <button id="btn-review-serve" class="btn primary">🍸 제공하기</button>
@@ -136,21 +198,53 @@
   </div>
 
   <!-- 입고 / 정산 / 상점 -->
-  <div id="ov-stock" class="overlay"><div class="panel"><div id="stock-body"></div><button class="btn primary ov-confirm">확인</button></div></div>
-  <div id="ov-settle" class="overlay"><div class="panel"><div id="settle-body"></div><button class="btn primary ov-confirm">바에서 나가기 ▶</button></div></div>
-  <div id="ov-shop" class="overlay"><div class="panel"><h2>🛒 완의 노점</h2><div id="shop-list"></div><button id="shop-close" class="btn">닫기</button></div></div>
-
-  <!-- 페이즈 배너 / 토스트 / 플래시 -->
-  <div id="phase-banner"><div class="pb-title"></div><div class="pb-sub"></div></div>
-  <div id="toast"></div>
-  <div id="flash"></div>
+  <div id="ov-stock" class="overlay">
+<div class="panel">
+<div id="stock-body">
+</div>
+<button class="btn primary ov-confirm">확인</button>
+</div>
+</div>
+  <div id="ov-settle" class="overlay">
+<div class="panel">
+<div id="settle-body">
+</div>
+<button class="btn primary ov-confirm">바에서 나가기 ▶</button>
+</div>
+</div>
+  <div id="ov-shop" class="overlay">
+<div class="panel">
+<h2>🛒 완의 노점</h2>
+<div id="shop-list">
+</div>
+<button id="shop-close" class="btn">닫기</button>
+</div>
 </div>
 
-<script src="js/data.js"></script>
-<script src="js/core.js"></script>
-<script src="js/dialogue.js"></script>
-<script src="js/craft.js"></script>
-<script src="js/bar.js"></script>
-<script src="js/main.js"></script>
+  <!-- 페이즈 배너 / 토스트 / 플래시 -->
+  <div id="phase-banner">
+<div class="pb-title">
+</div>
+<div class="pb-sub">
+</div>
+</div>
+  <div id="toast">
+</div>
+  <div id="flash">
+</div>
+</div>
+
+<script src="js/data.js">
+</script>
+<script src="js/core.js">
+</script>
+<script src="js/dialogue.js">
+</script>
+<script src="js/craft.js">
+</script>
+<script src="js/bar.js">
+</script>
+<script src="js/main.js">
+</script>
 </body>
 </html>

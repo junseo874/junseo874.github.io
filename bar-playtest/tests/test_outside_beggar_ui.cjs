@@ -1,0 +1,23 @@
+const assert=require('node:assert/strict');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+(async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});try{
+ const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
+ await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
+ const setup=async(day,money)=>p.evaluate(async({day,money})=>{const c=lunaCampaign;c.outside.exit(true);c.session.uninstall();c.session.install({developer:false});barGame.reset(day,'full',1,false);barGame.progress.money=money;c.session.carry=structuredClone(barGame.progress);Object.assign(outsidePlaytest.config,{day,flow:day?'in':'out',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);const m=outsidePlaytest.model;m.x=LunaOutsideBeggar.people[0].x+.27;m.story.cancel();m.backgroundStory.cancel();m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);},{day,money});
+ const drain=()=>p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<40&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.refreshHUD();});
+ await setup(0,500);assert.equal(await p.evaluate(()=>outsidePlaytest.model.near.id),'street-beggar');
+ await p.screenshot({path:'/private/tmp/beggar-location.png'});
+ await p.keyboard.press('KeyE');await drain();assert(await p.locator('[data-choice="beggar-pay"]').isVisible());
+ assert((await p.locator('.outside-speech').filter({visible:true}).innerText()).includes('150원'));
+ await p.screenshot({path:'/private/tmp/beggar-choice.png'});
+ await p.locator('[data-choice="beggar-pay"]').click();assert.equal(await p.evaluate(()=>barGame.progress.money),350);assert.equal(await p.evaluate(()=>lunaCampaign.session.carry.money),350);
+ await drain();await p.waitForTimeout(450);assert(await p.evaluate(()=>outsidePlaytest.model.beggarDeparture?.x<LunaOutsideBeggar.people[0].x));
+ await p.screenshot({path:'/private/tmp/beggar-depart.png'});
+ await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<90;i++)m.tick(.05);m.x=LunaOutsideBeggar.people[1].x+.25;m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
+ assert.equal(await p.evaluate(()=>LunaOutsideBeggar.visible(outsidePlaytest.model,LunaOutsideBeggar.id)),false);
+ await p.keyboard.press('KeyE');await p.evaluate(()=>{outsidePlaytest.model.story.speech.elapsed=99;outsidePlaytest.refreshHUD();});
+ assert((await p.locator('.outside-speech').filter({visible:true}).innerText()).includes('설마'));await p.screenshot({path:'/private/tmp/beggar-witness.png'});await drain();
+ await p.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:1,flow:'in',place:'bar'});m.x=-7.1;m.updateNear();});assert.equal(await p.evaluate(()=>LunaOutsideBeggar.targets(outsidePlaytest.model).some(t=>t.id==='street-beggar')),false);
+ await setup(1,149);await p.keyboard.press('KeyE');await drain();assert(await p.locator('[data-choice="beggar-pay"]').isDisabled());await p.locator('[data-choice="beggar-refuse"]').click();await drain();assert.equal(await p.evaluate(()=>barGame.progress.money),149);assert(await p.evaluate(()=>LunaOutsideBeggar.visible(outsidePlaytest.model,LunaOutsideBeggar.id)));
+ assert.deepEqual(errors,[]);console.log('PASS two street NPCs, real E interaction/choice, 150 deduction/carry, visible departure, witness warning, day-to-day persistence and insufficient funds');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

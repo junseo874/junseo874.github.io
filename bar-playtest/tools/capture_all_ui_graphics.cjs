@@ -2,9 +2,9 @@
  * Dialogue is used for layout, never copied into a PNG. No game/save files change.
  */
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
-const sharp=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/sharp');
-const root=path.resolve(__dirname,'..'),base=process.env.RESOURCE_REVIEW_URL||'http://127.0.0.1:8123/bar-playtest/',folder='assets/ui-extracted-20261019',out=path.join(root,folder);
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
+const root=path.resolve(__dirname,'..'),base=process.env.RESOURCE_REVIEW_URL||'http://127.0.0.1:8123/bar-playtest/',folder='assets/ui/extracted',out=path.join(root,folder);
 const kindNames={background:'배경',border:'테두리',icon:'아이콘',shadow:'그림자'},stateNames={normal:'기본',hover:'호버',active:'누름',focus:'포커스'};
 const noticeKinds=[['goal-new','새로운 목표','◇'],['goal-complete','목표 달성','✓'],['event','이벤트 발생','!'],['meet','인물정보 등록','＋'],['up','호감도 상승','↑'],['down','호감도 하락','↓']];
 const snapshots=new Map(),coverage=[],extraImages=new Map(),failures=[];
@@ -19,7 +19,7 @@ function record(data,context,mandatory=false){
 }
 async function main(){
  fs.mkdirSync(out,{recursive:true});
- const browser=await chromium.launch({executablePath:process.env.CHROME_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
+ const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
   const ctx=await browser.newContext({viewport:{width:1600,height:1000},deviceScaleFactor:1}),page=await ctx.newPage(),draw=await ctx.newPage();
   await page.bringToFront();await page.goto(base+'resource-review.html');await page.waitForFunction(()=>window.resourceReview?.ready,null,{timeout:60000});
@@ -60,7 +60,7 @@ async function main(){
    const data=await game.evaluate(html=>{const r=document.createElement('div');r.style.cssText='position:fixed;inset:0;width:1280px;height:720px;z-index:99999';r.innerHTML=html;document.body.append(r);for(const e of r.querySelectorAll('[hidden]'))e.hidden=false;const data=UIGraphicSnapshot.collect(r);r.remove();return data;},html);
    record(data,{id:'fixture-'+id,title});coverage.push({id:'fixture-'+id,title,paintLayers:data.parts.length});
   }
-  const font=fs.readFileSync(path.join(root,'assets/game-font.ttf')).toString('base64');
+  const font=fs.readFileSync(path.join(root,'assets/fonts/font.ttf')).toString('base64');
   // Embed the actual bundled font: a blank export document otherwise cannot
   // load the same font over HTTP without the game's origin/CORS context.
   await draw.route(base+'graphic-export-host.html',route=>route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><html><head></head><body></body></html>'}));
@@ -104,7 +104,7 @@ async function main(){
   }
   // Intro input pictograms are drawn on a canvas, not DOM. Invoke the existing
   // drawing function and intercept text/fill/stroke independently (no redraw).
-  const opening=fs.readFileSync(path.resolve(root,'../cutscene-studio/opening-template.js'),'utf8');
+  const opening=fs.readFileSync(path.resolve(root,'../cutscene-studio/src/opening-template.js'),'utf8');
   const functionSource=opening.slice(opening.indexOf('function introControls('),opening.indexOf('function dialogue('));
   for(const [key,index]of [['E',0],['SPACE',1]])for(const pressed of [false,true])for(const kind of ['background','border','icon']){
    const image=await draw.evaluate(({functionSource,key,index,pressed,kind})=>{
@@ -117,7 +117,7 @@ async function main(){
    const src=folder+'/intro-'+key.toLowerCase()+'-'+(pressed?'pressed':'normal')+'-'+kind+'.png';fs.writeFileSync(path.join(root,src),Buffer.from(image.split(',')[1],'base64'));
    manifest.push({src,title:'게임 시작 안내 · '+key+'키 '+(pressed?'누름':'기본')+' · '+kindNames[kind],category:'UI · 기타 분리',partKind:kind,w:index?166:68,h:71,sourceStates:['ui:opening-guide--default'],note:'실제 캔버스 렌더러에서 분리 · 안내 문구 없음',...(kind==='icon'?{iconGlyph:key}:{})});
   }
-  const intro=coverage.find(c=>c.id==='ui:opening-guide--default');if(intro){intro.paintLayers=12;intro.renderer='cutscene-studio/opening-template.js / introControls';}
+  const intro=coverage.find(c=>c.id==='ui:opening-guide--default');if(intro){intro.paintLayers=12;intro.renderer='cutscene-studio/src/opening-template.js / introControls';}
   const sourceHashes=Object.fromEntries(['capture_all_ui_graphics.cjs','ui-graphic-snapshot.js'].map(f=>[f,crypto.createHash('sha256').update(fs.readFileSync(path.join(__dirname,f))).digest('hex')]));
   const audit={generatedAt:new Date().toISOString(),sourceHashes,states:coverage,failures,emptyPaintLayersExcluded:blank,assets:manifest.length,scope:'현재 리소스 확인에 등록된 플레이어 UI 전체 상태, 목표/이벤트/인물/호감도 6종, 타이틀/외부 키/관찰/스킵 UI. 게임 장면·캐릭터 합성·대사 텍스트·동적 액체 시뮬레이션 제외.'};
   fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');

@@ -33,8 +33,8 @@ for(const file of files.filter(p=>/\.(?:html|css)$/.test(p))){
 }
 const app=path.join(ROOT,'bar-playtest'),ctx={window:{addEventListener(){}},document:{createElement(){return{addEventListener(){}};},body:{append(){}}},localStorage:{getItem(){return null;}}};
 vm.createContext(ctx);
-vm.runInContext(fs.readFileSync(path.join(app,'data.js'),'utf8'),ctx);
-vm.runInContext(fs.readFileSync(path.join(app,'bgm.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(app,'data/runtime/game-data.js'),'utf8'),ctx);
+vm.runInContext(fs.readFileSync(path.join(app,'src/shared/audio/bgm.js'),'utf8'),ctx);
 const D=ctx.window.LUNA_DATA;
 for(const item of Object.values(D.assets))check(path.join(app,'index.html'),item.src);
 const audio=new ctx.window.LunaBarBgm();for(const item of audio.tracks)check(path.join(app,'index.html'),item.src);

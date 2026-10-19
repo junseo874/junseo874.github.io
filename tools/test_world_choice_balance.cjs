@@ -1,11 +1,11 @@
 const assert=require('node:assert/strict'),path=require('node:path');
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('./lib/test-runtime.cjs').load('playwright');
 (async()=>{let browser;try{
- browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});
+ browser=await chromium.launch({executablePath:require('./lib/test-runtime.cjs').chrome,headless:true});
  const page=await browser.newPage({viewport:{width:1280,height:720},reducedMotion:'reduce'});
  await page.setContent('<body style="margin:0"><div id="stage" style="position:relative;width:1280px;height:720px"></div></body>');
- for(const f of ['speech-bubble.css','outside.css','world-choices.css'])await page.addStyleTag({path:path.resolve(__dirname,'../bar-playtest',f)});
- await page.addScriptTag({path:path.resolve(__dirname,'../bar-playtest/world-choices.js')});
+ for(const f of ['src/shared/dialogue/speech-bubble.css','src/features/outside/outside.css','src/shared/dialogue/world-choices.css'])await page.addStyleTag({path:path.resolve(__dirname,'../bar-playtest',f)});
+ await page.addScriptTag({path:path.resolve(__dirname,'../bar-playtest/src/shared/dialogue/world-choices.js')});
  const results=await page.evaluate(()=>{
   const stage=document.querySelector('#stage'),chosen=[],ui=LunaWorldChoices.create(stage,id=>chosen.push(id));
   const options=[{id:'give',label:'150원을 준다.'},{id:'no',label:'주지 않는다.'}];

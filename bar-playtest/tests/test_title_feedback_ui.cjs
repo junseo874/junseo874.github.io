@@ -1,0 +1,44 @@
+const assert=require('node:assert/strict');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+(async()=>{
+ const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
+ try{
+  const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];
+  p.on('pageerror',e=>errors.push(e.message));
+  await p.addInitScript(()=>{window.hoverStarts=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.buffer&&Math.abs(this.buffer.duration-5455/48000)<.0001)hoverStarts.push(performance.now());return start.apply(this,args);};});
+  await p.goto('http://127.0.0.1:8123/bar-playtest/');
+  await p.waitForFunction(()=>barBgm.location==='street');
+  await p.locator('[data-campaign="title"]').click();
+  await p.waitForFunction(()=>LunaHoverAudio.ready&&barBgm.index===1&&barBgm.status==='playing'&&!barBgm.fade);
+  assert.equal(await p.evaluate(()=>barBgm.audio.loop),true);
+  assert(Math.abs(await p.evaluate(()=>barBgm.audio.volume-barBgm.volume*.6))<1e-8);
+  await p.mouse.move(1000,100);await p.waitForTimeout(400);
+  const before=await p.evaluate(()=>hoverStarts.length);
+  const menu=p.locator('.title-choice[data-campaign="options"]');
+  await menu.hover();await p.waitForFunction(n=>hoverStarts.length===n+1,before);
+  assert.equal(await menu.locator('.title-label').evaluate(e=>getComputedStyle(e).animationName),'title-signal');
+  assert.equal(await menu.locator('.title-label').evaluate(e=>getComputedStyle(e).animationIterationCount),'1');
+  await p.waitForTimeout(450);
+  assert.equal(await p.evaluate(()=>hoverStarts.length),before+1,'No repeated sound while hovered');
+  assert.equal(await menu.locator('.title-label').evaluate(e=>getComputedStyle(e,'::before').opacity),'0');
+  await menu.locator('.title-label').hover();await p.waitForTimeout(100);
+  assert.equal(await p.evaluate(()=>hoverStarts.length),before+1,'Nested label does not replay');
+  await p.mouse.move(1000,100);await menu.hover();await p.waitForFunction(n=>hoverStarts.length===n+2,before);
+  await p.evaluate(()=>LunaSfx.setVolume(0));await p.locator('.title-choice[data-campaign="picker"]').hover();await p.waitForTimeout(300);
+  assert.equal(await p.evaluate(()=>hoverStarts.length),before+2,'SFX mute applies');
+  const time=await p.evaluate(()=>barBgm.audio.currentTime);
+  await menu.click();await p.waitForTimeout(250);
+  assert.equal(await p.evaluate(()=>barBgm.location),'street');assert(await p.evaluate(t=>barBgm.audio.currentTime>t,time));
+  await p.locator('[data-campaign="resume"]').click();
+  await p.emulateMedia({reducedMotion:'reduce'});await menu.hover();
+  assert.equal(await menu.locator('.title-label').evaluate(e=>getComputedStyle(e).animationName),'none');
+  assert.equal(await menu.locator('.title-label').evaluate(e=>getComputedStyle(e,'::before').animationName),'none');
+  await p.locator('[data-campaign="new"]').click();await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(()=>barBgm.location),'street');
+  await p.evaluate(()=>lunaCampaign.developer());
+  await p.waitForFunction(()=>barBgm.location==='bar'&&barBgm.index===0&&barBgm.status==='playing'&&!barBgm.fade);
+  assert.equal(await p.locator('#bar-bgm').count(),1);
+  assert.deepEqual(errors,[]);
+  console.log('PASS title: street Track 2, quiet mix, persistent lobby/settings/version music, single hover cue, nested labels, re-entry, mute, one-shot glitch, reduced motion, transition to bar.');
+ }finally{await b.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

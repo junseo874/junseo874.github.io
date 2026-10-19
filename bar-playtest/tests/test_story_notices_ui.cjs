@@ -1,0 +1,58 @@
+const assert=require('node:assert/strict');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+(async()=>{
+ const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
+ const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ const people=p.locator('.story-notice-people'),event=p.locator('.story-notice-event');
+ try{
+  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.locator('[data-campaign="developer"]').click();
+  const updates=p.locator('.updates-confirm');if(await updates.isVisible())await updates.click();
+  await p.evaluate(()=>barGame.reset(0,'full',1));
+  assert.equal(await p.evaluate(()=>LunaStoryNotices.pending.filter(e=>e.kind==='meet'&&e.actor==='chris').length),0,'Known Chris stays silent');
+  await p.evaluate(()=>LunaStoryNotices.meet(barGame.progress,'port'));
+  await people.waitFor({state:'visible'});assert.equal(await people.locator('strong').textContent(),await p.evaluate(()=>barGame.name('port')));
+  assert.equal(await people.locator('small').textContent(),'새로운 인물!');assert.equal(await people.locator('.story-notice-icon').count(),0);
+  assert.equal(await people.getAttribute('data-actor'),'port');await p.waitForTimeout(300);
+  const box=await people.boundingBox();assert(box.x>950&&box.y>300&&box.y<380,'Center-right notice');assert(box.width>=220&&box.width<300&&box.height<100,'Compact two-line discovery card');
+  assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('#story-notices')).pointerEvents),'none');
+  await p.screenshot({path:'/private/tmp/story-notice-meeting.png'});
+  await p.evaluate(()=>{LunaStoryNotices.clear();LunaCore.applyEffects('affinity.chris+=2',barGame.progress);});
+  await p.waitForFunction(()=>document.querySelector('.story-notice-people strong').textContent==='크리스 호감도 상승!');
+  assert.equal(await people.locator('.story-notice-icon').textContent(),'↑','Affinity icon restored after iconless discovery');
+  await p.evaluate(()=>{LunaStoryNotices.clear();LunaCore.applyEffects('affinity.chris-=1',barGame.progress);});
+  await p.waitForFunction(()=>document.querySelector('.story-notice-people strong').textContent==='크리스 호감도 하락!');
+  await p.waitForTimeout(300);await p.screenshot({path:'/private/tmp/story-notice-affinity.png'});
+  await p.evaluate(()=>{LunaStoryNotices.clear();barGame.startStoryPhase('bar_open');});
+  assert.equal(await p.evaluate(()=>LunaStoryNotices.pending.filter(e=>e.kind==='meet').length),0,'Known bar character does not re-register');
+  await p.evaluate(()=>{barGame.reset(1,'full',2,false);Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});return outsidePlaytest.start();});
+  await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.story.beginRows('test-first-meeting',{x:m.x,y:m.y},[{type:'say',actor:'shiba',text:'외부에서 처음 만난 시바.'}]);});
+  await p.waitForFunction(()=>document.querySelector('.story-notice-people').dataset.actor==='shiba');
+  assert.equal(await people.locator('strong').textContent(),await p.evaluate(()=>barGame.name('shiba')));assert.equal(await people.locator('.story-notice-icon').count(),0);
+  assert(await p.evaluate(()=>barGame.progress.flags.shiba_met));
+  await p.evaluate(()=>{LunaStoryNotices.clear();const m=outsidePlaytest.model;m.story.cancel();m.start({day:1,flow:'in',place:'homeDoor'});m.x=LunaResidence.layout.homeX+.15;outsidePlaytest.snapCamera();});
+  await p.waitForFunction(()=>outsidePlaytest.model.encounter?.kind==='thug');await event.waitFor({state:'visible'});
+  assert.equal(await event.locator('strong').textContent(),'새로운 이벤트 발생!');
+  await p.waitForTimeout(350);const ebox=await event.boundingBox();assert(Math.abs(ebox.x+ebox.width-1256)<2&&ebox.y>550,'Bottom-right event');
+  assert.equal(await p.evaluate(()=>LunaStoryNotices.pending.filter(e=>e.kind==='event').length),1,'Repeated updateNear does not duplicate');
+  await p.screenshot({path:'/private/tmp/story-notice-event.png'});
+  await p.keyboard.press('KeyP');await p.locator('#story-notices').waitFor({state:'hidden'});
+  await p.keyboard.press('KeyP');await event.waitFor({state:'visible'});
+  // Alias speaker in forced dialogue registers the same profile as the later bar appearance.
+  await p.evaluate(()=>{const m=outsidePlaytest.model;LunaStoryNotices.clear();m.encounter=null;m.story.beginRows('test-samho',{x:m.x,y:m.y},[{type:'say',actor:'trade-samho',text:'삼호 첫 만남'}]);});
+  await p.waitForFunction(()=>document.querySelector('.story-notice-people').dataset.actor==='samho');
+  assert(await p.evaluate(()=>barGame.progress.flags.samho_met));
+  await p.evaluate(()=>{LunaStoryNotices.clear();outsidePlaytest.model.story.beginRows('test-again',{x:0,y:0},[{type:'say',actor:'contract-samho',text:'삼호 재회'}]);});
+  assert.equal(await p.evaluate(()=>LunaStoryNotices.pending.length),0);
+  await p.evaluate(()=>{LunaCore.applyEffects('affinity.samho+=1',barGame.progress);LunaCore.applyEffects('affinity.samho-=1',barGame.progress);});
+  await p.waitForFunction(()=>document.querySelector('.story-notice-people strong').textContent==='삼호 호감도 상승!');
+  assert.deepEqual(await p.evaluate(()=>LunaStoryNotices.pending.map(e=>e.kind)),['up','down'],'Changes queued in order even in one frame');
+  await p.waitForTimeout(6900);assert.equal(await people.isVisible(),false,'Notices disappear automatically');
+  await p.evaluate(()=>{outsidePlaytest.exit(true);barGame.overlay='dossier';});
+  await p.locator('.guest-card[data-id="shiba"]').waitFor({state:'visible'});
+  assert.equal(await p.locator('.guest-card[data-id="shiba"]').isDisabled(),false,'Outside meeting unlocks profile');
+  assert.equal(await p.locator('.guest-card[data-id="samho"]').isDisabled(),false);
+  assert.equal(await p.locator('.guest-card[data-id="bubi"]').isDisabled(),true,'Unmet character stays locked');
+  assert.deepEqual(errors,[]);console.log('PASS: bar first encounter, positive/negative affinity, center-right layout, outside registration and aliases, actual forced event, bottom-right layout, P hide/resume, FIFO and auto-dismiss');
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

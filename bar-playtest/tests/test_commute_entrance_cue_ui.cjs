@@ -1,0 +1,54 @@
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),assert=require('node:assert/strict');
+(async()=>{
+ const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
+ try{
+  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.evaluate(()=>lunaCampaign.screen('developer'));
+  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
+  await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:0,flow:'in',place:'bar'});await outsidePlaytest.start();});
+  await p.waitForFunction(()=>!outsidePlaytest.loading);
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=.35;m.updateNear();outsidePlaytest.snapCamera();});
+  const cases=await p.evaluate(()=>{
+   const m=outsidePlaytest.model,fn=LunaOutside.firstCommuteEntranceCue,results=[];
+   for(const day of [0,1,2,3])for(const flow of ['in','out']){m.config.day=day;m.config.flow=flow;results.push(fn(m)===(day===0&&flow==='in'));}
+   m.config.day=0;m.config.flow='in';
+   for(const [key,value]of [['scene','home'],['level',1],['qa',{}]]){const old=m[key];m[key]=value;results.push(!fn(m));m[key]=old;}
+
+   return results;
+  });assert(cases.every(Boolean));
+  // Record the rendered paths in world coordinates: they must stay on the road
+  // while camera/player motion changes their screen positions.
+  const sample=async(t,x)=>p.evaluate(({t,x})=>{
+   const o=outsidePlaytest,m=o.model,ctx=document.querySelector('#outside-root canvas').getContext('2d');
+   m.time=t;m.x=x;o.snapCamera();
+   const original={beginPath:ctx.beginPath,stroke:ctx.stroke,moveTo:ctx.moveTo,lineTo:ctx.lineTo},paths=[];let path=[];
+   ctx.beginPath=function(){path=[];return original.beginPath.call(this);};
+   const point=(x,y)=>{const t=ctx.getTransform();return [t.a*x+t.c*y+t.e,t.b*x+t.d*y+t.f];};
+   ctx.moveTo=function(x,y){if(this.strokeStyle!=='#c9ffff')path=[];path.push(point(x,y));return original.moveTo.call(this,x,y);};
+   ctx.lineTo=function(x,y){path.push(point(x,y));return original.lineTo.call(this,x,y);};
+   ctx.stroke=function(){if(this.strokeStyle==='#c9ffff'){paths.push({points:path.map(([x,y])=>[(x-640)*o.camera.w/1280+o.camera.x,o.camera.y-(y-360)*o.camera.w/1280]),alpha:this.globalAlpha});path=[];}return original.stroke.call(this);};
+   try{o.tick(0);}finally{Object.assign(ctx,original);}
+   return paths;
+  },{t,x});
+  const a=await sample(0,.35),b=await sample(.6,.35),c=await sample(0,.8);
+  assert.equal(a.length,2);assert.equal(b.length,2);
+  assert.equal(a[0].alpha,.96);assert.equal(a[1].alpha,.98);
+  assert.deepEqual(a[0],b[0],'Door frame must not bob with the arrow');
+  assert.equal(a[0].points.length,5);assert.deepEqual(a[0].points[0],a[0].points[4]);
+  const xs=a[0].points.map(p=>p[0]),ys=a[0].points.map(p=>p[1]);
+  assert(Math.abs(Math.max(...xs)-Math.min(...xs)-.34)<1e-6);
+  assert(Math.abs(Math.max(...ys)-Math.min(...ys)-.51)<1e-6);
+  for(let i=0;i<2;i++)for(let j=0;j<a[i].points.length;j++){
+   assert(Math.abs(a[i].points[j][0]-c[i].points[j][0])<1e-6);
+   assert(Math.abs(a[i].points[j][1]-c[i].points[j][1])<1e-6);
+   if(i===1)assert(a[i].points[j][1]<-.9&&a[i].points[j][1]>-1.3);
+   assert(Math.abs(a[i].points[j][1]-b[i].points[j][1])<.02);
+  }
+  assert.notDeepEqual(a,b);
+  await p.emulateMedia({reducedMotion:'reduce'});assert.deepEqual(await sample(0,.35),await sample(1,.35));
+  await p.emulateMedia({reducedMotion:'no-preference'});
+  await sample(.6,.35);await p.screenshot({path:'/private/tmp/commute-entrance-cue.png'});
+  await p.setViewportSize({width:1920,height:1080});await p.screenshot({path:'/private/tmp/commute-entrance-cue-full.png'});
+  assert.deepEqual(errors,[]);console.log('PASS: day 0 inbound only, home/upper-floor/QA excluded, fixed cyan doorway frame, higher opacity arrow, camera anchoring, subtle motion, reduced-motion support.');
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

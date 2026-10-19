@@ -2,6 +2,7 @@
 from pathlib import Path
 import csv, json, hashlib, shutil, unicodedata, datetime
 from PIL import Image
+from asset_paths import output_path
 
 APP = Path(__file__).resolve().parents[1]
 PROJECT = Path('/Users/lee/Desktop/project')
@@ -31,9 +32,10 @@ def asset(key,rel):
     p=paths.get(rel)
     if not p: return
     dest='a_'+hashlib.sha256(rel.encode()).hexdigest()[:12]+'.png'
-    shutil.copy2(p,assetdir/dest)
+    url,target=output_path(key,dest)
+    shutil.copy2(p,target)
     with Image.open(p) as im: w,h=im.size
-    info={'src':'assets/'+dest,'w':w,'h':h,'source':rel}
+    info={'src':url,'w':w,'h':h,'source':rel}
     assets[key]=info; originals[info['src']]=rel
     return info
 
@@ -92,9 +94,10 @@ font_candidates=list((PROJECT/'Human-Bartender/HumanBartender/Assets').glob('06.
 font_candidates+=list((PROJECT/'Human-Bartender/HumanBartender/Assets').glob('06.Fonts/**/*.otf'))
 for p in font_candidates:
     if 'NeoDunggeunmo' in p.name and 'SDF' not in p.name:
-        shutil.copy2(p,assetdir/('game-font'+p.suffix));assets['font']={'src':'assets/game-font'+p.suffix};break
+        url,target=output_path('font','game-font'+p.suffix)
+        shutil.copy2(p,target);assets['font']={'src':url};break
 
 payload={'tables':tables,'assets':assets,'characterLayers':characters,'source':{'branch':'2-System-Refactoring','importedAt':datetime.datetime.now().isoformat(timespec='seconds'),'csvRoot':str(CSV),'files':provenance},'webRules':{'repeatOrderCost':0.10,'repeatOrderKey':'KeyE','coasterKey':'Space','dossierThresholds':[0,10,30]}}
-(APP/'data.js').write_text('window.LUNA_DATA = '+json.dumps(payload,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
-(APP/'source-inventory.json').write_text(json.dumps({'csv':provenance,'graphics':originals},ensure_ascii=False,indent=2),encoding='utf-8')
-print(json.dumps({'csvTables':len(tables),'barSteps':len(tables['steps']),'barks':len(tables['barks']),'cocktails':len(tables['cocktails']),'assets':len(assets),'font':assets.get('font'),'output':str(APP)},ensure_ascii=False))
+(APP/'data/runtime/game-data.js').write_text('window.LUNA_DATA = '+json.dumps(payload,ensure_ascii=False,separators=(',',':'))+';\n',encoding='utf-8')
+(APP/'data/provenance/source-inventory.json').write_text(json.dumps({'csv':provenance,'graphics':originals},ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps({'csvTables':len(tables),'barSteps':len(tables['steps']),'barks':len(tables['barks']),'cocktails':len(tables['cocktails']),'assets':len(assets),'font':assets.get('font'),'artifacts':str(APP)},ensure_ascii=False))

@@ -2,28 +2,30 @@
 from pathlib import Path
 import json, hashlib, shutil, unicodedata, csv, re
 from PIL import Image
+from asset_paths import output_path
 
 APP = Path(__file__).resolve().parents[1]
 PROJECT = Path('/Users/lee/Desktop/project')
 ART = next(p for p in PROJECT.iterdir() if unicodedata.normalize('NFC', p.name).startswith('9. 그래픽'))
 paths = {unicodedata.normalize('NFC', str(p.relative_to(ART))): p for p in ART.rglob('*.png')}
-data_file = APP/'data.js'
-d = json.loads(data_file.read_text()[len('window.LUNA_DATA = '):].strip().rstrip(';'))
+data_file = APP/'data/runtime/game-data.js'
+d = json.loads(data_file.read_text().split('=', 1)[1].strip().rstrip(';'))
 tables_before = json.dumps(d['tables'], sort_keys=True)
-inventory = json.loads((APP/'source-inventory.json').read_text())
+inventory = json.loads((APP/'data/provenance/source-inventory.json').read_text())
 
 def add(key, rel, frames=1):
     if rel not in paths:
         return None
     p = paths[rel]
     dest = 'a_'+hashlib.sha256(rel.encode()).hexdigest()[:12]+'.png'
-    shutil.copy2(p, APP/'assets'/dest)
+    url,target = output_path(key,dest)
+    shutil.copy2(p, target)
     with Image.open(p) as im:
         w, h = im.size
     assert w % frames == 0, rel
-    d['assets'][key] = {'src': 'assets/'+dest, 'w': w, 'h': h, 'frames': frames,
+    d['assets'][key] = {'src': url, 'w': w, 'h': h, 'frames': frames,
                         'frameWidth': w//frames, 'frameHeight': h, 'fps': 12, 'source': rel}
-    inventory['graphics']['assets/'+dest] = rel
+    inventory['graphics'][url] = rel
     return key
 
 # Existing regular sheets use shared, uncropped frame canvases. Unity talk clips: 12 FPS.
@@ -198,5 +200,5 @@ d['webArtRules'] = {'actorCanvas': [551, 530], 'sourceFps': 12, 'animationCycleS
                     'generalTalkVariants': [1, 2, 3], 'missingTalk': 'keep_original_static_parts',
                     'specPage': 'https://app.notion.com/p/3dc1612298dc8056b6a9f9a0e355ab62'}
 data_file.write_text('window.LUNA_DATA = '+json.dumps(d, ensure_ascii=False, separators=(',', ':'))+';\n')
-(APP/'source-inventory.json').write_text(json.dumps(inventory, ensure_ascii=False, indent=2))
+(APP/'data/provenance/source-inventory.json').write_text(json.dumps(inventory, ensure_ascii=False, indent=2))
 print(json.dumps({'assets': len(d['assets']), 'tablesUnchanged': True, 'generalTalkSheets': 14}))

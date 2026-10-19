@@ -2,7 +2,7 @@ from pathlib import Path
 from PIL import Image,ImageDraw
 import json
 p=Path(__file__).resolve().parents[1]
-d=json.loads((p/'data.js').read_text().removeprefix('window.LUNA_DATA = ').strip().removesuffix(';'))
+d=json.loads((p/'data/runtime/game-data.js').read_text().removeprefix('window.LUNA_DATA = ').strip().removesuffix(';'))
 keys=['bar','bar_far','bar_mid','bar_front','prep_liquor','prep_glass','dialogue','gimmick']
 canvas=Image.new('RGB',(800,720),'#1a1a26');draw=ImageDraw.Draw(canvas)
 for i,k in enumerate(keys):

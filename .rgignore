@@ -1,0 +1,7 @@
+# Keep routine code searches small. Use rg --no-ignore for resource/data audits.
+**/assets/**
+bar-playtest/data/runtime/**
+docs/history/**
+docs/architecture/path-migrations.json
+artifacts/**
+archives/**

@@ -1,9 +1,9 @@
 // Rebuild current UI snapshots and transparent popup-only PNGs using real renderers.
 // LUNA_EXPORT_MATCH can select IDs for a targeted refresh after the initial run.
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const path=require('node:path'),fs=require('node:fs');
-const out=path.resolve(__dirname,'../assets/resource-exports-20261018');
-(async()=>{fs.mkdirSync(out,{recursive:true});const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
+const out=path.resolve(__dirname,'../assets/reference/exports');
+(async()=>{fs.mkdirSync(out,{recursive:true});const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});try{
  const p=await browser.newPage({viewport:{width:1800,height:1100}}),exportPage=await browser.newPage({viewport:{width:1280,height:720}});let errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>window.resourceReview?.ready);
  // Same origin is required for the game's bundled font (about:blank would

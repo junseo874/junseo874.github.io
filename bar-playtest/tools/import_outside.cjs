@@ -1,7 +1,8 @@
 // Read-only Unity scene importer; writes only the web simulator's own assets/manifest.
 const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
 const engine='/Users/lee/Desktop/project/Human-Bartender/HumanBartender';
-const dest='/Users/lee/Desktop/project/junseo874.github.io/bar-playtest';
+const dest=path.resolve(__dirname,'..');
+const relocated=require('../../docs/architecture/path-migrations.json').files;
 const read=p=>fs.readFileSync(path.join(engine,p),'utf8');
 const guids=new Map();
 function scan(dir){for(const e of fs.readdirSync(path.join(engine,dir),{withFileTypes:true})){const p=dir+'/'+e.name;if(e.isDirectory()){if(!['Plugins','Hierarchy Designer','TextMesh Pro'].includes(e.name))scan(p);}else if(e.name.endsWith('.meta')){const m=read(p).match(/^guid: (\w+)/m);if(m)guids.set(m[1],p.slice(0,-5));}}}scan('Assets');
@@ -9,9 +10,11 @@ const num=(t,key,def=0)=>Number(t.match(new RegExp('^\\s*'+key+': ([^\\n]+)','m'
 const vec=(t,key,def={x:0,y:0,z:0})=>{const s=t.match(new RegExp('^\\s*'+key+': \\{([^}]+)','m'))?.[1];return s?Object.fromEntries(s.split(',').map(p=>p.trim().split(': ').map((v,i)=>i?Number(v):v))):def;};
 const ref=(t,key)=>t.match(new RegExp('^\\s*'+key+': \\{fileID: (-?\\d+)','m'))?.[1];
 const metaCache=new Map(), assets={};
-function texture(guid){if(metaCache.has(guid))return metaCache.get(guid);const p=guids.get(guid);if(!p||!p.endsWith('.png'))return null;const b=fs.readFileSync(path.join(engine,p)),m=read(p+'.meta'),w=b.readUInt32BE(16),h=b.readUInt32BE(20),id=crypto.createHash('sha256').update(b).digest('hex').slice(0,14),file='outside_'+id+'.png';
-fs.mkdirSync(dest+'/assets/outside',{recursive:true});if(!fs.existsSync(dest+'/assets/outside/'+file))fs.copyFileSync(path.join(engine,p),dest+'/assets/outside/'+file);
-const item={src:'assets/outside/'+file,w,h,source:p,ppu:num(m,'spritePixelsToUnits',100),sprites:{}};
+function texture(guid){if(metaCache.has(guid))return metaCache.get(guid);const p=guids.get(guid);if(!p||!p.endsWith('.png'))return null;const b=fs.readFileSync(path.join(engine,p)),m=read(p+'.meta'),w=b.readUInt32BE(16),h=b.readUInt32BE(20),id=crypto.createHash('sha256').update(b).digest('hex').slice(0,14);
+const label=path.basename(p,'.png').replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'scene-sprite';
+const legacy='bar-playtest/assets/outside/outside_'+id+'.png',src=(relocated[legacy]||'bar-playtest/assets/outside/'+label+'-'+id.slice(0,6)+'.png').slice('bar-playtest/'.length);
+fs.mkdirSync(path.dirname(path.join(dest,src)),{recursive:true});if(!fs.existsSync(path.join(dest,src)))fs.copyFileSync(path.join(engine,p),path.join(dest,src));
+const item={src,w,h,source:p,ppu:num(m,'spritePixelsToUnits',100),sprites:{}};
 function pivot(t,key='pivot'){const a=num(t,'alignment',0),v=vec(t,key,{x:.5,y:.5});return a===9?v:({0:{x:.5,y:.5},1:{x:0,y:1},2:{x:.5,y:1},3:{x:1,y:1},4:{x:0,y:.5},5:{x:1,y:.5},6:{x:0,y:0},7:{x:.5,y:0},8:{x:1,y:0}}[a]||v);}
 item.sprites['21300000']={x:0,y:0,w,h,pivot:pivot(m,'spritePivot')};
 const sprites=m.split('  spriteSheet:')[1]?.split('    outline:')[0]||'';
@@ -31,6 +34,6 @@ const shibaPath='Assets/01.Sprites/Ch/Shiba/shi_Bar-Sheet.png',shibaGuid=read(sh
 animations.shiba={fps:6,frames:Object.entries(shiba.sprites).filter(([id,s])=>s.name).sort((a,b)=>Number(a[1].name.split('_').pop())-Number(b[1].name.split('_').pop())).map(([id])=>spriteRef(shibaGuid,id))};
 const manifest={version:1,scenes,animations,assets};
 function patchFile(p,txt){const exists=fs.existsSync(p),old=exists?fs.readFileSync(p,'utf8'):'';const patch='*** Begin Patch\n'+(exists?'*** Update File: '+p+'\n@@\n'+old.split('\n').map(l=>'-'+l).join('\n'):'*** Add File: '+p)+'\n'+txt.split('\n').map(l=>'+'+l).join('\n')+'\n*** End Patch\n';const r=cp.spawnSync('apply_patch',[],{input:patch,encoding:'utf8',maxBuffer:16000000});if(r.status)throw Error(r.stdout+r.stderr);}
-patchFile(dest+'/outside-data.js','// Generated from Unity OutSide/Home scenes. Rebuild with tools/import_outside.cjs.\nwindow.LUNA_OUTSIDE_DATA='+JSON.stringify(manifest)+';\n');
+patchFile(dest+'/data/runtime/outside-scene-data.js','// Generated from Unity OutSide/Home scenes. Rebuild with tools/import_outside.cjs.\nwindow.LUNA_OUTSIDE_DATA='+JSON.stringify(manifest)+';\n');
 patchFile(dest+'/tools/import_outside.cjs',fs.readFileSync(__filename,'utf8'));
 console.log(JSON.stringify({assets:Object.keys(assets).length,scenes:Object.fromEntries(Object.entries(scenes).map(([k,v])=>[k,{nodes:v.nodes.filter(n=>n.active).map(n=>({name:n.name,x:n.x,y:n.y,sx:n.sx,sy:n.sy,layer:n.layer,order:n.order,w:n.sprite.w/n.sprite.ppu,h:n.sprite.h/n.sprite.ppu,pivot:n.sprite.pivot})),spots:v.spots,named:v.named}]))},null,2));

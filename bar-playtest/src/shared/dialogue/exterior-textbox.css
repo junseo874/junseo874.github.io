@@ -1,0 +1,50 @@
+/* One authored skin for exploration, TV, terrace and cinematic dialogue. */
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox){
+ --textbox-corner:22px;--textbox-tail:48px;
+ border:0;border-radius:0;background:none;box-shadow:none;
+ /* Preview proportions: compact line spacing and padding, with a small
+    dedicated gutter for the advance arrow on manual dialogue. */
+ padding:14px 34px 14px 28px;min-width:110px;min-height:50px;isolation:isolate;
+}
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox)::after{content:none}
+:is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox) p{margin:0;text-align:center;font-size:17px;line-height:1.45;color:#f4f5f7}
+:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .exterior-textbox-skin{
+ position:absolute;inset:0;z-index:-1;pointer-events:none;display:grid;
+ grid-template-columns:var(--textbox-corner) minmax(0,1fr) var(--textbox-tail) minmax(0,1fr) var(--textbox-corner);
+ grid-template-rows:var(--textbox-corner) minmax(0,1fr) var(--textbox-corner);
+}
+/* A continuous dark backing prevents subpixel SVG clip edges from exposing
+   the scene between translucent tiles when the world camera scales them. */
+.exterior-textbox-skin::before{content:"";position:absolute;inset:1px;background:#0b0c14;border-radius:14px;z-index:-1}
+.exterior-textbox-skin .textbox-piece{display:block;width:100%;height:100%;overflow:hidden}
+.exterior-textbox-skin .piece-1{grid-area:1/1}
+.exterior-textbox-skin .piece-2{grid-area:1/2/2/5}
+.exterior-textbox-skin .piece-3{grid-area:1/5}
+.exterior-textbox-skin .piece-4{grid-area:2/1}
+.exterior-textbox-skin .piece-5{grid-area:2/2/3/5}
+.exterior-textbox-skin .piece-6{grid-area:2/5}
+.exterior-textbox-skin .piece-7{grid-area:3/1}
+.exterior-textbox-skin .piece-8{grid-area:3/2}
+.exterior-textbox-skin .piece-9{grid-area:3/3;height:calc(100% * 119 / 65)}
+.exterior-textbox-skin .piece-10{grid-area:3/4}
+.exterior-textbox-skin .piece-11{grid-area:3/5}
+#outside-root .outside-background-speech{max-width:420px}
+:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue{
+ right:4px;bottom:5px;width:28px;height:28px;
+ background:url('../../../assets/ui/exterior-textbox/IMG_textbox_arrow.png') center/contain no-repeat;
+ image-rendering:pixelated;animation:exterior-textbox-arrow-bob 1.2s ease-in-out infinite;
+}
+:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue svg{display:none}
+:is(#outside-root .outside-speech,.terrace-scene .terrace-speech,#campaign-root .exterior-textbox):focus-visible .exterior-textbox-skin{filter:drop-shadow(0 0 2px #7cb5cd)}
+@keyframes exterior-textbox-arrow-bob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(2px)}}
+@media(prefers-reduced-motion:reduce){:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue{animation:none}}
+#campaign-root .exterior-textbox{box-sizing:border-box;width:max-content;max-width:420px;font-family:LunaPixel,sans-serif;color:#f4f5f7;text-align:center}
+#campaign-root .exterior-textbox p,#campaign-root .exterior-textbox .txt{display:block;margin:0;font-size:17px;font-weight:400;line-height:1.45;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;text-align:center}
+#campaign-root .exterior-textbox .tail{display:none}
+#campaign-root .exterior-textbox.below .exterior-textbox-skin{transform:scaleY(-1)}
+.exterior-tail-less .exterior-textbox-skin .piece-9{display:none}
+.exterior-tail-less .exterior-textbox-skin .piece-8{grid-column:2/4}
+#campaign-root .exterior-textbox .speaker{font-size:17px;margin:0 0 6px}
+.cinema-glyph-shake,.cinema-glyph-wave{display:inline-block}
+/* Remote lines keep their established cyan text, not a separate bubble skin. */
+#campaign-root .exterior-textbox.radio .vis{color:#50d9f5;text-shadow:none}

@@ -383,25 +383,34 @@
     #boot { display: none; }
   }
 </style>
-<link rel="stylesheet" href="bar-playtest/cursors.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="bar-playtest/src/shared/ui/cursors.css?v=cyan-cursors-20261019">
+<script src="bar-playtest/src/shared/ui/cursors.js?v=layout-20261019"></script>
 </head>
 <body>
 
 <!-- boot overlay -->
-<div id="boot" aria-hidden="true"><pre id="bootText"></pre></div>
+<div id="boot" aria-hidden="true">
+<pre id="bootText">
+</pre>
+</div>
 
 <!-- CRT stack -->
-<div class="crt-overlay"></div>
-<div class="vignette"></div>
-<div class="noise"></div>
+<div class="crt-overlay">
+</div>
+<div class="vignette">
+</div>
+<div class="noise">
+</div>
 
 <!-- HUD -->
 <header class="hud-top">
-  <span class="dot"></span>
+  <span class="dot">
+</span>
   <span class="sys">L.U.N.A_OS</span>
   <span>//</span>
   <span>MAIN_LOBBY</span>
-  <span class="spacer"></span>
+  <span class="spacer">
+</span>
   <span id="clock">--:--:--</span>
   <button id="sndBtn" type="button" aria-pressed="false" title="배경 음악 켜기/끄기">[♪ SOUND OFF]</button>
   <a class="gh" href="https://github.com/junseo874/junseo874.github.io" target="_blank" rel="noopener">[GITHUB]</a>
@@ -410,15 +419,23 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-media" aria-hidden="true">
-    <img class="yt-fallback" src="Background/background_0.png" alt="" />
-    <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="Background/background_0.png">
-      <source src="video/Prototype.mp4" type="video/mp4" />
+    <img class="yt-fallback" src="assets/prototype/backgrounds/background_0.png" alt="" />
+    <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="assets/prototype/backgrounds/background_0.png">
+      <source src="assets/prototype/video/Prototype.mp4" type="assets/prototype/video/mp4" />
     </video>
   </div>
 
   <div class="hero-inner">
     <div class="eyebrow">CYBERPUNK <b>BARTENDER</b> PROJECT</div>
-    <h1 class="neon-title"><span class="ch">L</span><span class="dotchar">.</span><span class="ch">U</span><span class="dotchar">.</span><span class="ch">N</span><span class="dotchar">.</span><span class="ch">A</span></h1>
+    <h1 class="neon-title">
+<span class="ch">L</span>
+<span class="dotchar">.</span>
+<span class="ch">U</span>
+<span class="dotchar">.</span>
+<span class="ch">N</span>
+<span class="dotchar">.</span>
+<span class="ch">A</span>
+</h1>
     <div class="tagline">
       네온 도시의 끝, 작은 바 카운터.<br/>
       당신이 만든 한 잔이 손님의 이야기를 바꾼다.
@@ -433,14 +450,15 @@
   <div class="lobby-head">
     <h2>SELECT CHANNEL</h2>
     <span class="path">~/luna/pages</span>
-    <span class="line"></span>
+    <span class="line">
+</span>
   </div>
 
   <nav class="cards" aria-label="페이지 이동">
     <a class="card" href="intro.html">
       <div class="thumb">
         <span class="tag">BRIEF</span>
-        <img src="UI/UI_0.png" alt="게임 플레이 UI 스크린샷" loading="lazy" />
+        <img src="assets/prototype/ui/UI_0.png" alt="게임 플레이 UI 스크린샷" loading="lazy" />
       </div>
       <div class="body">
         <span class="route">/intro</span>
@@ -453,7 +471,7 @@
     <a class="card c-pink" href="direction.html">
       <div class="thumb">
         <span class="tag">STORY</span>
-        <img src="Background/background_1.png" alt="바 내부 컨셉 아트" loading="lazy" />
+        <img src="assets/prototype/backgrounds/background_1.png" alt="바 내부 컨셉 아트" loading="lazy" />
       </div>
       <div class="body">
         <span class="route">/direction</span>
@@ -466,7 +484,7 @@
     <a class="card c-amber" href="bar-playtest/">
       <div class="thumb">
         <span class="tag">PLAYTEST</span>
-        <img src="site-assets/bar-playtest-preview.png" alt="바 영업 플레이테스트의 손님·코스터·칵테일 화면" loading="lazy" />
+        <img src="assets/site/bar-playtest-preview.png" alt="바 영업 플레이테스트의 손님·코스터·칵테일 화면" loading="lazy" />
       </div>
       <div class="body">
         <span class="route">/bar-playtest/</span>
@@ -478,7 +496,7 @@
     <a class="card" href="bar-playtest/?mode=minigames">
       <div class="thumb">
         <span class="tag">MINIGAMES</span>
-        <img src="bar-playtest/assets/a_7d3b8653c097.png" alt="스터 기믹의 손 동작과 키 입력 화면" loading="lazy" />
+        <img src="bar-playtest/assets/ui/imported/mix-stir-reference.png" alt="스터 기믹의 손 동작과 키 입력 화면" loading="lazy" />
       </div>
       <div class="body">
         <span class="route">/bar-playtest/?mode=minigames</span>
@@ -515,8 +533,20 @@
 
 <!-- bar counter strip -->
 <div class="counter-strip" aria-hidden="true">
-  <div class="neon-line"></div>
-  <img src="ingredient/I_0.png" alt="" /><img src="ingredient/I_2.png" alt="" /><img src="ingredient/I_4.png" alt="" /><img src="ingredient/I_6.png" alt="" /><img src="cocktail/C_1.png" alt="" /><img src="ingredient/I_8.png" alt="" /><img src="ingredient/I_10.png" alt="" /><img src="cocktail/C_0.png" alt="" /><img src="ingredient/I_12.png" alt="" /><img src="ingredient/I_14.png" alt="" /><img src="cocktail/C_2.png" alt="" /><img src="ingredient/I_1.png" alt="" />
+  <div class="neon-line">
+</div>
+  <img src="assets/prototype/ingredient/I_0.png" alt="" />
+<img src="assets/prototype/ingredient/I_2.png" alt="" />
+<img src="assets/prototype/ingredient/I_4.png" alt="" />
+<img src="assets/prototype/ingredient/I_6.png" alt="" />
+<img src="assets/prototype/cocktail/C_1.png" alt="" />
+<img src="assets/prototype/ingredient/I_8.png" alt="" />
+<img src="assets/prototype/ingredient/I_10.png" alt="" />
+<img src="assets/prototype/cocktail/C_0.png" alt="" />
+<img src="assets/prototype/ingredient/I_12.png" alt="" />
+<img src="assets/prototype/ingredient/I_14.png" alt="" />
+<img src="assets/prototype/cocktail/C_2.png" alt="" />
+<img src="assets/prototype/ingredient/I_1.png" alt="" />
 </div>
 
 <script>
@@ -559,7 +589,7 @@
 
   // ===== background music =====
   (function () {
-    const audio = new Audio('sound/LUNA_Track_02.mp3');
+    const audio = new Audio('assets/prototype/sound/LUNA_Track_02.mp3');
     audio.loop = true;
     audio.volume = 0.35;
     audio.preload = 'none';

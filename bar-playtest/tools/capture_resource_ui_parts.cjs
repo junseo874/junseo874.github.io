@@ -1,11 +1,11 @@
 // Render code-authored UI as isolated 1x PNGs. No scene or dialogue text is captured.
 const fs=require('node:fs'),path=require('node:path');
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/ui-parts-20261019');
-(async()=>{const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});try{
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
+const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/ui/parts');
+(async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true});try{
  const p=await b.newPage({viewport:{width:800,height:600},deviceScaleFactor:1});
- const css=['styles.css','world-choices.css','outside.css'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n');
- const font=fs.readFileSync(path.join(root,'assets/game-font.ttf')).toString('base64');
+ const css=['src/app/styles.css','src/shared/dialogue/world-choices.css','src/features/outside/outside.css'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n');
+ const font=fs.readFileSync(path.join(root,'assets/fonts/font.ttf')).toString('base64');
  const base=css+`\n@font-face{font-family:LunaPixel;src:url(data:font/ttf;base64,${font})}html,body{margin:0;background:transparent}*,*:before,*:after{animation:none!important;transition:none!important}`;
  async function capture(name,html,w,h,style=''){
   await p.setContent(`<style>${base}\n${style}</style>${html}`);await p.evaluate(()=>document.fonts.ready);await p.mouse.move(700,500);
@@ -23,7 +23,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/ui-parts-2026
  const isolate='.world-choice-tutorial{left:0;top:0;width:auto;height:auto;margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}.world-choice-tutorial:before{display:none}.choice-wheel-input{display:flex}';
  for(const key of ['W','S','E'])await capture('tutorial/key-'+key.toLowerCase(),guide('<kbd>'+key+'</kbd>'),27,30,isolate);
  // Pull icon markup from the actual component instead of maintaining a second SVG drawing.
- await p.setContent('<div id="host"></div>');await p.addScriptTag({path:path.join(root,'world-choices.js')});
+ await p.setContent('<div id="host"></div>');await p.addScriptTag({path:path.join(root,'src/shared/dialogue/world-choices.js')});
  const icons=await p.evaluate(()=>{LunaWorldChoices.create(document.querySelector('#host'),()=>{});return {mouse:document.querySelector('.choice-guide-mouse').outerHTML,triangles:[...document.querySelectorAll('.choice-guide-triangle')].map(el=>el.outerHTML)};});
  await capture('tutorial/mouse-wheel',guide(icons.mouse),24,32,isolate);
  for(const [i,id]of ['up','down'].entries())await capture('tutorial/triangle-'+id,guide('<span class="choice-wheel-input">'+icons.triangles[i]+'</span>'),12,10,isolate);

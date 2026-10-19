@@ -1,8 +1,8 @@
 // Run against the local simulator. Captures are documentation thumbnails, not game artwork.
-const {chromium}=require('/Users/lee/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const path=require('path'),fs=require('fs');
-const out=process.env.LUNA_PREVIEW_DIR||path.resolve(__dirname,'../assets/resource-previews');
-(async()=>{fs.mkdirSync(out,{recursive:true});const b=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});try{
+const out=process.env.LUNA_PREVIEW_DIR||path.resolve(__dirname,'../assets/reference/previews');
+(async()=>{fs.mkdirSync(out,{recursive:true});const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});try{
  const p=await b.newPage({viewport:{width:1000,height:760}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
  // Keep the live game at its intended 16:9 aspect ratio, then capture at card/detail resolution.
