@@ -1226,11 +1226,12 @@
     const el = e.target.closest('[data-hover-item]');
     if (!el || g.isPaused() || el.closest('[inert]')) return;
     if (g.tutorial && !tutorialView.canHover(el.dataset.hoverItem)) return;
-    ingredientPointer = e.type.startsWith('pointer') ? {
-      id: el.dataset.hoverItem,
-      x: e.clientX,
-      y: e.clientY
-    } : null;
+    if (e.type.startsWith('pointer')) {
+      ingredientPointer = { id: el.dataset.hoverItem, x: e.clientX, y: e.clientY };
+    } else if (ingredientPointer?.id !== el.dataset.hoverItem || !el.matches(':hover')) {
+      // Keyboard focus uses the item anchor; click focus keeps the live pointer.
+      ingredientPointer = null;
+    }
     if (ui.hoverItem !== el.dataset.hoverItem) {
       ui.hoverItem = el.dataset.hoverItem;
       render();
@@ -1270,7 +1271,7 @@
   function leaveIngredient(e) {
     const from = e.target.closest('[data-hover-item]'),
       to = e.relatedTarget?.closest?.('[data-hover-item]');
-    if (from && from !== to && ui.hoverItem) {
+    if (from && from !== to && from.dataset.hoverItem === ui.hoverItem) {
       ui.hoverItem = null;
       ingredientPointer = null;
       render();

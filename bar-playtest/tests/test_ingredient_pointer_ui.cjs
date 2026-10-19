@@ -19,7 +19,20 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   const c=await tip.boundingBox();assert(Math.abs(c.x-a.x-8)<2);assert(Math.abs(c.y-a.y-10)<2);
   await p.waitForTimeout(250);const stable=await tip.boundingBox();assert(Math.abs(stable.x-c.x)<1,'Render preserves pointer position');
   await p.screenshot({path:'/private/tmp/luna-ingredient-pointer.png'});
-  await gin.click();assert((await p.evaluate(()=>barGame.prep.ingredients)).includes('gin'));
+  // Clicking focuses the shelf button without moving the pointer. Both focus
+  // and the selected-state redraw must preserve the existing tooltip anchor.
+  await p.mouse.down();
+  const focused=await tip.boundingBox();
+  assert(Math.abs(focused.x-stable.x)<1&&Math.abs(focused.y-stable.y)<1,'Mouse focus must not move the hovered description');
+  await p.mouse.up();await p.waitForTimeout(100);
+  const selected=await tip.boundingBox();
+  assert(Math.abs(selected.x-stable.x)<1&&Math.abs(selected.y-stable.y)<1,'Selection redraw must preserve the hovered description');
+  assert((await p.evaluate(()=>barGame.prep.ingredients)).includes('gin'));
+  const other=p.locator('.shelf-slide[data-current="true"] .shelf-item:not([data-id="gin"])').first();
+  await other.hover();const otherBefore=await tip.boundingBox();
+  await p.mouse.down();const otherFocused=await tip.boundingBox();
+  assert(Math.abs(otherFocused.x-otherBefore.x)<1&&Math.abs(otherFocused.y-otherBefore.y)<1,'Blurring the previous ingredient must not clear the newly hovered pointer');
+  await p.mouse.up();
   await p.mouse.move(2,2);await p.waitForTimeout(100);assert.equal(await tip.count(),0);
   await p.locator('[data-act="prepBack"]').focus();await gin.focus();await tip.waitFor();assert(await tip.isVisible(),'Keyboard focus fallback');
   await p.locator('[data-act="tab"][data-id="fridge"]').click();await p.waitForTimeout(600);

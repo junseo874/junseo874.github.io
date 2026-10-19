@@ -30,6 +30,8 @@
 .serve-step-details>div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:13px}
 .serve-grade-cuts{color:#cfc19e}
 
+/* Balance and all child delta effects share a half-size, top-right anchor. */
+.currency-hud{scale:.5;transform-origin:top right}
 /* Balance appears only while a money-change notification is active. */
 .currency-hud{z-index:60;width:234px;max-width:calc(100% - 46px);height:47px;padding:0 20px 0 16px;gap:15px;border-radius:28px;background:#090d14f2;border:1px solid #c3a56480;animation:currency-notice-in .18s ease-out}
 .currency-hud svg{width:30px;height:30px}.currency-hud .currency-value{font-size:31px}
