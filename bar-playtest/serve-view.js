@@ -1,6 +1,7 @@
 /* One-shot serving presentation. Original PNG sheets remain unchanged. */
 // The supplied 5738×2707 atlases contain 6×5 cells, with 2px gutters.
-// All layers share the same full-screen coordinates; no per-drink repositioning.
+// All drinks share one native-pixel offset below the centered grade header.
+window.LUNA_SERVE_COMPOSITION=Object.freeze({drinkOffsetY:60});
 window.LUNA_SERVE_BACKGROUND={src:'assets/serve-20261019/background.png',cols:6,frames:30,fps:20,w:954,h:539,sx:2,sy:2,dx:956,dy:541,atlasWidth:5738,atlasHeight:2707};
 window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
  gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',
@@ -42,6 +43,7 @@ window.LunaServePixels={
 };
 window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
  const sheets=window.LUNA_SERVE_SHEETS,background=window.LUNA_SERVE_BACKGROUND;
+ const drinkOffsetY=window.LUNA_SERVE_COMPOSITION.drinkOffsetY;
  const images=new Map(),duration=1.5;
  let current=null;
  const native=document.createElement('canvas');native.width=960;native.height=540;
@@ -75,7 +77,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
  function html(){
   const s=state();if(!s)return '';
   const r=s.result,declined=g.screen==='discarding',sheet=sheets[r.selected],failed=sheet&&image(sheet.src).failed;
-  return '<section class="serve-presentation" aria-label="'+L('칵테일 제공','Present drink')+'" '+(g.isPaused()?'inert':'')+' data-ready="'+s.ready+'" data-cocktail="'+esc(r.selected)+'">'+
+  return '<section class="serve-presentation" style="--serve-art-offset-y:'+drinkOffsetY*720/540+'px" aria-label="'+L('칵테일 제공','Present drink')+'" '+(g.isPaused()?'inert':'')+' data-ready="'+s.ready+'" data-cocktail="'+esc(r.selected)+'">'+
    '<canvas class="serve-canvas" width="1280" height="720" aria-label="'+esc(g.name(r.selected))+'"></canvas>'+
    (!s.loaded?'<div class="serve-loading" role="status">'+L('제공 장면 불러오는 중…','Loading drink presentation…')+'</div>':'')+
    (s.loaded&&(!sheet||failed)?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
@@ -93,8 +95,8 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,canvas.width,canvas.height);
   nativeContext.imageSmoothingEnabled=false;nativeContext.clearRect(0,0,native.width,native.height);
   const bg=image(background.src),sheet=sheets[s.result.selected],art=sheet?image(sheet.src):null;
-  const draw=(entry,layout)=>nativeContext.drawImage(entry.img,layout.sx+s.frame%layout.cols*layout.dx,layout.sy+Math.floor(s.frame/layout.cols)*layout.dy,layout.w,layout.h,3,0,layout.w,layout.h);
-  if(s.loaded){if(bg.ready)draw(bg,background);if(art?.ready)draw(art,sheet);}
+  const draw=(entry,layout,y=0)=>nativeContext.drawImage(entry.img,layout.sx+s.frame%layout.cols*layout.dx,layout.sy+Math.floor(s.frame/layout.cols)*layout.dy,layout.w,layout.h,3,y,layout.w,layout.h);
+  if(s.loaded){if(bg.ready)draw(bg,background);if(art?.ready)draw(art,sheet,drinkOffsetY);}
   ctx.drawImage(native,0,0,canvas.width,canvas.height);
   canvas.dataset.frame=String(s.frame);
   canvas.dataset.source=art?.failed?'fallback':sheet?.src||'fallback';
@@ -105,7 +107,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
    // Fallback artwork can have different dimensions; never attach the sheet mask to it.
    const fallback=!sheet||art?.failed;
    const time=fallback||!s.loaded?-1:s.elapsed-duration;
-   window.LunaServeCarbonation.draw(nativeFX,s.result.selected,time,[3,0,1,1]);
+   window.LunaServeCarbonation.draw(nativeFX,s.result.selected,time,[3,drinkOffsetY,1,1]);
    const fc=fx.getContext('2d');fc.imageSmoothingEnabled=false;fc.clearRect(0,0,fx.width,fx.height);
    fc.drawImage(nativeFX,0,0,fx.width,fx.height);
    for(const key of ['active','time','cocktail']){if(nativeFX.dataset[key]!==undefined)fx.dataset[key]=nativeFX.dataset[key];else delete fx.dataset[key];}

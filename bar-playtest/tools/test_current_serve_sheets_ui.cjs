@@ -13,6 +13,11 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
    const x=2+(f%6)*956,y=2+Math.floor(f/6)*541;let visible=0;
    for(let yy=y;yy<y+539;yy+=4)for(let xx=x;xx<x+954;xx+=4)if(data[(yy*info.width+xx)*4+3])visible++;
    assert(visible>100,name+' frame '+f+' must not be empty');
+   // A 60-native-pixel lowering must never cut off a finger or glass base,
+   // even during the moving frames (the background itself stays in place).
+   if(name!=='background.png')for(let yy=y+480;yy<y+539;yy++)for(let xx=x;xx<x+954;xx++){
+    if(data[(yy*info.width+xx)*4+3])throw Error(name+' frame '+f+' would be clipped after lowering');
+   }
   }
  }
  const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true,args:['--mute-audio']});
@@ -34,7 +39,7 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
    assert((await p.locator('.serve-canvas').getAttribute('data-source')).endsWith('/give_drink_'+files[id]+'.png'));
    const exact=await p.evaluate(async id=>{
     const native=document.createElement('canvas');native.width=960;native.height=540;const ctx=native.getContext('2d');ctx.imageSmoothingEnabled=false;
-    for(const sheet of [LUNA_SERVE_BACKGROUND,LUNA_SERVE_SHEETS[id]]){const image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,4782,2166,954,539,3,0,954,539);}
+    for(const sheet of [LUNA_SERVE_BACKGROUND,LUNA_SERVE_SHEETS[id]]){const image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,4782,2166,954,539,3,sheet===LUNA_SERVE_BACKGROUND?0:LUNA_SERVE_COMPOSITION.drinkOffsetY,954,539);}
     const actual=document.querySelector('.serve-canvas'),canvas=document.createElement('canvas');canvas.width=actual.width;canvas.height=actual.height;
     const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;out.drawImage(native,0,0,canvas.width,canvas.height);
     return canvas.toDataURL()===actual.toDataURL();
@@ -48,8 +53,10 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
      const stage=document.querySelector('.serve-presentation').getBoundingClientRect(),canvas=document.querySelector('.serve-canvas'),art=canvas.getBoundingClientRect();
      const inside=b=>b.left>=stage.left-.1&&b.top>=stage.top-.1&&b.right<=stage.right+.1&&b.bottom<=stage.bottom+.1;
      const controls=[...document.querySelectorAll('.serve-actions button,.serve-grade')].map(e=>e.getBoundingClientRect());
-     const fx=document.querySelector('.serve-carbonation');
-     return {width:art.width/stage.width,height:art.height/stage.height,inside:inside(art)&&controls.every(inside),frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
+     const fx=document.querySelector('.serve-carbonation'),grade=document.querySelector('.serve-grade').getBoundingClientRect();
+     const centered=Math.abs((grade.left+grade.right)/2-(stage.left+stage.right)/2)<.1;
+     const headerClear=grade.bottom<art.top+(16+LUNA_SERVE_COMPOSITION.drinkOffsetY)*art.height/540;
+     return {width:art.width/stage.width,height:art.height/stage.height,inside:inside(art)&&controls.every(inside)&&centered&&headerClear,frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
     });
     assert(check.width>.99&&check.height>.99&&check.inside&&check.fxAligned&&check.frame==='29',JSON.stringify({id,viewport,check}));
     if(['bottle_beer','dry_martini'].includes(id)&&[390,2048].includes(viewport.width))await p.screenshot({path:'/private/tmp/serve-responsive-'+id+'-'+viewport.width+'.png'});
