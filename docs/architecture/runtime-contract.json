@@ -600,6 +600,10 @@
     ],
     [
       "script",
+      "src/features/outside/outside-parallax.js"
+    ],
+    [
+      "script",
       "src/features/outside/outside.js"
     ],
     [

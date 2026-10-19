@@ -521,6 +521,10 @@
         continue;
       }
       if (a.nodeType !== 1) continue;
+      // Settings owns its tab, confirmation, focus and temporary inert state.
+      // Rebuilding it every game frame can erase an active confirmation or
+      // leave focus in a newly hidden tab. Remove/replace it normally on close.
+      if (a.matches('.luna-settings') && b.matches('.luna-settings') && a.dataset.settingsContext === b.dataset.settingsContext) continue;
       // Hold owns this transient state. Preserve it across ordinary scene redraws
       // so the title-signal animation does not restart on every render pass.
       if (a.matches('.choices button.choice-holding[data-act="choice"]') && b.matches('button[data-act="choice"]') && a.dataset.id === b.dataset.id) {
@@ -805,6 +809,7 @@
     toast(L('테스트 로그를 내보냈습니다.', 'Test log exported.'));
   }
   function show(name) {
+    if (name === 'settings') releaseBackgroundInput();
     if (name === 'dossier') {
       ui.dossierDetail = null;
       ui.dossierPreview = null;
@@ -1324,10 +1329,30 @@
     if (!ui.drag) return;
     window.LunaGameViewport.positionDrag(e.clientX, e.clientY);
   });
+  function deliveryDropTarget(x, y) {
+    if (g.isPaused() || g.cameraMoving || g.cameraLeft || g.transition || g.screen !== 'bar') return null;
+    const hit = document.elementFromPoint(x, y);
+    // Stay inside the visible game/table, and never deliver through a popup or control.
+    if (!hit?.closest('.bar-stage') || hit.closest('[inert],button,a,input,select,textarea,[role="button"]')) return null;
+    const direct = hit.closest('[data-drop]');
+    if (direct) return direct.classList.contains('drop-ready') ? direct : null;
+    let target = null, closest = Infinity;
+    for (const zone of root.querySelectorAll('.bar-stage [data-drop].drop-ready')) {
+      const r = zone.getBoundingClientRect();
+      if (!r.width || !r.height || zone.closest('[inert]')) continue;
+      const dx = (x - r.left - r.width / 2) / r.width;
+      const dy = (y - r.top - r.height / 2) / r.height;
+      // 1.5× width/height around the existing center. No DOM/CSS/visible cue changes.
+      if (Math.abs(dx) > .75 || Math.abs(dy) > .75) continue;
+      const distance = dx * dx + dy * dy;
+      if (distance < closest) { target = zone; closest = distance; }
+    }
+    return target;
+  }
   window.addEventListener('pointerup', e => {
     g.holdPour(false);
     if (ui.drag) {
-      const zone = document.elementFromPoint(e.clientX, e.clientY)?.closest('[data-drop]');
+      const zone = deliveryDropTarget(e.clientX, e.clientY);
       const ok = zone && (ui.drag === 'coaster' ? g.coaster(zone.dataset.drop, 'drag') : g.serve(zone.dataset.drop, 'drag'));
       if (!ok) toast(L('현재 손님의 유효한 코스터 위치에 놓아 주세요.', 'Drop onto the focused guest’s valid coaster.'));
       ui.drag = null;
@@ -1659,7 +1684,7 @@
     app: root,
     render,
     bgm,
-    clearInput: clearControlSkip
+    clearInput: releaseBackgroundInput
   });
   window.lunaQA = window.LunaQALab.create({
     g,

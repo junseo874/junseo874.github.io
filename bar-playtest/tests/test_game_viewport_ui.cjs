@@ -53,8 +53,8 @@ const sizes=[[1280,720],[960,540],[390,844],[1920,800],[1001,777],[2560,1440],[8
   // including a resize with a stationary pointer and a long global toast.
   await p.evaluate(()=>{const t=document.getElementById('toast');t.textContent='화면 크기를 바꿔도 안내가 게임 화면 안에 표시됩니다. '.repeat(5);t.classList.add('visible');document.getElementById('drag-ghost').hidden=false;LunaGameViewport.positionDrag(innerWidth/2,innerHeight/2);});
   for(const [w,h]of sizes){
-   await resize(w,h);await inside('#toast');await inside('#drag-ghost',90);
-   for(const [x,y]of [[0,0],[w,0],[0,h],[w,h]]){await p.evaluate(([x,y])=>LunaGameViewport.positionDrag(x,y),[x,y]);await inside('#drag-ghost',90);}
+   await resize(w,h);await inside('#toast');await inside('#drag-ghost',1280);
+   for(const [x,y]of [[0,0],[w,0],[0,h],[w,h]]){await p.evaluate(([x,y])=>LunaGameViewport.positionDrag(x,y),[x,y]);await inside('#drag-ghost',1280);}
   }
   assert.deepEqual(errors,[]);await p.close();
  }

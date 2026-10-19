@@ -1,7 +1,7 @@
 /* Review-only fixtures use the current game's renderers. No save/story mutations outside the lab. */
 (function(W){
 'use strict';
-const version='20261018',root='assets/resource-exports-'+version+'/',revision='controls-run-20261018';
+const version='20261018',root='assets/reference/exports/',revision='preview-paths-20261019';
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
 const screen=(r,v)=>root+stem(r,v)+'.png?v='+revision;

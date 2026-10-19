@@ -61,34 +61,10 @@
     from: -1.55,
     to: 0
   };
-  // Speeds relative to the gameplay plane (1). Only independent art is listed:
-  // doors, lift, railings, shop props, actors, speech and rain stay in world space.
-  const STREET_DEPTH = Object.freeze({
-    Sky: [.55, .78],
-    C_Back_Building_2: [.72, .86],
-    C_Back_Building_1: [.84, .91],
-    C_Middle_Building_1: [.94, .96],
-    C_Middle_Building_2: [.94, .96],
-    C_Middle_Building_3: [.94, .96],
-    C_Middle_Object_1: [.94, .96],
-    C_Middle_Object_2: [.94, .96],
-    CityLight: [.94, .96],
-    "'CityLight '": [.94, .96],
-    CityUpLight: [.94, .96],
-    B_ForeFore_Object_1: [1.035, 1]
-  });
-  function streetParallax(n, camera, model) {
-    const speed = model.scene === 'street' && !model.qa && !n.ambient && n.ancestry?.[0] === 'BG' ? STREET_DEPTH[n.name] : null;
-    if (!speed) return {
-      x: n.x,
-      y: n.y
-    };
-    // Fixed map-center origin: no accumulated drift, day/spawn resets or zoom
-    // multipliers. All billboard pieces share their building's exact offset.
-    return {
-      x: n.x + (camera.x + 7.85) * (1 - speed[0]),
-      y: n.y + camera.y * (1 - speed[1])
-    };
+  function streetParallax(n, _camera, model) {
+    // Update once before drawing, then reuse the same parent transform for every
+    // sprite. Camera zoom/cutscene framing must never feed back into this state.
+    return global.LunaStreetParallax?.position(n, model) || { x: n.x, y: n.y };
   }
   // Version A day zero has no lookout interaction (keyboard and click share this guard).
   // Version B keeps its separately managed progression unchanged.
@@ -675,6 +651,10 @@
       host.style.setProperty('--outside-scale', surface.cssScale);
       host.style.setProperty('--outside-left', surface.left + 'px');
       host.style.setProperty('--outside-top', surface.top + 'px');
+      // Clear any stale focus scroll from a pre-resize layout (including legacy browsers).
+      host.scrollLeft = host.scrollTop = 0;
+      const stage = host.querySelector('.outside-stage');
+      if (stage) stage.scrollLeft = stage.scrollTop = 0;
       if (canvas && (canvas.width !== surface.w || canvas.height !== surface.h)) {
         canvas.width = surface.w;
         canvas.height = surface.h;
@@ -894,6 +874,7 @@
       return true;
     }
     function snapCamera() {
+      global.LunaStreetParallax?.notifyTeleport(model);
       panoramaTween = false;
       const arriving = model.scene === 'street' && (model.barArrival || model.transition?.barArrival);
       cam = {
@@ -1213,7 +1194,7 @@
       const m = model;
       return m && !m.paused && !loading && !loadError && !devOpen && !hintOpen && !m.controlsTutorial && !m.dialog && !m.story.blocking && !global.lunaCampaign?.blocking ? m.near : null;
     }
-    function draw() {
+    function draw(advanceParallax = true) {
       if (!ctx || !model) return;
       if (surface.dpr !== devicePixelRatio) fit();
       renderCam = global.LunaPixelCamera.view(cam, surface, {
@@ -1228,6 +1209,7 @@
       ctx.fillStyle = '#090d19';
       ctx.fillRect(0, 0, 1280, 720);
       if (loading || loadError) return;
+      if (advanceParallax) global.LunaStreetParallax.update(model, data.scenes.street.nodes);
       if (model.qa) {
         global.LunaOutsideQA.draw({
           m: model,
@@ -1738,13 +1720,13 @@
           pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
           model.scene = 'street';
         }
-        draw();
+        draw(false);
         return canvas.toDataURL('image/png');
       } finally {
         cam = oldCam;
         model.scene = oldScene;
         pixelWidth = oldPixelWidth;
-        draw();
+        draw(false);
       }
     }
     return {

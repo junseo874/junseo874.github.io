@@ -10,9 +10,11 @@
   dragPoint={x,y};
   const el=document.getElementById('drag-ghost');if(!el)return;
   const f=frame(),s=f.scale;
-  // Keep the entire sprite (including the below-pointer portion) in the aperture.
-  el.style.left=Math.max(f.x+45*s,Math.min(f.x+1235*s,x))+'px';
-  el.style.top=Math.max(f.y+112*s,Math.min(f.y+692*s,y))+'px';
+  // The held object IS the cursor. Never clamp it away from the pointer;
+  // the full-frame clipping layer keeps its pixels inside the 16:9 aperture.
+  el.style.setProperty('--drag-client-x',x+'px');
+  el.style.setProperty('--drag-client-y',y+'px');
+  el.dataset.pointerInside=String(x>=f.x&&x<=f.x+1280*s&&y>=f.y&&y<=f.y+720*s);
  }
  function fit(){
   // CSS handles resizing synchronously; JS is only an older-browser fallback.

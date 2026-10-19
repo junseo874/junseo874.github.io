@@ -21,9 +21,13 @@ input[type="range"]{cursor:var(--luna-cursor-ew-resize,ew-resize)!important}
 input[type="range"]::-webkit-slider-thumb{cursor:var(--luna-cursor-ew-resize,ew-resize)}
 input[type="range"]::-moz-range-thumb{cursor:var(--luna-cursor-ew-resize,ew-resize)}
 /* Follow the real drag ghost's lifecycle, including release/cancel/blur. */
-html:has(#drag-ghost:not([hidden])) *,html:has([data-fluid-stage][data-cursor-held="true"]) *{cursor:var(--luna-cursor-grabbing,grabbing)!important}
+html:has([data-fluid-stage][data-cursor-held="true"]) *{cursor:var(--luna-cursor-grabbing,grabbing)!important}
 /* Disabled always wins, even over active/drag styling and nested icons. */
 :is(:disabled,[aria-disabled="true"],[inert]),:is(:disabled,[aria-disabled="true"],[inert]) *{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
 input[type="range"]:disabled::-webkit-slider-thumb{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
 input[type="range"]:disabled::-moz-range-thumb{cursor:var(--luna-cursor-not-allowed,not-allowed)!important}
 [aria-busy="true"],[aria-busy="true"] *{cursor:var(--luna-cursor-wait,wait)!important}
+/* Delivery art replaces the native cursor, including over disabled drop targets.
+   Outside the game aperture the normal cursor returns; art stays clipped inside. */
+html:has(#drag-ghost:not([hidden])[data-pointer-inside="true"]),
+html:has(#drag-ghost:not([hidden])[data-pointer-inside="true"]) *{cursor:none!important}

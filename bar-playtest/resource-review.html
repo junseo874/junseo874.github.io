@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>리소스 확인 · Project LUNA</title>
-<link rel="stylesheet" href="src/dev/resources/resource-review.css?v=cyan-cursors-20261019">
+<link rel="stylesheet" href="src/dev/resources/resource-review.css?v=review-workspace-20261019">
 <link rel="stylesheet" href="src/dev/resources/resource-missing.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="src/dev/resources/resource-popups.css?v=fullscreen-20261012">
-<link rel="stylesheet" href="src/dev/resources/resource-download.css?v=20261018">
+<link rel="stylesheet" href="src/dev/resources/resource-popups.css?v=review-workspace-20261019">
+<link rel="stylesheet" href="src/dev/resources/resource-download.css?v=review-workspace-20261019">
 <link rel="stylesheet" href="src/dev/resources/resource-sounds.css?v=20261018">
 <link rel="stylesheet" href="src/shared/ui/cursors.css?v=cyan-cursors-20261019">
 <script src="src/shared/ui/cursors.js?v=layout-20261019"></script>
@@ -15,26 +15,19 @@
 <body>
 <link rel="stylesheet" href="src/dev/resources/resource-extraction.css?v=all-ui-20261019">
 <header class="top">
-<a href="index.html?dev=1">← 개발자 시뮬레이터</a>
-<span>Project LUNA / TEAM WORKSPACE</span>
-<div class="top-actions">
+<div class="brand"><a href="index.html?dev=1" aria-label="개발자 시뮬레이터로 돌아가기">←</a><h1>리소스 확인</h1></div>
+<details class="workspace-tools"><summary>검수 도구</summary><div class="tools-menu">
+<div id="totals" aria-live="polite">데이터를 불러오는 중…</div>
 <button id="export">검수 목록 CSV</button>
-</div>
+</div></details>
 </header>
-<section class="intro">
-<div>
-<small>RESOURCE REVIEW</small>
-<h1>리소스 확인</h1>
-<p>원본 이미지, 애니메이션, 화면별 배경, UI와 연출·이펙트, 사운드 미리 듣기와 원본 다운로드를 한곳에서 확인하세요.</p>
-</div>
-<div id="totals" aria-live="polite">시뮬레이터 데이터를 불러오는 중…</div>
-</section>
+<label class="mobile-categories">분류<select id="category-select" aria-label="리소스 분류 선택"></select></label>
 <div class="workspace">
 <aside class="sidebar">
 <nav id="nav" aria-label="리소스 분류">
 </nav>
-<div class="legend">
-<b>상태 읽는 법</b>
+<details class="legend">
+<summary>상태 표시 안내</summary>
 <p>
 <i class="dot registered">
 </i>등록됨 · 완성 승인 여부는 별도 확인</p>
@@ -48,7 +41,7 @@
 <i class="dot missing">
 </i>미등록 · 등록 데이터에서 찾지 못함</p>
 <p>코드 UI는 자동으로 미제작 판정하지 않습니다. 작업자가 확인한 미제작 화면은 ‘UI 아트 미제작’으로 표시합니다. 실제 연출·버튼 상태는 ‘화면 테스트’에서 확인하세요.</p>
-</div>
+</details>
 </aside>
 <main>
 <div id="catalog-view">
@@ -62,8 +55,9 @@
 </label>
 </div>
 <p id="notice" role="status">로딩 중입니다. 잠시만 기다려 주세요.</p>
-<section id="resource-filters" class="resource-filters" aria-label="세부 분류 필터">
-</section>
+<details id="filter-panel" class="filter-panel"><summary>상세 필터 <span id="filter-count"></span></summary>
+<section id="resource-filters" class="resource-filters" aria-label="세부 분류 필터"></section>
+</details>
 <div id="grid" class="grid">
 </div>
 </div>
@@ -72,10 +66,10 @@
 <div>
 <small>PRODUCTION CHECKLIST</small>
 <h2 id="missing-title">미제작 리소스 목록</h2>
-<p>더미·공용 더미·미등록 리소스를 분류별로 모았습니다. 현재 쓰는 대체 이미지와 빠진 용도를 함께 확인하세요.</p>
+<p>제작이 필요한 항목과 현재 사용 중인 대체 이미지를 확인하세요.</p>
 </div>
 </header>
-<p id="missing-policy" class="missing-policy">등록된 정식 이미지의 공용 사용과 일반 코드 UI·연출, 거리 행인 NPC는 제외합니다. 캐릭터 미제작 목록은 현재 미등록·임시로 남은 캐릭터만 표시합니다. 단, 작업자가 미제작으로 확인한 UI 화면은 포함합니다. 제공 애니메이션 없이 정적 이미지로 대체하는 항목은 별도로 표시합니다.</p>
+<details class="missing-policy"><summary>목록 포함 기준</summary><p id="missing-policy">등록된 정식 이미지의 공용 사용과 일반 코드 UI·연출, 거리 행인 NPC는 제외합니다. 작업자가 미제작으로 확인한 UI와 정적 이미지로 대체한 제공 애니메이션은 포함합니다.</p></details>
 <div class="missing-tabs" role="group" aria-label="미제작 리소스 분류">
 </div>
 <div class="missing-tools">
@@ -110,34 +104,32 @@
 <p class="empty">리소스를 선택하면<br>미리보기와 사용 정보를 표시합니다.</p>
 </aside>
 </div>
-<section id="lab" class="lab parked" aria-label="실제 UI 테스트">
-<header>
-<div>
-<small>LIVE SIMULATOR / 독립 테스트</small>
+<button id="inspector-backdrop" aria-label="상세 미리보기 닫기" hidden></button>
+<section id="lab" class="lab parked" role="dialog" aria-modal="true" aria-labelledby="lab-title" inert>
+<header class="lab-header">
+<button id="close-lab">← 목록</button>
+<div class="lab-heading">
+<small>화면 테스트</small>
 <h2 id="lab-title">화면 테스트</h2>
-<p id="lab-note">
-</p>
 </div>
 <div class="lab-actions">
-<div id="popup-actor-controls">
-</div>
-<div id="lab-state-controls">
-</div>
-<div id="lab-downloads">
-</div>
 <button id="replay">다시 실행</button>
-<button id="close-lab">목록으로 돌아가기</button>
 </div>
 </header>
+<div class="lab-toolbar">
+<div id="popup-rail" class="popup-rail"></div>
+<div id="lab-state-controls"></div>
+<div id="popup-actor-controls"></div>
+<details id="lab-files" class="lab-files"><summary>PNG 다운로드</summary><div id="lab-downloads"></div></details>
+<details class="lab-help"><summary>사용 안내</summary><p id="lab-note" role="status"></p></details>
+</div>
 <div class="popup-layout">
-<nav id="popup-rail" class="popup-rail" aria-label="팝업 빠른 테스트">
-</nav>
 <div class="frame-wrap">
 <iframe id="game" title="리소스 확인용 시뮬레이터" src="index.html?dev=1&amp;resourceReview=1" allow="autoplay">
 </iframe>
 </div>
 </div>
-<footer>화면의 뒤로가기 또는 브라우저 뒤로가기로 보던 리소스 목록에 돌아옵니다. 화면을 클릭한 뒤 조작하세요. 마우스 호버·클릭·키보드는 실제 게임과 동일합니다. 이 테스트의 진행 상태는 본편에 연결되지 않습니다. 소리·언어 설정은 기존 브라우저 설정을 사용합니다.</footer>
+<footer>화면을 클릭해 조작하세요. 테스트 진행은 본편에 저장되지 않습니다.</footer>
 </section>
 <script src="src/dev/resources/resource-navigation.js?v=return-20261005">
 </script>
@@ -153,17 +145,17 @@
 </script>
 <script src="src/dev/resources/resource-ui-sources.js?v=serving-20261018">
 </script>
-<script src="src/dev/resources/resource-latest.js?v=controls-run-20261018">
+<script src="src/dev/resources/resource-latest.js?v=preview-paths-20261019">
 </script>
-<script src="src/dev/resources/resource-download.js?v=extract-20261019">
+<script src="src/dev/resources/resource-download.js?v=review-workspace-20261019">
 </script>
-<script src="src/dev/resources/resource-sounds.js?v=audio-formats-20261018">
+<script src="src/dev/resources/resource-sounds.js?v=review-workspace-20261019">
 </script>
 <script src="data/runtime/resource-extraction-catalog.js?v=all-ui-20261019">
 </script>
-<script src="src/dev/resources/resource-extraction.js?v=all-ui-20261019">
+<script src="src/dev/resources/resource-extraction.js?v=review-workspace-20261019">
 </script>
-<script src="src/dev/resources/resource-review.js?v=remove-bd-vendor-20261019">
+<script src="src/dev/resources/resource-review.js?v=review-workspace-20261019">
 </script>
 <script src="src/dev/resources/resource-fullscreen.js?v=1">
 </script>

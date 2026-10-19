@@ -1,7 +1,15 @@
 /* Game surfaces are interactive artwork, not selectable browser content. */
+html, body {
+  overscroll-behavior: none;
+}
+body {
+  /* Suppress double-tap zoom, but retain pinch zoom and scrolling inside panels. */
+  touch-action: manipulation;
+}
 body, body * {
   -webkit-user-select: none !important;
   user-select: none !important;
+  -webkit-touch-callout: none;
 }
 /* Preserve ordinary editing and copying in developer/settings fields. */
 body input, body textarea,
@@ -10,6 +18,7 @@ body [contenteditable="true"], body [contenteditable="true"] *,
 body [contenteditable="plaintext-only"], body [contenteditable="plaintext-only"] * {
   -webkit-user-select: text !important;
   user-select: text !important;
+  -webkit-touch-callout: default;
 }
 body img, body a, body svg, body canvas {
   -webkit-user-drag: none;

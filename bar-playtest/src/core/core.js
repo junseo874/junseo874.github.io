@@ -113,6 +113,7 @@
   };
   const MIX = {
     shakeTargetStacks: 20,
+    completionHoldSec: .9,
     // Web playtest tuning; source CSV and stir counts remain unchanged.
     points: [[0, 0], [2.61, 1.206875], [0, 2.56], [2.61, 3.766875]],
     route: [0, 1, 2, 3, 2, 1],
@@ -1871,6 +1872,7 @@
         failures: 0,
         completed: false,
         success: 0,
+        completionAge: 0,
         attempts: 0,
         beatTime: 0,
         hit: false,
@@ -1972,6 +1974,7 @@
     endGimmick() {
       const g = this.gimmick;
       if (!g || this.screen !== 'gimmick' || this.isPaused() || !g.started) return false;
+      if (['stir', 'shake'].includes(g.type) && g.completed && (g.completionAge || 0) + 1e-9 < MIX.completionHoldSec) return false;
       if (g.fluid && !g.fluid.ready) {
         g.fluid.requestFinish(g);
         this.changed();
@@ -2526,6 +2529,17 @@
         this.finishGeneralService();
       }
     }
+    tickMixCompletion(dt) {
+      const g = this.gimmick;
+      if (!g?.completed || !['stir', 'shake'].includes(g.type)) return false;
+      // Simulation time only: pause freezes the hold. Final animation continues,
+      // but neither score nor the craft clock advances during this feedback.
+      if (!this.isPaused()) {
+        g.completionAge = (g.completionAge || 0) + dt;
+        if (g.completionAge + 1e-9 >= MIX.completionHoldSec) this.endGimmick();
+      }
+      return true;
+    }
     tickGimmick(dt) {
       const g = this.gimmick;
       if (!g) return;
@@ -2545,6 +2559,7 @@
       }
       MIX.visual(g, dt);
       OPEN.visual(g, dt);
+      if (this.tickMixCompletion(dt)) return;
       if (!g.started || g.completed) return;
       g.elapsed += dt;
       if (g.type !== 'open') this.craft.elapsed += dt;

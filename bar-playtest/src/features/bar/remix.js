@@ -91,11 +91,13 @@ function attach(g){
   if(!active()||this.gimmick?.fluid)return base.tickGimmick(dt);
   const s=this.gimmick;if(!s||!s.started||this.remix.hold)return;
   base.tickGimmick(dt);
-  if(s.completed&&!this.remix.hold)this.endGimmick();
+  if(this.gimmick===s&&s.completed&&!this.remix.hold)this.endGimmick();
  };
  g.endGimmick=function(){
   if(!active()||this.gimmick?.fluid)return base.endGimmick();
   const s=this.gimmick;if(!s||this.isPaused()||!s.started||this.remix.hold)return false;
+  // Completed mixing already owns its shared hold; do not add a second delay.
+  if(['stir','shake'].includes(s.type)&&s.completed)return base.endGimmick();
   if(s.type==='open'&&!s.completed)return false;
   s.held=false;const remaining=s.type==='open'?Math.max(.85,(this.minigame?C.OPEN.minigameHoldSec:C.OPEN.carbonationSec)-(s.openFx?.age||0)):.85;this.remix.hold={remaining,step:s};cue('step');return true;
  };

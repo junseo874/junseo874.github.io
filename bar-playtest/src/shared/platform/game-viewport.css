@@ -50,7 +50,16 @@ body>.qa-launch.is-outside{
  width:max-content;max-width:1000px;max-height:560px;overflow:hidden;overflow-wrap:anywhere;
  transform:translateX(-50%) scale(var(--ui-scale));transform-origin:bottom center;
 }
-#drag-ghost{transform:scale(var(--ui-scale)) translate(-50%,-80%);transform-origin:top left}
+#drag-ghost{
+ left:50%;top:50%;width:calc(1280px * var(--ui-scale));height:calc(720px * var(--ui-scale));
+ transform:translate(-50%,-50%);transform-origin:center;
+ overflow:hidden;filter:none;
+}
+#drag-ghost>img{
+ position:absolute;left:calc(var(--drag-client-x,50vw) - var(--letterbox-x));top:calc(var(--drag-client-y,50dvh) - var(--letterbox-y));
+ width:calc(90px * var(--ui-scale));height:calc(140px * var(--ui-scale));object-fit:contain;transform:translate(-50%,-50%);
+ filter:drop-shadow(0 6px 6px #0008);
+}
 
 /* Native top-layer dialogs cannot inherit a scene transform. Their content
    scrolls in logical space; close/confirm controls always remain in frame. */

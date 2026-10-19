@@ -59,7 +59,7 @@ function attach(g,getMode=()=> 'path'){
  g.gimmickInput=function(key){const s=this.gimmick;if(!s?.rhythm)return hit(key);if(this.screen!=='gimmick'||this.isPaused()||s.completed||this.remix?.hold)return false;const out=input(s,key);if(out)this.changed();return out;};
  g.tickGimmick=function(dt){const s=this.gimmick;if(!s?.rhythm)return tick(dt);if(this.isPaused())return;
   root.LunaCore.MIX.visual(s,dt);
-  if(s.completed){s.rhythm.doneAge+=dt;if(s.rhythm.doneAge>=.7&&!this.remix?.hold)this.endGimmick();return;}
+  if(s.completed){this.tickMixCompletion(dt);return;}
   if(!s.started)return;s.elapsed+=dt;this.craft.elapsed+=dt;s.rhythm.trackTime+=dt*noteSpeed();if(s.rhythm.mode==='path')updatePath(s,this.rng);else expire(s);
  };
  g.endGimmick=function(){if(this.gimmick?.rhythm&&!this.gimmick.completed)return false;return end();};

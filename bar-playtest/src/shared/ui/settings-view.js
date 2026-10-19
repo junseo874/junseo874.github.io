@@ -3,8 +3,8 @@
 
   const KEY = 'luna.gamePreferences.v1';
   const tabs = [['sound', '사운드'], ['game', '게임 설정'], ['controls', '조작 안내']];
-  let callbacks = {},
-    context = '',
+  const callbacksByContext = new Map();
+  let renderingContext = '',
     pending = null,
     returnFocus = null,
     mounted = null;
@@ -15,7 +15,11 @@
     '"': '&quot;',
     "'": '&#39;'
   })[c]);
-  const panel = () => document.querySelector('.luna-settings');
+  const isInteractive = el => el?.isConnected && !el.closest('[hidden],[inert],[aria-hidden="true"]') &&
+    el.getClientRects().length > 0 && !['hidden', 'collapse'].includes(getComputedStyle(el).visibility);
+  // Paused background scenes can render their own settings behind another modal.
+  // Only the visible, interactive instance may capture keys or receive focus.
+  const panel = () => [...document.querySelectorAll('.luna-settings')].find(isInteractive);
   const state = () => ({
     g: W.barGame,
     ui: W.lunaCampaign?.ui || {},
@@ -66,7 +70,7 @@
     } = state();
     return range('bgm', '음악 음량', '배경 음악의 크기를 조절합니다.', bgm.volume) + range('sfx', '효과음 음량', 'UI · 상호작용 · 제조 효과음', W.LunaSfx.volume) + range('street', '거리 환경음', '도시의 소음과 빗소리', W.LunaStreetAudio.volume) + select('voice', '대사 출력음', '글자가 나타날 때 재생되는 소리', W.LunaDialogueAudio.version, [['main', '기본음'], ['low', '낮고 부드러운 음'], ['off', '끄기']]) + `<div class="ls-preview"><span>선택한 출력음을 확인해 보세요.</span><button data-settings-action="preview" ${W.LunaDialogueAudio.version === 'off' ? 'disabled' : ''}>▷ 미리 듣기</button></div>` + '<div class="ls-switch-pair">' + toggle('music', '배경 음악', '장소별 음악 재생', bgm.enabled) + toggle('gimmick', '제조 효과음', '따르기 · 병따기 · 믹스', ui.gimmickAudio !== false) + '</div>';
   }
-  function gameHTML() {
+  function gameHTML(context = renderingContext) {
     const {
       g
     } = state();
@@ -77,9 +81,8 @@
     return `<div class="ls-key-groups">${groups.map(([title, rows]) => `<section><h3>${title}</h3>${rows.map(([key, label]) => `<div><kbd>${key}</kbd><span>${label}</span></div>`).join('')}</section>`).join('')}</div><p class="ls-footnote">제조 기믹의 세부 조작은 해당 화면의 안내를 확인해 주세요.</p>`;
   }
   function html(options) {
-    callbacks = options;
-    context = options.context;
-    pending = null;
+    callbacksByContext.set(options.context, options);
+    const context = renderingContext = options.context;
     return `<section class="luna-settings" role="dialog" aria-modal="true" aria-labelledby="ls-title" data-settings-context="${esc(context)}"><header class="ls-header"><div class="ls-brand"><img src="assets/ui/service_panel/BTN_service_panel.png" alt=""><div><h1 id="ls-title">설정</h1></div></div><button class="ls-close" data-settings-action="close" aria-label="설정 닫기"><img src="assets/ui/profile/BTN_profile_close.png" alt=""></button></header><div class="ls-body"><nav class="ls-nav" role="tablist" aria-label="설정 분류" aria-orientation="vertical">${tabs.map(([id, title], i) => `<button id="ls-tab-${id}" role="tab" aria-selected="${!i}" aria-controls="ls-${id}" tabindex="${i ? -1 : 0}" data-settings-tab="${id}">${title}<b aria-hidden="true">›</b></button>`).join('')}</nav><div class="ls-content"><section id="ls-sound" role="tabpanel" aria-labelledby="ls-tab-sound">${soundHTML()}</section><section id="ls-game" role="tabpanel" aria-labelledby="ls-tab-game" hidden>${gameHTML()}</section><section id="ls-controls" role="tabpanel" aria-labelledby="ls-tab-controls" hidden>${controlsHTML()}</section></div></div><footer class="ls-footer"><span class="ls-feedback" role="status" aria-live="polite"></span><div><button class="ls-reset" data-settings-action="reset">이 항목 초기화</button>${options.onRestart ? '<button class="ls-exit" data-settings-action="restart">다시 시작</button>' : ''}${options.onExit ? '<button class="ls-exit" data-settings-action="exit">' + esc(options.exitLabel || '타이틀로') + '</button>' : ''}<button class="ls-primary" data-settings-action="close">돌아가기 <kbd>Esc</kbd></button></div></footer><div class="ls-confirm" hidden><div role="alertdialog" aria-modal="true" aria-labelledby="ls-confirm-title"><h2 id="ls-confirm-title"></h2><p></p><div><button data-settings-action="cancel">취소</button><button class="ls-primary" data-settings-action="confirm">확인</button></div></div></div></section>`;
   }
   function tab(id) {
@@ -124,7 +127,8 @@
   function ask(action) {
     pending = action;
     const p = panel(),
-      box = p.querySelector('.ls-confirm');
+      box = p.querySelector('.ls-confirm'),
+      callbacks = callbacksByContext.get(p.dataset.settingsContext) || {};
     box.hidden = false;
     p.querySelector('.ls-body').inert = true;
     p.querySelector('.ls-footer').inert = true;
@@ -143,6 +147,7 @@
   }
   function reset() {
     const id = panel().querySelector('[role="tab"][aria-selected="true"]').dataset.settingsTab,
+      context = panel().dataset.settingsContext,
       {
         g,
         ui,
@@ -161,14 +166,15 @@
       g.lang = 'ko';
       g.dialogSpeed = 1;
       if (context === 'bar') ui.auto = false;
-      panel().querySelector('#ls-game').innerHTML = gameHTML();
+      panel().querySelector('#ls-game').innerHTML = gameHTML(context);
     }
     save();
     feedback('이 항목을 기본값으로 되돌렸습니다.');
   }
   document.addEventListener('click', e => {
     const p = e.target.closest('.luna-settings');
-    if (!p) return;
+    if (!p || p !== panel()) return;
+    const callbacks = callbacksByContext.get(p.dataset.settingsContext) || {};
     const b = e.target.closest('button');
     if (!b) return;
     const action = b.dataset.settingsAction,
@@ -213,6 +219,7 @@
   W.addEventListener('keydown', e => {
     const p = panel();
     if (!p) return;
+    const callbacks = callbacksByContext.get(p.dataset.settingsContext) || {};
     e.stopImmediatePropagation();
     if (e.code === 'Escape') {
       e.preventDefault();
@@ -244,18 +251,22 @@
   new MutationObserver(() => {
     const p = panel();
     if (p === mounted) return;
+    pending = null;
     if (p) {
       if (!mounted) returnFocus = document.activeElement;
       p.querySelector('[role="tab"][aria-selected="true"]')?.focus({
         preventScroll: true
       });
-    } else if (returnFocus?.isConnected && !returnFocus.closest('[hidden],[inert]')) returnFocus.focus({
+    } else if (isInteractive(returnFocus) &&
+      (document.activeElement === document.body || mounted?.contains(document.activeElement))) returnFocus.focus({
       preventScroll: true
     });
     mounted = p;
   }).observe(document.documentElement, {
     childList: true,
-    subtree: true
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['hidden', 'inert', 'aria-hidden']
   });
   W.LunaSettings = {
     html,

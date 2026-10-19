@@ -31,7 +31,8 @@ const kinds=['default','pointer','pressed','grab','grabbing','not-allowed','text
   await p.waitForFunction(()=>document.querySelector('[data-fluid-stage]').dataset.cursorHeld==='false');await cursor('.ls-close','pointer');
   // Coaster/drink ghost survives source re-render; clearing it restores every cursor.
   await p.keyboard.press('Escape');
-  await p.evaluate(()=>document.querySelector('#drag-ghost').hidden=false);await cursor('body','grabbing');
+  await p.evaluate(()=>{document.querySelector('#drag-ghost').hidden=false;LunaGameViewport.positionDrag(640,360);});
+  assert.equal(await p.locator('body').evaluate(el=>getComputedStyle(el).cursor),'none');
   await p.evaluate(()=>document.querySelector('#drag-ghost').hidden=true);await cursor('body','default');
   for(const route of ['resource-review.html','story-guide.html','../cutscene-studio/','../']){
    await p.goto('http://127.0.0.1:8123/bar-playtest/'+route,{waitUntil:'domcontentloaded'});await cursor('body','default');
