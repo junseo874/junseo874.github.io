@@ -267,6 +267,10 @@
       "src/shared/platform/game-viewport.js"
     ],
     [
+      "link",
+      "src/shared/ui/typography.css"
+    ],
+    [
       "script",
       "src/shared/platform/focus-settings.js"
     ],

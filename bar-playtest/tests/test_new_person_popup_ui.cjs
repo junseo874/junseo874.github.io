@@ -6,6 +6,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview?.ready);
   await p.click('[data-group="common-popups"]');await p.click('[data-id="popup:meet"]');
+  await p.evaluate(()=>{const r=resourceReview.rows.find(r=>r.id==='popup:meet');return resourceReview.launch({...r.variants[0].launch,popupId:r.id,actor:'tom'},r.title,r.note);});
   const f=p.frames().find(f=>f.url().includes('resourceReview=1')),card=f.locator('.story-notice-people');
   for(const actor of ['port','aili','bubi','shiba','samho','tom']){
    await p.selectOption('#popup-actor',actor);await f.waitForFunction(id=>document.querySelector('.story-notice-people:not([hidden])')?.dataset.actor===id,actor);
@@ -17,7 +18,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await p.setViewportSize({width,height:720});
    await p.evaluate(()=>{barGame.reset(99,'practice',1,true);barGame.screen='bar';LunaStoryNotices.clear();delete barGame.progress.flags.shiba_met;LunaStoryNotices.meet(barGame.progress,'shiba');});
    const c=p.locator('.story-notice-people');await c.waitFor({state:'visible'});await p.waitForTimeout(300);
-   const box=await c.boundingBox(),scale=Math.min(width/1280,720/720);assert(box.x>=0&&box.x+box.width<=width);assert(box.width/scale>=220&&box.width/scale<300&&box.height/scale<100);
+   const box=await c.boundingBox(),scale=Math.min(width/1280,720/720);assert(box.x>=0&&box.x+box.width<=width);assert(box.width/scale>=110&&box.width/scale<150&&box.height/scale<50);
    assert(await c.evaluate(el=>el.scrollWidth<=el.clientWidth&&el.querySelector('strong').scrollWidth<=el.querySelector('strong').clientWidth));
    await p.screenshot({path:'/private/tmp/new-person-'+width+'.png'});
   }

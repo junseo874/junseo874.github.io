@@ -13,7 +13,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await people.waitFor({state:'visible'});assert.equal(await people.locator('strong').textContent(),await p.evaluate(()=>barGame.name('port')));
   assert.equal(await people.locator('small').textContent(),'새로운 인물!');assert.equal(await people.locator('.story-notice-icon').count(),0);
   assert.equal(await people.getAttribute('data-actor'),'port');await p.waitForTimeout(300);
-  const box=await people.boundingBox();assert(box.x>950&&box.y>300&&box.y<380,'Center-right notice');assert(box.width>=220&&box.width<300&&box.height<100,'Compact two-line discovery card');
+  const box=await people.boundingBox();assert(box.x>950&&box.y>300&&box.y<380,'Center-right notice');assert(box.width>=110&&box.width<150&&box.height<50,'Compact two-line discovery card');
   assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('#story-notices')).pointerEvents),'none');
   await p.screenshot({path:'/private/tmp/story-notice-meeting.png'});
   await p.evaluate(()=>{LunaStoryNotices.clear();LunaCore.applyEffects('affinity.chris+=2',barGame.progress);});

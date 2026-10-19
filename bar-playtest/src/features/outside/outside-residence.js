@@ -10,7 +10,9 @@ const upperY=9.74,passengerOffset=.39;
 // Upper corridor: the KORATECH crates end at native x=305 in the current
 // building (world left = homeX - 5.83). Stop Luna's center 16 px to their right:
 // -16.36 - 5.83 + 3.05 + .16 = -18.98. Ground-floor access is independent.
-const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.51,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-18.98,upperMax:-12.28});
+// Cabin connector center is body pixel 30; support spine center is pixel 80.
+// At 100 PPU, align both at world x=-12.69 (13.5 native pixels left).
+const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-18.98,upperMax:-12.28});
 function apply(data){
  if(data.residenceVersion===1)return data;
  const replaced=new Set(['1F Left Building','A_Fore_Building','A_Obect','A_Middle_Building_1','A_Middle_Building_2','A_ForeFore_Object_1','2F Floor','House Spawn Point']);

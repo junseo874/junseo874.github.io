@@ -13,7 +13,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert.equal(await card.locator('strong').innerText(),'신규 재료 와일드 독 추가!');
   assert.equal(await card.locator('small').innerText(),'재료 획득');
   assert(await card.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0));
-  const rect=await card.boundingBox();assert(rect.x>=19&&rect.x<=21&&rect.y===17&&rect.width===270&&rect.height<=100,JSON.stringify(rect));
+  const rect=await card.boundingBox();assert(rect.x>=19&&rect.x<=21&&rect.y===17&&rect.width===175&&rect.height<=50,JSON.stringify(rect));
   const style=await card.evaluate(el=>{const s=getComputedStyle(el);return {border:s.borderLeftWidth,color:s.borderLeftColor,background:s.backgroundImage,pointer:s.pointerEvents,overflow:el.scrollWidth>el.clientWidth};});
   assert.equal(style.border,'3px');assert.equal(style.color,'rgb(141, 229, 223)');assert(style.background.includes('linear-gradient'));assert.equal(style.pointer,'none');assert(!style.overflow);
   await p.screenshot({path:'/private/tmp/item-notice-profile-style.png'});

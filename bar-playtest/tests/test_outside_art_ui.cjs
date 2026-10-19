@@ -14,6 +14,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const car=ns.find(n=>n.name==='Elevator'),front=ns.find(n=>n.name==='Elevator Fore');
    const left=n=>n.x-n.sprite.w*n.sprite.pivot.x*n.sx/100,top=n=>n.y+n.sprite.h*(1-n.sprite.pivot.y)*n.sy/100;
    const support=ns.find(n=>n.name==='Elevator Line');
+   if(Math.abs((left(car)+.30)-(left(support)+.80))>.005)throw Error('Cabin connector must be centered on the support spine within half a native pixel');
+   if(car.x!==R.elevatorX)throw Error('Passenger and interaction anchor must follow the aligned cabin');
    if(Math.abs(support.x-b.x-9.225)>.0001||Math.abs(b.y-support.y-15.20)>.0001)throw Error('Support braces must follow the engine facade alignment at every floor');
    if(Math.abs(left(front)-left(car)-.12)>.0001||Math.abs(top(car)-top(front)-.45)>.0001)throw Error('Elevator front must align to body pixel (12,45)');
    if(Math.abs(car.y-R.elevatorBottom+.11)>.0001||Math.abs(front.y-R.elevatorBottom-.09+.11)>.0001)throw Error('Reference cabin framing uses an 11-pixel art offset, keeping front/body aligned');
@@ -59,7 +61,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    return results;
   });
   assert(flat.every(Boolean),'Flat lift approach at both floors; complete foreground draws after Luna');
-  for(const [name,x,level]of [['bar',1,0],['shop',-2.87,0],['posters',-5.7,0],['fence',-8.78,0],['lift',-12.51,0],['upper-lift',-12.51,1],['home',-16.36,1],['upper-pillar',-13.5,1],['upper-brace',-17.9,1],['upper-left',-21.65,1]]){
+  const liftX=await p.evaluate(()=>LunaResidence.layout.elevatorX);
+  for(const [name,x,level]of [['bar',1,0],['shop',-2.87,0],['posters',-5.7,0],['fence',-8.78,0],['lift',liftX,0],['upper-lift',liftX,1],['home',-16.36,1],['upper-pillar',-13.5,1],['upper-brace',-17.9,1],['upper-left',-21.65,1]]){
    await p.evaluate(({x,level})=>{const o=outsidePlaytest,m=o.model,R=LunaResidence.layout;m.start({day:0,flow:'out',place:level?'homeDoor':'bar'});m.x=x;m.level=level;m.y=level?R.upperY:-.7;m.elevatorY=level?R.elevatorTop:R.elevatorBottom;m.story.cancel();m.backgroundStory.cancel();m.updateNear();o.snapCamera();o.tick(0);},{x,level});
    await p.waitForTimeout(450);await p.screenshot({path:'/private/tmp/new-street-'+name+'.png'});
   }

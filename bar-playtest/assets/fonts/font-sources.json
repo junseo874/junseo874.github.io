@@ -1,0 +1,22 @@
+{
+  "referenceRoot": "9_ArtResources/05.UI",
+  "suppliedFonts": {
+    "stardust": "Font/Stardust — original TTF, 400/700/800; CSS alias LunaPixel",
+    "paperlogy": "Font/Paperlogy-1.000 — original TTF, 400/500/600/700",
+    "pretendard": "Font/Pretendard-1.3.9/web/variable/woff2 — original variable WOFF2"
+  },
+  "mapping": {
+    "main_font.txt": "speech regular; names and money bold; choices regular with bold emphasis",
+    "title_font.txt": "Paperlogy 500 idle, 600 hover/focus",
+    "ingredient_font.txt": "Stardust 700 names/headings; Paperlogy 500 descriptions/tags; Pretendard 500 English",
+    "stir_font.txt": "Pretendard 600 keys; DSEG7 Classic digital timer substitute"
+  },
+  "digitalTimer": {
+    "reference": "LAB디지털 (not supplied)",
+    "substitute": "DSEG7 Classic 0.46, SIL OFL 1.1",
+    "source": "https://github.com/keshikan/DSEG",
+    "download": "https://cdn.jsdelivr.net/npm/dseg@0.46.0/fonts/DSEG7-Classic/DSEG7Classic-Regular.woff2"
+  },
+  "withoutReference": "Settings, settlement and tutorial explanations use Paperlogy; names/headings retain Stardust. Existing geometry is preserved.",
+  "originalFont": "font.ttf (NeoDunggeunmo Pro) retained, no longer used by the game page"
+}

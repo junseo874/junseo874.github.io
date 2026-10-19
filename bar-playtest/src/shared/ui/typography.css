@@ -1,0 +1,67 @@
+/* Original UI font sheets: main_font, title_font, ingredient_font, stir_font.
+   LunaPixel remains an alias for existing dialogue and popup components. */
+@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-400.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-700.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-800.ttf') format('truetype');font-style:normal;font-weight:800;font-display:swap}
+@font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-400.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-500.ttf') format('truetype');font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-600.ttf') format('truetype');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-700.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:Pretendard;src:url('../../../assets/fonts/pretendard-variable.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
+@font-face{font-family:LunaDigital;src:url('../../../assets/fonts/dseg7-classic.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap;unicode-range:U+002D-003A}
+:root{--font-dialogue:LunaPixel,Pretendard,sans-serif;--font-ui:Paperlogy,Pretendard,sans-serif;--font-latin:Pretendard,sans-serif}
+body{font-family:var(--font-dialogue)}
+button,input,select,textarea{font-family:inherit}
+
+/* Dialogue / choices / currency: regular speech, true bold names and money. */
+.speaker,.outside-speech strong,.outside-background-speech strong,
+#campaign-root .exterior-textbox .speaker,.campaign-speech strong,
+.terrace-speech strong,.studio-speech-bubble strong,.currency-value{
+  font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em;
+}
+.dialogue-text,.outside-speech p,.outside-background-speech p,
+.campaign-speech p,.terrace-speech p,.studio-speech-stage{
+  font-family:var(--font-dialogue);font-weight:400;letter-spacing:-.01em;
+}
+.choices button,.world-choices.outside-choices,.outside-choices button{font-family:var(--font-dialogue);font-weight:400;letter-spacing:-.05em}
+.choices button :is(b,strong),.outside-choices button :is(b,strong){font-weight:700}
+.currency-value{letter-spacing:-.05em}
+.campaign-cinema-ui{--pix:var(--font-dialogue)}
+.day-transition-title{font-family:var(--font-dialogue)}
+
+/* Title artwork specifies Paperlogy Medium / SemiBold. */
+.campaign-title .title-choice{font-family:var(--font-ui);font-weight:500}
+.campaign-title .title-choice:hover:not(:disabled),.campaign-title .title-choice:focus:not(:disabled){font-weight:600}
+
+/* Preparation / recipe reference: pixel names, smooth descriptions and tags. */
+.ingredient-tip strong,.prep-recipe-heading h2,.prep-recipe.recipe-preview h2,
+.recipe-card strong,.recipe-list h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
+.recipe-card small{font-family:var(--font-ui);font-weight:500}
+.ingredient-tip span,.ingredient-tip small,.recipe-tags span,
+.prep-recipe section p,.prep-recipe .recipe-lines,.prep-recipe .recipe-note{
+  font-family:var(--font-ui);font-weight:500;letter-spacing:-.01em;
+}
+.recipe-tags span{letter-spacing:-.04em}
+.prep-recipe-heading>small,.profile-english-name{font-family:var(--font-latin);font-weight:500;letter-spacing:-.025em}
+.prep-recipe section h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
+.craft-start,.inventory-label,.inventory-item-name,.service-actions button,.service-panel p,.service-panel>small{font-family:var(--font-ui);font-weight:500}
+.service-panel h2{font-family:var(--font-dialogue);font-weight:700}
+
+/* Profile and screens without a font sheet use the same name/body hierarchy. */
+.guest-card-caption>span,.resource-profile .profile-right h2,
+.dossier-heading h2,.story-notice strong{font-family:var(--font-dialogue);font-weight:700}
+.profile-section p,.profile-facts,.profile-data-note,.dossier-footer p,
+.luna-settings,.end-shift,.end-shift button,.minigame-lobby,
+.minigame-result,.campaign-card,.daily-unlocks,.tutorial-overlay{
+  font-family:var(--font-ui);
+}
+.profile-section h3,.luna-settings h2,.luna-settings .ls-header h1,
+.ls-nav button b,.end-shift h1,.minigame-card h2,.daily-unlocks h2{font-family:var(--font-dialogue);font-weight:700}
+.end-shift .shift-income>strong,.end-shift .shift-balance>strong{font-family:var(--font-dialogue);font-weight:700}
+.ls-control output,.ls-info>span,.shift-eyebrow,.shift-stamp,.shift-test,
+.luna-settings kbd,.mix-direction,.stir-screen .mix-direction,[data-rhythm-note] text{
+  font-family:var(--font-latin);font-variant-numeric:tabular-nums;
+}
+.stir-screen .mix-direction{font-weight:600;letter-spacing:-.05em}
+.mix-timer{font-family:var(--font-dialogue);font-variant-numeric:tabular-nums}
+.stir-screen .mix-timer{font-family:LunaDigital,var(--font-dialogue);font-weight:400;font-size:29px;letter-spacing:0;text-shadow:0 0 21px #4587a58c}
