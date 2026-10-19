@@ -24,7 +24,10 @@
 .bar-scene-layer .native-coaster>.drink-art{z-index:2}
 /* Keep placed coasters visible during pickup, dragging and drink delivery.
    Only the initial coaster-placement step needs a shadow on the bare table. */
-.bar-scene-layer .native-coaster .delivery-shadow{position:absolute;left:10px;top:88px;width:100px;height:44px;opacity:1;object-fit:contain;pointer-events:none}
+/* Match the placed coaster's 83:27 perspective, compressing only Y.
+   Preserve the 100px width and (60,110) centre; the drop zone stays unchanged.
+   Fill is intentional: contain would shrink X to preserve the shadow PNG ratio. */
+.bar-scene-layer .native-coaster .delivery-shadow{position:absolute;left:10px;top:110px;width:100px;height:auto;aspect-ratio:83 / 27;transform:translateY(-50%);opacity:1;object-fit:fill;pointer-events:none}
 .delivery-arrow{position:absolute;left:40px;top:29px;width:40px;height:48px;fill:#b9fbff;stroke:#74ddeb;stroke-width:1;filter:drop-shadow(0 0 7px #65eaff);animation:delivery-nudge 1.2s ease-in-out infinite;pointer-events:none}
 .native-coaster.drop-ready .delivery-shadow{opacity:1}
 @keyframes delivery-nudge{0%,100%{transform:translateY(0)}55%{transform:translateY(7px)}}
