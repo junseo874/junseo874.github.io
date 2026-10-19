@@ -15,8 +15,17 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  await p.keyboard.press('KeyE');await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');
  assert(!await p.evaluate(()=>!!barGame.progress.flags.day0_tv_seen));
  await p.waitForFunction(()=>!lunaCampaign.memoryTransition);
+ assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('.campaign-prologue')).cursor),'none');
+ await p.keyboard.press('Escape');await p.locator('.luna-settings:visible').waitFor();
+ assert.notEqual(await p.locator('.luna-settings:visible .ls-close').evaluate(el=>getComputedStyle(el).cursor),'none');
+ assert.notEqual(await p.evaluate(()=>getComputedStyle(document.body).cursor),'none');
+ await p.locator('.luna-settings:visible .ls-close').click();
+ assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('.campaign-prologue')).cursor),'none');
+ await p.keyboard.press('Escape');await p.keyboard.press('Escape');
+ assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('.campaign-prologue')).cursor),'none');
  await p.evaluate(()=>{const c=lunaCampaign,done=c.cinema.returnTo;c.disposeCinema();done();});
  assert(await p.evaluate(()=>barGame.progress.flags.day0_tv_seen&&lunaCampaign.session.carry.flags.day0_tv_seen));
+ assert.notEqual(await p.evaluate(()=>getComputedStyle(document.body).cursor),'none');
  await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['TV를 본다','끈다']);
  assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.locator('[data-choice="cancel"]').click();
  assert(await p.evaluate(()=>outsidePlaytest.model.tvOff));assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);

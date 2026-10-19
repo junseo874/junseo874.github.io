@@ -255,6 +255,10 @@
       "src/shared/ui/cursors.js"
     ],
     [
+      "script",
+      "src/shared/platform/resource-loader.js"
+    ],
+    [
       "link",
       "src/shared/platform/game-letterbox.css"
     ],

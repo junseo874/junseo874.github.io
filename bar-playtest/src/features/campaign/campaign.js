@@ -92,6 +92,7 @@
         global.Sfx?.setLowpass(0);
       }
       this.view = view;
+      document.body.classList.toggle('campaign-cinematic', ['prologue', 'scene', 'awakening', 'bar-door'].includes(view));
       this.host.classList.toggle('is-dev-console', view === 'dev-console');
       this.host.classList.toggle('over-outside', view === 'scene' && this.outside.active && !['terrace', 'black', 'johnny-memory'].includes(this.dialog?.background));
       this.host.hidden = !this.blocking;
@@ -114,7 +115,7 @@
       if (this.view === 'loading' && this.host.querySelector('.view-loading .resource-loading')) return;
       let body = '';
       if (this.view === 'picker') body = '<div class="campaign-picker"><img class="picker-logo" src="' + path('title-logo.png') + '" alt="Project LUNA"><h1>어떤 방식으로 플레이할까요?</h1><div class="campaign-paths">' + button('<span>01 / STORY</span><strong>본편 플레이</strong><p>루나의 첫 출근부터, 네 번의 밤까지.</p>', 'title', 'story-path') + button('<span>02 / PLAYTEST</span><strong>개발자 시뮬레이터</strong><p>바 영업 · 기믹 · 외부 공간을 자유롭게 테스트합니다.</p>', 'developer', 'dev-path') + '</div></div>';
-      if (this.view === 'bar-door') body = global.LunaBarDoor.html(this.doorTransition?.direction || 'in');
+      if (this.view === 'bar-door') body = this.doorTransition?.artReady ? global.LunaBarDoor.html(this.doorTransition.direction) : '<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy">로딩 중<span class="resource-loading-dots"></span></span></div>';
       if (this.view === 'awakening') body = '<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
       if (this.view === 'title') body = '<div class="campaign-title"><div class="title-logo"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>' + '<nav aria-label="타이틀 메뉴">' + button('새 게임', 'new', 'title-choice') + '<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>' + button('설정', 'options', 'title-choice') + button('종료', 'picker', 'title-choice') + '<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
       if (this.view === 'scene-choice') {
@@ -374,20 +375,9 @@
     }
     image(src) {
       if (this.loaded.has(src)) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        const im = new Image(),
-          timer = setTimeout(() => reject(Error(src)), 20000);
-        im.onload = () => {
-          clearTimeout(timer);
-          this.loaded.add(src);
-          resolve();
-        };
-        im.onerror = () => {
-          clearTimeout(timer);
-          reject(Error(src));
-        };
-        im.src = src;
-      });
+      this.imageJobs ||= new Map();
+      if(!this.imageJobs.has(src))this.imageJobs.set(src,global.LunaResources.image(src).then(()=>{this.loaded.add(src);}).catch(error=>{this.imageJobs.delete(src);throw error;}));
+      return this.imageJobs.get(src);
     }
     script(name) {
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
@@ -450,6 +440,8 @@
       this.screen('loading');
       this.retryLoad = () => this.newGame();
       try {
+        await global.LunaResources.prepare('common');
+        if (token !== this.token) return;
         const scene = await this.prepareStudio('opening');
         if (token !== this.token) return;
         this.loadPercent = 80;
@@ -898,7 +890,11 @@
       if (white) white.style.opacity = w.fromWhite ? 1 - smooth(w.time / .7) : 0;
     }
     startBar(day, carry) {
-      this.runDoorTransition('in', () => Promise.all(Object.values(this.D.assets).map(a => a.src).filter(src => /\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src => this.image(src))), () => {
+      this.runDoorTransition('in', async () => {
+        await global.LunaResources.prepare('common');
+        await global.LunaResources.prepare('bar');
+        await Promise.all(Object.values(this.D.assets).map(a => a.src).filter(src => /\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src => this.image(src)));
+      }, () => {
         // Keep the outside scene until the opaque door owns the screen. Prepare the
         // real bar underneath it before beginning the reveal, never the setup lobby.
         if (this.outside.active) this.outside.exit(true);
@@ -939,7 +935,9 @@
       this.screen('bar-door');
       global.LunaBarDoor.paint(this.host, d);
       this.retryLoad = () => this.runDoorTransition(direction, prepare, commit);
-      Promise.all([Promise.all(global.LunaBarDoor.assets.map(src => this.image(src))), Promise.resolve().then(() => {
+      Promise.all([Promise.all(global.LunaBarDoor.assets.map(src => this.image(src))).then(()=>{
+        if(this.doorTransition!==d)return;d.artReady=true;if(this.view==='bar-door')this.draw();
+      }), Promise.resolve().then(() => {
         if (this.doorTransition === d) return prepare();
       })]).then(() => {
         if (this.doorTransition !== d) return;

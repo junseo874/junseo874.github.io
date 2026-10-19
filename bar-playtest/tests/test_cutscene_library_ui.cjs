@@ -19,6 +19,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.waitForFunction(()=>['scene','prologue','load-error'].includes(lunaCampaign.view)&&!lunaCampaign.memoryTransition,null,{timeout:60000});
   assert.notEqual(await p.evaluate(()=>lunaCampaign.view),'load-error',entry.id+': '+await p.evaluate(()=>lunaCampaign.loadError));
   await p.waitForTimeout(150);
+  assert.equal(await p.evaluate(()=>getComputedStyle(lunaCampaign.host).cursor),'none',entry.id+' hides the cinematic cursor');
   if(entry.id==='opening-a')await p.screenshot({path:'/private/tmp/luna-cutscene-preview.png'});
   if(entry.id==='wake-a')assert(await p.evaluate(()=>lunaCampaign.cinema.time>=lunaCampaign.cinema.skipUntil));
   if(entry.id==='A-johnny')await p.evaluate(()=>{barGame.progress.flags.campaign_observation=true;});
@@ -27,6 +28,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.locator('.cutscene-list').waitFor();assert.equal(await state(),before,entry.id+' leaked progress');
   assert.equal(await p.locator('#cutscene-preview-toolbar').count(),0);assert.equal(await p.evaluate(()=>lunaCampaign.view),'developer');
   console.log('PASS preview '+entry.id);
+  assert.notEqual(await p.evaluate(()=>getComputedStyle(document.body).cursor),'none',entry.id+' restores the cursor');
  }
  // Follow a real terrace-to-memory link, then complete the memory and return safely.
  await p.locator('[data-act="cutscenePlay"][data-id="A-night2"]').click();

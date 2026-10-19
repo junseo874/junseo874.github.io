@@ -1,7 +1,7 @@
 /* Review the same live manifests as the simulator. No copied cocktail/pose tables. */
 (function(W){
 'use strict';
-const groups=[['bar-characters','바 내부','캐릭터 / 애니메이션'],['bar-drinks','바 내부','칵테일 · 용도별 이미지'],['bar-items','바 내부','재료 / 도구 / 잔'],['bar-serve','바 내부','제공하기 컷씬'],['bar-ui','바 내부','UI / 화면 테스트'],['out-characters','외부','캐릭터 / 컷씬 동작'],['out-ui','외부','UI / 이벤트 테스트']];
+const groups=[['common-cursors','공통','마우스 커서'],['bar-characters','바 내부','캐릭터 / 애니메이션'],['bar-drinks','바 내부','칵테일 · 용도별 이미지'],['bar-items','바 내부','재료 / 도구 / 잔'],['bar-serve','바 내부','제공하기 컷씬'],['bar-ui','바 내부','UI / 화면 테스트'],['out-characters','외부','캐릭터 / 컷씬 동작'],['out-ui','외부','UI / 이벤트 테스트']];
 const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체·공용',missing:'미등록',code:'코드 UI·연출'};
 // Remaining screens without a supplied full UI art set.
 // A screenshot alone is not an art set; restored recipe/profile/service/stir assets are inventoried below.
@@ -13,6 +13,12 @@ function build(F){
  const D=F.barData,g=F.barGame,A=D.assets,O=F.LUNA_OUTSIDE_DATA,rows=[];
  const name=id=>g.name(id)||id;
  const add=r=>rows.push({status:'registered',note:'등록 여부를 보여 줍니다. 최종 아트 승인 여부는 별도 확인이 필요합니다.',...r});
+ for(const cursor of W.LunaCursors){
+  const src=new URL(cursor.src).pathname;
+  add({id:'cursor:'+cursor.id,group:'common-cursors',title:cursor.title,usage:cursor.usage+' · '+cursor.id,
+   cursor, layers:[{key:cursor.id,src:cursor.src,w:cursor.w,h:cursor.h,frames:1,source:src}],
+   note:'32 × 32 px · 투명 배경. 클릭 기준점: 왼쪽 위에서 X '+cursor.hotspot[0]+', Y '+cursor.hotspot[1]+' px. 원본 SVG 또는 같은 크기의 PNG로 저장할 수 있습니다.'});
+ }
  const state=a=>!a?'missing':/더미|dummy|임시|user supplied/i.test(a.source||'')||/campaign\/(johnny-|tom-|shiba-)/i.test(a.src||'')?'dummy':'registered';
  function layer(key,a,extra={}){if(!a)return null;return {key,src:a.src,source:a.source||'',w:a.w,h:a.h,frames:a.frames||1,fw:a.frameWidth,fh:a.frameHeight,fps:a.fps||6,scale:a.displayScale||1,...extra};}
  const layers=keys=>keys.map(k=>layer(k,A[k])).filter(Boolean);

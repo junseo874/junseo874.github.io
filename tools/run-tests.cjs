@@ -5,13 +5,13 @@ const root = path.resolve(__dirname, '..');
 const game = name => 'bar-playtest/tests/' + name + '.cjs';
 const suites = {
   data: ['bar-playtest/tests/test-csv-catalog.cjs', 'bar-playtest/tests/test-shared-data-projection.cjs', 'tools/build-shared-data.cjs', 'bar-playtest/tests/test-shared-data-ui.cjs'],
-  smoke: ['tools/check-structure.cjs', 'tools/check-site.cjs', ...[
-    'test_shiba_shop', 'test_day0_tutorial', 'test_resource_missing',
+  smoke: ['tools/check-structure.cjs', 'tools/check-site.cjs', 'tools/build-preload-manifest.cjs', ...[
+    'test_shiba_shop', 'test_day0_tutorial', 'test_resource_missing', 'test-resource-preload-ui',
     'test_bd_vendor_removed_ui', 'test_current_serve_sheets_ui', 'test-resource-preview-paths-ui'
   ].map(game)],
   ui: ['test_game_viewport_ui', 'test_letterbox_ui', 'test_interaction_prompt_ui',
     'test_general_coaster_drag_ui', 'test_focus_settings_ui', 'test-resource-workspace-ui',
-    'test-game-input-guard-ui', 'test-delivery-hitbox-ui', 'test-settings-resume-ui'].map(game),
+    'test-resource-cursors-ui', 'test-game-input-guard-ui', 'test-delivery-hitbox-ui', 'test-settings-resume-ui'].map(game),
   outside: ['test_bd_vendor_removed_ui', 'test_outside_beggar', 'test_outside_beggar_ui', 'test_day1_thug_ui', 'test_outside_console_ui',
     'test_ambient_interaction_pause_ui', 'test_interaction_prompt_ui', 'test-outside-resize-qa-ui', 'test-object-confirmation-ui',
     'test-street-parallax-engine', 'test-street-parallax-engine-ui', 'test-rain-glass-engine', 'test-rain-glass-ui', 'test-home-city-parallax', 'test-home-art-ui', 'test-home-weather-ui', 'test_upper_crate_boundary_ui', 'test-lift-npc-presence-ui'].map(game),

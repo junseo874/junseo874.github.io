@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s),E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const frame=$('#game'),lab=$('#lab'),C=ResourceCatalog,R=ResourceFilters,cache=new Map(),facetsByGroup=new Map();
 const loadingStarted=performance.now();$('#export').disabled=true;
-let F,navigation,rows=[],group=({popups:'common-popups',sounds:'common-sounds',extract:'extraction'})[new URLSearchParams(location.search).get('tab')]||'bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
+let F,navigation,rows=[],group=({popups:'common-popups',sounds:'common-sounds',cursors:'common-cursors',extract:'extraction'})[new URLSearchParams(location.search).get('tab')]||'bar-characters',selected=null,playing=true,step=0,fps=6,disabled=new Set(),last=0,age=0,activeLaunch=null,busy=false,redrawPending=false,launchEpoch=0;
 const badge=r=>'<span class="badge '+r.status+'">'+(r.uiArtPending?'UI 아트 미제작':C.statusNames[r.status])+'</span>'+(r.needsRevision?'<span class="revision-tag">수정 필요</span>':'');
 const variantSelections=new Map();let indicatorPreview=null;
 let popupActor='tom';

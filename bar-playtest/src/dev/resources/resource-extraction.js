@@ -1,7 +1,7 @@
 /* Graphic-only exports. Screen captures and dialogue copy never enter this inventory. */
 (function(W){'use strict';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const groups=['UI · 분리 그래픽','UI · 원본 조각','캐릭터 · 애니메이션','재료 · 잔 · 칵테일','배경 · 오브젝트','기타 그래픽','UI · 팝업 분리','UI · 기타 분리'];
+const groups=['UI · 분리 그래픽','UI · 원본 조각','캐릭터 · 애니메이션','재료 · 잔 · 칵테일','배경 · 오브젝트','기타 그래픽','UI · 팝업 분리','UI · 기타 분리','UI · 마우스 커서'];
 const view=document.createElement('section');view.id='extraction-view';view.hidden=true;
 view.innerHTML='<h2>리소스 추출</h2><p>화면 캡처가 아닌, 재사용할 수 있는 그래픽 요소를 개별 PNG로 저장합니다.</p><details class="extract-note"><summary>추출 안내</summary><p>대사·설명 문구와 게임 화면은 포함하지 않습니다. E · W · S 같은 키 아이콘의 글자는 아이콘 디자인으로 유지합니다. 원본 크기와 투명도를 보존하며, 애니메이션은 레이어별 프레임을 선택할 수 있습니다.</p></details><div class="extract-tools"><label>그래픽 분류<select id="extract-category"><option value="all">전체</option>'+groups.map(g=>'<option>'+g+'</option>').join('')+'</select></label><label>리소스 검색<input id="extract-search" type="search" placeholder="상호작용, 선택지, 말풍선, 파일명…"></label></div><p id="extract-count" role="status"></p><div class="extract-grid"></div><div class="extract-pages"><button data-extract-page="-1">이전</button><span></span><button data-extract-page="1">다음</button></div>';
 document.querySelector('main').append(view);
@@ -11,7 +11,7 @@ view.querySelector('.extract-tools').insertAdjacentHTML('beforebegin','<div clas
 let entries=[],page=0,epoch=0,observer,signature='';const pageSize=36,images=new Map();
 const search=view.querySelector('#extract-search'),category=view.querySelector('#extract-category'),part=view.querySelector('#extract-part');
 search.value=new URLSearchParams(location.search).get('q')||'';
-function classify(row){return /ui|popup/.test(row.group)?groups[1]:/character/.test(row.group)?groups[2]:/drink|item|serve/.test(row.group)?groups[3]:/background/.test(row.group)?groups[4]:groups[5];}
+function classify(row){if(row.cursor)return 'UI · 마우스 커서';return /ui|popup/.test(row.group)?groups[1]:/character/.test(row.group)?groups[2]:/drink|item|serve/.test(row.group)?groups[3]:/background/.test(row.group)?groups[4]:groups[5];}
 function collect(rows,assets={}){
  const all=[],seen=new Map();
  function add(item){
@@ -22,7 +22,7 @@ function collect(rows,assets={}){
  }
  for(const a of W.ResourceExtractionAssets||[])add(a);
  for(const a of W.ResourceUISources||[])add({...a,title:a.src.split('/').pop(),category:groups[1],layer:{...a,frames:1}});
- for(const r of rows)for(const l of r.layers||[])add({src:l.src,title:r.title+' · '+l.key,category:classify(r),usage:r.usage,layer:l});
+ for(const r of rows)for(const l of r.layers||[])add({src:l.src,title:r.title+' · '+l.key,category:classify(r),usage:r.usage,note:r.cursor?r.note:undefined,layer:l});
  // Some reusable graphics (coaster, mixing nodes, generic guest parts) are
  // intentionally hidden in the review cards. Include their original layers here.
  for(const [key,a]of Object.entries(assets)){
@@ -70,7 +70,7 @@ function render(){
  view.querySelector('#extract-count').textContent=list.length+'개 그래픽 / 전체 '+entries.length+'개 · 같은 원본은 중복 제거';
  view.querySelector('.extract-grid').innerHTML=list.slice(page*pageSize,(page+1)*pageSize).map(a=>{
  const animated=frames(a)>1,framed=animated||a.layer?.rects||a.layer?.sx||a.layer?.sy||a.layer?.fw||a.layer?.fh;
- return '<article class="extract-card" data-graphic="'+a.id+'"><div class="extract-art">'+(framed?'<small>프레임 미리보기</small>':'<img src="'+esc(a.src)+'" alt="'+esc(a.title)+'" loading="lazy">')+'</div><div class="extract-copy"><small>'+esc(a.category)+'</small><h3>'+esc(a.title)+'</h3><p data-size>'+esc(a.w&&a.h?a.w+' × '+a.h+' px':'원본 크기')+'</p>'+(a.note?'<p>'+esc(a.note)+'</p>':'')+'<span class="extract-file">'+esc(a.src.startsWith('data:')?'내장 그래픽':a.src)+'</span><div class="extract-actions"><button data-extract="raw">'+(animated?'원본 시트 PNG':a.partKind?(partNames[a.partKind]||'요소')+' PNG':'원본 PNG')+'</button>'+(framed?'<label>프레임 <input data-frame type="number" min="1" max="'+frames(a)+'" value="1" aria-label="'+esc(a.title)+' 프레임"> / '+frames(a)+'</label><button data-extract="frame">이 프레임 PNG</button><label><input type="checkbox" data-trim>투명 여백 제거</label>':'')+'</div><div class="extract-message" role="status"></div></div></article>';
+ return '<article class="extract-card" data-graphic="'+a.id+'"><div class="extract-art">'+(framed?'<small>프레임 미리보기</small>':'<img src="'+esc(a.src)+'" alt="'+esc(a.title)+'" loading="lazy">')+'</div><div class="extract-copy"><small>'+esc(a.category)+'</small><h3>'+esc(a.title)+'</h3><p data-size>'+esc(a.w&&a.h?a.w+' × '+a.h+' px':'원본 크기')+'</p>'+(a.note?'<p>'+esc(a.note)+'</p>':'')+'<span class="extract-file">'+esc(a.src.startsWith('data:')?'내장 그래픽':a.src)+'</span><div class="extract-actions"><button data-extract="raw">'+(animated?'원본 시트 PNG':a.partKind?(partNames[a.partKind]||'요소')+' PNG':'원본 PNG')+'</button>'+(a.category==='UI · 마우스 커서'?'<a class="png-download" href="'+esc(a.src)+'" download="'+esc(filename(a))+'.svg">원본 SVG</a>':'')+(framed?'<label>프레임 <input data-frame type="number" min="1" max="'+frames(a)+'" value="1" aria-label="'+esc(a.title)+' 프레임"> / '+frames(a)+'</label><button data-extract="frame">이 프레임 PNG</button><label><input type="checkbox" data-trim>투명 여백 제거</label>':'')+'</div><div class="extract-message" role="status"></div></div></article>';
  }).join('')||'<p>일치하는 그래픽이 없습니다. 검색어나 분류를 바꿔 주세요.</p>';
  view.querySelector('.extract-pages span').textContent=(page+1)+' / '+pages;view.querySelector('[data-extract-page="-1"]').disabled=page===0;view.querySelector('[data-extract-page="1"]').disabled=page===pages-1;
  observer=new IntersectionObserver(items=>{for(const item of items)if(item.isIntersecting){observer.unobserve(item.target);const a=entries.find(a=>a.id===item.target.dataset.graphic);void preview(item.target,a,token);}},{rootMargin:'150px'});

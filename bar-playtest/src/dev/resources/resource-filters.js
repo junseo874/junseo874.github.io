@@ -36,6 +36,7 @@ function decorate(r){
  return {...r,facets:f};
 }
 function schema(group){
+ if(group==='common-cursors')return [['media','리소스 형태']];
  if(group==='common-sounds')return [['soundKind','사운드 종류'],['soundState','사용 여부']];if(group==='common-popups')return [['popupKind','표시 방식']];
  if(group.endsWith('-backgrounds'))return [['backgroundScreen','사용 화면'],['backgroundKind','배경 / 레이어 종류']];
  if(group.endsWith('-fx'))return [['effect','연출 종류']];

@@ -31,3 +31,6 @@ input[type="range"]:disabled::-moz-range-thumb{cursor:var(--luna-cursor-not-allo
    Outside the game aperture the normal cursor returns; art stays clipped inside. */
 html:has(#drag-ghost:not([hidden])[data-pointer-inside="true"]),
 html:has(#drag-ghost:not([hidden])[data-pointer-inside="true"]) *{cursor:none!important}
+/* View changes remove this state for settings, choices and normal gameplay. */
+html:has(body.campaign-cinematic),
+html:has(body.campaign-cinematic) *{cursor:none!important}

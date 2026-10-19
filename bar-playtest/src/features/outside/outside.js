@@ -647,22 +647,9 @@
       return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup outside-entry"><small>OUTSIDE EXPLORATION</small><h2>외부 공간</h2><p>거리와 집을 자유롭게 둘러보세요.<br>설정은 탐색 중 <kbd>P</kbd>를 눌러 변경할 수 있습니다.</p>${button('탐색 시작 →', 'start', 'primary')}<span>0일차 · 퇴근길 · 바 문 앞에서 시작</span></section></div>`;
     }
     async function loadImages() {
-      await Promise.all(Object.entries(data.assets).map(([id, a]) => {
-        if (images.has(id)) return;
-        return new Promise((resolve, reject) => {
-          const im = new Image(),
-            timeout = setTimeout(() => reject(Error(a.src)), 15000);
-          im.onload = () => {
-            clearTimeout(timeout);
-            images.set(id, im);
-            resolve();
-          };
-          im.onerror = () => {
-            clearTimeout(timeout);
-            reject(Error(a.src));
-          };
-          im.src = a.src;
-        });
+      const queue=Object.entries(data.assets).filter(([id])=>!images.has(id));let index=0;
+      await Promise.all(Array.from({length:Math.min(6,queue.length)},async()=>{
+        while(index<queue.length){const [id,a]=queue[index++];images.set(id,await global.LunaResources.image(a.src));}
       }));
     }
     function fit() {
@@ -952,6 +939,7 @@
       draw();
       updateHUD();
       try {
+        await global.LunaResources.prepare('common');
         await loadImages();
         if (token !== generation) return;
         loading = false;
