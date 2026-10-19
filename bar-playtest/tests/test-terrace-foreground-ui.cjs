@@ -4,11 +4,14 @@ const{load,chrome}=require('../../tools/lib/test-runtime.cjs');
  const style=await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.paintLine();const rain=document.querySelector('.terrace-rain'),bubble=document.querySelector('.terrace-speech'),r=bubble.getBoundingClientRect();rain.style.pointerEvents='auto';const front=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===rain;rain.style.pointerEvents='';return{front,pointer:getComputedStyle(rain).pointerEvents,clip:getComputedStyle(document.querySelector('.terrace-characters')).clipPath};});
  assert(style.front&&style.pointer==='none');assert.equal(style.clip,'inset(0px 0px 39px)');
  await p.screenshot({path:'/private/tmp/terrace-foreground-fixed.png'});
- await p.locator('.terrace-rain').evaluate(el=>el.style.visibility='hidden');
+ // Compare actor occlusion, not two different frames of animated refracted rain.
+ // The optical canvas also contains a copy of the actors, so exclude both rain
+ // layers while testing the original character layer's bottom clip.
+ await p.locator('.terrace-rain,.terrace-glass').evaluateAll(els=>els.forEach(el=>el.style.visibility='hidden'));
  const clip={x:320,y:528,width:180,height:16},visible=await p.screenshot({clip});
  await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='hidden');const hidden=await p.screenshot({clip});
  const sharp=load('sharp');assert((await sharp(visible).raw().toBuffer()).equals(await sharp(hidden).raw().toBuffer()),'Neither character draws feet over the balcony wall');
- await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='');await p.locator('.terrace-rain').evaluate(el=>el.style.visibility='');
+ await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='');await p.locator('.terrace-rain,.terrace-glass').evaluateAll(els=>els.forEach(el=>el.style.visibility=''));
  const index=await p.evaluate(()=>lunaCampaign.dialog.index);await p.locator('.terrace-speech').click();assert.equal(await p.evaluate(()=>lunaCampaign.dialog.index),index+1,'Foreground rain does not block dialogue clicks');
  console.log('PASS terrace foreground: both feet occluded by wall; rain above building and speech; dialogue remains clickable');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

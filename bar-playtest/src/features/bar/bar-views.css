@@ -94,6 +94,9 @@ html,body{overflow:hidden;background:#03060b}
 .choices button:hover:not(:disabled):before,.choices:not(:has(button:not(:disabled):hover)) button:focus:before{background-image:url('../../../assets/ui/choices/IMG_choice_B.png?v=gaugeless-20261018')}
 .choices button:hover:not(:disabled):after,.choices:not(:has(button:not(:disabled):hover)) button:focus:after{opacity:1}
 .choices button small{font-size:11px;line-height:1.4}
+.choices .choice-hold-hint{position:absolute;top:calc(100% + 16px);left:0;width:100%;margin:0;text-align:center;font-size:13px;line-height:1.5;font-weight:400;color:#9fcbd1;text-shadow:0 1px 4px #000;pointer-events:none;animation:choice-hint-in .25s ease-out both}
+@keyframes choice-hint-in{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.choices .choice-hold-hint{animation:none}}
 /* Gauge-free PNGs: draw the reference's thin lower strip independently.
    The track spans 89% of the frame, with a short neutral idle marker.
    Source border is y184–186, not the y190 shadow edge. End the gauge at

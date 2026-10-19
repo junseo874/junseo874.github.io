@@ -1,0 +1,21 @@
+const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runtime.cjs');
+(async()=>{const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});try{
+ const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
+ await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:1,flow:'in',place:'bar'});await outsidePlaytest.start();window.rainRows=Array.from({length:12},(_,i)=>({actor:['chris','luna','narration'][i%3],text:'빗방울은 대사가 바뀌어도 계속 흘러야 한다. '+i}));lunaCampaign.scene(rainRows,'테라스','terrace',()=>{});});
+ await p.waitForFunction(()=>!lunaCampaign.memoryTransition&&LunaRainGlass.inspect(document.querySelector('.terrace-glass'))?.simulation);
+ await p.evaluate(()=>{window.campaignTick=lunaCampaign.tick;lunaCampaign.tick=()=>false;for(let i=0;i<180;i++){LunaTerrace.tick(lunaCampaign.dialog,1/60);lunaCampaign.paintLine();}});
+ const next=await p.evaluate(()=>{const c=lunaCampaign,d=c.dialog,cv=document.querySelector('.terrace-glass');window.rainContinuityLayer=LunaRainGlass.inspect(cv);const layer=rainContinuityLayer;d.chars=1e5;c.paintLine();
+  const before=JSON.stringify(layer.simulation.drops),time=layer.simulation.time,pixels=cv.toDataURL();c.next();c.paintLine();
+  const now=document.querySelector('.terrace-glass'),state=LunaRainGlass.inspect(now);
+  return {sameCanvas:cv===now,sameLayer:layer===state,sameTime:time===state?.simulation.time,sameDrops:before===JSON.stringify(state?.simulation.drops),samePixels:pixels===now.toDataURL(),actor:document.querySelector('.terrace-scene').dataset.terraceSpeaker,text:document.querySelector('.terrace-speech p').getAttribute('aria-label')};});
+ assert(next.sameCanvas&&next.sameLayer&&next.sameTime&&next.sameDrops&&next.samePixels,'Advancing dialogue must retain the running rain and its exact image: '+JSON.stringify(next));assert.equal(next.actor,'luna');assert(next.text.endsWith('1'));
+ const narration=await p.evaluate(()=>{const c=lunaCampaign;c.dialog.chars=1e5;c.next();const bubble=document.querySelector('.terrace-speech');return {narration:bubble.classList.contains('terrace-narration'),actor:document.querySelector('.terrace-scene').dataset.terraceSpeaker};});assert(narration.narration&&narration.actor==='narration');
+ await p.evaluate(()=>{window.remountTime=rainContinuityLayer.simulation.time;window.remountDrops=JSON.stringify(rainContinuityLayer.simulation.drops);window.remountImage=document.querySelector('.terrace-glass').toDataURL();lunaCampaign.screen('options');lunaCampaign.screen('scene');});
+ await p.waitForFunction(()=>{lunaCampaign.paintLine();return !!LunaRainGlass.inspect(document.querySelector('.terrace-glass'))?.simulation;});
+ assert(await p.evaluate(()=>{const cv=document.querySelector('.terrace-glass'),l=LunaRainGlass.inspect(cv);return l===rainContinuityLayer&&l.simulation.time===remountTime&&JSON.stringify(l.simulation.drops)===remountDrops&&cv.toDataURL()===remountImage;}),'Remounting the same conversation must preserve water and fading trail textures');
+ const advanced=await p.evaluate(()=>{const t=rainContinuityLayer.simulation.time;LunaTerrace.tick(lunaCampaign.dialog,.05);lunaCampaign.paintLine();return rainContinuityLayer.simulation.time>t;});assert(advanced,'Rain must continue after a remount, not just freeze');
+ await p.evaluate(()=>{lunaCampaign.tick=campaignTick;lunaCampaign.scene(rainRows,'새 테라스 대화','terrace',()=>{});});await p.waitForFunction(()=>!lunaCampaign.memoryTransition&&LunaRainGlass.inspect(document.querySelector('.terrace-glass'))?.simulation);
+ assert(await p.evaluate(()=>LunaRainGlass.inspect(document.querySelector('.terrace-glass'))!==rainContinuityLayer),'New conversations own independent rain');assert.deepEqual(errors,[]);
+ console.log('PASS terrace rain continuity: next line preserves canvas, physics time/drops/pixels; speaker/narration update; remount retains wet trails; new scene is independent');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

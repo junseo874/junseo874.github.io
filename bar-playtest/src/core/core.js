@@ -1220,6 +1220,7 @@
         const target = c.goto ? this.t.scenes.find(s => s.id === c.goto && n(s.day) === this.day) : null;
         if (c.goto && !target) throw Error('분기 씬 없음: ' + c.goto);
         const step = this.choice.step;
+        if (this.day === 0) this.progress.flags.day0_choice_hold_learned = true;
         applyEffects(c.effects, this.progress);
         applyEffects(step.effects, this.progress);
         this.log('choice', {

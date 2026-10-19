@@ -17,6 +17,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    };setupChoice();
   });
   const first=()=>p.locator('.choices button:not(:disabled)').first();
+  assert.equal(await p.locator('.choice-hold-hint').innerText(),'E키나 마우스 좌클릭으로 꾹 눌러 선택');
+  for(const viewport of [{width:960,height:700},{width:1920,height:1080},{width:1280,height:720}]){
+   await p.setViewportSize(viewport);await p.waitForTimeout(100);
+   const hint=await p.locator('.choice-hold-hint').boundingBox(),last=await p.locator('.choices button').last().boundingBox();
+   assert(hint.y>=last.y+last.height&&hint.y+hint.height<=viewport.height&&hint.x>=0&&hint.x+hint.width<=viewport.width,'Hint stays below choices and inside the viewport');
+  }
   const count=()=>p.evaluate(()=>confirmed.length);
   const progress=()=>first().evaluate(el=>Number(el.style.getPropertyValue('--choice-progress')));
   const glitch=()=>first().locator('.choice-label').evaluate(el=>({name:getComputedStyle(el).animationName,repeat:getComputedStyle(el).animationIterationCount,before:getComputedStyle(el,'::before').animationName,after:getComputedStyle(el,'::after').animationName,text:el.textContent,copy:el.dataset.text,time:el.getAnimations().find(a=>a.animationName==='title-signal')?.currentTime}));
@@ -40,13 +46,15 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await reset();await first().hover();const selected=await first().getAttribute('data-id');await p.mouse.down();await p.waitForTimeout(430);assert.equal(await count(),0,'Must not confirm at the old 0.4-second threshold');
   await p.waitForFunction(()=>confirmed.length===1,null,{timeout:350});await p.waitForTimeout(200);const advances=await p.evaluate(()=>advanced);await p.mouse.up();await p.waitForTimeout(100);
   assert.equal(await count(),1);assert.equal(await p.evaluate(()=>confirmed[0].id),selected);assert.equal(await p.evaluate(()=>advanced),advances,'Release must not advance next line');
-  for(const key of ['Enter','Space']){
+  assert(await p.evaluate(()=>barGame.progress.flags.day0_choice_hold_learned),'Successful first choice is remembered');
+  assert.equal(await p.locator('.choice-hold-hint').count(),0,'Hint disappears after the first selection');
+  for(const key of ['KeyE','Enter','Space']){
    await reset();const before=await count();await p.keyboard.down(key);await p.waitForTimeout(430);assert.equal(await count(),before,'Keyboard also waits beyond 0.4 seconds');
    await p.waitForFunction(n=>confirmed.length===n+1,before,{timeout:350});const a=await p.evaluate(()=>advanced);
    await p.keyboard.down(key);await p.waitForTimeout(200);await p.keyboard.up(key);assert.equal(await count(),before+1);assert.equal(await p.evaluate(()=>advanced),a,'Held/released key does not advance following dialogue');
   }
   assert.equal(await p.evaluate(()=>barGame.error),null);assert.deepEqual(errors,[]);
   await reset();await p.emulateMedia({reducedMotion:'reduce'});await first().focus();await p.keyboard.down('Space');await p.waitForTimeout(100);assert.equal((await glitch()).name,'none','Respect the same reduced-motion policy as the title');await p.keyboard.up('Space');
-  console.log('PASS 0.5s mouse/Enter/Space hold, visible progress, short-tap/reset/leave/navigation/overlay/blur cancellation, one-shot confirmation and no next-line leak.');
+  console.log('PASS first-choice hint at 3 sizes, remembered completion, 0.5s mouse/E/Enter/Space hold, cancellation, one-shot confirmation and no next-line leak.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

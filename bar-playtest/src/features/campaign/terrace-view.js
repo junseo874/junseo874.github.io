@@ -67,7 +67,15 @@ function paint(dialog,host){
  paintRain(dialog,host);
  const bubble=host.querySelector('.terrace-speech'),paragraph=bubble?.querySelector('p');if(!paragraph)return;
  const row=dialog.rows[dialog.index];
- if(!paragraph.dataset.mounted){W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.mounted='true';}
+ if(paragraph.dataset.line!==String(dialog.index)){
+  const scene=host.querySelector('.terrace-scene'),seat=seats[row.actor];
+  scene.dataset.terraceSpeaker=seat?row.actor:'narration';
+  bubble.classList.toggle('terrace-bubble',!!seat);bubble.classList.toggle('terrace-narration',!seat);
+  for(const [axis,value]of[['x',seat?.x],['y',seat?.y]]){
+   if(seat)scene.style.setProperty('--speaker-'+axis,value+'px');else scene.style.removeProperty('--speaker-'+axis);
+  }
+  W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.line=String(dialog.index);
+ }
  W.LunaExteriorTextbox.revealText(paragraph,Array.from(row.text.slice(0,Math.floor(dialog.chars))).length);
  W.LunaDialogueCue.sync(bubble,!!row.text&&dialog.chars>=row.text.length);
 }

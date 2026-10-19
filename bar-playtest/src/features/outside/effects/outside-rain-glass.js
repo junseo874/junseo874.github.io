@@ -6,10 +6,13 @@
 const layers=new WeakMap();
 function reset(layer){layer.simulation=null;layer.lastTime=null;layer.cameraMotion=new W.LunaRainSimulation.Motion();layer.subjectMotion=new W.LunaRainSimulation.Motion();layer.referenceHeight=0;layer.windTime=0;layer.renderer?.clear();}
 function draw(ctx,model,options={}){
- const canvas=ctx.canvas;let layer=layers.get(canvas);
+ // An explicit owner is the conversation lifetime, not the current DOM canvas.
+ // Preserve both simulation and GPU trail textures across settings/cutscene remounts.
+ const canvas=ctx.canvas,key=options.owner||canvas;let layer=layers.get(key);
  if(model.scene!=='street'||model.qa){if(layer?.simulation)reset(layer);return false;}
  const raining=!!W.LunaOutsideRain?.enabled(model),owner=options.owner||model,time=Number(model.time)||0;
- if(!layer){if(!raining)return false;layer={renderer:null,error:null};layers.set(canvas,layer);reset(layer);}
+ if(!layer){if(!raining)return false;layer={renderer:null,error:null};layers.set(key,layer);reset(layer);}
+ layers.set(canvas,layer);
  if(layer.owner!==owner||(layer.lastTime!==null&&time<layer.lastTime)){reset(layer);layer.owner=owner;}
  if(!layer.simulation){if(!raining)return false;layer.simulation=new W.LunaRainSimulation.Simulation();layer.simulation.prewarm(8);layer.lastTime=time;}
  if(layer.error)return false;

@@ -26,6 +26,8 @@ const { chromium } = runtime.load('playwright');
         const upper = presence();
         if (LunaOutsideShop.targets(m).length || LunaOutsideBeggar.targets(m).length) throw Error('Ground targets on upper floor');
         m.interact();
+        if(m.ride||m.dialog?.kind!=='elevator')throw Error('Lift must wait for confirmation');
+        m.chooseObject('confirm');
         if (!m.ride) throw Error('Lift did not start');
         let frames = 0;
         while (m.ride && frames++ < 400) {

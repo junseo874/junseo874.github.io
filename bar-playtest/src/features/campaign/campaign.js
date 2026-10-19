@@ -340,7 +340,9 @@
           this.screen('scene-choice');
           return;
         }
-        if (this.view === 'scene') this.draw();else this.screen('scene');
+        // Keep the terrace's live canvases when only the spoken line changes.
+        if (this.view === 'scene' && c.background === 'terrace' && this.host.querySelector('.terrace-scene')) this.paintLine();
+        else if (this.view === 'scene') this.draw();else this.screen('scene');
         return;
       }
       this.dialog = null;
@@ -514,6 +516,9 @@
           player: null,
           returnTo: () => {
             if (model !== this.outside.model) return;
+            this.g.progress.flags.day0_tv_seen=true;
+            if(this.session.carry)this.session.carry.flags={...this.g.progress.flags};
+            this.g.changed();
             model.paused = false;
             this.outside.clearInput();
             model.updateNear();
@@ -1090,6 +1095,9 @@
       if (model !== this.outside.model || model.qa) return false;
       if (target.id === 'sofa' && model.config.flow !== 'out') return true;
       if (target.id === 'tv' && model.config.day === 0) {
+        if(this.g.progress.flags.day0_tv_seen){
+          model.dialog={kind:'tv',key:'tv:'+ ++model.revision};model.anim='idle';model.animTime=0;model.updateNear();return true;
+        }
         this.playDayZeroTV(model);
         return true;
       }

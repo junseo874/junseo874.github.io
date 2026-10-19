@@ -187,6 +187,7 @@
       this.commuteBoundarySide = 0;
       this.crateBoundaryNoticed = false;
       this.beggarDeparture = null;
+      this.beggarWitnessPaidVisit = null;
       this.liftLogoSeen = false;
       this.thugFlags = {};
       this.samhoCommuteFlags = {};
@@ -216,6 +217,7 @@
       this.backgroundStory = new global.LunaOutsideStory.BackgroundStories(this);
       this.playedAmbient = new Set();
       this.tvNewsInRange = false;
+      this.tvOff = false;
       this.notionCommuteSeen = false;
       global.LunaOutsideQA?.init(this, qaOptions);
       this.updateNear();
@@ -249,6 +251,25 @@
         this.updateNear();
       }
       return true;
+    }
+    chooseObject(id) {
+      const d=this.dialog;
+      if(this.paused||!d||!['elevator','tv'].includes(d.kind)||!['confirm','cancel'].includes(id))return false;
+      this.dialog=null;this.revision++;this.updateNear();
+      if(id==='cancel'){
+        if(d.kind==='tv'){this.tvOff=true;this.backgroundStory.cancel();}
+        return true;
+      }
+      if(d.kind==='tv'){this.tvOff=false;global.lunaCampaign?.playDayZeroTV(this);}
+      else if(!global.lunaCampaign?.interactOutside(this,{id:'elevator'}))this.startLift();
+      return true;
+    }
+    startLift() {
+      const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
+      this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12,boardAfterCall:call};
+      this.anim='idle';
+      if(!call){this.x=EX;if(!this.qa)global.lunaCampaign?.quietLift(this);}
+      this.updateNear();this.revision++;
     }
     firstCommuteDirections() {
       if (this.isFirstCommute()) return false;
@@ -390,6 +411,10 @@
         this.updateNear();
         return true;
       }
+      if(t.id==='elevator'){
+        this.dialog={kind:'elevator',key:'elevator:'+ ++this.revision};
+        this.anim='idle';this.animTime=0;this.updateNear();return true;
+      }
       if (this.qa && global.LunaOutsideQA.interact(this, t)) return true;
       if (!this.qa && global.lunaCampaign?.interactOutside(this, t)) return true;
       if (this.story.interact(t)) {
@@ -398,23 +423,7 @@
         return true;
       }
       if (this.story.speech) this.story.cancel();
-      if (t.id === 'elevator') {
-        const local = this.level ? TOP : BOTTOM,
-          remote = this.level ? BOTTOM : TOP,
-          call = Math.abs(this.elevatorY - local) > .01;
-        this.ride = {
-          time: 0,
-          from: this.elevatorY,
-          to: call ? local : remote,
-          call,
-          duration: call ? 6 : 12
-        };
-        this.anim = 'idle';
-        if (!call) {
-          this.x = EX;
-          if (!this.qa) global.lunaCampaign?.quietLift(this);
-        }
-      } else if (t.id === 'home' || t.id === 'exit') {
+      if (t.id === 'home' || t.id === 'exit') {
         this.transition = {
           time: 0,
           to: t.id === 'home' ? 'home' : 'street',
@@ -531,6 +540,7 @@
           }
           this.elevatorY = r.to;
           this.ride = null;
+          if(r.boardAfterCall&&!global.lunaCampaign?.interactOutside(this,{id:'elevator'}))this.startLift();
           this.updateNear();
           this.revision++;
         }
@@ -924,8 +934,8 @@
       document.body.append(host);
       choiceUI = global.LunaWorldChoices.create(host.querySelector('.outside-stage'), id => {
         clearInput();
-        if (model.dialog?.kind === 'sofa') {
-          model.chooseSofa(id);
+        if (['sofa','elevator','tv'].includes(model.dialog?.kind)) {
+          if(model.dialog.kind==='sofa')model.chooseSofa(id);else model.chooseObject(id);
           host?.focus({
             preventScroll: true
           });
@@ -1460,7 +1470,7 @@
               preventScroll: true
             });
           }
-        });else if (m.dialog?.kind === 'inspection') body = global.LunaOutsideInspection.html(m.dialog);else if (m.dialog && m.dialog.kind !== 'sofa') body = '<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="' + esc(m.dialog.title) + '"><h2>' + esc(m.dialog.title) + '</h2><p>' + esc(m.dialog.text) + '</p>' + button('닫기 · E', 'interact', 'primary') + '</section>';
+        });else if (m.dialog?.kind === 'inspection') body = global.LunaOutsideInspection.html(m.dialog);else if (m.dialog && !['sofa','elevator','tv'].includes(m.dialog.kind)) body = '<section class="outside-dialog outside-object-dialog" role="dialog" aria-modal="true" aria-label="' + esc(m.dialog.title) + '"><h2>' + esc(m.dialog.title) + '</h2><p>' + esc(m.dialog.text) + '</p>' + button('닫기 · E', 'interact', 'primary') + '</section>';
         overlay.classList.toggle('is-inspection', !showPauseMenu && !hintOpen && m.dialog?.kind === 'inspection');
         overlay.innerHTML = body;
         overlay.hidden = !body;
@@ -1499,7 +1509,11 @@
     function updateSpeech() {
       const v = model.story.view();
       renderSpeech(host.querySelector('.outside-speech'), v);
-      const choice = model.dialog?.kind === 'sofa' ? {
+      const objectKind=model.dialog?.kind;
+      const choice = ['elevator','tv'].includes(objectKind) ? {
+        key:model.dialog.key,label:objectKind==='tv'?'TV':'엘리베이터',
+        options:[{id:'confirm',label:objectKind==='tv'?'TV를 본다':model.level?'내려간다':'올라간다'},{id:'cancel',label:objectKind==='tv'?'끈다':'취소'}]
+      } : model.dialog?.kind === 'sofa' ? {
         key: model.dialog.key,
         label: '소파 선택지',
         options: [{
@@ -1676,7 +1690,7 @@
         e.stopImmediatePropagation();
       }
       if (e.code === 'Escape' && !e.repeat) {
-        if (['inspection', 'sofa'].includes(model.dialog?.kind) && !model.paused) {
+        if (['inspection', 'sofa', 'elevator', 'tv'].includes(model.dialog?.kind) && !model.paused) {
           clearInput();
           model.interact();
           updateHUD();

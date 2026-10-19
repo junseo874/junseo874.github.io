@@ -27926,6 +27926,30 @@
       "scene": "shared-beggar-warning-paid",
       "branch": null,
       "offset": 0
+    },
+    "beggar/repeat": {
+      "source": "script/street",
+      "scene": "shared-beggar-repeat",
+      "branch": null,
+      "offset": 0
+    },
+    "beggar/questioned": {
+      "source": "script/street",
+      "scene": "shared-beggar-questioned",
+      "branch": null,
+      "offset": 0
+    },
+    "beggar/warning/unpaid-repeat": {
+      "source": "script/street",
+      "scene": "shared-beggar-warning-unpaid-repeat",
+      "branch": null,
+      "offset": 0
+    },
+    "beggar/warning/paid-repeat": {
+      "source": "script/street",
+      "scene": "shared-beggar-warning-paid-repeat",
+      "branch": null,
+      "offset": 0
     }
   }
 }

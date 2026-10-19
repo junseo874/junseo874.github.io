@@ -3,7 +3,7 @@
  'use strict';
  W.LunaChoiceHold=function({root,choice,allowed,commit}){
   let hold=null,raf=0,pointer=null,suppressClickUntil=0;
-  const keys=new Set(),confirmKeys=new Set(['Enter','Space']);
+  const keys=new Set(),confirmKeys=new Set(['KeyE','Enter','Space']);
   const button=target=>target?.closest?.('.choices button[data-act="choice"]');
   const stop=e=>{e.preventDefault();e.stopImmediatePropagation();};
   function paint(){
