@@ -59,14 +59,17 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  const images=new Map();let dragging=null;const idleState=new WeakMap();
  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),snap=v=>Math.round(v/3)*3;
  function mode(){return ui.pourPresentation==='clean'?'clean':'classic';}
- function release(){if(dragging){dragging.s.held=false;dragging.s.dragAngle=null;dragging.s.pourOffset=null;dragging=null;}}
+ function release(){if(dragging){const d=dragging;dragging=null;d.s.held=false;d.s.dragAngle=null;d.s.pourOffset=null;try{if(d.canvas.hasPointerCapture?.(d.pointerId))d.canvas.releasePointerCapture(d.pointerId);}catch{}}}
  function pointerPoint(canvas,e){
   const r=canvas.getBoundingClientRect(),scale=Math.min(r.width/1000,r.height/540);
-  return{x:(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y:(e.clientY-r.top-(r.height-540*scale)/2)/scale};
+  if(!canvas.isConnected||!Number.isFinite(scale)||scale<=0)return null;
+  const p={x:(e.clientX-r.left-(r.width-1000*scale)/2)/scale,y:(e.clientY-r.top-(r.height-540*scale)/2)/scale};
+  return Number.isFinite(p.x)&&Number.isFinite(p.y)?p:null;
  }
  function pointer(e){
   if(!dragging||e.pointerId!==dragging.pointerId)return;const s=dragging.s;if(g.gimmick!==s||g.isPaused()||document.hidden){release();return;}
-  const {x,y}=pointerPoint(dragging.canvas,e),dx=x-dragging.anchor.x,dy=y-dragging.anchor.y;
+  const point=pointerPoint(dragging.canvas,e);if(!point){release();return;}
+  const {x,y}=point,dx=x-dragging.anchor.x,dy=y-dragging.anchor.y;
   // Ignore the singularity next to the lip, where a tiny hand movement used
   // to cause a large angular jump. Resume from the current tilt on re-entry.
   if(Math.hypot(dx,dy)<36){dragging.pointerAngle=null;return;}
@@ -83,10 +86,15 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const canvas=e.target.closest('[data-pixel-pour]'),s=g.gimmick;
   if(!canvas||e.button!==0||g.screen!=='gimmick'||!s?.fluid||g.isPaused()||s.fluid.finishRequested)return;
   e.preventDefault();unlockAudio();const at=s.fluid.nozzle(),p=pointerPoint(canvas,e);
+  if(!p||![at.x,at.y,s.angle].every(Number.isFinite))return;
+  release();
   dragging={canvas,s,pointerId:e.pointerId,pointerAngle:null,anchor:at,startAngle:s.angle,startVector:{x:p.x-at.x,y:p.y-at.y}};s.dragAngle=s.angle;s.pourOffset=null;g.holdPour(true);pointer(e);
-  canvas.setPointerCapture?.(e.pointerId);
+  try{canvas.setPointerCapture?.(e.pointerId);}catch{release();}
  });
  window.addEventListener('pointermove',pointer);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);window.addEventListener('blur',release);
+ window.addEventListener('resize',release);
+ document.addEventListener('fullscreenchange',release);
+ document.addEventListener('lostpointercapture',e=>{if(dragging?.pointerId===e.pointerId&&dragging.canvas===e.target)release();},true);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)release();});
  function act(name,id){const s=g.gimmick;if(g.screen!=='gimmick'||!s?.fluid)return false;
   if(root.LunaPourTutorial?.action(g,name,id))return true;
@@ -185,6 +193,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
  function sync(rootElement){
   const s=g.gimmick,stage=g.screen==='gimmick'&&s?.fluid&&rootElement.querySelector('[data-fluid-stage]');
   if(!stage){release();stopAudio(true);audioState=null;return;}
+  if(dragging&&(dragging.s!==s||dragging.canvas!==stage.querySelector('[data-pixel-pour]')))release();
   if(g.isPaused()||document.hidden){release();s.held=false;}
   syncAudio(s,stage.closest('.fluid-screen'));
   const f=s.fluid,age=f.popped?f.time-f.popTime:Infinity,reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches;

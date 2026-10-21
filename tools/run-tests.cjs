@@ -18,7 +18,7 @@ const suites = {
   cinema: ['bar-playtest/tests/test_cutscene_library_ui.cjs', 'cutscene-studio/tests/smoke-test.cjs', game('test-bar-entry-dialogue-ui'), game('test-terrace-foreground-ui'), game('test-terrace-rain-continuity-ui')],
   site: ['tools/check-structure.cjs', 'tools/check-site.cjs', 'tools/test-entrypoints.cjs'],
   craft: ['test-mix-completion', 'test-mix-completion-ui', 'test_current_serve_sheets_ui', 'test-serve-return-camera-ui', 'test_serve_fallback_sizes_ui',
-    'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui'].map(game),
+    'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
 if (choice === '--list') {

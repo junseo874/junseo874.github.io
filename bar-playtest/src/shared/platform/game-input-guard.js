@@ -29,6 +29,8 @@ for(const type of ['dragover','drop'])document.addEventListener(type,event=>{
  if(files||!editable(el))event.preventDefault();
 },true);
 window.addEventListener('keydown',event=>{
+ // Leave native browser fullscreen intact, even during modal/cinematic input locks.
+ if(event.code==='F11'||event.key==='F11'){event.stopImmediatePropagation();return;}
  if((event.ctrlKey||event.metaKey)&&!event.altKey&&event.key.toLowerCase()==='a'&&!editable(event.target)){
   event.preventDefault();
   // Do not also interpret Ctrl/Cmd+A as a game movement key.
