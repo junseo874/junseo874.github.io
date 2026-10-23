@@ -291,7 +291,7 @@
     const peek = g.t.cocktails.find(c => c.id === ui.peek);
     return `<aside class="side-panel resource-recipe-list"><div class="panel-header"><div class="row spread"><h2>${L('칵테일 레시피', 'Recipe book')}</h2>${resourceClose('closeRecipe', 'recipe_choice')}</div><small>※ ${L('레시피를 고르면 <strong>재료 담기</strong>로 이동합니다.', 'Choose a recipe to <strong>prepare ingredients</strong>.')}</small></div><div class="recipe-list">${all.map(c => {
       const ok = available.some(x => x.id === c.id);
-      return `<button class="recipe-card ${ok ? '' : 'locked'}" data-act="selectRecipe" data-id="${c.id}" data-hover-recipe="${c.id}" ${ok ? '' : 'disabled'}>${drinkArt(c.id)}<div><strong>${ok ? esc(g.text(c, 'name')) : '???'}</strong><small>${ok ? `${c.mix.toUpperCase()} · ${money(c.price)}` : c.id === 'johnny_old_fashioned' ? L('기억과 재료를 모두 모으면 해금', 'Unlock through memories and ingredients') : L(c.unlock_day + '일차 해금', 'Day ' + c.unlock_day + ' unlock')}</small></div></button>`;
+      return `<button class="recipe-card ${ok ? '' : 'locked'}" data-act="selectRecipe" data-id="${c.id}" data-hover-recipe="${c.id}" ${ok ? '' : 'disabled'}>${drinkArt(c.id, 'table')}<div><strong>${ok ? esc(g.text(c, 'name')) : '???'}</strong><small>${ok ? `${c.mix.toUpperCase()} · ${money(c.price)}` : c.id === 'johnny_old_fashioned' ? L('기억과 재료를 모두 모으면 해금', 'Unlock through memories and ingredients') : L(c.unlock_day + '일차 해금', 'Day ' + c.unlock_day + ' unlock')}</small></div></button>`;
     }).join('')}</div></aside>${peek && available.includes(peek) ? views.recipePanel(peek, {
       preview: true
     }) : ''}`;

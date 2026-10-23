@@ -9,7 +9,7 @@ const suites = {
     'test_shiba_shop', 'test_day0_tutorial', 'test_resource_missing', 'test-resource-preload-ui',
     'test_bd_vendor_removed_ui', 'test-bacardi-removed-ui', 'test_current_serve_sheets_ui', 'test-resource-preview-paths-ui'
   ].map(game)],
-  ui: ['test-speech-focus-ui', 'test-capture-mode-ui', 'test_game_viewport_ui', 'test_letterbox_ui', 'test_interaction_prompt_ui',
+  ui: ['test-recipe-table-art-ui', 'test-speech-focus-ui', 'test-capture-mode-ui', 'test_game_viewport_ui', 'test_letterbox_ui', 'test_interaction_prompt_ui',
     'test_general_coaster_drag_ui', 'test_focus_settings_ui', 'test-resource-workspace-ui',
     'test-resource-cursors-ui', 'test-game-input-guard-ui', 'test-delivery-hitbox-ui', 'test-settings-resume-ui', 'test-lift-lock-recipe-escape-ui'].map(game),
   outside: ['test-ad-carrier', 'test-ad-carrier-ui', 'test_outside_traffic', 'test_outside_traffic_ui', 'test_bd_vendor_removed_ui', 'test_outside_beggar', 'test_outside_beggar_ui', 'test_day1_thug_ui', 'test_outside_console_ui',
