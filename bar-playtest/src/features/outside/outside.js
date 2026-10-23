@@ -107,7 +107,10 @@
   // and only genuine foreground art (railings/lift front) covers the player.
   function streetDrawOrder(nodes) {
     const rank = n => n.ancestry?.[0] === 'BG' || n.ancestry?.[0] === 'Residence' ? 0 : 1;
-    return nodes.slice().sort((a, b) => a.layer - b.layer || a.order - b.order || b.z - a.z || rank(a) - rank(b) || String(a.id).localeCompare(String(b.id)));
+    // The residential facade is foreground art despite sharing layer 5 with
+    // distant city displays. Keep those displays behind the facade as a group.
+    const depth = n => n.name === 'residence-building' ? 5.5 : n.layer;
+    return nodes.slice().sort((a, b) => depth(a) - depth(b) || a.order - b.order || b.z - a.z || rank(a) - rank(b) || String(a.id).localeCompare(String(b.id)));
   }
   function interactionAnchor(model, target, data) {
     if (model.qa) return {
@@ -1295,10 +1298,10 @@
             global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'near');
             nearTraffic = true;
           }
-          // One depth forward: after C_Middle_Building_3 (layer 3), before
-          // C_Middle_Building_1/2 and their objects (layer 4).
+          // Middle-city buildings AND their attached display planes (layers
+          // 3–5) stay behind the carrier; street/residence foreground stays ahead.
           // The advertising hull is opaque; depth is established by occlusion.
-          if (!adCarrier && n.layer >= 4) {
+          if (!adCarrier && (n.name === 'residence-building' || n.layer >= 6)) {
             global.LunaOutsideAdCarrier?.draw(ctx, model, renderCam, position, images);
             adCarrier = true;
           }
