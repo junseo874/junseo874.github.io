@@ -5,9 +5,12 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  // Deliberately hold a real UI resource as if the deployed connection were slow.
  const resource='assets/ui/cursors/crosshair.svg';let release,requested;
  const held=new Promise(resolve=>release=resolve),arrived=new Promise(resolve=>requested=resolve);
+ await p.evaluate(()=>{const original=window.fetch;window.preloadFetches=[];window.fetch=(url,options)=>{window.preloadFetches.push({url:String(url),cache:options?.cache});return original(url,options);};});
  await p.route('**/data/presentation/preload-manifest.json',route=>route.fulfill({json:{common:[resource],bar:['assets/serving/atlases/background.png']}}));
  await p.route('**/'+resource,async route=>{requested();await held;await route.continue();});
  await p.evaluate(()=>{void lunaCampaign.newGame();});await arrived;
+ assert.equal(await p.evaluate(()=>window.preloadFetches.find(r=>r.url.endsWith('/preload-manifest.json'))?.cache),'no-cache');
+ assert.equal(await p.evaluate(()=>window.preloadFetches.find(r=>r.url.endsWith('/crosshair.svg'))?.cache),'default');
  assert.equal(await p.evaluate(()=>lunaCampaign.view),'loading');assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);
  await p.waitForTimeout(400);assert.equal(await p.evaluate(()=>lunaCampaign.view),'loading');release();
  await p.waitForFunction(()=>lunaCampaign.view==='prologue',null,{timeout:60000});

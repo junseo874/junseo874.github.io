@@ -35,7 +35,10 @@
  image-rendering:pixelated;animation:exterior-textbox-arrow-bob 1.2s ease-in-out infinite;
 }
 :is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue svg{display:none}
-:is(#outside-root .outside-speech,.terrace-scene .terrace-speech,#campaign-root .exterior-textbox):focus-visible .exterior-textbox-skin{filter:drop-shadow(0 0 2px #7cb5cd)}
+/* Dialogue receives focus for E/Enter and click progression, not selection.
+   Keep the authored border unchanged; real choice buttons retain focus cues. */
+:is(#outside-root :is(.outside-speech,.outside-background-speech),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox):is(:hover,:focus,:focus-visible,:active){outline:none;box-shadow:none;filter:none}
+:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .exterior-textbox-skin{filter:none}
 @keyframes exterior-textbox-arrow-bob{0%,100%{transform:translateY(-1px)}50%{transform:translateY(2px)}}
 @media(prefers-reduced-motion:reduce){:is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue{animation:none}}
 #campaign-root .exterior-textbox{box-sizing:border-box;width:max-content;max-width:420px;font-family:LunaPixel,sans-serif;color:#f4f5f7;text-align:center}

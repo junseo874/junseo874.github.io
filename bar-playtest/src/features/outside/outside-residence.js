@@ -12,7 +12,9 @@ const upperY=9.74,passengerOffset=.39;
 // -16.36 - 5.83 + 3.05 + .16 = -18.98. Ground-floor access is independent.
 // Cabin connector center is body pixel 30; support spine center is pixel 80.
 // At 100 PPU, align both at world x=-12.69 (13.5 native pixels left).
-const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-18.98,upperMax:-12.28});
+// The scaled cabin's right wall is -12.30. Reserve .205 for the widest
+// idle/walk/run silhouette (both facings) plus .035 clearance, not just the pivot.
+const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-18.98,upperMax:-12.54});
 function apply(data){
  if(data.residenceVersion===1)return data;
  const replaced=new Set(['1F Left Building','A_Fore_Building','A_Obect','A_Middle_Building_1','A_Middle_Building_2','A_ForeFore_Object_1','2F Floor','House Spawn Point']);

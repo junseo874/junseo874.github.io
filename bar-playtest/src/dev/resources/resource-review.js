@@ -185,6 +185,7 @@ async function launch(d,title,note,fromHistory=false){
      else{const drain=()=>{for(let i=0;i<30&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}};F.LunaOutsideShop.begin(m,{x:-2.68,y:-.596},false);drain();m.story.choose('shop-yes');drain();m.story.choose('shop-allowance-no');drain();o.tick(0);}
     }
     if(d.id==='wire-spark'){const p=F.LunaWireSpark.anchor(F.LUNA_OUTSIDE_DATA);m.x=p.x+.65;m.time=0;m.story.cancel();m.backgroundStory.cancel();m.updateNear();o.snapCamera();o.tick(0);}
+    if(d.id==='ad-carrier'){m.x=-8.78;m.time=0;m.story.cancel();m.backgroundStory.cancel();m.updateNear();o.snapCamera();o.tick(0);F.document.querySelector('[data-outside-action="panorama"]')?.click();for(let i=0;i<150;i++)o.tick(.016);m.time=0;o.tick(0);}
     if(d.id==='panorama'){m.x=F.LunaOutside.viewpoint.x;m.updateNear();o.snapCamera();o.refreshHUD();}
    }
    if(['settings','console'].includes(d.id)){const code=d.id==='settings'?'Escape':'KeyP';F.document.dispatchEvent(new F.KeyboardEvent('keydown',{code,key:d.id==='settings'?'Escape':'p',bubbles:true}));}

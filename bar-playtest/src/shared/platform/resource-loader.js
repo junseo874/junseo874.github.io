@@ -2,10 +2,10 @@
 (function(W){'use strict';
  const base=new URL('../../../',document.currentScript.src),jobs=new Map(),groups=new Map();
  let manifest;
- async function request(url){
+ async function request(url,cache='default'){
   for(let attempt=0;attempt<2;attempt++){
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
-   try{const response=await fetch(url,{signal:controller.signal});if(!response.ok)throw Error(response.status+' '+url);return await response.blob();}
+   try{const response=await fetch(url,{signal:controller.signal,cache});if(!response.ok)throw Error(response.status+' '+url);return await response.blob();}
    catch(error){if(attempt===1)throw Error('리소스 로딩 실패: '+url,{cause:error});}
    finally{clearTimeout(timer);}
   }
@@ -20,7 +20,8 @@
   await Promise.all(Array.from({length:Math.min(6,queue.length)},async()=>{while(index<queue.length)await warm(queue[index++]);}));
  }
  async function catalog(){
-  if(!manifest)manifest=request(new URL('data/presentation/preload-manifest.json',base).href).then(b=>b.text()).then(JSON.parse).catch(e=>{manifest=null;throw e;});
+  // Revalidate the inventory after deployments so removed assets aren't requested from a stale list.
+  if(!manifest)manifest=request(new URL('data/presentation/preload-manifest.json',base).href,'no-cache').then(b=>b.text()).then(JSON.parse).catch(e=>{manifest=null;throw e;});
   return manifest;
  }
  function prepare(group){

@@ -3575,38 +3575,6 @@
         337
       ]
     },
-    "recipe_cocktail_bacardi": {
-      "src": "assets/cocktails/static/recipe-cocktail-bacardi.png",
-      "w": 635,
-      "h": 635,
-      "frames": 1,
-      "frameWidth": 635,
-      "frameHeight": 635,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/바카디_완성본.png",
-      "alphaBBox": [
-        135,
-        16,
-        499,
-        618
-      ]
-    },
-    "cocktail_bacardi": {
-      "src": "assets/cocktails/static/cocktail-bacardi.png",
-      "w": 364,
-      "h": 602,
-      "frames": 1,
-      "frameWidth": 364,
-      "frameHeight": 602,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/바카디_완성본.png",
-      "alphaBBox": [
-        0,
-        0,
-        364,
-        602
-      ]
-    },
     "mix_stir_motion": {
       "src": "assets/ui/imported/mix-stir-motion.png",
       "w": 5820,

@@ -138,6 +138,7 @@
       this.cinemaChoices?.dispose();
       this.cinemaChoices = null;
       this.host.innerHTML = '<div class="campaign-stage view-' + this.view + '">' + body + '</div>';
+      if (this.view === 'dev-console') global.LunaCaptureMode?.mount(this.host.querySelector('.campaign-dev-console'));
       this.titleLogo = this.view === 'title' ? global.LunaTitleLogo.mount(this.host.querySelector('.title-logo')) : null;
       if (this.view === 'prologue' && this.cinema) {
         const c = this.cinema;
@@ -293,8 +294,12 @@
         this.dialog.terraceWeather = {scene:'street',config:{day:source?.config.day ?? this.session.day,flow:source?.config.flow ?? 'in'}};
         this.dialog.terraceWeatherTime = source?.time || 0;
         this.retryLoad = () => this.scene(key, title, background, done, extra);
-        this.beginMemoryTransition(() => global.LunaTerrace.prepare(), () => this.screen('scene'), {
+        this.beginMemoryTransition(() => global.LunaTerrace.prepare(), () => {
+          global.LunaTerrace.beginEntrance(this.dialog);
+          this.screen('scene');
+        }, {
           terrace: true,
+          terraceIntro: true,
           revealDuration: 1.8
         });
       } else this.screen('scene');
@@ -528,6 +533,7 @@
     // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
     beginMemoryTransition(prepare, commit, {
       terrace = false,
+      terraceIntro = false,
       revealDuration = 1.15
     } = {}) {
       if (this.memoryTransition) return;
@@ -542,6 +548,7 @@
       const d = {
         host,
         terrace,
+        terraceIntro,
         revealDuration,
         bgmFrom: this.bgm.transitionGain,
         phase: 'out',
@@ -613,10 +620,15 @@
         d.host.style.opacity = '1';
         this.bgm.setTransitionGain(0, 0);
       } else if (d.phase === 'in') {
+        if (d.terraceIntro) {
+          this.dialog.terraceEntryTime = Math.min(d.time, this.dialog.terraceEntryDuration);
+          global.LunaTerrace.tick(this.dialog, dt);
+          this.paintLine();
+        }
         const amount = smooth(d.time / d.revealDuration);
         d.host.style.opacity = 1 - amount;
         this.bgm.setTransitionGain(amount, 0);
-        if (d.time >= d.revealDuration) {
+        if (d.time >= Math.max(d.revealDuration, d.terraceIntro ? this.dialog.terraceEntryDuration : 0)) {
           this.cancelMemoryTransition();
           this.resetInput();
           if (this.view === 'prologue') (this.host.querySelector('.world-choices .is-selected') || this.host.querySelector('button,select,input'))?.focus({
@@ -1663,6 +1675,10 @@
       }
       if (this.outside.active && this.outside.devConsoleOpen && !this.blocking) return false;
       if (this.view === 'game' && e.code === 'Escape' && this.g.gimmick?.pourTestsOpen) return false;
+      // Let the bar close the visible recipe before the capture-phase campaign
+      // handler opens options. The next distinct Escape can open settings.
+      if (this.view === 'game' && !this.outside.active && e.code === 'Escape' &&
+          (this.g.screen === 'recipe' || this.g.overlay === 'recipe' || this.g.screen === 'prep' && this.ui.recipeOpen)) return false;
       if (this.view === 'prologue') {
         global.Sfx?.resume();
         if (this.cinema?.studio) global.LunaStudioCinema.unlock();

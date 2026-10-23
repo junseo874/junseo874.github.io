@@ -15,10 +15,13 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 거리 이동·카메라·상호작용 | `bar-playtest/src/features/outside/outside.js` |
 | 거리 인물·상점·강제 이벤트 | `bar-playtest/src/features/outside/events/` |
 | 비·조명·불·수증기·스파크 | `bar-playtest/src/features/outside/effects/` |
+| 공중 광고 차량·5초 LED 광고 | `bar-playtest/src/features/outside/effects/outside-ad-carrier.js` |
+| 거리 전광판·랜덤 소등·실외기·CRT | `street-engine-effects.js`, `sign-scanlines.js` + `data/presentation/street-effects.js` |
 | 본편 진행·밤·테라스·회상 | `bar-playtest/src/features/campaign/` |
 | 컷씬 렌더링·편집기 재생 연결 | `bar-playtest/src/cinema/` |
 | 설정·정산 팝업·알림·재화 UI | `bar-playtest/src/shared/ui/` |
 | 16:9 영역·배율·포커스·입력 제한 | `bar-playtest/src/shared/platform/` |
+| P 패널 촬영용 UI 숨김·복구 | `bar-playtest/src/shared/platform/capture-mode.js`, `capture-mode.css` |
 | 말풍선·선택지·홀드 효과 | `bar-playtest/src/shared/dialogue/` |
 | BGM·효과음·대사 음성 | `bar-playtest/src/shared/audio/` |
 | 이동·제조 튜토리얼 | `bar-playtest/src/features/tutorials/` |
@@ -31,6 +34,16 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 컷씬 편집 | `cutscene-studio/src/`, `styles/` |
 
 ## 로딩·경로 계약
+
+### 거리 셰이더 스냅샷
+
+공중 광고 차량은 `outside-ad-carrier.js`가 별도 소유합니다. `assets/outside/vehicles/ad-carrier.png`를 외부 장면 이미지 로더에 등록하여 진입 전에 디코드합니다. 차체는 320×128 캐시에 표시하며 중앙 패널만 24fps로 갱신합니다. 원본의 고체 영역 알파 250–255는 캐시에서 255로 보정하고 차체에 불투명 청색 음영을 합성합니다. 거리감에 전체 투명도를 쓰지 않습니다. 광고는 게임 시간 기준 5초마다 0.45초 슬라이드 전환, 좌우 이동 시 글자는 뒤집지 않습니다. 두 고도 노선은 최초 버전 대비 약 15% 확대·고도 상향·25% 감속되었으며 광고 시계는 감속하지 않습니다. 렌더링 순서는 원경 → 먼 중경 `C_Middle_Building_3`(layer 3) → 광고 차량 → 가까운 중경 `C_Middle_Building_1/2`와 오브젝트(layer 4)입니다. 하단 노선 높이 3.2는 중경에 완전히 묻히지 않고 지붕 사이로 드러나도록 설정했습니다. 리소스 검수에서는 전경 보기로 시작합니다. 집/QA에서는 생성하지 않습니다. 광고 문구·속도·노선은 해당 모듈의 `ads`, `routes`, `travelRate`에서 수정합니다.
+
+`bar-playtest/tools/import-street-effects.cjs --write`는 Unity의 `OutSide.unity`, `SH_LedSignScroll`, `NeonFlicker`, `M_Crt01–09`에서 필요한 설정과 PNG만 **웹으로** 복사합니다. 엔진은 읽기 전용이며 전체 장면 재수입은 하지 않습니다. 다른 체크아웃은 `--engine=/경로/HumanBartender`를 사용합니다. `--write` 없이 실행하면 스냅샷 일치 여부만 검사합니다.
+
+원본 PNG는 `assets/outside/effects/`에 바이트 그대로 보존합니다. RGBA 소등 마스크는 독립 데이터 채널이므로 브라우저의 투명 픽셀 처리로 RGB가 사라지지 않도록 좌표 데이터도 생성합니다. 전광판 이동·팬 샘플링·랜덤 소등 범위와 타이밍은 엔진 설정을 따릅니다. 주변 빛 번짐은 기존 Canvas 렌더러용 근사이며 Unity URP의 픽셀 단위 출력과 동일하지는 않습니다. 거리 진입 전에 기존 외부 이미지 로더가 새 에셋도 로드합니다. 테라스 효과와 게임 진행 좌표는 변경하지 않습니다.
+
+검증: `test-street-engine-effects.cjs`, `test-street-engine-effects-ui.cjs` (둘 다 `outside` 묶음에 포함).
 
 ### 공통 CSV (2026-10-19)
 

@@ -32,7 +32,7 @@ function draw(ctx,model,options={}){
   layer.simulation.step(dt,raining?1:0,force,motion.moving||layer.subjectMotion.moving);
   layer.renderer.maps(layer.simulation,dt);
   const image=layer.renderer.render(options.source||canvas);
-  if(image){ctx.save();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=false;ctx.drawImage(image,0,0,1280,720);ctx.restore();}
+  if(image){ctx.save();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=!!options.smoothPresentation;ctx.imageSmoothingQuality='low';ctx.drawImage(image,0,0,1280,720);ctx.restore();}
   return !!image;
  }catch(error){if(!layer.error){layer.error=error.message;console.warn('Window rain renderer unavailable:',error);}return false;}
 }

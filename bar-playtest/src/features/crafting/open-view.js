@@ -115,14 +115,14 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   // Opener lever reacts only to a hit; a miss slips back instead of detaching the cap.
   const tool=image('item_opener'),strike=fx&&t<.45;
   if(tool.complete&&tool.naturalWidth){ctx.save();ctx.translate(cx+48+(strike?Math.sin(t*15)*35:35),cy+36+(strike?Math.sin(t*15)*20:35));ctx.rotate(-.9+(strike?(ok?-1:1)*Math.sin(t*13)*.6:0));ctx.globalAlpha=ok?Math.max(0,1-t*3):.85;ctx.imageSmoothingEnabled=false;ctx.drawImage(tool,13,63,45,44,-25,-15,135,132);ctx.restore();}
-  if(!ok&&s.openPhase==='rhythm'){
+  if(!window.LunaCaptureMode?.hidden&&!ok&&s.openPhase==='rhythm'){
    const target=g.c('open_target_radius_px',44),start=g.c('open_start_radius_px',165),radius=Math.max(12,start-(start-target)*s.beatTime/1.1);
    ctx.save();ctx.translate(cx,cy);ctx.strokeStyle='#7cf3c6';ctx.lineWidth=3;ctx.shadowColor='#60edc0';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(0,0,target,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle=miss?'#f18d89':'#e1faff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.stroke();ctx.restore();
   }else if(ok&&t<.65){
    ctx.save();ctx.globalAlpha=1-t/.65;ctx.strokeStyle='#a4ffdd';ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx,cy,44+t*210,0,Math.PI*2);ctx.stroke();
    for(let i=0;i<16;i++){const a=i*2.399,r=30+t*(110+i*8);ctx.fillStyle=i%3?'#9cffe1':'#ffe7a8';ctx.fillRect(cx+Math.cos(a)*r,cy+Math.sin(a)*r-t*80,3,5);}ctx.restore();
   }
-  if(['power','power-done'].includes(s.openPhase)){
+  if(!window.LunaCaptureMode?.hidden&&['power','power-done'].includes(s.openPhase)){
    const x=400,y=240,h=250;ctx.fillStyle='#17252fee';ctx.fillRect(x,y,30,h);
    ctx.fillStyle='#42775d';ctx.fillRect(x,y+h*(1-.932),30,h*.304);ctx.fillStyle='#8bc99b';ctx.fillRect(x,y+h*(1-.86),30,h*.16);
    ctx.fillStyle='#e8f6ee';ctx.fillRect(x-9,y+h*(1-s.powerPos)-2,48,4);

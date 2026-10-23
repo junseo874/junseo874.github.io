@@ -1,8 +1,9 @@
-/* A locked wide composition: speech moves between seats, never the camera. */
-.terrace-scene{position:absolute;inset:0;background:#080f1b}
+/* The entrance settles into this wide composition before speech appears. */
+.terrace-scene{position:absolute;inset:0;background:#080f1b;overflow:hidden}
 .terrace-art{position:absolute;inset:0 auto auto 0;width:480px;height:270px;transform:scale(calc(8 / 3));transform-origin:0 0;image-rendering:pixelated;pointer-events:none;user-select:none}
 .terrace-art>img{position:absolute;display:block;image-rendering:pixelated}
 .terrace-city,.terrace-building{inset:0;width:480px;height:270px}
+.terrace-city,.terrace-sign-scanlines{transform-origin:240px 135px}
 .terrace-sign-scanlines{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
 .terrace-rain{position:absolute;inset:0;width:1280px;height:720px;z-index:30;image-rendering:pixelated;pointer-events:none}
 .terrace-glass{position:absolute;inset:0;width:1280px;height:720px;z-index:1;image-rendering:pixelated;pointer-events:none}

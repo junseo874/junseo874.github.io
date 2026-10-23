@@ -265,11 +265,41 @@
       return true;
     }
     startLift() {
+      if(this.ride)return false;
       const local=this.level?TOP:BOTTOM,remote=this.level?BOTTOM:TOP,call=Math.abs(this.elevatorY-local)>.01;
       this.ride={time:0,from:this.elevatorY,to:call?local:remote,call,duration:call?6:12,boardAfterCall:call};
       this.anim='idle';
+      global.outsidePlaytest?.clearInput();
       if(!call){this.x=EX;if(!this.qa)global.lunaCampaign?.quietLift(this);}
       this.updateNear();this.revision++;
+    }
+    tickLift(dt) {
+      const r = this.ride;
+      if (!r) return false;
+      r.time += dt;
+      const p = smooth(clamp((r.time - .45) / r.duration, 0, 1));
+      this.elevatorY = mix(r.from, r.to, p);
+      if (p === 1) global.LunaLiftDust?.land(this, r);
+      if (!r.call) {
+        this.x = EX;
+        this.y = this.elevatorY + R.passengerOffset;
+      }
+      if (r.time >= r.duration + 1.1) {
+        if (!r.call) {
+          this.level = r.to === TOP ? 1 : 0;
+          this.y = this.level ? R.upperY : -.7;
+          this.arrivals++;
+        }
+        this.elevatorY = r.to;
+        this.ride = null;
+        global.outsidePlaytest?.clearInput();
+        if (r.boardAfterCall && !global.lunaCampaign?.interactOutside(this, {id:'elevator'})) this.startLift();
+        this.updateNear();
+        this.revision++;
+      }
+      this.anim = 'idle';
+      this.animTime += dt;
+      return true;
     }
     firstCommuteDirections() {
       if (this.isFirstCommute()) return false;
@@ -456,6 +486,9 @@
       this.time += dt;
       global.LunaOutsideBeggar?.tick(this, dt);
       this.noticeLeft = Math.max(0, this.noticeLeft - dt);
+      // The cabin owns the passenger transform until landing is complete.
+      // Proximity/scripted movement must not preempt this branch either.
+      if (this.tickLift(dt)) return;
       if (global.LunaOutsideEncounters?.tick(this, dt)) return;
       if (global.LunaOutsideNotion?.tick(this, dt)) return;
       if (global.LunaOutsideThug?.tick(this, dt)) return;
@@ -522,32 +555,6 @@
         return;
       }
       if (this.tickBarArrival(dt)) return;
-      if (this.ride) {
-        const r = this.ride;
-        r.time += dt;
-        const p = smooth(clamp((r.time - .45) / r.duration, 0, 1));
-        this.elevatorY = mix(r.from, r.to, p);
-        if (p === 1) global.LunaLiftDust?.land(this, r);
-        if (!r.call) {
-          this.x = EX;
-          this.y = this.elevatorY + R.passengerOffset;
-        }
-        if (r.time >= r.duration + 1.1) {
-          if (!r.call) {
-            this.level = r.to === TOP ? 1 : 0;
-            this.y = this.level ? R.upperY : -.7;
-            this.arrivals++;
-          }
-          this.elevatorY = r.to;
-          this.ride = null;
-          if(r.boardAfterCall&&!global.lunaCampaign?.interactOutside(this,{id:'elevator'}))this.startLift();
-          this.updateNear();
-          this.revision++;
-        }
-        this.anim = 'idle';
-        this.animTime += dt;
-        return;
-      }
       let direction = this.dialog || this.story.blocking ? 0 : clamp(input.move || 0, -1, 1),
         speed = input.run ? 1.2 : .7;
       const restricted = this.isFirstCommute() && this.scene === 'street' && this.level === 0;
@@ -681,6 +688,7 @@
     function paintDev() {
       const panel = host?.querySelector('.outside-dev-console');
       if (!panel) return;
+      global.LunaCaptureMode?.mount(panel);
       panel.hidden = !devOpen;
       panel.querySelector('[data-outside-action="dev-day-99"]').hidden = !!global.lunaCampaign?.active;
       panel.querySelector('.outside-dev-day').textContent = model.config.day + '일차';
@@ -699,9 +707,10 @@
       paintDev();
       hudSignature = '';
       updateHUD();
-      if (open) host.querySelector(model.qa ? '[data-outside-action="dev-day-0"]' : '[data-outside-action="dev-home"]')?.focus({
-        preventScroll: true
-      });else host.focus({
+      if (open) {
+        host.querySelector('.outside-dev-console').scrollTop = 0;
+        host.querySelector('[data-capture-ui]')?.focus({preventScroll: true});
+      } else host.focus({
         preventScroll: true
       });
     }
@@ -863,7 +872,7 @@
     }
     function devKey(e) {
       if (e.metaKey || e.ctrlKey || e.altKey) return false;
-      if (e.code === 'KeyP' && !loading && !loadError && (!model.paused || devOpen)) {
+      if (e.code === 'KeyP' && !loading && !loadError && (!model.paused || devOpen || global.LunaCaptureMode?.hidden)) {
         e.preventDefault();
         e.stopImmediatePropagation();
         if (!e.repeat) toggleDev();
@@ -1103,14 +1112,15 @@
       if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
       else if (renderingNode?.name === 'main_bg' && model.scene === 'home') global.LunaHomeArt.paintRoom(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
-      else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
+      else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.engineLightId || renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
+      if (model.scene === 'street') global.LunaStreetEngineEffects?.paintSprite(ctx, renderingNode?.name, img, images, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       if (model.scene === 'street' && !model.qa) global.LunaWallLighting?.paintSprite(ctx, renderingNode?.name, img, sp, w, h);
       if (model.scene === 'street') global.LunaSignScanlines?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       if (model.scene === 'street' && !model.qa) global.LunaVentSteam?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       if (renderingNode?.name === 'B_Obects') global.LunaWireSpark?.paint(ctx, img, images.get('street-wire-spark'), sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       if (model.scene === 'street' && !model.qa) global.LunaBarrelFire?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
       global.LunaLiftDust?.paintSprite(ctx, model, renderingNode?.name, sp, w, h, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
-      glowRenderer.paint(ctx, img, sp, renderingNode, x, y, w, h);
+      if (!global.LunaCaptureMode?.hidden) glowRenderer.paint(ctx, img, sp, renderingNode, x, y, w, h);
       ctx.restore();
     }
     function renderNode(n) {
@@ -1217,7 +1227,7 @@
         floor: data.scenes.street.nodes.find(n => n.name === '1F Floor').y + .02
       });
       ctx.setTransform(surface.factor, 0, 0, surface.factor, 0, 0);
-      glowRenderer.begin(model.qa ? null : interactionTarget(), model);
+      glowRenderer.begin(model.qa || global.LunaCaptureMode?.hidden ? null : interactionTarget(), model);
       ctx.imageSmoothingEnabled = false;
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, 1280, 720);
@@ -1262,6 +1272,7 @@
         let farTraffic = false,
           midTraffic = false,
           nearTraffic = false,
+          adCarrier = false,
           groundRain = false;
         for (const n of streetDrawOrder(nodes)) {
           // Ground impacts belong to the road, behind the frontmost silhouettes
@@ -1283,6 +1294,13 @@
           if (!nearTraffic && n.layer >= 6) {
             global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'near');
             nearTraffic = true;
+          }
+          // One depth forward: after C_Middle_Building_3 (layer 3), before
+          // C_Middle_Building_1/2 and their objects (layer 4).
+          // The advertising hull is opaque; depth is established by occlusion.
+          if (!adCarrier && n.layer >= 4) {
+            global.LunaOutsideAdCarrier?.draw(ctx, model, renderCam, position, images);
+            adCarrier = true;
           }
           if (n.name === 'Luna') {
             drawEntranceCue();
@@ -1506,7 +1524,7 @@
         label: '소파 선택지',
         options: [{
           id: 'sleep',
-          label: '수면'
+          label: '휴식'
         }, {
           id: 'save',
           label: '저장'
@@ -1702,7 +1720,8 @@
         updateHUD();
         return;
       }
-      if (['KeyA', 'KeyD', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight'].includes(e.code)) keys.add(e.code);
+      // A held key from the ride is not a new walking command on arrival.
+      if (!model.ride && !e.repeat && ['KeyA', 'KeyD', 'ArrowLeft', 'ArrowRight', 'ShiftLeft', 'ShiftRight'].includes(e.code)) keys.add(e.code);
     }, true);
     window.addEventListener('keyup', e => {
       keys.delete(e.code);

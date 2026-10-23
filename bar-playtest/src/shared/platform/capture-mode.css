@@ -1,0 +1,37 @@
+/* Visibility retains geometry/animation and also excludes hidden UI from clicks
+   and tab navigation. Descendants cannot override a hidden container. */
+html.capture-ui-hidden :is(
+ #outside-root .outside-stage > :not(canvas):not(.outside-dev-console),
+ #story-notices,#toast,#qa-lab,.qa-launch,#campaign-developer-back,#cutscene-preview-toolbar,.updates-dialog,
+ .workspace > :not(.bar-view):not(.craft-screen):not(.serve-presentation):not(.effect-flash),
+ .workspace .bar-view > :not(.stage),.delivery-cue,.coaster-pickup-arrow,
+ .campaign-speech,.campaign-scene-label,.campaign-memory-note,.campaign-cinema-ui,.campaign-skip,
+ .campaign-modal-shade,.campaign-card,.day-transition-title,
+ .bubble,.choices,.choice-hold-hint,.luna-settings,.mix-tutorial,.day0-seat-legend-backdrop,
+ .serve-grade,.serve-actions,.serve-score-detail,.serve-loading,
+ .pour-perfect,.pour-top-readout,.pour-ingredient-readout,.pour-tilt-meter,.pour-tutorial,[data-pour-guide],
+ .mix-gauge,.mix-timer,.stir-clock,.mix-board,.mix-detail,.shake-sound-picker,
+ .prep-controls,.prep-inventory,.prep-brief,.prep-recipe,.shelf-navigation,.shelf-pagination,
+ .ingredient-tip,.recipe-item-tip,.tooltip,.opening-hud,.opening-phase,.opening-lesson,.opening-feedback,.opening-timing-hint,
+ button:not(.shelf-item),input,select,textarea
+):not(.outside-dev-console):not(.outside-dev-console *) {
+ visibility:hidden!important;pointer-events:none!important;
+}
+html.capture-ui-hidden :is(
+ #outside-root .outside-stage > :not(canvas):not(.outside-dev-console),
+ #story-notices,#toast,#qa-lab,.updates-dialog,.workspace > :not(.bar-view):not(.craft-screen):not(.serve-presentation):not(.effect-flash),
+ .workspace .bar-view > :not(.stage),.campaign-modal-shade,.campaign-card,.campaign-cinema-ui,
+ .campaign-speech,.luna-settings,.mix-tutorial,.day0-seat-legend-backdrop,
+ .prep-controls,.prep-inventory,.prep-brief,.prep-recipe,.serve-actions
+) * {visibility:hidden!important;pointer-events:none!important}
+/* Hide the capture pointer too; the developer console retains normal cursors. */
+html.capture-ui-hidden :not(.outside-dev-console):not(.outside-dev-console *) {cursor:none!important}
+html.capture-ui-hidden .outside-dev-console,html.capture-ui-hidden .outside-dev-console *{cursor:var(--luna-cursor-default,default)!important}
+html.capture-ui-hidden .outside-dev-console button{cursor:var(--luna-cursor-pointer,pointer)!important}
+.capture-controls p{font-size:12px;line-height:1.6;color:#9bbcc7;margin:8px 0 0}
+.capture-controls button[aria-pressed="true"]{border-color:#50d9e6;background:#19434e;color:#c8fbff}
+.capture-console-layer{position:fixed;inset:auto;left:50%;top:50%;width:1280px;height:720px;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;overflow:hidden;transform:translate(-50%,-50%) scale(var(--ui-scale));transform-origin:center;z-index:60000;pointer-events:none}
+.capture-console-layer::backdrop,html.capture-ui-hidden .updates-dialog::backdrop{background:transparent;backdrop-filter:none}
+.capture-console-layer .capture-console{pointer-events:auto}
+html.capture-ui-hidden #campaign-root:has(.campaign-modal-shade,.view-options),
+html.capture-ui-hidden #campaign-root:has(.campaign-modal-shade,.view-options) .campaign-stage{background:transparent}

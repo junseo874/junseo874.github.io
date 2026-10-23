@@ -3435,43 +3435,6 @@
           "booleans": []
         },
         {
-          "id": "cocktails_bacardi",
-          "key": {
-            "id": "bacardi"
-          },
-          "fields": [
-            "id",
-            "name.ko",
-            "name.en",
-            "status",
-            "price",
-            "abv",
-            "glass",
-            "target_mix_method",
-            "target_prep_action",
-            "mix",
-            "prep",
-            "garnish",
-            "color",
-            "color2",
-            "mixing_ice",
-            "serving_ice",
-            "flavor.ko",
-            "flavor.en",
-            "recipe_desc.ko",
-            "recipe_desc.en",
-            "unlock_day",
-            "unlock_when",
-            "time_limit_sec",
-            "sprite",
-            "serve_sprite",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
           "id": "cocktails_cosmopolitan",
           "key": {
             "id": "cosmopolitan"
@@ -3624,54 +3587,6 @@
     "recipes": {
       "table": "Recipes",
       "rows": [
-        {
-          "id": "recipe_bacardi_01",
-          "key": {},
-          "fields": [
-            "context",
-            "action",
-            "ingredient",
-            "qty",
-            "unit",
-            "is_core",
-            "scored",
-            "auto_apply",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [
-            "qty"
-          ],
-          "booleans": [
-            "is_core",
-            "scored",
-            "auto_apply"
-          ]
-        },
-        {
-          "id": "recipe_bacardi_02",
-          "key": {},
-          "fields": [
-            "context",
-            "action",
-            "ingredient",
-            "qty",
-            "unit",
-            "is_core",
-            "scored",
-            "auto_apply",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [
-            "qty"
-          ],
-          "booleans": [
-            "is_core",
-            "scored",
-            "auto_apply"
-          ]
-        },
         {
           "id": "recipe_bottle_beer_01",
           "key": {},
@@ -5370,40 +5285,6 @@
     "cocktail_tags": {
       "table": "CocktailTags",
       "rows": [
-        {
-          "id": "cocktail_tags_bacardi_tangy",
-          "key": {
-            "id": "tangy"
-          },
-          "fields": [
-            "context",
-            "id",
-            "ko",
-            "en",
-            "category",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "cocktail_tags_bacardi_classic",
-          "key": {
-            "id": "classic"
-          },
-          "fields": [
-            "context",
-            "id",
-            "ko",
-            "en",
-            "category",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
         {
           "id": "cocktail_tags_bottle_beer_crisp",
           "key": {

@@ -118,6 +118,7 @@ function build(F){
  fx('purchase','out','재료 획득 · 슬라이드 알림','notice','src/features/outside/outside-notices.js',{type:'exterior',id:'purchase'},'ui:exterior:purchase','재화 변동 없이 좌측 재료 획득 알림만 재생합니다.');
  fx('street','out','거리 · 원경 / 중경 / 근경 / 전광판','environment','src/features/outside/outside.js / data/runtime/outside-scene-data.js',{type:'exterior',id:'street'},'ui:exterior:street','A/D 이동으로 레이어·가림·거리 전광판을 확인합니다. 코드와 기존 이미지로 구성된 현재 표현이며 별도 셰이더 원본이 등록됐다는 의미는 아닙니다.');
  fx('wire-spark','out','폐전기함 · 전선 스파크 / 조명','environment','src/features/outside/effects/outside-wire-spark.js',{type:'exterior',id:'wire-spark'},null,'FX_WireSpark_01.gif의 4.64초 주기. 원본 전기 시트로 안쪽 전선 → 바깥 전선 → 끝의 섬광과 낙하 불꽃을 재생합니다. 표시등과 주변 반사광 포함.');
+ if(F.LunaOutsideAdCarrier){const a=F.LunaOutsideAdCarrier.asset;add({id:'fx:ad-carrier',group:'out-fx',title:'광고 비행 차량 / LED 패널',usage:'5초 광고 전환 · 저속 공중 이동',effectCategory:'environment',layers:[{key:'street-ad-carrier',...a,frames:1}],launch:{type:'exterior',id:'ad-carrier'},note:'참고 이미지로 제작한 AI 차체 스프라이트. 실제 거리에서는 광고 3종을 5초마다 전환하며 글자는 진행 방향과 무관하게 정방향입니다. 원본 미리보기는 빈 패널이며 움직이는 광고는 실제 화면 테스트에서 확인합니다.'});}
  for(const area of ['bar','out'])if(!groups.some(g=>g[0]===area+'-backgrounds'))groups.splice(groups.findIndex(g=>g[0]===area+'-ui'),0,[area+'-backgrounds',area==='bar'?'바 내부':'외부','배경 / 화면별 레이어']);
  rows.push(...W.ResourceBackgrounds.build(F));
  for(const r of rows)if(revisionUI.has(r.id))r.needsRevision=true;

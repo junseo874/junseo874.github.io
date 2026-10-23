@@ -1428,8 +1428,9 @@
     // Global menu keys work even when an option field has focus; held keys never toggle repeatedly.
     if (e.code === 'Escape') {
       e.preventDefault();
+      e.stopImmediatePropagation();
       if (e.repeat) return;
-      if (g.overlay === 'dossier') act('dossierBack');else if (g.overlay) act('closeOverlay');else if (g.screen === 'recipe') act('closeRecipe');else act('settings');
+      if (g.overlay === 'dossier') act('dossierBack');else if (g.overlay) act('closeOverlay');else if (g.screen === 'recipe') act('closeRecipe');else if (g.screen === 'prep' && ui.recipeOpen) act('togglePrepRecipe');else act('settings');
       return;
     }
     if (g.overlay === 'miniIngredient') {

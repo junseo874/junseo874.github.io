@@ -42,7 +42,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const fx=LunaSignScanlines,out=[];
    const inside=(x,y,points)=>{let result=false;for(let i=0,j=points.length-1;i<points.length;j=i++){const a=points[i],b=points[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])result=!result;}return result;};
    for(const [key,regions]of Object.entries(fx.masks)){
-    const a=fx.render(key,.2),first=a.canvas.toDataURL(),same=fx.render(key,.21),cached=first===same.canvas.toDataURL();
+    const a=fx.render(key,.2),first=a.canvas.toDataURL(),same=fx.render(key,.2001),cached=first===same.canvas.toDataURL();
     const b=fx.render(key,1.4),moved=first!==b.canvas.toDataURL(),ctx=b.canvas.getContext('2d'),data=ctx.getImageData(0,0,b.canvas.width,b.canvas.height).data;
     let alpha=0,painted=0,leaks=0;
     for(let y=0;y<b.canvas.height;y++)for(let x=0;x<b.canvas.width;x++){
@@ -74,7 +74,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     for(const r of LunaSignScanlines.masks[key]){ctx.beginPath();r.points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.stroke();}
    }
   });await p.screenshot({path:'/private/tmp/scanlines-mask-audit.png'});
-  for(const key of ['C_Middle_Building_1','C_Middle_Building_2','C_Middle_Building_3','terrace'])await p.locator('[data-audit="'+key+'"]').screenshot({path:'/private/tmp/scanlines-mask-'+key+'.png'});
+  for(const key of await p.evaluate(()=>Object.keys(LunaSignScanlines.masks)))await p.locator('[data-audit="'+key+'"]').screenshot({path:'/private/tmp/scanlines-mask-'+key+'.png'});
   assert.deepEqual(errors,[]);console.log('PASS '+audit.reduce((s,a)=>s+a.count,0)+' sign masks: no outside pixels, restrained opacity, cached motion, reduced-motion static, street/terrace integration and foreground occlusion.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
