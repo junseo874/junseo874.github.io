@@ -1,0 +1,20 @@
+{
+  "tool": "Built-in image_gen; no CLI/API fallback",
+  "referenceReview": {
+    "video85331": "4.577s: violet signage, three-lobed luminous emblem, moving horizontal lettering and cyan accent strips",
+    "video85146": "6.247s: crimson female silhouette, alternating tonal fields, dense horizontal CRT scanlines",
+    "still85409": "Adult anime woman, large face, indigo hair, ivory jacket, purple billboard",
+    "still85415": "Large pale mint female face, crimson eye accents, magenta/cyan LED columns"
+  },
+  "assets": [
+    {
+      "file": "ad-portrait-violet.png",
+      "prompt": "Original flat LED advertisement background for a cyberpunk flying truck. Wide 3:1, elegant retro-futurist anime editorial illustration with crisp vector-like cel shading, not pixel art/3D/photo. Adult East Asian woman with indigo bob, pale ivory skin, dark blue lipstick, off-white high-neck jacket, cyan hair accents. Large shoulder/head portrait on the right 46%; quiet dark plum/indigo left side for runtime typography, sparse magenta arcs/cyan diagonals. Original character inspired by the reference mood only. No text, logos, watermark, vehicle, building, skew, border, baked scanlines or noise."
+    },
+    {
+      "file": "ad-portrait-crimson.png",
+      "prompt": "Original flat LED advertisement background for a dark side-scrolling cyberpunk game. Wide 3:1, high-end retro anime/vector-like editorial poster. Adult woman with sleek black swept-back hair, sharp eyes, black high-neck outfit, large face on left 47%. Pale mint/ivory highlights, crimson eye/temple accents, black/plum shapes, magenta edges. Quiet wine-red right side for typography, muted crimson crescent and sparse diagonal accents. Original subject inspired by reference colors only. No text, logos, watermark, billboard/vehicle/building, perspective, baked scanlines or noise."
+    }
+  ],
+  "runtimeComposition": "outside-ad-carrier.js: original hull preserved; straight middle band extended 20 logical pixels, 320x148 at 4x raster. Portraits fitted without stretching in 134x56 panel. Third ad uses animated Canvas petals. Existing KORATECH / UNKNOWN / PORT branding, 5-second hard cuts, fine LED columns/scanlines, restrained refresh light, small footer ticker. No full-screen flashes or advertisement slide transitions."
+}

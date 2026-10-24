@@ -644,17 +644,17 @@ window.LunaBarViews = function ({
       g: 'M3 14H15L17 16L15 18H3L1 16Z'
     };
     let x = 0;
-    return `<svg class="stir-clock" viewBox="0 0 98 33" aria-hidden="true">${[...time].map(c => {
+    const width = [...time].reduce((sum, c) => sum + (c === ':' ? 10 : 22), 0);
+    return `<svg class="stir-clock" viewBox="0 0 ${width} 33" style="width:${width * 90 / 98}px" aria-hidden="true">${[...time].map(c => {
       const at = x;
       x += c === ':' ? 10 : 22;
       return `<g transform="translate(${at} 0)">${c === ':' ? '<rect x="1" y="9" width="4" height="4"/><rect x="1" y="21" width="4" height="4"/>' : [...segments[Number(c)]].map(k => `<path d="${paths[k]}"/>`).join('')}</g>`;
     }).join('')}</svg>`;
   }
-  function mixTimer(s) {
-    const sec = Math.floor(s.elapsed),
+  function craftTimer() {
+    const sec = Math.floor(Math.max(0, Number(g.craft?.elapsed) || 0)),
       time = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
-    if (s.type === 'stir') return `<div class="mix-timer" aria-label="${L('현재 기믹 시간', 'Step time')} ${time}"><img class="stir-timer-icon" src="assets/ui/stir/ICN_sitr_time.png" alt="">${stirClock(time)}</div>`;
-    return `<div class="mix-timer" aria-label="${L('현재 기믹 시간', 'Step time')} ${time}"><svg viewBox="0 0 36 42" aria-hidden="true"><path d="M13 2h10M18 2v6M29 9l3-3"/><circle cx="18" cy="25" r="14"/><path d="M18 13v12h9"/></svg><span>${time}</span></div>`;
+    return `<div class="mix-timer craft-timer" role="timer" data-craft-seconds="${sec}" aria-label="${L('제조시간', 'Craft time')} ${time}"><img class="stir-timer-icon" src="assets/ui/stir/ICN_sitr_time.png" alt="">${stirClock(time)}</div>`;
   }
   function iceTransform(x, y, spin, scale = 1) {
     return 'translate(' + x + ' ' + y + ') rotate(' + spin + ') scale(' + scale + ')';
@@ -693,7 +693,7 @@ window.LunaBarViews = function ({
     const pos = [[50, 0], [100, 50], [50, 100], [0, 50]],
       next = s.started ? (s.stirPos + 1) % 4 : 0;
     const progress = stirProgress(s);
-    return '<section class="mix-board stir-board">' + mixTimer(s) + '<div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="' + L('입력에 반응하는 숟가락과 얼음', 'Input-driven spoon and ice') + '"><defs><linearGradient id="stir-metal"><stop stop-color="#3a465d"/><stop offset=".2" stop-color="#c8d5e0"/><stop offset=".28" stop-color="#f3ffff"/><stop offset=".47" stop-color="#889fb4"/><stop offset=".7" stop-color="#e7f5fa"/><stop offset="1" stop-color="#65758c"/></linearGradient><radialGradient id="stir-well"><stop offset=".76" stop-color="#d9e6ec" stop-opacity="0"/><stop offset="1" stop-color="#172332" stop-opacity=".8"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#283548" stroke="#b4c9df" stroke-width="2"/><circle cx="100" cy="100" r="91" fill="url(#stir-metal)" stroke="#eefaff" stroke-width="1.5"/><circle cx="100" cy="100" r="88" fill="url(#stir-well)"/>' + s.ice.map((c, index) => iceShape(index, 100 + c.x, 100 - c.y, c.size, -c.spin)).join('') + '<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="' + s.spoonAngle.toFixed(3) + '" transform="rotate(' + s.spoonAngle + ' 100 100)"><path d="M100 8V101" stroke="#222d40" stroke-width="3"/><path d="M100 8V101" stroke="#c3dbe4" stroke-width="1.2"/><path d="M99 15l2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4" fill="none" stroke="#71899c" stroke-width=".6"/><ellipse cx="100" cy="10" rx="2.4" ry="4.5" fill="url(#stir-metal)" stroke="#364559" stroke-width="1"/></g></svg>' + '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="stir-time-mask"><circle class="orbit-progress ' + (s.started && progress < .34 ? 'danger' : '') + '" cx="200" cy="200" r="187" pathLength="100" stroke-dasharray="' + progress * 100 + ' 100" transform="rotate(-90 200 200)"/></mask></defs><image href="assets/ui/stir/GAU_stir_round_B.png" width="400" height="400"/><image class="stir-time-fill" href="assets/ui/stir/GAU_stir_round_A.png" width="400" height="400" mask="url(#stir-time-mask)"/></svg>' + ['W', 'D', 'S', 'A'].map((k, i) => '<button class="mix-direction ' + (i === next && !s.completed ? 'next' : '') + ' ' + (s.started && i === s.stirPos && !s.completed ? 'pressed' : '') + '" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%" data-act="stir" data-id="Key' + k + '" aria-label="' + k + '" ' + (s.completed ? 'disabled' : '') + '>' + k + '</button>').join('') + '</div>' + mixGauge(s) + '</section>';
+    return '<section class="mix-board stir-board"><div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="' + L('입력에 반응하는 숟가락과 얼음', 'Input-driven spoon and ice') + '"><defs><linearGradient id="stir-metal"><stop stop-color="#3a465d"/><stop offset=".2" stop-color="#c8d5e0"/><stop offset=".28" stop-color="#f3ffff"/><stop offset=".47" stop-color="#889fb4"/><stop offset=".7" stop-color="#e7f5fa"/><stop offset="1" stop-color="#65758c"/></linearGradient><radialGradient id="stir-well"><stop offset=".76" stop-color="#d9e6ec" stop-opacity="0"/><stop offset="1" stop-color="#172332" stop-opacity=".8"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#283548" stroke="#b4c9df" stroke-width="2"/><circle cx="100" cy="100" r="91" fill="url(#stir-metal)" stroke="#eefaff" stroke-width="1.5"/><circle cx="100" cy="100" r="88" fill="url(#stir-well)"/>' + s.ice.map((c, index) => iceShape(index, 100 + c.x, 100 - c.y, c.size, -c.spin)).join('') + '<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="' + s.spoonAngle.toFixed(3) + '" transform="rotate(' + s.spoonAngle + ' 100 100)"><path d="M100 8V101" stroke="#222d40" stroke-width="3"/><path d="M100 8V101" stroke="#c3dbe4" stroke-width="1.2"/><path d="M99 15l2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4" fill="none" stroke="#71899c" stroke-width=".6"/><ellipse cx="100" cy="10" rx="2.4" ry="4.5" fill="url(#stir-metal)" stroke="#364559" stroke-width="1"/></g></svg>' + '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="stir-time-mask"><circle class="orbit-progress ' + (s.started && progress < .34 ? 'danger' : '') + '" cx="200" cy="200" r="187" pathLength="100" stroke-dasharray="' + progress * 100 + ' 100" transform="rotate(-90 200 200)"/></mask></defs><image href="assets/ui/stir/GAU_stir_round_B.png" width="400" height="400"/><image class="stir-time-fill" href="assets/ui/stir/GAU_stir_round_A.png" width="400" height="400" mask="url(#stir-time-mask)"/></svg>' + ['W', 'D', 'S', 'A'].map((k, i) => '<button class="mix-direction ' + (i === next && !s.completed ? 'next' : '') + ' ' + (s.started && i === s.stirPos && !s.completed ? 'pressed' : '') + '" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%" data-act="stir" data-id="Key' + k + '" aria-label="' + k + '" ' + (s.completed ? 'disabled' : '') + '>' + k + '</button>').join('') + '</div>' + mixGauge(s) + '</section>';
   }
   // The full UI is throttled; these existing visual nodes must follow every simulation frame.
   // Scope queries to the current screen so retry/exit never retains a detached canvas or actor.
@@ -755,12 +755,13 @@ window.LunaBarViews = function ({
       const p = at(n.x, n.y);
       return '<g data-shake-node="' + n.id + '"><circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + radius + '" class="shake-judge-range"/><circle cx="' + p[0] + '" cy="' + p[1] + '" r="' + (n.fixed ? 10 : 8) + '" class="' + (n.fixed ? 'shake-turn' : 'shake-waypoint') + '"/></g>';
     }).join('');
-    return '<section class="mix-board shake-board">' + mixTimer(s) + mixGauge(s, true) + '<svg class="shake-path" data-shake-surface viewBox="0 0 420 540" aria-label="' + L('쉐이킹 클릭 영역', 'Shaking input area') + '"><polyline points="' + points.map(p => p.join(',')).join(' ') + '" class="shake-route"/>' + nodes + '<g data-shake-trail></g><g data-shake-fx></g>' + '<circle data-shake-marker cx="' + marker[0] + '" cy="' + marker[1] + '" r="9" class="shake-traveler ' + (s.feedbackLeft > 0 ? s.beatSuccess ? 'good' : 'miss' : '') + '"/></svg>' + '<div class="shake-action">' + button(s.completed ? L('완료', 'Complete') : s.started ? L('클릭 / Space', 'Click / Space') : L('시작', 'Start'), 'gimmickInput', s.completed ? 'disabled' : '', 'mix-hit') + '</div></section>';
+    return '<section class="mix-board shake-board">' + mixGauge(s, true) + '<svg class="shake-path" data-shake-surface viewBox="0 0 420 540" aria-label="' + L('쉐이킹 클릭 영역', 'Shaking input area') + '"><polyline points="' + points.map(p => p.join(',')).join(' ') + '" class="shake-route"/>' + nodes + '<g data-shake-trail></g><g data-shake-fx></g>' + '<circle data-shake-marker cx="' + marker[0] + '" cy="' + marker[1] + '" r="9" class="shake-traveler ' + (s.feedbackLeft > 0 ? s.beatSuccess ? 'good' : 'miss' : '') + '"/></svg>' + '<div class="shake-action">' + button(s.completed ? L('완료', 'Complete') : s.started ? L('클릭 / Space', 'Click / Space') : L('시작', 'Start'), 'gimmickInput', s.completed ? 'disabled' : '', 'mix-hit') + '</div></section>';
   }
   function mixHTML(s) {
     const stir = s.type === 'stir',
       locked = window.LunaShakeRhythm.mainStoryLocked(g);
     return `<div class="craft-screen mix-screen ${stir ? 'stir-screen' : 'shake-screen'} ${locked ? 'main-story-mix' : ''}">
+      ${craftTimer()}
       ${!locked && !stir ? '<div class="shake-sound-picker" role="group" aria-label="' + L('쉐이킹 효과음 선택', 'Shaker sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'shakeSound', 'data-id="' + id + '" aria-pressed="' + (ui.shakeSound === id) + '"', 'shake-sound-option')).join('') + '<small data-shake-audio-status aria-live="polite"></small></div>' : ''}
       ${!locked && stir ? '<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="' + L('스터 효과음 선택', 'Stir sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'stirSound', 'data-id="' + id + '" aria-pressed="' + (ui.stirSound === id) + '"', 'shake-sound-option')).join('') + '<small data-stir-audio-status aria-live="polite"></small></div>' : ''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir ? 'gimmick_stir' : 'gimmick_shake')}')">${motionHTML(s, stir ? [102, 0, 450, 550] : [350, 0, 650, 600])}</div></div>${stir ? '<div class="mix-detail stir-detail" aria-hidden="true">' + motionHTML(s, [260, 242, 104, 181]) + '</div>' : ''}${stir ? stirBoard(s) : shakeBoard(s)}</div>
@@ -772,6 +773,7 @@ window.LunaBarViews = function ({
     worldHTML,
     prepHTML,
     mixHTML,
+    craftTimer,
     categories,
     syncCamera,
     syncStirMotion,

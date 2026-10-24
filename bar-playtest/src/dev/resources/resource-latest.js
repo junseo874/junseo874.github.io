@@ -4,8 +4,9 @@
 const version='20261018',root='assets/reference/exports/',revision='preview-paths-20261019';
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
-const screen=(r,v)=>root+stem(r,v)+'.png?v='+revision;
-const popup=(r,v)=>root+stem(r,v)+'--popup.png?v='+revision;
+const previewRevision=r=>r.id==='ui:income'?'money-art-20261025':revision;
+const screen=(r,v)=>root+stem(r,v)+'.png?v='+previewRevision(r);
+const popup=(r,v)=>root+stem(r,v)+'--popup.png?v='+previewRevision(r);
 const isScreen=r=>!!r.launch&&(['bar-ui','out-ui','common-popups','bar-fx','out-fx'].includes(r.group)||!r.layers?.length);
 function collect(rows){
  const dialog=(id,title,variants,selector)=>rows.push({id:'popup:'+id,group:'common-popups',title,usage:'최신 게임 UI · 상태별 PNG 다운로드',status:'code',layers:[],popupKind:'dialog',exportSelector:selector,variants,launch:variants[0].launch,note:'현재 게임의 실제 UI로 표시합니다. PNG는 1280×720 화면 기준으로 생성한 기본 인물·문구의 정적 이미지입니다. 선택 상태별 팝업만 / 전체 화면을 각각 다운로드할 수 있습니다.'});

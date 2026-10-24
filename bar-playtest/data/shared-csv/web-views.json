@@ -27831,6 +27831,121 @@
       "scene": "shared-beggar-warning-paid-repeat",
       "branch": null,
       "offset": 0
+    },
+    "neighborhood/reveal": {
+      "source": "script/street",
+      "scene": "neighborhood-reveal",
+      "offset": 0
+    },
+    "neighborhood/bossIntro": {
+      "source": "script/street",
+      "scene": "neighborhood-bossIntro",
+      "offset": 0
+    },
+    "neighborhood/bossWait": {
+      "source": "script/street",
+      "scene": "neighborhood-bossWait",
+      "offset": 0
+    },
+    "neighborhood/bossRepeat": {
+      "source": "script/street",
+      "scene": "neighborhood-bossRepeat",
+      "offset": 0
+    },
+    "neighborhood/bossRepairFirst": {
+      "source": "script/street",
+      "scene": "neighborhood-bossRepairFirst",
+      "offset": 0
+    },
+    "neighborhood/bossPayFirst": {
+      "source": "script/street",
+      "scene": "neighborhood-bossPayFirst",
+      "offset": 0
+    },
+    "neighborhood/bossRepairRepeat": {
+      "source": "script/street",
+      "scene": "neighborhood-bossRepairRepeat",
+      "offset": 0
+    },
+    "neighborhood/bossPayRepeat": {
+      "source": "script/street",
+      "scene": "neighborhood-bossPayRepeat",
+      "offset": 0
+    },
+    "neighborhood/bossDone": {
+      "source": "script/street",
+      "scene": "neighborhood-bossDone",
+      "offset": 0
+    },
+    "neighborhood/cat": {
+      "source": "script/street",
+      "scene": "neighborhood-cat",
+      "offset": 0
+    },
+    "neighborhood/feed": {
+      "source": "script/street",
+      "scene": "neighborhood-feed",
+      "offset": 0
+    },
+    "home/wardrobe": {
+      "source": "script/home",
+      "scene": "home-wardrobe",
+      "offset": 0
+    },
+    "home/wardrobePressed": {
+      "source": "script/home",
+      "scene": "home-wardrobe-pressed",
+      "offset": 0
+    },
+    "home/bed": {
+      "source": "script/home",
+      "scene": "home-bed",
+      "offset": 0
+    },
+    "neighborhood/homeCat": {
+      "source": "script/home",
+      "scene": "neighborhood-homeCat",
+      "offset": 0
+    },
+    "neighborhood/rest": {
+      "source": "script/home",
+      "scene": "neighborhood-rest",
+      "offset": 0
+    },
+    "neighborhood/repairGreeting": {
+      "source": "script/street",
+      "scene": "neighborhood-repairGreeting",
+      "offset": 0
+    },
+    "neighborhood/repairIntro": {
+      "source": "script/street",
+      "scene": "neighborhood-repairIntro",
+      "offset": 0
+    },
+    "neighborhood/repairMenu": {
+      "source": "script/street",
+      "scene": "neighborhood-repairMenu",
+      "offset": 0
+    },
+    "neighborhood/repairPaid": {
+      "source": "script/street",
+      "scene": "neighborhood-repairPaid",
+      "offset": 0
+    },
+    "neighborhood/guardBlocked": {
+      "source": "script/street",
+      "scene": "neighborhood-guardBlocked",
+      "offset": 0
+    },
+    "neighborhood/guardMenu": {
+      "source": "script/street",
+      "scene": "neighborhood-guardMenu",
+      "offset": 0
+    },
+    "neighborhood/guardPass": {
+      "source": "script/street",
+      "scene": "neighborhood-guardPass",
+      "offset": 0
     }
   }
 }

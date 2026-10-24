@@ -1,6 +1,19 @@
 /* Native 643×270 supplied house sheets; placements measured from the full shot. */
 (function(W){'use strict';
 const root='assets/outside/chris-home/';
+// Native room pixels: the bed is baked into the LEFT wall, not the sofa bedding layer.
+const bed={rect:[80,187,91,26],edge:[[7,0],[24,0],[27,3],[76,4],[84,7],[90,10],[90,21],[85,25],[8,25],[2,22],[0,16],[0,8],[4,3]]};
+const wardrobe={rect:[175,152,21,66],edge:[[2,0],[19,0],[21,2],[21,66],[0,66],[0,2]]};
+function bedTarget(){
+ const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg'),sp=n.sprite;
+ const left=n.x-sp.w*sp.pivot.x/sp.ppu,top=n.y+sp.h*(1-sp.pivot.y)/sp.ppu;
+ return {id:'bed',label:'침대 살펴보기',x:left+125/sp.ppu,y:-.7,top:top-bed.rect[1]/sp.ppu,nodeName:'main_bg',source:'home/bed'};
+}
+function wardrobeTarget(){
+ const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg'),sp=n.sprite;
+ const left=n.x-sp.w*sp.pivot.x/sp.ppu,top=n.y+sp.h*(1-sp.pivot.y)/sp.ppu;
+ return {id:'wardrobe',label:'옷장 살펴보기',x:left+185.5/sp.ppu,y:-.7,top:top-wardrobe.rect[1]/sp.ppu,nodeName:'main_bg',source:'home/wardrobe'};
+}
 const layers=[
  {name:'home-city',file:'Chrishouse_BG_City.png',x:0,y:0,w:643,h:270},
  {name:'main_bg',file:'Chrishouse2.png',x:0,y:0,w:643,h:270},
@@ -62,6 +75,6 @@ function paintFence(ctx,image,x,y,w,h){
  ctx.fillStyle='#6c6a82';ctx.fillRect(-27,40,85,1);
  ctx.restore();
 }
-W.LunaHomeArt={root,layers,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
+W.LunaHomeArt={root,layers,bed,bedTarget,wardrobe,wardrobeTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

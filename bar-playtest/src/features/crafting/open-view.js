@@ -58,9 +58,9 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   const spotlight=power?'<rect data-open-spotlight="power" x="374" y="196" width="100" height="318" rx="12" fill="black"/>':'<circle data-open-spotlight="rhythm" cx="640" cy="310" r="190" fill="black"/>';
   return '<div class="opening-lesson" data-open-lesson="'+lessonKey(s)+'"><svg viewBox="0 0 1280 720" aria-hidden="true"><defs><mask id="opening-lesson-mask"><rect width="1280" height="720" fill="white"/>'+spotlight+'<rect x="510" y="600" width="260" height="100" rx="12" fill="black"/><rect x="1100" y="640" width="165" height="70" rx="12" fill="black"/></mask></defs><rect width="1280" height="720" fill="#020611" opacity=".55" mask="url(#opening-lesson-mask)"/></svg><div class="opening-lesson-copy"><kbd>SPACE</kbd><p>'+text+'</p><span aria-hidden="true">→</span></div></div>';
  }
- function html(s){
+ function html(s,timer=''){
   const ready=s.completed&&(s.openFx?.age||0)>=(g.minigame?window.LunaCore.OPEN.minigameHoldSec:window.LunaCore.OPEN.carbonationSec);
-  return '<div class="craft-screen opening-screen">'+
+  return '<div class="craft-screen opening-screen">'+timer+
    '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" aria-hidden="true" draggable="false">'+
    '<canvas class="opening-stage" data-opening-stage width="1280" height="720" role="img" aria-label="'+L('맥주병 뚜껑에 초점을 맞춘 병따기','Bottle opening focused on the cap')+'"></canvas>'+
    '<div class="opening-timing-hint" data-open-timing hidden aria-hidden="true">Space</div>'+

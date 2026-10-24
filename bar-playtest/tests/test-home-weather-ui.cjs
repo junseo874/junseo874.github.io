@@ -19,8 +19,9 @@ const {load,chrome}=require('../../tools/lib/test-runtime.cjs');
    else if(u>=584&&u<=644&&((v>=21&&v<=76)||(v>=94&&v<=239)))exteriorChanges++;
    else outside++;
   }
-  const sample=(day,flow,time,pass)=>{const c=document.createElement('canvas');c.width=643;c.height=270;const g=c.getContext('2d');R.drawHome(g,{scene:'home',config:{day,flow},time},{w:12.8},(x,y)=>({x:(x-left)*100,y:(top-y)*100}),bg,pass);return Array.from(g.getImageData(0,0,643,270).data);};
-  const glass=sample(0,'out',2,'glass'),later=sample(0,'out',4,'glass'),dry=sample(3,'out',2,'glass');
+  const sample=(day,flow,time,pass)=>{const c=document.createElement('canvas');c.width=643;c.height=270;const g=c.getContext('2d');R.drawHome(g,{scene:'home',config:{day,flow},time},{x:bg.x,y:bg.y,w:12.8},(x,y)=>({x:(x-left)*100,y:(top-y)*100}),bg,pass);return Array.from(g.getImageData(0,0,643,270).data);};
+  for(const flow of ['in','out'])for(const pass of ['rain','glass'])if(!sample(3,flow,2,pass).some(Boolean))throw Error('Day 3 home weather missing: '+flow+'/'+pass);
+  const glass=sample(0,'out',2,'glass'),later=sample(0,'out',4,'glass'),dry=sample(2,'out',2,'glass');
   return {windowChanges,exteriorChanges,outside,glass:glass.some(Boolean),animated:glass.some((v,i)=>v!==later[i]),dry:dry.every(v=>v===0)};
  });
  assert(result.windowChanges>10&&result.exteriorChanges>10,JSON.stringify(result));assert.equal(result.outside,0,'Rain never draws on the room or terrace floor');assert(result.glass&&result.animated&&result.dry,'Glass droplets animate only on rainy days');

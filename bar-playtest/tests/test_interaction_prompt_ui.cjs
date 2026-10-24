@@ -24,9 +24,10 @@ const assert=require('node:assert/strict');
   for(const r of results){
    assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
    const expected={tv:'TV 보기',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
+   Object.assign(expected,{bed:'보기',wardrobe:'보기','neighborhood-boss':'대화하기','neighborhood-guard':'대화하기','neighborhood-repair':'대화하기','neighborhood-box':'보기','neighborhood-cat':'보기','neighborhood-home-cat':'보기'});
    assert(expected[r.id],'Unclassified target '+r.id);assert.equal(r.text,'E'+expected[r.id]);assert(r.ordered);assert.equal(r.inline,'');
   }
-  const ids=new Set(results.map(r=>r.id));for(const id of ['tv','exit','sofa','home','elevator','bar','wanted-poster','shiba-shop','street-beggar','street-beggar-witness'])assert(ids.has(id));
+  const ids=new Set(results.map(r=>r.id));for(const id of ['bed','wardrobe','tv','exit','sofa','home','elevator','bar','wanted-poster','shiba-shop','street-beggar','street-beggar-witness'])assert(ids.has(id));
   assert.equal(await p.evaluate(()=>LunaOutside.interactionLabel(outsidePlaytest.model,{id:'day2-thug-information'})),'대화하기');
   assert([...ids].some(id=>/resident|beggar|shiba-shop|encounter|samho|smuggler/.test(id)),'Actual NPC targets covered');
   await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:0,flow:'out',place:'home'});m.x=1.22;m.updateNear();a.snapCamera();a.tick(0);});
@@ -46,7 +47,8 @@ const assert=require('node:assert/strict');
   }
   await p.setViewportSize({width:1440,height:900});await p.waitForTimeout(150);
   await p.screenshot({path:'/private/tmp/interaction-bottom-left.png'});
-  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=0;m.updateNear();outsidePlaytest.refreshHUD();});assert(await prompt.isHidden());
+  // x=0 is now the interactive wardrobe; use the empty gap before the TV.
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=.65;m.updateNear();outsidePlaytest.refreshHUD();});assert(await prompt.isHidden());
   await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=1.22;m.updateNear();outsidePlaytest.refreshHUD();});assert(await prompt.isVisible());
   await p.keyboard.press('Escape');assert(await prompt.isHidden());await p.keyboard.press('Escape');assert(await prompt.isVisible());
   // The relocated hint still performs the same interaction on click.

@@ -1112,7 +1112,7 @@
         return true;
       }
       // Check on boarding the upward homeward lift, not when calling it or leaving home.
-      if ((this.active || this.session.developer) && target.id === 'elevator' && model.scene === 'street' && model.level === 0 && model.config.flow === 'out' && Math.abs(model.elevatorY - global.LunaResidence.layout.elevatorBottom) <= .01) {
+      if ((this.active || this.session.developer) && target.id === 'elevator' && model.scene === 'street' && model.level === 0 && model.config.flow === 'out' && (target.fast || Math.abs(model.elevatorY - global.LunaResidence.layout.elevatorBottom) <= .01)) {
         const missing = this.dayEndRequirements(model.config.day);
         if (missing.length) {
           this.outside.clearInput();
@@ -1245,7 +1245,7 @@
     }
     showHomewardRequirements(missing) {
       const labels = missing.map(id => id === 'johnny_memory' ? '조니의 레시피 회상' : this.g.name(id));
-      this.notice('아직 해야 할 일이 남아 있습니다.\n확인할 항목: ' + labels.join(' · ') + '\n필요한 재료는 거리의 시BAR에게서 구할 수 있습니다.', '집에 올라가기 전에');
+      this.notice('아직 해야 할 일이 남아 있습니다.\n확인할 항목: ' + labels.join(' · ') + '\n와일드 독은 모닥불 옆 덩치 큰 갱단원에게, 비터스는 거리의 시BAR에게서 구할 수 있습니다.', '집에 올라가기 전에');
       this.resumeView = this.playView;
     }
     sleepOutsideTest(model) {
@@ -1284,7 +1284,10 @@
       this.playSleepScenes(day, finish);
     }
     playSleepScenes(day, finish) {
+      const discoveryModel=this.outside.model;
+      const discoveryToken=discoveryModel&&global.LunaOutsideDiscovery?.objectToken(discoveryModel,'sofa');
       const complete = () => {
+        if(discoveryModel)global.LunaOutsideDiscovery?.remember(discoveryModel,discoveryToken);
         if (this.dayEndRequirements(day, {
           memory: true
         }).includes('johnny_memory')) {
@@ -1298,7 +1301,10 @@
         if (key && this.data.scenes[key]?.length) this.scene(key, '테라스', 'terrace', complete);else this.playRestCinema('sleep', complete);
       };
       // Player-only interlude: no Luna knowledge/relationship flags are changed here.
-      if (day === 1 && this.data.scenes.workshop?.length) this.beginMemoryTransition(() => null, () => this.scene('workshop', '포트의 작업장', 'black', terrace));else terrace();
+      const proceed = () => {
+        if (day === 1 && this.data.scenes.workshop?.length) this.beginMemoryTransition(() => null, () => this.scene('workshop', '포트의 작업장', 'black', terrace));else terrace();
+      };
+      if (!global.LunaOutsideNeighborhood?.beforeRest(this.outside.model, proceed)) proceed();
     }
     startRestCinema(scene, done, dailyWake = false) {
       this.disposeCinema();

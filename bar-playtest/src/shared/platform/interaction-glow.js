@@ -1,6 +1,7 @@
 /* Runtime sprite-alpha outlines. Original art and shared atlases stay unchanged. */
 (function(W){
 'use strict';
+const style=Object.freeze({color:'#4bdaff',shadow:'#19caff',blur:9});
 // Current Chrishouse2 sofa silhouette united with the supplied bedding alpha.
 // The left armrest recess follows native rows 197–204; do not bridge its wall gap.
 // Keep this mask on the room so foreground furniture and Luna occlude it.
@@ -24,9 +25,12 @@ const HOME_SOFA={asset:'629b82812402bc',rect:[410,180,109,53],edge:[
  [454,181],[462,181],[462,182],[464,182],[464,181],[465,181]
 ]};
 const sofaRegion=[...HOME_SOFA.rect,HOME_SOFA.edge.map(([x,y])=>[x-HOME_SOFA.rect[0],y-HOME_SOFA.rect[1]])];
+const boxEdge=[[0,3],[3,3],[3,2],[7,2],[7,1],[14,1],[14,0],[17,0],[17,3],[26,3],[26,28],[0,28]];
 function region(target,node,sp,x,y,model){
  if(!target)return null;
  const name=node?.name,full=[0,0,sp.w,sp.h];
+ if(target.id==='bed')return name==='main_bg'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
+ if(target.id==='wardrobe')return name==='main_bg'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
  if(target.nodeName&&name===target.nodeName)return full;
  if(target.id==='bar'&&name==='Bar Spawn Point')return [2,15,34,51];
  if(target.id==='exit'&&name==='Room_Entrance')return full;
@@ -37,6 +41,15 @@ function region(target,node,sp,x,y,model){
  }
  // The apartment doorway is baked into the residence layer, above the railing.
  if(target.id==='home'&&name==='residence-building')return node.interactionRegions?.home||[567,438,44,77];
+ // The Boobi box is baked into an opaque atlas. Trace only its stepped lid
+ // and sides, not the wall or the bin beneath it.
+ if(target.id==='neighborhood-box'){
+  if(name==='residence-building'&&!(model.neighborhood?.shake>0))return [647,424,27,28,boxEdge];
+  if(name==='neighborhood-shaking-box')return [0,0,27,28,boxEdge];
+ }
+ if(['neighborhood-repair','neighborhood-guard','neighborhood-boss','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&Math.abs(x-target.x)<.01&&Math.abs(y-target.y)<.01){
+  if(['neighborhood-repair','neighborhood-boss'].includes(target.id)&&sp.asset==='ambient-M2'||target.id==='neighborhood-guard'&&sp.asset==='ambient-M1'||target.id.endsWith('cat')&&sp.asset.startsWith('neighborhood-cat-'))return full;
+ }
  if(target.id==='elevator'){
   const atFloor=(model.elevatorY>4)===(model.level===1);
   if(atFloor&&name==='Elevator')return full;
@@ -73,11 +86,11 @@ function create(){
   const rect=region(target,node,sp,x,y,model);if(!rect||rect[2]<=0||rect[3]<=0)return;
   const {canvas,pad}=mask(image,sp,rect),px=w/sp.w,py=h/sp.h;
   const left=-w*sp.pivot.x+(rect[0]-pad)*px,top=-h*(1-sp.pivot.y)+(rect[1]-pad)*py;
-  ctx.save();ctx.globalAlpha=.96;ctx.shadowColor='#19caff';ctx.shadowBlur=9;
+  ctx.save();ctx.globalAlpha=.96;ctx.shadowColor=style.shadow;ctx.shadowBlur=style.blur;
   ctx.drawImage(canvas,left,top,canvas.width*px,canvas.height*py);ctx.restore();
   drawn.push({node:node?.name||null,asset:sp.asset,region:rect});
  }
  return {begin,paint,snapshot:()=>({target:target?.id||null,drawn,cacheSize:cache.size})};
 }
-W.LunaInteractionGlow={create,region};
+W.LunaInteractionGlow={create,region,style};
 })(window);

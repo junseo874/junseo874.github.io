@@ -35,7 +35,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert(await number()>first.before&&await number()<first.after,'Visible count-up');
   assert.equal(await page.locator('.currency-delta').innerText(),'+'+(first.after-first.before).toLocaleString());
   const dimensions=await page.locator('.currency-hud').evaluate(el=>{
-   const parts=[el,el.querySelector('svg'),el.querySelector('.currency-value'),el.querySelector('.currency-delta')];
+   const parts=[el,el.querySelector('.currency-art'),el.querySelector('.currency-value'),el.querySelector('.currency-delta')];
    const small=parts.map(e=>e.getBoundingClientRect());el.style.scale='1';
    const full=parts.map(e=>e.getBoundingClientRect());el.style.removeProperty('scale');
    return small.map((r,i)=>({width:r.width/full[i].width,height:r.height/full[i].height}));

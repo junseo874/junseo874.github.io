@@ -38,7 +38,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
   await p.keyboard.press('Space');await p.keyboard.press('Enter');assert(await p.evaluate(()=>!!lunaCampaign.cinema.dialogueChoice));
   await p.keyboard.press('Escape');assert(!(await p.locator('#campaign-root .world-choice-tutorial').count()));
   await p.keyboard.press('Escape');assert.equal(await selected(),'silent');assert.equal(await p.evaluate(()=>guideSounds),1);
-  await p.keyboard.down('KeyE');await p.keyboard.down('KeyE');await p.waitForTimeout(650);
+  await p.waitForTimeout(820);await p.keyboard.down('KeyE');await p.keyboard.down('KeyE');await p.waitForTimeout(650);
   assert(!(await p.locator('#campaign-root .world-choice-tutorial').isVisible()));
   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.clips.find(l=>l.id===lunaCampaign.cinema.dialogueWait.id).text),'....');
   await p.keyboard.up('KeyE');
@@ -72,11 +72,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
   await p.evaluate(()=>{window.removeEventListener('keydown',testChoiceUI.key,true);testChoiceUI.dispose();document.querySelector('#choice-test-stage').remove();});
   await p.evaluate(async()=>{const c=lunaCampaign;c.session.install({developer:false});barGame.reset(0,'full',1,false);barGame.progress.money=500;Object.assign(outsidePlaytest.config,{day:0,flow:'out',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);const m=outsidePlaytest.model;m.x=LunaOutsideBeggar.people[0].x+.27;m.story.cancel();m.backgroundStory.cancel();m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
   await p.keyboard.press('KeyE');await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<40&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.refreshHUD();});
-  await p.waitForTimeout(400);await p.screenshot({path:'/private/tmp/street-head-choices.png'});
+  await p.waitForTimeout(820);await p.screenshot({path:'/private/tmp/street-head-choices.png'});
   assert.equal(await p.locator('.outside-speech .outside-choices').count(),0);
   const px=await p.evaluate(()=>outsidePlaytest.model.x);await p.keyboard.press('KeyQ');assert.equal(await selected(),'beggar-pay');
-  await p.keyboard.press('KeyW');assert.equal(await selected(),'beggar-refuse');await p.keyboard.press('KeyS');assert.equal(await selected(),'beggar-pay');
-  await p.keyboard.press('KeyE');assert.equal(await p.evaluate(()=>barGame.progress.money),350);assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),px);
+  await p.keyboard.press('KeyW');assert.equal(await selected(),'beggar-question');await p.keyboard.press('KeyE');assert(await p.locator('[data-choice="beggar-question"]').evaluate(e=>e.classList.contains('is-rejected')));await p.keyboard.press('KeyS');assert.equal(await selected(),'beggar-pay');
+  // Current CSV/story price is 200 (the old 150 expectation predates the beggar rewrite).
+  await p.keyboard.press('KeyE');assert.equal(await p.evaluate(()=>barGame.progress.money),300);assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),px);
   assert.deepEqual(errors,[]);console.log('PASS first-contact choices, W/S + wheel wrap, Q ignored, E confirm, held-key isolation, tutorial/pause/sound lifecycle, common rejoin, four rows and disabled options.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

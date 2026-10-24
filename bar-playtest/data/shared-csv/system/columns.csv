@@ -426,6 +426,7 @@
 "Scenes","radius","21","float|int"
 "Scenes","completion_flag","22","str"
 "Scenes","web_row_id","23","str"
+"Scenes","title.ko","24","str"
 "Steps","context","0","str"
 "Steps","seq","1","int"
 "Steps","type","2","str"

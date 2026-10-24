@@ -10,7 +10,7 @@ const random=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(
 // This is a fixed world-space band, independent of the actor/lift/camera.
 const ROAD_BACK=-1.08,ROAD_DEPTH=.22;
 const impactY=seed=>ROAD_BACK-random(seed)*ROAD_DEPTH;
-function wet(m){return !!m&&!m.qa&&(Number(m.config.day)===1||Number(m.config.day)===0&&m.config.flow==='out'||Number(m.config.day)===2&&m.config.flow==='in');}
+function wet(m){return !!m&&!m.qa&&(Number(m.config.day)===1||Number(m.config.day)===3||Number(m.config.day)===0&&m.config.flow==='out'||Number(m.config.day)===2&&m.config.flow==='in');}
 function enabled(m){return m?.scene==='street'&&wet(m);}
 function particles(m,cam){
  const drops=[],splashes=[];if(!enabled(m))return {drops,splashes};

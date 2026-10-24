@@ -112,11 +112,15 @@
     const depth = n => n.name === 'residence-building' ? 5.5 : n.layer;
     return nodes.slice().sort((a, b) => depth(a) - depth(b) || a.order - b.order || b.z - a.z || rank(a) - rank(b) || String(a.id).localeCompare(String(b.id)));
   }
-  function interactionAnchor(model, target, data) {
+  function interactionAnchor(model, target, data, stable = false) {
     if (model.qa) return {
       x: target.x,
       y: target.y + .75
     };
+    // Baked room props share the atlas: never use the whole background's "head".
+    if (target.id === 'bed' || target.id === 'wardrobe') return {x:target.x,y:target.top};
+    const actorHead=global.LunaOutsideNeighborhood?.targetAnchor(model,target,stable)||global.LunaOutsideAmbient.actorHead(model,target.actor||target.nodeName||target.id,target);
+    if(actorHead)return actorHead;
     // Idle sheets include transparent padding above the visible head.
     if (target.top != null) return {
       x: target.x,
@@ -195,6 +199,7 @@
       this.thugFlags = {};
       this.samhoCommuteFlags = {};
       this.notionFlags = {};
+      this.neighborhood = null;
       this.scene = this.config.place === 'home' ? 'home' : 'street';
       this.level = this.config.place === 'bar' ? 0 : 1;
       this.x = this.config.place === 'bar' ? 1 : this.config.place === 'home' ? -1.28 : R.homeX;
@@ -257,14 +262,17 @@
     }
     chooseObject(id) {
       const d=this.dialog;
-      if(this.paused||!d||!['elevator','tv'].includes(d.kind)||!['confirm','cancel'].includes(id))return false;
+      if(this.paused||!d||!['elevator','tv'].includes(d.kind)||!['confirm','cancel','fast'].includes(id))return false;
+      if(id==='fast'&&(d.kind!=='elevator'||!global.LunaOutsideNeighborhood?.repaired()))return false;
       this.dialog=null;this.revision++;this.updateNear();
       if(id==='cancel'){
         if(d.kind==='tv'){this.tvOff=true;this.backgroundStory.cancel();}
         return true;
       }
       if(d.kind==='tv'){this.tvOff=false;global.lunaCampaign?.playDayZeroTV(this);}
-      else if(!global.lunaCampaign?.interactOutside(this,{id:'elevator'}))this.startLift();
+      else if(!global.lunaCampaign?.interactOutside(this,{id:'elevator',fast:id==='fast'})){
+        if(id==='fast')global.LunaOutsideNeighborhood.fastTravel(this);else this.startLift();
+      }
       return true;
     }
     startLift() {
@@ -364,7 +372,7 @@
     }
     targets() {
       if (this.qa) return global.LunaOutsideQA.targets(this);
-      if (this.scene === 'home') return [...(this.config.day === 0 ? [{
+      if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), ...(this.config.day === 0 ? [{
         id: 'tv',
         label: 'TV 다큐 보기',
         x: 1.22,
@@ -374,8 +382,8 @@
         label: '밖으로 나가기',
         x: -1.581,
         y: -.7
-      }, ...(this.config.flow === 'out' ? [SOFA] : [])];
-      if (this.level) return [...(global.LunaOutsideNotion?.targets(this) || []), {
+      }, ...(this.config.flow === 'out' ? [SOFA] : []), ...(global.LunaOutsideNeighborhood?.targets(this) || [])];
+      if (this.level) return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideNotion?.targets(this) || []), {
         id: 'home',
         label: '집에 들어가기',
         x: R.homeX,
@@ -386,7 +394,7 @@
         x: EX,
         y: R.upperY
       }];
-      return [...(global.LunaOutsideEncounters?.targets(this) || []), {
+      return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideEncounters?.targets(this) || []), {
         id: 'bar',
         label: '바 입구',
         x: 1.0086,
@@ -400,7 +408,7 @@
     }
     updateNear() {
       global.LunaStoryNotices?.forced(this);
-      this.near = this.qa?.runtime || this.barArrival || this.ride || this.transition || this.encounter || this.dialog || this.story?.blocking ? null : this.targets().filter(t => Math.abs(t.x - this.x) < (t.id === 'elevator' ? .62 : .4)).sort((a, b) => Math.abs(a.x - this.x) - Math.abs(b.x - this.x) || a.id.localeCompare(b.id))[0] || null;
+      this.near = this.qa?.runtime || this.barArrival || this.ride || this.transition || this.neighborhood?.action || this.encounter || this.dialog || this.story?.blocking ? null : this.targets().filter(t => global.LunaOutsideDiscovery.inRange(this,t)).sort((a, b) => Math.abs(a.x - this.x) - Math.abs(b.x - this.x) || a.id.localeCompare(b.id))[0] || null;
     }
     beginEncounter(target) {
       const e = global.LunaOutsideEncounters.prepare(this, target);
@@ -412,7 +420,7 @@
       return true;
     }
     interact() {
-      if (this.paused || this.controlsTutorial || this.barArrival || this.transition || this.encounter && this.encounter.stage !== 'active') return false;
+      if (this.paused || this.controlsTutorial || this.barArrival || this.transition || this.neighborhood?.action || this.encounter && this.encounter.stage !== 'active') return false;
       if (this.story.blocking) return this.story.advance();
       if (this.ride) return false;
       if (this.dialog) {
@@ -424,8 +432,10 @@
       this.updateNear();
       const t = this.near;
       if (!t) return false;
+      global.LunaOutsideDiscovery.interacted(this,t);
       const inspection = global.LunaOutsideInspection?.forTarget(t);
       if (inspection) {
+        global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
         this.dialog = inspection;
         this.anim = 'idle';
         this.animTime = 0;
@@ -445,11 +455,15 @@
         return true;
       }
       if(t.id==='elevator'){
+        global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
         this.dialog={kind:'elevator',key:'elevator:'+ ++this.revision};
         this.anim='idle';this.animTime=0;this.updateNear();return true;
       }
       if (this.qa && global.LunaOutsideQA.interact(this, t)) return true;
-      if (!this.qa && global.lunaCampaign?.interactOutside(this, t)) return true;
+      if (!this.qa && global.lunaCampaign?.interactOutside(this, t)) {
+        if(t.id==='bar'||t.id==='tv'&&global.barGame.progress.flags.day0_tv_seen)global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
+        return true;
+      }
       if (this.story.interact(t)) {
         this.anim = 'idle';
         this.animTime = 0;
@@ -458,16 +472,20 @@
       if (this.story.speech) this.story.cancel();
       if (t.id === 'home' || t.id === 'exit') {
         this.transition = {
+          discoveryToken: global.LunaOutsideDiscovery.objectToken(this,t.id),
           time: 0,
           to: t.id === 'home' ? 'home' : 'street',
           swapped: false,
           barArrival: t.id === 'exit' && this.isFirstCommute()
         };
         global.LunaHomeDoorAudio?.play(() => global.outsidePlaytest?.active && global.outsidePlaytest.model === this && !this.paused);
-      } else if (t.id === 'bar') this.dialog = {
-        title: '바 입구',
-        text: this.config.flow === 'in' ? '출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.' : '퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'
-      };
+      } else if (t.id === 'bar') {
+        global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
+        this.dialog = {
+          title: '바 입구',
+          text: this.config.flow === 'in' ? '출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.' : '퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'
+        };
+      }
       this.updateNear();
       this.revision++;
       return true;
@@ -492,6 +510,7 @@
       // The cabin owns the passenger transform until landing is complete.
       // Proximity/scripted movement must not preempt this branch either.
       if (this.tickLift(dt)) return;
+      if (global.LunaOutsideNeighborhood?.tick(this, dt)) return;
       if (global.LunaOutsideEncounters?.tick(this, dt)) return;
       if (global.LunaOutsideNotion?.tick(this, dt)) return;
       if (global.LunaOutsideThug?.tick(this, dt)) return;
@@ -546,6 +565,7 @@
           this.revision++;
         }
         if (t.time >= .85) {
+          global.LunaOutsideDiscovery.remember(this,t.discoveryToken);
           this.transition = null;
           if (t.barArrival) this.barArrival = {
             to: FIRST_COMMUTE_ARRIVAL.to
@@ -565,6 +585,7 @@
         old = this.x,
         desired = this.x + direction * speed * dt;
       this.x = clamp(desired, ...bounds);
+      this.x = global.LunaOutsideNeighborhood?.clampBoundary(this, this.x, direction) ?? this.x;
       if (!this.qa && this.scene === 'street' && this.level === 1) {
         // Rearm only after walking away, not when a held key resumes after speech.
         if (this.x > R.upperMin + .12) this.crateBoundaryNoticed = false;
@@ -608,6 +629,7 @@
     currencyView = global.LunaCurrencyView()
   } = {}) {
     const glowRenderer = global.LunaInteractionGlow.create();
+    let discoveryMarkers = [];
     let renderingNode = null,
       choiceUI = null;
     const data = global.LUNA_OUTSIDE_DATA,
@@ -661,6 +683,7 @@
       await Promise.all(Array.from({length:Math.min(6,queue.length)},async()=>{
         while(index<queue.length){const [id,a]=queue[index++];images.set(id,await global.LunaResources.image(a.src));}
       }));
+      global.LunaOutsideAmbient.prepareBounds(images,data);
     }
     function fit() {
       if (!host) return;
@@ -903,6 +926,7 @@
         y: model.scene === 'home' ? .023 : model.y + .7,
         w: 4.8
       };
+      Object.assign(cam,global.LunaOutsideNeighborhood?.camera(model)||{});
       lastScene = model.scene;
       pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
     }
@@ -1024,6 +1048,8 @@
     function targetCamera(dt) {
       if (!atViewpoint(model)) panorama = false;
       if (lastScene !== model.scene) snapCamera();
+      const restCamera=global.LunaOutsideNeighborhood?.camera(model);
+      if(restCamera){Object.assign(cam,restCamera);pixelWidth=global.LunaPixelCamera.settledWidth(restCamera.w,surface);return;}
       let w = 4.8,
         x = model.x,
         y = model.scene === 'home' ? .023 : model.y + .7,
@@ -1098,6 +1124,11 @@
     function position(x, y) {
       return global.LunaPixelCamera.position(x, y, renderCam);
     }
+    function discoveryPosition(x, y, target) {
+      const pose=global.LunaOutsideNeighborhood?.poses(model).find(p=>p.id===target.actor)
+        ||data.scenes[model.scene].nodes.find(n=>n.name===(target.nodeName||target.actor||target.id)||n.id===target.id);
+      return global.LunaOutsideDiscovery.project({x,y},pose,renderCam,surface);
+    }
     function drawSprite(sp, x, y, sx = 1, sy = 1, flip = false, alpha = 1, glow = false) {
       const img = images.get(sp.asset);
       if (!img) return;
@@ -1143,7 +1174,7 @@
       if (n.name === 'shiba') {
         if (global.LunaOutsideShop.visible(model)) {
           const a = data.animations.shiba;
-          drawSprite(a.frames[Math.floor(model.time * a.fps) % a.frames.length], n.x, n.y, n.sx, n.sy, n.flip);
+          drawSprite(a.frames[global.LunaOutsideAmbient.frameIndex(model.time, a.frames.length)], n.x, n.y, n.sx, n.sy, n.flip);
         }
         return;
       }
@@ -1221,6 +1252,7 @@
       return m && !m.paused && !loading && !loadError && !devOpen && !hintOpen && !m.controlsTutorial && !m.dialog && !m.story.blocking && !global.lunaCampaign?.blocking ? m.near : null;
     }
     function draw(advanceParallax = true) {
+      discoveryMarkers = [];
       if (!ctx || !model) return;
       if (surface.dpr !== devicePixelRatio) fit();
       renderCam = global.LunaPixelCamera.view(cam, surface, {
@@ -1269,6 +1301,7 @@
         drawSprite(frame, model.x, model.y, 1, 1, model.facing > 0);
       };
       if (model.scene === 'home') {
+        global.LunaOutsideNeighborhood?.draw(model, drawSprite, ctx, position, images, global.LunaCaptureMode?.hidden ? null : glowRenderer);
         drawPlayer();
         nodes.filter(n => ['ForeFore_Object', 'home-fence'].includes(n.name)).forEach(renderNode);
       } else {
@@ -1309,9 +1342,12 @@
             drawEntranceCue();
             global.LunaOutsideThug?.draw(model, drawSprite, ctx, position);
             global.LunaOutsideNotion?.draw(model, drawSprite, ctx, position);
-            drawPlayer();
+            global.LunaOutsideNeighborhood?.draw(model, drawSprite, ctx, position, images, global.LunaCaptureMode?.hidden ? null : glowRenderer);
+            if(!global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
           } else renderNode(n);
         }
+        global.LunaOutsideNeighborhood?.drawCamp(model,drawSprite);
+        if(global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
       }
       global.LunaOutsideRain?.draw(ctx, model, renderCam, position, 'drops');
       const shade = ctx.createLinearGradient(0, 0, 0, 720);
@@ -1322,6 +1358,11 @@
       ctx.fillStyle = shade;
       ctx.fillRect(0, 0, 1280, 720);
       global.LunaRainGlass?.draw(ctx, model, {camera:renderCam});
+      if(interactionTarget()&&!model.qa&&!global.LunaCaptureMode?.hidden){
+        discoveryMarkers=global.LunaOutsideDiscovery.draw(ctx,model,model.targets(),discoveryPosition,t=>interactionAnchor(model,t,data,true),surface.factor);
+      }
+      const neighborhoodFade=global.LunaOutsideNeighborhood?.fadeAlpha(model)||0;
+      if(neighborhoodFade){ctx.fillStyle=`rgba(0,0,0,${neighborhoodFade})`;ctx.fillRect(0,0,1280,720);}
       if (model.transition) {
         const t = model.transition.time,
           alpha = t < .38 ? t / .38 : 1 - (t - .38) / .47;
@@ -1516,12 +1557,13 @@
       saved.style.opacity = Math.min(1, m.noticeLeft / .35);
     }
     function updateSpeech() {
+      host.dataset.neighborhoodCinematic = String(!model.paused&&!devOpen&&!hintOpen&&!!model.story.speech?.id.match(/^neighborhood\/(reveal|feed|rest|repairPaid)$/)&&!model.story.speech.choice);
       const v = model.story.view();
       renderSpeech(host.querySelector('.outside-speech'), v);
       const objectKind=model.dialog?.kind;
       const choice = ['elevator','tv'].includes(objectKind) ? {
         key:model.dialog.key,label:objectKind==='tv'?'TV':'엘리베이터',
-        options:[{id:'confirm',label:objectKind==='tv'?'TV를 본다':model.level?'내려간다':'올라간다'},{id:'cancel',label:objectKind==='tv'?'끈다':'취소'}]
+        options:[...(objectKind==='elevator'&&!model.qa&&global.LunaOutsideNeighborhood?.repaired()?[{id:'fast',label:'빠른 이동'}]:[]),{id:'confirm',label:objectKind==='tv'?'TV를 본다':model.level?'내려간다':'올라간다'},{id:'cancel',label:objectKind==='tv'?'끈다':'취소'}]
       } : model.dialog?.kind === 'sofa' ? {
         key: model.dialog.key,
         label: '소파 선택지',
@@ -1541,6 +1583,7 @@
       } : null;
       choiceUI?.update(choice && !model.paused && !loading && !loadError && !devOpen && !hintOpen ? {
         ...choice,
+        rejectUnavailable: true,
         head: position(model.x, model.y + .16),
         facing: model.facing
       } : null);
@@ -1770,6 +1813,9 @@
     return {
       get interactionGlow() {
         return glowRenderer.snapshot();
+      },
+      get discoveryMarkers() {
+        return discoveryMarkers;
       },
       get active() {
         return active;

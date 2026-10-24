@@ -9,16 +9,16 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.locator('.updates-confirm').click();await p.locator('[data-outside-action="start"]').click();
   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);
   await p.keyboard.press('Space'); // dismiss the developer entry hint before freezing ticks
-  assert.equal(requests.length,1,'Carrier preloads once before play');
+  assert.equal(requests.length,3,'Chassis and both portraits preload once before play');
   const audit=await p.evaluate(()=>{
    const o=outsidePlaytest,m=o.model,A=LunaOutsideAdCarrier;
    window.paintCarrierScene=o.tick;o.tick=()=>{};
    m.start({day:3,flow:'out',place:'bar'});m.story.cancel();m.backgroundStory.cancel();m.tick=()=>{};
    m.x=-8.78;m.time=0;o.snapCamera();LunaCaptureMode.set(true);
    const c=document.querySelector('#outside-root canvas').getContext('2d'),draw=c.drawImage,adDraw=A.draw,events=[];
-   let image;
+   let image,portraitImages;
    c.drawImage=function(im,...args){events.push(im.src||'canvas');return draw.call(this,im,...args);};
-   A.draw=function(...args){events.push('ad-carrier');image=args[4].get(A.assetId);
+   A.draw=function(...args){events.push('ad-carrier');image=args[4].get(A.assetId);window.carrierTestImages=args[4];portraitImages=Object.keys(A.artAssets).map(id=>args[4].get(id));
     const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.imageSmoothingQuality,c.getTransform()]);
     const before=state();adDraw(...args);if(before!==state())throw Error('Carrier leaked context state');};
    try{paintCarrierScene(0);}finally{c.drawImage=draw;A.draw=adDraw;}
@@ -27,15 +27,31 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    const order={carrier:events.indexOf('ad-carrier'),back:at('C_Back_Building_1'),farMiddle:at('C_Middle_Building_3'),middle:at('C_Middle_Building_1'),middle2:at('C_Middle_Building_2'),residence:at('residence-building'),fence:at('Fence'),shop:at('B_Fore_Building_1')};
    order.display1=at('C_Middle_Object_1');order.display2=at('C_Middle_Object_2');
    window.carrierTestImage=image;
-   // Both edges must already show the new ad at the exact boundary, not the
-   // outgoing ad sliding across the display. These pixels avoid scanlines/text.
-   for(const [time,rgb] of [[5,[40,24,47]],[10,[48,37,27]]]){
-    const pc=A.render(image,time,-1).getContext('2d');
-    for(const x of [117,245])if(JSON.stringify(Array.from(pc.getImageData(x*A.rasterScale,56*A.rasterScale,1,1).data))!==JSON.stringify([...rgb,255]))throw Error('Ad did not hard-cut at '+time);
+   // This starting camera can cull both vehicles. Standalone preview must pass
+   // its preloaded art explicitly rather than relying on an earlier visible draw.
+   A.render(image,0,-1,false,carrierTestImages);
+   for(const [time,x] of [[1,215],[6,132]]){
+    const pixels=A.render(image,time,-1,false,carrierTestImages).getContext('2d').getImageData(x*4,60*4,22*4,35*4).data;
+    let bright=0;for(let i=0;i<pixels.length;i+=4)if(pixels[i]+pixels[i+1]+pixels[i+2]>300)bright++;
+    if(bright<200)throw Error('Portrait face missing from LED panel');
+   }
+   // The complete panel changes at the exact boundary, with no transitional
+   // translation. Dark edges can legitimately share colors between portraits.
+   for(const time of [5,10,15]){
+    const pixels=t=>Array.from(A.render(image,t,-1).getContext('2d').getImageData(115*A.rasterScale,55*A.rasterScale,134*A.rasterScale,56*A.rasterScale).data);
+    const old=pixels(time-.001),next=pixels(time),changed=old.reduce((n,v,i)=>n+(Math.abs(v-next[i])>8),0);
+    if(changed<old.length*.2)throw Error('Ad did not hard-cut at '+time);
+    const pc=A.render(image,time,-1).getContext('2d'),translate=pc.translate,trace=[];
+    pc.translate=function(...args){trace.push(args);return translate.apply(this,args);};
+    try{
+     A.render(image,time,-1,true);trace.length=0;A.render(image,time,-1);const boundary=JSON.stringify(trace.slice(0,2));
+     trace.length=0;A.render(image,time+.25,-1);
+     if(JSON.stringify(trace.slice(0,2))!==boundary)throw Error('Ad panel slid during transition');
+    }finally{pc.translate=translate;}
    }
    const region=direction=>{const out=A.render(image,1,direction),x=direction>0?71:115,s=A.rasterScale;
-    if(out.width!==1280||out.height!==512)throw Error('Carrier detail was downsampled back to 320px');
-    return Array.from(out.getContext('2d').getImageData(x*s,55*s,134*s,36*s).data);};
+    if(out.width!==1280||out.height!==592)throw Error('Carrier must retain high resolution and taller center');
+    return Array.from(out.getContext('2d').getImageData(x*s,55*s,134*s,56*s).data);};
    const left=region(-1),right=region(1);
    const data=t=>A.render(image,t,1).toDataURL();
    const a=data(1),b=data(6),d=data(11),animated=data(1.5);
@@ -62,7 +78,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
     A.draw(oc,{scene:'street',time:0},{x:-7.85,y:0,w:9.73},()=>({x:160.33,y:64.17}),ims);
    }
    oc.drawImage=rawDraw;
-   return {order,opaque,darkSamples,lightSamples,decoded:image.complete&&image.naturalWidth===1983,distinct:new Set([a,b,d]).size,animated:a!==animated,repeat:animated===repeat,still,
+   return {order,opaque,darkSamples,lightSamples,decoded:image.complete&&image.naturalWidth===1983&&portraitImages.every(im=>im?.complete&&im.naturalWidth===2172),distinct:new Set([a,b,d]).size,animated:a!==animated,repeat:animated===repeat,still,
     readableBothWays:left.every((v,i)=>Math.abs(v-right[i])<=1),differentSamples:left.reduce((n,v,i)=>n+(v!==right[i]),0),maxDifference:left.reduce((n,v,i)=>Math.max(n,Math.abs(v-right[i])),0)};
   });
   console.log('Carrier render audit',audit);
@@ -76,9 +92,9 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    assert(audit.order[name]>=0&&audit.order[name]<audit.order.carrier,name+' and its display effects stay behind the carrier');
   await p.screenshot({path:'/private/tmp/ad-carrier-street.png'});
   // The original sprite stays unmodified; close-up shows actual runtime LED frames.
-  await p.evaluate(()=>{const c=document.createElement('canvas');c.id='ad-carrier-proof';c.width=960;c.height=384;c.style='position:fixed;inset:0;z-index:999999;background:#101922;width:960px;height:384px';document.body.append(c);});
+  await p.evaluate(()=>{const c=document.createElement('canvas');c.id='ad-carrier-proof';c.width=960;c.height=444;c.style='position:fixed;inset:0;z-index:999999;background:#101922;width:960px;height:444px';document.body.append(c);});
   for(const [name,time]of [['data',1],['bar',6],['repair',11],['hard-cut',5]]){
-   await p.evaluate(time=>{const c=document.querySelector('#ad-carrier-proof').getContext('2d');c.clearRect(0,0,960,384);c.imageSmoothingEnabled=false;c.drawImage(LunaOutsideAdCarrier.render(carrierTestImage,time,1),0,0,960,384);},time);
+   await p.evaluate(time=>{const c=document.querySelector('#ad-carrier-proof').getContext('2d');c.clearRect(0,0,960,444);c.imageSmoothingEnabled=true;c.imageSmoothingQuality='high';c.drawImage(LunaOutsideAdCarrier.render(carrierTestImage,time,1,false,carrierTestImages),0,0,960,444);},time);
    await p.locator('#ad-carrier-proof').screenshot({path:'/private/tmp/ad-carrier-'+name+'.png'});
   }
   await p.evaluate(()=>document.querySelector('#ad-carrier-proof').remove());
@@ -123,7 +139,21 @@ try{for(const [x,y] of [[-11,oldY],[-9,oldY],[-7,oldY],[-9,.95]]){route.y=y;rout
   const painted=await p.evaluate(()=>{const c=document.querySelector('#outside-root canvas'),d=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let min=255,max=0;for(let i=0;i<d.length;i+=64){min=Math.min(min,d[i]);max=Math.max(max,d[i]);}return max-min;});
   assert(painted>50,'Lift capture contains a rendered world after canvas resize');
   await p.screenshot({path:'/private/tmp/ad-carrier-lift.png'});
-  assert.equal(requests.length,1,'No image loads while switching ads, resizing or riding');
-  assert.deepEqual(errors,[]);console.log('AD_CARRIER_UI_OK',audit);
+  assert.equal(requests.length,3,'No image loads while switching ads, resizing or riding');
+  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');
+  await p.waitForFunction(()=>resourceReview.ready);
+  const originals=await p.evaluate(async()=>{
+   const result=[];
+   for(const id of ['fx:ad-carrier','fx:street-ad-violet','fx:street-ad-crimson']){
+    const row=resourceReview.rows.find(r=>r.id===id);
+    if(!row||row.layers.length!==1)throw Error('Artwork must have its own non-overlapping review card');
+    const im=new Image();im.src=row.layers[0].src;await im.decode();
+    resourceReview.select(id);
+    result.push({id,width:im.naturalWidth,height:im.naturalHeight});
+   }
+   return result;
+  });
+  assert.deepEqual(originals.map(r=>r.width),[1983,2172,2172]);
+  assert.deepEqual(errors,[]);console.log('AD_CARRIER_UI_OK',audit,originals);
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

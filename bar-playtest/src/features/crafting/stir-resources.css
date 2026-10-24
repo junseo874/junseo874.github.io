@@ -17,9 +17,6 @@
 .stir-screen .mix-direction.pressed,.stir-screen .mix-direction.pressed:hover:not(:disabled){color:#365d7f;background:transparent url('../../../assets/ui/stir/BTN_key_A.png') center/100% 100% no-repeat}
 .stir-screen .mix-direction.stir-hit{box-shadow:none;filter:brightness(calc(1 + var(--stir-hit,0) * .15))}
 .stir-screen .mix-direction:disabled{opacity:.65}
-.stir-screen .mix-timer{top:28px;right:46px;gap:5px;height:40px}
-.stir-screen .stir-timer-icon{width:43px;height:48px;object-fit:contain}
-.stir-screen .mix-timer .stir-clock{width:90px;height:33px;fill:#ecfdff;stroke:none;filter:drop-shadow(0 0 3.5px #4587a58c)}
 .stir-screen .stir-resource-gauge{left:50px;right:auto;bottom:32px;width:708px;height:30px;padding:5px 6px;gap:1px;border:0;border-radius:0;background:url('../../../assets/ui/stir/GAU_stir_basic.png') center/100% 100% no-repeat;overflow:hidden}
 .stir-screen .stir-resource-gauge i{position:relative;overflow:hidden;background:none;border:0;border-right:2px solid #343c40;box-shadow:none;outline:0;border-radius:0}
 .stir-screen .stir-resource-gauge i:first-child{border-radius:4px 0 0 4px}

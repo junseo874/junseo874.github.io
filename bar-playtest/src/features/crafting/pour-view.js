@@ -106,7 +106,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(e.code==='Enter'&&!e.target.closest('[data-pour-ui]')){e.preventDefault();if(!e.repeat)g.endGimmick();return true;}
   return false;
  }
- function html(s){const f=s.fluid;return '<div class="craft-screen fluid-screen pixel-fluid-screen">'+
+ function html(s,timer=''){const f=s.fluid;return '<div class="craft-screen fluid-screen pixel-fluid-screen">'+timer+
   '<img class="gimmick-room-background" src="'+esc(D.assets.gimmick.src)+'" alt="" draggable="false">'+
   '<div class="pour-perfect" data-pour-perfect role="status" hidden>PERFECT</div><div class="pour-workspace"><div class="pour-stage" data-fluid-stage><canvas data-pixel-pour width="1000" height="540" aria-label="'+L('드래그하여 병 또는 캔 기울이기','Drag to tilt the bottle or can')+'"></canvas><canvas data-pour-guide width="1000" height="540" aria-hidden="true"></canvas></div>'+
   '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div>'+

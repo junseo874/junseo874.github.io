@@ -26,6 +26,11 @@ function warningKey(){
  if(f.street_beggar_witness_met)return 'warning/unpaid-repeat';
  return f.street_beggar_met?'warning/met':'warning/unmet';
 }
+function preview(m,t){
+ if(![id,witness].includes(t.id))return null;
+ const next=t.id===witness?[]:['refused',...(balance()>=cost?['paid']:[]),...(flags().street_beggar_warned?['questioned']:[])];
+ return {id:t.id,rows:rows(t.id===witness?warningKey():flags().street_beggar_met?'repeat':'intro'),alternatives:next.map(k=>({id,rows:rows(k)}))};
+}
 function interact(m,t){
  if(!active(m)||![id,witness].includes(t.id)||t.id===id&&flags().street_beggar_paid||t.id===witness&&!witnessPresent(m))return false;
  const p=person(t.id);m.facing=m.x<p.x?1:-1;W.outsidePlaytest?.clearInput();
@@ -41,9 +46,9 @@ function interact(m,t){
  flags().street_beggar_met=true;sync();return m.story.beginRows(id,t,dialogue);
 }
 function choiceView(m){const money=balance(),repeat=m?.story.speech?.rows!==intro;return {label:'대답하기',money,options:[
- {id:'beggar-pay',label:repeat?'네 드릴게요 (200원을 준다.)':'네. 여기요 (200원을 준다.)',disabled:money<cost},
+ {id:'beggar-pay',label:repeat?'네 드릴게요 (200원을 준다.)':'네. 여기요 (200원을 준다.)',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
  {id:'beggar-refuse',label:repeat?'아니요.':'싫어요.',disabled:false},
- {id:'beggar-question',label:flags().street_beggar_warned?'혹시 사기꾼인가요?':'???',disabled:!flags().street_beggar_warned,disabledReason:'아직 관련 정보를 듣지 못했습니다.'}
+ {id:'beggar-question',label:flags().street_beggar_warned?'혹시 사기꾼인가요?':'???',disabled:!flags().street_beggar_warned,disabledReason:'관련 정보가 필요합니다.'}
  ]};}
 function choose(m,choice){
  const s=m.story.speech;if(!active(m)||s?.id!==id||s.line?.type!=='beggar-choice'||!s.choice||flags().street_beggar_paid)return false;
@@ -60,6 +65,6 @@ function choose(m,choice){
 function tick(m,dt){if(!present(m))m.beggarWitnessPaidVisit=null;const d=m.beggarDeparture;if(!d)return;if(!active(m)){m.beggarDeparture=null;return;}d.elapsed+=dt;d.x=person(id).x-Math.min(1,d.elapsed/3.4)*2.8;d.alpha=1-Math.max(0,(d.elapsed-2.9)/.5);if(d.elapsed>=3.4){m.beggarDeparture=null;m.updateNear();}}
 function anchor(m,actor){const p=person(actor);return p?{x:actor===id&&m.beggarDeparture?m.beggarDeparture.x:p.x,y:p.top+.04}:null;}
 function apply(data){for(const p of people){if(data.scenes.street.nodes.some(n=>n.name===p.id))continue;data.scenes.street.nodes.push({id:p.id,go:p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['OptionalNPC'],layer:9,order:1,beggarActor:p.id,sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});}}
-function drawNode(m,node,draw){if(!node.beggarActor)return false;if(!visible(m,node.beggarActor))return true;const d=node.beggarActor===id?m.beggarDeparture:null,x=d?.x??node.x,y=node.y+(d?Math.sin(d.elapsed*16)*.012:0);draw({...node.sprite,x:(Math.floor(m.time*(d?7:3.4))%6)*129},x,y,1,1,d?false:W.LunaOutsideAmbient.faceTarget(x,m.x),d?.alpha??1);return true;}
-W.LunaOutsideBeggar={id,witness,cost,people,intro,paid,refused,active,visible,targets,interact,choiceView,choose,tick,anchor,apply,drawNode};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
+function drawNode(m,node,draw){if(!node.beggarActor)return false;if(!visible(m,node.beggarActor))return true;const d=node.beggarActor===id?m.beggarDeparture:null,x=d?.x??node.x,y=node.y+(d?Math.sin(d.elapsed*16)*.012:0);draw({...node.sprite,x:(W.LunaOutsideAmbient.frameIndex(m.time))*129},x,y,1,1,d?false:W.LunaOutsideAmbient.faceTarget(x,m.x),d?.alpha??1);return true;}
+W.LunaOutsideBeggar={id,witness,cost,people,intro,paid,refused,active,visible,targets,interact,preview,choiceView,choose,tick,anchor,apply,drawNode};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

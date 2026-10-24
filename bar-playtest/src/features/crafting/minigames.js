@@ -3,6 +3,31 @@
 const C=typeof module==='undefined'?root.LunaCore:require('../../core/core.js');
 const KINDS=['open','pour','fill_up','shake','stir'];
 const EXAMPLES={open:'bottle_beer',pour:'gin_tonic',fill_up:'gin_fizz',shake:'gin_fizz',stir:'dry_martini'};
+// The prototype runs in a separate document: it cannot change campaign/crafting state.
+function openWinePractice(version,{sound=true,onClose}={}){
+ if(![1,2].includes(version))throw Error('Unknown wine practice version');
+ const dialog=document.createElement('dialog'), frame=document.createElement('iframe');
+ dialog.className='wine-practice-dialog';dialog.setAttribute('aria-label','와인 개봉 · 버전 '+version);
+ frame.title='와인 개봉 · 버전 '+version;
+ frame.src='src/dev/wine-opening/version-'+version+'.html?v=1&sound='+(sound?'1':'0');
+ dialog.append(frame);document.body.append(dialog);
+ let closed=false;
+ function close(action='exit'){
+  if(closed)return;closed=true;
+  window.removeEventListener('message',message);
+  dialog.close();dialog.remove();onClose?.(action);
+ }
+ function message(event){
+  if(event.origin!==location.origin||event.source!==frame.contentWindow||event.data?.type!=='luna-wine-practice')return;
+  if(['exit','versions'].includes(event.data.action))close(event.data.action);
+ }
+ window.addEventListener('message',message);
+ dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+ // Do not let simulator shortcuts leak through the modal's top-layer controls.
+ dialog.addEventListener('keydown',event=>event.stopPropagation());
+ dialog.showModal();frame.focus();
+ return close;
+}
 function ingredients(g,kind='pour'){
  return g.t.shelf_items.filter(item=>item.kind==='ingredient'&&(kind==='pour'?['pour','fill_up'].includes(item.default_action):kind==='fill_up'&&item.default_action==='fill_up'));
 }
@@ -54,10 +79,11 @@ function createUI({g,ui,L,esc,button,itemArt,tabsHTML,mini}){
  function goal(kind){const sample=mini.example(kind);if(kind==='open')return L('타이밍을 맞춰 병 1개 열기','Open one bottle with precise timing');if(['pour','fill_up'].includes(kind))return L('목표량 ','Target: ')+sample.step.target+' '+sample.step.unit;const count=kind==='shake'?C.MIX.shakeTargetStacks:g.c('stir_target_stacks',10);return kind==='shake'?L(count+'회 타이밍 판정',count+' timing attempts'):L(count+'바퀴 순서대로 젓기',count+' clockwise rounds');}
  function control(kind){return kind==='stir'?L('W 시작 · D → S → A → W','Start W · D → S → A → W'):['pour','fill_up'].includes(kind)?L('드래그로 기울기 조절 · 놓으면 멈춤','Drag to tilt · release to stop'):kind==='shake'?L('기본 왕복 노드 · Space / 클릭','Default round-trip nodes · Space / click'):L('Space / 클릭 · 힘 조절 → 링 타이밍','Space / click · power → ring timing');}
  function description(kind){return ({open:L('초록 힘 구간을 맞추고, 이어서 두 원이 겹칠 때 뚜껑을 열어요.','Set power in the green zone, then match the two rings.'),pour:L('병을 기울여 정해진 양만큼 정확히 따라요.','Tilt the bottle and pour the target amount.'),fill_up:L('캔을 기울여 채워요. 빠르게 따르면 탄산 거품이 올라와요.','Tilt the can. Fast pouring builds fizzy foam.'),shake:L('왕복 경로에서 표시와 노드가 겹칠 때 입력해요. 세로 2레인·중앙 교대도 선택할 수 있어요.','Hit nodes as the marker travels back and forth. Falling lanes and alternating center are optional.'),stir:L('제한시간 안에 시계 방향으로 한 바퀴씩 저어요.','Complete clockwise rounds before time runs out.')})[kind];}
- function lobbyHTML(){return `<div class="start-screen minigame-lobby">${tabsHTML()}<div class="minigame-cards">${KINDS.map((kind,i)=>`<button class="minigame-card" data-act="miniStart" data-id="${kind}"><span class="minigame-number">0${i+1}</span><div class="minigame-art">${itemArt(art(kind))}</div><h2>${name(kind)}</h2><p>${description(kind)}</p><strong>${goal(kind)}</strong><small>${control(kind)}</small><span class="minigame-enter">${['pour','fill_up'].includes(kind)?L('재료 선택 →','Choose ingredient →'):L('바로 시작 →','Play now →')}</span></button>`).join('')}</div><footer>${button(L('조작 안내','Controls'),'help','','subtle')}</footer></div>`;}
+ function lobbyHTML(){return `<div class="start-screen minigame-lobby">${tabsHTML()}<div class="minigame-cards">${KINDS.map((kind,i)=>`<button class="minigame-card" data-act="miniStart" data-id="${kind}"><span class="minigame-number">0${i+1}</span><div class="minigame-art">${itemArt(art(kind))}</div><h2>${name(kind)}</h2><p>${description(kind)}</p><strong>${goal(kind)}</strong><small>${control(kind)}</small><span class="minigame-enter">${['pour','fill_up'].includes(kind)?L('재료 선택 →','Choose ingredient →'):L('바로 시작 →','Play now →')}</span></button>`).join('')}</div><button class="wine-practice-card" data-act="miniWine"><img src="assets/items/item-red-wine.png" alt=""><span><strong>와인 개봉 <small>EXPERIMENT / 본편 미적용</small></strong><span>호일·스크류·코르크를 직접 조작하는 와인 미니게임</span></span><b>버전 선택 →</b></button><footer>${button(L('조작 안내','Controls'),'help','','subtle')}</footer></div>`;}
  function resultHTML(){const m=g.minigame,r=m?.result;if(!r)return'';const quantitative=['pour','fill_up'].includes(m.kind),error=quantitative?(r.value/r.target-1)*100:0;let detail=quantitative?L('목표 ','Target ')+r.target+' '+r.unit+' → '+L('실제 ','actual ')+r.value.toFixed(2)+' '+r.unit:m.kind==='open'?L('빗나간 횟수 ','Misses: ')+r.failures:L('성공 ','Successful ')+r.success+' / '+r.targetStacks;let hint=quantitative?(Math.abs(error)<5?L('목표량에 잘 맞췄어요.','Close to the target!'):error>0?L('조금 많이 따랐어요. 다음에는 더 일찍 놓아 보세요.','A little too much. Release earlier next time.'):L('양이 부족해요. 다음에는 조금 더 채워 보세요.','A little short. Pour a little longer next time.')):m.kind==='open'?(r.failures?L('다음엔 원이 겹치는 순간을 조금 더 기다려 보세요.','Wait for the rings to overlap on your next try.'):L('한 번에 깔끔하게 열었어요!','A clean first try!')):r.score===100?L('모든 입력을 정확하게 맞췄어요!','Every attempt was on target!'):L('서두르지 말고 표시된 타이밍과 순서를 따라가 보세요.','Follow the timing and sequence without rushing.');return `<section class="minigame-result"><div class="eyebrow">SINGLE GIMMICK / RESULT</div><div class="minigame-result-art">${itemArt(['pour','fill_up'].includes(m.kind)?m.ingredient:art(m.kind))}</div><h1>${name(m.kind)} ${L('연습 완료','complete')}</h1><div class="minigame-score">${Math.round(r.score)}<small> / 100</small></div><p>${esc(detail)}</p><p class="minigame-feedback">${hint}</p><div class="minigame-result-meta"><span>${L('조작 시간','Active time')} ${r.elapsed.toFixed(1)}s</span><span>${L('공통 규칙','Shared rules')}</span></div><div class="row">${button(L('같은 기믹 다시 하기','Play again'),'miniRetry','','primary')}${button(L('다른 기믹 고르기','Choose another'),'miniLobby')}${button(L('영업 시작 화면','Bar setup'),'miniBar','','subtle')}</div>${r.rhythm?'<p>'+L('빈 입력 ', 'Off-beat taps ')+r.rhythm.extraPresses+'</p>':''}${m.kind==='shake'?'<small>'+L('빈 타이밍 입력도 감점됩니다. 성공 수 ÷ (20 + 빈 입력 수)로 계산합니다.','Off-beat taps also reduce your score: hits ÷ (20 + stray taps).')+'</small>':''}<small>${L('미니게임 연습 결과입니다. 주문·재료·잔·제조시간에 대한 종합 감점은 없습니다.','Single-skill score only. No order, material, glass or full-recipe time penalties.')}</small></section>`;}
  function helpHTML(){return `<div class="help-grid">${KINDS.map(kind=>`<section><h3>${name(kind)}</h3><p>${control(kind)}</p><p>${description(kind)}</p></section>`).join('')}<section><h3>${L('공통 조작','Common controls')}</h3><p>${L('ESC · 옵션 / 일시정지','ESC · options / pause')}</p><p>${L('ESC 옵션에서 기믹 목록으로 돌아갈 수 있습니다.','Return to minigame selection from the ESC options menu.')}</p><p>${L('한 기믹만 채점합니다. 영업 기록에 합산하지 않습니다.','One skill is scored; service records stay unchanged.')}</p></section></div>`;}
- return {lobbyHTML,resultHTML,helpHTML,ingredientHTML};
+ function wineVersionsHTML(){return `<div class="modal-backdrop"><section class="modal mini-ingredient-modal wine-version-modal" role="dialog" aria-modal="true" aria-labelledby="wine-version-title"><div class="modal-title"><h2 id="wine-version-title">와인 개봉 · 버전 선택</h2>${button('×','closeOverlay')}</div><p>시뮬레이터 전용 연습입니다. 본편 진행과 재화에는 영향을 주지 않습니다.</p><div class="wine-version-grid"><button data-act="miniWinePlay" data-id="1"><strong>버전 1 · 기본 개봉</strong><span>호일 벗기기 → 스크류 회전 → 코르크 뽑기</span><small>회전·당기기 속도에 따른 코르크 손상 판정</small></button><button data-act="miniWinePlay" data-id="2"><strong>버전 2 · 소믈리에</strong><span>호일 → 중앙 맞추기 → 회전·기울기 보정 → 2단 지렛대 → 린넨</span><small>코르크 상태 3종 · A/D로 스크류 기울기 조절</small></button></div><footer>${button('취소','closeOverlay','','subtle')}</footer></section></div>`;}
+ return {lobbyHTML,resultHTML,helpHTML,ingredientHTML,wineVersionsHTML};
 }
-const api={KINDS,ingredients,example,attach,createUI};if(typeof module!=='undefined')module.exports=api;root.LunaMinigames=api;
+const api={openWinePractice,KINDS,ingredients,example,attach,createUI};if(typeof module!=='undefined')module.exports=api;root.LunaMinigames=api;
 })(typeof window==='undefined'?globalThis:window);

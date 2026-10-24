@@ -22,9 +22,9 @@ D[passers]=rows(['commute-pair-left','commute-pair-right'],[
 ]);
 C.events.push({id:news,label:'1일차 출근길 · TV 뉴스 2 · 집 안',day:1,flow:'in',scene:'home',auto:true,kind:'broadcast',title:'TV 뉴스 2'},{id:passers,label:'1일차 출근길 · 행인 대사 2 · 엘리베이터 오른쪽',day:1,flow:'in',auto:true,kind:'pair'});
 C.source.lastEdited='2026-10-05T05:12:00.710Z';
-const pair=[{id:'commute-pair-left',kind:'M1',x:R.elevatorX+1.45,y:-.94,faces:'commute-pair-right',fps:3.4,phase:1},{id:'commute-pair-right',kind:'M2',x:R.elevatorX+2.15,y:-.94,faces:'commute-pair-left',fps:3.7,phase:3}];
+const pair=[{id:'commute-pair-left',kind:'M1',x:R.elevatorX+1.45,y:-.94,faces:'commute-pair-right',phase:1},{id:'commute-pair-right',kind:'M2',x:R.elevatorX+2.15,y:-.94,faces:'commute-pair-left',phase:3}];
 W.LunaOutsideAmbient.placements.push(...pair);
-for(const p of pair)W.LUNA_OUTSIDE_DATA.scenes.street.nodes.push({id:'ambient-'+p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['Ambient'],layer:9,order:0,notionEvent:passers,ambient:{fps:p.fps,phase:p.phase},sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
+for(const p of pair)W.LUNA_OUTSIDE_DATA.scenes.street.nodes.push({id:'ambient-'+p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['Ambient'],layer:9,order:0,notionEvent:passers,ambient:{phase:p.phase},sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
 W.LunaOutsideEncounters.cases.push({id:passers,activation:'proximity',kind:'pair',members:pair.map(p=>p.id)});
 
 const reopening='outside_day2_commute_reopening';
@@ -37,9 +37,9 @@ D[reopening]=rows(['reopening-pair-left','reopening-pair-right'],[
  [0,'쟤는 아닌 걸로 알아. 들어가려고 별짓을 다 한다는데.'],[0,'무슨 이유인지는 몰라도, 죽어도 안 받아 준다더라.'],[1,'아하…']
 ]);
 C.events.push({id:reopening,label:'2일차 출근길 · 행인 대사 2 · 시BAR 왼쪽',day:2,flow:'in',auto:true,kind:'pair'});
-const reopeningPair=[{id:'reopening-pair-left',kind:'M2',x:-4.35,y:-.94,faces:'reopening-pair-right',fps:3.4,phase:1},{id:'reopening-pair-right',kind:'W1',x:-3.65,y:-.94,faces:'reopening-pair-left',fps:3.7,phase:3}];
+const reopeningPair=[{id:'reopening-pair-left',kind:'M2',x:-4.35,y:-.94,faces:'reopening-pair-right',phase:1},{id:'reopening-pair-right',kind:'W1',x:-3.65,y:-.94,faces:'reopening-pair-left',phase:3}];
 W.LunaOutsideAmbient.placements.push(...reopeningPair);
-for(const p of reopeningPair)W.LUNA_OUTSIDE_DATA.scenes.street.nodes.push({id:'ambient-'+p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['Ambient'],layer:9,order:0,notionEvent:reopening,ambient:{fps:p.fps,phase:p.phase},sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
+for(const p of reopeningPair)W.LUNA_OUTSIDE_DATA.scenes.street.nodes.push({id:'ambient-'+p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['Ambient'],layer:9,order:0,notionEvent:reopening,ambient:{phase:p.phase},sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
 W.LunaOutsideEncounters.cases.push({id:reopening,activation:'proximity',kind:'pair',members:reopeningPair.map(p=>p.id)});
 const tradeEvent=C.events.find(e=>e.id==='outside_day1_samho_smuggler');Object.assign(tradeEvent,{auto:true,kind:'forced',trigger:'proximity'});
 const thug='day2-corridor-thug',info='day2-thug-information',contract='day3-samho-contract',samho='contract-samho',dealer='contract-smuggler';
@@ -63,7 +63,9 @@ const tx=m=>m.qa?.25:R.homeX+.7;
 const base=m=>m.qa?-.45:R.elevatorX+1.35;
 const thugY=m=>m.qa?-.7:R.upperY;
 function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:thugY(m)+.4,label:'불량배'}]:[];}
-function infoStart(m,target){m.story.beginRows(info,target,[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}]);return true;}
+const infoGreeting=[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}];
+function preview(m,t){return t.id===info?{id:info,rows:infoGreeting,alternatives:state(m).money>=50?Object.values(infoRows).map(rows=>({id:info,rows})):[]}:null;}
+function infoStart(m,target){m.story.beginRows(info,target,infoGreeting);return true;}
 function interact(m,t){return t.id===info&&infoStart(m,t);}
 function start(m,kind=mode(m)){
  if(m.encounter)return false;
@@ -95,7 +97,7 @@ function tick(m,dt){let e=m.encounter;
  else if(e.stage==='leaving'&&e.cameraReady&&e.elapsed>.4){save(m,e.kind===thug?'day2_thug_done':'day3_contract_done');m.encounter=null;if(m.qa){m.qa.done=true;m.qa.camera=null;}W.outsidePlaytest?.clearInput();m.updateNear();}
  return true;
 }
-function choiceView(m){const line=m.story.speech?.line,money=Number(state(m).money)||0;return{label:'정보 구매',money,options:line.stage==='topic'?[{id:'info-gang',label:'갱에 대해서'},{id:'info-coratech',label:'코라테크에 대해서'},{id:'info-chris',label:'크리스에 대해서'},{id:'info-cancel',label:'대화 그만하기'}]:[{id:'info-pay',label:'네. (50원)',disabled:money<50},{id:'info-cancel',label:'아니요.'}]};}
+function choiceView(m){const line=m.story.speech?.line,money=Number(state(m).money)||0;return{label:'정보 구매',money,options:line.stage==='topic'?[{id:'info-gang',label:'갱에 대해서'},{id:'info-coratech',label:'코라테크에 대해서'},{id:'info-chris',label:'크리스에 대해서'},{id:'info-cancel',label:'대화 그만하기'}]:[{id:'info-pay',label:'네. (50원)',disabled:money<50,disabledReason:'돈이 부족합니다.'},{id:'info-cancel',label:'아니요.'}]};}
 function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)return false;
  if(id==='info-cancel'){m.story.cancel();return true;}
  if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'…맨입으로는 안 돼. 50원만 주면 알려 주지.',stage:'payment',topic:id.slice(5)}]);return true;}
@@ -111,7 +113,7 @@ function anchor(m,actor){const e=m.encounter;
 }
 function draw(m,sprite,ctx,position){
  const e=m.encounter;
- const idle=(kind,x,y,target,alpha=1)=>sprite({asset:'ambient-'+kind,x:Math.floor(m.time*3.6)%6*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100},x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
+ const idle=(kind,x,y,target,alpha=1)=>sprite({asset:'ambient-'+kind,x:W.LunaOutsideAmbient.frameIndex(m.time)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100},x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
  if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('M2',e?.kind===thug?e.npcX:tx(m),thugY(m)-.24,m.x);if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:base(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
@@ -121,5 +123,5 @@ function draw(m,sprite,ctx,position){
  }
 }
 for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;
-W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract};
+W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,preview,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract};
 })(window);

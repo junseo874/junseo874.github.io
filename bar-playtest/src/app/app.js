@@ -302,8 +302,8 @@
   function gimmickHTML() {
     const s = g.gimmick;
     if (!s) return '';
-    if (s.fluid) return pourView.html(s);
-    if (s.type === 'open') return openView.html(s);
+    if (s.fluid) return pourView.html(s, views.craftTimer());
+    if (s.type === 'open') return openView.html(s, views.craftTimer());
     if (['stir', 'shake'].includes(s.type)) return views.mixHTML(s) + mixTutorial.html(L);
     return '<div class="craft-screen"><p class="critical">' + L('지원하지 않는 기믹: ', 'Unsupported gimmick: ') + esc(s.type) + '</p></div>';
   }
@@ -457,6 +457,7 @@
       onExit: () => act(ui.minigames ? 'miniLobby' : 'setup')
     }) + '</div>';
     if (g.overlay === 'miniIngredient') return miniUI.ingredientHTML();
+    if (g.overlay === 'miniWineVersions') return miniUI.wineVersionsHTML();
     if (g.overlay === 'johnnyUnlock') return johnnyUnlockHTML();
     if (g.overlay === 'dailyUnlocks') return dailyUnlocksHTML();
     if (g.overlay === 'ingredientWarning') return ingredientWarningHTML();
@@ -906,6 +907,23 @@
         localStorage.setItem('luna.shake.sound.v2', String(ui.shakeSound));
       } catch {}
       render(true);
+      return;
+    }
+    if (name === 'miniWine') {
+      if (!ui.minigames || g.phase !== 'ready') return;
+      show('miniWineVersions');
+      root.querySelector('[data-act="miniWinePlay"]')?.focus({preventScroll:true});
+      return;
+    }
+    if (name === 'miniWinePlay') {
+      if (g.overlay !== 'miniWineVersions' || ![1,2].includes(Number(id))) return;
+      g.overlay = 'miniWineRunning';
+      render(true);
+      window.LunaMinigames.openWinePractice(Number(id), {sound:ui.gimmickAudio !== false,onClose(action) {
+        g.overlay = action === 'versions' ? 'miniWineVersions' : null;
+        render(true);
+        root.querySelector(action === 'versions' ? '[data-act="miniWinePlay"]' : '[data-act="miniWine"]')?.focus({preventScroll:true});
+      }});
       return;
     }
     if (name === 'miniStart') {
@@ -1433,7 +1451,7 @@
       if (g.overlay === 'dossier') act('dossierBack');else if (g.overlay) act('closeOverlay');else if (g.screen === 'recipe') act('closeRecipe');else if (g.screen === 'prep' && ui.recipeOpen) act('togglePrepRecipe');else act('settings');
       return;
     }
-    if (g.overlay === 'miniIngredient') {
+    if (g.overlay === 'miniIngredient' || g.overlay === 'miniWineVersions') {
       if (e.code === 'Tab') {
         const buttons = [...root.querySelectorAll('.mini-ingredient-modal button')],
           i = buttons.indexOf(document.activeElement);

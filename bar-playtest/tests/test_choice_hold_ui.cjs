@@ -49,7 +49,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert(await p.evaluate(()=>barGame.progress.flags.day0_choice_hold_learned),'Successful first choice is remembered');
   assert.equal(await p.locator('.choice-hold-hint').count(),0,'Hint disappears after the first selection');
   for(const key of ['KeyE','Enter','Space']){
-   await reset();const before=await count();await p.keyboard.down(key);await p.waitForTimeout(430);assert.equal(await count(),before,'Keyboard also waits beyond 0.4 seconds');
+   await reset();const before=await count();
+   if(key==='KeyE'){
+    await p.keyboard.down(key);await p.waitForTimeout(950);assert.equal(await count(),before,'Early E cannot start a hold, even when held beyond the 800ms grace period');
+    assert.equal(await progress(),0);await p.keyboard.up(key);
+   }
+   await p.keyboard.down(key);await p.waitForTimeout(430);assert.equal(await count(),before,'Keyboard also waits beyond 0.4 seconds');
    await p.waitForFunction(n=>confirmed.length===n+1,before,{timeout:350});const a=await p.evaluate(()=>advanced);
    await p.keyboard.down(key);await p.waitForTimeout(200);await p.keyboard.up(key);assert.equal(await count(),before+1);assert.equal(await p.evaluate(()=>advanced),a,'Held/released key does not advance following dialogue');
   }

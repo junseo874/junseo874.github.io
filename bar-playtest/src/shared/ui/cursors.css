@@ -34,3 +34,5 @@ html:has(#drag-ghost:not([hidden])[data-pointer-inside="true"]) *{cursor:none!im
 /* View changes remove this state for settings, choices and normal gameplay. */
 html:has(body.campaign-cinematic),
 html:has(body.campaign-cinematic) *{cursor:none!important}
+#outside-root[data-neighborhood-cinematic="true"],
+#outside-root[data-neighborhood-cinematic="true"] *{cursor:none!important}

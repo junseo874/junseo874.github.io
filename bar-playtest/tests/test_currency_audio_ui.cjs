@@ -22,8 +22,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.evaluate(()=>{Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'bar'});return outsidePlaytest.start();});
   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);await p.waitForTimeout(200);assert.equal(await count(),beforeReset,'Entering street does not replay balance');
   // Actual shop purchase, not just manually lowering the wallet.
-  await change(()=>{const m=outsidePlaytest.model;barGame.progress.flags.shiba_shop_met=true;const drain=()=>{for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}};LunaOutsideShop.begin(m,{x:-2.68,y:-.596},false);drain();m.story.choose('shop-yes');drain();m.story.choose('shop-buy-wild_dog');drain();});
-  assert.equal(await p.locator('.outside-money-notice .currency-delta').textContent(),'−600');
+  await change(()=>{const m=outsidePlaytest.model;barGame.progress.flags.shiba_shop_met=true;const drain=()=>{for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}};LunaOutsideShop.begin(m,{x:-2.68,y:-.596},false);drain();m.story.choose('shop-yes');drain();m.story.choose('shop-buy-bitters');drain();});
+  assert.equal(await p.locator('.outside-money-notice .currency-delta').textContent(),'−300');
   await change(()=>LunaCore.applyEffects('money+=500',barGame.progress));
   const muted=await count();await p.evaluate(()=>{LunaSfx.setVolume(0);barGame.progress.money-=100;});await p.waitForTimeout(200);assert.equal(await count(),muted,'Muted changes stay silent');
   await p.evaluate(()=>LunaSfx.setVolume(.42));await p.waitForTimeout(200);assert.equal(await count(),muted,'Unmuting does not replay');

@@ -16,13 +16,6 @@
 .serve-details-button{padding:3px 12px;font-size:13px;border:0;background:#0d0e1890;color:#ccd3d8;text-decoration:underline;text-underline-offset:4px}
 .serve-fallback{position:absolute;width:260px;height:370px;left:50%;top:calc(110px + var(--serve-art-offset-y,80px) + var(--serve-progress)*80px);transform:translateX(-50%) scale(calc(.72 + var(--serve-progress)*.28));opacity:calc(.2 + var(--serve-progress)*.8);pointer-events:none}
 .serve-fallback .drink-art{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
-.currency-hud.currency-spending{box-shadow:0 0 16px #e99c6240}
-.currency-spending .currency-value{color:#ffbc9f}
-.currency-hud.currency-income{box-shadow:0 0 18px #ffd26b55}
-.currency-income .currency-value{color:#ffe59a}
-.currency-hud.currency-income .currency-delta{color:#ffe59a}
-.currency-hud .currency-delta{position:absolute;right:18px;top:52px;font-size:28px;color:#ffac9e;text-shadow:0 2px 5px #000;white-space:nowrap}
-.currency-unit-losses{display:contents;pointer-events:none}
 .serve-score-detail .result-table{width:100%;font-size:14px}
 .serve-score-detail th{text-align:left;color:#9bcbd1;padding:8px 0}
 .serve-score-detail p{font-size:13px;line-height:1.7}
@@ -30,15 +23,6 @@
 .serve-step-details>div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:13px}
 .serve-grade-cuts{color:#cfc19e}
 
-/* Balance and all child delta effects share a half-size, top-right anchor. */
-.currency-hud{scale:.5;transform-origin:top right}
-/* Balance appears only while a money-change notification is active. */
-.currency-hud{z-index:60;width:234px;max-width:calc(100% - 46px);height:47px;padding:0 20px 0 16px;gap:15px;border-radius:28px;background:#090d14f2;border:1px solid #c3a56480;animation:currency-notice-in .18s ease-out}
-.currency-hud svg{width:30px;height:30px}.currency-hud .currency-value{font-size:31px}
-.currency-hud.currency-spending{border-color:#e99c62}
-.currency-hud.currency-income{border-color:#ffd26b}
-@keyframes currency-notice-in{from{transform:translateY(-8px) scale(.96)}to{transform:translateY(0) scale(1)}}
-@media(prefers-reduced-motion:reduce){.currency-hud{animation:none}}
 .sales-balance{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 20px;margin:0 0 18px;border:1px solid #8ca3ad66;border-radius:8px;background:#152431}
 .sales-balance>span{color:#b4c9d1;font-size:15px}
 .sales-balance>strong{color:#ffe59a;font-size:26px;font-variant-numeric:tabular-nums}

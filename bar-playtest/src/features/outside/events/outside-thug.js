@@ -27,7 +27,7 @@ function tick(m,dt){let e=m.encounter;
  else if(e.stage==='leaving'&&e.cameraReady&&e.elapsed>.4){save(m,'day1_thug_done',true);m.encounter=null;W.outsidePlaytest?.clearInput();m.updateNear();}
  return true;
 }
-function choiceView(){const money=Math.max(0,Number(W.barGame?.progress.money)||0);return{label:'입주 비용 선택',money,options:[{id:'thug-pay',label:'500원을 준다.',disabled:money<500},{id:'thug-refuse',label:'주지 않는다.',disabled:false}]};}
+function choiceView(){const money=Math.max(0,Number(W.barGame?.progress.money)||0);return{label:'입주 비용 선택',money,options:[{id:'thug-pay',label:'500원을 준다.',disabled:money<500,disabledReason:'돈이 부족합니다.'},{id:'thug-refuse',label:'주지 않는다.',disabled:false}]};}
 function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return false;const pay=choice==='thug-pay';if(!pay&&choice!=='thug-refuse'||pay&&Math.max(0,Number(W.barGame?.progress.money)||0)<500)return false;s.choice=false;
  if(pay){const g=W.barGame,before=g.progress.money;g.progress.money=before-500;const c=W.lunaCampaign;if(c?.session.active&&c.session.carry)c.session.carry.money=g.progress.money;g.log('corridor_thug_payment',{before,after:g.progress.money,price:500});g.changed();}
  save(m,'day1_thug_choice',pay?'pay':'refuse');m.story.beginRows(id,s.target,pay?paid:refused);return true;
@@ -35,7 +35,7 @@ function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return
 function draw(m,sprite,ctx,position){if(!visible(m))return;const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??npcX,alpha=e?.alpha??1,y=R.upperY-.24+(e?.stage==='depart'?Math.sin(e.elapsed*16)*.018:0);
  // The right-hand pillar is baked into the building art; clip the NPC behind it.
  ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();
- const sp={asset:'ambient-M2',x:(Math.floor(m.time*3.8)%6)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};// Source idle faces left: mirror only to look right, including the exit walk.
+ const sp={asset:'ambient-M2',x:(W.LunaOutsideAmbient.frameIndex(m.time))*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};// Source idle faces left: mirror only to look right, including the exit walk.
  sprite(sp,x,y,1,1,e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha);
  // The existing body lunge/recoil conveys the hit. Do not draw an extra limb.
  ctx.restore();

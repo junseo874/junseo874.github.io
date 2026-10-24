@@ -11,6 +11,26 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.keyboard.press('KeyE');await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>outsidePlaytest.model.dialog),null);
   await p.keyboard.press('KeyE');await p.locator('[data-choice="confirm"]').click();assert(await p.evaluate(()=>!!outsidePlaytest.model.ride));
  }
+ for(const level of [0,1])for(const choice of ['fast','confirm','cancel']){
+  await p.evaluate(level=>{
+   const a=outsidePlaytest,m=a.model,R=LunaResidence.layout;
+   barGame.progress.flags.elevator_repaired=true;m.start({day:0,flow:'out',place:'elevator'});
+   m.level=level;m.elevatorY=level?R.elevatorTop:R.elevatorBottom;m.x=R.elevatorX;m.y=level?R.upperY:-.7;
+   m.controlsTutorial=false;m.updateNear();a.snapCamera();a.tick(0);
+  },level);
+  await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="fast"]').waitFor({state:'visible'});
+  assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['빠른 이동',level?'내려간다':'올라간다','취소']);
+  assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'fast','fast travel is the default selection');
+  if(choice==='fast'){
+   await p.keyboard.press('Enter');
+   await p.waitForFunction(level=>outsidePlaytest.model.level===1-level&&!outsidePlaytest.model.neighborhood.action,level);
+   assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),false,'fast travel skips the ride');
+  }else{
+   await p.locator('.world-choices [data-choice="'+choice+'"]').click();
+   assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),choice==='confirm');
+   if(choice==='cancel')assert.equal(await p.evaluate(()=>outsidePlaytest.model.level),level);
+  }
+ }
  await p.evaluate(async()=>{const c=lunaCampaign;c.outside.exit(true);c.session.uninstall();c.session.beginCommute(0);delete barGame.progress.flags.day0_tv_seen;Object.assign(c.outside.config,{day:0,flow:'in',place:'home'});await c.outside.start();c.screen('game');const m=c.outside.model;m.x=1.22;m.story.cancel();m.updateNear();c.outside.snapCamera();c.outside.tick(0);});
  await p.keyboard.press('KeyE');await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');
  assert(!await p.evaluate(()=>!!barGame.progress.flags.day0_tv_seen));
@@ -30,5 +50,5 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.locator('[data-choice="cancel"]').click();
  assert(await p.evaluate(()=>outsidePlaytest.model.tvOff));assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);
  await p.keyboard.press('KeyE');await p.locator('[data-choice="confirm"]').click();await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');assert(!await p.evaluate(()=>outsidePlaytest.model.tvOff));
- assert.deepEqual(errors,[]);console.log('PASS elevator both directions/cancel/Escape, first TV direct, seen flag/carry, replay/off and replay after off');
+ assert.deepEqual(errors,[]);console.log('PASS elevator both directions/cancel/Escape, repaired fast-first/default selection/normal ride, first TV direct, seen flag/carry, replay/off and replay after off');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -124,6 +124,10 @@
     ],
     [
       "link",
+      "src/shared/ui/currency-view.css"
+    ],
+    [
+      "link",
       "src/app/updates.css"
     ],
     [
@@ -536,6 +540,10 @@
     ],
     [
       "script",
+      "src/features/outside/events/outside-neighborhood.js"
+    ],
+    [
+      "script",
       "src/features/outside/events/outside-shop.js"
     ],
     [
@@ -549,6 +557,14 @@
     [
       "script",
       "src/features/outside/events/outside-events.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/outside-discovery.js"
+    ],
+    [
+      "script",
+      "src/features/outside/home-interactions.js"
     ],
     [
       "script",

@@ -3,7 +3,9 @@ require(path.resolve(process.argv[2]||path.join(__dirname,'..'),'src/features/ou
 const R=global.LunaOutsideRain,cam={x:1,y:0,w:4.8};
 for(const day of [0,1,2,3,99])for(const flow of ['in','out'])for(const scene of ['street','home']){
  const m={config:{day,flow},scene,time:2.5};
- const expected=scene==='street'&&(day===1||day===0&&flow==='out'||day===2&&flow==='in');
+ const rainy=day===1||day===3||day===0&&flow==='out'||day===2&&flow==='in';
+ const expected=scene==='street'&&rainy;
+ assert.equal(R.wet(m),rainy,`weather ${day}/${flow}/${scene}`);
  assert.equal(R.enabled(m),expected,`${day}/${flow}/${scene}`);
  assert.equal(R.particles(m,cam).drops.length>0,expected);
  assert.equal(R.enabled({...m,qa:{}}),false);

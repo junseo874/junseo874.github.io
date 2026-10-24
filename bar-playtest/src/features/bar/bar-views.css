@@ -18,8 +18,9 @@
 .shake-screen .mix-detail{width:206px;height:252px;top:auto;bottom:0;right:-7px}
 .mix-board{position:relative;min-height:0;border:1px solid #4a94b0;box-shadow:inset 0 0 5px #4fcff02b,0 0 5px #4fcff02b;background:linear-gradient(#41617629 1px,transparent 1px),linear-gradient(90deg,#41617629 1px,transparent 1px),#0b1019;background-size:24px 24px;isolation:isolate}
 .mix-guide{position:absolute;left:29px;top:16px;z-index:2}.mix-guide b{color:#a9dfe8;letter-spacing:1px;font-size:12px;font-weight:400}.mix-guide span{display:block;font-size:11px;color:#8199aa;line-height:1.6;margin-top:5px}
-.mix-timer{position:absolute;top:17px;right:21px;display:flex;align-items:center;gap:10px;font-size:33px;color:#ecfdff;text-shadow:0 0 8px #5acdfb;z-index:2;font-variant-numeric:tabular-nums;line-height:1}
-.mix-timer svg{width:24px;height:30px;fill:none;stroke:currentColor;stroke-width:2.5;filter:drop-shadow(0 0 3px #6cddfd)}
+.mix-timer{position:absolute;top:54px;right:73px;display:flex;align-items:center;gap:5px;height:40px;color:#ecfdff;z-index:8;line-height:1;pointer-events:none}
+.mix-timer .stir-timer-icon{width:43px;height:48px;object-fit:contain}
+.mix-timer .stir-clock{width:90px;height:33px;fill:#ecfdff;stroke:none;filter:drop-shadow(0 0 3.5px #4587a58c)}
 .mix-gauge{position:absolute;bottom:18px;left:30px;right:30px;height:23px;display:flex;padding:3px;gap:2px;background:#03090e;border:1px solid #6cc9e1;border-radius:8px}
 .mix-gauge i{flex:1;min-width:0;background:#151e28;border-right:1px solid #42505c}
 .mix-gauge i:first-child{border-radius:4px 0 0 4px}.mix-gauge i:last-child{border-radius:0 4px 4px 0}
@@ -44,7 +45,6 @@
 .mix-feedback small{display:block;font-size:10px;color:#9eb4c1;margin-top:5px;line-height:1.4}.mix-feedback.miss{color:#ff7786}
 .stir-board .mix-feedback{left:29px;right:auto;max-width:220px;text-align:left}
 .shake-board .mix-guide{left:53px;top:17px;max-width:210px}.shake-board .mix-guide b{font-size:11px}.shake-board .mix-guide span{font-size:10px;max-width:195px}
-.shake-board .mix-timer{font-size:28px;right:13px;top:16px;gap:7px}
 .shake-path{position:absolute;left:48px;right:12px;top:63px;width:calc(100% - 60px);height:calc(100% - 120px);overflow:visible}
 .shake-route{fill:none;stroke:#78e6e6;stroke-width:3;filter:drop-shadow(0 0 2px #4cbbd3)}
 .shake-waypoint{fill:#176294;stroke:#45bfff;stroke-width:3}.shake-turn{fill:#640911;stroke:#d6273b;stroke-width:3}.shake-turn-inner{fill:#d82642;stroke:#ff4560;stroke-width:1}
@@ -187,9 +187,6 @@ html,body{overflow:hidden;background:#03060b}
 @media(prefers-reduced-motion:reduce){.service-panel{animation:none}}
 
 
-/* Reference HUD proportions, in the same 1280×720 logical coordinates. */
-.currency-hud{position:absolute;right:23px;top:17px;z-index:34;width:180px;height:36px;border-radius:22px;background:#000b;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px 0 12px;pointer-events:none;color:#f4f5f7;font-variant-numeric:tabular-nums}
-.currency-hud svg{width:23px;height:23px;flex:none;filter:drop-shadow(0 0 2px #b57a1966)}.currency-value{font-size:24px;line-height:1;letter-spacing:-.5px;white-space:nowrap}
 .workspace>.craft-screen>.craft-top{padding-right:224px}
 
 /* Standalone controls: no navigation strip or full-width background. */
