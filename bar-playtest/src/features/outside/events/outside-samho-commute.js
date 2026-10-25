@@ -27,10 +27,10 @@ function tick(m,dt){let e=m.encounter;if(e?.kind!==id){if(!m.qa&&!m.level&&visib
  else if(e.stage==='leaving'&&e.elapsed>.4&&e.cameraReady)complete(m);
  return true;
 }
-function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.encounter:null;if(isQA(m)&&m.qa.done&&!e)return;const x=e?.npcX??(isQA(m)?.25:xFor(m)),source=W.LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='Samho'),phase=m.time%4,frame=phase<.3?Math.floor(phase*10)%3:0;
+function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.encounter:null;if(isQA(m)&&m.qa.done&&!e)return;const x=e?.npcX??(isQA(m)?.25:xFor(m));
  // Source faces left: use the shared target-facing rule, including departure.
  // NPCs belong to the street, never to the passenger's moving lift height.
- sprite({...source.sprite,x:frame*84},x,groundY+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),e?.alpha??1);
+ sprite(W.LunaSamhoAnimation.frame(m.time),x,groundY+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),e?.alpha??1);
 }
 W.LunaOutsideSamhoCommute={id,qaId,visible,start,tick,action,draw};
 })(window);

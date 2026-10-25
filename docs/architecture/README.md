@@ -53,6 +53,8 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 
 ### 선택형 동네 이벤트
 
+삼호 외부 대기·대화는 `samho-animation.js`의 원본 Idle 8프레임/12FPS를 공유합니다. 출근길·밀수업자·계약 종료·QA·컷씬 편집기·리소스 검수에서 같은 프레임 등록을 사용합니다. 대사를 넘겨도 외부 월드 시계를 초기화하지 않습니다. 검증: `test-samho-idle-ui.cjs`. 날씨·환경음 조합 검증은 `test-weather-ambience-matrix-ui.cjs` (0~3일차, 출퇴근, 거리/집/테라스)입니다.
+
 집의 침대 옆 옷장은 `home-art.js`의 `wardrobe`/`wardrobeTarget()`으로 원본 배경의 옷장 부분만 상호작용 처리합니다. `home-interactions.js`가 누른다/취소 선택을 담당하고, 공통 CSV `script/home`의 `home-wardrobe`와 `home-wardrobe-pressed`가 루나 대사를 소유합니다. 취소는 즉시 종료하며 누르기는 대사만 재생합니다. 기존 첫 상호작용 기록·공통 선택지 입력 보호를 공유합니다. 검증: `test-home-wardrobe-ui.cjs`.
 
 집의 왼쪽 침대는 `home-art.js`의 `bed`(방 원본 픽셀 마스크)와 `bedTarget()`으로 위치·윤곽선·물음표를 맞춥니다. 소파의 별도 침구 이미지와 혼동하지 않습니다. 대사는 공통 CSV `script/home`의 `home-bed` → `sharedStory['home/bed']`로 연결하며 루나 말풍선으로 재생합니다. 첫 상호작용 기록은 기존 `outside_interacted_v1_bed`/일차 carry 규칙을 사용합니다. 검증: `test-home-bed-ui.cjs`.

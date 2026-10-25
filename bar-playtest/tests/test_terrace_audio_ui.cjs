@@ -20,9 +20,10 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await p.waitForTimeout(150);
    assert(Math.abs(await p.evaluate(()=>LunaStreetAudio.state.target)-.55*.55)<.001,'Quiet terrace dialogue mix');
    const rain=await p.evaluate(()=>LunaStreetAudio.state.rain.target);
-   assert(Math.abs(rain-(day===2?.55*.55*.85:0))<.001,'Rain matches the incoming commute weather');
+   const wet=[1,2,3].includes(day); // Latest schedule: days 1/3 both routes, day 2 incoming.
+   assert(Math.abs(rain-(wet?.55*.55*.85:0))<.001,'Rain matches the incoming commute weather');
    const wetPixels=await p.evaluate(()=>{const cv=document.querySelector('.terrace-rain');return cv.getContext('2d').getImageData(0,0,cv.width,cv.height).data.some((v,i)=>i%4===3&&v>0);});
-   assert.equal(wetPixels,day===2,'Visible terrace rain matches its audio and incoming route');
+   assert.equal(wetPixels,wet,'Visible terrace rain matches its audio and incoming route');
    if(day===2)await p.screenshot({path:'/private/tmp/terrace-return-rain.png'});
    const starts=await p.evaluate(()=>cityStarts);
    await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.next();});await p.waitForTimeout(100);

@@ -50,8 +50,10 @@ const { chromium } = runtime.load('playwright');
       }, main);
       await p.waitForFunction(() => !outsidePlaytest.loading);
       const walkingStart = await p.evaluate(() => outsidePlaytest.model.x);
-      await p.keyboard.down('KeyD'); await p.waitForTimeout(200);
-      assert(await p.evaluate(x => outsidePlaytest.model.x > x + .02, walkingStart), 'street fixture must actually be walking before opening settings');
+      await p.keyboard.down('KeyD');
+      // Browser QA can share a busy renderer; wait for actual movement, not a 200 ms wall-clock guess.
+      await p.waitForFunction(x=>outsidePlaytest.model.x>x+.02,walkingStart,{timeout:3000});
+      assert(await p.evaluate(x => outsidePlaytest.model.x > x + .02, walkingStart), 'street fixture must actually be walking before opening settings: ' + JSON.stringify(await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;return {x:m.x,paused:m.paused,keys:m.keys,encounter:m.encounter,speech:m.story.speech,loading:a.loading,view:lunaCampaign.view,settings:!!document.querySelector('.luna-settings'),focus:document.activeElement?.outerHTML.slice(0,200)};})));
       await p.keyboard.press('Escape'); await p.locator('.luna-settings:visible').waitFor();
       await p.keyboard.up('KeyD'); // Key release happens while the settings modal owns input.
       if (loseFocus) await p.evaluate(() => {

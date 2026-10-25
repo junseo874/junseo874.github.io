@@ -39,7 +39,7 @@ function tickProximity(model){
  for(const c of cases.filter(c=>c.activation==='proximity'&&global.LunaOutsideContent.active(model,global.LunaOutsideContent.events.find(e=>e.id===c.id))&&!model.playedAmbient.has(c.id)&&c.members.some(id=>Math.abs(actor(id).x-model.x)<=.85)))if(story.begin(c.id,{id:c.id},true))model.playedAmbient.add(c.id);
 }
 function apply(data){const source=data.scenes.street.nodes.find(n=>n.name==='Samho');for(const p of trading){const id='optional-'+p.id;if(data.scenes.street.nodes.some(n=>n.id===id))continue;data.scenes.street.nodes.push({id,name:id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['OptionalNPC'],layer:9,order:1,tradeActor:p.id,sprite:p.kind==='samho'?{...source.sprite}:{asset:'ambient-M1',x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});}}
-function drawNode(m,n,draw){if(!n.tradeActor)return false;if(tradeVisible(m)){const p=actor(n.tradeActor),other=actor(p.faces),phase=m.time%4,frame=p.kind==='samho'?(phase<.3?Math.floor(phase*10)%3:0):global.LunaOutsideAmbient.frameIndex(m.time);draw({...n.sprite,x:frame*(p.kind==='samho'?84:129)},n.x,n.y,1,1,global.LunaOutsideAmbient.faceTarget(p.x,other.x));}return true;}
+function drawNode(m,n,draw){if(!n.tradeActor)return false;if(tradeVisible(m)){const p=actor(n.tradeActor),other=actor(p.faces),sp=p.kind==='samho'?global.LunaSamhoAnimation.frame(m.time):{...n.sprite,x:global.LunaOutsideAmbient.frameIndex(m.time)*129};draw(sp,n.x,n.y,1,1,global.LunaOutsideAmbient.faceTarget(p.x,other.x));}return true;}
 global.LunaOutsideEncounters={cases,actor,targets,prepare,start,tick,tickProximity,tradeVisible,trading,drawNode};
 if(global.LUNA_OUTSIDE_DATA)apply(global.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

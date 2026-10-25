@@ -464,6 +464,10 @@
     ],
     [
       "script",
+      "src/features/outside/samho-animation.js"
+    ],
+    [
+      "script",
       "src/features/outside/home-art.js"
     ],
     [
@@ -851,6 +855,10 @@
     [
       "script",
       "../bar-playtest/data/runtime/outside-scene-data.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/features/outside/samho-animation.js"
     ],
     [
       "script",

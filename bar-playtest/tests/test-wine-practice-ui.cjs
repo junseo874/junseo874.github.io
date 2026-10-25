@@ -14,6 +14,8 @@ const runtime=require('../../tools/lib/test-runtime.cjs'),{chromium}=runtime.loa
   for(const version of [1,2]){
    await page.locator('[data-act="miniWinePlay"][data-id="'+version+'"]').click();
    const frame=await (await page.locator('.wine-practice-dialog iframe').elementHandle()).contentFrame();
+   // A newly attached iframe can still be about:blank; an absent loading panel is not readiness.
+   await frame.waitForFunction(()=>typeof imgB!=='undefined'&&imgB.complete&&imgB.naturalWidth>0);
    await frame.locator('#loading').waitFor({state:'hidden'});
    assert.equal(await frame.evaluate(()=>imgB.src.endsWith('/assets/items/item-red-wine.png')),true);
    const state=()=>frame.evaluate(v=>v===1?{phase,dur,held,turnAcc}:({phase:S.phase,dur:S.dur,held:S.held,turnAcc:S.turnAcc,tilt:S.tilt}),version);

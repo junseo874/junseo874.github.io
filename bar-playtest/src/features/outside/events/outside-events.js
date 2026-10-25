@@ -117,8 +117,7 @@ function draw(m,sprite,ctx,position){
  if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('M2',e?.kind===thug?e.npcX:tx(m),thugY(m)-.24,m.x);if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:base(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
-  const source=W.LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='Samho'),phase=m.time%4;
-  sprite({...source.sprite,x:(phase<.3?Math.floor(phase*10)%3:0)*84},x,-.7,1,1,W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),e?.kind===contract?e.alpha:1);
+  sprite(W.LunaSamhoAnimation.frame(m.time),x,-.7,1,1,W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),e?.kind===contract?e.alpha:1);
   idle('M1',dx,-.94,stage==='dealer-exit'?dx-1:x,e?.kind===contract?e.dealerAlpha:1);
  }
 }
