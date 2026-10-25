@@ -28,11 +28,12 @@ function effects(p,before){
  }
 }
 function outsideProgress(m){return m.qa?(m.qa.shopProgress??={money:0,flags:{},affinity:{},inventory:{}}):W.barGame?.progress;}
-function startGoal(p,id,title){
+function startGoal(p,id,title,{silent=false}={}){
  if(!p||typeof id!=='string'||!/^[a-z][a-z0-9_-]*$/i.test(id)||typeof title!=='string'||!title.trim())return false;
  p.objectives??={};if(Object.hasOwn(p.objectives,id))return false;
  p.objectives[id]={title:title.trim(),status:'active'};
- emit(p,'goal-new').title=title.trim();return true;
+ // Optional events can announce only completion, without a redundant new-goal toast.
+ if(!silent)emit(p,'goal-new').title=title.trim();return true;
 }
 function completeGoal(p,id){
  const goal=p?.objectives&&Object.hasOwn(p.objectives,id)?p.objectives[id]:null;

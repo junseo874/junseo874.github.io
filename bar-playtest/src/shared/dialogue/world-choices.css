@@ -3,13 +3,15 @@
 .world-choices[hidden],.world-choice-tutorial[hidden]{display:none!important}
 .world-choices.outside-choices button{position:relative;display:flex;align-items:center;justify-self:start;box-sizing:border-box;width:fit-content;max-width:100%;min-width:0;min-height:32px;margin:0;padding:4px 10px;text-align:left;color:#bedfe4;background:none;border:1px solid transparent;border-left:2px solid #527c88;border-radius:0;font:16px/1.4 LunaPixel,monospace;word-break:keep-all;overflow-wrap:anywhere;cursor:var(--luna-cursor-pointer,pointer);animation:world-choice-in .18s backwards;animation-delay:calc(var(--choice-order)*.04s);transition:color .1s,background-color .1s,border-color .1s}
 .world-choices.outside-choices button>span{min-width:0}
+/* Keep the silhouette even after deselection, while the old background fades out. */
+.world-choices.outside-choices button{clip-path:polygon(0 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%)}
 .world-choices.outside-choices button:not(.is-selected){background:none;border-color:transparent;border-left-color:#347f91;color:#addde8;box-shadow:none;text-shadow:0 1px 3px #000,0 0 5px #000}
-.world-choices.outside-choices button.is-selected{color:var(--choice-ink);background:var(--choice-key);border-color:var(--choice-edge);border-left-color:var(--choice-edge);clip-path:polygon(0 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%);text-shadow:none;box-shadow:0 0 10px #50d9f535}
+.world-choices.outside-choices button.is-selected{color:var(--choice-ink);background:var(--choice-key);border-color:var(--choice-edge);border-left-color:var(--choice-edge);text-shadow:none;box-shadow:0 0 10px #50d9f535}
 .world-choices .world-choice-confirm{position:absolute;left:-32px;top:0;display:grid;place-items:center;box-sizing:border-box;width:22px;height:24px;margin:0;padding:0;border:1px solid var(--choice-key);border-radius:2px;background:var(--choice-ink);color:var(--choice-key);box-shadow:0 0 5px #50d9f533;font:16px/1 LunaPixel,monospace;pointer-events:none;transition:transform .14s cubic-bezier(.2,.7,.3,1)}
 .world-choice-confirm:after{content:"";position:absolute;left:25px;top:8px;border-left:5px solid var(--choice-glint);border-top:3px solid transparent;border-bottom:3px solid transparent}
 .world-choices.outside-choices[data-side="left"] button{justify-self:end;text-align:right;border-left-width:1px;border-right-width:2px;animation-name:world-choice-in-left}
 .world-choices.outside-choices[data-side="left"] button:not(.is-selected){border-left-color:transparent;border-right-color:#347f91}
-.world-choices.outside-choices[data-side="left"] button.is-selected{clip-path:polygon(0 0,100% 0,100% 100%,5px 100%,0 calc(100% - 5px))}
+.world-choices.outside-choices[data-side="left"] button{clip-path:polygon(0 0,100% 0,100% 100%,5px 100%,0 calc(100% - 5px))}
 .world-choices[data-side="left"] .world-choice-confirm{left:auto;right:-32px}
 .world-choices[data-side="left"] .world-choice-confirm:after{left:-9px;border-left:0;border-right:5px solid var(--choice-glint)}
 .world-choice-confirm[hidden]{display:none!important}

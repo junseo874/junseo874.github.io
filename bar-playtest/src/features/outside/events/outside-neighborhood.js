@@ -29,7 +29,16 @@ function targets(m){if(m.qa)return [];if(m.scene==='home')return flags().boobi_a
  const list=[];if(after(m,1)&&!repaired())list.push(target('repair',places.repair,'수리공','repair'));if(after(m,0,'out')&&!flags().gang_pass_granted)list.push(target('guard',places.guard,'갱단원','guard'));if(after(m,1,'out')&&flags().gang_pass_granted)list.push(target('boss',places.boss,names.boss,'boss'));return list;
 }
 function begin(m,key,t,done){m.anim='idle';if(Math.abs(t.x-m.x)>.02)m.facing=t.x>m.x?1:-1;m.backgroundStory.cancel();W.outsidePlaytest?.clearInput();return m.story.beginRows('neighborhood/'+key,t,scripts[key],false,done);}
-function repairScene(m,t){return begin(m,'repairPaid',t,()=>{state(m).repairDeparture={time:0,direction:m.x>=places.repair.x?-1:1};});}
+function repairScene(m,t){return begin(m,'repairPaid',t,()=>{
+ state(m).repairDeparture={time:0,direction:m.x>=places.repair.x?-1:1};
+ if(!repaired())return;
+ const p=progress(),notices=W.LunaStoryNotices;
+ notices.startGoal(p,'elevator_repair','엘레베이터 수리!',{silent:true});
+ if(notices.completeGoal(p,'elevator_repair')){
+  const carry=W.lunaCampaign?.session?.carry;if(carry)carry.objectives=structuredClone(p.objectives);
+  sync();
+ }
+});}
 function entryKey(t){
  if(t.id.endsWith('box'))return 'reveal';
  if(t.id.endsWith('home-cat'))return 'homeCat';
@@ -112,7 +121,7 @@ function startAction(m,row){
   else if(!wildDogDone()&&bossPending()){
    const p=progress();p.inventory||={};p.inventory.wild_dog=(Number(p.inventory.wild_dog)||0)+1;p.flags.gang_wild_dog_received=true;
    delete p.flags.gang_wild_dog_paid;delete p.flags.gang_wild_dog_repair_promised;delete p.flags.gang_wild_dog_repeat_deal;
-   sync();W.outsidePlaytest?.notifyItem?.(m,'wild_dog');
+   sync();W.outsidePlaytest?.notifyItem?.(m,'wild_dog');W.LunaRestorationNotices?.check(W.barGame,W.lunaCampaign,m);
   }
   m.story.speech.index++;m.story.seek();return;
  }
@@ -162,6 +171,15 @@ function clampBoundary(m,x){if(m.qa||m.scene!=='street'||m.level||!after(m,0,'ou
  return Math.max(x,places.guard.x+.34);
 }
 // Rendering and UI anchors consume the exact same pose (sole, scale and facing).
+function campFacing(m,id,x){
+ const s=m.story.speech;
+ // Only the people involved in a direct camp conversation turn toward Luna.
+ // Keep their attention through replies/choices, not just their own spoken line.
+ const engaged=!m.level&&s&&!s.auto&&s.id.startsWith('neighborhood/')&&campActors.has(s.target?.actor)&&
+  (s.target.actor===id||s.rows.some(row=>row.actor===id));
+ const targetX=engaged?m.x:id==='boss'?places.gangmate.x:places.boss.x;
+ return W.LunaOutsideAmbient.faceTarget(x,targetX);
+}
 function poses(m){
  const n=state(m),a=n.action,list=[];
  const add=(id,kind,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>list.push({id,kind,x,y,scale,flip,alpha,sp:{asset:'ambient-'+kind,x:W.LunaOutsideAmbient.frameIndex(m.time)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
@@ -169,11 +187,12 @@ function poses(m){
   if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair','M2',places.repair.x,places.repair.y);
   else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair','M2',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}
   if(after(m,0,'out')){
-   add('guard','M1',places.guard.x,places.guard.y);
-   add('boss','M2',places.boss.x,places.boss.y,1.12);
-   add('gang-left','M1',-16.08,road,1);
-   add('gang-far','W1',-16.38,road,1);
-   add('gangmate','M2',places.gangmate.x,places.gangmate.y);
+   const camp=(id,kind,x,y,scale=1)=>add(id,kind,x,y,scale,campFacing(m,id,x));
+   camp('guard','M1',places.guard.x,places.guard.y);
+   camp('boss','M2',places.boss.x,places.boss.y,1.12);
+   camp('gang-left','M1',-16.08,road);
+   camp('gang-far','W1',-16.38,road);
+   camp('gangmate','M2',places.gangmate.x,places.gangmate.y);
   }
   if(n.neighbor){const moving=a?.name?.startsWith('neighbor-'),out=a?.name==='neighbor-out',duration=(places.neighbor.x-motion.neighborStop)/motion.neighborSpeed;
    add('neighbor','M1',n.neighbor.x,places.neighbor.y,1,moving?out:W.LunaOutsideAmbient.faceTarget(n.neighbor.x,m.x),out?Math.max(0,Math.min(1,(duration-a.time)/.4)):1);}

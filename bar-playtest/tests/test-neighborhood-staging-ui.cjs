@@ -16,6 +16,29 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    ok(near(head.x,measured.x)&&near(head.y,measured.y),'measured head: '+pose.id);
   }
   for(const side of [-1,1]){m.x=N.places.repair.x+side*.3;const t=N.targets(m).find(t=>t.actor==='repair');N.interact(m,t);ok(m.facing===-side,'Luna faces repairman '+side);ok(N.poses(m).find(p=>p.id==='repair').flip===(side>0),'repairman faces Luna '+side);m.story.cancel();}
+  const campIds=['guard','boss','gang-left','gang-far','gangmate'],idle={guard:false,boss:true,'gang-left':true,'gang-far':true,gangmate:false};
+  const camp=()=>N.poses(m).filter(p=>campIds.includes(p.id));
+  for(const day of [0,1,2,3])for(const x of [-17,-15.2,-13]){
+   m.config.day=day;m.x=x;
+   ok(camp().every(p=>p.flip===idle[p.id]),'camp faces inward independently of Luna '+day+'/'+x);
+  }
+  m.config.day=1;
+  for(const actor of ['guard','boss'])for(const side of [-1,1]){
+   progress.flags={gang_pass_granted:actor==='boss'};m.x=N.places[actor].x+side*.3;
+   const t=N.targets(m).find(t=>t.actor===actor);N.interact(m,t);
+   const checkFacing=()=>{for(const p of camp()){
+    const involved=p.id===actor||actor==='boss'&&p.id==='gangmate';
+    ok(p.flip===(involved?m.x>p.x:idle[p.id]),'direct conversation attention '+actor+'/'+side+'/'+p.id);
+   }};
+   checkFacing();m.story.speech.elapsed=999;m.story.advance();checkFacing();
+   if(actor==='boss')ok(m.story.speech.line.actor==='luna','Luna response keeps camp attention');
+   finish();checkFacing();ok(m.story.speech.choice,'choices keep camp attention');
+   m.story.choose(actor==='boss'?'boss-wait':'cancel');finish();
+   ok(!m.story.speech&&camp().every(p=>p.flip===idle[p.id]),'completion returns camp to each other '+actor+'/'+side);
+   N.interact(m,t);m.story.cancel();ok(camp().every(p=>p.flip===idle[p.id]),'cancel restores camp '+actor+'/'+side);
+  }
+  progress.flags={};N.interact(m,N.targets(m).find(t=>t.actor==='repair'));
+  ok(camp().every(p=>p.flip===idle[p.id]),'unrelated repair dialogue cannot turn camp');m.story.cancel();
   progress.flags={boobi_revealed:true};start('homeDoor');m.x=N.places.cat.x-.3;
   m.story.beginRows('neighborhood/audit',N.targets(m)[0],[{type:'neighborhood-action',action:'neighbor-in'},{type:'say',actor:'neighbor',text:'밤에 너무 시끄러워서 잠을 못자겠다고.'}]);
   let previous=N.poses(m).find(p=>p.id==='neighbor').x;
@@ -58,6 +81,10 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    });assert(feet.every(p=>p.changed>5),'visible foot pixels must survive foreground: '+JSON.stringify(feet));
   }
   await p.screenshot({path:'/private/tmp/neighborhood-fixed-'+scene+'.png'});
+  if(scene==='gang'){
+   await p.evaluate(()=>{const m=outsidePlaytest.model,N=LunaOutsideNeighborhood;N.interact(m,N.targets(m).find(t=>t.actor==='boss'));m.story.speech.elapsed=99;outsidePlaytest.tick(0);});
+   await p.screenshot({path:'/private/tmp/neighborhood-gang-conversation.png'});
+  }
  }
  assert.deepEqual(errors,[]);console.log('NEIGHBORHOOD_STAGING_OK',checks.length,'checks: complete silhouettes/soles, shared heads, facing, slow arrival/exit, cat clearance, opaque rest fade, fixed Chris, constant-scale horizontal pan');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

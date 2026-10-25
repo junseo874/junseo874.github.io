@@ -33,4 +33,11 @@ assert.equal(N.pending[1].kind,'goal-complete');assert.equal(g.progress.objectiv
 N.clear();g.progress=JSON.parse(JSON.stringify(g.progress));assert(!N.startGoal(g.progress,'test_goal','reload'));assert(!N.completeGoal(g.progress,'test_goal'));assert.equal(N.pending.length,0);
 const withoutGoals={...g.progress};delete withoutGoals.objectives;
 assert.equal(JSON.stringify(withoutGoals),baseline,'Goal previews do not change money or other progress');
+assert(N.startGoal(g.progress,'elevator_repair','엘레베이터 수리!',{silent:true}));
+assert.equal(N.pending.length,0,'Completion-only goal does not announce a new objective');
+assert(N.completeGoal(g.progress,'elevator_repair'));
+assert.deepEqual(N.pending.map(e=>[e.kind,e.title]),[['goal-complete','엘레베이터 수리!']]);
+assert(!N.startGoal(g.progress,'elevator_repair','duplicate',{silent:true}));
+assert(!N.completeGoal(g.progress,'elevator_repair'));
+assert.equal(N.pending.length,1);
 console.log('PASS: existing story notices; resource goal registration/completion, validation, dedup and serialization');

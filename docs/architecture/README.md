@@ -20,6 +20,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 공중 광고 차량·5초 LED 광고 | `bar-playtest/src/features/outside/effects/outside-ad-carrier.js` |
 | 거리 전광판·랜덤 소등·실외기·CRT | `street-engine-effects.js`, `sign-scanlines.js` + `data/presentation/street-effects.js` |
 | 본편 진행·밤·테라스·회상 | `bar-playtest/src/features/campaign/` |
+| 올드패션드 재료 목표 달성 알림 | `bar-playtest/src/features/campaign/restoration-notices.js` |
 | 컷씬 렌더링·편집기 재생 연결 | `bar-playtest/src/cinema/` |
 | 설정·정산 팝업·알림·재화 UI | `bar-playtest/src/shared/ui/` |
 | 16:9 영역·배율·포커스·입력 제한 | `bar-playtest/src/shared/platform/` |
@@ -36,6 +37,10 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 컷씬 편집 | `cutscene-studio/src/`, `styles/` |
 
 ## 로딩·경로 계약
+
+### 올드패션드 복원 알림
+
+실제 비터스 구매·갱단 와일드 독 획득에서 `LunaRestorationNotices.check`를 호출합니다. 두 재료를 모두 보유하면 `old_fashioned_materials` 목표를 조용히 등록하고 `목표 달성 / 올드패션드 재료 구하기!`를 한 번 표시하며 완료 이력을 campaign carry에 보존합니다. 저장 불러오기·시작일 보정·검수 미리보기만으로 새 알림을 발생시키지 않습니다. 레시피는 기존 실제 제조 조건(3일차·조니 기억·각설탕·`johnny_recipe_unlocked`)과 `johnnyUnlock` 팝업만 사용하고 별도 레시피 알림은 표시하지 않습니다. 검증: `test-restoration-notices.cjs`, `test-restoration-notices-ui.cjs`.
 
 ### 포트 작업장 컷씬 보관
 
@@ -69,7 +74,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 
 외부·컷씬의 `world-choices.js`와 바 내부 `choice-hold.js`는 선택지가 새로 나타난 뒤 800ms 동안 E 입력을 소비만 하고 확정/홀드를 시작하지 않습니다. 이때부터 계속 누른 E도 확정되지 않으며 놓고 새로 눌러야 합니다. 항목 이동·좌표·소지금 갱신은 시간을 다시 시작하지 않고, 다른 선택지 그룹 및 닫았다 다시 연 선택지는 새로 보호합니다. 마우스·Enter·Space의 기존 방식은 그대로이며 바 내부의 기존 0.5초 홀드도 유지합니다. 검증: `test-choice-entry-guard-ui.cjs`, `test_choice_hold_ui.cjs`.
 
-외부 물음표는 `events/outside-discovery.js`가 담당합니다. `OutsideModel.interact`에서 실제 대상과 상호작용을 시작하면 `progress.flags.outside_interacted_v1_<대상 ID>`와 일차 carry에 즉시 기록합니다. 중도 취소도 상호작용으로 계산하며, 대사·선택지·일차가 바뀌어도 다시 표시하지 않습니다. 엘리베이터·소파·집 문·출입구·바 입구에는 표시하지 않습니다. 박스와 부비는 별개 대상이고, 복도와 집 안의 부비는 같은 대상입니다. 이전 대사 지문/만남 플래그는 호환용으로 읽어 대상 이력으로 이전합니다. `inRange`를 근접 대상 선택과 공유하며 범위 내 미상호작용 대상 여러 곳에 표시할 수 있습니다. 검정 테두리 없이 `LunaInteractionGlow.style`의 청록색과 광원만 사용하며, 설정·컷씬·촬영 모드에서는 숨깁니다. 검증: `test-outside-discovery-ui.cjs`.
+외부 물음표는 `events/outside-discovery.js`가 담당합니다. `OutsideModel.interact`에서 실제 대상과 상호작용을 시작하면 `progress.flags.outside_interacted_v1_<대상 ID>`와 일차 carry에 즉시 기록합니다. 중도 취소도 상호작용으로 계산하며, 대사·선택지·일차가 바뀌어도 다시 표시하지 않습니다. TV·엘리베이터·소파·집 문·출입구·바 입구에는 표시하지 않습니다. 박스와 부비는 별개 대상이고, 복도와 집 안의 부비는 같은 대상입니다. 이전 대사 지문/만남 플래그는 호환용으로 읽어 대상 이력으로 이전합니다. `inRange`를 근접 대상 선택과 공유하며 범위 내 미상호작용 대상 여러 곳에 표시할 수 있습니다. 검정 테두리 없이 `LunaInteractionGlow.style`의 청록색과 광원만 사용하며, 설정·컷씬·촬영 모드에서는 숨깁니다. 검증: `test-outside-discovery-ui.cjs`.
 
 물음표는 방향에 따라 뒤집히는 머리 중심 대신 고정된 NPC 원점과 전체 프레임의 머리 높이를 사용합니다. 말풍선의 방향별 머리 기준은 유지합니다. `outside-discovery.project`는 실제 스프라이트의 픽셀 정렬 보정량을 공유하고, 글자도 1280 논리 좌표가 아닌 `pixelSurface.factor`의 물리 픽셀에 정렬합니다. 화면 이동 시 별도 보간이나 지연 없이 대상과 함께 이동합니다. `test-outside-discovery-stability-ui.cjs`에서 좌우 왕복·방향 전환·애니메이션·가로/세로 카메라 이동·창 크기 변경·DPR 1/2를 검사합니다.
 
@@ -80,11 +85,13 @@ NPC 연출: `poses()`가 발 좌표·방향·크기·프레임과 말풍선/물�
 부비 첫 휴식의 기존 CSV 액션 `chris-in`은 이제 걷기 명령이 아니라 **0.45초 암전 → 완전 검정 유지 → TV 오른쪽 크리스 고정 배치 → 페이드 인/0.32 월드 단위 좌→우 이동**입니다. 카메라 폭 4.8과 높이 0.023은 고정, 줌은 없습니다. 연출 뒤 기존 대사와 작업장/테라스/취침 연결을 그대로 사용합니다. 중단/재시작 시 카메라 소유권도 해제합니다. 검증: `test-neighborhood-staging-ui.cjs`.
 
 - 부비·참치캔: 1일차 퇴근부터. `boobi_box_shaken`, `boobi_revealed`, `boobi_adopted`, `boobi_rest_seen`을 보존합니다. 구매한 `tuna_can` 1개를 소비하며 `boobi_feeding_pending`은 중단된 입양을 재개합니다.
-- 수리공: 1일차 출근부터. `repairman_met`, `elevator_repair_paid`, `elevator_repaired`로 400원 또는 `gear_part` 1개 중복 지불을 막습니다. 부품을 주는 포트 대화는 아직 없습니다. 빠른 이동도 본편 귀가 조건 검사를 거칩니다.
+- 수리공: 1일차 출근부터. `repairman_met`, `elevator_repair_paid`, `elevator_repaired`로 400원 또는 `gear_part` 1개 중복 지불을 막습니다. 부품을 주는 포트 대화는 아직 없습니다. 빠른 이동도 본편 귀가 조건 검사를 거칩니다. 수리 암전이 아닌 `repairPaid` 마지막 대화 종료 시 공통 목표 달성 알림 `엘레베이터 수리!`를 한 번 표시합니다. `elevator_repair` 목표는 새 목표 알림 없이 등록·완료하며 완료 이력을 campaign carry에도 보존합니다. 검증: `test-repair-goal-notice-ui.cjs`.
 - 갱단: 0일차 퇴근부터, 술 질문은 1일차 퇴근부터. 갱단원 앞 경계는 이동만 막고 자동 대사는 시작하지 않습니다. 경계에서도 윤곽선·E 상호작용이 가능하며, 대화를 취소하거나 자리를 뜨면 계속 막힙니다. 술을 찾는 `guardPass` 대화를 끝내 `gang_pass_granted`를 얻은 뒤에만 물리 경계를 풀고 중앙의 `neighborhood-boss`에게 대화할 수 있습니다. `neighborhood/bossIntro` → 첫 선택, `bossRepeat` → 재방문 선택이며 `gang_boss_met`으로 구분합니다. 와일드 독은 500원 또는 `elevator_repaired`로 한 번 받습니다. 지불/수리 약속은 `gang_wild_dog_paid`, `gang_wild_dog_repair_promised`, `gang_wild_dog_repeat_deal`로 먼저 보존하고 CSV의 `wild-dog-grant` 지점에서 인벤토리·알림·`gang_wild_dog_received`를 갱신합니다. 중단 시 같은 거래 대사를 재개하며 중복 지불하지 않습니다. 기존 시바견 구매 플래그/보유분도 존중합니다.
 - 시바견은 비터스·참치캔만 판매합니다. 와일드 독 판매 및 해당 QA/CSV 구매 분기는 제거했습니다. 와일드 독을 가진 상태에서 비터스를 사면 기존 올드 패션드 퀴즈를 진행합니다.
 - 집 안 부비는 웹 CSV의 `neighborhood/homeCat`에서 “냐옹”과 `home-cat` 선택지를 표시합니다. 쓰다듬기/취소만 제공하며 소지금·참치캔 선택지는 표시하지 않습니다. 쓰다듬기는 1.6초 동안 감은 눈·꼬리 움직임·작은 하트로 반응한 뒤 조작을 돌려주며, 설정 일시정지/취소/재입장 시 남는 연출이 없습니다. 비용이나 휴식 이벤트 플래그는 변경하지 않습니다. 검증: `test-home-cat-interaction-ui.cjs`.
 - 다음 휴식은 부비 소개 → 기존 작업장/테라스/취침 순서입니다. 이벤트를 하지 않아도 하루 진행을 막지 않습니다. 사운드는 `LunaNeighborhoodAudio.play(cue)` 연결 자리만 있고 기본 무음입니다.
+
+모닥불 갱단은 대화 전에는 왼쪽 인물들이 오른쪽을, 오른쪽 인물들이 왼쪽을 바라보며 중앙의 보스는 옆 갱단원을 향합니다. 플레이어 이동만으로 방향을 바꾸지 않습니다. 직접 상호작용 중에는 대상과 해당 대사의 참여 인물만 루나를 바라보고, 루나의 답변·선택지 중에도 유지합니다. 종료·취소 시 원래 모임 방향으로 돌아갑니다. 렌더링·말풍선·윤곽선은 같은 `poses()` 방향을 사용합니다. 검증: `test-neighborhood-staging-ui.cjs`.
 
 검증: `node tools/run-tests.cjs outside`의 `test-neighborhood-events-ui.cjs`에서 날짜 경계·지불·중단 후 재개·입양·휴식 연결·설정 정지·빠른 이동을 확인합니다. `test-gang-wild-dog.cjs`, `test-gang-wild-dog-ui.cjs`는 갱단 4개 거래 분기, 499/500원 경계, 수리 조건, 중복 보상/중단 복구, 기존 세이브, 말풍선/윤곽선/실제 E 입력을 확인합니다.
 

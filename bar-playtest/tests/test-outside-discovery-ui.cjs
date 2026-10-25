@@ -48,7 +48,8 @@ const {chromium}=runtime.load('playwright');
    for(const id of ['tv','elevator','sofa','home','exit','bar']){
     ok(!D.unseen(m,{id}),'routine object excluded even before use: '+id);
    }
-   for(const day of [0,1,2,3])for(const flow of ['in','out'])for(const seen of [false,true]){
+   for(const flow of ['in','out'])for(const seen of [false,true]){
+    const day=0; // TV interaction is intentionally available only on day 0.
     p.flags=seen?{day0_tv_seen:true}:{};start(day,'home',flow);m.controlsTutorial=false;
     t=target('tv');m.x=t.x;m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);
     ok(!outsidePlaytest.discoveryMarkers.some(v=>v.id==='tv'),'TV never renders a badge: '+day+'/'+flow+'/'+seen);

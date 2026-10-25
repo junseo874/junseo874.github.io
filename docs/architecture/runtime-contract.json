@@ -604,6 +604,10 @@
     ],
     [
       "script",
+      "src/features/campaign/restoration-notices.js"
+    ],
+    [
+      "script",
       "src/features/campaign/title-logo.js"
     ],
     [
