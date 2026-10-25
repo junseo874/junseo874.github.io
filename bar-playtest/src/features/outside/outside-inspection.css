@@ -9,7 +9,4 @@
 #outside-root .outside-inspection-caption .piece-10{display:none}
 #outside-root .outside-inspection-caption .piece-8{grid-area:3/2/4/5}
 #outside-root .outside-inspection-caption p{margin:0;font-size:16px;line-height:1.4;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere}
-#outside-root .outside-inspection-exit{position:absolute;left:28px;bottom:28px;display:flex;align-items:center;gap:10px;min-height:40px;margin:0;padding:4px 0;border:0;border-radius:0;background:none;color:#d3f7f6;box-shadow:none;font-size:17px;line-height:1;text-shadow:0 2px 4px #000}
-.outside-inspection-exit kbd{display:grid;place-items:center;width:32px;height:32px;background:#a5efed;border:1px solid #d3fffa;border-radius:50%;box-shadow:0 2px 5px #0008;color:#0b2933;text-shadow:none;font:700 19px/1 ui-monospace,monospace}
-#outside-root .outside-inspection-exit:hover{color:#fff}
-#outside-root .outside-inspection-exit:hover kbd{background:#d3fffa}
+/* Exit icon, typography and anchoring share the current interaction hint in outside.css. */

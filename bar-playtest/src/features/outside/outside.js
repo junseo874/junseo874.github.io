@@ -24,6 +24,7 @@
   // for dialogue, developer tools and accessibility context.
   const INTERACTION_LABELS = Object.freeze({
     'wanted-poster': '보기',
+    'home-book': '보기',
     bar: '들어가기',
     home: '들어가기',
     exit: '나가기',
@@ -118,7 +119,7 @@
       y: target.y + .75
     };
     // Baked room props share the atlas: never use the whole background's "head".
-    if (target.id === 'bed' || target.id === 'wardrobe') return {x:target.x,y:target.top};
+    if (target.id === 'bed' || target.id === 'wardrobe' || target.id === 'home-book') return {x:target.x,y:target.top};
     const actorHead=global.LunaOutsideNeighborhood?.targetAnchor(model,target,stable)||global.LunaOutsideAmbient.actorHead(model,target.actor||target.nodeName||target.id,target);
     if(actorHead)return actorHead;
     // Idle sheets include transparent padding above the visible head.
@@ -372,7 +373,7 @@
     }
     targets() {
       if (this.qa) return global.LunaOutsideQA.targets(this);
-      if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), ...(this.config.day === 0 ? [{
+      if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), global.LunaHomeArt.bookTarget(), ...(this.config.day === 0 ? [{
         id: 'tv',
         label: 'TV 다큐 보기',
         x: 1.22,

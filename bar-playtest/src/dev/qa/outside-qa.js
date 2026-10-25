@@ -10,7 +10,7 @@ const choiceOptions=[
  {id:'leave',label:'대화를 마친다.'}
 ];
 const choiceRows=[{type:'qa-choice',actor:'qa-guide',who:'테스트 안내자',text:'어떻게 할까?'}];
-const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',workshop:'포트 작업장 · 대화',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
+const scenes={commute2:'2일차 출근길 · 삼호',commute3:'3일차 출근길 · 삼호',night0:'0일차 집·테라스 · 크리스',night1:'1일차 테라스 · 조니의 재료 단서',night2:'2일차 테라스 · 조니의 기억',ending:'3일차 테라스 · 마지막 대화'};
 function catalog(){return [
  {id:'ui:choice-four',label:'선택지 4개 · 외부 대화 UI',qaChoice:true,note:'W / S · 휠 이동 / E 또는 클릭 확정 · 네 가지 결과 · 반복 가능'},
  ...W.LunaOutsideNotion.qaCases.map(c=>({...c,note:'최신 외부 이야기 · 런타임 이동/선택 · QA 소지금 별도'})),

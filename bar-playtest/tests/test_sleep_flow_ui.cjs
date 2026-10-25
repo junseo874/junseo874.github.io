@@ -32,7 +32,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    assert.deepEqual(await p.evaluate(()=>lunaCampaign.session.completed),[0]);
    const x=await p.evaluate(()=>outsidePlaytest.model.x);await p.keyboard.down('KeyA');await p.waitForTimeout(160);await p.keyboard.up('KeyA');assert(await p.evaluate(()=>outsidePlaytest.model.x)<x,'Controls resume after dressing');
   }
-  // Later story nights retain their workshop/terrace scenes and advance exactly once.
+  // Later story nights retain their terrace scenes without the archive-only workshop and advance exactly once.
   for(const day of [1,2]){
    await setup(day,true);
    for(let i=0;i<500;i++){

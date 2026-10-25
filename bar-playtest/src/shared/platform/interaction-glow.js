@@ -31,6 +31,7 @@ function region(target,node,sp,x,y,model){
  const name=node?.name,full=[0,0,sp.w,sp.h];
  if(target.id==='bed')return name==='main_bg'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
  if(target.id==='wardrobe')return name==='main_bg'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
+ if(target.id==='home-book')return name==='ForeFore_Object'?[...W.LunaHomeArt.book.rect,W.LunaHomeArt.book.edge]:null;
  if(target.nodeName&&name===target.nodeName)return full;
  if(target.id==='bar'&&name==='Bar Spawn Point')return [2,15,34,51];
  if(target.id==='exit'&&name==='Room_Entrance')return full;

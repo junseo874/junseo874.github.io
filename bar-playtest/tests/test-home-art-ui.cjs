@@ -10,7 +10,9 @@ const sharp=load('sharp');
   const source=path.join('/Users/lee/Desktop/크리스집',file);
   if(fs.existsSync(source))assert(fs.readFileSync(source).equals(fs.readFileSync(path.join(dir,file))),'Original bytes: '+file);
  }
- assert.equal(fs.readdirSync(dir).length,12);
+ const coverFile=path.basename(window.LUNA_OUTSIDE_DATA.assets[window.LunaHomeArt.book.cover].src);
+ assert(fs.existsSync(path.join(dir,coverFile)),'Inspection cover is available alongside the house art');
+ assert.equal(fs.readdirSync(dir).filter(file=>file!==coverFile).length,12);
  const composed=await sharp({create:{width:643,height:270,channels:4,background:'#000'}})
   .composite(layers.map(l=>({input:path.join(dir,l.file),left:l.x,top:l.y}))).removeAlpha().raw().toBuffer();
  const reference=await sharp(path.join(root,'assets/reference/previews/chris-home-fullshot.png')).removeAlpha().raw().toBuffer();

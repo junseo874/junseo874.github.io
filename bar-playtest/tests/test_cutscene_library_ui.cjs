@@ -7,6 +7,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  if(await p.locator('.updates-confirm').isVisible()){await p.locator('.updates-dismiss input').check();await p.locator('.updates-confirm').click();}
  await p.locator('[data-act="version"][data-id="cutscenes"]').click();
  const entries=await p.evaluate(()=>LunaCutsceneLibrary.catalog);
+ assert.equal(entries.find(x=>x.id==='A-workshop').background,'black');assert.match(entries.find(x=>x.id==='A-workshop').description,/본편 미사용/);assert(!(await p.evaluate(()=>LunaOutsideQA.catalog().some(x=>x.id==='runtime:workshop'))));
  assert.equal(entries.length,13);assert(entries.every(x=>!x.id.startsWith('B-')&&x.id!=='opening-b'));assert.equal(await p.locator('.cutscene-card').count(),entries.length);
  assert.equal(await p.locator('.version-tabs button.selected').count(),1);
  await p.locator('[data-act="cutsceneFilter"][data-id="2일차"]').click();assert.equal(await p.locator('.cutscene-card').count(),entries.filter(x=>x.day==='2일차').length);

@@ -1300,11 +1300,8 @@
         const key = global.LunaTerrace.nightKey(day);
         if (key && this.data.scenes[key]?.length) this.scene(key, '테라스', 'terrace', complete);else this.playRestCinema('sleep', complete);
       };
-      // Player-only interlude: no Luna knowledge/relationship flags are changed here.
-      const proceed = () => {
-        if (day === 1 && this.data.scenes.workshop?.length) this.beginMemoryTransition(() => null, () => this.scene('workshop', '포트의 작업장', 'black', terrace));else terrace();
-      };
-      if (!global.LunaOutsideNeighborhood?.beforeRest(this.outside.model, proceed)) proceed();
+      // The workshop interlude is archive-only; keep the cat/rest/terrace chain intact.
+      if (!global.LunaOutsideNeighborhood?.beforeRest(this.outside.model, terrace)) terrace();
     }
     startRestCinema(scene, done, dailyWake = false) {
       this.disposeCinema();

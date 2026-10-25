@@ -4,6 +4,13 @@ const root='assets/outside/chris-home/';
 // Native room pixels: the bed is baked into the LEFT wall, not the sofa bedding layer.
 const bed={rect:[80,187,91,26],edge:[[7,0],[24,0],[27,3],[76,4],[84,7],[90,10],[90,21],[85,25],[8,25],[2,22],[0,16],[0,8],[4,3]]};
 const wardrobe={rect:[175,152,21,66],edge:[[2,0],[19,0],[21,2],[21,66],[0,66],[0,2]]};
+// Foreground-local pixels: only the stacked books, never the glass table below.
+const book={rect:[12,10,18,7],edge:[[1,0],[15,0],[16,1],[15,2],[17,3],[18,4],[18,7],[0,7],[0,3],[1,3],[1,2],[0,1]],cover:'home-book-cover'};
+function bookTarget(){
+ const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='ForeFore_Object'),sp=n.sprite;
+ const left=n.x-sp.w*sp.pivot.x/sp.ppu,top=n.y+sp.h*(1-sp.pivot.y)/sp.ppu;
+ return {id:'home-book',label:'책 살펴보기',x:left+(book.rect[0]+book.rect[2]/2)/sp.ppu,y:-.7,top:top-book.rect[1]/sp.ppu,nodeName:n.name};
+}
 function bedTarget(){
  const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg'),sp=n.sprite;
  const left=n.x-sp.w*sp.pivot.x/sp.ppu,top=n.y+sp.h*(1-sp.pivot.y)/sp.ppu;
@@ -40,6 +47,7 @@ function apply(data){
  }
  // Alternate authored room states are retained without introducing a new cycle.
  for(const n of [1,3])data.assets['home-room-'+n]={src:root+'Chrishouse'+n+'.png',w:643,h:270,source:'User supplied 크리스집/Chrishouse'+n+'.png'};
+ data.assets[book.cover]={src:root+'nietzsche-the-gay-science.png',w:1024,h:1536,source:'사용자 제공 책 표지 · 프리드리히 니체 — 《즐거운 학문》 · 원본 보존'};
  data.homeArtVersion='supplied-house';return data;
 }
 function cameraX(x,width=4.8){
@@ -75,6 +83,6 @@ function paintFence(ctx,image,x,y,w,h){
  ctx.fillStyle='#6c6a82';ctx.fillRect(-27,40,85,1);
  ctx.restore();
 }
-W.LunaHomeArt={root,layers,bed,bedTarget,wardrobe,wardrobeTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
+W.LunaHomeArt={root,layers,bed,bedTarget,wardrobe,wardrobeTarget,book,bookTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

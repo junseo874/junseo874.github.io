@@ -36,7 +36,7 @@ function preview(m,t){
  if(t.source&&W.LUNA_OUTSIDE_DIALOGUES[t.source])return {id:t.source,rows:W.LUNA_OUTSIDE_DIALOGUES[t.source]};
  return null;
 }
-const excluded=new Set(['elevator','sofa','home','exit','bar']);
+const excluded=new Set(['tv','elevator','sofa','home','exit','bar']);
 const identity=id=>id==='neighborhood-home-cat'?'neighborhood-cat':id;
 const interactionToken=id=>'outside_interacted_v1_'+identity(id);
 const legacyFlags={

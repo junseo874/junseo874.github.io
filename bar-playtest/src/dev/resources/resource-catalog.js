@@ -75,6 +75,8 @@ function build(F){
  // This only trims review cards; the underlying game assets remain untouched.
  for(const [key,a] of Object.entries(A).filter(([k])=>/^(dialogue|choice|next$|money|logo)/.test(k)))add({id:'ui-art:'+key,group:'bar-ui',title:key,usage:'화면 구성 리소스 · 원본',status:state(a),layers:[layer(key,a)]});
  const outsideLayer=(sp)=>{const a=O.assets[sp.asset];return{key:sp.asset,src:typeof a==='string'?a:a.src,source:a.source||a.path||'',rects:[{x:sp.x,y:sp.y,w:sp.w,h:sp.h}],frames:1,w:sp.w,h:sp.h};};
+ const bookCover=O.assets[F.LunaHomeArt.book.cover];
+ add({id:'outside:home-book',group:'out-ui',title:'즐거운 학문 · 책 표지',usage:'크리스 집 탁자 위 책 · 이미지 살펴보기',layers:[layer(F.LunaHomeArt.book.cover,bookCover)],note:'사용자 제공 원본 표지. 포스터와 같은 보기 화면에서 《즐거운 학문》 - 프리드리히 니체 설명과 함께 표시합니다.'});
  for(const [key,anim]of Object.entries(O.animations)){const base=outsideLayer(anim.frames[0]);add({id:'outside:'+key,group:'out-characters',title:key==='shiba'?'시바견':'루나',usage:key,layers:[{...base,rects:anim.frames.map(f=>({...f,src:typeof O.assets[f.asset]==='string'?O.assets[f.asset]:O.assets[f.asset].src})),frames:anim.frames.length,fps:anim.fps}],note:'외부 런타임에 등록된 프레임을 직접 재생합니다. 원본 방향을 유지합니다.'});}
  for(const kind of ['M1','M2','W1']){const a=O.assets['ambient-'+kind];add({id:'outside:'+kind,group:'out-characters',title:'거리 NPC · '+kind,usage:'6프레임 · 더미 실루엣',status:'dummy',layers:[{key:'ambient-'+kind,src:a?.src||'assets/outside/NPC_idle_'+kind+'.png',w:774,h:138,fw:129,fh:138,frames:6,fps:3.5}],note:'거리 행인·주민·불량배 등의 대체 캐릭터로 사용하는 실루엣입니다. 전용 인물 아트가 아닙니다.'});}
  const roles=new Map();for(const c of F.LunaOutsideEncounters.cases)for(const id of c.members||[]){const a=F.LunaOutsideEncounters.actor(id);if(a&&['M1','M2','W1'].includes(a.kind))roles.set(id,{...a,id});}

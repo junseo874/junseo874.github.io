@@ -14,9 +14,9 @@
   const action=el.dataset.act||'';
   // Gameplay confirmations have their own physical sounds, never UI clicks.
   if(kind==='click'&&el.closest('#app')&&!W.barGame?.overlay&&['gimmick','result','discarding','minigame_result'].includes(W.barGame?.screen))return false;
-  // Poster viewing is silent, including the exit button's automatic focus cue.
+  // Image inspections are silent, including the exit button's automatic focus cue.
   if(el.closest('.outside-inspection'))return false;
-  if(el.dataset.outsideAction==='interact'&&el.closest('#outside-root')&&W.outsidePlaytest?.model?.near?.id==='wanted-poster')return false;
+  if(el.dataset.outsideAction==='interact'&&el.closest('#outside-root')&&W.LunaOutsideInspection?.forTarget(W.outsidePlaytest?.model?.near||{}))return false;
   if(el.closest('.world-choices'))return false;
   // Choice buttons retain hover feedback, never confirmation clicks. Handle
   // them before speech containers, which may also contain the choice buttons.

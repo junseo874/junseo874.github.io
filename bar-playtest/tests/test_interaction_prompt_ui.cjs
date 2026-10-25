@@ -24,12 +24,39 @@ const assert=require('node:assert/strict');
   for(const r of results){
    assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
    const expected={tv:'TV 보기',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
-   Object.assign(expected,{bed:'보기',wardrobe:'보기','neighborhood-boss':'대화하기','neighborhood-guard':'대화하기','neighborhood-repair':'대화하기','neighborhood-box':'보기','neighborhood-cat':'보기','neighborhood-home-cat':'보기'});
+   Object.assign(expected,{bed:'보기',wardrobe:'보기','home-book':'보기','neighborhood-boss':'대화하기','neighborhood-guard':'대화하기','neighborhood-repair':'대화하기','neighborhood-box':'보기','neighborhood-cat':'보기','neighborhood-home-cat':'보기'});
    assert(expected[r.id],'Unclassified target '+r.id);assert.equal(r.text,'E'+expected[r.id]);assert(r.ordered);assert.equal(r.inline,'');
   }
-  const ids=new Set(results.map(r=>r.id));for(const id of ['bed','wardrobe','tv','exit','sofa','home','elevator','bar','wanted-poster','shiba-shop','street-beggar','street-beggar-witness'])assert(ids.has(id));
+  const ids=new Set(results.map(r=>r.id));for(const id of ['bed','wardrobe','home-book','tv','exit','sofa','home','elevator','bar','wanted-poster','shiba-shop','street-beggar','street-beggar-witness'])assert(ids.has(id));
   assert.equal(await p.evaluate(()=>LunaOutside.interactionLabel(outsidePlaytest.model,{id:'day2-thug-information'})),'대화하기');
   assert([...ids].some(id=>/resident|beggar|shiba-shop|encounter|samho|smuggler/.test(id)),'Actual NPC targets covered');
+  // Book and Shiba poster exits must use the same native icon/type/anchor as the live hint.
+  const hintStyle=el=>{
+   const s=getComputedStyle(el),k=getComputedStyle(el.querySelector('kbd'));
+   return {left:s.left,bottom:s.bottom,height:s.height,gap:s.gap,font:s.fontFamily,size:s.fontSize,weight:s.fontWeight,color:s.color,spacing:s.letterSpacing,background:s.backgroundColor,border:s.borderTopWidth,shadow:s.boxShadow,key:k.backgroundImage,keyWidth:k.width,keyHeight:k.height,keyRadius:k.borderRadius};
+  };
+  for(const [id,place]of [['home-book','home'],['wanted-poster','bar']]){
+   await p.evaluate(({id,place})=>{
+    const a=outsidePlaytest,m=a.model;m.start({day:1,flow:'out',place});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();
+    const t=m.targets().find(t=>t.id===id);m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);
+    if(m.near?.id!==id)throw Error('Incorrect inspection target: '+m.near?.id);
+   },{id,place});
+   const expected=await p.locator('.outside-interact').evaluate(hintStyle);
+   await p.keyboard.press('KeyE');const exit=p.locator('.outside-inspection-exit');await exit.waitFor();
+   assert.deepEqual(await exit.evaluate(hintStyle),expected,id+' exit matches the latest interaction hint');
+   assert.equal(await exit.textContent(),'E나가기');assert(await p.locator('.outside-interact').isHidden());
+   for(const viewport of [{width:1280,height:720},{width:820,height:650},{width:1920,height:1080}]){
+    await p.setViewportSize(viewport);await p.waitForTimeout(100);
+    const r=await exit.boundingBox(),stage=await p.locator('.outside-stage').boundingBox(),scale=stage.width/1280;
+    assert(Math.abs(r.x-stage.x-36*scale)<1);assert(Math.abs(stage.y+stage.height-r.y-r.height-16*scale)<1);
+   }
+   await p.setViewportSize({width:1280,height:720});await p.waitForTimeout(100);
+   await p.screenshot({path:'/private/tmp/'+id+'-exit-hint.png'});
+   await exit.click();assert.equal(await p.locator('.outside-inspection').count(),0);
+   await p.keyboard.press('KeyE');await exit.waitFor();await p.keyboard.press('KeyE');assert.equal(await exit.count(),0);
+   await p.keyboard.press('KeyE');await exit.waitFor();await p.keyboard.press('Escape');assert.equal(await exit.count(),0);
+   assert.equal(await p.evaluate(()=>outsidePlaytest.model.paused),false);
+  }
   await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:0,flow:'out',place:'home'});m.x=1.22;m.updateNear();a.snapCamera();a.tick(0);});
   const prompt=p.locator('.outside-interact');
   const checkStyle=async()=>{
@@ -57,6 +84,6 @@ const assert=require('node:assert/strict');
   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.template),'documentary');
   assert(await prompt.isHidden());
   assert.deepEqual(errors,[]);
-  console.log('PASS '+results.length+' object/NPC targets / fixed bottom-left E + label / 3 viewport sizes / proximity and pause visibility / click enters TV');
+  console.log('PASS '+results.length+' object/NPC targets / fixed bottom-left E + label / book and Shiba inspection exit parity, click/E/Esc / 3 viewport sizes / proximity and pause visibility / click enters TV');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
