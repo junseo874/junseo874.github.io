@@ -4,7 +4,7 @@
 const version='20261018',root='assets/reference/exports/',revision='preview-paths-20261019';
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
-const previewRevision=r=>r.id==='ui:income'?'money-art-20261025':revision;
+const previewRevision=r=>['popup:campaign-dialogs','ui:exterior:poor'].includes(r.id)?'review-audit-20261026':r.id==='ui:income'?'money-art-20261025':revision;
 const screen=(r,v)=>root+stem(r,v)+'.png?v='+previewRevision(r);
 const popup=(r,v)=>root+stem(r,v)+'--popup.png?v='+previewRevision(r);
 const isScreen=r=>!!r.launch&&(['bar-ui','out-ui','common-popups','bar-fx','out-fx'].includes(r.group)||!r.layers?.length);
@@ -52,6 +52,11 @@ async function play(F,d){
   if(d.id==='interaction'){await new Promise(r=>F.setTimeout(r,2050));o.controlsTutorialKey({code:'KeyE',repeat:false,preventDefault(){},stopImmediatePropagation(){}});F.dispatchEvent(new F.KeyboardEvent('keyup',{code:'KeyE',key:'e',bubbles:true}));o.refreshHUD();}return;
  }
  if(d.type==='review-opening'){await c.newGame();return;}
+ if(d.type==='review-campaign'&&d.id==='sleep'){
+  c.ui.outside=true;Object.assign(o.config,{day:1,flow:'out',place:'home'});await o.start({showDevHint:false});
+  const m=o.model;m.story.cancel();m.backgroundStory.cancel();m.controlsTutorial=false;m.x=2.2;m.paused=false;
+  m.dialog={kind:'sofa',key:'review-sofa:'+ ++m.revision};o.snapCamera();o.refreshHUD();return;
+ }
  if(d.type==='review-campaign'){c.resumeView='developer';c.noticeTitle='안내';c.noticeText='현재 진행 중인 일을 마친 뒤 다시 시도해 주세요.';c.drinkIssues=['주문한 칵테일과 재료를 다시 확인해 주세요.'];c.loadError='리소스를 불러오지 못했습니다. 연결 상태를 확인해 주세요.';c.screen(d.id);return;}
  if(['review-mix','review-pour','review-open'].includes(d.type)){
   const kind=d.type==='review-mix'?d.kind:d.type==='review-open'?'open':'pour';
@@ -71,6 +76,8 @@ async function play(F,d){
  }
 }
 function selector(r,d){
+ if(d.type==='review-campaign'&&d.id==='sleep')return '.world-choices';
+ if(d.type==='review-campaign'&&d.id==='options')return '.luna-settings';
  if(r.exportSelector)return r.exportSelector;
  if(r.popupKind){
   if(d.type==='popup-story')return d.kind==='event'?'.story-notice-event':'.story-notice-people';

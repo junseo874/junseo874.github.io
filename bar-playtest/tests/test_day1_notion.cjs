@@ -6,7 +6,7 @@ assert.equal(say.length,207);assert.equal(rows.length,story.bar[1].length);
 assert.equal(JSON.stringify(say.map(s=>[s.actor,s['text.ko']])),JSON.stringify(story.bar[1].filter(s=>s.type==='say').map(s=>[s.actor,s.text])));
 assert.deepEqual(rows.filter(s=>s.type==='order').map(s=>[s.actor,s.arg]),[['shiba','exact:bottle_beer'],['tom','exact:dry_martini'],['aili','exact:champagne']]);
 assert.equal(D.tables.scenes.filter(s=>+s.day===1&&s.phase==='bar').length,1);
-for(const [table,id,day]of [['cocktails','dry_martini',1],['shelf_items','dry_vermouth',1],['cocktails','cosmopolitan',2],['shelf_items','cointreau',2],['shelf_items','cranberry_juice',2],['shelf_items','milk',2],['shelf_items','kahlua',2]])assert.equal(+D.tables[table].find(r=>r.id===id).unlock_day,day,id);
+for(const [table,id,day]of [['cocktails','dry_martini',1],['shelf_items','dry_vermouth',1],['cocktails','cosmopolitan',2],['shelf_items','triple_sec',2],['shelf_items','cranberry_juice',2],['shelf_items','milk',2],['shelf_items','kahlua',2]])assert.equal(+D.tables[table].find(r=>r.id===id).unlock_day,day,id);
 assert.equal(D.characterLayers.tom.idle_default.length,5);assert.equal(JSON.stringify(D.characterLayers.tom.idle_default),JSON.stringify(D.characterLayers.tom.idle_talk));for(const key of D.characterLayers.tom.idle_default){const art=D.assets[key];assert.equal(art.frames,4);assert.equal(art.frameWidth,551);assert(art.syncToBody);assert(fs.existsSync(root+'/'+art.src));}
 for(const mode of ['original','gpt','campaign']){
  const g=new C.Game(D);R.attach(g);let session;

@@ -48,7 +48,7 @@ function interact(m,t){if(t.id!==id||m.level||!visible(m))return false;m.facing=
 function completeIntro(m){state(m).flags.shiba_shop_met=true;sync(m);}
 function choiceView(m){const money=Math.max(0,Number(state(m).money)||0),line=m.story.speech.line,stage=line.stage;if(stage==='allowance')return{money,label:'시BAR 용돈 선택',options:[{id:'shop-allowance-yes',label:'한다'},{id:'shop-allowance-no',label:'안 한다'}]};if(stage==='quiz'){const item=items.find(i=>i.id===line.item);return{money,label:'올드 패션드 퀴즈',options:[{id:'shop-answer-1',label:'옛날 방식의 칵테일',disabled:!item||owned(state(m),item)||money<item.price,disabledReason:!item?'구매할 수 없습니다.':owned(state(m),item)?'이미 구매했습니다.':'돈이 부족합니다.'},{id:'shop-answer-2',label:'옛날 옛적 이야기'},{id:'shop-answer-3',label:'뭘 봐, 시바.'}]};}return {money,label:'시BAR 구매 선택',options:stage==='greeting'?[{id:'shop-yes',label:'한번 볼게요.'},{id:'shop-no',label:'아니요.'}]:[{id:'shop-no',label:'구매하지 않는다.'},...items.filter(i=>!owned(state(m),i)).map(i=>({id:'shop-buy-'+i.id,label:i.label+' · '+i.price+'원',disabled:money<i.price,disabledReason:'돈이 부족합니다.'}))]};}
 function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return false;const stage=s.line.stage;
- if(choice==='shop-buy-tuna_can'&&['greeting','items'].includes(stage)){
+ if(choice==='shop-buy-tuna_can'&&stage==='items'){
   if(!tunaAvailable(m)||!purchase(m,tuna))return false;
   return m.story.beginRows(id,s.target,tunaReply());
  }
@@ -60,6 +60,6 @@ function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return
  s.choice=false;if(needsQuiz(p,item))return m.story.beginRows(id,s.target,quizRows(item));
  purchase(m,item);return m.story.beginRows(id,s.target,purchaseReply());
 }
-function withTunaChoice(m){const view=choiceView(m),stage=m.story.speech.line.stage;if(stage==='greeting')view.options.splice(view.options.length-1,0,...tunaOption(m));else if(stage==='items')view.options.push(...tunaOption(m));return view;}
+function withTunaChoice(m){const view=choiceView(m);if(m.story.speech.line.stage==='items')view.options.push(...tunaOption(m));return view;}
 W.LunaOutsideShop={id,items,openStock,grantAllowance,intro,revisit,visible,targets,interact,preview,begin,completeIntro,choiceView:withTunaChoice,choose};
 })(window);

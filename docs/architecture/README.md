@@ -38,6 +38,10 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 
 ## 로딩·경로 계약
 
+### 본편 제외 칵테일
+
+롱아일랜드 아이스티(`long_island`)는 `campaign-engine.js`의 본편 세션 설치에서 칵테일·레시피·태그 실행 목록을 제외합니다. 잠금 카드·일차 해금·추천 메뉴·무작위 주문·제조 선택에도 나타나지 않습니다. 공통 재료와 원본 CSV/이미지는 보존하며, 본편 세션 종료 시 원래 테이블을 복원하여 개발자 시뮬레이터·연습·리소스 검수에서는 계속 사용할 수 있습니다. 검증: `test-long-island-main-excluded-ui.cjs`.
+
 ### 올드패션드 복원 알림
 
 실제 비터스 구매·갱단 와일드 독 획득에서 `LunaRestorationNotices.check`를 호출합니다. 두 재료를 모두 보유하면 `old_fashioned_materials` 목표를 조용히 등록하고 `목표 달성 / 올드패션드 재료 구하기!`를 한 번 표시하며 완료 이력을 campaign carry에 보존합니다. 저장 불러오기·시작일 보정·검수 미리보기만으로 새 알림을 발생시키지 않습니다. 레시피는 기존 실제 제조 조건(3일차·조니 기억·각설탕·`johnny_recipe_unlocked`)과 `johnnyUnlock` 팝업만 사용하고 별도 레시피 알림은 표시하지 않습니다. 검증: `test-restoration-notices.cjs`, `test-restoration-notices-ui.cjs`.

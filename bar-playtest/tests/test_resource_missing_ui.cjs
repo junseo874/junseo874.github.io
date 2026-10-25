@@ -4,7 +4,7 @@ const p=await b.newPage({viewport:{width:1500,height:1000}}),errors=[];p.on('pag
 const entries=await p.evaluate(()=>resourceReview.missing.entries);assert(entries.length>10);assert.equal(new Set(entries.map(e=>e.id)).size,entries.length);
 const pendingIds=['recipes','dossier','overlay:service','overlay:settings','overlay:history','overlay:johnnyUnlock','unlock','mini:shake','mini:stir','mini:pour','result'].map(id=>'ui:'+id);
 const catalog=await p.evaluate(()=>resourceReview.rows);
-const missingItems=['cointreau','cranberry_juice','triple_sec','kahlua','milk','amaretto','wild_dog','bitters','sugar_cube'];
+const missingItems=['cranberry_juice','triple_sec','kahlua','milk','amaretto','wild_dog','bitters','sugar_cube'];
 for(const id of missingItems){const rows=catalog.filter(r=>r.id.startsWith('item:'+id+':'));assert.equal(rows.length,3,id);for(const r of rows){assert.equal(r.status,'missing',r.id);assert(r.layers.length>0,r.id+' keeps placeholder preview');}const entry=entries.find(e=>e.id==='item:item:'+id);assert(entry,id+' in production checklist');assert.equal(entry.rows.length,3);assert.deepEqual(entry.reasons,['missing']);}
 for(const id of ['gin','tequila']){assert(catalog.filter(r=>r.id.startsWith('item:'+id+':')).every(r=>r.status!=='missing'));assert(!entries.some(e=>e.id==='item:item:'+id));}
 await p.click('[data-group="bar-items"]');await p.click('[data-status="missing"]');for(const id of missingItems)for(const kind of ['shelf','recipe','inventory'])assert.equal(await p.locator('[data-id="item:'+id+':'+kind+'"] .badge').innerText(),'미등록');await p.click('[data-status="all"]');

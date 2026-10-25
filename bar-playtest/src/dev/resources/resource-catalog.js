@@ -7,7 +7,7 @@ const statusNames={registered:'등록됨',dummy:'더미·임시',shared:'대체�
 // A screenshot alone is not an art set; restored recipe/profile/service/stir assets are inventoried below.
 const pendingUIArt=new Set(['overlay:settings','overlay:history','overlay:johnnyUnlock','unlock','mini:shake','mini:pour','result']);
 // Owner-confirmed gaps: a shared bottle or temporary drawing is not dedicated item art.
-const pendingItemArt=new Set(['cointreau','cranberry_juice','triple_sec','kahlua','milk','amaretto','wild_dog','bitters','sugar_cube']);
+const pendingItemArt=new Set(['cranberry_juice','triple_sec','kahlua','milk','amaretto','wild_dog','bitters','sugar_cube']);
 const revisionUI=new Set(['ui:prep','ui:pair','ui:mini:shake','ui:mini:stir']);
 function build(F){
  const D=F.barData,g=F.barGame,A=D.assets,O=F.LUNA_OUTSIDE_DATA,rows=[];
@@ -77,9 +77,11 @@ function build(F){
  const outsideLayer=(sp)=>{const a=O.assets[sp.asset];return{key:sp.asset,src:typeof a==='string'?a:a.src,source:a.source||a.path||'',rects:[{x:sp.x,y:sp.y,w:sp.w,h:sp.h}],frames:1,w:sp.w,h:sp.h};};
  const bookCover=O.assets[F.LunaHomeArt.book.cover];
  add({id:'outside:home-book',group:'out-ui',title:'즐거운 학문 · 책 표지',usage:'크리스 집 탁자 위 책 · 이미지 살펴보기',layers:[layer(F.LunaHomeArt.book.cover,bookCover)],note:'사용자 제공 원본 표지. 포스터와 같은 보기 화면에서 《즐거운 학문》 - 프리드리히 니체 설명과 함께 표시합니다.'});
- for(const [key,anim]of Object.entries(O.animations)){const base=outsideLayer(anim.frames[0]);add({id:'outside:'+key,group:'out-characters',title:key==='shiba'?'시바견':'루나',usage:key,layers:[{...base,rects:anim.frames.map(f=>({...f,src:typeof O.assets[f.asset]==='string'?O.assets[f.asset]:O.assets[f.asset].src})),frames:anim.frames.length,fps:anim.fps}],note:'외부 런타임에 등록된 프레임을 직접 재생합니다. 원본 방향을 유지합니다.'});}
- for(const kind of ['M1','M2','W1']){const a=O.assets['ambient-'+kind];add({id:'outside:'+kind,group:'out-characters',title:'거리 NPC · '+kind,usage:'6프레임 · 더미 실루엣',status:'dummy',layers:[{key:'ambient-'+kind,src:a?.src||'assets/outside/NPC_idle_'+kind+'.png',w:774,h:138,fw:129,fh:138,frames:6,fps:3.5}],note:'거리 행인·주민·불량배 등의 대체 캐릭터로 사용하는 실루엣입니다. 전용 인물 아트가 아닙니다.'});}
+ const idleRate=count=>O.animations.idle.fps*Math.min(1,count/O.animations.idle.frames.length);
+ for(const [key,anim]of Object.entries(O.animations).filter(([key])=>key!=='samhoIdle')){const base=outsideLayer(anim.frames[0]);add({id:'outside:'+key,group:'out-characters',title:key==='shiba'?'시바견':'루나',usage:key,layers:[{...base,rects:anim.frames.map(f=>({...f,src:typeof O.assets[f.asset]==='string'?O.assets[f.asset]:O.assets[f.asset].src})),frames:anim.frames.length,fps:key==='shiba'?idleRate(anim.frames.length):anim.fps}],note:'외부 런타임에 등록된 프레임과 실제 재생 속도를 사용합니다. 원본 방향을 유지합니다.'});}
+ for(const kind of ['M1','M2','W1']){const a=O.assets['ambient-'+kind];add({id:'outside:'+kind,group:'out-characters',title:'거리 NPC · '+kind,usage:'6프레임 · 더미 실루엣',status:'dummy',layers:[{key:'ambient-'+kind,src:a?.src||'assets/outside/NPC_idle_'+kind+'.png',w:774,h:138,fw:129,fh:138,frames:6,fps:idleRate(6)}],note:'거리 행인·주민·불량배 등의 대체 캐릭터로 사용하는 실루엣입니다. 본편과 같은 대기 주기로 재생하며 전용 인물 아트가 아닙니다.'});}
  const roles=new Map();for(const c of F.LunaOutsideEncounters.cases)for(const id of c.members||[]){const a=F.LunaOutsideEncounters.actor(id);if(a&&['M1','M2','W1'].includes(a.kind))roles.set(id,{...a,id});}
+ for(const [id,name,kind]of [['repair','수리공','M2'],['neighbor','옆집 아저씨','M1'],['guard','길을 막는 갱단원','M1'],['boss','덩치 큰 남자','M2'],['gangmate','갱단원 · 오른쪽','M2'],['gang-left','갱단원 · 왼쪽','M1'],['gang-far','갱단원 · 안쪽','W1'],['home-chris','크리스 · 부비 첫 휴식','M1']])roles.set(id,{id,name,kind});
  for(const a of [{id:'thug',name:'복도 불량배',kind:'M2'},...roles.values()]){const base=rows.find(r=>r.id==='outside:'+a.kind);add({id:'outside-role:'+a.id,group:'out-characters',title:a.name,usage:a.id+' · '+a.kind+' 대체',status:'dummy',layers:base.layers,note:'전용 인물 아트 미등록. 현재 '+a.kind+' 실루엣 애니메이션을 재사용합니다.'});}
  const samho=O.scenes.street.nodes.find(n=>n.name==='Samho')?.sprite;
  if(samho){const l=outsideLayer(samho);add({id:'outside:samho',group:'out-characters',title:'삼호',usage:'대기 / 대화 공용 · 8프레임 · 12 FPS',layers:[{...l,rects:O.animations.samhoIdle.frames,frames:8,fps:12}],note:'원본 Samho Idle 8프레임을 외부 대기·대화·검수에서 동일하게 재생합니다.'});}
@@ -93,7 +95,7 @@ function build(F){
  ui('terrace:workshop','독립 대사창 / 검은 화면','월드 말풍선과 다른 화면 하단 대사창입니다. 화자 이름과 대사 텍스트 배치를 확인합니다.',{type:'terrace',id:'workshop'},'out-ui');
  ui('exterior:purchase','재료 획득 알림 / 외부','재료 이미지·이름과 획득 알림 효과음만 재생합니다. 소지금은 변경하지 않으며, 재화 알림은 소지금 증가 / 차감 항목에서 따로 확인합니다.',{type:'exterior',id:'purchase'},'out-ui');
  stateGroup('exterior:street','상호작용 키 안내 / E·Y','대상 위 E 표시와 전경 관찰 지점의 Y 표시를 전환해 확인합니다.',[{id:'e',label:'상호작용 / E',launch:{type:'exterior',id:'street'}},{id:'y',label:'전경 관찰 / Y',launch:{type:'exterior',id:'panorama'}}],'exterior:street','out-ui');
- stateGroup('exterior:poor','외부 대화 / 선택지','구매 선택과 금액 부족 비활성화를 같은 선택지 UI에서 확인합니다.',[{id:'poor',label:'상점 / 소지금 부족',launch:{type:'exterior',id:'poor'}}],'exterior:poor','out-ui');
+ stateGroup('exterior:poor','외부 대화 / 선택지','구매 선택과 돈 부족 거절 표시를 확인합니다. 선택은 가능하며 확정 시 빨간 배경·글리치와 조건 문구를 표시합니다.',[{id:'poor',label:'상점 / 소지금 부족',launch:{type:'exterior',id:'poor'}}],'exterior:poor','out-ui');
  stateGroup('door:in','바 출입 / 로딩','같은 문 로딩 화면의 입장·퇴장 상태를 전환해 확인합니다.',[{id:'in',label:'입장 / 문 열림',launch:{type:'door',id:'in'}},{id:'out',label:'퇴장 / 문 닫힘',launch:{type:'door',id:'out'}}],'door:in','out-ui');
  ui('day-transition','일차 전환 / Day 숫자','검은 화면과 Day 0 → 1 숫자 전환을 실제 연출로 재생합니다.',{type:'day-transition'},'out-ui');
  for(const area of ['bar','out'])groups.some(g=>g[0]===area+'-fx')||groups.splice(groups.findIndex(g=>g[0]===area+'-ui')+1,0,[area+'-fx',area==='bar'?'바 내부':'외부','연출 / 이펙트']);

@@ -6,6 +6,12 @@ const RESTORATION={id:'johnny_old_fashioned',prototype:false,glass:'old_fashione
 class Session{
  constructor(g,data,story){this.g=g;this.data=data;this.story=story;this.active=false;this.day=0;this.completed=[];this.checkpoint=null;this.route='title';this.events=[];this.original=null;}
  install(options={}){if(this.active)return;this.developer=!!options.developer;this.serviceVersion='A';const t=this.data.tables;this.original=Object.fromEntries(Object.entries(t).map(([k,v])=>[k,v]));this.assetKeys=[];this.active=true;
+  // Park Long Island outside the main campaign, including locked recipe cards.
+  // Original CSV/assets and developer practice return unchanged on uninstall.
+  if(!this.developer){
+   t.cocktails=t.cocktails.filter(c=>c.id!=='long_island');
+   for(const key of ['recipes','cocktail_tags'])t[key]=t[key].filter(r=>r.context!=='long_island');
+  }
   if(this.data.sharedCsv){
    // Content and restoration recipes already come from the shared engine CSV.
    this.storyVersion='A';

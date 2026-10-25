@@ -4757,38 +4757,6 @@
           "booleans": []
         },
         {
-          "id": "shelf_items_cointreau",
-          "key": {
-            "id": "cointreau"
-          },
-          "fields": [
-            "id",
-            "name.ko",
-            "name.en",
-            "kind",
-            "category",
-            "color",
-            "sprite",
-            "unlock_day",
-            "unlock_when",
-            "shop_price",
-            "desc.ko",
-            "desc.en",
-            "default_action",
-            "prep_action",
-            "default_target_qty",
-            "default_target_unit",
-            "shelf_group",
-            "liquid_alpha",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [
-            "default_target_qty"
-          ],
-          "booleans": []
-        },
-        {
           "id": "shelf_items_cranberry_juice",
           "key": {
             "id": "cranberry_juice"
