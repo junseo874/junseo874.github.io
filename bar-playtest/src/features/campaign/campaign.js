@@ -145,7 +145,7 @@
         c.player?.dispose();
         c.player = (c.studio ? global.LunaStudioCinema.player : global.LunaCinemaPlayer)(this.host.querySelector('canvas'), this.host.querySelector('.campaign-cinema-ui'), c.scene);
         c.renderer = c.player.renderer;
-        c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait);
+        c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
         this.paintCinemaChoices();
         this.paintCinemaSkip();
         document.body.classList.toggle('campaign-cinematic', !c.dialogueWait&&!c.dialogueChoice);
@@ -389,7 +389,7 @@
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
-        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'stable-floor-20261020' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
+        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'tv-effects-clock-20261026' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);
@@ -703,9 +703,10 @@
       this.cinemaHoldStart = null;
     }
     canSkipCinema() {
-      // Approved D08: normal playback and manual dialogue advancement remain;
-      // only the optional Space-held jump-to-end shortcut is disabled.
-      return false;
+      // TV is the only exception to the no whole-cutscene-skip rule.
+      return this.view === 'prologue' && !!this.cinema?.studio &&
+        this.cinema.scene?.template === 'documentary' &&
+        !this.memoryTransition && !this.dayTransition && !global.LunaFocusSettings.hiddenPaused;
     }
     tickCinemaDialogue(c, dt) {
       // Manual lines own their clock. Keep the scene alive, but never cross a
@@ -749,7 +750,7 @@
         this.finishCinema();
         return;
       }
-      c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait);
+      c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
       this.paintCinemaChoices();
     }
     paintCinemaChoices() {
@@ -783,7 +784,7 @@
         c.time = source.start + source.duration + .001;
         this.cinemaChoices.update(null);
         this.resetInput();
-        c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, null);
+        c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, null, c.effectTime);
       }, choice.state);
       const sample = c.renderer.sample(c.time),
         actor = sample.actors[choice.actor],
@@ -852,7 +853,7 @@
           c.player.pause?.();
           c.time = c.skipUntil;
           this.releaseCinemaSkip();
-          c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait);
+          c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
           this.paintCinemaSkip();
           return;
         }
@@ -1390,6 +1391,9 @@
       if (this.view === 'prologue' && !global.LunaFocusSettings.hiddenPaused) {
         const c = this.cinema,
           previous = c.time;
+        // Persist on the cinematic so redraws and settings resume keep the
+        // same TV reception phase. Only active gameplay advances this clock.
+        if (c.scene.template === 'documentary') c.effectTime = (c.effectTime ?? c.time) + Math.max(0, dt);
         this.tickCinemaDialogue(c, dt);
         document.body.classList.toggle('campaign-cinematic', !c.dialogueWait&&!c.dialogueChoice);
         // A completed holo shutdown returns before drawing the timeline's empty end frame.
@@ -1397,7 +1401,7 @@
           this.finishCinema();
           return this.blocking;
         }
-        c.player.render(c.time, previous, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait);
+        c.player.render(c.time, previous, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
         this.paintCinemaChoices();
         if (this.paintCinemaSkip(dt)) {
           this.finishCinema(true);
