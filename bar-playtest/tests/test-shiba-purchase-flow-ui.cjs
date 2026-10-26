@@ -12,18 +12,18 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    await finish();
    assert.deepEqual(await p.locator('.world-choices button').evaluateAll(es=>es.map(e=>e.dataset.choice)),['shop-yes','shop-no']);
    assert.equal(await p.evaluate(()=>LunaOutsideShop.choose(outsidePlaytest.model,'shop-buy-tuna_can')),false,'Greeting cannot purchase even through a stale choice');
-   await p.locator('[data-choice="shop-yes"]').click();await finish();
+   await p.waitForTimeout(550);await p.locator('[data-choice="shop-yes"]').click();await finish();
    // Preserve the existing optional allowance conversation, but never sell from it.
    if(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.stage==='allowance')){
     assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').count(),0);
-    await p.locator('[data-choice="shop-allowance-no"]').click();await finish();
+    await p.waitForTimeout(550);await p.locator('[data-choice="shop-allowance-no"]').click();await finish();
    }
    assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'어떤 걸 살 거야?');
    assert.deepEqual(await p.locator('.world-choices button').evaluateAll(es=>es.map(e=>e.dataset.choice)),['shop-no','shop-buy-bitters','shop-buy-tuna_can']);
    assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'shop-no');
    // aria-disabled advertises rejection to assistive tools; keyboard selection
    // still accepts the attempt so the game's insufficient-funds feedback runs.
-   await p.locator('[data-choice="shop-buy-tuna_can"]').hover();await p.keyboard.press('Enter');
+   await p.waitForTimeout(550);await p.locator('[data-choice="shop-buy-tuna_can"]').hover();await p.keyboard.press('Enter');
    if(money<50){
     assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').innerText(),'돈이 부족합니다.');
     assert.equal(await p.evaluate(()=>barGame.progress.money),money);

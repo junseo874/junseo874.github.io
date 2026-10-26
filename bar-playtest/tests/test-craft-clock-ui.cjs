@@ -10,7 +10,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.waitForFunction(()=>document.querySelector('.craft-timer')?.dataset.craftSeconds==='62');
   if(['stir','shake'].includes(kind)&&await p.locator('.mix-tutorial').isVisible()){
    await p.waitForTimeout(200);assert.equal(await p.evaluate(()=>barGame.craft.elapsed),62.4,'tutorial excludes time');
-   await p.locator('.mix-lesson-next').click();await p.locator('.mix-lesson-next').click();
+   await p.locator('.mix-lesson-next').click();await p.waitForFunction(()=>document.querySelector('.mix-guide-page')?.textContent.includes('2'));await p.locator('.mix-lesson-next').click();await p.locator('.mix-tutorial').waitFor({state:'hidden'});
   }
   assert.equal(await clock.count(),1);assert.equal(await clock.getAttribute('aria-label'),'제조시간 01:02');
   assert.match(await clock.locator('img').getAttribute('src'),/ICN_sitr_time.png/);
@@ -28,7 +28,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.evaluate(()=>LunaCaptureMode.set(true));assert.equal(await clock.evaluate(e=>getComputedStyle(e).visibility),'hidden');
   await p.evaluate(()=>LunaCaptureMode.set(false));
   await p.evaluate(kind=>barGame.gimmickInput(kind==='stir'?'KeyW':'Space'),kind);
-  await p.waitForFunction(()=>Number(document.querySelector('.craft-timer').dataset.craftSeconds)>62,null,{timeout:5000}).catch(async e=>{console.error(kind,await p.evaluate(()=>({elapsed:barGame.craft.elapsed,started:barGame.gimmick.started,completed:barGame.gimmick.completed,paused:barGame.paused,hidden:barGame.hidden,overlay:barGame.overlay,view:lunaCampaign.view})));throw e;});
+  if(kind==='open'){await p.waitForTimeout(800);assert.equal(await p.evaluate(()=>barGame.craft.elapsed),62.4,'opening is not scored time');}else await p.waitForFunction(()=>Number(document.querySelector('.craft-timer').dataset.craftSeconds)>62,null,{timeout:5000}).catch(async e=>{console.error(kind,await p.evaluate(()=>({elapsed:barGame.craft.elapsed,started:barGame.gimmick.started,completed:barGame.gimmick.completed,paused:barGame.paused,hidden:barGame.hidden,overlay:barGame.overlay,view:lunaCampaign.view})));throw e;});
   await p.keyboard.press('Escape');await p.locator('.luna-settings:visible').waitFor();
   const frozen=await p.evaluate(()=>barGame.craft.elapsed);await p.waitForTimeout(150);assert.equal(await p.evaluate(()=>barGame.craft.elapsed),frozen);
   await p.keyboard.press('Escape');
@@ -38,7 +38,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   lunaCampaign.session.active=true;lunaCampaign.session.developer=false;lunaCampaign.screen('game');
  });
  await p.locator('.main-story-mix.shake-screen .craft-timer').waitFor();
- if(await p.locator('.mix-tutorial').isVisible()){await p.locator('.mix-lesson-next').click();await p.locator('.mix-lesson-next').click();}
+ if(await p.locator('.mix-tutorial').isVisible()){await p.locator('.mix-lesson-next').click();await p.waitForFunction(()=>document.querySelector('.mix-guide-page')?.textContent.includes('2'));await p.locator('.mix-lesson-next').click();await p.locator('.mix-tutorial').waitFor({state:'hidden'});}
  assert.equal(await p.locator('.rhythm-modes').count(),0);
  assert(await p.evaluate(()=>document.querySelector('.rhythm-stage').getBoundingClientRect().top>document.querySelector('.craft-timer').getBoundingClientRect().bottom),'main story keeps rhythm play below the shared clock');
  await p.screenshot({path:'/private/tmp/craft-clock-main-shake.png'});

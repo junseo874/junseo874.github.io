@@ -92,7 +92,7 @@
         global.Sfx?.setLowpass(0);
       }
       this.view = view;
-      document.body.classList.toggle('campaign-cinematic', ['prologue', 'scene', 'awakening', 'bar-door'].includes(view));
+      document.body.classList.toggle('campaign-cinematic', ['awakening', 'bar-door'].includes(view)||view==='prologue'&&!this.cinema?.dialogueWait&&!this.cinema?.dialogueChoice);
       this.host.classList.toggle('is-dev-console', view === 'dev-console');
       this.host.classList.toggle('over-outside', view === 'scene' && this.outside.active && !['terrace', 'black', 'johnny-memory'].includes(this.dialog?.background));
       this.host.hidden = !this.blocking;
@@ -148,6 +148,7 @@
         c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait);
         this.paintCinemaChoices();
         this.paintCinemaSkip();
+        document.body.classList.toggle('campaign-cinematic', !c.dialogueWait&&!c.dialogueChoice);
       }
       if (this.view === 'scene') {
         if (this.dialog?.background !== 'terrace') this.host.querySelectorAll('.campaign-speech').forEach(el => global.LunaExteriorTextbox.attach(el, {
@@ -702,8 +703,9 @@
       this.cinemaHoldStart = null;
     }
     canSkipCinema() {
-      const c = this.cinema;
-      return !!c && (c.skipUntil == null || c.time < c.skipUntil);
+      // Approved D08: normal playback and manual dialogue advancement remain;
+      // only the optional Space-held jump-to-end shortcut is disabled.
+      return false;
     }
     tickCinemaDialogue(c, dt) {
       // Manual lines own their clock. Keep the scene alive, but never cross a
@@ -1383,18 +1385,13 @@
         global.LunaDialogueAudio?.reveal(this.dialog.rows[this.dialog.index].text, before, this.dialog.chars);
         this.paintLine();
         if (this.dialog.background === 'johnny-memory') global.LunaJohnnyMemory.sync(this.host, this.dialog, this.D, dt);
-        if (this.control) {
-          this.skipAge += dt;
-          if (this.skipAge > .12) {
-            this.skipAge = 0;
-            this.next();
-          }
-        }
+        // D08: campaign/exterior scenes advance through next(), not Ctrl repeat.
       }
       if (this.view === 'prologue' && !global.LunaFocusSettings.hiddenPaused) {
         const c = this.cinema,
           previous = c.time;
         this.tickCinemaDialogue(c, dt);
+        document.body.classList.toggle('campaign-cinematic', !c.dialogueWait&&!c.dialogueChoice);
         // A completed holo shutdown returns before drawing the timeline's empty end frame.
         if (c.returnTransition === 'cut' && !c.dialogueWait && c.time >= c.scene.end) {
           this.finishCinema();
@@ -1678,10 +1675,12 @@
       }
       if (this.outside.active && this.outside.devConsoleOpen && !this.blocking) return false;
       if (this.view === 'game' && e.code === 'Escape' && this.g.gimmick?.pourTestsOpen) return false;
+      // The exterior owns its topmost cancellable interaction, then its menu.
+      if (this.outside.active && !this.blocking && e.code === 'Escape') return false;
       // Let the bar close the visible recipe before the capture-phase campaign
       // handler opens options. The next distinct Escape can open settings.
       if (this.view === 'game' && !this.outside.active && e.code === 'Escape' &&
-          (this.g.screen === 'recipe' || this.g.overlay === 'recipe' || this.g.screen === 'prep' && this.ui.recipeOpen)) return false;
+          (this.g.screen === 'recipe' || this.g.overlay || this.g.screen === 'prep' && this.ui.recipeOpen)) return false;
       if (this.view === 'prologue') {
         global.Sfx?.resume();
         if (this.cinema?.studio) global.LunaStudioCinema.unlock();

@@ -16,7 +16,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   assert.equal(await buttons.first().getAttribute('data-choice'),'shop-no');assert.equal(await buttons.first().textContent(),'구매하지 않는다.');
   assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'shop-no');
   assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').count(),inventory.tuna_can?0:1);
-  await p.keyboard.press('Enter');
+  await p.waitForTimeout(550);await p.keyboard.press('Enter');
   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'뭐야. 그럼 꺼져.');
   assert.deepEqual(await p.evaluate(()=>({money:barGame.progress.money,inventory:barGame.progress.inventory})),{money,inventory});
   // Reopening after choosing another row must reset focus to cancellation.

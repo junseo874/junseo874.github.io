@@ -23,12 +23,12 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
   assert.equal(await menu.locator('.bd-balance').count(),0,'No wallet on a free petting menu');
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.story.view().full),'냐옹');
   assert.equal(await page.evaluate(()=>outsidePlaytest.model.story.speech.id),'neighborhood/homeCat');
-  await page.waitForTimeout(300);
+  await page.waitForTimeout(550);
   await page.screenshot({path:'/private/tmp/home-boobi-menu.png'});
   await menu.locator('[data-choice="cancel"]').click();
   assert(await page.evaluate(()=>!outsidePlaytest.model.story.blocking&&!outsidePlaytest.model.neighborhood.action));
   await page.keyboard.press('KeyE');await menu.locator('[data-choice="pet"]').waitFor({state:'visible'});
-  await page.keyboard.press('Enter');
+  await page.waitForTimeout(550);await page.keyboard.press('Enter');
   const visual=await page.evaluate(()=>{
    const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;
    if(m.neighborhood.action?.name!=='pet')throw Error('Pet selection starts reaction');

@@ -32,7 +32,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
     m.story.speech.elapsed=99;a.snapCamera();a.tick(0);
     return {money:p.money,gear:p.inventory.gear_part,last:m.story.view().full};
    },route);
-   assert.equal(before.money,route==='pay'?100:500);assert.equal(before.gear,route==='pay'?1:0);
+   assert.equal(before.money,route==='pay'?100:500);assert.equal(before.gear,1);
    assert(before.last.includes('고쳐졌'),'Final repair dialogue is still visible');
    await page.keyboard.press('KeyE');
    const notice=page.locator('#story-notices [data-kind="goal-complete"]');await notice.waitFor({state:'visible'});

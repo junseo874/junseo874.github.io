@@ -15,7 +15,7 @@ function start(m){if(m.encounter||!visible(m)||!isQA(m)&&(m.level||m.ride))retur
 }
 function action(m){const e=m.encounter;if(e?.kind!==id)return false;e.stage='depart';e.elapsed=0;e.departFrom=e.npcX;e.direction=m.x<e.npcX?1:-1;return true;}
 function complete(m){flags(m)[doneKey(m)]=true;flags(m).samho_met=true;const c=W.lunaCampaign;if(!m.qa&&c?.active){c.morningSeen.add(day(m));if(c.session.carry){c.session.carry.flags??={};Object.assign(c.session.carry.flags,{[doneKey(m)]:true,samho_met:true});}}if(m.qa){m.qa.done=true;m.qa.camera=null;m.qa.events.push({event:'complete',time:m.time,id:qaId});}m.encounter=null;W.outsidePlaytest?.clearInput();m.updateNear();}
-function tick(m,dt){let e=m.encounter;if(e?.kind!==id){if(!m.qa&&!m.level&&visible(m)&&!m.encounter&&!m.paused&&!m.transition&&!m.ride&&!m.dialog&&!m.story.blocking&&m.x>=xFor(m)-.86&&m.x<=xFor(m)+.86){start(m);return true;}return false;}
+function tick(m,dt){let e=m.encounter;if(e?.kind!==id)return false;
  e.elapsed+=dt;m.animTime+=dt;m.anim='idle';
  if(e.stage==='entering'){const p=Math.min(1,e.elapsed/.65);m.x=e.from+(e.to-e.from)*p*p*(3-2*p);if(Math.abs(e.to-e.from)>.03&&p<1)m.anim='walk';if(p===1&&e.cameraReady){e.stage='active';m.story.beginRows(isQA(m)?'runtime:'+sceneKey(m):id,e.target,(W.lunaCampaign?.active&&!m.qa?W.lunaCampaign.data:W.LUNA_CAMPAIGN_DATA).scenes[sceneKey(m)]);}}
  else if(e.stage==='depart'){const exit=W.LunaOutsideNPCExit.sample(e.elapsed,e.departFrom,e.direction);e.npcX=exit.x;e.alpha=exit.alpha;e.target.x=e.npcX;if(exit.done){e.stage='active';if(m.story.speech){m.story.speech.index++;m.story.seek();}}}
@@ -32,5 +32,6 @@ function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.e
  // NPCs belong to the street, never to the passenger's moving lift height.
  sprite(W.LunaSamhoAnimation.frame(m.time),x,groundY+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),e?.alpha??1);
 }
-W.LunaOutsideSamhoCommute={id,qaId,visible,start,tick,action,draw};
+function offer(m){W.LunaOutsideStory.events.offer(m,id,()=>!m.level&&visible(m)&&Math.abs(m.x-xFor(m))<=.86,()=>start(m),40);}
+W.LunaOutsideSamhoCommute={id,qaId,visible,start,tick,action,draw,offer};
 })(window);

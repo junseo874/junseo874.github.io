@@ -4,6 +4,7 @@
 
 ## 최소 탐색
 
+- 본편 규칙의 정본은 `docs/gameplay/README.md`다. 사건은 `docs/gameplay/events.md`, CSV·대화 연결은 `docs/gameplay/data-and-dialogue.md`를 따른다. 현재 웹 본편을 기준으로 하며 개발자/검수 전용 기능이나 과거 기획을 본편 규칙으로 혼합하지 않는다. 규칙 변경 시 해당 문서와 테스트를 함께 갱신한다.
 - 먼저 `docs/architecture/README.md`의 수정 지점 표를 읽고 해당 기능 폴더만 검색한다.
 - `rg`는 기본적으로 `bar-playtest/src/<해당 영역>`에서 시작한다. 저장소 전체 검색이 필요하면 `data/`, `assets/`, `docs/history/`, `artifacts/`, `archives/`를 제외한다.
 - `data/runtime/`에는 큰 생성 데이터가 있다. 전체 파일을 출력하지 말고 필요한 객체/키만 Node로 읽는다.

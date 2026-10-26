@@ -7,9 +7,9 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.evaluate(level=>{const m=outsidePlaytest.model,R=LunaResidence.layout;m.ride=null;m.dialog=null;m.scene='street';m.level=level;m.elevatorY=level?R.elevatorTop:R.elevatorBottom;m.x=R.elevatorX;m.y=level?R.upperY:-.7;m.story.cancel();m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);},level);
   await p.keyboard.press('KeyE');await p.waitForFunction(label=>document.querySelector('.world-choices [data-choice="confirm"]')?.textContent===label,level?'내려간다':'올라간다');assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),false);
   assert.deepEqual(await p.locator('.world-choices button').allTextContents(),[level?'내려간다':'올라간다','취소']);
-  await p.locator('[data-choice="cancel"]').click();assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),false);
+  await p.waitForTimeout(550);await p.locator('[data-choice="cancel"]').click();assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),false);
   await p.keyboard.press('KeyE');await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>outsidePlaytest.model.dialog),null);
-  await p.keyboard.press('KeyE');await p.locator('[data-choice="confirm"]').click();assert(await p.evaluate(()=>!!outsidePlaytest.model.ride));
+  await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="confirm"]').click();assert(await p.evaluate(()=>!!outsidePlaytest.model.ride));
  }
  for(const level of [0,1])for(const choice of ['fast','confirm','cancel']){
   await p.evaluate(level=>{
@@ -22,11 +22,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['빠른 이동',level?'내려간다':'올라간다','취소']);
   assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'fast','fast travel is the default selection');
   if(choice==='fast'){
-   await p.keyboard.press('Enter');
+   await p.waitForTimeout(550);await p.keyboard.press('Enter');
    await p.waitForFunction(level=>outsidePlaytest.model.level===1-level&&!outsidePlaytest.model.neighborhood.action,level);
    assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),false,'fast travel skips the ride');
   }else{
-   await p.locator('.world-choices [data-choice="'+choice+'"]').click();
+   await p.waitForTimeout(550);await p.locator('.world-choices [data-choice="'+choice+'"]').click();
    assert.equal(await p.evaluate(()=>!!outsidePlaytest.model.ride),choice==='confirm');
    if(choice==='cancel')assert.equal(await p.evaluate(()=>outsidePlaytest.model.level),level);
   }
@@ -47,8 +47,8 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  assert(await p.evaluate(()=>barGame.progress.flags.day0_tv_seen&&lunaCampaign.session.carry.flags.day0_tv_seen));
  assert.notEqual(await p.evaluate(()=>getComputedStyle(document.body).cursor),'none');
  await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['TV를 본다','끈다']);
- assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.locator('[data-choice="cancel"]').click();
+ assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.waitForTimeout(550);await p.locator('[data-choice="cancel"]').click();
  assert(await p.evaluate(()=>outsidePlaytest.model.tvOff));assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);
- await p.keyboard.press('KeyE');await p.locator('[data-choice="confirm"]').click();await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');assert(!await p.evaluate(()=>outsidePlaytest.model.tvOff));
+ await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="confirm"]').click();await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');assert(!await p.evaluate(()=>outsidePlaytest.model.tvOff));
  assert.deepEqual(errors,[]);console.log('PASS elevator both directions/cancel/Escape, repaired fast-first/default selection/normal ride, first TV direct, seen flag/carry, replay/off and replay after off');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

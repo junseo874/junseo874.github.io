@@ -15,8 +15,8 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    const a=outsidePlaytest,m=a.model,t=m.near;
    return {near:t.id,marker:a.discoveryMarkers.find(x=>x.id==='bed'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow,bed:LunaHomeArt.bed,range:LunaOutsideDiscovery.inRange(m,t)};
   });
-  assert.equal(ready.near,'bed');assert(ready.marker&&ready.range);
-  assert(Math.abs(ready.marker.x-ready.expected.x)<2&&Math.abs(ready.marker.y-(ready.expected.y-22))<2,'question mark stays above the bed, not the room atlas');
+  assert.equal(ready.near,'bed');assert(!ready.marker&&ready.range);
+  assert.equal(ready.marker,undefined,'D11 removes the badge, not the interaction');
   assert.equal(ready.glow.target,'bed');assert.equal(ready.glow.drawn.length,1);assert.deepEqual(ready.glow.drawn[0].region,[...ready.bed.rect,ready.bed.edge]);
   await p.screenshot({path:'/private/tmp/home-bed-ready.png'});
   await p.keyboard.press('KeyE');
@@ -42,7 +42,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   assert.equal(checks.length,8);
   for(const viewport of [{width:820,height:650},{width:1920,height:1080}]){
    await p.setViewportSize(viewport);await p.waitForTimeout(100);
-   assert(await p.evaluate(()=>outsidePlaytest.discoveryMarkers.some(t=>t.id==='bed')));
+   assert(await p.evaluate(()=>!outsidePlaytest.discoveryMarkers.some(t=>t.id==='bed')));
   }
   await p.evaluate(()=>{lunaCampaign.session.active=true;lunaCampaign.session.developer=false;lunaCampaign.screen('game');});
   await p.locator('.outside-interact').click();assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.id),'home/bed');

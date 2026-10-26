@@ -2,6 +2,8 @@
 
 실행: `http://127.0.0.1:8123/bar-playtest/`, 개발자 모드: `?dev=1`.
 
+현재 웹 본편이 확정 기준입니다. 구현을 넘겨받는 사람은 [공통 규칙](../docs/gameplay/README.md) → [사건별 흐름](../docs/gameplay/events.md) → [CSV와 대화 사용법](../docs/gameplay/data-and-dialogue.md) 순서로 읽으세요. 개발자 모드와 검수 탭의 동작은 본편 진행과 구분합니다.
+
 현재 구조와 수정 위치는 [구조 안내](../docs/architecture/README.md), 검증은 [테스트 안내](../docs/architecture/testing.md)를 참조하세요.
 
 - `src/`: 수정하는 실행 코드와 스타일. 기능별로 JS/CSS를 함께 보관합니다.

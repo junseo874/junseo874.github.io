@@ -612,6 +612,10 @@
     ],
     [
       "script",
+      "data/presentation/choice-feedback.js"
+    ],
+    [
+      "script",
       "src/shared/dialogue/world-choices.js"
     ],
     [
@@ -621,6 +625,18 @@
     [
       "script",
       "src/features/outside/outside-notices.js"
+    ],
+    [
+      "script",
+      "data/presentation/street-atmosphere.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/street-atmosphere-renderer.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/street-atmosphere.js"
     ],
     [
       "script",

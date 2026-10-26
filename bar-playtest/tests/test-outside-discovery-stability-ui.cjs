@@ -33,9 +33,10 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
      const ctx={save(){},restore(){},fillText(){}},offsets=[];
      for(let i=0;i<80;i++){
       const cam=C.view({x:t.x-.13+i*.0017,y:i*.0019,w:4.8},a.pixelSurface,{qa:true});
-      const marker=D.draw(ctx,m,[t],(x,y)=>D.project({x,y},pose,cam,a.pixelSurface),()=>head,f)[0];
+      const markers=D.draw(ctx,m,[t],(x,y)=>D.project({x,y},pose,cam,a.pixelSurface),()=>head,f);
+      ok(markers.length===0,'D11 keeps markers absent through every camera position');
+      const marker=D.project(head,pose,cam,a.pixelSurface);
       const sp=C.sprite(pose.sp,pose.x,pose.y,pose.scale,pose.scale,pose.flip,cam,a.pixelSurface);
-      ok(close(marker.x*f,Math.round(marker.x*f))&&close(marker.y*f,Math.round(marker.y*f)),'physical-pixel text alignment');
       offsets.push({x:(marker.x-sp.x)*f,y:(marker.y-sp.y)*f});
      }
      ok(offsets.every(o=>close(o.x,offsets[0].x)&&close(o.y,offsets[0].y)),'badge moves with sprite without independent pixel steps');
@@ -46,9 +47,9 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
      for(const move of [1,-1])for(let i=0;i<70;i++){
       m.tick(.01,{move});a.tick(.01);
       const marker=a.discoveryMarkers.find(v=>v.id===t.id),cam=a.renderCamera,head=N.targetAnchor(m,t,true);
-      ok(marker,'badge remains visible while walking nearby');
+      ok(!marker,'badge remains absent while walking nearby');
       const pose=N.poses(m).find(p=>p.id===t.actor),p=D.project(head,pose,cam,a.pixelSurface),f=a.pixelSurface.factor;
-      ok(close(marker.x,Math.round(p.x*f+1e-7)/f)&&close(marker.y,Math.round((p.y-22)*f+1e-7)/f),'live marker stays attached');
+      ok(Number.isFinite(p.x)&&Number.isFinite(p.y),'legacy projection remains valid for existing saves/tools');
       minX=Math.min(minX,m.x);maxX=Math.max(maxX,m.x);frames++;
      }
      ok(minX<t.x-.2&&maxX>t.x+.2,'player actually crosses NPC both ways');

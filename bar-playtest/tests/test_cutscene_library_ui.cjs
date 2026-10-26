@@ -21,7 +21,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert.notEqual(await p.evaluate(()=>lunaCampaign.view),'load-error',entry.id+': '+await p.evaluate(()=>lunaCampaign.loadError));
   if(entry.background==='terrace')assert.equal(await p.evaluate(()=>lunaCampaign.dialog.terraceWeather.config.day),Number.parseInt(entry.day,10),entry.id+' uses its own day/weather');
   await p.waitForTimeout(150);
-  assert.equal(await p.evaluate(()=>getComputedStyle(lunaCampaign.host).cursor),'none',entry.id+' hides the cinematic cursor');
+  assert.equal(await p.evaluate(()=>getComputedStyle(lunaCampaign.host).cursor==='none'),await p.evaluate(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.cinema.dialogueWait&&!lunaCampaign.cinema.dialogueChoice),entry.id+' hides only automatic playback cursor');
   if(entry.id==='opening-a')await p.screenshot({path:'/private/tmp/luna-cutscene-preview.png'});
   if(entry.id==='wake-a')assert(await p.evaluate(()=>lunaCampaign.cinema.time>=lunaCampaign.cinema.skipUntil));
   if(entry.id==='A-johnny')await p.evaluate(()=>{barGame.progress.flags.campaign_observation=true;});

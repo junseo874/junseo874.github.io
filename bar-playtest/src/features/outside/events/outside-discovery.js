@@ -61,11 +61,9 @@ function previouslyInteracted(m,t){
  const rows=old==='pet'?[{type:'neighborhood-action',action:'pet'}]:W.LUNA_DATA?.sharedStory?.['neighborhood/'+old];
  return !!(rows&&f[key('neighborhood/'+old,rows)]);
 }
-function unseen(m,t){
- if(m.qa||excluded.has(t.id))return false;
- const token=interactionToken(t.id);
- if(!flags(m)[token]&&previouslyInteracted(m,t))remember(m,token);
- return !flags(m)[token];
+function unseen(){
+ // D11: discovery badges are retired; keep legacy records readable.
+ return false;
 }
 function project(head,pose,camera,surface){
  const C=W.LunaPixelCamera,p=C.position(head.x,head.y,camera);

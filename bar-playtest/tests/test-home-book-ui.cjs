@@ -17,8 +17,8 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    const a=outsidePlaytest,m=a.model,t=m.near;
    return {id:t.id,marker:a.discoveryMarkers.find(t=>t.id==='home-book'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow,art:LunaHomeArt.book};
   });
-  assert.equal(ready.id,'home-book');assert(ready.marker);
-  assert(Math.abs(ready.marker.x-ready.expected.x)<2&&Math.abs(ready.marker.y-(ready.expected.y-22))<2);
+  assert.equal(ready.id,'home-book');assert(!ready.marker);
+  assert.equal(ready.marker,undefined,'D11 removes the badge, not the book interaction');
   assert.equal(ready.glow.target,'home-book');assert.equal(ready.glow.drawn.length,1);
   assert.equal(ready.glow.drawn[0].node,'ForeFore_Object');assert.deepEqual(ready.glow.drawn[0].region,[...ready.art.rect,ready.art.edge]);
   assert.equal((await p.locator('.outside-interact').innerText()).replace(/\s+/g,' '),'E 보기');

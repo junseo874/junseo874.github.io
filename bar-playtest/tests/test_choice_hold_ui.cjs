@@ -50,10 +50,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert.equal(await p.locator('.choice-hold-hint').count(),0,'Hint disappears after the first selection');
   for(const key of ['KeyE','Enter','Space']){
    await reset();const before=await count();
-   if(key==='KeyE'){
-    await p.keyboard.down(key);await p.waitForTimeout(950);assert.equal(await count(),before,'Early E cannot start a hold, even when held beyond the 800ms grace period');
-    assert.equal(await progress(),0);await p.keyboard.up(key);
-   }
+   // D02: bar choices have no entry delay; D01's existing 0.5s hold is unchanged.
    await p.keyboard.down(key);await p.waitForTimeout(430);assert.equal(await count(),before,'Keyboard also waits beyond 0.4 seconds');
    await p.waitForFunction(n=>confirmed.length===n+1,before,{timeout:350});const a=await p.evaluate(()=>advanced);
    await p.keyboard.down(key);await p.waitForTimeout(200);await p.keyboard.up(key);assert.equal(await count(),before+1);assert.equal(await p.evaluate(()=>advanced),a,'Held/released key does not advance following dialogue');

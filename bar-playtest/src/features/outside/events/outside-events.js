@@ -78,9 +78,6 @@ function start(m,kind=mode(m)){
 function runAction(m,row){const e=m.encounter;if(e?.kind!==contract)return false;e.stage=row.action;e.elapsed=0;e.actionX=row.action==='dealer-exit'?e.dealerX:e.npcX;if(row.action==='approach')e.camera={x:(e.npcX+m.x)/2,y:-.7+.65,w:4.8};return true;}
 function tick(m,dt){let e=m.encounter;
  if(![thug,contract].includes(e?.kind)){
-  if(m.qa||m.encounter||m.paused||m.transition||m.ride||m.dialog||m.story.blocking)return false;
-  if(visibleThug(m)&&!flags(m).day2_thug_done&&m.x>=R.homeX+.12&&m.x<=R.upperMax)return start(m,thug);
-  if(!m.level&&visibleContract(m)&&Math.abs(m.x-(base(m)+1.7))<.8)return start(m,contract);
   return false;
  }
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;
@@ -122,5 +119,9 @@ function draw(m,sprite,ctx,position){
  }
 }
 for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;
-W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,preview,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract};
+function offer(m){const events=W.LunaOutsideStory.events;
+ events.offer(m,thug,()=>visibleThug(m)&&!flags(m).day2_thug_done&&m.x>=R.homeX+.12&&m.x<=R.upperMax,()=>start(m,thug),20);
+ events.offer(m,contract,()=>!m.level&&visibleContract(m)&&Math.abs(m.x-(base(m)+1.7))<.8,()=>start(m,contract),20);
+}
+W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,preview,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract,offer};
 })(window);

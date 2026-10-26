@@ -22,7 +22,7 @@ const {chromium}=runtime.load('playwright');
   assert.equal(await pay.getAttribute('aria-disabled'),'true');
   assert.equal(await panel.locator('button small').count(),0,'No persistent condition subtitles');
   const original=await pay.innerText();
-  await p.keyboard.press('Enter');
+  await p.waitForTimeout(550);await p.keyboard.press('Enter');
   assert.equal(await pay.innerText(),'돈이 부족합니다.');
   assert(await pay.evaluate(e=>e.classList.contains('is-rejected')));
   assert.equal(await pay.locator('span').evaluate(e=>getComputedStyle(e).animationName),'world-choice-reject, title-signal');
@@ -36,7 +36,7 @@ const {chromium}=runtime.load('playwright');
   assert(!await pay.evaluate(e=>e.classList.contains('is-rejected')));
   await p.keyboard.press('KeyS');assert.equal(await selected(),'beggar-question');
   assert.equal(await question.innerText(),'???');await p.waitForTimeout(800);await p.keyboard.press('KeyE');
-  assert.equal(await question.innerText(),'관련 정보가 필요합니다.');
+  assert.equal(await question.innerText(),'아직 알 수 없습니다.');
   await p.keyboard.press('KeyS');assert.equal(await selected(),'beggar-pay');assert.equal(await question.innerText(),'???');
   // Mouse uses the same rejection path (Playwright's normal click respects aria-disabled).
   const box=await pay.boundingBox();await p.mouse.click(box.x+box.width/2,box.y+box.height/2);
@@ -54,7 +54,7 @@ const {chromium}=runtime.load('playwright');
   await p.mouse.move(10,10);
   await p.evaluate(()=>{barGame.progress.money=200;outsidePlaytest.tick(0);});
   await pay.focus();assert.equal(await selected(),'beggar-pay');
-  await p.keyboard.press('Enter');assert.equal(await p.evaluate(()=>barGame.progress.money),0);
+  await p.waitForTimeout(550);await p.keyboard.press('Enter');assert.equal(await p.evaluate(()=>barGame.progress.money),0);
   assert(!await p.evaluate(()=>outsidePlaytest.model.story.speech.choice));
   // Every conditional external branch supplies its own specific reason.
   const reasons=await p.evaluate(()=>{
@@ -64,7 +64,7 @@ const {chromium}=runtime.load('playwright');
    all.push(...LunaOutsideThug.choiceView().options);m.story.speech=null;
    return all.filter(o=>o.disabled).map(o=>({id:o.id,reason:o.disabledReason}));
   });
-  assert(reasons.length>=10);for(const r of reasons)assert(r.reason?.length>6&&r.reason.length<=20,JSON.stringify(r));
+  assert(reasons.length>=9);for(const r of reasons)assert(r.reason?.length>6&&r.reason.length<=20,JSON.stringify(r));
   assert.deepEqual(errors,[]);console.log('PASS outside locked-option focus, E/Enter/Space/mouse rejection, reset, no transaction, unlock, reasons, responsive layout and reduced motion.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

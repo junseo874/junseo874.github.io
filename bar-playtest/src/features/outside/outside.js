@@ -409,7 +409,15 @@
     }
     updateNear() {
       global.LunaStoryNotices?.forced(this);
-      this.near = this.qa?.runtime || this.barArrival || this.ride || this.transition || this.neighborhood?.action || this.encounter || this.dialog || this.story?.blocking ? null : this.targets().filter(t => global.LunaOutsideDiscovery.inRange(this,t)).sort((a, b) => Math.abs(a.x - this.x) - Math.abs(b.x - this.x) || a.id.localeCompare(b.id))[0] || null;
+      if (this.qa?.runtime || this.barArrival || this.ride || this.transition || this.neighborhood?.action || this.encounter || this.dialog || this.story?.blocking) { this.near = null; return; }
+      // targets() already scopes the current room/floor. Retain the current
+      // candidate within 2.5 world pixels of a tie to avoid prompt flicker.
+      const priority = { elevator: 30, home: 20, exit: 20, bar: 20, sofa: 10 };
+      const distance = t => Math.abs(t.x - this.x);
+      const candidates = this.targets().filter(t => global.LunaOutsideDiscovery.inRange(this,t))
+        .sort((a,b) => distance(a)-distance(b) || (priority[b.id]||0)-(priority[a.id]||0) || a.id.localeCompare(b.id));
+      const current = candidates.find(t => t.id === this.near?.id), closest = candidates[0];
+      this.near = current && closest && distance(current) <= distance(closest)+.025 ? current : closest || null;
     }
     beginEncounter(target) {
       const e = global.LunaOutsideEncounters.prepare(this, target);
@@ -508,6 +516,7 @@
       this.time += dt;
       global.LunaOutsideBeggar?.tick(this, dt);
       this.noticeLeft = Math.max(0, this.noticeLeft - dt);
+      for (const owner of [global.LunaOutsideThug, global.LunaOutsideNotion, global.LunaOutsideEncounters, global.LunaOutsideSamhoCommute]) owner?.offer?.(this);
       // The cabin owns the passenger transform until landing is complete.
       // Proximity/scripted movement must not preempt this branch either.
       if (this.tickLift(dt)) return;
@@ -516,6 +525,7 @@
       if (global.LunaOutsideNotion?.tick(this, dt)) return;
       if (global.LunaOutsideThug?.tick(this, dt)) return;
       if (global.LunaOutsideSamhoCommute?.tick(this, dt)) return;
+      if (global.LunaOutsideStory.events.pump(this)) return;
       if (this.encounter) {
         const e = this.encounter;
         if (e.stage === 'active' && !this.story.speech) {
@@ -1311,7 +1321,9 @@
           nearTraffic = false,
           adCarrier = false,
           groundRain = false;
+        global.LunaStreetAtmosphere?.begin(model);
         for (const n of streetDrawOrder(nodes)) {
+          global.LunaStreetAtmosphere?.beforeNode(ctx, model, renderCam, n, nodes, images, position);
           // Ground impacts belong to the road, behind the frontmost silhouettes
           // (and elevator front). Falling rain gets a separate foreground pass.
           if (!groundRain && n.layer >= 10) {
@@ -1351,13 +1363,17 @@
         if(global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
       }
       global.LunaOutsideRain?.draw(ctx, model, renderCam, position, 'drops');
-      const shade = ctx.createLinearGradient(0, 0, 0, 720);
-      shade.addColorStop(0, 'rgba(0,0,0,.25)');
-      shade.addColorStop(.25, 'rgba(0,0,0,0)');
-      shade.addColorStop(.85, 'rgba(0,0,0,0)');
-      shade.addColorStop(1, 'rgba(0,0,0,.3)');
-      ctx.fillStyle = shade;
-      ctx.fillRect(0, 0, 1280, 720);
+      // OutSide's volume has no vignette; retain the old room shading only indoors.
+      if (model.scene !== 'street') {
+        const shade = ctx.createLinearGradient(0, 0, 0, 720);
+        shade.addColorStop(0, 'rgba(0,0,0,.25)');
+        shade.addColorStop(.25, 'rgba(0,0,0,0)');
+        shade.addColorStop(.85, 'rgba(0,0,0,0)');
+        shade.addColorStop(1, 'rgba(0,0,0,.3)');
+        ctx.fillStyle = shade;
+        ctx.fillRect(0, 0, 1280, 720);
+      }
+      global.LunaStreetAtmosphere?.post(ctx, model);
       global.LunaRainGlass?.draw(ctx, model, {camera:renderCam});
       if(interactionTarget()&&!model.qa&&!global.LunaCaptureMode?.hidden){
         discoveryMarkers=global.LunaOutsideDiscovery.draw(ctx,model,model.targets(),discoveryPosition,t=>interactionAnchor(model,t,data,true),surface.factor);
@@ -1558,7 +1574,7 @@
       saved.style.opacity = Math.min(1, m.noticeLeft / .35);
     }
     function updateSpeech() {
-      host.dataset.neighborhoodCinematic = String(!model.paused&&!devOpen&&!hintOpen&&!!model.story.speech?.id.match(/^neighborhood\/(reveal|feed|rest|repairPaid)$/)&&!model.story.speech.choice);
+      host.dataset.neighborhoodCinematic = String(!model.paused&&!devOpen&&!hintOpen&&!model.story.speech?.choice&&!!(model.neighborhood?.action||model.transition||model.ride||model.barArrival||model.encounter&&!model.story.speech?.line));
       const v = model.story.view();
       renderSpeech(host.querySelector('.outside-speech'), v);
       const objectKind=model.dialog?.kind;
@@ -1585,6 +1601,7 @@
       choiceUI?.update(choice && !model.paused && !loading && !loadError && !devOpen && !hintOpen ? {
         ...choice,
         rejectUnavailable: true,
+        entryGuardMs: 500,
         head: position(model.x, model.y + .16),
         facing: model.facing
       } : null);

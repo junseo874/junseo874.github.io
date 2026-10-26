@@ -2563,7 +2563,7 @@
       if (this.tickMixCompletion(dt)) return;
       if (!g.started || g.completed) return;
       g.elapsed += dt;
-      this.craft.elapsed += dt;
+      if (g.type !== 'open') this.craft.elapsed += dt;
       if (g.type === 'open') {
         OPEN.tick(g, dt);
       } else if (g.type === 'shake') {

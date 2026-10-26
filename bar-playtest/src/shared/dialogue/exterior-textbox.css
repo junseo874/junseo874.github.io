@@ -10,7 +10,7 @@
 :is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox) p{margin:0;text-align:center;font-size:17px;line-height:1.45;color:#f4f5f7}
 :is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .exterior-textbox-skin{
  position:absolute;inset:0;z-index:-1;pointer-events:none;display:grid;
- grid-template-columns:var(--textbox-corner) minmax(0,1fr) var(--textbox-tail) minmax(0,1fr) var(--textbox-corner);
+ grid-template-columns:var(--textbox-corner) max(0px,calc(var(--tail-x,50%) - var(--textbox-corner) - var(--textbox-tail)/2)) var(--textbox-tail) minmax(0,1fr) var(--textbox-corner);
  grid-template-rows:var(--textbox-corner) minmax(0,1fr) var(--textbox-corner);
 }
 /* A continuous dark backing prevents subpixel SVG clip edges from exposing

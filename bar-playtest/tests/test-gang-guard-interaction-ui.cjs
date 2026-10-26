@@ -14,15 +14,15 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.keyboard.down('KeyA');await p.waitForTimeout(400);await p.keyboard.up('KeyA');
   await p.keyboard.press('KeyE');s=await snapshot();assert(s.interacted&&s.blocking);
   const eligible=day>1||day===1&&flow==='out';assert.equal(s.speech,'neighborhood/'+(eligible?'guardMenu':'guardBlocked'));
-  if(eligible){await p.locator('[data-choice="cancel"]').click();assert(!(await snapshot()).pass);}
+  if(eligible){await p.waitForTimeout(550);await p.locator('[data-choice="cancel"]').click();assert(!(await snapshot()).pass);}
   else await drain();
   await p.keyboard.down('KeyA');await p.waitForTimeout(200);await p.keyboard.up('KeyA');s=await snapshot();assert(Math.abs(s.x-s.edge)<.0001&&!s.speech&&!s.pass,'Cancel/early-day dialogue does not unlock or retrigger');
  }
  // Explicitly choosing the ingredient-search route unlocks only after its dialogue.
- await p.keyboard.press('KeyE');await p.locator('[data-choice="ask"]').click();
+ await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="ask"]').click();
  assert.equal((await snapshot()).speech,'neighborhood/guardPass');assert(!(await snapshot()).pass);
  await p.evaluate(()=>outsidePlaytest.model.story.cancel());assert(!(await snapshot()).pass,'Interrupted passage dialogue stays locked');
- await p.keyboard.press('KeyE');await p.locator('[data-choice="ask"]').click();await drain();assert((await snapshot()).pass);
+ await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="ask"]').click();await drain();assert((await snapshot()).pass);
  assert(await p.evaluate(()=>lunaCampaign.session.carry.flags.gang_pass_granted));
  await p.keyboard.down('KeyA');await p.waitForTimeout(700);await p.keyboard.up('KeyA');let s=await snapshot();assert(s.x<s.edge-.3&&!s.speech,'Walk through without auto dialogue after permission');
  await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:3,flow:'in',place:'bar'});m.story.cancel();m.backgroundStory.cancel();m.x=LunaOutsideNeighborhood.places.guard.x+.34;m.updateNear();a.snapCamera();a.tick(0);});

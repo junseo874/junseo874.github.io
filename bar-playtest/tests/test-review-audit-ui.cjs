@@ -22,13 +22,15 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await p.goto('http://127.0.0.1:8123/bar-playtest/?mode=cutscenes');
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   await p.locator('.cutscene-list').waitFor();
+  // A previously completed save must not suppress the preview's completion notice.
+  await p.evaluate(()=>{barGame.progress.objectives??={};barGame.progress.objectives.elevator_repair={title:'엘레베이터 수리!',status:'completed'};});
   const state=()=>p.evaluate(()=>JSON.stringify({progress:barGame.progress,carry:lunaCampaign.session.carry,day:barGame.day,sessionDay:lunaCampaign.session.day,config:outsidePlaytest.config,outsideUI:lunaCampaign.ui.outside}));
   const before=await state();
   const entries=['boobi-reveal','boobi-adoption','boobi-rest','elevator-repair'];
   for(const id of entries)for(const complete of [false,true]){
    await p.locator('[data-act="cutscenePlay"][data-id="'+id+'"]').click();
    await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading&&!!outsidePlaytest.model.story.speech);
-   assert.equal(await p.locator('#outside-root').evaluate(e=>getComputedStyle(e).cursor),'none');
+   assert.equal(await p.locator('#outside-root').evaluate(e=>getComputedStyle(e).cursor==='none'),await p.evaluate(()=>!!outsidePlaytest.model.neighborhood.action),'Only automatic action hides the cursor');
    if(id==='boobi-rest')assert.equal(await p.evaluate(()=>outsidePlaytest.model.neighborhood.action.name),'chris-in');
    await p.screenshot({path:'/private/tmp/cutscene-review-'+id+'.png'});
    if(complete){
@@ -36,6 +38,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     assert(result.done,id+' completes');
     assert(result.flags[{'boobi-reveal':'boobi_revealed','boobi-adoption':'boobi_adopted','boobi-rest':'boobi_rest_seen','elevator-repair':'elevator_repaired'}[id]],id);
     if(id==='boobi-adoption')assert.equal(result.scene,'home');
+    if(id==='elevator-repair')await p.locator('.story-notice-event strong',{hasText:'엘레베이터 수리!'}).waitFor({state:'visible'});
     await p.locator('.cutscene-list').waitFor();
    }else{await p.keyboard.press('Escape');await p.locator('.cutscene-list').waitFor();}
    assert.equal(await state(),before,id+' does not change game progress/config/day');

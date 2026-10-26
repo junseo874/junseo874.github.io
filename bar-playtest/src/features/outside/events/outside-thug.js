@@ -13,7 +13,7 @@ function start(m){m.backgroundStory.cancel();m.facing=1;m.anim='idle';m.animTime
 function rows(m){return flags(m).day1_thug_choice==='pay'?paid:flags(m).day1_thug_choice==='refuse'?refused:intro;}
 function action(m,row){const e=m.encounter;if(e?.kind!=='thug')return false;e.stage=row.action;e.elapsed=0;e.from=e.npcX;return true;}
 function tick(m,dt){let e=m.encounter;
- if(e?.kind!=='thug'){if(visible(m)&&!m.paused&&!m.transition&&!m.ride&&!m.dialog&&!m.story.blocking&&m.x>=home+.12&&m.x<=R.upperMax){start(m);return true;}return false;}
+ if(e?.kind!=='thug')return false;
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;
  if(e.stage==='entering'&&e.elapsed>=.65&&e.cameraReady){e.stage='active';m.story.beginRows(id,e.target,rows(m));}
  else if(e.stage==='punch'){
@@ -40,5 +40,6 @@ function draw(m,sprite,ctx,position){if(!visible(m))return;const e=m.encounter?.
  // The existing body lunge/recoil conveys the hit. Do not draw an extra limb.
  ctx.restore();
 }
-W.LunaOutsideThug={id,intro,paid,refused,visible,start,tick,action,choose,choiceView,draw};
+function offer(m){W.LunaOutsideStory.events.offer(m,id,()=>visible(m)&&m.x>=home+.12&&m.x<=R.upperMax,()=>start(m),10);}
+W.LunaOutsideThug={id,intro,paid,refused,visible,start,tick,action,choose,choiceView,draw,offer};
 })(window);

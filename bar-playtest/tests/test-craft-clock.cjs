@@ -11,9 +11,9 @@ function game(kind,variant='original'){
 for(const variant of ['original','gpt'])for(const kind of ['open','pour','fill_up','stir','shake']){
  const g=game(kind,variant);tick(g,2);near(g.craft.elapsed,0);
  g.gimmickInput(kind==='stir'?'KeyW':'Space');if(g.gimmick.fluid)g.holdPour(false);
- tick(g,1.25);near(g.craft.elapsed,1.25);near(g.gimmick.elapsed,1.25);
- for(const pause of ['paused','hidden','overlay']){g[pause]=pause==='overlay'?'help':true;tick(g,2);near(g.craft.elapsed,1.25);g[pause]=pause==='overlay'?null:false;}
- tick(g,.75);near(g.craft.elapsed,2);
+ tick(g,1.25);near(g.craft.elapsed,kind==='open'?0:1.25);near(g.gimmick.elapsed,1.25);
+ for(const pause of ['paused','hidden','overlay']){g[pause]=pause==='overlay'?'help':true;tick(g,2);near(g.craft.elapsed,kind==='open'?0:1.25);g[pause]=pause==='overlay'?null:false;}
+ tick(g,.75);near(g.craft.elapsed,kind==='open'?0:2);
  g.startMinigame(kind);near(g.craft.elapsed,0);
 }
 // Two pours and one shake share one attempt and one scoring clock.
@@ -32,6 +32,6 @@ g.gimmick.completed=true;g.gimmick.success=g.gimmick.targetStacks;g.gimmick.atte
 tick(g,.5);near(g.craft.elapsed,9);tick(g,.5);
 assert.equal(g.screen,'result');near(g.result.elapsed,9);tick(g,3);near(g.result.elapsed,9);
 g.cancelCraft();assert.equal(g.craft,null);
-g.startMinigame('open');g.gimmickInput('Space');tick(g,1);g.gimmick.completed=true;tick(g,2);near(g.craft.elapsed,1);
+g.startMinigame('open');g.gimmickInput('Space');tick(g,1);g.gimmick.completed=true;tick(g,2);near(g.craft.elapsed,0);
 g.retryDataError();near(g.craft.elapsed,0);
 console.log('CRAFT_CLOCK_OK: all five types/both modes, shared 2+3+4 seconds, score result, idle/pause/hidden/menu/completion exclusion, reset/retry');

@@ -27,21 +27,22 @@ let filter='all',active=null,generation=0;
 function html(tabs){const rows=catalog.filter(x=>filter==='all'||x.day===filter);return '<div class="start-screen cutscene-library">'+tabs+'<section class="cutscene-panel"><header><div><small>CUTSCENE ARCHIVE</small><h2>컷씬 모아보기</h2><p>현재 본편의 컷씬을 바로 재생합니다. 일차·해금·선택 기록은 변경되지 않습니다.</p></div><span class="cutscene-count">'+rows.length+'개 장면</span></header><div class="cutscene-filters" aria-label="일차별 컷씬">'+[['all','전체'],...['0일차','1일차','2일차','3일차','외부 이벤트'].map(day=>[day,day])].map(([id,label])=>'<button data-act="cutsceneFilter" data-id="'+id+'" aria-pressed="'+(filter===id)+'">'+label+'</button>').join('')+'<small>재생 중 Esc · 목록으로 돌아가기</small></div><div class="cutscene-list">'+rows.map(x=>'<button class="cutscene-card" data-act="cutscenePlay" data-id="'+x.id+'"><span class="cutscene-meta">'+x.day+'</span><strong>'+esc(x.title)+'</strong><span>'+esc(x.description)+'</span><b aria-hidden="true">재생 ↗</b></button>').join('')+'</div></section></div>';}
 function close(){if(!active)return;const a=active,c=a.c;active=null;generation++;clearInterval(a.watch);clearTimeout(a.finishTimer);c.token++;c.cancelMemoryTransition();c.disposeCinema();c.resetInput();
  if(a.entry.kind==='neighborhood'){c.outside.model?.story.cancel();c.outside.exit(true);W.LunaStoryNotices.clear();}
- a.toolbar.remove();Object.assign(c,a.saved);Object.assign(c.outside.config,a.outsideConfig);c.ui.outside=a.outsideUI;c.g.day=a.gameDay;c.session.day=a.sessionDay;c.g.progress=a.progress;c.session.carry=a.carry;c.ui.cutscenes=true;c.screen('developer');c.render(true);document.querySelector('[data-act="cutscenePlay"][data-id="'+a.entry.id+'"]')?.focus({preventScroll:true});}
+ a.toolbar.remove();Object.assign(c,a.saved);for(const key of Object.keys(c.outside.config))if(!Object.hasOwn(a.outsideConfig,key))delete c.outside.config[key];Object.assign(c.outside.config,a.outsideConfig);c.ui.outside=a.outsideUI;c.g.day=a.gameDay;c.session.day=a.sessionDay;c.g.progress=a.progress;c.session.carry=a.carry;c.ui.cutscenes=true;c.screen('developer');c.render(true);document.querySelector('[data-act="cutscenePlay"][data-id="'+a.entry.id+'"]')?.focus({preventScroll:true});}
 async function playNeighborhood(c,entry,valid){
  const o=c.outside,N=W.LunaOutsideNeighborhood,home=entry.key==='rest',upper=['reveal','feed'].includes(entry.key);
- c.g.progress={...structuredClone(c.g.progress),day:1,money:1000,inventory:{tuna_can:1},flags:{boobi_revealed:entry.key==='feed',boobi_feeding_pending:entry.key==='feed',boobi_adopted:home,elevator_repair_paid:entry.key==='repair'}};
+ c.g.progress={...structuredClone(c.g.progress),day:1,money:1000,inventory:{tuna_can:1},objectives:{},flags:{boobi_revealed:entry.key==='feed',boobi_feeding_pending:entry.key==='feed',boobi_adopted:home,elevator_repair_paid:entry.key==='repair'}};
  c.session.carry=structuredClone(c.g.progress);c.ui.outside=true;c.screen('developer');
  Object.assign(o.config,{day:1,flow:'out',place:home?'home':upper?'homeDoor':'bar',qaCase:null});await o.start();if(!valid())return;
  const m=o.model;m.controlsTutorial=false;m.paused=false;m.story.cancel();m.backgroundStory.cancel();
- m.x=home?2.2:upper?N.places.box.x-.45:N.places.repair.x-.6;
+ // Stand outside the lift's foreground frame so the preview doesn't hide Luna.
+ m.x=home?2.2:upper?N.places.box.x-.45:N.places.repair.x+.6;
  const target=N.targets(m).find(t=>t.id==='neighborhood-'+({reveal:'box',feed:'cat',repair:'repair',rest:'home-cat'}[entry.key]));
  if(!target)throw Error('검수 장면의 대상이 없습니다: '+entry.key);
  if(home)N.beforeRest(m,()=>{});else N.interact(m,target);
  o.snapCamera();o.tick(0);
  // Use the real outside state machine, including its authored movement/fades.
  // Closing during loading or a timed action invalidates all later callbacks.
- const a=active;a.watch=setInterval(()=>{if(!valid()||m.story.speech||m.neighborhood?.action||a.finishTimer)return;a.finishTimer=setTimeout(()=>{if(valid())close();},900);},100);
+ const a=active;a.watch=setInterval(()=>{if(!valid()||m.story.speech||m.neighborhood?.action||a.finishTimer)return;a.finishTimer=setTimeout(()=>{if(valid())close();},entry.key==='repair'?3800:900);},100);
 }
 async function play(c,id){
  const entry=catalog.find(x=>x.id===id);if(!entry||active||!c.session.developer||c.g.phase!=='ready'||c.outside.active)return;

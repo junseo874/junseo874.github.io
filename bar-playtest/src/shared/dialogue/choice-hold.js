@@ -2,11 +2,10 @@
 (function(W){
  'use strict';
  W.LunaChoiceHold=function({root,choice,allowed,commit}){
-  let hold=null,raf=0,pointer=null,suppressClickUntil=0,visibleChoice=null,eReadyAt=0;
+  let hold=null,raf=0,pointer=null,suppressClickUntil=0;
   const keys=new Set(),confirmKeys=new Set(['KeyE','Enter','Space']);
   const button=target=>target?.closest?.('.choices button[data-act="choice"]');
   const stop=e=>{e.preventDefault();e.stopImmediatePropagation();};
-  function syncEntry(){const next=allowed()?choice():null;if(next!==visibleChoice){visibleChoice=next;if(next)eReadyAt=performance.now()+800;}}
   function paint(){
    for(const el of root.querySelectorAll('.choices button')){
     const active=hold?.el===el;
@@ -49,8 +48,6 @@
    if(!choice()||!allowed()||e.target?.matches?.('input,textarea,select')||e.target?.isContentEditable)return;
    stop(e);if(e.repeat||pointer!==null||keys.size)return;
    keys.add(e.code);
-   syncEntry();
-   if(e.code==='KeyE'&&performance.now()<eReadyAt)return;
    // Confirm the visibly hovered option, or the keyboard-focused option.
    const el=root.querySelector('.choices button:not(:disabled):hover')||button(document.activeElement)||root.querySelector('.choices button:not(:disabled)');
    start(el,'key');
@@ -60,6 +57,6 @@
   root.addEventListener('pointerover',e=>{if(hold&&button(e.target)&&button(e.target)!==hold.el)cancel();},true);
   function reset(){cancel();keys.clear();pointer=null;suppressClickUntil=0;}
   W.addEventListener('blur',reset);document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
-  return {sync(){syncEntry();if(hold&&!valid())cancel();else paint();},cancel};
+  return {sync(){if(hold&&!valid())cancel();else paint();},cancel};
  };
 })(window);

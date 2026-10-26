@@ -1,13 +1,14 @@
 (function(global){
 'use strict';
 const cps=55;
+let nextSpeechId=0;
 const advanceTime=(elapsed,dt)=>elapsed+dt*(Number(global.barGame?.dialogSpeed)||1);
 class Story{
  constructor(model){Object.defineProperty(this,'model',{value:model});this.flags={};this.done=new Set();this.speech=null;}
  witnessed(s=this.speech){if(this===this.model.story&&s)global.LunaOutsideDiscovery?.witnessed(this.model,s.id,s.rows);}
  get blocking(){return !!this.speech&&!this.speech.auto;}
  begin(id,target,auto=false){const rows=global.LUNA_OUTSIDE_DIALOGUES[id]||global.LUNA_DATA?.sharedStory?.[id];return this.beginRows(id,target,rows,auto);}
- beginRows(id,target,rows,auto=false,onComplete=null){if(!rows?.length)return false;this.speech={id,target,auto,rows,index:0,elapsed:0,choice:false,onComplete};this.seek();this.model.updateNear();return true;}
+ beginRows(id,target,rows,auto=false,onComplete=null){if(!rows?.length)return false;this.speech={id,serial:++nextSpeechId,target,auto,rows,index:0,elapsed:0,choice:false,onComplete};this.seek();this.model.updateNear();return true;}
  seek(){const s=this.speech;if(!s)return;
   const next=s.rows[s.index];
   if(next?.type==='home-choice'){s.line=next;s.chars=Array.from(next.text);s.elapsed=99;s.choice=true;this.witnessed(s);return;}
@@ -24,25 +25,26 @@ class Story{
  view(){const s=this.speech;if(!s||!s.line)return null;const actor=s.line.actor,m=this.model,extra=global.LunaOutsideEncounters?.actor(actor),event=global.LunaOutsideContent.events.find(e=>e.id===s.id);
   const anchor=global.LunaOutsideNeighborhood?.anchor(m,actor)||global.LunaOutsideAmbient?.actorHead?.(m,actor)||global.LunaOutsideBeggar?.anchor(m,actor)||global.LunaOutsideNotion?.anchor(m,actor)||(m.qa?global.LunaOutsideQA.anchor(m,actor,s.target):extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:{x:s.target.x,y:s.target.y+.42});
   const title=s.line.who||(actor==='luna'?'루나':extra?.name||m.qa?.people.find(p=>p.id===actor)?.name||event?.title||'안내');
-  const purchase=s.choice?(s.line.type==='home-choice'?global.LunaHomeInteractions.choiceView(m):s.line.type==='neighborhood-choice'?global.LunaOutsideNeighborhood.choiceView(m):s.line.type==='qa-choice'?global.LunaOutsideQA.choiceView(m):s.line.type==='beggar-choice'?global.LunaOutsideBeggar.choiceView(m):s.line.type==='notion-choice'?global.LunaOutsideNotion.choiceView(m):s.line.type==='shop-choice'?global.LunaOutsideShop.choiceView(m):s.line.type==='thug-choice'?global.LunaOutsideThug.choiceView():null):null;return{key:s.id+':'+s.index+':'+s.line.text+(purchase?':'+purchase.money:''),purchase,emphasis:s.line.emphasis||[],color:extra?.color,title,text:s.chars.slice(0,Math.floor(s.elapsed*cps)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
+  const purchase=s.choice?(s.line.type==='home-choice'?global.LunaHomeInteractions.choiceView(m):s.line.type==='neighborhood-choice'?global.LunaOutsideNeighborhood.choiceView(m):s.line.type==='qa-choice'?global.LunaOutsideQA.choiceView(m):s.line.type==='beggar-choice'?global.LunaOutsideBeggar.choiceView(m):s.line.type==='notion-choice'?global.LunaOutsideNotion.choiceView(m):s.line.type==='shop-choice'?global.LunaOutsideShop.choiceView(m):s.line.type==='thug-choice'?global.LunaOutsideThug.choiceView():null):null;return{key:s.id+':'+s.serial+':'+s.index+':'+s.line.text,purchase,emphasis:s.line.emphasis||[],color:extra?.color,title,text:s.chars.slice(0,Math.floor(s.elapsed*cps)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
  }
 }
 // Ambient conversations own independent clocks and speaker anchors.
 // The foreground Story remains exclusive for interactions and forced scenes.
 class BackgroundStories{
- constructor(model){Object.defineProperty(this,'model',{value:model});this.channels=new Map();this.done=new Set();}
+ constructor(model){Object.defineProperty(this,'model',{value:model});this.channels=new Map();this.done=new Set();this.clock=0;this.nextStart=new Map();}
  get speech(){return this.channels.values().next().value?.speech||null;}
  get blocking(){return false;}
  // Keep every ambient channel at the same line/typing position during a
  // street interaction, including choices and encounter camera transitions.
- get suspended(){const m=this.model;return m.scene==='street'&&!!(m.dialog||m.story.blocking||m.encounter||global.outsidePlaytest?.model===m&&global.lunaCampaign?.blocking);}
+ get suspended(){const m=this.model;return !!(m.dialog||m.story.blocking||m.encounter||global.outsidePlaytest?.model===m&&global.lunaCampaign?.blocking);}
  begin(id,target,auto=true){return this.beginRows(id,target,global.LUNA_OUTSIDE_DIALOGUES[id],auto);}
- beginRows(id,target,rows,auto=true){if(this.channels.has(id)||!rows?.length)return false;const story=new Story(this.model);if(!story.beginRows(id,target,rows,auto))return false;this.channels.set(id,story);return true;}
- tick(dt){if(this.suspended)return;for(const [id,story]of this.channels){story.tick(dt);if(!story.speech){if(story.done.has(id))this.done.add(id);this.channels.delete(id);}}}
+ beginRows(id,target,rows,auto=true){if(this.channels.has(id)||!rows?.length||this.clock<(this.nextStart.get(id)||0))return false;const story=new Story(this.model);if(!story.beginRows(id,target,rows,auto))return false;this.channels.set(id,story);return true;}
+ nearby(story){const anchor=story.view()?.anchor;return !!anchor&&Math.abs(anchor.x-this.model.x)<4&&Math.abs(anchor.y-this.model.y)<1.6;}
+ tick(dt){if(this.suspended)return;this.clock+=dt;for(const [id,story]of this.channels){if(this.nearby(story))story.tick(dt);if(!story.speech){if(story.done.has(id))this.done.add(id);this.channels.delete(id);this.nextStart.set(id,this.clock+4);}}}
  cancel(){this.channels.clear();this.model.updateNear();}
  advance(){return false;}
- view(){return this.suspended?null:this.channels.values().next().value?.view()||null;}
- views(){return this.suspended?[]:[...this.channels.values()].map(story=>story.view()).filter(Boolean);}
+ view(){return this.views()[0]||null;}
+ views(){return this.suspended?[]:[...this.channels.values()].filter(story=>this.nearby(story)).map(story=>story.view()).filter(Boolean);}
 }
 function tickBackground(model,dt){const story=model.backgroundStory;
  if(model.qa){story.tick(dt);return;}
@@ -50,5 +52,13 @@ function tickBackground(model,dt){const story=model.backgroundStory;
  if(model.transition||model.scene!=='street'){if(story.speech)story.cancel();return;}
  story.tick(dt);global.LunaOutsideEncounters?.tickProximity(model,dt);
 }
-global.LunaOutsideStory={Story,BackgroundStories,tickBackground,cps,advanceTime};
+// One main-event queue; proximity is edge-triggered, never a per-frame restart.
+// Providers retain ownership of their durable completion flags.
+const eventStates=new WeakMap();
+function eventState(m){const scope=[m.config.day,m.config.flow,m.scene,m.level].join('/');let s=eventStates.get(m);if(!s||s.scope!==scope||s.story!==m.story){s={scope,story:m.story,inside:new Map(),pending:new Map()};eventStates.set(m,s);}return s;}
+const events={
+ offer(m,id,eligible,start,priority){const s=eventState(m),inside=!m.qa&&eligible();if(inside&&!s.inside.get(id))s.pending.set(id,{id,eligible,start,priority});if(!inside)s.pending.delete(id);s.inside.set(id,inside);},
+ pump(m){if(m.qa||m.paused||m.transition||m.ride||m.barArrival||m.dialog||m.story.blocking||m.encounter||m.neighborhood?.action)return false;const s=eventState(m);for(const item of [...s.pending.values()].sort((a,b)=>a.priority-b.priority||a.id.localeCompare(b.id))){s.pending.delete(item.id);if(item.eligible()&&item.start()!==false)return true;}return false;}
+};
+global.LunaOutsideStory={Story,BackgroundStories,tickBackground,cps,advanceTime,events};
 })(typeof window==='undefined'?globalThis:window);

@@ -28,7 +28,7 @@ function target(id,p,label,actor){return{id:'neighborhood-'+id,...p,label,actor}
 function targets(m){if(m.qa)return [];if(m.scene==='home')return flags().boobi_adopted?[target('home-cat',places.sofa,'부비')]:[];if(m.level)return catAvailable(m)?[target(flags().boobi_revealed?'cat':'box',flags().boobi_revealed?places.cat:places.box,flags().boobi_revealed?'부비':'흔들리는 박스')]:[];
  const list=[];if(after(m,1)&&!repaired())list.push(target('repair',places.repair,'수리공','repair'));if(after(m,0,'out')&&!flags().gang_pass_granted)list.push(target('guard',places.guard,'갱단원','guard'));if(after(m,1,'out')&&flags().gang_pass_granted)list.push(target('boss',places.boss,names.boss,'boss'));return list;
 }
-function begin(m,key,t,done){m.anim='idle';if(Math.abs(t.x-m.x)>.02)m.facing=t.x>m.x?1:-1;m.backgroundStory.cancel();W.outsidePlaytest?.clearInput();return m.story.beginRows('neighborhood/'+key,t,scripts[key],false,done);}
+function begin(m,key,t,done){m.anim='idle';if(Math.abs(t.x-m.x)>.02)m.facing=t.x>m.x?1:-1;W.outsidePlaytest?.clearInput();return m.story.beginRows('neighborhood/'+key,t,scripts[key],false,done);}
 function repairScene(m,t){return begin(m,'repairPaid',t,()=>{
  state(m).repairDeparture={time:0,direction:m.x>=places.repair.x?-1:1};
  if(!repaired())return;
@@ -95,10 +95,10 @@ function choose(m,id){const s=m.story.speech;if(s?.line?.type!=='neighborhood-ch
  if(id==='cancel'){m.story.cancel();W.outsidePlaytest?.clearInput();return true;}
  const stage=s.line.stage,p=progress(),t=s.target;
  if((stage==='cat'||stage==='home-cat')&&id==='pet')return m.story.beginRows('neighborhood/pet',t,[action('pet')]);
- if(stage==='cat'&&id==='feed'){if(flags().boobi_adopted||flags().boobi_feeding_pending)return false;p.inventory.tuna_can--;flags().boobi_feeding_pending=true;sync();return begin(m,'feed',t);}
+ if(stage==='cat'&&id==='feed'){if(flags().boobi_adopted||flags().boobi_feeding_pending)return false;flags().boobi_feeding_pending=true;sync();return begin(m,'feed',t);}
  if(stage==='repair-intro'&&id==='talk')return begin(m,'repairIntro',t,()=>flag('repairman_met'));
  if(stage==='repair'&&!repaired()&&!flags().elevator_repair_paid){
-  if(id==='gear')p.inventory.gear_part--;else if(id==='pay')p.money-=400;else return false;
+  if(id==='pay')p.money-=400;else if(id!=='gear')return false;
   // Persist the paid order immediately so re-entry cannot charge twice.
   flags().elevator_repair_paid=true;sync();return repairScene(m,t);
  }

@@ -13,15 +13,15 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  assert(Math.abs(await p.evaluate(()=>outsidePlaytest.model.story.view().anchor.x-LunaOutsideNeighborhood.places.gangmate.x))<.01);
  await drain();assert(await p.locator('[data-choice="boss-pay"]').isDisabled());assert(await p.locator('[data-choice="boss-repair"]').isDisabled());
  await p.screenshot({path:'/tmp/gang-boss-first-offer.png'});
- await p.locator('[data-choice="boss-wait"]').click();await drain();await p.keyboard.press('KeyE');
+ await p.waitForTimeout(550);await p.locator('[data-choice="boss-wait"]').click();await drain();await p.keyboard.press('KeyE');
  assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.stage),'boss-repeat');
  await p.evaluate(()=>{barGame.progress.money=500;outsidePlaytest.tick(0);});assert(await p.locator('[data-choice="boss-pay"]').isEnabled());
- await p.locator('[data-choice="boss-pay"]').click();assert.equal(await p.evaluate(()=>barGame.progress.money),0);await drain();
+ await p.waitForTimeout(550);await p.locator('[data-choice="boss-pay"]').click();assert.equal(await p.evaluate(()=>barGame.progress.money),0);await drain();
  assert.equal(await p.evaluate(()=>barGame.progress.inventory.wild_dog),1);assert.match(await p.locator('.outside-item-notice').innerText(),/와일드 독 추가/);
  assert.equal(await p.evaluate(()=>lunaCampaign.session.carry.inventory.wild_dog),1);
  await p.keyboard.press('KeyE');await drain();assert.equal(await p.evaluate(()=>barGame.progress.inventory.wild_dog),1);
  await p.evaluate(()=>{const m=outsidePlaytest.model;m.story.cancel();barGame.progress.flags={gang_pass_granted:true,elevator_repaired:true};barGame.progress.inventory={};barGame.progress.money=0;m.interact();});await drain();
- assert(await p.locator('[data-choice="boss-repair"]').isEnabled());assert(await p.locator('[data-choice="boss-pay"]').isDisabled());await p.locator('[data-choice="boss-repair"]').click();await drain();
+ assert(await p.locator('[data-choice="boss-repair"]').isEnabled());assert(await p.locator('[data-choice="boss-pay"]').isDisabled());await p.waitForTimeout(550);await p.locator('[data-choice="boss-repair"]').click();await drain();
  assert.equal(await p.evaluate(()=>barGame.progress.money),0);assert.equal(await p.evaluate(()=>barGame.progress.inventory.wild_dog),1);
  assert.equal(await p.evaluate(()=>barGame.johnnyMissing().includes('wild_dog')),false,'campaign recognizes new acquisition source');
  await p.setViewportSize({width:900,height:700});await p.evaluate(()=>{const m=outsidePlaytest.model;barGame.progress.flags={gang_pass_granted:true};barGame.progress.inventory={};m.interact();});await drain();await p.waitForTimeout(150);
