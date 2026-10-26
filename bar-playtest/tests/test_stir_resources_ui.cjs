@@ -28,11 +28,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  for(const viewport of [{width:820,height:650},{width:1920,height:1080}]){
   await p.setViewportSize(viewport);await p.waitForTimeout(100);
   const screen=await p.locator('.stir-screen').boundingBox();
-  for(const sel of ['.stir-dial','.stir-resource-gauge','.mix-timer','.stir-detail','.gimmick-finish']){const box=await p.locator(sel).boundingBox();assert(box.x>=screen.x-1&&box.y>=screen.y-1&&box.x+box.width<=screen.x+screen.width+1&&box.y+box.height<=screen.y+screen.height+1,sel+' is within stage');}
+  assert.equal(await p.locator('.gimmick-finish').count(),0);
+  for(const sel of ['.stir-dial','.stir-resource-gauge','.mix-timer','.stir-detail']){const box=await p.locator(sel).boundingBox();assert(box.x>=screen.x-1&&box.y>=screen.y-1&&box.x+box.width<=screen.x+screen.width+1&&box.y+box.height<=screen.y+screen.height+1,sel+' is within stage');}
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  }
  await p.evaluate(()=>{lunaCampaign.session.developer=true;barGame.startMinigame('stir','original');barGame.gimmickInput('KeyW');for(let i=0;i<100&&!barGame.gimmick.completed;i++)barGame.gimmickInput(['KeyW','KeyD','KeyS','KeyA'][(barGame.gimmick.stirPos+1)%4]);});
- await p.locator('[data-act="endGimmick"]').click();await p.locator('.minigame-result').waitFor();assert.equal(await p.evaluate(()=>barGame.minigame.result.score),100);
+ await p.locator('.minigame-result').waitFor();assert.equal(await p.evaluate(()=>barGame.minigame.result.score),100);
  await p.locator('[data-act="miniRetry"]').click();assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),0);assert.equal(await p.locator('.mix-gauge .good,.mix-gauge .miss').count(),0);
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
  console.log('PASS Stir V3 resources: layout, pressed/next/hover keys, success/fail gauge, synced close-up, pause, main-story controls, small/full HD bounds, completion/score/retry, no missing assets.');

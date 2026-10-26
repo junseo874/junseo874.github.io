@@ -59,7 +59,7 @@ const flags=m=>m.qa?state(m).flags:W.lunaCampaign?.active?(W.barGame.progress.fl
 function save(m,key){flags(m)[key]=true;const c=W.lunaCampaign;if(!m.qa&&c?.active&&c.session.carry){c.session.carry.flags??={};c.session.carry.flags[key]=true;}}
 const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m.level===1&&m.config.day===2&&m.config.flow==='in';
 const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
-const tx=m=>m.qa?.25:R.homeX+.7;
+const tx=m=>m.qa?.25:R.homeX+1.90; // In front of the next door, clear of Boobi’s box.
 const base=m=>m.qa?-.45:R.elevatorX+1.35;
 const thugY=m=>m.qa?-.7:R.upperY;
 function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:thugY(m)+.4,label:'불량배'}]:[];}
@@ -120,7 +120,7 @@ function draw(m,sprite,ctx,position){
 }
 for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;
 function offer(m){const events=W.LunaOutsideStory.events;
- events.offer(m,thug,()=>visibleThug(m)&&!flags(m).day2_thug_done&&m.x>=R.homeX+.12&&m.x<=R.upperMax,()=>start(m,thug),20);
+ events.offer(m,thug,()=>visibleThug(m)&&!flags(m).day2_thug_done&&m.x>=tx(m)-.35&&m.x<=R.upperMax,()=>start(m,thug),20);
  events.offer(m,contract,()=>!m.level&&visibleContract(m)&&Math.abs(m.x-(base(m)+1.7))<.8,()=>start(m,contract),20);
 }
 W.LunaOutsideNotion={news,passers,reopening,thug,info,contract,intro,infoRows,contractRows,qaCases,targets,interact,preview,start,tick,action:runAction,choose,choiceView,anchor,draw,visibleThug,visibleContract,offer};

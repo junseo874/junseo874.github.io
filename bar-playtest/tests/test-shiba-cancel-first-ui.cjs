@@ -2,11 +2,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
 (async()=>{const b=await r.load('playwright').chromium.launch({executablePath:r.chrome,headless:true});try{
  const p=await b.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
- await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});await outsidePlaytest.start();});
+ await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'bar'});await outsidePlaytest.start();});
  for(const inventory of [{},{tuna_can:1},{bitters:1},{bitters:1,tuna_can:1}])for(const money of [1000,0]){
   await p.evaluate(({inventory,money})=>{
    const a=outsidePlaytest,m=a.model;Object.assign(barGame.progress,{money,inventory,flags:{shiba_shop_met:true}});
-   m.start({day:1,flow:'out',place:'bar'});m.x=-2.87;m.controlsTutorial=false;m.updateNear();
+   m.start({day:2,flow:'out',place:'bar'});m.x=-2.87;m.controlsTutorial=false;m.updateNear();
    LunaOutsideShop.openStock(m,m.near);
    for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}
    if(m.story.speech?.line.stage==='allowance')m.story.choose('shop-allowance-no');

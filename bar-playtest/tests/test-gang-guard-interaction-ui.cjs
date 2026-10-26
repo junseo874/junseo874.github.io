@@ -13,7 +13,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.keyboard.down('KeyD');await p.waitForTimeout(200);await p.keyboard.up('KeyD');assert((await snapshot()).x>s.x,'Can freely walk away without closing dialogue');
   await p.keyboard.down('KeyA');await p.waitForTimeout(400);await p.keyboard.up('KeyA');
   await p.keyboard.press('KeyE');s=await snapshot();assert(s.interacted&&s.blocking);
-  const eligible=day>1||day===1&&flow==='out';assert.equal(s.speech,'neighborhood/'+(eligible?'guardMenu':'guardBlocked'));
+  const eligible=day>=2;assert.equal(s.speech,'neighborhood/'+(eligible?'guardMenu':'guardBlocked'));
   if(eligible){await p.waitForTimeout(550);await p.locator('[data-choice="cancel"]').click();assert(!(await snapshot()).pass);}
   else await drain();
   await p.keyboard.down('KeyA');await p.waitForTimeout(200);await p.keyboard.up('KeyA');s=await snapshot();assert(Math.abs(s.x-s.edge)<.0001&&!s.speech&&!s.pass,'Cancel/early-day dialogue does not unlock or retrigger');

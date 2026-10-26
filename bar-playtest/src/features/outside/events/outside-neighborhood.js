@@ -17,7 +17,7 @@ function sync(){const p=progress(),carry=W.lunaCampaign?.session?.carry;if(carry
 function flag(key){flags()[key]=true;sync();}
 function cancel(m){const n=m.neighborhood;if(!n)return;n.action=null;n.neighbor=null;n.chris=null;n.restCamera=null;}
 function after(m,day,flow='in'){return !m.qa&&(m.config.day>day||m.config.day===day&&(flow==='in'||m.config.flow==='out'));}
-const catAvailable=m=>after(m,1,'out')&&!flags().boobi_adopted;
+const catAvailable=m=>after(m,2)&&!flags().boobi_adopted;
 const repaired=()=>!!flags().elevator_repaired;
 // Old saves may already own the bottle purchased from Shiba. Never charge
 // those players again, even after the ingredient has been consumed.
@@ -26,7 +26,7 @@ const bossPending=()=>!!(flags().gang_wild_dog_paid||flags().gang_wild_dog_repai
 const bossDealKey=()=> (flags().gang_wild_dog_paid?'bossPay':'bossRepair')+(flags().gang_wild_dog_repeat_deal?'Repeat':'First');
 function target(id,p,label,actor){return{id:'neighborhood-'+id,...p,label,actor};}
 function targets(m){if(m.qa)return [];if(m.scene==='home')return flags().boobi_adopted?[target('home-cat',places.sofa,'부비')]:[];if(m.level)return catAvailable(m)?[target(flags().boobi_revealed?'cat':'box',flags().boobi_revealed?places.cat:places.box,flags().boobi_revealed?'부비':'흔들리는 박스')]:[];
- const list=[];if(after(m,1)&&!repaired())list.push(target('repair',places.repair,'수리공','repair'));if(after(m,0,'out')&&!flags().gang_pass_granted)list.push(target('guard',places.guard,'갱단원','guard'));if(after(m,1,'out')&&flags().gang_pass_granted)list.push(target('boss',places.boss,names.boss,'boss'));return list;
+ const list=[];if(after(m,1)&&!repaired())list.push(target('repair',places.repair,'수리공','repair'));if(after(m,0,'out')&&!flags().gang_pass_granted)list.push(target('guard',places.guard,'갱단원','guard'));if(after(m,2)&&flags().gang_pass_granted)list.push(target('boss',places.boss,names.boss,'boss'));return list;
 }
 function begin(m,key,t,done){m.anim='idle';if(Math.abs(t.x-m.x)>.02)m.facing=t.x>m.x?1:-1;W.outsidePlaytest?.clearInput();return m.story.beginRows('neighborhood/'+key,t,scripts[key],false,done);}
 function repairScene(m,t){return begin(m,'repairPaid',t,()=>{
@@ -50,7 +50,7 @@ function entryKey(t){
 }
 function preview(m,t){
  if(!t.id.startsWith('neighborhood-'))return null;
- const key=t.id.endsWith('guard')?(after(m,1,'out')?'guardMenu':'guardBlocked'):entryKey(t);
+ const key=t.id.endsWith('guard')?(after(m,2)?'guardMenu':'guardBlocked'):entryKey(t);
  if(!key)return null;
  const p=progress(),next=[];
  if(key==='repairGreeting')next.push('repairIntro');
@@ -72,7 +72,7 @@ function interact(m,t){if(m.qa||!t.id.startsWith('neighborhood-')||!targets(m).s
  if(t.id.endsWith('home-cat'))return begin(m,'homeCat',t);
  if(t.id.endsWith('cat'))return begin(m,entryKey(t),t);
  if(t.id.endsWith('repair'))return flags().elevator_repair_paid?repairScene(m,t):begin(m,entryKey(t),t);
- if(t.id.endsWith('guard'))return begin(m,after(m,1,'out')?'guardMenu':'guardBlocked',t);
+ if(t.id.endsWith('guard'))return begin(m,after(m,2)?'guardMenu':'guardBlocked',t);
  if(t.id.endsWith('boss'))return begin(m,entryKey(t),t);
  return false;
 }

@@ -2,11 +2,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
 (async()=>{const b=await r.load('playwright').chromium.launch({executablePath:r.chrome,headless:true});try{
  const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));
  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
- await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});await outsidePlaytest.start();});
+ await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'bar'});await outsidePlaytest.start();});
  const checks=await p.evaluate(()=>{
   const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood,A=LunaOutsideAmbient,progress=barGame.progress,out=[];
   const ok=(v,label)=>{if(!v)throw Error(label);out.push(label);},near=(a,b)=>Math.abs(a-b)<.00001;
-  function start(place='bar'){m.story.cancel();m.start({day:1,flow:'out',place});m.controlsTutorial=false;m.backgroundStory.cancel();}
+  function start(place='bar'){m.story.cancel();m.start({day:2,flow:'out',place});m.controlsTutorial=false;m.backgroundStory.cancel();}
   function run(t){for(let s=0;s<t-.0001;s+=.05)m.tick(.05);a.tick(0);}
   function finish(){for(let i=0;i<1000&&m.story.speech&&!m.story.speech.choice;i++){if(m.neighborhood.action)m.tick(.05);else{m.story.speech.elapsed=999;m.story.advance();}}}
   progress.flags={};start();
@@ -22,7 +22,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    m.config.day=day;m.x=x;
    ok(camp().every(p=>p.flip===idle[p.id]),'camp faces inward independently of Luna '+day+'/'+x);
   }
-  m.config.day=1;
+  m.config.day=2;
   for(const actor of ['guard','boss'])for(const side of [-1,1]){
    progress.flags={gang_pass_granted:actor==='boss'};m.x=N.places[actor].x+side*.3;
    const t=N.targets(m).find(t=>t.actor===actor);N.interact(m,t);
@@ -67,7 +67,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   return out;
  });
  for(const scene of ['neighbor','rest','gang','box','shiba']){
-  await p.evaluate(scene=>{const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;barGame.progress.flags={boobi_revealed:scene!=='box',boobi_adopted:scene==='rest',gang_pass_granted:scene==='gang'};m.story.cancel();m.start({day:1,flow:'out',place:scene==='rest'?'home':['neighbor','box'].includes(scene)?'homeDoor':'bar'});m.x=scene==='gang'?N.places.boss.x+.3:scene==='shiba'?-2.38:scene==='rest'?2.55:scene==='box'?N.places.box.x-.25:N.places.cat.x-.3;
+  await p.evaluate(scene=>{const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;barGame.progress.flags={boobi_revealed:scene!=='box',boobi_adopted:scene==='rest',gang_pass_granted:scene==='gang'};m.story.cancel();m.start({day:2,flow:'out',place:scene==='rest'?'home':['neighbor','box'].includes(scene)?'homeDoor':'bar'});m.x=scene==='gang'?N.places.boss.x+.3:scene==='shiba'?-2.38:scene==='rest'?2.55:scene==='box'?N.places.box.x-.25:N.places.cat.x-.3;
    if(scene==='rest'){N.beforeRest(m,()=>{});for(let i=0;i<56;i++)m.tick(.05);}
    if(scene==='neighbor'){m.story.beginRows('neighborhood/audit',{},[{type:'neighborhood-action',action:'neighbor-in'},{type:'say',actor:'neighbor',text:'밤에 너무 시끄러워서 잠을 못자겠다고.'}]);for(let i=0;i<44;i++)m.tick(.05);}
    m.updateNear();a.snapCamera();a.tick(0);

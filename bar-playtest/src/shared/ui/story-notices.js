@@ -2,15 +2,18 @@
    No polling of seeded/save-loaded values; notifications never change affinity or input focus. */
 (function(W){
 'use strict';
-const roster=Object.freeze(['chris','port','aili','bubi','shiba','samho','tom']);
+const roster=Object.freeze(['chris','port','aili','bubi','shiba','samho','tom','haru','sunha','hina','rios','volts']);
 const aliases={'trade-samho':'samho','contract-samho':'samho','story-samho':'samho'};
 const actor=id=>aliases[id]||String(id||'').toLowerCase();
+// Stable CSV dialogue IDs, not localized text or encounter flags, own delayed introductions.
+const introductions={tom:'campaign_d1_bar_77'};
 const lanes={people:{queue:[],current:null,age:0},event:{queue:[],current:null,age:0}};
 const entered=new WeakSet();let layer=null,serial=0;
 function emit(owner,kind,id='',delta=0){
  if(!owner)return;
  // Chris is already known: keep profile flags and affinity, but never announce discovery.
  if(kind==='meet'&&id==='chris')return;
+ if(kind==='meet'&&introductions[id]&&!owner.flags?.[id+'_introduction_notified'])return;
  const event={owner,kind,actor:id,delta,serial:++serial};
  lanes[kind==='event'||kind.startsWith('goal-')?'event':'people'].queue.push(event);
  return event;
@@ -19,6 +22,12 @@ function meet(p,id){
  id=actor(id);if(!p||!roster.includes(id))return false;
  p.flags??={};if(p.flags[id+'_met'])return false;
  p.flags[id+'_met']=true;emit(p,'meet',id);return true;
+}
+function dialogueStarted(p,line){
+ const id=actor(line?.actor);
+ if(!p||!introductions[id]||line?.id!==introductions[id])return false;
+ p.flags??={};const flag=id+'_introduction_notified';if(p.flags[flag])return false;
+ p.flags[flag]=true;p.flags[id+'_met']=true;emit(p,'meet',id);return true;
 }
 function affinity(p,id,delta){id=actor(id);if(roster.includes(id)&&Number.isFinite(delta)&&delta!==0)emit(p,delta>0?'up':'down',id,delta);}
 function effects(p,before){
@@ -106,5 +115,5 @@ function tick(g,outside,campaign,dt){
  }
 }
 function clear(){W.LunaStoryNoticeAudio?.stop();for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}
-W.LunaStoryNotices={roster,meet,meetOutside,affinity,effects,forced,startGoal,completeGoal,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
+W.LunaStoryNotices={roster,meet,meetOutside,dialogueStarted,affinity,effects,forced,startGoal,completeGoal,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
 })(typeof window==='undefined'?globalThis:window);

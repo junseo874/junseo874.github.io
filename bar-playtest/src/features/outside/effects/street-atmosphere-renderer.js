@@ -35,13 +35,13 @@ float fogAlpha(vec2 world){
 }`;
 const fog=common+fogDensity+`
 void main(){
- vec3 original=sampleScene(uv);vec2 world=(floor(worldAt(uv)*noise.w)+.5)/noise.w;
+ vec3 original=sampleScene(uv);vec2 world=worldAt(uv);
  float alpha=fogAlpha(world);
  vec3 lit=fogColor*mix(vec3(1),clamp(original*2.,.35,1.5),style.x);
  result=vec4(displayColor(mix(original,lit,alpha)),1);
 }`;
-// Evaluate each authored native world cell once. Compositing still runs at
-// full physical resolution, so pixel-art edges never undergo a downsample.
+// Evaluate each native world cell once, then interpolate only fog density.
+// Compositing stays full resolution: sprite edges never undergo a downsample.
 const fogField=common+fogDensity+`
 uniform vec2 fieldOrigin;
 void main(){result=vec4(fogAlpha((fieldOrigin+floor(gl_FragCoord.xy)+.5)/noise.w),0,0,1);}`;
@@ -51,8 +51,8 @@ uniform vec2 fieldOrigin;
 uniform vec4 noise,style;
 uniform vec3 fogColor;
 void main(){
- ivec2 cell=ivec2(floor(worldAt(uv)*noise.w)-fieldOrigin);
- float alpha=texelFetch(fogGrid,clamp(cell,ivec2(0),textureSize(fogGrid,0)-1),0).r;
+ vec2 fieldUV=(worldAt(uv)*noise.w-fieldOrigin)/vec2(textureSize(fogGrid,0));
+ float alpha=texture(fogGrid,fieldUV).r;
  vec3 original=sampleScene(uv);
  vec3 lit=fogColor*mix(vec3(1),clamp(original*2.,.35,1.5),style.x);
  result=vec4(displayColor(mix(original,lit,alpha)),1);
@@ -189,12 +189,29 @@ void main(){
   sum+=bright(linearColor(texelFetch(scene,pixel,0).rgb));
  }
  result=vec4(sum/16.,1);}`;
+// Reduce the already thresholded light, never the original scene. Every
+// half-resolution pass averages its full footprint before the next reduction.
+const downsample=common+`
+uniform vec2 outputSize;
+void main(){
+ vec2 d=.25/outputSize;
+ result=vec4((texture(scene,uv+vec2(-d.x,-d.y)).rgb+texture(scene,uv+vec2(d.x,-d.y)).rgb+
+              texture(scene,uv+vec2(-d.x,d.y)).rgb+texture(scene,uv+d).rgb)*.25,1);
+}`;
 const blur=common+`
-uniform vec2 axis;
-void main(){vec3 c=texture(scene,uv).rgb*.227027;
- c+=(texture(scene,uv+axis*1.384615).rgb+texture(scene,uv-axis*1.384615).rgb)*.316216;
- c+=(texture(scene,uv+axis*3.230769).rgb+texture(scene,uv-axis*3.230769).rgb)*.070270;
- result=vec4(c,1);}`;
+uniform vec2 axis,taps[32];
+uniform float centerWeight,tapCount;
+void main(){
+ vec3 c=texture(scene,uv).rgb*centerWeight;
+ // Each tap integrates TWO ADJACENT texels with bilinear filtering. Never
+ // enlarge gaps between taps: thin neon lines would become repeated echoes.
+ for(int i=0;i<32;i++){
+  if(float(i)>=tapCount)break;
+  vec2 offset=axis*taps[i].x;
+  c+=(texture(scene,uv+offset).rgb+texture(scene,uv-offset).rgb)*taps[i].y;
+ }
+ result=vec4(c,1);
+}`;
 const composite=common+`
 uniform sampler2D bloom;
 uniform float intensity;
@@ -205,7 +222,7 @@ class Renderer{
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,blur,composite})){
+  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite})){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
   }
@@ -234,7 +251,9 @@ class Renderer{
  fog(ctx,cam,f,area,time){
   const box=this.bounds(cam,[area[0]-area[2]/2,area[1]-area[3]/2,area[0]+area[2]/2,Math.min(area[1]+area[3]/2,f.groundY+f.height)],ctx.canvas);if(!box)return;
   this.upload(this.scene,ctx.canvas);
-  const ppu=f.pixelsPerUnit,origin=[Math.floor((cam.x-cam.w/2)*ppu),Math.floor((cam.y-cam.w*720/1280/2)*ppu)],w=Math.ceil(cam.w*ppu)+2,h=Math.ceil(cam.w*720/1280*ppu)+2;
+  // One guard cell on each side keeps interpolation world-anchored even as
+  // the camera crosses a cell boundary; viewport edges never clamp a sample.
+  const ppu=f.pixelsPerUnit,origin=[Math.floor((cam.x-cam.w/2)*ppu)-1,Math.floor((cam.y-cam.w*720/1280/2)*ppu)-1],w=Math.ceil(cam.w*ppu)+3,h=Math.ceil(cam.w*720/1280*ppu)+3;
   // Very wide panorama can exceed native-grid budget. Direct evaluation is
   // cheaper there; the normal walking camera always uses the native grid.
   if(w*h>this.canvas.width*this.canvas.height/2){this.use('fogDirect');this.camera(cam);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.uniform('time',time);this.clip(box);this.draw();this.finishRegion(ctx,box);return;}
@@ -285,22 +304,31 @@ class Renderer{
  }
  post(ctx,settings){
   this.upload(this.scene,ctx.canvas);
-  const width=Math.ceil(this.canvas.width/4),height=Math.ceil(this.canvas.height/4),g=this.gl;
-  if(this.buffers[0].w!==width||this.buffers[0].h!==height){
-   for(const b of this.buffers){g.deleteTexture(b.t);g.deleteFramebuffer(b.f);}
-   this.buffers=[this.target(width,height),this.target(width,height),this.target(width,height)];
+  const width=Math.ceil(this.canvas.width/4),height=Math.ceil(this.canvas.height/4),g=this.gl,key=width+':'+height;
+  if(this.bloomSize!==key){
+   for(const b of [...this.buffers,...(this.bloomLevels||[])]){g.deleteTexture(b.t);g.deleteFramebuffer(b.f);}
+   const a=this.target(width,height);this.bloomLevels=[];let w=width,h=height;
+   while(w>320){w=Math.ceil(w/2);h=Math.ceil(h/2);this.bloomLevels.push(this.target(w,h));}
+   this.buffers=[this.target(w,h),this.target(w,h),a];this.bloomSize=key;
   }
-  const [a,b,c]=this.buffers;
+  const [c,b,a]=this.buffers;
   this.use('extract',a);this.uniform('threshold',linear(settings.threshold));this.uniform('outputSize',[a.w,a.h]);this.draw();
-  // A small, bounded two-scale blur keeps the original art sharp. URP's HDR
-  // light buffers are unavailable on Canvas; do not fabricate extra exposure.
-  let input=a;for(const spread of [1,1+settings.scatter*4/3]){
-   const radius=spread*this.canvas.width/1280;
-   this.use('blur',b);this.bind('scene',0,input.t);this.uniform('axis',[radius/a.w,0]);this.draw();
-   this.use('blur',c);this.bind('scene',0,b.t);this.uniform('axis',[0,radius/a.h]);this.draw();
-   input=c;
+  let input=a;
+  for(const level of this.bloomLevels){this.use('downsample',level);this.bind('scene',0,input.t);this.uniform('outputSize',[level.w,level.h]);this.draw();input=level;}
+  // Dense Gaussian on a bounded light-only grid. Scene/art stays at native
+  // physical resolution; high DPR cannot turn sample spacing into stripes.
+  const sigma=1.69*Math.hypot(1,1+settings.scatter*4/3)*c.w/320;
+  if(this.blurKernel?.sigma!==sigma){
+   const radius=Math.min(63,Math.ceil(3*sigma)),weights=Array.from({length:radius+1},(_,i)=>Math.exp(-.5*(i/sigma)**2));
+   const total=weights[0]+2*weights.slice(1).reduce((sum,w)=>sum+w,0),taps=new Float32Array(64);let count=0;
+   for(let i=1;i<=radius;i+=2){const first=weights[i],second=weights[i+1]||0,weight=first+second;taps[count*2]=i+second/weight;taps[count*2+1]=weight/total;count++;}
+   this.blurKernel={sigma,center:weights[0]/total,taps,count};
   }
-  this.use('composite');this.bind('bloom',1,input.t);this.uniform('intensity',settings.intensity);this.draw();this.paint(ctx);this.buffers=[c,b,a];
+  const kernel=this.blurKernel;
+  this.use('blur',b);this.bind('scene',0,input.t);this.uniform('axis',[1/c.w,0]);
+  this.uniform('centerWeight',kernel.center);this.uniform('tapCount',kernel.count);g.uniform2fv(this.location('taps[0]'),kernel.taps);this.draw();
+  this.use('blur',c);this.bind('scene',0,b.t);this.uniform('axis',[0,1/c.h]);this.draw();
+  this.use('composite');this.bind('bloom',1,c.t);this.uniform('intensity',settings.intensity);this.draw();this.paint(ctx);
  }
 }
 function linear(c){return c<=.04045?c/12.92:((c+.055)/1.055)**2.4;}

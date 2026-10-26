@@ -9,6 +9,18 @@ const { chromium } = runtime.load('playwright');
     await page.goto('http://127.0.0.1:8123/bar-playtest/?mode=minigames');
     if (await page.locator('.updates-confirm').isVisible()) await page.locator('.updates-confirm').click();
     await page.evaluate(() => { window.mixTestTick = barGame.tick.bind(barGame); barGame.tick = () => {}; });
+    // No generic early-finish button in any crafting screen, including practice.
+    for (const kind of ['open', 'pour', 'fill_up', 'stir', 'shake']) for (const practice of [true, false]) {
+      await page.evaluate(({kind, practice}) => {
+        barGame.startMinigame(kind);
+        if (!practice) barGame.minigame = null;
+        barGame.changed();
+      }, {kind, practice});
+      await page.waitForFunction(kind => !!document.querySelector('.' + ({open: 'opening', pour: 'fluid', fill_up: 'fluid'}[kind] || kind) + '-screen'), kind);
+      assert.equal(await page.getByRole('button', {name: /현재 기믹 마치기|Finish this step/}).count(), 0);
+      if (['stir', 'shake'].includes(kind)) assert.equal(await page.locator('[data-act="endGimmick"]').count(), 0);
+      else assert.equal(await page.locator('[data-act="endGimmick"]').count(), 1, 'keep explicit pour/open completion');
+    }
     for (const kind of ['stir', 'shake']) for (const next of [true, false]) {
       await page.evaluate(({ kind, next }) => {
         const g = barGame; g.startMinigame(kind); g.minigame = null;
@@ -25,8 +37,7 @@ const { chromium } = runtime.load('playwright');
       }, { kind, next });
       await page.locator('.' + kind + '-screen').waitFor();
       if (kind === 'stir') {
-        await page.waitForFunction(() => document.querySelector('.gimmick-finish')?.textContent.includes('잠시 후'));
-        assert(await page.locator('.gimmick-finish').isDisabled());
+        assert.equal(await page.locator('.gimmick-finish,[data-act="endGimmick"]').count(), 0);
       } else await page.locator('[data-rhythm-finish]').waitFor({ state: 'visible' });
       await page.keyboard.press('Space'); await page.keyboard.press('KeyD'); await page.keyboard.press('Enter');
       assert(await page.evaluate(() => barGame.gimmick === completedMix && !barGame.craft.results.length));

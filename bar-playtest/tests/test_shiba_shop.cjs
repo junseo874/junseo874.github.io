@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=req
 const root=path.resolve(__dirname,'..'),W={};W.window=W;
 for(const file of ['src/features/outside/events/outside-shop.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 const shop=W.LunaOutsideShop,notices=[];W.outsidePlaytest={notifyItem:(m,id)=>notices.push(id)};
-function setup(inventory={},flags={},qa=false){const p={money:2000,inventory,flags};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:1,flow:'out'},scene:'street',level:0,x:-2.8,backgroundStory:{cancel(){}},updateNear(){},qa:qa?{shopProgress:structuredClone(p)}:null};m.story=new W.LunaOutsideStory.Story(m);return m;}
+function setup(inventory={},flags={},qa=false){const p={money:2000,inventory,flags};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:2,flow:'out'},scene:'street',level:0,x:-2.8,backgroundStory:{cancel(){}},updateNear(){},qa:qa?{shopProgress:structuredClone(p)}:null};m.story=new W.LunaOutsideStory.Story(m);return m;}
 const target={id:shop.id,x:-2.68,y:-.596};
 function drain(m){const lines=[];for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){lines.push(m.story.speech.line.text);m.story.speech.elapsed=99;m.story.advance();}return lines;}
 function menu(m){shop.begin(m,target,false);drain(m);assert(shop.choose(m,'shop-yes'));drain(m);}

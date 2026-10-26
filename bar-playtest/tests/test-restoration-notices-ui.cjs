@@ -4,10 +4,10 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  try{
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
-  await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});await outsidePlaytest.start();
+  await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'bar'});await outsidePlaytest.start();
    window.restorationTest={
     drain(){const m=outsidePlaytest.model;for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}},
-    reset(memory){LunaStoryNotices.clear();const m=outsidePlaytest.model;m.start({day:1,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();Object.assign(barGame.progress,{money:1500,inventory:{},flags:{gang_pass_granted:true,elevator_repaired:true,campaign_observation:memory},objectives:{}});lunaCampaign.session.carry=structuredClone(barGame.progress);outsidePlaytest.tick(0);},
+    reset(memory){LunaStoryNotices.clear();const m=outsidePlaytest.model;m.start({day:2,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();Object.assign(barGame.progress,{money:1500,inventory:{},flags:{gang_pass_granted:true,elevator_repaired:true,campaign_observation:memory},objectives:{}});lunaCampaign.session.carry=structuredClone(barGame.progress);outsidePlaytest.tick(0);},
     buy(){const m=outsidePlaytest.model;LunaOutsideShop.begin(m,{id:'shiba-shop',x:-2.68,y:-.596},false);this.drain();if(!m.story.choose('shop-yes'))throw Error('Shop greeting');this.drain();if(!m.story.choose('shop-buy-bitters'))throw Error('Buy bitters');this.drain();if(m.story.speech?.line.stage==='quiz'){if(!m.story.choose('shop-answer-1'))throw Error('Quiz purchase');this.drain();}},
     grant(){const m=outsidePlaytest.model,N=LunaOutsideNeighborhood,t=N.targets(m).find(t=>t.actor==='boss');m.x=t.x+.3;m.updateNear();N.interact(m,t);this.drain();if(!m.story.choose('boss-repair'))throw Error('Boss repair exchange');this.drain();outsidePlaytest.snapCamera();},
     advanceNotices(){for(let i=0;i<70;i++)outsidePlaytest.tick(.1);LunaStoryNotices.tick(barGame,outsidePlaytest,lunaCampaign,.1);}

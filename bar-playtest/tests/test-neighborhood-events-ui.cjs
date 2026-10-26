@@ -5,7 +5,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
-  await p.evaluate(async()=>{lunaCampaign.outside.exit(true);lunaCampaign.session.uninstall();lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'homeDoor'});await outsidePlaytest.start();});
+  await p.evaluate(async()=>{lunaCampaign.outside.exit(true);lunaCampaign.session.uninstall();lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'homeDoor'});await outsidePlaytest.start();});
   const result=await p.evaluate(()=>{
    const N=LunaOutsideNeighborhood,R=LunaResidence.layout,m=outsidePlaytest.model,p=barGame.progress;
    const check=(v,message)=>{if(!v)throw Error(message);};
@@ -29,7 +29,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    start(2,'out','bar');check(!N.targets(m).some(t=>t.actor==='repair'),'repair complete persists');
    t=N.targets(m).find(t=>t.actor==='guard');N.interact(m,t);check(m.story.choose('ask'),'gang quest choice');const gang=finish();check(gang.length===7&&p.flags.gang_pass_granted,'gang pass');m.x=N.places.guard.x+.35;m.tick(.05,{move:-1,run:true});check(m.x<N.places.guard.x+.34,'gang passage unlocked');
    // Browse first; tuna belongs to stock, never the greeting or allowance choice.
-   start(1,'out','bar');m.x=-2.68;LunaOutsideShop.begin(m,{id:LunaOutsideShop.id,x:m.x,y:-.596},false);finish();check(!LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'no greeting purchase');check(m.story.choose('shop-yes'),'browse stock');finish();if(m.story.speech.line.stage==='allowance'){check(m.story.choose('shop-allowance-no'),'decline optional allowance');finish();}check(LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'tuna offer');p.money=49;check(!m.story.choose('shop-buy-tuna_can'),'tuna insufficient');p.money=100;check(m.story.choose('shop-buy-tuna_can'),'buy tuna');finish();check(p.inventory.tuna_can===1&&p.money===50,'50 currency tuna');
+   start(2,'out','bar');m.x=-2.68;LunaOutsideShop.begin(m,{id:LunaOutsideShop.id,x:m.x,y:-.596},false);finish();check(!LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'no greeting purchase');check(m.story.choose('shop-yes'),'browse stock');finish();if(m.story.speech.line.stage==='allowance'){check(m.story.choose('shop-allowance-no'),'decline optional allowance');finish();}check(LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'tuna offer');p.money=49;check(!m.story.choose('shop-buy-tuna_can'),'tuna insufficient');p.money=100;check(m.story.choose('shop-buy-tuna_can'),'buy tuna');finish();check(p.inventory.tuna_can===1&&p.money===50,'50 currency tuna');
    start(2,'in','homeDoor');check(N.targets(m).some(t=>t.id==='neighborhood-box'),'unseen cat persists next day');m.x=N.places.box.x-.6;run(.05);check(p.flags.boobi_box_shaken,'box proximity once');run(1);check(m.neighborhood.shake===0,'shake ends');
    m.x=N.places.box.x;t=N.targets(m).find(t=>t.id==='neighborhood-box');N.interact(m,t);run(2);check(p.flags.boobi_revealed&&!m.story.speech&&!m.story.blocking&&!m.neighborhood.action,'reveal ends without dialogue or choices');
    t=N.targets(m).find(t=>t.id==='neighborhood-cat');check(t&&!N.targets(m).some(t=>t.id==='neighborhood-box'),'cat replaces box as interaction target');N.interact(m,t);check(m.story.speech.choice&&m.story.view().full==='야옹','separate cat interaction shows meow and choices');check(m.story.choose('pet'),'pet');finish();
@@ -39,11 +39,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    p.flags={repairman_met:true};p.inventory={gear_part:1};p.money=100;start(2,'in','bar');t=N.targets(m).find(t=>t.actor==='repair');N.interact(m,t);check(m.story.choose('gear'),'gear choice');check(p.inventory.gear_part===1&&p.money===100,'gear remains unlocked; no money charged');start(2,'out','bar');N.interact(m,N.targets(m).find(t=>t.actor==='repair'));check(m.story.speech.id==='neighborhood/repairPaid','paid repair resumes without paying again');finish();check(p.flags.elevator_repaired&&p.money===100,'gear repaired');
    m.config.flow='in';m.level=0;m.dialog={kind:'elevator'};m.chooseObject('fast');check(m.neighborhood.action,'fast started');m.story.cancel();check(!m.neighborhood.action,'developer cancellation clears scripted movement');
    // Leave the reference cat perch visible for the screenshot.
-   p.flags={boobi_box_shaken:true,boobi_revealed:true};start(1,'out','homeDoor');m.x=N.places.cat.x-.45;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);
+   p.flags={boobi_box_shaken:true,boobi_revealed:true};start(2,'out','homeDoor');m.x=N.places.cat.x-.45;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);
    return {intro:intro.length,gang:gang.length,feed:feed.length,rest:rest.length};
   });
   await p.screenshot({path:'/tmp/luna-neighborhood-cat.png'});
-  await p.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:1,flow:'out',place:'bar'});m.x=LunaResidence.layout.elevatorX;m.story.cancel();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:2,flow:'out',place:'bar'});m.x=LunaResidence.layout.elevatorX;m.story.cancel();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
   await p.screenshot({path:'/tmp/luna-neighborhood-street.png'});
   await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=LunaOutsideNeighborhood.places.guard.x+.34;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
   await p.screenshot({path:'/tmp/luna-neighborhood-gang.png'});
@@ -52,7 +52,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    const glow=await p.evaluate(id=>{
     const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;
     barGame.progress.flags={boobi_box_shaken:true,boobi_revealed:id==='cat',boobi_adopted:id==='home-cat'};
-    m.start({day:1,flow:'out',place:id==='home-cat'?'home':['box','cat'].includes(id)?'homeDoor':'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();
+    m.start({day:2,flow:'out',place:id==='home-cat'?'home':['box','cat'].includes(id)?'homeDoor':'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();
     const t=N.targets(m).find(t=>t.id==='neighborhood-'+id);m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);return a.interactionGlow;
    },id);
    assert.equal(glow.target,'neighborhood-'+id);assert.equal(glow.drawn.length,1,JSON.stringify(glow));
@@ -71,7 +71,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    await p.setViewportSize(viewport);await p.waitForTimeout(150);
    const anchors=await p.evaluate(()=>{
     const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;
-    barGame.progress.flags={};m.start({day:1,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();m.x=N.places.guard.x+.4;
+    barGame.progress.flags={};m.start({day:2,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();m.x=N.places.guard.x+.4;
     N.interact(m,N.targets(m).find(t=>t.actor==='guard'));a.snapCamera();a.tick(0);
     const stage=document.querySelector('.outside-stage').getBoundingClientRect(),tip=document.querySelector('.outside-speech .piece-9').getBoundingClientRect(),s=stage.width/1280;
     const head=LunaPixelCamera.position(N.places.guard.x,N.places.guard.y+.56,a.renderCamera);

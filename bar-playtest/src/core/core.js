@@ -918,6 +918,7 @@
         if (s.type === 'say' || s.type === 'order' && this.text(s)) {
           this.dialogue = this.makeLine(s.actor, this.text(s), s.dialogue_id, s.arg);
           this.dialogue.step = s;
+          root.LunaStoryNotices?.dialogueStarted(this.progress, this.dialogue);
           if (this.storyCoasterEligible(s.actor)) {
             const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === s.actor && !this.seats[k].coaster);
             if (seat) this.storyCoaster = {

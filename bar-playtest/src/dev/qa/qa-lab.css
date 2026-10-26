@@ -19,6 +19,7 @@ body .campaign-title .title-choice:focus-visible{filter:brightness(1.2)}
 @media(max-width:650px){.qa-fields{grid-template-columns:1fr 1fr}.qa-panel header,.qa-body{padding:14px}.qa-tabs{padding:10px 14px}.qa-panel h2{font-size:18px}.qa-preview{height:270px}.qa-preview .qa-actor-canvas{width:281px;height:270px}.qa-launch{font-size:12px;padding:8px;right:9px;bottom:8px}}
 
 /* Exterior QA entry stays visible where testing starts; bar QA is unchanged. */
+.qa-pose-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:8px}.qa-pose-grid button{display:grid;gap:6px;text-align:left;overflow-wrap:anywhere}.qa-pose-grid small{color:#9db7c4}.qa-pose-grid [aria-pressed="true"]{border-color:#9edbd2;background:#254554}.qa-fields>*{min-width:0}.qa-panel :is(select,input,textarea){box-sizing:border-box;max-width:100%}
 .qa-launch.is-outside{left:18px;top:18px;right:auto;bottom:auto;display:flex;align-items:center;gap:12px;min-height:52px;padding:12px 18px;font-size:16px;line-height:1.4;border-color:#88c9d2;background:#102632f5;box-shadow:0 4px 18px #0005}
 .qa-launch.is-outside[hidden]{display:none}
 .qa-launch.is-outside kbd{font:inherit;font-size:14px;padding:3px 8px;border:1px solid #82b3bb;border-radius:4px;background:#24424b;color:#e3ffff}

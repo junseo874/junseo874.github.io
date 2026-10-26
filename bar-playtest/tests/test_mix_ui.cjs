@@ -9,7 +9,7 @@ const assert=require('assert/strict');
   barGame.reset(99,'practice',1,true,{variant:'original'});barGame.selectCocktail(type==='stir'?'dry_martini':'gin_fizz');barGame.debugFill();barGame.startCraft();
   barGame.craft.index=barGame.craft.queue.findIndex(q=>q.type===type);barGame.nextGimmick();
  },type);await p.waitForTimeout(200);await p.evaluate(async()=>{await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));});
- assert.equal(await p.locator('.craft-top,.gimmick-footer,.currency-hud').count(),0);assert(await p.locator('.gimmick-finish').isVisible());}
+ assert.equal(await p.locator('.craft-top,.gimmick-footer,.currency-hud').count(),0);assert.equal(await p.locator('.gimmick-finish').count(),0);}
  await prepare('stir');assert.equal(await p.locator('.mix-direction').count(),4);
  assert.equal(await p.locator('.stir-live-glass [data-ice-cube]').count(),6);assert.equal(await p.locator('.stir-side-glass [data-ice-cube]').count(),6);
  await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>barGame.gimmick.elapsed),0);
@@ -29,7 +29,7 @@ const assert=require('assert/strict');
  await p.waitForTimeout(100);assert.equal(await p.locator('.mix-gauge i.miss').count(),2);
  for(let i=0;i<7;i++)for(const k of ['D','S','A','W'])await p.locator('.mix-direction[data-id="Key'+k+'"]').click();
  assert.equal(await p.evaluate(()=>barGame.gimmick.completed),true);assert.equal(await p.evaluate(()=>barGame.gimmick.outcomes.length),10);
- await p.locator('[data-act="endGimmick"]').click();assert.notEqual(await p.evaluate(()=>barGame.gimmick?.type),'stir');
+ await p.waitForFunction(()=>barGame.gimmick?.type!=='stir');
  await prepare('shake');assert.equal(await p.locator('.mix-gauge.vertical i').count(),20);
  await p.screenshot({path:'/private/tmp/bar-mix-shake-ready.png'});
  await p.locator('[data-shake-surface]').click();assert.equal(await p.evaluate(()=>barGame.gimmick.started),true);assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),0);

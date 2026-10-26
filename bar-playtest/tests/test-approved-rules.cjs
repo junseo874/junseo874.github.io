@@ -3,7 +3,7 @@ const root=path.resolve(__dirname,'..'),W={};W.window=W;
 for(const file of ['src/features/outside/events/outside-shop.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 W.LunaOutsideContent={events:[]};
 const S=W.LunaOutsideShop,target={id:S.id,x:0,y:0};
-function setup(inventory={}){const p={money:1000,inventory,flags:{shiba_shop_met:true}};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:1,flow:'out'},scene:'street',level:0,x:0,y:0,updateNear(){}};m.story=new W.LunaOutsideStory.Story(m);m.backgroundStory=new W.LunaOutsideStory.BackgroundStories(m);return m;}
+function setup(inventory={}){const p={money:1000,inventory,flags:{shiba_shop_met:true}};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:2,flow:'out'},scene:'street',level:0,x:0,y:0,updateNear(){}};m.story=new W.LunaOutsideStory.Story(m);m.backgroundStory=new W.LunaOutsideStory.BackgroundStories(m);return m;}
 function drain(m){for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}}
 for(const order of ['wild-first','bitters-first']){
  const m=setup(order==='wild-first'?{wild_dog:1}:{}),p=W.barGame.progress;

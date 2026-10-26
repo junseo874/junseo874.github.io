@@ -30,7 +30,7 @@ const {chromium}=runtime.load('playwright');
    p.flags={};p.money=0;start(3);t=target('shiba-shop');interact(t);m.story.cancel();
    p.flags.shiba_shop_met=true;p.money=500;p.inventory.wild_dog=1;
    ok(!D.unseen(m,t),'shop repeat, stock, quiz and new purchase never restore badge');
-   p.flags={};start(1,'homeDoor');t=target('neighborhood-box');interact(t);
+   p.flags={};start(2,'homeDoor');t=target('neighborhood-box');interact(t);
    ok(!D.unseen(m,t),'box clears before reveal animation completes');
    for(let i=0;i<40;i++)LunaOutsideNeighborhood.tick(m,.05);
    ok(p.flags.boobi_revealed,'box reveal still completes');

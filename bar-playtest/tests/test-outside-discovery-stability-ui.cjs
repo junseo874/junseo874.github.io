@@ -8,7 +8,7 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
    page.on('pageerror',e=>errors.push(e.stack));
    await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
    if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
-   await page.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});await outsidePlaytest.start();});
+   await page.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:2,flow:'out',place:'bar'});await outsidePlaytest.start();});
    for(const viewport of [{width:973,height:650},{width:1280,height:720}]){
     await page.setViewportSize(viewport);
     await page.waitForTimeout(100);
@@ -16,7 +16,7 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
      const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood,D=LunaOutsideDiscovery,C=LunaPixelCamera;
      const ok=(v,label)=>{if(!v)throw Error(label);},close=(a,b)=>Math.abs(a-b)<1e-6;
      barGame.progress.flags={gang_pass_granted:true};
-     m.start({day:1,flow:'out',place:'bar'});m.controlsTutorial=false;m.paused=false;
+     m.start({day:2,flow:'out',place:'bar'});m.controlsTutorial=false;m.paused=false;
      // Facing and every idle cell must leave the badge's world anchor unchanged.
      for(const actor of ['repair','boss']){
       const t=m.targets().find(t=>t.actor===actor),heads=[];

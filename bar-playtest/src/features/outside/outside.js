@@ -1151,6 +1151,10 @@
       ctx.save();
       ctx.globalAlpha = alpha;
       if (glow) ctx.globalCompositeOperation = 'screen';
+      // City light cookies contain soft gradients, not sprite silhouettes.
+      // Nearest-neighbor enlargement made their rotated beams look tiled.
+      // Neon handles its own soft halo and crisp core separately below.
+      ctx.imageSmoothingEnabled = glow && !renderingNode?.neon;
       ctx.translate(p.x, p.y);
       if (renderingNode?.lightRotation) ctx.rotate(-renderingNode.lightRotation);
       ctx.scale((sx < 0 ? -1 : 1) * (flip ? -1 : 1), sy < 0 ? -1 : 1);

@@ -8,9 +8,9 @@ const catalog=[
  {id:'morning',day:'외부 이벤트',title:'다음 날 · 눈뜨기와 환복',kind:'studio',key:'morning',description:'수면 → 눈뜨기 → 암전 → 환복 후 기립'},
 
  {id:'tv',day:'0일차',title:'TV 다큐 · 인공생명체의 역사',kind:'studio',key:'documentary',description:'흑백 이미지 5장 · 키 입력으로 대사 진행'},
- {id:'boobi-reveal',day:'외부 이벤트',sceneDay:1,title:'부비 · 박스에서 등장',kind:'neighborhood',key:'reveal',description:'박스의 눈동자 → 뛰어올라 옆 박스에 착지'},
- {id:'boobi-adoption',day:'외부 이벤트',sceneDay:1,title:'부비 · 참치캔과 입양',kind:'neighborhood',key:'feed',description:'참치캔 → 옆집 아저씨 → 암전 후 집으로 이동'},
- {id:'boobi-rest',day:'외부 이벤트',sceneDay:1,title:'부비 · 첫 휴식과 크리스',kind:'neighborhood',key:'rest',description:'암전·가로 카메라 이동 → 크리스의 첫 반응'},
+ {id:'boobi-reveal',day:'외부 이벤트',sceneDay:2,title:'부비 · 박스에서 등장',kind:'neighborhood',key:'reveal',description:'박스의 눈동자 → 뛰어올라 옆 박스에 착지'},
+ {id:'boobi-adoption',day:'외부 이벤트',sceneDay:2,title:'부비 · 참치캔과 입양',kind:'neighborhood',key:'feed',description:'참치캔 → 옆집 아저씨 → 암전 후 집으로 이동'},
+ {id:'boobi-rest',day:'외부 이벤트',sceneDay:2,title:'부비 · 첫 휴식과 크리스',kind:'neighborhood',key:'rest',description:'암전·가로 카메라 이동 → 크리스의 첫 반응'},
  {id:'elevator-repair',day:'외부 이벤트',sceneDay:1,title:'엘리베이터 · 수리 완료',kind:'neighborhood',key:'repair',description:'부품·비용 전달 이후 대사 → 수리 → 목표 달성'}
 ];
 for(const [key,day,title,kind,background] of [
@@ -30,9 +30,9 @@ function close(){if(!active)return;const a=active,c=a.c;active=null;generation++
  a.toolbar.remove();Object.assign(c,a.saved);for(const key of Object.keys(c.outside.config))if(!Object.hasOwn(a.outsideConfig,key))delete c.outside.config[key];Object.assign(c.outside.config,a.outsideConfig);c.ui.outside=a.outsideUI;c.g.day=a.gameDay;c.session.day=a.sessionDay;c.g.progress=a.progress;c.session.carry=a.carry;c.ui.cutscenes=true;c.screen('developer');c.render(true);document.querySelector('[data-act="cutscenePlay"][data-id="'+a.entry.id+'"]')?.focus({preventScroll:true});}
 async function playNeighborhood(c,entry,valid){
  const o=c.outside,N=W.LunaOutsideNeighborhood,home=entry.key==='rest',upper=['reveal','feed'].includes(entry.key);
- c.g.progress={...structuredClone(c.g.progress),day:1,money:1000,inventory:{tuna_can:1},objectives:{},flags:{boobi_revealed:entry.key==='feed',boobi_feeding_pending:entry.key==='feed',boobi_adopted:home,elevator_repair_paid:entry.key==='repair'}};
+ c.g.progress={...structuredClone(c.g.progress),day:entry.sceneDay,money:1000,inventory:{tuna_can:1},objectives:{},flags:{boobi_revealed:entry.key==='feed',boobi_feeding_pending:entry.key==='feed',boobi_adopted:home,elevator_repair_paid:entry.key==='repair'}};
  c.session.carry=structuredClone(c.g.progress);c.ui.outside=true;c.screen('developer');
- Object.assign(o.config,{day:1,flow:'out',place:home?'home':upper?'homeDoor':'bar',qaCase:null});await o.start();if(!valid())return;
+ Object.assign(o.config,{day:entry.sceneDay,flow:'out',place:home?'home':upper?'homeDoor':'bar',qaCase:null});await o.start();if(!valid())return;
  const m=o.model;m.controlsTutorial=false;m.paused=false;m.story.cancel();m.backgroundStory.cancel();
  // Stand outside the lift's foreground frame so the preview doesn't hide Luna.
  m.x=home?2.2:upper?N.places.box.x-.45:N.places.repair.x+.6;

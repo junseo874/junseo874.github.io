@@ -4,7 +4,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  const p=await b.newPage({viewport:{width:1440,height:900}}),errors=[],bad=[];p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)bad.push(r.url());});
  await p.goto('http://127.0.0.1:8123/bar-playtest/');await p.locator('[data-campaign="developer"]').click();if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
  await p.evaluate(()=>{barGame.reset(99,'general',3);barGame.progress.flags={chris_met:true,port_met:true,aili_met:true};barGame.progress.affinity={chris:0,port:10,aili:30,samho:99};barGame.overlay='dossier';lunaCampaign.render(true);});
- assert.equal(await p.locator('.guest-card').count(),7);assert.equal(await p.locator('.guest-card.unmet').count(),4);
+ assert.equal(await p.locator('.guest-card').count(),12);assert.equal(await p.locator('.guest-card.unmet').count(),9);
  for(const [id,n]of [['chris',1],['port',2],['aili',3]])assert.equal(await p.locator('.guest-card[data-id="'+id+'"] .filled').count(),n);
  assert(await p.locator('.guest-card[data-id="samho"]').isDisabled());assert.equal(await p.locator('.guest-card.unmet .guest-card-caption').count(),0);
  const flags=await p.evaluate(()=>JSON.stringify(barGame.progress)),time=await p.evaluate(()=>barGame.barTime);
