@@ -27,6 +27,7 @@ for(const [id,b]of blocks){const t=b.text;if(!val(t,'m_LightType'))continue;
  const w=location(t),l={id,name:name(t),active:w.active&&num(t,'m_Enabled')===1,ancestry:w.ancestry,intensity:num(t,'m_Intensity'),color:Object.values(vec(t,'m_Color')).slice(0,3)};
  if(type===4){globals.push(l);continue;}
  l.falloff=num(t,'m_ShapeLightFalloffSize');l.points=[...t.split('m_ShapePath:')[1].matchAll(/- \{x: ([\d.e+-]+), y: ([\d.e+-]+)/g)].map(m=>[w.x+(+m[1])*w.sx,w.y+(+m[2])*w.sy]);
+ l.storefront=!l.ancestry.includes('Elevator')&&Math.min(...l.points.map(p=>p[0]))>-7&&Math.max(...l.points.map(p=>p[1]))<3;
  if(entry.role==='caster'){const top=[...l.points].sort((a,b)=>b[1]-a[1]).slice(0,2);casters.push({...l,x:(top[0][0]+top[1][0])/2,y:(top[0][1]+top[1][1])/2});}else illumination.push(l);
 }
 const data={source:{file:sceneFile,sha256:crypto.createHash('sha256').update(scene).digest('hex')},casters,illumination,globals,inventory};

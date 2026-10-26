@@ -17,14 +17,13 @@ vec2 worldAt(vec2 p){return camera.xy+(p-.5)*vec2(camera.z,camera.z*720./1280.);
 vec2 screenAt(vec2 p){return .5+(p-camera.xy)/vec2(camera.z,camera.z*720./1280.);}
 vec3 sampleScene(vec2 p){return linearColor(texture(scene,clamp(p,0.,1.)).rgb);}
 `;
-const fog=common+`
-uniform vec4 area,density,noise,style;
+const fogDensity=`uniform vec4 area,density,noise,style;
 uniform vec3 fogColor;
 uniform float time;
 float Hash(vec2 p){p=fract(p*vec2(127.1,311.7));p+=dot(p,p+34.23);return fract(p.x*p.y);}
 float ValueNoise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(Hash(i),Hash(i+vec2(1,0)),f.x),mix(Hash(i+vec2(0,1)),Hash(i+1.),f.x),f.y);}
-void main(){
- vec3 original=sampleScene(uv);vec2 world=(floor(worldAt(uv)*noise.w)+.5)/noise.w;
+
+float fogAlpha(vec2 world){
  vec2 local=(world-area.xy)/area.zw+.5;
  float h=clamp((world.y-density.y)/density.z,0.,1.),d=pow(1.-h,density.w);
  vec2 p=world/noise.x;float drift=time*noise.z;
@@ -32,8 +31,29 @@ void main(){
  d*=mix(1.,clamp(clouds*1.6-.2,0.,1.),noise.y);
  d*=smoothstep(0.,style.z,local.x)*smoothstep(0.,style.z,1.-local.x)*smoothstep(0.,style.z,1.-local.y)*step(0.,local.y);
  float alpha=clamp(d*density.x,0.,1.);if(style.y>.5)alpha=floor(alpha*style.y+.5)/style.y;
- // LDR web city light is already baked into the scene. Subtle local light
- // pickup substitutes URP's unavailable ShapeLight texture without white haze.
+ return alpha;
+}`;
+const fog=common+fogDensity+`
+void main(){
+ vec3 original=sampleScene(uv);vec2 world=(floor(worldAt(uv)*noise.w)+.5)/noise.w;
+ float alpha=fogAlpha(world);
+ vec3 lit=fogColor*mix(vec3(1),clamp(original*2.,.35,1.5),style.x);
+ result=vec4(displayColor(mix(original,lit,alpha)),1);
+}`;
+// Evaluate each authored native world cell once. Compositing still runs at
+// full physical resolution, so pixel-art edges never undergo a downsample.
+const fogField=common+fogDensity+`
+uniform vec2 fieldOrigin;
+void main(){result=vec4(fogAlpha((fieldOrigin+floor(gl_FragCoord.xy)+.5)/noise.w),0,0,1);}`;
+const fogComposite=common+`
+uniform sampler2D fogGrid;
+uniform vec2 fieldOrigin;
+uniform vec4 noise,style;
+uniform vec3 fogColor;
+void main(){
+ ivec2 cell=ivec2(floor(worldAt(uv)*noise.w)-fieldOrigin);
+ float alpha=texelFetch(fogGrid,clamp(cell,ivec2(0),textureSize(fogGrid,0)-1),0).r;
+ vec3 original=sampleScene(uv);
  vec3 lit=fogColor*mix(vec3(1),clamp(original*2.,.35,1.5),style.x);
  result=vec4(displayColor(mix(original,lit,alpha)),1);
 }`;
@@ -112,7 +132,7 @@ uniform vec4 spriteRect,bodyRect,groundRect,fillArea,contact;
 uniform vec4 projections[16],emitters[16];
 uniform vec2 foot,texel;
 uniform vec3 shadowColor;
-uniform float facing,softness,ambient,lightCount;
+uniform float facing,softness,ambient,lightCount,shadowLength;
 float alphaAt(vec2 p){
  if(any(lessThan(p,vec2(0)))||any(greaterThan(p,vec2(1))))return 0.;
  return texture(actor,spriteRect.xy+p*spriteRect.zw).a;
@@ -140,7 +160,7 @@ void main(){
    float falloff=clamp(1.-length(world-light.xy)/max(.1,light.z),0.,1.);
    float energy=light.w*falloff*falloff;total+=energy;if(energy<.0001)continue;
    float alpha=silhouette(world,projection,projection.w*(1.+distance*1.5));
-   alpha*=1.-.65*smoothstep(0.,.85,distance);
+   alpha*=1.-.65*smoothstep(0.,shadowLength,distance);
    blocked+=energy*alpha*projection.z;
   }
   // Each silhouette removes only its own light's share. Unblocked lamps and
@@ -182,10 +202,10 @@ void main(){result=vec4(displayColor(sampleScene(uv)+texture(bloom,uv).rgb*inten
 class Renderer{
  constructor(){
   this.canvas=document.createElement('canvas');this.canvas.width=1280;this.canvas.height=720;
-  const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:true});
+  const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  this.programs={};for(const [key,source]of Object.entries({fog,puddle,shaft,characterShadow,extract,blur,composite})){
+  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,blur,composite})){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
   }
@@ -195,37 +215,61 @@ class Renderer{
  texture(){const g=this.gl,t=g.createTexture();g.bindTexture(g.TEXTURE_2D,t);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);return t;}
  target(w,h){const g=this.gl,t=this.texture(),f=g.createFramebuffer();g.texImage2D(g.TEXTURE_2D,0,this.floatBloom?g.RGBA16F:g.RGBA,w,h,0,g.RGBA,this.floatBloom?g.HALF_FLOAT:g.UNSIGNED_BYTE,null);g.bindFramebuffer(g.FRAMEBUFFER,f);g.framebufferTexture2D(g.FRAMEBUFFER,g.COLOR_ATTACHMENT0,g.TEXTURE_2D,t,0);return {t,f,w,h};}
  upload(t,canvas){if(t===this.scene&&(this.canvas.width!==canvas.width||this.canvas.height!==canvas.height)){this.canvas.width=canvas.width;this.canvas.height=canvas.height;}const g=this.gl;g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,t);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,canvas);}
- bind(name,unit,t){const g=this.gl;g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,t);g.uniform1i(g.getUniformLocation(this.program,name),unit);}
+ location(name){let table=this.locations.get(this.program);if(!table){table=new Map();this.locations.set(this.program,table);}if(!table.has(name))table.set(name,this.gl.getUniformLocation(this.program,name));return table.get(name);}
+ // Conservative device-pixel bounds. Scissor AND copy only the affected area;
+ // off-screen effects never upload a scene or capture a reflection.
+ bounds(cam,rect,source=this.canvas){const scale=source.width/cam.w,h=cam.w*720/1280;
+  const x=Math.max(0,Math.floor((rect[0]-cam.x+cam.w/2)*scale)-2),y=Math.max(0,Math.floor((rect[1]-cam.y+h/2)*scale)-2);
+  const right=Math.min(source.width,Math.ceil((rect[2]-cam.x+cam.w/2)*scale)+2),top=Math.min(source.height,Math.ceil((rect[3]-cam.y+h/2)*scale)+2);
+  return right>x&&top>y?[x,y,right-x,top-y]:null;
+ }
+ clip(box){const g=this.gl;g.enable(g.SCISSOR_TEST);g.scissor(...box);g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);}
+ finishRegion(ctx,box){this.gl.disable(this.gl.SCISSOR_TEST);const [x,y,w,h]=box,top=this.canvas.height-y-h;ctx.drawImage(this.canvas,x,top,w,h,x*1280/this.canvas.width,top*720/this.canvas.height,w*1280/this.canvas.width,h*720/this.canvas.height);}
+ bind(name,unit,t){const g=this.gl;g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,t);g.uniform1i(this.location(name),unit);}
  use(name,target){const g=this.gl;this.program=this.programs[name];g.useProgram(this.program);g.bindFramebuffer(g.FRAMEBUFFER,target?.f||null);g.viewport(0,0,target?.w||this.canvas.width,target?.h||this.canvas.height);this.bind('scene',0,this.scene);}
- uniform(name,values){const g=this.gl,l=g.getUniformLocation(this.program,name);if(typeof values==='number')g.uniform1f(l,values);else g['uniform'+values.length+'fv'](l,values);}
+ uniform(name,values){const g=this.gl,l=this.location(name);if(typeof values==='number')g.uniform1f(l,values);else g['uniform'+values.length+'fv'](l,values);}
  camera(cam){this.uniform('camera',[cam.x,cam.y,cam.w]);}
  draw(){this.gl.drawArrays(this.gl.TRIANGLES,0,3);}
  paint(ctx){ctx.drawImage(this.canvas,0,0,1280,720);}
- fog(ctx,cam,f,area,time){this.upload(this.scene,ctx.canvas);this.use('fog');this.camera(cam);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,f.pixelsPerUnit]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.uniform('time',time);this.draw();this.paint(ctx);}
+ fog(ctx,cam,f,area,time){
+  const box=this.bounds(cam,[area[0]-area[2]/2,area[1]-area[3]/2,area[0]+area[2]/2,Math.min(area[1]+area[3]/2,f.groundY+f.height)],ctx.canvas);if(!box)return;
+  this.upload(this.scene,ctx.canvas);
+  const ppu=f.pixelsPerUnit,origin=[Math.floor((cam.x-cam.w/2)*ppu),Math.floor((cam.y-cam.w*720/1280/2)*ppu)],w=Math.ceil(cam.w*ppu)+2,h=Math.ceil(cam.w*720/1280*ppu)+2;
+  // Very wide panorama can exceed native-grid budget. Direct evaluation is
+  // cheaper there; the normal walking camera always uses the native grid.
+  if(w*h>this.canvas.width*this.canvas.height/2){this.use('fogDirect');this.camera(cam);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.uniform('time',time);this.clip(box);this.draw();this.finishRegion(ctx,box);return;}
+  if(!this.fogBuffer||this.fogBuffer.w!==w||this.fogBuffer.h!==h){if(this.fogBuffer){this.gl.deleteTexture(this.fogBuffer.t);this.gl.deleteFramebuffer(this.fogBuffer.f);}this.fogBuffer=this.target(w,h);}
+  this.use('fogField',this.fogBuffer);this.uniform('fieldOrigin',origin);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('time',time);this.draw();
+  this.use('fog');this.camera(cam);this.bind('fogGrid',1,this.fogBuffer.t);this.uniform('fieldOrigin',origin);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.clip(box);this.draw();this.finishRegion(ctx,box);
+ }
  puddles(ctx,cam,pools,rippleData,reflectors){
+  const visible=pools.map(p=>({p,box:this.bounds(cam,[p.x-p.width/2,p.y-p.height/2,p.x+p.width/2,p.y+p.height/2],ctx.canvas)})).filter(v=>v.box);if(!visible.length)return;
   this.upload(this.scene,ctx.canvas);const c=this.captureCtx;let capturePlane=null;
-  this.use('puddle');const g=this.gl;g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.camera(cam);this.bind('reflection',1,this.reflection);
+  this.use('puddle');const g=this.gl;const x=Math.min(...visible.map(v=>v.box[0])),y=Math.min(...visible.map(v=>v.box[1]));const box=[x,y,Math.max(...visible.map(v=>v.box[0]+v.box[2]))-x,Math.max(...visible.map(v=>v.box[1]+v.box[3]))-y];this.clip(box);this.camera(cam);this.bind('reflection',1,this.reflection);
   this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
-  for(const p of pools){if(Math.abs(p.x-cam.x)>cam.w/2+p.width/2)continue;
+  for(const {p,box} of visible){
    const key=p.line+':'+p.reflectionCompression;
    if(capturePlane!==key){
     capturePlane=key;c.clearRect(0,0,1280,720);c.drawImage(ctx.canvas,0,0,1280,720);reflectors(c,p);
     this.upload(this.reflection,this.capture);this.bind('scene',0,this.scene);this.bind('reflection',1,this.reflection);
    }
    this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
-   g.uniform4fv(g.getUniformLocation(this.program,'ripples[0]'),rippleData(p));this.draw();
-  }this.paint(ctx);
+   g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.scissor(...box);this.draw();
+  }this.finishRegion(ctx,box);
  }
  shafts(ctx,cam,shafts,time){
   for(const p of shafts){
+   const box=this.bounds(cam,[Math.min(...p.corners.map(c=>c[0])),Math.min(...p.corners.map(c=>c[1])),Math.max(...p.corners.map(c=>c[0])),Math.max(...p.corners.map(c=>c[1]))],ctx.canvas);if(!box)continue;
    this.upload(this.scene,ctx.canvas);this.use('shaft');const g=this.gl;g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.camera(cam);
-   g.uniform2fv(g.getUniformLocation(this.program,'corners[0]'),p.corners.flat());
+   g.uniform2fv(this.location('corners[0]'),p.corners.flat());
    this.uniform('shape',[p.falloff,p.edgeSoftness,p.rayStrength,p.rayCount]);this.uniform('raySpeed',p.raySpeed);this.uniform('fade',[p.startFade,p.flicker,p.brightnessSteps,0]);this.uniform('time',time);
    this.uniform('color',p.tint.map((v,i)=>linear((v+(p.lightColor[i]-v)*p.useLightColor)*p.intensity)));
-   g.drawArrays(g.TRIANGLES,0,6);this.paint(ctx);
+   this.clip(box);g.drawArrays(g.TRIANGLES,0,6);this.finishRegion(ctx,box);
   }
  }
  characterShadow(ctx,cam,p){
+  const spread=(p.maxLength??.85)+p.width+.15;
+  const box=this.bounds(cam,[Math.max(p.rect[0],p.foot.x-spread),Math.max(p.rect[1],p.foot.y-spread),Math.min(p.rect[2],p.foot.x+spread),Math.min(p.rect[3],p.foot.y)],ctx.canvas);if(!box)return;
   this.upload(this.scene,ctx.canvas);
   if(this.actorImage!==p.image){this.upload(this.actor,p.image);this.actorImage=p.image;}
   this.use('characterShadow');this.camera(cam);this.bind('actor',1,this.actor);
@@ -234,10 +278,10 @@ class Renderer{
   this.uniform('groundRect',p.rect);this.uniform('foot',[p.foot.x,p.foot.y]);this.uniform('texel',[1/sp.w,1/sp.h]);this.uniform('facing',p.flip?-1:1);this.uniform('softness',p.softness);this.uniform('shadowColor',p.color.slice(0,3).map(linear));
   const g=this.gl,projections=new Float32Array(64),emitters=new Float32Array(64);
   projections.set(p.projections.flat());emitters.set(p.emitters.flat());
-  g.uniform4fv(g.getUniformLocation(this.program,'projections[0]'),projections);g.uniform4fv(g.getUniformLocation(this.program,'emitters[0]'),emitters);
-  this.uniform('lightCount',p.emitters.length);this.uniform('ambient',p.ambient);this.uniform('contact',p.contact);this.uniform('fillArea',p.field.area);
+  g.uniform4fv(this.location('projections[0]'),projections);g.uniform4fv(this.location('emitters[0]'),emitters);
+  this.uniform('lightCount',p.emitters.length);this.uniform('ambient',p.ambient);this.uniform('shadowLength',p.maxLength??.85);this.uniform('contact',p.contact);this.uniform('fillArea',p.field.area);
   g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,this.shadowFill);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,p.field.width,p.field.height,0,g.RGBA,g.UNSIGNED_BYTE,p.field.data);this.bind('fillLight',2,this.shadowFill);
-  this.draw();this.paint(ctx);
+  this.clip(box);this.draw();this.finishRegion(ctx,box);
  }
  post(ctx,settings){
   this.upload(this.scene,ctx.canvas);
@@ -250,13 +294,13 @@ class Renderer{
   this.use('extract',a);this.uniform('threshold',linear(settings.threshold));this.uniform('outputSize',[a.w,a.h]);this.draw();
   // A small, bounded two-scale blur keeps the original art sharp. URP's HDR
   // light buffers are unavailable on Canvas; do not fabricate extra exposure.
-  for(const spread of [1,1+settings.scatter*4/3]){
+  let input=a;for(const spread of [1,1+settings.scatter*4/3]){
    const radius=spread*this.canvas.width/1280;
-   this.use('blur',b);this.bind('scene',0,a.t);this.uniform('axis',[radius/a.w,0]);this.draw();
+   this.use('blur',b);this.bind('scene',0,input.t);this.uniform('axis',[radius/a.w,0]);this.draw();
    this.use('blur',c);this.bind('scene',0,b.t);this.uniform('axis',[0,radius/a.h]);this.draw();
-   this.use('blur',a);this.bind('scene',0,c.t);this.uniform('axis',[0,0]);this.draw();
+   input=c;
   }
-  this.use('composite');this.bind('bloom',1,a.t);this.uniform('intensity',settings.intensity);this.draw();this.paint(ctx);
+  this.use('composite');this.bind('bloom',1,input.t);this.uniform('intensity',settings.intensity);this.draw();this.paint(ctx);this.buffers=[c,b,a];
  }
 }
 function linear(c){return c<=.04045?c/12.92:((c+.055)/1.055)**2.4;}

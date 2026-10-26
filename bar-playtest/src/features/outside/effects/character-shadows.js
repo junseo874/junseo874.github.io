@@ -4,7 +4,8 @@
 (function(W){'use strict';
 const states=new WeakMap(),D=()=>W.LUNA_CHARACTER_SHADOWS,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 function liftPoint(x,y,m){const l=W.LunaResidence.layout;return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
-function lights(m){return D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current};return {...l,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});}
+function storefrontOffset(){const node=W.LUNA_OUTSIDE_DATA?.scenes.street.nodes.find(n=>n.name==='B_Fore_Building_1'),source=W.LUNA_STREET_EFFECTS?.parent;return node&&source?{x:node.x-source.x,y:node.y-source.y}:{x:0,y:0};}
+function lights(m){return D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current},offset=l.storefront?storefrontOffset():{x:0,y:0};return {...l,x:l.x+offset.x,y:l.y+offset.y,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});}
 function receivers(m){return D().receivers.filter(r=>r.active).map(r=>{
  if(r.ancestry.includes('Elevator')){const a=liftPoint(r.rect[0],r.rect[1],m),b=liftPoint(r.rect[2],r.rect[3],m);return {...r,rect:[a.x,a.y,b.x,b.y],surface:liftPoint(r.x,r.surface,m).y,tolerance:r.tolerance*.6};}
  if(r.name==='2F'){const dy=W.LunaResidence.layout.upperY+D().player.foot.y-r.surface;return {...r,rect:[r.rect[0],r.rect[1]+dy,r.rect[2],r.rect[3]+dy],surface:r.surface+dy};}
@@ -25,17 +26,31 @@ function coverage(p,l){
  if(inside)return 1;const t=clamp(1-distance/Math.max(.001,l.falloff),0,1);return t*t*(3-2*t);
 }
 function fillVolumes(m){return (W.LUNA_SHADOW_LIGHTING?.illumination||[]).map(l=>{
- const points=l.ancestry.includes('Elevator')?l.points.map(([x,y])=>{const p=liftPoint(x,y,m);return [p.x,p.y];}):l.points;
+ const offset=l.storefront?storefrontOffset():{x:0,y:0};
+ const points=l.ancestry.includes('Elevator')?l.points.map(([x,y])=>{const p=liftPoint(x,y,m);return [p.x,p.y];}):l.points.map(([x,y])=>[x+offset.x,y+offset.y]);
  const falloff=l.falloff*(l.ancestry.includes('Elevator')?.6:1);
  return {...l,points,falloff,bounds:[Math.min(...points.map(p=>p[0]))-falloff,Math.min(...points.map(p=>p[1]))-falloff,Math.max(...points.map(p=>p[0]))+falloff,Math.max(...points.map(p=>p[1]))+falloff],gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};
 });}
 function fillAt(p,volumes){let sum=0;for(const l of volumes){const b=l.bounds;if(p.x<b[0]||p.y<b[1]||p.x>b[2]||p.y>b[3])continue;sum+=power(l)*coverage(p,l);}return sum;}
 function ambient(){return Math.max(.08,(W.LUNA_SHADOW_LIGHTING?.globals||[]).reduce((sum,l)=>sum+power(l),0)*.3);}
-function fillField(p,volumes){
+function fillField(p,volumes,cache){
  // Fixed world grid: walking/camera movement never scrolls a noise mask.
  const step=.05,width=53,height=11,x=Math.floor((p.x-1.3)/step)*step,y=Math.floor((p.y-.45)/step)*step;
  const local=volumes.filter(l=>l.bounds[0]<=x+(width-1)*step&&l.bounds[2]>=x&&l.bounds[1]<=y+(height-1)*step&&l.bounds[3]>=y),data=new Uint8Array(width*height*4);
- for(let row=0;row<height;row++)for(let col=0;col<width;col++){const value=Math.round(clamp(fillAt({x:x+col*step,y:y+row*step},local)/16,0,1)*65535),i=(row*width+col)*4;data[i]=value>>8;data[i+1]=value&255;data[i+3]=255;}
+ // Polygon distances are geometric; blinking changes power, not coverage.
+ // Cache only this small world-grid window, never an unbounded walked trail.
+ if(cache&&(cache.x!==x||cache.y!==y)){cache.x=x;cache.y=y;cache.samples=new Map();}
+ const samples=cache?.samples||new Map(),live=new Set();
+ const fields=local.map(l=>{
+  const key=JSON.stringify([l.id,l.points,l.falloff,l.bounds]);live.add(key);let weights=samples.get(key);
+  if(!weights){weights=new Float64Array(width*height);for(let row=0;row<height;row++)for(let col=0;col<width;col++){
+   const p={x:x+col*step,y:y+row*step},b=l.bounds;
+   if(p.x>=b[0]&&p.y>=b[1]&&p.x<=b[2]&&p.y<=b[3])weights[row*width+col]=coverage(p,l);
+  }samples.set(key,weights);}return {weights,power:power(l)};
+ });
+ for(const key of samples.keys())if(!live.has(key))samples.delete(key);
+ for(let n=0;n<width*height;n++){let sum=0;for(const f of fields)sum+=f.power*f.weights[n];const value=Math.round(clamp(sum/16,0,1)*65535),i=n*4;data[i]=value>>8;data[i+1]=value&255;data[i+3]=255;}
+
  return {data,width,height,area:[x,y,step,step]};
 }
 function advance(m){
@@ -61,7 +76,7 @@ function draw(ctx,m,cam,images,surface,renderer){
  const contact=[(flip?-1:1)*cfg.contactLean*cfg.contactFlatten,-cfg.contactFlatten,cfg.contactOpacity/(1+.35*(direct+fillAt(anchor,s.fill))),Math.max(.05,height*cfg.contactFlatten*1.5)];
  const projections=s.slots.map(d=>[...direction(anchor,d.light,height),cfg.opacity,/^Atmospheric/.test(d.light.name)?3:cfg.softness]);
  const emitters=s.slots.map(d=>[d.light.x,d.light.y,d.light.radius,d.energy]);
- renderer.characterShadow(ctx,cam,{image:img,sp,pivot,width:p.w/scale,height:p.h/scale,foot:anchor,flip,rect:s.receiver.rect,projections,emitters,contact,ambient:s.ambient,field:fillField(anchor,s.fill),softness:cfg.softness,color:cfg.color});return true;
+ renderer.characterShadow(ctx,cam,{image:img,sp,pivot,width:p.w/scale,height:p.h/scale,foot:anchor,flip,rect:s.receiver.rect,projections,emitters,contact,ambient:s.ambient,maxLength:cfg.maxLength,field:fillField(anchor,s.fill,s.fieldCache??={}),softness:cfg.softness,color:cfg.color});return true;
 }
 W.LunaCharacterShadows={lights,receivers,foot,receiverAt,influence,direction,coverage,fillVolumes,fillAt,fillField,advance,draw,inspect:m=>states.get(m)||null};
 })(typeof window==='undefined'?globalThis:window);

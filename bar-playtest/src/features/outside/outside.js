@@ -1652,6 +1652,7 @@
         gap: 22
       });
     }
+    let renderBudget = 0, renderStamp = null;
     function tick(dt) {
       if (!active) return;
       notices?.update(model, loading ? 0 : dt);
@@ -1667,7 +1668,16 @@
           global.LunaOutsideResidents.tickView(model, cam);
         }
       }
-      draw();
+      // Hidden background-play still simulates, but cannot present a frame.
+      // Draw at most 60 Hz on 120/144 Hz displays; input/physics keep their clock.
+      if (document.hidden) { renderBudget = 0; renderStamp = null; return; }
+      renderBudget += Math.max(0, dt);
+      if (dt > 0 && renderBudget + .00001 < 1 / 60) return;
+      renderBudget %= 1 / 60;
+      const stamp = [model.time, model.scene, model.paused, cam.x, cam.y, pixelWidth, loading, loadError, devOpen, hintOpen, model.controlsTutorial, model.near?.id, model.anim, model.animTime].join('|');
+      // Explicit tick(0), resize and input-triggered draws always refresh. A
+      // paused scene otherwise does not rerun its unchanged GPU effects.
+      if (dt === 0 || stamp !== renderStamp) { draw(); renderStamp = stamp; }
       updateHUD();
     }
     document.addEventListener('change', e => {

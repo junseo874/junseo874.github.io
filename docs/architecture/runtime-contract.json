@@ -104,6 +104,10 @@
     ],
     [
       "link",
+      "src/features/bar/dialogue-history.css"
+    ],
+    [
+      "link",
       "src/features/bar/remix.css"
     ],
     [
@@ -401,6 +405,10 @@
     [
       "script",
       "src/features/bar/bar-views.js"
+    ],
+    [
+      "script",
+      "src/features/bar/dialogue-history.js"
     ],
     [
       "script",

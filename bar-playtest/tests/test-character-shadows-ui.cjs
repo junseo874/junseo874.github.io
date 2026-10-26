@@ -5,15 +5,23 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  const optics=await page.evaluate(()=>{
   const canvas=document.createElement('canvas');canvas.width=1280;canvas.height=720;const ctx=canvas.getContext('2d',{willReadFrequently:true}),r=new LunaStreetAtmosphereRenderer(),cam={x:0,y:0,w:4};
   const actor=document.createElement('canvas');actor.width=40;actor.height=60;const a=actor.getContext('2d');a.fillStyle='#fff';a.fillRect(7,0,18,20);a.fillRect(10,20,20,25);a.fillRect(10,45,6,15);a.fillRect(24,45,6,15);
-  const spec={image:actor,sp:{x:0,y:0,w:40,h:60,pivot:{x:.5,y:0}},pivot:{x:0,y:0},width:.4,height:.6,foot:{x:0,y:0},flip:false,rect:[-.5,-.2,.5,.01],softness:1,color:LUNA_CHARACTER_SHADOWS.player.color};
-  function paint(dx,flip=false){ctx.fillStyle='#808080';ctx.fillRect(0,0,1280,720);r.characterShadow(ctx,cam,{...spec,flip,projections:[[dx,-.28,.65,.85],[0,-.12,0,.1],[0,-.28,0,.85]]});return ctx.getImageData(0,0,1280,720).data;}
+  const spec={image:actor,sp:{x:0,y:0,w:40,h:60,pivot:{x:.5,y:0}},pivot:{x:0,y:0},width:.4,height:.6,foot:{x:0,y:0},flip:false,rect:[-.5,-.2,.5,.01],softness:1,color:LUNA_CHARACTER_SHADOWS.player.color,ambient:.3,contact:[0,-.12,0,.1],field:LunaCharacterShadows.fillField({x:0,y:0},[])};
+  function paint(dx,flip=false){ctx.fillStyle='#808080';ctx.fillRect(0,0,1280,720);r.characterShadow(ctx,cam,{...spec,flip,projections:[[dx,-.28,.65,1]],emitters:[[-dx,1,5,1]]});return ctx.getImageData(0,0,1280,720).data;}
   function measure(p){let weight=0,x=0,leaks=0,bright=0;for(let y=0;y<720;y++)for(let col=0;col<1280;col++){const i=(y*1280+col)*4,d=128-p[i];if(p[i]>128||p[i+1]>128||p[i+2]>128)bright++;if(d>1){weight+=d;x+=col*d;if(y<360||y>=424||col<480||col>=800)leaks++;}}return {weight,x:x/weight,leaks,bright};}
   const left=paint(-.6),right=paint(.6),paused=paint(.6),flipped=paint(.6,true);
   const diff=(x,y)=>x.reduce((n,v,i)=>n+(v!==y[i]),0);
   // A second animation frame changes the projected silhouette; it is not an ellipse.
   const next=document.createElement('canvas');next.width=40;next.height=60;const n=next.getContext('2d');n.drawImage(actor,0,0);n.clearRect(0,40,40,20);n.fillStyle='#fff';n.fillRect(0,40,12,20);spec.image=next;
-  const walk=paint(.6);return {left:measure(left),right:measure(right),pauseDiff:diff(right,paused),flipDiff:diff(right,flipped),walkDiff:diff(right,walk),gl:r.gl.getError()};
+  const walk=paint(.6);spec.image=actor;
+  function multiple(energy=1,field=spec.field){ctx.fillStyle='#808080';ctx.fillRect(0,0,1280,720);r.characterShadow(ctx,cam,{...spec,field,projections:[[-.6,-.28,.65,1],[.6,-.28,.65,1]],emitters:[[.6,1,5,1],[-.6,1,5,energy]]});return ctx.getImageData(0,0,1280,720).data;}
+  function side(p,right){let sum=0;for(let y=370;y<424;y++)for(let x=right?680:500;x<(right?780:600);x++)sum+=128-p[(y*1280+x)*4];return sum;}
+  const both=multiple(),weak=multiple(.2);
+  const volume={active:true,intensity:4,color:[1,1,1],gain:1,points:[[.05,-.3],[.6,-.3],[.6,0],[.05,0]],bounds:[0,-.35,.65,.05],falloff:.05};
+  const filled=multiple(1,LunaCharacterShadows.fillField({x:0,y:0},[volume]));
+  const multi={left:side(both,false),right:side(both,true),weakRight:side(weak,true),fillLeft:side(filled,false),fillRight:side(filled,true)};
+  return {multi,left:measure(left),right:measure(right),pauseDiff:diff(right,paused),flipDiff:diff(right,flipped),walkDiff:diff(right,walk),gl:r.gl.getError()};
  });
+ assert(optics.multi.left>1000&&optics.multi.right>1000,'Opposite lights produce simultaneous distinct shadows');assert(optics.multi.weakRight<optics.multi.right*.6,'Weaker light produces a weaker shadow');assert(optics.multi.fillRight<optics.multi.right*.6,'Local unblocked fill light washes out only the illuminated shadow');assert(Math.abs(optics.multi.fillLeft-optics.multi.left)<10,'Fill must not wash out the unlit side');
  assert(optics.left.weight>1000&&optics.right.weight>1000);assert(optics.left.x<630&&optics.right.x>650,'Light position changes the projection side');
  assert.equal(optics.left.leaks+optics.right.leaks,0,'No shadow outside the receiver or above the feet');assert.equal(optics.left.bright+optics.right.bright,0,'Dark shadows cannot become bright blue cutouts');
  assert.equal(optics.pauseDiff,0);assert(optics.flipDiff>100);assert(optics.walkDiff>100);assert.equal(optics.gl,0);

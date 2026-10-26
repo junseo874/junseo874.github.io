@@ -13,6 +13,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 전체 화면·탭·입력 연결 | `bar-playtest/src/app/app.js` |
 | 영업·주문·재료·점수·정산 규칙 | `bar-playtest/src/core/core.js` |
 | 바 내부 화면·제조 준비 | `bar-playtest/src/features/bar/` |
+| 바 대화 기록 패널 | `bar-playtest/src/features/bar/dialogue-history.js`, `dialogue-history.css` (기록 원본: `core.js`의 `history`) |
 | 따르기·개봉·쉐이킹·스터·제공 | `bar-playtest/src/features/crafting/` |
 | 시뮬레이터 전용 와인 개봉 2종 | `bar-playtest/src/dev/wine-opening/` (진입: `features/crafting/minigames.js`) |
 | 거리 이동·카메라·상호작용 | `bar-playtest/src/features/outside/outside.js` |
@@ -48,6 +49,8 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 ### 말풍선 원본 비율
 
 `shared/dialogue/exterior-textbox.js`는 외부 11조각(`html`)과 바 손님/루나 원본 프레임(`barHTML`)의 잘라 보기 영역을 소유합니다. 원본 PNG는 수정하지 않습니다. 바는 `features/crafting/serving-hud.css`, 외부·공유 컷씬은 `shared/dialogue/exterior-textbox.css`에서 모서리와 꼬리를 원본의 **1/3 등비율**로 표시하고 직선 테두리·중앙만 늘립니다. 말풍선 전체 이미지를 `100% 100%`로 늘려 문장 폭에 맞추지 않습니다. 바 직선 조각 사이에는 반 픽셀 겹침과 외곽선 안쪽의 연속 배경을 두어 화면 배율에 따른 틈을 막습니다. 대사 폭·패딩·타이핑·인물별 꼬리 위치는 기존 대화 배치 로직이 소유합니다. 검증: `test-textbox-proportions-ui.cjs` (`ui` 묶음, 손님/루나/외부 × 문장 4종 × 화면 3종 × DPR 1/2).
+
+대화 기록 패널은 `features/bar/dialogue-history.js`가 `g.history`를 읽기 전용으로 표시합니다. `finishLine`과 일반 손님 자동 대사 완료가 기존 기록 생산자이며, 패널은 중복 기록을 추가하지 않습니다. 현재 줄은 표시된 접두사만 임시로 표시합니다. `app.js`의 기존 `history` 오버레이·Y/Esc 처리·일시정지를 재사용하고, 패널의 스크롤 복구·첫 진입 최신 위치·Tab 포커스 순환만 별도 관리합니다. 검사: `test-dialogue-history-ui.cjs` (`ui` 묶음).
 
 ### 본편 필터 구현
 

@@ -1,0 +1,23 @@
+/* Same left-hand footprint, type palette and close art as the recipe list. */
+.dialogue-history-layer{position:absolute;inset:0;z-index:36}
+.dialogue-history-scrim,.dialogue-history-scrim:hover:not(:disabled){position:absolute;inset:0;border:0;border-radius:0;background:#02061045;cursor:var(--luna-cursor-default,default)}
+.dialogue-history-panel{position:absolute;inset:0 auto 0 0;width:428px;max-width:100%;display:flex;flex-direction:column;padding:32px 27px 23px 31px;background:transparent url('../../../assets/ui/recipe_choice/IMG_recipe_choice_box.png') center/100% 100% no-repeat;animation:service-enter .18s ease-out}
+.dialogue-history-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex:none}
+.dialogue-history-heading small{font-size:11px;letter-spacing:2px;color:#688aa5}
+.dialogue-history-heading h2{font-family:var(--font-dialogue);font-size:26px;font-weight:700;line-height:1.3;color:#45ddf5;margin:7px 0 0}
+.dialogue-history-meta{display:flex;justify-content:space-between;gap:12px;padding:19px 0 17px;margin-bottom:4px;border-bottom:1px solid #2c3c4c;font-size:12px;color:#7396b1;flex:none}
+.dialogue-history-scroll{min-height:0;flex:1;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:4px 13px 18px 0;scrollbar-width:thin;scrollbar-color:#638ba6 #161e2a}
+.dialogue-history-scroll:focus-visible{outline:1px solid #45687e;outline-offset:3px}
+.dialogue-history-entry{padding:18px 0;border-bottom:1px solid #26313e}
+.dialogue-history-speaker{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dialogue-history-speaker b{font-size:15px;font-weight:500;color:#8ab3cf}
+.dialogue-history-entry.is-luna .dialogue-history-speaker b{color:#45ddf5}
+.dialogue-history-speaker small{font-size:10px;color:#78909f;border:1px solid #354a5c;padding:2px 5px;border-radius:2px}
+.dialogue-history-entry p{margin:0;font-family:var(--font-dialogue);font-size:17px;line-height:1.65;color:#d5dbe1;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
+.dialogue-history-panel footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex:none;border-top:1px solid #2c3c4c;padding-top:15px;font-size:11px;color:#688aa5}
+.dialogue-history-panel footer button{padding:7px 9px;font-size:12px;border-color:#3b566a;background:#172735;color:#9fcbdc;white-space:nowrap}
+.dialogue-history-empty{height:100%;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px}
+.dialogue-history-empty>span{font-size:52px;color:#3d627c;line-height:1}
+.dialogue-history-empty strong{font-size:15px;font-weight:400;color:#a1b3c2}
+.dialogue-history-empty p{font-size:12px;color:#688aa5;margin:0}
+@media(prefers-reduced-motion:reduce){.dialogue-history-panel{animation:none}}

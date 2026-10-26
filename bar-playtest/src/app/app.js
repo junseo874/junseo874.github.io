@@ -416,7 +416,7 @@
   function serviceHTML() {
     return `<div class="service-layer ${g.tutorial?.kind === 'recipe' ? 'tutorial-service' : ''}"><button class="service-scrim" data-act="service" aria-label="${L('서비스 패널 닫기', 'Close service panel')}"></button><aside id="service-panel" class="service-panel resource-service-panel" role="dialog" aria-modal="true" aria-labelledby="service-title">
  <header><div><small class="service-eyebrow">SERVICE PANEL</small><h2 id="service-title">${L('서비스 패널', 'Service panel')}</h2></div>${resourceClose('service', 'service_panel')}</header>
- <div class="service-actions">${button(L('칵테일 레시피', 'Cocktail recipes'), 'recipes')}${button(L('매출 현황', 'Sales summary'), 'sales', g.tutorial ? 'disabled' : '')}${button(L('단골 손님 정보', 'Regular guest profiles'), 'dossierOpen', g.tutorial ? 'disabled' : '')}</div>
+ <div class="service-actions">${button(L('칵테일 레시피', 'Cocktail recipes'), 'recipes')}${button(L('매출 현황', 'Sales summary'), 'sales', g.tutorial ? 'disabled' : '')}${button(L('단골 손님 정보', 'Regular guest profiles'), 'dossierOpen', g.tutorial ? 'disabled' : '')}${button(L('대화 기록', 'Dialogue history'), 'history', g.tutorial ? 'disabled' : '')}</div>
  <p>※ ${g.tutorial ? L('칵테일 레시피를 눌러 주세요.', 'Choose Cocktail recipes.') : L('패널을 열면 영업 시간이 멈춥니다.', 'Service time is paused while this panel is open.')}</p></aside></div>`;
   }
   function toggleService() {
@@ -470,7 +470,7 @@
     if (g.overlay === 'help') return modal(L('조작 안내', 'Controls'), remix.active() ? remixUI.helpHTML() : helpHTML(), true);
     if (g.overlay === 'sales') return modal(L('매출 현황', 'Sales'), salesHTML(), true);
     if (g.overlay === 'dossier') return dossierHTML();
-    if (g.overlay === 'history') return modal(L('대사 기록', 'Dialogue history'), g.history.slice(-150).map(h => `<div class="history-line"><b>${esc(h.anonymous ? '???' : g.name(h.actor))}</b>${esc(h.text)}</div>`).join('') || '<div class="empty">' + L('아직 대사가 없습니다.', 'No dialogue yet.') + '</div>');
+    if (g.overlay === 'history') return window.LunaDialogueHistory.html({g,L,esc,close:resourceClose('closeOverlay','recipe_choice')});
     if (g.overlay === 'recipe') return modal(esc(g.name(g.craft.actual.selected)), recipeLines(g.cocktail(g.craft.actual.selected)));
     if (g.overlay === 'restart') return modal(L('테스트를 다시 시작할까요?', 'Restart the test?'), `<p>${L('현재 영업 상태는 초기화됩니다. 필요한 경우 로그를 먼저 내보내세요.', 'Current session state will be reset. Export logs first if needed.')}</p><div class="row">${button(L('로그 내보내기', 'Export logs'), 'export')}${button(L('일차 선택으로', 'Session setup'), 'setup', '', 'primary')}</div>`);
     return '';
@@ -715,7 +715,7 @@
     if (outside.active || campaign?.blocking && campaign.view !== 'awakening' && !(campaign.view === 'bar-door' && campaign.doorTransition?.committing)) return;
     tutorialView.updateShelf(root);
     views.syncCamera(root);
-    const scrolls = [...root.querySelectorAll('.recipe-list,.items-grid,.prep-summary,.inspect-body,.modal,.table-scroll,.dossier-list-scroll,.profile-body,.prep-recipe-scroll')].map(e => [e.className, e.scrollTop]);
+    const scrolls = [...root.querySelectorAll('.recipe-list,.items-grid,.prep-summary,.inspect-body,.modal,.table-scroll,.dossier-list-scroll,.profile-body,.prep-recipe-scroll,.dialogue-history-scroll')].map(e => [e.className, e.scrollTop]);
     const liveBar = g.screen === 'bar' && !['ready', 'arrival'].includes(g.phase) && !g.finished;
     const blocked = g.isPaused() || !liveBar;
     const html = `<div class="app-shell ${ui.variant === 'gpt' ? 'gpt-version' : ''} ${g.minigame ? 'minigame-version' : ''}"><main class="workspace">${g.phase !== 'ready' && (!g.minigame || g.gimmick?.fluid) ? currencyHTML() : ''}
@@ -745,6 +745,7 @@
       }
     }
     syncRecipePointerTip();
+    window.LunaDialogueHistory.sync(root);
     syncIngredientPointerTip();
     tutorialView.sync(root);
     choiceHold.sync();
@@ -820,7 +821,8 @@
     toast(L('테스트 로그를 내보냈습니다.', 'Test log exported.'));
   }
   function show(name) {
-    if (name === 'settings') releaseBackgroundInput();
+    if (name === 'history') window.LunaDialogueHistory.open(g);
+    if (name === 'settings' || name === 'history') releaseBackgroundInput();
     if (name === 'dossier') {
       ui.dossierDetail = null;
       ui.dossierPreview = null;
@@ -831,6 +833,7 @@
     render();
   }
   function act(name, id, source) {
+    if(name==='historyLatest'&&g.overlay==='history'){window.LunaDialogueHistory.latest(root);return;}
     if (mixTutorial.action(name, id)) {
       render(true);
       return;
@@ -1451,6 +1454,7 @@
       if (g.overlay === 'dossier') act('dossierBack');else if (g.overlay) act('closeOverlay');else if (g.screen === 'recipe') act('closeRecipe');else if (g.screen === 'prep' && ui.recipeOpen) act('togglePrepRecipe');else act('settings');
       return;
     }
+    if (g.overlay === 'history' && window.LunaDialogueHistory.key(e,root)) return;
     if (g.overlay === 'miniIngredient' || g.overlay === 'miniWineVersions') {
       if (e.code === 'Tab') {
         const buttons = [...root.querySelectorAll('.mini-ingredient-modal button')],
