@@ -1,0 +1,28 @@
+const assert=require('node:assert/strict');global.window=global;
+require('../data/presentation/character-shadows.js');require('../src/features/outside/outside-residence.js');require('../src/features/outside/effects/character-shadows.js');
+const S=LunaCharacterShadows,D=LUNA_CHARACTER_SHADOWS;
+const m={scene:'street',x:-10.9,y:-.7,facing:-1,time:0,elevatorY:LunaResidence.layout.elevatorBottom};
+const light={...D.lights.find(l=>l.id==='1054065828'),gain:1};
+assert(S.direction({x:light.x-.5,y:-.974},light,.8)[0]<0);
+assert(S.direction({x:light.x+.5,y:-.974},light,.8)[0]>0);
+assert.equal(S.direction({x:light.x,y:-.974},light,.8)[0],0);
+assert(Math.hypot(...S.direction({x:light.x+100,y:-.974},light,.8))*.8<=D.player.maxLength+1e-9);
+assert.equal(S.influence(S.foot(m),{...light,active:false}),0);
+assert.equal(S.influence(S.foot(m),{...light,layers:[]}),0);
+assert.equal(S.influence(S.foot(m),{...light,gain:0}),0);
+assert.equal(S.influence(S.foot(m),{...light,type:4}),0,'Global ambient light has no projected direction');
+assert.equal(S.influence({x:100,y:100},light),0);
+const a={...light,id:'a',x:-.1,y:1,intensity:1,radius:5},b={...a,id:'b',x:.1};
+assert.equal(S.select({x:.01,y:0},[a,b],'a').id,'a','Hysteresis keeps the current light near the boundary');
+let s=S.advance(m);for(let i=0;i<20;i++){m.time+=1/60;s=S.advance(m);}
+assert(s.slots.some(d=>d.weight===1));assert.equal(s.receiver.name,'1F');
+const stable=JSON.stringify(s);S.advance(m);assert.equal(JSON.stringify(s),stable,'Paused draws must not advance weights');
+const previous=s.selected;m.x=-6.1;m.time+=1/60;s=S.advance(m);
+assert.notEqual(s.selected,previous);assert(s.slots.every(d=>d.weight>0&&d.weight<1),'Two real light directions crossfade');
+for(let i=0;i<20;i++){m.time+=1/60;s=S.advance(m);}assert.equal(s.slots.filter(d=>d.weight===1).length,1);
+m.x=-16;m.y=LunaResidence.layout.upperY;assert.equal(S.advance(m).receiver.name,'2F');
+m.x=LunaResidence.layout.elevatorX;m.elevatorY=4;m.y=4+LunaResidence.layout.passengerOffset;const lift=S.advance(m).receiver;assert.equal(lift.name,'Floor');
+const raisedLight=S.lights(m).find(l=>l.ancestry.includes('Elevator'));m.elevatorY+=1;m.y+=1;assert.equal(S.advance(m).receiver.surface-lift.surface,1);assert.equal(S.lights(m).find(l=>l.id===raisedLight.id).y-raisedLight.y,1);
+m.x=100;assert.equal(S.advance(m).receiver,null);m.scene='home';assert.equal(S.advance(m).receiver,null);
+m.scene='street';m.x=-10;m.y=-.7;m.time=0;assert(S.advance(m).slots.every(d=>d.weight===0),'Restart resets crossfades');
+console.log('CHARACTER_SHADOWS_OK direction/length, disabled lights, hysteresis, crossfade, pause/reset, street/corridor/lift receivers');

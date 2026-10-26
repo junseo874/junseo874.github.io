@@ -3,6 +3,23 @@
 'use strict';
 const sizes=[[66,67],[1144,67],[67,67],[66,117],[1144,117],[67,117],[66,67],[478,67],[145,121],[525,67],[67,67]];
 const assetBase=new URL('assets/ui/exterior-textbox/',new URL('../../../',document.currentScript.src).href).href;
+// Bar exports are complete frames, not stretchable bitmaps. Keep the 72px
+// corner samples and 80px tail sample at one common 1/3 display scale; only
+// narrow strips of the straight edges/body can expand with the sentence.
+const barSkins=new Map();
+function barHTML(player=false){
+ if(barSkins.has(player))return barSkins.get(player);
+ const w=1625,h=player?358:446,top=player?0:65,bottom=player?294:h,c=72,tailX=772,tailW=80;
+ const src=new URL('../dialogue/'+(player?'GRD_textbox_luna.png':'GRD_textbox.png'),assetBase).href;
+ const tiles=[
+  [0,top,c,c],[300,top,4,c],[w-c,top,c,c],
+  [0,top+c,c,4],[300,top+c,4,4],[w-c,top+c,c,4],
+  [0,bottom-c,c,c],[300,bottom-c,4,c],[tailX,player?bottom-c:0,tailW,player?h-bottom+c:top+c],
+  [1200,player?bottom-c:top,4,c],[w-c,bottom-c,c,c]
+ ];
+ const markup='<span class="dialogue-surface bar-textbox-skin '+(player?'tail-bottom':'tail-top')+'" aria-hidden="true">'+tiles.map((box,i)=>'<svg class="bar-textbox-piece piece-'+(i+1)+'" viewBox="'+box.join(' ')+'" preserveAspectRatio="none" focusable="false"><image href="'+src+'" width="'+w+'" height="'+h+'"/></svg>').join('')+'</span>';
+ barSkins.set(player,markup);return markup;
+}
 function html(){
  // Keep corners and the tail intact. Sample a narrow central strip for
  // straight edges: compressing a 1144px image into a tiny cell makes the
@@ -80,5 +97,5 @@ function attach(el,{tail=true}={}){
  el.classList.add('exterior-textbox');el.classList.toggle('exterior-tail-less',!tail);
  if(!el.querySelector('.exterior-textbox-skin'))el.insertAdjacentHTML('afterbegin',html());
 }
-W.LunaExteriorTextbox={html,attach,mountText,revealText,fit};
+W.LunaExteriorTextbox={html,barHTML,attach,mountText,revealText,fit};
 })(window);

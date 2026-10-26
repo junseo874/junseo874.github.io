@@ -92,20 +92,65 @@ const int indices[6]=int[6](0,2,1,1,2,3);
 void main(){int n=indices[gl_VertexID];shaftUV=vec2(n%2,n/2);uv=.5+(corners[n]-camera.xy)/vec2(camera.z,camera.z*720./1280.);gl_Position=vec4(uv*2.-1.,0,1);}`;
 const shaft=common+`
 in vec2 shaftUV;
-uniform vec4 shape,motion,fade;
+uniform vec4 shape,fade;
 uniform vec3 color;
-uniform float time;
-float Hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+uniform float time,raySpeed;
 void main(){
  float across=abs(shaftUV.x-.5)*2.,along=shaftUV.y;
  float edge=(1.-smoothstep(1.-shape.y,1.,across))*mix(1.,1.-across*across,.5);
  float body=pow(clamp(1.-along,0.,1.),shape.x)*smoothstep(0.,max(.001,fade.x),along);
- float t=time*motion.x,rays=.5+.5*sin(shaftUV.x*shape.w*6.2832+t+sin(shaftUV.x*13.1-t*.7)*1.3);
+ float t=time*raySpeed,rays=.5+.5*sin(shaftUV.x*shape.w*6.2832+t+sin(shaftUV.x*13.1-t*.7)*1.3);
  float glow=edge*body*mix(1.,rays,shape.z);glow*=1.-fade.y*(.5+.5*sin(time*23.)*sin(time*7.3));
  if(fade.z>.5)glow=floor(glow*fade.z+.5)/fade.z;
- vec2 cell=floor(worldAt(uv)*motion.w+vec2(0,time*motion.z*motion.w));
- float dust=step(1.-motion.y*.03,Hash(cell))*edge*sqrt(body);
- result=vec4(displayColor(sampleScene(uv)+color*(glow+dust*1.5)),1);
+ // Falling rain is owned by outside-rain.js. Do not duplicate it with
+ // the engine shaft's bright square dust grid, which reads as falling debris.
+ result=vec4(displayColor(sampleScene(uv)+color*glow),1);
+}`;
+const characterShadow=common+`
+uniform sampler2D actor,fillLight;
+uniform vec4 spriteRect,bodyRect,groundRect,fillArea,contact;
+uniform vec4 projections[16],emitters[16];
+uniform vec2 foot,texel;
+uniform vec3 shadowColor;
+uniform float facing,softness,ambient,lightCount;
+float alphaAt(vec2 p){
+ if(any(lessThan(p,vec2(0)))||any(greaterThan(p,vec2(1))))return 0.;
+ return texture(actor,spriteRect.xy+p*spriteRect.zw).a;
+}
+float silhouette(vec2 world,vec4 projection,float blurRadius){
+ float above=(world.y-foot.y)/projection.y;
+ vec2 source=vec2(world.x-projection.x*above,foot.y+above);
+ vec2 local=(source-bodyRect.xy)/bodyRect.zw;if(facing<0.)local.x=1.-local.x;
+ vec2 blur=texel*blurRadius;
+ float alpha=alphaAt(local)*.4;
+ alpha+=(alphaAt(local+vec2(blur.x,0))+alphaAt(local-vec2(blur.x,0))+alphaAt(local+vec2(0,blur.y))+alphaAt(local-vec2(0,blur.y)))*.15;
+ return alpha;
+}
+void main(){
+ vec2 world=worldAt(uv);
+ float edge=min(min(world.x-groundRect.x,world.y-groundRect.y),min(groundRect.z-world.x,groundRect.w-world.y));
+ float ground=clamp(edge*100.,0.,1.),opacity=0.;
+ if(ground>0.&&world.y<=foot.y){
+  vec2 fieldUV=((world-fillArea.xy)/fillArea.zw+.5)/vec2(textureSize(fillLight,0));
+  float fill=dot(texture(fillLight,clamp(fieldUV,0.,1.)).rg,vec2(256.,1.))*255./65535.*16.;
+  float total=ambient+fill,blocked=0.,distance=length(world-foot);
+  for(int i=0;i<16;i++){
+   if(float(i)>=lightCount)break;
+   vec4 light=emitters[i],projection=projections[i];
+   float falloff=clamp(1.-length(world-light.xy)/max(.1,light.z),0.,1.);
+   float energy=light.w*falloff*falloff;total+=energy;if(energy<.0001)continue;
+   float alpha=silhouette(world,projection,projection.w*(1.+distance*1.5));
+   alpha*=1.-.65*smoothstep(0.,.85,distance);
+   blocked+=energy*alpha*projection.z;
+  }
+  // Each silhouette removes only its own light's share. Unblocked lamps and
+  // local neon fill still illuminate the same pixel; no stacked black copies.
+  float projected=clamp(blocked/max(.001,total),0.,.8);
+  float grounded=silhouette(world,contact,softness)*contact.z*(1.-.65*smoothstep(0.,max(.05,contact.w),distance));
+  opacity=(1.-(1.-projected)*(1.-grounded))*ground;
+ }
+ vec3 original=sampleScene(uv);
+ result=vec4(displayColor(mix(original,min(original,shadowColor),opacity)),1);
 }`;
 const extract=common+`
 uniform float threshold;
@@ -140,11 +185,11 @@ class Renderer{
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:true});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  this.programs={};for(const [key,source]of Object.entries({fog,puddle,shaft,extract,blur,composite})){
+  this.programs={};for(const [key,source]of Object.entries({fog,puddle,shaft,characterShadow,extract,blur,composite})){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
   }
-  this.scene=this.texture();this.reflection=this.texture();this.buffers=[this.target(320,180),this.target(320,180),this.target(320,180)];
+  this.scene=this.texture();this.reflection=this.texture();this.actor=this.texture();this.shadowFill=this.texture();this.buffers=[this.target(320,180),this.target(320,180),this.target(320,180)];
   this.capture=document.createElement('canvas');this.capture.width=1280;this.capture.height=720;this.captureCtx=this.capture.getContext('2d');
  }
  texture(){const g=this.gl,t=g.createTexture();g.bindTexture(g.TEXTURE_2D,t);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);return t;}
@@ -175,10 +220,24 @@ class Renderer{
   for(const p of shafts){
    this.upload(this.scene,ctx.canvas);this.use('shaft');const g=this.gl;g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.camera(cam);
    g.uniform2fv(g.getUniformLocation(this.program,'corners[0]'),p.corners.flat());
-   this.uniform('shape',[p.falloff,p.edgeSoftness,p.rayStrength,p.rayCount]);this.uniform('motion',[p.raySpeed,p.dust,p.dustSpeed,p.pixelsPerUnit]);this.uniform('fade',[p.startFade,p.flicker,p.brightnessSteps,0]);this.uniform('time',time);
+   this.uniform('shape',[p.falloff,p.edgeSoftness,p.rayStrength,p.rayCount]);this.uniform('raySpeed',p.raySpeed);this.uniform('fade',[p.startFade,p.flicker,p.brightnessSteps,0]);this.uniform('time',time);
    this.uniform('color',p.tint.map((v,i)=>linear((v+(p.lightColor[i]-v)*p.useLightColor)*p.intensity)));
    g.drawArrays(g.TRIANGLES,0,6);this.paint(ctx);
   }
+ }
+ characterShadow(ctx,cam,p){
+  this.upload(this.scene,ctx.canvas);
+  if(this.actorImage!==p.image){this.upload(this.actor,p.image);this.actorImage=p.image;}
+  this.use('characterShadow');this.camera(cam);this.bind('actor',1,this.actor);
+  const sp=p.sp;this.uniform('spriteRect',[sp.x/p.image.width,1-(sp.y+sp.h)/p.image.height,sp.w/p.image.width,sp.h/p.image.height]);
+  this.uniform('bodyRect',[p.pivot.x-p.width*(p.flip?1-sp.pivot.x:sp.pivot.x),p.pivot.y-p.height*sp.pivot.y,p.width,p.height]);
+  this.uniform('groundRect',p.rect);this.uniform('foot',[p.foot.x,p.foot.y]);this.uniform('texel',[1/sp.w,1/sp.h]);this.uniform('facing',p.flip?-1:1);this.uniform('softness',p.softness);this.uniform('shadowColor',p.color.slice(0,3).map(linear));
+  const g=this.gl,projections=new Float32Array(64),emitters=new Float32Array(64);
+  projections.set(p.projections.flat());emitters.set(p.emitters.flat());
+  g.uniform4fv(g.getUniformLocation(this.program,'projections[0]'),projections);g.uniform4fv(g.getUniformLocation(this.program,'emitters[0]'),emitters);
+  this.uniform('lightCount',p.emitters.length);this.uniform('ambient',p.ambient);this.uniform('contact',p.contact);this.uniform('fillArea',p.field.area);
+  g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,this.shadowFill);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,p.field.width,p.field.height,0,g.RGBA,g.UNSIGNED_BYTE,p.field.data);this.bind('fillLight',2,this.shadowFill);
+  this.draw();this.paint(ctx);
  }
  post(ctx,settings){
   this.upload(this.scene,ctx.canvas);

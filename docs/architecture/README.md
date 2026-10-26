@@ -18,6 +18,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 거리 이동·카메라·상호작용 | `bar-playtest/src/features/outside/outside.js` |
 | 거리 인물·상점·강제 이벤트 | `bar-playtest/src/features/outside/events/` |
 | 부비 입양·수리공·갱단 통행 | `bar-playtest/src/features/outside/events/outside-neighborhood.js` |
+| 플레이어 조명 기반 바닥 그림자 | `effects/character-shadows.js`, `effects/street-atmosphere-renderer.js` + `data/presentation/character-shadows.js` |
 | 비·조명·불·수증기·스파크 | `bar-playtest/src/features/outside/effects/` |
 | 공중 광고 차량·5초 LED 광고 | `bar-playtest/src/features/outside/effects/outside-ad-carrier.js` |
 | 거리 전광판·랜덤 소등·실외기·CRT | `street-engine-effects.js`, `sign-scanlines.js` + `data/presentation/street-effects.js` |
@@ -43,6 +44,10 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 ### 공통 규칙의 위치
 
 입력·선택지·주변 대화·물음표 제거·이벤트 우선순위·상태 유지 규칙은 [본편 구현 확정 기준](../gameplay/README.md)에 통합했습니다. 이 파일에 별도 규칙 사본을 유지하지 않습니다.
+
+### 말풍선 원본 비율
+
+`shared/dialogue/exterior-textbox.js`는 외부 11조각(`html`)과 바 손님/루나 원본 프레임(`barHTML`)의 잘라 보기 영역을 소유합니다. 원본 PNG는 수정하지 않습니다. 바는 `features/crafting/serving-hud.css`, 외부·공유 컷씬은 `shared/dialogue/exterior-textbox.css`에서 모서리와 꼬리를 원본의 **1/3 등비율**로 표시하고 직선 테두리·중앙만 늘립니다. 말풍선 전체 이미지를 `100% 100%`로 늘려 문장 폭에 맞추지 않습니다. 바 직선 조각 사이에는 반 픽셀 겹침과 외곽선 안쪽의 연속 배경을 두어 화면 배율에 따른 틈을 막습니다. 대사 폭·패딩·타이핑·인물별 꼬리 위치는 기존 대화 배치 로직이 소유합니다. 검증: `test-textbox-proportions-ui.cjs` (`ui` 묶음, 손님/루나/외부 × 문장 4종 × 화면 3종 × DPR 1/2).
 
 ### 본편 필터 구현
 

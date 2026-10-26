@@ -640,6 +640,18 @@
     ],
     [
       "script",
+      "data/presentation/character-shadows.js"
+    ],
+    [
+      "script",
+      "data/presentation/shadow-lighting.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/character-shadows.js"
+    ],
+    [
+      "script",
       "src/features/outside/effects/outside-rain.js"
     ],
     [

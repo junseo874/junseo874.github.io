@@ -1352,6 +1352,7 @@
             adCarrier = true;
           }
           if (n.name === 'Luna') {
+            global.LunaCharacterShadows?.draw(ctx, model, renderCam, images, surface, global.LunaStreetAtmosphere?.inspect(model)?.renderer);
             drawEntranceCue();
             global.LunaOutsideThug?.draw(model, drawSprite, ctx, position);
             global.LunaOutsideNotion?.draw(model, drawSprite, ctx, position);

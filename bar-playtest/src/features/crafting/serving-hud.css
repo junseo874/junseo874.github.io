@@ -36,11 +36,27 @@
 .bar-view .service-popup:before{border:0;border-radius:0;box-shadow:none;opacity:1;background-color:transparent}
 .bar-view .stack.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_coaster.png')}
 .bar-view .drink-tray.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_cocktail.png')}
-/* Render each complete original frame in one pass. Border-image slicing leaves
-   translucent seams at fractional viewport scales; a single background does not. */
-.dialogue-surface{inset:-24px -1px -1px;border:0;border-radius:0;background:transparent url('../../../assets/ui/dialogue/GRD_textbox.png') center/100% 100% no-repeat;opacity:.98}
+/* Source-proportional corners/tail. Never stretch the complete PNG to the
+   sentence's aspect ratio. Straight-edge strips alone fill the flexible cells. */
+.dialogue-surface.bar-textbox-skin{inset:-1px;border:0;border-radius:0;background:none;opacity:.98;isolation:isolate;display:grid;grid-template-columns:24px minmax(0,1fr) calc(80px / 3) minmax(0,1fr) 24px;grid-template-rows:24px minmax(0,1fr) 24px}
 .dialogue-surface:before,.player-speech .dialogue-surface:before{content:none}
-.player-speech .dialogue-surface{inset:-1px -1px -24px;background-image:url('../../../assets/ui/dialogue/GRD_textbox_luna.png')}
+.bar-textbox-piece{display:block;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
+/* Overlap only straight strips by half a layout pixel: fractional camera/UI
+   scales must not expose the scene through independently clipped SVG seams.
+   Corner and tail viewports retain their exact uniform source scale. */
+.bar-textbox-skin :is(.piece-2,.piece-5,.piece-8,.piece-10){width:calc(100% + 1px);margin-left:-.5px}
+.bar-textbox-skin :is(.piece-4,.piece-5,.piece-6){height:calc(100% + 1px);margin-top:-.5px}
+/* Match the exterior skin's continuous backing at fractional UI scales. It
+   stays inside the source contour; the PNG still draws every edge and tail. */
+.bar-textbox-skin::after{content:'';position:absolute;inset:2px;border-radius:21px;background:#0b0c14;z-index:-1;pointer-events:none}
+.bar-textbox-skin .piece-1{grid-area:1/1}.bar-textbox-skin .piece-2{grid-area:1/2/2/5}.bar-textbox-skin .piece-3{grid-area:1/5}
+.bar-textbox-skin .piece-4{grid-area:2/1}.bar-textbox-skin .piece-5{grid-area:2/2/3/5}.bar-textbox-skin .piece-6{grid-area:2/5}
+.bar-textbox-skin .piece-7{grid-area:3/1}.bar-textbox-skin .piece-8{grid-area:3/2}.bar-textbox-skin .piece-10{grid-area:3/4}.bar-textbox-skin .piece-11{grid-area:3/5}
+.bar-textbox-skin.tail-top .piece-2{grid-column:2/3}
+.bar-textbox-skin.tail-top .piece-10{grid-area:1/4}
+.bar-textbox-skin.tail-top .piece-8{grid-column:2/5}
+.bar-textbox-skin.tail-top .piece-9{grid-area:1/3;height:calc(137px / 3);align-self:end}
+.bar-textbox-skin.tail-bottom .piece-9{grid-area:3/3;height:calc(136px / 3)}
 
 /* Keep the advance marker inside the source frame, clear of its rounded edge. */
 .dialogue-box>.dialogue-advance-cue{right:17px;bottom:18px}

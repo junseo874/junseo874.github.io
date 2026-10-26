@@ -189,7 +189,7 @@
     const interactive = g.phase !== 'general' && !reminder && !g.storyCoaster,
       player = d.actor === 'luna';
     const speaker = player ? L('루나', 'Luna') : g.phase === 'general' && g.seats[g.focus]?.appearance ? L('손님', 'Guest') : g.speakerName(d.actor);
-    return `<div class="dialogue-wrap ${player ? 'player-speech' : 'guest-speech'} ${interactive ? '' : 'auto-bubble'}" ${views.dialogueAnchor(d.actor, d)}><div class="dialogue-box" ${interactive ? 'data-act="advance" role="button" tabindex="0"' : ''}><span class="dialogue-surface" aria-hidden="true"></span><div class="speaker">${esc(speaker)}</div><div class="dialogue-text"><span class="text-measure" aria-hidden="true">${tagged(d.raw || d.text, d.text.length) || '…'}</span><span class="text-ink">${tagged(d.raw || d.text, d.chars)}</span></div>${window.LunaDialogueCue.html(interactive && !g.choice && d.chars >= d.text.length)}</div></div>`;
+    return `<div class="dialogue-wrap ${player ? 'player-speech' : 'guest-speech'} ${interactive ? '' : 'auto-bubble'}" ${views.dialogueAnchor(d.actor, d)}><div class="dialogue-box" ${interactive ? 'data-act="advance" role="button" tabindex="0"' : ''}>${window.LunaExteriorTextbox.barHTML(player)}<div class="speaker">${esc(speaker)}</div><div class="dialogue-text"><span class="text-measure" aria-hidden="true">${tagged(d.raw || d.text, d.text.length) || '…'}</span><span class="text-ink">${tagged(d.raw || d.text, d.chars)}</span></div>${window.LunaDialogueCue.html(interactive && !g.choice && d.chars >= d.text.length)}</div></div>`;
   }
   const currencyView = window.LunaCurrencyView();
   const reducedMoneyMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
