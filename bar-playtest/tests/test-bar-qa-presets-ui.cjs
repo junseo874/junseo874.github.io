@@ -16,7 +16,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   for(const [id,expected]of [['coaster-one',['port']],['coaster-two',['port','aili']],['coaster-mixed',['port']]]){
    const result=await p.evaluate(id=>{
     lunaQA.runPreset(id);const g=barGame,coasters=[],served=[];
-    for(let i=0;i<100&&g.story;i++){
+    for(let i=0;i<100&&g.story&&!g.story.scene.id.startsWith('qa99_menu_complete');i++){
      qaSettle();if(g.error)throw Error(g.error);
      if(g.dialogue)g.dialogue.chars=g.dialogue.text.length;
      if(g.storyCoaster){const seat=g.storyCoaster.seat;coasters.push(g.seats[seat].actor);if(!g.coaster(seat,'drag'))throw Error('Coaster rejected');}
@@ -25,7 +25,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
       const seat=g.currentOrder.seat,id=g.currentOrder.cocktail;g.openRecipes();g.selectCocktail(id);g.debugCraft('excellent');g.offer();qaSettle();if(!g.serve(seat))throw Error('Serve rejected');served.push(id);
      }else g.pump();
     }
-    g.changed();return{coasters,served,done:!g.story,error:g.error,bubi:g.seats.R?.actor==='bubi'?g.seats.R.coaster:null};
+    g.changed();return{coasters,served,done:g.story?.scene.id.startsWith('qa99_menu_complete'),error:g.error,bubi:g.seats.R?.actor==='bubi'?g.seats.R.coaster:null};
    },id);
    assert.deepEqual(result.coasters,expected);assert.equal(result.served.length,expected.length);assert(result.done,id);assert(!result.error);if(id==='coaster-mixed')assert.equal(result.bubi,false);
   }
@@ -73,10 +73,9 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    assert.equal(await p.evaluate(()=>!!barGame.progress.flags.campaign_observation),false);
    assert.equal(await p.evaluate(()=>JSON.stringify(lunaCampaign.session.carry)===qaCarry),true);
   }
-  await p.evaluate(()=>lunaQA.open('animations'));await p.selectOption('[data-qa-field="actor"]','port');assert.equal(await p.locator('.qa-pose-grid button').count(),10);await p.locator('[data-qa="pose-preset"][data-id="event_surprise_talk"]').click();assert.equal(await p.locator('[data-qa-field="pose"]').inputValue(),'event_surprise_talk');
-  await p.selectOption('[data-qa-field="actor"]','shiba');await p.locator('[data-qa="shiba-pose"]').click();assert.equal(await p.locator('.qa-preview canvas').count(),1);
-  await p.setViewportSize({width:600,height:760});assert(await p.locator('.qa-panel').evaluate(e=>e.scrollWidth<=e.clientWidth));await p.screenshot({path:'/private/tmp/bar-qa-presets-mobile.png'});
-  await p.keyboard.press('Escape');await p.evaluate(()=>{lunaQA.runSituation('arrival');});
+  await p.evaluate(()=>lunaQA.startDialogue());assert(await p.locator('#qa-lab').isHidden());assert(await p.locator('.qa-launch').isHidden());
+  await p.setViewportSize({width:600,height:760});assert(await p.locator('.choices').evaluate(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.bottom<=innerHeight;}));await p.screenshot({path:'/private/tmp/bar-qa-presets-mobile.png'});
+  await p.evaluate(()=>{lunaQA.runSituation('arrival');});
   assert.equal(await p.evaluate(()=>JSON.stringify(barData.tables)===qaSource),true,'source tables unchanged');
   await p.evaluate(()=>{lunaCampaign.session.uninstall();lunaCampaign.session.install({developer:false});lunaCampaign.session.beginCommute(0);lunaQA.tick(0);});
   assert.equal(await p.evaluate(()=>Object.keys(barGame.progress.flags).some(k=>k.startsWith('qa_'))),false);

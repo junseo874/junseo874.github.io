@@ -24,14 +24,13 @@ const sizes=[[1280,720],[960,540],[390,844],[1920,800],[1001,777],[2560,1440],[8
    await p.evaluate(()=>{LunaStoryNotices.clear();delete barGame.progress.flags.shiba_met;LunaStoryNotices.meet(barGame.progress,'shiba');LunaStoryNotices.forced({encounter:{}});});
    await p.locator('.story-notice-people').waitFor();await p.waitForTimeout(350);
    await inside('#story-notices',1280);await inside('.story-notice-people',110);await inside('.story-notice-event',175);
-   if(await p.locator('#campaign-developer-back').isVisible())await inside('#campaign-developer-back');await inside('.qa-launch');
+   if(await p.locator('#campaign-developer-back').isVisible())await inside('#campaign-developer-back');assert(await p.locator('.qa-launch').isHidden());
    await p.evaluate(()=>{LunaStoryNotices.clear();LunaStoryNotices.affinity(barGame.progress,'tom',1);});
    await p.waitForTimeout(350);await inside('.story-notice-people',175);
   }
   await p.screenshot({path:'/private/tmp/responsive-notices-'+dpr+'.png'});
-  await p.evaluate(()=>lunaQA.open());await p.locator('#qa-lab').waitFor();
-  for(const [w,h]of sizes){await resize(w,h);await inside('.qa-panel',1060);await inside('[data-qa="close"]');}
-  await p.locator('[data-qa="close"]').click();assert(await p.locator('#qa-lab').isHidden());
+  await p.evaluate(()=>lunaQA.startDialogue());await p.locator('.choices').waitFor();
+  for(const [w,h]of sizes){await resize(w,h);await inside('.choices');assert(await p.locator('#qa-lab').isHidden());}
   await p.evaluate(()=>lunaCampaign.screen('options'));
   for(const [w,h]of sizes){await resize(w,h);await inside('.luna-settings',1000);}
   await p.evaluate(()=>lunaCampaign.developer());

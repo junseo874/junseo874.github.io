@@ -276,7 +276,7 @@
       1: L('개점 대화 → 일반 손님 → 톰·아일리 주문과 조니의 술 복원 부탁 → 매출 정산.', 'Opening → general guests → Tom and Aili → restoration request → settlement.'),
       2: L('삼호에게 칵테일 추천 → 포트의 기억 칩 전달 → 크리스·포트 대화. 조니 회상은 귀가 후 수면·테라스에서 진행.', 'Recommend a drink to Samho → Port delivers the chip → Chris and Port talk. Johnny’s memory plays on the terrace after choosing sleep at home.'),
       3: L('아일리의 각설탕 전달 → 톰·삼호 대화와 올드 패션드 제조 → 퇴근 후 테라스·유나 회상.', 'Aili delivers sugar → Tom and Samho meet over an Old Fashioned → terrace conversation and Yuna flashback after work.'),
-      99: L('우측 하단 ‘상황 선택’에서 캐릭터·코스터 조합·선택지 알림·조니 회상·인물 전체 해금을 테스트합니다. 모든 재료와 칵테일이 해금됩니다.', 'Use Situation picker at the bottom right for characters, coaster combinations, choice rewards, Johnny’s memory and profile unlocks. All recipes unlocked.')
+      99: L('바 안의 대화 선택지로 캐릭터·코스터 조합·알림·조니 회상·인물 해금을 테스트합니다. 완료 후 다시 테스트하거나 다른 항목을 선택할 수 있습니다.', 'Use the bar dialogue choices to test characters, coasters, notifications, memories and profiles. Retry or choose another test when finished.')
     };
     return `<div class="start-screen">${remixUI.tabsHTML()}<div class="start-card"><h2 style="margin:15px 0 5px">${L('영업 설정', 'Session setup')}</h2><div class="day-list">${[0, 1, 2, 3, 99].map(day => button(day === 99 ? 'QA 99' : L(day + '일차', 'Day ' + day), 'day', `data-id="${day}"`, ui.day === day ? 'selected' : '')).join('')}</div><p class="start-note">${notes[ui.day]}</p>${upkeepInputHTML()}<label for="start-mode">${L('시작 구간', 'Start at')}</label><select id="start-mode" data-change="mode"><option value="full" ${ui.mode === 'full' ? 'selected' : ''}>${L('바 내부 전체 흐름', 'Full bar flow')}</option><option value="general" ${ui.mode === 'general' ? 'selected' : ''}>${L('일반 손님 영업부터', 'General guest service')}</option><option value="regular" ${ui.mode === 'regular' ? 'selected' : ''}>${L('단골 손님 영업부터', 'Regular guest service')}</option><option value="practice" ${ui.mode === 'practice' ? 'selected' : ''}>${L('칵테일 제조 연습', 'Craft practice')}</option></select>${button(L('영업 시작 →', 'Open the bar →'), 'start', '', 'primary')}<div class="spacer"></div><div class="row spread"><small><kbd>F2</kbd> ${L('테스트 도구', 'Test tools')}</small>${button(L('조작 안내', 'Controls'), 'help', '', 'subtle')}</div></div></div>`;
   }
@@ -1056,6 +1056,7 @@
           difficulty: ui.difficulty,
           assist: ui.assist
         }));
+        if (ui.day === 99 && !['general', 'practice'].includes(ui.mode)) window.lunaQA.startDialogue();
       } catch (e) {
         toast(e.message);
       }
@@ -1075,6 +1076,7 @@
         variant: g.variant,
         serviceVersion: g.serviceVersion
       }));
+      if (g.day === 99 && !['general', 'practice'].includes(g.mode)) window.lunaQA.startDialogue();
       ui.inspector = false;
     } else if (name === 'applyUpkeep') {
       try {
