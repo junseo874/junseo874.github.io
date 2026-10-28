@@ -9,10 +9,12 @@ const tuna={id:'tuna_can',label:'참치캔',price:50};
 function tunaAvailable(m){return !!W.LunaOutsideNeighborhood?.after(m,2)&&!state(m).flags.boobi_adopted&&!owned(state(m),tuna);}
 function tunaOption(m){return tunaAvailable(m)?[{id:'shop-buy-tuna_can',label:'참치캔 구매 · 50원',disabled:state(m).money<50,disabledReason:'돈이 부족합니다.'}]:[];}
 const intro=W.LUNA_DATA?.sharedStory?.['shop/intro']||[luna('…'),shiba('뭘 봐, 시바.'),shiba('아, 뭐야. 너 걔지? 아까 그 바 안에서 일하고 있던 맥주 가지고 사기 치는 놈.'),luna('…'),shiba('근데 왜 쳐다봐, 시바. 구경났어?'),luna('거기서 뭘 하고 계신 건가요?'),shiba('보면 몰라? 영업하는 거지.'),luna('무슨 영업이요?'),shiba('뭐… 술도 팔고, 잡동사니도 팔고, 몸에 좋은 것들도 좀 팔고…'),shiba('…안 살 거면 꺼져. 장사하기도 바빠.'),luna('한번 보고 생각해 볼게요.'),{type:'shop-intro-done'},{type:'shop-open'}];
-const stockChoice=()=>({type:'shop-choice',stage:'items',actor:'shiba',text:'어떤 걸 살 거야?'});
+const stockChoice=()=>({type:'shop-choice',stage:'items',actor:'shiba',text:'…전부 다 보여 주긴 싫고 몇 개만 보여 줄게.'});
+const soldOut=()=>[shiba('이제 팔 거 없어. 꺼져, 시바.')];
+function hasStock(m){return items.some(item=>!owned(state(m),item))||tunaAvailable(m);}
 const allowance=W.LUNA_DATA?.sharedStory?.['shop/allowance']||[shiba('뭐야, 너 돈 없어?'),luna('아쉽게도… 소지금이 부족해서요.'),shiba('…하, 이 거지를 어떻게 하지.'),shiba('…어쩔 수 없지.'),shiba('“박용석 바보”라고 외쳐 봐. 그럼 내가 돈을 주지.'),luna('무슨 의미가 있나요?'),{type:'shop-choice',stage:'allowance',actor:'shiba',text:'내 물건 떼먹고 튄 놈이야. 이름만 들어도 열받으니까, 대신 욕 좀 해 봐.'}];
 function needsAllowance(m){const day=m.qa?.shopDay??m.config.day;return !state(m).flags.shiba_allowance_received&&[1,2].includes(day)&&Number(state(m).money)<=300;}
-function openStock(m,target){const p=state(m);return m.story.beginRows(id,target,needsQuiz(p)?quizRows(items[0]):needsAllowance(m)?allowance:[stockChoice()]);}
+function openStock(m,target){const p=state(m);return m.story.beginRows(id,target,needsQuiz(p)?quizRows(items[0]):!hasStock(m)?soldOut():needsAllowance(m)?allowance:[stockChoice()]);}
 function grantAllowance(m){const s=m.story.speech,p=state(m);if(p.flags.shiba_allowance_received||s?.id!==id||s.line?.actor!=='luna'||s.rows[s.index]?.type!=='shop-allowance-grant'||s.allowancePaid)return false;s.allowancePaid=true;const before=Number(p.money)||0;p.money=before+500;p.flags.shiba_allowance_received=true;if(!m.qa)W.barGame.log('shiba_allowance',{day:m.config.day,before,after:p.money,amount:500});sync(m);return true;}
 const revisit=W.LUNA_DATA?.sharedStory?.['shop/revisit']||[shiba('뭐야? 살 거 아니면 꺼져, 시바.'),{type:'shop-choice',stage:'greeting',actor:'shiba',text:''}];
 const quizIntro=W.LUNA_DATA?.sharedStory?.['shop/quizIntro']||[shiba('…너 혹시 올드 패션드 만들 거야?'),luna('어떻게 아셨죠?'),shiba('와일드 독과 비터스를 구했다며.'),shiba('그 조합이면 올드 패션드가 먼저 떠오르지.'),luna('맞아요. 부탁받아서요.'),shiba('흠… 너 그 칵테일에 대해선 알고 있는 거야?'),luna('레시피에 대한 것 빼고는 잘 몰라요.'),shiba('아직도 그런 것도 모르면서 제대로 칵테일을 만들 수 있을 것 같아?'),luna('그러면 좀 알려 주실 수 있나요?'),shiba('…조니한테 받은 것도 있고 하니 내가 인생 선배로서 친히 알려 주도록 하지.'),shiba('네 인생에 최고의 행운이 찾아왔다고 생각하도록.'),luna('…네.'),shiba('좋아. 몇 가지 알려 줄 거니까 잘 들어.'),shiba('퀴즈도 낼 거니까 잘 들어.'),luna('…억지라고 생각되는데요.'),shiba('어쩌라고. 가르치는 놈 마음이지.'),luna('…일단 들어 볼게요.')];
@@ -25,7 +27,8 @@ function state(m){if(m.qa)return m.qa.shopProgress||(m.qa.shopProgress={money:Ma
 function sync(m){if(m.qa)return;const g=W.barGame,c=W.lunaCampaign;if(c?.session.carry){c.session.carry.money=g.progress.money;c.session.carry.flags={...g.progress.flags};c.session.carry.inventory={...g.progress.inventory};}g.changed();}
 function visible(m){return !m.qa&&m.scene==='street'&&m.config.day<=3&&m.config.day>=2;}
 function targets(m){return !m.level&&visible(m)?[{id,nodeName:'shiba',label:'시BAR',x,y}]:[];}
-function begin(m,target,first){return m.story.beginRows(id,target,first?intro:revisit);}
+function entryRows(m,first){return !hasStock(m)?needsQuiz(state(m))?quizRows(items[0]):soldOut():first?intro:revisit;}
+function begin(m,target,first){return m.story.beginRows(id,target,entryRows(m,first));}
 const tunaReply=()=>[shiba('참치캔? 50원이야. 자, 가져가.'),luna('감사해요.')];
 const purchaseReply=()=>[shiba('너 그거 어디 가서 나한테 샀다고 하면 죽어.'),luna('…네.')];
 const allowanceReply=()=>[luna('박용석 바보!'),{type:'shop-allowance-grant'},shiba('좋아, 잘했어. 자, 여기 500원.'),stockChoice()];
@@ -43,7 +46,7 @@ function preview(m,t){
   if(needsQuiz(p,item))alternatives.push(quizRows(item),quizRows(item,true),quizReply());
   else alternatives.push(purchaseReply());
  }
- return {id,rows:p.flags.shiba_shop_met?revisit:intro,alternatives:alternatives.map(rows=>({id,rows}))};
+ return {id,rows:entryRows(m,!p.flags.shiba_shop_met),alternatives:alternatives.map(rows=>({id,rows}))};
 }
 function interact(m,t){if(t.id!==id||m.level||!visible(m))return false;m.facing=m.x<x?1:-1;return begin(m,t,!state(m).flags.shiba_shop_met);}
 function completeIntro(m){state(m).flags.shiba_shop_met=true;sync(m);}

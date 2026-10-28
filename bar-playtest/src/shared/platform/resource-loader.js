@@ -32,7 +32,7 @@
    // per-drink decode gate; warming their bytes must not pin all RGBA sheets.
    const visuals=data[group].filter(src=>/\.(png|webp|jpe?g|gif|svg)$/i.test(src)&&!src.includes('/serving/atlases/'));let index=0;
    await Promise.all(Array.from({length:Math.min(4,visuals.length)},async()=>{while(index<visuals.length)await image(visuals[index++]);}));
-   await document.fonts.load('17px LunaPixel');
+   await Promise.all([400,700].map(weight=>document.fonts.load(weight+' 17px LunaPixel','루나 ABC 123')));
   })().catch(e=>{groups.delete(group);throw e;}));
   return groups.get(group);
  }

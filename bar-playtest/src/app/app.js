@@ -721,9 +721,6 @@
     const liveBar = g.screen === 'bar' && !['ready', 'arrival'].includes(g.phase) && !g.finished;
     const blocked = g.isPaused() || !liveBar;
     const html = `<div class="app-shell ${ui.variant === 'gpt' ? 'gpt-version' : ''} ${g.minigame ? 'minigame-version' : ''}"><main class="workspace">${g.phase !== 'ready' && (!g.minigame || g.gimmick?.fluid) ? currencyHTML() : ''}
-  <div class="corner-tools ${g.screen === 'prep' ? 'prep-corner-tools' : ''}" ${g.overlay || g.paused || g.error ? 'inert' : ''}>
-   ${['bar', 'prep'].includes(g.screen) && !g.finished ? button('?', 'help', 'aria-label="' + L('조작 안내', 'Controls') + '" title="' + L('조작 안내', 'Controls') + '"', 'help-corner') : ''}
-  </div>
   <div class="bar-view" data-tutorial="${tutorialView.stage() || ''}" ${g.overlay || g.paused || g.error || !liveBar ? 'inert' : ''}>${barHTML()}
    ${liveBar && (!['regular', 'opening'].includes(g.phase) || g.tutorial?.kind === 'recipe') ? button('<span>' + L('서비스 패널', 'Service panel') + '</span><kbd>Tab</kbd>', 'service', `aria-expanded="${g.overlay === 'service'}" aria-controls="service-panel" ${g.isPaused() ? 'disabled' : ''}`, 'service-handle') : ''}
    ${liveBar && (g.phase === 'general' || g.tutorial?.kind === 'seatExplore') ? ['A', 'D'].map((key, i) => button((i ? '' : '<span class="view-chevron" aria-hidden="true">&lt;</span>') + '<span>' + key + '</span>' + (i ? '<span class="view-chevron" aria-hidden="true">&gt;</span>' : ''), 'seat', `data-id="${['L', 'M', 'R'][Math.max(0, Math.min(2, ['L', 'M', 'R'].indexOf(g.focus) + (i ? 1 : -1)))]}" aria-label="${i ? L('오른쪽 좌석 보기', 'View right seat') : L('왼쪽 좌석 보기', 'View left seat')}" ${blocked || g.focus === (i ? 'R' : 'L') || g.tutorial?.kind === 'seatExplore' && (g.cameraMoving || g.cameraLeft > 0) ? 'disabled' : ''}`, 'view-key ' + (i ? 'next' : 'prev'))).join('') : ''}

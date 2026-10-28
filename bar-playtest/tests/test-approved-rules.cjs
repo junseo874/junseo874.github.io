@@ -12,7 +12,7 @@ for(const order of ['wild-first','bitters-first']){
  assert.equal(m.story.speech.line.stage,'quiz');assert(!S.choiceView(m).options[0].disabled);
  p.money=0;assert(S.choose(m,'shop-answer-2'));drain(m);assert.equal(p.money,0);
  assert(S.choose(m,'shop-answer-1'));drain(m);assert(p.flags.shiba_old_fashioned_taught);assert.equal(p.inventory.bitters,1);
- S.openStock(m,target);drain(m);assert.notEqual(m.story.speech.line.stage,'quiz');
+ S.openStock(m,target);drain(m);assert.equal(m.story.speech,null,'sold-out shop ends without an empty stock menu');
 }
 {
  const m=setup(),p=W.barGame.progress;p.money=0;S.openStock(m,target);drain(m);S.choose(m,'shop-allowance-yes');drain(m);

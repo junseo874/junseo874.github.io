@@ -8,9 +8,18 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   // Keep the developer-only QA launcher from covering the actual service controls.
   await p.addStyleTag({content:'.qa-launch{display:none!important}'});
   for(const main of [false,true]){
+   await p.evaluate(main=>{const c=lunaCampaign,g=barGame;c.session.uninstall();c.session.install({developer:!main});g.reset(99,'general',7,true);g.queue=[{personality:'gentle',order:'gin_tonic',max_rounds:1}];g.queueIndex=0;g.spawnLeft=999;g.qaKeepGeneral=true;g.focus='L';g.overview=false;g.cameraLeft=0;g.transition=0;c.screen(c.playView);g.changed();},main);
+   await p.waitForFunction(()=>!barGame.cameraMoving&&!barGame.cameraLeft&&document.querySelector('.bar-scene-layer')?.dataset.cameraKey==='960:40:99.5');
+   const cameraBefore=await p.locator('.bar-scene-layer').first().getAttribute('data-camera-key');
+   await p.evaluate(()=>{const g=barGame,random=g.seatRng;g.seatRng=()=>.99;g.spawn();g.seatRng=random;g.seats.R.left=999;g.queue=[];g.changed();});
+   await p.waitForTimeout(250);
+   assert.equal(await p.evaluate(()=>barGame.focus),'L','arrival preserves camera focus');
+   assert.equal(await p.locator('.bar-scene-layer').first().getAttribute('data-camera-key'),cameraBefore,'rendered camera remains unchanged');
+   for(const seat of ['M','R']){await p.keyboard.press('KeyD');await p.waitForFunction(seat=>barGame.focus===seat&&!barGame.cameraMoving&&!barGame.cameraLeft,seat);}
    await p.evaluate(main=>{const c=lunaCampaign,g=barGame;c.session.uninstall();c.session.install({developer:!main});g.reset(99,'general',7,true,{variant:'original'});g.spawn();const base=Object.values(g.seats).find(Boolean);if(!base)throw Error('No general guest fixture');g.queue=[];g.queueIndex=0;g.seats=Object.fromEntries(['L','M','R'].map(seat=>[seat,{...base,id:'drag-'+seat,seat,coaster:false,glass:null,state:'WAIT_COASTER',left:999,limit:999,lines:[],lineIndex:0,lineDone:null}]));g.focus='L';g.overview=false;g.cameraLeft=0;g.transition=0;c.screen(c.playView);g.changed();},main);
    for(const seat of ['L','M','R']){
     if(seat!=='L')await p.keyboard.press('KeyD');
+    await p.waitForFunction(seat=>document.querySelector('.bar-scene-layer')?.dataset.cameraKey===`960:${{L:40,M:540,R:1040}[seat]}:99.5`,seat);
     await p.waitForFunction(seat=>barGame.focus===seat&&!barGame.cameraMoving&&!barGame.cameraLeft&&!barGame.transition,seat);
     const popup=p.locator('[data-drag="coaster"]'),target=p.locator('[data-drop="'+seat+'"]');await popup.waitFor();
     await popup.locator('.coaster-pickup-arrow').waitFor();

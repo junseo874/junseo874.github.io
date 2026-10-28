@@ -12,7 +12,9 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    if(m.story.speech?.line.stage==='allowance')m.story.choose('shop-allowance-no');
    a.snapCamera();a.tick(0);
   },{inventory,money});
-  const buttons=p.locator('.world-choices button');await buttons.first().waitFor({state:'visible'});
+  const buttons=p.locator('.world-choices button');
+  if(inventory.bitters&&inventory.tuna_can){await buttons.first().waitFor({state:'hidden'});assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech),null);continue;}
+  await buttons.first().waitFor({state:'visible'});
   assert.equal(await buttons.first().getAttribute('data-choice'),'shop-no');assert.equal(await buttons.first().textContent(),'구매하지 않는다.');
   assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'shop-no');
   assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').count(),inventory.tuna_can?0:1);

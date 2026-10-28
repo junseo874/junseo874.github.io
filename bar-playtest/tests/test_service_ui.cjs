@@ -23,8 +23,8 @@ const assert=require('assert/strict');
  assert.deepEqual(await p.locator('.view-key').allTextContents(),['A','D']);
  await p.locator('.view-key.prev').click();await p.waitForTimeout(650);assert.equal(await p.evaluate(()=>barGame.focus),'M');
  await p.locator('.view-key.next').click();await p.waitForTimeout(650);assert.equal(await p.evaluate(()=>barGame.focus),'R');
- assert.equal(await p.locator('.help-corner').evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(8, 16, 26, 0.96)');
- await p.locator('.help-corner').click();assert.equal(await p.evaluate(()=>barGame.overlay),'help');await p.keyboard.press('Escape');
+ assert.equal(await p.locator('.help-corner').count(),0);
+ await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.overlay),'settings');await p.locator('[data-settings-tab="controls"]').click();await p.keyboard.press('Escape');
  await p.keyboard.press('KeyY');assert.equal(await p.evaluate(()=>barGame.overlay),'history');
  const historyTime=await p.evaluate(()=>barGame.barTime);await p.waitForTimeout(200);await p.keyboard.press('KeyA');assert.equal(await p.evaluate(()=>barGame.barTime),historyTime);assert.equal(await p.evaluate(()=>barGame.focus),'R');
  await p.keyboard.press('KeyY');assert.equal(await p.evaluate(()=>barGame.overlay),null);
@@ -78,7 +78,7 @@ const assert=require('assert/strict');
  assert.equal(await p.evaluate(()=>barGame.overlay),'service');assert.equal(await p.evaluate(()=>barGame.screen),'bar');await p.keyboard.press('Escape');
  await p.evaluate(()=>{barGame.lang='en';barGame.reset(99,'general',1);});await p.waitForTimeout(150);await p.keyboard.press('Tab');assert.equal(await p.locator('#service-title').textContent(),'Service panel');
  await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/bar-service-en.png'});
- await p.keyboard.press('Escape');assert.equal(await p.locator('.topbar').count(),0);assert.equal(await p.locator('.help-corner').getAttribute('aria-label'),'Controls');
+ await p.keyboard.press('Escape');assert.equal(await p.locator('.topbar').count(),0);assert.equal(await p.locator('.help-corner').count(),0);
  // Reminders remain right-aligned; finished drinks must be centered, including English labels.
  for(const lang of ['ko','en']){
   await p.evaluate(lang=>{const g=barGame;g.lang=lang;g.reset(99,'general',7);g.dialogSpeed=20;for(let i=0;i<53;i++)g.tick(.1);g.coaster(g.focus,'drag');for(let i=0;i<50;i++)g.tick(.1);},lang);

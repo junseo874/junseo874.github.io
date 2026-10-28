@@ -1,15 +1,13 @@
 {
   "common": [
     "assets/fonts/dseg7-classic.woff2",
-    "assets/fonts/font.ttf",
+    "assets/fonts/kopubworld-dotum-bold.ttf",
+    "assets/fonts/kopubworld-dotum-medium.ttf",
     "assets/fonts/paperlogy-400.ttf",
     "assets/fonts/paperlogy-500.ttf",
     "assets/fonts/paperlogy-600.ttf",
     "assets/fonts/paperlogy-700.ttf",
     "assets/fonts/pretendard-variable.woff2",
-    "assets/fonts/stardust-400.ttf",
-    "assets/fonts/stardust-700.ttf",
-    "assets/fonts/stardust-800.ttf",
     "assets/tutorials/controls/interaction-npc.png",
     "assets/tutorials/controls/interaction-tv.png",
     "assets/tutorials/mixing/cross-0.png",

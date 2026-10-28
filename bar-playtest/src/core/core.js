@@ -635,6 +635,8 @@
       this.mode = mode;
       this.seed = Number(seed);
       this.rng = seeded(this.seed);
+      // Seat arrivals vary between plays, independently of reproducible order/art RNG.
+      this.seatRng = settings.seatRng || Math.random;
       this.progress = {
         day: this.day,
         money: this.c('gold_start', 300),
@@ -1353,8 +1355,10 @@
         this.spawnBlocked = true;
         return;
       }
-      const seat = free[Math.floor(this.rng() * free.length)];
-      if (free.length === 3) this.focus = seat;
+      // Preserve the existing seeded sequence for appearance, orders and dialogue.
+      this.rng();
+      const seat = free[Math.floor(this.seatRng() * free.length)];
+      // Guest arrivals preserve the player's selected seat and camera view.
       const p = this.t.personalities.find(p => p.id === (slot.personality || 'gentle'));
       const limit = clamp(this.c('coaster_base_sec') * n(p.patience_mult, 1), this.c('coaster_min_sec'), this.c('coaster_max_sec'));
       const g = {

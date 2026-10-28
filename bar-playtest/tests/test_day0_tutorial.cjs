@@ -28,5 +28,8 @@ for(const variant of ['original','gpt']){
  g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');assert.equal(g.coaster('R','keyboard'),true);ticks(g);assert.equal(g.dialogue.text,'이렇게요?');
  console.log('TUTORIAL_CORE_OK',variant,'waits, invalid inputs, pause/camera, idempotency, skip, reset, keyboard fallback');
 }
-const normal=new C.Game(D);normal.reset(99,'general',4);ticks(normal,6);assert.equal(normal.tutorial,null);assert.equal(normal.coaster(normal.focus,'drag'),true);
+const normal=new C.Game(D);normal.reset(99,'general',4);ticks(normal,6);assert.equal(normal.tutorial,null);
+// Arrivals no longer select a camera seat: explicitly look at the guest first.
+normal.focusSeat(Object.values(normal.seats).find(Boolean).seat);ticks(normal,1);
+assert.equal(normal.coaster(normal.focus,'drag'),true);
 console.log('GENERAL_COASTER_UNCHANGED');

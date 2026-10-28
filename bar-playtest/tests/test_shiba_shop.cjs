@@ -15,7 +15,7 @@ for(const qa of [false,true])for(const hasWildDog of [false,true]){
  assert(shop.choose(m,'shop-buy-bitters'));drain(m);
  if(hasWildDog){assert.equal(m.story.speech.line.stage,'quiz');assert.equal(p.money,1700);assert(shop.choose(m,'shop-answer-2'));drain(m);assert.equal(p.money,1700);assert(shop.choose(m,'shop-answer-1'));drain(m);assert(p.flags.shiba_old_fashioned_taught);}
  assert.equal(p.money,1700);assert.equal(p.inventory.bitters,1);assert.equal(p.inventory.wild_dog,hasWildDog?1:undefined);
- p.inventory={};m.config.day=3;menu(m);assert.deepEqual(ids(m),['shop-no']);assert(!shop.choose(m,'shop-buy-bitters'));assert(!shop.choose(m,'shop-buy-wild_dog'));assert.equal(p.money,1700);
+ p.inventory={};m.config.day=3;shop.begin(m,target,false);assert.deepEqual(drain(m),['이제 팔 거 없어. 꺼져, 시바.']);assert.equal(m.story.speech,null);assert(!shop.choose(m,'shop-buy-bitters'));assert(!shop.choose(m,'shop-buy-wild_dog'));assert.equal(p.money,1700);
  if(!qa){assert(W.lunaCampaign.session.carry.flags.shiba_bought_bitters);assert(!W.lunaCampaign.session.carry.flags.shiba_bought_wild_dog);}
 }
 const legacy=setup({wild_dog:1},{shiba_bought_wild_dog:true});menu(legacy);assert.deepEqual(ids(legacy),['shop-no','shop-buy-bitters']);

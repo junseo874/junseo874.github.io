@@ -1,8 +1,6 @@
-/* Original UI font sheets: main_font, title_font, ingredient_font, stir_font.
-   LunaPixel remains an alias for existing dialogue and popup components. */
-@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-400.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-700.ttf') format('truetype');font-style:normal;font-weight:700;font-display:swap}
-@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/stardust-800.ttf') format('truetype');font-style:normal;font-weight:800;font-display:swap}
+@import url('./dialogue-fonts.css?v=kopubworld-20261028');
+/* LunaPixel is the compatibility alias for the supplied KoPubWorld Dotum.
+   Paperlogy, Pretendard and digital numerals retain their existing roles. */
 @font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-400.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
 @font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-500.ttf') format('truetype');font-style:normal;font-weight:500;font-display:swap}
 @font-face{font-family:Paperlogy;src:url('../../../assets/fonts/paperlogy-600.ttf') format('truetype');font-style:normal;font-weight:600;font-display:swap}
@@ -33,7 +31,7 @@ button,input,select,textarea{font-family:inherit}
 .campaign-title .title-choice{font-family:var(--font-ui);font-weight:500}
 .campaign-title .title-choice:hover:not(:disabled),.campaign-title .title-choice:focus:not(:disabled){font-weight:600}
 
-/* Preparation / recipe reference: pixel names, smooth descriptions and tags. */
+/* Preparation / recipe reference: dialogue-family names, separate UI descriptions. */
 .ingredient-tip strong,.prep-recipe-heading h2,.prep-recipe.recipe-preview h2,
 .recipe-card strong,.recipe-list h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
 .recipe-card small{font-family:var(--font-latin);font-weight:600}
@@ -70,7 +68,7 @@ button,input,select,textarea{font-family:inherit}
 .story-notice small,.story-notice strong,.story-notice-icon{font-family:var(--font-dialogue);font-weight:700}
 
 /* Serving reference: Paperlogy 5 drag hint / Paperlogy 7 coaster label.
-   Names retain Stardust Bold, matching dialogue and ingredient names. */
+   Names use KoPubWorld Bold, matching dialogue and ingredient names. */
 .bar-view .drink-tray.service-popup h3{font-family:var(--font-dialogue);font-weight:700;letter-spacing:-.01em}
 .bar-view .drink-tray.service-popup small{font-family:var(--font-ui);font-weight:500;letter-spacing:-.01em}
 .bar-view .stack.service-popup small{font-family:var(--font-ui);font-weight:700;letter-spacing:-.01em}

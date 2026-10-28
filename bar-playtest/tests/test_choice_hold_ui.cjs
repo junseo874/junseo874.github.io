@@ -17,6 +17,11 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    };setupChoice();
   });
   const first=()=>p.locator('.choices button:not(:disabled)').first();
+  assert.equal(await p.locator('.dialogue-wrap').count(),0,'choice without a preceding line has no empty bubble');
+  await p.evaluate(()=>{const g=barGame,line=g.makeLine('luna','직전 바 대사');line.chars=line.text.length;g.lastStoryLine=line;g.changed();});
+  await p.waitForTimeout(100);
+  assert.equal(await p.locator('.dialogue-wrap').count(),0,'bar choices must not retain the preceding dialogue');
+  await p.evaluate(()=>setupChoice());
   assert.equal(await p.locator('.choice-hold-hint').innerText(),'E키나 마우스 좌클릭으로 꾹 눌러 선택');
   for(const viewport of [{width:960,height:700},{width:1920,height:1080},{width:1280,height:720}]){
    await p.setViewportSize(viewport);await p.waitForTimeout(100);

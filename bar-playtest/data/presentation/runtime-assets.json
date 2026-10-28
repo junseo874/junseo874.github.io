@@ -2381,7 +2381,7 @@
       ]
     },
     "font": {
-      "src": "assets/fonts/font.ttf"
+      "src": "assets/fonts/kopubworld-dotum-medium.ttf"
     },
     "guest_m_talk_body": {
       "src": "assets/characters/guests/guest-m-talk-body.png",

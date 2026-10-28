@@ -1630,8 +1630,8 @@
       });
     }
     function renderSpeech(el, v, background = false) {
-      el.hidden = !v || model.paused || loading || !!loadError;
-      if (!v) {
+      el.hidden = !v || !v.full?.trim() || model.paused || loading || !!loadError;
+      if (!v || !v.full?.trim()) {
         el.dataset.key = '';
         return;
       }

@@ -6,15 +6,69 @@ const root = path.resolve(__dirname, '..');
 const C = require(root + '/src/core/core.js');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(root + '/data/runtime/game-data.js', 'utf8'), ctx);
+// Arrivals never select a seat, including the next arrival after an empty bar.
+for (const focus of ['L', 'M', 'R']) {
+  for (const overview of [false, true]) {
+    for (const [index, seat] of ['L', 'M', 'R'].entries()) {
+      const g = new C.Game(ctx.window.LUNA_DATA);
+      g.reset(99, 'general', 42, true);
+      g.queue = Array.from({ length: 2 }, () => ({ personality: 'gentle', order: 'gin_tonic', max_rounds: 1 }));
+      g.queueIndex = 0;
+      g.focus = focus;
+      g.overview = overview;
+      g.seatRng = () => (index + .1) / 3;
+      const cameraLeft = g.cameraLeft;
+      const cameraMoving = g.cameraMoving;
+      for (let arrival = 0; arrival < 2; arrival++) {
+        g.spawn();
+        assert(g.seats[seat], 'guest still enters the selected free seat');
+        assert.equal(g.focus, focus, 'arrival must not steal camera focus');
+        assert.equal(g.overview, overview);
+        assert.equal(g.cameraLeft, cameraLeft);
+        assert.equal(g.cameraMoving, cameraMoving);
+        g.seats[seat] = null;
+      }
+      g.focusSeat(seat);
+      assert.equal(g.focus, seat, 'manual seat selection remains available');
+    }
+  }
+}
 function setup() {
   const g = new C.Game(ctx.window.LUNA_DATA);
   g.reset(99, 'general', 42, true);
   g.queue = [{ personality: 'gentle', order: 'gin_tonic', max_rounds: 1 }];
   g.queueIndex = 0;
   g.spawn();
+  // These lifecycle tests explicitly model the player selecting the guest.
+  g.focus = Object.values(g.seats).find(Boolean).seat;
   g.qaKeepGeneral = true;
   g.dialogSpeed = 1;
   return g;
+}
+// All six filling orders are possible, and occupied/fading seats are excluded.
+for (const sequence of [[0,0],[0,.99],[.5,0],[.5,.99],[.99,0],[.99,.99]]) {
+  const g = new C.Game(ctx.window.LUNA_DATA);
+  g.reset(99, 'general', 1, true);
+  assert.equal(g.seatRng, Math.random, 'fixed gameplay seed must not fix arrival seats');
+  g.queue = Array.from({ length: 4 }, () => ({ personality: 'gentle', order: 'gin_tonic', max_rounds: 1 }));
+  g.queueIndex = 0;
+  const remaining = ['L','M','R'];
+  for (const value of [...sequence, 0]) {
+    const seat = remaining.splice(Math.floor(value * remaining.length), 1)[0];
+    g.seatRng = () => value;
+    g.spawn();
+    assert.equal(g.seats[seat].id, 'guest_' + g.serial);
+  }
+  g.spawn();
+  assert.equal(g.queueIndex, 3, 'full bar must not overwrite a guest');
+  g.seats.M = null;
+  g.tableFades.M = { left: 1 };
+  g.spawn();
+  assert.equal(g.queueIndex, 3, 'uncleared table is not a free seat');
+  delete g.tableFades.M;
+  g.spawn();
+  assert(g.seats.M);
+  assert.equal(g.queueIndex, 4);
 }
 function ticks(g, seconds, options) {
   for (let i = 0; i < seconds * 10; i++) g.tick(.1, options);

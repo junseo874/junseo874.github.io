@@ -1,0 +1,7 @@
+/* Shared by gameplay, Canvas captions and the standalone cutscene editor.
+   Preserve the historical family aliases so saved clips and UI keep working.
+   Medium is the regular dialogue face; Bold supplies all emphasis weights. */
+@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/kopubworld-dotum-medium.ttf') format('truetype');font-style:normal;font-weight:100 600;font-display:swap}
+@font-face{font-family:LunaPixel;src:url('../../../assets/fonts/kopubworld-dotum-bold.ttf') format('truetype');font-style:normal;font-weight:700 900;font-display:swap}
+@font-face{font-family:StudioGame;src:url('../../../assets/fonts/kopubworld-dotum-medium.ttf') format('truetype');font-style:normal;font-weight:100 600;font-display:swap}
+@font-face{font-family:StudioGame;src:url('../../../assets/fonts/kopubworld-dotum-bold.ttf') format('truetype');font-style:normal;font-weight:700 900;font-display:swap}

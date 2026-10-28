@@ -253,16 +253,20 @@ uniform sampler2D bloom;
 uniform float intensity;
 void main(){result=vec4(displayColor(sampleScene(uv)+texture(bloom,uv).rgb*intensity),1);}`;
 class Renderer{
- constructor(){
-  this.canvas=document.createElement('canvas');this.canvas.width=1280;this.canvas.height=720;
+ constructor({spriteOnly=false}={}){
+  this.spriteOnly=spriteOnly;
+  this.canvas=document.createElement('canvas');this.canvas.width=spriteOnly?1:1280;this.canvas.height=spriteOnly?1:720;
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,characterLighting,extract,downsample,blur,composite})){
+  const sources=spriteOnly?{characterLighting}:{fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite};
+  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries(sources)){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
   }
-  this.scene=this.texture();this.reflection=this.texture();this.actor=this.texture();this.shadowFill=this.texture();this.buffers=[this.target(320,180),this.target(320,180),this.target(320,180)];
+  this.scene=this.texture();
+  if(spriteOnly)return;
+  this.reflection=this.texture();this.actor=this.texture();this.shadowFill=this.texture();this.buffers=[this.target(320,180),this.target(320,180),this.target(320,180)];
   this.capture=document.createElement('canvas');this.capture.width=1280;this.capture.height=720;this.captureCtx=this.capture.getContext('2d');
  }
  texture(){const g=this.gl,t=g.createTexture();g.bindTexture(g.TEXTURE_2D,t);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);return t;}
@@ -339,6 +343,14 @@ class Renderer{
   this.clip(box);this.draw();this.finishRegion(ctx,box);
  }
  characterLighting(image,sp,p){
+  // Reflection capture can shade a character while the puddle framebuffer
+  // contains a partially rendered scene. Never use that framebuffer as a
+  // scratch sprite: discarded pool pixels would expose a miniature actor.
+  // Reuse one native-cell canvas/context, with only this shader and no scene
+  // buffers. The actor and its reflection share the result immediately.
+  if(!this.spriteOnly){this.lightingRenderer??=new Renderer({spriteOnly:true});return this.lightingRenderer.characterLighting(image,sp,p);}
+  if(this.gl.isContextLost())return null;
+  if(this.canvas.width!==sp.w||this.canvas.height!==sp.h){this.canvas.width=sp.w;this.canvas.height=sp.h;}
   const g=this.gl;
   this.lightingTextures??=new Map();
   let texture=this.lightingTextures.get(image);
