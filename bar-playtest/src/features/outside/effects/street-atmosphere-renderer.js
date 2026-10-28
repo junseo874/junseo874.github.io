@@ -212,6 +212,42 @@ void main(){
  }
  result=vec4(c,1);
 }`;
+// The native sprite cell is the render target. No screen-sized upload, blur
+// or geometry expansion: transparent pixels stay transparent, even at seams.
+const characterLighting=common+`
+uniform sampler2D actor;
+uniform vec4 cell,body,shadeParams,rimParams,shapeParams;
+uniform vec3 shadeColor,rimColor;
+uniform vec2 foot,lightPosition,ambientDirection;
+uniform float facing,lightWeight;
+vec4 sprite(vec2 p){
+ if(any(lessThan(p,vec2(0)))||any(greaterThanEqual(p,cell.zw)))return vec4(0);
+ return texelFetch(actor,ivec2(cell.xy+floor(p)),0);
+}
+float edge(vec2 p,vec2 dir,float width,float focus){
+ vec4 w=pow(max(vec4(dir.x,-dir.x,dir.y,-dir.y),0.),vec4(focus));
+ return clamp(dot(vec4(1.-sprite(p+vec2(width,0)).a,1.-sprite(p-vec2(width,0)).a,1.-sprite(p+vec2(0,width)).a,1.-sprite(p-vec2(0,width)).a),w),0.,1.);
+}
+float facingEdge(vec2 p,vec2 dir,float width,float focus){return max(edge(p,dir,1.,focus),edge(p,dir,max(1.,width),focus));}
+void main(){
+ vec2 p=gl_FragCoord.xy,q=p/cell.zw;
+ vec4 original=sprite(p);if(original.a<=0.){result=vec4(0);return;}
+ vec2 world=body.xy+vec2(facing<0.?1.-q.x:q.x,q.y)*body.zw;
+ vec2 toLight=lightPosition-world;float distance=max(length(toLight),.0001);
+ vec2 dir=normalize(mix(normalize(ambientDirection),toLight/distance,lightWeight)+vec2(.00001));
+ dir.x*=facing;
+ float height=clamp((world.y-foot.y)/max(.01,(body.y+body.w-foot.y)*shadeParams.y),0.,1.);
+ float occlusion=shadeParams.x*(1.-height)*(1.-height);
+ float away=facingEdge(p,-dir,shadeParams.w,1.);
+ float shade=clamp(occlusion+away*shadeParams.z*mix(shapeParams.w,1.,lightWeight),0.,1.);
+ vec3 color=mix(linearColor(original.rgb),linearColor(original.rgb)*shadeColor,shade);
+ float rim=facingEdge(p,dir,rimParams.y,shapeParams.x),glow=0.;
+ for(int k=1;k<=4;k++){float reach=1.+(max(1.,rimParams.w)-1.)*float(k)/4.;glow=max(glow,edge(p,dir,reach,shapeParams.x)*(1.-float(k-1)/4.));}
+ float nearest=max(.05,length(lightPosition-clamp(lightPosition,body.xy,body.xy+body.zw)));
+ float attenuation=mix(1.,pow(clamp(nearest/distance,0.,1.),shapeParams.y),lightWeight);
+ color+=rimColor*lightWeight*attenuation*(rimParams.x*rim*(1.+rimParams.z)+glow*rimParams.z*.6);
+ result=vec4(displayColor(color),original.a);
+}`;
 const composite=common+`
 uniform sampler2D bloom;
 uniform float intensity;
@@ -222,7 +258,7 @@ class Renderer{
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite})){
+  this.locations=new Map();this.programs={};for(const [key,source]of Object.entries({fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,characterLighting,extract,downsample,blur,composite})){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
   }
@@ -270,7 +306,7 @@ class Renderer{
    const key=p.line+':'+p.reflectionCompression;
    if(capturePlane!==key){
     capturePlane=key;c.clearRect(0,0,1280,720);c.drawImage(ctx.canvas,0,0,1280,720);reflectors(c,p);
-    this.upload(this.reflection,this.capture);this.bind('scene',0,this.scene);this.bind('reflection',1,this.reflection);
+    this.upload(this.reflection,this.capture);this.use('puddle');g.enable(g.SCISSOR_TEST);this.bind('scene',0,this.scene);this.bind('reflection',1,this.reflection);
    }
    this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
    g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.scissor(...box);this.draw();
@@ -301,6 +337,26 @@ class Renderer{
   this.uniform('lightCount',p.emitters.length);this.uniform('ambient',p.ambient);this.uniform('shadowLength',p.maxLength??.85);this.uniform('contact',p.contact);this.uniform('fillArea',p.field.area);
   g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,this.shadowFill);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,p.field.width,p.field.height,0,g.RGBA,g.UNSIGNED_BYTE,p.field.data);this.bind('fillLight',2,this.shadowFill);
   this.clip(box);this.draw();this.finishRegion(ctx,box);
+ }
+ characterLighting(image,sp,p){
+  const g=this.gl;
+  this.lightingTextures??=new Map();
+  let texture=this.lightingTextures.get(image);
+  if(!texture){texture=this.texture();this.upload(texture,image);this.lightingTextures.set(image,texture);
+   if(this.lightingTextures.size>64){const [old,t]=this.lightingTextures.entries().next().value;g.deleteTexture(t);this.lightingTextures.delete(old);}
+  }
+  this.use('characterLighting');g.viewport(0,0,sp.w,sp.h);this.clip([0,0,sp.w,sp.h]);this.bind('actor',1,texture);
+  const c=p.config,s=p.state;
+  this.uniform('cell',[sp.x,image.height-sp.y-sp.h,sp.w,sp.h]);
+  this.uniform('body',[p.x-p.width*(p.flip?1-sp.pivot.x:sp.pivot.x),p.y-p.height*sp.pivot.y,p.width,p.height]);
+  this.uniform('foot',[p.foot.x,p.foot.y]);this.uniform('facing',p.flip?-1:1);
+  this.uniform('lightPosition',s.position);this.uniform('lightWeight',s.weight);this.uniform('ambientDirection',c.ambientDirection);
+  this.uniform('shadeParams',[c.groundOcclusion,c.occlusionHeight,c.sideShadow,c.sideShadowWidth]);
+  this.uniform('shadeColor',c.shadeColor.map(linear));this.uniform('rimColor',s.color.map(linear));
+  this.uniform('rimParams',[c.rimIntensity,c.rimWidth,c.rimGlow,c.rimGlowWidth]);
+  this.uniform('shapeParams',[c.rimFocus,c.rimDistanceFalloff,0,c.ambientSideShadow]);
+  this.draw();g.disable(g.SCISSOR_TEST);
+  return {image:this.canvas,x:0,y:this.canvas.height-sp.h,w:sp.w,h:sp.h};
  }
  post(ctx,settings){
   this.upload(this.scene,ctx.canvas);

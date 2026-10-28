@@ -3,7 +3,12 @@
 'use strict';
 const row=(type,extra={})=>({type,...extra});
 const say=(actor,text,arg='idle')=>row('say',{actor,arg,'text.ko':text,'text.en':text});
-const menu=choices=>row('qa_menu',{choices});
+const CHOICE_LIMIT=4;
+function checkedChoices(choices){
+ if(!Array.isArray(choices)||choices.length<1||choices.length>CHOICE_LIMIT)throw Error('QA 선택지는 이동 항목을 포함해 1~4개여야 합니다.');
+ return choices;
+}
+const menu=choices=>row('qa_menu',{choices:checkedChoices(choices)});
 const action=id=>row('qa_action',{arg:id});
 const option=(text,effects='',when=null,reason='')=>({'text.ko':text,'text.en':text,effects,when,'lock_reason.ko':reason,'lock_reason.en':reason});
 const command=(text,id)=>option(text,'flag.qa_'+id+' = true');
@@ -55,8 +60,16 @@ function create({g,D,ui,reset,finish}){
  function navigation(id,choices){story('menu_'+id,[menu(choices.map((c,i)=>({...command(c.label,'route_'+i),qaRoute:c.route}))),row('qa_route',{routes:choices.map(c=>c.route)})]);}
  const link=(label,route)=>({label,route});
  function list(id,entries,page=0,back={kind:'root'}){
-  const size=3,last=Math.max(0,Math.ceil(entries.length/size)-1);page=Math.max(0,Math.min(page,last));
-  const rows=entries.slice(page*size,page*size+size);
+  // Reserve slots BEFORE slicing: previous, next and back are real choices too.
+  // First/last pages can fit more content than middle pages. Never truncate cases.
+  const pages=[];let offset=0;
+  do{
+   const capacity=CHOICE_LIMIT-(id==='root'?0:1)-(pages.length?1:0);
+   const size=entries.length-offset>capacity?capacity-1:capacity;
+   pages.push(entries.slice(offset,offset+size));offset+=size;
+  }while(offset<entries.length);
+  const last=pages.length-1;page=Math.max(0,Math.min(page,last));
+  const rows=pages[page].slice();
   if(page>0)rows.push(link('이전 항목',{kind:'page',id,page:page-1}));
   if(page<last)rows.push(link('다음 항목',{kind:'page',id,page:page+1}));
   if(id!=='root')rows.push(link('뒤로',back));
@@ -118,7 +131,7 @@ function create({g,D,ui,reset,finish}){
   if(s.type==='choice'&&['ch_t99_main','ch_t99_bar'].includes(s.arg)&&!s.qaLegacy){show();return true;}
   if(s.type==='qa_menu'){
    for(const key of Object.keys(g.progress.flags))if(key.startsWith('qa_')&&!['qa_profiles_all','qa_profiles_two'].includes(key))delete g.progress.flags[key];
-   g.choice={step:s,rows:s.choices.map((c,i)=>({...c,seq:String(i+1),context:s.arg,row_id:s.arg+'_'+i}))};return true;
+   g.choice={step:s,rows:checkedChoices(s.choices).map((c,i)=>({...c,seq:String(i+1),context:s.arg,row_id:s.arg+'_'+i}))};return true;
   }
   if(s.type==='qa_route'){
    const i=s.routes.findIndex((_,i)=>g.progress.flags['qa_route_'+i]);

@@ -1172,7 +1172,7 @@
         typeMs: 0
       };
     }
-    typeLine(line, dt) {
+    typeLine(line, dt, audible = true) {
       const before = line.chars;
       line.typeMs += dt * this.dialogSpeed * TEXT_SPEED_BASE * 1000;
       while (line.chars < line.text.length) {
@@ -1181,7 +1181,7 @@
         line.typeMs -= delay;
         line.chars++;
       }
-      if (this.screen === 'bar' && this.currentDialogue() === line) root.LunaDialogueAudio?.reveal(line.text, before, line.chars);
+      if (audible && this.screen === 'bar' && this.currentDialogue() === line) root.LunaDialogueAudio?.reveal(line.text, before, line.chars);
     }
     finishLine() {
       const d = this.dialogue;
@@ -1603,7 +1603,7 @@
     afterCamera() {
       const g = this.seats[this.focus],
         line = g?.lines?.[g.lineIndex];
-      if (line?.seen) {
+      if (line?.seen && this.phase !== 'general') {
         line.chars = line.text.length;
         line.hold = 0;
       }
@@ -2498,16 +2498,22 @@
             this.beginOrder(g, true);
           }
         }
-        if (g.seat !== this.focus || this.cameraLeft > 0 || this.cameraMoving || holdSpeech) continue;
+        // Looking elsewhere hides speech, but must not stall orders, settlement
+        // callbacks or reorders. Global pauses are handled by tick().
+        const visible = g.seat === this.focus && this.cameraLeft === 0 && !this.cameraMoving && !holdSpeech;
         const line = g.lines[g.lineIndex];
         if (line) {
-          line.seen = true;
-          if (line.chars < line.text.length) this.typeLine(line, realDt);else {
+          if (line.chars < line.text.length) this.typeLine(line, realDt, visible);
+          if (visible) {
+            line.seen = true;
+            line.visibleChars = line.chars;
+          }
+          if (line.chars >= line.text.length) {
             line.hold += realDt * this.dialogSpeed;
             if (line.hold >= this.c('order_bark_gap_sec', 1.5)) {
-              this.history.push({
+              if (line.visibleChars > 0) this.history.push({
                 actor: line.actor,
-                text: line.text,
+                text: line.text.slice(0, line.visibleChars),
                 id: line.id
               });
               g.lineIndex++;

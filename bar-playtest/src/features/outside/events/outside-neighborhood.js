@@ -216,7 +216,7 @@ function faceConversation(m,line){
  const other=line.actor==='luna'?(state(m).chris?'chris':state(m).neighbor?'neighbor':m.story.speech.target.actor||(m.story.speech.target.id?.endsWith('cat')?'boobi':null)):line.actor;
  const p=anchor(m,other);if(p&&Math.abs(p.x-m.x)>.02)m.facing=p.x>m.x?1:-1;
 }
-function human(sprite,p){sprite(p.sp,p.x,p.y,p.scale,p.scale,p.flip,p.alpha);}
+function human(sprite,p){sprite({...p.sp,lightingId:p.id},p.x,p.y,p.scale,p.scale,p.flip,p.alpha);}
 const campActors=new Set(['guard','boss','gang-left','gang-far','gangmate']);
 const inCamp=m=>m.scene==='street'&&!m.level&&after(m,0,'out')&&m.x<places.guard.x+.4;
 // The camp uses the walking strip in FRONT of the black scrap silhouette.
@@ -231,13 +231,14 @@ function catFrame(time,pose){
  paintCat(ctx,frame/16*Math.PI*2,pose);
  const value={image,sp:{asset:'neighborhood-cat-'+key,x:0,y:0,w:40,h:44,pivot:{x:.5,y:6/44}}};catFrames.set(key,value);return value;
 }
-function drawCat(ctx,position,x,y,time,pose='sit',glow){
+function drawCat(ctx,position,x,y,time,pose='sit',glow,model){
  const p=position(x,y),scale=Math.abs(position(x+1,y).x-p.x)/100;
  ctx.save();ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale(scale*.65,scale*.65);
  if(pose==='pet')ctx.rotate(Math.sin(time*7)*.035*Math.sin(Math.PI*Math.min(1,time/1.6)));
  // Replaceable Canvas dummy: a small grey cat, not a new human asset.
  ctx.fillStyle='#121a20';ctx.beginPath();ctx.ellipse(0,0,13,3,0,0,Math.PI*2);ctx.fill();
- const {image,sp}=catFrame(time,pose);ctx.drawImage(image,-20,-38);
+ const {image,sp}=catFrame(time,pose),lit=model&&W.LunaCharacterLighting?.shade(model,image,{...sp,lightingId:'boobi'},x,y,.26,.286,false,null);
+ if(lit)ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-20,-38,40,44);else ctx.drawImage(image,-20,-38);
  // Share the sprite-alpha outline, excluding the floor shadow and food tin.
  glow?.paint(ctx,image,sp,null,x,y,40,44);ctx.restore();
  if(pose==='pet'){
@@ -269,7 +270,7 @@ function draw(m,sprite,ctx,position,images,glow){if(m.qa)return;const n=state(m)
   if(catAvailable(m)){
    if(n.shake>0){const img=images.get('residence-building'),left=R.homeX-5.83,top=14.32,p=position(left+6.47,top-4.24),q=position(left+6.74,top-4.52),w=q.x-p.x,h=q.y-p.y;if(img){ctx.drawImage(img,619,424,27,28,p.x,p.y,w,h);ctx.save();ctx.translate(p.x+Math.sin(n.shake*40)*w/27,p.y);ctx.drawImage(img,647,424,27,28,0,0,w,h);glow?.paint(ctx,img,{asset:'residence-building',x:647,y:424,w:27,h:28,pivot:{x:0,y:1}},{name:'neighborhood-shaking-box'},places.box.x,places.box.y,w,h);ctx.restore();}}
    if(a?.name==='reveal'&&a.time<.55){const p=position(places.box.x,places.box.y-.14),s=Math.abs(position(places.box.x+.01,places.box.y).x-p.x);ctx.fillStyle='#d4d383';ctx.fillRect(p.x-4*s,p.y,2*s,s);ctx.fillRect(p.x+2*s,p.y,2*s,s);}
-   if(flags().boobi_revealed||a?.name==='reveal'&&a.time>=.55){let p=places.cat;if(a?.name==='reveal'){const t=Math.min(1,(a.time-.55)/.9);p={x:places.box.x+(places.cat.x-places.box.x)*t,y:places.box.y+(places.cat.y-places.box.y)*t+Math.sin(t*Math.PI)*.55};}drawCat(ctx,position,p.x,p.y,a?.name==='pet'?a.time:m.time,a?.name==='feed'?'eat':a?.name==='pet'?'pet':'sit',glow);}
+   if(flags().boobi_revealed||a?.name==='reveal'&&a.time>=.55){let p=places.cat;if(a?.name==='reveal'){const t=Math.min(1,(a.time-.55)/.9);p={x:places.box.x+(places.cat.x-places.box.x)*t,y:places.box.y+(places.cat.y-places.box.y)*t+Math.sin(t*Math.PI)*.55};}drawCat(ctx,position,p.x,p.y,a?.name==='pet'?a.time:m.time,a?.name==='feed'?'eat':a?.name==='pet'?'pet':'sit',glow,m);}
   }
  }else if(m.scene==='home'){
   if(flags().boobi_adopted)drawCat(ctx,position,places.sofa.x,places.sofa.y,a?.name==='pet'?a.time:m.time,a?.name==='pet'?'pet':'sit',glow);

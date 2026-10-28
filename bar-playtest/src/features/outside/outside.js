@@ -1148,6 +1148,7 @@
         h = p.h,
         rayReach = renderingNode?.lightRotation ? Math.abs(h * Math.sin(renderingNode.lightRotation)) : 0;
       if (p.x + w + rayReach < 0 || p.x - w - rayReach > 1280 || p.y + h < 0 || p.y - h > 720) return;
+      const lit=global.LunaCharacterLighting?.shade(model,img,sp,x,y,w*renderCam.w/1280,h*renderCam.w/1280,(sx<0)!==flip,renderingNode);
       ctx.save();
       ctx.globalAlpha = alpha;
       if (glow) ctx.globalCompositeOperation = 'screen';
@@ -1158,7 +1159,8 @@
       ctx.translate(p.x, p.y);
       if (renderingNode?.lightRotation) ctx.rotate(-renderingNode.lightRotation);
       ctx.scale((sx < 0 ? -1 : 1) * (flip ? -1 : 1), sy < 0 ? -1 : 1);
-      if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
+      if (lit) ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);
+      else if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
       else if (renderingNode?.name === 'main_bg' && model.scene === 'home') global.LunaHomeArt.paintRoom(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.engineLightId || renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);

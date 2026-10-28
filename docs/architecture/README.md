@@ -20,6 +20,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 | 거리 인물·상점·강제 이벤트 | `bar-playtest/src/features/outside/events/` |
 | 부비 입양·수리공·갱단 통행 | `bar-playtest/src/features/outside/events/outside-neighborhood.js` |
 | 플레이어 조명 기반 바닥 그림자 | `effects/character-shadows.js`, `effects/street-atmosphere-renderer.js` + `data/presentation/character-shadows.js` |
+| 외부 캐릭터 림라이트·본체 음영 | `effects/character-lighting.js`, `effects/street-atmosphere-renderer.js` (기준·브라우저 차이: `street-atmosphere.md`) |
 | 비·조명·불·수증기·스파크 | `bar-playtest/src/features/outside/effects/` |
 | 공중 광고 차량·5초 LED 광고 | `bar-playtest/src/features/outside/effects/outside-ad-carrier.js` |
 | 거리 전광판·랜덤 소등·실외기·CRT | `street-engine-effects.js`, `sign-scanlines.js` + `data/presentation/street-effects.js` |
@@ -56,6 +57,7 @@ Unity의 장면·캐릭터·UI·오디오 분리를 참고하되 웹의 URL 해�
 
 개발자 시뮬레이션의 **QA 99 → 영업 시작 → 바 내부 대화 선택지**에서 테스트한다. 우측 하단 바 QA 런처와 별도 통합 테스트 탭은 사용하지 않는다. `src/dev/qa/bar-qa-presets.js`가 42개 프리셋·분야별 페이지·캐릭터별 표정 선택·실행 어댑터를 소유한다. 분야 → 테스트 → 실제 대화/제조/알림 → ‘다시 테스트 / 다른 테스트 선택 / 처음으로’가 모두 기존 바 선택지와 0.5초 홀드로 이어진다. 기존 CSV QA의 대사·분기·일반 영업·단골 주문·정산은 ‘기존 QA 대사·일반 영업’ 선택지로 연결한다. 외부 QA의 Tab 패널은 그대로 유지한다.
 
+- **선택지 규격 확정: 한 화면 최대 4개, 슬롯 번호 1–4.** 분야·테스트 목록·개별 표정·실제 테스트·완료·기존 CSV QA 모두 동일하다. ‘이전 항목 / 다음 항목 / 뒤로’도 4개에 포함하며, 이동 항목 자리부터 확보한 뒤 나머지에 테스트를 나눠 담는다. 첫/끝 페이지와 중간 페이지의 테스트 수는 다를 수 있다. 원래 2–3개인 대화에 빈 선택지를 채우지 않는다. 5개 이상인 신규 QA 메뉴는 오류로 차단하며, 항목을 잘라 버려 테스트 접근을 잃게 하지 않는다.
 - 코스터: 1인, 2인 모두 주문, 2인 중 1명만 주문. 실제 `enter/say/order/craft/serve`와 드래그 검사를 사용한다. 두 주문은 본편처럼 순서대로 처리한다.
 - 선택지: 재화 증감·잔액 부족·호감도 ±1·인물 등록·복합 보상·신규 목표·목표 달성·이벤트 알림. 효과는 실제 `choose/applyEffects` 경로, 알림은 공유 UI를 사용한다.
 - 인물: 단골 12명의 개별 등록, 전체 해금, 0–3단계. 본편의 시바 등 호감도 미지원 규칙은 유지하고, QA 99 개발자 모드에서만 `qa_profiles_all/qa_profiles_two`로 전체 단계 표시를 허용한다. 미작성 인물 정보·없는 이미지/동작을 임의로 만들어 채우지 않는다. 일반 손님은 익명 합성 손님이므로 영구 단골 목록에 등록하지 않는다.

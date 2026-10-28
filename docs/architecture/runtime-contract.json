@@ -664,6 +664,10 @@
     ],
     [
       "script",
+      "src/features/outside/effects/character-lighting.js"
+    ],
+    [
+      "script",
       "src/features/outside/effects/outside-rain.js"
     ],
     [

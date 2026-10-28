@@ -38,7 +38,9 @@ function playerReflection(ctx,model,cam,plane,images,factor){
  const compression=.22/plane.reflectionCompression,top=p.y-p.h*(1-sp.pivot.y);
  ctx.save();ctx.beginPath();ctx.rect(0,0,1280,Math.max(0,mirroredFoot));ctx.clip();
  ctx.globalAlpha=.82;ctx.translate(p.x,mirroredFoot);ctx.scale(flip?-1:1,compression);
- ctx.drawImage(image,sp.x,sp.y,sp.w,sp.h,-p.w*sp.pivot.x,top-footScreen,p.w,p.h);ctx.restore();
+ const lit=W.LunaCharacterLighting?.shade(model,image,sp,model.x,model.y,p.w/scale,p.h/scale,flip,null);
+ if(lit)ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-p.w*sp.pivot.x,top-footScreen,p.w,p.h);
+ else ctx.drawImage(image,sp.x,sp.y,sp.w,sp.h,-p.w*sp.pivot.x,top-footScreen,p.w,p.h);ctx.restore();
  return true;
 }
 function beforeNode(ctx,model,cam,node,nodes,images,position){

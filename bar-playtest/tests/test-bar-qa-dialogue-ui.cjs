@@ -10,24 +10,36 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  await choose('선택지·알림',true);await choose('선택지 · 돈 받기 / 지불 / 잔액 부족');await nextChoice();await choose('300원 받기',true);
  assert.equal(await p.evaluate(()=>barGame.progress.money),1300);await nextChoice();assert(await p.locator('.choices').getByText('다시 테스트',{exact:true}).isVisible());
  await choose('다시 테스트');await nextChoice();assert.equal(await p.evaluate(()=>barGame.progress.money),1000);assert(await p.locator('[data-act="choice"][disabled]').isVisible());await choose('취소');await nextChoice();await choose('처음으로');
- await choose('코스터·좌석');await choose('2인 · 한 명만 코스터 필요');
+ await choose('코스터·좌석');await choose('다음 항목');await choose('이전 항목');await choose('다음 항목');await choose('2인 · 한 명만 코스터 필요');
  await p.waitForFunction(()=>!!barGame.dialogue);await p.evaluate(()=>{const g=barGame;g.dialogue.chars=g.dialogue.text.length;g.cameraLeft=0;g.cameraMoving=false;g.advance();});await p.waitForFunction(()=>!!barGame.storyCoaster);assert.equal(await p.evaluate(()=>barGame.seats.R.actor),'bubi');
  // Traverse the actual choice graph (not runPreset) to every leaf, including paged poses.
  const coverage=await p.evaluate(()=>{
   const g=barGame,visited=new Set(),leaves=new Set(),queue=[[]];
+  function check(rows,context){
+   if(!rows.length||rows.length>4)throw Error(context+': expected 1–4 choices, got '+rows.length);
+   if(rows.some((r,i)=>Number(r.seq)!==i+1))throw Error(context+': choice slots must be sequential 1–4');
+  }
+  // Validate every authored preset, not just its navigation entry, and legacy CSV menus.
+  for(const preset of LunaBarQAPresets.catalog(barData))for(const step of preset.steps())if(step.type==='qa_menu')check(step.choices.map((r,i)=>({...r,seq:i+1})),preset.id);
+  const legacy={};for(const c of barData.tables.bar_choices)if(/t99/.test(c.context))(legacy[c.context]??=[]).push(c);
+  for(const [id,rows]of Object.entries(legacy))check(rows,id);
   while(queue.length){const path=queue.shift();lunaQA.startDialogue();for(const seq of path){g.cameraMoving=false;g.cameraLeft=0;g.transition=0;if(!g.choose(seq))throw Error('QA route failed: '+path+' / '+g.error);}
    const key=g.story.scene.id.replace(/_\d+$/,'');if(visited.has(key))continue;visited.add(key);
-   for(const c of g.choice?.rows||[]){const r=c.qaRoute;if(!r)continue;
+   check(g.choice.rows,key);
+   for(const c of g.choice.rows){const r=c.qaRoute;if(!r)continue;
     if(['run','pose'].includes(r.kind)){leaves.add(r.id);continue;}
     if(!['legacy','legacyScene','root'].includes(r.kind))queue.push([...path,c.seq]);
    }
   }
-  return{leaves:[...leaves],expected:lunaQA.presets.map(c=>c.id)};
+  // Invalid future content fails explicitly instead of silently dropping the fifth choice.
+  let rejected=false;try{g.campaignStep({type:'qa_menu',choices:Array.from({length:5},()=>({}))});}catch(e){rejected=/1~4/.test(e.message);}
+  if(!rejected)throw Error('QA must reject five-choice data');
+  return{leaves:[...leaves],expected:lunaQA.presets.map(c=>c.id),menus:visited.size};
  });assert.deepEqual(coverage.leaves.sort(),coverage.expected.sort());
  // Single-expression selection uses actual seated actor and dialogue renderer.
  await p.evaluate(()=>lunaQA.startDialogue());await choose('다음 항목');await choose('캐릭터·표정');
  // Follow the paginated actor catalog without changing gameplay directly.
- for(let i=0;i<5&&!await p.locator('.choices').getByText('포트 · 표정 선택',{exact:true}).count();i++)await choose('다음 항목');
+ for(let i=0;i<20&&!await p.locator('.choices').getByText('포트 · 표정 선택',{exact:true}).count();i++)await choose('다음 항목');
  await choose('포트 · 표정 선택');await choose('idle');
  await p.waitForFunction(()=>barGame.dialogue?.actor==='port');assert.equal(await p.evaluate(()=>barGame.dialogue.expression),'idle');await nextChoice();
  await choose('처음으로');await choose('인물 정보');await choose('선택지 · 모든 캐릭터 정보 해금');await nextChoice();await choose('모든 캐릭터 정보 등록·해금');
@@ -41,5 +53,5 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  assert.equal(await p.evaluate(()=>JSON.stringify(barData.tables)===qaTables),true);assert.equal(await p.evaluate(()=>JSON.stringify(lunaCampaign.session.carry)===qaCarry),true);
  await p.evaluate(()=>{lunaCampaign.session.uninstall();lunaCampaign.session.install({developer:false});lunaCampaign.session.beginCommute(0);lunaQA.tick(0);});
  assert.equal(await p.evaluate(()=>{try{lunaQA.startDialogue();return false;}catch{return true;}}),true);assert.deepEqual(errors,[]);
- console.log('QA_DIALOGUE_OK real entry/hold choices, money/reset, mixed coaster, all '+coverage.leaves.length+' reachable presets, pose selection, profiles, return loops, viewport and main isolation');
+ console.log('QA_DIALOGUE_OK '+coverage.menus+' menus limited to four slots, preset/legacy limits, real entry/hold choices, money/reset, mixed coaster, all '+coverage.leaves.length+' reachable presets, pose selection, profiles, return loops, viewport and main isolation');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
