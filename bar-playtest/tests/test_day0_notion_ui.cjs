@@ -6,7 +6,7 @@ const URL=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?update
  for(const variant of ['original'])for(const skip of [false,true]){
   await p.evaluate(variant=>{barGame.reset(0,'full',3,true,{variant});barGame.lang='ko';},variant);
   await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);
-  assert.equal(await p.evaluate(()=>barGame.dialogue.text),'…그럼 이제 한번 시작해 볼까?');
+  assert.equal(await p.evaluate(()=>barGame.dialogue.text),'...그럼 이제 한번 시작해 볼까?');
   await p.keyboard.down('ControlLeft');await p.locator('.choices').waitFor();await p.keyboard.up('ControlLeft');
   assert.equal(await p.locator('.choices button').count(),2);await p.screenshot({path:'/private/tmp/day0-notion-choice.png'});
   await p.locator('.choices button').nth(skip?1:0).click();

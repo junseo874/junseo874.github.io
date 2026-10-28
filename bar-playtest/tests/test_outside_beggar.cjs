@@ -8,7 +8,7 @@ function drain(m){const lines=[];for(let i=0;i<40&&m.story.speech&&!m.story.spee
 for(const day of [0,1,2,3,99])for(const flow of ['in','out']){const m=setup();m.config={day,flow};assert.equal(B.targets(m).length,(day===0&&flow==='out'||day===1&&flow==='in')?2:0);m.level=1;assert.equal(B.targets(m).length,0);m.level=0;m.scene='home';assert.equal(B.targets(m).length,0);m.scene='street';m.qa={};assert.equal(B.targets(m).length,0);}
 for(const day of [0,1]){
  const m=setup(200);m.config={day,flow:day?'in':'out'};assert(talk(m));const lines=drain(m);assert(lines.some(t=>t.includes('10배'))&&lines.some(t=>t.includes('임플란트')));
- assert.equal(lines[0],'…어이 잠깐만.');assert.equal(m.story.speech.line.text,lines.at(-1));
+ assert.equal(lines[0],'...어이 잠깐만.');assert.equal(m.story.speech.line.text,lines.at(-1));
  assert.equal(B.choiceView(m).options.length,3);assert.equal(B.choiceView(m).options[2].label,'???');assert(B.choiceView(m).options[2].disabled);assert(!m.story.choose('beggar-question'));
  assert(m.story.speech.choice);assert.equal(B.choiceView().options[0].disabled,false);assert(m.story.choose('beggar-pay'));assert.equal(W.barGame.progress.money,0);assert.equal(W.lunaCampaign.session.carry.money,0);assert(W.lunaCampaign.session.carry.flags.street_beggar_paid);
  assert.equal(m.story.choose('beggar-pay'),false);assert(B.visible(m,B.id),'Still present during thanks');drain(m);assert(m.beggarDeparture);const x=m.beggarDeparture.x;B.tick(m,1);assert(m.beggarDeparture.x<x);B.tick(m,3);assert(!m.beggarDeparture);assert(!B.visible(m,B.id));
@@ -28,6 +28,6 @@ for(const leave of ['home','next-day','reload']){
 }
 const unpaid=setup();unpaid.scene='home';B.tick(unpaid,0);unpaid.scene='street';assert(B.visible(unpaid,B.witness));unpaid.config={day:1,flow:'in'};assert(B.visible(unpaid,B.witness));
 const before=setup();talk(before,B.witness);assert(drain(before).some(t=>t.includes('전기함')));assert.equal(W.barGame.progress.money,500);
-assert(W.lunaCampaign.session.carry.flags.street_beggar_warned);talk(before);assert.equal(before.story.speech.line.text,'…어이 잠깐만.');drain(before);assert(!B.choiceView(before).options[2].disabled,'Hearing the warning before meeting the beggar unlocks the first choice too');
+assert(W.lunaCampaign.session.carry.flags.street_beggar_warned);talk(before);assert.equal(before.story.speech.line.text,'...어이 잠깐만.');drain(before);assert(!B.choiceView(before).options[2].disabled,'Hearing the warning before meeting the beggar unlocks the first choice too');
 const ambient=setup();ambient.backgroundStory.beginRows('nearby',{x:-7,y:-.94},[{type:'say',actor:'passer',text:'주변 대화'}]);talk(ambient);const elapsed=ambient.backgroundStory.speech.elapsed;ambient.backgroundStory.tick(1);assert.equal(ambient.backgroundStory.speech.elapsed,elapsed);assert.equal(ambient.backgroundStory.views().length,0);drain(ambient);ambient.story.choose('beggar-refuse');drain(ambient);assert.equal(ambient.backgroundStory.suspended,false);
 console.log('BEGGAR_OK CSV first/repeat, 3 choices, information lock/cancel, 200 boundary, duplicate protection, carry, witness one-offs/repeats, persistence and no reward grant');

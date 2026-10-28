@@ -134,7 +134,7 @@
       if (this.view === 'observation') body = this.card('조니의 관찰 메모', '<p>기억에서 직접 본 내용만 정리해 주세요.</p><div class="observation-fields"><label>고른 베이스<select id="observation-base"><option value="">선택</option><option value="gin">진</option><option value="rye">라이 위스키</option><option value="vodka">보드카</option></select></label><label>재료를 넣은 순서<select id="observation-order"><option value="">선택</option><option value="wrong">시럽 → 비터스 → 위스키</option><option value="right">위스키 → 시럽 → 비터스 → 스터</option></select></label></div><p class="campaign-error" role="alert">' + esc(this.observationError || '') + '</p>' + button('제조 기록 다시 보기', 'replay-memory') + button('준비 목록 완성', 'confirm-observation', 'primary'));
       if (this.view === 'scene') body = this.sceneHTML();
       if (this.view === 'prologue') body = '<canvas class="campaign-prologue" width="480" height="270" aria-label="' + esc(this.cinema?.title || '루나의 꿈 회상 컷씬') + '"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스 바를 2초간 누르면 컷씬을 건너뜁니다"><span>스페이스 바를 눌러 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
-      if (this.view === 'ending') body = '<div class="campaign-ending"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><p>…조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>' + button('타이틀로', 'exit-run') + '</div>';
+      if (this.view === 'ending') body = '<div class="campaign-ending"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><p>...조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>' + button('타이틀로', 'exit-run') + '</div>';
       this.cinemaChoices?.dispose();
       this.cinemaChoices = null;
       this.host.innerHTML = '<div class="campaign-stage view-' + this.view + '">' + body + '</div>';
@@ -389,7 +389,7 @@
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
-        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'tv-effects-clock-20261026' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
+        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'dialogue-periods-20261029' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dialogue-periods-20261029');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);

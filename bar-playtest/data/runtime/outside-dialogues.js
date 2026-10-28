@@ -40,8 +40,8 @@ g.LUNA_OUTSIDE_DIALOGUES={
   ],
   [
     "store-pair-left",
-    "…너 요즘 판타지 BD 보냐?",
-    "…You been watching fantasy BDs lately?"
+    "...너 요즘 판타지 BD 보냐?",
+    "...You been watching fantasy BDs lately?"
   ],
   [
     "store-pair-right",
@@ -50,32 +50,32 @@ g.LUNA_OUTSIDE_DIALOGUES={
   ]
 ]),
  outside_day0_building_residents:rows('outside_day0_building_residents',[
-  ['resident-left','…또 올렸다고?','…They raised it again?'],
+  ['resident-left','...또 올렸다고?','...They raised it again?'],
   ['resident-right','그렇다니까.','That’s what I’m saying.'],
   ['resident-right','거기다 이젠 승강기 이용할 때마다 돈을 받겠다는 말까지 했다고.','They even said they’d start charging us every time we use the elevator.'],
-  ['resident-left','하… 진짜 그렇게 바뀌면 관리인 새끼 죽여 버린다.','Fuck… If they really do that, I’ll kill that bastard.']
+  ['resident-left','하... 진짜 그렇게 바뀌면 관리인 새끼 죽여 버린다.','Fuck... If they really do that, I’ll kill that bastard.']
  ]),
  [pair]:rows(pair,[
   ['bar-pair-left','저기 언노운에 불 켜져 있는데? 영업 다시 시작하는 건가?','The lights are on at Unknown. Are they opening again?'],
   ['bar-pair-right','아직 그런 말은 없었는데. 그냥 잠깐 켜 둔 거 아니야?','I haven’t heard anything. Maybe they just turned them on for a bit?'],
-  ['bar-pair-left','하긴… 전에 운영하던 영감이 없는데. 다시 시작할 리가 없지.','True… The old man who ran it is gone. No way they’re opening again.'],
+  ['bar-pair-left','하긴... 전에 운영하던 영감이 없는데. 다시 시작할 리가 없지.','True... The old man who ran it is gone. No way they’re opening again.'],
   ['bar-pair-left','그래도 다시 열었으면 좋겠네. 그만한 가게는 다시 생길 것 같지 않단 말이지.','Still, I wish they would. I don’t think we’ll get another place like that.'],
-  ['bar-pair-right','…그러게 말이야.','…Yeah. Me too.']
+  ['bar-pair-right','...그러게 말이야.','...Yeah. Me too.']
  ]),
  [trade]:rows(trade,[
-  ['trade-smuggler','…그 정도 스펙이면 웬만한 놈들은 상대도 안 될걸.','…With specs like that, most people wouldn’t stand a chance.'],
-  ['trade-samho','확실히… 그럴 것 같긴 해.','Yeah… I suppose you’re right.'],
+  ['trade-smuggler','...그 정도 스펙이면 웬만한 놈들은 상대도 안 될걸.','...With specs like that, most people wouldn’t stand a chance.'],
+  ['trade-samho','확실히... 그럴 것 같긴 해.','Yeah... I suppose you’re right.'],
   ['trade-smuggler','그럼 빨리 의뢰부터 처리하라고.','Then hurry up and finish the job.'],
   ['trade-smuggler','내가 알기론 지금 네 상황에서 그 의뢰 말고는 대금을 치를 방법이 없는 걸로 아는데.','As far as I know, that job is your only way to pay, given your situation.'],
-  ['trade-samho','…사람 뒷조사도 하는 거야?','…You run background checks on people too?'],
+  ['trade-samho','...사람 뒷조사도 하는 거야?','...You run background checks on people too?'],
   ['trade-smuggler','그런 것도 우리 일에 포함되니까. 클클.','That’s part of our work too. Heh heh.'],
   ['trade-samho','돈 떼먹을 일은 없으니까 걱정하지 마.','I’m not going to stiff you, so don’t worry.'],
   ['trade-smuggler','그래. 기간 안에만 주면 우리도 귀찮게 하지 않을 거라고.','Good. Pay on time, and we won’t bother you.']
  ]),
  [poster]:rows(poster,[
   ['sign','지명수배. 이름: 개시바.','WANTED. Name: Gaeshiba.'],
-  ['sign','공공질서 혼란, 공무집행 방해, 사기, 무전취식, 인종차별…','Disturbing public order, obstructing official duties, fraud, dining and dashing, racial discrimination…'],
-  ['sign','…의 혐의로 수배 중이오니 발견하시면 1119로 연락 주세요.','…Wanted on these charges. If spotted, please call 1119.'],
+  ['sign','공공질서 혼란, 공무집행 방해, 사기, 무전취식, 인종차별...','Disturbing public order, obstructing official duties, fraud, dining and dashing, racial discrimination...'],
+  ['sign','...의 혐의로 수배 중이오니 발견하시면 1119로 연락 주세요.','...Wanted on these charges. If spotted, please call 1119.'],
   ['sign','- 코라테크 치안관리부 -','— CoraTech Public Security Department —']
  ])
 };
@@ -83,8 +83,8 @@ g.LUNA_OUTSIDE_DIALOGUES={
 g.LUNA_OUTSIDE_DIALOGUES.outside_day0_tv_news1=rows('outside_day0_tv_news1',[
   [
     "tv",
-    "…이라고 발표했습니다.",
-    "…the announcement stated."
+    "...이라고 발표했습니다.",
+    "...the announcement stated."
   ],
   [
     "tv",
@@ -103,8 +103,8 @@ g.LUNA_OUTSIDE_DIALOGUES.outside_day0_tv_news1=rows('outside_day0_tv_news1',[
   ],
   [
     "tv",
-    "다음 소식입니다…",
-    "Moving on to our next story…"
+    "다음 소식입니다...",
+    "Moving on to our next story..."
   ]
 ]);
 for(const [key,lines]of Object.entries(g.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))g.LUNA_OUTSIDE_DIALOGUES[key.slice(8)]=lines;

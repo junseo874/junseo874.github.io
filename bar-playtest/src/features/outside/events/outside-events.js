@@ -5,20 +5,20 @@ const D=W.LUNA_OUTSIDE_DIALOGUES,C=W.LunaOutsideContent,R=W.LunaResidence.layout
 const say=(actor,text,extra={})=>({type:'say',actor,text,...extra});
 const rows=(actors,lines)=>lines.map(([i,text])=>say(actors[i],text));
 D.outside_day0_port_pair=rows(['bar-pair-left','bar-pair-right'],[
- [0,'저기 언노운에 불 켜져 있는데? 다시 영업하는 건가?'],[1,'아직 그런 얘긴 없던데. 그냥 잠깐 켜 둔 거 아니야?'],[0,'하긴… 운영하던 마스터도 없는데, 다시 열 리가 없지.'],[1,'그러고 보니 그 영감, 어떻게 됐더라?'],[0,'…기억 안 나? 갱 놈들이 다른 사람이랑 착각해서 죽였잖아.'],[1,'아… 맞다. 그놈들도 나중에 애니멀한테 털려서 해체됐었지?'],[0,'그랬지. 애니멀 보스가 그 바 단골이었잖아. 영감 죽인 보복으로 쓸어버린 거지.'],[0,'하여간 그 새끼들, 사람을 봐 가면서 실수를 해야 하는데 말이야.'],[1,'그래도 다시 열었으면 좋겠네. 그만한 가게가 또 생기겠어?'],[0,'…그러게 말이야.']
+ [0,'저기 언노운에 불 켜져 있는데? 다시 영업하는 건가?'],[1,'아직 그런 얘긴 없던데. 그냥 잠깐 켜 둔 거 아니야?'],[0,'하긴... 운영하던 마스터도 없는데, 다시 열 리가 없지.'],[1,'그러고 보니 그 영감, 어떻게 됐더라?'],[0,'...기억 안 나? 갱 놈들이 다른 사람이랑 착각해서 죽였잖아.'],[1,'아... 맞다. 그놈들도 나중에 애니멀한테 털려서 해체됐었지?'],[0,'그랬지. 애니멀 보스가 그 바 단골이었잖아. 영감 죽인 보복으로 쓸어버린 거지.'],[0,'하여간 그 새끼들, 사람을 봐 가면서 실수를 해야 하는데 말이야.'],[1,'그래도 다시 열었으면 좋겠네. 그만한 가게가 또 생기겠어?'],[0,'...그러게 말이야.']
 ]);
 const news='outside_day1_tv_news2',passers='outside_day1_commute_passers2';
 D[news]=[
- '…최근 코라테크가 출시한 범용형 안드로이드가 논란이 되고 있습니다.',
+ '...최근 코라테크가 출시한 범용형 안드로이드가 논란이 되고 있습니다.',
  '해당 안드로이드는 현재 환경 미화, 운송, 하수도 정비 등의 업무에 시범 투입되고 있는데요.',
  '저소득층 시민들은 굳이 사람을 대체할 필요가 없는 업무에까지 안드로이드를 투입해 자신들의 일자리를 빼앗고 빈곤을 심화시키고 있다며 반발하고 있습니다.',
  '또한 업무에 필요한 수준을 넘어서는 지능과 성능을 갖추고 있어, 국제법으로 금지된 ‘고성능 인공지능’에 해당하는 것 아니냐는 의혹도 제기되고 있습니다.',
  '신미합중국 역시 이를 강하게 비판했습니다. 시범 운용 중인 안드로이드를 즉각 회수하고 프로젝트를 전면 폐기하지 않을 경우, 제4차 세계 대전으로 이어질 수도 있다는 경고까지 내놓았습니다.',
  '이 같은 반발의 배경에는 지난 범용 인공지능 안드로이드 무력 폭동이 재발할 수 있다는 우려가 깔려 있습니다.',
- '이에 코라테크 측은 “해당 안드로이드의 인공지능 시스템은 통제하에 작동하고 있으므로 우려할 필요가 없다”며 반대 여론을 일축했으며…'
+ '이에 코라테크 측은 “해당 안드로이드의 인공지능 시스템은 통제하에 작동하고 있으므로 우려할 필요가 없다”며 반대 여론을 일축했으며...'
 ].map(t=>say('tv',t));
 D[passers]=rows(['commute-pair-left','commute-pair-right'],[
- [0,'뉴스 봤냐?'],[1,'뭐, 코라테크 그 개새끼들이 만든 깡통 말하는 거야?'],[0,'그래. 그 시발 새끼들이 만든 인공지능이 무력 폭동을 일으킨 지 10년도 안 지났는데, 또 그딴 걸 내놨다니까?'],[0,'그건 둘째 치고, 우리 써 주던 곳에도 그걸 시범으로 들여놓는다더라. 이젠 나오지 말래.'],[0,'하… 곧 애도 태어나는데, 이제 어디 가서 일하냐.'],[1,'하… 좆같네. 세상이 어떻게 되려고 이러냐.']
+ [0,'뉴스 봤냐?'],[1,'뭐, 코라테크 그 개새끼들이 만든 깡통 말하는 거야?'],[0,'그래. 그 시발 새끼들이 만든 인공지능이 무력 폭동을 일으킨 지 10년도 안 지났는데, 또 그딴 걸 내놨다니까?'],[0,'그건 둘째 치고, 우리 써 주던 곳에도 그걸 시범으로 들여놓는다더라. 이젠 나오지 말래.'],[0,'하... 곧 애도 태어나는데, 이제 어디 가서 일하냐.'],[1,'하... 좆같네. 세상이 어떻게 되려고 이러냐.']
 ]);
 C.events.push({id:news,label:'1일차 출근길 · TV 뉴스 2 · 집 안',day:1,flow:'in',scene:'home',auto:true,kind:'broadcast',title:'TV 뉴스 2'},{id:passers,label:'1일차 출근길 · 행인 대사 2 · 엘리베이터 오른쪽',day:1,flow:'in',auto:true,kind:'pair'});
 C.source.lastEdited='2026-10-05T05:12:00.710Z';
@@ -30,11 +30,11 @@ W.LunaOutsideEncounters.cases.push({id:passers,activation:'proximity',kind:'pair
 const reopening='outside_day2_commute_reopening';
 D[reopening]=rows(['reopening-pair-left','reopening-pair-right'],[
  [0,'들었어? 언노운, 다시 연 게 맞다던데?'],[1,'뭐, 진짜? 누가 운영하는데?'],
- [0,'아마 크리스가 맡아서 하는 모양이야.'],[1,'…그놈은 좀 음침하고 위험해 보여서 가기 꺼려지는데.'],
- [0,'갔다 온 놈 말로는 웬 예쁘장한 애가 일하고 있다던데?'],[1,'오호… 그러면 한번 가 봐야겠는걸.'],
+ [0,'아마 크리스가 맡아서 하는 모양이야.'],[1,'...그놈은 좀 음침하고 위험해 보여서 가기 꺼려지는데.'],
+ [0,'갔다 온 놈 말로는 웬 예쁘장한 애가 일하고 있다던데?'],[1,'오호... 그러면 한번 가 봐야겠는걸.'],
  [0,'조심해라. 아직 애니멀이 뒤를 봐주는 것 같으니까.'],[1,'무슨 소리야? 조니도 죽었는데 걔들이 아직도 그 바를 지켜 준다고?'],
- [0,'나도 모르지… 새로 온 애가 톰 마음에 들었나 보던데.'],[1,'…야, 근데 저기 빨간 팔 달린 놈도 애니멀 소속 아니야?'],
- [0,'쟤는 아닌 걸로 알아. 들어가려고 별짓을 다 한다는데.'],[0,'무슨 이유인지는 몰라도, 죽어도 안 받아 준다더라.'],[1,'아하…']
+ [0,'나도 모르지... 새로 온 애가 톰 마음에 들었나 보던데.'],[1,'...야, 근데 저기 빨간 팔 달린 놈도 애니멀 소속 아니야?'],
+ [0,'쟤는 아닌 걸로 알아. 들어가려고 별짓을 다 한다는데.'],[0,'무슨 이유인지는 몰라도, 죽어도 안 받아 준다더라.'],[1,'아하...']
 ]);
 C.events.push({id:reopening,label:'2일차 출근길 · 행인 대사 2 · 시BAR 왼쪽',day:2,flow:'in',auto:true,kind:'pair'});
 const reopeningPair=[{id:'reopening-pair-left',kind:'M2',x:-4.35,y:-.94,faces:'reopening-pair-right',phase:1},{id:'reopening-pair-right',kind:'W1',x:-3.65,y:-.94,faces:'reopening-pair-left',phase:3}];
@@ -44,14 +44,14 @@ W.LunaOutsideEncounters.cases.push({id:reopening,activation:'proximity',kind:'pa
 const tradeEvent=C.events.find(e=>e.id==='outside_day1_samho_smuggler');Object.assign(tradeEvent,{auto:true,kind:'forced',trigger:'proximity'});
 const thug='day2-corridor-thug',info='day2-thug-information',contract='day3-samho-contract',samho='contract-samho',dealer='contract-smuggler';
 const n=t=>say(thug,t),l=t=>say('luna',t),s=t=>say(samho,t),d=t=>say(dealer,t);
-const intro=W.LUNA_DATA?.sharedStory?.['notion/intro']||[n('…또 만났네?'),l('…'),n('그래도 이웃인데 인사는 하고 지내자고.'),l('안녕하세요.'),n('그래, 반갑다.'),n('혹시라도 물어볼 거 있으면 물어봐. 물론 맨입으로는 힘들겠지만.')];
+const intro=W.LUNA_DATA?.sharedStory?.['notion/intro']||[n('...또 만났네?'),l('...'),n('그래도 이웃인데 인사는 하고 지내자고.'),l('안녕하세요.'),n('그래, 반갑다.'),n('혹시라도 물어볼 거 있으면 물어봐. 물론 맨입으로는 힘들겠지만.')];
 const infoRows=W.LUNA_DATA?.sharedStory?Object.fromEntries(['gang','coratech','chris'].map(key=>[key,W.LUNA_DATA.sharedStory['notion/info/'+key]])):{
- gang:[l('갱에 대해서 알려 주실 수 있나요?'),...['그냥 돈만 되면 뭐든 하는 인간 말종 같은 새끼들이라고 생각해.','이 동네엔 갱도 여럿 있어서 다른 동네보다 위험한 편이지.','유명한 놈들은 애니멀 갱, 하이드럭 갱, 나이트 러너 갱 정도야.','애니멀은 자기네 사람만 안 건드리면 웬만해선 문제없어.','나머지 놈들은 그냥 보이면 피하는 게 상책이고.','너같이 예쁘장한 애는 잘못 걸리면 납치돼서 어디로 팔려 갈지도 모른다고.'].map(n),l('…알려 주셔서 감사해요.')],
- coratech:[l('코라테크에 대해서 알려 주실 수 있나요?'),...['…대체 어디서 왔길래 그런 걸 물어보는 거야?','그냥 우리나라 산업은 전부 그놈들 손에 있다고 생각해.','무역, 물류, 군수, 기술 연구, 바이오… 손 안 댄 분야가 없지.','정부랑 계약 맺고 일하는 기업이라는데, 행정 업무까지 맡아서 하고 있으니.','사실상 정부나 다름없어.','하지만 그런 놈들도 이쪽 나이트타운으로는 영향력이 잘 안 닿긴 하지. 워낙 무법지대라서 말이야.'].map(n),l('…알려 주셔서 감사해요.')],
- chris:[l('크리스에 대해서 알려 주실 수 있나요?'),...['…그놈은 나도 잘 몰라.','이 동네에 들어온 지 그렇게 오래되진 않았는데, 온 지 얼마 안 돼서 갱 패거리랑 시비가 붙었거든.','그때 혼자서 일곱 놈을 상대했어. 몇은 죽고, 나머지는 반병신이 됐지.','그 뒤로 한동안은 아무도 그놈한테 말조차 못 걸었어.','그런데 어느 날 보니까 바에서 일하고 있더라고. 무슨 바람이 불었는지는 몰라도.','누구는 살아서 은퇴한 전설적인 용병이라 하고, 누구는 코라테크가 몰래 키운 암살자라 하던데.'].map(n),l('…알려 주셔서 감사해요.')]
+ gang:[l('갱에 대해서 알려 주실 수 있나요?'),...['그냥 돈만 되면 뭐든 하는 인간 말종 같은 새끼들이라고 생각해.','이 동네엔 갱도 여럿 있어서 다른 동네보다 위험한 편이지.','유명한 놈들은 애니멀 갱, 하이드럭 갱, 나이트 러너 갱 정도야.','애니멀은 자기네 사람만 안 건드리면 웬만해선 문제없어.','나머지 놈들은 그냥 보이면 피하는 게 상책이고.','너같이 예쁘장한 애는 잘못 걸리면 납치돼서 어디로 팔려 갈지도 모른다고.'].map(n),l('...알려 주셔서 감사해요.')],
+ coratech:[l('코라테크에 대해서 알려 주실 수 있나요?'),...['...대체 어디서 왔길래 그런 걸 물어보는 거야?','그냥 우리나라 산업은 전부 그놈들 손에 있다고 생각해.','무역, 물류, 군수, 기술 연구, 바이오... 손 안 댄 분야가 없지.','정부랑 계약 맺고 일하는 기업이라는데, 행정 업무까지 맡아서 하고 있으니.','사실상 정부나 다름없어.','하지만 그런 놈들도 이쪽 나이트타운으로는 영향력이 잘 안 닿긴 하지. 워낙 무법지대라서 말이야.'].map(n),l('...알려 주셔서 감사해요.')],
+ chris:[l('크리스에 대해서 알려 주실 수 있나요?'),...['...그놈은 나도 잘 몰라.','이 동네에 들어온 지 그렇게 오래되진 않았는데, 온 지 얼마 안 돼서 갱 패거리랑 시비가 붙었거든.','그때 혼자서 일곱 놈을 상대했어. 몇은 죽고, 나머지는 반병신이 됐지.','그 뒤로 한동안은 아무도 그놈한테 말조차 못 걸었어.','그런데 어느 날 보니까 바에서 일하고 있더라고. 무슨 바람이 불었는지는 몰라도.','누구는 살아서 은퇴한 전설적인 용병이라 하고, 누구는 코라테크가 몰래 키운 암살자라 하던데.'].map(n),l('...알려 주셔서 감사해요.')]
 };
 const action=action=>({type:'notion-action',action});
-const contractRows=W.LUNA_DATA?.sharedStory?.['notion/contract']||[s('그렇게 돼서 의뢰는 못 할 것 같아. 미안하게 됐어.'),d('…그러면 돈은 대체 어떻게 갚을 거지? 장기를 팔아도 그만한 돈은 안 나올 텐데.'),s('못 들었나 본데, 나 이제 갱 소속이야.'),d('갱에 들어갔다고 이제 배짱을 부리기로 한 건가? 아무리 톰이라도 그럴 순 없을 텐데.'),s('곧 일 몇 개만 하면 금방 갚는다고, 등신아.'),d('…그럼 기다리지. 의뢰는 없었던 걸로 하자고.'),s('그래. 금방 보낼 테니까 기다려.'),d('그러지. 혹시라도 떼먹는다면 우린 전쟁도 일으킬 수 있으니까 조심해라.'),s('네, 네. 알았으니까 가 봐.'),action('dealer-exit'),action('approach'),s('루나? 퇴근했나 보네?'),l('맞아요. 그나저나 의뢰는 잘 안된 것 같네요.'),s('음… 난 오히려 이쪽이 더 잘된 것 같아.'),say(samho,'계속 꺼림칙했거든. 그 일을 맡았으면 안 좋은 일이 생겼을지도 몰라.',{emphasis:['안 좋은 일']}),s('덕분이야, 루나. 네가 보스랑 얘기할 수 있게 도와줘서, 나도 이제 애니멀에 들어가기로 했어.'),s('물론 어디 가서 자랑할 만한 곳은 아니지만… 여긴 나이트타운이니까.'),l('전 그저 술만 만들었는걸요.'),s('하하. 그렇게 말 안 해도 돼. 너 덕분에 잘 풀린 건데, 뭐.'),s('아무튼 나도 이제 할 일이 생겨서, 먼저 가 볼게.'),s('다음에 또 놀러 갈 테니까 그때 보자!'),l('안녕히 가세요.'),action('samho-exit')];
+const contractRows=W.LUNA_DATA?.sharedStory?.['notion/contract']||[s('그렇게 돼서 의뢰는 못 할 것 같아. 미안하게 됐어.'),d('...그러면 돈은 대체 어떻게 갚을 거지? 장기를 팔아도 그만한 돈은 안 나올 텐데.'),s('못 들었나 본데, 나 이제 갱 소속이야.'),d('갱에 들어갔다고 이제 배짱을 부리기로 한 건가? 아무리 톰이라도 그럴 순 없을 텐데.'),s('곧 일 몇 개만 하면 금방 갚는다고, 등신아.'),d('...그럼 기다리지. 의뢰는 없었던 걸로 하자고.'),s('그래. 금방 보낼 테니까 기다려.'),d('그러지. 혹시라도 떼먹는다면 우린 전쟁도 일으킬 수 있으니까 조심해라.'),s('네, 네. 알았으니까 가 봐.'),action('dealer-exit'),action('approach'),s('루나? 퇴근했나 보네?'),l('맞아요. 그나저나 의뢰는 잘 안된 것 같네요.'),s('음... 난 오히려 이쪽이 더 잘된 것 같아.'),say(samho,'계속 꺼림칙했거든. 그 일을 맡았으면 안 좋은 일이 생겼을지도 몰라.',{emphasis:['안 좋은 일']}),s('덕분이야, 루나. 네가 보스랑 얘기할 수 있게 도와줘서, 나도 이제 애니멀에 들어가기로 했어.'),s('물론 어디 가서 자랑할 만한 곳은 아니지만... 여긴 나이트타운이니까.'),l('전 그저 술만 만들었는걸요.'),s('하하. 그렇게 말 안 해도 돼. 너 덕분에 잘 풀린 건데, 뭐.'),s('아무튼 나도 이제 할 일이 생겨서, 먼저 가 볼게.'),s('다음에 또 놀러 갈 테니까 그때 보자!'),l('안녕히 가세요.'),action('samho-exit')];
 const qaCases=[{id:'runtime:thug2',label:'2일차 출근길 · 불량배 재회',notion:thug,auto:true},{id:'runtime:thug-info',label:'2일차 출근길 · 불량배 정보 구매 (50원)',notion:info,auto:false},{id:'runtime:samho-contract',label:'3일차 퇴근길 · 삼호의 계약 종료',notion:contract,auto:true}];
 const mode=m=>qaCases.find(c=>c.id===m.qa?.caseId)?.notion;
 const state=m=>m.qa?(m.qa.shopProgress??={money:1000,flags:{},inventory:{}}):W.barGame.progress;
@@ -97,7 +97,7 @@ function tick(m,dt){let e=m.encounter;
 function choiceView(m){const line=m.story.speech?.line,money=Number(state(m).money)||0;return{label:'정보 구매',money,options:line.stage==='topic'?[{id:'info-gang',label:'갱에 대해서'},{id:'info-coratech',label:'코라테크에 대해서'},{id:'info-chris',label:'크리스에 대해서'},{id:'info-cancel',label:'대화 그만하기'}]:[{id:'info-pay',label:'네. (50원)',disabled:money<50,disabledReason:'돈이 부족합니다.'},{id:'info-cancel',label:'아니요.'}]};}
 function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)return false;
  if(id==='info-cancel'){m.story.cancel();return true;}
- if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'…맨입으로는 안 돼. 50원만 주면 알려 주지.',stage:'payment',topic:id.slice(5)}]);return true;}
+ if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'...맨입으로는 안 돼. 50원만 주면 알려 주지.',stage:'payment',topic:id.slice(5)}]);return true;}
  if(id!=='info-pay'||sp.line.stage!=='payment'||!infoRows[sp.line.topic]||state(m).money<50)return false;
  const progress=state(m),before=progress.money;sp.choice=false;progress.money-=50;
  if(!m.qa){const c=W.lunaCampaign;if(c?.active&&c.session.carry)c.session.carry.money=progress.money;W.barGame.log('thug_information_purchase',{topic:sp.line.topic,price:50,before,after:progress.money});W.barGame.changed();}

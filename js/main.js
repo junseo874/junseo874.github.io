@@ -255,7 +255,7 @@ const Home = {
       return;
     }
     if (key === "exit") {
-      if (S.day === 1 && !S.flags.has("d1_note_read")) { toast(S.lang === "ko" ? "…테이블 위에 뭔가 있다." : "...There's something on the table."); return; }
+      if (S.day === 1 && !S.flags.has("d1_note_read")) { toast(S.lang === "ko" ? "...테이블 위에 뭔가 있다." : "...There's something on the table."); return; }
       this.finish(); return;
     }
     if (key === "sofa") { this.finish(); return; }

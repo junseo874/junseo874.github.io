@@ -39,7 +39,7 @@ window.buildScene3 = function () {
 
   // 카메라가 완전히 멈춘 뒤 대사 시작
   sc.at(WALK1 + 0.5);
-  sc.line({ actor: 'yuna', speaker: '유나', text: '.[T:0.35].[T:0.35]역시[T:0.5] 이 쪽도…' });
+  sc.line({ actor: 'yuna', speaker: '유나', text: '.[T:0.35].[T:0.35]역시[T:0.5] 이 쪽도...' });
   sc.line({ actor: 'yuna', speaker: '유나', text: '어때 루나[T:0.5] 해볼 수 있겠어?' });
   sc.line({ actor: 'luna', speaker: '루나', text: '네.', hold: 0.7 });
 

@@ -21,9 +21,9 @@ button,input,select,textarea{font-family:inherit}
 }
 .dialogue-text,.outside-speech p,.outside-background-speech p,
 .campaign-speech p,.terrace-speech p,.studio-speech-stage{
-  font-family:var(--font-dialogue);font-weight:400;letter-spacing:-.01em;
+  font-family:var(--font-dialogue);font-weight:400;letter-spacing:0;
 }
-.choices button,.world-choices.outside-choices,.outside-choices button{font-family:var(--font-dialogue);font-weight:400;letter-spacing:-.05em}
+.choices button,.world-choices.outside-choices,.outside-choices button{font-family:var(--font-dialogue);font-weight:400;letter-spacing:0}
 .choices button :is(b,strong),.outside-choices button :is(b,strong){font-weight:700}
 .currency-value{letter-spacing:-.05em}
 .campaign-cinema-ui{--pix:var(--font-dialogue)}

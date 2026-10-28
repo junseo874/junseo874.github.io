@@ -209,7 +209,7 @@ const Bar = {
     };
   },
   criticLine(grade) {
-    const ko = { excellent: "크리스: \"…제법이군. 금방 유명해지겠는데?\"", good: "크리스: \"나쁘지 않은 솜씨야.\"", decent: "크리스: \"음… 그럭저럭이군.\"", poor: "크리스: \"다시 연습이 필요해 보여.\"", sewage: "크리스: \"손님한테 이걸 낼 순 없지 않나?\"" };
+    const ko = { excellent: "크리스: \"...제법이군. 금방 유명해지겠는데?\"", good: "크리스: \"나쁘지 않은 솜씨야.\"", decent: "크리스: \"음... 그럭저럭이군.\"", poor: "크리스: \"다시 연습이 필요해 보여.\"", sewage: "크리스: \"손님한테 이걸 낼 순 없지 않나?\"" };
     const en = { excellent: "Chris: \"...Not bad at all. You'll be famous soon.\"", good: "Chris: \"Decent work.\"", decent: "Chris: \"Hm... passable.\"", poor: "Chris: \"You need more practice.\"", sewage: "Chris: \"You can't serve THIS to a customer.\"" };
     return (S.lang === "ko" ? ko : en)[grade];
   },
@@ -235,7 +235,7 @@ const Bar = {
     const say = (txt) => { s.float = txt; this.renderSeats(); };
     say(g.isCorrect ? bark(g.voice, "react_" + r.grade) : bark(g.voice, "wrong_receive"));
     await sleep(1400);
-    say(S.lang === "ko" ? "( 마시는 중… )" : "( drinking... )");
+    say(S.lang === "ko" ? "( 마시는 중... )" : "( drinking... )");
     await sleep(1200);
     if (!g.isCorrect) { say(bark(g.voice, "wrong_drink")); await sleep(1400); }
 

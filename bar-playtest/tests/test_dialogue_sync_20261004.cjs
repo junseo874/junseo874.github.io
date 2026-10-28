@@ -12,5 +12,5 @@ assert.equal(c.scenes.terraceMemory.length,8);assert(c.scenes.terraceMemory[3].t
 assert(c.bar[1].some(r=>r.text==='됐고. 여기 맥주, 진짜 맥아로 만드는 거 맞나?'));
 assert.equal(c.scenes.johnny.length,56);assert(c.scenes.johnny.slice(44,47).every(r=>r.actor==='johnny'));
 assert.equal(c.scenes.ending.length,20);assert.equal(c.scenes.ending.filter(r=>r.cinemaAfter).length,1);assert.equal(c.scenes.ending[7].memoryKey,'terraceMemory3');assert.equal(c.scenes.ending[8].text,'왜, 무슨 생각이라도 났어?');
-assert(c.scenes.ending.some(r=>r.text==='…오늘 톰이랑 삼호를 보면서 생각한 거야?'));assert.equal(c.scenes.ending.at(-1).text,'네. 보스.');assert(!c.scenes.ending.some(r=>r.text==='…그렇게 생각한다면 그런 거겠지.'));
+assert(c.scenes.ending.some(r=>r.text==='...오늘 톰이랑 삼호를 보면서 생각한 거야?'));assert.equal(c.scenes.ending.at(-1).text,'네. 보스.');assert(!c.scenes.ending.some(r=>r.text==='...그렇게 생각한다면 그런 거겠지.'));
 console.log('DIALOGUE_SYNC_OK latest day0/1 changes, raw/main shared bar data, Johnny names retained, day3 expanded terrace and memory return');

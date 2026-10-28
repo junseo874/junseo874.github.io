@@ -1413,7 +1413,7 @@
           voice,
           situation
         });
-        txt = this.lang === 'ko' ? '…' : '…';
+        txt = this.lang === 'ko' ? '...' : '...';
       }
       txt = txt.replace(/\{cocktail\}/g, this.name(g.order?.cocktail || g.nextCocktail));
       return {

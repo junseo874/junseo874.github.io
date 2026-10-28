@@ -919,9 +919,9 @@ const scenes = [
       <b>일류 바텐더들은 칵테일 한 잔을 만들기 위해 어떤 노력까지 해야 할까?</b><br>
       <b>손님들에게 말이 아닌 칵테일 한 잔으로 잊지 못할 경험을 줄 수 있을까?</b>
     </p>
-    <p class="narr">그래서, 이 모든 것을 이해하기 위해…</p>
+    <p class="narr">그래서, 이 모든 것을 이해하기 위해...</p>
     <div class="actions">
-      <button class="btn" onclick="go(1)">…일단 주문을 받아봅시다. →</button>
+      <button class="btn" onclick="go(1)">...일단 주문을 받아봅시다. →</button>
     </div>
   </div>`;
 }},
@@ -935,7 +935,7 @@ const scenes = [
       ${guestSVG('calm')}
       <div class="speech">
         <span class="who">손님 A</span>
-        "안녕하세요… 처음 와보는데. 음…<br>진피즈 하나 주세요."
+        "안녕하세요... 처음 와보는데. 음...<br>진피즈 하나 주세요."
       </div>
     </div>
     <p class="narr">
@@ -955,11 +955,11 @@ const scenes = [
   const s = state.mgScore ?? 80;
   let grade, line, cls;
   if(s >= 90){ grade='PERFECT'; cls='good';
-    line = '"…좋네요. 실력이 좋은가 봐요."'; }
+    line = '"...좋네요. 실력이 좋은가 봐요."'; }
   else if(s >= 65){ grade='GOOD'; cls='';
-    line = '"…괜찮네요. 이 정도면 충분해요."'; }
-  else { grade='HMM…'; cls='bad';
-    line = '"…음, 나쁘진 않네요."'; }
+    line = '"...괜찮네요. 이 정도면 충분해요."'; }
+  else { grade='HMM...'; cls='bad';
+    line = '"...음, 나쁘진 않네요."'; }
   sceneEl.innerHTML = `
   <div class="slide stagger">
     <div class="result ${cls}" style="text-align:center;margin-top:0;font-size:22px;">
@@ -976,7 +976,7 @@ const scenes = [
       간단하죠? <span class="cy">주문을 받고 → 만들고 → 내어준다.</span><br>
       바텐더의 일이란 이게 전부입니다.
     </p>
-    <p class="narr">흠… 다음 손님을 받아봅시다.</p>
+    <p class="narr">흠... 다음 손님을 받아봅시다.</p>
     <div class="actions">
       <button class="btn ghost" onclick="go(2)">↺ 다시 만들어보기</button>
       <button class="btn" onclick="go(4)">다음 손님 →</button>
@@ -993,7 +993,7 @@ const scenes = [
       ${guestSVG('drunk')}
       <div class="speech">
         <span class="who">손님 B</span>
-        "여기… 드라이 마티니 하나 줘요. 독한 걸로."
+        "여기... 드라이 마티니 하나 줘요. 독한 걸로."
       </div>
     </div>
     <p class="narr">
@@ -1019,12 +1019,12 @@ const scenes = [
       ${guestSVG('drunk')}
       <div class="speech">
         <span class="who">손님 B</span>
-        "…한 잔 더 줘요."
+        "...한 잔 더 줘요."
       </div>
     </div>
     <p class="narr">
       마침 저 손님이 <b>또</b> 술을 달라고 하네요.<br>
-      명색이 바텐더인데 "안 된다"라고 할 수는 없고…<br>
+      명색이 바텐더인데 "안 된다"라고 할 수는 없고...<br>
       <span class="am">아, 참고로 제가 잘 알고 있는데 이 손님은 과일 들어간 칵테일을 싫어해요!</span>
     </p>
     <p class="narr">
@@ -1053,14 +1053,14 @@ const scenes = [
       <b><span class="cy">손님에 대해 깊게 생각하고 관찰하며, 그 사람에게 맞는 한 잔으로 대답하는 것.</span></b>
     </p>
     <p class="narr">
-      …너무 어려운 것 같다고요? 맞습니다. 어떻게 보면 <span class="pk">부조리하다고 느껴질 정도죠.</span><br>
+      ...너무 어려운 것 같다고요? 맞습니다. 어떻게 보면 <span class="pk">부조리하다고 느껴질 정도죠.</span><br>
       손님은 "기분이 개같으니까 좀 시원한 것 좀 줘봐." 같은 애매한 주문을 하고,<br>
       주문대로 줬는데 나쁜 일이 벌어지고, 고민 끝에 고른 잔이 정답이 아닐 때도 있습니다.<br>
       선택지는 많은데, <b>뭐가 맞는지는 아무도 알려주지 않죠.</b>
     </p>
-    <p class="narr">그런데 이거… <span class="pk">'그것'</span>과 닮지 않았나요?</p>
+    <p class="narr">그런데 이거... <span class="pk">'그것'</span>과 닮지 않았나요?</p>
     <div class="actions">
-      <button class="btn ghost" onclick="go(7)">'그것'…?</button>
+      <button class="btn ghost" onclick="go(7)">'그것'...?</button>
     </div>
   </div>`;
 }},
@@ -1108,7 +1108,7 @@ const scenes = [
     <p class="narr">${callback}</p>
     <div id="alley-area" style="width:100%;display:flex;flex-direction:column;align-items:center;">
       <div class="actions" style="margin-top:8px;">
-        <button class="btn ghost" onclick="watchAlley()">…골목을 지켜본다</button>
+        <button class="btn ghost" onclick="watchAlley()">...골목을 지켜본다</button>
       </div>
     </div>
   </div>`;
@@ -1192,9 +1192,9 @@ const scenes = [
     <p class="narr" style="font-size:25px;">
       <span class="pk">"우리 같은 게 인간 흉내나 내면서 살 필요가 있어?"</span>
     </p>
-    <p class="narr">…당신이라면, 뭐라고 답하겠습니까?</p>
+    <p class="narr">...당신이라면, 뭐라고 답하겠습니까?</p>
     <div class="choices" id="luna-q" style="max-width:480px;">
-      <button onclick="lunaAnswer(this,'curious')"><span class="no">01</span>"…그래도, 나는 궁금해."</button>
+      <button onclick="lunaAnswer(this,'curious')"><span class="no">01</span>"...그래도, 나는 궁금해."</button>
       <button onclick="lunaAnswer(this,'silent')"><span class="no">02</span>대답하지 않고, 잔을 닦는다.</button>
     </div>
     <div id="luna-area" style="width:100%;display:flex;flex-direction:column;align-items:center;"></div>
@@ -1205,7 +1205,7 @@ const scenes = [
 { name:'질문들', render(){
   const L = state.log;
   const gradeName = state.mgScore==null ? null
-    : state.mgScore>=90 ? 'PERFECT' : state.mgScore>=65 ? 'GOOD' : 'HMM…';
+    : state.mgScore>=90 ? 'PERFECT' : state.mgScore>=65 ? 'GOOD' : 'HMM...';
   const rows = [
     ['첫 잔 (진피즈)', gradeName ? `${gradeName} · ${state.mgScore}점` : '기록 없음',
       gradeName==='PERFECT' ? 'cy' : gradeName==='GOOD' ? 'am' : ''],
@@ -1233,7 +1233,7 @@ const scenes = [
     </p>
     <p class="narr">마지막 질문에 대해서만, 살짝 힌트를 흘리자면.</p>
     <div class="actions">
-      <button class="btn ghost" onclick="go(13)">…살짝만요 →</button>
+      <button class="btn ghost" onclick="go(13)">...살짝만요 →</button>
     </div>
   </div>`;
 }},
@@ -1268,7 +1268,7 @@ const scenes = [
     </p>
     <p class="narr">그 답을 확인하는 방법은 하나뿐입니다.</p>
     <div class="actions" id="final-actions">
-      <button class="btn" onclick="finalEnd()">…이제, 진짜 바를 열어봅시다. →</button>
+      <button class="btn" onclick="finalEnd()">...이제, 진짜 바를 열어봅시다. →</button>
     </div>
   </div>`;
 }},
@@ -1317,7 +1317,7 @@ function staggerInto(container){
   container.style.animation = 'rise .35s steps(5) both';
 }
 
-/* ══════════ 만취 손님: 2지선다 → 해설 → [다음으로…] ══════════ */
+/* ══════════ 만취 손님: 2지선다 → 해설 → [다음으로...] ══════════ */
 window.drunkChoice = function(btn, kind){
   state.log.drunk = kind;
   document.querySelectorAll('#two button').forEach(b=>b.disabled=true);
@@ -1325,7 +1325,7 @@ window.drunkChoice = function(btn, kind){
   document.getElementById('drunk-result').innerHTML = `
     <div class="result">
       술을 줘도 저 손님은 잘 버텨서 무사히 집에 갈 수 있습니다.<br>
-      음… 아니면 골목에서 갱단을 만나겠죠. 뭐, 보통은 돈만 털립니다.
+      음... 아니면 골목에서 갱단을 만나겠죠. 뭐, 보통은 돈만 털립니다.
       <span style="color:var(--pink)">보통은요.</span><br><br>
       안 줘도 마찬가지입니다. 의외로 손님이 수긍할 수도,<br>
       그냥 기분이 상해서 다시는 안 올 수도 있죠.<br><br>
@@ -1333,7 +1333,7 @@ window.drunkChoice = function(btn, kind){
       선택지가 <span style="color:var(--amber)">딱 두 개</span>뿐이지만 좀 복잡해지네요.
     </div>`;
   document.getElementById('drunk-next').innerHTML =
-    `<button class="btn" onclick="go(5)">다음으로… →</button>`;
+    `<button class="btn" onclick="go(5)">다음으로... →</button>`;
 };
 
 /* ══════════ 다섯 개의 잔 ══════════ */
@@ -1360,13 +1360,13 @@ window.showFive = function(){
 };
 
 const FIVE_RESULTS = [
-  {cls:'bad', ok:false, t:`가뜩이나 취한 것 같은데 독한 위스키라니… 손님은 그대로 카운터에 엎어져 잠들었네요.<br>윽… 바닥에 토까지 하는 것 같습니다. 오늘은 쉽지 않은 날이 되겠네요.`},
-  {cls:'bad', ok:false, t:'아차! 이 손님, 과일 들어간 칵테일은 싫어한다고 했죠. 한 번 보더니 잔을 밀어냅니다. "…사람 말을 들을 줄 모르나 보군."'},
-  {cls:'',    ok:false, t:'따뜻한 커피 향에 손님이 조금 진정됩니다. 나쁘지 않지만… 손님이 고개를 갸웃하네요. "…근데 여기가 원래 카페였나?"'},
+  {cls:'bad', ok:false, t:`가뜩이나 취한 것 같은데 독한 위스키라니... 손님은 그대로 카운터에 엎어져 잠들었네요.<br>윽... 바닥에 토까지 하는 것 같습니다. 오늘은 쉽지 않은 날이 되겠네요.`},
+  {cls:'bad', ok:false, t:'아차! 이 손님, 과일 들어간 칵테일은 싫어한다고 했죠. 한 번 보더니 잔을 밀어냅니다. "...사람 말을 들을 줄 모르나 보군."'},
+  {cls:'',    ok:false, t:'따뜻한 커피 향에 손님이 조금 진정됩니다. 나쁘지 않지만... 손님이 고개를 갸웃하네요. "...근데 여기가 원래 카페였나?"'},
   {cls:'good',ok:true,  t:`네! 위스키 향이 들어간 논알콜 칵테일 한 잔.<br>
       취한 손님은 눈치채지 못했고, 오늘은 이걸 홀짝이다 무사히 집에 가겠네요.<br>
       아, 이 잔은 돈을 받으면 안 됩니다. 우리에게도 양심이란 게 있으니까, <span style="color:var(--amber)">서비스로.</span>`},
-  {cls:'bad', ok:false, t:'"장난하나, 지금?" 손님이 우유잔을 노려봅니다. 나름 배려였지만… 잘 먹히진 않은 듯합니다.'},
+  {cls:'bad', ok:false, t:'"장난하나, 지금?" 손님이 우유잔을 노려봅니다. 나름 배려였지만... 잘 먹히진 않은 듯합니다.'},
 ];
 window.fiveChoice = function(btn, i){
   state.log.fiveTries++;
@@ -1394,12 +1394,12 @@ window.fiveChoice = function(btn, i){
 window.watchAlley = function(){
   const d = state.log.drunk;
   const outcome =
-    d==='give' ? `만취한 손님이 비틀비틀 골목을 걷습니다. 한 번 휘청, 두 번 휘청…<br>
+    d==='give' ? `만취한 손님이 비틀비틀 골목을 걷습니다. 한 번 휘청, 두 번 휘청...<br>
       주변 갱단원들이 이를 본 것 같네요.<br>
       <b>저 손님에게는 조금 힘든 밤이 될 것 같습니다.</b>` :
     d==='refuse' ? `만취한 손님이 조금은 멀쩡한 걸음으로 골목을 걷습니다.<br>
       그는 무사합니다. 다만 — 다른 술집으로 들어가네요.<br>
-      <b>이제는 더 이상 바에 찾아오지 않는 건지… 이제 당신이 알 수 없는 일입니다.</b>` :
+      <b>이제는 더 이상 바에 찾아오지 않는 건지... 이제 당신이 알 수 없는 일입니다.</b>` :
       `만취한 손님이 골목을 걷습니다. 네온 불빛이 그의 등을 물들입니다.<br>
       <b>이 도시의 밤은, 카운터에서 보이지 않는 곳에서 계속됩니다.</b>`;
   const area = document.getElementById('alley-area');
@@ -1421,10 +1421,10 @@ window.lunaAnswer = function(btn, kind){
   document.querySelectorAll('#luna-q button').forEach(b=>b.disabled=true);
   btn.style.borderColor='var(--cyan)'; btn.style.opacity=1;
   const resp = kind==='curious'
-    ? `…그렇게 대답하는 존재가 있다면,<br>
+    ? `...그렇게 대답하는 존재가 있다면,<br>
        그 존재는 이미 '흉내' 이상의 무언가를 하고 있는 겁니다.<br>
        <b>궁금해한다는 건, 계속 살아보겠다는 뜻이니까요.</b>`
-    : `…침묵도 대답입니다.<br>
+    : `...침묵도 대답입니다.<br>
        바텐더는 원래 말 대신 <b>행동으로 대답하는 직업</b>이니까요.<br>
        닦아둔 잔은, 다음 손님을 위한 것이겠죠.`;
   const area = document.getElementById('luna-area');
@@ -1559,7 +1559,7 @@ function stepDone(score){
   setTimeout(()=>{ clearGimmick(); renderMG(); }, 900);
 }
 function gradeOf(score){
-  return score>=90 ? ['PERFECT','var(--cyan)'] : score>=65 ? ['GOOD','var(--amber)'] : ['BAD…','var(--pink)'];
+  return score>=90 ? ['PERFECT','var(--cyan)'] : score>=65 ? ['GOOD','var(--amber)'] : ['BAD...','var(--pink)'];
 }
 function showGrade(score, extra=''){
   const [g,c] = gradeOf(score);
@@ -1734,10 +1734,10 @@ function bootGlassSVG(pct){
   </svg>`;
 }
 const BOOT_LOGS = [
-  [0,  '시스템 점검 중…'],
-  [22, '잔 데이터 불러오는 중…'],
-  [45, '레시피 동기화 중…'],
-  [68, '카운터 닦는 중…'],
+  [0,  '시스템 점검 중...'],
+  [22, '잔 데이터 불러오는 중...'],
+  [45, '레시피 동기화 중...'],
+  [68, '카운터 닦는 중...'],
   [90, '문 열 준비 완료.'],
 ];
 (function boot(){

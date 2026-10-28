@@ -20,7 +20,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').count(),0);
     await p.waitForTimeout(550);await p.locator('[data-choice="shop-allowance-no"]').click();await finish();
    }
-   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'…전부 다 보여 주긴 싫고 몇 개만 보여 줄게.');
+   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'...전부 다 보여 주긴 싫고 몇 개만 보여 줄게.');
    if(day===2&&money===1000)await p.screenshot({path:'/private/tmp/shiba-retained-stock.png'});
    assert.deepEqual(await p.locator('.world-choices button').evaluateAll(es=>es.map(e=>e.dataset.choice)),['shop-no','shop-buy-bitters','shop-buy-tuna_can']);
    assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'shop-no');

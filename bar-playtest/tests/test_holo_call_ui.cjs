@@ -8,7 +8,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  const clips=await p.evaluate(()=>{const s=lunaCampaign.cinema.scene;StudioModel.validate(s);return {on:s.clips.find(c=>c.assetId==='opening-holo-on'),idle:s.clips.find(c=>c.assetId==='opening-holo-idle'),off:s.clips.find(c=>c.assetId==='opening-holo-off'),lines:s.clips.filter(c=>c.track==='phone-lines'),wake:s.clips.find(c=>c.actor==='home-luna'&&c.assetId==='opening-luna-home'),end:s.end};});
  assert.deepEqual(clips.lines.map(c=>[c.actor,c.text.replace(/\[c:[^\]]+\]|\[\/c\]/g,'')]),[
   ['phone','루나. 왜 이렇게 늦게 받는 거지?'],
-  ['home-luna','…지금 일어났어요.'],
+  ['home-luna','...지금 일어났어요.'],
   ['phone','일어났으면 빨리 준비해서 와. 첫 출근인데 늦지 말라고.'],
   ['home-luna','알겠어요.'],
   ['phone','위치는 기억하겠지. 언노운이라고 적힌 곳으로 오면 돼.']
