@@ -60,7 +60,7 @@ async function main(){
    const data=await game.evaluate(html=>{const r=document.createElement('div');r.style.cssText='position:fixed;inset:0;width:1280px;height:720px;z-index:99999';r.innerHTML=html;document.body.append(r);for(const e of r.querySelectorAll('[hidden]'))e.hidden=false;const data=UIGraphicSnapshot.collect(r);r.remove();return data;},html);
    record(data,{id:'fixture-'+id,title});coverage.push({id:'fixture-'+id,title,paintLayers:data.parts.length});
   }
-  const font=fs.readFileSync(path.join(root,'assets/fonts/kopubworld-dotum-medium.ttf')).toString('base64');
+  const font=fs.readFileSync(path.join(root,'assets/fonts/font.ttf')).toString('base64');
   // Embed the actual bundled font: a blank export document otherwise cannot
   // load the same font over HTTP without the game's origin/CORS context.
   await draw.route(base+'graphic-export-host.html',route=>route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><html><head></head><body></body></html>'}));

@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/ui/parts');
 (async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true});try{
  const p=await b.newPage({viewport:{width:800,height:600},deviceScaleFactor:1});
  const css=['src/app/styles.css','src/shared/dialogue/world-choices.css','src/features/outside/outside.css'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n');
- const font=fs.readFileSync(path.join(root,'assets/fonts/kopubworld-dotum-medium.ttf')).toString('base64');
+ const font=fs.readFileSync(path.join(root,'assets/fonts/font.ttf')).toString('base64');
  const base=css+`\n@font-face{font-family:LunaPixel;src:url(data:font/ttf;base64,${font})}html,body{margin:0;background:transparent}*,*:before,*:after{animation:none!important;transition:none!important}`;
  async function capture(name,html,w,h,style=''){
   await p.setContent(`<style>${base}\n${style}</style>${html}`);await p.evaluate(()=>document.fonts.ready);await p.mouse.move(700,500);

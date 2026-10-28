@@ -389,7 +389,7 @@
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
-        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'kopubworld-preload-20261028' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
+        s.src = 'src/cinema/' + name + '.js?v=' + (name === 'studio-player' ? 'tv-effects-clock-20261026' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dream-opening-1');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);
