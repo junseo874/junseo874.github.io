@@ -5,7 +5,7 @@
 const states=new WeakMap(),D=()=>W.LUNA_CHARACTER_SHADOWS,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 function liftPoint(x,y,m){const l=W.LunaResidence.layout;return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
 function storefrontOffset(){const node=W.LUNA_OUTSIDE_DATA?.scenes.street.nodes.find(n=>n.name==='B_Fore_Building_1'),source=W.LUNA_STREET_EFFECTS?.parent;return node&&source?{x:node.x-source.x,y:node.y-source.y}:{x:0,y:0};}
-function lights(m){return D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current},offset=l.storefront?storefrontOffset():{x:0,y:0};return {...l,x:l.x+offset.x,y:l.y+offset.y,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});}
+function lights(m){const list=D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current},offset=l.storefront?storefrontOffset():{x:0,y:0};return {...l,x:l.x+offset.x,y:l.y+offset.y,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});const fire=W.LunaBarrelFire?.worldLight(m);if(fire)list.push(fire);return list;}
 function receivers(m){return D().receivers.filter(r=>r.active).map(r=>{
  if(r.ancestry.includes('Elevator')){const a=liftPoint(r.rect[0],r.rect[1],m),b=liftPoint(r.rect[2],r.rect[3],m);return {...r,rect:[a.x,a.y,b.x,b.y],surface:liftPoint(r.x,r.surface,m).y,tolerance:r.tolerance*.6};}
  if(r.name==='2F'){const dy=W.LunaResidence.layout.upperY+D().player.foot.y-r.surface;return {...r,rect:[r.rect[0],r.rect[1]+dy,r.rect[2],r.rect[3]+dy],surface:r.surface+dy};}
@@ -55,10 +55,14 @@ function fillField(p,volumes,cache){
 }
 function advance(m){
  const now=m.time||0;let s=states.get(m);
- if(!s||now<s.time||s.scene!==m.scene){s={time:now,scene:m.scene,slots:D().lights.map(l=>({id:l.id,energy:0})),fillGains:new Map(),receiver:null};states.set(m,s);}
+ if(!s||now<s.time||s.scene!==m.scene){s={time:now,scene:m.scene,slots:[],fillGains:new Map(),receiver:null};states.set(m,s);}
  const dt=clamp(now-s.time,0,.1),blend=1-Math.exp(-dt/.09);s.time=now;
  if(m.scene!=='street'||m.qa){s.receiver=null;return s;}
- const p=foot(m),list=lights(m);s.receiver=receiverAt(p,receivers(m));s.ambient=ambient();
+ const p=foot(m),list=lights(m);
+ // Include procedural emitters without discarding the other lights' fade state.
+ const previous=new Map(s.slots.map(d=>[d.id,d]));
+ s.slots=list.map(l=>previous.get(l.id)||{id:l.id,energy:0});
+ s.receiver=receiverAt(p,receivers(m));s.ambient=ambient();
  for(const d of s.slots){const l=list.find(l=>l.id===d.id);d.light=l;const target=l&&l.layers.includes(D().player.sortingLayer)?power(l)*l.priority:0;d.energy+=(target-d.energy)*blend;d.influence=influence(p,l);}
  s.fill=fillVolumes(m).map(l=>{const old=s.fillGains.get(l.id)??0,gain=old+(l.gain-old)*blend;s.fillGains.set(l.id,gain);return {...l,gain};});
  return s;

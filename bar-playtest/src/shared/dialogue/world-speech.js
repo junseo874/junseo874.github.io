@@ -4,6 +4,10 @@
 'use strict';
 function place(el,{x,y,scale=1,gap=0,below=false}){
  el.dataset.worldSpeech='true';
+ // Use the projected (unclamped) speaker, not the clamped bubble position.
+ // Recompute every frame so camera movement also restores the central tail.
+ const direction=x<0?'left':x>1280?'right':'center';
+ if(el.dataset.speechTail!==direction)el.dataset.speechTail=direction;
  const width=el.offsetWidth*scale,height=el.offsetHeight*scale,margin=12;
  const center=Math.max(margin+width/2,Math.min(1280-margin-width/2,x));
  const desired=y+(below?gap:-gap)*scale;

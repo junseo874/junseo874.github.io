@@ -90,6 +90,9 @@ dim.runs = [0, 1, 2, 3].map(channel => {
 });
 const neon = blocks.get('1031452150').text;
 const flicker = Object.fromEntries(['burstsPerMinute', 'intervalRandomness', 'longOffChance', 'offBrightness'].map(k => [k, num(neon, k)]));
+// Web-authored waiting interval: 15 seconds +/- 7 (8–22 seconds).
+// Preserve this tuning on reimport without changing the engine or burst pattern.
+Object.assign(flicker, { burstsPerMinute: 4, intervalRandomness: 7 / 15 });
 for (const k of ['flickersPerBurst', 'flickerOffSeconds', 'flickerOnSeconds', 'longOffSeconds']) flicker[k] = Object.values(vec(neon, k));
 const groups = neon.split(/\n  - name: /).slice(1).map(t => ({ name: JSON.parse(t.match(/^"[\s\S]*?"/)[0].replace(/\n\s*/g, ' ')),
   lights: [...t.split('    spillLights:')[0].matchAll(/- \{fileID: (\d+)\}/g)].map(m => m[1]),

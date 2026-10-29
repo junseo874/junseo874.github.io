@@ -17,12 +17,16 @@ function advance(model,id,foot){
  // One bounded light inventory per frame, shared with the ground shadows.
  if(all.lightTime!==now){all.lights=W.LunaCharacterShadows.lights(model);all.lightTime=now;}
  let s=all.actors.get(id);
- if(!s){s={time:now,weight:0,position:[foot.x,foot.y+1],color:config.rimColor.slice(),selected:null};all.actors.set(id,s);}
+ if(!s){s={time:now,weight:0,position:[foot.x,foot.y+1],color:config.rimColor.slice(),selected:null,localLight:[1,0,1]};all.actors.set(id,s);}
  const dt=Math.max(0,Math.min(.1,now-s.time)),step=dt/config.transitionSeconds;
  const light=select(foot,all.lights,s.selected),target=light?clamp(W.LunaCharacterShadows.influence(foot,light)/config.rimFullInfluence):0;
  s.weight+=Math.sign(target-s.weight)*Math.min(Math.abs(target-s.weight),step);
  if(light){
   const follow=s.weight<=step?1:clamp(step*2);
+  // Low nearby flames can lie INSIDE the sprite's transparent bounding box.
+  // Use their physical radius, never distance to that box (which becomes zero).
+  const local=[light.radius,light.localFalloff?1:0,light.gain??1];
+  s.localLight=s.localLight.map((v,i)=>v+(local[i]-v)*follow);
   s.position=s.position.map((v,i)=>v+([light.x,light.y][i]-v)*follow);
   s.color=s.color.map((v,i)=>v+(config.rimColor[i]+(light.color[i]-config.rimColor[i])*config.rimUsesLightColor-v)*follow);
  }

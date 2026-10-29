@@ -217,7 +217,7 @@ void main(){
 const characterLighting=common+`
 uniform sampler2D actor;
 uniform vec4 cell,body,shadeParams,rimParams,shapeParams;
-uniform vec3 shadeColor,rimColor;
+uniform vec3 shadeColor,rimColor,localLight;
 uniform vec2 foot,lightPosition,ambientDirection;
 uniform float facing,lightWeight;
 vec4 sprite(vec2 p){
@@ -245,6 +245,9 @@ void main(){
  for(int k=1;k<=4;k++){float reach=1.+(max(1.,rimParams.w)-1.)*float(k)/4.;glow=max(glow,edge(p,dir,reach,shapeParams.x)*(1.-float(k-1)/4.));}
  float nearest=max(.05,length(lightPosition-clamp(lightPosition,body.xy,body.xy+body.zw)));
  float attenuation=mix(1.,pow(clamp(nearest/distance,0.,1.),shapeParams.y),lightWeight);
+ // Physical point-light falloff stays continuous even inside an actor cell.
+ float localAttenuation=pow(clamp(1.-distance/max(.01,localLight.x),0.,1.),shapeParams.y)*localLight.z;
+ attenuation=mix(attenuation,localAttenuation,localLight.y);
  color+=rimColor*lightWeight*attenuation*(rimParams.x*rim*(1.+rimParams.z)+glow*rimParams.z*.6);
  result=vec4(displayColor(color),original.a);
 }`;
@@ -362,6 +365,7 @@ class Renderer{
   this.uniform('cell',[sp.x,image.height-sp.y-sp.h,sp.w,sp.h]);
   this.uniform('body',[p.x-p.width*(p.flip?1-sp.pivot.x:sp.pivot.x),p.y-p.height*sp.pivot.y,p.width,p.height]);
   this.uniform('foot',[p.foot.x,p.foot.y]);this.uniform('facing',p.flip?-1:1);
+  this.uniform('localLight',s.localLight||[1,0,1]);
   this.uniform('lightPosition',s.position);this.uniform('lightWeight',s.weight);this.uniform('ambientDirection',c.ambientDirection);
   this.uniform('shadeParams',[c.groundOcclusion,c.occlusionHeight,c.sideShadow,c.sideShadowWidth]);
   this.uniform('shadeColor',c.shadeColor.map(linear));this.uniform('rimColor',s.color.map(linear));

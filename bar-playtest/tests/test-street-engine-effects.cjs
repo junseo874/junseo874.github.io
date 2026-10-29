@@ -32,4 +32,34 @@ for (let t = 0; t < 180; t += 1 / 60) {
 }
 assert.equal(seen.size, 8); assert(simultaneous, 'independent outages, not round-robin'); assert(randomDiff);
 const rewind = f.levels(30); assert.deepEqual(rewind, fx.createFlicker(12345).levels(30), 'snapshot/rewind stable');
+for (const group of D.groups) {
+  const mean = 60 / (D.flicker.burstsPerMinute * group.frequencyScale);
+  assert(Math.abs(mean * (1 - D.flicker.intervalRandomness) - 8) < 1e-10, group.name + ' minimum wait');
+  assert(Math.abs(mean * (1 + D.flicker.intervalRandomness) - 22) < 1e-10, group.name + ' maximum wait');
+}
+assert.deepEqual(JSON.parse(JSON.stringify(D.flicker)), {
+  burstsPerMinute: 4, intervalRandomness: 7 / 15, longOffChance: .303, offBrightness: 0,
+  flickersPerBurst: [1, 3], flickerOffSeconds: [.03, .14], flickerOnSeconds: [.03, .2], longOffSeconds: [.6, 3]
+}, 'Only the wait configuration changes; burst and blackout settings stay intact');
+// Isolate waiting from the burst itself to observe scheduler boundaries.
+const saved = { ...D.flicker };
+Object.assign(D.flicker, { flickersPerBurst: [1, 1], flickerOffSeconds: [.1, .1], flickerOnSeconds: [0, 0], longOffChance: 0 });
+const probe = fx.createFlicker(12345), previous = D.groups.map(() => 1), end = D.groups.map(() => null), waits = D.groups.map(() => []);
+for (let frame = 0; frame < 24000; frame++) {
+  const time = frame / 100;
+  probe.levels(time).forEach((level, i) => {
+    if (level !== previous[i]) {
+      if (level === 1) end[i] = time;
+      else if (end[i] !== null) waits[i].push(time - end[i]);
+      previous[i] = level;
+    }
+  });
+}
+Object.assign(D.flicker, saved);
+waits.forEach((values, i) => {
+  assert(values.length >= 8, D.groups[i].name + ' repeated scheduling');
+  assert(values.every(t => t >= 7.99 && t <= 22.01), D.groups[i].name + ' waits stay within 8–22 seconds');
+  assert(Math.max(...values) - Math.min(...values) > 3, 'waiting stays random');
+});
+console.log('FLICKER_WAIT_OK: all eight groups independently wait 8–22 seconds after each burst.');
 console.log('STREET_ENGINE_EFFECTS_OK: source-byte hashes, 10 CRT regions, 8 random groups, 2 masked fans, replay/reduced motion.');

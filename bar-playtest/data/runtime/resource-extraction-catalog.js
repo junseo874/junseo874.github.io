@@ -688,6 +688,27 @@ window.ResourceExtractionAssets=[
     "h": 121
   },
   {
+    "src": "assets/ui/exterior-textbox/GRD_textbox_tail_A.png",
+    "title": "외부 말풍선 · 꼬리 중앙 (A)",
+    "category": "UI · 원본 조각",
+    "w": 60,
+    "h": 58
+  },
+  {
+    "src": "assets/ui/exterior-textbox/GRD_textbox_tail_B.png",
+    "title": "외부 말풍선 · 꼬리 왼쪽 (B)",
+    "category": "UI · 원본 조각",
+    "w": 62,
+    "h": 58
+  },
+  {
+    "src": "assets/ui/exterior-textbox/GRD_textbox_tail_C.png",
+    "title": "외부 말풍선 · 꼬리 오른쪽 (C)",
+    "category": "UI · 원본 조각",
+    "w": 62,
+    "h": 58
+  },
+  {
     "src": "assets/ui/exterior-textbox/IMG_textbox_arrow.png",
     "title": "외부 말풍선 · IMG_textbox_arrow.png",
     "category": "UI · 원본 조각",

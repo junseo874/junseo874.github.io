@@ -10,9 +10,25 @@ function energy(t){return .87+.065*Math.sin(t*5.3)+.045*Math.sin(t*8.7+1.4)+.02*
 const smooth=v=>v*v*(3-2*v);
 function hash(x,y){const n=Math.sin(x*127.1+y*311.7)*43758.5453;return n-Math.floor(n);}
 function noise(x,y){const ix=Math.floor(x),iy=Math.floor(y),u=smooth(x-ix),v=smooth(y-iy),a=hash(ix,iy),b=hash(ix+1,iy),c=hash(ix,iy+1),d=hash(ix+1,iy+1);return (a+(b-a)*u)*(1-v)+(c+(d-c)*u)*v;}
+// The flame, prop spill, actor rim and ground shadow share the same clock.
+function sampleTime(time,still=false){return still?1.25:Math.floor(Math.max(0,time)*fps)/fps;}
+function worldLight(model){
+ const node=W.LUNA_OUTSIDE_DATA?.scenes.street.nodes.find(n=>n.name==='B_Obects'),sp=node?.sprite;
+ if(!sp||!W.LUNA_CHARACTER_SHADOWS)return null;
+ const still=!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+ // Source-image coordinates, matching paintSprite after art replacement.
+ const sx=node.sx*(node.flip?-1:1)/sp.ppu,sy=node.sy/sp.ppu;
+ return {id:'barrel-fire',name:'Barrel fire',type:0,ancestry:['B_Obects'],
+  x:node.x+(anchor.x-sp.x-sp.w*sp.pivot.x)*sx,
+  y:node.y+(sp.h*(1-sp.pivot.y)-(anchor.y-16-sp.y))*sy,
+  active:node.active!==false&&model.scene==='street'&&!model.qa,
+  localFalloff:true,color:[1,.48,.12],intensity:3,radius:2.6*Math.max(Math.abs(node.sx),Math.abs(node.sy)),priority:1,
+  layers:[W.LUNA_CHARACTER_SHADOWS.player.sortingLayer],
+  gain:energy(sampleTime(model.time||0,still))};
+}
 function render(time,still=false){
  const stamp=still?-1:Math.floor(Math.max(0,time)*fps);if(cached?.stamp===stamp)return cached;
- const t=still?1.25:stamp/fps,core=document.createElement('canvas'),light=document.createElement('canvas');
+ const t=sampleTime(time,still),core=document.createElement('canvas'),light=document.createElement('canvas');
  for(const c of [core,light]){c.width=crop.w;c.height=crop.h;}
  const ctx=core.getContext('2d'),lc=light.getContext('2d'),e=energy(t),ox=anchor.x-crop.x,oy=anchor.y-crop.y;
  // A continuous rising heat field, not rigid waving tongues. Both scales of
@@ -69,5 +85,5 @@ function paintSprite(ctx,key,sp,w,h,time,still=false){
  ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=false;
  ctx.drawImage(f.core,x,y,crop.w*sx,crop.h*sy);ctx.restore();
 }
-W.LunaBarrelFire={anchor,crop,palette,render,energy,paintSprite,fps};
+W.LunaBarrelFire={anchor,crop,palette,render,energy,paintSprite,worldLight,fps};
 })(window);

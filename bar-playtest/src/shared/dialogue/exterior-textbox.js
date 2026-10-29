@@ -25,6 +25,9 @@ function html(){
  // straight edges: compressing a 1144px image into a tiny cell makes the
  // browser's image minification blur even the perpendicular 4px border.
  return '<span class="exterior-textbox-skin" aria-hidden="true">'+sizes.map(([w,h],i)=>{
+  // Separate authored tails share one fixed-size slot. Fill only the body
+  // above their open top; never stretch the triangles or draw a line across it.
+  if(i===8)return '<svg class="textbox-piece piece-9" viewBox="0 0 62 119" preserveAspectRatio="none" focusable="false"><rect width="62" height="62" fill="#0b0c14"/>'+[['center','A',60],['left','B',62],['right','C',62]].map(([direction,file,width])=>'<image class="textbox-tail tail-'+direction+'" href="'+assetBase+'GRD_textbox_tail_'+file+'.png" x="'+((62-width)/2)+'" y="61" width="'+width+'" height="58"/>').join('')+'</svg>';
   const horizontal=[1,4,7,9].includes(i),vertical=[3,4,5].includes(i);
   const x=horizontal?Math.floor(w/2)-2:1,y=vertical?Math.floor(h/2)-2:1;
   const width=horizontal?4:w-2,height=vertical?4:h-2;

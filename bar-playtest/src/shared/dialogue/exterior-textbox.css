@@ -1,8 +1,8 @@
 /* One authored skin for exploration, TV, terrace and cinematic dialogue. */
 :is(#outside-root :is(.outside-speech,.outside-background-speech,.outside-inspection-caption),.terrace-scene .terrace-speech,#campaign-root .exterior-textbox){
  /* The cropped source corners are 64×65 (left) / 65×65 (right),
-    and the tail is 143×119. All use the same 1/3 scale on both axes. */
- --textbox-corner:calc(64px / 3);--textbox-right:calc(65px / 3);--textbox-row:calc(65px / 3);--textbox-tail:calc(143px / 3);
+    and separate tails are 60/62×58. All use the same 1/3 scale on both axes. */
+ --textbox-corner:calc(64px / 3);--textbox-right:calc(65px / 3);--textbox-row:calc(65px / 3);--textbox-tail:calc(62px / 3);
  border:0;border-radius:0;background:none;box-shadow:none;
  /* Preview proportions: compact line spacing and padding, with a small
     dedicated gutter for the advance arrow on manual dialogue. */
@@ -30,6 +30,12 @@
 .exterior-textbox-skin .piece-9{grid-area:3/3;height:calc(119px / 3)}
 .exterior-textbox-skin .piece-10{grid-area:3/4}
 .exterior-textbox-skin .piece-11{grid-area:3/5}
+.exterior-textbox-skin .textbox-tail{display:none}
+.exterior-textbox-skin .tail-center{display:block}
+[data-speech-tail="left"] .exterior-textbox-skin .tail-center,
+[data-speech-tail="right"] .exterior-textbox-skin .tail-center{display:none}
+[data-speech-tail="left"] .exterior-textbox-skin .tail-left,
+[data-speech-tail="right"] .exterior-textbox-skin .tail-right{display:block}
 #outside-root .outside-background-speech{max-width:420px}
 :is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue{
  right:4px;bottom:5px;width:28px;height:28px;

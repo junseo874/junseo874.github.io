@@ -1068,8 +1068,8 @@ window.LUNA_STREET_EFFECTS = {
     ]
   },
   "flicker": {
-    "burstsPerMinute": 2,
-    "intervalRandomness": 0.7,
+    "burstsPerMinute": 4,
+    "intervalRandomness": 0.4666666666666667,
     "longOffChance": 0.303,
     "offBrightness": 0,
     "flickersPerBurst": [
