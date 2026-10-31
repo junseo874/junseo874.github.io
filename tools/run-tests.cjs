@@ -21,6 +21,7 @@ const suites = {
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
+suites.cinema.unshift(game('test-cinema-typing-rhythm'),game('test-cinema-typing-rhythm-ui'),game('test_intro_text_ui'));
 suites.outside.unshift(game('test-outside-character-sheets'), game('test-outside-typing-rhythm'), game('test-outside-typing-rhythm-ui'));
 if (choice === '--list') {
   for (const [name, files] of Object.entries(suites)) console.log(name + '\n  ' + files.join('\n  '));

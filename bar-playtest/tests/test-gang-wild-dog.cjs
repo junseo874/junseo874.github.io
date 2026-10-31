@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const W={LunaResidence:{layout:{homeX:-18,elevatorX:-12.645}},LunaOutsideContent:{events:[]}};W.window=W;
-for(const file of ['data/runtime/game-data.js','data/runtime/outside-scene-data.js','src/features/outside/events/outside-ambient.js','src/features/outside/events/outside-neighborhood.js','src/features/outside/events/outside-story.js','src/features/outside/events/outside-shop.js'])vm.runInNewContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),W);
+for(const file of ['data/runtime/game-data.js','data/runtime/outside-scene-data.js','src/features/outside/events/outside-ambient.js','src/features/outside/events/outside-neighborhood.js','src/shared/dialogue/dialogue-rhythm.js','src/features/outside/events/outside-story.js','src/features/outside/events/outside-shop.js'])vm.runInNewContext(fs.readFileSync(path.join(__dirname,'..',file),'utf8'),W);
 let notices=[];W.outsidePlaytest={clearInput(){},notifyItem(m,id){notices.push(id);}};
 function setup(flags={},money=1000,inventory={}){notices=[];const p={flags:{gang_pass_granted:true,...flags},money,inventory};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:2,flow:'out'},scene:'street',level:0,x:-15.1,backgroundStory:{cancel(){}},updateNear(){}};m.story=new W.LunaOutsideStory.Story(m);return {m,p};}
 const N=W.LunaOutsideNeighborhood;

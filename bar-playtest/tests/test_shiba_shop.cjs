@@ -1,6 +1,6 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),path=require('path');
 const root=path.resolve(__dirname,'..'),W={};W.window=W;
-for(const file of ['src/features/outside/events/outside-shop.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
+for(const file of ['src/features/outside/events/outside-shop.js','src/shared/dialogue/dialogue-rhythm.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 const shop=W.LunaOutsideShop,notices=[];W.outsidePlaytest={notifyItem:(m,id)=>notices.push(id)};
 function setup(inventory={},flags={},qa=false){const p={money:2000,inventory,flags};W.barGame={progress:p,changed(){},log(){}};W.lunaCampaign={session:{carry:structuredClone(p)}};const m={config:{day:2,flow:'out'},scene:'street',level:0,x:-2.8,backgroundStory:{cancel(){}},updateNear(){},qa:qa?{shopProgress:structuredClone(p)}:null};m.story=new W.LunaOutsideStory.Story(m);return m;}
 const target={id:shop.id,x:-2.68,y:-.596};

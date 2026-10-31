@@ -1,4 +1,5 @@
 (function(W){'use strict';
+if(typeof module==='object'&&module.exports&&!W.LunaDialogueRhythm)require('../../bar-playtest/src/shared/dialogue/dialogue-rhythm.js');
 const cache=new Map();
 function parse(src){
  if(cache.has(src))return cache.get(src);
@@ -18,6 +19,10 @@ function parse(src){
  }
  append(text.slice(last));const value={chars,text:chars.map(c=>c.ch).join(''),pauses,triggers};cache.set(src,value);if(cache.size>100)cache.delete(cache.keys().next().value);return value;
 }
-function count(parsed,elapsed,cps){let delay=0;for(const p of parsed.pauses){const when=p.index/cps+delay;if(elapsed<when+p.duration)return Math.max(0,Math.min(p.index,Math.floor((elapsed-delay)*cps)));delay+=p.duration;}return Math.max(0,Math.min(parsed.chars.length,Math.floor((elapsed-delay)*cps)));}
-W.StudioTags={parse,count};
+const timing=(parsed,cps)=>W.LunaDialogueRhythm.timing(parsed.text,cps,parsed.pauses);
+const count=(parsed,elapsed,cps)=>W.LunaDialogueRhythm.visible(timing(parsed,cps),elapsed);
+const duration=(parsed,cps)=>timing(parsed,cps).duration;
+// Effect tags occur after their preceding glyph, including punctuation delays.
+const triggerTime=(parsed,event,cps)=>(W.LunaDialogueRhythm.timing(parsed.text,cps).times[event.index-1]||0)+event.delay;
+W.StudioTags={parse,count,duration,triggerTime};
 })(typeof window==='undefined'?globalThis:window);

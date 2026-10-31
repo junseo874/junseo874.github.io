@@ -369,8 +369,7 @@
       if (this.view === 'scene' && !global.LunaFocusSettings.hiddenPaused) {
         if (this.dialog.background === 'terrace') global.LunaTerrace.tick(this.dialog, dt);
         const before = this.dialog.chars;
-        if (['street', 'city', 'home', 'terrace'].includes(this.dialog.background)) global.LunaOutsideStory.sceneTyping(this.dialog, dt);
-        else this.dialog.chars += dt * 60 * this.g.dialogSpeed;
+        global.LunaOutsideStory.sceneTyping(this.dialog, dt);
         global.LunaDialogueAudio?.reveal(this.dialog.rows[this.dialog.index].text, before, this.dialog.chars);
         this.paintLine();
         if (this.dialog.background === 'johnny-memory') global.LunaJohnnyMemory.sync(this.host, this.dialog, this.D, dt);

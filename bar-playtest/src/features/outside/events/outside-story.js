@@ -1,30 +1,13 @@
 (function(global){
 'use strict';
+if(typeof module==='object'&&module.exports&&!global.LunaDialogueRhythm)require('../../../shared/dialogue/dialogue-rhythm.js');
 const cps=55;
 let nextSpeechId=0;
 const advanceTime=(elapsed,dt)=>elapsed+dt*(Number(global.barGame?.dialogSpeed)||1);
 // Reveal deadlines, in dialogue-clock seconds (the settings multiplier still applies).
 // Spaces use the normal cadence; lone periods pause, adjacent periods keep their own cadence.
-const typingCache=new Map();
-function typing(text,rate=cps){
- const key=rate+'\0'+text;if(typingCache.has(key))return typingCache.get(key);
- const chars=Array.from(text||''),times=[];let duration=0;
- for(let i=0;i<chars.length;i++){
-  const previous=chars[i-1];
-  duration+=previous==='.'&&chars[i]==='.'?.3:previous==='.'&&chars[i-2]!=='.'?.35:1/rate;
-  times.push(duration);
- }
- // Automatic dialogue also observes a lone period at the end of a line.
- if(chars.at(-1)==='.'&&chars.at(-2)!=='.')duration+=.35;
- const result={chars,times,duration};typingCache.set(key,result);
- if(typingCache.size>128)typingCache.delete(typingCache.keys().next().value);
- return result;
-}
-function visible(timing,elapsed){
- let lo=0,hi=timing.times.length;
- while(lo<hi){const mid=(lo+hi)>>>1;if(timing.times[mid]<=elapsed+1e-9)lo=mid+1;else hi=mid;}
- return lo;
-}
+const typing=(text,rate=cps)=>global.LunaDialogueRhythm.timing(text,rate);
+const visible=(timing,elapsed)=>global.LunaDialogueRhythm.visible(timing,elapsed);
 function sceneTyping(dialog,dt,rate=60){
  const row=dialog.rows[dialog.index],text=row.text||'';
  if(dialog.typingClock?.index!==dialog.index||dialog.typingClock?.text!==text)

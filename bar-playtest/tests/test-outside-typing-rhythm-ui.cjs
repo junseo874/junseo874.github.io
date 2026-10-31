@@ -12,10 +12,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const domText=source?.textContent,box=source?.getBoundingClientRect();
   m.story.cancel();m.backgroundStory.beginRows('typing-bg',target,[row],true);m.backgroundStory.tick(2/55);a.refreshHUD();
   const background=m.backgroundStory.view().text;
-  // Exercise the campaign's actual external scene path without changing the bar path.
+  // All campaign cutscene backgrounds now share the same rhythm (not bar service).
   a.exit(true);const c=lunaCampaign,tick=c.tick;c.tick=()=>false;c.memoryTransition=null;c.dayTransition=null;c.doorTransition=null;
   const sceneSamples={};
-  for(const bg of ['street','home','city','bar']){
+  for(const bg of ['street','home','city','bar','johnny-memory']){
    c.scene([row],'속도 검사',bg,()=>{});c.dialog.chars=0;
    for(let i=0;i<6;i++)tick.call(c,.05);
    sceneSamples[bg]=c.dialog.chars;
@@ -24,6 +24,6 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  });
  assert.deepEqual(result.samples,['가 ','가 나.','가 나.','가 나.다','가 나.다.','가 나.다.','가 나.다..','가 나.다..','가 나.다...','가 나.다...라']);
  assert(result.visible);assert.equal(result.full,'가 나.다...라');assert(result.domText.includes(result.full));assert.equal(result.background,'가 ');
- for(const bg of ['street','home','city'])assert.equal(result.sceneSamples[bg],4,bg+' uses lone-period pause without space pause');assert(result.sceneSamples.bar>=9,'bar typing unchanged');
- assert.deepEqual(errors,[]);console.log('OUTSIDE_TYPING_RHYTHM_UI_OK: real exterior render/audio clock, ambient channel, external campaign scenes, bar exclusion.');
+ for(const bg of ['street','home','city','bar','johnny-memory'])assert.equal(result.sceneSamples[bg],4,bg+' cutscene uses lone-period pause without space pause');
+ assert.deepEqual(errors,[]);console.log('OUTSIDE_TYPING_RHYTHM_UI_OK: real exterior render/audio clock, ambient channel and all campaign scene backgrounds.');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

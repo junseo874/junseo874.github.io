@@ -38,7 +38,7 @@
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
         const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
-        s.src = source + '?v=' + (name === 'studio-player' ? 'dialogue-periods-20261029' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dialogue-periods-20261029');
+        s.src = source + '?v=' + (['studio-player', 'engine'].includes(name) ? 'cinema-period-pause-20261031' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'day3-notion-20261004' : 'dialogue-periods-20261029');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);

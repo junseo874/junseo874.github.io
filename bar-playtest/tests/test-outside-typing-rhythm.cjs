@@ -1,6 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const W={barGame:{dialogSpeed:1},LunaOutsideContent:{events:[]}},audio=[];W.window=W;
 W.LunaDialogueAudio={reveal:(...args)=>audio.push(args)};
+vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../src/shared/dialogue/dialogue-rhythm.js'),'utf8'),W);
 vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../src/features/outside/events/outside-story.js'),'utf8'),W);
 const T=W.LunaOutsideStory,close=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 for(const text of ['가 나','가  나','앞\t뒤','😀 다음','..','...','......','가...나','가.나','가. 나','가.','.','1.5','가\n나','']){

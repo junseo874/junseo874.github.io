@@ -1,5 +1,5 @@
 (function(W){'use strict';
-const events=c=>W.StudioTags.parse(c.text).triggers.map((e,i)=>({...e,key:c.id+':'+i,at:c.textEffect==='instant'?0:e.index/c.cps+e.delay}));
+const events=c=>{const parsed=W.StudioTags.parse(c.text);return parsed.triggers.map((e,i)=>({...e,key:c.id+':'+i,at:c.textEffect==='instant'?0:W.StudioTags.triggerTime(parsed,e,c.cps)}));};
 function create(){
  let fired=new Set(),bursts=[],clock=0,previousTime=0;
  function reset(project,time){fired=new Set();bursts=[];clock=0;previousTime=time;for(const c of project.clips)if(c.type==='dialogue')for(const e of events(c))if(c.start+e.at<time-1e-7)fired.add(e.key);}

@@ -11,7 +11,7 @@ const lines=['그러면... 약속해줘. 루나.','포기하지 않겠다고.','
   await p.waitForFunction(()=>lunaCampaign.cinema?.dialogueWait);
   const notices=await p.evaluate(()=>lunaCampaign.cinema.scene.clips.filter(c=>c.introNotice&&!c.introFade).map(c=>StudioTags.parse(c.text).text));
   assert.deepEqual(notices,[
-   '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키, 스페이스바 또는 마우스 왼쪽 버튼으로 넘길 수 있습니다.'
+   '—— 플레이 안내 ——\n이 게임은 인물들과의 대화를 중심으로 이야기가 진행됩니다.\n대화는 E키 또는 스페이스바로 넘길 수 있습니다.'
   ]);
   const canvas=p.locator('#campaign-root canvas.campaign-prologue');
   assert(await p.evaluate(()=>{const c=lunaCampaign.cinema;return c.scene.clips.filter(l=>l.introNotice&&!l.introFade).length===1&&!c.scene.clips.some(l=>l.text?.includes('감사합니다'))&&c.scene.clips.find(l=>l.introFadeIn).introFadeIn===1.5;}));
@@ -52,18 +52,18 @@ const lines=['그러면... 약속해줘. 루나.','포기하지 않겠다고.','
   const punctuation=await p.evaluate(()=>{
    const clips=lunaCampaign.cinema.scene.clips.filter(c=>c.layout==='intro'&&!c.introNotice&&!c.introStart);
    return clips.map(c=>{
-    const parsed=StudioTags.parse(c.text);let delay=0,valid=true;
-    for(const pause of parsed.pauses){
-     const when=pause.index/c.cps+delay;
-     valid&&=StudioTags.count(parsed,when+.001,c.cps)===pause.index;
-     valid&&=StudioTags.count(parsed,when+pause.duration-.001,c.cps)===pause.index;
-     if(pause.index<parsed.chars.length)valid&&=StudioTags.count(parsed,when+pause.duration+1/c.cps+.001,c.cps)>pause.index;
-     delay+=pause.duration;
+    const parsed=StudioTags.parse(c.text),timing=LunaDialogueRhythm.timing(parsed.text,c.cps);let valid=true;
+    for(let i=1;i<parsed.chars.length;i++){
+     const prev=parsed.chars[i-1].ch,next=parsed.chars[i].ch,before=parsed.chars[i-2]?.ch;
+     const gap=prev==='.'&&next==='.'?.3:prev==='.'&&before!=='.'?.35:1/c.cps;
+     valid&&=Math.abs(timing.times[i]-timing.times[i-1]-gap)<1e-8;
+     valid&&=StudioTags.count(parsed,timing.times[i]-.001,c.cps)===i;
+     valid&&=StudioTags.count(parsed,timing.times[i],c.cps)===i+1;
     }
     return {valid,pauses:parsed.pauses.map(x=>x.duration),initial:StudioTags.count(parsed,0,c.cps),partial:StudioTags.count(parsed,.08,c.cps)};
    });
   });
-  assert.deepEqual(punctuation.map(x=>x.pauses),[[.3,.3,.3,.4,.4],[.4],[.3,.3,.3,.4],[.4,.3,.3,.3,.4]]);
+  assert.deepEqual(punctuation.map(x=>x.pauses),[[],[],[],[]],'No duplicated intro-only punctuation tags');
   assert(punctuation.every(x=>x.valid&&x.initial===0&&x.partial>0));
   for(let i=0;i<4;i++){
    assert.equal(await text(),lines[i]);

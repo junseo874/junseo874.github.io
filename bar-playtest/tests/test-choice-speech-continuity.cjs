@@ -3,6 +3,7 @@ const root=path.resolve(__dirname,'..'),W={};W.window=W;
 const menu=()=>({options:[{id:'cancel',label:'취소'}]});
 for(const name of ['LunaHomeInteractions','LunaOutsideNeighborhood','LunaOutsideQA','LunaOutsideBeggar','LunaOutsideNotion','LunaOutsideShop','LunaOutsideThug'])W[name]={choiceView:menu,faceConversation(){},anchor(){return null;}};
 W.LunaOutsideContent={events:[]};
+vm.runInNewContext(fs.readFileSync(root+'/src/shared/dialogue/dialogue-rhythm.js','utf8'),W);
 vm.runInNewContext(fs.readFileSync(root+'/src/features/outside/events/outside-story.js','utf8'),W);
 const model={x:1,y:2,updateNear(){}},target={x:4,y:5};model.story=new W.LunaOutsideStory.Story(model);
 for(const type of ['home-choice','neighborhood-choice','qa-choice','beggar-choice','notion-choice','thug-choice','shop-choice']){

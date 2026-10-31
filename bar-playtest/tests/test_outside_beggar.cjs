@@ -1,6 +1,6 @@
 const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('assert/strict');
 const W={};W.window=W;const dir=path.resolve(__dirname,'..');
-for(const file of ['data/runtime/game-data.js','src/features/outside/events/outside-beggar.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(dir,file),'utf8'),W);
+for(const file of ['data/runtime/game-data.js','src/features/outside/events/outside-beggar.js','src/shared/dialogue/dialogue-rhythm.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(dir,file),'utf8'),W);
 const B=W.LunaOutsideBeggar;
 function setup(money=500){W.barGame={progress:{money,flags:{},inventory:{}},changed(){},log(){}};W.lunaCampaign={active:true,session:{carry:structuredClone(W.barGame.progress)}};W.LunaOutsideContent={events:[]};const m={scene:'street',level:0,config:{day:0,flow:'out'},x:-7.45,updateNear(){}};m.story=new W.LunaOutsideStory.Story(m);m.backgroundStory=new W.LunaOutsideStory.BackgroundStories(m);return m;}
 function talk(m,id=B.id){return m.story.interact(B.targets(m).find(t=>t.id===id));}

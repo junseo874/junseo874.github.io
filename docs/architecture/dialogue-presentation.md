@@ -2,6 +2,10 @@
 
 [구조 안내](README.md)에서 필요한 기능만 찾아 읽으세요. 게임 동작의 기준은 [본편 규칙](../gameplay/README.md)이며, 이 문서는 구현 위치를 설명합니다.
 
+## 대사 출력 시계
+
+대사 출력 시계는 `shared/dialogue/dialogue-rhythm.js`의 공통 마감 시각 배열을 사용한다. 외부 `outside-story.js`, 모든 `Campaign` 장면, 편집기/본편 `StudioTags`, 자동 회상의 `Engine.typedCount`가 같은 규칙을 읽는다. 컷씬 태그의 명시적 대기와 카메라 효과 발생 시점도 이 배열을 기준으로 계산하며, 자동 회상은 `Scene.line`에서 늘어난 출력 길이를 확보한다. 실제 수치·범위는 [본편 대사 규칙](../gameplay/README.md)을 따른다. 바 영업의 타이핑 시계는 별도 유지한다.
+
 ## 말풍선 원본 비율
 
 대사·대화 선택지는 원본 Stardust TTF를 그대로 사용하고 추가 자간은 0이다. 별도 보조 폰트·표시 단계의 문자 치환·점 크기/높이 보정은 사용하지 않는다. 말줄임은 [대사 문장부호 기준](../gameplay/data-and-dialogue.md#대사-문장부호)에 따라 원본 데이터에 일반 마침표 세 개 `...`로 작성한다. 컷씬 편집기의 기존 Neo둥근모 폰트도 원본 그대로 유지한다. 검증: `test-dialogue-native-font-ui.cjs` (원본 파일 바이트, 원본 대비 글자 폭·높이, 실제 렌더링 서체, 자간, 원문 보존), `test-dialogue-periods.cjs` (데이터의 일반 마침표 사용).

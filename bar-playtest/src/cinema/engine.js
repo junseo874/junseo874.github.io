@@ -238,15 +238,13 @@ window.Engine = (function () {
   /* 경과시간 e(=t - 시작 - lead)  /* 경과시간 e(=t - 시작 - lead) 기준으로 지금 몇 글자가 보여야 하는지.
      정지 구간에서는 글자 수가 그대로 멈춘다. */
   function typedCount(l, e) {
-    if (e <= 0) return 0;
-    const cps = l.cps, ps = l.pauses || [];
-    let acc = 0;
-    for (let k = 0; k < ps.length; k++) {
-      const p = ps[k];
-      if (e < p.i * cps + acc + p.d) return Math.max(0, Math.min(p.i, Math.floor((e - acc) / cps)));
-      acc += p.d;
-    }
-    return Math.max(0, Math.min(l.text.length, Math.floor((e - acc) / cps)));
+    const timing = lineTiming(l.text, l.cps, l.pauses);
+    // Legacy spans use UTF-16 offsets; the shared clock counts Unicode glyphs.
+    return timing.chars.slice(0, window.LunaDialogueRhythm.visible(timing, e)).join('').length;
+  }
+  function lineTiming(text, secondsPerChar, pauses = []) {
+    return window.LunaDialogueRhythm.timing(text, 1 / secondsPerChar,
+      pauses.map(p => ({index: Array.from(text.slice(0, p.i)).length, duration: p.d})));
   }
 
   /* 대사. 길이에 맞춰 자동으로 시간을 잡고 커서를 밀어 준다. */
@@ -255,9 +253,9 @@ window.Engine = (function () {
     const ov = LINE_OV && LINE_OV[idx];
     if (ov) o = Object.assign({}, o, ov);
     const parsed = parseTags(o.text);
-    const len = parsed.text.length;
     const lead = 0.12, cps = (o.cps || 0.02) * TYPE_SCALE, hold = o.hold == null ? 1.15 : o.hold;
-    const dur = o.dur || Math.max(1.5, lead + len * cps + parsed.total + hold);
+    const required = lead + lineTiming(parsed.text, cps, parsed.pauses).duration + hold;
+    const dur = Math.max(o.dur || 1.5, required);
     const rec = {
       idx: idx, t: this.T, dur: dur, speaker: o.speaker, text: parsed.text,
       baseCps: o.cps || 0.02, hold: hold, gap: o.gap == null ? 0.16 : o.gap,

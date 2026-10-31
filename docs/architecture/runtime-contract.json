@@ -616,6 +616,10 @@
     ],
     [
       "script",
+      "src/shared/dialogue/dialogue-rhythm.js"
+    ],
+    [
+      "script",
       "src/features/outside/events/outside-story.js"
     ],
     [
@@ -975,6 +979,10 @@
     [
       "script",
       "../bar-playtest/src/cinema/stage3.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/shared/dialogue/dialogue-rhythm.js"
     ],
     [
       "script",
