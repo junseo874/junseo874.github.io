@@ -81,6 +81,7 @@
 | --- | --- | --- |
 | 캠페인 차단 화면 | game/developer 이외의 화면 또는 일차 전환 중 바·외부 DOM을 inert로 전환. 숨은 바/거리 입력이 들어가지 않게 함 | `campaign.js:blocking/draw/key` |
 | 문·기억·일차 전환 | key 라우팅에서 먼저 소비. 로딩/암전 동안 중복 진입 방지. 오래된 비동기 로딩 결과가 새 화면을 덮지 않게 소유 토큰 검사 | `day-flow.js`, `cinema-flow.js`, `bar-door-transition.js` |
+| 일차 명언·저자·숫자 | 암전·명언 전 1.5초 대기부터 다음 날 공개 완료까지 동일한 일차 전환 잠금. 저자 완전 표시 후 4초 유지, 명언이 완전히 사라진 뒤 숫자 롤. 숨김 탭 자동 정지 시 대기·읽는 시간도 정지. E/Enter/Space/Esc 스킵 없음. 준비 실패 시 오류/재시도로 복귀 | `day-transition.js` 표시, `day-flow.js` 진행; [상세 시간표](events.md#일차-전환--명언과-day-숫자) |
 | 테라스 대사 | 타이핑·수동 다음 줄. 선택지 새 진입은 **800ms** 확정 보호. 바의 0.3초 홀드와 다름 | `campaign.js:paintSceneChoices`, `terrace-view.js` |
 | 테라스 진입 카메라 | 기억 전환 상태가 암전/등장/카메라를 소유해 그동안 다음 대사 입력 차단. 기본 진입은 hold 0.7초+수평 이동 5.6초+settle 0.5초, 총 6.8초. reduced-motion은 카메라 이동 시간을 생략 | `terrace-view.js:entrance`, `cinema-flow.js:tickMemoryTransition` |
 | 테라스 새 | 대사/선택지 중에도 terraceTime 진행. 설정에서 멈추며 복귀해도 착지 재시작 안 함. 새 자체는 입력 잠금을 만들지 않음 | [새 구현](../architecture/ambient-birds.md) |

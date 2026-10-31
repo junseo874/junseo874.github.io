@@ -684,6 +684,10 @@
     ],
     [
       "script",
+      "src/features/campaign/day-transition.js"
+    ],
+    [
+      "script",
       "src/features/campaign/day-flow.js"
     ],
     [

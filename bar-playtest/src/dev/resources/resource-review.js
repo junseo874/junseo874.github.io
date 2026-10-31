@@ -168,7 +168,7 @@ async function launch(d,title,note,fromHistory=false){
   }
   else if(d.type==='terrace'){c.scene(d.id,'리소스 확인',d.id==='workshop'?'black':'terrace',()=>closeLab());}
   else if(d.type==='door'){c.runDoorTransition(d.id,()=>Promise.resolve(),()=>{c.screen('developer');c.render(true);});}
-  else if(d.type==='day-transition'){c.beginDayTransition(0,1,()=>c.screen('developer'));}
+  else if(d.type==='day-transition'){const from=Number.isInteger(d.from)&&d.from>=0&&d.from<=2?d.from:0;c.beginDayTransition(from,from+1,()=>c.screen('developer'));}
   else if(d.type==='johnny-memory'){c.playJohnnyMemory(()=>closeLab());}
   else if(d.type==='qa-panel'){q.open('scenes');}
   else if(d.type==='updates'){await new Promise(resolve=>F.requestAnimationFrame(resolve));if(token!==launchEpoch)return;F.LunaUpdates.mount({preview:true});}

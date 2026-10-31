@@ -101,7 +101,8 @@ function build(F){
  stateGroup('exterior:street','상호작용 키 안내 / E·Y','대상 위 E 표시와 전경 관찰 지점의 Y 표시를 전환해 확인합니다.',[{id:'e',label:'상호작용 / E',launch:{type:'exterior',id:'street'}},{id:'y',label:'전경 관찰 / Y',launch:{type:'exterior',id:'panorama'}}],'exterior:street','out-ui');
  stateGroup('exterior:poor','외부 대화 / 선택지','구매 선택과 돈 부족 거절 표시를 확인합니다. 선택은 가능하며 확정 시 빨간 배경·글리치와 조건 문구를 표시합니다.',[{id:'poor',label:'상점 / 소지금 부족',launch:{type:'exterior',id:'poor'}}],'exterior:poor','out-ui');
  stateGroup('door:in','바 출입 / 로딩','같은 문 로딩 화면의 입장·퇴장 상태를 전환해 확인합니다.',[{id:'in',label:'입장 / 문 열림',launch:{type:'door',id:'in'}},{id:'out',label:'퇴장 / 문 닫힘',launch:{type:'door',id:'out'}}],'door:in','out-ui');
- ui('day-transition','일차 전환 / Day 숫자','검은 화면과 Day 0 → 1 숫자 전환을 실제 연출로 재생합니다.',{type:'day-transition'},'out-ui');
+ const dayVariants=F.LunaDayTransition.variants();
+ stateGroup('day-transition','일차 전환 / 명언 · Day 숫자','일차를 선택해 명언 → 저자 → 4초 유지 → 명언과 Day 교차 페이드 → 다음 숫자 전환을 확인합니다. 다시 실행으로 처음부터 재생할 수 있습니다.',dayVariants,'day-transition','out-ui');
  for(const area of ['bar','out'])groups.some(g=>g[0]===area+'-fx')||groups.splice(groups.findIndex(g=>g[0]===area+'-ui')+1,0,[area+'-fx',area==='bar'?'바 내부':'외부','연출 / 이펙트']);
  const fx=(id,area,title,category,source,launch,previewId,note,status='code')=>add({id:'fx:'+id,group:area+'-fx',title,usage:source,status,layers:[],effectCategory:category,launch,preview:'assets/reference/previews/'+(previewId||'fx:'+id).replace(/[^a-z0-9_-]/gi,'_')+'.jpg',previewNote:previewId?'관련 실제 화면 · 동작은 실제 화면 테스트에서 확인':'효과 재생 중 실제 화면 캡처',note:note+' · 구현: '+source+' · 검수용 상태 설정이며 본편 진행에는 반영되지 않습니다.'});
  for(const [id,title]of [['arrival','손님 입장 · 페이드 / 이동'],['exit','손님 퇴장'],['red','좌석 위험 · 점멸']])fx(id,'bar',title,id==='red'?'guidance':'transition','src/features/bar/bar-views.js / src/features/bar/bar-views.css',{type:'qa',id},'ui:'+id,'실제 손님 상태와 표시 효과를 확인합니다. 다시 실행하면 처음부터 재생합니다.');
@@ -118,7 +119,7 @@ function build(F){
  for(const id of ['income','expense','unlock'])fx(id,'bar',{income:'소지금 증가 · 일시 알림',expense:'소지금 차감 · 일시 알림',unlock:'신규 재료 / 레시피 · 해금 안내'}[id],'notice','src/shared/ui/currency-view.js / src/app/app.js',{type:'qa',id},'ui:'+id,'실제 알림의 등장·유지·사라짐과 팝업을 확인합니다.');
  fx('placeholder','bar','대본 FX / SFX · 더미 효과','placeholder','src/core/core.js / src/app/app.js',{type:'scene',id:'t99_fxsfx'},'ui:scene:t99_fxsfx','대본을 넘기며 공용 플래시와 더미 효과음을 확인합니다. 전용 이펙트·음향이 완성된 상태가 아닙니다.','dummy');
  for(const id of ['in','out'])fx('door-'+id,'out','바 문 · '+(id==='in'?'열림 / 따뜻한 빛':'닫힘 / 암전'),'transition','src/features/bar/bar-door-transition.js / src/features/campaign/campaign.js',{type:'door',id},'ui:door:'+id,'실제 로딩 전환입니다. 최소 3초 대기 후 문 동작과 화면 전환을 재생합니다.');
- fx('day','out','일차 종료 · 암전 / Day 숫자 전환','transition','src/features/campaign/campaign.js / src/features/campaign/campaign.css',{type:'day-transition'},'ui:day-transition','Day 0 → 1 전환을 재생합니다.');
+ fx('day','out','일차 종료 · 명언 / Day 숫자 전환','transition','src/features/campaign/day-transition.js / src/features/campaign/day-flow.js / src/features/campaign/campaign.css',{type:'day-transition'},'ui:day-transition','0→1 / 1→2 / 2→3일차의 명언과 숫자 전환을 선택해 재생합니다.');
  fx('terrace','out','테라스 · 서서히 나타나는 진입','transition','src/features/campaign/terrace-view.js / src/features/campaign/campaign.js',{type:'terrace',id:'night0'},'ui:terrace:night0','테라스 페이드 인과 대화를 재생합니다. 대사를 진행하면 연결된 회상도 확인할 수 있습니다.');
  fx('memory','out','기억 회상 · 전환 / 화면 노이즈','transition','src/features/campaign/johnny-memory.js / src/features/campaign/campaign.js',{type:'johnny-memory'},'ui:johnny-memory','조니의 기억에 진입해 실제 회상 연출을 확인합니다.');
  fx('lift','out','엘리베이터 · 로고 / 그라디언트 / 팀명','transition','src/dev/qa/outside-qa.js / src/features/campaign/campaign.css',{type:'outside',id:'lift-logo'},'ui:outside:lift-logo','QA 승강 연출의 로고·우측 음영·Team. SimChung 표시를 확인합니다.');
@@ -133,6 +134,11 @@ function build(F){
  }
  for(const area of ['bar','out'])if(!groups.some(g=>g[0]===area+'-backgrounds'))groups.splice(groups.findIndex(g=>g[0]===area+'-ui'),0,[area+'-backgrounds',area==='bar'?'바 내부':'외부','배경 / 화면별 레이어']);
  rows.push(...W.ResourceBackgrounds.build(F));
+ // UI, effect and black-background entry points expose the same three live states.
+ for(const row of rows.filter(r=>r.launch?.type==='day-transition')){
+  row.variants=dayVariants;
+  row.launch={...dayVariants[0].launch,reviewId:row.id,variantId:dayVariants[0].id};
+ }
  for(const r of rows)if(revisionUI.has(r.id))r.needsRevision=true;
  return rows;
 }

@@ -15,6 +15,7 @@ bar-playtest/index.html  ← 순서가 명시된 classic scripts
       settlement        ← 매출/호감도/하루 정산
     campaign.js         ← 본편 화면/입력 조율
       day-flow          ← 출근/영업/퇴근/휴식/다음 날
+        day-transition  ← 일차 명언·저자·Day 표시/시간 설정 (진행 상태 변경은 day-flow 소유)
       cinema-flow       ← 컷씬 로딩/회상/스킵/종료
     outside.js          ← 외부 Model: 위치/이동/상호작용/사건 상태
       outside-view.js   ← Canvas/DOM/카메라/외부 입력

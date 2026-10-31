@@ -20,6 +20,9 @@
 .day-transition-title{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:.35em;color:#e5eeef;font-family:Galmuri11,NeoDunggeunmo,sans-serif;font-size:clamp(30px,4.4vw,60px);font-weight:400;letter-spacing:.04em;line-height:1.3;opacity:0}
 .day-transition-digits{position:relative;display:block;overflow:hidden;width:1.45em;height:1.3em;font-variant-numeric:tabular-nums}
 .day-transition-digits>span{position:absolute;inset:0;text-align:center;will-change:transform,opacity}
+.day-transition-quote{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1120px,calc(100% - 80px));text-align:center;color:#e5eeef;font:400 clamp(15.3px,1.7vw,22.1px)/1.65 var(--font-dialogue);pointer-events:none}
+.day-transition-quote-text,.day-transition-author{margin:0;opacity:0;white-space:pre-line;word-break:keep-all;overflow-wrap:anywhere;will-change:transform,opacity}
+.day-transition-author{margin-top:24px;font-size:.75em;color:#b9c5c8}
 .day-digit-new{color:#b5eee9;transform:translateY(110%);opacity:0}
 
 /* Main-story day selection: compact cards, with one border for hover and keyboard focus. */

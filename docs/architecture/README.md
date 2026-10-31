@@ -41,6 +41,7 @@ node tools/locate.cjs campaign --symbols
 | 까마귀·비둘기 공통 시트 / 거리 배치 | `../data/presentation/bird-sprites.js`, `features/outside/outside-corridor-birds.js` |
 | 바 공통 입력 가드 / 화면별 잠금 | `core/core.js:barInteractionBlocked`, [잠금 계약](../gameplay/input-locks.md)의 소유자 표 |
 | 일차·출퇴근·휴식·장면 전환 | `features/campaign/day-flow.js` |
+| 일차별 명언·저자·Day 연출 시간 | `features/campaign/day-transition.js`, `campaign.css`; [표시 순서](../gameplay/events.md#일차-전환--명언과-day-숫자) |
 | 컷씬 로딩·회상·스킵·종료 | `features/campaign/cinema-flow.js` |
 | 컷씬 공통 재생 | `cinema/` |
 | 말풍선·선택지·공유 UI·오디오 | `shared/dialogue`, `shared/ui`, `shared/audio` |

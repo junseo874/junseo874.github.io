@@ -267,13 +267,15 @@
     beginDayTransition(from, to, prepare) {
       if (this.dayTransition) return;
       const host = document.createElement('section');
+      const schedule = global.LunaDayTransition.schedule(from, to);
       host.className = 'campaign-day-transition';
       host.setAttribute('role', 'status');
-      host.setAttribute('aria-label', 'Day ' + from + ' → Day ' + to);
-      host.innerHTML = '<div class="day-transition-shade"></div><div class="day-transition-title" aria-hidden="true"><span>Day</span><span class="day-transition-digits"><span class="day-digit-old">' + from + '</span><span class="day-digit-new">' + to + '</span></span></div>';
+      host.setAttribute('aria-label', (schedule.quote ? schedule.quote.text + ' ' + schedule.quote.author + ' · ' : '') + 'Day ' + from + ' → Day ' + to);
+      host.innerHTML = global.LunaDayTransition.html(from, to, schedule);
       this.dayTransition = {
         from,
         to,
+        schedule,
         time: 0,
         host,
         prepare,
@@ -294,27 +296,14 @@
     paintDayTransition() {
       const d = this.dayTransition;
       if (!d) return;
-      const smooth = x => {
-        x = Math.max(0, Math.min(1, x));
-        return x * x * (3 - 2 * x);
-      };
-      const roll = smooth((d.time - 1.55) / .65),
-        reveal = d.revealAt == null ? 0 : smooth((d.time - d.revealAt) / .9);
-      d.host.querySelector('.day-transition-shade').style.opacity = smooth(d.time / .65) * (1 - reveal);
-      d.host.querySelector('.day-transition-title').style.opacity = smooth((d.time - .7) / .3) * (1 - smooth((d.time - 3) / .3));
-      const old = d.host.querySelector('.day-digit-old'),
-        next = d.host.querySelector('.day-digit-new');
-      old.style.transform = 'translateY(' + -roll * 110 + '%)';
-      old.style.opacity = 1 - roll;
-      next.style.transform = 'translateY(' + (1 - roll) * 110 + '%)';
-      next.style.opacity = roll;
+      global.LunaDayTransition.paint(d);
     }
     tickDayTransition(dt) {
       const d = this.dayTransition;
       if (!d) return false;
       if (global.LunaFocusSettings.hiddenPaused) return true;
       d.time += dt;
-      if (d.time >= 2.25 && !d.started) {
+      if (d.time >= d.schedule.prepareAt && !d.started) {
         d.started = true;
         Promise.resolve().then(() => {
           if (this.dayTransition === d) return d.prepare();
@@ -329,9 +318,9 @@
           this.screen('load-error');
         });
       }
-      if (d.ready && d.time >= 3.4 && d.revealAt == null) d.revealAt = d.time;
+      if (d.ready && d.time >= d.schedule.revealAt && d.revealAt == null) d.revealAt = d.time;
       this.paintDayTransition();
-      if (d.revealAt != null && d.time >= d.revealAt + .9) {
+      if (d.revealAt != null && d.time >= d.revealAt + global.LunaDayTransition.timing.revealDuration) {
         this.cancelDayTransition();
         this.screen(this.cinema?.dailyWake ? 'prologue' : this.playView);
         this.render(true);
