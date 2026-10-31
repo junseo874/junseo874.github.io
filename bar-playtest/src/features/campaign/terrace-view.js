@@ -50,6 +50,11 @@ function paintCharacters(dialog,host){
  const actors=host.querySelector('.terrace-characters');if(!actors)return;
  const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
  actors.dataset.frame=String(frame);actors.style.backgroundPosition=(-frame*animation.width)+'px 0px';
+ // The sheet contains Luna on the left and Chris on the right. Hide only
+ // Chris while Luna reads the chip, in both the DOM and refracted glass pass.
+ const alone=dialog.rows[dialog.index].stage==='luna-alone';
+ actors.style.clipPath=alone?'inset(0 65px 39px 0)':'inset(0 0 39px 0)';
+ host.querySelector('.terrace-art')?.setAttribute('aria-label',alone?'도시 야경이 보이는 테라스에 루나가 혼자 앉아 있다':'도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다');
 }
 function tick(dialog,dt){dialog.terraceTime=(dialog.terraceTime||0)+Math.max(0,Math.min(.05,Number(dt)||0));}
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -87,7 +92,8 @@ function paintGlass(dialog,host,state,view){
  c.save();c.translate(-view.x*rasterScale,0);
  c.drawImage(raster(building,rasterScale),0,0);
  const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
- c.drawImage(raster(actors,rasterScale),frame*129*rasterScale,0,129*rasterScale,99*rasterScale,85*rasterScale,98*rasterScale,129*rasterScale,99*rasterScale);
+ const actorWidth=dialog.rows[dialog.index].stage==='luna-alone'?64:129;
+ c.drawImage(raster(actors,rasterScale),frame*129*rasterScale,0,actorWidth*rasterScale,99*rasterScale,85*rasterScale,98*rasterScale,actorWidth*rasterScale,99*rasterScale);
  c.drawImage(raster(rail,rasterScale),86*rasterScale,179*rasterScale);c.restore();
  // Dry and rainy scenes share the same presentation grid, including after
  // remounts. Filtering only the enlarged texels keeps pixel art crisp but lets

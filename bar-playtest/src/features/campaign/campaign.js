@@ -119,8 +119,7 @@
       if (this.view === 'awakening') body = '<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
       if (this.view === 'title') body = '<div class="campaign-title"><div class="title-logo"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>' + '<nav aria-label="타이틀 메뉴">' + button('새 게임', 'new', 'title-choice') + '<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>' + button('설정', 'options', 'title-choice') + button('종료', 'picker', 'title-choice') + '<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
       if (this.view === 'scene-choice') {
-        const r = this.dialog.rows[this.dialog.index];
-        body = this.card('대답 선택', r.options.map(o => button(esc(o.text), 'scene-choice:' + o.seq)).join(''));
+        body = this.dialog.background === 'terrace' ? global.LunaTerrace.html(this.sceneChoiceBackdrop()) : this.card('대답 선택', '');
       }
       if (this.view === 'loading') body = '<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">로딩 중<span class="resource-loading-dots"></span></span></div>';
       if (this.view === 'load-error') body = this.card('리소스를 불러오지 못했어요', '<p>' + esc(this.loadError) + '</p>' + button('다시 시도', 'retry-load') + button('타이틀로', 'title'));
@@ -137,6 +136,8 @@
       if (this.view === 'ending') body = '<div class="campaign-ending"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><p>...조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>' + button('타이틀로', 'exit-run') + '</div>';
       this.cinemaChoices?.dispose();
       this.cinemaChoices = null;
+      this.sceneChoices?.dispose();
+      this.sceneChoices = null;
       this.host.innerHTML = '<div class="campaign-stage view-' + this.view + '">' + body + '</div>';
       if (this.view === 'dev-console') global.LunaCaptureMode?.mount(this.host.querySelector('.campaign-dev-console'));
       this.titleLogo = this.view === 'title' ? global.LunaTitleLogo.mount(this.host.querySelector('.title-logo')) : null;
@@ -157,6 +158,7 @@
         this.paintLine();
         if (this.dialog?.background === 'johnny-memory') global.LunaJohnnyMemory.sync(this.host, this.dialog, this.D);
       }
+      if (this.view === 'scene-choice') this.paintSceneChoices();
       if (this.view === 'awakening') this.paintAwakening();
       (this.host.querySelector('.world-choices .is-selected') || this.host.querySelector('button,select,input'))?.focus({
         preventScroll: true
@@ -356,6 +358,27 @@
       c.done();
     }
 
+    sceneChoiceOptions() {
+      const row = this.dialog.rows[this.dialog.index];
+      return row.options || this.D.tables.bar_choices.filter(o => o.context === row.arg).sort((a, b) => Number(a.seq) - Number(b.seq)).map(o => ({...o, text: o['text.ko']}));
+    }
+    sceneChoiceBackdrop() {
+      const c = this.dialog;
+      let index = c.index - 1;
+      while (index > 0 && c.rows[index].type !== 'say') index--;
+      return {...c, index, chars: c.rows[index].text.length};
+    }
+    paintSceneChoices() {
+      const c = this.dialog;
+      if (c.background === 'terrace') global.LunaTerrace.paint(this.sceneChoiceBackdrop(), this.host);
+      this.sceneChoices ||= global.LunaWorldChoices.create(this.host.querySelector('.campaign-stage'), id => this.action('scene-choice:' + id), c.choiceState ||= {});
+      this.sceneChoices.update({
+        key: c.rows[c.index].arg + ':' + c.index,
+        options: this.sceneChoiceOptions().map(o => ({id: String(o.seq), label: o.text})),
+        head: {x: global.LunaTerrace.seats.chris.x, y: 440}, facing: 'left', entryGuardMs: 800
+      });
+    }
+
     // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
 
     tick(dt) {
@@ -374,6 +397,10 @@
         this.paintLine();
         if (this.dialog.background === 'johnny-memory') global.LunaJohnnyMemory.sync(this.host, this.dialog, this.D, dt);
         // D08: campaign/exterior scenes advance through next(), not Ctrl repeat.
+      }
+      if (this.view === 'scene-choice' && !global.LunaFocusSettings.hiddenPaused) {
+        if (this.dialog.background === 'terrace') global.LunaTerrace.tick(this.dialog, dt);
+        this.paintSceneChoices();
       }
       if (this.view === 'prologue' && !global.LunaFocusSettings.hiddenPaused) {
         const c = this.cinema,
@@ -540,8 +567,11 @@
         const c = this.dialog,
           r = c?.rows[c.index],
           seq = Number(a.slice(13));
-        if (this.view !== 'scene-choice' || !r.options.some(o => o.seq === seq)) return;
-        this.g.progress.flags[r.arg] = seq === 1;
+        if (this.view !== 'scene-choice') return;
+        const option = this.sceneChoiceOptions().find(o => Number(o.seq) === seq);
+        if (!option) return;
+        if (r.options) this.g.progress.flags[r.arg] = seq === 1;
+        else global.LunaCore.applyEffects(option.effects, this.g.progress);
         c.index++;
         c.chars = 0;
         this.continueScene();
@@ -688,6 +718,7 @@
         return true;
       }
       if (!this.blocking) return false;
+      if (this.view === 'scene-choice' && this.sceneChoices?.key(e)) return true;
       if (this.view === 'prologue' && this.cinema?.dialogueChoice) {
         this.cinemaChoices?.key(e);
         return true;

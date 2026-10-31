@@ -5,12 +5,12 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  await p.evaluate(()=>{LunaFocusSettings.setEnabled(false);window.qaTables=JSON.stringify(barData.tables);window.qaCarry=JSON.stringify(lunaCampaign.session.carry);});
  await p.locator('[data-act="day"][data-id="99"]').click();await p.locator('[data-act="start"]').click();
  await p.locator('.choices button').first().waitFor();assert(await p.locator('.qa-launch').isHidden());assert(await p.locator('#qa-lab').isHidden());
- async function choose(text,key=false){const el=p.locator('.choices button').filter({has:p.locator('.choice-label',{hasText:new RegExp('^'+text+'$')})});await el.waitFor();await el.hover();if(key){await el.focus();await p.keyboard.down('KeyE');await p.waitForTimeout(700);await p.keyboard.up('KeyE');}else{await p.mouse.down();await p.waitForTimeout(700);await p.mouse.up();}await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>barGame.error),null);}
+ async function choose(text,key=false){const el=p.locator('.choices button').filter({has:p.locator('.choice-label',{hasText:new RegExp('^'+text+(text==='다음 항목'?' · [0-9]+/[0-9]+':'')+'$')})});await el.waitFor();await el.hover();if(key){await el.focus();await p.keyboard.down('KeyE');await p.waitForTimeout(400);await p.keyboard.up('KeyE');}else{await p.mouse.down();await p.waitForTimeout(400);await p.mouse.up();}await p.waitForTimeout(100);assert.equal(await p.evaluate(()=>barGame.error),null);}
  async function nextChoice(){await p.evaluate(()=>{const g=barGame;for(let i=0;i<100&&!g.choice;i++){if(g.pendingTransition){const f=g.pendingTransition;g.pendingTransition=null;g.transition=0;f();}g.transition=0;g.cameraLeft=0;g.cameraMoving=false;if(g.dialogue){g.dialogue.chars=g.dialogue.text.length;g.advance();}else g.pump();}g.changed();});await p.locator('.choices button').first().waitFor();}
  await choose('선택지·알림',true);await choose('선택지 · 돈 받기 / 지불 / 잔액 부족');await nextChoice();await choose('300원 받기',true);
  assert.equal(await p.evaluate(()=>barGame.progress.money),1300);await nextChoice();assert(await p.locator('.choices').getByText('다시 테스트',{exact:true}).isVisible());
  await choose('다시 테스트');await nextChoice();assert.equal(await p.evaluate(()=>barGame.progress.money),1000);assert(await p.locator('[data-act="choice"][disabled]').isVisible());await choose('취소');await nextChoice();await choose('처음으로');
- await choose('코스터·좌석');await choose('다음 항목');await choose('이전 항목');await choose('다음 항목');await choose('2인 · 한 명만 코스터 필요');
+ await choose('코스터·좌석');assert.equal(await p.locator('.choices button').count(),4);assert.equal(await p.locator('.choices').getByText('뒤로',{exact:true}).count(),0);await choose('다음 항목');assert(await p.locator('.choices').getByText('뒤로',{exact:true}).isVisible());await choose('뒤로');await choose('코스터·좌석');await choose('2인 · 한 명만 코스터 필요');
  await p.waitForFunction(()=>!!barGame.dialogue);await p.evaluate(()=>{const g=barGame;g.dialogue.chars=g.dialogue.text.length;g.cameraLeft=0;g.cameraMoving=false;g.advance();});await p.waitForFunction(()=>!!barGame.storyCoaster);assert.equal(await p.evaluate(()=>barGame.seats.R.actor),'bubi');
  // Traverse the actual choice graph (not runPreset) to every leaf, including paged poses.
  const coverage=await p.evaluate(()=>{
@@ -26,6 +26,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   while(queue.length){const path=queue.shift();lunaQA.startDialogue();for(const seq of path){g.cameraMoving=false;g.cameraLeft=0;g.transition=0;if(!g.choose(seq))throw Error('QA route failed: '+path+' / '+g.error);}
    const key=g.story.scene.id.replace(/_\d+$/,'');if(visited.has(key))continue;visited.add(key);
    check(g.choice.rows,key);
+   if(g.choice.rows.some(c=>c.qaRoute?.kind==='page'&&c['text.ko'].startsWith('다음 항목'))){
+    if(g.choice.rows.length!==4)throw Error('Nonfinal pages must show three entries plus next');
+    if(g.choice.rows.some(c=>['뒤로','이전 항목'].includes(c['text.ko'])))throw Error('Return navigation must not displace test entries');
+   }
    for(const c of g.choice.rows){const r=c.qaRoute;if(!r)continue;
     if(['run','pose'].includes(r.kind)){leaves.add(r.id);continue;}
     if(!['legacy','legacyScene','root'].includes(r.kind))queue.push([...path,c.seq]);
@@ -42,7 +46,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  for(let i=0;i<20&&!await p.locator('.choices').getByText('포트 · 표정 선택',{exact:true}).count();i++)await choose('다음 항목');
  await choose('포트 · 표정 선택');await choose('idle');
  await p.waitForFunction(()=>barGame.dialogue?.actor==='port');assert.equal(await p.evaluate(()=>barGame.dialogue.expression),'idle');await nextChoice();
- await choose('처음으로');await choose('인물 정보');await choose('선택지 · 모든 캐릭터 정보 해금');await nextChoice();await choose('모든 캐릭터 정보 등록·해금');
+ if(await p.locator('.choices').getByText('다음 표정 테스트',{exact:true}).count()){await choose('다음 표정 테스트');await p.waitForFunction(()=>barGame.dialogue?.actor==='port');assert.notEqual(await p.evaluate(()=>barGame.dialogue.expression),'idle');await nextChoice();}
+ await choose('다른 테스트 선택');assert(await p.locator('.choices').getByText('모든 표정 이어 보기',{exact:true}).isVisible());
+ await p.evaluate(()=>lunaQA.startDialogue());
+ await choose('인물 정보');await choose('선택지 · 모든 캐릭터 정보 해금');await nextChoice();await choose('모든 캐릭터 정보 등록·해금');
  await p.locator('.dossier-screen').waitFor();assert.equal(await p.locator('.guest-card:not(.unmet)').count(),12);await p.keyboard.press('Escape');await nextChoice();await choose('처음으로');
  // Standard choices stay inside the game at narrow/wide sizes; no auxiliary panel.
  for(const [width,height] of [[600,760],[1920,1080],[1280,720]]){await p.setViewportSize({width,height});await p.waitForTimeout(200);assert(await p.locator('.choices').evaluate(e=>{const r=e.getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight;}));assert(await p.locator('.qa-launch').isHidden());}

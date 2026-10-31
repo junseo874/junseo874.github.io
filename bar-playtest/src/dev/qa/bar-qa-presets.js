@@ -60,19 +60,14 @@ function create({g,D,ui,reset,finish}){
  function navigation(id,choices){story('menu_'+id,[menu(choices.map((c,i)=>({...command(c.label,'route_'+i),qaRoute:c.route}))),row('qa_route',{routes:choices.map(c=>c.route)})]);}
  const link=(label,route)=>({label,route});
  function list(id,entries,page=0,back={kind:'root'}){
-  // Reserve slots BEFORE slicing: previous, next and back are real choices too.
-  // First/last pages can fit more content than middle pages. Never truncate cases.
-  const pages=[];let offset=0;
-  do{
-   const capacity=CHOICE_LIMIT-(id==='root'?0:1)-(pages.length?1:0);
-   const size=entries.length-offset>capacity?capacity-1:capacity;
-   pages.push(entries.slice(offset,offset+size));offset+=size;
-  }while(offset<entries.length);
+  // Three content slots, one navigation slot. Return appears only at the end.
+  const pages=[];
+  for(let offset=0;offset<entries.length;offset+=CHOICE_LIMIT-1)pages.push(entries.slice(offset,offset+CHOICE_LIMIT-1));
+  if(!pages.length)pages.push([]);
   const last=pages.length-1;page=Math.max(0,Math.min(page,last));
   const rows=pages[page].slice();
-  if(page>0)rows.push(link('이전 항목',{kind:'page',id,page:page-1}));
-  if(page<last)rows.push(link('다음 항목',{kind:'page',id,page:page+1}));
-  if(id!=='root')rows.push(link('뒤로',back));
+  if(page<last)rows.push(link('다음 항목 · '+(page+2)+'/'+pages.length,{kind:'page',id,page:page+1}));
+  else rows.push(link(id==='root'?'처음 항목으로':'뒤로',back));
   navigation(id+'_'+page,rows);
  }
  function show(id='root',page=0){
@@ -99,7 +94,13 @@ function create({g,D,ui,reset,finish}){
   show();
  }
  function completed(){
-  navigation('complete',[link('다시 테스트',{kind:current.pose?'pose':'run',id:current.id,pose:current.pose}),link('다른 테스트 선택',{kind:'group',group:current.group}),link('처음으로',{kind:'root'})]);
+  const siblings=cases.filter(c=>c.group===current.group),index=siblings.findIndex(c=>c.id===current.id);
+  const poseIndex=current.pose?current.expressions.indexOf(current.pose):-1;
+  const next=current.pose?current.expressions[poseIndex+1]:siblings[index+1];
+  const rows=[];
+  if(next)rows.push(link(current.pose?'다음 표정 테스트':'다음 테스트',{kind:current.pose?'pose':'run',id:current.pose?current.id:next.id,pose:current.pose?next:null}));
+  rows.push(link('다시 테스트',{kind:current.pose?'pose':'run',id:current.id,pose:current.pose}),link('다른 테스트 선택',{kind:'page',id:current.pose?'actor:'+current.id:current.group,page:Math.floor((current.pose?poseIndex+1:index)/(CHOICE_LIMIT-1))}),link('처음으로',{kind:'root'}));
+  navigation('complete',rows);
  }
  function start(){
   if(!allowed())throw Error('개발자 시뮬레이션에서 실행해 주세요.');

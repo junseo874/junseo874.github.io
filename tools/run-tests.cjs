@@ -6,7 +6,7 @@ const game = name => 'bar-playtest/tests/' + name + '.cjs';
 const suites = {
   data: ['bar-playtest/tests/test-csv-catalog.cjs', 'bar-playtest/tests/test-shared-data-projection.cjs', 'tools/build-shared-data.cjs', 'bar-playtest/tests/test-dialogue-periods.cjs', 'bar-playtest/tests/test-dialogue-periods-ui.cjs', 'bar-playtest/tests/test-shared-data-ui.cjs'],
   smoke: ['tools/check-structure.cjs', 'tools/check-site.cjs', 'tools/check-code-boundaries.cjs', 'tools/test-source-index.cjs', 'tools/build-preload-manifest.cjs', ...[
-    'test-tom-talk-ui', 'test-general-offscreen', 'test-choice-speech-continuity', 'test-approved-rules', 'test-approved-rules-ui', 'test_shiba_shop', 'test-shiba-purchase-flow-ui', 'test_day0_tutorial', 'test_resource_missing', 'test-resource-preload-ui',
+    'test-kihyun-story', 'test-kihyun-story-ui', 'test-tom-talk-ui', 'test-general-offscreen', 'test-choice-speech-continuity', 'test-approved-rules', 'test-approved-rules-ui', 'test_shiba_shop', 'test-shiba-purchase-flow-ui', 'test_day0_tutorial', 'test_resource_missing', 'test-resource-preload-ui',
     'test_bd_vendor_removed_ui', 'test-bacardi-removed-ui', 'test-long-island-main-excluded-ui', 'test-triple-sec-unified-ui', 'test_current_serve_sheets_ui', 'test-resource-preview-paths-ui'
   ].map(game)],
   ui: ['test-bar-qa-dialogue-ui', 'test-bar-qa-presets-ui', 'test_profile_resources_ui', 'test-tom-introduction-ui', 'test-regular-order-badge-ui', 'test-dialogue-history-ui', 'test-textbox-proportions-ui', 'test-choice-corner-animation-ui', 'test-choice-entry-guard-ui', 'test_choice_hold_ui', 'test-currency-art-ui', 'test_currency_ui', 'test_currency_audio_ui', 'test-recipe-table-art-ui', 'test-recipe-copy-ui', 'test-speech-focus-ui', 'test-capture-mode-ui', 'test_game_viewport_ui', 'test_letterbox_ui', 'test_interaction_prompt_ui',
@@ -21,6 +21,7 @@ const suites = {
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
+suites.ui.unshift(game('test-bar-choice-hold-clock'));
 suites.cinema.unshift(game('test-cinema-typing-rhythm'),game('test-cinema-typing-rhythm-ui'),game('test_intro_text_ui'));
 suites.outside.unshift(game('test-outside-character-sheets'), game('test-outside-typing-rhythm'), game('test-outside-typing-rhythm-ui'));
 if (choice === '--list') {

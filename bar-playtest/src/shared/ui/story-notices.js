@@ -27,7 +27,7 @@ function dialogueStarted(p,line){
  const id=actor(line?.actor);
  if(!p||!introductions[id]||line?.id!==introductions[id])return false;
  p.flags??={};const flag=id+'_introduction_notified';if(p.flags[flag])return false;
- p.flags[flag]=true;p.flags[id+'_met']=true;emit(p,'meet',id);return true;
+ p.flags[flag]=true;p.flags[id+'_met']=true;p.flags[id+'_name_known']=true;emit(p,'meet',id);return true;
 }
 function affinity(p,id,delta){id=actor(id);if(roster.includes(id)&&Number.isFinite(delta)&&delta!==0)emit(p,delta>0?'up':'down',id,delta);}
 function effects(p,before){

@@ -19,18 +19,19 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
         delete g.progress.flags.tom_introduction_notified;
         const rows = g.t.steps.filter(s => s.context === 'campaign_d1_bar');
         const enter = rows.find(s => s.type === 'enter' && s.actor === 'tom');
-        const lines = [74, 75, 76, 77, 78].map(i => rows.find(s => s.dialogue_id === 'campaign_d1_bar_' + i));
+        const introduction = rows.findIndex(s => s.dialogue_id === 'campaign_d1_bar_77');
+        const lines = rows.slice(introduction - 3, introduction + 2);
         if (!enter || lines.some(s => !s)) throw Error('Missing actual CSV Tom introduction rows');
         g.story = {scene: {id: 'campaign_d1_bar'}, steps: [{...enter, entrance: 'seated'}, ...lines], index: 0, autos: [], cursor: 0};
         LunaStoryNotices.clear(); c.screen(c.playView); g.pump(); g.changed();
       }, developer);
       assert(await page.evaluate(() => barGame.progress.flags.tom_met), 'encounter/profile record remains');
-      for (const id of [74, 75, 76]) {
-        assert.equal(await page.evaluate(() => barGame.dialogue.id), 'campaign_d1_bar_' + id);
+      for (let beforeName = 0; beforeName < 3; beforeName++) {
+        assert.notEqual(await page.evaluate(() => barGame.dialogue.id), 'campaign_d1_bar_77');
         assert.equal(await page.evaluate(() => LunaStoryNotices.pending.filter(e => e.actor === 'tom' && e.kind === 'meet').length), 0, 'no early name notification');
         await page.evaluate(() => {const g = barGame; g.dialogue.chars = g.dialogue.text.length; g.advance(); g.changed();});
       }
-      assert.match(await page.evaluate(() => barGame.dialogue.text), /톰이라고\. 톰 거너\. 내 이름이야/);
+      assert.match(await page.evaluate(() => barGame.dialogue.text), /내 이름이야, 톰 거너/);
       assert.equal(await page.evaluate(() => barGame.dialogue.chars), 0, 'announce when line begins, not after advancing');
       const notice = page.locator('.story-notice-people[data-kind="meet"][data-actor="tom"]');
       await notice.waitFor({state: 'visible'});

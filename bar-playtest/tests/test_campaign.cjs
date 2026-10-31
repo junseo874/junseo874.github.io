@@ -10,6 +10,7 @@ for(let day=0;day<=3;day++){
  for(let i=0;i<30000&&!g.finished;i++){
   if(g.overlay==='johnnyUnlock'){g.confirmJohnnyUnlock();continue;}if(g.error)throw Error(g.error);if(g.transition||g.cameraLeft){tick();continue;}g.cameraMoving=false;
   if(g.tutorial?.beer){const t=g.tutorial.kind;if(t==='recipe'){g.openTutorialService();g.openRecipes();}else if(t==='recipeSelect')g.selectCocktail('bottle_beer');else if(t==='beerGlass')g.pickItem(g.cocktail('bottle_beer').glass);else if(t==='beerToolNavigate')g.tutorialEvent('shelf','tool');else if(t==='beerOpener')g.pickOpener();else if(t==='beerFridgeNavigate')g.tutorialEvent('shelf','fridge');else if(t==='beerAdd')g.pickItem('beer');else if(t==='beerStart')g.startCraft();continue;}if(g.gimmick?.openTutorial){g.gimmickInput('Space');g.gimmick.beatTime=g.c('open_approach_sec',1.6);g.gimmickInput('Space');g.gimmick.openFx.age=1;g.endGimmick();g.debugCraft('good');g.offer();attempts++;assert(g.serve(g.currentOrder.seat,'drag'));continue;}
+  if(g.storyCoaster){if(g.dialogue)g.dialogue.chars=g.dialogue.text.length;assert(g.coaster(g.storyCoaster.seat,'drag'));continue;}
   if(g.choice){g.choose(2);continue;}if(g.dialogue){g.advance();g.advance();continue;}
   if(g.phase==='general'){
    const waiting=Object.entries(g.seats).find(([seat,v])=>v&&['WAIT_COASTER','WAIT_SERVE'].includes(v.state));

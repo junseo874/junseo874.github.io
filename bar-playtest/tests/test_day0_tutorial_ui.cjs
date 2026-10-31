@@ -12,7 +12,7 @@ let a=await source.boundingBox(),z=await target.boundingBox();assert(a&&z);await
 await p.keyboard.press('Escape');await p.locator('[data-change="language"]').waitFor();await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
 for(const viewport of [{width:960,height:540},{width:1600,height:900},{width:1280,height:720}]){await p.setViewportSize(viewport);await p.waitForTimeout(150);const hole=await p.locator('[data-guide-hole="source"]').boundingBox(),box=await source.boundingBox();assert(hole.x<box.x&&hole.y<box.y&&hole.x+hole.width>box.x+box.width);}
 a=await source.boundingBox();z=await target.boundingBox();await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(z.x+z.width/2,z.y+z.height*.8,{steps:12});await p.mouse.up();await p.waitForFunction(()=>!barGame.tutorial&&!!barGame.dialogue);
-assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),true);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'이렇게요?');
+assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),true);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'이렇게 하면 되나요?');
 await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.tutorial?.kind==='recipe');await p.keyboard.up('Control');await p.screenshot({path:'/private/tmp/day0-guide-service-'+variant+'.png'});
 assert.equal(await p.locator('.story-craft-prompt').count(),0);await p.locator('.service-handle').click();await p.locator('.tutorial-service').waitFor();
 assert.equal(await p.locator('#service-panel [data-act="sales"]').isDisabled(),true);assert.equal(await p.locator('#service-panel [data-act="dossierOpen"]').isDisabled(),true);

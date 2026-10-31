@@ -44,14 +44,25 @@ function begin(m){const c=catalog().find(c=>c.id===m.qa.caseId),t=target(m);m.st
  if(['commute2','commute3'].includes(c.scene)){W.LunaOutsideSamhoCommute.start(m);return;}
  if(c.shop){m.qa.shopDay=c.shopDay;m.qa.shopProgress={money:c.money??Math.max(0,Number(W.barGame?.progress.money)||0),flags:{},inventory:c.owned?{[c.owned]:1}:{}};W.LunaOutsideShop.begin(m,t,c.first);return;}
  const automatic=isAuto(m),rows=(c.source?W.LUNA_OUTSIDE_DIALOGUES[c.source]:W.LUNA_CAMPAIGN_DATA.scenes[c.scene]).flatMap(r=>r.cinemaAfter==='terrace-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes[r.memoryKey||'terraceMemory']]:r.cinemaAfter==='johnny-memory'?[r,...W.LUNA_CAMPAIGN_DATA.scenes.johnny]:[r]).map(r=>({...r,type:r.type||'say'}));
+ // Runtime terrace previews use the same authored branch labels, but keep
+ // their flags isolated from the live campaign and other QA visits.
+ if(c.scene){m.qa.scriptProgress={flags:{},affinity:{},money:0};for(const row of rows)if(row.type==='choice'){row.type='qa-choice';row.campaignChoiceGroup=row.arg;}}
  const start=()=>{m.qa.runtime=null;m.story.beginRows(c.id,{...t,qa:true},rows,automatic);};
  if(automatic){start();return;}
  m.qa.camera={x:-.2,y:-.12,w:3.6};m.qa.runtime={elapsed:0,from:m.x,to:-.65,start};
 }
 function interact(m,t){if(!m.qa||t.id!=='qa-event')return false;begin(m);return true;}
-function choiceView(m){if(!m.qa||m.story.speech?.line?.type!=='qa-choice')return null;return {label:'외부 선택지 4개 테스트',options:choiceOptions};}
+function choiceView(m){if(!m.qa||m.story.speech?.line?.type!=='qa-choice')return null;const group=m.story.speech.line.campaignChoiceGroup;if(group)return{label:'테라스 대답 선택',options:W.barGame.t.bar_choices.filter(o=>o.context===group).map(o=>({id:String(o.seq),label:o['text.ko']}))};return {label:'외부 선택지 4개 테스트',options:choiceOptions};}
 function choose(m,id){
  if(!choiceView(m))return false;
+ const speech=m.story.speech,group=speech.line.campaignChoiceGroup;
+ if(group){
+  const option=W.barGame.t.bar_choices.find(o=>o.context===group&&String(o.seq)===id);if(!option)return false;
+  W.LunaCore.applyEffects(option.effects,m.qa.scriptProgress);
+  const rest=speech.rows.slice(speech.index+1).filter(r=>W.LunaCore.condition(r.when,m.qa.scriptProgress));
+  m.qa.events.push({event:'choice',time:m.time,id:group,option:id});
+  m.story.beginRows(speech.id+':'+id,speech.target,rest,false);return true;
+ }
  const index=choiceOptions.findIndex(o=>o.id===id);if(index<0)return false;
  const option=choiceOptions[index];m.qa.events.push({event:'choice',time:m.time,id:m.qa.caseId,option:id,index:index+1});
  m.story.beginRows('ui:choice-four:result',target(m),[{type:'say',actor:'qa-guide',who:'테스트 안내자',text:(index+1)+'번 선택: '+option.label+' 대화를 닫고 E를 누르면 다시 테스트할 수 있어요.'}],false);
