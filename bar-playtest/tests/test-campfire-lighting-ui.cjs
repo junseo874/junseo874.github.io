@@ -5,7 +5,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  await page.evaluate(async()=>{
   Object.assign(outsidePlaytest.config,{day:3,flow:'out',place:'bar'});await outsidePlaytest.start();
   const o=outsidePlaytest,m=o.model;m.story.cancel();m.backgroundStory.cancel();m.tick=()=>{};
-  window.campDraw=o.tick.bind(o);o.tick=()=>{};m.x=-15.65;m.time=1;o.snapCamera();
+  window.campDraw=o.tick.bind(o);o.tick=()=>{};m.x=-15.65;m.time=1;o.snapCamera();campDraw(0);
  });
  const source=await page.evaluate(()=>{
   const m=outsidePlaytest.model,F=LunaBarrelFire,S=LunaCharacterShadows,n=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='B_Obects');
@@ -18,7 +18,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    near:S.influence(p,fire),far:S.influence({x:fire.x-1.5,y:p.y},fire),
    directions:[S.direction({x:fire.x-.4,y:p.y},fire,1)[0],S.direction({x:fire.x+.4,y:p.y},fire,1)[0]]};
  });
- assert(Math.abs(source.fire.x+15.82)<1e-6&&Math.abs(source.fire.y+.57)<1e-6,'source matches the replacement prop flame, not original atlas');
+ assert(Math.abs(source.fire.x+15.946)<1e-6&&Math.abs(source.fire.y+.629)<1e-6,'source matches the replacement prop flame, not original atlas');
  assert.deepEqual(source.shift,[2,3]);assert(Math.abs(source.mirror)<1e-6);assert.equal(source.inactive,false);
  assert(source.gains.every(([a,b])=>a===b));assert(new Set(source.gains.map(p=>p[0])).size>1);
  assert.equal(source.upstairs,0);assert.equal(source.distant,0);assert(source.near>source.far);assert(source.directions[0]<0&&source.directions[1]>0);
@@ -39,13 +39,17 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   const sample=await page.evaluate(pose=>{
    const o=outsidePlaytest,m=o.model;Object.assign(m,{level:0,facing:-1},pose);o.snapCamera();
    for(let i=0;i<45;i++){m.time+=1/60;campDraw(0);}
-   const a=LunaCharacterLighting.inspect(m),state=a.actors.get('player'),before=JSON.stringify(state);campDraw(0);
+   const a=LunaCharacterLighting.inspect(m),state=a.actors.get('player'),before=JSON.stringify(state),soles=[];
+   const r=LunaStreetAtmosphere.inspect(m).renderer,paint=r.characterLighting;
+   r.characterLighting=function(image,sp,p){if(['boss','gang-left','gang-far','gangmate'].includes(sp.lightingId))soles.push({id:sp.lightingId,y:p.foot.y});return paint.call(this,image,sp,p);};
+   try{campDraw(0);}finally{r.characterLighting=paint;}
    const gang=['boss','gang-left','gang-far','gangmate'].map(id=>({id,selected:a.actors.get(id)?.selected}));
    const shadows=LunaCharacterShadows.inspect(m),renderer=LunaStreetAtmosphere.inspect(m).renderer;
-   return {name:pose.name,selected:state.selected,gang,stable:before===JSON.stringify(a.actors.get('player')),slots:shadows.slots.length,fireEnergy:shadows.slots.find(s=>s.id==='barrel-fire')?.energy,gl:renderer.gl.getError()};
+   return {name:pose.name,selected:state.selected,gang,soles,stable:before===JSON.stringify(a.actors.get('player')),slots:shadows.slots.length,fireEnergy:shadows.slots.find(s=>s.id==='barrel-fire')?.energy,gl:renderer.gl.getError()};
   },pose);
   assert.equal(sample.selected==='barrel-fire',pose.fire,pose.name);assert(sample.stable);assert(sample.slots<=16);assert(sample.fireEnergy>0);assert.equal(sample.gl,0);
-  if(pose.fire)assert(sample.gang.every(g=>g.selected==='barrel-fire'),'all four camp members face the fire light');
+  if(pose.fire){assert(sample.soles.length>=4&&sample.soles.every(s=>Math.abs(s.y+.974)<1e-6),'NPC light distances use opaque soles, not transparent atlas padding');}
+  if(pose.fire)assert(sample.gang.every(g=>g.selected==='barrel-fire'),'all four camp members face the fire light: '+JSON.stringify(sample.gang));
   samples.push(sample);await page.screenshot({path:'/private/tmp/campfire-lighting-'+pose.name+'.png'});
  }
  await page.emulateMedia({reducedMotion:'reduce'});

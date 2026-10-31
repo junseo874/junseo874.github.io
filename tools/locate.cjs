@@ -1,26 +1,29 @@
-// Small, focused source index; intentionally excludes generated data and artwork.
-const fs = require('node:fs');
-const path = require('node:path');
-const root = path.resolve(__dirname, '..');
-const query = (process.argv[2] || '').toLowerCase();
-const roots = ['bar-playtest/src', 'cutscene-studio/src', 'js'];
-function walk(dir) {
-  return fs.readdirSync(path.join(root, dir), { withFileTypes: true }).flatMap(entry =>
-    entry.isDirectory() ? walk(dir + '/' + entry.name) : [dir + '/' + entry.name]);
-}
-const files = roots.flatMap(walk).filter(file => /\.(js|css)$/.test(file) && file.toLowerCase().includes(query));
+const {features, find} = require('./lib/source-index.cjs');
+const args = process.argv.slice(2), query = args.find(a => !a.startsWith('--'));
 if (!query) {
-  console.log('Usage: node tools/locate.cjs <outside|crafting|settings|audio|campaign|...>');
-  console.log('Feature map: docs/architecture/README.md');
+  console.log('Usage: node tools/locate.cjs <feature | 파일명 | 함수명> [--symbols] [--all] [--json]');
+  for (const [key, value] of Object.entries(features)) console.log(`${key}: ${value.summary}`);
 } else {
-  for (const file of files) {
-    const lines = fs.readFileSync(path.join(root, file), 'utf8').split('\n');
-    console.log(`${file} (${lines.length} lines)`);
-    if (files.length <= 3 && file.endsWith('.js')) {
-      lines.forEach((line, i) => {
-        const match = line.match(/^\s*(?:async\s+)?(?:function|class)\s+([\w$]+)/);
-        if (match) console.log(`  ${i + 1}: ${match[1]}`);
-      });
+  const result = find(query, args.includes('--symbols'));
+  const limit = args.includes('--all') ? Infinity : 40;
+  if (args.includes('--json')) {
+    let budget = args.includes('--all') ? Infinity : 80;
+    let truncated = result.files.length > limit;
+    const files = result.files.slice(0,limit).map(row => {
+      const symbols = row.symbols.slice(0,budget);
+      budget -= symbols.length;
+      truncated ||= symbols.length < row.symbols.length;
+      return {...row, symbols};
+    });
+    console.log(JSON.stringify({...result, files, total:result.files.length, truncated},null,2));
+  } else {
+    if (result.info) console.log(`${result.info.summary}\n안내: ${result.info.docs}\n엔진 대응: ${result.info.engine}`);
+    let budget = args.includes('--all') ? Infinity : 80;
+    for (const row of result.files.slice(0,limit)) {
+      console.log(`${row.file} (${row.lines} lines)`);
+      for (const symbol of row.symbols) if (budget-- > 0) console.log(`  ${symbol.line}: ${symbol.name}`);
     }
+    if (!result.files.length) console.log('일치하는 소스가 없습니다. 기능명 목록: node tools/locate.cjs');
+    if (result.files.length > limit || budget < 0) console.log('출력을 제한했습니다. 더 좁은 검색어나 --all을 사용하세요.');
   }
 }

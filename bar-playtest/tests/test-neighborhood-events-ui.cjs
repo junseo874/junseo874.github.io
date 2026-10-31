@@ -74,11 +74,12 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
     barGame.progress.flags={};m.start({day:2,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();m.x=N.places.guard.x+.4;
     N.interact(m,N.targets(m).find(t=>t.actor==='guard'));a.snapCamera();a.tick(0);
     const stage=document.querySelector('.outside-stage').getBoundingClientRect(),tip=document.querySelector('.outside-speech .piece-9').getBoundingClientRect(),s=stage.width/1280;
-    const head=LunaPixelCamera.position(N.places.guard.x,N.places.guard.y+.56,a.renderCamera);
+    const head=LunaPixelCamera.position(N.places.guard.x,N.places.guard.y+.55,a.renderCamera);
     return {gap:(stage.y+head.y*s-tip.bottom)/s,xGap:Math.abs(stage.x+head.x*s-(tip.left+tip.right)/2)/s,guard:N.anchor(m,'guard').y,repair:N.anchor(m,'repair').y};
    });
    assert(anchors.gap>=0&&anchors.gap<12,JSON.stringify(anchors));assert(anchors.xGap<3,JSON.stringify(anchors));
-   assert(Math.abs(anchors.guard-(-.414))<1e-6);assert(Math.abs(anchors.repair-(-.364))<1e-6);
+   // Supplied Gang1 / Repairman alpha unions start at rows 59 / 50; soles are row 114.
+   assert(Math.abs(anchors.guard-(-.424))<1e-6);assert(Math.abs(anchors.repair-(-.334))<1e-6);
   }
   await p.screenshot({path:'/tmp/luna-neighborhood-speech.png'});await p.setViewportSize({width:1280,height:720});
   // Exercise the actual sofa and campaign continuation, not only the module callback.

@@ -182,21 +182,21 @@ function campFacing(m,id,x){
 }
 function poses(m){
  const n=state(m),a=n.action,list=[];
- const add=(id,kind,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>list.push({id,kind,x,y,scale,flip,alpha,sp:{asset:'ambient-'+kind,x:W.LunaOutsideAmbient.frameIndex(m.time)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});
+ const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=W.LunaOutsideAmbient.roleKinds[id];list.push({id,kind,x,y,scale,flip,alpha,sp:W.LunaOutsideAmbient.sprite(kind,m.time)});};
  if(m.scene==='street'){
-  if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair','M2',places.repair.x,places.repair.y);
-  else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair','M2',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}
+  if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair',places.repair.x,places.repair.y);
+  else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}
   if(after(m,0,'out')){
-   const camp=(id,kind,x,y,scale=1)=>add(id,kind,x,y,scale,campFacing(m,id,x));
-   camp('guard','M1',places.guard.x,places.guard.y);
-   camp('boss','M2',places.boss.x,places.boss.y,1.12);
-   camp('gang-left','M1',-16.08,road);
-   camp('gang-far','W1',-16.38,road);
-   camp('gangmate','M2',places.gangmate.x,places.gangmate.y);
+   const camp=(id,x,y)=>add(id,x,y,1,campFacing(m,id,x));
+   camp('guard',places.guard.x,places.guard.y);
+   camp('boss',places.boss.x,places.boss.y); // Gang5 is already taller; keep the authored proportions.
+   camp('gang-left',-16.08,road);
+   camp('gang-far',-16.38,road);
+   camp('gangmate',places.gangmate.x,places.gangmate.y);
   }
   if(n.neighbor){const moving=a?.name?.startsWith('neighbor-'),out=a?.name==='neighbor-out',duration=(places.neighbor.x-motion.neighborStop)/motion.neighborSpeed;
-   add('neighbor','M1',n.neighbor.x,places.neighbor.y,1,moving?out:W.LunaOutsideAmbient.faceTarget(n.neighbor.x,m.x),out?Math.max(0,Math.min(1,(duration-a.time)/.4)):1);}
- }else if(m.scene==='home'&&n.chris)add('chris','M1',n.chris.x,places.chris.y,1,true);
+   add('neighbor',n.neighbor.x,places.neighbor.y,1,moving?out:W.LunaOutsideAmbient.faceTarget(n.neighbor.x,m.x),out?Math.max(0,Math.min(1,(duration-a.time)/.4)):1);}
+ }else if(m.scene==='home'&&n.chris)add('chris',n.chris.x,places.chris.y,1,true);
  return list;
 }
 function anchor(m,actor,stable=false){

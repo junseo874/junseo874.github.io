@@ -1,0 +1,18 @@
+{
+  "app": {"summary":"시작·화면 조립·입력 연결", "aliases":["bootstrap","시작"], "paths":["bar-playtest/src/app"], "docs":"docs/architecture/modules.md", "engine":"01.Bootstrap"},
+  "core": {"summary":"게임 상태·초기화·공통 실행 시계·조건식", "aliases":["상태","조건"], "paths":["bar-playtest/src/core"], "docs":"docs/architecture/modules.md", "engine":"02.Core"},
+  "story": {"summary":"바 대사·선택지·스토리 주문·해금", "aliases":["이야기","바대화"], "paths":["bar-playtest/src/features/story"], "docs":"docs/gameplay/data-and-dialogue.md", "engine":"04.Features/04.Story"},
+  "guests": {"summary":"일반 손님·좌석·코스터·매출·정산", "aliases":["bar","손님","정산"], "paths":["bar-playtest/src/features/bar"], "docs":"docs/architecture/bar-and-crafting.md", "engine":"04.Features/03.Tycoon"},
+  "crafting": {"summary":"레시피·재료·기믹·제조 판정·제공", "aliases":["craft","minigames","제조","기믹"], "paths":["bar-playtest/src/features/crafting"], "docs":"docs/architecture/bar-and-crafting.md", "engine":"04.Features/01.Crafting"},
+  "outside": {"summary":"외부 상태·화면·상호작용·거리 효과", "aliases":["외부","거리"], "paths":["bar-playtest/src/features/outside"], "docs":"docs/architecture/outside.md", "engine":"04.Features/07.Outside"},
+  "home": {"summary":"집 배치·상호작용", "aliases":["집"], "paths":["bar-playtest/src/features/outside/home-art.js","bar-playtest/src/features/outside/home-interactions.js"], "docs":"docs/architecture/outside.md", "engine":"04.Features/08.Home"},
+  "campaign": {"summary":"본편 일차·장면 전환·밤·테라스", "aliases":["progression","진행","테라스"], "paths":["bar-playtest/src/features/campaign"], "docs":"docs/architecture/modules.md", "engine":"02.Core/01.Progression"},
+  "cinema": {"summary":"공유 컷씬 재생·본편 연결", "aliases":["cutscene","컷씬"], "paths":["bar-playtest/src/cinema","bar-playtest/src/features/campaign/cinema-flow.js"], "docs":"docs/architecture/modules.md", "engine":"04.Features/06.Cutscenes"},
+  "dialogue": {"summary":"말풍선·선택지 표현·외부 타이핑", "aliases":["speech","대사","말풍선"], "paths":["bar-playtest/src/shared/dialogue","bar-playtest/src/features/outside/events/outside-story.js"], "docs":"docs/architecture/dialogue-presentation.md", "engine":"04.Features/05.Dialogue"},
+  "audio": {"summary":"BGM·대사음·환경음·재화음", "aliases":["sound","소리"], "paths":["bar-playtest/src/shared/audio"], "docs":"docs/architecture/loading.md", "engine":"05.Presentation/02.Audio"},
+  "ui": {"summary":"공유 UI·설정·알림·화면 배율", "aliases":["settings","설정"], "paths":["bar-playtest/src/shared/ui","bar-playtest/src/shared/platform"], "docs":"docs/architecture/loading.md", "engine":"05.Presentation/03.UI"},
+  "qa": {"summary":"개발자 전용 테스트·시뮬레이터", "aliases":["검수"], "paths":["bar-playtest/src/dev/qa","bar-playtest/src/dev/wine-opening"], "docs":"docs/architecture/bar-and-crafting.md", "engine":"06.Tests / Editor (Assets/01.Game 기준)"},
+  "resources": {"summary":"리소스 검수·목록·다운로드", "aliases":["리소스"], "paths":["bar-playtest/src/dev/resources"], "docs":"bar-playtest/assets/README.md", "engine":"Editor (Assets/01.Game 기준)"},
+  "studio": {"summary":"웹 컷씬 편집기", "aliases":["편집기"], "paths":["cutscene-studio/src"], "docs":"cutscene-studio/README.md", "engine":"04.Features/06.Cutscenes/Studio"},
+  "data": {"summary":"CSV 원본·변환기·실행 데이터 연결", "aliases":["csv","데이터"], "paths":["tools/lib/shared-data-model.cjs","tools/lib/shared-data-views.cjs","tools/build-shared-data.cjs","bar-playtest/data/README.md"], "docs":"docs/gameplay/data-and-dialogue.md", "engine":"03.Data"}
+}

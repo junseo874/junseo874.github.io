@@ -20,8 +20,8 @@
 | 2·3일차 출근 삼호 | `events/outside-samho-commute.js` | `LUNA_CAMPAIGN_DATA.scenes.commute2 / commute3` |
 | 주변 주민·행인·TV 방송 | `outside-ambient`, `outside-residents`, `outside-tv`, `outside-encounters` 모듈 | `LUNA_OUTSIDE_DIALOGUES`, 콘텐츠 등록과 채널별 시작 조건 |
 | 집 침대·옷장·책·포스터·TV·소파·문·엘리베이터 | `outside.js`, `home-art.js`, `home-interactions.js`, `outside-inspection.js` | `home/*`; `test-home-*-ui`, `test-object-confirmation-ui` |
-| 바 본편 이야기 | `core.js`, `campaign-engine.js` | `script/bar/day0`~`day3`, `story/scenes.csv`·`steps.csv`·바 선택지 |
-| 테라스·회상·기상·마감 | `campaign.js`, `terrace-view.js`, `johnny-memory.js`, `cinema/` | `LUNA_CAMPAIGN_DATA`와 Studio 프로젝트; `cinema` 검사 묶음 |
+| 바 본편 이야기 | `features/story/story-flow.js`, `campaign-engine.js` | `script/bar/day0`~`day3`, `story/scenes.csv`·`steps.csv`·바 선택지 |
+| 테라스·회상·기상·마감 | `campaign.js`, `day-flow.js`, `cinema-flow.js`, `terrace-view.js`, `johnny-memory.js`, `cinema/` | `LUNA_CAMPAIGN_DATA`와 Studio 프로젝트; `cinema` 검사 묶음 |
 
 테스트 이름은 `bar-playtest/tests/`의 `.cjs` 파일명이며 `*`는 같은 접두사의 관련 검사들을 뜻한다. 정확한 실행 목록은 `tools/run-tests.cjs`를 확인한다.
 

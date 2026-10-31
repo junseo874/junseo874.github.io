@@ -10,7 +10,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  const drain=()=>p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.tick(0);});
  await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<4;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.tick(0);});
  assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.actor),'gangmate');
- assert(Math.abs(await p.evaluate(()=>outsidePlaytest.model.story.view().anchor.x-LunaOutsideNeighborhood.places.gangmate.x))<.01);
+ assert(Math.abs(await p.evaluate(()=>{const m=outsidePlaytest.model,pose=LunaOutsideNeighborhood.poses(m).find(p=>p.id==='gangmate');if(pose.sp.asset!=='ambient-Gang3')throw Error('Expected dedicated Gang3');return m.story.view().anchor.x-(pose.x+.01*(pose.flip?-1:1));}))<1e-6,'Gang3 head follows its authored one-pixel offset');
  await drain();assert(await p.locator('[data-choice="boss-pay"]').isDisabled());assert(await p.locator('[data-choice="boss-repair"]').isDisabled());
  await p.screenshot({path:'/tmp/gang-boss-first-offer.png'});
  await p.waitForTimeout(550);await p.locator('[data-choice="boss-wait"]').click();await drain();await p.keyboard.press('KeyE');

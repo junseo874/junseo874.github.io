@@ -62,7 +62,7 @@ const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&m.config
 const tx=m=>m.qa?.25:R.homeX+1.90; // In front of the next door, clear of Boobi’s box.
 const base=m=>m.qa?-.45:R.elevatorX+1.35;
 const thugY=m=>m.qa?-.7:R.upperY;
-function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:thugY(m)+.4,label:'불량배'}]:[];}
+function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:anchor(m,thug).y,label:'불량배'}]:[];}
 const infoGreeting=[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}];
 function preview(m,t){return t.id===info?{id:info,rows:infoGreeting,alternatives:state(m).money>=50?Object.values(infoRows).map(rows=>({id:info,rows})):[]}:null;}
 function infoStart(m,target){m.story.beginRows(info,target,infoGreeting);return true;}
@@ -104,14 +104,14 @@ function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)retur
  m.story.beginRows(info,sp.target,infoRows[sp.line.topic]);return true;
 }
 function anchor(m,actor){const e=m.encounter;
- if(actor===thug)return{x:e?.kind===thug?e.npcX:tx(m),y:thugY(m)+.43};
+ if(actor===thug){const x=e?.kind===thug?e.npcX:tx(m),y=thugY(m)-.274;return W.LunaOutsideAmbient.head(W.LunaOutsideAmbient.sprite('Neighbor'),x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,m.x))||{x,y:y+.61};}
  if(e?.kind===contract&&[samho,dealer].includes(actor))return{x:actor===samho?e.npcX:e.dealerX,y:-.7+.44};
  return null;
 }
 function draw(m,sprite,ctx,position){
  const e=m.encounter;
- const idle=(kind,x,y,target,alpha=1)=>sprite({asset:'ambient-'+kind,x:W.LunaOutsideAmbient.frameIndex(m.time)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100},x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
- if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('M2',e?.kind===thug?e.npcX:tx(m),thugY(m)-.24,m.x);if(!m.qa)ctx.restore();}
+ const idle=(kind,x,y,target,alpha=1)=>sprite(W.LunaOutsideAmbient.sprite(kind,m.time),x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
+ if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-.274,m.x);if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:base(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
   sprite(W.LunaSamhoAnimation.frame(m.time),x,-.7,1,1,W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),e?.kind===contract?e.alpha:1);

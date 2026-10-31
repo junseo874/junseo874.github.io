@@ -1,53 +1,35 @@
-const assert=require('node:assert/strict');
-const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
-(async()=>{
- const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
- try{
-  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
-  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
-  const audit=await p.evaluate(()=>{
-   const fx=LunaBarrelFire,colors=new Set();let below=0,edge=0,minPixels=Infinity,maxLight=0,maxChange=0,lastEnergy=null;
-   for(let f=0;f<96;f++){
-    const v=fx.render(f/fx.fps),c=v.core,w=c.width,h=c.height,d=c.getContext('2d').getImageData(0,0,w,h).data,l=v.light.getContext('2d').getImageData(0,0,w,h).data;let pixels=0;
-    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-     const i=(y*w+x)*4,a=d[i+3];maxLight=Math.max(maxLight,l[i+3]);
-     if(a){pixels++;if(a===255)colors.add([d[i],d[i+1],d[i+2]].join(','));if(y+fx.crop.y>fx.anchor.y)below++;if(!x||!y||x===w-1||y===h-1)edge++;}
-    }
-    minPixels=Math.min(minPixels,pixels);if(lastEnergy!==null)maxChange=Math.max(maxChange,Math.abs(v.energy-lastEnergy));lastEnergy=v.energy;
-   }
-   const a=fx.render(1).core.toDataURL(),cached=a===fx.render(1.001).core.toDataURL(),moving=a!==fx.render(1.4).core.toDataURL();
-   const still=fx.render(0,true),core=still.core.toDataURL(),light=still.light.toDataURL();const next=fx.render(100,true);
-   return {colors:colors.size,below,edge,minPixels,maxLight,maxChange,cached,moving,still:core===next.core.toDataURL()&&light===next.light.toDataURL()};
-  });
-  assert.equal(audit.colors,5);assert.equal(audit.below,0);assert.equal(audit.edge,0);assert(audit.minPixels>100);assert(audit.maxLight<130);assert(audit.maxChange<.1);assert(audit.cached&&audit.moving&&audit.still);
-  await p.evaluate(async()=>{
-   Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'bar'});await outsidePlaytest.start();const m=outsidePlaytest.model;
-   m.story.cancel();m.backgroundStory.cancel();m.tick=()=>{};m.x=-15.65;m.time=1;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);
-  });
-  const integration=await p.evaluate(()=>{
-   const fx=LunaBarrelFire,paint=fx.paintSprite,ctx=document.querySelector('#outside-root canvas').getContext('2d'),draw=ctx.drawImage,events=[];
-   ctx.drawImage=function(im,...args){if(im.src)events.push(im.src);return draw.call(this,im,...args);};
-   fx.paintSprite=function(c,key,...args){
-    const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.getTransform()]),before=state();
-    paint(c,key,...args);if(state()!==before)throw Error('Fire leaked context state');if(key==='B_Obects')events.push('fire');
-   };
-   try{outsidePlaytest.tick(0);}finally{fx.paintSprite=paint;ctx.drawImage=draw;}
-   return {prop:events.findIndex(e=>e.endsWith('Objects/object_1.png')),fire:events.indexOf('fire'),foreground:events.findIndex(e=>e.endsWith('Layers/near_foreground_1.png'))};
-  });
-  assert(integration.prop>=0&&integration.prop<integration.fire&&integration.fire<integration.foreground);
-  await p.screenshot({path:'/private/tmp/barrel-fire-street.png'});
-  // An actual camera change must still use the prop-local position.
-  for(const x of [-16.3,-15.2]){
-   await p.evaluate(x=>{outsidePlaytest.model.x=x;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);},x);
+const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test-runtime.cjs');
+(async()=>{const browser=await runtime.load('playwright').chromium.launch({executablePath:runtime.chrome,headless:true,args:['--mute-audio']});try{
+ const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
+ await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:3,flow:'out',place:'bar'});await outsidePlaytest.start();const o=outsidePlaytest,m=o.model;m.story.cancel();m.backgroundStory.cancel();m.tick=()=>{};window.fireDraw=o.tick.bind(o);o.tick=()=>{};m.x=-16;m.time=1;o.snapCamera();fireDraw(0);});
+ const audit=await p.evaluate(()=>{
+  const F=LunaBarrelFire,frames=new Set();let min=Infinity,max=0,warm=0,white=0,partial=0,changed=0,last=null,canvas=null;
+  for(let i=0;i<64;i++){
+   const r=F.render(i/F.fps),data=r.core.getContext('2d').getImageData(0,0,r.w,r.h).data;
+   if(canvas&&canvas!==r.core)throw Error('Unbounded frame allocation');canvas=r.core;
+   const url=r.core.toDataURL();frames.add(url);if(last!==null&&url!==last)changed++;last=url;let count=0;
+   for(let k=0;k<data.length;k+=4)if(data[k+3]){count++;if(data[k]>data[k+1]+15&&data[k+1]>data[k+2]+10)warm++;if(data[k]>240&&data[k+1]>240&&data[k+2]>240)white++;if(data[k+3]<250)partial++;}
+   min=Math.min(min,count);max=Math.max(max,count);if(r.w>22||r.h>29)throw Error('Engine fire quad expanded');
   }
-  await p.setViewportSize({width:960,height:600});await p.waitForTimeout(100);await p.screenshot({path:'/private/tmp/barrel-fire-small.png'});
-  // Review the native art and FX together at an integer 4x pixel scale.
-  await p.setViewportSize({width:1280,height:720});await p.evaluate(async()=>{
-   const d=LUNA_OUTSIDE_DATA,n=d.scenes.street.nodes.find(n=>n.name==='B_Obects'),im=new Image();im.src=d.assets[n.sprite.asset].src;await im.decode();
-   const c=document.createElement('canvas');c.width=145;c.height=100;c.style='position:fixed;left:350px;top:140px;width:580px;height:400px;image-rendering:pixelated;background:#172430;z-index:999999';document.body.append(c);
-   const ctx=c.getContext('2d');ctx.drawImage(im,0,110,145,100,0,0,145,100);
-   const sp=n.sprite;ctx.translate(sp.w*sp.pivot.x,sp.h*(1-sp.pivot.y)-110);LunaBarrelFire.paintSprite(ctx,'B_Obects',sp,sp.w,sp.h,1);
-  });await p.screenshot({path:'/private/tmp/barrel-fire-detail.png'});
-  assert.deepEqual(errors,[]);console.log('BARREL_FIRE_UI_OK',JSON.stringify(audit),JSON.stringify(integration));
- }finally{await browser.close();}
-})().catch(e=>{console.error(e);process.exitCode=1;});
+  const first=F.render(1).core.toDataURL(),same=F.render(1.001).core.toDataURL()===first,still=F.render(1,true).core.toDataURL();
+  return {frames:frames.size,min,max,warm,white,partial,changed,same,still:still===F.render(60,true).core.toDataURL(),fps:F.fps};
+ });
+ assert.equal(audit.fps,16);assert.equal(audit.frames,32,'1/1.5/2.5 UV speeds repeat after 2s, exactly 32 stepped frames');assert(audit.min>30&&audit.max<22*29);assert(audit.warm>0&&audit.white>0&&audit.partial>0);assert(audit.same&&audit.still);
+ const integration=await p.evaluate(()=>{
+  const ctx=document.querySelector('#outside-root canvas').getContext('2d'),original=ctx.drawImage,F=LunaBarrelFire,paint=F.paintSprite,draw=F.draw,events=[];
+  ctx.drawImage=function(img,...a){if(img.src)events.push(img.src.split('/').pop());return original.call(this,img,...a);};
+  F.draw=function(...a){events.push('fire');return draw(...a);};
+  F.paintSprite=function(c,...a){const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.getTransform()]),before=state();paint(c,...a);if(state()!==before)throw Error('Fire leaked canvas state');};
+  try{fireDraw(0);}finally{ctx.drawImage=original;F.draw=draw;F.paintSprite=paint;}
+  const data=LUNA_BARREL_FIRE,fire=F.placement(),front=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-front');
+  return {back:events.indexOf('camp-props.png'),fire:events.indexOf('fire'),front:events.indexOf('barrel-front.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
+ });
+ assert(integration.back>=0&&integration.back<integration.fire&&integration.fire<integration.front&&integration.front<integration.near,'back -> flame -> front lip -> foreground');assert(integration.dx<.002);assert(integration.lip<integration.fireTop);
+ // Review actual new props and engine FX at several animation phases and camera positions.
+ for(const [name,x,t]of [['left',-16.4,.25],['center',-15.95,1.5],['right',-15.4,3.1]]){
+  await p.evaluate(([x,t])=>{const o=outsidePlaytest,m=o.model;m.x=x;m.time=t;o.snapCamera();fireDraw(0);},[x,t]);await p.screenshot({path:'/private/tmp/engine-fire-'+name+'.png'});
+ }
+ await p.setViewportSize({width:960,height:600});await p.evaluate(()=>fireDraw(0));await p.screenshot({path:'/private/tmp/engine-fire-small.png'});
+ assert.deepEqual(errors,[]);console.log('BARREL_FIRE_UI_OK',JSON.stringify(audit),JSON.stringify(integration));
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

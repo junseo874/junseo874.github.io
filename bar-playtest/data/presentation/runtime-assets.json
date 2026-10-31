@@ -408,7 +408,7 @@
         94
       ]
     },
-    "item_cocktail": {
+    "item_martini": {
       "src": "assets/items/item-cocktail.png",
       "w": 45,
       "h": 95,
@@ -420,7 +420,7 @@
         94
       ]
     },
-    "item_sour": {
+    "item_flute": {
       "src": "assets/items/item-sour.png",
       "w": 45,
       "h": 95,
@@ -444,7 +444,7 @@
         94
       ]
     },
-    "item_mug": {
+    "item_weizen": {
       "src": "assets/items/item-mug.png",
       "w": 45,
       "h": 95,
@@ -3215,7 +3215,7 @@
         79
       ]
     },
-    "inventory_item_cocktail": {
+    "inventory_item_martini": {
       "src": "assets/items/inventory-item-cocktail.png",
       "w": 115,
       "h": 115,
@@ -3263,7 +3263,7 @@
         84
       ]
     },
-    "inventory_item_sour": {
+    "inventory_item_flute": {
       "src": "assets/items/inventory-item-sour.png",
       "w": 115,
       "h": 115,
@@ -3295,7 +3295,7 @@
         104
       ]
     },
-    "inventory_item_mug": {
+    "inventory_item_weizen": {
       "src": "assets/items/inventory-item-mug.png",
       "w": 115,
       "h": 115,

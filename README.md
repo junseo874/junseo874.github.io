@@ -9,7 +9,8 @@
 1. [본편 구현 확정 기준](docs/gameplay/README.md): 범위·진행·입력·거래·연출의 공통 규칙
 2. [사건별 대화와 이벤트 흐름](docs/gameplay/events.md): 시작 조건·선택·보상·완료·재방문
 3. [데이터와 대화 연결](docs/gameplay/data-and-dialogue.md): CSV 원본부터 실제 실행까지, 옷장·바 선택지·수리공 예제
-4. [구조 안내](docs/architecture/README.md)와 [테스트 안내](docs/architecture/testing.md): 구현 위치와 검증
+4. [구조 안내](docs/architecture/README.md) → [상태·모듈·엔진 대응](docs/architecture/modules.md): 구현 위치와 연결
+5. [테스트 안내](docs/architecture/testing.md): 검증과 알려진 기존 실패
 
 위 문서와 같은 커밋의 코드·CSV·생성 데이터를 함께 사용합니다. 클론에 포함되지 않는 로컬 미커밋 변경이나 채팅 기록을 전제로 구현하지 않습니다.
 
@@ -34,8 +35,13 @@ python3 serve.py
 ```text
 bar-playtest/
   src/app/                  진입·전체 화면 조립
-  src/core/                 제조·영업·진행 규칙
-  src/features/             bar, crafting, outside, campaign, tutorials
+  src/core/                 게임 상태·공통 tick·조건식·기능 조립
+  src/features/story/       바 스토리·선택지·해금
+  src/features/bar/         일반 손님·좌석·정산·바 화면
+  src/features/crafting/    준비·큐·판정·기믹 연산·제공 화면
+  src/features/outside/     외부 모델 / 화면 / 사건 / 효과 / 집
+  src/features/campaign/    본편 화면 / 일차 흐름 / 컷씬 연결
+  src/features/tutorials/   이동·제조 안내
   src/shared/               audio, dialogue, platform, ui
   src/cinema/               컷씬 재생 엔진·Studio 연결
   src/dev/                  QA, 리소스 검수, 이야기 안내
@@ -56,9 +62,9 @@ artifacts/                  작업 결과물(실행 코드와 분리)
 archives/                   이전 배포 압축본
 ```
 
-- 수정 위치: [구조 안내](docs/architecture/README.md)
+- 수정 위치: [구조 안내](docs/architecture/README.md). `node tools/locate.cjs 제조` 또는 `node tools/locate.cjs scoreCraft`로 기능·함수부터 찾습니다.
 - 검증 방법: [테스트 안내](docs/architecture/testing.md)
 - 리소스 규칙: [리소스 안내](bar-playtest/assets/README.md)
 - 폴더 이동 전후 이름은 `docs/architecture/path-migrations.json`에서 검색할 수 있습니다. 이 파일은 브라우저가 읽지 않습니다.
 
-`localStorage`/IndexedDB 키, 게임 데이터 ID, 공개 페이지 URL, 스크립트 실행 순서는 구조 정리 전과 동일합니다. 이미지 픽셀·애니메이션 프레임·음원 데이터는 변경하지 않았습니다.
+`localStorage`/IndexedDB 키, 게임 데이터 ID, 공개 페이지 URL과 기존 스크립트의 상대 실행 순서는 유지합니다. 분리된 모듈만 소유 파일보다 먼저 로드합니다. 이미지 픽셀·애니메이션 프레임·음원 데이터는 변경하지 않았습니다.

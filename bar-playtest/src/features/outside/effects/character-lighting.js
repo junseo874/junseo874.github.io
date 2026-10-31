@@ -51,7 +51,10 @@ function shade(model,image,sp,x,y,width,height,flip,node){
  // actors have one sprite family per role. Position must never be an ID:
  // an exiting NPC must keep its light fade while walking.
  const id=type==='player'?'player':sp.lightingId||node?.id||'encounter:'+sp.asset;
- const foot=type==='player'?W.LunaCharacterShadows.foot(model):{x,y:y-height*sp.pivot.y};
+ // Neighborhood sheets retain transparent padding below their feet. The
+ // low barrel light must measure distance from the actual soles, not that cell edge.
+ const bounds=sp.lightingId?W.LunaOutsideAmbient?.bounds(sp):null;
+ const foot=type==='player'?W.LunaCharacterShadows.foot(model):{x,y:y-height*sp.pivot.y+(bounds?height*(sp.h-bounds.bottom)/sp.h:0)};
  const state=advance(model,id,foot);
  return renderer.characterLighting(image,sp,{x,y,width,height,flip,foot,state,config});
 }

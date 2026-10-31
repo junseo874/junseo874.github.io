@@ -23677,14 +23677,6 @@
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/recipe-cocktail-bacardi.png",
-    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
-    "category": "UI · 원본 조각",
-    "w": 635,
-    "h": 635,
-    "note": "실제 UI에서 참조하는 원본 PNG"
-  },
-  {
     "src": "assets/cocktails/static/cocktail-cosmopolitan.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",

@@ -175,7 +175,6 @@
     "assets/backgrounds/campaign/johnny-wild_dog.png",
     "assets/backgrounds/campaign/lab.png",
     "assets/backgrounds/campaign/sugar-cube.svg",
-    "assets/backgrounds/campaign/terrace-20261013.png",
     "assets/backgrounds/campaign/terrace-20261018.png",
     "assets/backgrounds/campaign/terrace-reference.png",
     "assets/backgrounds/campaign/title-bg.png",
@@ -183,7 +182,6 @@
     "assets/backgrounds/campaign/title-button.png",
     "assets/backgrounds/campaign/title-deco.png",
     "assets/backgrounds/campaign/title-dots.png",
-    "assets/backgrounds/campaign/title-frame.png",
     "assets/backgrounds/campaign/title-logo.png",
     "assets/backgrounds/terrace/balustrade.png",
     "assets/backgrounds/terrace/building.png",
@@ -342,7 +340,6 @@
     "assets/characters/samho/char-samho-idle-talk-face-bottom-talk.png",
     "assets/characters/samho/char-samho-idle-talk-face-top.png",
     "assets/characters/static/char-shiba-idle.png",
-    "assets/characters/static/char-shiba-static.png",
     "assets/characters/static/char-shiba-talk.png",
     "assets/characters/static/char-tom-idle.png",
     "assets/characters/tom/char-tom-static.png",
@@ -351,6 +348,8 @@
     "assets/characters/tom/idle/eyes.png",
     "assets/characters/tom/idle/face_bottom_default.png",
     "assets/characters/tom/idle/face_top.png",
+    "assets/characters/tom/talk/body.png",
+    "assets/characters/tom/talk/face-bottom-talk.png",
     "assets/cocktails/completed/representative/beer_final.png",
     "assets/cocktails/completed/representative/screwdriver_final.png",
     "assets/cocktails/completed/representative/tequila_sunrise_final.png",
@@ -436,12 +435,6 @@
     "assets/serving/atlases/give_drink_ginfizz.png",
     "assets/serving/atlases/give_drink_kahluaMilk.png",
     "assets/serving/atlases/give_drink_screwdriver.png",
-    "assets/serving/atlases/give_drink_tequila_sunrise.png",
-    "assets/serving/static/serve-background.png",
-    "assets/serving/static/serve-cosmo.png",
-    "assets/serving/static/serve-dry-martini.png",
-    "assets/serving/static/serve-gin-fizz.png",
-    "assets/serving/static/serve-gin-tonic.png",
-    "assets/serving/static/serve-kahlua.png"
+    "assets/serving/atlases/give_drink_tequila_sunrise.png"
   ]
 }

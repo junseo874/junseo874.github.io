@@ -32,14 +32,15 @@ function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return
  if(pay){const g=W.barGame,before=g.progress.money;g.progress.money=before-500;const c=W.lunaCampaign;if(c?.session.active&&c.session.carry)c.session.carry.money=g.progress.money;g.log('corridor_thug_payment',{before,after:g.progress.money,price:500});g.changed();}
  save(m,'day1_thug_choice',pay?'pay':'refuse');m.story.beginRows(id,s.target,pay?paid:refused);return true;
 }
-function draw(m,sprite,ctx,position){if(!visible(m))return;const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??npcX,alpha=e?.alpha??1,y=R.upperY-.24+(e?.stage==='depart'?Math.sin(e.elapsed*16)*.018:0);
+function pose(m){const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??npcX;return{sp:W.LunaOutsideAmbient.sprite('Neighbor',m.time),x,y:R.upperY-.274,flip:e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha:e?.alpha??1};}
+function anchor(m,actor){if(actor!==id)return null;const p=pose(m);return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,1,1,p.flip)||{x:p.x,y:p.y+.61};}
+function draw(m,sprite,ctx,position){if(!visible(m))return;const p=pose(m);
  // The right-hand pillar is baked into the building art; clip the NPC behind it.
  ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();
- const sp={asset:'ambient-M2',x:(W.LunaOutsideAmbient.frameIndex(m.time))*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};// Source idle faces left: mirror only to look right, including the exit walk.
- sprite(sp,x,y,1,1,e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha);
+ sprite(p.sp,p.x,p.y,1,1,p.flip,p.alpha);
  // The existing body lunge/recoil conveys the hit. Do not draw an extra limb.
  ctx.restore();
 }
 function offer(m){W.LunaOutsideStory.events.offer(m,id,()=>visible(m)&&m.x>=home+.12&&m.x<=R.upperMax,()=>start(m),10);}
-W.LunaOutsideThug={id,intro,paid,refused,visible,start,tick,action,choose,choiceView,draw,offer};
+W.LunaOutsideThug={id,intro,paid,refused,visible,start,tick,action,choose,choiceView,draw,pose,anchor,offer};
 })(window);

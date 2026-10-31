@@ -3,7 +3,8 @@
   "private": true,
   "description": "Static LUNA game, playtest and cutscene editor; no build step required.",
   "scripts": {
-    "check": "node tools/check-structure.cjs && node tools/check-site.cjs",
+    "check": "node tools/check-structure.cjs && node tools/check-site.cjs && node tools/check-code-boundaries.cjs && node tools/test-source-index.cjs",
+    "locate": "node tools/locate.cjs",
     "test": "node tools/run-tests.cjs smoke",
     "test:ui": "node tools/run-tests.cjs ui",
     "test:outside": "node tools/run-tests.cjs outside",

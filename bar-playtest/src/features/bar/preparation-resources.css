@@ -52,7 +52,7 @@
 .prep-recipe .recipe-tags span{color:#6281a0;border-color:#6281a0}
 .prep-recipe .recipe-tags span:first-child{color:#dcb076;border-color:#dcb076}
 .prep-recipe section h3{color:#b1b9c3;border-color:#377da7}
-.prep-recipe section p{color:#8f969f}
+.prep-recipe section p{color:#8f969f;white-space:pre-line}
 .prep-recipe .prep-recipe-heading button{width:25px;height:37px;font-size:0;padding:0;border:0;border-radius:0;background:url('../../../assets/ui/preparation/recipes/BTN_recipe_close.png') center top/25px 25px no-repeat,url('../../../assets/ui/preparation/recipes/IMG_ESC.png') center bottom/25px 12px no-repeat}
 .resource-recipe-list+.prep-recipe.recipe-preview{left:442px;top:30px;bottom:30px;width:346px}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .prep-recipe-heading{padding:33px 35px 0;flex:none;height:84px}

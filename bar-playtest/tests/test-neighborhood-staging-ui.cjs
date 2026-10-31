@@ -11,9 +11,16 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   function finish(){for(let i=0;i<1000&&m.story.speech&&!m.story.speech.choice;i++){if(m.neighborhood.action)m.tick(.05);else{m.story.speech.elapsed=999;m.story.advance();}}}
   progress.flags={};start();
   for(const pose of N.poses(m)){
+   ok(pose.sp.asset==='ambient-'+A.roleKinds[pose.id],'dedicated supplied sheet: '+pose.id);
    const bounds=A.bounds(pose.sp),sole=pose.y+(114-bounds.bottom)/100*pose.scale,head=N.anchor(m,pose.id),measured=A.head(pose.sp,pose.x,pose.y,pose.scale,pose.scale,pose.flip);
    ok(pose.sp.h===138,'no cropped legs: '+pose.id);ok(near(sole,-.974),'ground sole: '+pose.id);
    ok(near(head.x,measured.x)&&near(head.y,measured.y),'measured head: '+pose.id);
+  }
+  ok(N.poses(m).find(p=>p.id==='boss').scale===1,'authored boss proportions without dummy enlargement');
+  for(const [kind,sheet]of Object.entries(A.sheets)){
+   const b=A.bounds(A.sprite(kind));ok(b.bottom===114,'supplied sheet foot union: '+kind);
+   const heads=[];for(let i=0;i<sheet.frames;i++)heads.push(A.head(A.sprite(kind,(i+.25)*.75/sheet.frames),0,0).y);
+   ok(heads.every(y=>near(y,heads[0])),'stable full-cycle head: '+kind);
   }
   for(const side of [-1,1]){m.x=N.places.repair.x+side*.3;const t=N.targets(m).find(t=>t.actor==='repair');N.interact(m,t);ok(m.facing===-side,'Luna faces repairman '+side);ok(N.poses(m).find(p=>p.id==='repair').flip===(side>0),'repairman faces Luna '+side);m.story.cancel();}
   const campIds=['guard','boss','gang-left','gang-far','gangmate'],idle={guard:false,boss:true,'gang-left':true,'gang-far':true,gangmate:false};
@@ -45,6 +52,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   for(let i=0;i<20;i++){m.tick(.05);const v=N.poses(m).find(p=>p.id==='neighbor');ok(v.x<=previous&&previous-v.x<=.01201&&!v.flip,'slow left-facing approach '+i);previous=v.x;}
   ok(m.neighborhood.action?.name==='neighbor-in','neighbour is not rushing in within one second');run(1.1);
   const n=N.poses(m).find(p=>p.id==='neighbor');ok(near(n.y,LunaResidence.layout.upperY-.274),'corridor soles match Luna');
+  ok(n.sp.asset==='ambient-Neighbor','adoption cutscene uses dedicated neighbor');
   ok(n.x-N.places.cat.x>=.59,'neighbour stays clear of cat perch');ok(!n.flip&&m.facing===1,'conversation faces both participants');
   const nHead=N.anchor(m,'neighbor'),cHead=N.anchor(m,'boobi');ok(Math.abs(nHead.x-cHead.x)>.55,'cat cannot occlude neighbour head');
   m.story.beginRows('neighborhood/audit',{},[{type:'neighborhood-action',action:'neighbor-out'}]);run(.25);

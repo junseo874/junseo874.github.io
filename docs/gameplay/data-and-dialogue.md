@@ -31,13 +31,13 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 | 수정 대상 | 원본과 실행 담당 |
 | --- | --- |
 | 본편·거리 대사 본문 | `data/shared-csv/story/scenes.csv`, `steps.csv`. 장면 연결은 `web-views.json` |
-| 바 선택지 | `story/bar_choice_groups.csv`, `bar_choices.csv`; `core.js`의 `choose`가 조건·효과·이동 실행 |
+| 바 선택지 | `story/bar_choice_groups.csv`, `bar_choices.csv`; `features/story/story-flow.js`의 `choose`가 조건·효과·이동 실행 |
 | 외부 선택지 | 공통 `street_choices.csv`만 보지 말고 해당 NPC 모듈의 `choiceView` / `choose` 확인. 현재 동적 옵션은 JS가 소유하는 경우가 많음 |
 | 외부 불가 사유 표현 | `data/presentation/choice-feedback.js`와 각 이벤트의 `disabledReason` |
 | 칵테일·재료·제조량 | `craft/cocktails.csv`, `shelf_items.csv`, `recipes.csv` |
-| 손님·주문·점수·정산 | `guests/`, `craft/order_rules.csv`, `settings/` + `src/core/core.js` |
+| 손님·주문·점수·정산 | `guests/`, `craft/order_rules.csv`, `settings/` + `features/bar/guest-service.js`, `settlement.js`, `features/crafting/craft-rules.js` |
 | 외부 등장/해금/거래/완료 조건 | `src/features/outside/events/`의 해당 모듈 |
-| 본편 진입·일차·휴식 연결 | `src/features/campaign/campaign.js`, `campaign-engine.js` |
+| 본편 진입·일차·휴식 연결 | `src/features/campaign/campaign.js`, `day-flow.js`, `campaign-engine.js` |
 | 캐릭터/이미지 경로 | `data/presentation/runtime-assets.json`, 해당 장면/표현 데이터; [리소스 안내](../../bar-playtest/assets/README.md) |
 | 카메라·피벗·애니메이션·임시 좌표 | outside/campaign/cinema의 해당 모듈 및 presentation 데이터 |
 | 편집기 컷씬 | `cutscene-studio/`의 프로젝트와 본편 cinema 연결. 대사 CSV와 별도 연출 계층 |
@@ -45,6 +45,12 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 `interaction/`의 등록 데이터가 있다고 모든 항목이 본편에서 자동 생성되는 것은 아니다. `targets`, `visible`, `interact` 등 실제 소비 코드를 확인한다. 데이터에 있는 미사용 필드나 `skippable` 값을 임의로 활성화하지 않는다.
 
 ## CSV 구조를 읽는 법
+
+### 레시피 표시 문구와 잔 ID
+
+2026-10-30 [노션 편집 문서](https://app.notion.com/p/4091612298dc8057b687d21c30f8bf0c)의 한국어 이름·설명·제조법을 맞춤법 교정 후 반영했다. 원본은 `craft/cocktails.csv`, `craft/shelf_items.csv`, 키워드는 `craft/cocktail_tags.csv`다. 노션은 자동 동기화되지 않으며, 다음 수정도 CSV를 고친 뒤 런타임을 재생성한다. 병따개 설명은 `src/features/bar/bar-views.js`의 보조 도구 항목에 있다.
+
+잔 ID는 `cocktail → martini`(마티니잔), `sour → flute`(플루트잔), `mug → weizen`(바이젠잔)으로 연결했다. 칵테일의 잔 참조·선반·이미지 등록 키도 같은 ID를 사용한다. 기존 CSV 행 식별자와 물리 이미지 파일명은 유지한다. 설명의 문단 나눔은 실제 줄바꿈으로 저장하며 레시피 목록 미리보기와 제조 준비 상세에서 함께 표시한다. 설명 문구의 도수·용량 표기는 제조 판정 수치를 덮어쓰지 않는다. 영어·실제 배합량·가격·해금 조건과 롱아일랜드 본편 제외 상태는 유지했다. 검증: `test-recipe-copy-ui.cjs`.
 
 ### 대사 문장부호
 
@@ -117,7 +123,7 @@ web_core_keys         actor|text
 - `core.choose(seq)`가 조건을 다시 검사하고 선택 효과와 단계 효과를 적용한다. `goto`가 있으면 대상 장면으로, 없으면 다음 단계로 간다.
 - UI는 공통 홀드 컨트롤을 사용하지만, 거래/분기 확정은 반드시 상태 소유자가 수행한다.
 
-현재 `core.js` 조건식은 `&&`, 비교 연산, `!` 및 지원되는 상태값을 사용한다. `||`는 지원하지 않으며 오류가 난다. 효과는 `flag.*`, `affinity.*`, `money`, `reputation`에 대한 지원 연산을 세미콜론으로 나열한다. 플래그에는 boolean 대입만 허용한다. 이것은 범용 JavaScript 실행 문법이 아니다. 외부 JS의 조건을 이 문자열 문법으로 억지로 옮기지 않는다.
+현재 `core/story-conditions.js` 조건식은 `&&`, 비교 연산, `!` 및 지원되는 상태값을 사용한다. `||`는 지원하지 않으며 오류가 난다. 효과는 `flag.*`, `affinity.*`, `money`, `reputation`에 대한 지원 연산을 세미콜론으로 나열한다. 플래그에는 boolean 대입만 허용한다. 이것은 범용 JavaScript 실행 문법이 아니다. 외부 JS의 조건을 이 문자열 문법으로 억지로 옮기지 않는다.
 
 ## 실제 예제 3 수리 대사와 액션
 
@@ -135,8 +141,8 @@ web_core_keys         actor|text
 
 | 실행기 | 읽는 것 | 처리하는 것 |
 | --- | --- | --- |
-| `core.js` | `LUNA_DATA.tables.scenes/steps/bar_choices` | 바 이야기, 조건/효과, 주문·제조와 연결 |
-| `campaign.js` | `LUNA_CAMPAIGN_DATA`와 진행 상태 | 도입부, 장면 전환, 테라스·기억·일차 연결 |
+| `features/story/story-flow.js` (Game 메서드) | `LUNA_DATA.tables.scenes/steps/bar_choices` | 바 이야기, 조건/효과, 주문·제조와 연결 |
+| `campaign.js` + `day-flow.js` + `cinema-flow.js` | `LUNA_CAMPAIGN_DATA`와 진행 상태 | 도입부, 장면 전환, 테라스·기억·일차 연결 |
 | `outside-story.js` | `LUNA_OUTSIDE_DIALOGUES` 또는 `LUNA_DATA.sharedStory` | 외부 타이핑·수동/자동·선택 대기·액션 위임 |
 | 각 외부 이벤트 모듈 | 진행 플래그와 해당 대사 배열 | 등장, 선택 목록, 재검사, 보상, 완료/재방문 |
 | `cinema/` 및 Studio 플레이어 | 연출 프로젝트·대사 대기 상태 | 카메라·배치·타임라인과 자동/수동 재생 |

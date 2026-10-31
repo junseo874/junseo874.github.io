@@ -4,6 +4,9 @@ const path = require('node:path');
 const vm = require('node:vm');
 const root = path.resolve(__dirname, '..');
 const W = {addEventListener() {}};
+for (const name of ['cinema-flow', 'day-flow']) {
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'src/features/campaign/' + name + '.js'), 'utf8'), { window: W });
+}
 const source = fs.readFileSync(path.join(root, 'src/features/campaign/campaign.js'), 'utf8');
 vm.runInNewContext(source.replace('create: a => new Campaign(a)', 'prototype: Campaign.prototype'), {
   window: W, document: {addEventListener() {}}

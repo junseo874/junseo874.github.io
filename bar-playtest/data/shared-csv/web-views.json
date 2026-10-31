@@ -4919,7 +4919,7 @@
         {
           "id": "shelf_items_cocktail",
           "key": {
-            "id": "cocktail"
+            "id": "martini"
           },
           "fields": [
             "id",
@@ -5009,7 +5009,7 @@
         {
           "id": "shelf_items_sour",
           "key": {
-            "id": "sour"
+            "id": "flute"
           },
           "fields": [
             "id",
@@ -5069,7 +5069,7 @@
         {
           "id": "shelf_items_mug",
           "key": {
-            "id": "mug"
+            "id": "weizen"
           },
           "fields": [
             "id",

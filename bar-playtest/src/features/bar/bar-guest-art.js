@@ -18,9 +18,16 @@ const tomLayers=Object.entries(tomParts).map(([part,alphaBBox])=>{
  D.assets[id]={src:'assets/characters/tom/idle/'+part+'.png',w:2204,h:530,frames:4,frameWidth:551,frameHeight:530,fps:2.5,syncToBody:true,alphaBBox,source:'User supplied '+part+'.png, 2026-10-19'};
  return id;
 });
-// These are coordinated idle frames, not independent blink/articulation frames.
-// Use the same authored cycle while speaking until talk-specific art is supplied.
-D.characterLayers.tom={idle_default:tomLayers,idle_talk:[...tomLayers]};
+// Supplied talk sheets share the full canvas and the same breathing offsets.
+// Eyes/brows/upper face are byte-identical to idle: reuse those originals.
+// Only articulation runs independently, using the common .9s speech clock.
+const tomTalkLayers=['body','face_top','eyes','eyebrow','face_bottom_talk'].map(part=>{
+ if(['face_top','eyes','eyebrow'].includes(part))return 'char_tom_idle_'+part;
+ const id='char_tom_talk_'+part,mouth=part==='face_bottom_talk';
+ D.assets[id]={src:'assets/characters/tom/talk/'+part.replaceAll('_','-')+'.png',w:2204,h:530,frames:4,frameWidth:551,frameHeight:530,fps:mouth?4/.9:2.5,syncToBody:!mouth,alphaBBox:mouth?[250,212,315,265]:tomParts.body,source:'User supplied '+part+'.png, 2026-10-31'};
+ return id;
+});
+D.characterLayers.tom={idle_default:tomLayers,idle_talk:tomTalkLayers};
 D.webPoseOffsets.tom={idle_default:[0,0],idle_talk:[0,0]};
 D.webActorBounds.tom=[96,109,454,441];
 D.webTableAnchors={...D.webTableAnchors,tom:420};

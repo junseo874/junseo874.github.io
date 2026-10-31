@@ -336,6 +336,38 @@
     ],
     [
       "script",
+      "src/features/story/story-flow.js"
+    ],
+    [
+      "script",
+      "src/features/bar/guest-service.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/preparation-flow.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/craft-flow.js"
+    ],
+    [
+      "script",
+      "src/features/bar/settlement.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/gimmick-mechanics.js"
+    ],
+    [
+      "script",
+      "src/core/story-conditions.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/craft-rules.js"
+    ],
+    [
+      "script",
       "src/core/core.js"
     ],
     [
@@ -508,6 +540,10 @@
     ],
     [
       "script",
+      "data/presentation/barrel-fire.js"
+    ],
+    [
+      "script",
       "src/features/outside/effects/outside-barrel-fire.js"
     ],
     [
@@ -632,6 +668,14 @@
     ],
     [
       "script",
+      "src/features/campaign/cinema-flow.js"
+    ],
+    [
+      "script",
+      "src/features/campaign/day-flow.js"
+    ],
+    [
+      "script",
       "src/features/campaign/campaign.js"
     ],
     [
@@ -713,6 +757,10 @@
     [
       "script",
       "src/features/outside/outside-parallax.js"
+    ],
+    [
+      "script",
+      "src/features/outside/outside-view.js"
     ],
     [
       "script",
@@ -914,7 +962,7 @@
     ],
     [
       "script",
-      "../bar-playtest/src/cinema/assets.js"
+      "../bar-playtest/data/runtime/cinema-assets.js"
     ],
     [
       "script",

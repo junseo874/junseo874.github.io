@@ -49,7 +49,8 @@ function region(target,node,sp,x,y,model){
   if(name==='neighborhood-shaking-box')return [0,0,27,28,boxEdge];
  }
  if(['neighborhood-repair','neighborhood-guard','neighborhood-boss','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&Math.abs(x-target.x)<.01&&Math.abs(y-target.y)<.01){
-  if(['neighborhood-repair','neighborhood-boss'].includes(target.id)&&sp.asset==='ambient-M2'||target.id==='neighborhood-guard'&&sp.asset==='ambient-M1'||target.id.endsWith('cat')&&sp.asset.startsWith('neighborhood-cat-'))return full;
+  const kind=W.LunaOutsideAmbient.roleKinds[target.actor||target.id.slice('neighborhood-'.length)];
+  if(kind&&sp.asset==='ambient-'+kind||target.id.endsWith('cat')&&sp.asset.startsWith('neighborhood-cat-'))return full;
  }
  if(target.id==='elevator'){
   const atFloor=(model.elevatorY>4)===(model.level===1);
@@ -61,7 +62,7 @@ function region(target,node,sp,x,y,model){
   }
  }
  // This NPC is drawn directly, not through a scene node. Match only his cell.
- if(target.id==='day2-thug-information'&&sp.asset==='ambient-M2'&&Math.abs(x-target.x)<.01&&Math.abs(y-(target.y-.24))<.01)return full;
+ if(target.id==='day2-thug-information'&&sp.asset==='ambient-'+W.LunaOutsideAmbient.roleKinds['day2-corridor-thug']&&Math.abs(x-target.x)<.01&&Math.abs(y-(target.y-.274))<.01)return full;
  return null;
 }
 function create(){

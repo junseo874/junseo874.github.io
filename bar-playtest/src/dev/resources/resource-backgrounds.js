@@ -44,7 +44,7 @@ function build(F){
 }
 function cinema(F){
  const rows=[],s=F.SHEETS?.lobby_background;
- if(s)rows.push({id:'bg:cinema-lobby',group:'out-backgrounds',title:'연구소 로비 · 배경 원본',usage:'컷씬 · 풀샷',backgroundScreen:'컷씬',backgroundKind:'풀샷',status:'registered',layers:[{key:'lobby_background',src:s.png,source:'src/cinema/assets.js · lobby_background',frames:1,rects:s.frames.map(f=>({x:f.sx,y:f.sy,w:f.sw,h:f.sh}))}],note:'BD 전투 컷씬의 로비 배경 원본입니다. 하운드·병력 이미지는 포함하지 않습니다.'});
+ if(s)rows.push({id:'bg:cinema-lobby',group:'out-backgrounds',title:'연구소 로비 · 배경 원본',usage:'컷씬 · 풀샷',backgroundScreen:'컷씬',backgroundKind:'풀샷',status:'registered',layers:[{key:'lobby_background',src:s.png,source:'data/runtime/cinema-assets.js · lobby_background',frames:1,rects:s.frames.map(f=>({x:f.sx,y:f.sy,w:f.sw,h:f.sh}))}],note:'BD 전투 컷씬의 로비 배경 원본입니다. 하운드·병력 이미지는 포함하지 않습니다.'});
  for(const [key,title,file]of [['StageCorridor','연구소 복도','stage2'],['StageDisposal','폐기물 처리장 / 루나의 꿈·회상','stage3'],['StageShaft','낙하 통로','stage4']]){
   const s=F[key],c=F.document.createElement('canvas');c.width=s.W;c.height=s.H;s.paint(c.getContext('2d'),0,{door:0,chute:0,alarm:0,console:0,button:0});
   rows.push({id:'bg:cinema-'+file,group:'out-backgrounds',title,usage:'컷씬 · 임시 코드 배경',backgroundScreen:'컷씬',backgroundKind:'코드 배경',status:'dummy',layers:[{key,src:c.toDataURL(),source:'src/cinema/'+file+'.js · 현재 배경 렌더링',w:s.W,h:s.H,frames:1}],note:'현재 컷씬 배경 코드를 인물 없이 렌더링한 정적 미리보기입니다. 전용 완성 배경 이미지가 아닌 임시 코드 배경입니다. 등록된 배경 목록이며 본편에 새 컷씬을 추가하지 않습니다.'});

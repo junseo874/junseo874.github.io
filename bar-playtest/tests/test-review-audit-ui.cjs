@@ -10,6 +10,9 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert.equal(data.rows.find(r=>r.id==='outside:shiba').fps,data.rates[1]);
   assert(!data.rows.some(r=>r.id==='outside:samhoIdle'));assert.equal(data.rows.find(r=>r.id==='outside:samho').title,'삼호');
   for(const id of ['repair','neighbor','guard','boss','gangmate','gang-left','gang-far','home-chris'])assert(data.rows.some(r=>r.id==='outside-role:'+id));
+  const sheets=await p.evaluate(()=>{const f=document.querySelector('#game').contentWindow,A=f.LunaOutsideAmbient;return Object.entries(A.sheets).map(([kind,s])=>({kind,frames:s.frames,src:s.src,row:resourceReview.rows.find(r=>r.id==='outside:'+kind),roles:Object.entries(A.roleKinds).filter(([,k])=>k===kind).map(([id])=>resourceReview.rows.find(r=>r.id==='outside-role:'+id)).filter(Boolean)}));});
+  assert.equal(sheets.length,11);
+  for(const s of sheets){assert.equal(s.row.layers[0].src,s.src);assert.equal(s.row.layers[0].frames,s.frames);assert.equal(s.row.layers[0].fps,12*s.frames/9);for(const role of s.roles)assert.equal(role.layers[0].src,s.src,'review role shares gameplay sheet');}
   for(const id of ['sleep','options','notice']){
    await p.evaluate(id=>resourceReview.launch({type:'review-campaign',id},id),id);
    const f=p.frames().find(f=>f.url().includes('resourceReview=1'));
@@ -32,6 +35,12 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading&&!!outsidePlaytest.model.story.speech);
    assert.equal(await p.locator('#outside-root').evaluate(e=>getComputedStyle(e).cursor==='none'),await p.evaluate(()=>!!outsidePlaytest.model.neighborhood.action),'Only automatic action hides the cursor');
    if(id==='boobi-rest')assert.equal(await p.evaluate(()=>outsidePlaytest.model.neighborhood.action.name),'chris-in');
+   if(id==='elevator-repair')assert.equal(await p.evaluate(()=>LunaOutsideNeighborhood.poses(outsidePlaytest.model).find(p=>p.id==='repair').sp.asset),'ambient-Repairman');
+   if(id==='boobi-rest'){
+    // Chris is placed only at the opaque midpoint, not before the fade begins.
+    await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<20&&!m.neighborhood.chris;i++)m.tick(.05);outsidePlaytest.tick(0);});
+    assert.equal(await p.evaluate(()=>LunaOutsideNeighborhood.poses(outsidePlaytest.model).find(p=>p.id==='chris').sp.asset),'ambient-Chris');
+   }
    await p.screenshot({path:'/private/tmp/cutscene-review-'+id+'.png'});
    if(complete){
     const result=await p.evaluate(()=>{const m=outsidePlaytest.model,lines=[];for(let i=0;i<2000&&m.story.speech;i++){if(m.neighborhood.action)m.tick(.1);else{if(m.story.speech.choice)throw Error('Unexpected choice in cutscene');lines.push(m.story.view().full);m.story.speech.elapsed=99;m.story.advance();}}outsidePlaytest.tick(0);return {done:!m.story.speech,lines,flags:{...barGame.progress.flags},scene:m.scene};});

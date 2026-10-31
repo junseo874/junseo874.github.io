@@ -15,9 +15,9 @@ function dot(ctx,x,y,color,size=1){ctx.fillStyle=color;ctx.fillRect(Math.round(x
 function line(ctx,a,b,color){const dx=b[0]-a[0],dy=b[1]-a[1],steps=Math.max(Math.abs(dx),Math.abs(dy));for(let i=0;i<=steps;i++)dot(ctx,a[0]+dx*i/(steps||1),a[1]+dy*i/(steps||1),color);}
 function halo(ctx,x,y,r,color,alpha){const g=ctx.createRadialGradient(x-crop.x,y-crop.y,0,x-crop.x,y-crop.y,r);g.addColorStop(0,color);g.addColorStop(1,'rgba(30,140,210,0)');ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=g;ctx.fillRect(x-crop.x-r,y-crop.y-r,r*2,r*2);ctx.restore();}
 const cache=new WeakMap();
-function build(object,atlas){
+function build(object,atlas,offsetX=0){
  let cached=cache.get(object);if(cached?.atlas===atlas)return cached.frames;
- const panel=document.createElement('canvas');panel.width=10;panel.height=9;const pc=panel.getContext('2d');pc.drawImage(object,1023,157,10,9,0,0,10,9);const pixels=pc.getImageData(0,0,10,9).data;
+ const panel=document.createElement('canvas');panel.width=10;panel.height=9;const pc=panel.getContext('2d');pc.drawImage(object,1023+offsetX,157,10,9,0,0,10,9);const pixels=pc.getImageData(0,0,10,9).data;
  const rendered=frames.map((cell,index)=>{
   const core=canvas(),light=canvas(),c=core.getContext('2d'),l=light.getContext('2d');c.imageSmoothingEnabled=false;
   // Preserve the existing display glyph, lighting its teal pixels only.
@@ -45,11 +45,11 @@ function build(object,atlas){
  });cache.set(object,{atlas,frames:rendered});return rendered;
 }
 function paint(ctx,object,atlas,sp,width,height,time,reduced=false){
- if(!atlas)return;const f=build(object,atlas)[reduced?0:frameAt(time)],px=width/sp.w,py=height/sp.h;
- const x=-width*sp.pivot.x+crop.x*px,y=-height*(1-sp.pivot.y)+crop.y*py;
+ if(!atlas)return;const f=build(object,atlas,sp.wireOffsetX||0)[reduced?0:frameAt(time)],px=width/sp.w,py=height/sp.h;
+ const x=-width*sp.pivot.x+(crop.x+(sp.wireOffsetX||0))*px,y=-height*(1-sp.pivot.y)+crop.y*py;
  ctx.save();ctx.globalCompositeOperation='screen';ctx.imageSmoothingEnabled=true;ctx.drawImage(f.light,x,y,crop.w*px,crop.h*py);
  ctx.imageSmoothingEnabled=false;ctx.drawImage(f.core,x,y,crop.w*px,crop.h*py);ctx.restore();
 }
-function anchor(data){const n=data.scenes.street.nodes.find(n=>n.name==='B_Obects'),s=n.sprite;return{x:n.x+(tip.x-s.w*s.pivot.x)*n.sx/s.ppu,y:n.y+(s.h*(1-s.pivot.y)-tip.y)*n.sy/s.ppu};}
+function anchor(data){const n=data.scenes.street.nodes.find(n=>n.name==='B_Obects'),s=n.sprite;return{x:n.x+(tip.x+(s.wireOffsetX||0)-s.w*s.pivot.x)*n.sx/s.ppu,y:n.y+(s.h*(1-s.pivot.y)-tip.y)*n.sy/s.ppu};}
 W.LunaWireSpark={apply,paint,frameAt,period,durations,frames,anchor};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

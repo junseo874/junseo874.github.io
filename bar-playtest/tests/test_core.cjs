@@ -33,17 +33,17 @@ test('daily unlock reveal gates opening once and excludes tutorial and direct pr
 });
 test('preparation tools replace each other without clearing glass or ingredients',()=>{
  for(const first of ['opener','shaker','mixing_glass'])for(const second of ['opener','shaker','mixing_glass']){
-  const g=game(99,'practice');g.selectCocktail('bottle_beer');g.pickItem('mug');g.pickItem('beer');
+  const g=game(99,'practice');g.selectCocktail('bottle_beer');g.pickItem('weizen');g.pickItem('beer');
   const pick=id=>id==='opener'?g.pickOpener():g.pickItem(id);
   pick(first);pick(second);
   assert.equal(g.prep.tool,first===second||second==='opener'?null:second);
   assert.equal(!!g.prep.opener,first!==second&&second==='opener');
-  assert.equal(g.prep.glass,'mug');assert.deepEqual(g.prep.ingredients,['beer']);
+  assert.equal(g.prep.glass,'weizen');assert.deepEqual(g.prep.ingredients,['beer']);
  }
 });
 test('beer requires an opener based on actual ingredients and preserves preparation on rejection',()=>{
  for(const selected of ['bottle_beer','gin_tonic']){
-  const g=game(99,'practice');g.selectCocktail(selected);g.pickItem('mug');g.pickItem('beer');
+  const g=game(99,'practice');g.selectCocktail(selected);g.pickItem('weizen');g.pickItem('beer');
   const before=JSON.stringify(g.prep),money=g.progress.money,serial=g.serial;
   assert.equal(g.startCraft(),false);assert.equal(g.screen,'prep');assert.equal(g.overlay,'openerWarning');
   assert.equal(JSON.stringify(g.prep),before);assert(!g.craft);assert(!g.gimmick);
