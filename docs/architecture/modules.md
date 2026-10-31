@@ -29,6 +29,8 @@ bar-playtest/index.html  ← 순서가 명시된 classic scripts
 | 외부 `Model` | 위치·층·탑승·대사·외부 사건 | 화면은 모델을 읽고 기존 명령 메서드 호출 |
 | 외부 `create()`의 뷰 | 이미지 캐시, 캔버스, DOM, 카메라, 입력 | 모델 상태를 별도의 영구 데이터로 복사하지 않음 |
 | `ui` | 패널·선택·미리보기 등 화면 상태 | 본편 플래그와 QA 미리보기 구분 |
+| `Game.storyCoaster`, `seats[seat]` | 전달 대기와 코스터·음료·빈잔 상태 | 대본은 시점/actor를 지정, guest-service가 코스터 전달, craft-flow가 음료 제공, view는 표시만 담당 |
+| `dialog.terraceBirds`, `dialog.terraceTime` | 이번 테라스 대화의 새 도착 시점과 시계 | DOM 재생성·설정 복귀로 초기화하지 않음 |
 
 `LunaGameParts`, `LunaCampaignParts`, `LunaRuleParts`, `LunaOutsideParts`는 로딩 시 등록하는 **모듈 팩토리 목록**입니다. 진행 저장소나 이벤트 버스가 아닙니다.
 
@@ -39,6 +41,9 @@ bar-playtest/index.html  ← 순서가 명시된 classic scripts
 - `core/story-conditions.js`: 시드 난수, 가중 선택, CSV 조건·효과식 해석. 효과 적용은 전달된 상태를 수정합니다.
 - `features/crafting/craft-rules.js`: 단위 변환, 기믹 큐 구성, 제조 판정. 화면을 다루지 않습니다.
 - `features/crafting/gimmick-mechanics.js`: 개봉·쉐이크·스터 상태 연산. 세션 전역 상태를 새로 소유하지 않습니다.
+- `data/presentation/bird-sprites.js`: 까마귀·비둘기의 공통 시트 설정과 프레임 계산. 테라스/거리/검수에서 공유하며 장면 진행 상태를 갖지 않습니다. 배치와 착지는 각 장면이 소유합니다. [상세](ambient-birds.md)
+
+`core.js:barInteractionBlocked`는 대사 진행과 코스터 전달에 공통인 화면·카메라·전환·정지 조건만 모은 **입력 판정**입니다. `isPaused`나 모델 tick의 대체가 아닙니다. 튜토리얼·좌석·현재 주문·제조 완료 검증은 각 기능에 남깁니다. [전체 잠금·대기 소유권](../gameplay/input-locks.md)을 확인하세요.
 
 `LunaCore` 공개 API, `barGame`, `lunaCampaign`, `outsidePlaytest`와 기존 데이터 ID는 그대로입니다. 기존 확장 모듈과 테스트는 이 인터페이스를 계속 사용합니다.
 

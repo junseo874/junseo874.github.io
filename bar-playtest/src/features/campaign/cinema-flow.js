@@ -425,7 +425,9 @@
         const option = choice.options.find(o => o.id === id);
         if (!option) return;
         const response = c.scene.clips.find(l => l.choiceResponse === choice.id);
-        if (response) response.text = option.label;
+        if (response) response.text = option.response ?? option.label;
+        const followup = c.scene.clips.find(l => l.choiceFollowup === choice.id);
+        if (followup && option.followup) followup.text = '[c:#50d9f5]' + option.followup + '[/c]';
         const source = c.scene.clips.find(l => l.id === choice.lineId);
         c.dialogueChoice = null;
         c.dialogueWait = null;

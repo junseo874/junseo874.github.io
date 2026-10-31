@@ -5,6 +5,7 @@
 | `audio/music/` | BGM |
 | `audio/effects/` | 효과음·대사·거리 환경음, 출처/라이선스 포함 |
 | `backgrounds/bar/`, `campaign/`, `terrace/` | 장면별 배경 |
+| `backgrounds/terrace/birds/` | 테라스·거리 공용 까마귀·비둘기 원본 시트. 129×138 셀 12개, 6 FPS. 공통 등록 `data/presentation/bird-sprites.js`; [발 기준·레이어·배치](../../docs/architecture/ambient-birds.md) |
 | `outside/` | Unity 외부/집 장면의 원본 스프라이트 |
 | `outside/characters/` | 2026-10-31 제공 외부 사람 Idle 원본 11장. 역할·프레임·속도는 `outside-ambient.js`에서 공통 등록 |
 | `characters/` | 인물별 시트, 일반 손님 파츠, 표정 |

@@ -178,6 +178,8 @@
       if (!g || this.screen !== 'gimmick' || this.isPaused() || !g.started) return false;
       if (['stir', 'shake'].includes(g.type) && g.completed && (g.completionAge || 0) + 1e-9 < MIX.completionHoldSec) return false;
       if (g.fluid && !g.fluid.ready) {
+        // A rejected press must not queue completion or interrupt the return animation.
+        if (!g.fluid.canFinish(g)) return false;
         g.fluid.requestFinish(g);
         this.changed();
         return true;
@@ -349,6 +351,8 @@
           if (seat !== this.focus || g.state !== 'WAIT_SERVE' || !g.order || g.left <= 0) return false;
           const result = this.resolveServe(g.order, this.drink);
           g.glass = this.drink.selected;
+          g.glassEmpty = false;
+          g.glassKind = this.drink.actual?.glass || this.cocktail(g.glass).glass;
           this.drink = null;
           g.reasking = false;
           g.state = 'REACTION';
@@ -373,6 +377,8 @@
           if (craftStep?.type !== 'craft' || serve?.type !== 'serve' || serve.actor !== this.currentOrder.actor) throw Error('order → craft → serve 연결 오류');
           const result = this.resolveServe(this.currentOrder, this.drink);
           g.glass = this.drink.selected;
+          g.glassEmpty = false;
+          g.glassKind = this.drink.actual?.glass || this.cocktail(g.glass).glass;
           this.drink = null;
           this.resultContext = {
             grade: result.grade,

@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
-const lines=['그러면... 약속해줘. 루나.','포기하지 않겠다고.','이건... 명령이 아니라 부탁이야.','사랑해 루나. 부디... 잘 지내야 해.'];
+const lines=['약속해줘. 루나.','포기하지 않겠다고.','이건... 명령이 아니라 부탁이야.','사랑해 루나. 부디... 잘 지내야 해.'];
 (async()=>{
  const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{

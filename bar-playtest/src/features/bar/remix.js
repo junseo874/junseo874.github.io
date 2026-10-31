@@ -110,12 +110,7 @@ function attach(g){
  };
  for(const key of ['offer','discard'])g[key]=function(){if(active()&&this.remix.resultLock>0)return false;return base[key]();};
  g.resolveServe=function(order,drink){const result=base.resolveServe(order,drink);return active()?{...result,experimentalDebug:!!drink.debug}:result;};
- g.setBarks=function(guest,situations,onDone=null){
-  if(!active()||this.phase!=='general'||situations.length!==2||!['serve_thanks','wrong_receive'].includes(situations[0]))return base.setBarks(guest,situations,onDone);
-  return base.setBarks(guest,[situations[0]],()=>{guest.state='DRINKING';guest.drinkLeft=this.remix.episode?2:1.2;guest.lines=[];guest.afterDrink=()=>{guest.glassEmpty=true;guest.state='REACTION';base.setBarks(guest,[situations[1]],onDone);};});
- };
- g.serve=function(seat,input){const glass=this.drink?.actual?.glass,ok=base.serve(seat,input);if(active()&&ok&&this.seats[seat]){this.seats[seat].glassKind=glass;this.seats[seat].glassEmpty=false;}return ok;};
- g.tickGeneral=function(dt,holdSpeech){if(active()&&this.remix.episode)for(const guest of Object.values(this.seats).filter(Boolean)){if(['WAIT_COASTER','WAIT_SERVE'].includes(guest.state)){guest.left=guest.limit;guest.idleLeft=3600;}}base.tickGeneral(dt,holdSpeech);if(active())for(const guest of Object.values(this.seats).filter(x=>x?.state==='DRINKING')){guest.drinkLeft-=dt*this.speed;if(guest.drinkLeft<=0){const fn=guest.afterDrink;guest.afterDrink=null;fn?.();}};};
+ g.tickGeneral=function(dt,holdSpeech){if(active()&&this.remix.episode)for(const guest of Object.values(this.seats).filter(Boolean)){if(['WAIT_COASTER','WAIT_SERVE'].includes(guest.state)){guest.left=guest.limit;guest.idleLeft=3600;}}base.tickGeneral(dt,holdSpeech);};
  g.settle=function(result,guest){
   const previous=this.transactionIds.has(result.orderId),trx=base.settle(result,guest);
   if(!active()||previous||!trx||this.phase==='practice')return trx;

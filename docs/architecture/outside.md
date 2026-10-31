@@ -14,10 +14,13 @@
 - 부비 첫 휴식 `chris-in` 액션은 0.45초 암전, TV 오른쪽 크리스 배치, 페이드 인과 0.32 월드 단위 좌→우 이동입니다. 카메라 폭 4.8·높이 0.023은 고정입니다. 사건의 뒤 연결은 이곳이 아니라 `playSleepScenes`를 따릅니다.
 - 삼호 외부 대기·대화는 `samho-animation.js`의 동일 Idle 8프레임/12FPS를 사용합니다. 실루엣 호흡 프레임은 `outside-ambient.js`에서 루나 주기에 맞춥니다. 삼호 원본과 실루엣 프레임 수를 같다고 가정하지 않습니다.
 - `outside-discovery.js`는 과거 이력·좌표 투영 API 호환만 유지합니다. 표식 렌더링은 비활성입니다. 선택지 피드백은 `world-choices.js`와 `data/presentation/choice-feedback.js`, 말풍선 화면 보정은 `world-speech.js`가 소유합니다.
+- `outside-corridor-birds.js`는 주거 건물 윗벽의 일곱 마리를 소유한다. 우천 까마귀/건조 비둘기, 발 기준·좌표·렌더 순서·공유 시트와 시계는 [새 구현 명세](ambient-birds.md#거리-윗벽)를 따른다.
 
 검증: `test-neighborhood-staging-ui.cjs`, `test-samho-idle-ui.cjs`, `test-home-book-ui.cjs`, `test-home-bed-ui.cjs`, `test-home-wardrobe-ui.cjs`, `test-outside-discovery-stability-ui.cjs`. 진행 분기는 `outside` 묶음, 0~3일차 날씨/환경음 조합은 `test-weather-ambience-matrix-ui.cjs`.
 
 ## 거리 셰이더 스냅샷
+
+까마귀·비둘기의 공통 설정과 테라스/거리 차이, 전체 좌표·시계·발 기준·레이어는 [새 구현 문서](ambient-birds.md)를 따른다. 공통 원본은 `data/presentation/bird-sprites.js`이며 거리 렌더러가 테라스 실행기를 참조하지 않는다. 외부 액션별 입력 잠금과 복귀는 [조작 잠금 계약](../gameplay/input-locks.md)에 모았다.
 
 광고 차량 순환: `flightBounds`(-24~10)은 맵과 차체 폭 바깥의 재등장 경계입니다. 각 노선은 이동 시간 `duration`으로 즉시 순환하며 별도 소멸 대기 구간은 없습니다. 경계 확장 시 이동 시간을 같은 비율로 늘려 기존 속도를 유지합니다. 순환은 게임 시간만 사용하고 광고 시계·카메라 상태를 초기화하지 않습니다.
 

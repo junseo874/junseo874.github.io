@@ -9,13 +9,11 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   await page.locator('.updates-confirm').click();
   await page.evaluate(()=>{lunaCampaign.screen('developer');barGame.reset(0,'full',3,true,{variant:'original'});barGame.lang='ko';});
   await page.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);
-  for(let i=0;i<2;i++){
-   const previous=await page.evaluate(()=>{const g=barGame,id=g.dialogue.id;g.dialogue.chars=1e5;g.advance();g.changed();return id;});
-   await page.waitForFunction(id=>barGame.dialogue?.id!==id&&!barGame.cameraMoving&&!barGame.transition,previous);
-  }
+  await page.evaluate(()=>{barGame.dialogue.chars=1e5;barGame.advance();barGame.choose(2);barGame.changed();});
+  await page.waitForFunction(()=>barGame.dialogue?.text==='...기억한다니 다행이네.'&&!barGame.cameraMoving&&!barGame.transition);
   await page.evaluate(()=>{barGame.dialogue.chars=1e5;barGame.changed();});
   const actual=await page.locator('.dialogue-text .text-ink').innerText();
-  assert.equal(actual,'... 하아. 내가 무슨 말 했는지 말해봐.');
+  assert.equal(actual,'...기억한다니 다행이네.');
   assert.deepEqual([...actual.slice(0,3)].map(c=>c.codePointAt(0)),[46,46,46]);
   const metrics=await page.locator('.dialogue-text').evaluate(async el=>{
    const style=getComputedStyle(el);await document.fonts.load(style.font,'...그럼');

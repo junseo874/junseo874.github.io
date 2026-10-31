@@ -11,7 +11,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  assert.equal(await p.evaluate(()=>barGame.progress.money),1300);await nextChoice();assert(await p.locator('.choices').getByText('다시 테스트',{exact:true}).isVisible());
  await choose('다시 테스트');await nextChoice();assert.equal(await p.evaluate(()=>barGame.progress.money),1000);assert(await p.locator('[data-act="choice"][disabled]').isVisible());await choose('취소');await nextChoice();await choose('처음으로');
  await choose('코스터·좌석');assert.equal(await p.locator('.choices button').count(),4);assert.equal(await p.locator('.choices').getByText('뒤로',{exact:true}).count(),0);await choose('다음 항목');assert(await p.locator('.choices').getByText('뒤로',{exact:true}).isVisible());await choose('뒤로');await choose('코스터·좌석');await choose('2인 · 한 명만 코스터 필요');
- await p.waitForFunction(()=>!!barGame.dialogue);await p.evaluate(()=>{const g=barGame;g.dialogue.chars=g.dialogue.text.length;g.cameraLeft=0;g.cameraMoving=false;g.advance();});await p.waitForFunction(()=>!!barGame.storyCoaster);assert.equal(await p.evaluate(()=>barGame.seats.R.actor),'bubi');
+ await p.waitForFunction(()=>!!barGame.dialogue);await p.evaluate(()=>{const g=barGame;for(let i=0;i<10&&g.dialogue&&!g.storyCoaster;i++){g.dialogue.chars=g.dialogue.text.length;g.cameraLeft=0;g.cameraMoving=false;g.advance();}});await p.waitForFunction(()=>!!barGame.storyCoaster);assert.equal(await p.evaluate(()=>barGame.seats.R.actor),'bubi');
  // Traverse the actual choice graph (not runPreset) to every leaf, including paged poses.
  const coverage=await p.evaluate(()=>{
   const g=barGame,visited=new Set(),leaves=new Set(),queue=[[]];

@@ -26,7 +26,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await p.evaluate(()=>{const m=outsidePlaytest.model;m.start({day:1,flow:'in',place:'bar'});m.x=-7.1;m.updateNear();});assert.equal(await p.evaluate(()=>LunaOutsideBeggar.targets(outsidePlaytest.model).some(t=>t.id==='street-beggar')),false);
  assert.equal(await p.evaluate(()=>LunaOutsideBeggar.visible(outsidePlaytest.model,LunaOutsideBeggar.witness)),false,'Paid witness stays absent next day');
  await setup(1,199);await p.keyboard.press('KeyE');await drain();assert(await p.locator('[data-choice="beggar-pay"]').isDisabled());await p.waitForTimeout(550);await p.locator('[data-choice="beggar-refuse"]').click();await drain();assert.equal(await p.evaluate(()=>barGame.progress.money),199);assert(await p.evaluate(()=>LunaOutsideBeggar.visible(outsidePlaytest.model,LunaOutsideBeggar.id)));
- await p.keyboard.press('KeyE');await drain();assert((await p.locator('.outside-speech').filter({visible:true}).innerText()).includes('뭐야? 돈 줄거야?'));
+ await p.keyboard.press('KeyE');await drain();assert((await p.locator('.outside-speech').filter({visible:true}).innerText()).includes('뭐야? 돈 줄 거야?'));
  assert((await p.locator('[data-choice="beggar-pay"]').innerText()).includes('네 드릴게요'));await p.waitForTimeout(550);await p.locator('[data-choice="beggar-refuse"]').click();await drain();
  await p.evaluate(()=>{const m=outsidePlaytest.model;m.x=LunaOutsideBeggar.people[1].x+.2;m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
  await p.keyboard.press('KeyE');await drain();assert(await p.evaluate(()=>barGame.progress.flags.street_beggar_warned));

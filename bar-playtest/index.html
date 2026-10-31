@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project LUNA · 본편 & 시뮬레이터</title>
+<link rel="preload" as="image" href="assets/backgrounds/terrace/birds/pigeon-idle.png" fetchpriority="high">
 <link rel="stylesheet" href="src/app/styles.css?v=black-scene-background-20261019">
 <link rel="stylesheet" href="src/shared/ui/dossier.css?v=cyan-cursors-20261019">
 <link rel="stylesheet" href="src/features/bar/bar-views.css?v=shared-craft-clock-20261025">
@@ -26,7 +27,7 @@
 <link rel="stylesheet" href="src/dev/qa/qa-lab.css?v=bar-qa-dialogue-20261027">
 <link rel="stylesheet" href="src/features/bar/remix-experience.css?v=remove-gpt-outside-20261003">
 <link rel="stylesheet" href="src/features/crafting/shake-rhythm.css?v=shared-craft-clock-20261025">
-<link rel="stylesheet" href="src/features/campaign/terrace-view.css?v=entrance-parallax-20261023">
+<link rel="stylesheet" href="src/features/campaign/terrace-view.css?v=terrace-birds-20261101">
 <link rel="stylesheet" href="src/shared/platform/game-input-guard.css?v=game-browser-guard-20261019">
 <link rel="stylesheet" href="src/features/crafting/pour-tutorial.css?v=1">
 <link rel="stylesheet" href="src/shared/ui/story-notices.css?v=materials-goal-only-20261025">
@@ -37,7 +38,7 @@
 <link rel="stylesheet" href="src/features/campaign/title-resources.css?v=full-ui-reference-audit-20261019">
 <link rel="stylesheet" href="src/features/campaign/cutscene-library.css?v=review-audit-20261026">
 <link rel="stylesheet" href="src/features/bar/preparation-resources.css?v=fixed-center-slots-20261019">
-<link rel="stylesheet" href="src/shared/ui/loading-screen.css?v=1">
+<link rel="stylesheet" href="src/shared/ui/loading-screen.css?v=pigeon-pixel-small-20261101">
 <link rel="stylesheet" href="src/features/tutorials/mix-tutorial.css?v=unified-ui-20261019">
 <link rel="stylesheet" href="src/features/crafting/serving-hud.css?v=source-proportional-bubbles-20261026">
 <link rel="stylesheet" href="src/shared/dialogue/exterior-textbox.css?v=directional-tails-20261029">
@@ -96,15 +97,15 @@
 </script>
 <script src="src/shared/ui/story-notices.js?v=bar-qa-dialogue-20261027">
 </script>
-  <script src="src/features/story/story-flow.js?v=modules-20261031"></script>
-<script src="src/features/bar/guest-service.js?v=modules-20261031"></script>
+  <script src="src/features/story/story-flow.js?v=bar-guards-20261101"></script>
+<script src="src/features/bar/guest-service.js?v=bar-guards-20261101"></script>
 <script src="src/features/crafting/preparation-flow.js?v=modules-20261031"></script>
 <script src="src/features/crafting/craft-flow.js?v=modules-20261031"></script>
 <script src="src/features/bar/settlement.js?v=modules-20261031"></script>
 <script src="src/features/crafting/gimmick-mechanics.js?v=modules-20261031"></script>
 <script src="src/core/story-conditions.js?v=modules-20261031"></script>
 <script src="src/features/crafting/craft-rules.js?v=modules-20261031"></script>
-<script src="src/core/core.js?v=modules-20261031">
+<script src="src/core/core.js?v=bar-guards-20261101">
 </script>
 <script src="src/features/bar/remix.js?v=dialogue-periods-20261029">
 </script>
@@ -234,7 +235,9 @@
 </script>
 <script src="src/dev/qa/outside-qa.js?v=day2-neighborhood-20261027">
 </script>
-<script src="src/features/campaign/terrace-view.js?v=stable-pan-raster-20261023">
+<script src="data/presentation/bird-sprites.js?v=birds-shared-20261101"></script>
+<script src="src/features/campaign/terrace-birds.js?v=terrace-birds-flight-route-20261101"></script>
+<script src="src/features/campaign/terrace-view.js?v=terrace-birds-20261101">
 </script>
 <script src="src/features/bar/bar-door-transition.js?v=opening-notion-20261017">
 </script>
@@ -249,7 +252,7 @@
 </script>
 <script src="src/features/campaign/cinema-flow.js?v=cinema-period-pause-20261031"></script>
 <script src="src/features/campaign/day-flow.js?v=modules-20261031"></script>
-<script src="src/features/campaign/campaign.js?v=cinema-period-pause-20261031">
+<script src="src/features/campaign/campaign.js?v=pigeon-loading-20261101">
 </script>
 <script src="src/features/outside/outside-notices.js?v=materials-goal-only-20261025">
 </script>
@@ -280,7 +283,8 @@
 </script>
 <script src="src/features/outside/outside-parallax.js?v=camera-parallax-20261020">
 </script>
-<script src="src/features/outside/outside-view.js?v=modules-20261031"></script>
+<script src="src/features/outside/outside-corridor-birds.js?v=birds-tight-pair-20261101"></script>
+<script src="src/features/outside/outside-view.js?v=pigeon-loading-20261101"></script>
 <script src="src/features/outside/outside.js?v=modules-20261031">
 </script>
 <script src="src/features/campaign/cutscene-library.js?v=day2-neighborhood-20261027">

@@ -131,7 +131,12 @@
     const key = (usage === 'recipe' && a('recipe_item_' + id) ? 'recipe_item_' : usage === 'inventory' && a('inventory_item_' + id) ? 'inventory_item_' : 'item_') + id;
     return '<img class="' + cls + '" src="' + (a(key) || a('item_dummy')) + '" alt="' + esc(label) + '" draggable="false">';
   }
-  function drinkArt(id, usage = 'hero') {
+  function drinkArt(id, usage = 'hero', glassKind = null) {
+    if (usage === 'empty') {
+      const glass = glassKind || g.cocktail(id).glass;
+      const resource = ({weizen:'beer',martini:'cocktail',flute:'cocktail',wine:'cocktail',old_fashioned:'long_drink',long_drink:'long_drink'})[glass] || 'long_drink';
+      return '<img class="drink-art empty-glass" src="' + a('table_empty_glass_' + resource) + '" data-art-usage="empty" data-glass-kind="' + esc(glass) + '" alt="' + L('빈 잔', 'Empty glass') + '" draggable="false">';
+    }
     const c = g.cocktail(id),
       key = usage === 'table' ? 'table_cocktail_' + id : usage === 'recipe' ? 'recipe_cocktail_' + id : 'cocktail_' + id;
     const src = a(key) || a('cocktail_' + id) || a('recipe_cocktail_' + id) || a('item_' + c.glass);

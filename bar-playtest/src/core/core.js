@@ -173,6 +173,11 @@
     isPaused() {
       return this.paused || this.hidden || !!this.error || !!this.overlay;
     }
+    // Input gate, not a simulation pause: camera/transition clocks must keep ticking.
+    // Actor, tutorial and action-specific requirements stay with each action owner.
+    barInteractionBlocked() {
+      return this.isPaused() || this.screen !== 'bar' || this.cameraMoving || this.cameraLeft > 0 || this.transition > 0;
+    }
     available(c) {
       return this.day === 99 || n(c.unlock_day) <= this.day && condition(c.unlock_when, this.ctx());
     }

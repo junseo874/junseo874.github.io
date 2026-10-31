@@ -732,7 +732,10 @@
             global.LunaOutsideNotion?.draw(model, drawSprite, ctx, position);
             global.LunaOutsideNeighborhood?.draw(model, drawSprite, ctx, position, images, global.LunaCaptureMode?.hidden ? null : glowRenderer);
             if(!global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
-          } else renderNode(n);
+          } else {
+            renderNode(n);
+            if(n.name==='residence-building')global.LunaCorridorBirds.draw(model,n,streetParallax(n,renderCam,model),drawSprite);
+          }
         }
         global.LunaOutsideNeighborhood?.drawCamp(model,drawSprite);
         if(global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
@@ -890,7 +893,7 @@
         hudSignature = signature;
         host.querySelector('.outside-dynamic').innerHTML = `<button class="outside-interact" aria-label="${esc(actionLabel + (near?.label ? ' · ' + near.label : ''))}" data-outside-action="interact" ${near && !m.paused ? '' : 'hidden'}><kbd aria-hidden="true">E</kbd><span>${esc(actionLabel)}</span></button><button class="outside-viewpoint" aria-label="${panorama ? '전경 보기에서 돌아오기' : '거리 전경 보기'}" aria-pressed="${panorama}" data-outside-action="panorama" ${viewpoint ? '' : 'hidden'}><kbd aria-hidden="true">Y</kbd></button>`;
         let body = '';
-        if (loading) body = '<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">로딩 중<span class="resource-loading-dots"></span></span></div>';else if (loadError) body = '<section class="outside-dialog"><h2>불러오기 실패</h2><p>' + loadError + '</p>' + button('다시 시도', 'retry') + button('로비로', 'exit') + '</section>';else if (hintOpen) body = '<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>' + button('확인', 'hint-close', 'primary') + '</section>';else if (showPauseMenu) body = global.LunaSettings.html({
+        if (loading) body = '<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">Loading<span class="resource-loading-dots"></span></span></div>';else if (loadError) body = '<section class="outside-dialog"><h2>불러오기 실패</h2><p>' + loadError + '</p>' + button('다시 시도', 'retry') + button('로비로', 'exit') + '</section>';else if (hintOpen) body = '<section class="outside-dialog outside-entry-hint" role="dialog" aria-modal="true" aria-labelledby="outside-hint-title"><kbd>P</kbd><h2 id="outside-hint-title">탐색 중에 설정을 바꿔 보세요</h2><p>P를 누르면 위치·출근길/퇴근길·일차를 변경할 수 있습니다.<br>99일차를 선택하면 QA 전용 공간으로 이동합니다.</p>' + button('확인', 'hint-close', 'primary') + '</section>';else if (showPauseMenu) body = global.LunaSettings.html({
           context: 'outside',
           onClose: () => {
             menu();

@@ -157,6 +157,19 @@
       };
     }
     setBarks(g, situations, onDone = null) {
+      if (this.phase === 'general' && situations.length === 2 && ['serve_thanks', 'wrong_receive'].includes(situations[0])) {
+        this.setBarks(g, [situations[0]], () => {
+          g.state = 'DRINKING';
+          g.drinkLeft = this.variant === 'gpt' && this.remix?.episode ? 2 : 1.2;
+          g.lines = [];
+          g.afterDrink = () => {
+            g.glassEmpty = true;
+            g.state = 'REACTION';
+            this.setBarks(g, [situations[1]], onDone);
+          };
+        });
+        return;
+      }
       g.lines = situations.map(s => this.bark(g, s, s === 'ask_order' ? 'luna' : null));
       g.lineIndex = 0;
       g.lineDone = onDone;
@@ -164,7 +177,7 @@
     coaster(seat = this.focus, input = 'shortcut') {
       if (this.storyCoaster) {
         const pending = this.storyCoaster;
-        if (seat !== pending.seat || !['drag', 'keyboard'].includes(input) || !this.storyCoasterReady() || this.isPaused() || this.screen !== 'bar' || this.cameraMoving || this.cameraLeft > 0 || this.transition > 0) return false;
+        if (seat !== pending.seat || !['drag', 'keyboard'].includes(input) || !this.storyCoasterReady() || this.barInteractionBlocked()) return false;
         const guest = this.seats[seat];
         if (!guest || guest.actor !== pending.step.actor || guest.coaster) return false;
         guest.coaster = true;
@@ -180,7 +193,7 @@
       }
       if (this.tutorial?.kind === 'coaster') {
         const t = this.tutorial;
-        if (this.isPaused() || this.screen !== 'bar' || this.cameraMoving || this.cameraLeft > 0 || this.transition > 0 || seat !== t.seat || !['drag', 'keyboard'].includes(input)) return false;
+        if (this.barInteractionBlocked() || seat !== t.seat || !['drag', 'keyboard'].includes(input)) return false;
         this.seats[seat].coaster = true;
         this.tutorial = null;
         this.log('story_coaster', {
@@ -195,7 +208,7 @@
         this.changed();
         return true;
       }
-      if (this.phase !== 'general' || !['drag', 'keyboard'].includes(input) || this.screen !== 'bar' || this.isPaused() || this.cameraMoving || this.cameraLeft > 0 || this.transition > 0 || seat !== this.focus) return false;
+      if (this.phase !== 'general' || !['drag', 'keyboard'].includes(input) || this.barInteractionBlocked() || seat !== this.focus) return false;
       const g = this.seats[seat];
       if (!g || g.coaster || g.state !== 'WAIT_COASTER' || g.left <= 0) return false;
       g.coaster = true;
@@ -387,6 +400,15 @@
         }
       }
       for (const g of Object.values(this.seats).filter(Boolean)) {
+        if (g.state === 'DRINKING') {
+          g.drinkLeft -= dt;
+          if (g.drinkLeft <= 0) {
+            const done = g.afterDrink;
+            g.afterDrink = null;
+            done?.();
+          }
+          continue;
+        }
         if (g.state === 'WAIT_COASTER' || g.state === 'WAIT_SERVE') {
           g.left -= dt;
           if (g.left <= 0) {

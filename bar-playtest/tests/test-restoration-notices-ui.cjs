@@ -32,7 +32,13 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.evaluate(()=>{const c=lunaCampaign;while(c.dialog?.background==='johnny-memory'&&!c.memoryTransition){c.dialog.chars=1e5;c.next();}});
   await p.waitForFunction(()=>lunaCampaign.dialog?.background==='terrace'&&!lunaCampaign.memoryTransition);
   assert(await p.evaluate(()=>barGame.progress.flags.campaign_observation&&!barGame.progress.flags.old_fashioned_recipe_notice_pending&&!barGame.progress.flags.old_fashioned_recipe_notified));
-  await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.next();});
+  // The current day-2 script continues with a terrace choice after the memory.
+  // Complete those authored lines instead of assuming one advance ends the night.
+  const drainTerrace=()=>p.evaluate(()=>{const c=lunaCampaign;for(let i=0;i<80&&c.view==='scene'&&c.dialog&&!c.memoryTransition&&!c.dayTransition;i++){c.dialog.chars=1e5;c.next();}});
+  await drainTerrace();
+  assert.equal(await p.evaluate(()=>lunaCampaign.view),'scene-choice');
+  await p.waitForTimeout(850);await p.keyboard.press('KeyE');
+  await drainTerrace();
   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading&&!lunaCampaign.dayTransition&&['game','developer'].includes(lunaCampaign.view)&&outsidePlaytest.model.config.day===3,null,{timeout:20000});
   assert.equal(await p.locator('.story-notice-recipe').count(),0);
   assert(await p.evaluate(()=>!LunaStoryNotices.pending.some(e=>e.kind==='recipe-unlock')));

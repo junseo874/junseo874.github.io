@@ -7,7 +7,7 @@ for(const variant of ['original','gpt']){
  assert.equal(g.seats.R.coaster,false);ticks(g,10);assert.equal(g.story.index,index);assert.equal(g.advance(),false);assert.equal(g.openRecipes(),false);assert.equal(g.openTutorialService(),false);
  assert.equal(g.coaster('L','drag'),false);assert.equal(g.coaster('R'),false);assert.equal(g.story.index,index);
  for(const blocker of ['overlay','paused','hidden','cameraMoving','cameraLeft','transition']){g[blocker]=blocker==='overlay'?'settings':true;assert.equal(g.coaster('R','drag'),false,blocker);g[blocker]=blocker==='overlay'?null:blocker==='cameraLeft'||blocker==='transition'?0:false;}
- assert.equal(g.coaster('R','drag'),true);assert.equal(g.coaster('R','drag'),false);assert.equal(g.tutorial,null);ticks(g);assert.equal(g.dialogue.text,'이렇게 하면 되나요?');
+ assert.equal(g.coaster('R','drag'),true);assert.equal(g.coaster('R','drag'),false);assert.equal(g.tutorial,null);ticks(g);assert.equal(g.dialogue.text,'여기 있습니다.');
  reach(g,g=>g.tutorial?.kind==='recipe');assert.equal(g.currentOrder.cocktail,'gin_tonic');assert.equal(g.openRecipes(),false);const rindex=g.story.index;g.advance();ticks(g,5);assert.equal(g.story.index,rindex);
  g.overlay='settings';assert.equal(g.openTutorialService(),false);g.overlay=null;assert.equal(g.openTutorialService(),true);g.overlay='service';assert.equal(g.openRecipes(),false);g.overlay=null;assert.equal(g.openRecipes(),true);
  assert.equal(g.tutorial.kind,'recipeSelect');assert.equal(g.closeRecipes(),false);assert.equal(g.selectCocktail('gin_fizz'),false);assert.equal(g.selectCocktail('gin_tonic'),true);assert.equal(g.tutorial.kind,'prepRecipeOpen');
@@ -25,7 +25,7 @@ for(const variant of ['original','gpt']){
  assert.equal(g.tutorial,null);assert(g.seats.R.coaster);assert(g.openRecipes());assert(g.selectCocktail('gin_tonic'));
  g.debugCraft('excellent');g.offer();assert(g.serve('R','drag'));assert.equal(g.transactions.length,1);assert.equal(g.drink,null);ticks(g);
  g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');g.reset(1,'regular',4,true,{variant});assert.equal(g.tutorial,null);
- g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');assert.equal(g.coaster('R','keyboard'),true);ticks(g);assert.equal(g.dialogue.text,'이렇게 하면 되나요?');
+ g.reset(0,'full',4,true,{variant});reach(g,g=>g.tutorial?.kind==='coaster');assert.equal(g.coaster('R','keyboard'),true);ticks(g);assert.equal(g.dialogue.text,'여기 있습니다.');
  console.log('TUTORIAL_CORE_OK',variant,'waits, invalid inputs, pause/camera, idempotency, skip, reset, keyboard fallback');
 }
 const normal=new C.Game(D);normal.reset(99,'general',4);ticks(normal,6);assert.equal(normal.tutorial,null);

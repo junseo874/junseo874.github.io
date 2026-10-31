@@ -9,6 +9,7 @@ const animation={frames:8,width:129,height:138,fps:6};
 const cityCamera={parallax:.2,scale:1.15};
 const entrance={hold:.7,move:5.6,settle:.5,duration:6.8};
 function beginEntrance(dialog){
+ W.LunaTerraceBirds.begin(dialog,dialog.terraceDay??W.lunaCampaign?.session?.day??0);
  dialog.terraceEntryTime=0;
  dialog.terraceEntryDuration=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:entrance.duration;
 }
@@ -21,7 +22,7 @@ function paintCamera(dialog,host){
  const view=camera(dialog);
  for(const layer of host.querySelectorAll('.terrace-city,.terrace-sign-scanlines'))
   layer.style.transform='translateX('+(-view.x*cityCamera.parallax)+'px) scale('+cityCamera.scale+')';
- for(const layer of host.querySelectorAll('.terrace-building,.terrace-characters,.terrace-balustrade'))
+ for(const layer of host.querySelectorAll('.terrace-building,.terrace-characters,.terrace-balustrade,.terrace-birds'))
   layer.style.transform='translateX('+(-view.x)+'px)';
  return view;
 }
@@ -43,7 +44,7 @@ function raster(image,scale,stamp=0){
  return entry.canvas;
 }
 function prepare(){
- if(!prepared)prepared=Promise.all(Object.values(assets).map(src=>{const image=new Image();image.src=src;return image.decode().then(()=>preparedImages.set(src,image));})).catch(error=>{prepared=null;throw error;});
+ if(!prepared)prepared=Promise.all([...Object.values(assets),...Object.values(W.LunaTerraceBirds.assets)].map(src=>{const image=new Image();image.src=src;return image.decode().then(()=>preparedImages.set(src,image));})).catch(error=>{prepared=null;throw error;});
  return prepared;
 }
 function paintCharacters(dialog,host){
@@ -56,7 +57,7 @@ function paintCharacters(dialog,host){
  actors.style.clipPath=alone?'inset(0 65px 39px 0)':'inset(0 0 39px 0)';
  host.querySelector('.terrace-art')?.setAttribute('aria-label',alone?'도시 야경이 보이는 테라스에 루나가 혼자 앉아 있다':'도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다');
 }
-function tick(dialog,dt){dialog.terraceTime=(dialog.terraceTime||0)+Math.max(0,Math.min(.05,Number(dt)||0));}
+function tick(dialog,dt){W.LunaTerraceBirds.advance(dialog);dialog.terraceTime=(dialog.terraceTime||0)+Math.max(0,Math.min(.05,Number(dt)||0));}
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Actor anchors are measured from the supplied 480 × 270 terrace composition.
 const seats={chris:{x:163/480*1280,y:151/270*720},luna:{x:134/480*1280,y:151/270*720}};
@@ -72,7 +73,7 @@ function textHTML(row,count=Infinity){
 function html(dialog){
  const row=dialog.rows[dialog.index],seat=seats[row.actor],speaker=seat?row.actor:'narration';
  const style=seat?'--speaker-x:'+seat.x+'px;--speaker-y:'+seat.y+'px;':'';
- return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><div class="terrace-art" role="img" aria-label="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다"><img class="terrace-city" src="'+assets.city+'" alt="" draggable="false"><canvas class="terrace-sign-scanlines" width="480" height="270" aria-hidden="true"></canvas><img class="terrace-building" src="'+assets.building+'" alt="" draggable="false"><span class="terrace-characters" style="background-image:url('+assets.characters+')" aria-hidden="true"></span><img class="terrace-balustrade" src="'+assets.balustrade+'" alt="" draggable="false"></div>'+
+ return '<div class="terrace-scene" data-terrace-speaker="'+speaker+'" style="'+style+'"><div class="terrace-art" role="img" aria-label="도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다"><img class="terrace-city" src="'+assets.city+'" alt="" draggable="false"><canvas class="terrace-sign-scanlines" width="480" height="270" aria-hidden="true"></canvas><img class="terrace-building" src="'+assets.building+'" alt="" draggable="false"><span class="terrace-characters" style="background-image:url('+assets.characters+')" aria-hidden="true"></span><img class="terrace-balustrade" src="'+assets.balustrade+'" alt="" draggable="false"><canvas class="terrace-birds" width="1920" height="1080" aria-hidden="true"></canvas></div>'+
  '<canvas class="terrace-glass" width="1280" height="720" aria-hidden="true"></canvas><span class="terrace-seat chris" data-terrace-actor="chris" aria-hidden="true"></span><span class="terrace-seat luna" data-terrace-actor="luna" aria-hidden="true"></span>'+
  '<button class="campaign-speech terrace-speech '+(seat?'terrace-bubble':'terrace-narration')+'" data-campaign="next" aria-label="다음 대사">'+W.LunaExteriorTextbox.html()+'<p></p></button><canvas class="terrace-rain" width="1280" height="720" aria-hidden="true"></canvas></div>';
 }
@@ -94,7 +95,8 @@ function paintGlass(dialog,host,state,view){
  const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
  const actorWidth=dialog.rows[dialog.index].stage==='luna-alone'?64:129;
  c.drawImage(raster(actors,rasterScale),frame*129*rasterScale,0,actorWidth*rasterScale,99*rasterScale,85*rasterScale,98*rasterScale,actorWidth*rasterScale,99*rasterScale);
- c.drawImage(raster(rail,rasterScale),86*rasterScale,179*rasterScale);c.restore();
+ c.drawImage(raster(rail,rasterScale),86*rasterScale,179*rasterScale);
+ W.LunaTerraceBirds.draw(c,dialog,preparedImages,rasterScale);c.restore();
  // Dry and rainy scenes share the same presentation grid, including after
  // remounts. Filtering only the enlarged texels keeps pixel art crisp but lets
  // subpixel camera travel blend instead of jumping whole source pixels.
@@ -112,7 +114,9 @@ function paintRain(dialog,host){
  paintGlass(dialog,host,state,view);
 }
 function paint(dialog,host){
+ W.LunaTerraceBirds.advance(dialog);
  paintCamera(dialog,host);
+ W.LunaTerraceBirds.paint(dialog,host,preparedImages);
  W.LunaSignScanlines?.paintTerrace(host,dialog.terraceTime||0);
  paintCharacters(dialog,host);
  paintRain(dialog,host);

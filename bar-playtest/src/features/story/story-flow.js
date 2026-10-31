@@ -156,18 +156,9 @@
           this.dialogue = this.makeLine(s.actor, this.text(s), s.dialogue_id, s.arg);
           this.dialogue.step = s;
           root.LunaStoryNotices?.dialogueStarted(this.progress, this.dialogue);
-          if (this.storyCoasterEligible(s.actor)) {
-            const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === s.actor && !this.seats[k].coaster);
-            if (seat) this.storyCoaster = {
-              seat,
-              step: s,
-              kind: 'line'
-            };
-          }
           return;
         }
         if (s.type === 'order') {
-          if (this.waitForStoryCoaster(s, 'step')) return;
           this.createStoryOrder(s);
           applyEffects(s.effects, this.progress);
           this.story.index++;
@@ -235,11 +226,6 @@
           return;
         }
         if (s.type === 'coaster') {
-          if (!this.storyHasUpcomingOrder(s.actor)) {
-            this.stepDone(s);
-            return;
-          }
-          if (this.waitForStoryCoaster(s, 'step')) return;
           const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === s.actor);
           if (!seat) throw Error('코스터 대상 없음: ' + s.actor);
           if (this.seats[seat].coaster) {
@@ -258,12 +244,15 @@
             });
             return;
           }
-          this.seats[seat].coaster = true;
-          this.log('story_coaster', {
-            actor: s.actor,
-            seat
-          });
-          this.setTransition(.45, () => this.stepDone(s));
+          this.waitForStoryCoaster(s, 'step');
+          return;
+        }
+        if (s.type === 'empty_glass') {
+          const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === s.actor);
+          if (!seat) throw Error('빈잔 대상 없음: ' + s.actor);
+          if (this.seats[seat].glass) this.seats[seat].glassEmpty = true;
+          this.log('empty_glass', { actor: s.actor, seat });
+          this.stepDone(s);
           return;
         }
         if (s.type === 'choice') {
@@ -341,8 +330,8 @@
       }
       throw Error('대본 무한 진행 차단');
     }
-    // Only guests ordering during this visit need a coaster. Do not look past
-    // their departure/re-entry or an unresolved choice into a different visit.
+    // Legacy visit query retained for callers; it does NOT schedule coasters.
+    // Only an explicit coaster step owns the gate. Do not scan across visits/choices.
     storyHasUpcomingOrder(actor, index = this.story?.index) {
       for (const s of this.story?.steps.slice(index) || []) {
         if (!['choice', 'end_part'].includes(s.type) && (s.actor !== actor || !['enter', 'exit', 'order'].includes(s.type))) continue;
@@ -358,10 +347,11 @@
       return false;
     }
     storyCoasterEligible(actor, index = this.story?.index) {
-      return this.phase === 'regular' && this.storyHasUpcomingOrder(actor, index) && !(this.day === 0 && actor === 'chris' && !this.progress.flags.day0_skip_tutorial && this.story?.steps.some(s => s.type === 'coaster' && s.arg === 'tutorial'));
+      const step = this.story?.steps[index];
+      return step?.type === 'coaster' && step.actor === actor;
     }
     waitForStoryCoaster(step, kind) {
-      if (!this.storyCoasterEligible(step.actor)) return false;
+      if (step.type !== 'coaster') return false;
       const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === step.actor && !this.seats[k].coaster);
       if (!seat) return false;
       this.storyCoaster = {
@@ -441,7 +431,7 @@
       this.stepDone(s);
     }
     advance() {
-      if (this.isPaused() || this.transition > 0 || this.cameraLeft > 0 || this.cameraMoving || this.screen !== 'bar' || !this.dialogue || this.phase === 'general') return false;
+      if (this.barInteractionBlocked() || !this.dialogue || this.phase === 'general') return false;
       const d = this.dialogue;
       if (d.chars < d.text.length) d.chars = d.text.length;else {
         if (this.storyCoaster) return false;
@@ -497,7 +487,6 @@
         } : {})
       };
       this.resultContext.ordered = id;
-      if (this.phase === 'opening') this.seats[seat].coaster = true;
       this.seats[seat].order = this.currentOrder;
       this.log('order', {
         ...this.currentOrder

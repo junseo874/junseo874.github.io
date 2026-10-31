@@ -55,6 +55,7 @@ class Simulation{
   this.time=0;this.accumulator=0;this.flow=0;this.flowNow=0;this.wobble=0;this.quiet=0;this.maxSpeed=0;this.finishRequested=false;this.ready=false;this.surfaceY=GLASS.bottom-3;
  }
  setTool(tool,s){if(!['none','pourer'].includes(tool)||s.held||s.angle>0||this.finishRequested)return false;this.tool=tool;this.rate=this.can?70:tool==='none'?95:42;return true;}
+ canFinish(s){return !this.finishRequested&&!s.held&&s.angle===0&&Math.hypot(this.motion.x-MOUTH.x,this.motion.y-MOUTH.y)<.1;}
  requestFinish(s){this.finishRequested=true;s.held=false;s.dragAngle=null;s.pourOffset=null;}
  nozzle(){return{x:this.motion.x,y:this.motion.y};}
  flowAt(angle){const start=this.can?65+85*this.emittedMl/this.supplyMl:this.popped||this.tool==='none'?80:98;this.startAngle=start;return Math.pow(clamp((angle-start)/55,0,1),this.can?1.4:1.6);}

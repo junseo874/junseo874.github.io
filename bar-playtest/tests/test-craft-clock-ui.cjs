@@ -6,6 +6,9 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  await p.evaluate(()=>lunaCampaign.screen('developer'));
  for(const kind of ['pour','fill_up','open','stir','shake']){
   await p.evaluate(kind=>{barGame.startMinigame(kind);barGame.craft.elapsed=62.4;barGame.gimmick.elapsed=7;},kind);
+  // changed() schedules rendering: the preceding screen's timer can still match
+  // 62 seconds. Wait for this gimmick before deciding whether its guide is visible.
+  await p.locator(kind==='stir'?'.stir-screen':kind==='shake'?'.shake-screen':kind==='open'?'.opening-screen':'.fluid-screen').waitFor();
   const clock=p.locator('.craft-screen .craft-timer');await clock.waitFor();
   await p.waitForFunction(()=>document.querySelector('.craft-timer')?.dataset.craftSeconds==='62');
   if(['stir','shake'].includes(kind)&&await p.locator('.mix-tutorial').isVisible()){

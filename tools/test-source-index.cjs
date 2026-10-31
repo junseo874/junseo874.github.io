@@ -9,6 +9,10 @@ for(const [key,value]of Object.entries(features)){
 assert(find('scoreCraft').files.some(f=>f.file.endsWith('craft-rules.js')&&f.symbols.some(s=>s.name==='scoreCraft')));
 assert(find('pump').files.some(f=>f.file.endsWith('story-flow.js')));
 assert(find('outside-view').files.some(f=>f.file.endsWith('outside-view.js')));
+assert.equal(find('까마귀').feature,'birds');
+assert(find('까마귀').files.some(f=>f.file.endsWith('/bird-sprites.js')));
+assert.equal(find('빈잔').feature,'table-triggers');
+assert.equal(find('조작락').info.docs,'docs/gameplay/input-locks.md');
 assert.deepEqual(find('nonexistent-feature-xyz').files,[]);
 assert(find('cinema').files.every(f=>!f.file.includes('/data/')));
 assert.deepEqual(outline('  function sample() {}\n    tick(dt) {\n    if (x) {'),[{name:'sample',line:1},{name:'tick',line:2}]);
@@ -17,8 +21,8 @@ const located=JSON.parse(execFileSync(process.execPath,[path.join(root,'tools/lo
 assert(located.files.length<=40);
 assert(located.files.reduce((n,file)=>n+file.symbols.length,0)<=80);
 assert.equal(located.truncated,true);
-for(const name of fs.readdirSync(path.join(root,'docs/architecture')).filter(n=>n.endsWith('.md'))){
-  const file=path.join(root,'docs/architecture',name),text=fs.readFileSync(file,'utf8');
+for(const section of ['architecture','gameplay'])for(const name of fs.readdirSync(path.join(root,'docs',section)).filter(n=>n.endsWith('.md'))){
+  const file=path.join(root,'docs',section,name),text=fs.readFileSync(file,'utf8');
   for(const match of text.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)){
     const target=match[1].split('#')[0];if(!target||/^[a-z]+:/.test(target))continue;
     assert(fs.existsSync(path.resolve(path.dirname(file),target)),name+': broken documentation link '+target);

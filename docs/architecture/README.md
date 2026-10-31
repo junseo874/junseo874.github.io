@@ -37,6 +37,9 @@ node tools/locate.cjs campaign --symbols
 | 집 배치·상호작용 | `features/outside/home-*.js` |
 | 거리 조명·비·그림자·광고 차량 | `features/outside/effects/` |
 | 본편 화면 조율·입력 | `features/campaign/campaign.js` |
+| 테라스 합성·카메라·일차별 새 | `features/campaign/terrace-view.js`, `terrace-birds.js` |
+| 까마귀·비둘기 공통 시트 / 거리 배치 | `../data/presentation/bird-sprites.js`, `features/outside/outside-corridor-birds.js` |
+| 바 공통 입력 가드 / 화면별 잠금 | `core/core.js:barInteractionBlocked`, [잠금 계약](../gameplay/input-locks.md)의 소유자 표 |
 | 일차·출퇴근·휴식·장면 전환 | `features/campaign/day-flow.js` |
 | 컷씬 로딩·회상·스킵·종료 | `features/campaign/cinema-flow.js` |
 | 컷씬 공통 재생 | `cinema/` |
@@ -49,6 +52,8 @@ node tools/locate.cjs campaign --symbols
 - [상태 소유권·모듈 연결·엔진 대응](modules.md): 새 기능을 어디에 추가할지
 - [본편 공통 규칙](../gameplay/README.md), [사건 흐름](../gameplay/events.md), [CSV와 실행 연결](../gameplay/data-and-dialogue.md)
 - [말풍선 표현](dialogue-presentation.md), [바·제조·QA](bar-and-crafting.md), [외부 배치·효과](outside.md)
+- [까마귀·비둘기](ambient-birds.md): 공통 프레임·발 원점, 테라스 도착, 거리 날씨/레이어
+- [조작 잠금·대본 대기](../gameplay/input-locks.md): 입력 차단과 pause를 혼동하지 않기 위한 소유권/해제 조건
 - [거리 렌더링 상세](street-atmosphere.md): 빛·그림자·물웅덩이 수정 때만
 - [데이터·로딩 계약](loading.md), [검증 방법](testing.md), [리소스 규칙](../../bar-playtest/assets/README.md)
 

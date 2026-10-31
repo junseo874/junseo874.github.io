@@ -5,6 +5,7 @@
 .terrace-city,.terrace-building{inset:0;width:480px;height:270px}
 .terrace-city,.terrace-sign-scanlines{transform-origin:240px 135px}
 .terrace-sign-scanlines{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
+.terrace-birds{position:absolute;inset:0;width:480px;height:270px;image-rendering:pixelated;pointer-events:none}
 .terrace-rain{position:absolute;inset:0;width:1280px;height:720px;z-index:30;image-rendering:pixelated;pointer-events:none}
 .terrace-glass{position:absolute;inset:0;width:1280px;height:720px;z-index:1;image-rendering:pixelated;pointer-events:none}
 .campaign-stage .terrace-speech{z-index:2}

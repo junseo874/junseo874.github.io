@@ -644,6 +644,14 @@
     ],
     [
       "script",
+      "data/presentation/bird-sprites.js"
+    ],
+    [
+      "script",
+      "src/features/campaign/terrace-birds.js"
+    ],
+    [
+      "script",
       "src/features/campaign/terrace-view.js"
     ],
     [
@@ -761,6 +769,10 @@
     [
       "script",
       "src/features/outside/outside-parallax.js"
+    ],
+    [
+      "script",
+      "src/features/outside/outside-corridor-birds.js"
     ],
     [
       "script",

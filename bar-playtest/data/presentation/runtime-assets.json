@@ -3813,6 +3813,36 @@
         168,
         178
       ]
+    },
+    "table_empty_glass_beer": {
+      "src": "assets/cocktails/empty/beer-glass.png",
+      "w": 60,
+      "h": 93,
+      "frames": 1,
+      "frameWidth": 60,
+      "frameHeight": 93,
+      "fps": 0,
+      "source": "User supplied table empty glass / beer-glass.png"
+    },
+    "table_empty_glass_cocktail": {
+      "src": "assets/cocktails/empty/cocktail-glass.png",
+      "w": 60,
+      "h": 93,
+      "frames": 1,
+      "frameWidth": 60,
+      "frameHeight": 93,
+      "fps": 0,
+      "source": "User supplied table empty glass / cocktail-glass.png"
+    },
+    "table_empty_glass_long_drink": {
+      "src": "assets/cocktails/empty/long-drink-glass.png",
+      "w": 55,
+      "h": 93,
+      "frames": 1,
+      "frameWidth": 55,
+      "frameHeight": 93,
+      "fps": 0,
+      "source": "User supplied table empty glass / long-drink-glass.png"
     }
   },
   "characterLayers": {

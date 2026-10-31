@@ -112,7 +112,7 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   '<div class="pour-top-readout"><div><span>'+L('목표량','Target')+'</span><strong class="pour-target-value">'+s.target+' '+s.unit+'</strong></div><div><span>'+L('현재량','Current')+'</span><strong data-pour-value>0.00 '+s.unit+'</strong></div></div>'+
   '<div class="pour-ingredient-readout" role="status"><span>'+L('재료 이름','Ingredient')+'</span><strong data-pour-ingredient="'+esc(s.ingredient)+'">'+esc(g.name(s.ingredient))+'</strong></div></div>'+
   '<div class="pour-tilt-meter" data-pour-tilt role="meter" aria-label="'+L('기울이기','Tilt')+'" aria-valuemin="0" aria-valuemax="'+f.maxAngle+'" aria-valuenow="0"><span>'+L('기울이기','Tilt')+'</span><div class="pour-tilt-track"><i class="pour-tilt-range"></i><i class="pour-tilt-warning"></i><i class="pour-tilt-marker"></i></div></div>'+
-  button(f.finishRequested?L('마지막 방울 정리 중…','Settling final drops…'):L('따르기 마치기 →','Finish pouring →'),'endGimmick',(!s.started||f.finishRequested?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
+  button(f.finishRequested?L('정리 중..','Settling..'):L('따르기 마치기 →','Finish pouring →'),'endGimmick',(!s.started||!f.canFinish(s)?'disabled':''),'pour-finish gimmick-finish')+'<div class="pour-tutorial" hidden></div></div>';
  }
 
  function playPop(){
@@ -197,6 +197,8 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   if(g.isPaused()||document.hidden){release();s.held=false;}
   syncAudio(s,stage.closest('.fluid-screen'));
   const f=s.fluid,age=f.popped?f.time-f.popTime:Infinity,reduced=root.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish=rootElement.querySelector('.pour-finish');
+  if(finish){finish.disabled=!s.started||!f.canFinish(s);const label=f.finishRequested?L('정리 중..','Settling..'):L('따르기 마치기 →','Finish pouring →');if(finish.textContent!==label)finish.textContent=label;}
   const strength=!reduced&&age<.35?(.35-age)*40/2.184:0,dx=Math.sin(age*173)*strength*.5||0,dy=Math.cos(age*137)*strength*.5||0;
   const transform='translate('+dx+'px,'+dy+'px)';stage.style.transform=transform;const bg=rootElement.querySelector('.fluid-screen .gimmick-room-background');if(bg)bg.style.transform=transform;
   draw(stage.querySelector('[data-pixel-pour]').getContext('2d'),s);

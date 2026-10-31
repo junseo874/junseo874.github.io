@@ -9,6 +9,8 @@ assert(state.finite,'A zero-sized canvas must not poison the pour physics');awai
 await p.keyboard.down('Space');await p.waitForTimeout(900);await p.keyboard.up('Space');assert(await p.evaluate(()=>barGame.gimmick.fluid.emittedMl>0),'Pouring resumes after interrupted layout');
 await p.mouse.move(box.x+box.width*.7,box.y+box.height*.35);await p.mouse.down();await p.setViewportSize({width:960,height:650});await p.waitForTimeout(80);assert.equal(await p.evaluate(()=>barGame.gimmick.held),false);await p.mouse.up();
 const resized=await canvas.boundingBox();await p.mouse.move(resized.x+resized.width*.7,resized.y+resized.height*.35);await p.mouse.down();assert(await p.evaluate(()=>barGame.gimmick.held));await p.mouse.up();
-for(const view of ['title','options','loading','prologue']){await p.evaluate(view=>lunaCampaign.screen(view),view);assert(await p.evaluate(()=>{const e=new KeyboardEvent('keydown',{code:'F11',key:'F11',bubbles:true,cancelable:true});document.body.dispatchEvent(e);return !e.defaultPrevented;}),'F11 remains native in '+view);}
+// These are keyboard-routing probes, not loaded cinematic fixtures. Restore the
+// actual screen in the same browser task so RAF never ticks prologue without cinema.
+for(const view of ['title','options','loading','prologue']){assert(await p.evaluate(view=>{const previous=lunaCampaign.view;try{lunaCampaign.screen(view);const e=new KeyboardEvent('keydown',{code:'F11',key:'F11',bubbles:true,cancelable:true});document.body.dispatchEvent(e);return !e.defaultPrevented;}finally{lunaCampaign.screen(previous);}},view),'F11 remains native in '+view);}
 assert.deepEqual(errors,[]);console.log('PASS invalid layout drag recovery, keyboard resume and native F11');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

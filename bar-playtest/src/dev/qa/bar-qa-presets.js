@@ -15,7 +15,9 @@ const command=(text,id)=>option(text,'flag.qa_'+id+' = true');
 const enter=(actor,slot,sync)=>row('enter',{actor,arg:slot,sync});
 const service=(actor,cocktail)=>[
  say(actor,'[QA] 코스터를 받은 뒤 주문·제조·제공을 확인해 주세요.'),
+ row('coaster',{actor}),
  row('order',{actor,arg:'exact:'+cocktail}),row('craft',{actor}),row('serve',{actor}),
+ row('empty_glass',{actor}),
  say(actor,'[QA] 제공 완료. 다음 손님 또는 테스트 종료로 이어집니다.')
 ];
 function catalog(D){
