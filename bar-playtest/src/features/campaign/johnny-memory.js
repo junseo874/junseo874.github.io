@@ -25,7 +25,13 @@ function sync(host,dialog,D,dt=0){
  // Only sprite layers are refreshed, leaving the speech DOM, focus and world geometry intact.
  const actor=root.querySelector('.regular-plane');if(actor)actor.innerHTML=dialog.rows[dialog.index].tomPresent?s.views.actorHTML(s.tom,1290/2041*100):'';
  const plane=root.querySelector('.counter-plane'),bubble=root.querySelector('.johnny-memory-speech');if(!plane||!bubble)return;
- const m=new DOMMatrixReadOnly(getComputedStyle(plane).transform),y=dialog.rows[dialog.index].actor==='johnny'?601:555.5;
+ const johnny=dialog.rows[dialog.index].actor==='johnny';
+ // Match the bar's bottom-edge anchors. Tom sits above his bubble; Johnny
+ // speaks from the bartender POV below it. Flip only the skin, not the text
+ // or the bottom-edge placement (WorldSpeech's `below` means top anchoring).
+ bubble.classList.toggle('below',!johnny);
+ bubble.dataset.speaker=johnny?'johnny':'tom';
+ const m=new DOMMatrixReadOnly(getComputedStyle(plane).transform),y=johnny?601:555.5;
  W.LunaWorldSpeech.place(bubble,{x:m.a*1290+m.e,y:m.d*y+m.f,scale:m.a*.75});
 }
 async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_johnny_old_fashioned','cocktail_johnny_old_fashioned'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}

@@ -26,6 +26,7 @@ suites.ui.unshift(game('test-bar-choice-hold-clock'));
 suites.ui.unshift(game('test-loading-pigeon-ui'));
 suites.ui.unshift(game('test-story-service-entry-ui'));
 suites.cinema.unshift(game('test-day-quotes-ui'));
+suites.cinema.unshift(game('test-johnny-memory-speech-ui'));
 suites.cinema.unshift(game('test-day0-phone-branches-ui'),game('test-cinema-typing-rhythm'),game('test-cinema-typing-rhythm-ui'),game('test_intro_text_ui'));
 suites.outside.unshift(game('test-outside-character-sheets'), game('test-outside-typing-rhythm'), game('test-outside-typing-rhythm-ui'));
 if (choice === '--list') {
