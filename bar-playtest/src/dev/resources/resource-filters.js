@@ -9,20 +9,20 @@ function decorate(r){
  if(r.effectCategory)f.effect=r.effectCategory;
  if(r.backgroundScreen){f.backgroundScreen=r.backgroundScreen;f.backgroundKind=r.backgroundKind;}
  if(['bar-characters','out-characters'].includes(r.group)){
-  f.actor=r.title.startsWith('일반 손님')?r.title:r.title.split(' · ')[0];
+  f.actor=r.title.startsWith('일반 손님')?r.title.split(' · ').slice(0,2).join(' · '):r.title.split(' · ')[0];
   const raw=(r.id+' '+r.usage).toLowerCase();
   f.motion=Object.keys(labels.motion).filter(k=>!['other','parts','seated','pov'].includes(k)&&new RegExp('(^|[_:\\s-])'+k+'($|[_:\\s-])').test(raw));
-  if(r.id.startsWith('guest'))f.motion=['parts'];
+  if(r.id.startsWith('guest')||r.id.startsWith('art:guest_'))f.motion=['parts'];
   else if(r.id.endsWith(':pov'))f.motion=['pov'];
   else if(['outside:terrace','outside:terrace-chris'].includes(r.id))f.motion=['seated'];
   else if(r.id.startsWith('outside-role:')||/^outside:(M1|M2|W1|samho|shiba)$/.test(r.id))f.motion=['idle'];
   if(!f.motion.length)f.motion=['other'];
  }
  if(r.group==='bar-drinks')f.usage=r.id.split(':').at(-1);
- if(r.group==='bar-items'){f.kind=r.itemKind||'ingredient';f.usage=r.id.split(':').at(-1);}
+ if(r.group==='bar-items'){f.kind=r.itemKind||'ingredient';f.usage=r.artUsage||r.id.split(':').at(-1);}
  if(['bar-ui','out-ui'].includes(r.group)){
   const d=r.launch||{},id=d.id||'';
-  if(r.id.startsWith('ui-art:')||r.id.startsWith('ui-source:'))f.topic='art';
+  if(r.id.startsWith('art:')||r.id.startsWith('ui-art:')||r.id.startsWith('ui-source:'))f.topic='art';
   else if(d.type==='indicator')f.topic='service';
   else if(d.type==='qa')f.topic=id==='prep'?'recipe':['unlock','income','expense','dossier'].includes(id)?'popup':'service';
   else if(['solo','pair','scene','choices','terrace','johnny-memory'].includes(d.type))f.topic='dialogue';

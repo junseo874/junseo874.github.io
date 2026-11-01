@@ -894,6 +894,10 @@
     ],
     [
       "script",
+      "src/dev/resources/resource-artwork.js"
+    ],
+    [
+      "script",
       "src/dev/resources/resource-review.js"
     ],
     [

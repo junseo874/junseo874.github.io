@@ -140,7 +140,7 @@ function build(F){
   row.launch={...dayVariants[0].launch,reviewId:row.id,variantId:dayVariants[0].id};
  }
  for(const r of rows)if(revisionUI.has(r.id))r.needsRevision=true;
- return rows;
+ return W.ResourceArtwork.collect(rows,F);
 }
 function cinema(F){return Object.entries(F.SHEETS||{}).filter(([k])=>/^(luna|yuna)/i.test(k)).map(([k,a])=>({id:'cinema:'+k,group:'out-characters',title:k.startsWith('luna')?'루나 · 컷씬':'유나 · 컷씬',usage:k,status:'registered',note:'컷씬 원본 프레임입니다. 하운드·코라테크 병력은 목록에서 제외합니다.',layers:[{key:k,source:'data/runtime/cinema-assets.js · '+k,src:a.png,frames:a.frames.length,fps:8,rects:a.frames.map(f=>({x:f.sx,y:f.sy,w:f.sw,h:f.sh,ox:f.ox,oy:f.oy,cw:f.cw,ch:f.ch}))}]}));}
 W.ResourceCatalog={build,cinema,groups,statusNames};

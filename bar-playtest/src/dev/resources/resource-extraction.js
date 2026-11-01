@@ -15,7 +15,7 @@ function classify(row){if(row.cursor)return 'UI · 마우스 커서';return /ui|
 function collect(rows,assets={}){
  const all=[],seen=new Map();
  function add(item){
-  if(!item.src||/resource-(exports|previews)/.test(item.src)||item.src==='assets/ui/exterior-textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
+  if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/ui/exterior-textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
   const l=item.layer||{},key=JSON.stringify([item.src,l.frames||1,l.rects,l.fw,l.fh,l.cols,l.sx,l.sy,l.dx,l.dy]);
   const old=seen.get(key);if(old){old.search+=' '+item.title+' '+(item.usage||'');return;}
   item.id='graphic-'+all.length;item.search=[item.title,item.src,item.category,item.usage,item.contexts,l.key].join(' ');all.push(item);seen.set(key,item);
@@ -26,7 +26,7 @@ function collect(rows,assets={}){
  // Some reusable graphics (coaster, mixing nodes, generic guest parts) are
  // intentionally hidden in the review cards. Include their original layers here.
  for(const [key,a]of Object.entries(assets)){
-  const category=/^(dialogue|choice|next$|money|logo|coaster|expr_|mix_|prep_)/.test(key)?groups[1]:/^(guest_|char_)/.test(key)?groups[2]:/^(item_|recipe_item_|inventory_item_|cocktail_|recipe_cocktail_|table_cocktail_)/.test(key)?groups[3]:groups[5];
+  const category=/^(dialogue|choice|next$|money|logo|coaster|expr_|mix_|prep_)/.test(key)?groups[1]:/^(guest_|char_)/.test(key)?groups[2]:/^(item_|recipe_item_|inventory_item_|cocktail_|recipe_cocktail_|table_cocktail_|table_empty_glass_)/.test(key)?groups[3]:groups[5];
   add({src:a.src,title:key==='coaster'?'코스터 · 원본 그래픽':key,category,layer:{key,src:a.src,w:a.w,h:a.h,frames:a.frames||1,fw:a.frameWidth,fh:a.frameHeight}});
  }
  return all;
@@ -90,5 +90,5 @@ view.addEventListener('change',e=>{if(e.target.matches('[data-frame]')){const ca
 search.oninput=category.onchange=part.onchange=()=>{page=0;render();};
 function show(rows,assets={}){const stamp=rows.map(r=>r.id).join('|')+'|'+Object.keys(assets).join('|');if(stamp!==signature){signature=stamp;entries=collect(rows,assets);}view.hidden=false;render();}
 function hide(){view.hidden=true;++epoch;observer?.disconnect();}
-W.ResourceExtraction={show,hide,collect,raster,get entries(){return entries;}};
+W.ResourceExtraction={show,hide,collect,raster,download,get entries(){return entries;}};
 })(window);

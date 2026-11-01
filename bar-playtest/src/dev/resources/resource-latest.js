@@ -4,7 +4,8 @@
 const version='20261018',root='assets/reference/exports/',revision='preview-paths-20261019';
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
-const previewRevision=r=>r.launch?.type==='day-transition'?'day-quotes-small-20261101':['popup:campaign-dialogs','ui:exterior:poor'].includes(r.id)?'review-audit-20261026':r.id==='ui:income'?'money-art-20261025':revision;
+const refreshed=new Set(['ui:pair','ui:solo','ui:choices','ui:world-speech','ui:exterior:poor','popup:serving-hud']);
+const previewRevision=r=>refreshed.has(r.id)?'artwork-20261101':r.launch?.type==='day-transition'?'day-quotes-small-20261101':['popup:campaign-dialogs'].includes(r.id)?'review-audit-20261026':r.id==='ui:income'?'money-art-20261025':revision;
 const screen=(r,v)=>root+stem(r,v)+'.png?v='+previewRevision(r);
 const popup=(r,v)=>root+stem(r,v)+'--popup.png?v='+previewRevision(r);
 const isScreen=r=>!!r.launch&&(['bar-ui','out-ui','common-popups','bar-fx','out-fx'].includes(r.group)||!r.layers?.length);
@@ -16,7 +17,7 @@ function collect(rows){
  dialog('controls-interaction','0일차 · 상호작용 튜토리얼',variants('review-controls',[['interaction','상호작용 · E']]),'.outside-controls-tutorial');
  rows.at(-1).note+=' 최신 TV / NPC 이미지와 빨간 상호작용 대상 표시, E키 안내를 확인합니다.';
  dialog('seat-legend','좌석 알림 · 4가지 색상',variants('review-bar-tutorial',[['seatLegend','좌석 알림']]),'.day0-seat-legend');
- dialog('serving-hud','코스터 / 칵테일 드래그 팝업',variants('review-serving',[['coaster','단골 첫 대사 · 코스터 제공'],['drink','완성 칵테일 제공']]),'.service-popup[data-drag]');
+ dialog('serving-hud','코스터 / 칵테일 드래그 팝업',variants('review-serving',[['coaster','대본 트리거 · 코스터 제공'],['drink','완성 칵테일 제공']]),'.service-popup[data-drag]');
  for(const kind of ['stir','shake'])dialog('lesson-'+kind,(kind==='stir'?'스터':'쉐이킹')+' 이미지 튜토리얼',variants('review-mix',(kind==='stir'?['stir']:['path','fall','cross']).flatMap(mode=>[0,1].map(page=>[mode+'-'+page,({stir:'스터',path:'왕복 노드',fall:'세로 2레인',cross:'중앙 교대'})[mode]+' · '+(page?'타이밍 안내':'노드 / 조작 안내'),{kind,mode,page}]))),'.mix-lesson-card');
  dialog('lesson-pour','따르기 튜토리얼',variants('review-pour',[['target','목표량 확인'],['finish','현재량 / 마치기']]),'.pour-tutorial-card');
  dialog('lesson-open','병따기 튜토리얼',variants('review-open',[['intro','시작 안내'],['retry','다시 시도'],['done','완료']]),'.opening-lesson-copy');
@@ -32,11 +33,13 @@ function collect(rows){
    r.uiArtPending=false;r.status='registered';r.usage='원본 UI 아트 적용 · 실제 화면 테스트';
    r.note='현재 웹에 전용 UI PNG가 적용되어 있습니다. 텍스트·배치·일부 효과는 코드로 구성하며 최종 아트 승인 여부와는 별개입니다.';
   }
-  if(r.id.startsWith('actor:tom:')){r.status='registered';r.note='2026-10-18 Tom_Idle 원본. 정적 이미지이며 대화 중에도 같은 포즈를 사용합니다. 팔이 카운터에 놓이도록 본편에서 y=420 기준으로 정렬합니다.';}
+  if(r.id.startsWith('actor:tom:')){r.status='registered';r.note='톰의 551×530 셀 · 4프레임 레이어입니다. 대기 몸체는 1.6초 주기, 대화 입은 0.9초 주기로 재생합니다. 대화용 몸체·입은 2026-10-31 원본이고 눈·눈썹·상단 얼굴은 대기 원본을 공유합니다. 본편 카운터 기준점은 y=420입니다. 개별 원본과 프레임을 각각 다운로드할 수 있습니다.';}
+  if(r.id.startsWith('actor:shiba:'))r.note='바 내부 개시바는 대기·대화에 서로 다른 정적 임시 이미지를 사용합니다. 프레임 애니메이션은 아니며 외부 시바견 시트와 구분합니다.';
+  if(r.id==='ui:world-speech')r.note='최신 외부 말풍선 본체 조각과 중앙(A)·왼쪽(B)·오른쪽(C) 꼬리를 사용합니다. 화면 가장자리와 화자 위치에 따라 꼬리가 바뀌며, NPC끼리의 대화는 작은 규격을 사용합니다. 개별 그래픽은 리소스 추출에서 외부 말풍선으로 검색하세요.';
   if(r.id==='ui:exterior:street'){r.title='상호작용 키 안내 / E';r.note='제공된 IMG_interaction 사각 E 키와 페이퍼로지 Bold 상호작용 텍스트를 화면 좌측 하단에서 확인합니다. 대상의 시안색 윤곽선도 함께 표시합니다.';r.variants=r.variants.filter(v=>v.id==='e');}
   if(r.id==='ui:prep')r.needsRevision=false;
   if(r.id==='outside:terrace-chris')r.previewNote='최신 테라스 배경 · 오른쪽 크리스 / 왼쪽 루나 · 배경 합성 이미지';
-  if(isScreen(r)){r.preview=screen(r);r.previewNote=r.launch?.type==='day-transition'?'일차별 명언 실제 화면 · 2026-11-01 · PNG 다운로드 가능':'최신 게임 화면 · '+version+' · PNG 다운로드 가능';}
+  if(isScreen(r)){r.preview=screen(r);r.previewNote=refreshed.has(r.id)?'현재 게임 화면 · 2026-11-01 갱신 · PNG 다운로드 가능':r.launch?.type==='day-transition'?'일차별 명언 실제 화면 · 2026-11-01 · PNG 다운로드 가능':'저장된 화면 참고 · '+version+' · 최신 동작은 실제 화면 테스트에서 확인';}
  }
  return rows;
 }
@@ -45,7 +48,7 @@ async function play(F,d){
  if(d.type==='review-serving'){
   if(d.id==='drink'){q.state.cocktail='bottle_beer';q.runSituation('serve');return;}
   g.reset(1,'regular',42,false,{variant:'original'});g.phase='regular';g.focus='R';g.seats={L:null,M:null,R:{id:'tom',actor:'tom',state:'STORY',seated:true,coaster:false}};
-  g.story={scene:{id:'review-coaster'},index:0,steps:[{type:'say',actor:'tom','text.ko':'안녕. 오늘도 한 잔 부탁할게.'},{type:'say',actor:'luna','text.ko':'어서 오세요. 무엇으로 드릴까요?'},{type:'order',actor:'tom',arg:'exact:dry_martini'},{type:'craft',actor:'tom'}]};g.pump();g.dialogue.chars=g.dialogue.text.length;return;
+  g.story={scene:{id:'review-coaster'},index:0,steps:[{type:'coaster',actor:'tom'},{type:'say',actor:'tom','text.ko':'안녕. 오늘도 한 잔 부탁할게.'},{type:'say',actor:'luna','text.ko':'어서 오세요. 무엇으로 드릴까요?'},{type:'order',actor:'tom',arg:'exact:dry_martini'},{type:'craft',actor:'tom'}]};g.pump();return;
  }
  if(d.type==='review-controls'){
   c.ui.outside=true;Object.assign(o.config,{day:0,flow:'in',place:'home'});await o.start({showDevHint:false});o.model.story.cancel();o.model.backgroundStory.cancel();o.model.paused=false;o.showControlsTutorial();o.refreshHUD();

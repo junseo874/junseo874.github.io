@@ -5,3 +5,7 @@
 .png-downloads .extract-link{flex-basis:100%;font-size:12px;padding:5px 0;color:var(--muted)}
 .png-downloads .png-download{font-size:12px;padding:8px 10px}
 #lab-downloads .png-downloads{margin:0;max-width:340px}
+.image-downloads{margin:12px 0;font-size:12px}.image-downloads summary{cursor:pointer;padding:8px 0}
+.image-download{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;border-top:1px solid #34454d}
+.image-download strong,.image-download small{flex-basis:100%;overflow-wrap:anywhere}
+.image-download a{color:#b6f4ef}.image-download input{width:65px;max-width:100%;padding:5px}.image-download button{padding:7px;font-size:12px}
