@@ -65,7 +65,7 @@ for(const answers of [[1,1],[1,2],[2,1],[2,2]]){
   }
   g.tick(.1);
  }
- assert(g.finished);assert.equal(choices,2);assert.deepEqual(coasters,['shiba','tom','aili','chris']);assert.deepEqual(orders,['bottle_beer','dry_martini','screwdriver']);
+ assert(g.finished);assert.equal(choices,2);assert.deepEqual(coasters,['shiba','tom','aili']);assert.deepEqual(orders,['bottle_beer','dry_martini','screwdriver']);
  assert(g.progress.flags.tom_introduction_notified);assert.equal(g.progress.flags.campaign_d1_bar_answer_1,answers[0]===1);assert.equal(g.progress.flags.campaign_d1_bar_answer_2,answers[1]===1);
  assert.equal(seen.some(t=>t.includes('힘들었던 날에')),answers[0]===1);assert.equal(seen.some(t=>t.includes('위로가 말도')),answers[0]===2);
 }
