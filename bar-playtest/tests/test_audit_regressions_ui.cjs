@@ -29,7 +29,7 @@ const macChrome='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
   assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),false);await p.locator(pickup).waitFor();
   await drag(pickup,drop);await p.waitForFunction(()=>barGame.seats.R.coaster);
   await p.evaluate(()=>{const g=barGame;for(let i=0;i<1000;i++){g.cameraMoving=false;if(g.currentOrder&&g.story?.steps[g.story.index]?.type==='craft')break;if(g.dialogue){g.advance();g.advance();}else g.tick(.1);}lunaCampaign.render(true);});
-  await p.waitForTimeout(1100);await p.locator('.story-craft-prompt [data-act="recipes"]').click();await p.locator('[data-act="selectRecipe"][data-id="gin_tonic"]').click();
+  await p.waitForTimeout(1100);{await p.locator('.service-handle').click();await p.locator('#service-panel [data-act="recipes"]').click();}await p.locator('[data-act="selectRecipe"][data-id="gin_tonic"]').click();
   await p.evaluate(()=>{barGame.debugCraft('excellent');barGame.offer();lunaCampaign.render(true);});
   await drag('[data-drag="drink"]',drop);await p.waitForFunction(()=>barGame.transactions.length===1&&!barGame.drink);
   await p.screenshot({path:path.join(out,'day0-skip-served.png')});

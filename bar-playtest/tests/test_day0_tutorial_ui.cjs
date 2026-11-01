@@ -33,7 +33,7 @@ if(variant==='original'){
 }assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
 console.log('TUTORIAL_UI_OK',variant,'drag rejection, real drag, responsive mask, pause/resume, service/recipe');
 // Skip does not introduce a mandatory action step.
-await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').nth(1).click();await p.keyboard.down('Control');await p.locator('.story-craft-prompt').waitFor();await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
+await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').nth(1).click();await p.keyboard.down('Control');await p.locator('.service-handle').waitFor();await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
 }
 assert.deepEqual(errors,[]);console.log('No browser exceptions; both skip paths preserve crafting.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

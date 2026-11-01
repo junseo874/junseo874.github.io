@@ -31,7 +31,7 @@ const URL=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/?update
    }
    if(state.dialogue){const finalSeats=await p.evaluate(()=>barGame.dialogue?.text==='먼저 가보겠습니다.'?[barGame.seats.L?.actor,barGame.seats.R?.actor]:null);if(finalSeats)assert.deepEqual(finalSeats,['port','chris']);await p.keyboard.press('Enter');await p.keyboard.press('Enter');continue;}
    if(state.craft){
-    if(await p.evaluate(()=>barGame.screen==='bar'))await p.locator('.story-craft-prompt [data-act="recipes"]').click();
+    if(await p.evaluate(()=>barGame.screen==='bar')){await p.locator('.service-handle').click();await p.locator('#service-panel [data-act="recipes"]').click();}
     // Both serving result branches are exercised in a real browser; minigames themselves are unchanged.
     await p.evaluate(wrong=>{const g=barGame,id=g.currentOrder.cocktail;if(g.screen==='bar')g.openRecipes();if(g.screen==='recipe'&&!g.selectCocktail(id))throw Error('Recipe selection failed');g.debugCraft('poor');if(!g.result)throw Error('Craft result missing: '+g.screen);if(wrong)g.result.selected=id==='gin_tonic'?'gin_fizz':'gin_tonic';},skip&&crafts===0);
     await p.waitForTimeout(1800);await p.evaluate(()=>barGame.offer());await p.waitForTimeout(100);
