@@ -1,17 +1,17 @@
 /* Native 32px cursors: no mouse-follow overlay, input capture, or animation. */
 :root{
- --luna-cursor-default:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_default_icon.png") 4 3,default;
- --luna-cursor-pointer:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pointer_icon.png") 14 3,pointer;
- --luna-cursor-pressed:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pressed_icon.png") 14 5,pointer;
- --luna-cursor-grab:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grab_icon.png") 16 15,grab;
- --luna-cursor-grabbing:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grabbing_icon.png") 16 16,grabbing;
- --luna-cursor-not-allowed:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_not_allowed_icon.png") 16 16,not-allowed;
- --luna-cursor-text:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_text_icon.png") 16 16,text;
- --luna-cursor-ew-resize:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ew_resize_icon.png") 16 16,ew-resize;
- --luna-cursor-ns-resize:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ns_resize_icon.png") 16 16,ns-resize;
- --luna-cursor-crosshair:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png") 16 16,crosshair;
- --luna-cursor-wait:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_wait_icon.png") 16 16,wait;
- --luna-cursor-zoom-in:url("../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_zoom_in_icon.png") 13 12,zoom-in;
+ --luna-cursor-default:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_default_icon.png") 4 3,default;
+ --luna-cursor-pointer:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pointer_icon.png") 14 3,pointer;
+ --luna-cursor-pressed:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pressed_icon.png") 14 5,pointer;
+ --luna-cursor-grab:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grab_icon.png") 16 15,grab;
+ --luna-cursor-grabbing:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grabbing_icon.png") 16 16,grabbing;
+ --luna-cursor-not-allowed:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_not_allowed_icon.png") 16 16,not-allowed;
+ --luna-cursor-text:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_text_icon.png") 16 16,text;
+ --luna-cursor-ew-resize:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ew_resize_icon.png") 16 16,ew-resize;
+ --luna-cursor-ns-resize:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ns_resize_icon.png") 16 16,ns-resize;
+ --luna-cursor-crosshair:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png") 16 16,crosshair;
+ --luna-cursor-wait:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_wait_icon.png") 16 16,wait;
+ --luna-cursor-zoom-in:url("../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_zoom_in_icon.png") 13 12,zoom-in;
 }
 html,body{cursor:var(--luna-cursor-default,default)}
 a[href],button,select,summary,[role="button"],[role="tab"],input:is([type="button"],[type="submit"],[type="reset"],[type="checkbox"],[type="radio"]),label:has(input:is([type="checkbox"],[type="radio"])){cursor:var(--luna-cursor-pointer,pointer)}

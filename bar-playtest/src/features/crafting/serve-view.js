@@ -2,12 +2,12 @@
 // The supplied 5738×2707 atlases contain 6×5 cells, with 2px gutters.
 // All drinks share one native-pixel offset below the centered grade header.
 window.LUNA_SERVE_COMPOSITION=Object.freeze({drinkOffsetY:60});
-window.LUNA_SERVE_BACKGROUND={src:'assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png',cols:6,frames:30,fps:20,w:954,h:539,sx:2,sy:2,dx:956,dy:541,atlasWidth:5738,atlasHeight:2707};
+window.LUNA_SERVE_BACKGROUND={src:'assets/01.ArtResources/04.Cutscenes/04.ServingAnime/background.png',cols:6,frames:30,fps:20,w:954,h:539,sx:2,sy:2,dx:956,dy:541,atlasWidth:5738,atlasHeight:2707};
 window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
  gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',
  gin_fizz:'ginfizz',kahlua_milk:'kahluaMilk',bottle_beer:'beer',
  screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'
-}).map(([id,file])=>[id,{...window.LUNA_SERVE_BACKGROUND,src:'assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_'+file+'.png',layered:true}]));
+}).map(([id,file])=>[id,{...window.LUNA_SERVE_BACKGROUND,src:'assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_'+file+'.png',layered:true}]));
 // Compose unchanged source texels on a 960x540 (16:9) stage: 3px padding
 // on each side, 1px below. Then sample ONCE to the display's physical pixels.
 // Integer-only enlargement made framing shrink/jump as the window or DPR

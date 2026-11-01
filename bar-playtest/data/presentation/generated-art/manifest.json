@@ -290,7 +290,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_background.png",
       "sha256": "7709d99c6ca26f76756aee3a4cc85eebd3d748b7e668e64a27490d2d069d39a2",
       "width": 241,
       "height": 155,
@@ -394,7 +394,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_side_panel_resource_recipe_list_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_side_panel_resource_recipe_list_background.png",
       "sha256": "af85ba0ec761f234b03bae59735a49581ee6dfc873d7b9f27111b96af140db93",
       "width": 428,
       "height": 720,
@@ -751,7 +751,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_background.png",
       "sha256": "48962b5a36fb7cec92d8bda09f09b192b9347d4d62fb37e57fbc26ee4e27e28b",
       "width": 240,
       "height": 16,
@@ -921,7 +921,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_inventory_slot_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_inventory_slot_background.png",
       "sha256": "2372851649b228384ac69e9c71ba91e46f56323872f281c30252a1a0e71fc9bf",
       "width": 93,
       "height": 93,
@@ -1084,7 +1084,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_background.png",
       "sha256": "217593bc2eb68b456f5081cd4c2cbd5620f68b0b317d14ba4082a449a557bdb4",
       "width": 187,
       "height": 325,
@@ -1283,13 +1283,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_background.png",
+      "path": "05.UI/07.Popup/BG_notification_down.png",
       "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
       "width": 350,
       "height": 90,
       "kind": "background",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/048d2a16f8534a6f-background.png",
@@ -1452,7 +1452,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon.png",
       "sha256": "fc78cdab31fb8c4fed5a2338a18855d78d4a91beb832461f55079b5b32f08132",
       "width": 100,
       "height": 100,
@@ -1666,7 +1666,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_border.png",
       "sha256": "a37de4ead937fbc519bde78fe0087f4b845589d78c5a461b30ed105e3f3e3759",
       "width": 1280,
       "height": 146,
@@ -1817,7 +1817,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_stir_orbit_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_stir_orbit_icon.png",
       "sha256": "f46b4eb0f3ee6637440b2085ad1e95f740ec56f8e1094448557e520ff291e1db",
       "width": 416,
       "height": 416,
@@ -1894,7 +1894,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_rhythm_path_marker_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_rhythm_path_marker_icon.png",
       "sha256": "c172795d0353cebfc6892239e341624cee43d8733967292564a89f0435696bee",
       "width": 25,
       "height": 25,
@@ -1953,7 +1953,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_button_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_button_border.png",
       "sha256": "6e1cea51eb32a69a5c695db7844ed58d82906ff359a9fa57e0770d2271180958",
       "width": 24,
       "height": 26,
@@ -2176,7 +2176,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_shadow.png",
       "sha256": "af2c084021856594a70ebb7b6d9ceab188eff276dfbe65eea7d77151545ad7df",
       "width": 340,
       "height": 144,
@@ -2204,7 +2204,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background.png",
       "sha256": "3499b685696344ead85f76b9ed2ce893d56232e0dd1b6a6e57e8e82061823b79",
       "width": 72,
       "height": 30,
@@ -2303,7 +2303,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background.png",
       "sha256": "f45a6bd07ce27e1c7d8538cf15117c83d8da92da2b6ab9256b6cd67480d0f007",
       "width": 310,
       "height": 146,
@@ -2730,7 +2730,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_shadow.png",
       "sha256": "a21e347921e6182c9b13a80e51a2cfedc3b2966addd036aa755701ee39cc0cef",
       "width": 189,
       "height": 133,
@@ -3017,7 +3017,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_li_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_li_border.png",
       "sha256": "8724512cdf7ed93e83f914f7ea5116442fdabcf7cdcf76a70fa289fd13b2799e",
       "width": 241,
       "height": 30,
@@ -3160,7 +3160,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_icon.png",
       "sha256": "8904b26c6b981d3b7ec127d33458682d4b97602493319f7d7bd969475cd6e7f2",
       "width": 387,
       "height": 300,
@@ -3292,7 +3292,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon.png",
       "sha256": "c8c7acb4b3ff57a42ed8bc084307962a90138ddab283c777e4bd3f6aa21e6e4d",
       "width": 93,
       "height": 37,
@@ -3627,13 +3627,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border.png",
+      "path": "05.UI/07.Popup/IMG_notification_goal_new_border.png",
       "sha256": "7acbac3d6a11ba970fa53dbff29f7d2dc70b778f0f9f01f4b08368f98e9c1072",
       "width": 350,
       "height": 92,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/166ce9928c7fe48d-border.png",
@@ -3673,7 +3673,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon.png",
       "sha256": "ca66f68ec497185baa8e24912321470c205536754fc8bb4d065eb6731a6493a3",
       "width": 117,
       "height": 117,
@@ -3701,7 +3701,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon.png",
       "sha256": "e77c3b12f26f2edb777388788ae4740de657cf4ca06103949181f24fc65a0985",
       "width": 38,
       "height": 39,
@@ -3839,7 +3839,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_before_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_before_background.png",
       "sha256": "8ba16a14d455f5b1451f29cdefbf500e2c956345d3ae50328c6826d3f57d52bc",
       "width": 210,
       "height": 283,
@@ -3910,7 +3910,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant2.png",
       "sha256": "571d5dfecae57ce8ecf32b758b47ebeb582d0ebec0dffc2f90ea9f24b6f51ec4",
       "width": 52,
       "height": 53,
@@ -4138,7 +4138,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_svg_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_svg_icon.png",
       "sha256": "b59fa02efc515a579c178a0e7fe9f8f6d3686767ff952a64e564e33d0ce0b268",
       "width": 387,
       "height": 300,
@@ -4309,7 +4309,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_background.png",
       "sha256": "7b05a2e7a3f1262c0ace2b8d2bd3c21849b74299e9824e38c2ddd395266a15d6",
       "width": 294,
       "height": 476,
@@ -4339,7 +4339,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon.png",
       "sha256": "82a2e00fc7e00e1f06dcb17dec173e9944c597cf561d34df11b9ff7b44132905",
       "width": 32,
       "height": 31,
@@ -4367,7 +4367,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon.png",
       "sha256": "dbbd1f4d03561f5b3751db9559f050d557e508998b4dfe800b3247c5f29b042a",
       "width": 23,
       "height": 23,
@@ -4523,7 +4523,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_button_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_button_border.png",
       "sha256": "92ddad3d877613344be53ca8a2347ca1f2d4e3cce4e66ea7c915ce4233a02ffe",
       "width": 170,
       "height": 42,
@@ -4598,13 +4598,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon.png",
+      "path": "05.UI/07.Popup/ICN_notification_goal_new.png",
       "sha256": "2e60b970c78a733cd7a98d58992dca27e5ea70af03da9b2103a3f0df8d6b493e",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/1f3fe2e64fe4d4e5-icon.png",
@@ -4674,7 +4674,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_stir_live_glass_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_stir_live_glass_icon.png",
       "sha256": "5c2b722c93889f8d6920ccfa35066f41a1ae5d1e1c1d4146a17aa456174aabcb",
       "width": 360,
       "height": 360,
@@ -4704,13 +4704,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_shadow.png",
+      "path": "05.UI/07.Popup/IMG_notification_down_shadow.png",
       "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
       "width": 446,
       "height": 186,
       "kind": "shadow",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/1f57e2430e5a07cb-shadow.png",
@@ -5041,7 +5041,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background.png",
       "sha256": "ebcbd71ee15a2a19bc946ccd58307f893ca20fceff927bb322802a0efc45fe10",
       "width": 280,
       "height": 53,
@@ -5247,7 +5247,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_background.png",
       "sha256": "3750f18537abfab230013f6a10c612255263be1875f3f4fb616886af7e139106",
       "width": 15,
       "height": 15,
@@ -5344,13 +5344,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v02.png",
+      "path": "05.UI/07.Popup/ICN_notification_event.png",
       "sha256": "962af8b1cc6b469b92a91940c2fca1c25d20748273dd325fe9ea3bc47cceed88",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/22a3719e6120f437-icon.png",
@@ -5623,7 +5623,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_shadow.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_shadow.png",
       "sha256": "72dbabb225a4396d7cbb9a09b7ba4fd671bbf3cc21827bbe0fa0d15321e2c4c7",
       "width": 390,
       "height": 572,
@@ -5681,7 +5681,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant2.png",
       "sha256": "bddae9ebb07a9e785305e01f1950d76326eddbe3c9699cd94fecb1c50c54f964",
       "width": 70,
       "height": 71,
@@ -5739,7 +5739,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon.png",
       "sha256": "918c22a9b0d444e9918c3562dc79b1c00873732d0adba7e3f21ba28b939228cc",
       "width": 150,
       "height": 148,
@@ -5814,7 +5814,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_i_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_i_background.png",
       "sha256": "754f47486d01d539ab5f7149c44f51c55eb8eadd9c3e90193c514f4795e04e0c",
       "width": 22,
       "height": 3,
@@ -5848,7 +5848,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant2.png",
       "sha256": "f6fbb5dab29bb5296e1f9d729dd127991ae4e20dae1b53c1813d3cb3db064c4c",
       "width": 125,
       "height": 123,
@@ -6334,7 +6334,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant3.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant3.png",
       "sha256": "e2d2424146f2295db39b1aba42e2b37029cdca6ee5396f987a65a5f4e5d4779a",
       "width": 115,
       "height": 114,
@@ -6362,7 +6362,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background.png",
       "sha256": "80d67843de4eab5bf52db5e2cb7d580f898d5921e06b4a65b290ee07edf589e7",
       "width": 26,
       "height": 47,
@@ -6499,7 +6499,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border.png",
       "sha256": "3e9c41d359848224b6289326b856cdc220c5293501b03fec2bca9c38745c12a0",
       "width": 64,
       "height": 64,
@@ -6527,7 +6527,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_button_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_button_icon.png",
       "sha256": "1cc2a00e45a1c8aa3f61a1ca00288be60540fb777f37ce58f1384ccdbaae0fa6",
       "width": 160,
       "height": 38,
@@ -6893,7 +6893,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_border.png",
       "sha256": "413e3724e8f696e9945fc75e33b621c028d5a517215f3854585703f555a7a5d7",
       "width": 294,
       "height": 476,
@@ -7187,7 +7187,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant2.png",
       "sha256": "519b1f84fb6abf39daf6e125d6f685657e4475ead7a2b84ce4b681a9b8346596",
       "width": 36,
       "height": 35,
@@ -7266,7 +7266,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon_variant2.png",
       "sha256": "17d9de1306a72bb01d2f47d4818f0422f83c704e97c55faef9352652430e0454",
       "width": 23,
       "height": 22,
@@ -7328,7 +7328,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant3.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant3.png",
       "sha256": "15089835505351350966c6d96b47b9485fe0f3c1d72e3a96e8f656f8273ae1c0",
       "width": 31,
       "height": 30,
@@ -7801,7 +7801,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon.png",
       "sha256": "6269fec13c98e060f57cc7ac010f5d47868ede35fa455033281bc1e1ccb8d3ba",
       "width": 61,
       "height": 61,
@@ -7875,7 +7875,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border_variant2.png",
       "sha256": "5b0b3847ef04487c0d2803e7367322d0dcaf720b9ea4ec45c8b62ce2822c50a6",
       "width": 56,
       "height": 56,
@@ -7961,7 +7961,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_background.png",
       "sha256": "849869368cace576008c8b4fa924957098c8fc6a8d6991ff2ea56581c4ec8477",
       "width": 405,
       "height": 346,
@@ -8026,7 +8026,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinematic_after_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinematic_after_background.png",
       "sha256": "a5d7a2b434c9ea0ee1cc16592c27ece9a33db656392d67457e8a7b767cd39194",
       "width": 400,
       "height": 674,
@@ -8084,7 +8084,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_BTN_primary_opening_hit_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_BTN_primary_opening_hit_background.png",
       "sha256": "dc23763db414e19bc531ac59eddb270a24a1da312fc122df543b7a2929dfe564",
       "width": 190,
       "height": 39,
@@ -8307,7 +8307,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_shadow.png",
       "sha256": "7790407613b47ba4557c44d55df16b3d4c6f8d01c66bc5fff5fc67007bdcdcfd",
       "width": 283,
       "height": 421,
@@ -8337,7 +8337,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border.png",
       "sha256": "7656d398ae045c73a1a0ed7cbfef7ce61040f0412353eb6ddb66a88b0c47ebd2",
       "width": 280,
       "height": 53,
@@ -8627,7 +8627,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinema_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinema_background.png",
       "sha256": "677d1032fdce3ce6b718d4aab3769f94373e1bdf1a9e9172956a60bbe2670ba7",
       "width": 388,
       "height": 664,
@@ -8657,7 +8657,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background.png",
       "sha256": "83a942e70ff2f3d91a9ec6ea62a05fde02ab7631c20ac927399749bfb74363c4",
       "width": 26,
       "height": 47,
@@ -8751,7 +8751,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_BTN_recipe_card_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_BTN_recipe_card_background.png",
       "sha256": "a3055f5d73ed4ea24646e8e6520ca6f00901aeef95f1b444a76cab64eae4c513",
       "width": 355,
       "height": 88,
@@ -8782,7 +8782,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant3.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant3.png",
       "sha256": "ddc7aeed684009dcf5bb2bf6f9fbfc46de3eb1725b1d2216d8c7bc99d560ffeb",
       "width": 68,
       "height": 68,
@@ -9018,7 +9018,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_shadow.png",
       "sha256": "9115e86a4cb9c26cd6991e2db8bdad4a1baf900787ecc2d4bb7e52989eaa1904",
       "width": 100,
       "height": 122,
@@ -9096,7 +9096,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_primary_opening_hit_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_primary_opening_hit_border.png",
       "sha256": "15426b8287ebec67c4475f81161161e43317711cbf39384164fe090d98ec14d0",
       "width": 190,
       "height": 39,
@@ -9217,7 +9217,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_BTN_recipe_card_background_v02.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_BTN_recipe_card_background_v02.png",
       "sha256": "5c4465ec12f83fedd35d65bd0532aa44a2fedc1fe9835125191b18f2342a2d1a",
       "width": 355,
       "height": 88,
@@ -9994,7 +9994,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon.png",
       "sha256": "5d077d25bced7313f9427295b7248e4f496a65913eb91c1a09ffda9d945cc532",
       "width": 52,
       "height": 51,
@@ -10240,7 +10240,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant3.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant3.png",
       "sha256": "480e985c2c74964f890e92f7066d3e45bd2693a8f5a959eb0cbc94c0782633a6",
       "width": 102,
       "height": 102,
@@ -10313,7 +10313,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon_variant2.png",
       "sha256": "71980840b37e06496c67999ebe9b60da6116ebd3c20b8e8ed41ea770b16d9520",
       "width": 43,
       "height": 17,
@@ -10411,7 +10411,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_mix_direction_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_mix_direction_background.png",
       "sha256": "b0f87e5b6f90d6996bf5542d8415fd6193bafdad5f44966c4b20a4a25038612c",
       "width": 61,
       "height": 61,
@@ -10558,7 +10558,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_warning_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_warning_background.png",
       "sha256": "8179f5b7310863f2a9469a2c61a6dba2881df5c652569cfcd19b1e253491a573",
       "width": 14,
       "height": 16,
@@ -11120,7 +11120,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
       "sha256": "708066c90f5485b297dd027f61bf39c77f29568a73e87d456a304d91ac9ebb71",
       "width": 88,
       "height": 24,
@@ -11222,7 +11222,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant4.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant4.png",
       "sha256": "923bb56bbac28c3a1c4b9dedf0bcf6be8b90ea91c062eb9d4a37b5a4b0ff41f6",
       "width": 118,
       "height": 117,
@@ -11594,7 +11594,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_mix_direction_next_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_mix_direction_next_background.png",
       "sha256": "2d6300199ca4f9351f2788766df00315d268f3c069cd4e7748dc032705f9d931",
       "width": 61,
       "height": 61,
@@ -11693,7 +11693,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant2.png",
       "sha256": "75b9768a985715e293d8039b71d5e86542aca56a358432ce2f62a846d637c09e",
       "width": 38,
       "height": 38,
@@ -12039,7 +12039,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border.png",
       "sha256": "f4382d3728c476d98ddb46a4cdf5bdfb2f96c34482b36a5232863f220d8f1e49",
       "width": 72,
       "height": 26,
@@ -12216,7 +12216,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v02.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v02.png",
       "sha256": "f36f1f37be0ec5fcf61164e9d34337a076c72cf0ef39e763baae5c59bff93f3d",
       "width": 26,
       "height": 47,
@@ -12345,7 +12345,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background_variant2.png",
       "sha256": "08608e4765c4b6b37dbc1cc3fe6e3cb992daccf7da07e5e7c40de6b57a5d42cd",
       "width": 310,
       "height": 148,
@@ -12552,7 +12552,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_back_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_back_border.png",
       "sha256": "58cea6f31189a610376e79d38fa7154d4f6201b6c019b554585af979bb00c3b1",
       "width": 78,
       "height": 38,
@@ -12930,7 +12930,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_finish_gimmick_finish_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_finish_gimmick_finish_border.png",
       "sha256": "f7ce5bc0be4304fcd257ec3cf930fc873a4a739d31d4480efeb053e1aaf32d39",
       "width": 157,
       "height": 46,
@@ -13149,7 +13149,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant4.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant4.png",
       "sha256": "6e40e565623c5ee4b252c144e2dd7d8058aa8e0d4e1f8ebf5bef161e917bbd0d",
       "width": 38,
       "height": 37,
@@ -13207,7 +13207,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_v02.png",
       "sha256": "9dc3cd1fcbadd510a695ad7e28abdf22967f25fbb54a37a0b9c9a0a02007465d",
       "width": 102,
       "height": 102,
@@ -13252,7 +13252,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant3.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant3.png",
       "sha256": "c6437cc0e18b3503252e41474f8f46fad694eb4342ec176c3304b09a0e8acb68",
       "width": 33,
       "height": 33,
@@ -13339,7 +13339,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant4.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant4.png",
       "sha256": "f6b899a8c13b096bb47d613411211e0366d9f424de047e347c4db001ddbfdfc4",
       "width": 77,
       "height": 77,
@@ -13634,7 +13634,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant5.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant5.png",
       "sha256": "816d2f6a76f68442e63741ccd5c3f6fbd7c78f3eef0945417dcc6e76adb044a6",
       "width": 70,
       "height": 70,
@@ -13748,7 +13748,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon_variant2.png",
       "sha256": "db4fc783dfb21895cc89b7c1857bdc4c235e21f9e70d3f2c5620a2bcd193eeaf",
       "width": 52,
       "height": 52,
@@ -13862,7 +13862,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant4.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant4.png",
       "sha256": "deacd042cdea2693cd4d53aaa853656b9506511cd16aec4be15f3a1f47e8fc6c",
       "width": 115,
       "height": 115,
@@ -13890,7 +13890,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_variant2.png",
       "sha256": "616687435fd835df5613b84ca83c920ef93dcedab38884527267d5ad9a966e74",
       "width": 72,
       "height": 30,
@@ -14098,7 +14098,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border.png",
       "sha256": "bb807b4c1f48d52d26a60554d1371b5ff71b550e0dcccd35b03e816dea66703c",
       "width": 290,
       "height": 217,
@@ -14298,13 +14298,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background.png",
+      "path": "05.UI/07.Popup/BG_notification_goal_complete.png",
       "sha256": "65b44859d1b178adbeef2cf4ed213972932f219cd27bf2a94de18b774dcd2604",
       "width": 350,
       "height": 92,
       "kind": "background",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/691f5f630c7d3c3d-background.png",
@@ -14344,7 +14344,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon.png",
       "sha256": "586adbd495c729284a2b2fb8af9bac863b7e5d54b437671389e0caf64e4a778b",
       "width": 52,
       "height": 51,
@@ -14393,7 +14393,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_next_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_next_icon.png",
       "sha256": "d47c01870c2a1d6910d45278ed242faa0ac41d3801998f43f1ea06f639e1f750",
       "width": 61,
       "height": 61,
@@ -14496,7 +14496,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_variant2.png",
       "sha256": "e356f6ec379129d2c719a125df93348cf607c5a53ae47487590527cccc362ecd",
       "width": 72,
       "height": 26,
@@ -14607,13 +14607,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_variant2.png",
+      "path": "05.UI/07.Popup/BG_notification_event.png",
       "sha256": "2c51cdf8f2585b79c16b7fe04976b8c048d0c5332bdff21b8c23086382cfa5f6",
       "width": 350,
       "height": 90,
       "kind": "background",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/6bf7690abc2cd489-background.png",
@@ -14680,7 +14680,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
       "sha256": "3067b49d5a6d13930be97e42eccc54e8039b99f9510413ca50b6eb05d48d60b5",
       "width": 110,
       "height": 46,
@@ -14786,7 +14786,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_heading_before_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_heading_before_background.png",
       "sha256": "a0f8cea550f95dfacf944860006fec298730aa1a2638df08ca55f7c7cfb3bc36",
       "width": 24,
       "height": 24,
@@ -14894,7 +14894,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinema_after_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinema_after_border.png",
       "sha256": "71c2c0c2e413d88004c55c2143c634901fd3a30a700c0e8e858029e16289a759",
       "width": 388,
       "height": 664,
@@ -15038,7 +15038,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background.png",
       "sha256": "fa95f39449d79a5cb4f43fd9564c04db39b117a12a86bab2426f820b7bea7868",
       "width": 290,
       "height": 217,
@@ -15412,7 +15412,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant4.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant4.png",
       "sha256": "1af45a45bed282a4fca84c63f0ecd7a2d3ec309f7430ede2ef6f568f02b7467d",
       "width": 39,
       "height": 38,
@@ -15551,13 +15551,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v03.png",
+      "path": "05.UI/07.Popup/ICN_notification_goal_complete.png",
       "sha256": "3f5c50417adc2b762638eb01c80717287926b6549eb0a9151f5b9150c7cb3a2f",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/74a7943fd218f630-icon.png",
@@ -15703,7 +15703,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background_variant2.png",
       "sha256": "2f4e7260aff29b1b74a8eff4365cc9693e771c11bf0f4e54d79b82a361a36a01",
       "width": 280,
       "height": 135,
@@ -15734,7 +15734,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border.png",
       "sha256": "a0e5361364dd82f131f24de3b53310ed3e4f490286a4bc2b218802e24ef42001",
       "width": 169,
       "height": 58,
@@ -15762,7 +15762,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_button_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_button_background.png",
       "sha256": "b725a9fdf96837c5cbcc25b3e9be113c6237b4ef29c1b838be2fd90309562711",
       "width": 170,
       "height": 42,
@@ -15853,7 +15853,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_border.png",
       "sha256": "3a573d05acb974a90b7a4c926222e2174ecb12bcc7a74de904c4f2f4e45f909b",
       "width": 15,
       "height": 15,
@@ -16099,7 +16099,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background.png",
       "sha256": "82b27e53f361620370fa276f1358f083e4c8624a6993dacf8d8e8e149a30b289",
       "width": 88,
       "height": 16,
@@ -16188,7 +16188,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background_variant2.png",
       "sha256": "689e1a0c66c6f62833b540c89438ba0e1d85af3d6e8755da7df9fa454c2fa8f0",
       "width": 151,
       "height": 16,
@@ -16645,13 +16645,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_v02.png",
+      "path": "05.UI/07.Popup/IMG_notification_goal_complete_border.png",
       "sha256": "59e166330af5cf2999c50b3f20af5a146f1c901e28162f015c7d056a998a5f69",
       "width": 350,
       "height": 92,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/7dedfdcde2221f51-border.png",
@@ -16739,13 +16739,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v04.png",
+      "path": "05.UI/07.Popup/ICN_notification_meet.png",
       "sha256": "e7f43baa679530256e23d0eb727b329325af5066979d2930bced30c628b02c10",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/7e825997b29cef4a-icon.png",
@@ -16864,7 +16864,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border_variant2.png",
       "sha256": "9094d1ba3c48119e832a2394ca15a5a945ea93df42730ecc2f35b0c41588742c",
       "width": 290,
       "height": 151,
@@ -16920,13 +16920,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border.png",
+      "path": "05.UI/07.Popup/IMG_notification_event_icon_border.png",
       "sha256": "ac99364fd2fef7023f25df55f0fe82bd5fd49f9604bfc086cc50596ff3fef028",
       "width": 39,
       "height": 39,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/80461ed2f9ea6d81-border.png",
@@ -16965,13 +16965,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border.png",
+      "path": "05.UI/07.Popup/IMG_notification_down_border.png",
       "sha256": "91a27f951e39b7e4d584d30ceb896b2b36345f3c847d3a47de1aadb7059ee48c",
       "width": 350,
       "height": 90,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/80961ce4974bf0cc-border.png",
@@ -17068,13 +17068,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border_v02.png",
+      "path": "05.UI/07.Popup/IMG_notification_meet_border.png",
       "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
       "width": 350,
       "height": 90,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/815786479d9539eb-border.png",
@@ -17406,7 +17406,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_shadow.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_shadow.png",
       "sha256": "a9fea308aca108bf49e911c8a56fd7758e5d91aee321e6651ae95b6b7f4da5c0",
       "width": 434,
       "height": 748,
@@ -17535,13 +17535,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_variant2.png",
+      "path": "05.UI/07.Popup/IMG_notification_event_border.png",
       "sha256": "8c8475cab7288fdbeaf3f15581ce95fab97d65a118f53378bae2b2a05f249fdd",
       "width": 350,
       "height": 90,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/83e5ce5a9d368dbc-border.png",
@@ -17609,7 +17609,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border.png",
       "sha256": "998bc4b01eec76ea9053e829abd02e01b950cb326842cf33b501a1f90825f75a",
       "width": 48,
       "height": 21,
@@ -17769,13 +17769,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_shadow.png",
+      "path": "05.UI/07.Popup/IMG_notification_goal_complete_shadow.png",
       "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
       "width": 446,
       "height": 188,
       "kind": "shadow",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/85fac6ab2c6b0f74-shadow.png",
@@ -17850,7 +17850,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_svg_g_mix_guide_marks_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_svg_g_mix_guide_marks_icon.png",
       "sha256": "a5c39cf2862766a3255709fc8add630e75a2131a9ae0db4cf21a274601dea23d",
       "width": 542,
       "height": 550,
@@ -17907,7 +17907,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background.png",
       "sha256": "355ad79e5a608a02ed7c929c9315776e749cd5ec1dbac2843ebe6575a1ee2a4c",
       "width": 64,
       "height": 64,
@@ -18406,7 +18406,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border.png",
       "sha256": "d1ca77561c4e75d13b0cab33d67e87223d998b635ffc48f83361de3b92a99ebe",
       "width": 310,
       "height": 148,
@@ -18462,7 +18462,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant5.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant5.png",
       "sha256": "1647e1c37e3fc388ec0fd0ddb5317b021aeba351d875926a6dfc8ebcdf2ce566",
       "width": 68,
       "height": 69,
@@ -18623,7 +18623,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_prep_back_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_prep_back_background.png",
       "sha256": "0bb1f84b5d702d4fd17d15de7eb2f8e681692c195841999ad17c8b7c9f2e054b",
       "width": 78,
       "height": 38,
@@ -18842,7 +18842,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_h3_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_h3_border.png",
       "sha256": "dc416adbfb0b82efcf258c70784da9aef0f739562f792104b05a46cc35a5a8db",
       "width": 241,
       "height": 15,
@@ -18872,7 +18872,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_v02.png",
       "sha256": "97eccfe86bc5b4a3cdcccfb223dd5959a4bd2111ce5ccea2d60f4e569a64aa0d",
       "width": 52,
       "height": 51,
@@ -18958,7 +18958,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_background_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_background_variant2.png",
       "sha256": "c4f93a512341c0547b5392bf1dcde7c3fc3be31a9e0fbd1f5f2b8234df9b8873",
       "width": 273,
       "height": 137,
@@ -18986,7 +18986,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_polyline_rhythm_path_route_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_polyline_rhythm_path_route_icon.png",
       "sha256": "0d6919f05c2efa56848d58f0706e495f1f350d40a53da39b960d278df9cd84d4",
       "width": 241,
       "height": 346,
@@ -19194,7 +19194,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant6.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant6.png",
       "sha256": "c09485f194909b439f2e99cc6a877a4d6bd27193de6ce3e44035668c7c6f4aeb",
       "width": 75,
       "height": 75,
@@ -19341,7 +19341,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant5.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant5.png",
       "sha256": "80a1922510b561eb240c4483657a6f6c778d2ca0af517dd2e87b9994f18bb052",
       "width": 165,
       "height": 163,
@@ -19569,13 +19569,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_v02.png",
+      "path": "05.UI/07.Popup/BG_notification_goal_new.png",
       "sha256": "8b4569a0c2a7e1d05cff6227d7939621eaa5531eb7af14c91596abf1a04ec2da",
       "width": 350,
       "height": 92,
       "kind": "background",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/934adff6baf4ed8c-background.png",
@@ -19615,7 +19615,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border_variant2.png",
       "sha256": "e3a0c3aec5f992093ae4ea74304ee016143672951f3bf9ff58bbdccaba5c501d",
       "width": 310,
       "height": 146,
@@ -20137,13 +20137,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v05.png",
+      "path": "05.UI/07.Popup/ICN_notification_down.png",
       "sha256": "92a743a255d5ea6ce46e54fdf5a7482af002b03bf5718bdc084bab7213130bef",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/94eff1cb8f7aa960-icon.png",
@@ -20225,7 +20225,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_background.png",
       "sha256": "3763eb3aafbb75bee85a1beed9180158e050d5960f2300d5643ee350da571f35",
       "width": 583,
       "height": 589,
@@ -20453,7 +20453,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant6.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant6.png",
       "sha256": "3834c1a1a0d602a0ede89805c350e2d6b7d66e9c51837c31ea6c867a6f845190",
       "width": 102,
       "height": 101,
@@ -20539,7 +20539,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02.png",
       "sha256": "8fdde09b0bc8c124f8e901924e914326c59842b0b75ddcc8324729ce432e53af",
       "width": 72,
       "height": 30,
@@ -20630,7 +20630,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_v02.png",
       "sha256": "80164cef56f2107017d36350cf5ede160b2dc9ead188f8efaa78e3da4d75a3f2",
       "width": 150,
       "height": 148,
@@ -21093,7 +21093,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_border.png",
       "sha256": "9d1e72ed1e299d2622582b8899c474279db19884238127f86193c8bc8dfb93be",
       "width": 187,
       "height": 325,
@@ -21829,7 +21829,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_button_border_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_button_border_variant2.png",
       "sha256": "4c3131c65717e2c08f824e10c2640ee782ec5de2d74fffd3507a51c23770a324",
       "width": 160,
       "height": 38,
@@ -22138,7 +22138,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_shadow.png",
       "sha256": "7cbb7260cdc8ede0baa73d70b8cb58a5dda1bb8d66156f5713a34f3436ae97bd",
       "width": 336,
       "height": 112,
@@ -22226,7 +22226,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon_v02.png",
       "sha256": "1094c594d8e5212cf28699061de63a43329e1e4a490f1821f54a7cd4f5b4f14f",
       "width": 61,
       "height": 61,
@@ -22286,7 +22286,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v02.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v02.png",
       "sha256": "bd333a964870b0777ad502a79243434eb3e0dce84ca7826a038bcaae0b5e3b46",
       "width": 26,
       "height": 47,
@@ -22453,7 +22453,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_IMG_button_icon.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_IMG_button_icon.png",
       "sha256": "ca688d63c70e9c6e5b387158bc1599907c45c0927676ccc19f1d75da2a38c55b",
       "width": 24,
       "height": 26,
@@ -22715,13 +22715,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v02.png",
+      "path": "05.UI/07.Popup/IMG_notification_down_icon_border.png",
       "sha256": "8cd519e872f2ab1934860ed1e22ae5a3b04fb2fd9c3e625dfebe9f8ad5f53e5f",
       "width": 39,
       "height": 39,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/b61036dfc2cc03d2-border.png",
@@ -23065,7 +23065,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_BTN_pour_finish_gimmick_finish_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_BTN_pour_finish_gimmick_finish_background.png",
       "sha256": "82bd6addb0107dd0f044226ea24e85d2c524c7f1306dd5fdd4be52655346ac3f",
       "width": 157,
       "height": 46,
@@ -23285,13 +23285,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v03.png",
+      "path": "05.UI/07.Popup/IMG_notification_goal_new_icon_border.png",
       "sha256": "1a0360e7375c0f01815a8a1659dd2f68ccebb114075421bc585f46a75d6e1a2e",
       "width": 39,
       "height": 39,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/bb56a4ce1e957ba7-border.png",
@@ -23331,7 +23331,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_background.png",
       "sha256": "15f497a4f47e5fcb0e5931783917667da0e4397ca8afaf7a9a7dbac8bffe1f37",
       "width": 629,
       "height": 589,
@@ -23546,7 +23546,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_i_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_i_border.png",
       "sha256": "ea1ef4ceb8f5dfdf6b0017df0e5ddf3f5f3fdf4d53c1cdec650cfb5d792603e6",
       "width": 69,
       "height": 20,
@@ -23595,7 +23595,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_border.png",
       "sha256": "4d63a3d4b9e6a5ad2ad441a8ea00c243aa03be62bc8731d5e34eca9c6c600501",
       "width": 241,
       "height": 155,
@@ -23681,7 +23681,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_after_shadow.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_after_shadow.png",
       "sha256": "7f42e46ce0c6b92518b37de3b248aa365a11387ac4027b4542755184c164c56d",
       "width": 724,
       "height": 683,
@@ -24035,7 +24035,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_border.png",
       "sha256": "49350996771827a77ef7629e8f8eb6ff4b54ce79af4035fcfa3e129bc402ab3c",
       "width": 93,
       "height": 37,
@@ -24236,7 +24236,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
       "sha256": "6b4c1e659f0141e82151dbc4cefe9abdd83922ea2a2e9b1dacf3f4f687b3bfca",
       "width": 88,
       "height": 24,
@@ -24291,7 +24291,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border_variant2.png",
       "sha256": "cb898528741a91cbf43f33dd2c984ad639ee3a4e21b8ef16787e5d9bbccf0f22",
       "width": 41,
       "height": 21,
@@ -24544,7 +24544,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_background.png",
       "sha256": "d0d79c02cfa62c2000b135b5c69704af4e6c3138648e0b72955cbf45dd0b0e5f",
       "width": 244,
       "height": 48,
@@ -24712,7 +24712,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant5.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant5.png",
       "sha256": "026948179ec8f081594e7250ee0660e21528100f7b0cc5d9f334a70b393ce59e",
       "width": 29,
       "height": 28,
@@ -24825,13 +24825,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_after_border.png",
+      "path": "05.UI/06.Ect/Choices/pointer-right.png",
       "sha256": "142790ae862f761292f49afe137bee8e7faa2181c2790396a7484acb968b8a82",
       "width": 5,
       "height": 6,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/d04ae4795fb89578-border.png",
@@ -24865,7 +24865,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border.png",
       "sha256": "7913858b3d3bcea48398bb04f4cda1bb80e48e4fdf2b204faa58febde08b6e93",
       "width": 241,
       "height": 90,
@@ -24960,13 +24960,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v04.png",
+      "path": "05.UI/07.Popup/IMG_notification_goal_complete_icon_border.png",
       "sha256": "bdfad12a2d00888a916132b5ddc47c692d6f190410d505fe7cfbe22b04ec83e7",
       "width": 39,
       "height": 39,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/d1bb07c168cf1a0f-border.png",
@@ -25155,7 +25155,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_border.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_border.png",
       "sha256": "496db0704bc9e2965deb62efa7eea8b7d3263cdb670d375235764577b524d37a",
       "width": 338,
       "height": 652,
@@ -25211,7 +25211,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_background.png",
       "sha256": "6f2281fa8125ab1b27bc3ded5401cfc9d703a3fe8abe2c2fbe79d289df2b9adf",
       "width": 4,
       "height": 26,
@@ -25358,7 +25358,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_before_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_before_background.png",
       "sha256": "6e7ef469808bb4c4035029a3cb2229bfbaa839700789705589d3e6cbb3e234ea",
       "width": 1280,
       "height": 145,
@@ -25480,7 +25480,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_border.png",
       "sha256": "97cb5b0d8fa1948127651a0356193d6ac29d8fd272ca6e6949a8b2a59b5ac5d4",
       "width": 629,
       "height": 589,
@@ -25599,13 +25599,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v05.png",
+      "path": "05.UI/07.Popup/IMG_notification_meet_icon_border.png",
       "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
       "width": 39,
       "height": 39,
       "kind": "border",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/db04dd5ec4f903d3-border.png",
@@ -26048,7 +26048,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_background.png",
       "sha256": "6c313b2dc04d118ad808a81b6975df7c610b290c4161ff9fbd7711bbe6bc1e5f",
       "width": 93,
       "height": 37,
@@ -26131,7 +26131,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_border.png",
       "sha256": "e31911cc896040a10d5f18c539ad03342f5986607c4391371e7093945859e4a3",
       "width": 405,
       "height": 346,
@@ -26253,7 +26253,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_inventory_slot_empty_slot_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_inventory_slot_empty_slot_background.png",
       "sha256": "dc915c43408d1d244bf182e57ece83b503f3312d964d292c95c240fcb9e44fc4",
       "width": 93,
       "height": 93,
@@ -26345,7 +26345,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_border_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_border_variant2.png",
       "sha256": "056353a848a072071b6aa7c468696b7c34c02f4ecdfcaefdcc226eb981dc54b5",
       "width": 273,
       "height": 137,
@@ -26480,7 +26480,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border_variant2.png",
       "sha256": "edcacc81a37110848725791881b539b4dd3be77102417e339be9eef75adf2b1d",
       "width": 280,
       "height": 135,
@@ -26579,7 +26579,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02.png",
       "sha256": "20c8f94f51355055310e5f8224cdf6c743935ad734c246bd6fff42dbabc7971f",
       "width": 72,
       "height": 26,
@@ -26674,7 +26674,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border_variant2.png",
       "sha256": "aab230893212b8b28645b56016bce3b2ef9f1d7fbad4cf26cb81bae27d9c3dae",
       "width": 273,
       "height": 98,
@@ -26702,7 +26702,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_gauge_stir_resource_gauge_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_gauge_stir_resource_gauge_background.png",
       "sha256": "978e2d902933ae26e085a4ae785e7a4415572a3502ee9cc7ac5c7e2f553019ac",
       "width": 708,
       "height": 30,
@@ -26732,13 +26732,13 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v06.png",
+      "path": "05.UI/07.Popup/ICN_notification_up.png",
       "sha256": "bc1aa1065c662ea63aa7d03ffbcbf1d1ed96aca2785a7a2bf8231f734ee9cd65",
       "width": 39,
       "height": 39,
       "kind": "icon",
       "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/extracted/e25606c6ada3fef8-icon.png",
@@ -26780,7 +26780,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_background.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_background.png",
       "sha256": "f4f11df29ccbf5c629803d256ebd51d8bd40fd042617905bbe03b984f9df07da",
       "width": 338,
       "height": 652,
@@ -26836,7 +26836,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v03.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v03.png",
       "sha256": "9826d28a1a2ca77e19f1610ba95d27a1b83691e6503fcf570e9fda8a64fe7ada",
       "width": 26,
       "height": 47,
@@ -26990,7 +26990,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant6.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant6.png",
       "sha256": "ad6eb702e074dfa99c888ca1f5535ec7d17d22b267cb747c1a6797ad8bdc8413",
       "width": 33,
       "height": 32,
@@ -27133,7 +27133,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background_variant2.png",
       "sha256": "ffc92dae1a794139a322942cab5871ce4f5af503c56a3daab5d0ca7df655c314",
       "width": 290,
       "height": 151,
@@ -27218,7 +27218,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinematic_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinematic_background.png",
       "sha256": "4c5889d7af37d40eccf1d36c738eef876ea1412418821116c4128e71aae6dc21",
       "width": 400,
       "height": 674,
@@ -27486,7 +27486,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon_v03.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon_v03.png",
       "sha256": "b3ee2edffa9ef09e4fbf2f78c91af9295c478702ed15552f4126cbdc0748c528",
       "width": 61,
       "height": 61,
@@ -27545,7 +27545,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border_variant2.png",
       "sha256": "0beac464481f0854120bd82a97201d5149bb38ec462836f30dd81d887e2e9f1e",
       "width": 256,
       "height": 60,
@@ -27695,7 +27695,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02_variant2.png",
       "sha256": "ae84cb37aa635d69695f1ae2eac7f75becfc9dfc94c1b5a7616c7db991c2cdd3",
       "width": 72,
       "height": 26,
@@ -27725,7 +27725,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02_variant2.png",
       "sha256": "b06da050df7b1ed9937d10d9ff4b64743c1248a45e21a9814f8997840c35576d",
       "width": 72,
       "height": 30,
@@ -27759,7 +27759,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_motion_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_motion_background.png",
       "sha256": "a8380e22fb5f7ea4f233732d407cc3dff75747009eb772da528e057510d164d0",
       "width": 1171,
       "height": 664,
@@ -27789,7 +27789,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
       "sha256": "d48179188710739a97692dd3cd68711df73cbce13db91ce2bbc3c13845c60c95",
       "width": 110,
       "height": 46,
@@ -27848,7 +27848,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_variant2.png",
       "sha256": "f7cb027425237f6b67ef9b7b545797c4611942580e3890089f66f637acf8f817",
       "width": 52,
       "height": 52,
@@ -27878,7 +27878,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background_variant2.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background_variant2.png",
       "sha256": "c5545a981dbef21f721af0b93438a2b5de846c273ea22d41c772758c1415dee8",
       "width": 56,
       "height": 56,
@@ -28167,7 +28167,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_after_background.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_after_background.png",
       "sha256": "ce5c6715a4d4e76550c63d042cfac5a064d219f7bf9ce0d89eff69ad7c54f39e",
       "width": 583,
       "height": 589,
@@ -28269,7 +28269,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v03.png",
+      "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v03.png",
       "sha256": "aa9ef407943e3ce33e3c8730880817663e4a616c29ec176c594493c21fa4c3b7",
       "width": 26,
       "height": 47,
@@ -28427,7 +28427,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant6.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant6.png",
       "sha256": "d289a9ccb2d73b63f0bdb907519339593f31a1c3a91f241c060f57bd56fe9501",
       "width": 54,
       "height": 55,
@@ -28456,7 +28456,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_icon.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_icon.png",
       "sha256": "2746e1cd9acad5beda491cf79c6403a27577d38472dc8fc84d592f968b50a5ef",
       "width": 539,
       "height": 382,
@@ -28546,7 +28546,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_nav_rhythm_modes_border.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_nav_rhythm_modes_border.png",
       "sha256": "efb833cdaafa7e0c397b8f89c9d5a8a5931a3d2a2151953eabae1bf4d3f16645",
       "width": 539,
       "height": 43,
@@ -28796,7 +28796,7 @@
       ]
     },
     {
-      "path": "05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_button_background_variant2.png",
+      "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_button_background_variant2.png",
       "sha256": "b2769e0c7f92f41e5649b019d664b58dbcab9adc60d27ad1e2c286f3208a673e",
       "width": 160,
       "height": 38,
@@ -29417,13 +29417,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_inactive_line_border.png",
+      "path": "05.UI/06.Ect/Choices/inactive-line.png",
       "sha256": "3b1cddac1c1734b1b87df10562754596c8d1ff73738f06e19dcf6730c4cc4167",
       "width": 2,
       "height": 30,
       "kind": "border",
       "origin": "Web UI separated artwork",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/parts/choices/inactive-line.png",
@@ -29437,13 +29437,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_IMG_choices_key_e_icon.png",
+      "path": "05.UI/06.Ect/Choices/key-e.png",
       "sha256": "a77d634b44e584e90c537229efdb3993d73a8f39936acdbe1190494d3dd0c64f",
       "width": 32,
       "height": 34,
       "kind": "icon",
       "origin": "Web UI separated artwork",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/parts/choices/key-e.png",
@@ -29457,13 +29457,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_key_frame_border.png",
+      "path": "05.UI/06.Ect/Choices/key-frame.png",
       "sha256": "44f2a1df981634785c58c564b1a8a88d1563e2c5d6fe8fe79d4af8b6000cf47d",
       "width": 32,
       "height": 34,
       "kind": "border",
       "origin": "Web UI separated artwork",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/parts/choices/key-frame.png",
@@ -29497,13 +29497,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_selected_background_left_background.png",
+      "path": "05.UI/06.Ect/Choices/selected-background-left.png",
       "sha256": "e1deae95ca1432cfc8875ced97ee25eab7265eb1cf35ce31a73c829f16fd0646",
       "width": 64,
       "height": 32,
       "kind": "background",
       "origin": "Web UI separated artwork",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/parts/choices/selected-background-left.png",
@@ -29517,13 +29517,13 @@
       ]
     },
     {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_selected_background_right_background.png",
+      "path": "05.UI/06.Ect/Choices/selected-background-right.png",
       "sha256": "a31a3996a17c483f17b58cdc9ab82ef80c1985c57d93536e6a35d34f0d028485",
       "width": 64,
       "height": 32,
       "kind": "background",
       "origin": "Web UI separated artwork",
-      "reusesExisting": false,
+      "reusesExisting": true,
       "sources": [
         {
           "src": "assets/ui/parts/choices/selected-background-right.png",

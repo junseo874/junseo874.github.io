@@ -16,7 +16,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    LunaOutsideTraffic.draw=function(...args){events.push(args[4]);const before=[c.globalAlpha,c.globalCompositeOperation,JSON.stringify(c.getTransform())];traffic(...args);const after=[c.globalAlpha,c.globalCompositeOperation,JSON.stringify(c.getTransform())];if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Canvas state leaked');};
    try{o.tick(0);}finally{c.drawImage=draw;LunaOutsideTraffic.draw=traffic;}
    const data=LUNA_OUTSIDE_DATA,asset=name=>data.assets[data.scenes.street.nodes.find(n=>n.name===name).sprite.asset].src;
-   const i=name=>events.findIndex(e=>e.endsWith(asset(name)));
+   const i=name=>events.findIndex(e=>decodeURIComponent(e).endsWith(asset(name)));
    return {far:events.indexOf('far'),mid:events.indexOf('mid'),near:events.indexOf('near'),sky:i('Sky'),back2:i('C_Back_Building_2'),back:i('C_Back_Building_1'),tower:i('C_Middle_Building_3'),city:i('C_Middle_Building_1'),fence:i('Fence')};
   });
   assert(Object.values(order).every(i=>i>=0),JSON.stringify(order));

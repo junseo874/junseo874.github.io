@@ -3,7 +3,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 (async()=>{
  const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
-  for(let i=1;i<=3;i++)assert(fs.readFileSync(path.resolve(__dirname,'../assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_'+i+'.png')).equals(fs.readFileSync('/Users/lee/Desktop/project/Human-Bartender/HumanBartender/Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_'+i+'.png')));
+  for(let i=1;i<=3;i++)assert(fs.readFileSync(path.resolve(__dirname,'../assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_'+i+'.png')).equals(fs.readFileSync('/Users/lee/Desktop/project/Human-Bartender/HumanBartender/Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_'+i+'.png')));
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');

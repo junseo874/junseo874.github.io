@@ -22,742 +22,742 @@ window.ResourceExtractionAssets=[
     "h": 270
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox.png",
     "title": "GRD_textbox.png",
     "category": "UI · 원본 조각",
     "w": 1625,
     "h": 446
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_5.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox_5.png",
     "title": "GRD_textbox_5.png",
     "category": "UI · 원본 조각",
     "w": 1405,
     "h": 208
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox_luna.png",
     "title": "GRD_textbox_luna.png",
     "category": "UI · 원본 조각",
     "w": 1625,
     "h": 358
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_coaster.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_box_coaster.png",
     "title": "IMG_box_coaster.png",
     "category": "UI · 원본 조각",
     "w": 524,
     "h": 176
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_cocktail.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_box_cocktail.png",
     "title": "IMG_box_cocktail.png",
     "category": "UI · 원본 조각",
     "w": 593,
     "h": 280
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_A.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_choice_A.png",
     "title": "바 선택지 · IMG_choice_A.png",
     "category": "UI · 원본 조각",
     "w": 2103,
     "h": 228
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_B.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_choice_B.png",
     "title": "바 선택지 · IMG_choice_B.png",
     "category": "UI · 원본 조각",
     "w": 2103,
     "h": 228
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_arrow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_choice_arrow.png",
     "title": "바 선택지 · IMG_choice_arrow.png",
     "category": "UI · 원본 조각",
     "w": 102,
     "h": 109
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_indicator_A.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_indicator_A.png",
     "title": "IMG_indicator_A.png",
     "category": "UI · 원본 조각",
     "w": 119,
     "h": 119
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_indicator_B.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_indicator_B.png",
     "title": "IMG_indicator_B.png",
     "category": "UI · 원본 조각",
     "w": 119,
     "h": 119
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_money.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_money.png",
     "title": "IMG_money.png",
     "category": "UI · 원본 조각",
     "w": 542,
     "h": 108
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_shadow_cocktail.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_shadow_cocktail.png",
     "title": "IMG_shadow_cocktail.png",
     "category": "UI · 원본 조각",
     "w": 297,
     "h": 130
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_textbox_Next.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_textbox_Next.png",
     "title": "IMG_textbox_Next.png",
     "category": "UI · 원본 조각",
     "w": 31,
     "h": 30
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_A.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/BTN_recipe_choice_A.png",
     "title": "BTN_recipe_choice_A.png",
     "category": "UI · 원본 조각",
     "w": 1103,
     "h": 264
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_B.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/BTN_recipe_choice_B.png",
     "title": "BTN_recipe_choice_B.png",
     "category": "UI · 원본 조각",
     "w": 1103,
     "h": 264
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_close.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/BTN_recipe_choice_close.png",
     "title": "BTN_recipe_choice_close.png",
     "category": "UI · 원본 조각",
     "w": 87,
     "h": 87
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_ESC.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",
     "w": 95,
     "h": 45
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_recipe_choice_box.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/IMG_recipe_choice_box.png",
     "title": "IMG_recipe_choice_box.png",
     "category": "UI · 원본 조각",
     "w": 1284,
     "h": 2160
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_thumb.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/IMG_scroll_thumb.png",
     "title": "IMG_scroll_thumb.png",
     "category": "UI · 원본 조각",
     "w": 51,
     "h": 1847
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_track.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/recipe_choice/IMG_scroll_track.png",
     "title": "IMG_scroll_track.png",
     "category": "UI · 원본 조각",
     "w": 51,
     "h": 1847
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_A.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/service_panel/BTN_service_A.png",
     "title": "BTN_service_A.png",
     "category": "UI · 원본 조각",
     "w": 779,
     "h": 173
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_B.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/service_panel/BTN_service_B.png",
     "title": "BTN_service_B.png",
     "category": "UI · 원본 조각",
     "w": 779,
     "h": 173
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_close.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/service_panel/BTN_service_close.png",
     "title": "BTN_service_close.png",
     "category": "UI · 원본 조각",
     "w": 87,
     "h": 88
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_panel.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/service_panel/BTN_service_panel.png",
     "title": "BTN_service_panel.png",
     "category": "UI · 원본 조각",
     "w": 186,
     "h": 187
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/IMG_ESC.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/service_panel/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",
     "w": 90,
     "h": 43
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/BTN_Disable.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/BTN_Disable.png",
     "title": "BTN_Disable.png",
     "category": "UI · 원본 조각",
     "w": 953,
     "h": 208
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/BTN_Enable.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/BTN_Enable.png",
     "title": "BTN_Enable.png",
     "category": "UI · 원본 조각",
     "w": 953,
     "h": 208
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/IMG_Deco_button.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/IMG_Deco_button.png",
     "title": "IMG_Deco_button.png",
     "category": "UI · 원본 조각",
     "w": 49,
     "h": 176
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png",
     "title": "IMG_logo.png",
     "category": "UI · 원본 조각",
     "w": 1340,
     "h": 660
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/PTN_Dot.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/PTN_Dot.png",
     "title": "PTN_Dot.png",
     "category": "UI · 원본 조각",
     "w": 3840,
     "h": 2160
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/Logo/IMG_logo_white.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/title_street_full.png",
+    "title": "title_street_full.png",
+    "category": "UI · 원본 조각",
+    "w": 2880,
+    "h": 1620
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/02.Title/02.Logo/IMG_logo_white.png",
     "title": "IMG_logo_white.png",
     "category": "UI · 원본 조각",
     "w": 1340,
     "h": 660
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_L_A.png",
-    "title": "BTN_arrow_L_A.png",
-    "category": "UI · 원본 조각",
-    "w": 77,
-    "h": 140
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_L_B.png",
-    "title": "BTN_arrow_L_B.png",
-    "category": "UI · 원본 조각",
-    "w": 77,
-    "h": 140
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_R_A.png",
-    "title": "BTN_arrow_R_A.png",
-    "category": "UI · 원본 조각",
-    "w": 77,
-    "h": 140
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_R_B.png",
-    "title": "BTN_arrow_R_B.png",
-    "category": "UI · 원본 조각",
-    "w": 77,
-    "h": 140
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_recipe.png",
-    "title": "BTN_recipe.png",
-    "category": "UI · 원본 조각",
-    "w": 195,
-    "h": 196
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_start.png",
-    "title": "BTN_start.png",
-    "category": "UI · 원본 조각",
-    "w": 497,
-    "h": 160
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_A.png",
-    "title": "GRD_igd_info_A.png",
-    "category": "UI · 원본 조각",
-    "w": 47,
-    "h": 226
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_B.png",
-    "title": "GRD_igd_info_B.png",
-    "category": "UI · 원본 조각",
-    "w": 184,
-    "h": 226
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_D.png",
-    "title": "GRD_igd_info_D.png",
-    "category": "UI · 원본 조각",
-    "w": 46,
-    "h": 226
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_backround.png",
-    "title": "IMG_igd_backround.png",
-    "category": "UI · 원본 조각",
-    "w": 3841,
-    "h": 438
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_box_A.png",
-    "title": "IMG_igd_box_A.png",
-    "category": "UI · 원본 조각",
-    "w": 280,
-    "h": 280
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_box_B.png",
-    "title": "IMG_igd_box_B.png",
-    "category": "UI · 원본 조각",
-    "w": 280,
-    "h": 280
-  },
-  {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/BTN_recipe_close.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/BTN_recipe_close.png",
     "title": "BTN_recipe_close.png",
     "category": "UI · 원본 조각",
     "w": 76,
     "h": 76
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_ESC.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",
     "w": 76,
     "h": 36
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_cocktail_box.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_cocktail_box.png",
     "title": "IMG_cocktail_box.png",
     "category": "UI · 원본 조각",
     "w": 841,
     "h": 431
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_box.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_recipe_box.png",
     "title": "IMG_recipe_box.png",
     "category": "UI · 원본 조각",
     "w": 1038,
     "h": 1980
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_igd_box.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_recipe_igd_box.png",
     "title": "IMG_recipe_igd_box.png",
     "category": "UI · 원본 조각",
     "w": 191,
     "h": 191
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_arrow_L_A.png",
+    "title": "BTN_arrow_L_A.png",
+    "category": "UI · 원본 조각",
+    "w": 77,
+    "h": 140
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_arrow_L_B.png",
+    "title": "BTN_arrow_L_B.png",
+    "category": "UI · 원본 조각",
+    "w": 77,
+    "h": 140
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_arrow_R_A.png",
+    "title": "BTN_arrow_R_A.png",
+    "category": "UI · 원본 조각",
+    "w": 77,
+    "h": 140
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_arrow_R_B.png",
+    "title": "BTN_arrow_R_B.png",
+    "category": "UI · 원본 조각",
+    "w": 77,
+    "h": 140
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_recipe.png",
+    "title": "BTN_recipe.png",
+    "category": "UI · 원본 조각",
+    "w": 195,
+    "h": 196
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/BTN_start.png",
+    "title": "BTN_start.png",
+    "category": "UI · 원본 조각",
+    "w": 497,
+    "h": 160
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/GRD_igd_info_A.png",
+    "title": "GRD_igd_info_A.png",
+    "category": "UI · 원본 조각",
+    "w": 47,
+    "h": 226
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/GRD_igd_info_B.png",
+    "title": "GRD_igd_info_B.png",
+    "category": "UI · 원본 조각",
+    "w": 184,
+    "h": 226
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/GRD_igd_info_D.png",
+    "title": "GRD_igd_info_D.png",
+    "category": "UI · 원본 조각",
+    "w": 46,
+    "h": 226
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/IMG_igd_backround.png",
+    "title": "IMG_igd_backround.png",
+    "category": "UI · 원본 조각",
+    "w": 3841,
+    "h": 438
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/IMG_igd_box_A.png",
+    "title": "IMG_igd_box_A.png",
+    "category": "UI · 원본 조각",
+    "w": 280,
+    "h": 280
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/IMG_igd_box_B.png",
+    "title": "IMG_igd_box_B.png",
+    "category": "UI · 원본 조각",
+    "w": 280,
+    "h": 280
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BG_stir.png",
     "title": "BG_stir.png",
     "category": "UI · 원본 조각",
     "w": 3840,
     "h": 2160
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir_line.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BG_stir_line.png",
     "title": "BG_stir_line.png",
     "category": "UI · 원본 조각",
     "w": 1205,
     "h": 2029
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_A.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_A.png",
     "title": "BTN_key_A.png",
     "category": "UI · 원본 조각",
     "w": 182,
     "h": 183
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_B.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_B.png",
     "title": "BTN_key_B.png",
     "category": "UI · 원본 조각",
     "w": 182,
     "h": 183
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_C.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_C.png",
     "title": "BTN_key_C.png",
     "category": "UI · 원본 조각",
     "w": 182,
     "h": 183
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_basic.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_basic.png",
     "title": "GAU_stir_basic.png",
     "category": "UI · 원본 조각",
     "w": 2124,
     "h": 89
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_fail.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_fail.png",
     "title": "GAU_stir_fail.png",
     "category": "UI · 원본 조각",
     "w": 2124,
     "h": 89
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_A.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_A.png",
     "title": "GAU_stir_round_A.png",
     "category": "UI · 원본 조각",
     "w": 1246,
     "h": 1246
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_B.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_B.png",
     "title": "GAU_stir_round_B.png",
     "category": "UI · 원본 조각",
     "w": 1246,
     "h": 1246
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_success.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_success.png",
     "title": "GAU_stir_success.png",
     "category": "UI · 원본 조각",
     "w": 2124,
     "h": 89
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/ICN_sitr_time.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/ICN_sitr_time.png",
     "title": "ICN_sitr_time.png",
     "category": "UI · 원본 조각",
     "w": 129,
     "h": 144
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/stirring_minigame_V3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/stirring_minigame_V3.png",
     "title": "stirring_minigame_V3.png",
     "category": "UI · 원본 조각",
     "w": 3840,
     "h": 2160
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/BG_profile.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/BG_profile.png",
     "title": "BG_profile.png",
     "category": "UI · 원본 조각",
     "w": 3840,
     "h": 2160
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/BG_profile_bar.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/BG_profile_bar.png",
     "title": "BG_profile_bar.png",
     "category": "UI · 원본 조각",
     "w": 3880,
     "h": 142
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/BTN_profile_close.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/BTN_profile_close.png",
     "title": "BTN_profile_close.png",
     "category": "UI · 원본 조각",
     "w": 121,
     "h": 121
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_ESC.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",
     "w": 109,
     "h": 52
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_A.png",
     "title": "IMG_card_A.png",
     "category": "UI · 원본 조각",
     "w": 658,
     "h": 959
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A_frame.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_A_frame.png",
     "title": "IMG_card_A_frame.png",
     "category": "UI · 원본 조각",
     "w": 658,
     "h": 959
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A_icon.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_A_icon.png",
     "title": "IMG_card_A_icon.png",
     "category": "UI · 원본 조각",
     "w": 149,
     "h": 218
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_B.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_B.png",
     "title": "IMG_card_B.png",
     "category": "UI · 원본 조각",
     "w": 658,
     "h": 959
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_B_frame.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_B_frame.png",
     "title": "IMG_card_B_frame.png",
     "category": "UI · 원본 조각",
     "w": 658,
     "h": 959
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_C.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_C.png",
     "title": "IMG_card_C.png",
     "category": "UI · 원본 조각",
     "w": 692,
     "h": 992
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_C_frame.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_card_C_frame.png",
     "title": "IMG_card_C_frame.png",
     "category": "UI · 원본 조각",
     "w": 692,
     "h": 992
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_scroll_thumb.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_scroll_thumb.png",
     "title": "IMG_scroll_thumb.png",
     "category": "UI · 원본 조각",
     "w": 56,
     "h": 1511
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_scroll_track.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_scroll_track.png",
     "title": "IMG_scroll_track.png",
     "category": "UI · 원본 조각",
     "w": 56,
     "h": 1511
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/IMG_title_profile.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/IMG_title_profile.png",
     "title": "IMG_title_profile.png",
     "category": "UI · 원본 조각",
     "w": 510,
     "h": 213
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/BTN_profile_window_close.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/BTN_profile_window_close.png",
     "title": "BTN_profile_window_close.png",
     "category": "UI · 원본 조각",
     "w": 114,
     "h": 114
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_ESC.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",
     "w": 102,
     "h": 49
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_L.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_card_L.png",
     "title": "IMG_card_L.png",
     "category": "UI · 원본 조각",
     "w": 1082,
     "h": 1701
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_L_frame.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_card_L_frame.png",
     "title": "IMG_card_L_frame.png",
     "category": "UI · 원본 조각",
     "w": 1082,
     "h": 1701
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_R.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_card_R.png",
     "title": "IMG_card_R.png",
     "category": "UI · 원본 조각",
     "w": 1619,
     "h": 1676
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_R_frame.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_card_R_frame.png",
     "title": "IMG_card_R_frame.png",
     "category": "UI · 원본 조각",
     "w": 1619,
     "h": 1676
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_A.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_A.png",
     "title": "IMG_friendship_A.png",
     "category": "UI · 원본 조각",
     "w": 291,
     "h": 66
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_B.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_B.png",
     "title": "IMG_friendship_B.png",
     "category": "UI · 원본 조각",
     "w": 291,
     "h": 66
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_thumb.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_thumb.png",
     "title": "IMG_scroll_thumb.png",
     "category": "UI · 원본 조각",
     "w": 56,
     "h": 1194
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_track.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_track.png",
     "title": "IMG_scroll_track.png",
     "category": "UI · 원본 조각",
     "w": 56,
     "h": 1194
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/IMG_quest_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/IMG_quest_background.png",
     "title": "IMG_quest_background.png",
     "category": "UI · 원본 조각",
     "w": 745,
     "h": 195
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/IMG_quest_light.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/IMG_quest_light.png",
     "title": "IMG_quest_light.png",
     "category": "UI · 원본 조각",
     "w": 44,
     "h": 232
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_1.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_1.png",
     "title": "외부 말풍선 · GRD_textbox_1.png",
     "category": "UI · 원본 조각",
     "w": 66,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_10.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_10.png",
     "title": "외부 말풍선 · GRD_textbox_10.png",
     "category": "UI · 원본 조각",
     "w": 525,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_11.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_11.png",
     "title": "외부 말풍선 · GRD_textbox_11.png",
     "category": "UI · 원본 조각",
     "w": 67,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_2.png",
     "title": "외부 말풍선 · GRD_textbox_2.png",
     "category": "UI · 원본 조각",
     "w": 1144,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_3.png",
     "title": "외부 말풍선 · GRD_textbox_3.png",
     "category": "UI · 원본 조각",
     "w": 67,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_4.png",
     "title": "외부 말풍선 · GRD_textbox_4.png",
     "category": "UI · 원본 조각",
     "w": 66,
     "h": 117
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_5.png",
     "title": "외부 말풍선 · GRD_textbox_5.png",
     "category": "UI · 원본 조각",
     "w": 1144,
     "h": 117
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_6.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_6.png",
     "title": "외부 말풍선 · GRD_textbox_6.png",
     "category": "UI · 원본 조각",
     "w": 67,
     "h": 117
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_7.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_7.png",
     "title": "외부 말풍선 · GRD_textbox_7.png",
     "category": "UI · 원본 조각",
     "w": 66,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_8.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_8.png",
     "title": "외부 말풍선 · GRD_textbox_8.png",
     "category": "UI · 원본 조각",
     "w": 478,
     "h": 67
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_9.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_9.png",
     "title": "외부 말풍선 · GRD_textbox_9.png",
     "category": "UI · 원본 조각",
     "w": 145,
     "h": 121
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_A.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_A.png",
     "title": "외부 말풍선 · 꼬리 중앙 (A)",
     "category": "UI · 원본 조각",
     "w": 60,
     "h": 58
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_B.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_B.png",
     "title": "외부 말풍선 · 꼬리 왼쪽 (B)",
     "category": "UI · 원본 조각",
     "w": 62,
     "h": 58
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_C.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_C.png",
     "title": "외부 말풍선 · 꼬리 오른쪽 (C)",
     "category": "UI · 원본 조각",
     "w": 62,
     "h": 58
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png",
     "title": "외부 말풍선 · IMG_textbox_arrow.png",
     "category": "UI · 원본 조각",
     "w": 83,
     "h": 83
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/05.Serving/Coasters/coaster.png",
+    "src": "assets/01.ArtResources/03.Crafting/05.Serving/01.Coasters/coaster.png",
     "title": "coaster.png",
     "category": "UI · 원본 조각",
     "w": 83,
     "h": 27
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/04.Minigames/02.Shake/01.Sprites/Legacy_shake.png",
+    "src": "assets/01.ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Legacy_shake.png",
     "title": "Legacy_shake.png",
     "category": "UI · 원본 조각",
     "w": 10240,
     "h": 720
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/04.Minigames/03.Stir/01.Sprites/stir_Sheet.png",
+    "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/stir_Sheet.png",
     "title": "stir_Sheet.png",
     "category": "UI · 원본 조각",
     "w": 5820,
     "h": 550
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/02.Street/Legacy/exterior_full_shot.png",
-    "title": "exterior_full_shot.png",
-    "category": "UI · 원본 조각",
-    "w": 2880,
-    "h": 1620
-  },
-  {
-    "src": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",
     "title": "공중 광고 · crimson",
     "w": 2172,
     "h": 724,
@@ -768,7 +768,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png",
     "title": "공중 광고 · violet",
     "w": 2172,
     "h": 724,
@@ -779,7 +779,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png",
     "title": "웹 커서 · crosshair",
     "w": 32,
     "h": 32,
@@ -790,7 +790,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_default_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_default_icon.png",
     "title": "웹 커서 · default",
     "w": 32,
     "h": 32,
@@ -801,7 +801,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ew_resize_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ew_resize_icon.png",
     "title": "웹 커서 · ew-resize",
     "w": 32,
     "h": 32,
@@ -812,7 +812,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grab_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grab_icon.png",
     "title": "웹 커서 · grab",
     "w": 32,
     "h": 32,
@@ -823,7 +823,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grabbing_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_grabbing_icon.png",
     "title": "웹 커서 · grabbing",
     "w": 32,
     "h": 32,
@@ -834,7 +834,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_not_allowed_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_not_allowed_icon.png",
     "title": "웹 커서 · not-allowed",
     "w": 32,
     "h": 32,
@@ -845,7 +845,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ns_resize_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ns_resize_icon.png",
     "title": "웹 커서 · ns-resize",
     "w": 32,
     "h": 32,
@@ -856,7 +856,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pointer_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pointer_icon.png",
     "title": "웹 커서 · pointer",
     "w": 32,
     "h": 32,
@@ -867,7 +867,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pressed_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_pressed_icon.png",
     "title": "웹 커서 · pressed",
     "w": 32,
     "h": 32,
@@ -878,7 +878,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_text_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_text_icon.png",
     "title": "웹 커서 · text",
     "w": 32,
     "h": 32,
@@ -889,7 +889,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_wait_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_wait_icon.png",
     "title": "웹 커서 · wait",
     "w": 32,
     "h": 32,
@@ -900,7 +900,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_zoom_in_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_zoom_in_icon.png",
     "title": "웹 커서 · zoom-in",
     "w": 32,
     "h": 32,
@@ -911,7 +911,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_background.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-hero · 배경",
     "w": 241,
     "h": 155,
@@ -922,7 +922,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 테두리",
     "w": 95,
     "h": 34,
@@ -933,7 +933,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_skip_is_visible_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_skip_is_visible_background.png",
     "title": "컷씬 스킵 안내 · .campaign-skip.is-visible · 배경",
     "w": 128,
     "h": 38,
@@ -944,7 +944,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_side_panel_resource_recipe_list_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_side_panel_resource_recipe_list_background.png",
     "title": "레시피 목록 / 상세 / 잠김 · 기본 · .side-panel.resource-recipe-list · 배경",
     "w": 428,
     "h": 720,
@@ -955,7 +955,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_border.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 테두리 / 포커스",
     "w": 147,
     "h": 37,
@@ -966,7 +966,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_background.png",
     "title": "따르기 / 필업 · 정량 따르기 · .pour-tilt-track · 배경",
     "w": 240,
     "h": 16,
@@ -977,7 +977,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 아이콘",
     "w": 32,
     "h": 32,
@@ -988,7 +988,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_inventory_slot_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_inventory_slot_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · .inventory-slot · 배경",
     "w": 93,
     "h": 93,
@@ -999,7 +999,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_primary_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_primary_shadow.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 그림자",
     "w": 324,
     "h": 149,
@@ -1010,7 +1010,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_sfx_volume_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_sfx_volume_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · #sfx-volume · 배경",
     "w": 160,
     "h": 18,
@@ -1021,7 +1021,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 테두리",
     "w": 89,
     "h": 39,
@@ -1032,7 +1032,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 배경",
     "w": 187,
     "h": 325,
@@ -1043,7 +1043,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_before_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_before_border.png",
     "title": "말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface::before · 테두리",
     "w": 27,
     "h": 27,
@@ -1054,7 +1054,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_shadow.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 그림자 / 호버",
     "w": 128,
     "h": 128,
@@ -1065,7 +1065,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 그림자",
     "w": 416,
     "h": 185,
@@ -1076,7 +1076,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_background.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/BG_notification_down.png",
     "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 배경",
     "w": 350,
     "h": 90,
@@ -1091,7 +1091,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_shadow.png",
     "title": "서비스 패널 · 기본 · #service-panel · 그림자",
     "w": 392,
     "h": 419,
@@ -1102,7 +1102,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_shadow_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_shadow_v02.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 그림자 / 누름",
     "w": 128,
     "h": 128,
@@ -1113,7 +1113,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
     "w": 100,
     "h": 100,
@@ -1124,7 +1124,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_modal_backdrop_daily_unlocks_backdrop_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_modal_backdrop_daily_unlocks_backdrop_background.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .modal-backdrop.daily-unlocks-backdrop · 배경",
     "w": 1280,
     "h": 720,
@@ -1135,7 +1135,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 43,
     "h": 22,
@@ -1146,7 +1146,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_developer_back_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_developer_back_background.png",
     "title": "일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 배경",
     "w": 160,
     "h": 39,
@@ -1157,7 +1157,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_interact_key_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_interact_key_icon.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-interact-key · 아이콘",
     "w": 714,
     "h": 60,
@@ -1168,7 +1168,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_border.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-inventory · 테두리",
     "w": 1280,
     "h": 146,
@@ -1179,7 +1179,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 로딩 오류 ·  · 테두리",
     "w": 107,
     "h": 43,
@@ -1190,7 +1190,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_border.png",
     "title": "경고 팝업 · 재료 초과 · .modal.ingredient-warning · 테두리",
     "w": 620,
     "h": 314,
@@ -1201,7 +1201,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 그림자",
     "w": 149,
     "h": 142,
@@ -1212,7 +1212,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_stir_orbit_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_stir_orbit_icon.png",
     "title": "스터 / 제조 기믹 · 기본 · .stir-orbit · 아이콘",
     "w": 416,
     "h": 416,
@@ -1223,7 +1223,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_danger_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_danger_border.png",
     "title": "정산 / 결과 · 유지비 부족 · .danger · 테두리",
     "w": 118,
     "h": 45,
@@ -1234,7 +1234,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_rhythm_path_marker_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_rhythm_path_marker_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.rhythm-path-marker · 아이콘",
     "w": 25,
     "h": 25,
@@ -1245,7 +1245,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border.png",
     "title": "컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리",
     "w": 128,
     "h": 38,
@@ -1256,7 +1256,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_button_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
     "w": 24,
     "h": 26,
@@ -1267,7 +1267,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_ruler_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_ruler_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-ruler · 아이콘",
     "w": 18,
     "h": 271,
@@ -1278,7 +1278,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 테두리",
     "w": 202,
     "h": 314,
@@ -1289,7 +1289,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
     "w": 44,
     "h": 42,
@@ -1300,7 +1300,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
     "w": 20,
     "h": 17,
@@ -1311,7 +1311,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row · 배경",
     "w": 232,
     "h": 315,
@@ -1322,7 +1322,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_world_choice_confirm_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_world_choice_confirm_icon.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 아이콘",
     "w": 22,
     "h": 24,
@@ -1333,7 +1333,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_shadow.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-top-readout · 그림자",
     "w": 340,
     "h": 144,
@@ -1344,7 +1344,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
     "w": 72,
     "h": 30,
@@ -1355,7 +1355,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
     "w": 124,
     "h": 124,
@@ -1366,7 +1366,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-card · 배경",
     "w": 310,
     "h": 146,
@@ -1377,7 +1377,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background.png",
     "title": "좌석 인디케이터 · 인내심 10초 이하 / 빨강 ·  · 배경",
     "w": 14,
     "h": 14,
@@ -1388,7 +1388,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon.png",
     "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 47,
     "h": 68,
@@ -1399,7 +1399,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_shadow.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 그림자",
     "w": 996,
     "h": 667,
@@ -1410,7 +1410,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-5 · 아이콘",
     "w": 376,
     "h": 34,
@@ -1421,7 +1421,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 배경",
     "w": 18,
     "h": 19,
@@ -1432,7 +1432,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_dialogue_audio_settings_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_dialogue_audio_settings_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .dialogue-audio-settings · 테두리",
     "w": 650,
     "h": 70,
@@ -1443,7 +1443,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_background.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 배경",
     "w": 166,
     "h": 50,
@@ -1454,7 +1454,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_background.png",
     "title": "대사 기록 · 기본 · .modal · 배경",
     "w": 650,
     "h": 191,
@@ -1465,7 +1465,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_shadow.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 그림자",
     "w": 189,
     "h": 133,
@@ -1476,7 +1476,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 테두리",
     "w": 720,
     "h": 225,
@@ -1487,7 +1487,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_background.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · article.unlock-card · 배경",
     "w": 116,
     "h": 102,
@@ -1498,7 +1498,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_border.png",
     "title": "정산 / 결과 · 정산 성공 · .modal.wide · 테두리",
     "w": 900,
     "h": 654,
@@ -1509,7 +1509,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 배경",
     "w": 242,
     "h": 74,
@@ -1520,7 +1520,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 배경",
     "w": 204,
     "h": 36,
@@ -1531,7 +1531,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_aperture_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_aperture_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-aperture · 배경",
     "w": 202,
     "h": 314,
@@ -1542,7 +1542,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_9_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_9_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-9 · 아이콘",
     "w": 48,
     "h": 41,
@@ -1553,7 +1553,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 140,
     "h": 274,
@@ -1564,7 +1564,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_li_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_li_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · li · 테두리",
     "w": 241,
     "h": 30,
@@ -1575,7 +1575,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 43,
     "h": 22,
@@ -1586,7 +1586,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 배경",
     "w": 320,
     "h": 105,
@@ -1597,7 +1597,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_background.png",
     "title": "말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface · 배경",
     "w": 306,
     "h": 108,
@@ -1608,7 +1608,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 44,
     "h": 47,
@@ -1619,7 +1619,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -1630,7 +1630,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_orbit_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_orbit_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-orbit · 아이콘",
     "w": 76,
     "h": 76,
@@ -1641,7 +1641,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon.png",
     "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 29,
@@ -1652,7 +1652,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
     "w": 94,
     "h": 94,
@@ -1663,7 +1663,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
     "w": 93,
     "h": 37,
@@ -1674,7 +1674,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_service_handle_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_service_handle_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · .service-handle · 배경",
     "w": 62,
     "h": 62,
@@ -1685,7 +1685,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_primary_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_primary_background.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 배경 / 포커스",
     "w": 122,
     "h": 43,
@@ -1696,7 +1696,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_new_border.png",
     "title": "팝업 · 새로운 목표 · .story-notice.story-notice-event · 테두리",
     "w": 350,
     "h": 92,
@@ -1709,7 +1709,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 117,
     "h": 117,
@@ -1720,7 +1720,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
     "w": 38,
     "h": 39,
@@ -1731,7 +1731,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_dossier_footer_background.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_dossier_footer_background.png",
     "title": "단골 정보 · 기본 · .dossier-footer · 배경",
     "w": 1280,
     "h": 48,
@@ -1742,7 +1742,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 배경",
     "w": 320,
     "h": 58,
@@ -1753,7 +1753,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background.png",
     "title": "단골 정보 · 기본 ·  · 배경",
     "w": 409,
     "h": 393,
@@ -1764,7 +1764,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_before_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board::before · 배경",
     "w": 210,
     "h": 283,
@@ -1775,7 +1775,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_tray_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_tray_border.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .tray · 테두리",
     "w": 100,
     "h": 68,
@@ -1786,7 +1786,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring · 아이콘",
     "w": 52,
     "h": 53,
@@ -1797,7 +1797,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon.png",
     "title": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -1808,7 +1808,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_aura_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_aura_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.note-aura · 아이콘",
     "w": 97,
     "h": 40,
@@ -1819,7 +1819,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-8 · 아이콘",
     "w": 164,
     "h": 22,
@@ -1830,7 +1830,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02.png",
     "title": "맥주 제조 튜토리얼 · 도구 선반 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 29,
@@ -1841,7 +1841,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_rail_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_rail_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-rail · 아이콘",
     "w": 417,
     "h": 74,
@@ -1852,7 +1852,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 테두리",
     "w": 320,
     "h": 89,
@@ -1863,7 +1863,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_upkeep_ledger_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_upkeep_ledger_background.png",
     "title": "정산 / 결과 · 정산 성공 · .upkeep-ledger · 배경",
     "w": 842,
     "h": 248,
@@ -1874,7 +1874,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_svg_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_svg_icon.png",
     "title": "스터 / 제조 기믹 · 기본 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -1885,7 +1885,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_object_path_controls_target_mark_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_object_path_controls_target_mark_icon.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-object / path.controls-target-mark · 아이콘",
     "w": 276,
     "h": 223,
@@ -1896,7 +1896,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_variant2.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
     "w": 88,
     "h": 42,
@@ -1907,7 +1907,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bags_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bags_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bags · 배경",
     "w": 58,
     "h": 73,
@@ -1918,7 +1918,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 배경",
     "w": 1080,
     "h": 618,
@@ -1929,7 +1929,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_drink_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_drink_background.png",
     "title": "히든 칵테일 해금 · 기본 · .johnny-unlock-drink · 배경",
     "w": 339,
     "h": 266,
@@ -1940,7 +1940,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_background.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 배경",
     "w": 294,
     "h": 476,
@@ -1951,7 +1951,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
     "w": 32,
     "h": 31,
@@ -1962,7 +1962,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
     "w": 23,
     "h": 23,
@@ -1973,7 +1973,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow.png",
     "title": "좌석 인디케이터 · 인내심 10초 이하 / 빨강 ·  · 그림자",
     "w": 110,
     "h": 110,
@@ -1984,7 +1984,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon_variant2.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-8 · 아이콘",
     "w": 49,
     "h": 22,
@@ -1995,7 +1995,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_kbd_background.png",
     "title": "월드 말풍선 / 외부 · 기본 ·  · 배경",
     "w": 38,
     "h": 28,
@@ -2006,7 +2006,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_button_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 테두리 / 호버",
     "w": 170,
     "h": 42,
@@ -2017,7 +2017,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_goal_new.png",
     "title": "팝업 · 새로운 목표 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -2030,7 +2030,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background.png",
     "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · .dialogue-surface · 배경",
     "w": 282,
     "h": 108,
@@ -2041,7 +2041,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_stir_live_glass_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_stir_live_glass_icon.png",
     "title": "스터 / 제조 기믹 · 기본 · .stir-live-glass · 아이콘",
     "w": 360,
     "h": 360,
@@ -2052,7 +2052,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_down_shadow.png",
     "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 그림자",
     "w": 446,
     "h": 186,
@@ -2068,7 +2068,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant4.png",
     "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 187,
     "h": 74,
@@ -2079,7 +2079,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 배경",
     "w": 6,
     "h": 48,
@@ -2090,7 +2090,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_motion_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_motion_card_background.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-motion-card · 배경",
     "w": 348,
     "h": 316,
@@ -2101,7 +2101,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_arrow_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_arrow_icon.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-arrow · 아이콘",
     "w": 28,
     "h": 40,
@@ -2112,7 +2112,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-10 · 아이콘",
     "w": 13,
     "h": 22,
@@ -2123,7 +2123,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_dialogue_surface_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_dialogue_surface_border.png",
     "title": "좌석 인디케이터 · 입장 / 점멸 · .dialogue-surface · 테두리",
     "w": 269,
     "h": 108,
@@ -2134,7 +2134,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_input_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_input_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · input · 배경",
     "w": 13,
     "h": 13,
@@ -2145,7 +2145,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 배경 / 포커스",
     "w": 280,
     "h": 53,
@@ -2156,7 +2156,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 테두리",
     "w": 44,
     "h": 42,
@@ -2167,7 +2167,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .prep-brief-check · 배경",
     "w": 15,
     "h": 15,
@@ -2178,7 +2178,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant2.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 44,
     "h": 22,
@@ -2189,7 +2189,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v02.png",
     "title": "맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -2200,7 +2200,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_event.png",
     "title": "팝업 · 이벤트 발생 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -2213,7 +2213,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v03.png",
     "title": "맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -2224,7 +2224,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_background.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_background.png",
     "title": "타이틀 화면 · .title-choice · 배경 / 호버",
     "w": 318,
     "h": 66,
@@ -2235,7 +2235,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 배경",
     "w": 720,
     "h": 426,
@@ -2246,7 +2246,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 배경",
     "w": 720,
     "h": 225,
@@ -2257,7 +2257,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon_v02.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
     "w": 20,
     "h": 17,
@@ -2268,7 +2268,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 테두리",
     "w": 57,
     "h": 39,
@@ -2279,7 +2279,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .settings-row · 테두리",
     "w": 592,
     "h": 72,
@@ -2290,7 +2290,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_shadow.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 그림자",
     "w": 390,
     "h": 572,
@@ -2301,7 +2301,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_background.png",
     "title": "정산 / 결과 · 유지비 부족 · .settlement-actions · 배경",
     "w": 898,
     "h": 78,
@@ -2312,7 +2312,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 70,
     "h": 71,
@@ -2323,7 +2323,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_remix_context_original_service_tip_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_remix_context_original_service_tip_border.png",
     "title": "좌석 인디케이터 · 입장 / 점멸 · .remix-context.original-service-tip · 테두리",
     "w": 249,
     "h": 38,
@@ -2334,7 +2334,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
     "w": 150,
     "h": 148,
@@ -2345,7 +2345,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_1_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_1_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-1 · 아이콘",
     "w": 22,
     "h": 22,
@@ -2356,7 +2356,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_i_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_i_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · i · 배경",
     "w": 22,
     "h": 3,
@@ -2367,7 +2367,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
     "w": 125,
     "h": 123,
@@ -2378,7 +2378,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v03.png",
     "title": "맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 29,
@@ -2389,7 +2389,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_rhythm_pad_lane_0_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_rhythm_pad_lane_0_border.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 테두리 / 호버",
     "w": 120,
     "h": 38,
@@ -2400,7 +2400,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_help_corner_background.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_help_corner_background.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 배경",
     "w": 34,
     "h": 34,
@@ -2411,7 +2411,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / g.mix-shake-callout · 아이콘",
     "w": 115,
     "h": 114,
@@ -2422,7 +2422,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .shelf-arrow.next · 배경 / 호버",
     "w": 26,
     "h": 47,
@@ -2433,7 +2433,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 36,
     "h": 28,
@@ -2444,7 +2444,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-slot · 테두리",
     "w": 64,
     "h": 64,
@@ -2455,7 +2455,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_button_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_button_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
     "w": 160,
     "h": 38,
@@ -2466,7 +2466,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_BTN_is_selected_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_BTN_is_selected_background.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 배경 / 포커스",
     "w": 145,
     "h": 32,
@@ -2477,7 +2477,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon_variant2.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-5 · 아이콘",
     "w": 74,
     "h": 9,
@@ -2488,7 +2488,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 ·  · 테두리",
     "w": 176,
     "h": 43,
@@ -2499,7 +2499,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_section_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_section_background.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 414,
     "h": 255,
@@ -2510,7 +2510,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_primary_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_primary_background_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 배경",
     "w": 102,
     "h": 43,
@@ -2521,7 +2521,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_before_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_before_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::before · 테두리",
     "w": 57,
     "h": 13,
@@ -2532,7 +2532,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_BTN_service_scrim_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_BTN_service_scrim_background.png",
     "title": "서비스 패널 · 기본 · .service-scrim · 배경 / 포커스",
     "w": 1280,
     "h": 720,
@@ -2543,7 +2543,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_backdrop_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_backdrop_background.png",
     "title": "정산 / 결과 · 정산 성공 · .modal-backdrop · 배경",
     "w": 1280,
     "h": 720,
@@ -2554,7 +2554,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 28,
@@ -2565,7 +2565,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_detail_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · #prep-recipe-detail · 테두리",
     "w": 294,
     "h": 476,
@@ -2576,7 +2576,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_developer_back_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_developer_back_border.png",
     "title": "일차 전환 / Day 숫자 · 기본 · #campaign-developer-back · 테두리 / 포커스",
     "w": 160,
     "h": 39,
@@ -2587,7 +2587,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_footer_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_footer_border.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 ·  · 테두리",
     "w": 1018,
     "h": 60,
@@ -2598,7 +2598,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_shadow.png",
     "title": "경고 팝업 · 재료 초과 · .modal.ingredient-warning · 그림자",
     "w": 716,
     "h": 410,
@@ -2609,7 +2609,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_tray_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_tray_background.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .tray · 배경",
     "w": 100,
     "h": 68,
@@ -2620,7 +2620,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 그림자",
     "w": 416,
     "h": 154,
@@ -2631,7 +2631,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow.png",
     "title": "신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 그림자",
     "w": 1176,
     "h": 425,
@@ -2642,7 +2642,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border.png",
     "title": "정산 / 결과 · 정산 성공 · th · 테두리",
     "w": 383,
     "h": 36,
@@ -2653,7 +2653,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant2.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .dialogue-surface · 배경",
     "w": 316,
     "h": 108,
@@ -2664,7 +2664,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / path.mix-shake-leader · 아이콘",
     "w": 36,
     "h": 35,
@@ -2675,7 +2675,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_core_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-core · 아이콘",
     "w": 23,
     "h": 22,
@@ -2686,7 +2686,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 ·  · 배경",
     "w": 93,
     "h": 35,
@@ -2697,7 +2697,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant3.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / path.mix-shake-leader · 아이콘",
     "w": 31,
     "h": 30,
@@ -2708,7 +2708,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v04.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v04.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 담기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -2719,7 +2719,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 배경",
     "w": 209,
     "h": 145,
@@ -2730,7 +2730,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_shadow.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 그림자",
     "w": 262,
     "h": 146,
@@ -2741,7 +2741,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_rhythm_pad_lane_1_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_rhythm_pad_lane_1_border.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 테두리",
     "w": 120,
     "h": 38,
@@ -2752,7 +2752,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow_v02.png",
     "title": "좌석 인디케이터 · 3좌석 점유 ·  · 그림자",
     "w": 110,
     "h": 110,
@@ -2763,7 +2763,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 ·  · 배경",
     "w": 40,
     "h": 40,
@@ -2774,7 +2774,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant2.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 26,
     "h": 22,
@@ -2785,7 +2785,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_badge_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_badge_background.png",
     "title": "정산 / 결과 · 정산 성공 · small.badge · 배경",
     "w": 64,
     "h": 24,
@@ -2796,7 +2796,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant3.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 31,
     "h": 22,
@@ -2807,7 +2807,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘 / 호버",
     "w": 61,
     "h": 61,
@@ -2818,7 +2818,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_border_variant2.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-slot · 테두리",
     "w": 56,
     "h": 56,
@@ -2829,7 +2829,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant5.png",
     "title": "맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 207,
     "h": 327,
@@ -2840,7 +2840,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 · .dialogue-surface · 테두리",
     "w": 313,
     "h": 108,
@@ -2851,7 +2851,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · figure.mix-guide-image.mix-shake-preview · 배경",
     "w": 405,
     "h": 346,
@@ -2862,7 +2862,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant6.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 69,
     "h": 65,
@@ -2873,7 +2873,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinematic_after_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinematic_after_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-cinematic::after · 배경",
     "w": 400,
     "h": 674,
@@ -2884,7 +2884,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_v02.png",
     "title": "맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 47,
     "h": 68,
@@ -2895,7 +2895,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_BTN_primary_opening_hit_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_BTN_primary_opening_hit_background.png",
     "title": "병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 배경 / 포커스",
     "w": 190,
     "h": 39,
@@ -2906,7 +2906,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 테두리",
     "w": 320,
     "h": 105,
@@ -2917,7 +2917,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_svg_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_svg_icon.png",
     "title": "말풍선 / 2인 구도 · 기본 ·  · 아이콘",
     "w": 16,
     "h": 12,
@@ -2928,7 +2928,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant7.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant7.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 315,
     "h": 496,
@@ -2939,7 +2939,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v04.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v04.png",
     "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 29,
@@ -2950,7 +2950,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_shadow.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 그림자",
     "w": 283,
     "h": 421,
@@ -2961,7 +2961,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .recipe-toggle.prep-recipe-brief · 테두리 / 포커스",
     "w": 280,
     "h": 53,
@@ -2972,7 +2972,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_border.png",
     "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 테두리",
     "w": 52,
     "h": 57,
@@ -2983,7 +2983,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_shadow.png",
     "title": "소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 그림자",
     "w": 330,
     "h": 143,
@@ -2994,7 +2994,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_sales_balance_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_sales_balance_background.png",
     "title": "정산 / 결과 · 정산 성공 · .sales-balance · 배경",
     "w": 842,
     "h": 61,
@@ -3005,7 +3005,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_background.png",
     "title": "경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 배경",
     "w": 620,
     "h": 237,
@@ -3016,7 +3016,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinema_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinema_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-cinema · 배경",
     "w": 388,
     "h": 664,
@@ -3027,7 +3027,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.prev · 배경 / 포커스",
     "w": 26,
     "h": 47,
@@ -3038,7 +3038,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v02.png",
     "title": "단골 정보 · 기본 ·  · 배경",
     "w": 409,
     "h": 393,
@@ -3049,7 +3049,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_BTN_recipe_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_BTN_recipe_card_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-card · 배경",
     "w": 355,
     "h": 88,
@@ -3060,7 +3060,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-ring · 아이콘",
     "w": 68,
     "h": 68,
@@ -3071,7 +3071,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v05.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v05.png",
     "title": "맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3082,7 +3082,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_before_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_before_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior::before · 그림자",
     "w": 270,
     "h": 103,
@@ -3093,7 +3093,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant8.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant8.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 301,
     "h": 155,
@@ -3104,7 +3104,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant9.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant9.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 187,
     "h": 71,
@@ -3115,7 +3115,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 배경",
     "w": 53,
     "h": 46,
@@ -3126,7 +3126,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant2.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 31,
     "h": 22,
@@ -3137,7 +3137,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-copy · 테두리",
     "w": 320,
     "h": 58,
@@ -3148,7 +3148,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_shadow.png",
     "title": "따르기 / 필업 · 정량 따르기 · i.pour-tilt-marker · 그림자",
     "w": 100,
     "h": 122,
@@ -3159,7 +3159,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_is_selected_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_is_selected_border.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .is-selected · 테두리 / 포커스",
     "w": 145,
     "h": 32,
@@ -3170,7 +3170,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_primary_opening_hit_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_primary_opening_hit_border.png",
     "title": "병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 테두리",
     "w": 190,
     "h": 39,
@@ -3181,7 +3181,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_shadow.png",
     "title": "히든 칵테일 해금 · 기본 · .primary · 그림자",
     "w": 326,
     "h": 137,
@@ -3192,7 +3192,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_BTN_primary_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_BTN_primary_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 배경",
     "w": 228,
     "h": 53,
@@ -3203,7 +3203,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_BTN_recipe_card_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_BTN_recipe_card_background_v02.png",
     "title": "레시피 목록 / 상세 / 잠김 · 기본 · .recipe-card · 배경 / 호버",
     "w": 355,
     "h": 88,
@@ -3214,7 +3214,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant3.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 19,
     "h": 22,
@@ -3225,7 +3225,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_background.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 배경",
     "w": 800,
     "h": 542,
@@ -3236,7 +3236,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_before_background.png",
     "title": "말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface::before · 배경",
     "w": 27,
     "h": 27,
@@ -3247,7 +3247,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_border.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 테두리",
     "w": 29,
     "h": 27,
@@ -3258,7 +3258,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow_variant2.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 그림자",
     "w": 184,
     "h": 138,
@@ -3269,7 +3269,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_variant2.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 ·  · 배경",
     "w": 14,
     "h": 14,
@@ -3280,7 +3280,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v06.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v06.png",
     "title": "바 튜토리얼 · 단계별 안내 · 탄산수 담기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3291,7 +3291,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_button_border.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 ·  · 테두리 / 포커스",
     "w": 187,
     "h": 54,
@@ -3302,7 +3302,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 그림자",
     "w": 816,
     "h": 324,
@@ -3313,7 +3313,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 배경",
     "w": 320,
     "h": 42,
@@ -3324,7 +3324,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_target_ticks_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_target_ticks_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.target-ticks · 아이콘",
     "w": 85,
     "h": 85,
@@ -3335,7 +3335,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_aura_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_aura_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.note-aura · 아이콘",
     "w": 55,
     "h": 54,
@@ -3346,7 +3346,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_item_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_item_border.png",
     "title": "히든 칵테일 해금 · 기본 · .johnny-unlock-item · 테두리",
     "w": 389,
     "h": 63,
@@ -3357,7 +3357,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 로딩 오류 ·  · 배경",
     "w": 107,
     "h": 43,
@@ -3368,7 +3368,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant3.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 ·  · 아이콘",
     "w": 14,
     "h": 10,
@@ -3379,7 +3379,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon.png",
     "title": "병따기 튜토리얼 · 시작 안내 ·  · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3390,7 +3390,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
     "w": 52,
     "h": 51,
@@ -3401,7 +3401,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_body_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_body_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.note-body · 아이콘",
     "w": 51,
     "h": 50,
@@ -3412,7 +3412,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v07.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v07.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3423,7 +3423,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant4.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 20,
     "h": 22,
@@ -3434,7 +3434,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v08.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v08.png",
     "title": "맥주 제조 튜토리얼 · 냉장고 이동 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3445,7 +3445,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_after_background.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_after_background.png",
     "title": "단골 정보 · 기본 · .guest-card.unmet::after · 배경 / 호버",
     "w": 6,
     "h": 316,
@@ -3456,7 +3456,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant4.png",
     "title": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 테두리",
     "w": 167,
     "h": 43,
@@ -3467,7 +3467,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 102,
     "h": 102,
@@ -3478,7 +3478,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .exterior-textbox-skin::before · 배경",
     "w": 116,
     "h": 51,
@@ -3489,7 +3489,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_kbd_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 아이콘",
     "w": 43,
     "h": 17,
@@ -3500,7 +3500,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background.png",
     "title": "정산 / 결과 · 정산 성공 · th · 배경",
     "w": 383,
     "h": 36,
@@ -3511,7 +3511,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · label.settings-row · 테두리",
     "w": 650,
     "h": 72,
@@ -3522,7 +3522,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_mix_direction_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_mix_direction_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction · 배경 / 호버",
     "w": 61,
     "h": 61,
@@ -3533,7 +3533,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 테두리",
     "w": 720,
     "h": 640,
@@ -3544,7 +3544,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_background.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 배경",
     "w": 190,
     "h": 84,
@@ -3555,7 +3555,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_warning_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_warning_background.png",
     "title": "따르기 / 필업 · 정량 따르기 · i.pour-tilt-warning · 배경",
     "w": 14,
     "h": 16,
@@ -3566,7 +3566,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border_variant2.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 테두리",
     "w": 53,
     "h": 46,
@@ -3577,7 +3577,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v09.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v09.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -3588,7 +3588,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 테두리",
     "w": 242,
     "h": 74,
@@ -3599,7 +3599,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_mix_lesson_prev_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_mix_lesson_prev_background.png",
     "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-prev · 배경",
     "w": 74,
     "h": 42,
@@ -3610,7 +3610,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_shadow.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 그림자",
     "w": 896,
     "h": 689,
@@ -3621,7 +3621,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_variant4.png",
     "title": "맥주 제조 튜토리얼 · 병따개 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 36,
     "h": 29,
@@ -3632,7 +3632,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant5.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 테두리",
     "w": 209,
     "h": 145,
@@ -3643,7 +3643,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
     "w": 58,
     "h": 59,
@@ -3654,7 +3654,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_span_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_span_background.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 ·  · 배경",
     "w": 28,
     "h": 18,
@@ -3665,7 +3665,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant10.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant10.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 114,
     "h": 114,
@@ -3676,7 +3676,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_mix_lesson_next_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_mix_lesson_next_border.png",
     "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-next · 테두리",
     "w": 110,
     "h": 42,
@@ -3687,7 +3687,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_background.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 배경",
     "w": 720,
     "h": 289,
@@ -3698,7 +3698,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_ruler_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_ruler_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-ruler · 아이콘",
     "w": 403,
     "h": 10,
@@ -3709,7 +3709,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_kbd_border.png",
     "title": "컷씬 스킵 안내 ·  · 테두리",
     "w": 46,
     "h": 22,
@@ -3720,7 +3720,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_shadow.png",
     "title": "대사 기록 · 기본 · .modal · 그림자",
     "w": 746,
     "h": 287,
@@ -3731,7 +3731,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage · 아이콘",
     "w": 539,
     "h": 382,
@@ -3742,7 +3742,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
     "w": 72,
     "h": 72,
@@ -3753,7 +3753,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
     "title": "스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리 / 포커스",
     "w": 88,
     "h": 24,
@@ -3764,7 +3764,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_orbit_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_orbit_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-orbit · 아이콘",
     "w": 77,
     "h": 77,
@@ -3775,7 +3775,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant4.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / g.mix-shake-callout · 아이콘",
     "w": 118,
     "h": 117,
@@ -3786,7 +3786,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_order_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_order_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-order · 테두리",
     "w": 650,
     "h": 43,
@@ -3797,7 +3797,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant2.png",
     "title": "말풍선 / 2인 구도 · 기본 · .dialogue-surface · 테두리",
     "w": 494,
     "h": 108,
@@ -3808,7 +3808,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_guide_keystrip_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_guide_keystrip_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-guide-keystrip · 테두리",
     "w": 405,
     "h": 52,
@@ -3819,7 +3819,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_is_outside_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_is_outside_shadow.png",
     "title": "월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 그림자",
     "w": 321,
     "h": 150,
@@ -3830,7 +3830,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background_variant2.png",
     "title": "정산 / 결과 · 정산 성공 · th · 배경",
     "w": 286,
     "h": 36,
@@ -3841,7 +3841,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_BTN_button_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 배경",
     "w": 95,
     "h": 34,
@@ -3852,7 +3852,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/WebGenerated/Web_GRD_title_menu_index_border.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/WebGenerated/Web_GRD_title_menu_index_border.png",
     "title": "타이틀 화면 · .title-menu-index · 테두리",
     "w": 38,
     "h": 12,
@@ -3863,7 +3863,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_outside_controls_tutorial_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_outside_controls_tutorial_before_background.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial::before · 배경",
     "w": 64,
     "h": 3,
@@ -3874,7 +3874,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_border.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 테두리",
     "w": 22,
     "h": 24,
@@ -3885,7 +3885,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_kbd_border.png",
     "title": "월드 말풍선 / 외부 · 기본 ·  · 테두리",
     "w": 38,
     "h": 28,
@@ -3896,7 +3896,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_mix_direction_next_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_mix_direction_next_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction.next · 배경",
     "w": 61,
     "h": 61,
@@ -3907,7 +3907,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_border_variant2.png",
     "title": "경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 테두리",
     "w": 620,
     "h": 237,
@@ -3918,7 +3918,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-badge · 아이콘",
     "w": 38,
     "h": 38,
@@ -3929,7 +3929,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_div_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_div_background.png",
     "title": "정산 / 결과 · 정산 성공 ·  · 배경",
     "w": 203,
     "h": 79,
@@ -3940,7 +3940,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_kbd_icon.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 아이콘",
     "w": 29,
     "h": 27,
@@ -3951,7 +3951,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_select_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_select_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · select · 테두리",
     "w": 181,
     "h": 39,
@@ -3962,7 +3962,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 28,
@@ -3973,7 +3973,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant11.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant11.png",
     "title": "맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 141,
     "h": 274,
@@ -3984,7 +3984,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-2 · 아이콘",
     "w": 376,
     "h": 22,
@@ -3995,7 +3995,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant5.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 34,
     "h": 22,
@@ -4006,7 +4006,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_v02.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 ·  · 배경",
     "w": 40,
     "h": 40,
@@ -4017,7 +4017,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border.png",
     "title": "스터 / 제조 기믹 · 기본 · .shake-sound-option · 테두리 / 포커스",
     "w": 72,
     "h": 26,
@@ -4028,7 +4028,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_primary_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_primary_background.png",
     "title": "경고 팝업 · 병따개 누락 · .primary · 배경",
     "w": 110,
     "h": 39,
@@ -4039,7 +4039,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_sales_balance_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_sales_balance_border.png",
     "title": "정산 / 결과 · 정산 성공 · .sales-balance · 테두리",
     "w": 842,
     "h": 61,
@@ -4050,7 +4050,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_v02.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 아이콘",
     "w": 44,
     "h": 42,
@@ -4061,7 +4061,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 테두리",
     "w": 1080,
     "h": 618,
@@ -4072,7 +4072,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v02.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.next · 배경",
     "w": 26,
     "h": 47,
@@ -4083,7 +4083,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
     "w": 92,
     "h": 93,
@@ -4094,7 +4094,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_background_variant2.png",
     "title": "따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-card · 배경",
     "w": 310,
     "h": 148,
@@ -4105,7 +4105,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_target_ticks_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_target_ticks_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.target-ticks · 아이콘",
     "w": 84,
     "h": 85,
@@ -4116,7 +4116,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_input_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_input_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · input · 테두리",
     "w": 160,
     "h": 38,
@@ -4127,7 +4127,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_floor_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_floor_border.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-floor · 테두리",
     "w": 124,
     "h": 18,
@@ -4138,7 +4138,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_danger_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_danger_background.png",
     "title": "정산 / 결과 · 유지비 부족 · .danger · 배경 / 포커스",
     "w": 118,
     "h": 45,
@@ -4149,7 +4149,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .modal · 테두리",
     "w": 650,
     "h": 654,
@@ -4160,7 +4160,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_back_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_back_border.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 테두리",
     "w": 78,
     "h": 38,
@@ -4171,7 +4171,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 · .campaign-card · 그림자",
     "w": 816,
     "h": 321,
@@ -4182,7 +4182,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_ledger_subtotal_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_ledger_subtotal_border.png",
     "title": "정산 / 결과 · 정산 성공 · .ledger-subtotal · 테두리",
     "w": 800,
     "h": 42,
@@ -4193,7 +4193,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 닫기 ·  · 테두리",
     "w": 24,
     "h": 26,
@@ -4204,7 +4204,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant12.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant12.png",
     "title": "바 튜토리얼 · 단계별 안내 · 탄산수 설명 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 145,
     "h": 130,
@@ -4215,7 +4215,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_border.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row · 테두리",
     "w": 232,
     "h": 315,
@@ -4226,7 +4226,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_border.png",
     "title": "소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 테두리",
     "w": 234,
     "h": 47,
@@ -4237,7 +4237,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_finish_gimmick_finish_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_finish_gimmick_finish_border.png",
     "title": "따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 테두리",
     "w": 157,
     "h": 46,
@@ -4248,7 +4248,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-copy · 그림자",
     "w": 416,
     "h": 201,
@@ -4259,7 +4259,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
     "w": 59,
     "h": 59,
@@ -4270,7 +4270,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_center_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_center_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-center · 아이콘",
     "w": 11,
     "h": 11,
@@ -4281,7 +4281,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant4.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 32,
     "h": 22,
@@ -4292,7 +4292,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 배경",
     "w": 403,
     "h": 43,
@@ -4303,7 +4303,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant4.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / path.mix-shake-leader · 아이콘",
     "w": 38,
     "h": 37,
@@ -4314,7 +4314,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_background.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .unlock-day · 배경",
     "w": 55,
     "h": 23,
@@ -4325,7 +4325,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_v02.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 102,
     "h": 102,
@@ -4336,7 +4336,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-badge · 아이콘",
     "w": 33,
     "h": 33,
@@ -4347,7 +4347,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_BTN_primary_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_BTN_primary_background.png",
     "title": "히든 칵테일 해금 · 기본 · .primary · 배경",
     "w": 230,
     "h": 41,
@@ -4358,7 +4358,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant4.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 77,
     "h": 77,
@@ -4369,7 +4369,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 배경",
     "w": 1040,
     "h": 570,
@@ -4380,7 +4380,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant3.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .settings-row · 테두리",
     "w": 592,
     "h": 55,
@@ -4391,7 +4391,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_background.png",
     "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 배경",
     "w": 350,
     "h": 96,
@@ -4402,7 +4402,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_tutorial_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_tutorial_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-tutorial · 배경",
     "w": 1280,
     "h": 720,
@@ -4413,7 +4413,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_direction_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_direction_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-direction · 아이콘",
     "w": 150,
     "h": 17,
@@ -4424,7 +4424,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_before_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_before_border.png",
     "title": "말풍선 / 2인 구도 · 기본 · .dialogue-surface::before · 테두리",
     "w": 27,
     "h": 27,
@@ -4435,7 +4435,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 20,
     "h": 22,
@@ -4446,7 +4446,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_span_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_span_background_variant2.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 ·  · 배경",
     "w": 22,
     "h": 18,
@@ -4457,7 +4457,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v10.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v10.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -4468,7 +4468,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant5.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 70,
     "h": 70,
@@ -4479,7 +4479,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_track_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_track_background.png",
     "title": "컷씬 스킵 안내 · .campaign-skip-track · 배경",
     "w": 108,
     "h": 2,
@@ -4490,7 +4490,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_background.png",
     "title": "서비스 패널 · 기본 · #service-panel · 배경",
     "w": 296,
     "h": 323,
@@ -4501,7 +4501,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant2.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 43,
     "h": 22,
@@ -4512,7 +4512,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_circle_path_range_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / circle.path-range · 아이콘",
     "w": 52,
     "h": 52,
@@ -4523,7 +4523,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -4534,7 +4534,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_border.png",
     "title": "매출 · 기본 · .modal.wide · 테두리",
     "w": 900,
     "h": 365,
@@ -4545,7 +4545,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_background_variant2.png",
     "title": "정산 / 결과 · 정산 성공 · .settlement-actions · 배경",
     "w": 898,
     "h": 72,
@@ -4556,7 +4556,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant4.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
     "w": 115,
     "h": 115,
@@ -4567,7 +4567,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 테두리 / 포커스",
     "w": 72,
     "h": 30,
@@ -4578,7 +4578,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_legend_heading_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_legend_heading_border.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-legend-heading · 테두리",
     "w": 974,
     "h": 107,
@@ -4589,7 +4589,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_service_panel_border.png",
     "title": "서비스 패널 · 기본 · #service-panel · 테두리",
     "w": 296,
     "h": 323,
@@ -4600,7 +4600,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_button_border.png",
     "title": "정산 / 결과 · 정산 성공 ·  · 테두리",
     "w": 129,
     "h": 39,
@@ -4611,7 +4611,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_before_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::before · 배경",
     "w": 57,
     "h": 13,
@@ -4622,7 +4622,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border.png",
     "title": "병따기 튜토리얼 · 시작 안내 · .opening-lesson-copy · 테두리",
     "w": 290,
     "h": 217,
@@ -4633,7 +4633,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 테두리",
     "w": 720,
     "h": 426,
@@ -4644,7 +4644,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_background_variant2.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · article.unlock-card · 배경",
     "w": 116,
     "h": 119,
@@ -4655,7 +4655,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v02.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -4666,7 +4666,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 그림자",
     "w": 312,
     "h": 424,
@@ -4677,7 +4677,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 테두리",
     "w": 204,
     "h": 36,
@@ -4688,7 +4688,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sill_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sill_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sill · 배경",
     "w": 228,
     "h": 8,
@@ -4699,7 +4699,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/BG_notification_goal_complete.png",
     "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 배경",
     "w": 350,
     "h": 92,
@@ -4712,7 +4712,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
     "w": 52,
     "h": 51,
@@ -4723,7 +4723,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_next_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_next_icon.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction.next · 아이콘",
     "w": 61,
     "h": 61,
@@ -4734,7 +4734,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_motion_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_motion_card_border.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-motion-card · 테두리",
     "w": 348,
     "h": 316,
@@ -4745,7 +4745,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_variant2.png",
     "title": "스터 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
     "w": 72,
     "h": 26,
@@ -4756,7 +4756,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 배경",
     "w": 57,
     "h": 39,
@@ -4767,7 +4767,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_footer_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_footer_border_variant2.png",
     "title": "히든 칵테일 해금 · 기본 ·  · 테두리",
     "w": 758,
     "h": 60,
@@ -4778,7 +4778,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/BG_notification_event.png",
     "title": "팝업 · 이벤트 발생 · .story-notice.story-notice-event · 배경",
     "w": 350,
     "h": 90,
@@ -4791,7 +4791,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_shadow.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 그림자",
     "w": 816,
     "h": 385,
@@ -4802,7 +4802,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
     "title": "병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경",
     "w": 110,
     "h": 46,
@@ -4813,7 +4813,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 테두리",
     "w": 190,
     "h": 84,
@@ -4824,7 +4824,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_heading_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_heading_before_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-brief-heading::before · 배경",
     "w": 24,
     "h": 24,
@@ -4835,7 +4835,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_is_outside_border.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_qa_launch_is_outside_border.png",
     "title": "월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 테두리",
     "w": 225,
     "h": 54,
@@ -4846,7 +4846,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinema_after_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinema_after_border.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-cinema::after · 테두리",
     "w": 388,
     "h": 664,
@@ -4857,7 +4857,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_shadow_variant2.png",
     "title": "경고 팝업 · 병따개 누락 · .modal.ingredient-warning · 그림자",
     "w": 716,
     "h": 333,
@@ -4868,7 +4868,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_4_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_4_icon.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-4 · 아이콘",
     "w": 22,
     "h": 9,
@@ -4879,7 +4879,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_settings_row_border_variant4.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · label.settings-row · 테두리",
     "w": 592,
     "h": 52,
@@ -4890,7 +4890,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_art_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_art_background.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .unlock-art · 배경",
     "w": 106,
     "h": 58,
@@ -4901,7 +4901,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background.png",
     "title": "병따기 튜토리얼 · 시작 안내 · .opening-lesson-copy · 배경",
     "w": 290,
     "h": 217,
@@ -4912,7 +4912,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · .primary · 테두리",
     "w": 122,
     "h": 43,
@@ -4923,7 +4923,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_modal_shade_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_modal_shade_background.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-modal-shade · 배경",
     "w": 1280,
     "h": 720,
@@ -4934,7 +4934,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant3.png",
     "title": "말풍선 / 2인 구도 · 기본 · .dialogue-surface · 배경",
     "w": 494,
     "h": 108,
@@ -4945,7 +4945,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_ledger_result_good_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_ledger_result_good_border.png",
     "title": "정산 / 결과 · 정산 성공 · .ledger-result.good · 테두리",
     "w": 800,
     "h": 48,
@@ -4956,7 +4956,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_border.png",
     "title": "히든 칵테일 해금 · 기본 · .primary · 테두리",
     "w": 230,
     "h": 41,
@@ -4967,7 +4967,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_remix_context_original_service_tip_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_remix_context_original_service_tip_background.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .remix-context.original-service-tip · 배경",
     "w": 275,
     "h": 38,
@@ -4978,7 +4978,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant4.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 배경",
     "w": 289,
     "h": 43,
@@ -4989,7 +4989,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 그림자",
     "w": 245,
     "h": 145,
@@ -5000,7 +5000,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_footer_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_footer_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
     "w": 838,
     "h": 59,
@@ -5011,7 +5011,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_badge_icon_variant4.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  / circle.mix-shake-badge · 아이콘",
     "w": 39,
     "h": 38,
@@ -5022,7 +5022,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_before_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_before_shadow.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial::before · 그림자",
     "w": 160,
     "h": 99,
@@ -5033,7 +5033,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_background.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 배경",
     "w": 22,
     "h": 24,
@@ -5044,7 +5044,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_goal_complete.png",
     "title": "팝업 · 목표 달성 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -5057,7 +5057,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant6.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 26,
     "h": 22,
@@ -5068,7 +5068,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border_variant2.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .primary · 테두리 / 포커스",
     "w": 102,
     "h": 43,
@@ -5079,7 +5079,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant6.png",
     "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 ·  · 테두리",
     "w": 137,
     "h": 43,
@@ -5090,7 +5090,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_recipe_toggle_prep_recipe_brief_background_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .recipe-toggle.prep-recipe-brief · 배경",
     "w": 280,
     "h": 135,
@@ -5101,7 +5101,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-focus · 테두리",
     "w": 169,
     "h": 58,
@@ -5112,7 +5112,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_button_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
     "w": 170,
     "h": 42,
@@ -5123,7 +5123,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_primary_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_primary_border.png",
     "title": "경고 팝업 · 병따개 누락 · .primary · 테두리",
     "w": 110,
     "h": 39,
@@ -5134,7 +5134,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_brief_check_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .prep-brief-check · 테두리",
     "w": 15,
     "h": 15,
@@ -5145,7 +5145,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_after_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_after_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin::after · 테두리",
     "w": 24,
     "h": 8,
@@ -5156,7 +5156,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_button_border.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 테두리",
     "w": 82,
     "h": 52,
@@ -5167,7 +5167,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_before_background.png",
     "title": "타이틀 화면 · .title-choice::before · 배경",
     "w": 16,
     "h": 59,
@@ -5178,7 +5178,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant13.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant13.png",
     "title": "맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 145,
     "h": 229,
@@ -5189,7 +5189,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_primary_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_primary_border.png",
     "title": "정산 / 결과 · 정산 성공 · .primary · 테두리",
     "w": 162,
     "h": 39,
@@ -5200,7 +5200,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background.png",
     "title": "따르기 / 필업 · 정량 따르기 · i.pour-tilt-range · 배경",
     "w": 88,
     "h": 16,
@@ -5211,7 +5211,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 배경",
     "w": 720,
     "h": 228,
@@ -5222,7 +5222,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_shadow.png",
     "title": "히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 그림자",
     "w": 916,
     "h": 624,
@@ -5233,7 +5233,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_range_background_variant2.png",
     "title": "따르기 / 필업 · 필업 · i.pour-tilt-range · 배경",
     "w": 151,
     "h": 16,
@@ -5244,7 +5244,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_speech_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_speech_border.png",
     "title": "독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 테두리",
     "w": 760,
     "h": 110,
@@ -5255,7 +5255,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_11_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_11_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-11 · 아이콘",
     "w": 22,
     "h": 22,
@@ -5266,7 +5266,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_mix_lesson_next_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_mix_lesson_next_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-next · 배경",
     "w": 110,
     "h": 42,
@@ -5277,7 +5277,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_background.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_background.png",
     "title": "단골 정보 · 기본 · .guest-card.unmet · 배경",
     "w": 217,
     "h": 316,
@@ -5288,7 +5288,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant4.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 테두리",
     "w": 720,
     "h": 233,
@@ -5299,7 +5299,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_speech_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_speech_shadow.png",
     "title": "독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 그림자",
     "w": 856,
     "h": 206,
@@ -5310,7 +5310,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_v02.png",
     "title": "좌석 인디케이터 · 인내심 절반 / 주황 ·  · 배경",
     "w": 14,
     "h": 14,
@@ -5321,7 +5321,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_spill_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_spill_background.png",
     "title": "바 출입 / 로딩 · 퇴장 / 문 닫힘 · .bar-door-spill · 배경",
     "w": 428,
     "h": 390,
@@ -5332,7 +5332,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_primary_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_primary_background.png",
     "title": "정산 / 결과 · 정산 성공 · .primary · 배경",
     "w": 162,
     "h": 39,
@@ -5343,7 +5343,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_button_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_button_icon.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 아이콘",
     "w": 36,
     "h": 31,
@@ -5354,7 +5354,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_figure_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_figure_border.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · figure · 테두리",
     "w": 256,
     "h": 224,
@@ -5365,7 +5365,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_complete_border.png",
     "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 테두리",
     "w": 350,
     "h": 92,
@@ -5378,7 +5378,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant5.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 배경",
     "w": 141,
     "h": 43,
@@ -5389,7 +5389,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v04.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_meet.png",
     "title": "팝업 · 인물정보 등록 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -5402,7 +5402,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant3.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 31,
     "h": 22,
@@ -5413,7 +5413,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border_variant2.png",
     "title": "따르기 튜토리얼 · 목표량 확인 ·  · 테두리 / 포커스",
     "w": 268,
     "h": 35,
@@ -5424,7 +5424,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_border_variant2.png",
     "title": "병따기 튜토리얼 · 완료 · .opening-lesson-copy · 테두리",
     "w": 290,
     "h": 151,
@@ -5435,7 +5435,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_item_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_johnny_unlock_item_background.png",
     "title": "히든 칵테일 해금 · 기본 · .johnny-unlock-item · 배경",
     "w": 389,
     "h": 63,
@@ -5446,7 +5446,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_event_icon_border.png",
     "title": "팝업 · 이벤트 발생 · .story-notice-icon · 테두리",
     "w": 39,
     "h": 39,
@@ -5459,7 +5459,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_down_border.png",
     "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 테두리",
     "w": 350,
     "h": 90,
@@ -5472,7 +5472,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v03.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v03.png",
     "title": "단골 정보 · 기본 ·  · 배경",
     "w": 409,
     "h": 393,
@@ -5483,7 +5483,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 그림자",
     "w": 102,
     "h": 144,
@@ -5494,7 +5494,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_meet_border.png",
     "title": "팝업 · 인물정보 등록 · .story-notice.story-notice-people · 테두리",
     "w": 350,
     "h": 90,
@@ -5508,7 +5508,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · i · 배경",
     "w": 202,
     "h": 314,
@@ -5519,7 +5519,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_guide_keystrip_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_guide_keystrip_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-guide-keystrip · 배경",
     "w": 405,
     "h": 52,
@@ -5530,7 +5530,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow_variant2.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 그림자",
     "w": 1176,
     "h": 603,
@@ -5541,7 +5541,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_shadow_variant3.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 그림자",
     "w": 140,
     "h": 138,
@@ -5552,7 +5552,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_dialogue_advance_cue_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_dialogue_advance_cue_background.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .dialogue-advance-cue · 배경",
     "w": 28,
     "h": 28,
@@ -5563,7 +5563,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant14.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant14.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 담기 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 97,
     "h": 249,
@@ -5574,7 +5574,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 테두리",
     "w": 51,
     "h": 81,
@@ -5585,7 +5585,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_border.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 테두리",
     "w": 800,
     "h": 593,
@@ -5596,7 +5596,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_shadow.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 그림자",
     "w": 434,
     "h": 748,
@@ -5607,7 +5607,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 36,
     "h": 28,
@@ -5618,7 +5618,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_border_variant3.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 테두리",
     "w": 181,
     "h": 39,
@@ -5629,7 +5629,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon_variant2.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-2 · 아이콘",
     "w": 74,
     "h": 22,
@@ -5640,7 +5640,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_event_border.png",
     "title": "팝업 · 이벤트 발생 · .story-notice.story-notice-event · 테두리",
     "w": 350,
     "h": 90,
@@ -5653,7 +5653,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_after_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_after_background_variant2.png",
     "title": "단골 정보 · 기본 · .guest-card.unmet::after · 배경",
     "w": 217,
     "h": 316,
@@ -5664,7 +5664,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
     "w": 48,
     "h": 21,
@@ -5675,7 +5675,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_overlay_is_inspection_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_overlay_is_inspection_background.png",
     "title": "오브젝트 관찰 · .outside-overlay.is-inspection · 배경",
     "w": 1278,
     "h": 718,
@@ -5686,7 +5686,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v11.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v11.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -5697,7 +5697,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_select_background_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 배경",
     "w": 181,
     "h": 39,
@@ -5708,7 +5708,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_background_variant2.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-tutorial · 배경",
     "w": 800,
     "h": 593,
@@ -5719,7 +5719,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_complete_shadow.png",
     "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 그림자",
     "w": 446,
     "h": 188,
@@ -5733,7 +5733,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_svg_g_mix_guide_marks_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_svg_g_mix_guide_marks_icon.png",
     "title": "스터 / 제조 기믹 · 기본 ·  / g.mix-guide-marks · 아이콘",
     "w": 542,
     "h": 550,
@@ -5744,7 +5744,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_floor_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_floor_background.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-floor · 배경",
     "w": 124,
     "h": 18,
@@ -5755,7 +5755,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-slot · 배경",
     "w": 64,
     "h": 64,
@@ -5766,7 +5766,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v04.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v04.png",
     "title": "단골 정보 · 기본 ·  · 배경",
     "w": 409,
     "h": 393,
@@ -5777,7 +5777,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background_variant2.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 배경",
     "w": 44,
     "h": 42,
@@ -5788,7 +5788,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_border.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 테두리",
     "w": 1040,
     "h": 570,
@@ -5799,7 +5799,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_variant2.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 배경",
     "w": 345,
     "h": 1,
@@ -5810,7 +5810,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_wall_halo_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_wall_halo_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-wall-halo · 배경",
     "w": 610,
     "h": 494,
@@ -5821,7 +5821,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior · 배경",
     "w": 202,
     "h": 314,
@@ -5832,7 +5832,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_v02.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 ·  · 테두리",
     "w": 209,
     "h": 145,
@@ -5843,7 +5843,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant3.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .dialogue-surface · 테두리",
     "w": 316,
     "h": 108,
@@ -5854,7 +5854,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 그림자",
     "w": 147,
     "h": 177,
@@ -5865,7 +5865,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant4.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 32,
     "h": 22,
@@ -5876,7 +5876,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_qa_launch_is_outside_background.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_qa_launch_is_outside_background.png",
     "title": "월드 말풍선 / 외부 · 기본 · .qa-launch.is-outside · 배경",
     "w": 225,
     "h": 54,
@@ -5887,7 +5887,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v12.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v12.png",
     "title": "바 튜토리얼 · 단계별 안내 · 잔 선택 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -5898,7 +5898,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_kbd_background.png",
     "title": "병따기 튜토리얼 · 시작 안내 ·  · 배경",
     "w": 57,
     "h": 27,
@@ -5909,7 +5909,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_shadow.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .world-choice-confirm · 그림자",
     "w": 118,
     "h": 120,
@@ -5920,7 +5920,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_base_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_base_background.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-base · 배경",
     "w": 650,
     "h": 43,
@@ -5931,7 +5931,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border.png",
     "title": "따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-card · 테두리",
     "w": 310,
     "h": 148,
@@ -5942,7 +5942,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v13.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v13.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 이동 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -5953,7 +5953,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant5.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring · 아이콘",
     "w": 68,
     "h": 69,
@@ -5964,7 +5964,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_background_v02_variant2.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 ·  · 배경",
     "w": 14,
     "h": 14,
@@ -5975,7 +5975,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_input_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_input_background.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · input · 배경",
     "w": 431,
     "h": 38,
@@ -5986,7 +5986,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 테두리",
     "w": 149,
     "h": 49,
@@ -5997,7 +5997,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_border_variant4.png",
     "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · .dialogue-surface · 테두리",
     "w": 282,
     "h": 108,
@@ -6008,7 +6008,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_prep_back_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_prep_back_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-back · 배경",
     "w": 78,
     "h": 38,
@@ -6019,7 +6019,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v02.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
     "w": 72,
     "h": 72,
@@ -6030,7 +6030,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_h3_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_h3_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · h3 · 테두리",
     "w": 241,
     "h": 15,
@@ -6041,7 +6041,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_v02.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
     "w": 52,
     "h": 51,
@@ -6052,7 +6052,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant7.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant7.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 테두리",
     "w": 403,
     "h": 43,
@@ -6063,7 +6063,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant8.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant8.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 ·  · 테두리",
     "w": 289,
     "h": 43,
@@ -6074,7 +6074,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_background_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-hero · 배경",
     "w": 273,
     "h": 137,
@@ -6085,7 +6085,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_polyline_rhythm_path_route_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_polyline_rhythm_path_route_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / polyline.rhythm-path-route · 아이콘",
     "w": 241,
     "h": 346,
@@ -6096,7 +6096,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_ground_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_ground_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-ground · 배경",
     "w": 650,
     "h": 2,
@@ -6107,7 +6107,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_border.png",
     "title": "정산 / 결과 · 정산 성공 · .settlement-actions · 테두리",
     "w": 898,
     "h": 72,
@@ -6118,7 +6118,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background_variant2.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · i · 배경",
     "w": 24,
     "h": 2,
@@ -6129,7 +6129,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_face_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-face · 아이콘",
     "w": 58,
     "h": 58,
@@ -6140,7 +6140,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_light_floor_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_light_floor_background.png",
     "title": "바 출입 / 로딩 · 퇴장 / 문 닫힘 · .bar-door-light-floor · 배경",
     "w": 494,
     "h": 123,
@@ -6151,7 +6151,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_primary_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_primary_background_variant2.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .primary · 배경",
     "w": 72,
     "h": 43,
@@ -6162,7 +6162,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_icon_variant6.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  / circle.mix-shake-ring · 아이콘",
     "w": 75,
     "h": 75,
@@ -6173,7 +6173,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_stack_service_popup_draggable_before_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .stack.service-popup.draggable::before · 테두리",
     "w": 166,
     "h": 50,
@@ -6184,7 +6184,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant5.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  / g.mix-shake-callout · 아이콘",
     "w": 165,
     "h": 163,
@@ -6195,7 +6195,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 배경",
     "w": 202,
     "h": 314,
@@ -6206,7 +6206,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant5.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 34,
     "h": 22,
@@ -6217,7 +6217,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_divider_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_divider_background.png",
     "title": "조작 설명 · 기본 · .divider · 배경",
     "w": 842,
     "h": 1,
@@ -6228,7 +6228,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background_variant2.png",
     "title": "월드 말풍선 / 외부 · 기본 · .exterior-textbox-skin::before · 배경",
     "w": 418,
     "h": 76,
@@ -6239,7 +6239,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_rail_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_rail_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-rail · 그림자",
     "w": 328,
     "h": 101,
@@ -6250,7 +6250,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_border.png",
     "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 테두리",
     "w": 350,
     "h": 96,
@@ -6261,7 +6261,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_header_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_header_border.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 ·  · 테두리",
     "w": 1018,
     "h": 115,
@@ -6272,7 +6272,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/BG_notification_goal_new.png",
     "title": "팝업 · 새로운 목표 · .story-notice.story-notice-event · 배경",
     "w": 350,
     "h": 92,
@@ -6285,7 +6285,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_card_border_variant2.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-card · 테두리",
     "w": 310,
     "h": 146,
@@ -6296,7 +6296,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_help_corner_border.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_GRD_help_corner_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .help-corner · 테두리",
     "w": 34,
     "h": 34,
@@ -6307,7 +6307,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_shadow_variant3.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · .daily-unlocks · 그림자",
     "w": 1176,
     "h": 714,
@@ -6318,7 +6318,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_selected_seat_occupied_seat_pulse_arrival_seat_pulse_dim_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_selected_seat_occupied_seat_pulse_arrival_seat_pulse_dim_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim · 테두리",
     "w": 32,
     "h": 32,
@@ -6329,7 +6329,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리 · 효과 여백 4px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v05.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_down.png",
     "title": "팝업 · 호감도 하락 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -6342,7 +6342,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_variant2.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 44,
     "h": 22,
@@ -6353,7 +6353,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board · 배경",
     "w": 583,
     "h": 589,
@@ -6364,7 +6364,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_background_variant3.png",
     "title": "정산 / 결과 · 정산 성공 · th · 배경",
     "w": 173,
     "h": 36,
@@ -6375,7 +6375,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 테두리 / 누름",
     "w": 32,
     "h": 32,
@@ -6386,7 +6386,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_skip_is_visible_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_skip_is_visible_background_v02.png",
     "title": "컷씬 스킵 안내 · .campaign-skip.is-visible · 배경 / 호버",
     "w": 128,
     "h": 38,
@@ -6397,7 +6397,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_variant6.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / g.mix-shake-callout · 아이콘",
     "w": 102,
     "h": 101,
@@ -6408,7 +6408,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_border.png",
     "title": "히든 칵테일 해금 · 기본 · .unlock-day · 테두리",
     "w": 172,
     "h": 23,
@@ -6419,7 +6419,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_left_bag_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_left_bag_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.left-bag · 배경",
     "w": 41,
     "h": 52,
@@ -6430,7 +6430,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
     "w": 72,
     "h": 30,
@@ -6441,7 +6441,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_modal_border.png",
     "title": "대사 기록 · 기본 · .modal · 테두리",
     "w": 650,
     "h": 191,
@@ -6452,7 +6452,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 테두리",
     "w": 216,
     "h": 328,
@@ -6463,7 +6463,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_g_mix_shake_callout_icon_v02.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 타이밍 안내 ·  / g.mix-shake-callout · 아이콘",
     "w": 150,
     "h": 148,
@@ -6474,7 +6474,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_load_track_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_load_track_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-load-track · 배경",
     "w": 60,
     "h": 2,
@@ -6485,7 +6485,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v14.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v14.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -6496,7 +6496,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_body_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_note_body_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.note-body · 아이콘",
     "w": 93,
     "h": 36,
@@ -6507,7 +6507,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_border_variant2.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .unlock-day · 테두리",
     "w": 55,
     "h": 23,
@@ -6518,7 +6518,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_rhythm_pad_lane_1_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_rhythm_pad_lane_1_background.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-1 · 배경 / 포커스",
     "w": 120,
     "h": 38,
@@ -6529,7 +6529,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_v02.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 20,
     "h": 22,
@@ -6540,7 +6540,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_income_background.png",
     "title": "소지금 알림 / 증감 · 소지금 증가 · .currency-hud.currency-income · 배경",
     "w": 234,
     "h": 47,
@@ -6551,7 +6551,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v03_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v03_variant2.png",
     "title": "맥주 제조 튜토리얼 · 맥주 잔 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 28,
@@ -6562,7 +6562,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background_variant4.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 · .dialogue-surface · 배경",
     "w": 313,
     "h": 108,
@@ -6573,7 +6573,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_BTN_button_background.png",
     "title": "정산 / 결과 · 정산 성공 ·  · 배경",
     "w": 129,
     "h": 39,
@@ -6584,7 +6584,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border_variant2.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 테두리",
     "w": 18,
     "h": 19,
@@ -6595,7 +6595,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_detail_stir_detail_border.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-detail.stir-detail · 테두리",
     "w": 187,
     "h": 325,
@@ -6606,7 +6606,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v03.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
     "w": 72,
     "h": 72,
@@ -6617,7 +6617,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_svg_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_svg_icon_variant2.png",
     "title": "소지금 알림 / 증감 · 소지금 증가 ·  · 아이콘",
     "w": 30,
     "h": 30,
@@ -6628,7 +6628,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_upkeep_ledger_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_upkeep_ledger_border.png",
     "title": "정산 / 결과 · 정산 성공 · .upkeep-ledger · 테두리",
     "w": 842,
     "h": 248,
@@ -6639,7 +6639,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_keycap_icon_variant3.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-keycap · 아이콘",
     "w": 53,
     "h": 46,
@@ -6650,7 +6650,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_coaster_pickup_arrow_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_coaster_pickup_arrow_icon.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .coaster-pickup-arrow · 아이콘",
     "w": 30,
     "h": 36,
@@ -6661,7 +6661,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_button_background.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 배경 / 포커스",
     "w": 82,
     "h": 52,
@@ -6672,7 +6672,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v02.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
     "w": 124,
     "h": 124,
@@ -6683,7 +6683,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_background_variant3.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 배경",
     "w": 88,
     "h": 42,
@@ -6694,7 +6694,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_shadow_variant4.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 그림자",
     "w": 416,
     "h": 138,
@@ -6705,7 +6705,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_button_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_BTN_button_background_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 배경",
     "w": 36,
     "h": 31,
@@ -6716,7 +6716,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant9.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant9.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 ·  · 테두리",
     "w": 156,
     "h": 43,
@@ -6727,7 +6727,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_person_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_person_icon.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-person · 아이콘",
     "w": 232,
     "h": 180,
@@ -6738,7 +6738,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_figure_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_figure_background.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · figure · 배경",
     "w": 256,
     "h": 224,
@@ -6749,7 +6749,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_note_shine_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_note_shine_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / path.note-shine · 아이콘",
     "w": 33,
     "h": 13,
@@ -6760,7 +6760,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior · 그림자",
     "w": 298,
     "h": 410,
@@ -6771,7 +6771,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_frame_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-frame · 배경",
     "w": 216,
     "h": 328,
@@ -6782,7 +6782,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_icon_v02.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage · 아이콘",
     "w": 539,
     "h": 382,
@@ -6793,7 +6793,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
     "w": 28,
     "h": 28,
@@ -6804,7 +6804,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_base_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_observation_base_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · #observation-base · 테두리",
     "w": 650,
     "h": 43,
@@ -6815,7 +6815,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_border_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 ·  · 테두리",
     "w": 93,
     "h": 35,
@@ -6826,7 +6826,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_shadow.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 그림자",
     "w": 125,
     "h": 123,
@@ -6837,7 +6837,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_shadow.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend · 그림자",
     "w": 1136,
     "h": 666,
@@ -6848,7 +6848,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_button_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_button_border_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
     "w": 160,
     "h": 38,
@@ -6859,7 +6859,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_sfx_volume_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_sfx_volume_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · #sfx-volume · 테두리",
     "w": 160,
     "h": 18,
@@ -6870,7 +6870,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_section_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_section_background_variant2.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 414,
     "h": 212,
@@ -6881,7 +6881,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_border.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · article.unlock-card · 테두리",
     "w": 116,
     "h": 102,
@@ -6892,7 +6892,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_spending_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_spending_border.png",
     "title": "소지금 알림 / 증감 · 소지금 차감 · .currency-hud.currency-spending · 테두리",
     "w": 234,
     "h": 47,
@@ -6903,7 +6903,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_variant3.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 배경 / 누름",
     "w": 32,
     "h": 32,
@@ -6914,7 +6914,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_badge_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_badge_border.png",
     "title": "정산 / 결과 · 정산 성공 · small.badge · 테두리",
     "w": 64,
     "h": 24,
@@ -6925,7 +6925,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v03.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -6936,7 +6936,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_track_shadow.png",
     "title": "따르기 / 필업 · 정량 따르기 · .pour-tilt-track · 그림자",
     "w": 336,
     "h": 112,
@@ -6947,7 +6947,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_row_before_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · article.day0-seat-legend-row::before · 배경",
     "w": 14,
     "h": 14,
@@ -6958,7 +6958,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v04.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v04.png",
     "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -6969,7 +6969,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon_v02.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘",
     "w": 61,
     "h": 61,
@@ -6980,7 +6980,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sign_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sign · 그림자",
     "w": 338,
     "h": 170,
@@ -6991,7 +6991,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v02.png",
     "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .shelf-arrow.prev · 배경 / 호버",
     "w": 26,
     "h": 47,
@@ -7002,7 +7002,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_history_line_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/History/Web_GRD_history_line_border.png",
     "title": "대사 기록 · 기본 · .history-line · 테두리",
     "w": 592,
     "h": 82,
@@ -7013,7 +7013,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_keycap_border_variant3.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-keycap · 테두리",
     "w": 88,
     "h": 42,
@@ -7024,7 +7024,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v15.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v15.png",
     "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7035,7 +7035,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v16.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v16.png",
     "title": "바 튜토리얼 · 단계별 안내 · 진 다시 담기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7046,7 +7046,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_IMG_button_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_IMG_button_icon.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 아이콘",
     "w": 24,
     "h": 26,
@@ -7057,7 +7057,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_rail_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_rail_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-rail · 배경",
     "w": 232,
     "h": 5,
@@ -7068,7 +7068,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_remix_context_original_service_tip_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_remix_context_original_service_tip_border.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .remix-context.original-service-tip · 테두리",
     "w": 261,
     "h": 38,
@@ -7079,7 +7079,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border_variant2.png",
     "title": "정산 / 결과 · 정산 성공 · th · 테두리",
     "w": 286,
     "h": 36,
@@ -7090,7 +7090,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
     "w": 93,
     "h": 93,
@@ -7101,7 +7101,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_button_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_button_border_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
     "w": 36,
     "h": 31,
@@ -7112,7 +7112,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v02.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
     "w": 28,
     "h": 28,
@@ -7123,7 +7123,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_primary_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_primary_border_variant2.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .primary · 테두리",
     "w": 72,
     "h": 43,
@@ -7134,7 +7134,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_down_icon_border.png",
     "title": "팝업 · 호감도 하락 · .story-notice-icon · 테두리",
     "w": 39,
     "h": 39,
@@ -7147,7 +7147,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant6.png",
     "title": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 배경",
     "w": 167,
     "h": 43,
@@ -7158,7 +7158,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_track_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_track_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-track · 아이콘",
     "w": 208,
     "h": 421,
@@ -7169,7 +7169,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_heading_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_controls_heading_border.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-heading · 테두리",
     "w": 714,
     "h": 83,
@@ -7180,7 +7180,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_settlement_actions_border_variant2.png",
     "title": "정산 / 결과 · 유지비 부족 · .settlement-actions · 테두리",
     "w": 898,
     "h": 78,
@@ -7191,7 +7191,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
     "w": 94,
     "h": 95,
@@ -7202,7 +7202,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v05.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v05.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 타이밍 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -7213,7 +7213,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background_variant2.png",
     "title": "신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 배경",
     "w": 1080,
     "h": 329,
@@ -7224,7 +7224,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v17.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v17.png",
     "title": "바 튜토리얼 · 단계별 안내 · 술 선반 이동 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7235,7 +7235,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_primary_border_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .primary · 테두리 / 포커스",
     "w": 141,
     "h": 43,
@@ -7246,7 +7246,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_button_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_button_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
     "w": 64,
     "h": 39,
@@ -7257,7 +7257,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_BTN_pour_finish_gimmick_finish_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_BTN_pour_finish_gimmick_finish_background.png",
     "title": "따르기 / 필업 · 정량 따르기 · .pour-finish.gimmick-finish · 배경 / 포커스",
     "w": 157,
     "h": 46,
@@ -7268,7 +7268,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_tray_drink_tray_service_popup_draggable_before_shadow.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .tray.drink-tray.service-popup.draggable::before · 그림자",
     "w": 286,
     "h": 180,
@@ -7279,7 +7279,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-6 · 아이콘",
     "w": 22,
     "h": 9,
@@ -7290,7 +7290,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant7.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant7.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 ·  · 배경",
     "w": 176,
     "h": 43,
@@ -7301,7 +7301,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_interior_before_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-interior::before · 배경",
     "w": 174,
     "h": 7,
@@ -7312,7 +7312,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant3.png",
     "title": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 그림자",
     "w": 816,
     "h": 522,
@@ -7323,7 +7323,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v03.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_new_icon_border.png",
     "title": "팝업 · 새로운 목표 · .story-notice-icon · 테두리",
     "w": 39,
     "h": 39,
@@ -7336,7 +7336,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-cinema · 배경",
     "w": 629,
     "h": 589,
@@ -7347,7 +7347,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant6.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 20,
     "h": 22,
@@ -7358,7 +7358,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border_variant2.png",
     "title": "신규 재료·레시피 해금 · 3일차 해금 · .daily-unlocks · 테두리",
     "w": 1080,
     "h": 329,
@@ -7369,7 +7369,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_remix_context_original_service_tip_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_remix_context_original_service_tip_background.png",
     "title": "좌석 인디케이터 · 입장 / 점멸 · .remix-context.original-service-tip · 배경",
     "w": 249,
     "h": 38,
@@ -7380,7 +7380,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v04.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v04.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .seat-state-picture · 아이콘",
     "w": 72,
     "h": 72,
@@ -7391,7 +7391,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_center_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_center_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-center · 아이콘",
     "w": 11,
     "h": 10,
@@ -7402,7 +7402,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_primary_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_primary_border.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .primary · 테두리",
     "w": 228,
     "h": 53,
@@ -7413,7 +7413,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_i_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_i_border.png",
     "title": "스터 / 제조 기믹 · 기본 · i · 테두리",
     "w": 69,
     "h": 20,
@@ -7424,7 +7424,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-hero · 테두리",
     "w": 241,
     "h": 155,
@@ -7435,7 +7435,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border_v02.png",
     "title": "컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리 / 포커스",
     "w": 128,
     "h": 38,
@@ -7446,7 +7446,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant15.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant15.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 275,
     "h": 75,
@@ -7457,7 +7457,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_after_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_after_shadow.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-cinema::after · 그림자",
     "w": 724,
     "h": 683,
@@ -7468,7 +7468,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_g_mix_guide_marks_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_g_mix_guide_marks_icon.png",
     "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 ·  / g.mix-guide-marks · 아이콘",
     "w": 433,
     "h": 496,
@@ -7479,7 +7479,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant4.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 배경",
     "w": 720,
     "h": 640,
@@ -7490,7 +7490,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_kbd_icon_variant2.png",
     "title": "병따기 튜토리얼 · 시작 안내 ·  · 아이콘",
     "w": 57,
     "h": 27,
@@ -7501,7 +7501,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_rail_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_rail_icon_variant2.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-rail · 아이콘",
     "w": 239,
     "h": 341,
@@ -7512,7 +7512,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_arrow_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_arrow_icon_v02.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .controls-arrow · 아이콘",
     "w": 28,
     "h": 40,
@@ -7523,7 +7523,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_background_v03.png",
     "title": "좌석 인디케이터 · 3좌석 점유 ·  · 배경",
     "w": 14,
     "h": 14,
@@ -7534,7 +7534,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_speech_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_speech_background.png",
     "title": "독립 대사창 / 검은 화면 · 기본 · .campaign-speech · 배경",
     "w": 760,
     "h": 110,
@@ -7545,7 +7545,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_border.png",
     "title": "히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 테두리",
     "w": 820,
     "h": 528,
@@ -7556,7 +7556,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_object_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_object_icon.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-object · 아이콘",
     "w": 232,
     "h": 180,
@@ -7567,7 +7567,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant8.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant8.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 ·  · 배경",
     "w": 156,
     "h": 43,
@@ -7578,7 +7578,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_shadow.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .modal · 그림자",
     "w": 746,
     "h": 750,
@@ -7589,7 +7589,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
     "w": 93,
     "h": 37,
@@ -7600,7 +7600,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_shade_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_shade_background.png",
     "title": "0일차 · 이동 / 달리기 튜토리얼 · 걷기 · A / D + 달리기 · Shift · .outside-controls-shade · 배경",
     "w": 1280,
     "h": 720,
@@ -7611,7 +7611,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_spending_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_currency_hud_currency_spending_shadow.png",
     "title": "소지금 알림 / 증감 · 소지금 차감 · .currency-hud.currency-spending · 그림자",
     "w": 330,
     "h": 143,
@@ -7622,7 +7622,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v18.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v18.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 읽기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7633,7 +7633,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_button_shadow.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 ·  · 그림자",
     "w": 350,
     "h": 151,
@@ -7644,7 +7644,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_ingredient_warning_background_variant2.png",
     "title": "경고 팝업 · 재료 초과 · .modal.ingredient-warning · 배경",
     "w": 620,
     "h": 314,
@@ -7655,7 +7655,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_BTN_primary_gimmick_finish_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .primary.gimmick-finish · 배경 / 포커스",
     "w": 88,
     "h": 24,
@@ -7666,7 +7666,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_span_border_variant2.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 ·  · 테두리",
     "w": 41,
     "h": 21,
@@ -7677,7 +7677,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_IMG_kbd_icon.png",
     "title": "컷씬 스킵 안내 ·  · 아이콘",
     "w": 46,
     "h": 22,
@@ -7688,7 +7688,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v03.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
     "w": 28,
     "h": 28,
@@ -7699,7 +7699,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_input_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_input_border.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · input · 테두리",
     "w": 431,
     "h": 38,
@@ -7710,7 +7710,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background_variant2.png",
     "title": "따르기 튜토리얼 · 목표량 확인 ·  · 배경",
     "w": 268,
     "h": 35,
@@ -7721,7 +7721,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_border_variant3.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 테두리",
     "w": 1080,
     "h": 507,
@@ -7732,7 +7732,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v19.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v19.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 빼기 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7743,7 +7743,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_remix_context_original_service_tip_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_remix_context_original_service_tip_border.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 · .remix-context.original-service-tip · 테두리",
     "w": 275,
     "h": 38,
@@ -7754,7 +7754,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_top_readout_background.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-top-readout · 배경",
     "w": 244,
     "h": 48,
@@ -7765,7 +7765,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_button_background_variant3.png",
     "title": "바 튜토리얼 · 단계별 안내 · 서비스 패널 ·  · 배경",
     "w": 254,
     "h": 55,
@@ -7776,7 +7776,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_next_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_next_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-next · 테두리",
     "w": 110,
     "h": 42,
@@ -7787,7 +7787,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_johnny_unlock_background.png",
     "title": "히든 칵테일 해금 · 기본 · .daily-unlocks.johnny-unlock · 배경",
     "w": 820,
     "h": 528,
@@ -7798,7 +7798,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_3_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_3_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-3 · 아이콘",
     "w": 22,
     "h": 22,
@@ -7809,7 +7809,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant5.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / path.mix-shake-leader · 아이콘",
     "w": 29,
     "h": 28,
@@ -7820,7 +7820,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant16.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant16.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .day0-guide-art / rect.day0-guide-outline · 아이콘",
     "w": 376,
     "h": 108,
@@ -7831,7 +7831,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant7.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_border_variant7.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 32,
     "h": 22,
@@ -7842,7 +7842,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_modal_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .modal · 배경",
     "w": 650,
     "h": 654,
@@ -7853,7 +7853,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_after_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/pointer-right.png",
     "title": "외부 선택지 · 오른쪽 삼각형",
     "w": 5,
     "h": 6,
@@ -7864,7 +7864,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-grid · 테두리",
     "w": 241,
     "h": 90,
@@ -7875,7 +7875,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_shadow_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_shadow_variant2.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 그림자",
     "w": 896,
     "h": 638,
@@ -7886,7 +7886,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 배경",
     "w": 900,
     "h": 571,
@@ -7897,7 +7897,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v04.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_complete_icon_border.png",
     "title": "팝업 · 목표 달성 · .story-notice-icon · 테두리",
     "w": 39,
     "h": 39,
@@ -7910,7 +7910,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon_variant2.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-6 · 아이콘",
     "w": 22,
     "h": 34,
@@ -7921,7 +7921,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_campaign_card_border.png",
     "title": "경고 팝업 · 외부 · 귀가 전 할 일 안내 · .campaign-card · 테두리",
     "w": 720,
     "h": 289,
@@ -7932,7 +7932,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_v03.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 20,
     "h": 22,
@@ -7943,7 +7943,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v20.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v20.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -7954,7 +7954,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v04_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v04_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 37,
     "h": 28,
@@ -7965,7 +7965,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 테두리",
     "w": 338,
     "h": 652,
@@ -7976,7 +7976,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon_variant2.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-10 · 아이콘",
     "w": 49,
     "h": 22,
@@ -7987,7 +7987,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tilt_marker_background.png",
     "title": "따르기 / 필업 · 정량 따르기 · i.pour-tilt-marker · 배경",
     "w": 4,
     "h": 26,
@@ -7998,7 +7998,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_outside_controls_tutorial_border_variant2.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .outside-controls-tutorial · 테두리",
     "w": 800,
     "h": 542,
@@ -8009,7 +8009,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_kbd_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 ·  · 배경",
     "w": 29,
     "h": 27,
@@ -8020,7 +8020,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v04.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_background_v04.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 배경",
     "w": 28,
     "h": 28,
@@ -8031,7 +8031,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_circle_target_halo_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 · .rhythm-stage / circle.target-halo · 아이콘",
     "w": 92,
     "h": 92,
@@ -8042,7 +8042,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_before_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_inventory_before_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .prep-inventory::before · 배경",
     "w": 1280,
     "h": 145,
@@ -8053,7 +8053,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_th_border_variant3.png",
     "title": "정산 / 결과 · 정산 성공 · th · 테두리",
     "w": 173,
     "h": 36,
@@ -8064,7 +8064,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_dialogue_audio_settings_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_dialogue_audio_settings_border.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · .dialogue-audio-settings · 테두리",
     "w": 592,
     "h": 62,
@@ -8075,7 +8075,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_cinema_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-cinema · 테두리",
     "w": 629,
     "h": 589,
@@ -8086,7 +8086,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant4.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 그림자",
     "w": 816,
     "h": 736,
@@ -8097,7 +8097,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_background_variant2.png",
     "title": "히든 칵테일 해금 · 기본 · .unlock-day · 배경",
     "w": 172,
     "h": 23,
@@ -8108,7 +8108,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border_v03.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_is_visible_border_v03.png",
     "title": "컷씬 스킵 안내 · .campaign-skip.is-visible · 테두리 / 호버",
     "w": 128,
     "h": 38,
@@ -8119,7 +8119,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v05.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_meet_icon_border.png",
     "title": "팝업 · 인물정보 등록 · .story-notice-icon · 테두리",
     "w": 39,
     "h": 39,
@@ -8133,7 +8133,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow_v03.png",
     "title": "좌석 인디케이터 · 인내심 절반 / 주황 ·  · 그림자",
     "w": 110,
     "h": 110,
@@ -8144,7 +8144,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_qa_launch_background.png",
+    "src": "assets/01.ArtResources/05.UI/99.Review/WebGenerated/Web_BTN_qa_launch_background.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .qa-launch · 배경 / 포커스",
     "w": 147,
     "h": 37,
@@ -8155,7 +8155,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_daily_unlocks_background_variant3.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · .daily-unlocks · 배경",
     "w": 1080,
     "h": 507,
@@ -8166,7 +8166,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_kbd_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
     "w": 93,
     "h": 37,
@@ -8177,7 +8177,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_8_icon_variant3.png",
     "title": "외부 대화 / 선택지 · 구매 확인 · .textbox-piece.piece-8 · 아이콘",
     "w": 13,
     "h": 22,
@@ -8188,7 +8188,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_figure_mix_guide_image_mix_shake_preview_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · figure.mix-guide-image.mix-shake-preview · 테두리",
     "w": 405,
     "h": 346,
@@ -8199,7 +8199,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_grip_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-grip · 테두리",
     "w": 6,
     "h": 48,
@@ -8210,7 +8210,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_4_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_4_icon_variant2.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-4 · 아이콘",
     "w": 22,
     "h": 34,
@@ -8221,7 +8221,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_shadow.png",
     "title": "매출 · 기본 · .modal.wide · 그림자",
     "w": 996,
     "h": 461,
@@ -8232,7 +8232,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_inventory_slot_empty_slot_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_inventory_slot_empty_slot_background.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .inventory-slot.empty-slot · 배경",
     "w": 93,
     "h": 93,
@@ -8243,7 +8243,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant7.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_kbd_background_variant7.png",
     "title": "조작 설명 · 기본 ·  · 배경",
     "w": 19,
     "h": 22,
@@ -8254,7 +8254,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_hero_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_hero_border_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-hero · 테두리",
     "w": 273,
     "h": 137,
@@ -8265,7 +8265,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_rhythm_pad_lane_0_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_BTN_rhythm_pad_lane_0_background.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-pad.lane-0 · 배경 / 포커스",
     "w": 120,
     "h": 38,
@@ -8276,7 +8276,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_h3_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_h3_border.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · h3 · 테두리",
     "w": 273,
     "h": 15,
@@ -8287,7 +8287,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_exterior_textbox_skin_before_background_variant3.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .exterior-textbox-skin::before · 배경",
     "w": 187,
     "h": 51,
@@ -8298,7 +8298,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_recipe_toggle_prep_recipe_brief_border_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .recipe-toggle.prep-recipe-brief · 테두리",
     "w": 280,
     "h": 135,
@@ -8309,7 +8309,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_background_v02.png",
     "title": "소지금 알림 / 증감 · 외부 거리 · 증가 ·  · 배경 / 호버",
     "w": 32,
     "h": 32,
@@ -8320,7 +8320,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_backdrop_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_day0_seat_legend_backdrop_background.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · .day0-seat-legend-backdrop · 배경",
     "w": 1280,
     "h": 720,
@@ -8331,7 +8331,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02.png",
     "title": "스터 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
     "w": 72,
     "h": 26,
@@ -8342,7 +8342,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_person_path_controls_target_mark_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_controls_example_controls_person_path_controls_target_mark_icon.png",
     "title": "0일차 · 상호작용 튜토리얼 · 상호작용 · E · .controls-example.controls-person / path.controls-target-mark · 아이콘",
     "w": 151,
     "h": 306,
@@ -8353,7 +8353,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_header_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_header_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 테두리",
     "w": 838,
     "h": 76,
@@ -8364,7 +8364,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_grid_border_variant2.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .recipe-icon-grid · 테두리",
     "w": 273,
     "h": 98,
@@ -8375,7 +8375,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_gauge_stir_resource_gauge_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_gauge_stir_resource_gauge_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-gauge.stir-resource-gauge · 배경",
     "w": 708,
     "h": 30,
@@ -8386,7 +8386,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v06.png",
+    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_up.png",
     "title": "팝업 · 호감도 상승 · .story-notice-icon · 아이콘",
     "w": 39,
     "h": 39,
@@ -8399,7 +8399,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_background.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · .prep-recipe.recipe-preview.recipe-peek · 배경",
     "w": 338,
     "h": 652,
@@ -8410,7 +8410,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant9.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant9.png",
     "title": "본편 · 확인 / 안내 팝업 · 본편 설정 ·  · 배경",
     "w": 95,
     "h": 34,
@@ -8421,7 +8421,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v03.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.prev · 배경",
     "w": 26,
     "h": 47,
@@ -8432,7 +8432,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_after_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_after_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window::after · 배경",
     "w": 125,
     "h": 31,
@@ -8443,7 +8443,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_path_mix_shake_leader_icon_variant6.png",
     "title": "쉐이킹 이미지 튜토리얼 · 왕복 노드 · 타이밍 안내 ·  / path.mix-shake-leader · 아이콘",
     "w": 33,
     "h": 32,
@@ -8454,7 +8454,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_leaf_shadow.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-leaf · 그림자",
     "w": 298,
     "h": 410,
@@ -8465,7 +8465,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/02.Title/WebGenerated/Web_BTN_title_choice_background_v02.png",
     "title": "타이틀 화면 · .title-choice · 배경",
     "w": 318,
     "h": 66,
@@ -8476,7 +8476,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_card_border_variant2.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · article.unlock-card · 테두리",
     "w": 116,
     "h": 119,
@@ -8487,7 +8487,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_7_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_7_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-7 · 아이콘",
     "w": 22,
     "h": 22,
@@ -8498,7 +8498,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_opening_lesson_copy_background_variant2.png",
     "title": "병따기 튜토리얼 · 완료 · .opening-lesson-copy · 배경",
     "w": 290,
     "h": 151,
@@ -8509,7 +8509,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_BTN_button_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_BTN_button_background.png",
     "title": "서비스 패널 · 기본 ·  · 배경",
     "w": 254,
     "h": 55,
@@ -8520,7 +8520,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v06.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_svg_icon_v06.png",
     "title": "쉐이킹 이미지 튜토리얼 · 중앙 교대 · 노드 / 조작 안내 ·  · 아이콘",
     "w": 387,
     "h": 300,
@@ -8531,7 +8531,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_cinematic_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_cinematic_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-cinematic · 배경",
     "w": 400,
     "h": 674,
@@ -8542,7 +8542,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_i_background_variant3.png",
     "title": "컷씬 스킵 안내 · i · 배경",
     "w": 108,
     "h": 2,
@@ -8553,7 +8553,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_button_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_button_border_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 테두리",
     "w": 95,
     "h": 34,
@@ -8564,7 +8564,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant10.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant10.png",
     "title": "본편 · 확인 / 안내 팝업 · 주문 재확인 ·  · 배경",
     "w": 137,
     "h": 43,
@@ -8575,7 +8575,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
     "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 그림자",
     "w": 446,
     "h": 192,
@@ -8586,7 +8586,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v03.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
     "w": 124,
     "h": 124,
@@ -8597,7 +8597,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_background.png",
     "title": "정산 / 결과 · 정산 성공 · .modal.wide · 배경",
     "w": 900,
     "h": 654,
@@ -8608,7 +8608,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant10.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_button_border_variant10.png",
     "title": "본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 테두리",
     "w": 122,
     "h": 43,
@@ -8619,7 +8619,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_border_variant4.png",
     "title": "바 튜토리얼 · 단계별 안내 · 코스터 제공 · .day0-guide-copy · 테두리",
     "w": 320,
     "h": 42,
@@ -8630,7 +8630,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_IMG_mix_direction_icon_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_mix_direction_icon_v03.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-direction · 아이콘",
     "w": 61,
     "h": 61,
@@ -8641,7 +8641,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_modal_wide_background.png",
     "title": "매출 · 기본 · .modal.wide · 배경",
     "w": 900,
     "h": 365,
@@ -8652,7 +8652,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border_variant2.png",
     "title": "따르기 튜토리얼 · 목표량 확인 · .pour-tutorial-focus · 테두리",
     "w": 256,
     "h": 60,
@@ -8663,7 +8663,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_lesson_card_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-lesson-card · 테두리",
     "w": 900,
     "h": 571,
@@ -8674,7 +8674,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_BTN_button_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_BTN_button_background_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 ·  · 배경",
     "w": 64,
     "h": 39,
@@ -8685,7 +8685,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_dialogue_surface_border.png",
     "title": "말풍선 / 1인 · 단골 1인 대화 · .dialogue-surface · 테두리",
     "w": 306,
     "h": 108,
@@ -8696,7 +8696,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_GRD_select_background_variant2.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · select · 배경",
     "w": 89,
     "h": 39,
@@ -8707,7 +8707,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_shake_sound_option_background_v02_variant2.png",
     "title": "스터 / 제조 기믹 · 기본 · .shake-sound-option · 배경",
     "w": 72,
     "h": 26,
@@ -8718,7 +8718,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_shake_sound_option_border_v02_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .shake-sound-option · 테두리",
     "w": 72,
     "h": 30,
@@ -8729,7 +8729,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/WebGenerated/Web_GRD_mix_motion_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_GRD_mix_motion_background.png",
     "title": "스터 / 제조 기믹 · 기본 · .mix-motion · 배경",
     "w": 1171,
     "h": 664,
@@ -8740,7 +8740,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/01.Open/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Open/WebGenerated/Web_GRD_primary_gimmick_finish_border.png",
     "title": "병따기 / 제조 기믹 · 기본 · .primary.gimmick-finish · 테두리",
     "w": 110,
     "h": 46,
@@ -8751,7 +8751,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage / g.rhythm-path-node · 아이콘",
     "w": 52,
     "h": 52,
@@ -8762,7 +8762,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/WebGenerated/Web_GRD_recipe_icon_slot_background_variant2.png",
     "title": "재료 선택 / 레시피 패널 · 레시피 상세 펼침 · .recipe-icon-slot · 배경",
     "w": 56,
     "h": 56,
@@ -8773,7 +8773,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_day_transition_shade_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_day_transition_shade_background.png",
     "title": "일차 전환 / Day 숫자 · 기본 · .day-transition-shade · 배경",
     "w": 1438,
     "h": 808,
@@ -8784,7 +8784,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_input_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_input_background.png",
     "title": "설정 / 볼륨 / 언어 · 기본 · input · 배경",
     "w": 160,
     "h": 38,
@@ -8795,7 +8795,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_modal_wide_shadow.png",
     "title": "정산 / 결과 · 정산 성공 · .modal.wide · 그림자",
     "w": 996,
     "h": 750,
@@ -8806,7 +8806,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_border_variant5.png",
     "title": "본편 · 확인 / 안내 팝업 · 하루 마치기 · .campaign-card · 테두리",
     "w": 720,
     "h": 228,
@@ -8817,7 +8817,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v21.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v21.png",
     "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -8828,7 +8828,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_prop_bin_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-prop.bin · 배경",
     "w": 51,
     "h": 81,
@@ -8839,7 +8839,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_background_variant5.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 배경",
     "w": 720,
     "h": 233,
@@ -8850,7 +8850,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_background.png",
     "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 배경",
     "w": 52,
     "h": 57,
@@ -8861,7 +8861,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_10_icon_variant3.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-10 · 아이콘",
     "w": 164,
     "h": 22,
@@ -8872,7 +8872,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_after_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_after_background.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .mix-board.rhythm-board::after · 배경",
     "w": 583,
     "h": 589,
@@ -8883,7 +8883,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_IMG_kbd_icon_variant4.png",
     "title": "말풍선 / 1인 · 일반 손님 / 주문 되묻기 ·  · 아이콘",
     "w": 18,
     "h": 19,
@@ -8894,7 +8894,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v03.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_next_background_v03.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.next · 배경 / 포커스",
     "w": 26,
     "h": 47,
@@ -8905,7 +8905,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant5.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 19,
     "h": 22,
@@ -8916,7 +8916,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant6.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 34,
     "h": 22,
@@ -8927,7 +8927,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_dialogue_surface_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_dialogue_surface_background.png",
     "title": "좌석 인디케이터 · 입장 / 점멸 · .dialogue-surface · 배경",
     "w": 269,
     "h": 108,
@@ -8938,7 +8938,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant6.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon_variant6.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  / circle.mix-shake-ring-back · 아이콘",
     "w": 54,
     "h": 55,
@@ -8949,7 +8949,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_icon.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_icon.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · .rhythm-stage · 아이콘",
     "w": 539,
     "h": 382,
@@ -8960,7 +8960,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_kbd_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_kbd_background.png",
     "title": "컷씬 스킵 안내 ·  · 배경",
     "w": 46,
     "h": 22,
@@ -8971,7 +8971,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_g_rhythm_target_icon_variant3.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / g.rhythm-target · 아이콘",
     "w": 95,
     "h": 95,
@@ -8982,7 +8982,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_GRD_nav_rhythm_modes_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_nav_rhythm_modes_border.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 · nav.rhythm-modes · 테두리",
     "w": 539,
     "h": 43,
@@ -8993,7 +8993,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v22.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_icon_v22.png",
     "title": "바 튜토리얼 · 단계별 안내 · 재료 설명 · .day0-guide-art · 아이콘",
     "w": 1280,
     "h": 720,
@@ -9004,7 +9004,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_remix_context_original_service_tip_background.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Web_GRD_remix_context_original_service_tip_background.png",
     "title": "칵테일 드래그 / 제공 · 정상 칵테일 · .remix-context.original-service-tip · 배경",
     "w": 261,
     "h": 38,
@@ -9015,7 +9015,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_mix_lesson_prev_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_mix_lesson_prev_border.png",
     "title": "스터 이미지 튜토리얼 · 스터 · 타이밍 안내 · .mix-lesson-prev · 테두리",
     "w": 74,
     "h": 42,
@@ -9026,7 +9026,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v04.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v04.png",
     "title": "좌석 알림 · 4가지 색상 · 좌석 알림 · i.seat-color-dot · 그림자",
     "w": 124,
     "h": 124,
@@ -9037,7 +9037,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v05.png",
+    "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v05.png",
     "title": "단골 정보 · 기본 ·  · 배경",
     "w": 409,
     "h": 393,
@@ -9048,7 +9048,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_5_icon_variant3.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-5 · 아이콘",
     "w": 145,
     "h": 9,
@@ -9059,7 +9059,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_window_background.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-window · 배경",
     "w": 149,
     "h": 49,
@@ -9070,7 +9070,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/04.Shake/WebGenerated/Web_BTN_button_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_BTN_button_background_variant2.png",
     "title": "쉐이킹 / 제조 기믹 · 기본 ·  · 배경",
     "w": 160,
     "h": 38,
@@ -9081,7 +9081,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_kbd_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_kbd_border.png",
     "title": "병따기 튜토리얼 · 시작 안내 ·  · 테두리",
     "w": 57,
     "h": 27,
@@ -9092,7 +9092,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_day0_guide_copy_background_variant4.png",
     "title": "바 튜토리얼 · 단계별 안내 · 좌석 인디케이터 · .day0-guide-copy · 배경",
     "w": 320,
     "h": 89,
@@ -9103,7 +9103,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant4.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_g_day0_click_arrow_icon_v02_variant4.png",
     "title": "바 튜토리얼 · 단계별 안내 · 냉장고 이동 · .day0-guide-art / g.day0-click-arrow · 아이콘",
     "w": 36,
     "h": 29,
@@ -9114,7 +9114,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_header_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_header_border_variant2.png",
     "title": "히든 칵테일 해금 · 기본 ·  · 테두리",
     "w": 758,
     "h": 115,
@@ -9125,7 +9125,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_kbd_border_variant3.png",
     "title": "조작 설명 · 기본 ·  · 테두리",
     "w": 44,
     "h": 22,
@@ -9136,7 +9136,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon_variant3.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_2_icon_variant3.png",
     "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .textbox-piece.piece-2 · 아이콘",
     "w": 145,
     "h": 22,
@@ -9147,7 +9147,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant5.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_card_shadow_variant5.png",
     "title": "본편 · 확인 / 안내 팝업 · 대화 응답 · .campaign-card · 그림자",
     "w": 816,
     "h": 329,
@@ -9158,7 +9158,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sill_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_bar_door_sill_border.png",
     "title": "바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sill · 테두리",
     "w": 228,
     "h": 8,
@@ -9169,7 +9169,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_shadow.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Common/Web_GRD_span_shadow.png",
     "title": "칵테일 드래그 / 제공 · 잘못된 칵테일 ·  · 그림자",
     "w": 110,
     "h": 110,
@@ -9180,7 +9180,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_kbd_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_kbd_icon.png",
     "title": "월드 말풍선 / 외부 · 기본 ·  · 아이콘",
     "w": 38,
     "h": 28,
@@ -9191,7 +9191,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_td_empty_border.png",
+    "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Settlement/Web_GRD_td_empty_border.png",
     "title": "정산 / 결과 · 정산 성공 · td.empty · 테두리",
     "w": 842,
     "h": 36,
@@ -9202,7 +9202,7 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background.png",
     "title": "게임 시작 안내 · E키 기본 · 배경",
     "w": 68,
     "h": 71,
@@ -9213,7 +9213,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border.png",
     "title": "게임 시작 안내 · E키 기본 · 테두리",
     "w": 68,
     "h": 71,
@@ -9224,7 +9224,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon.png",
     "title": "게임 시작 안내 · E키 기본 · 아이콘",
     "w": 68,
     "h": 71,
@@ -9235,7 +9235,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_v02.png",
     "title": "게임 시작 안내 · E키 누름 · 배경",
     "w": 68,
     "h": 71,
@@ -9246,7 +9246,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_v02.png",
     "title": "게임 시작 안내 · E키 누름 · 테두리",
     "w": 68,
     "h": 71,
@@ -9257,7 +9257,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_v02.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_v02.png",
     "title": "게임 시작 안내 · E키 누름 · 아이콘",
     "w": 68,
     "h": 71,
@@ -9268,7 +9268,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_variant2.png",
     "title": "게임 시작 안내 · SPACE키 기본 · 배경",
     "w": 166,
     "h": 71,
@@ -9279,7 +9279,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_variant2.png",
     "title": "게임 시작 안내 · SPACE키 기본 · 테두리",
     "w": 166,
     "h": 71,
@@ -9290,7 +9290,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_variant2.png",
     "title": "게임 시작 안내 · SPACE키 기본 · 아이콘",
     "w": 166,
     "h": 71,
@@ -9301,7 +9301,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_background_v02_variant2.png",
     "title": "게임 시작 안내 · SPACE키 누름 · 배경",
     "w": 166,
     "h": 71,
@@ -9312,7 +9312,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_ui_opening_guide_default_border_v02_variant2.png",
     "title": "게임 시작 안내 · SPACE키 누름 · 테두리",
     "w": 166,
     "h": 71,
@@ -9323,7 +9323,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_v02_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_ui_opening_guide_default_icon_v02_variant2.png",
     "title": "게임 시작 안내 · SPACE키 누름 · 아이콘",
     "w": 166,
     "h": 71,
@@ -9334,7 +9334,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 캔버스 렌더러에서 분리 · 안내 문구 없음"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_inactive_line_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/inactive-line.png",
     "title": "외부 선택지 · 비활성 세로선",
     "w": 2,
     "h": 30,
@@ -9345,7 +9345,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_choices_key_e_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/key-e.png",
     "title": "외부 선택지 · E키 아이콘",
     "w": 32,
     "h": 34,
@@ -9356,7 +9356,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_key_frame_border.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/key-frame.png",
     "title": "외부 선택지 · 빈 키 테두리",
     "w": 32,
     "h": 34,
@@ -9367,7 +9367,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_choices_pointer_left_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_choices_pointer_left_icon.png",
     "title": "외부 선택지 · 왼쪽 삼각형",
     "w": 5,
     "h": 6,
@@ -9378,7 +9378,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_selected_background_left_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/selected-background-left.png",
     "title": "외부 선택지 · 활성 배경 / 왼쪽 배치",
     "w": 64,
     "h": 32,
@@ -9389,7 +9389,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_selected_background_right_background.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/Choices/selected-background-right.png",
     "title": "외부 선택지 · 활성 배경 / 오른쪽 배치",
     "w": 64,
     "h": 32,
@@ -9400,7 +9400,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_interaction_outside_interact_e_icon.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_interaction_outside_interact_e_icon.png",
     "title": "외부 상호작용 · 원형 E키 / 아이콘만",
     "w": 32,
     "h": 32,
@@ -9411,7 +9411,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_interaction_outside_interact_e_icon_variant2.png",
+    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_interaction_outside_interact_e_icon_variant2.png",
     "title": "외부 상호작용 · 원형 E키 / 그림자 포함",
     "w": 48,
     "h": 48,
@@ -9422,7 +9422,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_divider_decoration.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_divider_decoration.png",
     "title": "선택지 튜토리얼 · 구분선",
     "w": 308,
     "h": 1,
@@ -9433,7 +9433,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_e_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_e_icon.png",
     "title": "선택지 튜토리얼 · E키",
     "w": 27,
     "h": 30,
@@ -9444,7 +9444,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_s_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_s_icon.png",
     "title": "선택지 튜토리얼 · S키",
     "w": 27,
     "h": 30,
@@ -9455,7 +9455,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_w_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_key_w_icon.png",
     "title": "선택지 튜토리얼 · W키",
     "w": 27,
     "h": 30,
@@ -9466,7 +9466,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_mouse_wheel_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_mouse_wheel_icon.png",
     "title": "선택지 튜토리얼 · 마우스 휠",
     "w": 24,
     "h": 32,
@@ -9477,7 +9477,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_panel_accent_decoration.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_panel_accent_decoration.png",
     "title": "선택지 튜토리얼 · 상단 발광 장식",
     "w": 80,
     "h": 35,
@@ -9488,7 +9488,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_tutorial_panel_background_background.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_GRD_tutorial_panel_background_background.png",
     "title": "선택지 튜토리얼 · 배경 패널 / 글자 없음",
     "w": 510,
     "h": 400,
@@ -9499,7 +9499,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_triangle_down_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_triangle_down_icon.png",
     "title": "선택지 튜토리얼 · 아래 삼각형",
     "w": 12,
     "h": 10,
@@ -9510,7 +9510,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_triangle_up_icon.png",
+    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_tutorial_triangle_up_icon.png",
     "title": "선택지 튜토리얼 · 위 삼각형",
     "w": 12,
     "h": 10,
@@ -9521,7 +9521,7 @@ window.ResourceExtractionAssets=[
     "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_background.png",
+    "src": "assets/01.ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_background.png",
     "title": "타이틀 화면 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 2041,
@@ -9529,7 +9529,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_midground.png",
+    "src": "assets/01.ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_midground.png",
     "title": "타이틀 화면 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 2041,
@@ -9537,7 +9537,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_foreground.png",
+    "src": "assets/01.ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_foreground.png",
     "title": "타이틀 화면 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 2041,
@@ -9609,7 +9609,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/gin.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/gin.png",
     "title": "바 튜토리얼 · 단계별 안내 · 제조 시작 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9617,7 +9617,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/sparkling_water.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/sparkling_water.png",
     "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 93,
@@ -9633,7 +9633,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/tequila.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/tequila.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9641,7 +9641,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grey_goose_vodka.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/grey_goose_vodka.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9649,7 +9649,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/bacardi_rum.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bacardi_rum.png",
     "title": "신규 재료·레시피 해금 · 1일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9657,7 +9657,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/orange_juice.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/orange_juice.png",
     "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 93,
@@ -9673,7 +9673,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/martini_dry_vermouth.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/martini_dry_vermouth.png",
     "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 93,
@@ -9713,7 +9713,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/red_wine.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 93,
@@ -9721,7 +9721,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/champagne.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/champagne.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 93,
@@ -9729,7 +9729,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/johnnie_walker_whisky.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/johnnie_walker_whisky.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9737,7 +9737,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grenadine_syrup.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/grenadine_syrup.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9745,7 +9745,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/sour_mix.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sour_mix.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 57,
@@ -9753,7 +9753,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/Ingredient_Images/gin.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/02.Ingredient_Images/gin.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 36,
@@ -9761,7 +9761,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 635,
@@ -9769,7 +9769,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/champagne_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/champagne_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 635,
@@ -9777,7 +9777,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 635,
@@ -9785,7 +9785,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 635,
@@ -9809,7 +9809,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 200,
@@ -9817,7 +9817,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/red_wine_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/red_wine_final.png",
     "title": "맥주 제조 튜토리얼 · 맥주 레시피 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 384,
@@ -9825,7 +9825,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
     "title": "말풍선 / 1인 · 일반 손님 / 추가 주문 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 69,
@@ -9865,7 +9865,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
+    "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
     "title": "병따기 튜토리얼 · 완료 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 490,
@@ -9873,7 +9873,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/champagne_final.png",
+    "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",
     "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 384,
@@ -9881,7 +9881,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/mixing_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/01.Preparation/02.Tools/01.X1/mixing_glass.png",
     "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 70,
@@ -9889,7 +9889,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/shaker.png",
+    "src": "assets/01.ArtResources/03.Crafting/01.Preparation/02.Tools/01.X1/shaker.png",
     "title": "맥주 제조 튜토리얼 · 냉장고 이동 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 70,
@@ -9897,7 +9897,7 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/bottle_opener.png",
+    "src": "assets/01.ArtResources/03.Crafting/01.Preparation/02.Tools/01.X1/bottle_opener.png",
     "title": "맥주 제조 튜토리얼 · 제조 시작 · 원본 이미지",
     "category": "UI · 원본 조각",
     "w": 70,

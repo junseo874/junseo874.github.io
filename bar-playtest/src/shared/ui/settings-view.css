@@ -14,7 +14,7 @@
 .ls-body{display:flex;flex:1;min-height:0}.ls-nav{width:218px;flex:none;border-right:1px solid var(--ls-line);padding:26px 16px;position:relative;background:#0a141d}
 .luna-settings .ls-nav button{display:flex;align-items:center;gap:16px;width:100%;margin:0 0 10px;padding:13px 12px;border:0;background:transparent;min-height:50px;text-align:left;color:#9fb7c2}
 .ls-nav button b{margin-left:auto;font-size:23px;font-weight:400;visibility:hidden}
-.luna-settings .ls-nav button[aria-selected=true]{background:#43d6ee url('../../../assets/9_ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_choices_selected_background_left_background.png') center/100% 100% no-repeat;color:#082434}.ls-nav button[aria-selected=true] b{visibility:visible}
+.luna-settings .ls-nav button[aria-selected=true]{background:#43d6ee url('../../../assets/01.ArtResources/05.UI/06.Ect/Choices/selected-background-left.png') center/100% 100% no-repeat;color:#082434}.ls-nav button[aria-selected=true] b{visibility:visible}
 
 .ls-content{flex:1;min-width:0;padding:23px 30px 22px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#476e7c #0b1720}
 .luna-settings h2{font-size:21px;margin:7px 0 0;font-weight:400;color:#def4f6}

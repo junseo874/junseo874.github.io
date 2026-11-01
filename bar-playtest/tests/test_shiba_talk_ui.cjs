@@ -6,9 +6,9 @@ const {chromium}=require(deps+'playwright');
 const sharp=require(deps+'sharp');
 const root=path.resolve(__dirname,'..');
 (async()=>{
- const idle=path.join(root,'assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png');
- const talk=path.join(root,'assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png');
- const supplied='/Users/lee/Desktop/project/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png';
+ const idle=path.join(root,'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png');
+ const talk=path.join(root,'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png');
+ const supplied='/Users/lee/Desktop/project/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png';
  if(fs.existsSync(supplied))assert.deepEqual(fs.readFileSync(talk),fs.readFileSync(supplied));
  async function bounds(file){
   const {data,info}=await sharp(file).ensureAlpha().raw().toBuffer({resolveWithObject:true});

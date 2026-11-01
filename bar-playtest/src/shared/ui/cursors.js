@@ -3,7 +3,7 @@
 // including a GitHub Pages project deployed below a path prefix.
 (function () {
   'use strict';
-  const base = new URL('../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/', document.currentScript.src);
+  const base = new URL('../../../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/', document.currentScript.src);
   const file = id => 'Web_IMG_cursor_' + id.replaceAll('-', '_') + '_icon.png';
   const cursors = {
     default: [4, 3, 'default'], pointer: [14, 3, 'pointer'], pressed: [14, 5, 'pointer'],

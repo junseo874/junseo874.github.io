@@ -26,7 +26,7 @@ const rows=[],seen=new Set();
 function walk(dir){if(!fs.existsSync(path.join(root,dir)))return;for(const f of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const src=dir+'/'+f.name;if(['extracted','parts','cursors','WebGenerated'].includes(f.name))continue;if(f.isDirectory()){walk(src);continue;}record(src);}}
 function record(src){const f={name:path.basename(src)};if(!/\.png$/i.test(f.name)||seen.has(src))return;seen.add(src);
  // The unsliced exterior sheet is a layout example with baked-in sample dialogue.
- if(src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png')return;
+ if(src==='assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png')return;
  const data=fs.readFileSync(path.join(root,src));if(data.toString('hex',0,8)!=='89504e470d0a1a0a')throw Error('Not PNG: '+src);
  const part=src.startsWith('assets/ui/parts/'),id=(part?src.slice('assets/ui/parts/'.length):src.split('/').slice(2).join('/')).replace(/\.png$/,'');
  const tail=/^GRD_textbox_tail_([ABC])\.png$/.exec(f.name);
@@ -36,10 +36,12 @@ function record(src){const f={name:path.basename(src)};if(!/\.png$/i.test(f.name
  rows.push({src,title,category:part?'UI · 분리 그래픽':'UI · 원본 조각',w:data.readUInt32BE(16),h:data.readUInt32BE(20),...(part?{partKind,note:id.includes('selected-background')?'텍스트 없는 가변 폭 배경 · 모서리 보존 권장':id==='tutorial/panel-background'?'본체 350×230 · 그림자용 투명 여백 포함':'현재 게임 디자인 · 투명 PNG'}:{})});
 }
 walk('assets/ui');
-walk('assets/9_ArtResources/05.UI');
+walk('assets/01.ArtResources/05.UI');
 for(const {from,to} of require('../../docs/architecture/art-resource-paths.json').records)if(from.startsWith('assets/ui/'))record(to);
 const generated=require('../data/presentation/generated-art/manifest.json');
-for(const r of generated.records){const s=r.sources.find(s=>s.src.startsWith('assets/ui/extracted/notification-'))||r.sources[0],src='assets/9_ArtResources/'+r.path;
+for(const r of generated.records){const s=r.sources.find(s=>s.src.startsWith('assets/ui/extracted/notification-'))||r.sources[0],src='assets/01.ArtResources/'+r.path;
+ // Shared engine PNGs retain the richer extraction metadata, not a second card.
+ const existing=rows.findIndex(row=>row.src===src);if(existing!==-1)rows.splice(existing,1);
  const part=r.sources.find(s=>s.src.startsWith('assets/ui/parts/'));
  rows.push({src,title:part?labels[part.src.slice('assets/ui/parts/'.length).replace(/\.png$/,'')]:s.title,w:r.width,h:r.height,partKind:r.kind,
  noticeKinds:[...new Set(r.sources.flatMap(s=>s.states.filter(x=>x.startsWith('notification-')).map(x=>x.slice(13))))],

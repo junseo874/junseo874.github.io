@@ -23,7 +23,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
     const before=state();adDraw(...args);if(before!==state())throw Error('Carrier leaked context state');};
    try{paintCarrierScene(0);}finally{c.drawImage=draw;A.draw=adDraw;}
    const asset=name=>LUNA_OUTSIDE_DATA.assets[LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name===name).sprite.asset].src;
-   const at=name=>events.findIndex(e=>e.endsWith(asset(name)));
+   const at=name=>events.findIndex(e=>decodeURIComponent(e).endsWith(asset(name)));
    const order={carrier:events.indexOf('ad-carrier'),back:at('C_Back_Building_1'),farMiddle:at('C_Middle_Building_3'),middle:at('C_Middle_Building_1'),middle2:at('C_Middle_Building_2'),residence:at('residence-building'),fence:at('Fence'),shop:at('B_Fore_Building_1')};
    order.display1=at('C_Middle_Object_1');order.display2=at('C_Middle_Object_2');
    window.carrierTestImage=image;

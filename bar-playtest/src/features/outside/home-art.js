@@ -1,7 +1,7 @@
 /* Native 643×270 supplied house sheets; placements measured from the full shot. */
 (function(W){'use strict';
 const root='assets/outside/chris-home/';
-const sharedRoot='assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/';
+const sharedRoot='assets/01.ArtResources/02.Environments/03.Home/01.Sprites/';
 // These four images are web-specific variants absent from the shared original.
 const webVariants=new Set(['123.png','Chrishouse3.png','ForeFore_Object.png','nietzsche-the-gay-science.png']);
 const assetPath=file=>(webVariants.has(file)?root:sharedRoot)+file;

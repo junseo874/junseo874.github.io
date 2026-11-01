@@ -8,7 +8,7 @@ const rt=require('../../tools/lib/test-runtime.cjs'),{chromium}=rt.load('playwri
   await page.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html?tab=cursors');
   await page.waitForFunction(()=>window.resourceReview?.ready);
   const rows=await page.evaluate(()=>resourceReview.rows.filter(r=>r.cursor));
-  const folder=path.join(__dirname,'../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors');
+  const folder=path.join(__dirname,'../assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors');
   const files=fs.readdirSync(folder).filter(f=>f.endsWith('.png'));
   assert.deepEqual(rows.map(r=>r.cursor.src.split('/').pop()).sort(),files.sort(),'Every native PNG cursor must be available');
   assert.equal(await page.locator('#grid .card').count(),12);

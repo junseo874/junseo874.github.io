@@ -1,5 +1,5 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'../bar-playtest/assets/9_ArtResources');
+const root=path.resolve(__dirname,'../bar-playtest/assets/01.ArtResources');
 const m=require('../bar-playtest/data/presentation/generated-art/manifest.json');
 const seen=new Set();
 for(const r of m.records){
@@ -9,6 +9,6 @@ for(const r of m.records){
  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),r.sha256);
  for(const s of r.sources)assert(!fs.existsSync(path.resolve(root,'../..',s.src)),'Retired duplicate: '+s.src);
 }
-for(const name of seen){assert(path.basename(name).startsWith('Web_'));assert(!/_\d+x\d+/.test(name),'Resolution in filename: '+name);}
+for(const r of m.records){if(!r.reusesExisting)assert(path.basename(r.path).startsWith('Web_'));assert(!/_\d+x\d+/.test(r.path),'Resolution in filename: '+r.path);}
 assert(!fs.existsSync(path.join(root,'00.Documentation')));
 console.log('WEB_GENERATED_ART_OK:',seen.size,'PNG files; names and bytes verified');

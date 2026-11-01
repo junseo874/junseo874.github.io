@@ -52,4 +52,4 @@
 
 ## 재화 알림
 
-바·제조·외부·검수용 재화 알림은 `shared/ui/currency-view.js`와 `currency-view.css`를 공유합니다. 등록된 `assets.money` (`assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_money.png`)는 제공된 `IMG_money.png`와 바이트까지 동일한 원본이며 아이콘과 배경을 한 장으로 사용합니다. 542:108 비율을 유지하고 기존 절반 크기·우측 상단 위치·증감 타이밍은 유지합니다. 별도 SVG 동전이나 둥근 테두리는 덧씌우지 않습니다. 큰 금액은 글자 수에 따라 숫자만 축소합니다. 외부의 증분 갱신에서도 `--currency-digits`를 동기화합니다. 공통 사전 로딩 목록과 리소스 검수 등록 키는 기존 `money`를 그대로 사용합니다.
+바·제조·외부·검수용 재화 알림은 `shared/ui/currency-view.js`와 `currency-view.css`를 공유합니다. 등록된 `assets.money` (`assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_money.png`)는 제공된 `IMG_money.png`와 바이트까지 동일한 원본이며 아이콘과 배경을 한 장으로 사용합니다. 542:108 비율을 유지하고 기존 절반 크기·우측 상단 위치·증감 타이밍은 유지합니다. 별도 SVG 동전이나 둥근 테두리는 덧씌우지 않습니다. 큰 금액은 글자 수에 따라 숫자만 축소합니다. 외부의 증분 갱신에서도 `--currency-digits`를 동기화합니다. 공통 사전 로딩 목록과 리소스 검수 등록 키는 기존 `money`를 그대로 사용합니다.

@@ -5,7 +5,7 @@
     {"version": 2, "source": "4버전.html", "entry": "version-2.html", "mechanics": "foil / aim / screw + tilt / two-stage lever / linen"}
   ],
   "images": [
-    {"src": "../../../assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png", "role": "bottle", "registryKey": "item_red_wine", "source": "Existing game wine bottle, original bytes retained; uniform canvas scale"},
+    {"src": "../../../assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/red_wine.png", "role": "bottle", "registryKey": "item_red_wine", "source": "Existing game wine bottle, original bytes retained; uniform canvas scale"},
     {"src": "../../../assets/items/wine-practice-opener.png", "role": "opener", "source": "Identical embedded PNG from both user-supplied HTML files, losslessly extracted", "sha256": "29cd5744253dfd08b23eaba3a716fc6927d2079fe3603a9b06694e6be6386e6c"}
   ]
 }

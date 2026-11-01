@@ -63,7 +63,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   // Ship the originals, including the artist's preview; do not bake test text into live UI.
   const originals=process.env.EXTERIOR_TEXTBOX_ORIGINALS||'/Users/lee/Desktop/exterior_textbox';
   const names=[...Array.from({length:11},(_,i)=>'GRD_textbox_'+(i+1)+'.png'),'GRD_textbox.png','IMG_textbox_arrow.png'];
-  for(const name of names){const bytes=fs.readFileSync(path.join(__dirname,'../assets/9_ArtResources/05.UI/06.Ect/exterior_textbox',name));assert.equal(bytes.subarray(1,4).toString(),'PNG');if(fs.existsSync(originals))assert(fs.readFileSync(path.join(originals,name)).equals(bytes));}
+  for(const name of names){const bytes=fs.readFileSync(path.join(__dirname,'../assets/01.ArtResources/05.UI/06.Ect/exterior_textbox',name));assert.equal(bytes.subarray(1,4).toString(),'PNG');if(fs.existsSync(originals))assert(fs.readFileSync(path.join(originals,name)).equals(bytes));}
   if(!fs.existsSync(originals))console.log('SKIP source-byte comparison: original export folder unavailable; packaged PNGs verified.');
   assert.deepEqual(errors,[]);console.log('PASS packaged 11-piece art, centered short/long/ambient bubbles, detached choices, stable typing, next-line controls, inset arrow, reduced motion, viewport scaling');
  }finally{await browser.close();}

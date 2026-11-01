@@ -21,7 +21,7 @@ HTML·자원 경로 계약:
 
 `src/shared/ui/loading-screen.css`가 본편 로딩, 외부 공간 로딩, 바 출입문 아트 준비 전의 공통 표시를 소유합니다. 검은 화면 중앙에 비둘기 Idle, 그 아래 `Loading`을 세로로 묶어 중앙 정렬합니다. 빨간 박스나 별도 테두리는 표시하지 않습니다.
 
-- 비둘기는 기존 `assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Pigeon_idle.png` 원본을 사용합니다. 12프레임·6 FPS·2초 반복, crop 17×14를 4.2배(71.4×58.8 CSS px)로 표시합니다. 최초 미리보기보다 가로·세로 각각 30% 축소했으며 `--loading-bird-scale`로 배율을 조정합니다. `index.html`에서 작은 시트를 우선 preload합니다.
+- 비둘기는 기존 `assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png` 원본을 사용합니다. 12프레임·6 FPS·2초 반복, crop 17×14를 4.2배(71.4×58.8 CSS px)로 표시합니다. 최초 미리보기보다 가로·세로 각각 30% 축소했으며 `--loading-bird-scale`로 배율을 조정합니다. `index.html`에서 작은 시트를 우선 preload합니다.
 - 글자는 기존 스타더스트 Regular(`LunaPixel` / `--font-dialogue`) 22px, 자간 0입니다. 비둘기와 간격은 16px이고 전체 묶음을 중앙 정렬합니다. 보이지 않는 점 네 글자로 실제 폰트 폭을 확보하므로 점 개수가 바뀌어도 정렬이 흔들리지 않습니다.
 - 큰 게임 리소스나 게임 tick을 기다리지 않도록 CSS만으로 재생합니다. `bird-sprites.js`의 셀 129×138, crop (55,101,17,14)와 같은 수치를 CSS에 사용하며, 변경 시 `test-loading-pigeon-ui.cjs`로 프레임 위치 일치를 검사합니다.
 - 점은 **없음 → . → .. → ... → .... → 없음**, 단계당 **0.1초**, 한 주기 **0.5초**입니다. 점 네 개의 폭을 확보해 글자·비둘기 위치가 흔들리지 않게 합니다. 접근성 상태 문구는 `로딩 중`으로 고정합니다.

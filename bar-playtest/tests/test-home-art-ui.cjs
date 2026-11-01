@@ -15,7 +15,7 @@ const sharp=load('sharp');
  assert.equal(new Set([...layers.map(l=>window.LunaHomeArt.assetPath(l.file)),...['Chrishouse1.png','Chrishouse3.png'].map(window.LunaHomeArt.assetPath)]).size,12);
  const composed=await sharp({create:{width:643,height:270,channels:4,background:'#000'}})
   .composite(layers.map(l=>({input:path.join(root,window.LunaHomeArt.assetPath(l.file)),left:l.x,top:l.y}))).removeAlpha().raw().toBuffer();
- const reference=await sharp(path.join(root,'assets/9_ArtResources/02.Environments/03.Home/chris_house_fullshot.png')).removeAlpha().raw().toBuffer();
+ const reference=await sharp(path.join(root,'assets/01.ArtResources/02.Environments/03.Home/chris_house_fullshot.png')).removeAlpha().raw().toBuffer();
  let delta=0;
  // Compare the unchanged full shot; the separated fence is deliberately shifted
  // one native pixel left to meet the exterior opening at x=585.

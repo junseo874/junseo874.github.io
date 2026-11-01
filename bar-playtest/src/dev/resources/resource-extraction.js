@@ -15,7 +15,7 @@ function classify(row){if(row.cursor)return 'UI · 마우스 커서';return /ui|
 function collect(rows,assets={}){
  const all=[],seen=new Map();
  function add(item){
-  if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
+  if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
   const l=item.layer||{},key=JSON.stringify([new URL(item.src,document.baseURI).href,l.frames||1,l.rects,l.fw,l.fh,l.cols,l.sx,l.sy,l.dx,l.dy]);
   const old=seen.get(key);if(old){old.search+=' '+item.title+' '+(item.usage||'');return;}
   item.id='graphic-'+all.length;item.search=[item.title,item.src,item.category,item.usage,item.contexts,l.key].join(' ');all.push(item);seen.set(key,item);

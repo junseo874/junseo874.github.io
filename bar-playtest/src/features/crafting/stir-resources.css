@@ -1,9 +1,9 @@
 /* Supplied Stir V3 artwork, positioned on the existing uniformly scaled 1280×720 stage. */
-.stir-screen{background:#000 url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir.png') center/100% 100% no-repeat}
+.stir-screen{background:#000 url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BG_stir.png') center/100% 100% no-repeat}
 .stir-screen .mix-workspace{position:absolute;inset:0;display:block;padding:0}
 .stir-screen .mix-cinematic{position:absolute;left:28px;top:24px;width:400px;height:674px;background:#000}
 .stir-screen .mix-cinema{inset:5px 6px;border:0;box-shadow:none;background-size:auto 100%}
-.stir-screen .mix-cinematic::after{content:"";position:absolute;inset:0;background:url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir_line.png') center/100% 100% no-repeat;pointer-events:none}
+.stir-screen .mix-cinematic::after{content:"";position:absolute;inset:0;background:url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BG_stir_line.png') center/100% 100% no-repeat;pointer-events:none}
 .stir-screen .stir-detail{left:350px;right:auto;top:0;width:187px;height:325px;background:#18202c;border:1px solid #61c3dd;box-shadow:0 0 5px #43c7ef66}
 .stir-screen .stir-board{position:absolute;left:446px;top:26px;width:807px;height:668px;background:none;border:0;box-shadow:none}
 .stir-screen .stir-dial{left:404px;top:88px;width:464px;height:464px}
@@ -11,13 +11,13 @@
 .stir-screen .stir-orbit{inset:24px;width:416px;height:416px}
 .stir-screen .stir-orbit .orbit-progress{stroke:#fff;stroke-width:26;filter:none}
 .stir-screen .stir-orbit:has(.danger) .stir-time-fill{filter:sepia(1) saturate(6) hue-rotate(315deg)}
-.stir-screen .mix-direction{width:61px;height:61px;padding:0;border:0;border-radius:0;box-shadow:none;font:600 28px/1 Pretendard,Arial,sans-serif;letter-spacing:-1.4px;color:#313d4b;background:transparent url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_C.png') center/100% 100% no-repeat;transition:filter .12s;touch-action:manipulation}
-.stir-screen .mix-direction:hover:not(:disabled){background:transparent url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_C.png') center/100% 100% no-repeat;filter:brightness(1.25)}
-.stir-screen .mix-direction.next,.stir-screen .mix-direction.next:hover:not(:disabled){color:#4aa1bd;background:transparent url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_B.png') center/100% 100% no-repeat}
-.stir-screen .mix-direction.pressed,.stir-screen .mix-direction.pressed:hover:not(:disabled){color:#365d7f;background:transparent url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_A.png') center/100% 100% no-repeat}
+.stir-screen .mix-direction{width:61px;height:61px;padding:0;border:0;border-radius:0;box-shadow:none;font:600 28px/1 Pretendard,Arial,sans-serif;letter-spacing:-1.4px;color:#313d4b;background:transparent url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_C.png') center/100% 100% no-repeat;transition:filter .12s;touch-action:manipulation}
+.stir-screen .mix-direction:hover:not(:disabled){background:transparent url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_C.png') center/100% 100% no-repeat;filter:brightness(1.25)}
+.stir-screen .mix-direction.next,.stir-screen .mix-direction.next:hover:not(:disabled){color:#4aa1bd;background:transparent url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_B.png') center/100% 100% no-repeat}
+.stir-screen .mix-direction.pressed,.stir-screen .mix-direction.pressed:hover:not(:disabled){color:#365d7f;background:transparent url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BTN_key_A.png') center/100% 100% no-repeat}
 .stir-screen .mix-direction.stir-hit{box-shadow:none;filter:brightness(calc(1 + var(--stir-hit,0) * .15))}
 .stir-screen .mix-direction:disabled{opacity:.65}
-.stir-screen .stir-resource-gauge{left:50px;right:auto;bottom:32px;width:708px;height:30px;padding:5px 6px;gap:1px;border:0;border-radius:0;background:url('../../../assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_basic.png') center/100% 100% no-repeat;overflow:hidden}
+.stir-screen .stir-resource-gauge{left:50px;right:auto;bottom:32px;width:708px;height:30px;padding:5px 6px;gap:1px;border:0;border-radius:0;background:url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_basic.png') center/100% 100% no-repeat;overflow:hidden}
 .stir-screen .stir-resource-gauge i{position:relative;overflow:hidden;background:none;border:0;border-right:2px solid #343c40;box-shadow:none;outline:0;border-radius:0}
 .stir-screen .stir-resource-gauge i:first-child{border-radius:4px 0 0 4px}
 .stir-screen .stir-resource-gauge i:last-child{border:0;border-radius:0 4px 4px 0}

@@ -25,7 +25,7 @@ const CORK_TYPES=[
   {name:'보통 코르크',safe:220,color:'#c99b6a',desc:'적당한 힘으로'},
   {name:'촉촉한 코르크',safe:340,color:'#b07c50',desc:'조금 힘을 줘도 버틴다'},
 ];
-const BOTTLE_SRC='../../../assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png';
+const BOTTLE_SRC='../../../assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/red_wine.png';
 const OPENER_SRC='../../../assets/items/wine-practice-opener.png';
 const W=2184,H=1164,PX=6;
 const BOTTLE_POS={x:920,y:518};

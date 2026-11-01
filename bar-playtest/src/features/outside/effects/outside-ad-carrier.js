@@ -5,8 +5,8 @@
 const assetId = 'street-ad-carrier';
 const asset = Object.freeze({src:'assets/outside/vehicles/ad-carrier.png',w:1983,h:793,source:'AI-generated original sprite · user vehicle/display references · 2026-10-23'});
 const artAssets = Object.freeze({
-  'street-ad-violet':{src:'assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png',w:2172,h:724,source:'AI-generated original adult portrait · user neon billboard references'},
-  'street-ad-crimson':{src:'assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png',w:2172,h:724,source:'AI-generated original adult portrait · user neon billboard references'}
+  'street-ad-violet':{src:'assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png',w:2172,h:724,source:'AI-generated original adult portrait · user neon billboard references'},
+  'street-ad-crimson':{src:'assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png',w:2172,h:724,source:'AI-generated original adult portrait · user neon billboard references'}
 });
 const interval = 5, travelRate = .75;
 const ads = Object.freeze([

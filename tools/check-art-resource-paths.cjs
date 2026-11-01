@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypt
 const root=path.resolve(__dirname,'../bar-playtest');
 const manifest=require('../docs/architecture/art-resource-paths.json');
 for(const r of manifest.records){
- assert.equal(r.to,'assets/9_ArtResources/'+r.source);
+ assert.equal(r.to,'assets/01.ArtResources/'+r.source);
  assert.ok(fs.existsSync(path.join(root,r.to)),'Missing '+r.to);
  assert.equal(crypto.createHash('sha256').update(fs.readFileSync(path.join(root,r.to))).digest('hex'),r.sha256,'Changed artwork '+r.to);
  assert.ok(!fs.existsSync(path.join(root,r.from)),'Old duplicate '+r.from);

@@ -39,7 +39,7 @@
 #outside-root .outside-background-speech{max-width:420px}
 :is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue{
  right:4px;bottom:5px;width:28px;height:28px;
- background:url('../../../assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png') center/contain no-repeat;
+ background:url('../../../assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png') center/contain no-repeat;
  image-rendering:pixelated;animation:exterior-textbox-arrow-bob 1.2s ease-in-out infinite;
 }
 :is(#outside-root,.terrace-scene,#campaign-root .exterior-textbox) .dialogue-advance-cue svg{display:none}

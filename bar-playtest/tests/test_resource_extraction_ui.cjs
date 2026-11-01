@@ -15,7 +15,7 @@ const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
  await p.fill('#extract-search','선택지');assert.equal(await p.locator('.extract-card').count(),16);await p.screenshot({path:'/private/tmp/resource-extraction-choices.png'});
  // Original artwork must be byte-identical, not a screenshot.
  await p.selectOption('#extract-category','UI · 원본 조각');await p.fill('#extract-search','IMG_choice_A.png');assert.equal(await p.locator('.extract-card').count(),1);
- pending=p.waitForEvent('download');await p.locator('[data-extract="raw"]').click();d=await pending;assert(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.resolve(__dirname,'../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_A.png'))));
+ pending=p.waitForEvent('download');await p.locator('[data-extract="raw"]').click();d=await pending;assert(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.resolve(__dirname,'../assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_choice_A.png'))));
  // Individual Tom layers, including a chosen animation frame, retain sprite geometry.
  await p.selectOption('#extract-category','전체');await p.fill('#extract-search','tom-idle-20261019/body.png');assert.equal(await p.locator('.extract-card').count(),1);
  await p.fill('[data-frame]','3');await p.locator('[data-frame]').press('Tab');
@@ -32,7 +32,7 @@ const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
  await p.click('[data-group="missing"]');assert(await p.locator('#missing-view').isVisible());assert(await p.locator('#extraction-view').isHidden());
  await p.click('[data-group="extraction"]');await p.fill('#extract-search','상호작용');await p.setViewportSize({width:390,height:844});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.screenshot({path:'/private/tmp/resource-extraction-mobile.png',fullPage:true});
  // Every newly registered standalone PNG exists and can be decoded.
- const assets=await p.evaluate(()=>ResourceExtractionAssets);assert(!assets.some(a=>a.src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'),'Exclude dialogue-filled reference sheets');
+ const assets=await p.evaluate(()=>ResourceExtractionAssets);assert(!assets.some(a=>a.src==='assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'),'Exclude dialogue-filled reference sheets');
  for(const a of assets){const bytes=fs.readFileSync(path.resolve(__dirname,'..',a.src)),m=await sharp(bytes).metadata();assert.equal(m.width,a.w);assert.equal(m.height,a.h);if(a.category==='UI · 분리 그래픽'){const {data,info}=await sharp(bytes).ensureAlpha().raw().toBuffer({resolveWithObject:true});assert(data.some((v,i)=>i%info.channels===info.channels-1&&v>0),a.src+' must not be blank');}}
  assert.deepEqual(errors,[]);console.log('PASS:',inventory.length,'graphics;',assets.length,'registered UI PNGs; isolated E, original bytes, selected layer/frame, trim, pagination, navigation, mobile');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

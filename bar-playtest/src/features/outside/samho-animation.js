@@ -3,7 +3,7 @@
 (function(W){'use strict';
 function apply(data){
  const node=data.scenes.street.nodes.find(n=>n.name==='Samho');
- data.assets['samho-idle']={src:'assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png',w:252,h:243,source:'Samho Idle.anim / samho-IDLE_Sheet.png (original bytes)'};
+ data.assets['samho-idle']={src:'assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png',w:252,h:243,source:'Samho Idle.anim / samho-IDLE_Sheet.png (original bytes)'};
  const frames=Array.from({length:8},(_,i)=>({...node.sprite,asset:'samho-idle',x:i%3*84,y:Math.floor(i/3)*81,name:'samho-IDLE_Sheet_'+i}));
  data.animations.samhoIdle={fps:12,frames};node.sprite=frames[0];
 }

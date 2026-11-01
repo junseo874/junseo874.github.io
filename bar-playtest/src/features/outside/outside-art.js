@@ -1,14 +1,14 @@
 /* Supplied 2026-10-18 street layers. Keep gameplay anchors and original PNGs intact. */
 (function(W){
 'use strict';
-const root='assets/9_ArtResources/02.Environments/02.Street/01.Sprites/';
+const root='assets/01.ArtResources/02.Environments/02.Street/01.Sprites/';
 // Match the reference head-only framing above the front panel without making
 // Luna step up/down when entering the cabin from either flat walking plane.
 const elevatorArtOffsetY=-.11;
 const replacements=[
  ['Sky','sky.png',2880,1620],
- ['C_Back_Building_1','Layers/C_background_1.png',2880,605],
- ['C_Back_Building_2','Layers/C_background_2.png',2880,673],
+ ['C_Back_Building_1','Layers/C_background_1 1.png',2880,605],
+ ['C_Back_Building_2','Layers/C_background_2 1.png',2880,673],
  ['C_Middle_Building_1','Layers/area_C_midground_1.png',2880,677],
  ['C_Middle_Building_2','Layers/area_C_midground_2.png',2880,536],
  ['C_Middle_Building_3','Layers/area_C_midground_3.png',729,1620],

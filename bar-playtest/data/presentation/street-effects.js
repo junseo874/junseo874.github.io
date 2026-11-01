@@ -30,7 +30,7 @@ window.LUNA_STREET_EFFECTS = {
       "sha256": "39b4fb760be78735855d28ddb0d3f1c28bd53eaf0130a077256518d981b819f0"
     },
     "engine-fx-b-light-1": {
-      "src": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+      "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
       "w": 929,
       "h": 249,
       "source": "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",

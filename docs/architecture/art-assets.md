@@ -2,7 +2,9 @@
 
 ## 공통 원본 경로 (2026-11-01)
 
-공통 그래픽은 `assets/9_ArtResources/` 아래에 프로젝트 상위 `9_ArtResources/`의 **상대 폴더·파일명·대소문자 그대로** 둡니다. 원본에 있는 공백·밑줄·철자도 고치지 않습니다. 이 규칙은 공통 그래픽에 한해 소문자 kebab-case 코드 파일 규칙보다 우선합니다.
+공통 그래픽은 `assets/01.ArtResources/` 아래에 엔진의 `HumanBartender/Assets/01.Game/03.Content/01.ArtResources/`와 **상대 폴더·파일명·대소문자를 동일하게** 둡니다. 파일 바이트 또는 크기·RGBA가 같은 기존 리소스는 엔진 경로를 재사용합니다. 공백·밑줄·철자도 유지합니다. 이 규칙은 코드 파일의 소문자 kebab-case 규칙보다 우선합니다.
+
+현재 병합 기준은 `bar-playtest/data/presentation/engine-art-sync.json`입니다. 1,221개 중 기존 엔진 경로 408개, 신규 경로 813개이며 웹의 원본 바이트를 보존했습니다. 엔진 파일은 수정하지 않았습니다. 폴더 전체 교체·삭제 동기화가 아닌 **파일 병합**으로 전달하며 엔진에만 있는 파일과 `.meta`는 보존합니다. 아트 폴더에 관리 문서를 넣지 않습니다. `node tools/check-engine-art-sync.cjs`로 경로·해시·잔존 중복 경로를 검증합니다.
 
 - `01.Characters`: 바 인물·일반 손님 파츠·외부 인물·새 시트
 - `02.Environments`: 바·거리·집·테라스·배경
@@ -46,7 +48,7 @@
 - 프레임 번호·시트 이름은 원본 애니메이션과의 대응이 중요하므로 임의로 바꾸지 않습니다. 날짜는 최종 실행 폴더명에 붙이지 않습니다.
 - 원본 크기·알파·프레임 레이아웃을 보존합니다. 배치 정리를 위해 리사이즈/재압축하지 않습니다.
 - 실제 URL은 `data/runtime/` 등록 정보 또는 해당 기능 모듈에서 관리합니다. 미사용 판단에는 본편뿐 아니라 검수·컷씬·소개 페이지와 동적 파일명 조합도 포함합니다. 자동 사전 로딩 목록에 있다는 사실만으로 사용 중이라고 판단하지 않습니다.
-- 새 공통 이미지는 `9_ArtResources/` 원본 상대 경로에, 웹 전용 이미지는 기존 용도 폴더에 추가하고 등록부·관련 검수 항목을 함께 갱신합니다. `assets/` 루트에 파일을 다시 쌓지 않습니다.
+- 새 공통 이미지는 `01.ArtResources/` 원본 상대 경로에, 웹 전용 이미지는 기존 용도 폴더에 추가하고 등록부·관련 검수 항목을 함께 갱신합니다. `assets/` 루트에 파일을 다시 쌓지 않습니다.
 - 음원 출처/라이선스 파일은 대응하는 음원과 함께 둡니다.
 
 리소스 정리 이전 경로와 새 경로: `path-migrations.json`.
@@ -55,13 +57,13 @@
 
 ### 웹 로컬 생성 리소스 (2026-11-01)
 
-최종 위치는 **이 저장소의 `bar-playtest/assets/9_ArtResources/`** 입니다. 상위 원본 폴더가 아닙니다. 추출 PNG 930개·분리 UI 18개·커서 12개·생성 광고 원화 2개에서 중복 170개를 통합하여 792개 PNG로 정리했습니다. 커서는 투명한 32×32 PNG로 변환했고 나머지는 원본 바이트·투명 여백을 유지합니다.
+최종 위치는 **이 저장소의 `bar-playtest/assets/01.ArtResources/`** 입니다. 상위 원본 폴더가 아닙니다. 추출 PNG 930개·분리 UI 18개·커서 12개·생성 광고 원화 2개에서 중복 170개를 통합하여 792개 PNG로 정리했습니다. 커서는 투명한 32×32 PNG로 변환했고 나머지는 원본 바이트·투명 여백을 유지합니다.
 
 `bar-playtest/data/presentation/generated-art/manifest.json`은 현재 경로·이전 웹 경로·사용 화면·선택자·본체 영역·해시를 연결합니다. `sources[].src`는 이전 위치를 기록한 이력이며 실행 URL이 아닙니다. 개발자/구형 도움말 추출물은 `05.UI/99.Review`로 분리하며 검수/추출용으로 보존합니다.
 
 웹 커서·광고·선택지 조각·튜토리얼은 해당 PNG를 직접 참조합니다. `tools/build-generated-ui-css.cjs`가 명확하게 대응하는 정적 UI 배경 69개 상태를 PNG로 연결합니다. 배치·텍스트·모서리·테두리·동적 게이지·Canvas·애니메이션은 원래 CSS/JS가 담당합니다. 남은 추출 레이어는 리소스 확인/개별 추출용이며, 모든 CSS 효과를 정지 이미지로 대체한 것은 아닙니다.
 
-변경 후 `node tools/build-generated-ui-css.cjs --write`, `node bar-playtest/tools/build_resource_extraction_catalog.cjs`, `node tools/build-preload-manifest.cjs --write`로 목록을 갱신합니다. `node tools/check-web-generated-art.cjs`는 792개 PNG의 바이트와 파일명 규칙(`Web_` 접두사, 해상도 제외)을 검증합니다. 관리 데이터는 `data/presentation/generated-art/`에 두고 아트 폴더에는 문서를 생성하지 않습니다. 재캡처 도구는 `artifacts/ui-graphic-staging/`에만 출력하며 현재 라이브러리를 덮어쓰지 않습니다. 상위 원본·Drive·Unity에는 내보내지 않습니다.
+변경 후 `node tools/build-generated-ui-css.cjs --write`, `node bar-playtest/tools/build_resource_extraction_catalog.cjs`, `node tools/build-preload-manifest.cjs --write`로 목록을 갱신합니다. 생성 PNG 792개 중 엔진과 같은 28개는 엔진 파일명을 사용하고 나머지 764개는 `Web_` 접두사를 사용합니다. `node tools/check-web-generated-art.cjs`는 바이트와 파일명 규칙을 검증합니다. 관리 데이터는 `data/presentation/generated-art/`에 두고 아트 폴더에는 문서를 생성하지 않습니다. 재캡처 도구는 `artifacts/ui-graphic-staging/`에만 출력하며 현재 라이브러리를 덮어쓰지 않습니다. 상위 원본·Drive·Unity에는 내보내지 않습니다.
 
 - `resource-review.html`은 `resource-catalog.js`가 본편 등록부를 읽고, `resource-artwork.js`가 빈 잔·일반 손님 개별 파츠·타이틀·튜토리얼·외부 효과 마스크 등 합성 카드에 빠진 현재 이미지를 보완합니다. 단순히 폴더에 남아 있다는 이유로 교체 전 리소스를 재등록하지 않습니다.
 - 일반 손님 파츠·빈 잔·거리 효과는 런타임 등록부에서 수집합니다. CSS/직접 경로로 사용하는 새 이미지는 `resource-artwork.js`에 사용처와 함께 추가합니다. UI 원본 조각 목록은 `node bar-playtest/tools/build_resource_extraction_catalog.cjs`로 갱신합니다.

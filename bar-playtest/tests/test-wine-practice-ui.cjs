@@ -17,7 +17,7 @@ const runtime=require('../../tools/lib/test-runtime.cjs'),{chromium}=runtime.loa
    // A newly attached iframe can still be about:blank; an absent loading panel is not readiness.
    await frame.waitForFunction(()=>typeof imgB!=='undefined'&&imgB.complete&&imgB.naturalWidth>0);
    await frame.locator('#loading').waitFor({state:'hidden'});
-   assert.equal(await frame.evaluate(()=>imgB.src.endsWith('/assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png')),true);
+   assert.equal(await frame.evaluate(()=>imgB.src.endsWith('/assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/red_wine.png')),true);
    const state=()=>frame.evaluate(v=>v===1?{phase,dur,held,turnAcc}:({phase:S.phase,dur:S.dur,held:S.held,turnAcc:S.turnAcc,tilt:S.tilt}),version);
    async function point(x,y){const b=await frame.locator('#cv').boundingBox();return{x:b.x+(1087+(x-1087)*.72)/2184*b.width,y:b.y+(340+(y-526)*.72)/1164*b.height};}
    async function move(x,y){const q=await point(x,y);await page.mouse.move(q.x,q.y);}

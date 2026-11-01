@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..');
  const inventory=await p.evaluate(()=>({rows:resourceReview.rows,entries:ResourceExtraction.entries}));
  assert.equal(new Set(inventory.rows.map(r=>r.id)).size,inventory.rows.length,'unique review IDs');
  for(const kind of ['beer','cocktail','long_drink'])assert(inventory.rows.some(r=>r.id==='art:table_empty_glass_'+kind&&r.facets.kind==='glass'&&r.facets.usage==='table'));
- for(const file of ['9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png','9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png','9_ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png','outside/effects/fire/cloud.png','outside/effects/fire/distortion.png','outside/effects/tx-ledsign-scrollmask-01.png','outside/shiba-wanted-poster-20261019.png','tutorials/mixing/stir-0.png','tutorials/controls/interaction-npc.png'])assert(inventory.entries.some(e=>e.src==='assets/'+file),file);
+ for(const file of ['01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png','01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png','01.ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png','outside/effects/fire/cloud.png','outside/effects/fire/distortion.png','outside/effects/tx-ledsign-scrollmask-01.png','outside/shiba-wanted-poster-20261019.png','tutorials/mixing/stir-0.png','tutorials/controls/interaction-npc.png'])assert(inventory.entries.some(e=>e.src==='assets/'+file),file);
  assert(!inventory.entries.some(e=>/\.ttf|reference\/(exports|previews)/.test(e.src)),'only reusable image assets');
  assert(!inventory.rows.find(r=>r.id==='actor:tom:idle_talk').note.includes('정적 이미지'));
  // Decode every standalone source, including previously missed non-animated art.
@@ -21,7 +21,7 @@ const root=path.resolve(__dirname,'..');
  const mouth=p.locator('.image-download').filter({has:p.locator('strong',{hasText:'char_tom_talk_face_bottom_talk'})});
  let pending=p.waitForEvent('download');await mouth.locator('a').click();let d=await pending;assert.equal(await d.failure(),null);
  assert.equal(d.suggestedFilename(),'face_bottom_talk.png','download preserves canonical original filename');
- const original=fs.readFileSync(path.join(root,'assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png'));assert(fs.readFileSync(await d.path()).equals(original),'original sheet byte equality');
+ const original=fs.readFileSync(path.join(root,'assets/01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png'));assert(fs.readFileSync(await d.path()).equals(original),'original sheet byte equality');
  await mouth.locator('input').fill('3');pending=p.waitForEvent('download');await mouth.locator('[data-download-image]').click();d=await pending;
  const bytes=fs.readFileSync(await d.path()),meta=await sharp(bytes).metadata();assert.equal(meta.width,551);assert.equal(meta.height,530);assert(meta.hasAlpha);
  const expected=await sharp(original).extract({left:1102,top:0,width:551,height:530}).ensureAlpha().raw().toBuffer(),actual=await sharp(bytes).ensureAlpha().raw().toBuffer();
@@ -29,7 +29,7 @@ const root=path.resolve(__dirname,'..');
  await mouth.locator('input').fill('999');pending=p.waitForEvent('download');await mouth.locator('[data-download-image]').click();await pending;assert.equal(await mouth.locator('input').inputValue(),'4');
  await p.screenshot({path:'/private/tmp/resource-current-tom.png',fullPage:true});
  await p.click('[data-group="bar-items"]');await p.fill('#search','빈 잔');assert.equal(await p.locator('#grid .card').count(),3);await p.evaluate(()=>resourceReview.select('art:table_empty_glass_beer'));
- pending=p.waitForEvent('download');await p.locator('#inspect-downloads a').click();d=await pending;assert(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.join(root,'assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/beer_glass.png'))));
+ pending=p.waitForEvent('download');await p.locator('#inspect-downloads a').click();d=await pending;assert(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.join(root,'assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png'))));
  await p.screenshot({path:'/private/tmp/resource-current-glasses.png',fullPage:true});
  await p.click('[data-group="extraction"]');await p.fill('#extract-search','꼬리');assert.equal(await p.locator('.extract-card').count(),3);
  for(const card of await p.locator('.extract-card').all()){pending=p.waitForEvent('download');await card.locator('[data-extract="raw"]').click();d=await pending;assert.equal(await d.failure(),null);assert((await sharp(fs.readFileSync(await d.path())).metadata()).hasAlpha);}

@@ -2,7 +2,7 @@
 
 ## 실제 위치와 소유권
 
-생성 그래픽은 `bar-playtest/assets/9_ArtResources`의 화면/용도별 `WebGenerated` 안에 있다. 파일명은 `Web_IMG_`, `Web_BTN_`, `Web_GRD_` 등으로 시작하며 해상도는 넣지 않는다. 아트 폴더에는 설명 문서나 관리 JSON을 두지 않는다.
+생성 그래픽은 `bar-playtest/assets/01.ArtResources`의 화면/용도별 `WebGenerated` 안에 둔다. 단, 엔진에 동일한 이미지가 있는 28개는 엔진 경로·이름을 재사용한다(`reusesExisting: true`). 나머지 764개는 `Web_IMG_`, `Web_BTN_`, `Web_GRD_` 등으로 시작하며 해상도는 넣지 않는다. 아트 폴더에는 설명 문서나 관리 JSON을 두지 않는다.
 
 - 962개 소스 항목 → 792개 PNG. 동일 크기·RGBA 중복 170개 통합.
 - 기존 PNG 바이트 유지. 커서 12개만 투명 32×32 PNG로 변환하고 클릭 기준점 유지.
