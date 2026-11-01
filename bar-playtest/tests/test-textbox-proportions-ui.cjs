@@ -18,6 +18,10 @@ function isotropic(parts){for(const p of parts){assert(Math.abs(p.sx-1/3)<.001,J
     const box=page.locator('.dialogue-box');await box.waitFor();await page.waitForTimeout(100);
     await page.waitForFunction(()=>!barGame.cameraMoving&&barGame.transition===0);
     const skin=box.locator('.bar-textbox-skin');assert.equal(await skin.count(),1);
+    const sources=await skin.locator('image').evaluateAll(els=>[...new Set(els.map(e=>e.getAttribute('href')))]);
+    assert.equal(sources.length,1);
+    assert(sources[0].endsWith('/05.UI/01.Shared/01.MainScreen/'+(actor==='luna'?'GRD_textbox_luna.png':'GRD_textbox.png')));
+    await page.evaluate(async src=>{const image=new Image();image.src=src;await image.decode();if(image.naturalWidth!==1625)throw Error('Wrong authored textbox');},sources[0]);
     assert.equal(await skin.evaluate(el=>getComputedStyle(el).backgroundImage),'none','no whole-image stretching');
     isotropic(await geometry(box,'.bar-textbox-piece:is(.piece-1,.piece-3,.piece-7,.piece-9,.piece-11)'));
     const before=await box.boundingBox();await page.evaluate(()=>{barGame.dialogue.chars=999;barGame.changed();});await page.waitForTimeout(70);

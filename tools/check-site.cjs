@@ -36,6 +36,19 @@ vm.createContext(ctx);
 vm.runInContext(fs.readFileSync(path.join(app,'data/runtime/game-data.js'),'utf8'),ctx);
 vm.runInContext(fs.readFileSync(path.join(app,'src/shared/audio/bgm.js'),'utf8'),ctx);
 const D=ctx.window.LUNA_DATA;
+// SVG image hrefs are assembled at runtime and are invisible to HTML/CSS scans.
+// Resolve both bar skins and every exterior tail against the deployed script URL.
+const origin='https://resource-audit.invalid',textboxContext={window:{},URL,
+ document:{currentScript:{src:origin+'/bar-playtest/src/shared/dialogue/exterior-textbox.js'}}};
+vm.runInNewContext(fs.readFileSync(path.join(app,'src/shared/dialogue/exterior-textbox.js'),'utf8'),textboxContext);
+const textbox=textboxContext.window.LunaExteriorTextbox;
+for(const markup of [textbox.barHTML(false),textbox.barHTML(true),textbox.html()]){
+ for(const match of markup.matchAll(/\bhref="([^"]+)"/g)){
+  const url=new URL(match[1]);
+  if(url.origin!==origin)errors.push('Unexpected remote textbox asset: '+url.href);
+  else check(path.join(app,'index.html'),url.pathname);
+ }
+}
 for(const item of Object.values(D.assets))check(path.join(app,'index.html'),item.src);
 const audio=new ctx.window.LunaBarBgm();for(const item of audio.tracks)check(path.join(app,'index.html'),item.src);
 assert.equal(Object.keys(D.tables).length,29,'Missing source table');

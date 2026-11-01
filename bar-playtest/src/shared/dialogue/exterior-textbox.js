@@ -10,7 +10,7 @@ const barSkins=new Map();
 function barHTML(player=false){
  if(barSkins.has(player))return barSkins.get(player);
  const w=1625,h=player?358:446,top=player?0:65,bottom=player?294:h,c=72,tailX=772,tailW=80;
- const src=new URL('../dialogue/'+(player?'GRD_textbox_luna.png':'GRD_textbox.png'),assetBase).href;
+ const src=new URL('../../01.Shared/01.MainScreen/'+(player?'GRD_textbox_luna.png':'GRD_textbox.png'),assetBase).href;
  const tiles=[
   [0,top,c,c],[300,top,4,c],[w-c,top,c,c],
   [0,top+c,c,4],[300,top+c,4,4],[w-c,top+c,c,4],
