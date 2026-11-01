@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  const resource='assets/ui/cursors/crosshair.svg';let release,requested;
  const held=new Promise(resolve=>release=resolve),arrived=new Promise(resolve=>requested=resolve);
  await p.evaluate(()=>{const original=window.fetch;window.preloadFetches=[];window.fetch=(url,options)=>{window.preloadFetches.push({url:String(url),cache:options?.cache});return original(url,options);};});
- await p.route('**/data/presentation/preload-manifest.json',route=>route.fulfill({json:{common:[resource],bar:['assets/serving/atlases/background.png']}}));
+ await p.route('**/data/presentation/preload-manifest.json',route=>route.fulfill({json:{common:[resource],bar:['assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png']}}));
  await p.route('**/'+resource,async route=>{requested();await held;await route.continue();});
  await p.evaluate(()=>{void lunaCampaign.newGame();});await arrived;
  assert.equal(await p.evaluate(()=>window.preloadFetches.find(r=>r.url.endsWith('/preload-manifest.json'))?.cache),'no-cache');
@@ -22,7 +22,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  await p.evaluate(()=>LunaResources.batch(['preload-failure.png']));
  let releaseBar,barRequested;
  const barHeld=new Promise(resolve=>releaseBar=resolve),barArrived=new Promise(resolve=>barRequested=resolve);
- await p.route('**/assets/serving/atlases/background.png',async route=>{barRequested();await barHeld;await route.continue();});
+ await p.route('**/assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png',async route=>{barRequested();await barHeld;await route.continue();});
  await p.evaluate(()=>{lunaCampaign.cancelMemoryTransition();lunaCampaign.disposeCinema();lunaCampaign.startBar(0,lunaCampaign.session.carry);});
  await barArrived;assert.equal(await p.evaluate(()=>lunaCampaign.doorTransition.ready),false);
  await p.waitForTimeout(400);assert.equal(await p.evaluate(()=>lunaCampaign.doorTransition.ready),false);releaseBar();

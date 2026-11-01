@@ -23,18 +23,21 @@ const labels={
 };
 const tailLabels={A:'중앙',B:'왼쪽',C:'오른쪽'};
 const rows=[],seen=new Set();
-function walk(dir){for(const f of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const src=dir+'/'+f.name;if(src==='assets/ui/extracted')continue;if(f.isDirectory()){walk(src);continue;}if(!/\.png$/i.test(f.name)||seen.has(src))continue;seen.add(src);
+function walk(dir){for(const f of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const src=dir+'/'+f.name;if(src==='assets/ui/extracted')continue;if(f.isDirectory()){walk(src);continue;}record(src);}}
+function record(src){const f={name:path.basename(src)};if(!/\.png$/i.test(f.name)||seen.has(src))return;seen.add(src);
  // The unsliced exterior sheet is a layout example with baked-in sample dialogue.
- if(src==='assets/ui/exterior-textbox/GRD_textbox.png')continue;
+ if(src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png')return;
  const data=fs.readFileSync(path.join(root,src));if(data.toString('hex',0,8)!=='89504e470d0a1a0a')throw Error('Not PNG: '+src);
  const part=src.startsWith('assets/ui/parts/'),id=(part?src.slice('assets/ui/parts/'.length):src.split('/').slice(2).join('/')).replace(/\.png$/,'');
  const tail=/^GRD_textbox_tail_([ABC])\.png$/.exec(f.name);
- const title=part?labels[id]:src.includes('exterior-textbox')?'외부 말풍선 · '+(tail?'꼬리 '+tailLabels[tail[1]]+' ('+tail[1]+')':f.name):src.includes('/choices/')?'바 선택지 · '+f.name:f.name;
+ const title=part?labels[id]:/exterior[-_]textbox/.test(src)?'외부 말풍선 · '+(tail?'꼬리 '+tailLabels[tail[1]]+' ('+tail[1]+')':f.name):/IMG_choice/.test(f.name)?'바 선택지 · '+f.name:f.name;
  if(part&&!title)throw Error('Missing part label '+src);
  const partKind=/background/.test(id)?'background':/key-frame|inactive-line/.test(id)?'border':/accent|divider/.test(id)?'decoration':'icon';
  rows.push({src,title,category:part?'UI · 분리 그래픽':'UI · 원본 조각',w:data.readUInt32BE(16),h:data.readUInt32BE(20),...(part?{partKind,note:id.includes('selected-background')?'텍스트 없는 가변 폭 배경 · 모서리 보존 권장':id==='tutorial/panel-background'?'본체 350×230 · 그림자용 투명 여백 포함':'현재 게임 디자인 · 투명 PNG'}:{})});
-}}
+}
 walk('assets/ui');
+walk('assets/9_ArtResources/05.UI');
+for(const {from,to} of require('../../docs/architecture/art-resource-paths.json').records)if(from.startsWith('assets/ui/'))record(to);
 const additional=path.join(root,'assets/ui/extracted/manifest.json');
 if(fs.existsSync(additional))for(const item of JSON.parse(fs.readFileSync(additional,'utf8')))if(!rows.some(r=>r.src===item.src)){
  const labels={background:'배경',border:'테두리',icon:'아이콘',shadow:'그림자'};

@@ -4,7 +4,7 @@
 /* Original pigeon sheet, matching data/presentation/bird-sprites.js: 12 × 129px
    cells, crop (55,101,17,14), 6fps. 4.2× is 30% smaller than the initial 6×.
    CSS animation stays independent of paused gameplay and loading progress. */
-.resource-loading::before{content:'';display:block;flex:none;width:calc(17px * var(--loading-bird-scale));height:calc(14px * var(--loading-bird-scale));background-image:url('../../../assets/backgrounds/terrace/birds/pigeon-idle.png');background-repeat:no-repeat;background-size:calc(1548px * var(--loading-bird-scale)) calc(138px * var(--loading-bird-scale));background-position:calc(-55px * var(--loading-bird-scale)) calc(-101px * var(--loading-bird-scale));image-rendering:pixelated;animation:luna-loading-pigeon 2s steps(12) infinite}
+.resource-loading::before{content:'';display:block;flex:none;width:calc(17px * var(--loading-bird-scale));height:calc(14px * var(--loading-bird-scale));background-image:url('../../../assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Pigeon_idle.png');background-repeat:no-repeat;background-size:calc(1548px * var(--loading-bird-scale)) calc(138px * var(--loading-bird-scale));background-position:calc(-55px * var(--loading-bird-scale)) calc(-101px * var(--loading-bird-scale));image-rendering:pixelated;animation:luna-loading-pigeon 2s steps(12) infinite}
 .resource-loading-copy{display:flex;align-items:baseline;font:400 22px/1.5 var(--font-dialogue);letter-spacing:0;white-space:nowrap}
 /* Reserve four dots so the centered label never moves between frames. */
 .resource-loading-dots{display:inline-grid;text-align:left}

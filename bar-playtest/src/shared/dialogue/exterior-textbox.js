@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const sizes=[[66,67],[1144,67],[67,67],[66,117],[1144,117],[67,117],[66,67],[478,67],[145,121],[525,67],[67,67]];
-const assetBase=new URL('assets/ui/exterior-textbox/',new URL('../../../',document.currentScript.src).href).href;
+const assetBase=new URL('assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/',new URL('../../../',document.currentScript.src).href).href;
 // Bar exports are complete frames, not stretchable bitmaps. Keep the 72px
 // corner samples and 80px tail sample at one common 1/3 display scale; only
 // narrow strips of the straight edges/body can expand with the sentence.

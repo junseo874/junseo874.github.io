@@ -6,8 +6,8 @@ const {chromium}=require(deps+'playwright');
 const sharp=require(deps+'sharp');
 const root=path.resolve(__dirname,'..');
 (async()=>{
- const idle=path.join(root,'assets/characters/static/char-shiba-idle.png');
- const talk=path.join(root,'assets/characters/static/char-shiba-talk.png');
+ const idle=path.join(root,'assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png');
+ const talk=path.join(root,'assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png');
  const supplied='/Users/lee/Desktop/project/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png';
  if(fs.existsSync(supplied))assert.deepEqual(fs.readFileSync(talk),fs.readFileSync(supplied));
  async function bounds(file){

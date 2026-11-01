@@ -51,7 +51,8 @@ bar-playtest/
   data/presentation/        웹 표현·리소스 연결
   data/runtime/             대형 테이블·장면·카탈로그 데이터
   data/provenance/          원본 출처 기록
-  assets/                   용도별 원본 이미지·폰트·음원
+  assets/9_ArtResources/     드라이브·엔진 원본과 동일한 그래픽 상대 경로·파일명
+  assets/                   나머지 웹 전용 이미지·폰트·음원
   tests/                    회귀 테스트
   tools/                    가져오기·캡처·생성 도구와 입력 자료
 cutscene-studio/             src, styles, data, assets, tests

@@ -1,0 +1,3101 @@
+{
+  "sourceRoot": "9_ArtResources",
+  "webRoot": "bar-playtest/assets/9_ArtResources",
+  "policy": "Same relative path and filename as source; original web bytes preserved. IDs are unchanged. No import of unused originals.",
+  "records": [
+    {
+      "from": "assets/backgrounds/bar/bar-far.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_background.png",
+      "source": "02.Environments/01.Bar/01.Dialogue/dialogue_screen_background.png",
+      "match": "bytes",
+      "sha256": "3cacbad0e284d1ba31f93cf34b6cad07ed788f01b91adde1af5b53b8ac041e20"
+    },
+    {
+      "from": "assets/backgrounds/bar/bar-front.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_foreground.png",
+      "source": "02.Environments/01.Bar/01.Dialogue/dialogue_screen_foreground.png",
+      "match": "bytes",
+      "sha256": "f7e4bbac5684e1ada03fb5bd79fecc27ce51fbaf45ddd0dd6cba444e01d6b87c"
+    },
+    {
+      "from": "assets/backgrounds/bar/bar-mid.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_midground.png",
+      "source": "02.Environments/01.Bar/01.Dialogue/dialogue_screen_midground.png",
+      "match": "bytes",
+      "sha256": "60d948965292a1223468f6e6efc40fe2f38a8216f5c9b648bf4e9e7e8810523c"
+    },
+    {
+      "from": "assets/backgrounds/bar/bar.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_full_shot.png",
+      "source": "02.Environments/01.Bar/01.Dialogue/dialogue_screen_full_shot.png",
+      "match": "bytes",
+      "sha256": "95990f459491fc62b9d3cad30b04f5fc40c6606d12c0a0a1118271a2ff6a44bb"
+    },
+    {
+      "from": "assets/backgrounds/bar/gimmick-shake.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
+      "source": "02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
+      "match": "bytes",
+      "sha256": "2741ec4e2ccc3359b4dbe4beddb4ca8d755de592cb709651fc293c02d2c018f8"
+    },
+    {
+      "from": "assets/backgrounds/bar/gimmick-stir.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
+      "source": "02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
+      "match": "bytes",
+      "sha256": "835ce2f129c80cc2ac56a14d46eb156386fbc64dcd5835bf3a36ad972fbfe9c8"
+    },
+    {
+      "from": "assets/backgrounds/bar/gimmick.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
+      "source": "02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
+      "match": "bytes",
+      "sha256": "d61d2c394723054ad8d944a9581c184c2c1ccc7dca84f53576f249e68e506ab3"
+    },
+    {
+      "from": "assets/backgrounds/bar/prep-fridge.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/02.Preparation/refrigerator_shelf.png",
+      "source": "02.Environments/01.Bar/02.Preparation/refrigerator_shelf.png",
+      "match": "bytes",
+      "sha256": "e4fe31264def9eae1a0d47a01bd5afcd9cb1801185c76b89a0bbe0f8fa7bf20a"
+    },
+    {
+      "from": "assets/backgrounds/bar/prep-liquor.png",
+      "to": "assets/9_ArtResources/02.Environments/01.Bar/02.Preparation/regular_shelf.png",
+      "source": "02.Environments/01.Bar/02.Preparation/regular_shelf.png",
+      "match": "pixels",
+      "sha256": "ff11408cd306d2488881716744f73db5371c1a3801a5e1d1fd96528b2c505bf0"
+    },
+    {
+      "from": "assets/backgrounds/campaign/lab.png",
+      "to": "assets/9_ArtResources/02.Environments/05.Cutscenes/01.Lab/90.PreviousVersions/LAB_BG_room.png",
+      "source": "02.Environments/05.Cutscenes/01.Lab/90.PreviousVersions/LAB_BG_room.png",
+      "match": "bytes",
+      "sha256": "cd3cde179a0d826214b2c0e28170f5bb4d6997eeedf02a067d72ba89d0ea9094"
+    },
+    {
+      "from": "assets/backgrounds/campaign/title-button-active.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/BTN_Enable.png",
+      "source": "05.UI/02.Title/01.Sprites/BTN_Enable.png",
+      "match": "bytes",
+      "sha256": "7b58998d768bebeb59c968494542e0a75d82d61544884d3a62586fdd4d71aec4"
+    },
+    {
+      "from": "assets/backgrounds/campaign/title-button.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/BTN_Disable.png",
+      "source": "05.UI/02.Title/01.Sprites/BTN_Disable.png",
+      "match": "bytes",
+      "sha256": "668902616ea486674c0ebf7d7d5e3d84c01f7ed013eba289b5b4039c60f6525c"
+    },
+    {
+      "from": "assets/backgrounds/campaign/title-deco.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/IMG_Deco_button.png",
+      "source": "05.UI/02.Title/01.Sprites/IMG_Deco_button.png",
+      "match": "bytes",
+      "sha256": "71bf9b2965b364c393cb599aa030617c462d085545255cad6ced7395166c7148"
+    },
+    {
+      "from": "assets/backgrounds/campaign/title-dots.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/PTN_Dot.png",
+      "source": "05.UI/02.Title/01.Sprites/PTN_Dot.png",
+      "match": "bytes",
+      "sha256": "02cebbc1046ad84884fa6e1e9549ac67a944b9b805b9f2aee06b8880c4f6fc47"
+    },
+    {
+      "from": "assets/backgrounds/campaign/title-logo.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png",
+      "source": "05.UI/02.Title/01.Sprites/IMG_logo.png",
+      "match": "bytes",
+      "sha256": "3e70cc9dffe015eaad848f8a785779ec3b349bc6fea1a05eb01b508fc9d0f0bc"
+    },
+    {
+      "from": "assets/backgrounds/terrace/balustrade.png",
+      "to": "assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/balustrade.png",
+      "source": "02.Environments/04.Terrace/01.Sprites/balustrade.png",
+      "match": "bytes",
+      "sha256": "5c2522fe11fb46319841380fbd6067f3b8e2ac93ce251dde9c5cda49178fcb4e"
+    },
+    {
+      "from": "assets/backgrounds/terrace/birds/crow-idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Crow_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/Crow_idle.png",
+      "match": "bytes",
+      "sha256": "e29b61cdf0a55a0a9fd3b5bce3516b6420b988877e3ed9c3be4d20462d1d50f1"
+    },
+    {
+      "from": "assets/backgrounds/terrace/birds/pigeon-idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Pigeon_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/Pigeon_idle.png",
+      "match": "bytes",
+      "sha256": "8b814977a399067445f85954426199ad0e2fc17de1260645c4c1d79b67e94bf0"
+    },
+    {
+      "from": "assets/backgrounds/terrace/building.png",
+      "to": "assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace.png",
+      "source": "02.Environments/04.Terrace/01.Sprites/Terrace.png",
+      "match": "bytes",
+      "sha256": "7703588bed27c5b8a9be3c9df85f25d93214091e18cfcefc02c4a7abb72a2bd8"
+    },
+    {
+      "from": "assets/backgrounds/terrace/characters.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Terrace/Terrace.png",
+      "source": "01.Characters/02.Outside/01.Luna/Terrace/Terrace.png",
+      "match": "bytes",
+      "sha256": "3f3e803bbdbd93643bb3fdff9a9df773c7c99198ec4c516c7552cf1edeb29760"
+    },
+    {
+      "from": "assets/backgrounds/terrace/city.png",
+      "to": "assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace_BG_City.png",
+      "source": "02.Environments/04.Terrace/01.Sprites/Terrace_BG_City.png",
+      "match": "bytes",
+      "sha256": "4d4528d5aaa31823a467c0419ed83232ddb4a35c52d1eb2163e59e43bd79b92b"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/body.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Default/body.png",
+      "match": "bytes",
+      "sha256": "a4e8ead11464e6a860f8c9b3fa6ebf360a13e6cbd45b453c836afaf96cde9563"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/eyebrow.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "93ad87dfd49fc63afa523fb41b7d8e7a718b8df89cd44d40a7dee50df0afba5c"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "0571a3e4417e15f873423221af1c8974969e16c3860b29e3e88def9888637d9f"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "51c06d7d5a60801b9730ca6507e033ea2c42700d78c94f267128daae769a801e"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "7a18783b1a6e5d022f73412e9f64bef427c370d8dd40068c55dfaa68c9ef4a07"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "a4e8ead11464e6a860f8c9b3fa6ebf360a13e6cbd45b453c836afaf96cde9563"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "93ad87dfd49fc63afa523fb41b7d8e7a718b8df89cd44d40a7dee50df0afba5c"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/eyes.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Talk/eyes.png",
+      "match": "bytes",
+      "sha256": "0571a3e4417e15f873423221af1c8974969e16c3860b29e3e88def9888637d9f"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "36bf3900e967aaf447cd8e1cfb882bf5b765186e031a544de2c0d2395412b97f"
+    },
+    {
+      "from": "assets/characters/aili/char-aili-idle-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/face_top.png",
+      "source": "01.Characters/01.Bar/06.Aili/Idle/Talk/face_top.png",
+      "match": "bytes",
+      "sha256": "7a18783b1a6e5d022f73412e9f64bef427c370d8dd40068c55dfaa68c9ef4a07"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/body.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Default/body.png",
+      "match": "bytes",
+      "sha256": "151f3d3e127c8c313ad5afdf02cfac9f0143d4140b70acde20ec9409704fc854"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "471b29c781157740ff056997cde655fd63716388d1b52bc48e3860dbf2ec0a42"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-default-face-bottom.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/face_bottom.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Default/face_bottom.png",
+      "match": "bytes",
+      "sha256": "24f73567950715193932ad98ed949b00ccf7ae5dc5d1ad970c6b0bb32029621a"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "faafcbf54e1f98961dcbaf6131dc2639e582c33a1c168a1885165948e5c33a2d"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "151f3d3e127c8c313ad5afdf02cfac9f0143d4140b70acde20ec9409704fc854"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/eyes.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Talk/eyes.png",
+      "match": "bytes",
+      "sha256": "471b29c781157740ff056997cde655fd63716388d1b52bc48e3860dbf2ec0a42"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-talk-face-bottom.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/face_bottom.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Talk/face_bottom.png",
+      "match": "bytes",
+      "sha256": "f4ae484fe582b76a8c0b3f2d1b003d49f1320769dd3ca07fd0587ffa02abb1cd"
+    },
+    {
+      "from": "assets/characters/bubi/char-bubi-idle-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/face_top.png",
+      "source": "01.Characters/01.Bar/04.Bubi/Idle/Talk/face_top.png",
+      "match": "bytes",
+      "sha256": "faafcbf54e1f98961dcbaf6131dc2639e582c33a1c168a1885165948e5c33a2d"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-anger-full.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Fail/enger.png",
+      "source": "01.Characters/01.Bar/02.Chris/Emotion/Fail/enger.png",
+      "match": "bytes",
+      "sha256": "0837b31ee8918353d8efd82b86341283312841baca4c9324d8118ccd01b2576f"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/body.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Default/body.png",
+      "match": "bytes",
+      "sha256": "d816fd56fcf8497f5bf49a4e35cbdb2ca0057dc8ecd971ec28016d492a912ac7"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/eyebrow.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "cec7f0ca687b984215dec13aa3292b81727154cd2eb5070b1b1d8317c75b30b0"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "7ce955ee34085061ea93b101fa3cc5f369610b59e975d1366d5d6f931f86a10e"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "0b3d98ea417884165a8539dd1f1e09844df06587351853ff45389457ee66d994"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "46a5a568403e371e1145702e55f8dd80394a32cf09b10ec9355c09865f550579"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "d816fd56fcf8497f5bf49a4e35cbdb2ca0057dc8ecd971ec28016d492a912ac7"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "cec7f0ca687b984215dec13aa3292b81727154cd2eb5070b1b1d8317c75b30b0"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/eyes.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Talk/eyes.png",
+      "match": "bytes",
+      "sha256": "7ce955ee34085061ea93b101fa3cc5f369610b59e975d1366d5d6f931f86a10e"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "a6c600a4e30c018178f0b65dcb6c54ae04e15cf63b461b8dafbb6209e93d8a58"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-chris-idle-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/face_top.png",
+      "source": "01.Characters/01.Bar/02.Chris/Idle/Talk/face_top.png",
+      "match": "bytes",
+      "sha256": "46a5a568403e371e1145702e55f8dd80394a32cf09b10ec9355c09865f550579"
+    },
+    {
+      "from": "assets/characters/chris/char-chris-joy-full.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Success/fun.png",
+      "source": "01.Characters/01.Bar/02.Chris/Emotion/Success/fun.png",
+      "match": "bytes",
+      "sha256": "f00ab332c972dfce20fbbb74a5a6dfdb7f951b364e3ddc458aba7acbe5fc2d43"
+    },
+    {
+      "from": "assets/characters/expressions/expr-aili-fail.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Emotion/Fail/fail.png",
+      "source": "01.Characters/01.Bar/06.Aili/Emotion/Fail/fail.png",
+      "match": "bytes",
+      "sha256": "197c7109fa2db8eb07e08a9157ae3a8538e0ac1fa31cae813d6762bfc2eeb041"
+    },
+    {
+      "from": "assets/characters/expressions/expr-aili-success.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Emotion/Success/success.png",
+      "source": "01.Characters/01.Bar/06.Aili/Emotion/Success/success.png",
+      "match": "bytes",
+      "sha256": "ee1fadfa62cb2e0910f2765f3db7b824ec3f2145a2777a4ec439e86caa305659"
+    },
+    {
+      "from": "assets/characters/expressions/expr-port-event-surprise.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/90.Unused/port_surprised.png",
+      "source": "01.Characters/01.Bar/05.Port/90.Unused/port_surprised.png",
+      "match": "bytes",
+      "sha256": "e27fde4cf0ec873b8b848ca7f7aef5eb8ac11794c54a0712c64901b2067c4d24"
+    },
+    {
+      "from": "assets/characters/expressions/expr-samho-fail.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Fail/fail.png",
+      "source": "01.Characters/01.Bar/03.Samho/Emotion/Fail/fail.png",
+      "match": "bytes",
+      "sha256": "3266483e8d3596b7647fe98c5d1ef479f0e0f71490eabd35d0492bf4e6d04f11"
+    },
+    {
+      "from": "assets/characters/expressions/expr-samho-success.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Success/success.png",
+      "source": "01.Characters/01.Bar/03.Samho/Emotion/Success/success.png",
+      "match": "bytes",
+      "sha256": "f791fee21a68c44cd6dfe7559a1a473b0f9e79c098ca73eb088717400ef34f95"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-acc-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Acc_1.png",
+      "match": "bytes",
+      "sha256": "d813fdc91f03640add510306ccea2d6f73a89a2bb9f9533d90bfe4e0699eb696"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-acc-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Acc_2.png",
+      "match": "bytes",
+      "sha256": "a631d4204a5b26ae878b5288eb6b6565401b04b6de7d222fc702c7f3aaf9a5d4"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-acc-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Acc_3.png",
+      "match": "bytes",
+      "sha256": "5f30e2f37d24c24513e9219723f4833e7c1da4e60fa4a26d909ae741698cf673"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/body.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/body.png",
+      "match": "bytes",
+      "sha256": "0ab3becddde2271f359f815cede9ec6866b061895a2b9d5c3d9e4a5f3f694178"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_1.png",
+      "match": "bytes",
+      "sha256": "575311d18f72eca55ce68c141a6142f0ca20a80f4b4d6de30151ddde2458d2b5"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_2.png",
+      "match": "bytes",
+      "sha256": "e75b5bc0693cabb57187ba18c7613a504ddf87cb0110a2c917e6ce1c200346e7"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_3.png",
+      "match": "bytes",
+      "sha256": "451e9e50e7b9352478c42658920f8fb2dea26ec39df4649308dad2ec19c1d129"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_4.png",
+      "match": "bytes",
+      "sha256": "177dde725723d1847f686a8b189f82a5e11a87a7c26c065b34cd498d6bce383c"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-5.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_5.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_5.png",
+      "match": "bytes",
+      "sha256": "9aee6f18c1b994aade6f95c00e5ad05ba3b6bae422da4e3c3576308b86034cb0"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyebrow-6.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_6.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyebrow_6.png",
+      "match": "bytes",
+      "sha256": "cf8e283461687ea2805369db35c5937caf9f031163bd53f928c040407d71b7b8"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyes-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyes_1.png",
+      "match": "bytes",
+      "sha256": "bdbd5a4f886d179510e39a3987e0bb23a8632a10c8b351c35d3c06a2080f5262"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyes-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyes_2.png",
+      "match": "bytes",
+      "sha256": "bd5a507c6717815f6b07771870dbe2b55befcd30c6ad808bf35892d01b48ffbf"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyes-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyes_3.png",
+      "match": "bytes",
+      "sha256": "ad384435d9af8239f254e42103799f5611d20c18ef02a17c74e56413a8021c11"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-eyes-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/eyes_4.png",
+      "match": "bytes",
+      "sha256": "509aef57287d75a476f61a319966f2aa635c4b67fc84dc82d0d952f94af417c6"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-hair-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/hair_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/hair_1.png",
+      "match": "bytes",
+      "sha256": "a1e21197c7f3837d28d2544a579a980c93682ab52c9b906b1f5743e23be3bb3c"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-hair-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/hair_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/hair_2.png",
+      "match": "bytes",
+      "sha256": "3eebd5a4aec4f8d553bda7f53a3168b052635404e9ef06d0a392223db3a1a6ec"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-mouth-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/mouth_1.png",
+      "match": "bytes",
+      "sha256": "67a9cd71a01b6939024463b9af5e1f1bb44da05bd033519fdde21c016ac714b4"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-mouth-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/mouth_2.png",
+      "match": "bytes",
+      "sha256": "b3d8ba0b7f2196e9aa82a80187899048adfe37755ce10fcbdeefc09058842a26"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-mouth-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/mouth_3.png",
+      "match": "bytes",
+      "sha256": "61fa3079a45a2dd6ffee3ea116735384c8ecf278d3433d546d4a01e64198f96b"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-mouth-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/mouth_4.png",
+      "match": "bytes",
+      "sha256": "99e092a4b42a4ad2b516d0d3aa32cad843ca943609fbb530c36780267a55a597"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-mouth-5.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_5.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/mouth_5.png",
+      "match": "bytes",
+      "sha256": "7dae26704a456c926df52742dcb66591238ab9b634f3292246a5e73408d0f0a5"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/body.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/body.png",
+      "match": "bytes",
+      "sha256": "f58a83532ca3026406ad5cacd90b94ea93fc5be64003376422401e9d47f2c53b"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-eyes-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_top_1.png",
+      "match": "bytes",
+      "sha256": "5744f04f614644f7ab3d791f88cf140c61549acdab7949506d40f67e6e849cca"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-eyes-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_top_2.png",
+      "match": "bytes",
+      "sha256": "c26924c0ae6e5542bf10931cb7c80cf6960d5a4994635d399f060c9d0269f5bb"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-eyes-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_top_3.png",
+      "match": "bytes",
+      "sha256": "c67ee77e149593359fb5d55f4b113caf52bfd3292dfe58ef43ce1b8a71aa69f9"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-mouth-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_1.png",
+      "match": "bytes",
+      "sha256": "d5845682696618edfb719730834eb9a79d2f8f38cc611ecd7b17f8d4b0236639"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-mouth-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_2.png",
+      "match": "bytes",
+      "sha256": "1f309b859b30522328fb975ecf5f9b58c68e98613551e3a8760146348bacbaf6"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-talk-mouth-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_3.png",
+      "match": "bytes",
+      "sha256": "f9051a307874c605136b513c87ce5a5f8e3c14b38252cae35aba50a85d1fec55"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-top-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/top_1.png",
+      "match": "bytes",
+      "sha256": "6216957e034ba31765e475ee4cd9709fe2c173009bb770b0b540a78c7f74502e"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-top-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/top_2.png",
+      "match": "bytes",
+      "sha256": "60ed9ec37841cff1d6a9708669935e697af43950018f3b17964c454d1a1c4c99"
+    },
+    {
+      "from": "assets/characters/guests/guest-f-top-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Female/top_3.png",
+      "match": "bytes",
+      "sha256": "518ed94a9b0d95fd38ca8945c044f3f0b67ac3d11705bd9c5c4799308254043b"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-acc-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/Acc_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/Acc_1.png",
+      "match": "bytes",
+      "sha256": "c1daf2a2cdd1689d49af6decae94b307844f70e8a8d8db251c59f80736d2fa29"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-acc-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/Acc_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/Acc_2.png",
+      "match": "bytes",
+      "sha256": "15763c392a5e0ac46edd24c346660c2defe1ab7a095f86cf1c77d34925799806"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/body.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/body.png",
+      "match": "bytes",
+      "sha256": "c434a62663987c313d0223e0cebc45c422e42c0e55dc0a38a543dd87348f6371"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-cyberware-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/cyberware_1.png",
+      "match": "bytes",
+      "sha256": "b9c26d39cc26a1d99ef2a9bf42cdf41079f5bfe418e0f758afc796f643c20d00"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-cyberware-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/cyberware_2.png",
+      "match": "bytes",
+      "sha256": "3b8d542744db80e6761e3948f50cd49b3a9bc7c33d25d7797e081cbb80986630"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-cyberware-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/cyberware_3.png",
+      "match": "bytes",
+      "sha256": "39eec715bf6514ca4b23ca696788eb87bc850cb19d43de31422ec1dd3944b1d4"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_1.png",
+      "match": "bytes",
+      "sha256": "6f37a530dd8bbcd18e634949c9f6505e815bbfe9343307cc0eb2729c09f9c795"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_2.png",
+      "match": "bytes",
+      "sha256": "fb46aed37b5903c84f5f8a5f9154d098503ac35d252a9ad3705453bfa452b902"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_3.png",
+      "match": "bytes",
+      "sha256": "7603626084d6870fa2fcec73f85b6d71fd787ee0e2ba637febdf5b550a86795b"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_4.png",
+      "match": "bytes",
+      "sha256": "1f8e9487c344e4e02d467d1790c480a427eb3e7e67e8d678b847f9b586117915"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-5.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_5.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_5.png",
+      "match": "bytes",
+      "sha256": "1bc7f57a12f8f466ff51e5af10093e124f29e1da9d9a4d2084eb87bc5fd7a13e"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyebrow-6.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_6.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyebrow_6.png",
+      "match": "bytes",
+      "sha256": "5065c93a28fc440cfff23eb3d6ded9a86c7b0c2be57fcda32b78d08b8075a41f"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyes-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyes_1.png",
+      "match": "bytes",
+      "sha256": "352734ff35bb003b2cfcab8e5e819ffc11833dc0696fad9aa75bb33e13903b0a"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyes-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyes_2.png",
+      "match": "bytes",
+      "sha256": "6efa2862428a0891efbc45afb0b55bdfe349d9c3d35a1877c90fad15f7fd4fbf"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyes-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyes_3.png",
+      "match": "bytes",
+      "sha256": "22cc08dae4af43a3e3addb83dc947b0861055a0750971925cbd0819a52f530fb"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-eyes-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/eyes_4.png",
+      "match": "bytes",
+      "sha256": "ed1489a66cb29ecca676b59e315720646a6a9e748b45e782be9feb391076910d"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-hair-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/hair_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/hair_1.png",
+      "match": "bytes",
+      "sha256": "5a4e414fd07715c7befdda72fa98537522fa30dc59b8e2cd5cc25bf174cbb7d5"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-hair-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/hair_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/hair_2.png",
+      "match": "bytes",
+      "sha256": "c81fbc54f9169790d8eb491491f6057ec8e2abd50e331731b7638149bc3d9b4b"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-mouth-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/mouth_1.png",
+      "match": "bytes",
+      "sha256": "65635504204b1946c15f80498da708daef807eb267200fcb34a106a18fab9255"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-mouth-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/mouth_2.png",
+      "match": "bytes",
+      "sha256": "fac6a07a37d7d735c6112289785e815196b2270d7b0b9bbd94c49312eecc807f"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-mouth-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/mouth_3.png",
+      "match": "bytes",
+      "sha256": "241e168d0083eda138013b5a992611d7e6332728fc0a3ef6156301c3ae2a112d"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-mouth-4.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/mouth_4.png",
+      "match": "bytes",
+      "sha256": "011fdabce6769ef22acad1124350c77bbb6e5c74be32413361aa5ef2f83d9eef"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-mouth-5.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_5.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/mouth_5.png",
+      "match": "bytes",
+      "sha256": "db84ee37552a6713e1cad83dd1aab798ce1cbca47c0efe53e673982cb8868469"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/bady.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/bady.png",
+      "match": "bytes",
+      "sha256": "820209b42dfb1e38a88311aa55af9c81a0545bd694147f1d9ae03ba0907f9601"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-eyes-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/eyes_1.png",
+      "match": "bytes",
+      "sha256": "b2f331d9bece2e1b665284cb80cc174d55437796d5777b558d40351e4e9d9c72"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-eyes-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/eyes_2.png",
+      "match": "bytes",
+      "sha256": "fa719184c061dec1c467d37cd64b777db441cd4086da7d7409a1ec06751d9ffe"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-eyes-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/eyes_3.png",
+      "match": "bytes",
+      "sha256": "377530bc57a53f80f0a8f150c5fe2138f4da224f2b810ab78d060ae71cd18f3a"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-mouth-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_1.png",
+      "match": "bytes",
+      "sha256": "4ab8d11de39fe73008895b2570728368fad9578aff362ae65913bc08267dabc3"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-mouth-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_2.png",
+      "match": "bytes",
+      "sha256": "12dedfe00c33c8eab006414eb9c3b94be3661f13324a64e04a38f15bf62de794"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-talk-mouth-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_3.png",
+      "match": "bytes",
+      "sha256": "af4110098a02de65077299214478712db92f9d4aa58a245b801a2e402dde45ed"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-top-1.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/top_1.png",
+      "match": "bytes",
+      "sha256": "806de4f56ad34495e3f9e9eb79d87886ea65211568d72fa1e9992655bf8560c9"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-top-2.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/top_2.png",
+      "match": "bytes",
+      "sha256": "a566400fb9f79b6278e9b0474be8bfabb4eff8555fa678862805424ebe16508f"
+    },
+    {
+      "from": "assets/characters/guests/guest-m-top-3.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/Male/top_3.png",
+      "match": "bytes",
+      "sha256": "b6f855a8c55d4bc8ccae3f1f0b0ce373a001a88f8405362efdf9fa2c79ee7ff1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/default/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "f60f63c2171a91139b8961602cb8d44d0b50ac70e5ae890a8ac57eb660d09acb"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "47594e6a93dcc6263def190106392f6532ca58894ad91d66042c9e35a9159be3"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/talk/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "f60f63c2171a91139b8961602cb8d44d0b50ac70e5ae890a8ac57eb660d09acb"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "0565d91ca8e142a5513dcc58cf694e94bb44a9bbb2779904daddb6777db25da7"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-anger-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Default/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "8c034c217efa92ce20944abf9588a13d972b2d2366b1930f1d974b9835b8ab2c"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "22c42784e754ff71b92b5d07a1211ce348d40f75851fb1c29a7c3b5fe4868b76"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "8c034c217efa92ce20944abf9588a13d972b2d2366b1930f1d974b9835b8ab2c"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Talk/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "369732a97c03a1eb499f2a26c44adc7d7b2af12cb83c4340d565646a6d97c506"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-idle-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Idle/Talk/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/default/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "fdd17a988b80e598b28d6ed718f067ad9805a6f2a9d7645651cf7c369737b719"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/default/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "9ff003c069676859690f75124448edca9e8a47e120188cbbd075a3d1be044d0e"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/default/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/talk/body.png",
+      "match": "bytes",
+      "sha256": "5883a29c8fb53a7282fb6b1bc4d5c3798983defb04a56762a133b4aa11e487a1"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "fdd17a988b80e598b28d6ed718f067ad9805a6f2a9d7645651cf7c369737b719"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyes.png",
+      "match": "bytes",
+      "sha256": "400479bb5c78d86a12dc8b68dfd136aecc0b4356c4b6ac39b55b284008f011d6"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "6e127f79ed2f66c0b7ff891c9bac7fd2b87bb1511dcb901eb2c09ffef3e0944a"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-joy-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_top.png",
+      "match": "bytes",
+      "sha256": "58c1f5d32ee1c801b5b9b88e6897fcec2a8b9bd007fac0a863cbea72add2aeec"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/default/body.png",
+      "match": "bytes",
+      "sha256": "a237740fc57090e7b3188af4586daf002fc2fcd72563c21ebd48c8c551c0314f"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-default-eyebrows.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyebrows.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyebrows.png",
+      "match": "bytes",
+      "sha256": "5d1b272f61eebce5b742644c795f72d869c4ec74f28094decda9847e43bf1ee2"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyes.png",
+      "match": "bytes",
+      "sha256": "5ee11f9e995dcd0b2ab835f0be919e7727404b64eb4c0483800f36894159ed48"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "7d9587b5cdec2e8bb4a66cd84023e75c06942e9cda821fa5e1b426aaaac841bb"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_top.png",
+      "match": "bytes",
+      "sha256": "90eed05f251295c4ae697df3c2f3aa6f5a667b8222936489f9aa2737d48db93f"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/body.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/talk/body.png",
+      "match": "bytes",
+      "sha256": "a237740fc57090e7b3188af4586daf002fc2fcd72563c21ebd48c8c551c0314f"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-talk-eyebrows.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyebrows.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyebrows.png",
+      "match": "bytes",
+      "sha256": "5d1b272f61eebce5b742644c795f72d869c4ec74f28094decda9847e43bf1ee2"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyes.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyes.png",
+      "match": "bytes",
+      "sha256": "5ee11f9e995dcd0b2ab835f0be919e7727404b64eb4c0483800f36894159ed48"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "c4187ab5f8b6538289fb164386aa700243289da3b2444073146df8e1975d7091"
+    },
+    {
+      "from": "assets/characters/port/char-port-port-serious-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_top.png",
+      "source": "01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_top.png",
+      "match": "bytes",
+      "sha256": "90eed05f251295c4ae697df3c2f3aa6f5a667b8222936489f9aa2737d48db93f"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-drink-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Drunk/body.png",
+      "source": "01.Characters/01.Bar/03.Samho/Emotion/Drunk/body.png",
+      "match": "bytes",
+      "sha256": "3c53abe761be776c7afcaed38a623bea9ccf0d351e05f69cf9258093538f6848"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-drink-face-bottom.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Drunk/face_bottom.png",
+      "source": "01.Characters/01.Bar/03.Samho/Emotion/Drunk/face_bottom.png",
+      "match": "bytes",
+      "sha256": "ad2d94d89d8466c7faddbb888767b13eb8b21fb9bee6eaf4c23e7778979c0362"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-default-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/body.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Default/body.png",
+      "match": "bytes",
+      "sha256": "62055eeaac36c5e76aa1297674faf5c266dee6f9c471c3052ad1fe8fac9674c9"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-default-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/eyebrow.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "97e1cd3b81e24ac5131aabc62aa6993e8cc566d09690553efa84110b33225eb3"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-default-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "b9bd90448bc40941436f087a70e149c149e29de7536c64ab393d6364b5327f6d"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-default-face-bottom-default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "5b12ba45e4067f2af5d366e1f4584e614a7d87db3ebfdf9d81312ac23800c1cd"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-default-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "bbaa0819f978f7ce832a799fedf38f98dcc83c7600931eb6a63e0577abd8f415"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-talk-body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "62055eeaac36c5e76aa1297674faf5c266dee6f9c471c3052ad1fe8fac9674c9"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-talk-eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/eyebrow.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Talk/eyebrow.png",
+      "match": "bytes",
+      "sha256": "97e1cd3b81e24ac5131aabc62aa6993e8cc566d09690553efa84110b33225eb3"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-talk-eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/eyes.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Talk/eyes.png",
+      "match": "bytes",
+      "sha256": "b9bd90448bc40941436f087a70e149c149e29de7536c64ab393d6364b5327f6d"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-talk-face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "8cfb7034579b12e3d0d5cf6e837efee2814f25ae8ac33eab8d28d9a6cf535421"
+    },
+    {
+      "from": "assets/characters/samho/char-samho-idle-talk-face-top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/face_top.png",
+      "source": "01.Characters/01.Bar/03.Samho/Idle/Talk/face_top.png",
+      "match": "bytes",
+      "sha256": "bbaa0819f978f7ce832a799fedf38f98dcc83c7600931eb6a63e0577abd8f415"
+    },
+    {
+      "from": "assets/characters/static/char-shiba-idle.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png",
+      "source": "01.Characters/01.Bar/08.Shiba/Shiba_Idle.png",
+      "match": "bytes",
+      "sha256": "52d9f21bfebdf26c889e3f9a936abd237ab2df10bec113d9175714bd378455df"
+    },
+    {
+      "from": "assets/characters/static/char-shiba-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png",
+      "source": "01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png",
+      "match": "bytes",
+      "sha256": "b39a656f0aa53b5270bd3251c792240ae4244b4f321b7a70e7813dc3199184e5"
+    },
+    {
+      "from": "assets/characters/static/char-tom-idle.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
+      "match": "bytes",
+      "sha256": "91ed51af1250b3ddeca8eb9171cd16ee9a4a67717bca8fd57b2e6c239ef8d8b2"
+    },
+    {
+      "from": "assets/characters/tom/idle/eyebrow.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Default/eyebrow.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Default/eyebrow.png",
+      "match": "bytes",
+      "sha256": "613f7d2c9535f525ed3a4bbb54f533ef74c51211c3a5ccfb105396dc68dae08a"
+    },
+    {
+      "from": "assets/characters/tom/idle/eyes.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Default/eyes.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Default/eyes.png",
+      "match": "bytes",
+      "sha256": "a248f62dd7e7bff09878a8a1e91276e4561e09c7294b9ce41ff0ff52529ff8b4"
+    },
+    {
+      "from": "assets/characters/tom/idle/face_bottom_default.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Default/face_bottom_default.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Default/face_bottom_default.png",
+      "match": "bytes",
+      "sha256": "2e4aeb537da27f35d20fb8d49beaba74159c07f6bc6889bb6e2512f6c9627527"
+    },
+    {
+      "from": "assets/characters/tom/idle/face_top.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Default/face_top.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Default/face_top.png",
+      "match": "bytes",
+      "sha256": "adc7926de0ead0760f9f5a98d58318f9518934df53020f7e9a3bf0b7add72c71"
+    },
+    {
+      "from": "assets/characters/tom/talk/body.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Talk/body.png",
+      "match": "bytes",
+      "sha256": "986898e6e877e6e2a76f6d379bcdee156dc088ac45cbf3b4e5380dbdfeb3fba5"
+    },
+    {
+      "from": "assets/characters/tom/talk/face-bottom-talk.png",
+      "to": "assets/9_ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png",
+      "source": "01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png",
+      "match": "bytes",
+      "sha256": "025fa4b9b0c0440938610d9b50f6d011da525d262c2964cae8e9e33c34fd3d46"
+    },
+    {
+      "from": "assets/cocktails/completed/table/beer.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/beer.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/beer.png",
+      "match": "bytes",
+      "sha256": "c06da1726cac09d5d7820861d5bf2aef12197dfaa43b90ae8ea695e8085d4ec1"
+    },
+    {
+      "from": "assets/cocktails/completed/table/cosmopolitan.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/cosmopolitan.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/cosmopolitan.png",
+      "match": "bytes",
+      "sha256": "ddfbf6cfd05785ab51f2fedf91ba1514be895fb4947eb60ee859083a3ce69061"
+    },
+    {
+      "from": "assets/cocktails/completed/table/dry_martini.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/dry_martini.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/dry_martini.png",
+      "match": "bytes",
+      "sha256": "0c85484bf77c3888dd8a040313031d1d0cdcf7325b37786d6c66aaa495199f5a"
+    },
+    {
+      "from": "assets/cocktails/completed/table/screwdriver.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/screwdriver.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/screwdriver.png",
+      "match": "bytes",
+      "sha256": "1058d8e7320150772830fe084ed1fd95f44d3a8406b687ef6eb8c7f676342923"
+    },
+    {
+      "from": "assets/cocktails/completed/table/tequila_sunrise.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/tequila_sunrise.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/tequila_sunrise.png",
+      "match": "bytes",
+      "sha256": "356d2c14943e581a4be46c265604e095d3340765c42c1aabbae8a1adefb0330a"
+    },
+    {
+      "from": "assets/cocktails/empty/beer-glass.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/beer_glass.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Glasses/beer_glass.png",
+      "match": "bytes",
+      "sha256": "91d3a37f094c1b2eb36cf5fecf24df991b78abfe4b3627249b77215f87ae1791"
+    },
+    {
+      "from": "assets/cocktails/empty/cocktail-glass.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/cocktail_glass.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Glasses/cocktail_glass.png",
+      "match": "bytes",
+      "sha256": "02bfb7e3594ebbc042e7cd29cab096d87f045a6f8eb7944b2e19b10de23f4290"
+    },
+    {
+      "from": "assets/cocktails/empty/long-drink-glass.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/long_drink_glass.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Glasses/long_drink_glass.png",
+      "match": "bytes",
+      "sha256": "5442757204106291f29fb9182f8134457cee357b16ec07ee3d68c49c4764392c"
+    },
+    {
+      "from": "assets/cocktails/static/cocktail-champagne.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/champagne_final.png",
+      "source": "0_Dummy_Assets/Cocktail_Preview_Images/champagne_final.png",
+      "match": "bytes",
+      "sha256": "e5c212cf947255960821d68dd1b2791690d50fa6745ef0aca68ff1e5fad7f5d3"
+    },
+    {
+      "from": "assets/cocktails/static/cocktail-godfather.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
+      "match": "bytes",
+      "sha256": "4a09bc34298f70a514442384630e96b7d5627edd6d71dbb931a4d704e865e86b"
+    },
+    {
+      "from": "assets/cocktails/static/cocktail-long-island.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/long_island_iced_tea_final.png",
+      "source": "0_Dummy_Assets/Cocktail_Preview_Images/long_island_iced_tea_final.png",
+      "match": "bytes",
+      "sha256": "e43e950b7c1024da58329ce7e47f1f95db1a5aba5d17330249481e9301655ff5"
+    },
+    {
+      "from": "assets/cocktails/static/cocktail-red-wine.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/red_wine_final.png",
+      "source": "0_Dummy_Assets/Cocktail_Preview_Images/red_wine_final.png",
+      "match": "bytes",
+      "sha256": "e3c3b82730fdc945964099813b73801ee8098dd7ed59b9c12f48beeb854f5d88"
+    },
+    {
+      "from": "assets/cocktails/static/cocktail-whiskey-sour.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/whiskey_sour_final.png",
+      "source": "0_Dummy_Assets/Cocktail_Preview_Images/whiskey_sour_final.png",
+      "match": "bytes",
+      "sha256": "0c6b745cd1cbfaa253f814f18318358e32b8fa2ad50d4ff9beb302f6a175b01f"
+    },
+    {
+      "from": "assets/cocktails/static/recipe-cocktail-champagne.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/champagne_final.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/champagne_final.png",
+      "match": "bytes",
+      "sha256": "ea9fc497cca92ffca96ec93fee09cc1422c2c0382b5510899b501960d9227be7"
+    },
+    {
+      "from": "assets/cocktails/static/recipe-cocktail-long-island.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
+      "match": "bytes",
+      "sha256": "c4055a554049e8d7745c06fdc7f7d9d819f71d5fd67aea3e694030ee2889a2a0"
+    },
+    {
+      "from": "assets/cocktails/static/recipe-cocktail-red-wine.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
+      "match": "bytes",
+      "sha256": "5a0675fdfe65a78b1f06fae1ac214af28c8ca4c4fe4105adec94ceffaf5239e1"
+    },
+    {
+      "from": "assets/cocktails/static/recipe-cocktail-whiskey-sour.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
+      "match": "bytes",
+      "sha256": "d9aacc3b236d96d36db636d953c59c8f8bf403f1893a943e294e8c77203e4c23"
+    },
+    {
+      "from": "assets/cocktails/static/table-cocktail-gin-fizz.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png",
+      "match": "bytes",
+      "sha256": "97d585b5b19090e22c908fa76bc913876ed8176e77124bf9031e4dd459afea60"
+    },
+    {
+      "from": "assets/cocktails/static/table-cocktail-gin-tonic.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png",
+      "source": "03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png",
+      "match": "bytes",
+      "sha256": "3b2b528bd88490013ba76d63d9097855bc39926a04f8b939d1cb439d9b481f0e"
+    },
+    {
+      "from": "assets/items/inventory-item-cocktail.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/cocktail_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/cocktail_glass.png",
+      "match": "bytes",
+      "sha256": "6952d4f388715b376022751e21b0ae4ab602e83f7157a63759208e1ac8adfe0c"
+    },
+    {
+      "from": "assets/items/inventory-item-long-drink.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/long_drink_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/long_drink_glass.png",
+      "match": "bytes",
+      "sha256": "45190cb6414b1baa79d79bba67e3b4199e85c6c76b22b72c6ae19594245e758e"
+    },
+    {
+      "from": "assets/items/inventory-item-mixing-glass.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/mixing_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/mixing_glass.png",
+      "match": "bytes",
+      "sha256": "3173f787034fa5781dd8d788e8119408b2c684fc0b8b16bcd90bf77ed220f585"
+    },
+    {
+      "from": "assets/items/inventory-item-mug.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/beer_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/beer_glass.png",
+      "match": "bytes",
+      "sha256": "9c18660250c9a22cb53f9fe3d984452dc12e34df97acf067f557319930ed2fce"
+    },
+    {
+      "from": "assets/items/inventory-item-old-fashioned.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/old_fashioned_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/old_fashioned_glass.png",
+      "match": "bytes",
+      "sha256": "5142435868282f41a161397dd44c9799f65cd8b66bfb0293f7af2d216d903e5c"
+    },
+    {
+      "from": "assets/items/inventory-item-opener.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/bottle_opener.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/bottle_opener.png",
+      "match": "bytes",
+      "sha256": "8ade2865488617d4a4a936ff516d36d3d74acac21144cd367d3f398728d4b2b9"
+    },
+    {
+      "from": "assets/items/inventory-item-shaker.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/shaker.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/shaker.png",
+      "match": "bytes",
+      "sha256": "bef719926f6e364b294fc93b366c2944eb99682e95152625b86dc8b385e4d5c9"
+    },
+    {
+      "from": "assets/items/inventory-item-sour.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/sour_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/sour_glass.png",
+      "match": "bytes",
+      "sha256": "19e02ac0afbeaf5c618b8196596494287a8d9530a9b81c15c59df145f308e2e5"
+    },
+    {
+      "from": "assets/items/inventory-item-wine.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/wine_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/wine_glass.png",
+      "match": "bytes",
+      "sha256": "ad9c8c37146be02e06fb6252d2369cc7f00e848fb72c3cf4231b12a5ff0d024e"
+    },
+    {
+      "from": "assets/items/item-champagne.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/champagne.png",
+      "source": "03.Crafting/02.Ingredients/Refrigerator/champagne.png",
+      "match": "bytes",
+      "sha256": "f94b7f886f5bda260cedb576885267282a09247bb1d72f1ad9a8137123a2552e"
+    },
+    {
+      "from": "assets/items/item-dry-vermouth.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/martini_dry_vermouth.png",
+      "source": "03.Crafting/02.Ingredients/Refrigerator/martini_dry_vermouth.png",
+      "match": "bytes",
+      "sha256": "8cbc91b266a018872079b7c5108d51c8191c0a2908462c8d6cec62903f1cb032"
+    },
+    {
+      "from": "assets/items/item-dummy.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Ingredient_Images/gin.png",
+      "source": "0_Dummy_Assets/Ingredient_Images/gin.png",
+      "match": "bytes",
+      "sha256": "9d5e49e5c5b9b1df982b25057984804b40456c4d6e50c50af6293f7cfe6b5138"
+    },
+    {
+      "from": "assets/items/item-gin.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/gin.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/gin.png",
+      "match": "bytes",
+      "sha256": "57c9230a5a030e48344582e84e8d741b409064e645352868f02e9cca15755e2d"
+    },
+    {
+      "from": "assets/items/item-ginger-ale.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/Ingredient_Images/ginger_ale.png",
+      "source": "0_Dummy_Assets/Ingredient_Images/ginger_ale.png",
+      "match": "bytes",
+      "sha256": "aa1cfa5c724cad4928da721f096d9daa7bd6cbc3c59e8b503656e22ad4254f56"
+    },
+    {
+      "from": "assets/items/item-grenadine.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grenadine_syrup.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/grenadine_syrup.png",
+      "match": "bytes",
+      "sha256": "67a4148cb4e85d5ac9d9cd5857e578e2a1e3de236926e36ab3e21d9f7f9929fa"
+    },
+    {
+      "from": "assets/items/item-mixing-glass.png",
+      "to": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/mixing_glass.png",
+      "source": "03.Crafting/01.Preparation/Tools/X1/mixing_glass.png",
+      "match": "bytes",
+      "sha256": "d12d8897a6fd184d8c34962a9a037c63aea17c6f7cf2ab27be39ce10ecbb25b5"
+    },
+    {
+      "from": "assets/items/item-opener.png",
+      "to": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/bottle_opener.png",
+      "source": "03.Crafting/01.Preparation/Tools/X1/bottle_opener.png",
+      "match": "bytes",
+      "sha256": "99a6988d19907cf462d3980b8495f848b7ea33291e7850746189f40e0affbaee"
+    },
+    {
+      "from": "assets/items/item-orange-juice.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/orange_juice.png",
+      "source": "03.Crafting/02.Ingredients/Refrigerator/orange_juice.png",
+      "match": "bytes",
+      "sha256": "03115358c8847d1cf3c2b7f969164f26400cd77c5d3ef5160dc30588cf9b4b7f"
+    },
+    {
+      "from": "assets/items/item-red-wine.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png",
+      "source": "03.Crafting/02.Ingredients/Refrigerator/red_wine.png",
+      "match": "bytes",
+      "sha256": "0e8f4cf211368e940ae9c6ce8e81f4633a91d27d2eec5cbd76e322494cedc1f1"
+    },
+    {
+      "from": "assets/items/item-rum.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/bacardi_rum.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/bacardi_rum.png",
+      "match": "bytes",
+      "sha256": "af2d3955c1f3c25a5590743cd785c9859c39ab83beb8030c7955c5f50de252a3"
+    },
+    {
+      "from": "assets/items/item-shaker.png",
+      "to": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/shaker.png",
+      "source": "03.Crafting/01.Preparation/Tools/X1/shaker.png",
+      "match": "bytes",
+      "sha256": "cb78f418a78b72bbb4b49761e0f132dbee827e11fd0f1282b454d493a3c9aad5"
+    },
+    {
+      "from": "assets/items/item-soda-water.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/sparkling_water.png",
+      "source": "03.Crafting/02.Ingredients/Refrigerator/sparkling_water.png",
+      "match": "bytes",
+      "sha256": "b78e79b48d943b48f63a897dd9e3bd3129f973e2c9e1eaf65b80ca7cb522d0b2"
+    },
+    {
+      "from": "assets/items/item-sour-mix.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/sour_mix.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/sour_mix.png",
+      "match": "bytes",
+      "sha256": "efaa057f421057a493f8470a7ef878199ba2c86dcf863144887119f1c4de6294"
+    },
+    {
+      "from": "assets/items/item-tequila.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/tequila.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/tequila.png",
+      "match": "bytes",
+      "sha256": "9b1193f33d41bcd9ce9af70bbcdc65d74cd19ecc5b93f4b0f2f7718dd46eaea3"
+    },
+    {
+      "from": "assets/items/item-vodka.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grey_goose_vodka.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/grey_goose_vodka.png",
+      "match": "bytes",
+      "sha256": "02767a8e168c8e969c005e18d9b0e4173a7d403b5bc2edbbc8466a04f4f8e1bb"
+    },
+    {
+      "from": "assets/items/item-whiskey.png",
+      "to": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/johnnie_walker_whisky.png",
+      "source": "03.Crafting/02.Ingredients/Shelf/johnnie_walker_whisky.png",
+      "match": "bytes",
+      "sha256": "b8a2d526e387f6c7f1c612e8d7f246d33800c4fbbebece3573b10eae35b817cd"
+    },
+    {
+      "from": "assets/items/recipe-item-beer.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bottled_beer.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bottled_beer.png",
+      "match": "bytes",
+      "sha256": "0eaa4a2b5cf11d64a07276b016c4b3c14fe4ad2b31324c3f2fd099b11659912e"
+    },
+    {
+      "from": "assets/items/recipe-item-champagne.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/champagne.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/champagne.png",
+      "match": "bytes",
+      "sha256": "575f5ac144c17c9f9a796f969a2c0ac7c01bed3320d863f5adf90840a4d7a887"
+    },
+    {
+      "from": "assets/items/recipe-item-cola.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/cola.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/cola.png",
+      "match": "bytes",
+      "sha256": "99f1cd37e59241e016d69dce2d22893013d3b2165168da9969ff56c5c6d40d59"
+    },
+    {
+      "from": "assets/items/recipe-item-dry-vermouth.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/martini_dry_vermouth.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/martini_dry_vermouth.png",
+      "match": "bytes",
+      "sha256": "46f01d8fb28bda67fcda37641ea1935da19fc1f6cafaee6f84b5c9a72b0ef0c5"
+    },
+    {
+      "from": "assets/items/recipe-item-gin.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/gin.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/gin.png",
+      "match": "bytes",
+      "sha256": "e5b74ff8e4133df181fe537717bd03799ca24584c573ca7f8b558e3fda1d6a43"
+    },
+    {
+      "from": "assets/items/recipe-item-ginger-ale.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/ginger_ale.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/ginger_ale.png",
+      "match": "bytes",
+      "sha256": "e53fca0da4ae6d26c8f42ad0a5c71474b5c0fbb4b7ae0d1bb24eeec309dac545"
+    },
+    {
+      "from": "assets/items/recipe-item-grenadine.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grenadine_syrup.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grenadine_syrup.png",
+      "match": "bytes",
+      "sha256": "5ab46e1806eb3e678c82f780e4a82aaf33785c4044b29b8cbada5c2185d3fa24"
+    },
+    {
+      "from": "assets/items/recipe-item-mixing-glass.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/mixing_glass.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/mixing_glass.png",
+      "match": "bytes",
+      "sha256": "b5e6f1216303e9a0fae3ef70707f7db8d33d61021be7cf4396835bc20de60e79"
+    },
+    {
+      "from": "assets/items/recipe-item-opener.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/bottle_opener.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/bottle_opener.png",
+      "match": "bytes",
+      "sha256": "33b4cee9453158a6fdf5928b58346e255df6a72973bc54916a4fe4f44f1784ea"
+    },
+    {
+      "from": "assets/items/recipe-item-orange-juice.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/orange_juice.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/orange_juice.png",
+      "match": "bytes",
+      "sha256": "f4388fbad145d86365785d31349808930fc60d054f31f42a6c39d78c0a4c76dc"
+    },
+    {
+      "from": "assets/items/recipe-item-red-wine.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/red_wine.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/red_wine.png",
+      "match": "bytes",
+      "sha256": "dc139884c88c15d710d7800ae3fe2f6458498bf1433766e62a605bc66f1248ff"
+    },
+    {
+      "from": "assets/items/recipe-item-rum.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bacardi_rum.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bacardi_rum.png",
+      "match": "bytes",
+      "sha256": "9c4637df70cf2aa2b88930f21bfc52110dcb9a10d9d5691a3c75d34383d25728"
+    },
+    {
+      "from": "assets/items/recipe-item-shaker.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/boston_shaker.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/boston_shaker.png",
+      "match": "bytes",
+      "sha256": "f93ab1d4e44a08971375a68ffcd48bb1b064a1aa9aedb3345fd1d1705dc78c0c"
+    },
+    {
+      "from": "assets/items/recipe-item-soda-water.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/fresca_sparkling_water.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/fresca_sparkling_water.png",
+      "match": "bytes",
+      "sha256": "793c68cf305df310b81aea365d9b6fc2a701dc83f8c1d521eee89808a671533e"
+    },
+    {
+      "from": "assets/items/recipe-item-sour-mix.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/sour_mix.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/sour_mix.png",
+      "match": "bytes",
+      "sha256": "734b2180e90b7348fb2287aef9dc9c4f61d21a8951eababc4620de8d96d68ef3"
+    },
+    {
+      "from": "assets/items/recipe-item-tequila.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/tequila.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/tequila.png",
+      "match": "bytes",
+      "sha256": "c8fca3389dd3122825a29cdb9b7e181e051273dc45d76138110d26f160da9d19"
+    },
+    {
+      "from": "assets/items/recipe-item-vodka.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grey_goose_vodka.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grey_goose_vodka.png",
+      "match": "bytes",
+      "sha256": "34aa3a7e6f626b20df80f71abcc0284f569d9241931879dcdb7ca4ffaf3fd8dd"
+    },
+    {
+      "from": "assets/items/recipe-item-whiskey.png",
+      "to": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/johnnie_walker_whisky.png",
+      "source": "0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/johnnie_walker_whisky.png",
+      "match": "bytes",
+      "sha256": "952a0375a5e4c2cfa308f7e882fc268627b17894b27442fcf9d0282333750dd1"
+    },
+    {
+      "from": "assets/outside/NPC_idle_M1.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_m1_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_m1_idle.png",
+      "match": "bytes",
+      "sha256": "bfe8d551b61d53317cfeef4af27d342a3a27a0461f032973552305b0f58fca76"
+    },
+    {
+      "from": "assets/outside/NPC_idle_M2.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_m2_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_m2_idle.png",
+      "match": "bytes",
+      "sha256": "0a03e1e9fd872894e5905220d5481781048ccae160b431d554e6189c6ee605a4"
+    },
+    {
+      "from": "assets/outside/NPC_idle_W1.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_w1_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_w1_idle.png",
+      "match": "bytes",
+      "sha256": "ae441cf8d1850d701f894cc0ff88f898e4381863ed8f4f2de737f9f63aee1985"
+    },
+    {
+      "from": "assets/outside/a-fore-building-f2d7f2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_foreground_building.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_foreground_building.png",
+      "match": "bytes",
+      "sha256": "f2d7f2226530315c4784aba372700836ffc51b1cd94155d1c38ae2cb6604c80a"
+    },
+    {
+      "from": "assets/outside/a-fore-fore-object-1-efbee9.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_near_foreground_2.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_near_foreground_2.png",
+      "match": "bytes",
+      "sha256": "efbee9561d70e502e9c4a88b5551ed3bba7e6f6119f6dbf312d959426fbaa42b"
+    },
+    {
+      "from": "assets/outside/a-middle-building-1-2fd8d7.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_midground_1.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_midground_1.png",
+      "match": "bytes",
+      "sha256": "2fd8d73ccc0145be814952a84921df69a5b474d57b3c8e69ef43d81460e01740"
+    },
+    {
+      "from": "assets/outside/a-middle-building-2-8af469.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_midground_2.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_A_midground_2.png",
+      "match": "bytes",
+      "sha256": "8af46920831ecfff9633c0d108abe2e1a4f00e345bb12ada8997f5136e6bf82b"
+    },
+    {
+      "from": "assets/outside/b-fore-fore-object-1-3c56e1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_near_foreground_1.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_near_foreground_1.png",
+      "match": "bytes",
+      "sha256": "3c56e129d59ff10084ad823b1fccf1ee703d58127e90da9074dd8c8d126b05c6"
+    },
+    {
+      "from": "assets/outside/bar-entrance-66c64b.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Bar Entrance.png",
+      "source": "02.Environments/02.Street/01.Sprites/Bar Entrance.png",
+      "match": "bytes",
+      "sha256": "66c64bd9a7c116c0b2d77e69e1ec911ee4896ff2c9b48a5fc665a99a5193dfa2"
+    },
+    {
+      "from": "assets/outside/c-back-building-1-58c3b5.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_C_background_1.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_C_background_1.png",
+      "match": "bytes",
+      "sha256": "58c3b57b08591e51c0bd486f23ef5260ec35761160e912252a7e9f8b7ba46228"
+    },
+    {
+      "from": "assets/outside/c-back-building-2-8e7b98.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_C_background_2.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_C_background_2.png",
+      "match": "bytes",
+      "sha256": "8e7b981e6be6109b353a75f59b8d81abe3ebc2d494a32715f7272328b3b5a8db"
+    },
+    {
+      "from": "assets/outside/c-middle-building-1-ac30cc.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_1.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_1.png",
+      "match": "bytes",
+      "sha256": "ac30cc7049369f24a8976ad5dc2b44f84f064b9491dd7aecfbd0e5d231632fb4"
+    },
+    {
+      "from": "assets/outside/c-middle-building-2-f6d48b.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_2.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_2.png",
+      "match": "bytes",
+      "sha256": "f6d48b7443f092122d09505020222059e92cf8da72df1e77e16b5102c430d06e"
+    },
+    {
+      "from": "assets/outside/c-middle-object-1-a3ab6d.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_2_object1.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Layers/Legacy_area_C_midground_2_object1.png",
+      "match": "bytes",
+      "sha256": "a3ab6dbb5a8c98c4480044411325a62c2ea623eb2ba25c9a9bf7ce92c4a376b1"
+    },
+    {
+      "from": "assets/outside/characters/Chris_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/02.Chris/Chris_idle.png",
+      "source": "01.Characters/02.Outside/02.Chris/Chris_idle.png",
+      "match": "bytes",
+      "sha256": "21dae704c6d3eeabf794ad1fdaac05d5d073bda7a87f60289d98d4516840c559"
+    },
+    {
+      "from": "assets/outside/characters/GangNPC1_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC1_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC1_idle.png",
+      "match": "bytes",
+      "sha256": "929c913c3851f4f99b7fb21df108d532e29c3afaebc699c601565488788438b4"
+    },
+    {
+      "from": "assets/outside/characters/GangNPC2_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC2_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC2_idle.png",
+      "match": "bytes",
+      "sha256": "ee66c5b088e74639aa378047e78fd084c42fab6f3b3ddb360784ea9422a44969"
+    },
+    {
+      "from": "assets/outside/characters/GangNPC3_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC3_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC3_idle.png",
+      "match": "bytes",
+      "sha256": "41f6963c183b5507a4d8d0fcfcdb7d28ed1e4dd8289f23180306ec61c07d2169"
+    },
+    {
+      "from": "assets/outside/characters/GangNPC4_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC4_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC4_idle.png",
+      "match": "bytes",
+      "sha256": "abb1ca45884435714ddb1e95e65db3840c683688dfc63ad186aedeec110bd3b9"
+    },
+    {
+      "from": "assets/outside/characters/GangNPC5_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC5_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/GangNPC5_idle.png",
+      "match": "bytes",
+      "sha256": "e34cfb793b2c901065901c42b95e6709b0ab39ecdc97911d0b45572cdab857df"
+    },
+    {
+      "from": "assets/outside/characters/Neighbor_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Neighbor_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/Neighbor_idle.png",
+      "match": "bytes",
+      "sha256": "4ade29b3b8ae4ff9db893b3728b7d40c852ae50aa1dcff81f7fce055d56ef561"
+    },
+    {
+      "from": "assets/outside/characters/Repairman_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Repairman_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/Repairman_idle.png",
+      "match": "bytes",
+      "sha256": "25a3f9a96936aa14be6b18fdcde98b644250fe87cc230f9120e7e3ba21d39e13"
+    },
+    {
+      "from": "assets/outside/characters/npc_m1_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_m1_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_m1_idle.png",
+      "match": "bytes",
+      "sha256": "bfe8d551b61d53317cfeef4af27d342a3a27a0461f032973552305b0f58fca76"
+    },
+    {
+      "from": "assets/outside/characters/npc_m2_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_m2_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_m2_idle.png",
+      "match": "bytes",
+      "sha256": "0a03e1e9fd872894e5905220d5481781048ccae160b431d554e6189c6ee605a4"
+    },
+    {
+      "from": "assets/outside/characters/npc_w1_idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/npc_w1_idle.png",
+      "source": "01.Characters/02.Outside/09.StreetNPC/Idle/npc_w1_idle.png",
+      "match": "bytes",
+      "sha256": "ae441cf8d1850d701f894cc0ff88f898e4381863ed8f4f2de737f9f63aee1985"
+    },
+    {
+      "from": "assets/outside/chris-home/Chrishouse1.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Chrishouse1.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Chrishouse1.png",
+      "match": "bytes",
+      "sha256": "76ddb63af901ee9c7ce622e1a8221a12242d9eb6eb1862bd1bb20a1ecaf33d1d"
+    },
+    {
+      "from": "assets/outside/chris-home/Chrishouse2.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Chrishouse2.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Chrishouse2.png",
+      "match": "bytes",
+      "sha256": "f1a7b199f44bda8ddf7f4f891ded60efc8783b246d0e44beb8a662a1d06f1b1d"
+    },
+    {
+      "from": "assets/outside/chris-home/Chrishouse_BG_City.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Chrishouse_BG_City.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Chrishouse_BG_City.png",
+      "match": "bytes",
+      "sha256": "22596ac84b8a49d79de5652aadaed20ae5d5963981332b29cf81738434eac0d5"
+    },
+    {
+      "from": "assets/outside/chris-home/Hanger.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Hanger.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Hanger.png",
+      "match": "bytes",
+      "sha256": "cd0635e2180fcab22756b7123ad622eec59c7911dd6c046db20a46f9ffc77a40"
+    },
+    {
+      "from": "assets/outside/chris-home/IntractObjects_Bedding.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/IntractObjects_Bedding.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/IntractObjects_Bedding.png",
+      "match": "bytes",
+      "sha256": "619e6ae098427b1042f33f4d2ed4d468b65fbf9467812a0daa3831b2fa7ae397"
+    },
+    {
+      "from": "assets/outside/chris-home/IntractObjects_Herbpot.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/IntractObjects_Herbpot.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/IntractObjects_Herbpot.png",
+      "match": "bytes",
+      "sha256": "67e6f97e4fab1d72444a3a95416c00378bf1cd8f062b1ccc2aee35785fa8d2bc"
+    },
+    {
+      "from": "assets/outside/chris-home/IntractObjects_TV.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/IntractObjects_TV.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/IntractObjects_TV.png",
+      "match": "bytes",
+      "sha256": "93cafb825dd5782f38351fc8946b73aa75be6220f2aa06467494127cf659cf51"
+    },
+    {
+      "from": "assets/outside/chris-home/Room_Entrance.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Room_Entrance.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Room_Entrance.png",
+      "match": "bytes",
+      "sha256": "67a3be7da118ce5d1c0224e5a76b95a69497dcf469ee143cf42806332b930ad2"
+    },
+    {
+      "from": "assets/outside/chris-home/Terrace_Entrance.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Terrace_Entrance.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Terrace_Entrance.png",
+      "match": "bytes",
+      "sha256": "7c052072db66af622b941cd48728d0c8717cbb3f6c65be33152b4dc718b6f25d"
+    },
+    {
+      "from": "assets/outside/city-light-v16-9979d0.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png",
+      "match": "bytes",
+      "sha256": "9979d0c3ee3a1569f478a461d5168076be2e8398e9d148a51b7991a77e818a58"
+    },
+    {
+      "from": "assets/outside/city-light-v20-988956.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png",
+      "match": "bytes",
+      "sha256": "9889560ece3f012470cf2dbaa889540db98fb5d64631a35483d31bd2c0001e40"
+    },
+    {
+      "from": "assets/outside/city-light-v9-f3c350.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+      "match": "bytes",
+      "sha256": "f3c3502a56c3c733f68010723c5fd1e3a93389648a647be207c0310f5310effb"
+    },
+    {
+      "from": "assets/outside/effects/b-light-1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+      "match": "bytes",
+      "sha256": "c5577b027416a0ae7c24dcaca4cf457c785bf1cf89f4ce599ef22fba8a09f6e7"
+    },
+    {
+      "from": "assets/outside/elavator-a6cb4f.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_body.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_body.png",
+      "match": "bytes",
+      "sha256": "a6cb4f2caa2edce31b419d557cd7299aad56f656f336db1d10ece76a24f28dfe"
+    },
+    {
+      "from": "assets/outside/elavator-fore-7804fb.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_front_layer.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_front_layer.png",
+      "match": "bytes",
+      "sha256": "7804fb0ce01e52cdffa21ec070398992475c03a8cca95a3fdf716047cb3b8958"
+    },
+    {
+      "from": "assets/outside/elevator-door-d6d9f0.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_door.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_door.png",
+      "match": "bytes",
+      "sha256": "d6d9f0b9c4056c458ba84a8158ff4aabe4b1d87baa088029d6e2894fdcb84060"
+    },
+    {
+      "from": "assets/outside/elevator-line-a2c3aa.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_support.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Elevator/Legacy_elevator_support.png",
+      "match": "bytes",
+      "sha256": "a2c3aaa197a0318ee268f1f325718356d674213e72d6e497bb61c0e3da3c4149"
+    },
+    {
+      "from": "assets/outside/hanger-cd0635.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Hanger.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Hanger.png",
+      "match": "bytes",
+      "sha256": "cd0635e2180fcab22756b7123ad622eec59c7911dd6c046db20a46f9ffc77a40"
+    },
+    {
+      "from": "assets/outside/intract-objects-e4adec.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+      "source": "02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+      "match": "bytes",
+      "sha256": "e4adecb8ff1c9c0e59071fa30f012292fef812e1c86fcb1c5f819ad29f6d5a34"
+    },
+    {
+      "from": "assets/outside/luna-v2-idle-sheet-62634d.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png",
+      "source": "01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png",
+      "match": "bytes",
+      "sha256": "62634d34afb4448e1a2a04e38a52b81944012d2a9d871f5fb3273c7f4e4a738d"
+    },
+    {
+      "from": "assets/outside/luna-v2-run-sheet-fe7fa3.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_run_Sheet.png",
+      "source": "01.Characters/02.Outside/01.Luna/Legacy/luna_v2_run_Sheet.png",
+      "match": "bytes",
+      "sha256": "fe7fa3033bbd2cc5aec17785b19e044c1e79b273d4157578405245c7515b9ae5"
+    },
+    {
+      "from": "assets/outside/luna-v2-walk-sheet-778581.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_walk_Sheet.png",
+      "source": "01.Characters/02.Outside/01.Luna/Legacy/luna_v2_walk_Sheet.png",
+      "match": "bytes",
+      "sha256": "778581864a76583d9357ab3c837d7614aab0a6a91509b4f7e7ffd18a305cfe7d"
+    },
+    {
+      "from": "assets/outside/room-entrance-67a3be.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Room_Entrance.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Room_Entrance.png",
+      "match": "bytes",
+      "sha256": "67a3be7da118ce5d1c0224e5a76b95a69497dcf469ee143cf42806332b930ad2"
+    },
+    {
+      "from": "assets/outside/samho-dead-opning-sheet-755259.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/SAMHO_DEAD_OPNING_Sheet.png",
+      "source": "01.Characters/02.Outside/03.Samho/Legacy/SAMHO_DEAD_OPNING_Sheet.png",
+      "match": "bytes",
+      "sha256": "75525934b9714fd86d94660f6e59918ba3d40a07e2750c9b2a68daa93f658026"
+    },
+    {
+      "from": "assets/outside/samho-idle-blink-sheet-4bdaf8.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_BLINK_Sheet.png",
+      "source": "01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_BLINK_Sheet.png",
+      "match": "bytes",
+      "sha256": "4bdaf8a66fd58dc631d49f2b5d427c75c8f5d12fcc3de9eb04a302b751b70f79"
+    },
+    {
+      "from": "assets/outside/samho-idle.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png",
+      "source": "01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png",
+      "match": "bytes",
+      "sha256": "69131c9923f9cfb919ce48c43b7afa5e089312592f530afb2f56366744517b2d"
+    },
+    {
+      "from": "assets/outside/samho-run.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_RUN3_Sheet.png",
+      "source": "01.Characters/02.Outside/03.Samho/Legacy/samho_RUN3_Sheet.png",
+      "match": "bytes",
+      "sha256": "9195c21f9a468d61541ef5d1b3d0ab52de32deb9f32b495e2a029a2a60e82cd6"
+    },
+    {
+      "from": "assets/outside/sky-077d7e.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/Sprites/Legacy_sky.png",
+      "source": "02.Environments/02.Street/Legacy/Sprites/Legacy_sky.png",
+      "match": "bytes",
+      "sha256": "077d7eeeba7ded061ae2af457da473e1ec83488ea63cb2f286e7bc944359881b"
+    },
+    {
+      "from": "assets/outside/street-20261018/Elevator/elevator_body.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png",
+      "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png",
+      "match": "bytes",
+      "sha256": "ff00773e1c236b50a48ae091720bf6e6d37e5ce8a15052cfb9c818a97aa90d6c"
+    },
+    {
+      "from": "assets/outside/street-20261018/Elevator/elevator_front_layer.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png",
+      "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png",
+      "match": "bytes",
+      "sha256": "22004ea0d82cab117e9c1e74b161454abb73041c134bef4f7edc0591533c13a2"
+    },
+    {
+      "from": "assets/outside/street-20261018/Elevator/elevator_support.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png",
+      "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png",
+      "match": "bytes",
+      "sha256": "43e95a93b638ca7c2baac37b39633db6bd964037069bad0aeaf3d67c9a75c53e"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/C_background_1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/C_background_1.png",
+      "match": "bytes",
+      "sha256": "1fc92c439ae4074645f586db6e24e04843011223df44369f2f144aaade443ca4"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/C_background_2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/C_background_2.png",
+      "match": "bytes",
+      "sha256": "f35580d25bba240b3ae3b43ef06c983bfb912296e02e6615f4b36afa4169fc71"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/C_midground_2_object1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png",
+      "match": "bytes",
+      "sha256": "1e7f6dd1772641d2f5b3fe9e0c8e93a22a7c4bcfff16854bb8d1149ae0d1de10"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_A_foreground_building.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
+      "match": "bytes",
+      "sha256": "750c588246ed25b9701bd4883bc120f451bfb053545354c6240f46bb52ba2362"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_B_foreground_building.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
+      "match": "bytes",
+      "sha256": "9fec89d0cae1b4e78377cb2946f6cbf1c71541ee51daee54736874f4407259fa"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_B_foreground_streetlight.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
+      "match": "bytes",
+      "sha256": "728c44ddd51ff4dbc04f46d55cf6aeb43c94686928adcb1a425ef732a49d8087"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_C_midground_1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
+      "match": "bytes",
+      "sha256": "70ba1773368da3ea1e29a3b627b022485975d33e8c0cd967ca3993ea713d1b63"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_C_midground_2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png",
+      "match": "bytes",
+      "sha256": "414d8ead98fc35b1e669ee989534617bf0ecce1c3838d617908878f552b2d7b8"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_C_midground_2_object2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png",
+      "match": "bytes",
+      "sha256": "03f80fd1fcf7ac6cceec9473faf56088a87e2284a32adbe8c7e5867def0941cd"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/area_C_midground_3.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
+      "match": "bytes",
+      "sha256": "c7753fa85a294c59475a96456a0dfb39449629d924cbd14c21da04030f297645"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/fence.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/fence.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/fence.png",
+      "match": "bytes",
+      "sha256": "e3aebb68e13740619721f150b47c0e7561191e212f48dd02dfb79edfdaec327b"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/floor_1_ground.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
+      "match": "bytes",
+      "sha256": "c3a2ce3157e15e3820ba52332d3cb88b17d52ec55bf53218a3186e5bb2dbb3d4"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/near_foreground_1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_1.png",
+      "match": "bytes",
+      "sha256": "0ed5983e090f987c3cdce18e02aa6038a619607b30f5f5346e8980f92b6affa3"
+    },
+    {
+      "from": "assets/outside/street-20261018/Layers/near_foreground_2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
+      "match": "bytes",
+      "sha256": "3c4b6cdfb1e4dc8ca1e384153a74b63b34e9a8870be4df90453718ff9bf7585a"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/A_light.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/A_light_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/A_light_1.png",
+      "match": "bytes",
+      "sha256": "1dbe7a83134a8d40c3983a76226fed3b71104f97393167c713c7affea262f5bf"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/A_light_2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/A_light_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/A_light_2.png",
+      "match": "bytes",
+      "sha256": "76347775ddbdd80d7eeb7529481668562fd7096286bb3f01b924c3bf543d4750"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/B_Light_1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+      "match": "bytes",
+      "sha256": "c5577b027416a0ae7c24dcaca4cf457c785bf1cf89f4ce599ef22fba8a09f6e7"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/B_Light_2.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/B_Light_2.png",
+      "match": "bytes",
+      "sha256": "5f40d6ffd22fa23df989e12741f47dcb3526c5b13872c4becc7222068fe16561"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/B_Light_3.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_3.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/B_Light_3.png",
+      "match": "bytes",
+      "sha256": "853714fb879b33c2f1b3e8e05de2a82e119eee79eac9f0ecea222e4f3f70b562"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/CityLight_v16.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png",
+      "match": "bytes",
+      "sha256": "9979d0c3ee3a1569f478a461d5168076be2e8398e9d148a51b7991a77e818a58"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/CityLight_v20.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png",
+      "match": "bytes",
+      "sha256": "9889560ece3f012470cf2dbaa889540db98fb5d64631a35483d31bd2c0001e40"
+    },
+    {
+      "from": "assets/outside/street-20261018/Lights/CityUpLight_v9.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+      "source": "02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+      "match": "bytes",
+      "sha256": "f3c3502a56c3c733f68010723c5fd1e3a93389648a647be207c0310f5310effb"
+    },
+    {
+      "from": "assets/outside/street-20261018/Objects/object_1.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Objects/object_1.png",
+      "match": "bytes",
+      "sha256": "d87dd989c75e9377d17f50c0773fbf0a4b88a39328f4abf7709e3316fac3c056"
+    },
+    {
+      "from": "assets/outside/street-20261018/sky.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/01.Sprites/sky.png",
+      "source": "02.Environments/02.Street/01.Sprites/sky.png",
+      "match": "bytes",
+      "sha256": "d7e6f7ebac751980f55ff8f40642628a66509bedc5f96e317b91828e8fd345df"
+    },
+    {
+      "from": "assets/outside/terrace-entrance-7c0520.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/Terrace_Entrance.png",
+      "source": "02.Environments/03.Home/01.Sprites/Current/Terrace_Entrance.png",
+      "match": "bytes",
+      "sha256": "7c052072db66af622b941cd48728d0c8717cbb3f6c65be33152b4dc718b6f25d"
+    },
+    {
+      "from": "assets/reference/previews/chris-home-fullshot.png",
+      "to": "assets/9_ArtResources/02.Environments/03.Home/chris_house_fullshot.png",
+      "source": "02.Environments/03.Home/chris_house_fullshot.png",
+      "match": "pixels",
+      "sha256": "5a56d0f4d511706a25c47e93bedb0197c699425f3dd87f47880100afcc2c2a58"
+    },
+    {
+      "from": "assets/serving/atlases/background.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png",
+      "match": "bytes",
+      "sha256": "b77a322250c4163be0e98570e91054e31d7cc2558a27073a5b12ef7fa4298609"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_beer.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_beer.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_beer.png",
+      "match": "bytes",
+      "sha256": "0aedfd9c7b0bd0b0a56584b7389915719d3f958bdadd0339efed2d7fc5e505bd"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_cosmopolitan.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_cosmopolitan.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_cosmopolitan.png",
+      "match": "bytes",
+      "sha256": "04a9b09f1604e1c091188ab2ee4f8b6fdf2ec9c317edeea5625ff257096734df"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_drymartini.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_drymartini.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_drymartini.png",
+      "match": "bytes",
+      "sha256": "6fb86589d5cb00dc85436535b2e69bfc3ef56ede811efa3537e0b15c8949f59f"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_gin_tonic.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_gin_tonic.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_gin_tonic.png",
+      "match": "bytes",
+      "sha256": "4bd17b1eab5e77b1e8851b7808bb277112642d2d8e138d90338d15648e7960f9"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_ginfizz.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_ginfizz.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_ginfizz.png",
+      "match": "bytes",
+      "sha256": "fc011f19c71f8e699116f469909657bf2d1a0f5e45755d4a10822e80bc14708d"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_kahluaMilk.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_kahluaMilk.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_kahluaMilk.png",
+      "match": "bytes",
+      "sha256": "e3965b448f90545aaaea04c9a4719d2ba7234fa1f53e65353aae23f01fa58b7e"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_screwdriver.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_screwdriver.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_screwdriver.png",
+      "match": "bytes",
+      "sha256": "71e7281d7f18279cbb41b7980faec7b51ad2ef4f897e3c540ac22b4348aca161"
+    },
+    {
+      "from": "assets/serving/atlases/give_drink_tequila_sunrise.png",
+      "to": "assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_tequila_sunrise.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_tequila_sunrise.png",
+      "match": "bytes",
+      "sha256": "d60093850f369c57ca28bf750f80652d6477c0376b8f412c4f864c8ff542df00"
+    },
+    {
+      "from": "assets/ui/choices/IMG_choice_A.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_A.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_choice_A.png",
+      "match": "bytes",
+      "sha256": "296d7539e5933f82c945e385b88f30f117eb131c6921638bbd497dcbf3cac9c3"
+    },
+    {
+      "from": "assets/ui/choices/IMG_choice_B.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_B.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_choice_B.png",
+      "match": "bytes",
+      "sha256": "7d13ea2ab13b37ce608e0e1b330ce5067acb9804fb4b2858278407649be0a7ed"
+    },
+    {
+      "from": "assets/ui/choices/IMG_choice_arrow.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_arrow.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_choice_arrow.png",
+      "match": "bytes",
+      "sha256": "a8b8dee7f9801df44345dcad4da2fd0fb128db293e3c9cd220288a34c2b90b2e"
+    },
+    {
+      "from": "assets/ui/dialogue/GRD_textbox.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox.png",
+      "source": "05.UI/01.Shared/MainScreen/GRD_textbox.png",
+      "match": "bytes",
+      "sha256": "8c0139da55b75aaa35906f34e180cbfb274eb4f395a9e66106386135c6677d2d"
+    },
+    {
+      "from": "assets/ui/dialogue/GRD_textbox_5.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_5.png",
+      "source": "05.UI/01.Shared/MainScreen/GRD_textbox_5.png",
+      "match": "bytes",
+      "sha256": "a25e3d777c6dc5e196829743bf1846320bec89fb01fe08b480cf2a7b189453d0"
+    },
+    {
+      "from": "assets/ui/dialogue/GRD_textbox_luna.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
+      "source": "05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
+      "match": "bytes",
+      "sha256": "13bf4fc6b910de146db295dd4bbd4866599720ec7096f366bcf240ba19db193e"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox.png",
+      "match": "bytes",
+      "sha256": "4853fa3e545ced84fe81417a9b36e2fd27ebc40b0d69e9891869b5c1f98f0a84"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_1.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_1.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_1.png",
+      "match": "bytes",
+      "sha256": "398ab0999e4242d4e2feab9f835e7d24dfcd9040a9d70bbca2e69a6bf8eb53c7"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_10.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_10.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_10.png",
+      "match": "bytes",
+      "sha256": "a0767386679d77c5d844169ad658736183f3c08a5fcdbd2859560e9477342fbe"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_11.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_11.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_11.png",
+      "match": "bytes",
+      "sha256": "a35416d462b5e0f82698fa02a14a677159ac3411cfb920610a856c31d6974673"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_2.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_2.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_2.png",
+      "match": "bytes",
+      "sha256": "a4d2b4fac87cdfecdba3db598426f36c2a1fc2f668dc5cda2b62d359fdc4744d"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_3.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_3.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_3.png",
+      "match": "bytes",
+      "sha256": "6f4d7972ae679a814e3df04750a5e3be10698783970d13272fc19fd3111a2c09"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_4.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_4.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_4.png",
+      "match": "bytes",
+      "sha256": "59282d65ace3a96da151d8d0d090cbcb1875b1788a75fc14c9ed0a31892a5cde"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_5.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_5.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_5.png",
+      "match": "bytes",
+      "sha256": "899724b83c943f74d4dd403f8f81e3333bb678060a80940370e5a3cdf9d11911"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_6.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_6.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_6.png",
+      "match": "bytes",
+      "sha256": "1491e4041be11e07b00ced270aef1895e4f1d4dcc39eb0e898feb1a31dab26b2"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_7.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_7.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_7.png",
+      "match": "bytes",
+      "sha256": "1fcc9826845e04d2a7aa08bab6c3f59b7a53fc83d2e5582c7637120a5196be36"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_8.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_8.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_8.png",
+      "match": "bytes",
+      "sha256": "9b73e3b05816bc6d7d4be2be9c1d9503bd6b7ca863f49f1c0997839a9ed558f3"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_9.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_9.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_9.png",
+      "match": "bytes",
+      "sha256": "089d568ac452e8c902f41595f7bf1d3611d0ed49a8e50683dda50309bc90dd71"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_tail_A.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_A.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_A.png",
+      "match": "bytes",
+      "sha256": "d3c1bfad77a540f7b3fe192ab92d55d1fee44a484fd44b437dce739ec6b50eaa"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_tail_B.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_B.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_B.png",
+      "match": "bytes",
+      "sha256": "bb1978bf3d8a1902a422934d2a268c71c2c185e710c52c27b5b89ed6d4daa988"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/GRD_textbox_tail_C.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_C.png",
+      "source": "05.UI/06.Ect/exterior_textbox/GRD_textbox_tail_C.png",
+      "match": "bytes",
+      "sha256": "7d2166f01bcb8f906292465c80c4d0ace68861f16c7f921b7e267cb78af6be33"
+    },
+    {
+      "from": "assets/ui/exterior-textbox/IMG_textbox_arrow.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png",
+      "source": "05.UI/06.Ect/exterior_textbox/IMG_textbox_arrow.png",
+      "match": "bytes",
+      "sha256": "41e39766c3d64cbc5eb2c33f9c2f628c5a10814fc47bc4e2c9b95fa42e2c5a4e"
+    },
+    {
+      "from": "assets/ui/imported/coaster.png",
+      "to": "assets/9_ArtResources/03.Crafting/05.Serving/Coasters/coaster.png",
+      "source": "03.Crafting/05.Serving/Coasters/coaster.png",
+      "match": "bytes",
+      "sha256": "06d38679b12e7c6cced2248d952ed0aebd842b347626e7c356a757e029c91adc"
+    },
+    {
+      "from": "assets/ui/imported/dialogue-luna.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
+      "source": "05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
+      "match": "bytes",
+      "sha256": "13bf4fc6b910de146db295dd4bbd4866599720ec7096f366bcf240ba19db193e"
+    },
+    {
+      "from": "assets/ui/imported/dialogue.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox.png",
+      "source": "05.UI/01.Shared/MainScreen/GRD_textbox.png",
+      "match": "bytes",
+      "sha256": "8c0139da55b75aaa35906f34e180cbfb274eb4f395a9e66106386135c6677d2d"
+    },
+    {
+      "from": "assets/ui/imported/logo.png",
+      "to": "assets/9_ArtResources/05.UI/02.Title/Logo/IMG_logo_white.png",
+      "source": "05.UI/02.Title/Logo/IMG_logo_white.png",
+      "match": "bytes",
+      "sha256": "c6b5b7879ba1fe71acd797289534fd5d2c57340e1e8c93426e5f65ec5edd74e1"
+    },
+    {
+      "from": "assets/ui/imported/mix-shake-motion.png",
+      "to": "assets/9_ArtResources/03.Crafting/04.Minigames/02.Shake/01.Sprites/Legacy_shake.png",
+      "source": "03.Crafting/04.Minigames/02.Shake/01.Sprites/Legacy_shake.png",
+      "match": "bytes",
+      "sha256": "13b9651639b3772db9415ca6c971a80344f94d392a738e04c5cf3ce03efd5092"
+    },
+    {
+      "from": "assets/ui/imported/mix-stir-motion.png",
+      "to": "assets/9_ArtResources/03.Crafting/04.Minigames/03.Stir/01.Sprites/stir_Sheet.png",
+      "source": "03.Crafting/04.Minigames/03.Stir/01.Sprites/stir_Sheet.png",
+      "match": "bytes",
+      "sha256": "1e6b1e16081d94ec7e82d52d1878828750d9f8dc911616c9332c42538809feb8"
+    },
+    {
+      "from": "assets/ui/imported/mix-stir-reference.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/stirring_minigame_V3.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/stirring_minigame_V3.png",
+      "match": "bytes",
+      "sha256": "63d7ce7888fb67dd23b7d3c0d86187042dbdd71198ce97039431b3d38e23429d"
+    },
+    {
+      "from": "assets/ui/imported/money.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_money.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_money.png",
+      "match": "bytes",
+      "sha256": "a68bcda5c0d8a112fba6a4b18cf26a142157d917b96ca752531b69fe6b7d1659"
+    },
+    {
+      "from": "assets/ui/imported/next.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_textbox_Next.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_textbox_Next.png",
+      "match": "bytes",
+      "sha256": "d995c93d2b39b844d3ca01c46f0336550657586427871daa2cf328df1e2dbcf4"
+    },
+    {
+      "from": "assets/ui/outside/IMG_quest_background.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/IMG_quest_background.png",
+      "source": "05.UI/06.Ect/IMG_quest_background.png",
+      "match": "bytes",
+      "sha256": "579943ca63699bd2d952b705e9574b13521abbdbd098fe5961db083c998f2636"
+    },
+    {
+      "from": "assets/ui/outside/IMG_quest_light.png",
+      "to": "assets/9_ArtResources/05.UI/06.Ect/IMG_quest_light.png",
+      "source": "05.UI/06.Ect/IMG_quest_light.png",
+      "match": "bytes",
+      "sha256": "7c95970740ec17aa5e4e5db17758ddda0cdd8e2f24da15a4b1236708f8fb00b4"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_arrow_L_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_L_A.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_arrow_L_A.png",
+      "match": "bytes",
+      "sha256": "65335dc40a6bf3c0e89ac2a2880d570817979b37d5d7f42f07b9ea6de33b8396"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_arrow_L_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_L_B.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_arrow_L_B.png",
+      "match": "bytes",
+      "sha256": "cff19098a1a752076ea5ab47e038ca9742ed14c3c2c3e411a479be3ff94325ea"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_arrow_R_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_R_A.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_arrow_R_A.png",
+      "match": "bytes",
+      "sha256": "dcb61cabd3845bd1fca768dafa2e0a4093236ea2adbb9847bc548470c3c50502"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_arrow_R_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_arrow_R_B.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_arrow_R_B.png",
+      "match": "bytes",
+      "sha256": "a94a756766b43f1bc6df4718251d4d308a10965687cab1601c49ae8fda7296a0"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_recipe.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_recipe.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_recipe.png",
+      "match": "bytes",
+      "sha256": "bc907e498b297333b0da4ac9e6b04c9ca210ecb91b5ce384e4a4510e50c07002"
+    },
+    {
+      "from": "assets/ui/preparation/BTN_start.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/BTN_start.png",
+      "source": "05.UI/04.Crafting/01.Preparation/BTN_start.png",
+      "match": "bytes",
+      "sha256": "017b4a125712928085a05b365226fab656caf0a76c9f9192fef95e5f4bed2d38"
+    },
+    {
+      "from": "assets/ui/preparation/GRD_igd_info_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_A.png",
+      "source": "05.UI/04.Crafting/01.Preparation/GRD_igd_info_A.png",
+      "match": "bytes",
+      "sha256": "6dc937455c75cf18062cb6bb1d6179e8bd5ebf9a2b7c849cd0f7d1f41509d814"
+    },
+    {
+      "from": "assets/ui/preparation/GRD_igd_info_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_B.png",
+      "source": "05.UI/04.Crafting/01.Preparation/GRD_igd_info_B.png",
+      "match": "bytes",
+      "sha256": "339e081702236b4c87c6466a5fb67897569b0ed8c51e21866940f1ac0414abd4"
+    },
+    {
+      "from": "assets/ui/preparation/GRD_igd_info_D.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/GRD_igd_info_D.png",
+      "source": "05.UI/04.Crafting/01.Preparation/GRD_igd_info_D.png",
+      "match": "bytes",
+      "sha256": "d472674eb94b7377ce6b779353345a2f414ace14c9b46f48eabb61af618a7293"
+    },
+    {
+      "from": "assets/ui/preparation/IMG_igd_backround.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_backround.png",
+      "source": "05.UI/04.Crafting/01.Preparation/IMG_igd_backround.png",
+      "match": "bytes",
+      "sha256": "99796d6a9199bd93816a39ca85aeff4282b082edf7f449a0545b6b2eb3c5e852"
+    },
+    {
+      "from": "assets/ui/preparation/IMG_igd_box_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_box_A.png",
+      "source": "05.UI/04.Crafting/01.Preparation/IMG_igd_box_A.png",
+      "match": "bytes",
+      "sha256": "2391c13fe4320b351ab87c425b5a1fe7e1fe2a17ea8bf172f5e15ec7c9728608"
+    },
+    {
+      "from": "assets/ui/preparation/IMG_igd_box_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/IMG_igd_box_B.png",
+      "source": "05.UI/04.Crafting/01.Preparation/IMG_igd_box_B.png",
+      "match": "bytes",
+      "sha256": "e08cd3bfb7ec64e94ac1b25a088b58cd3cdf32b884b7691424d91ea2387311df"
+    },
+    {
+      "from": "assets/ui/preparation/IMG_indicator_A.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_indicator_A.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_indicator_A.png",
+      "match": "bytes",
+      "sha256": "8068f79768c4964c917b91753e652477a9279b619ea146757b53d03e037bf069"
+    },
+    {
+      "from": "assets/ui/preparation/IMG_indicator_B.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_indicator_B.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_indicator_B.png",
+      "match": "bytes",
+      "sha256": "ac3c5804b91878afce4453d789f6fe5a24f0523429098ea21940835b05c0a62e"
+    },
+    {
+      "from": "assets/ui/preparation/recipes/BTN_recipe_close.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/BTN_recipe_close.png",
+      "source": "05.UI/04.Crafting/01.Preparation/Recipes/BTN_recipe_close.png",
+      "match": "bytes",
+      "sha256": "a7f02bf53571f538b4f714495652ce2c27d5347df1a66b22ed8b92e1f46034e4"
+    },
+    {
+      "from": "assets/ui/preparation/recipes/IMG_ESC.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_ESC.png",
+      "source": "05.UI/04.Crafting/01.Preparation/Recipes/IMG_ESC.png",
+      "match": "bytes",
+      "sha256": "40075050deb84c4d775fafc9868b8d0b9bd3e175f56ade4a7ad9f8de35813231"
+    },
+    {
+      "from": "assets/ui/preparation/recipes/IMG_cocktail_box.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_cocktail_box.png",
+      "source": "05.UI/04.Crafting/01.Preparation/Recipes/IMG_cocktail_box.png",
+      "match": "bytes",
+      "sha256": "a1e966b8f46b7d3a947382efc3420e0c7eb761a4dd80026c10713af7327e8187"
+    },
+    {
+      "from": "assets/ui/preparation/recipes/IMG_recipe_box.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_box.png",
+      "source": "05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_box.png",
+      "match": "bytes",
+      "sha256": "d3bc899a089aa2633a92e1763a1ad76a8de123b24a6df6b586e87f4eb3b474c9"
+    },
+    {
+      "from": "assets/ui/preparation/recipes/IMG_recipe_igd_box.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_igd_box.png",
+      "source": "05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_igd_box.png",
+      "match": "bytes",
+      "sha256": "7f4a6d0cac1c23845160137a90e9192861c9c493ce8a5349a5ea816b0520ae9a"
+    },
+    {
+      "from": "assets/ui/profile/BG_profile.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/BG_profile.png",
+      "source": "05.UI/05.Profile/BG_profile.png",
+      "match": "bytes",
+      "sha256": "cc0c09eef07061254a22b2fd536d6963e339c66b40cf2c92f82f839bfbb3e2f1"
+    },
+    {
+      "from": "assets/ui/profile/BG_profile_bar.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/BG_profile_bar.png",
+      "source": "05.UI/05.Profile/BG_profile_bar.png",
+      "match": "bytes",
+      "sha256": "d17db98ba82e0b8cb9f01ab74c0b6038dc5ff99e3015b07dae88223620e27e58"
+    },
+    {
+      "from": "assets/ui/profile/BTN_profile_close.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/BTN_profile_close.png",
+      "source": "05.UI/05.Profile/BTN_profile_close.png",
+      "match": "bytes",
+      "sha256": "1a50d94ad016549ef6d0f2cab4846308a1cd66b66f88ed07e71df10b795e3169"
+    },
+    {
+      "from": "assets/ui/profile/IMG_ESC.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_ESC.png",
+      "source": "05.UI/05.Profile/IMG_ESC.png",
+      "match": "bytes",
+      "sha256": "111043d749c8a7421ff1e3363f83847bd48b3b64055f549108f641930f25b484"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_A.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A.png",
+      "source": "05.UI/05.Profile/IMG_card_A.png",
+      "match": "bytes",
+      "sha256": "a19307cb23998378b208311bdc085f7eafea6897a808fe1e5c38f06365e140d9"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_A_frame.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A_frame.png",
+      "source": "05.UI/05.Profile/IMG_card_A_frame.png",
+      "match": "bytes",
+      "sha256": "528e2885d90d353d786a4399ea02748089646395dd7dd0221af0c100416b0470"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_A_icon.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_A_icon.png",
+      "source": "05.UI/05.Profile/IMG_card_A_icon.png",
+      "match": "bytes",
+      "sha256": "3b09c34e7208304e88153796e912fbe3b3df565902e0513146213e65e80a67da"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_B.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_B.png",
+      "source": "05.UI/05.Profile/IMG_card_B.png",
+      "match": "bytes",
+      "sha256": "4d4ea2abb91f31653c1578a7514696154e21bbfcffd7e45e5cb7378d3d746e21"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_B_frame.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_B_frame.png",
+      "source": "05.UI/05.Profile/IMG_card_B_frame.png",
+      "match": "bytes",
+      "sha256": "c8ade54658e5849caa0417283cccb843f75cb06b5f2e37e77eb6e86a11704057"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_C.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_C.png",
+      "source": "05.UI/05.Profile/IMG_card_C.png",
+      "match": "bytes",
+      "sha256": "791d6b1a069f30f75628305228df7645df1371736342010a7e21df653563d6f2"
+    },
+    {
+      "from": "assets/ui/profile/IMG_card_C_frame.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_card_C_frame.png",
+      "source": "05.UI/05.Profile/IMG_card_C_frame.png",
+      "match": "bytes",
+      "sha256": "8e414ea145aae823527bee9f6a6da5ae5076f68fec5b31d8ffac678b54a11473"
+    },
+    {
+      "from": "assets/ui/profile/IMG_scroll_thumb.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_scroll_thumb.png",
+      "source": "05.UI/05.Profile/IMG_scroll_thumb.png",
+      "match": "bytes",
+      "sha256": "c04ffc4e9a575cd1a63b74a53f9a3395c4d1c0c811e9425a508d2523d924430f"
+    },
+    {
+      "from": "assets/ui/profile/IMG_scroll_track.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_scroll_track.png",
+      "source": "05.UI/05.Profile/IMG_scroll_track.png",
+      "match": "bytes",
+      "sha256": "1d5ee92aea58b2e32ed57645b66efecc0587c44ff55eb7bfc540ddf675ebed1e"
+    },
+    {
+      "from": "assets/ui/profile/IMG_title_profile.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/IMG_title_profile.png",
+      "source": "05.UI/05.Profile/IMG_title_profile.png",
+      "match": "bytes",
+      "sha256": "6895f661f7b4797fa0213066bb1f1a09cac79f00209396f5a277892d761ae3bd"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/BTN_profile_window_close.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/BTN_profile_window_close.png",
+      "source": "05.UI/05.Profile/profile_window/BTN_profile_window_close.png",
+      "match": "bytes",
+      "sha256": "7dbc6bd795308f1a2cdb3518555ff0f5f50935c8ea0b8221d38f0947dcb5cbcf"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_ESC.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_ESC.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_ESC.png",
+      "match": "bytes",
+      "sha256": "aa3cba67535cbe09f29c6d011aee30c7addd584fbd914e146959a92679bf37eb"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_card_L.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_L.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_card_L.png",
+      "match": "bytes",
+      "sha256": "6b6131e9d66f97d195a9b90aa8f49fbae453498de18d9dd238670fad9f83dc98"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_card_L_frame.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_L_frame.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_card_L_frame.png",
+      "match": "bytes",
+      "sha256": "c90573b4802a954b08542374aa4b7aa7dc35599bb5387dc8e6d986a71dfdeb8d"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_card_R.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_R.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_card_R.png",
+      "match": "bytes",
+      "sha256": "c1967289919c57a1c65943460ee01f4df30baf98d8f8cb3c1e6d2c3182c4c55b"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_card_R_frame.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_card_R_frame.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_card_R_frame.png",
+      "match": "bytes",
+      "sha256": "392b60422128da6079f56100a9c15b185f393bfa61c89d194e81e06f77a19803"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_friendship_A.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_A.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_friendship_A.png",
+      "match": "bytes",
+      "sha256": "c6c5dcae8a3171961971b2e3ef2c690c8997bf2925790ada7073216dae0e8219"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_friendship_B.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_friendship_B.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_friendship_B.png",
+      "match": "bytes",
+      "sha256": "0dce456f534f3b464c52b8ca336e19f5d17a8a73043745092b193b29070f631e"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_scroll_thumb.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_thumb.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_scroll_thumb.png",
+      "match": "bytes",
+      "sha256": "fe31417c952db63f7e289c6812d9f58af3f4aeaf6a139efa99c99109d315b4a0"
+    },
+    {
+      "from": "assets/ui/profile/profile_window/IMG_scroll_track.png",
+      "to": "assets/9_ArtResources/05.UI/05.Profile/profile_window/IMG_scroll_track.png",
+      "source": "05.UI/05.Profile/profile_window/IMG_scroll_track.png",
+      "match": "bytes",
+      "sha256": "748f6ab3866cc901d04b4a5b56d33ae61e77aacd7ad0c8200653ffb7c4331fdf"
+    },
+    {
+      "from": "assets/ui/recipe_choice/BTN_recipe_choice_A.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_A.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_A.png",
+      "match": "bytes",
+      "sha256": "d8dc13a434fd93f49d2751aa2e47e89997679ec633b75ff983849d7c6cbd3017"
+    },
+    {
+      "from": "assets/ui/recipe_choice/BTN_recipe_choice_B.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_B.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_B.png",
+      "match": "bytes",
+      "sha256": "c14022cd047269242b6fa8c8c295e71381fd61e7b0913a94b4946cba35477285"
+    },
+    {
+      "from": "assets/ui/recipe_choice/BTN_recipe_choice_close.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_close.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_close.png",
+      "match": "bytes",
+      "sha256": "f2e49bc12011222e2c6438d71f3ff621a24ec846e930d78733e34bdf8cf1b976"
+    },
+    {
+      "from": "assets/ui/recipe_choice/IMG_ESC.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_ESC.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/IMG_ESC.png",
+      "match": "bytes",
+      "sha256": "60f2d84ad6b11989b89d1c41aec963c5fa145beec9418b3ccccd01551852cf81"
+    },
+    {
+      "from": "assets/ui/recipe_choice/IMG_recipe_choice_box.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_recipe_choice_box.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/IMG_recipe_choice_box.png",
+      "match": "bytes",
+      "sha256": "58871c380591a07564f121d73167b0eaac1959fc7f98d49155ea65d1afe319b4"
+    },
+    {
+      "from": "assets/ui/recipe_choice/IMG_scroll_thumb.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_thumb.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_thumb.png",
+      "match": "bytes",
+      "sha256": "1edbd6524d646fc4de88bed79d5d6af4cea68c35876a457cdb0de48a346027ca"
+    },
+    {
+      "from": "assets/ui/recipe_choice/IMG_scroll_track.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_track.png",
+      "source": "05.UI/01.Shared/MainScreen/recipe_choice/IMG_scroll_track.png",
+      "match": "bytes",
+      "sha256": "9761519a6faa7fc177792b4946d21eb70adb32ea5b66f23c256ab785941fb78c"
+    },
+    {
+      "from": "assets/ui/service_panel/BTN_service_A.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_A.png",
+      "source": "05.UI/01.Shared/MainScreen/service_panel/BTN_service_A.png",
+      "match": "bytes",
+      "sha256": "92172a668c02408ec16692a4a863f16d58a0f19b83b0a0031d242f1023dc84ce"
+    },
+    {
+      "from": "assets/ui/service_panel/BTN_service_B.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_B.png",
+      "source": "05.UI/01.Shared/MainScreen/service_panel/BTN_service_B.png",
+      "match": "bytes",
+      "sha256": "7e05b740cccac1053737d862504279e1d69683d8c25211f9317d21fa2e1571d4"
+    },
+    {
+      "from": "assets/ui/service_panel/BTN_service_close.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_close.png",
+      "source": "05.UI/01.Shared/MainScreen/service_panel/BTN_service_close.png",
+      "match": "bytes",
+      "sha256": "afa820ef18f34c6418c4dce320a5ebb1ed5d098457be2309aa83ba94cd3f0aa5"
+    },
+    {
+      "from": "assets/ui/service_panel/BTN_service_panel.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/BTN_service_panel.png",
+      "source": "05.UI/01.Shared/MainScreen/service_panel/BTN_service_panel.png",
+      "match": "bytes",
+      "sha256": "ae8d60df81b86456a941f01d403fc1f10d4aadba70a38563e6f9fe491f8172e4"
+    },
+    {
+      "from": "assets/ui/service_panel/IMG_ESC.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/service_panel/IMG_ESC.png",
+      "source": "05.UI/01.Shared/MainScreen/service_panel/IMG_ESC.png",
+      "match": "bytes",
+      "sha256": "382aed552e5cb284b8b05926cdd75f9f476ebf046e2c3c767dc7bde909fb7f76"
+    },
+    {
+      "from": "assets/ui/serving/IMG_box_coaster.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_coaster.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_box_coaster.png",
+      "match": "bytes",
+      "sha256": "198e61fef49a396d0acc3ead79476fcd39c3f5b08a5e78ef803d0b0f00336ec5"
+    },
+    {
+      "from": "assets/ui/serving/IMG_box_cocktail.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_cocktail.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_box_cocktail.png",
+      "match": "bytes",
+      "sha256": "4160c76777d74f38de0be5f27d555324cce2954f3879234162777604fa2bf6e1"
+    },
+    {
+      "from": "assets/ui/serving/IMG_shadow_cocktail.png",
+      "to": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_shadow_cocktail.png",
+      "source": "05.UI/01.Shared/MainScreen/IMG_shadow_cocktail.png",
+      "match": "bytes",
+      "sha256": "f7cc18731be6157bd929b6d460d5a2ee1b78821ce8f73fa8c38d4de94f77ac97"
+    },
+    {
+      "from": "assets/ui/stir/BG_stir.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir.png",
+      "match": "bytes",
+      "sha256": "30d6179191518a200dcb71f9fa8acb5f4d2c4dfb9b23648dd896bbe668a2d310"
+    },
+    {
+      "from": "assets/ui/stir/BG_stir_line.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir_line.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/BG_stir_line.png",
+      "match": "bytes",
+      "sha256": "1687686375ab30c73bce57afa0dd85a3f0f8ee9d3609af2cdb1c0f644b4aec39"
+    },
+    {
+      "from": "assets/ui/stir/BTN_key_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_A.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_A.png",
+      "match": "bytes",
+      "sha256": "78c935e3a0640a0222a5db1cee70ef001f45dc4acb770f73e8a75d39d149a7c9"
+    },
+    {
+      "from": "assets/ui/stir/BTN_key_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_B.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_B.png",
+      "match": "bytes",
+      "sha256": "f4c77ac45461d4b9d17cddfb8d6c96aa2df07b0301710c0e639e6f4235917d70"
+    },
+    {
+      "from": "assets/ui/stir/BTN_key_C.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_C.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/BTN_key_C.png",
+      "match": "bytes",
+      "sha256": "2fd38e8d300713ae631ba552e9789b005aca1597ab6444b453a3aa36d131e724"
+    },
+    {
+      "from": "assets/ui/stir/GAU_stir_basic.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_basic.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_basic.png",
+      "match": "bytes",
+      "sha256": "acadc44ea57e05815d87d5641b6235cf3817601dc22212bd664e34ec1c132908"
+    },
+    {
+      "from": "assets/ui/stir/GAU_stir_fail.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_fail.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_fail.png",
+      "match": "bytes",
+      "sha256": "6af1a97413fae439d6370094f80d3851d0309a58d95203e7d58f56073b1af58f"
+    },
+    {
+      "from": "assets/ui/stir/GAU_stir_round_A.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_A.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_A.png",
+      "match": "bytes",
+      "sha256": "8daf7607e3f2d14a7ae2ce7f3df45438b55d1bd99558bf1f1c6e4f66ea7b7401"
+    },
+    {
+      "from": "assets/ui/stir/GAU_stir_round_B.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_B.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_round_B.png",
+      "match": "bytes",
+      "sha256": "ccecee3886cce990649f49aef2a9f3000ebec417e43c331c319899387b92dd04"
+    },
+    {
+      "from": "assets/ui/stir/GAU_stir_success.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_success.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/GAU_stir_success.png",
+      "match": "bytes",
+      "sha256": "b1c6b002178a1b879b5be661a66cd50b76a168c77e82a3401d83cd1fd879ed06"
+    },
+    {
+      "from": "assets/ui/stir/ICN_sitr_time.png",
+      "to": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/ICN_sitr_time.png",
+      "source": "05.UI/04.Crafting/04.Minigames/03.Stir/ICN_sitr_time.png",
+      "match": "bytes",
+      "sha256": "c83f5aafcd6741eaba926da086d04491d03cda0e54464608931c5ea53fa0d53f"
+    },
+    {
+      "from": "assets/ui/title/street-full.png",
+      "to": "assets/9_ArtResources/02.Environments/02.Street/Legacy/exterior_full_shot.png",
+      "source": "02.Environments/02.Street/Legacy/exterior_full_shot.png",
+      "match": "bytes",
+      "sha256": "e751ff7085b5d73fa3f4d1bfc272535154a325c797224a22d48ed4aacb98e254"
+    },
+    {
+      "from": "../assets/prototype/animations/30.gif",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/04.Bubi/Legacy/cat_animation2.gif",
+      "source": "01.Characters/02.Outside/04.Bubi/Legacy/cat_animation2.gif",
+      "match": "bytes",
+      "sha256": "c9da0078cc34880a27174cb1dc642e369cd4576dc9d42637c2ac7b6360859058"
+    },
+    {
+      "from": "../assets/prototype/cocktail/C_3.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
+      "match": "bytes",
+      "sha256": "4a09bc34298f70a514442384630e96b7d5627edd6d71dbb931a4d704e865e86b"
+    },
+    {
+      "from": "../assets/prototype/cocktail/C_4.png",
+      "to": "assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_mojito_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_mojito_final.png",
+      "match": "bytes",
+      "sha256": "2bb43b0979edaf26b0c53d747fbd531d92c7b6c7df5ab4e198f64063b4406a70"
+    },
+    {
+      "from": "../cutscene-studio/assets/opening/luna-sleep.png",
+      "to": "assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Sleep/luna_sleep.png",
+      "source": "01.Characters/02.Outside/01.Luna/Sleep/luna_sleep.png",
+      "match": "bytes",
+      "sha256": "4f7370df53f11a09a13fe3ff70be3aa24f7cd9f6c15f24656664f659ac9285ad"
+    }
+  ]
+}

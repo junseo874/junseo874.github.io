@@ -1,7 +1,7 @@
 {
   "assets": {
     "bar": {
-      "src": "assets/backgrounds/bar/bar.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_full_shot.png",
       "w": 2041,
       "h": 792,
       "source": "1. 배경 (내부)/1. 대화 화면/대화화면 풀샷.png",
@@ -13,7 +13,7 @@
       ]
     },
     "bar_far": {
-      "src": "assets/backgrounds/bar/bar-far.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_background.png",
       "w": 2041,
       "h": 792,
       "source": "1. 배경 (내부)/1. 대화 화면/대화화면 원경.png",
@@ -25,7 +25,7 @@
       ]
     },
     "bar_mid": {
-      "src": "assets/backgrounds/bar/bar-mid.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_midground.png",
       "w": 2041,
       "h": 792,
       "source": "1. 배경 (내부)/1. 대화 화면/대화화면 중경.png",
@@ -37,7 +37,7 @@
       ]
     },
     "bar_front": {
-      "src": "assets/backgrounds/bar/bar-front.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/01.Dialogue/dialogue_screen_foreground.png",
       "w": 2041,
       "h": 792,
       "source": "1. 배경 (내부)/1. 대화 화면/대화화면 근경.png",
@@ -73,7 +73,7 @@
       ]
     },
     "prep_liquor": {
-      "src": "assets/backgrounds/bar/prep-liquor.png?v=warm-shelf-20261019",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/02.Preparation/regular_shelf.png?v=warm-shelf-20261019",
       "w": 960,
       "h": 540,
       "source": "1. 배경 (내부)/2. 재료 담는 화면/일반 선반.png",
@@ -85,7 +85,7 @@
       ]
     },
     "prep_fridge": {
-      "src": "assets/backgrounds/bar/prep-fridge.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/02.Preparation/refrigerator_shelf.png",
       "w": 960,
       "h": 540,
       "source": "refrigerator_shelf.png",
@@ -97,7 +97,7 @@
       ]
     },
     "gimmick": {
-      "src": "assets/backgrounds/bar/gimmick.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
       "w": 490,
       "h": 280,
       "source": "1. 배경 (내부)/3. 기믹 플레이 화면/칵테일 제조 기믹.png",
@@ -109,7 +109,7 @@
       ]
     },
     "gimmick_shake": {
-      "src": "assets/backgrounds/bar/gimmick-shake.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
       "w": 970,
       "h": 550,
       "source": "1. 배경 (내부)/3. 기믹 플레이 화면/쉐이킹 기믹.png",
@@ -121,7 +121,7 @@
       ]
     },
     "gimmick_stir": {
-      "src": "assets/backgrounds/bar/gimmick-stir.png",
+      "src": "assets/9_ArtResources/02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
       "w": 970,
       "h": 550,
       "source": "1. 배경 (내부)/3. 기믹 플레이 화면/스터 기믹.png",
@@ -133,7 +133,7 @@
       ]
     },
     "coaster": {
-      "src": "assets/ui/imported/coaster.png",
+      "src": "assets/9_ArtResources/03.Crafting/05.Serving/Coasters/coaster.png",
       "w": 83,
       "h": 27,
       "source": "6. 칵테일-재료 리소스/8. 코스터/코스터.png",
@@ -145,7 +145,7 @@
       ]
     },
     "dialogue": {
-      "src": "assets/ui/imported/dialogue.png",
+      "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox.png",
       "w": 1625,
       "h": 446,
       "source": "8. UI/3. 메인 화면/GRD_textbox.png",
@@ -157,7 +157,7 @@
       ]
     },
     "dialogue_luna": {
-      "src": "assets/ui/imported/dialogue-luna.png",
+      "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_luna.png",
       "w": 1625,
       "h": 358,
       "source": "8. UI/3. 메인 화면/GRD_textbox_luna.png",
@@ -181,7 +181,7 @@
       ]
     },
     "next": {
-      "src": "assets/ui/imported/next.png",
+      "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_textbox_Next.png",
       "w": 31,
       "h": 30,
       "source": "8. UI/3. 메인 화면/IMG_textbox_Next.png",
@@ -193,7 +193,7 @@
       ]
     },
     "money": {
-      "src": "assets/ui/imported/money.png",
+      "src": "assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_money.png",
       "w": 542,
       "h": 108,
       "source": "8. UI/3. 메인 화면/IMG_money.png",
@@ -205,7 +205,7 @@
       ]
     },
     "logo": {
-      "src": "assets/ui/imported/logo.png",
+      "src": "assets/9_ArtResources/05.UI/02.Title/Logo/IMG_logo_white.png",
       "w": 1340,
       "h": 660,
       "source": "8. UI/1. 로고/IMG_logo_white.png",
@@ -217,7 +217,7 @@
       ]
     },
     "item_gin": {
-      "src": "assets/items/item-gin.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/gin.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/진.png",
@@ -229,7 +229,7 @@
       ]
     },
     "item_whiskey": {
-      "src": "assets/items/item-whiskey.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/johnnie_walker_whisky.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/조니워커_위스키.png",
@@ -241,7 +241,7 @@
       ]
     },
     "item_vodka": {
-      "src": "assets/items/item-vodka.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grey_goose_vodka.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/그레이구스_보드카.png",
@@ -253,7 +253,7 @@
       ]
     },
     "item_rum": {
-      "src": "assets/items/item-rum.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/bacardi_rum.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/바카디_럼.png",
@@ -265,7 +265,7 @@
       ]
     },
     "item_grenadine": {
-      "src": "assets/items/item-grenadine.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/grenadine_syrup.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/그레나딘_시럽.png",
@@ -277,7 +277,7 @@
       ]
     },
     "item_sour_mix": {
-      "src": "assets/items/item-sour-mix.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/sour_mix.png",
       "w": 57,
       "h": 171,
       "source": "6. 칵테일-재료 리소스/3. 일반 선반/사워믹스.png",
@@ -301,7 +301,7 @@
       ]
     },
     "item_soda_water": {
-      "src": "assets/items/item-soda-water.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/sparkling_water.png",
       "w": 93,
       "h": 119,
       "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/탄산수.png",
@@ -325,7 +325,7 @@
       ]
     },
     "item_champagne": {
-      "src": "assets/items/item-champagne.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/champagne.png",
       "w": 93,
       "h": 223,
       "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/샴페인.png",
@@ -337,7 +337,7 @@
       ]
     },
     "item_dry_vermouth": {
-      "src": "assets/items/item-dry-vermouth.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/martini_dry_vermouth.png",
       "w": 93,
       "h": 223,
       "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/마티니_드라이버무스.png",
@@ -349,7 +349,7 @@
       ]
     },
     "item_red_wine": {
-      "src": "assets/items/item-red-wine.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png",
       "w": 93,
       "h": 223,
       "source": "6. 칵테일-재료 리소스/4. 냉장고 선반/레드와인.png",
@@ -361,7 +361,7 @@
       ]
     },
     "item_shaker": {
-      "src": "assets/items/item-shaker.png",
+      "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/shaker.png",
       "w": 70,
       "h": 115,
       "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/쉐이커.png",
@@ -373,7 +373,7 @@
       ]
     },
     "item_mixing_glass": {
-      "src": "assets/items/item-mixing-glass.png",
+      "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/mixing_glass.png",
       "w": 70,
       "h": 115,
       "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/믹싱 글라스.png",
@@ -385,7 +385,7 @@
       ]
     },
     "item_opener": {
-      "src": "assets/items/item-opener.png",
+      "src": "assets/9_ArtResources/03.Crafting/01.Preparation/Tools/X1/bottle_opener.png",
       "w": 70,
       "h": 115,
       "source": "6. 칵테일-재료 리소스/2. 도구 - 재료 담는 화면/병따개.png",
@@ -549,7 +549,7 @@
       ]
     },
     "cocktail_godfather": {
-      "src": "assets/cocktails/static/cocktail-godfather.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png",
       "w": 200,
       "h": 345,
       "frames": 1,
@@ -565,7 +565,7 @@
       ]
     },
     "guest_m_eyebrow_6": {
-      "src": "assets/characters/guests/guest-m-eyebrow-6.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_6.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_6.png",
@@ -577,7 +577,7 @@
       ]
     },
     "guest_m_eyebrow_4": {
-      "src": "assets/characters/guests/guest-m-eyebrow-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_4.png",
@@ -589,7 +589,7 @@
       ]
     },
     "guest_m_eyebrow_5": {
-      "src": "assets/characters/guests/guest-m-eyebrow-5.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_5.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_5.png",
@@ -601,7 +601,7 @@
       ]
     },
     "guest_m_eyebrow_1": {
-      "src": "assets/characters/guests/guest-m-eyebrow-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_1.png",
@@ -613,7 +613,7 @@
       ]
     },
     "guest_m_Acc_1": {
-      "src": "assets/characters/guests/guest-m-acc-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/Acc_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/Acc_1.png",
@@ -625,7 +625,7 @@
       ]
     },
     "guest_m_eyebrow_2": {
-      "src": "assets/characters/guests/guest-m-eyebrow-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_2.png",
@@ -637,7 +637,7 @@
       ]
     },
     "guest_m_Acc_2": {
-      "src": "assets/characters/guests/guest-m-acc-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/Acc_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/Acc_2.png",
@@ -649,7 +649,7 @@
       ]
     },
     "guest_m_eyebrow_3": {
-      "src": "assets/characters/guests/guest-m-eyebrow-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyebrow_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyebrow_3.png",
@@ -661,7 +661,7 @@
       ]
     },
     "guest_m_eyes_4": {
-      "src": "assets/characters/guests/guest-m-eyes-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyes_4.png",
@@ -673,7 +673,7 @@
       ]
     },
     "guest_m_body": {
-      "src": "assets/characters/guests/guest-m-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/body.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/body.png",
@@ -685,7 +685,7 @@
       ]
     },
     "guest_m_eyes_3": {
-      "src": "assets/characters/guests/guest-m-eyes-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyes_3.png",
@@ -697,7 +697,7 @@
       ]
     },
     "guest_m_eyes_2": {
-      "src": "assets/characters/guests/guest-m-eyes-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyes_2.png",
@@ -709,7 +709,7 @@
       ]
     },
     "guest_m_eyes_1": {
-      "src": "assets/characters/guests/guest-m-eyes-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/eyes_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/eyes_1.png",
@@ -721,7 +721,7 @@
       ]
     },
     "guest_m_hair_1": {
-      "src": "assets/characters/guests/guest-m-hair-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/hair_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/hair_1.png",
@@ -733,7 +733,7 @@
       ]
     },
     "guest_m_hair_2": {
-      "src": "assets/characters/guests/guest-m-hair-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/hair_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/hair_2.png",
@@ -745,7 +745,7 @@
       ]
     },
     "guest_m_cyberware_1": {
-      "src": "assets/characters/guests/guest-m-cyberware-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/cyberware_1.png",
@@ -757,7 +757,7 @@
       ]
     },
     "guest_m_cyberware_3": {
-      "src": "assets/characters/guests/guest-m-cyberware-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/cyberware_3.png",
@@ -769,7 +769,7 @@
       ]
     },
     "guest_m_cyberware_2": {
-      "src": "assets/characters/guests/guest-m-cyberware-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/cyberware_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/cyberware_2.png",
@@ -781,7 +781,7 @@
       ]
     },
     "guest_m_mouth_2": {
-      "src": "assets/characters/guests/guest-m-mouth-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_2.png",
@@ -793,7 +793,7 @@
       ]
     },
     "guest_m_mouth_3": {
-      "src": "assets/characters/guests/guest-m-mouth-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_3.png",
@@ -805,7 +805,7 @@
       ]
     },
     "guest_m_mouth_1": {
-      "src": "assets/characters/guests/guest-m-mouth-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_1.png",
@@ -817,7 +817,7 @@
       ]
     },
     "guest_m_mouth_4": {
-      "src": "assets/characters/guests/guest-m-mouth-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_4.png",
@@ -829,7 +829,7 @@
       ]
     },
     "guest_m_mouth_5": {
-      "src": "assets/characters/guests/guest-m-mouth-5.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/mouth_5.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_5.png",
@@ -841,7 +841,7 @@
       ]
     },
     "guest_m_top_1": {
-      "src": "assets/characters/guests/guest-m-top-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/top_1.png",
@@ -853,7 +853,7 @@
       ]
     },
     "guest_m_top_3": {
-      "src": "assets/characters/guests/guest-m-top-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/top_3.png",
@@ -865,7 +865,7 @@
       ]
     },
     "guest_m_top_2": {
-      "src": "assets/characters/guests/guest-m-top-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/top_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/top_2.png",
@@ -877,7 +877,7 @@
       ]
     },
     "guest_f_eyebrow_6": {
-      "src": "assets/characters/guests/guest-f-eyebrow-6.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_6.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_6.png",
@@ -889,7 +889,7 @@
       ]
     },
     "guest_f_eyebrow_4": {
-      "src": "assets/characters/guests/guest-f-eyebrow-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_4.png",
@@ -901,7 +901,7 @@
       ]
     },
     "guest_f_eyebrow_5": {
-      "src": "assets/characters/guests/guest-f-eyebrow-5.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_5.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_5.png",
@@ -913,7 +913,7 @@
       ]
     },
     "guest_f_eyebrow_1": {
-      "src": "assets/characters/guests/guest-f-eyebrow-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_1.png",
@@ -925,7 +925,7 @@
       ]
     },
     "guest_f_Acc_1": {
-      "src": "assets/characters/guests/guest-f-acc-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/Acc_1.png",
@@ -937,7 +937,7 @@
       ]
     },
     "guest_f_eyebrow_2": {
-      "src": "assets/characters/guests/guest-f-eyebrow-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_2.png",
@@ -949,7 +949,7 @@
       ]
     },
     "guest_f_Acc_3": {
-      "src": "assets/characters/guests/guest-f-acc-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/Acc_3.png",
@@ -961,7 +961,7 @@
       ]
     },
     "guest_f_Acc_2": {
-      "src": "assets/characters/guests/guest-f-acc-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Acc_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/Acc_2.png",
@@ -973,7 +973,7 @@
       ]
     },
     "guest_f_eyebrow_3": {
-      "src": "assets/characters/guests/guest-f-eyebrow-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyebrow_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyebrow_3.png",
@@ -985,7 +985,7 @@
       ]
     },
     "guest_f_eyes_4": {
-      "src": "assets/characters/guests/guest-f-eyes-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyes_4.png",
@@ -997,7 +997,7 @@
       ]
     },
     "guest_f_body": {
-      "src": "assets/characters/guests/guest-f-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/body.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/body.png",
@@ -1009,7 +1009,7 @@
       ]
     },
     "guest_f_eyes_3": {
-      "src": "assets/characters/guests/guest-f-eyes-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyes_3.png",
@@ -1021,7 +1021,7 @@
       ]
     },
     "guest_f_eyes_2": {
-      "src": "assets/characters/guests/guest-f-eyes-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyes_2.png",
@@ -1033,7 +1033,7 @@
       ]
     },
     "guest_f_eyes_1": {
-      "src": "assets/characters/guests/guest-f-eyes-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/eyes_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/eyes_1.png",
@@ -1045,7 +1045,7 @@
       ]
     },
     "guest_f_hair_1": {
-      "src": "assets/characters/guests/guest-f-hair-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/hair_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/hair_1.png",
@@ -1057,7 +1057,7 @@
       ]
     },
     "guest_f_hair_2": {
-      "src": "assets/characters/guests/guest-f-hair-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/hair_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/hair_2.png",
@@ -1069,7 +1069,7 @@
       ]
     },
     "guest_f_mouth_2": {
-      "src": "assets/characters/guests/guest-f-mouth-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_2.png",
@@ -1081,7 +1081,7 @@
       ]
     },
     "guest_f_mouth_3": {
-      "src": "assets/characters/guests/guest-f-mouth-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_3.png",
@@ -1093,7 +1093,7 @@
       ]
     },
     "guest_f_mouth_1": {
-      "src": "assets/characters/guests/guest-f-mouth-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_1.png",
@@ -1105,7 +1105,7 @@
       ]
     },
     "guest_f_mouth_4": {
-      "src": "assets/characters/guests/guest-f-mouth-4.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_4.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_4.png",
@@ -1117,7 +1117,7 @@
       ]
     },
     "guest_f_mouth_5": {
-      "src": "assets/characters/guests/guest-f-mouth-5.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/mouth_5.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_5.png",
@@ -1129,7 +1129,7 @@
       ]
     },
     "guest_f_top_1": {
-      "src": "assets/characters/guests/guest-f-top-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/top_1.png",
@@ -1141,7 +1141,7 @@
       ]
     },
     "guest_f_top_3": {
-      "src": "assets/characters/guests/guest-f-top-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_3.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/top_3.png",
@@ -1153,7 +1153,7 @@
       ]
     },
     "guest_f_top_2": {
-      "src": "assets/characters/guests/guest-f-top-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/top_2.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/top_2.png",
@@ -1165,7 +1165,7 @@
       ]
     },
     "char_chris_Chris_idle_default_body": {
-      "src": "assets/characters/chris/char-chris-chris-idle-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/body.png",
@@ -1181,7 +1181,7 @@
       ]
     },
     "char_chris_Chris_idle_default_face_top": {
-      "src": "assets/characters/chris/char-chris-chris-idle-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/face_top.png",
@@ -1197,7 +1197,7 @@
       ]
     },
     "char_chris_Chris_idle_default_eyes": {
-      "src": "assets/characters/chris/char-chris-chris-idle-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/eyes.png",
@@ -1213,7 +1213,7 @@
       ]
     },
     "char_chris_Chris_idle_default_eyebrow": {
-      "src": "assets/characters/chris/char-chris-chris-idle-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/eyebrow.png",
@@ -1229,7 +1229,7 @@
       ]
     },
     "char_chris_Chris_idle_default_face_bottom_default": {
-      "src": "assets/characters/chris/char-chris-chris-idle-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/default/face_bottom_default.png",
@@ -1245,7 +1245,7 @@
       ]
     },
     "char_chris_Chris_idle_talk_body": {
-      "src": "assets/characters/chris/char-chris-chris-idle-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/body.png",
@@ -1261,7 +1261,7 @@
       ]
     },
     "char_chris_Chris_idle_talk_face_top": {
-      "src": "assets/characters/chris/char-chris-chris-idle-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/face_top.png",
@@ -1277,7 +1277,7 @@
       ]
     },
     "char_chris_Chris_idle_talk_eyes": {
-      "src": "assets/characters/chris/char-chris-chris-idle-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/eyes.png",
@@ -1293,7 +1293,7 @@
       ]
     },
     "char_chris_Chris_idle_talk_eyebrow": {
-      "src": "assets/characters/chris/char-chris-chris-idle-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/eyebrow.png",
@@ -1309,7 +1309,7 @@
       ]
     },
     "char_chris_Chris_idle_talk_face_bottom_talk": {
-      "src": "assets/characters/chris/char-chris-chris-idle-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Idle/Talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/크리스/Chris_idle/talk/face_bottom_talk.png",
@@ -1325,7 +1325,7 @@
       ]
     },
     "char_port_port_idle_default_body": {
-      "src": "assets/characters/port/char-port-port-idle-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/default/body.png",
@@ -1341,7 +1341,7 @@
       ]
     },
     "char_port_port_idle_default_face_top": {
-      "src": "assets/characters/port/char-port-port-idle-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/default/face_top.png",
@@ -1357,7 +1357,7 @@
       ]
     },
     "char_port_port_idle_default_eyes": {
-      "src": "assets/characters/port/char-port-port-idle-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/default/eyes.png",
@@ -1373,7 +1373,7 @@
       ]
     },
     "char_port_port_idle_default_eyebrow": {
-      "src": "assets/characters/port/char-port-port-idle-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/default/eyebrow.png",
@@ -1389,7 +1389,7 @@
       ]
     },
     "char_port_port_idle_default_face_bottom_default": {
-      "src": "assets/characters/port/char-port-port-idle-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/default/face_bottom_default.png",
@@ -1405,7 +1405,7 @@
       ]
     },
     "char_port_port_idle_talk_body": {
-      "src": "assets/characters/port/char-port-port-idle-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/talk/body.png",
@@ -1421,7 +1421,7 @@
       ]
     },
     "char_port_port_idle_talk_face_top": {
-      "src": "assets/characters/port/char-port-port-idle-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/talk/face_top.png",
@@ -1437,7 +1437,7 @@
       ]
     },
     "char_port_port_idle_talk_eyes": {
-      "src": "assets/characters/port/char-port-port-idle-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/talk/eyes.png",
@@ -1453,7 +1453,7 @@
       ]
     },
     "char_port_port_idle_talk_eyebrow": {
-      "src": "assets/characters/port/char-port-port-idle-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/talk/eyebrow.png",
@@ -1469,7 +1469,7 @@
       ]
     },
     "char_port_port_idle_talk_face_bottom_talk": {
-      "src": "assets/characters/port/char-port-port-idle-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Idle/Talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_idle/talk/face_bottom_talk.png",
@@ -1485,7 +1485,7 @@
       ]
     },
     "char_port_port_joy_default_body": {
-      "src": "assets/characters/port/char-port-port-joy-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/default/body.png",
@@ -1501,7 +1501,7 @@
       ]
     },
     "char_port_port_joy_default_face_top": {
-      "src": "assets/characters/port/char-port-port-joy-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/default/face_top.png",
@@ -1517,7 +1517,7 @@
       ]
     },
     "char_port_port_joy_default_eyes": {
-      "src": "assets/characters/port/char-port-port-joy-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/default/eyes.png",
@@ -1533,7 +1533,7 @@
       ]
     },
     "char_port_port_joy_default_eyebrow": {
-      "src": "assets/characters/port/char-port-port-joy-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/default/eyebrow.png",
@@ -1549,7 +1549,7 @@
       ]
     },
     "char_port_port_joy_default_face_bottom_default": {
-      "src": "assets/characters/port/char-port-port-joy-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/default/face_bottom_default.png",
@@ -1565,7 +1565,7 @@
       ]
     },
     "char_port_port_joy_talk_body": {
-      "src": "assets/characters/port/char-port-port-joy-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/talk/body.png",
@@ -1581,7 +1581,7 @@
       ]
     },
     "char_port_port_joy_talk_face_top": {
-      "src": "assets/characters/port/char-port-port-joy-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/talk/face_top.png",
@@ -1597,7 +1597,7 @@
       ]
     },
     "char_port_port_joy_talk_eyes": {
-      "src": "assets/characters/port/char-port-port-joy-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/talk/eyes.png",
@@ -1613,7 +1613,7 @@
       ]
     },
     "char_port_port_joy_talk_eyebrow": {
-      "src": "assets/characters/port/char-port-port-joy-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/talk/eyebrow.png",
@@ -1629,7 +1629,7 @@
       ]
     },
     "char_port_port_joy_talk_face_bottom_talk": {
-      "src": "assets/characters/port/char-port-port-joy-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Success/talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_joy/talk/face_bottom_talk.png",
@@ -1645,7 +1645,7 @@
       ]
     },
     "char_port_port_anger_default_body": {
-      "src": "assets/characters/port/char-port-port-anger-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/default/body.png",
@@ -1661,7 +1661,7 @@
       ]
     },
     "char_port_port_anger_default_face_top": {
-      "src": "assets/characters/port/char-port-port-anger-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/default/face_top.png",
@@ -1677,7 +1677,7 @@
       ]
     },
     "char_port_port_anger_default_eyes": {
-      "src": "assets/characters/port/char-port-port-anger-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/default/eyes.png",
@@ -1693,7 +1693,7 @@
       ]
     },
     "char_port_port_anger_default_eyebrow": {
-      "src": "assets/characters/port/char-port-port-anger-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/default/eyebrow.png",
@@ -1709,7 +1709,7 @@
       ]
     },
     "char_port_port_anger_default_face_bottom_default": {
-      "src": "assets/characters/port/char-port-port-anger-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/default/face_bottom_default.png",
@@ -1725,7 +1725,7 @@
       ]
     },
     "char_port_port_anger_talk_body": {
-      "src": "assets/characters/port/char-port-port-anger-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/talk/body.png",
@@ -1741,7 +1741,7 @@
       ]
     },
     "char_port_port_anger_talk_face_top": {
-      "src": "assets/characters/port/char-port-port-anger-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/talk/face_top.png",
@@ -1757,7 +1757,7 @@
       ]
     },
     "char_port_port_anger_talk_eyes": {
-      "src": "assets/characters/port/char-port-port-anger-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/talk/eyes.png",
@@ -1773,7 +1773,7 @@
       ]
     },
     "char_port_port_anger_talk_eyebrow": {
-      "src": "assets/characters/port/char-port-port-anger-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/talk/eyebrow.png",
@@ -1789,7 +1789,7 @@
       ]
     },
     "char_port_port_anger_talk_face_bottom_talk": {
-      "src": "assets/characters/port/char-port-port-anger-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Fail/talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/포트/port_anger/talk/face_bottom_talk.png",
@@ -1805,7 +1805,7 @@
       ]
     },
     "char_port_port_serious_default_body": {
-      "src": "assets/characters/port/char-port-port-serious-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/body.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/default/body.png",
@@ -1821,7 +1821,7 @@
       ]
     },
     "char_port_port_serious_default_face_top": {
-      "src": "assets/characters/port/char-port-port-serious-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_top.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/default/face_top.png",
@@ -1837,7 +1837,7 @@
       ]
     },
     "char_port_port_serious_default_eyes": {
-      "src": "assets/characters/port/char-port-port-serious-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyes.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/default/eyes.png",
@@ -1853,7 +1853,7 @@
       ]
     },
     "char_port_port_serious_default_eyebrows": {
-      "src": "assets/characters/port/char-port-port-serious-default-eyebrows.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/eyebrows.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/default/eyebrows.png",
@@ -1869,7 +1869,7 @@
       ]
     },
     "char_port_port_serious_default_face_bottom_default": {
-      "src": "assets/characters/port/char-port-port-serious-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/default/face_bottom_default.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/default/face_bottom_default.png",
@@ -1885,7 +1885,7 @@
       ]
     },
     "char_port_port_serious_talk_body": {
-      "src": "assets/characters/port/char-port-port-serious-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/body.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/talk/body.png",
@@ -1901,7 +1901,7 @@
       ]
     },
     "char_port_port_serious_talk_face_top": {
-      "src": "assets/characters/port/char-port-port-serious-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_top.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/talk/face_top.png",
@@ -1917,7 +1917,7 @@
       ]
     },
     "char_port_port_serious_talk_eyes": {
-      "src": "assets/characters/port/char-port-port-serious-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyes.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/talk/eyes.png",
@@ -1933,7 +1933,7 @@
       ]
     },
     "char_port_port_serious_talk_eyebrows": {
-      "src": "assets/characters/port/char-port-port-serious-talk-eyebrows.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/eyebrows.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/talk/eyebrows.png",
@@ -1949,7 +1949,7 @@
       ]
     },
     "char_port_port_serious_talk_face_bottom_talk": {
-      "src": "assets/characters/port/char-port-port-serious-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/Emotion/Serious/talk/face_bottom_talk.png",
       "w": 1492,
       "h": 352,
       "source": "4. 캐릭터 (내부)/포트/port_serious/talk/face_bottom_talk.png",
@@ -1965,7 +1965,7 @@
       ]
     },
     "char_aili_idle_default_body": {
-      "src": "assets/characters/aili/char-aili-idle-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/default/body.png",
@@ -1981,7 +1981,7 @@
       ]
     },
     "char_aili_idle_default_face_top": {
-      "src": "assets/characters/aili/char-aili-idle-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/default/face_top.png",
@@ -1997,7 +1997,7 @@
       ]
     },
     "char_aili_idle_default_eyes": {
-      "src": "assets/characters/aili/char-aili-idle-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/default/eyes.png",
@@ -2013,7 +2013,7 @@
       ]
     },
     "char_aili_idle_default_eyebrow": {
-      "src": "assets/characters/aili/char-aili-idle-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/default/eyebrow.png",
@@ -2029,7 +2029,7 @@
       ]
     },
     "char_aili_idle_default_face_bottom_default": {
-      "src": "assets/characters/aili/char-aili-idle-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/default/face_bottom_default.png",
@@ -2045,7 +2045,7 @@
       ]
     },
     "char_aili_idle_talk_body": {
-      "src": "assets/characters/aili/char-aili-idle-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/talk/body.png",
@@ -2061,7 +2061,7 @@
       ]
     },
     "char_aili_idle_talk_face_top": {
-      "src": "assets/characters/aili/char-aili-idle-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/talk/face_top.png",
@@ -2077,7 +2077,7 @@
       ]
     },
     "char_aili_idle_talk_eyes": {
-      "src": "assets/characters/aili/char-aili-idle-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/talk/eyes.png",
@@ -2093,7 +2093,7 @@
       ]
     },
     "char_aili_idle_talk_eyebrow": {
-      "src": "assets/characters/aili/char-aili-idle-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/talk/eyebrow.png",
@@ -2109,7 +2109,7 @@
       ]
     },
     "char_aili_idle_talk_face_bottom_talk": {
-      "src": "assets/characters/aili/char-aili-idle-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Idle/Talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/아일리/idle/talk/face_bottom_talk.png",
@@ -2125,7 +2125,7 @@
       ]
     },
     "char_samho_idle_default_body": {
-      "src": "assets/characters/samho/char-samho-idle-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/default/body.png",
@@ -2141,7 +2141,7 @@
       ]
     },
     "char_samho_idle_default_face_top": {
-      "src": "assets/characters/samho/char-samho-idle-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/default/face_top.png",
@@ -2157,7 +2157,7 @@
       ]
     },
     "char_samho_idle_default_eyes": {
-      "src": "assets/characters/samho/char-samho-idle-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/default/eyes.png",
@@ -2173,7 +2173,7 @@
       ]
     },
     "char_samho_idle_default_eyebrow": {
-      "src": "assets/characters/samho/char-samho-idle-default-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/default/eyebrow.png",
@@ -2189,7 +2189,7 @@
       ]
     },
     "char_samho_idle_default_face_bottom_default": {
-      "src": "assets/characters/samho/char-samho-idle-default-face-bottom-default.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Default/face_bottom_default.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/default/face_bottom_default.png",
@@ -2205,7 +2205,7 @@
       ]
     },
     "char_samho_idle_talk_body": {
-      "src": "assets/characters/samho/char-samho-idle-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/body.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/talk/body.png",
@@ -2221,7 +2221,7 @@
       ]
     },
     "char_samho_idle_talk_face_top": {
-      "src": "assets/characters/samho/char-samho-idle-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/face_top.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/talk/face_top.png",
@@ -2237,7 +2237,7 @@
       ]
     },
     "char_samho_idle_talk_eyes": {
-      "src": "assets/characters/samho/char-samho-idle-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/eyes.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/talk/eyes.png",
@@ -2253,7 +2253,7 @@
       ]
     },
     "char_samho_idle_talk_eyebrow": {
-      "src": "assets/characters/samho/char-samho-idle-talk-eyebrow.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/eyebrow.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/talk/eyebrow.png",
@@ -2269,7 +2269,7 @@
       ]
     },
     "char_samho_idle_talk_face_bottom_talk": {
-      "src": "assets/characters/samho/char-samho-idle-talk-face-bottom-talk.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Idle/Talk/face_bottom_talk.png",
       "w": 2204,
       "h": 530,
       "source": "4. 캐릭터 (내부)/삼호/idle/talk/face_bottom_talk.png",
@@ -2285,7 +2285,7 @@
       ]
     },
     "char_bubi_idle_default_body": {
-      "src": "assets/characters/bubi/char-bubi-idle-default-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/body.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/default/body.png",
@@ -2301,7 +2301,7 @@
       ]
     },
     "char_bubi_idle_default_face_top": {
-      "src": "assets/characters/bubi/char-bubi-idle-default-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/face_top.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/default/face_top.png",
@@ -2317,7 +2317,7 @@
       ]
     },
     "char_bubi_idle_default_eyes": {
-      "src": "assets/characters/bubi/char-bubi-idle-default-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/eyes.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/default/eyes.png",
@@ -2333,7 +2333,7 @@
       ]
     },
     "char_bubi_idle_talk_body": {
-      "src": "assets/characters/bubi/char-bubi-idle-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/body.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/talk/body.png",
@@ -2349,7 +2349,7 @@
       ]
     },
     "char_bubi_idle_talk_face_top": {
-      "src": "assets/characters/bubi/char-bubi-idle-talk-face-top.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/face_top.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/talk/face_top.png",
@@ -2365,7 +2365,7 @@
       ]
     },
     "char_bubi_idle_talk_eyes": {
-      "src": "assets/characters/bubi/char-bubi-idle-talk-eyes.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/eyes.png",
       "w": 4408,
       "h": 530,
       "source": "4. 캐릭터 (내부)/부비/idle/talk/eyes.png",
@@ -2384,7 +2384,7 @@
       "src": "assets/fonts/font.ttf"
     },
     "guest_m_talk_body": {
-      "src": "assets/characters/guests/guest-m-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/bady.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2400,7 +2400,7 @@
       ]
     },
     "guest_m_talk_eyes_1": {
-      "src": "assets/characters/guests/guest-m-talk-eyes-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_1.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2416,7 +2416,7 @@
       ]
     },
     "guest_m_talk_mouth_1": {
-      "src": "assets/characters/guests/guest-m-talk-mouth-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_1.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2432,7 +2432,7 @@
       ]
     },
     "guest_m_talk_eyes_2": {
-      "src": "assets/characters/guests/guest-m-talk-eyes-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_2.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2448,7 +2448,7 @@
       ]
     },
     "guest_m_talk_mouth_2": {
-      "src": "assets/characters/guests/guest-m-talk-mouth-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_2.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2464,7 +2464,7 @@
       ]
     },
     "guest_m_talk_eyes_3": {
-      "src": "assets/characters/guests/guest-m-talk-eyes-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/eyes_3.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2480,7 +2480,7 @@
       ]
     },
     "guest_m_talk_mouth_3": {
-      "src": "assets/characters/guests/guest-m-talk-mouth-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Male/talk/face_bottom_3.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2496,7 +2496,7 @@
       ]
     },
     "guest_f_talk_body": {
-      "src": "assets/characters/guests/guest-f-talk-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/body.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2512,7 +2512,7 @@
       ]
     },
     "guest_f_talk_eyes_1": {
-      "src": "assets/characters/guests/guest-f-talk-eyes-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_1.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2528,7 +2528,7 @@
       ]
     },
     "guest_f_talk_mouth_1": {
-      "src": "assets/characters/guests/guest-f-talk-mouth-1.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_1.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2544,7 +2544,7 @@
       ]
     },
     "guest_f_talk_eyes_2": {
-      "src": "assets/characters/guests/guest-f-talk-eyes-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_2.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2560,7 +2560,7 @@
       ]
     },
     "guest_f_talk_mouth_2": {
-      "src": "assets/characters/guests/guest-f-talk-mouth-2.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_2.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2576,7 +2576,7 @@
       ]
     },
     "guest_f_talk_eyes_3": {
-      "src": "assets/characters/guests/guest-f-talk-eyes-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_top_3.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2592,7 +2592,7 @@
       ]
     },
     "guest_f_talk_mouth_3": {
-      "src": "assets/characters/guests/guest-f-talk-mouth-3.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/09.Customers/Female/Talk/face_bottom_3.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2608,7 +2608,7 @@
       ]
     },
     "char_bubi_idle_default_face_bottom": {
-      "src": "assets/characters/bubi/char-bubi-idle-default-face-bottom.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Default/face_bottom.png",
       "w": 4408,
       "h": 530,
       "frames": 8,
@@ -2624,7 +2624,7 @@
       ]
     },
     "char_bubi_idle_talk_face_bottom": {
-      "src": "assets/characters/bubi/char-bubi-idle-talk-face-bottom.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/04.Bubi/Idle/Talk/face_bottom.png",
       "w": 4408,
       "h": 530,
       "frames": 8,
@@ -2640,7 +2640,7 @@
       ]
     },
     "char_chris_anger_full": {
-      "src": "assets/characters/chris/char-chris-anger-full.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Fail/enger.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2656,7 +2656,7 @@
       ]
     },
     "char_chris_joy_full": {
-      "src": "assets/characters/chris/char-chris-joy-full.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Success/fun.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2672,7 +2672,7 @@
       ]
     },
     "expr_aili_success": {
-      "src": "assets/characters/expressions/expr-aili-success.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Emotion/Success/success.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2688,7 +2688,7 @@
       ]
     },
     "expr_aili_fail": {
-      "src": "assets/characters/expressions/expr-aili-fail.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/06.Aili/Emotion/Fail/fail.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2704,7 +2704,7 @@
       ]
     },
     "expr_chris_success": {
-      "src": "assets/characters/chris/char-chris-joy-full.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Success/fun.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2720,7 +2720,7 @@
       ]
     },
     "expr_chris_fail": {
-      "src": "assets/characters/chris/char-chris-anger-full.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/02.Chris/Emotion/Fail/enger.png",
       "w": 551,
       "h": 530,
       "frames": 1,
@@ -2736,7 +2736,7 @@
       ]
     },
     "expr_port_event_surprise": {
-      "src": "assets/characters/expressions/expr-port-event-surprise.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/05.Port/90.Unused/port_surprised.png",
       "w": 641,
       "h": 550,
       "frames": 1,
@@ -2752,7 +2752,7 @@
       ]
     },
     "expr_samho_success": {
-      "src": "assets/characters/expressions/expr-samho-success.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Success/success.png",
       "w": 386,
       "h": 301,
       "frames": 1,
@@ -2768,7 +2768,7 @@
       ]
     },
     "expr_samho_fail": {
-      "src": "assets/characters/expressions/expr-samho-fail.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Fail/fail.png",
       "w": 386,
       "h": 310,
       "frames": 1,
@@ -2800,7 +2800,7 @@
       ]
     },
     "char_samho_drink_body": {
-      "src": "assets/characters/samho/char-samho-drink-body.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Drunk/body.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2816,7 +2816,7 @@
       ]
     },
     "char_samho_drink_face_bottom": {
-      "src": "assets/characters/samho/char-samho-drink-face-bottom.png",
+      "src": "assets/9_ArtResources/01.Characters/01.Bar/03.Samho/Emotion/Drunk/face_bottom.png",
       "w": 2204,
       "h": 530,
       "frames": 4,
@@ -2832,7 +2832,7 @@
       ]
     },
     "recipe_item_gin": {
-      "src": "assets/items/recipe-item-gin.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/gin.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2848,7 +2848,7 @@
       ]
     },
     "recipe_item_beer": {
-      "src": "assets/items/recipe-item-beer.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bottled_beer.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2864,7 +2864,7 @@
       ]
     },
     "recipe_item_red_wine": {
-      "src": "assets/items/recipe-item-red-wine.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/red_wine.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2880,7 +2880,7 @@
       ]
     },
     "recipe_item_champagne": {
-      "src": "assets/items/recipe-item-champagne.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/champagne.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2896,7 +2896,7 @@
       ]
     },
     "recipe_item_soda_water": {
-      "src": "assets/items/recipe-item-soda-water.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/fresca_sparkling_water.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2912,7 +2912,7 @@
       ]
     },
     "item_tequila": {
-      "src": "assets/items/item-tequila.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Shelf/tequila.png",
       "w": 57,
       "h": 171,
       "frames": 1,
@@ -2928,7 +2928,7 @@
       ]
     },
     "recipe_item_tequila": {
-      "src": "assets/items/recipe-item-tequila.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/tequila.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2944,7 +2944,7 @@
       ]
     },
     "recipe_item_vodka": {
-      "src": "assets/items/recipe-item-vodka.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grey_goose_vodka.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2960,7 +2960,7 @@
       ]
     },
     "recipe_item_rum": {
-      "src": "assets/items/recipe-item-rum.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/bacardi_rum.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -2976,7 +2976,7 @@
       ]
     },
     "item_orange_juice": {
-      "src": "assets/items/item-orange-juice.png",
+      "src": "assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/orange_juice.png",
       "w": 93,
       "h": 223,
       "frames": 1,
@@ -2992,7 +2992,7 @@
       ]
     },
     "recipe_item_orange_juice": {
-      "src": "assets/items/recipe-item-orange-juice.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/orange_juice.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3008,7 +3008,7 @@
       ]
     },
     "item_ginger_ale": {
-      "src": "assets/items/item-ginger-ale.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Ingredient_Images/ginger_ale.png",
       "w": 42,
       "h": 91,
       "frames": 1,
@@ -3024,7 +3024,7 @@
       ]
     },
     "recipe_item_ginger_ale": {
-      "src": "assets/items/recipe-item-ginger-ale.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/ginger_ale.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3040,7 +3040,7 @@
       ]
     },
     "recipe_item_cola": {
-      "src": "assets/items/recipe-item-cola.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/cola.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3056,7 +3056,7 @@
       ]
     },
     "recipe_item_whiskey": {
-      "src": "assets/items/recipe-item-whiskey.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/johnnie_walker_whisky.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3072,7 +3072,7 @@
       ]
     },
     "recipe_item_dry_vermouth": {
-      "src": "assets/items/recipe-item-dry-vermouth.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/martini_dry_vermouth.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3088,7 +3088,7 @@
       ]
     },
     "recipe_item_grenadine": {
-      "src": "assets/items/recipe-item-grenadine.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/grenadine_syrup.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3104,7 +3104,7 @@
       ]
     },
     "recipe_item_sour_mix": {
-      "src": "assets/items/recipe-item-sour-mix.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Ingredient_Images/sour_mix.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3120,7 +3120,7 @@
       ]
     },
     "recipe_item_shaker": {
-      "src": "assets/items/recipe-item-shaker.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/boston_shaker.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3136,7 +3136,7 @@
       ]
     },
     "inventory_item_shaker": {
-      "src": "assets/items/inventory-item-shaker.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/shaker.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3152,7 +3152,7 @@
       ]
     },
     "recipe_item_mixing_glass": {
-      "src": "assets/items/recipe-item-mixing-glass.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/mixing_glass.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3168,7 +3168,7 @@
       ]
     },
     "inventory_item_mixing_glass": {
-      "src": "assets/items/inventory-item-mixing-glass.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/mixing_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3184,7 +3184,7 @@
       ]
     },
     "recipe_item_opener": {
-      "src": "assets/items/recipe-item-opener.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Tool_and_Ingredient_Images_for_Recipes/Tools_for_Recipes/bottle_opener.png",
       "w": 180,
       "h": 180,
       "frames": 1,
@@ -3200,7 +3200,7 @@
       ]
     },
     "inventory_item_opener": {
-      "src": "assets/items/inventory-item-opener.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/2_Tools_Ingredient_Selection_Screen/bottle_opener.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3216,7 +3216,7 @@
       ]
     },
     "inventory_item_martini": {
-      "src": "assets/items/inventory-item-cocktail.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/cocktail_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3232,7 +3232,7 @@
       ]
     },
     "inventory_item_long_drink": {
-      "src": "assets/items/inventory-item-long-drink.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/long_drink_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3248,7 +3248,7 @@
       ]
     },
     "inventory_item_old_fashioned": {
-      "src": "assets/items/inventory-item-old-fashioned.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/old_fashioned_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3264,7 +3264,7 @@
       ]
     },
     "inventory_item_flute": {
-      "src": "assets/items/inventory-item-sour.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/sour_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3280,7 +3280,7 @@
       ]
     },
     "inventory_item_wine": {
-      "src": "assets/items/inventory-item-wine.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/wine_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3296,7 +3296,7 @@
       ]
     },
     "inventory_item_weizen": {
-      "src": "assets/items/inventory-item-mug.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Ingredient_Selection_Screen_Inventory_Ingredient_Images/1_Glasses_Ingredient_Selection_Screen/beer_glass.png",
       "w": 115,
       "h": 115,
       "frames": 1,
@@ -3312,7 +3312,7 @@
       ]
     },
     "item_dummy": {
-      "src": "assets/items/item-dummy.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Ingredient_Images/gin.png",
       "w": 36,
       "h": 146,
       "frames": 1,
@@ -3344,7 +3344,7 @@
       ]
     },
     "table_cocktail_gin_tonic": {
-      "src": "assets/cocktails/static/table-cocktail-gin-tonic.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png",
       "w": 69,
       "h": 112,
       "frames": 1,
@@ -3376,7 +3376,7 @@
       ]
     },
     "table_cocktail_gin_fizz": {
-      "src": "assets/cocktails/static/table-cocktail-gin-fizz.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png",
       "w": 69,
       "h": 112,
       "frames": 1,
@@ -3392,7 +3392,7 @@
       ]
     },
     "recipe_cocktail_red_wine": {
-      "src": "assets/cocktails/static/recipe-cocktail-red-wine.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
       "w": 635,
       "h": 635,
       "frames": 1,
@@ -3408,7 +3408,7 @@
       ]
     },
     "cocktail_red_wine": {
-      "src": "assets/cocktails/static/cocktail-red-wine.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/red_wine_final.png",
       "w": 384,
       "h": 634,
       "frames": 1,
@@ -3424,7 +3424,7 @@
       ]
     },
     "recipe_cocktail_champagne": {
-      "src": "assets/cocktails/static/recipe-cocktail-champagne.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/champagne_final.png",
       "w": 635,
       "h": 635,
       "frames": 1,
@@ -3440,7 +3440,7 @@
       ]
     },
     "cocktail_champagne": {
-      "src": "assets/cocktails/static/cocktail-champagne.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/champagne_final.png",
       "w": 384,
       "h": 634,
       "frames": 1,
@@ -3496,7 +3496,7 @@
       "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/tequila_sunrise_final.png"
     },
     "recipe_cocktail_long_island": {
-      "src": "assets/cocktails/static/recipe-cocktail-long-island.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
       "w": 635,
       "h": 635,
       "frames": 1,
@@ -3512,7 +3512,7 @@
       ]
     },
     "cocktail_long_island": {
-      "src": "assets/cocktails/static/cocktail-long-island.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/long_island_iced_tea_final.png",
       "w": 367,
       "h": 635,
       "frames": 1,
@@ -3528,7 +3528,7 @@
       ]
     },
     "recipe_cocktail_whiskey_sour": {
-      "src": "assets/cocktails/static/recipe-cocktail-whiskey-sour.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/UI_Placeholder_Assets/Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
       "w": 635,
       "h": 635,
       "frames": 1,
@@ -3544,7 +3544,7 @@
       ]
     },
     "cocktail_whiskey_sour": {
-      "src": "assets/cocktails/static/cocktail-whiskey-sour.png",
+      "src": "assets/9_ArtResources/0_Dummy_Assets/Cocktail_Preview_Images/whiskey_sour_final.png",
       "w": 300,
       "h": 601,
       "frames": 1,
@@ -3576,7 +3576,7 @@
       ]
     },
     "mix_stir_motion": {
-      "src": "assets/ui/imported/mix-stir-motion.png",
+      "src": "assets/9_ArtResources/03.Crafting/04.Minigames/03.Stir/01.Sprites/stir_Sheet.png",
       "w": 5820,
       "h": 550,
       "frames": 6,
@@ -3592,7 +3592,7 @@
       ]
     },
     "mix_shake_motion": {
-      "src": "assets/ui/imported/mix-shake-motion.png",
+      "src": "assets/9_ArtResources/03.Crafting/04.Minigames/02.Shake/01.Sprites/Legacy_shake.png",
       "w": 10240,
       "h": 720,
       "frames": 8,
@@ -3608,7 +3608,7 @@
       ]
     },
     "mix_stir_reference": {
-      "src": "assets/ui/imported/mix-stir-reference.png",
+      "src": "assets/9_ArtResources/05.UI/04.Crafting/04.Minigames/03.Stir/stirring_minigame_V3.png",
       "w": 3840,
       "h": 2160,
       "frames": 1,
@@ -3644,7 +3644,7 @@
       "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/beer_final.png"
     },
     "table_cocktail_bottle_beer": {
-      "src": "assets/cocktails/completed/table/beer.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/beer.png",
       "w": 69,
       "h": 112,
       "frames": 1,
@@ -3815,7 +3815,7 @@
       ]
     },
     "table_empty_glass_beer": {
-      "src": "assets/cocktails/empty/beer-glass.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/beer_glass.png",
       "w": 60,
       "h": 93,
       "frames": 1,
@@ -3825,7 +3825,7 @@
       "source": "User supplied table empty glass / beer-glass.png"
     },
     "table_empty_glass_cocktail": {
-      "src": "assets/cocktails/empty/cocktail-glass.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/cocktail_glass.png",
       "w": 60,
       "h": 93,
       "frames": 1,
@@ -3835,7 +3835,7 @@
       "source": "User supplied table empty glass / cocktail-glass.png"
     },
     "table_empty_glass_long_drink": {
-      "src": "assets/cocktails/empty/long-drink-glass.png",
+      "src": "assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/long_drink_glass.png",
       "w": 55,
       "h": 93,
       "frames": 1,

@@ -9,7 +9,8 @@ const { load } = require('../src/shared/data/csv-catalog.js');
   for (const [table, rows] of catalog.rawTables)
     assert(!rows.some(row => /bacardi|바카디/.test(JSON.stringify(row))), 'Retired cocktail in CSV: ' + table);
   const manifest = JSON.parse(await fs.readFile(path.resolve(__dirname, '../data/presentation/preload-manifest.json'), 'utf8'));
-  assert(!JSON.stringify(manifest).includes('bacardi'), 'Retired art must not be preloaded');
+  // The retained rum ingredient is named bacardi_rum.png in the shared art folder.
+  assert(!Object.values(manifest).flat().some(src=>/bacardi/i.test(src)&&!src.endsWith('/bacardi_rum.png')), 'Retired cocktail art must not be preloaded');
   const browser = await rt.load('playwright').chromium.launch({ executablePath: rt.chrome, headless: true });
   try {
     const page = await browser.newPage(), errors = [], requests = [];

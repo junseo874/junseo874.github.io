@@ -88,11 +88,11 @@ html,body{overflow:hidden;background:#03060b}
    Keep transparent glow margins outside the hit area so both states align. */
 .choices{left:50%;right:auto;top:auto;bottom:94px;transform:translateX(-50%);width:675px;max-width:86%;gap:6px;z-index:12}
 .choices button{position:relative;isolation:isolate;text-align:center;min-height:51px;flex-shrink:0;border-radius:0;border:0;background:transparent;color:#bfc0c1;font-size:19px;line-height:1.35;padding:12px 60px;clip-path:none;box-shadow:none;outline:none;overflow-wrap:anywhere;transition:color .12s}
-.choices button:before{content:'';position:absolute;z-index:-1;left:-1.82446%;top:-21.79487%;width:103.69822%;height:146.15385%;background:url('../../../assets/ui/choices/IMG_choice_A.png?v=gaugeless-20261018') center/100% 100% no-repeat;pointer-events:none}
-.choices button:after{content:'';position:absolute;left:17px;top:50%;width:34px;height:36px;transform:translateY(-50%);background:url('../../../assets/ui/choices/IMG_choice_arrow.png') center/contain no-repeat;opacity:0;pointer-events:none}
+.choices button:before{content:'';position:absolute;z-index:-1;left:-1.82446%;top:-21.79487%;width:103.69822%;height:146.15385%;background:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_A.png?v=gaugeless-20261018') center/100% 100% no-repeat;pointer-events:none}
+.choices button:after{content:'';position:absolute;left:17px;top:50%;width:34px;height:36px;transform:translateY(-50%);background:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_arrow.png') center/contain no-repeat;opacity:0;pointer-events:none}
 .choices button:hover:not(:disabled),.choices button:focus-visible{background:transparent;border:0;box-shadow:none;outline:none}
 .choices button:hover:not(:disabled),.choices:not(:has(button:not(:disabled):hover)) button:focus{color:#54dfea}
-.choices button:hover:not(:disabled):before,.choices:not(:has(button:not(:disabled):hover)) button:focus:before{background-image:url('../../../assets/ui/choices/IMG_choice_B.png?v=gaugeless-20261018')}
+.choices button:hover:not(:disabled):before,.choices:not(:has(button:not(:disabled):hover)) button:focus:before{background-image:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_B.png?v=gaugeless-20261018')}
 .choices button:hover:not(:disabled):after,.choices:not(:has(button:not(:disabled):hover)) button:focus:after{opacity:1}
 .choices button small{font-size:11px;line-height:1.4}
 .choices .choice-hold-hint{position:absolute;top:calc(100% + 16px);left:0;width:100%;margin:0;text-align:center;font-size:13px;line-height:1.5;font-weight:400;color:#9fcbd1;text-shadow:0 1px 4px #000;pointer-events:none;animation:choice-hint-in .25s ease-out both}
@@ -109,7 +109,7 @@ html,body{overflow:hidden;background:#03060b}
 .choices button.choice-holding .choice-progress:before{opacity:0}
 .choices .choice-progress i{position:relative;display:block;width:100%;height:100%;background:#61eff5;transform-origin:left;transform:scaleX(var(--choice-progress,0));box-shadow:0 0 3px #54dfea}
 .choices button.choice-holding{color:#54dfea}
-.choices button.choice-holding:before{background-image:url('../../../assets/ui/choices/IMG_choice_B.png?v=gaugeless-20261018')}
+.choices button.choice-holding:before{background-image:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_choice_B.png?v=gaugeless-20261018')}
 .choices button.choice-holding:after{opacity:1}
 /* Reuse the title's signal/color slices for the complete choice label.
  * Hold owns the lifetime: hover/focus alone never starts it; cancellation

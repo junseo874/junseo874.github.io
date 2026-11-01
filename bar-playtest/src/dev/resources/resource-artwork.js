@@ -20,15 +20,15 @@ function collect(rows,F){
  // UI artwork loaded directly by CSS is not part of the bar asset registry.
  for(const a of W.ResourceExtractionAssets||[]){
   if(a.category!=='UI · 원본 조각'||a.src.includes('/extracted/'))continue;
-  add(a.src,a.title,a.src.includes('exterior-textbox')?'out-ui':'bar-ui',a);
+  add(a.src,a.title,/exterior[-_]textbox/.test(a.src)?'out-ui':'bar-ui',a);
  }
- for(const [file,title]of [['title-logo','로고'],['title-button','버튼 기본'],['title-button-active','버튼 활성'],['title-deco','버튼 장식'],['title-dots','점 장식']])
-  add(file,'타이틀 · '+title,'bar-ui',{src:'assets/backgrounds/campaign/'+file+'.png'});
+ for(const [file,title,source]of [['title-logo','로고','IMG_logo'],['title-button','버튼 기본','BTN_Disable'],['title-button-active','버튼 활성','BTN_Enable'],['title-deco','버튼 장식','IMG_Deco_button'],['title-dots','점 장식','PTN_Dot']])
+  add(file,'타이틀 · '+title,'bar-ui',{src:'assets/9_ArtResources/05.UI/02.Title/01.Sprites/'+source+'.png'});
  for(const [key,a]of Object.entries(F.LunaMixExamples||{}))add('mix-example:'+key,'제조 튜토리얼 · '+key,'bar-ui',a);
  for(const [file,title]of [['interaction-npc','인물'],['interaction-tv','TV']])add(file,'상호작용 튜토리얼 · '+title,'out-ui',{src:'assets/tutorials/controls/'+file+'.png'});
  add('wanted-poster','개시바 · 현상 수배 포스터','out-ui',{src:'assets/outside/shiba-wanted-poster-20261019.png'});
  add('wine-opener','와인 개봉 연습 · 오프너','bar-items',{src:'assets/items/wine-practice-opener.png'},{itemKind:'tool',note:'시뮬레이터 전용 와인 개봉 연습에서 사용하는 원본입니다. 본편 리소스와 구분합니다.'});
- add('campaign-lab','연구소 · 이야기 배경','out-backgrounds',{src:'assets/backgrounds/campaign/lab.png'},{backgroundScreen:'컷씬',backgroundKind:'풀샷'});
+ add('campaign-lab','연구소 · 이야기 배경','out-backgrounds',{src:'assets/9_ArtResources/02.Environments/05.Cutscenes/01.Lab/90.PreviousVersions/LAB_BG_room.png'},{backgroundScreen:'컷씬',backgroundKind:'풀샷'});
  for(const manifest of [F.LUNA_BARREL_FIRE,F.LUNA_STREET_EFFECTS])for(const [key,a]of Object.entries(manifest?.assets||{}))
   add(key,'거리 효과 · '+key,'out-fx',a,{effectCategory:'environment',note:'거리 효과에 쓰는 원본 텍스처·마스크입니다. 이미지 단독으로는 최종 발광·왜곡 효과가 보이지 않습니다.'});
  return rows;

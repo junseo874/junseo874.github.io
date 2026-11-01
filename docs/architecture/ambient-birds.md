@@ -17,7 +17,7 @@
 
 `index.html`은 공통 메타데이터 → 테라스 → 거리 모듈 순서로 로드한다. 거리 모듈은 **테라스 실행기에 의존하지 않는다**. 테라스의 `assets/sheet/crops` 공개 속성은 호환 참조로 남아 있지만 설정 원본은 공통 파일 한 곳이다. HTML 순서 변경 시 `docs/architecture/runtime-contract.json`도 갱신한다.
 
-PNG는 `assets/backgrounds/terrace/birds/crow-idle.png`, `pigeon-idle.png`이며 원본 1548×138을 유지한다. 폴더명에 terrace가 있어도 두 공간 공용이다. 테라스는 `prepare()`에서 decode를 기다리고, 거리는 `apply()`가 `corridor-crow/pigeon` 에셋을 등록해 기존 로더로 준비한다. 사전 로딩 목록과 리소스 검수도 함께 유지한다.
+PNG는 `assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/Crow_idle.png`, `pigeon-idle.png`이며 원본 1548×138을 유지한다. 폴더명에 terrace가 있어도 두 공간 공용이다. 테라스는 `prepare()`에서 decode를 기다리고, 거리는 `apply()`가 `corridor-crow/pigeon` 에셋을 등록해 기존 로더로 준비한다. 사전 로딩 목록과 리소스 검수도 함께 유지한다.
 
 비둘기 원본은 [공통 리소스 로딩 화면](loading.md#공통-리소스-로딩-표시)에도 사용한다. 로딩 표시는 게임 준비 전부터 보여야 하므로 동일한 crop/6 FPS를 CSS로 재생하며, 환경 속 새와 달리 게임 시계가 멈춰도 계속 움직인다. 시트 규격 변경 시 로딩 CSS와 해당 회귀 검사도 함께 확인한다.
 

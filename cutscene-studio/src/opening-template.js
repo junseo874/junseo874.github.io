@@ -31,11 +31,11 @@ function register(){
  const svg=(id,name,body)=>image(id,name,'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">'+body+'</svg>'),960,540);
  for(const [id,anim]of [['opening-yuna','yuna.stand'],['opening-luna','luna.stand']]){const d=Engine.ANIM[anim];add(id,id==='opening-yuna'?'유나 · 대기':'루나 · 대기','animation',{sheet:d.sheet,from:d.from,to:d.to,fps:d.fps,loop:true,ppu:100,align:'sheet'});}
  for(const layer of W.LunaHomeArt.layers){
-  image(layer.name==='main_bg'?'opening-home':'opening-home-'+layer.name,'크리스 집 · '+layer.name,'../bar-playtest/'+W.LunaHomeArt.root+layer.file,layer.w,layer.h);
+  image(layer.name==='main_bg'?'opening-home':'opening-home-'+layer.name,'크리스 집 · '+layer.name,'../bar-playtest/'+W.LunaHomeArt.assetPath(layer.file),layer.w,layer.h);
  }
- add('opening-luna-home','루나 · 평상복 대기','animation',{src:'../bar-playtest/assets/outside/luna-v2-idle-sheet-62634d.png',width:267,height:258,fw:89,fh:86,cols:3,count:9,fps:12,ppu:100,pivot:{x:.5,y:.4}});
+ add('opening-luna-home','루나 · 평상복 대기','animation',{src:'../bar-playtest/assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png',width:267,height:258,fw:89,fh:86,cols:3,count:9,fps:12,ppu:100,pivot:{x:.5,y:.4}});
  // 12 x 2 cells, 130px each. Bottom row sleeps; top-row 8→11 opens the eyes.
- const sleepSheet={src:'assets/opening/luna-sleep.png',width:1560,height:260,fw:130,fh:130,cols:12,ppu:100,pivot:{x:.5,y:32/130}};
+ const sleepSheet={src:'../bar-playtest/assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Sleep/luna_sleep.png',width:1560,height:260,fw:130,fh:130,cols:12,ppu:100,pivot:{x:.5,y:32/130}};
  add('opening-luna-sleep','루나 · 소파 수면','animation',{...sleepSheet,count:12,fps:6,frames:Array.from({length:12},(_,i)=>12+i)});
  add('opening-luna-wake','루나 · 누운 채 눈뜨기','animation',{...sleepSheet,count:4,fps:5,frames:[8,9,10,11]});
  // Legacy saved clips must use the same clean background as newly created templates.

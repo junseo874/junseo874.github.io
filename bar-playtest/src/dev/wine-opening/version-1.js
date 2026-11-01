@@ -18,7 +18,7 @@ const TUNE={
   PULL_LEN:150, SAFE_PULL:260, PULL_DMG:0.22,
   TEAR_TOL:22,        // 포장 까기: 점선에서 벗어나도 되는 범위(px)
 };
-const BOTTLE_SRC='../../../assets/items/item-red-wine.png';
+const BOTTLE_SRC='../../../assets/9_ArtResources/03.Crafting/02.Ingredients/Refrigerator/red_wine.png';
 const OPENER_SRC='../../../assets/items/wine-practice-opener.png';
 const W=2184,H=1164,PX=6;
 const BOTTLE_POS={x:920,y:518};

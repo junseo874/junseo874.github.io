@@ -2,7 +2,7 @@
 'use strict';
 const asset='assets/backgrounds/campaign/terrace-20261018.png';
 // The old composite is reference art only. Preserve the supplied sheets byte-for-byte.
-const assets={city:'assets/backgrounds/terrace/city.png?v=city-replacement-20261019',building:'assets/backgrounds/terrace/building.png',characters:'assets/backgrounds/terrace/characters.png',balustrade:'assets/backgrounds/terrace/balustrade.png'};
+const assets={city:'assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace_BG_City.png?v=city-replacement-20261019',building:'assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/Terrace.png',characters:'assets/9_ArtResources/01.Characters/02.Outside/01.Luna/Terrace/Terrace.png',balustrade:'assets/9_ArtResources/02.Environments/04.Terrace/01.Sprites/balustrade.png'};
 const animation={frames:8,width:129,height:138,fps:6};
 // Translation only: the city travels at one fifth of the foreground speed.
 // Fixed city overscan provides edge coverage throughout the pan, never an animated zoom.

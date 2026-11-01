@@ -1,6 +1,10 @@
 /* Native 643×270 supplied house sheets; placements measured from the full shot. */
 (function(W){'use strict';
 const root='assets/outside/chris-home/';
+const sharedRoot='assets/9_ArtResources/02.Environments/03.Home/01.Sprites/Current/';
+// These four images are web-specific variants absent from the shared original.
+const webVariants=new Set(['123.png','Chrishouse3.png','ForeFore_Object.png','nietzsche-the-gay-science.png']);
+const assetPath=file=>(webVariants.has(file)?root:sharedRoot)+file;
 // Native room pixels: the bed is baked into the LEFT wall, not the sofa bedding layer.
 const bed={rect:[80,187,91,26],edge:[[7,0],[24,0],[27,3],[76,4],[84,7],[90,10],[90,21],[85,25],[8,25],[2,22],[0,16],[0,8],[4,3]]};
 const wardrobe={rect:[175,152,21,66],edge:[[2,0],[19,0],[21,2],[21,66],[0,66],[0,2]]};
@@ -41,12 +45,12 @@ function apply(data){
   let node=nodes.find(n=>n.name===layer.name);
   const asset=node?node.sprite.asset:layer.name;
   if(!node){node={...bg,id:layer.name,go:layer.name,name:layer.name,ancestry:[layer.name]};nodes.push(node);}
-  data.assets[asset]={src:root+layer.file,w:layer.name==='home-city'?643:layer.w,h:layer.h,source:'User supplied 크리스집/'+layer.file};
+  data.assets[asset]={src:assetPath(layer.file),w:layer.name==='home-city'?643:layer.w,h:layer.h,source:'User supplied 크리스집/'+layer.file};
   Object.assign(node,{x:left+(layer.x+layer.w/2)/100,y:top-(layer.y+layer.h/2)/100,layer:0,order:index,sx:1,sy:1,flip:false});
   node.sprite={asset,x:0,y:0,w:layer.w,h:layer.h,pivot:{x:.5,y:.5},ppu:100};
  }
  // Alternate authored room states are retained without introducing a new cycle.
- for(const n of [1,3])data.assets['home-room-'+n]={src:root+'Chrishouse'+n+'.png',w:643,h:270,source:'User supplied 크리스집/Chrishouse'+n+'.png'};
+ for(const n of [1,3])data.assets['home-room-'+n]={src:assetPath('Chrishouse'+n+'.png'),w:643,h:270,source:'User supplied 크리스집/Chrishouse'+n+'.png'};
  data.assets[book.cover]={src:root+'nietzsche-the-gay-science.png',w:1024,h:1536,source:'사용자 제공 책 표지 · 프리드리히 니체 — 《즐거운 학문》 · 원본 보존'};
  data.homeArtVersion='supplied-house';return data;
 }
@@ -83,6 +87,6 @@ function paintFence(ctx,image,x,y,w,h){
  ctx.fillStyle='#6c6a82';ctx.fillRect(-27,40,85,1);
  ctx.restore();
 }
-W.LunaHomeArt={root,layers,bed,bedTarget,wardrobe,wardrobeTarget,book,bookTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
+W.LunaHomeArt={root,assetPath,layers,bed,bedTarget,wardrobe,wardrobeTarget,book,bookTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

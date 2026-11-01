@@ -9,7 +9,7 @@
     "'": '&#39;'
   })[c]);
   const button = (label, action, cls = '') => '<button class="' + cls + '" data-campaign="' + action + '">' + (cls === 'title-choice' ? '<span class="title-label" data-text="' + esc(label) + '">' + esc(label) + '</span>' : label) + '</button>';
-  const path = n => 'assets/backgrounds/campaign/' + n;
+  const path = n => n==='title-logo.png' ? 'assets/9_ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png' : n==='lab.png' ? 'assets/9_ArtResources/02.Environments/05.Cutscenes/01.Lab/90.PreviousVersions/LAB_BG_room.png' : 'assets/backgrounds/campaign/' + n;
   const CINEMA_SKIP_HOLD_MS = 2000,
     CINEMA_SKIP_REVEAL_MS = 300,
     CINEMA_SKIP_INTRO_SECONDS = 1.5;

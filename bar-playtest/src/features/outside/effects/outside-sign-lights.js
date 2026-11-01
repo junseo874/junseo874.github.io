@@ -2,7 +2,7 @@
  * PNGs are untouched. Only the soft spill is generated and cached at runtime. */
 (function(W){
 'use strict';
-const root='assets/outside/street-20261018/Lights/';
+const root='assets/9_ArtResources/02.Environments/02.Street/01.Sprites/Lights/';
 // id, atlas, crop (top-left), engine x/y, pivotY, engine intensity.
 // Duplicate roof/candle lights and Shiba's already-included subcrop are omitted;
 // obsolete lights outside this storefront atlas are intentionally not imported.

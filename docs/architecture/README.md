@@ -57,6 +57,7 @@ node tools/locate.cjs campaign --symbols
 - [조작 잠금·대본 대기](../gameplay/input-locks.md): 입력 차단과 pause를 혼동하지 않기 위한 소유권/해제 조건
 - [거리 렌더링 상세](street-atmosphere.md): 빛·그림자·물웅덩이 수정 때만
 - [데이터·로딩 계약](loading.md), [검증 방법](testing.md), [리소스 규칙](../../bar-playtest/assets/README.md)
+- 공통 그래픽 경로는 `bar-playtest/assets/9_ArtResources/`에서 상위 원본 폴더와 동일하게 유지합니다. [파일 대응표](art-resource-paths.json)에는 이전/현재 경로와 바이트 해시가 있습니다. 게임 ID는 변경하지 않습니다.
 
 ## 보존할 경계
 

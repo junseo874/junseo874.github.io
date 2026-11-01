@@ -3,7 +3,7 @@ const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',gin_fizz:'ginfizz',kahlua_milk:'kahluaMilk',bottle_beer:'beer',screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'};
 (async()=>{
- const dir=path.resolve(__dirname,'../assets/serving/atlases');
+ const dir=path.resolve(__dirname,'../assets/9_ArtResources/04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets');
  for(const name of ['background.png',...Object.values(files).map(n=>'give_drink_'+n+'.png')]){
   const local=path.join(dir,name),original=path.join('/Users/lee/Desktop/Drink_Serving_Screen_Sheets',name);
   if(fs.existsSync(original))assert(fs.readFileSync(original).equals(fs.readFileSync(local)),name+' original bytes');

@@ -4,7 +4,7 @@
 const root='assets/cocktails/completed/';
 const representatives={bottle_beer:['beer_final',200,345],screwdriver:['screwdriver_final',200,345],tequila_sunrise:['tequila_sunrise_final',216,411]};
 const table={bottle_beer:'beer',dry_martini:'dry_martini',cosmopolitan:'cosmopolitan',screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'};
-function art(folder,name,w,h){return {src:root+folder+'/'+name+'.png',w,h,frames:1,frameWidth:w,frameHeight:h,fps:0,source:'Latest supplied cocktail artwork, 2026-10-18 / '+folder+'/'+name+'.png'};}
+function art(folder,name,w,h){return {src:(folder==='table'?'assets/9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/':root+folder+'/')+name+'.png',w,h,frames:1,frameWidth:w,frameHeight:h,fps:0,source:'Latest supplied cocktail artwork, 2026-10-18 / '+folder+'/'+name+'.png'};}
 function apply(data){
  for(const [id,[name,w,h]] of Object.entries(representatives)){
   for(const prefix of ['cocktail_','recipe_cocktail_'])data.assets[prefix+id]=art('representative',name,w,h);

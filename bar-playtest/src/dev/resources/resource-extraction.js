@@ -15,7 +15,7 @@ function classify(row){if(row.cursor)return 'UI · 마우스 커서';return /ui|
 function collect(rows,assets={}){
  const all=[],seen=new Map();
  function add(item){
-  if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/ui/exterior-textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
+  if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
   const l=item.layer||{},key=JSON.stringify([item.src,l.frames||1,l.rects,l.fw,l.fh,l.cols,l.sx,l.sy,l.dx,l.dy]);
   const old=seen.get(key);if(old){old.search+=' '+item.title+' '+(item.usage||'');return;}
   item.id='graphic-'+all.length;item.search=[item.title,item.src,item.category,item.usage,item.contexts,l.key].join(' ');all.push(item);seen.set(key,item);
@@ -53,7 +53,7 @@ function trim(c){const ctx=c.getContext('2d'),d=ctx.getImageData(0,0,c.width,c.h
 function save(url,name){const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();}
 const filename=a=>(a.src.startsWith('data:')?a.id:a.src.split('/').pop().split('?')[0]).replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9가-힣_.-]/g,'_');
 async function download(a,n,raw,trimmed){
- if(raw&&/\.png(?:\?|$)/i.test(a.src)){save(a.src,filename(a)+'.png');return;}
+ if(raw&&/\.png(?:\?|$)/i.test(a.src)){save(a.src,decodeURIComponent(a.src.split('/').pop().split('?')[0]));return;}
  let c=await raster(a,n,raw);if(trimmed)c=trim(c);
  const blob=await new Promise(resolve=>c.toBlob(resolve,'image/png'));if(!blob)throw Error('PNG를 생성하지 못했습니다.');
  const url=URL.createObjectURL(blob);save(url,filename(a)+(raw?'':'--frame-'+String(n+1).padStart(3,'0'))+(trimmed?'--trimmed':'')+'.png');setTimeout(()=>URL.revokeObjectURL(url),30000);

@@ -3210,7 +3210,7 @@
     slot.dataset.idx = i;
     slot.innerHTML = `
       <span class="cock-num">DRINK · ${String(i + 1).padStart(2, '0')}</span>
-      <div class="cock-img"><img src="assets/prototype/cocktail/C_${i}.png" alt="${c.ko}"/></div>
+      <div class="cock-img"><img src="${i===3?'bar-playtest/assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_godfather_final.png':i===4?'bar-playtest/assets/9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Legacy/Legacy_mojito_final.png':`assets/prototype/cocktail/C_${i}.png`}" alt="${c.ko}"/></div>
       <div class="cock-foot">
         <div class="cock-meta">
           <span class="cock-name">${c.ko}</span>
@@ -3816,7 +3816,7 @@
   document.querySelectorAll('#s-cutscene .cut-cell').forEach(cell => {
     cell.addEventListener('click', () => {
       const d = cutData[cell.dataset.cut];
-      const imgs = d.files.map(f => `<img src="assets/prototype/animations/${f}.gif" alt="frame ${f}"/>`).join('');
+      const imgs = d.files.map(f => `<img src="${String(f)==='30'?'bar-playtest/assets/9_ArtResources/01.Characters/02.Outside/04.Bubi/Legacy/cat_animation2.gif':`assets/prototype/animations/${f}.gif`}" alt="frame ${f}"/>`).join('');
       const single = d.files.length === 1 ? ' single' : '';
       openModal(`
         <div class="modal-title">// ${d.title}</div>

@@ -3,7 +3,7 @@ const rt=require('../../tools/lib/test-runtime.cjs'),sharp=rt.load('sharp');
 (async()=>{
  // All animation cells share a fixed foot row; preserve every original RGBA byte.
  for(const kind of ['crow','pigeon']){
-  const file=path.join(__dirname,'../assets/backgrounds/terrace/birds/'+kind+'-idle.png');
+  const file=path.join(__dirname,'../assets/9_ArtResources/01.Characters/02.Outside/09.StreetNPC/Idle/'+(kind==='crow'?'Crow':'Pigeon')+'_idle.png');
   const {data,info}=await sharp(file).ensureAlpha().raw().toBuffer({resolveWithObject:true});
   assert.equal(info.width,129*12);assert.equal(info.height,138);
   for(let frame=0;frame<12;frame++){

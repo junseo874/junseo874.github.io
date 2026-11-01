@@ -1,5 +1,5 @@
 /* Supplied card art is applied below, retaining the established drag geometry. */
-.bar-view .service-popup:before{background:#0b0c15 url('../../../assets/ui/dialogue/GRD_textbox_5.png') center/100% 100% no-repeat;opacity:.98}
+.bar-view .service-popup:before{background:#0b0c15 url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/GRD_textbox_5.png') center/100% 100% no-repeat;opacity:.98}
 .bar-view .service-popup{isolation:isolate;background:transparent;border:0;border-radius:8px;box-shadow:none;touch-action:none;cursor:var(--luna-cursor-grab,grab);user-select:none}
 .bar-view .service-popup:before{content:'';position:absolute;inset:0;z-index:-1;border:1px solid #659ab5;border-radius:8px;box-shadow:inset 0 0 8px #508ac933,0 0 5px #73b8e348;pointer-events:none}
 .bar-view .service-popup:focus-visible{outline:2px solid #a6faff;outline-offset:3px}
@@ -34,8 +34,8 @@
 
 /* Supplied draggable-card frames include their own border, glow and shading. */
 .bar-view .service-popup:before{border:0;border-radius:0;box-shadow:none;opacity:1;background-color:transparent}
-.bar-view .stack.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_coaster.png')}
-.bar-view .drink-tray.service-popup:before{background-image:url('../../../assets/ui/serving/IMG_box_cocktail.png')}
+.bar-view .stack.service-popup:before{background-image:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_coaster.png')}
+.bar-view .drink-tray.service-popup:before{background-image:url('../../../assets/9_ArtResources/05.UI/01.Shared/MainScreen/IMG_box_cocktail.png')}
 /* Source-proportional corners/tail. Never stretch the complete PNG to the
    sentence's aspect ratio. Straight-edge strips alone fill the flexible cells. */
 .dialogue-surface.bar-textbox-skin{inset:-1px;border:0;border-radius:0;background:none;opacity:.98;isolation:isolate;display:grid;grid-template-columns:24px minmax(0,1fr) calc(80px / 3) minmax(0,1fr) 24px;grid-template-rows:24px minmax(0,1fr) 24px}

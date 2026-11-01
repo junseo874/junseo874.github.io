@@ -10,8 +10,9 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    const cells=[],proto=LunaStreetAtmosphereRenderer.prototype,shade=proto.characterLighting;let shaded=null;
    // Native-cell lighting changes the drawn image to a GPU canvas, not the
    // selected animation cell. Check the actual final draw against its source.
-   proto.characterLighting=function(im,sp,...rest){const out=shade.call(this,im,sp,...rest);shaded=im.src?.includes('/samho-idle.png')?{...out,cell:[sp.x,sp.y,sp.w,sp.h]}:null;return out;};
-   ctx.drawImage=function(im,...args){if(im.src?.includes('/samho-idle.png'))cells.push(args.slice(0,4));else if(shaded&&im===shaded.image&&args[0]===shaded.x&&args[1]===shaded.y&&args[2]===shaded.w&&args[3]===shaded.h)cells.push(shaded.cell);return original.call(this,im,...args);};
+   const source=D.assets[anim.frames[0].asset].src;
+   proto.characterLighting=function(im,sp,...rest){const out=shade.call(this,im,sp,...rest);shaded=im.src?.endsWith(source)?{...out,cell:[sp.x,sp.y,sp.w,sp.h]}:null;return out;};
+   ctx.drawImage=function(im,...args){if(im.src?.endsWith(source))cells.push(args.slice(0,4));else if(shaded&&im===shaded.image&&args[0]===shaded.x&&args[1]===shaded.y&&args[2]===shaded.w&&args[3]===shaded.h)cells.push(shaded.cell);return original.call(this,im,...args);};
    try{a.snapCamera();a.tick(0);}finally{ctx.drawImage=original;proto.characterLighting=shade;}return cells;
   }
   for(const [day,flow]of [[1,'out'],[2,'in'],[3,'in'],[3,'out']]){

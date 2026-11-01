@@ -1,7 +1,7 @@
 /* Supplied 2026-10-18 street layers. Keep gameplay anchors and original PNGs intact. */
 (function(W){
 'use strict';
-const root='assets/outside/street-20261018/';
+const root='assets/9_ArtResources/02.Environments/02.Street/01.Sprites/';
 // Match the reference head-only framing above the front panel without making
 // Luna step up/down when entering the cabin from either flat walking plane.
 const elevatorArtOffsetY=-.11;
@@ -85,7 +85,7 @@ function apply(data){
   data.assets[name]={src:root+file,w,h,source:'User supplied new/'+file+' · 2026-10-18'};
   data.scenes.street.nodes.push({id:name,go:name,name,x,y,z:0,sx:1,sy:1,active:true,ancestry:['Residence'],sprite:{asset:name,x:0,y:0,w,h,pivot:{x:0,y:1},ppu:100},layer:8,order:21,flip:false,light:true,alpha:.65});
  }
- light('residence-warm-light','Lights/A_light.png',743,352,building.x+.34,building.y-3.90);
+ light('residence-warm-light','Lights/A_light_1.png',743,352,building.x+.34,building.y-3.90);
  light('residence-home-light','Lights/A_light_2.png',52,50,R.homeX-.26,building.y-3.91);
  data.streetArtVersion='20261018';return data;
 }

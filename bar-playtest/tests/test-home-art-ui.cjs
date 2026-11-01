@@ -12,10 +12,10 @@ const sharp=load('sharp');
  }
  const coverFile=path.basename(window.LUNA_OUTSIDE_DATA.assets[window.LunaHomeArt.book.cover].src);
  assert(fs.existsSync(path.join(dir,coverFile)),'Inspection cover is available alongside the house art');
- assert.equal(fs.readdirSync(dir).filter(file=>file!==coverFile).length,12);
+ assert.equal(new Set([...layers.map(l=>window.LunaHomeArt.assetPath(l.file)),...['Chrishouse1.png','Chrishouse3.png'].map(window.LunaHomeArt.assetPath)]).size,12);
  const composed=await sharp({create:{width:643,height:270,channels:4,background:'#000'}})
-  .composite(layers.map(l=>({input:path.join(dir,l.file),left:l.x,top:l.y}))).removeAlpha().raw().toBuffer();
- const reference=await sharp(path.join(root,'assets/reference/previews/chris-home-fullshot.png')).removeAlpha().raw().toBuffer();
+  .composite(layers.map(l=>({input:path.join(root,window.LunaHomeArt.assetPath(l.file)),left:l.x,top:l.y}))).removeAlpha().raw().toBuffer();
+ const reference=await sharp(path.join(root,'assets/9_ArtResources/02.Environments/03.Home/chris_house_fullshot.png')).removeAlpha().raw().toBuffer();
  let delta=0;
  // Compare the unchanged full shot; the separated fence is deliberately shifted
  // one native pixel left to meet the exterior opening at x=585.
@@ -56,7 +56,7 @@ const sharp=load('sharp');
   for(let i=0;i<floorPixels.edge.length;i+=4)assert.deepEqual(floorPixels.edge.slice(i,i+4),[108,106,130,255],'Neutral footing without a magnified cyan fringe');
   for(let i=0;i<floorPixels.below.length;i+=4)assert.deepEqual(floorPixels.below.slice(i,i+4),[1,1,7,255],'No city visible below the footing');
   const roomFringe=await page.evaluate(async()=>{
-   const im=new Image();im.src=LunaHomeArt.root+'Chrishouse2.png';await im.decode();
+   const im=new Image();im.src=LunaHomeArt.assetPath('Chrishouse2.png');await im.decode();
    const cv=document.createElement('canvas');cv.width=643;cv.height=270;const ctx=cv.getContext('2d');
    LunaHomeArt.paintRoom(ctx,im,0,0,643,270);
    return [50,320,500].map(x=>[Array.from(ctx.getImageData(x,237,1,1).data),Array.from(ctx.getImageData(x,238,1,1).data)]);
@@ -76,12 +76,12 @@ const sharp=load('sharp');
     const base=house.find(c=>c.track==='house');
     for(const clip of house){
      if(clip.start!==base.start||clip.duration!==base.duration)throw Error('Room layer disappears in '+kind);
-     if(!StudioMedia.assets.get(clip.assetId).src.includes('/outside/chris-home/'))throw Error('Retired house art in '+kind);
+     if(!LunaHomeArt.layers.some(l=>StudioMedia.assets.get(clip.assetId).src.endsWith(LunaHomeArt.assetPath(l.file))))throw Error('Retired house art in '+kind);
     }
    }
    return nodes;
   });
-  for(const [i,l]of layers.entries())assert.deepEqual(audit[i],{name:l.name,src:window.LunaHomeArt.root+l.file,x:l.x,y:l.y});
+  for(const [i,l]of layers.entries())assert.deepEqual(audit[i],{name:l.name,src:window.LunaHomeArt.assetPath(l.file),x:l.x,y:l.y});
   assert.deepEqual(errors,[]);
   console.log('PASS 12 original house sheets; full-shot mean RGB difference '+(delta/(643*270*3)).toFixed(4)+'; gameplay placements and opening/sleep/morning use the same complete room');
  }finally{await browser.close();}

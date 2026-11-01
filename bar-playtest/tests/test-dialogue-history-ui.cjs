@@ -8,7 +8,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  await p.screenshot({path:'/private/tmp/dialogue-history-service.png'});
  await p.getByRole('button',{name:'대화 기록',exact:true}).click();
  await p.locator('.dialogue-history-panel').waitFor();assert(await p.locator('.dialogue-history-empty').isVisible());
- assert.equal(await p.locator('.dialogue-history-heading .resource-close img').first().getAttribute('src'),'assets/ui/recipe_choice/BTN_recipe_choice_close.png');
+ assert.equal(await p.locator('.dialogue-history-heading .resource-close img').first().getAttribute('src'),'assets/9_ArtResources/05.UI/01.Shared/MainScreen/recipe_choice/BTN_recipe_choice_close.png');
  await p.keyboard.press('Escape');assert.equal(await p.locator('.dialogue-history-panel').count(),0);assert.equal(await p.locator('.luna-settings:visible').count(),0);
  // Actual story completion still feeds the same history, rather than a second log.
  const record=await p.evaluate(()=>{const g=barGame;g.reset(1,'regular',1,true);g.tutorial=null;g.cameraLeft=0;g.cameraMoving=false;g.transition=0;g.pendingTransition=null;g.story.index=g.story.steps.findIndex(s=>s.type==='say');g.pump();if(!g.dialogue)throw Error('Expected real story line');const text=g.dialogue.text;g.storyCoaster=null;g.dialogue.chars=text.length;g.advance();return {text,last:g.history.at(-1)?.text};});

@@ -27,7 +27,7 @@ function source(c,project,data,images){
  if(c.type!=='move')return null;
  let sp,url;
  if(c.actor==='luna')sp=(data.animations[c.animation]||data.animations.idle).frames[0];
- else if(c.actor==='samho'){if(c.animation&&c.animation!=='idle'){sp={x:0,y:0,w:84,h:81};url='../bar-playtest/assets/outside/samho-run.png';}else sp=data.scenes.street.nodes.find(n=>n.name==='Samho')?.sprite;}
+ else if(c.actor==='samho'){if(c.animation&&c.animation!=='idle'){sp={x:0,y:0,w:84,h:81};url='../bar-playtest/assets/9_ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_RUN3_Sheet.png';}else sp=data.scenes.street.nodes.find(n=>n.name==='Samho')?.sprite;}
  else if(c.actor==='bubi'){sp={x:0,y:0,w:47,h:34};url='../bar-playtest/assets/outside/bubi-cat-idle.png';}
  if(!sp)return null;url=url||'../bar-playtest/'+data.assets[sp.asset]?.src;return {im:images.get(url),x:sp.x,y:sp.y,w:sp.w,h:sp.h};
 }

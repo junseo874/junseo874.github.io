@@ -20,10 +20,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  const full=await p.locator('[data-drop=R] .drink-art').boundingBox();
  await p.evaluate(()=>{barGame.dialogue.chars=barGame.dialogue.text.length;barGame.advance();lunaCampaign.render(true);});
  const empty=p.locator('[data-drop=R] img.empty-glass');await empty.waitFor();await empty.evaluate(e=>e.decode());
- assert((await empty.getAttribute('src')).endsWith('long-drink-glass.png'));
+ assert((await empty.getAttribute('src')).endsWith('long_drink_glass.png'));
  const box=await empty.boundingBox();assert(Math.abs(full.y+full.height-box.y-box.height)<2,'Glass bases stay on the coaster');
  await p.screenshot({path:'/private/tmp/day0-glass-empty.png'});
- for(const [kind,file] of [['weizen','beer-glass.png'],['martini','cocktail-glass.png'],['flute','cocktail-glass.png'],['wine','cocktail-glass.png'],['old_fashioned','long-drink-glass.png'],['unknown','long-drink-glass.png']]){
+ for(const [kind,file] of [['weizen','beer_glass.png'],['martini','cocktail_glass.png'],['flute','cocktail_glass.png'],['wine','cocktail_glass.png'],['old_fashioned','long_drink_glass.png'],['unknown','long_drink_glass.png']]){
   await p.evaluate(kind=>{barGame.seats.R.glassKind=kind;lunaCampaign.render(true);},kind);await empty.evaluate(e=>e.decode());assert((await empty.getAttribute('src')).endsWith(file),kind);
  }
  assert.deepEqual(errors,[]);console.log('EMPTY_GLASS_UI_OK: explicit coaster drag, full to empty at dialogue trigger, matching base and six fallback mappings');

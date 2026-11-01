@@ -1,9 +1,15 @@
 // Only shipped gameplay visuals; review-only references and audio are not bulk downloaded.
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'../bar-playtest'),groups={common:[],bar:[]};
-function walk(dir,group){for(const entry of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const file=dir+'/'+entry.name;if(file==='assets/ui/extracted')continue;if(entry.isDirectory())walk(file,group);else if(/\.(png|webp|jpe?g|gif|svg|woff2?|ttf|otf)$/i.test(file))groups[group].push(file);}}
+function walk(dir,group){if(!fs.existsSync(path.join(root,dir)))return;for(const entry of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const file=dir+'/'+entry.name;if(file==='assets/ui/extracted')continue;if(entry.isDirectory())walk(file,group);else if(/\.(png|webp|jpe?g|gif|svg|woff2?|ttf|otf)$/i.test(file))groups[group].push(file);}}
 for(const dir of ['ui','tutorials','fonts'])walk('assets/'+dir,'common');
 for(const dir of ['backgrounds','characters','cocktails','items','serving'])walk('assets/'+dir,'bar');
+// Keep the same loading groups after canonical art paths are moved. Outside-only
+// artwork remains on-demand; do not bulk-preload the entire shared art tree.
+for(const {from,to} of require('../docs/architecture/art-resource-paths.json').records){
+ const group=/^assets\/(ui|tutorials|fonts)\//.test(from)?'common':/^assets\/(backgrounds|characters|cocktails|items|serving)\//.test(from)?'bar':null;
+ if(group&&!groups[group].includes(to))groups[group].push(to);
+}
 for(const values of Object.values(groups))values.sort();
 const file=path.join(root,'data/presentation/preload-manifest.json'),text=JSON.stringify(groups,null,2)+'\n';
 if(process.argv.includes('--write'))fs.writeFileSync(file,text);

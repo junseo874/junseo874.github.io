@@ -24,6 +24,6 @@ for(const variant of ['original','gpt']){
  assert.equal(g.seats[guest.seat],null);tick(g,20);assert.equal(g.transactions.length,2);
  console.log('EMPTY_GLASS_OK',variant,'targeted trigger, line timing, automatic drinking, pause, offscreen, refill and single settlement');
 }
-for(const [key,file] of [['beer','beer-glass.png'],['cocktail','cocktail-glass.png'],['long_drink','long-drink-glass.png']]){
+for(const [key,file] of [['beer','beer_glass.png'],['cocktail','cocktail_glass.png'],['long_drink','long_drink_glass.png']]){
  const asset=D.assets['table_empty_glass_'+key];assert(asset);assert(asset.src.endsWith(file));assert(fs.existsSync(path.join(root,asset.src)));
 }

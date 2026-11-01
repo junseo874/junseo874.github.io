@@ -22,6 +22,7 @@ const suites = {
 };
 const choice = process.argv[2] || 'smoke';
 suites.smoke.unshift(game('test-shared-birds-and-bar-gates'));
+suites.smoke.unshift('tools/check-art-resource-paths.cjs');
 suites.ui.unshift(game('test-bar-choice-hold-clock'));
 suites.ui.unshift(game('test-loading-pigeon-ui'));
 suites.ui.unshift(game('test-story-service-entry-ui'));
