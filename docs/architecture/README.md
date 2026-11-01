@@ -56,8 +56,9 @@ node tools/locate.cjs campaign --symbols
 - [까마귀·비둘기](ambient-birds.md): 공통 프레임·발 원점, 테라스 도착, 거리 날씨/레이어
 - [조작 잠금·대본 대기](../gameplay/input-locks.md): 입력 차단과 pause를 혼동하지 않기 위한 소유권/해제 조건
 - [거리 렌더링 상세](street-atmosphere.md): 빛·그림자·물웅덩이 수정 때만
-- [데이터·로딩 계약](loading.md), [검증 방법](testing.md), [리소스 규칙](../../bar-playtest/assets/README.md)
+- [데이터·로딩 계약](loading.md), [검증 방법](testing.md), [리소스 규칙](art-assets.md)
 - 공통 그래픽 경로는 `bar-playtest/assets/9_ArtResources/`에서 상위 원본 폴더와 동일하게 유지합니다. [파일 대응표](art-resource-paths.json)에는 이전/현재 경로와 바이트 해시가 있습니다. 게임 ID는 변경하지 않습니다.
+- 웹 생성 PNG도 **웹의** `assets/9_ArtResources/` 용도별 `WebGenerated`에 둡니다. 상위 원본 폴더에 내보내지 않습니다. `tools/build-generated-ui-css.cjs`는 정적 배경 연결, `build_resource_extraction_catalog.cjs`는 개별 추출 목록을 갱신합니다. 동적 효과/배치는 기능별 CSS/JS가 소유합니다. `bar-playtest/data/presentation/generated-art/manifest.json`.
 
 ## 보존할 경계
 

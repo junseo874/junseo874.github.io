@@ -11,7 +11,7 @@ function individual(row){
 function controls(row,variant){
  if(!row)return '';
  const R=W.ResourceLatest,v=variant||row.variants?.[0]?.id,stem=R.stem(row,v),link=(src,label,name)=>'<a class="png-download" href="'+esc(src)+'" download="'+esc(name)+'">'+label+'</a>';
- if(row.cursor)return '<div class="png-downloads">'+link(row.layers[0].src,'원본 SVG 다운로드',row.cursor.id+'.svg')+'<button data-download-canvas>투명 PNG 다운로드</button></div>';
+ if(row.cursor)return '<div class="png-downloads">'+link(row.layers[0].src,'원본 PNG 다운로드',decodeURIComponent(row.layers[0].src.split('/').pop()))+'<button data-download-canvas>투명 PNG 다운로드</button></div>';
  if(row.audio)return '<div class="png-downloads">'+link(row.audio.src,'원본 '+row.audio.src.split('.').at(-1).toUpperCase()+' 다운로드',row.audio.src.split('/').at(-1))+'</div>';
  if(R.isScreen(row))return '<div class="png-downloads">'+(row.popupKind?link(R.popup(row,v),'팝업 참고 PNG',stem+'--popup.png'):'')+link(R.screen(row,v),'전체 화면 참고 PNG',stem+'.png')+'<a class="extract-link" href="resource-review.html?tab=extract'+(row.id==='ui:exterior:street'?'&amp;q='+encodeURIComponent('상호작용'):'')+'">개별 그래픽 추출 ↗</a></div>'+(row.layers?.length?individual(row):'');
  if(row.layers?.length===1&&row.layers[0].frames===1&&!row.layers[0].rects&&!row.layers[0].placement&&/\.png$/i.test(row.layers[0].src))return '<div class="png-downloads">'+link(row.layers[0].src,'원본 PNG 다운로드',row.layers[0].src.split('/').at(-1))+'</div>';

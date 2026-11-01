@@ -4,7 +4,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[],requests=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
-  p.on('request',r=>{if(r.url().includes('/vehicles/'))requests.push(r.url());});
+  p.on('request',r=>{if(r.url().includes('/vehicles/')||r.url().includes('/Advertisements/WebGenerated/'))requests.push(r.url());});
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=outside');
   await p.locator('.updates-confirm').click();await p.locator('[data-outside-action="start"]').click();
   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading);

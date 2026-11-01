@@ -6,12 +6,12 @@ const kinds=['default','pointer','pressed','grab','grabbing','not-allowed','text
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
   p.on('pageerror',e=>errors.push(e.message));
-  const cursor=async(selector,name)=>assert((await p.locator(selector).first().evaluate(el=>getComputedStyle(el).cursor)).includes('/'+name+'.svg'),selector+' should use '+name);
+  const cursor=async(selector,name)=>assert((await p.locator(selector).first().evaluate(el=>getComputedStyle(el).cursor)).includes('/Web_IMG_cursor_'+name.replaceAll('-','_')+'_icon.png'),selector+' should use '+name);
   await p.goto('http://127.0.0.1:8123/bar-playtest/');
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   await p.evaluate(()=>lunaCampaign.action('title'));
   await cursor('body','default');await cursor('[data-campaign="options"]','pointer');
-  const decode=await p.evaluate(async kinds=>Promise.all(kinds.map(async name=>{const i=new Image();i.src='assets/ui/cursors/'+name+'.svg';await i.decode();return [i.naturalWidth,i.naturalHeight];})),kinds);
+  const decode=await p.evaluate(async kinds=>Promise.all(kinds.map(async name=>{const i=new Image();i.src=LunaCursors.find(c=>c.id===name).src;await i.decode();return [i.naturalWidth,i.naturalHeight];})),kinds);
   assert(decode.every(x=>x[0]===32&&x[1]===32));
   await p.locator('[data-campaign="options"]').click();
   await cursor('[data-setting="bgm"]','ew-resize');await cursor('[data-setting="voice"]','pointer');
@@ -40,7 +40,7 @@ const kinds=['default','pointer','pressed','grab','grabbing','not-allowed','text
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html',{waitUntil:'domcontentloaded'});
   await cursor('input[type="search"]','text');
   // Cursor contact sheet: screenshots do not include the OS cursor itself.
-  await p.evaluate(kinds=>{document.body.innerHTML='<main id="cursor-sheet" style="padding:32px;background:#0b1720;color:#d6fbff;font:16px sans-serif;display:grid;grid-template-columns:repeat(6,140px);gap:20px">'+kinds.map(name=>'<figure style="margin:0;padding:16px;border:1px solid #315463;text-align:center"><img src="assets/ui/cursors/'+name+'.svg" style="width:96px;height:96px;image-rendering:pixelated"><figcaption>'+name+'</figcaption></figure>').join('')+'</main>';},kinds);
+  await p.evaluate(kinds=>{document.body.innerHTML='<main id="cursor-sheet" style="padding:32px;background:#0b1720;color:#d6fbff;font:16px sans-serif;display:grid;grid-template-columns:repeat(6,140px);gap:20px">'+kinds.map(name=>'<figure style="margin:0;padding:16px;border:1px solid #315463;text-align:center"><img src="'+LunaCursors.find(c=>c.id===name).src+'" style="width:96px;height:96px;image-rendering:pixelated"><figcaption>'+name+'</figcaption></figure>').join('')+'</main>';},kinds);
   await p.locator('#cursor-sheet').screenshot({path:'/private/tmp/luna-cursors-preview.png'});
   assert.deepEqual(errors,[]);console.log('PASS 12 decoded cursor assets, settings/disabled/pressed, pour grab/capture/release/pause, drag lifecycle, text fields, all web surfaces');
  }finally{await browser.close();}

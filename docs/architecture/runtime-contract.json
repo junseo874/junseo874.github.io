@@ -291,6 +291,10 @@
       "src/shared/platform/capture-mode.js"
     ],
     [
+      "link",
+      "src/shared/ui/generated-art.css"
+    ],
+    [
       "script",
       "src/shared/platform/focus-settings.js"
     ],

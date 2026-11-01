@@ -8,8 +8,9 @@ const rt=require('../../tools/lib/test-runtime.cjs'),{chromium}=rt.load('playwri
   await page.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html?tab=cursors');
   await page.waitForFunction(()=>window.resourceReview?.ready);
   const rows=await page.evaluate(()=>resourceReview.rows.filter(r=>r.cursor));
-  const files=fs.readdirSync(path.join(__dirname,'../assets/ui/cursors')).filter(f=>f.endsWith('.svg'));
-  assert.deepEqual(rows.map(r=>r.cursor.id+'.svg').sort(),files.sort(),'Every native cursor must be available');
+  const folder=path.join(__dirname,'../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors');
+  const files=fs.readdirSync(folder).filter(f=>f.endsWith('.png'));
+  assert.deepEqual(rows.map(r=>r.cursor.src.split('/').pop()).sort(),files.sort(),'Every native PNG cursor must be available');
   assert.equal(await page.locator('#grid .card').count(),12);
   for(const row of rows){
    // Space real downloads to avoid Chromium's bulk-download rate limit.
@@ -17,7 +18,7 @@ const rt=require('../../tools/lib/test-runtime.cjs'),{chromium}=rt.load('playwri
    await page.locator('[data-id="'+row.id+'"]').click();
    const rawEvent=page.waitForEvent('download');await page.locator('#inspect-downloads a').click();
    const raw=await rawEvent;assert.equal(await raw.failure(),null);
-   assert(fs.readFileSync(await raw.path()).equals(fs.readFileSync(path.join(__dirname,'../assets/ui/cursors',row.cursor.id+'.svg'))));
+   assert(fs.readFileSync(await raw.path()).equals(fs.readFileSync(path.join(folder,row.cursor.src.split('/').pop()))));
    const saved=page.waitForEvent('download');await page.locator('#inspect-downloads button').click();
    const png=await saved;assert.equal(await png.failure(),null);
    const {data,info}=await sharp(await png.path()).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -41,6 +42,6 @@ const rt=require('../../tools/lib/test-runtime.cjs'),{chromium}=rt.load('playwri
   assert(await page.locator('#inspect-downloads button').isVisible());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(errors,[]);
-  console.log('PASS all 12 cursor SVG originals and exact transparent 32px PNG exports; extraction, navigation and mobile');
+  console.log('PASS all 12 cursor PNG originals and exact transparent 32px PNG exports; extraction, navigation and mobile');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

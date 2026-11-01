@@ -3,7 +3,8 @@
 // including a GitHub Pages project deployed below a path prefix.
 (function () {
   'use strict';
-  const base = new URL('../../../assets/ui/cursors/', document.currentScript.src);
+  const base = new URL('../../../assets/9_ArtResources/05.UI/01.Shared/WebGenerated/Cursors/', document.currentScript.src);
+  const file = id => 'Web_IMG_cursor_' + id.replaceAll('-', '_') + '_icon.png';
   const cursors = {
     default: [4, 3, 'default'], pointer: [14, 3, 'pointer'], pressed: [14, 5, 'pointer'],
     grab: [16, 15, 'grab'], grabbing: [16, 16, 'grabbing'],
@@ -27,11 +28,11 @@
   };
   // Review/export metadata shares the exact URLs and hotspots used by the UI.
   window.LunaCursors = Object.entries(cursors).map(([id, [x, y, fallback]]) => ({
-    id, src: new URL(id + '.svg', base).href, w: 32, h: 32,
+    id, src: new URL(file(id), base).href, w: 32, h: 32,
     hotspot: [x, y], fallback, title: descriptions[id][0], usage: descriptions[id][1],
   }));
   for (const [name, [x, y, fallback]] of Object.entries(cursors)) {
     document.documentElement.style.setProperty('--luna-cursor-' + name,
-      `url("${new URL(name + '.svg', base).href}") ${x} ${y}, ${fallback}`);
+      `url("${new URL(file(name), base).href}") ${x} ${y}, ${fallback}`);
   }
 })();

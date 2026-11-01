@@ -67,7 +67,7 @@ archives/                   이전 배포 압축본
 
 - 수정 위치: [구조 안내](docs/architecture/README.md). `node tools/locate.cjs 제조` 또는 `node tools/locate.cjs scoreCraft`로 기능·함수부터 찾습니다.
 - 검증 방법: [테스트 안내](docs/architecture/testing.md)
-- 리소스 규칙: [리소스 안내](bar-playtest/assets/README.md)
+- 리소스 규칙: [리소스 안내](docs/architecture/art-assets.md)
 - 폴더 이동 전후 이름은 `docs/architecture/path-migrations.json`에서 검색할 수 있습니다. 이 파일은 브라우저가 읽지 않습니다.
 
 `localStorage`/IndexedDB 키, 게임 데이터 ID, 공개 페이지 URL과 기존 스크립트의 상대 실행 순서는 유지합니다. 분리된 모듈만 소유 파일보다 먼저 로드합니다. 이미지 픽셀·애니메이션 프레임·음원 데이터는 변경하지 않았습니다.

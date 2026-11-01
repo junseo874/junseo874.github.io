@@ -16,7 +16,7 @@ function collect(rows,assets={}){
  const all=[],seen=new Map();
  function add(item){
   if(!item.src||(!item.src.startsWith('data:image/')&&!/\.(png|svg|webp|jpe?g)(?:\?|$)/i.test(item.src))||/reference\/(exports|previews)|resource-(exports|previews)/.test(item.src)||item.src==='assets/9_ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png'||item.src.startsWith('data:image/svg'))return;
-  const l=item.layer||{},key=JSON.stringify([item.src,l.frames||1,l.rects,l.fw,l.fh,l.cols,l.sx,l.sy,l.dx,l.dy]);
+  const l=item.layer||{},key=JSON.stringify([new URL(item.src,document.baseURI).href,l.frames||1,l.rects,l.fw,l.fh,l.cols,l.sx,l.sy,l.dx,l.dy]);
   const old=seen.get(key);if(old){old.search+=' '+item.title+' '+(item.usage||'');return;}
   item.id='graphic-'+all.length;item.search=[item.title,item.src,item.category,item.usage,item.contexts,l.key].join(' ');all.push(item);seen.set(key,item);
  }
@@ -58,7 +58,9 @@ async function download(a,n,raw,trimmed){
  const blob=await new Promise(resolve=>c.toBlob(resolve,'image/png'));if(!blob)throw Error('PNG를 생성하지 못했습니다.');
  const url=URL.createObjectURL(blob);save(url,filename(a)+(raw?'':'--frame-'+String(n+1).padStart(3,'0'))+(trimmed?'--trimmed':'')+'.png');setTimeout(()=>URL.revokeObjectURL(url),30000);
 }
-const filtered=()=>entries.filter(a=>(category.value==='all'||a.category===category.value)&&(part.value==='all'||(a.partKind||'original')===part.value)&&search.value.toLowerCase().split(/\s+/).filter(Boolean).every(word=>a.search.toLowerCase().includes(word)));
+const noticeSearch={'새로운 목표':'goal-new','목표 달성':'goal-complete','이벤트 발생':'event','인물정보 등록':'meet','호감도 상승':'up','호감도 하락':'down'};
+const filtered=()=>entries.filter(a=>(category.value==='all'||a.category===category.value)&&(part.value==='all'||(a.partKind||'original')===part.value)&&
+ (category.value==='UI · 팝업 분리'&&noticeSearch[search.value]?a.noticeKinds?.includes(noticeSearch[search.value]):search.value.toLowerCase().split(/\s+/).filter(Boolean).every(word=>a.search.toLowerCase().includes(word))));
 async function preview(card,a,token){try{
  const request=(card.previewRequest||0)+1;card.previewRequest=request;
  const n=Math.max(0,Math.min(frames(a)-1,Number(card.querySelector('[data-frame]')?.value||1)-1));
@@ -70,7 +72,7 @@ function render(){
  view.querySelector('#extract-count').textContent=list.length+'개 그래픽 / 전체 '+entries.length+'개 · 같은 원본은 중복 제거';
  view.querySelector('.extract-grid').innerHTML=list.slice(page*pageSize,(page+1)*pageSize).map(a=>{
  const animated=frames(a)>1,framed=animated||a.layer?.rects||a.layer?.sx||a.layer?.sy||a.layer?.fw||a.layer?.fh;
- return '<article class="extract-card" data-graphic="'+a.id+'"><div class="extract-art">'+(framed?'<small>프레임 미리보기</small>':'<img src="'+esc(a.src)+'" alt="'+esc(a.title)+'" loading="lazy">')+'</div><div class="extract-copy"><small>'+esc(a.category)+'</small><h3>'+esc(a.title)+'</h3><p data-size>'+esc(a.w&&a.h?a.w+' × '+a.h+' px':'원본 크기')+'</p>'+(a.note?'<p>'+esc(a.note)+'</p>':'')+'<span class="extract-file">'+esc(a.src.startsWith('data:')?'내장 그래픽':a.src)+'</span><div class="extract-actions"><button data-extract="raw">'+(animated?'원본 시트 PNG':a.partKind?(partNames[a.partKind]||'요소')+' PNG':'원본 PNG')+'</button>'+(a.category==='UI · 마우스 커서'?'<a class="png-download" href="'+esc(a.src)+'" download="'+esc(filename(a))+'.svg">원본 SVG</a>':'')+(framed?'<label>프레임 <input data-frame type="number" min="1" max="'+frames(a)+'" value="1" aria-label="'+esc(a.title)+' 프레임"> / '+frames(a)+'</label><button data-extract="frame">이 프레임 PNG</button><label><input type="checkbox" data-trim>투명 여백 제거</label>':'')+'</div><div class="extract-message" role="status"></div></div></article>';
+ return '<article class="extract-card" data-graphic="'+a.id+'"><div class="extract-art">'+(framed?'<small>프레임 미리보기</small>':'<img src="'+esc(a.src)+'" alt="'+esc(a.title)+'" loading="lazy">')+'</div><div class="extract-copy"><small>'+esc(a.category)+'</small><h3>'+esc(a.title)+'</h3><p data-size>'+esc(a.w&&a.h?a.w+' × '+a.h+' px':'원본 크기')+'</p>'+(a.note?'<p>'+esc(a.note)+'</p>':'')+'<span class="extract-file">'+esc(a.src.startsWith('data:')?'내장 그래픽':a.src)+'</span><div class="extract-actions"><button data-extract="raw">'+(animated?'원본 시트 PNG':a.partKind?(partNames[a.partKind]||'요소')+' PNG':'원본 PNG')+'</button>'+(a.category==='UI · 마우스 커서'&&/\.svg(?:\?|$)/i.test(a.src)?'<a class="png-download" href="'+esc(a.src)+'" download="'+esc(filename(a))+'.svg">원본 SVG</a>':'')+(framed?'<label>프레임 <input data-frame type="number" min="1" max="'+frames(a)+'" value="1" aria-label="'+esc(a.title)+' 프레임"> / '+frames(a)+'</label><button data-extract="frame">이 프레임 PNG</button><label><input type="checkbox" data-trim>투명 여백 제거</label>':'')+'</div><div class="extract-message" role="status"></div></div></article>';
  }).join('')||'<p>일치하는 그래픽이 없습니다. 검색어나 분류를 바꿔 주세요.</p>';
  view.querySelector('.extract-pages span').textContent=(page+1)+' / '+pages;view.querySelector('[data-extract-page="-1"]').disabled=page===0;view.querySelector('[data-extract-page="1"]').disabled=page===pages-1;
  observer=new IntersectionObserver(items=>{for(const item of items)if(item.isIntersecting){observer.unobserve(item.target);const a=entries.find(a=>a.id===item.target.dataset.graphic);void preview(item.target,a,token);}},{rootMargin:'150px'});

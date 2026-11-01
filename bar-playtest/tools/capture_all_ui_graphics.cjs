@@ -4,7 +4,7 @@
 const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
-const root=path.resolve(__dirname,'..'),base=process.env.RESOURCE_REVIEW_URL||'http://127.0.0.1:8123/bar-playtest/',folder='assets/ui/extracted',out=path.join(root,folder);
+const root=path.resolve(__dirname,'..'),base=process.env.RESOURCE_REVIEW_URL||'http://127.0.0.1:8123/bar-playtest/',folder='../artifacts/ui-graphic-staging/extracted',out=path.join(root,folder);
 const kindNames={background:'배경',border:'테두리',icon:'아이콘',shadow:'그림자'},stateNames={normal:'기본',hover:'호버',active:'누름',focus:'포커스'};
 const noticeKinds=[['goal-new','새로운 목표','◇'],['goal-complete','목표 달성','✓'],['event','이벤트 발생','!'],['meet','인물정보 등록','＋'],['up','호감도 상승','↑'],['down','호감도 하락','↓']];
 const snapshots=new Map(),coverage=[],extraImages=new Map(),failures=[];
@@ -122,7 +122,8 @@ async function main(){
   const audit={generatedAt:new Date().toISOString(),sourceHashes,states:coverage,failures,emptyPaintLayersExcluded:blank,assets:manifest.length,scope:'현재 리소스 확인에 등록된 플레이어 UI 전체 상태, 목표/이벤트/인물/호감도 6종, 타이틀/외부 키/관찰/스킵 UI. 게임 장면·캐릭터 합성·대사 텍스트·동적 액체 시뮬레이션 제외.'};
   fs.writeFileSync(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
   fs.writeFileSync(path.join(out,'coverage.json'),JSON.stringify(audit,null,2)+'\n');
-  require('./build_resource_extraction_catalog.cjs');
+  // Staging output is deliberately not published. Review/deduplicate into the
+  // named WebGenerated library before rebuilding the live extraction catalog.
   console.log(JSON.stringify({states:coverage.length,assets:manifest.length,failures,blank:blank.length}));
   if(failures.length)process.exitCode=1;
  }finally{await browser.close();}

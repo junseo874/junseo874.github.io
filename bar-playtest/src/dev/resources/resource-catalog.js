@@ -17,7 +17,7 @@ function build(F){
   const src=new URL(cursor.src).pathname;
   add({id:'cursor:'+cursor.id,group:'common-cursors',title:cursor.title,usage:cursor.usage+' · '+cursor.id,
    cursor, layers:[{key:cursor.id,src:cursor.src,w:cursor.w,h:cursor.h,frames:1,source:src}],
-   note:'32 × 32 px · 투명 배경. 클릭 기준점: 왼쪽 위에서 X '+cursor.hotspot[0]+', Y '+cursor.hotspot[1]+' px. 원본 SVG 또는 같은 크기의 PNG로 저장할 수 있습니다.'});
+   note:'32 × 32 px · 투명 배경. 클릭 기준점: 왼쪽 위에서 X '+cursor.hotspot[0]+', Y '+cursor.hotspot[1]+' px. 게임에서 사용하는 원본 PNG로 저장할 수 있습니다.'});
  }
  const state=a=>!a?'missing':/더미|dummy|임시|user supplied/i.test(a.source||'')||/campaign\/(johnny-|tom-|shiba-)/i.test(a.src||'')?'dummy':'registered';
  function layer(key,a,extra={}){if(!a)return null;return {key,src:a.src,source:a.source||'',w:a.w,h:a.h,frames:a.frames||1,fw:a.frameWidth,fh:a.frameHeight,fps:a.fps||6,scale:a.displayScale||1,...extra};}

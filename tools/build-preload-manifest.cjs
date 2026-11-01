@@ -10,7 +10,12 @@ for(const {from,to} of require('../docs/architecture/art-resource-paths.json').r
  const group=/^assets\/(ui|tutorials|fonts)\//.test(from)?'common':/^assets\/(backgrounds|characters|cocktails|items|serving)\//.test(from)?'bar':null;
  if(group&&!groups[group].includes(to))groups[group].push(to);
 }
-for(const values of Object.values(groups))values.sort();
+const generated=require('../bar-playtest/data/presentation/generated-art/manifest.json');
+for(const r of generated.records)if(r.sources.some(s=>s.src.startsWith('assets/ui/parts/')||s.src.startsWith('assets/ui/cursors/')))groups.common.push('assets/9_ArtResources/'+r.path);
+groups.common.push(...require('../bar-playtest/data/presentation/generated-art-preload.json'));
+// Old extraction copies are excluded while a migration is being verified.
+const migrated=new Set(generated.records.flatMap(r=>r.sources.map(s=>s.src)));
+for(const key of Object.keys(groups))groups[key]=[...new Set(groups[key].filter(p=>!migrated.has(p)))].sort();
 const file=path.join(root,'data/presentation/preload-manifest.json'),text=JSON.stringify(groups,null,2)+'\n';
 if(process.argv.includes('--write'))fs.writeFileSync(file,text);
 else if(fs.readFileSync(file,'utf8')!==text)throw Error('Preload manifest is stale: run node tools/build-preload-manifest.cjs --write');

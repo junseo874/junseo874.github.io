@@ -38,7 +38,7 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 | 손님·주문·점수·정산 | `guests/`, `craft/order_rules.csv`, `settings/` + `features/bar/guest-service.js`, `settlement.js`, `features/crafting/craft-rules.js` |
 | 외부 등장/해금/거래/완료 조건 | `src/features/outside/events/`의 해당 모듈 |
 | 본편 진입·일차·휴식 연결 | `src/features/campaign/campaign.js`, `day-flow.js`, `campaign-engine.js` |
-| 캐릭터/이미지 경로 | `data/presentation/runtime-assets.json`, 해당 장면/표현 데이터; [리소스 안내](../../bar-playtest/assets/README.md) |
+| 캐릭터/이미지 경로 | `data/presentation/runtime-assets.json`, 해당 장면/표현 데이터; [리소스 안내](../../docs/architecture/art-assets.md) |
 | 카메라·피벗·애니메이션·임시 좌표 | outside/campaign/cinema의 해당 모듈 및 presentation 데이터 |
 | 편집기 컷씬 | `cutscene-studio/`의 프로젝트와 본편 cinema 연결. 대사 CSV와 별도 연출 계층 |
 

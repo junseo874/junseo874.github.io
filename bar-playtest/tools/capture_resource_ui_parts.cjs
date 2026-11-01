@@ -1,7 +1,7 @@
 // Render code-authored UI as isolated 1x PNGs. No scene or dialogue text is captured.
 const fs=require('node:fs'),path=require('node:path');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'assets/ui/parts');
+const root=path.resolve(__dirname,'..'),out=path.resolve(root,'../artifacts/ui-graphic-staging/parts');
 (async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true});try{
  const p=await b.newPage({viewport:{width:800,height:600},deviceScaleFactor:1});
  const css=['src/app/styles.css','src/shared/dialogue/world-choices.css','src/features/outside/outside.css'].map(f=>fs.readFileSync(path.join(root,f),'utf8')).join('\n');

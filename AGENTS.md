@@ -22,7 +22,7 @@
 - 현재는 순서 의존성이 있는 classic script다. HTML의 로딩 순서를 바꾸거나 `async`/`defer`/ESM을 섞지 않는다.
 - JS의 이미지 URL은 HTML 기준, CSS `url()`은 CSS 파일 기준이다. `document.currentScript` 기반 경로는 이동할 때 별도로 검증한다.
 - 공개 HTML 주소, 세이브 키, 캐릭터/아이템/리소스 ID는 파일명과 다르다. 경로 정리 목적으로 ID를 바꾸지 않는다.
-- 리소스 교체는 `bar-playtest/assets/README.md`를 따른다. 원본 이미지와 음원을 재인코딩하지 않는다.
+- 리소스 교체는 `docs/architecture/art-assets.md`를 따른다. 원본 이미지와 음원을 재인코딩하지 않는다.
 
 ## 확인
 
