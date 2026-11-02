@@ -21,6 +21,11 @@ const suites = {
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
+suites.smoke.unshift(game('test-guest-random-appearance'));
+suites.smoke.unshift(game('test-endless-general'));
+suites.ui.unshift(game('test-guest-random-appearance-ui'));
+suites.ui.unshift(game('test-endless-general-ui'));
+suites.ui.unshift(game('test-guest-appearance-tab-ui'));
 suites.smoke.unshift(game('test-latest-story-timings'));
 suites.smoke.unshift(game('test-shared-birds-and-bar-gates'));
 suites.smoke.unshift('tools/check-engine-art-sync.cjs','tools/check-art-resource-paths.cjs');

@@ -246,9 +246,18 @@ window.LunaBarViews = function ({
         ['guest_' + gender + '_eyes_' + eyes]: 'guest_' + gender + '_talk_eyes_' + eyes
       };
       const mouthKey = 'guest_' + gender + '_talk_mouth_' + mouth;
-      if (talking || D.assets[mouthKey]) replace['guest_' + gender + '_mouth_' + mouth] = mouthKey;else if (gender === 'm' && ['4', '5'].includes(mouth)) replace['guest_m_mouth_' + mouth] = 'guest_m_mouth_3';
+      if (D.assets[mouthKey]) replace['guest_' + gender + '_mouth_' + mouth] = mouthKey;
+      const keys = app.layers.map(k => D.assets[replace[k]] ? replace[k] : k);
+      // Eye animation sheets contain opaque upper-face skin, not just eyes.
+      // Paint the selected eyebrows above that skin, but below the hair.
+      const browIndex = keys.findIndex(k => /_eyebrow_\d+$/.test(k));
+      const faceIndex = keys.findIndex(k => /_talk_eyes_\d+$/.test(k));
+      if (browIndex >= 0 && faceIndex > browIndex) {
+        const [brow] = keys.splice(browIndex, 1);
+        keys.splice(keys.findIndex(k => /_talk_eyes_\d+$/.test(k)) + 1, 0, brow);
+      }
       return {
-        keys: app.layers.map(k => D.assets[replace[k]] ? replace[k] : k),
+        keys,
         pose: talking ? D.assets[mouthKey] ? 'talk' : 'static-fallback' : 'idle'
       };
     }

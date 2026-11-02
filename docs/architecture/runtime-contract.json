@@ -811,6 +811,14 @@
       "src/cinema/exterior-speech.js"
     ],
     [
+      "link",
+      "src/dev/qa/guest-appearance.css"
+    ],
+    [
+      "script",
+      "src/dev/qa/guest-appearance.js"
+    ],
+    [
       "script",
       "src/app/app.js"
     ]

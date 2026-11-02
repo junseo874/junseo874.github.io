@@ -60,13 +60,13 @@ for(const [actor,app] of [['guest_m',appearance('m')],['guest_f',appearance('f')
   // Frozen game time must freeze all face and body clocks.
   assert.deepEqual(f.at(40).frames,f.at(40).frames);
 }
-// All ten static general-mouth variants must have a silent closed fallback.
+// Animated variants close while silent; static-only variants retain their identity.
 for(const gender of ['m','f'])for(let m=1;m<=5;m++){
   const app=appearance(gender);app.layers=app.layers.map(k=>k.replace('mouth_1','mouth_'+m));
   const f=fixture('mouth_test',app),s=f.at(0),keys=Object.keys(s.frames);
   const mouth=keys.find(k=>/mouth_\d+$/.test(k));
   if(m<=3){assert.equal(mouth,'guest_'+gender+'_talk_mouth_'+m);assert.equal(s.frames[mouth],3);}
-  else assert.equal(mouth,'guest_'+gender+'_mouth_'+(gender==='m'?3:m));
+  else assert.equal(mouth,'guest_'+gender+'_mouth_'+m);
 }
 for(const [eye,mouth] of [[4,1],[1,5],[4,5]]){
   const app=appearance('f');app.layers=app.layers.map(k=>k.replace('eyes_1','eyes_'+eye).replace('mouth_1','mouth_'+mouth));
@@ -86,7 +86,7 @@ for(const [eye,mouth] of [[4,1],[1,5],[4,5]]){
   }
   assert(difference,'Blink clocks are synchronized');
 }
-console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous slow bodies, 10 closed-mouth variants, independent missing-art fallback.');
+console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous slow bodies, 10 preserved mouth variants, independent missing-art fallback.');
 
 (async()=>{let browser;try{
   browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true});
@@ -95,8 +95,8 @@ console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous
   if(await p.locator('[data-campaign="developer"]').count())await p.locator('[data-campaign="developer"]').click();
   if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   await p.evaluate(()=>{
-    const g=barGame;g.reset(99,'general',7);for(let i=0;i<100;i++)g.tick(.1);
-    const first=g.seats.L;g.queue=[];g.speed=0;g.cameraLeft=0;g.focus='L';g.overview=false;g.dialogSpeed=.15;
+    const g=barGame;g.reset(99,'general',7,true,{seatRng:()=>0});for(let i=0;i<100;i++)g.tick(.1);
+    const first=g.seats.L;g.queue=[];g.speed=1;g.cameraLeft=0;g.focus='L';g.overview=false;g.dialogSpeed=.15;
     const make=(seat,gender)=>({...first,id:'speech_'+seat,seat,state:'WAIT_COASTER',left:999,limit:999,warn:0,
       appearance:{gender,layers:['body','top_1','eyes_1','eyebrow_1','mouth_1','hair_1'].map(k=>'guest_'+gender+'_'+k)},
       lines:[g.makeLine(first.actor,'오늘은 어떤 칵테일을 마실지 고민하고 있어요. 잠시 메뉴를 더 살펴봐도 괜찮을까요?')],lineIndex:0,lineDone:null});
@@ -121,7 +121,7 @@ console.log('IDLE_CLOCK_OK: 40s × 7 guests, staggered sparse blinks, continuous
   // During the pan no new guest owns a bubble; after arrival the next guest starts.
   assert.equal(await p.locator('.actor[data-talking="true"]').count(),0);
   // D moves L -> M, which is intentionally empty. Move on to R to start its line.
-  await p.waitForTimeout(650);await p.keyboard.press('KeyD');
+  await p.waitForFunction(()=>!barGame.cameraMoving&&barGame.cameraLeft===0);await p.keyboard.press('KeyD');
   await p.waitForFunction(()=>document.querySelectorAll('.actor')[1]?.dataset.speechState==='looping');
   assert.equal(await first.getAttribute('data-speech-state'),'idle');
   assert.equal(await second.getAttribute('data-talking'),'true');

@@ -4,7 +4,12 @@
   function create({ clamp, n, sortSeq, weighted }) {
     return class GameGuests {
     finishGeneralService() {
+      if (this.endlessGeneral) return;
       this.startStoryPhase('bar');
+    }
+    nextEndlessGuest() {
+      const personality = this.t.personalities[Math.floor(this.appearanceRng() * this.t.personalities.length)].id;
+      return {personality, order: null, max_rounds: 1, delay_sec: this.c('spawn_delay_default_sec', 10)};
     }
     startGeneral() {
       this.storyCoaster = null;
@@ -19,6 +24,7 @@
       this.story = null;
       this.dialogue = null;
       this.queue = sortSeq([...this.t.random_waves, ...this.t.regular_slots].filter(s => n(s.day) === this.day));
+      if (this.endlessGeneral) this.queue = [this.nextEndlessGuest()];
       this.queueIndex = 0;
       this.spawnBlocked = false;
       this.spawnLeft = this.c('first_spawn_delay_sec', 5) + n(this.queue[0]?.delay_sec);
@@ -29,58 +35,38 @@
       });
       if (!this.queue.length) this.finishGeneralService();
     }
-    appearance() {
-      const gender = this.rng() < 0.5 ? 'm' : 'f';
-      const slots = ['body', 'outfit', 'eyes', 'eyebrows', 'mouth', 'hair'];
-      let ids = [],
-        layers = [];
-      // CSV IDs are retained; art filenames are a view mapping, not a schema change.
-      for (const slot of slots) {
-        const list = this.t.guest_parts.filter(p => p.gender === gender && p.id.startsWith(slot + '_' + gender));
-        const p = weighted(list, this.rng);
-        const id = p?.id || slot + '_' + gender + (slot === 'body' ? '' : '_1');
-        ids.push(id);
-      }
-      const optional = this.t.guest_parts.filter(p => p.gender === gender && /^(arm_accessory|necklace|outerwear)_/.test(p.id));
-      if (optional.length && this.rng() > 0.5) {
-        const p = weighted(optional, this.rng);
-        if (!this.t.guest_exclusions.some(e => e.a === p.id && ids.includes(e.b) || e.b === p.id && ids.includes(e.a))) ids.push(p.id);
-      }
-      const map = {
-        outfit: 'top',
-        eyebrows: 'eyebrow',
-        arm_accessory: 'Acc',
-        necklace: 'Acc',
-        outerwear: 'cyberware'
+    appearanceParts(gender) {
+      return this.t.guest_parts.filter(part => part.gender === gender).map(part => part.id).filter(key =>
+        key.startsWith('guest_' + gender + '_') && this.data.assets[key] &&
+        this.data.assets[key].src?.includes('/01.Bar/09.Customers/') &&
+        (this.data.assets[key].frames || 1) === 1).sort();
+    }
+    appearanceAllowed(key, top) {
+      return !this.t.guest_exclusions.some(pair =>
+        pair.a === key && pair.b === top || pair.b === key && pair.a === top);
+    }
+    appearance(selectedGender) {
+      const gender = ['m', 'f'].includes(selectedGender) ? selectedGender : this.appearanceRng() < 0.5 ? 'm' : 'f';
+      // CSV defines the shipped static customer candidates and forbidden pairs.
+      // Talk sheets are alternate poses of a selected part, never random variants.
+      const prefix = 'guest_' + gender + '_';
+      const keys = this.appearanceParts(gender);
+      const pool = slot => keys.filter(key => new RegExp('^' + prefix + slot + '(?:_\\d+)?$').test(key));
+      const pick = list => {
+        if (!list.length) throw Error('Missing shipped guest part: ' + gender);
+        return list[Math.floor(this.appearanceRng() * list.length)];
       };
-      const artKey = id => {
-        const m = id.match(/^(.*)_[mf](?:_(\d+))?$/);
-        return m ? 'guest_' + gender + '_' + (map[m[1]] || m[1]) + (m[2] ? '_' + m[2] : '') : '';
-      };
-      const requested = [...ids],
-        missing = ids.filter(id => !this.data.assets[artKey(id)]);
-      // A missing outfit must not silently turn into an incompatible sleeved top
-      // while keeping an arm accessory. Use the CSV's whole safe default set.
-      if (missing.length) {
-        const defaults = this.t.guest_settings[0];
-        ids = slots.map(slot => defaults['defaults.' + gender + '.' + slot]);
-        this.log('appearance_fallback', {
-          requested,
-          missing,
-          used: ids
-        });
-      }
-      for (const id of ids) {
-        const k = artKey(id);
-        if (this.data.assets[k]) layers.push(k);
-      }
-      return {
-        gender,
-        ids,
-        layers,
-        requested,
-        missing
-      };
+      const body = pick(pool('body')), top = pick(pool('top'));
+      // The actual engine art names differ from the reference HTML:
+      // male Acc_1 = necklace, Acc_2 = arm band; top_3 = sleeveless.
+      const accessories = [null, ...keys.filter(key =>
+        new RegExp('^' + prefix + '(Acc|cyberware)_\\d+$').test(key) &&
+        this.appearanceAllowed(key, top))];
+      const accessory = pick(accessories);
+      const layers = [body, top, accessory, pick(pool('eyebrow')), pick(pool('eyes')),
+        pick(pool('mouth')), pick(pool('hair'))].filter(Boolean);
+      // CSV IDs and appearance IDs share the actual registered artwork keys.
+      return { gender, ids: [...layers], layers, requested: [...layers], missing: [] };
     }
     spawn() {
       const slot = this.queue[this.queueIndex];
@@ -90,7 +76,7 @@
         this.spawnBlocked = true;
         return;
       }
-      // Preserve the existing seeded sequence for appearance, orders and dialogue.
+      // Keep the legacy arrival draw; appearance uses its own independent RNG.
       this.rng();
       const seat = free[Math.floor(this.seatRng() * free.length)];
       // Guest arrivals preserve the player's selected seat and camera view.
@@ -123,6 +109,11 @@
       this.seats[seat] = g;
       this.setBarks(g, ['call']);
       this.queueIndex++;
+      // Keep only the next arrival; endless play must not accumulate a queue.
+      if (this.endlessGeneral) {
+        this.queue = [this.nextEndlessGuest()];
+        this.queueIndex = 0;
+      }
       this.spawnLeft = n(this.queue[this.queueIndex]?.delay_sec, this.c('spawn_delay_default_sec'));
       this.spawnBlocked = false;
       this.log('guest_enter', {

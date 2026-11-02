@@ -50,7 +50,10 @@
       this.mode = mode;
       this.seed = Number(seed);
       this.rng = seeded(this.seed);
-      // Seat arrivals vary between plays, independently of reproducible order/art RNG.
+      // Cosmetic identity must vary even when replaying the same day/seed.
+      this.appearanceRng = settings.appearanceRng || Math.random;
+      this.endlessGeneral = mode === 'endless-general';
+      // Seat arrivals and cosmetic identity vary independently of seeded order RNG.
       this.seatRng = settings.seatRng || Math.random;
       this.progress = {
         day: this.day,
@@ -111,7 +114,7 @@
       this.finished = false;
       if (settings.storyPrerequisites) this.seedJohnnyPrerequisites();
       if (run) {
-        if (mode === 'general') this.startGeneral();else if (mode === 'regular') this.startStoryPhase('bar');else if (mode === 'practice') {
+        if (mode === 'general' || this.endlessGeneral) this.startGeneral();else if (mode === 'regular') this.startStoryPhase('bar');else if (mode === 'practice') {
           this.phase = 'practice';
           this.openRecipes();
         } else {

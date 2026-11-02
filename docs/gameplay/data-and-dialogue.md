@@ -52,6 +52,10 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 
 `web-views.json`은 웹 전용 투영 설정으로 유지하며, 실행 JS는 공통 CSV로 재생성한다. `node tools/sync-shared-data.cjs --check`로 엔진과 웹 CSV 및 생성본의 일치를 확인한다. 일반 동기화는 충돌 보호를 유지한다. `--from-engine --accept-engine`은 사용자가 웹 변경을 엔진 기준으로 덮어쓰도록 명시적으로 승인한 경우에만 사용하며, 스키마·웹 연결·동시 수정 검사는 생략하지 않는다.
 
+### 일반 손님 외형의 웹 최신본
+
+일반 손님 외형 최신화 이후에는 `guests/guest_parts.csv`, `guest_exclusions.csv`, `guest_settings.csv` 세 파일이 웹 기준으로 갱신되어 위 엔진 복사본과 다르다. 실제 46개 파츠·금지 쌍 6개·기본 조합을 담으며 게임과 외형 시뮬레이터가 같은 데이터를 읽는다. 상세 계약은 [루트 README](../../README.md#일반-손님-외형-csv-현재-웹-기준)를 따른다. 엔진 폴더는 직접 수정하지 않았으므로 동기화 검사에서 이 차이가 나오는 것은 의도된 상태다.
+
 ### 레시피 표시 문구와 잔 ID
 
 2026-10-30 [노션 편집 문서](https://app.notion.com/p/4091612298dc8057b687d21c30f8bf0c)의 한국어 이름·설명·제조법을 맞춤법 교정 후 반영했다. 원본은 `craft/cocktails.csv`, `craft/shelf_items.csv`, 키워드는 `craft/cocktail_tags.csv`다. 노션은 자동 동기화되지 않으며, 다음 수정도 CSV를 고친 뒤 런타임을 재생성한다. 병따개 설명은 `src/features/bar/bar-views.js`의 보조 도구 항목에 있다.

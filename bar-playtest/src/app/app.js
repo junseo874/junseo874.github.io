@@ -70,7 +70,7 @@
   const phase = () => ({
     ready: L('플레이테스트 준비', 'Playtest setup'),
     opening: L('개점 전 대화', 'Before opening'),
-    general: L('일반 손님 영업', 'General guest service'),
+    general: g.endlessGeneral ? L('일반 손님 무한 영업', 'Endless general guests') : L('일반 손님 영업', 'General guest service'),
     regular: L('단골 손님 영업', 'Regular guest service'),
     practice: L('제조 연습', 'Craft practice'),
     complete: L('영업 정산', 'Daily settlement'),
@@ -275,6 +275,7 @@
     return `<div class="upkeep-setup"><label for="upkeep-test">${L('유지비 테스트값', 'Upkeep test override')} <small>${L('선택', 'optional')}</small></label><div class="row"><input id="upkeep-test" type="number" min="0" step="1" inputmode="numeric" data-input="upkeep" value="${esc(ui.upkeep)}" placeholder="${L('기본값', 'Default')} ${base}" aria-label="유지비 테스트값"><span>G</span></div><small>${L('빈칸이면 일차 데이터 사용. 원본은 변경하지 않습니다.', 'Blank uses day data. Source data stays unchanged.')}</small></div>`;
   }
   function startHTML() {
+    if (ui.guestAppearance) return guestAppearanceUI.html(remixUI.tabsHTML());
     if (ui.cutscenes) return window.LunaCutsceneLibrary.html(remixUI.tabsHTML());
     if (ui.outside) return outside.lobbyHTML(remixUI.tabsHTML());
     if (ui.minigames) return miniUI.lobbyHTML();
@@ -286,7 +287,7 @@
       3: L('아일리의 각설탕 전달 → 톰·삼호 대화와 올드 패션드 제조 → 퇴근 후 테라스·유나 회상.', 'Aili delivers sugar → Tom and Samho meet over an Old Fashioned → terrace conversation and Yuna flashback after work.'),
       99: L('바 안의 대화 선택지로 캐릭터·코스터 조합·알림·조니 회상·인물 해금을 테스트합니다. 완료 후 다시 테스트하거나 다른 항목을 선택할 수 있습니다.', 'Use the bar dialogue choices to test characters, coasters, notifications, memories and profiles. Retry or choose another test when finished.')
     };
-    return `<div class="start-screen">${remixUI.tabsHTML()}<div class="start-card"><h2 style="margin:15px 0 5px">${L('영업 설정', 'Session setup')}</h2><div class="day-list">${[0, 1, 2, 3, 99].map(day => button(day === 99 ? 'QA 99' : L(day + '일차', 'Day ' + day), 'day', `data-id="${day}"`, ui.day === day ? 'selected' : '')).join('')}</div><p class="start-note">${notes[ui.day]}</p>${upkeepInputHTML()}<label for="start-mode">${L('시작 구간', 'Start at')}</label><select id="start-mode" data-change="mode"><option value="full" ${ui.mode === 'full' ? 'selected' : ''}>${L('바 내부 전체 흐름', 'Full bar flow')}</option><option value="general" ${ui.mode === 'general' ? 'selected' : ''}>${L('일반 손님 영업부터', 'General guest service')}</option><option value="regular" ${ui.mode === 'regular' ? 'selected' : ''}>${L('단골 손님 영업부터', 'Regular guest service')}</option><option value="practice" ${ui.mode === 'practice' ? 'selected' : ''}>${L('칵테일 제조 연습', 'Craft practice')}</option></select>${button(L('영업 시작 →', 'Open the bar →'), 'start', '', 'primary')}<div class="spacer"></div><div class="row spread"><small><kbd>F2</kbd> ${L('테스트 도구', 'Test tools')}</small>${button(L('조작 안내', 'Controls'), 'help', '', 'subtle')}</div></div></div>`;
+    return `<div class="start-screen">${remixUI.tabsHTML()}<div class="start-card"><h2 style="margin:15px 0 5px">${L('영업 설정', 'Session setup')}</h2><div class="day-list">${[0, 1, 2, 3, 99].map(day => button(day === 99 ? 'QA 99' : L(day + '일차', 'Day ' + day), 'day', `data-id="${day}"`, ui.day === day ? 'selected' : '')).join('')}</div><p class="start-note">${notes[ui.day]}</p>${upkeepInputHTML()}<label for="start-mode">${L('시작 구간', 'Start at')}</label><select id="start-mode" data-change="mode"><option value="full" ${ui.mode === 'full' ? 'selected' : ''}>${L('바 내부 전체 흐름', 'Full bar flow')}</option><option value="general" ${ui.mode === 'general' ? 'selected' : ''}>${L('일반 손님 영업부터', 'General guest service')}</option><option value="endless-general" ${ui.mode === 'endless-general' ? 'selected' : ''}>${L('일반 손님만 · 무한 영업', 'Endless general guests only')}</option><option value="regular" ${ui.mode === 'regular' ? 'selected' : ''}>${L('단골 손님 영업부터', 'Regular guest service')}</option><option value="practice" ${ui.mode === 'practice' ? 'selected' : ''}>${L('칵테일 제조 연습', 'Craft practice')}</option></select>${button(L('영업 시작 →', 'Open the bar →'), 'start', '', 'primary')}<div class="spacer"></div><div class="row spread"><small><kbd>F2</kbd> ${L('테스트 도구', 'Test tools')}</small>${button(L('조작 안내', 'Controls'), 'help', '', 'subtle')}</div></div></div>`;
   }
   function recipeLines(c) {
     return `<ul class="recipe-lines">${g.t.recipes.filter(r => r.context === c.id).map(r => `<li><span>${esc(g.name(r.ingredient))}</span><small>${r.qty ?? '—'} ${r.unit ?? ''} · ${labelType(r.action)}</small></li>`).join('')}</ul><div class="recipe-note">${L('잔', 'Glass')}: ${esc(g.name(c.glass))}<br>${L('제조 방법', 'Method')}: ${c.mix} ${c.mix === 'build' ? L('· 별도 믹스 도구 없음', '· no mixing tool') : ''}<br>${L('제한 시간', 'Time limit')}: ${c.time_limit_sec}s</div>`;
@@ -589,6 +590,7 @@
     remix,
     recipePanel: views.recipePanel
   });
+  const guestAppearanceUI = window.LunaGuestAppearance({g,D,esc,button});
   if (new URLSearchParams(location.search).get('version') === 'gpt') {
     ui.variant = 'gpt';
     ui.day = 0;
@@ -996,8 +998,18 @@
       render(true);
       return;
     }
+    if (g.phase === 'ready' && ui.guestAppearance && guestAppearanceUI.act(name,id)) {
+      render(true);
+      return;
+    }
     if (name === 'version') {
       if (g.phase !== 'ready') return;
+      ui.guestAppearance = id === 'guest-appearance';
+      if (ui.guestAppearance) {
+        ui.cutscenes = ui.outside = ui.minigames = false;
+        render(true);
+        return;
+      }
       ui.cutscenes = id === 'cutscenes';
       if (ui.cutscenes) {
         ui.outside = false;
@@ -1062,7 +1074,7 @@
           difficulty: ui.difficulty,
           assist: ui.assist
         }));
-        if (ui.day === 99 && !['general', 'practice'].includes(ui.mode)) window.lunaQA.startDialogue();
+        if (ui.day === 99 && !['general', 'endless-general', 'practice'].includes(ui.mode)) window.lunaQA.startDialogue();
       } catch (e) {
         toast(e.message);
       }
@@ -1082,7 +1094,7 @@
         variant: g.variant,
         serviceVersion: g.serviceVersion
       }));
-      if (g.day === 99 && !['general', 'practice'].includes(g.mode)) window.lunaQA.startDialogue();
+      if (g.day === 99 && !['general', 'endless-general', 'practice'].includes(g.mode)) window.lunaQA.startDialogue();
       ui.inspector = false;
     } else if (name === 'applyUpkeep') {
       try {
