@@ -14,6 +14,8 @@
 - 부비 첫 휴식 `chris-in` 액션은 0.45초 암전, TV 오른쪽 크리스 배치, 페이드 인과 0.32 월드 단위 좌→우 이동입니다. 카메라 폭 4.8·높이 0.023은 고정입니다. 사건의 뒤 연결은 이곳이 아니라 `playSleepScenes`를 따릅니다.
 - 삼호 외부 대기·대화는 `samho-animation.js`의 동일 Idle 8프레임/12FPS를 사용합니다. 실루엣 호흡 프레임은 `outside-ambient.js`에서 루나 주기에 맞춥니다. 삼호 원본과 실루엣 프레임 수를 같다고 가정하지 않습니다.
 - `outside-discovery.js`는 과거 이력·좌표 투영 API 호환만 유지합니다. 표식 렌더링은 비활성입니다. 선택지 피드백은 `world-choices.js`와 `data/presentation/choice-feedback.js`, 말풍선 화면 보정은 `world-speech.js`가 소유합니다.
+- `outside-newspaper.js`는 1일차 변기 앞 신문 NPC의 등장·분기·기어 보상을 소유합니다. M2 원본 실루엣을 재사용하고 layer 9에서 변기/쓰레기통 앞에 그립니다. `newspaper/*` CSV 대사를 읽으며 공통 NPC 머리 경계·윤곽선·말풍선을 사용합니다. 부품은 칵테일 재료로 등록하지 않고 `outside-notices.js`의 퀘스트 아이템 알림으로 표시합니다.
+- `outside-believer.js`는 기신교 신도의 기간별 등장·완료 후 숨김·엠블럼 지급을 소유한다. M1 원본을 layer 9에 배치하며 `believer/*` CSV, 공통 말풍선/윤곽선/타이핑을 재사용한다. 완료와 보상 플래그를 분리해 중단 후 중복 지급을 막고, 아이템은 `outside-notices.js` 퀘스트 알림으로 표시한다. 세부 규칙은 [사건 흐름](../gameplay/events.md#기신교-신도)을 따른다.
 - `outside-corridor-birds.js`는 주거 건물 윗벽의 일곱 마리를 소유한다. 우천 까마귀/건조 비둘기, 발 기준·좌표·렌더 순서·공유 시트와 시계는 [새 구현 명세](ambient-birds.md#거리-윗벽)를 따른다.
 
 검증: `test-neighborhood-staging-ui.cjs`, `test-samho-idle-ui.cjs`, `test-home-book-ui.cjs`, `test-home-bed-ui.cjs`, `test-home-wardrobe-ui.cjs`, `test-outside-discovery-stability-ui.cjs`. 진행 분기는 `outside` 묶음, 0~3일차 날씨/환경음 조합은 `test-weather-ambience-matrix-ui.cjs`.

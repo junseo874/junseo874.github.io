@@ -22,6 +22,8 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 
 현재 본편은 CSV에서 **미리 생성한 JS 데이터**를 로드한다. 대사 한 줄마다 CSV를 실시간 요청하는 구조가 아니다. CSV 수정 후 생성하지 않으면 배포된 게임의 대사는 바뀌지 않는다. `data-review.html`의 CSV 조회 기능과 본편의 로딩 방식은 구분한다.
 
+로컬 대사 편집기는 바/외부를 선택하며 실제 저장 시 생성까지 수행하고, 열린 본편/일차 테스트에 최신 대본을 전달한다. 바는 진행 중인 장면을 보존하고 다음 장면에서, 외부는 이미 재생 중인 행 묶음을 보존하고 다음 대화 흐름에서 적용한다. [자동 반영 및 지원 범위](../architecture/dialogue-editor.md)를 따른다. GitHub ZIP 내보내기는 자동 반영이 아니다.
+
 `data/runtime/` 전체가 같은 생성물인 것은 아니다. `game-data.js`, `campaign-data.js`는 이 빌더의 산출물이고, 거리 이미지 배치·컷씬 카탈로그 등에는 다른 소유자/생성 도구가 있다. 폴더째 덮어쓰지 않는다.
 
 ## 무엇을 어디에서 수정하는가
@@ -32,7 +34,7 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 | --- | --- |
 | 본편·거리 대사 본문 | `data/shared-csv/story/scenes.csv`, `steps.csv`. 장면 연결은 `web-views.json` |
 | 바 선택지 | `story/bar_choice_groups.csv`, `bar_choices.csv`; `features/story/story-flow.js`의 `choose`가 조건·효과·이동 실행 |
-| 외부 선택지 | 공통 `street_choices.csv`만 보지 말고 해당 NPC 모듈의 `choiceView` / `choose` 확인. 현재 동적 옵션은 JS가 소유하는 경우가 많음 |
+| 외부 선택지 | `outside-authoring.js`가 CSV 문구·조건과 `web-views.json.outsideChoiceEdits`의 활성 옵션·후속 연결을 적용. 1~4개 추가/삭제/순서·분기 편집 가능. 기존 거래 보호는 해당 NPC의 `choiceView` / `choose` 소유. 신규 분기는 기존 `result_steps`로 저장. 웹 연결 어댑터는 Unity 자동 지원 아님. 상세는 대사 편집기 문서 |
 | 외부 불가 사유 표현 | `data/presentation/choice-feedback.js`와 각 이벤트의 `disabledReason` |
 | 칵테일·재료·제조량 | `craft/cocktails.csv`, `shelf_items.csv`, `recipes.csv` |
 | 손님·주문·점수·정산 | `guests/`, `craft/order_rules.csv`, `settings/` + `features/bar/guest-service.js`, `settlement.js`, `features/crafting/craft-rules.js` |
@@ -221,7 +223,7 @@ web_core_keys         actor|text
 {"type":"neighborhood-action","action":"repair"}
 ```
 
-`Story.seek`는 이를 글자로 출력하지 않고 `LunaOutsideNeighborhood.action`에 전달한다. 액션 동안 대사 진행을 기다리고, 수리 암전의 지정 시점에 `elevator_repaired`를 기록한다. 연출이 끝나면 다음 “자 이제 고쳐졌을꺼야” 대사로 돌아간다. 마지막 대화 정상 종료 후 목표 달성 알림을 표시한다.
+`Story.seek`는 이를 글자로 출력하지 않고 `LunaOutsideNeighborhood.action`에 전달한다. 액션 동안 대사 진행을 기다리고, 수리 암전의 지정 시점에 `elevator_repaired`를 기록한다. 연출이 끝나면 “다 됐다. 한동안은 고장 안 나게 어찌 잘 해뒀으니까 나중에 타 봐, 아가씨.” 대사로 돌아간다. 마지막 대화 정상 종료 후 목표 달성 알림을 표시한다.
 
 즉 **비용 차감**, **수리 완료 플래그**, **마지막 대사 종료**, **알림**은 같은 프레임에 일괄 처리하는 한 단계가 아니다. 상세 흐름은 [수리공](events.md#수리공과-엘리베이터)을 따른다.
 
@@ -238,6 +240,14 @@ web_core_keys         actor|text
 `LUNA_OUTSIDE_DIALOGUES`는 기존 외부 대사 호출을 연결하는 계층이다. 같은 문구의 CSV·런타임·JS fallback이 보이면 세 개의 독립 정본이 아니다. CSV에 연결된 대사는 CSV가 원본이며 생성본을 고치지 않는다. 반대로 `choiceView`가 직접 만드는 문구/분기는 그 모듈이 현재 실행 원본이다.
 
 ## 안전한 변경 순서
+
+### 외부 원고 동기화 · 2026-11-03
+
+[외부 이벤트·대사 원고](https://app.notion.com/p/4071612298dc8078bfe4c1a003995248)를 이번 외부 대사의 정본으로 적용했다. 거리 NPC·상점·주변 대화·집 상호작용·테라스·회상까지이며 바 영업 대사는 변경하지 않았다. TV 다큐는 33줄 모두 동일함을 확인했고, 비활성 뉴스·작업장 막간은 문구만 대조하며 활성화하지 않았다. 노션의 연출 설명은 화면 텍스트에 섞지 않고 기존 액션을 유지한다. `…`는 기존 출력 규칙에 맞춰 `...`로 저장한다. `싫어요. / 아니요.`는 선택 진입 경로에 따라 각각 표시한다.
+
+2일차 테라스는 새 원고의 13줄 순차 대화로 교체했다. 크리스가 처음부터 함께 있으며 12번째 ‘네, 알겠어요.’ 뒤 조니 기억 56줄, 복귀 후 마지막 침묵 순서다. 이전 `luna-alone` 시작·재료 출처 선택지는 실행하지 않는다. 0일차 회상은 14번째 대사 뒤, 3일차 회상은 8번째 뒤다. 조니 기억은 첫 침묵 이후 톰 표시, ‘자. 여기.’부터 잔 표시를 CSV의 `web_fields.tomPresent`·`web_fields.served`로 지정한다.
+
+신규 `newspaper/*`·`believer/*`는 웹 구현본을 노션 34·35번에 역으로 기록했다. 최근 확정한 NPC 등장 조건(노숙자·정보 행인은 0일차 퇴근만)은 예전 원고의 조건 설명으로 되돌리지 않는다. 기존 저장·입력 지연·보상 조건 등 전역 규칙도 이번 대사 동기화로 변경하지 않았다. `test-exterior-notion-sync.cjs`는 원고에서 만든 60개 대사 표의 텍스트 해시·순서·액션 위치·회상 연결을 검사한다. 이후 의도적으로 원고를 바꿀 때만 `tests/fixtures/exterior-notion.json`의 해당 기대값을 함께 갱신한다.
 
 1. 본편에서 대상 장면을 확인하고 [사건 목록](events.md)에서 실행 담당을 찾는다.
 2. 해당 키를 `web-views.json`에서 찾아 `source` / `scene` / 필요 시 `branch`를 확인한다.

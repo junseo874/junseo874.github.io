@@ -10,7 +10,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await page.evaluate(()=>{const c=lunaCampaign;c.dialog.index=c.dialog.rows.findIndex(r=>r.cinemaAfter==='johnny-memory');c.dialog.chars=Infinity;c.next();});
   await page.waitForFunction(()=>lunaCampaign.dialog?.background==='johnny-memory'&&!lunaCampaign.memoryTransition);
   async function checkRows(label){
-   const count=await page.evaluate(()=>lunaCampaign.dialog.rows.length);assert.equal(count,39);
+   const count=await page.evaluate(()=>lunaCampaign.dialog.rows.length);assert.equal(count,56);
    for(let i=0;i<count;i++){
     const result=await page.evaluate(async i=>{
      const c=lunaCampaign;c.dialog.index=i;c.dialog.chars=Infinity;c.draw();
@@ -43,6 +43,6 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await page.waitForFunction(()=>lunaCampaign.dialog?.background==='johnny-memory'&&!lunaCampaign.memoryTransition);
   await page.setViewportSize({width:1280,height:720});await checkRows('preview');
   await page.keyboard.press('Escape');await page.locator('.cutscene-list').waitFor();
-  assert.deepEqual(errors,[]);console.log('JOHNNY_MEMORY_SPEECH_OK: 39 rows, opposite speaker tails, bar anchors, face clearance, 3 viewports, terrace return and archive');
+  assert.deepEqual(errors,[]);console.log('JOHNNY_MEMORY_SPEECH_OK: 56 rows, opposite speaker tails, bar anchors, face clearance, 3 viewports, terrace return and archive');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

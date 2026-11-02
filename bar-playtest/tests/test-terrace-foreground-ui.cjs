@@ -2,7 +2,7 @@ const assert=require('node:assert/strict');
 const{load,chrome}=require('../../tools/lib/test-runtime.cjs');
 (async()=>{const b=await load('playwright').chromium.launch({executablePath:chrome,headless:true});try{const p=await b.newPage({viewport:{width:1280,height:720}});await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:2,flow:'in',place:'home'});await outsidePlaytest.start();lunaCampaign.session.day=2;lunaCampaign.scene('night2','테라스','terrace',()=>{});});await p.waitForFunction(()=>!lunaCampaign.memoryTransition&&lunaCampaign.view==='scene');
  const style=await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.paintLine();const rain=document.querySelector('.terrace-rain'),bubble=document.querySelector('.terrace-speech'),r=bubble.getBoundingClientRect();rain.style.pointerEvents='auto';const front=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===rain;rain.style.pointerEvents='';return{front,pointer:getComputedStyle(rain).pointerEvents,clip:getComputedStyle(document.querySelector('.terrace-characters')).clipPath};});
- assert(style.front&&style.pointer==='none');assert.equal(style.clip,'inset(0px 65px 39px 0px)','Day 2 starts with Luna alone, feet still clipped');
+ assert(style.front&&style.pointer==='none');assert.equal(style.clip,'inset(0px 0px 39px)','Day 2 starts with Luna and Chris, feet still clipped');
  await p.screenshot({path:'/private/tmp/terrace-foreground-fixed.png'});
  // Compare actor occlusion, not two different frames of animated refracted rain.
  // The optical canvas also contains a copy of the actors, so exclude both rain

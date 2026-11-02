@@ -7,6 +7,26 @@ const draftKey='luna.bar.dialogue-editor.draft.v1';let model,local=null,sourceRe
 const frame=$('preview'),status=text=>$('status').textContent=text,rows=()=>model.rows(scene),current=()=>model.row(selected);
 let lastEditAt=0,lastInputType='';
 const colorPicker=window.LunaDialogueColorPicker.create();let colorPreview=null;
+const isLocal=['localhost','127.0.0.1','[::1]'].includes(location.hostname);let storageError='';
+function storageUI(){
+ $('storage-mode').textContent=local?'로컬 · 실제 CSV 저장':isLocal?'로컬 저장 연결 끊김':'웹 · CSV ZIP 내보내기';
+ $('review').textContent=isLocal?'변경 내역 / 저장':'변경 내역 / 내보내기';
+ $('reconnect-local').hidden=!isLocal;$('storage-warning').hidden=!isLocal||!!local;
+ $('storage-warning').textContent='로컬 CSV에 아직 저장할 수 없습니다. '+storageError+' 현재 서버를 종료하고 프로젝트의 python3 serve.py로 같은 포트에서 다시 실행한 뒤 ‘저장 연결 다시 확인’을 누르세요. 편집 내용은 유지됩니다. ZIP 내보내기는 다운로드만 하며 게임에 자동 적용되지 않습니다.';
+}
+async function readLocal(){
+ const res=await fetch('/api/dialogue-editor',{cache:'no-store',signal:AbortSignal.timeout(10000)});
+ if(!res.ok)throw Error(res.status===404?'현재 서버에는 저장 기능이 없습니다 (404).':'저장 서버 응답 오류 ('+res.status+').');
+ const data=await res.json();if(data.mode!=='local-csv'||!data.token||!data.revision||!data.files)throw Error('실제 CSV 저장 서버가 아닙니다.');return data;
+}
+const sourceHash=async(files,presentation,legacy=false)=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(Object.keys(files).sort().map(k=>k+(legacy?files[k].replace(/^\uFEFF/,''):files[k])).join('')+JSON.stringify(presentation))))].map(n=>n.toString(16).padStart(2,'0')).join('');
+// Response.text() removes UTF-8 BOMs; preserve them to match filesystem revisions.
+const exactText=async res=>new TextDecoder('utf-8',{ignoreBOM:true}).decode(await res.arrayBuffer());
+async function connectLocal(){
+ try{const data=await readLocal();if(data.revision!==sourceRevision)throw Error('원본 CSV가 바뀌었습니다. 편집 내용을 ZIP으로 보관한 뒤 원본을 다시 불러오세요. 덮어쓰지 않았습니다.');local=data;storageError='';storageUI();status('로컬 저장 연결 완료. 편집 내용은 그대로 유지됩니다.');}
+ catch(e){local=null;storageError=e.message;storageUI();throw e;}
+}
+$('reconnect-local').onclick=async()=>{try{await connectLocal();}catch(e){status(e.message);}};
 const previewRow=r=>colorPreview?.rowId===r.row_id?{...r,[colorPreview.key]:colorPreview.text}:r;
 const actorName=id=>model.projected.data.tables.characters.find(c=>c.id===id)?.['name.ko']||id;
 function resize(){const el=document.querySelector('.preview-shell'),scale=Math.min(el.clientWidth/1280,el.clientHeight/720);$('preview-fit').style.transform='scale('+scale+')';$('preview-fit').style.left=(el.clientWidth-1280*scale)/2+'px';}
@@ -43,15 +63,15 @@ async function initialize(){
  let savedDraft=null;try{savedDraft=JSON.parse(localStorage.getItem(draftKey)||'null');}catch{}
  status('CSV와 장면 연결을 불러오는 중...');let files={},presentation;
  local=null;
- if(['localhost','127.0.0.1'].includes(location.hostname))try{const res=await fetch('/api/dialogue-editor',{cache:'no-store'});if(res.ok){const data=await res.json();if(data.mode==='local-csv'){local=data;files=data.files;presentation=data.presentation;}}}catch{}
- if(!local){await window.LunaCsv.load(async p=>{const res=await fetch('data/shared-csv/'+p,{cache:'no-store'});if(!res.ok)throw Error('CSV 읽기 실패: '+p);return files[p]=await res.text();});files['web-views.json']=await(await fetch('data/shared-csv/web-views.json',{cache:'no-store'})).text();presentation=await(await fetch('data/presentation/runtime-assets.json',{cache:'no-store'})).json();}
- sourceRevision=[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(Object.keys(files).sort().map(k=>k+files[k]).join('')+JSON.stringify(presentation))))].map(n=>n.toString(16).padStart(2,'0')).join('');
+ if(isLocal)try{local=await readLocal();files=local.files;presentation=local.presentation;storageError='';}catch(e){storageError=e.message;}
+ if(!local){await window.LunaCsv.load(async p=>{const res=await fetch('data/shared-csv/'+p,{cache:'no-store'});if(!res.ok)throw Error('CSV 읽기 실패: '+p);return files[p]=await exactText(res);});files['web-views.json']=await exactText(await fetch('data/shared-csv/web-views.json',{cache:'no-store'}));presentation=await(await fetch('data/presentation/runtime-assets.json',{cache:'no-store'})).json();}
+ sourceRevision=await sourceHash(files,presentation);
  model=await new Model(files,presentation).init();window.dialogueEditor={get model(){return model;},get local(){return !!local;},get selected(){return selected;}};
- $('storage-mode').textContent=local?'로컬 · 실제 CSV 저장':(['localhost','127.0.0.1'].includes(location.hostname)?'로컬 저장 미연결 · ZIP 내보내기':'웹 · CSV ZIP 내보내기');$('review').textContent=local?'변경 내역 / 저장':'변경 내역 / 내보내기';
+ storageUI();
  $('day').innerHTML=[0,1,2,3].map(d=>`<option value="${d}">${d}일차</option>`).join('');$('add-type').innerHTML=Object.entries(types).map(([id,name])=>`<option value="${id}">${name}</option>`).join('');
- dayOptions(0);status(local?'로컬 CSV에 저장할 수 있습니다.':(['localhost','127.0.0.1'].includes(location.hostname)?'로컬 저장 서버에 연결되지 않았습니다. python3 serve.py로 실행/재시작하세요. 현재는 내보내기만 가능합니다.':'웹 원본은 변경하지 않습니다. ZIP을 내려받아 저장소에 적용하세요.'));
+ dayOptions(0);status(local?'로컬 CSV에 저장할 수 있습니다.':isLocal?'저장 연결이 끊겼습니다. 상단 안내를 확인하세요.':'웹 원본은 변경하지 않습니다. ZIP을 내려받아 저장소에 적용하세요.');
  try{const draft=savedDraft;if(draft&&Object.keys(draft.files).length){
-  const same=draft.revision===(local?.revision||sourceRevision);
+  const same=draft.revision===(local?.revision||sourceRevision)||draft.revision===await sourceHash(files,presentation,true);
   if(same&&confirm('저장하지 않은 편집 내용이 있습니다. 복원할까요?')){model.checkpoint();for(const [table,path]of Object.entries(window.LunaDialogueEditorModel.paths))if(draft.files[path])model.tables[table]=window.LunaCsv.parseRows(draft.files[path],path);if(draft.files['web-views.json'])model.views=JSON.parse(draft.files['web-views.json']);const s=model.scenes.find(s=>s.id===draft.scene);if(s){$('day').value=s.day;dayOptions(s.day);loadScene(s.id);if(model.row(draft.selected))select(draft.selected);}mark();status('임시 편집을 복원했습니다. 아직 CSV에는 저장되지 않았습니다.');}
   else if(!same)status('원본이 변경되어 이전 임시 편집을 자동 복원하지 않았습니다. 저장 충돌 방지를 위해 원본을 사용합니다.');
  }}catch(e){status(e.message);}finally{initializing=false;}
@@ -111,16 +131,18 @@ window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==
  if(m.type==='choice'){const c=model.choices(current().arg).find(c=>String(c.seq)===String(m.seq));if(!c)return;picks[selected]=Object.fromEntries(Object.entries(c).map(([k,v])=>[k,decode(v)]));if(decode(c.goto)){const next=model.scenes.find(s=>s.id===c.goto);if(!next){status('이 편집기에 없는 이동 장면입니다.');stop();return;}const was=playing;loadScene(next.id);playing=was;send(was);}else go(1,playing);}
 });
 $('review').onclick=async()=>{stop();$('review-dialog').showModal();$('commit').disabled=true;$('validation').textContent='검사 중...';$('changes').innerHTML='<table><thead><tr><th>항목 / 변경</th><th>이전</th><th>이후</th></tr></thead><tbody>'+model.changes().map(c=>`<tr><td>${esc(c.kind+' · '+(c.key||c.table))}<br><small>${esc(c.id)}</small></td><td><del>${esc(c.before||'')}</del></td><td><ins>${esc(c.after||'')}</ins></td></tr>`).join('')+'</tbody></table>';
- $('save-explanation').textContent=local?'확정하면 로컬 CSV와 웹 실행 데이터를 함께 변경합니다. 변경 전 파일은 artifacts/dialogue-editor-backups에 보관합니다. 엔진·노션·깃허브에는 자동 저장하지 않습니다.':'CSV, 연결 정보, 웹 실행 데이터가 담긴 ZIP을 내려받습니다. GitHub 원본은 바뀌지 않으며, 저장소에 파일을 적용하고 커밋/푸시해야 반영됩니다.';
- $('commit').textContent=local?'로컬 CSV 저장':'CSV ZIP 내보내기';reviewResult=await model.validate();$('validation').textContent=reviewResult.errors.join('\n')||'검사 완료 · CSV 구조와 대사 태그, 선택지 연결에 오류가 없습니다.';$('commit').disabled=!!reviewResult.errors.length;
+ $('save-explanation').textContent=isLocal?'로컬 CSV 저장을 누르면 저장 연결을 다시 확인한 후 CSV와 웹 실행 데이터를 함께 변경합니다. 변경 전 파일은 백업합니다. ZIP 파일만 내보내기는 다운로드만 하며 게임에 자동 적용되지 않습니다.':'CSV, 연결 정보, 웹 실행 데이터가 담긴 ZIP을 내려받습니다. GitHub 원본은 바뀌지 않으며, 저장소에 파일을 적용하고 커밋/푸시해야 반영됩니다.';
+ $('export-backup').hidden=!isLocal;$('export-backup').disabled=true;$('commit').textContent=isLocal?'로컬 CSV 저장':'CSV ZIP 내보내기';reviewResult=await model.validate();$('validation').textContent=reviewResult.errors.join('\n')||'검사 완료 · CSV 구조와 대사 태그, 선택지 연결에 오류가 없습니다.';$('commit').disabled=!!reviewResult.errors.length;$('export-backup').disabled=!!reviewResult.errors.length;
 };
 $('close-review').onclick=()=>$('review-dialog').close();
-$('commit').onclick=async()=>{if(saving)return;saving=true;$('commit').disabled=true;try{
+async function commit(exportOnly=false){if(saving)return;saving=true;$('commit').disabled=true;$('export-backup').disabled=true;try{
+ if(isLocal&&!exportOnly)await connectLocal();
  const checked=await model.validate();if(checked.errors.length)throw Error(checked.errors.join('\n'));
- if(local){const res=await fetch('/api/dialogue-editor',{method:'POST',headers:{'Content-Type':'application/json','X-Editor-Token':local.token},body:JSON.stringify({revision:local.revision,files:model.output()})}),data=await res.json();if(!res.ok)throw Error(data.error||'저장 실패');local.revision=data.revision;model.files={...model.files,...model.output()};model.base=model.snapshot();model.undoStack=[];model.redoStack=[];mark();status('실제 CSV 저장 완료 · 복구 파일: '+data.backup);}
+ if(isLocal&&!exportOnly){const res=await fetch('/api/dialogue-editor',{method:'POST',headers:{'Content-Type':'application/json','X-Editor-Token':local.token},body:JSON.stringify({revision:local.revision,files:model.output()})}),data=await res.json();if(!res.ok)throw Error(data.error||'저장 실패');local.revision=data.revision;sourceRevision=data.revision;model.files={...model.files,...model.output()};model.base=model.snapshot();model.undoStack=[];model.redoStack=[];mark();window.LunaDialogueLiveData.notify(data.revision);status((data.saved?'실제 CSV 저장 완료':'이미 같은 내용으로 저장되어 있습니다')+' · 같은 주소의 본편/일차 테스트에 자동 반영 · 진행 중인 장면은 유지하고 다음 장면 또는 테스트 재시작부터 적용'+(data.saved?' · 복구 파일: '+data.backup:''));}
  else{const files=await window.LunaDialogueExport.packageFiles(model,checked.result),blob=window.LunaDialogueExport.zip(files),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='luna-bar-dialogue-'+new Date().toISOString().slice(0,10)+'.zip';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);status('ZIP 내보내기 완료. GitHub 원본에는 아직 반영되지 않았습니다.');}
  $('review-dialog').close();drawList();
- }catch(e){$('validation').textContent=e.message;}finally{saving=false;$('commit').disabled=false;}};
+ }catch(e){$('validation').textContent=e.message;}finally{saving=false;$('commit').disabled=false;$('export-backup').disabled=false;}}
+$('commit').onclick=()=>commit();$('export-backup').onclick=()=>commit(true);
 window.addEventListener('beforeunload',e=>{if(model?.dirty()){e.preventDefault();e.returnValue='';}});
 const hello=()=>frame.contentWindow.postMessage({channel:'luna-dialogue-editor',type:'hello'},location.origin);frame.addEventListener('load',hello);hello();
 window.addEventListener('keydown',e=>{

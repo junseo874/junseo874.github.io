@@ -27,7 +27,7 @@ function create(parent,onChoose,state={}){
  // Reflow under a stationary pointer must not undo a keyboard choice/rejection.
  panel.addEventListener('pointermove',e=>{if(lastPointer?.x===e.clientX&&lastPointer?.y===e.clientY)return;lastPointer={x:e.clientX,y:e.clientY};const b=e.target.closest('button[data-choice]');if(b&&!b.disabled)select(buttons.indexOf(b));});
  panel.addEventListener('focusin',e=>{const i=buttons.indexOf(e.target);if(i>=0&&!buttons[i].disabled)select(i);});
- function wheel(e){if(!available()||e.ctrlKey||e.metaKey||e.altKey||!e.deltaY)return;e.preventDefault();e.stopImmediatePropagation();const now=performance.now();if(now-lastWheel<140)return;lastWheel=now;move(e.deltaY>0?1:-1);}
+ function wheel(e){if(state.inputScope&&!state.inputScope.contains(e.target))return;if(!available()||e.ctrlKey||e.metaKey||e.altKey||!e.deltaY)return;e.preventDefault();e.stopImmediatePropagation();const now=performance.now();if(now-lastWheel<140)return;lastWheel=now;move(e.deltaY>0?1:-1);}
  W.addEventListener('wheel',wheel,{capture:true,passive:false});
  function key(e){if(!available()||e.ctrlKey||e.metaKey||e.altKey)return false;
   if(['KeyW','ArrowUp','KeyS','ArrowDown','Tab','KeyE','Space','Enter'].includes(e.code)){
@@ -41,17 +41,22 @@ function create(parent,onChoose,state={}){
  function update(next){
   // Consume the dialogue-advance E without carrying it into a newly visible choice.
   // Position/label/money refreshes and selection changes must not restart this grace period.
-  if(next&&(!view||view.key!==next.key))eReadyAt=performance.now()+(next.entryGuardMs??0);
+  const entering=!!next&&(!view||view.key!==next.key);
+  if(entering)eReadyAt=performance.now()+(next.entryGuardMs??0);
   view=next;panel.hidden=!next;guide.hidden=!next?.tutorial;if(!next){rejected=-1;signature='';return;}
   if(locked){signature='';state.key=null;locked=false;}
   if(next.options.length>4)throw Error('외부 대화 선택지는 최대 4개까지 지원합니다.');
   const stamp=JSON.stringify([next.key,next.options,next.money,next.rejectUnavailable]);
-  if(signature!==stamp){const previous=buttons[state.index]?.dataset.choice;const fresh=state.key!==next.key;signature=stamp;locked=false;
+  if(signature!==stamp){const previous=buttons[state.index]?.dataset.choice;const fresh=entering||state.key!==next.key;signature=stamp;locked=false;
    if(fresh){state.key=next.key;state.index=0;state.tutorialPlayed=false;lastWheel=-Infinity;}
-   rejected=-1;panel.replaceChildren(marker);buttons=next.options.map((o,i)=>{const b=document.createElement('button');b.type='button';b.dataset.choice=o.id;b.disabled=!!o.disabled&&!next.rejectUnavailable;b.setAttribute('aria-disabled',String(!!o.disabled));b.style.setProperty('--choice-order',i);b.innerHTML='<span></span>';b.querySelector('span').textContent=o.label;if(next.rejectUnavailable)b.querySelector('span').setAttribute('aria-live','polite');else if(o.disabled){const note=document.createElement('small');note.textContent=reason(o);b.querySelector('span').append(note);}b.addEventListener('keydown',key);panel.append(b);return b;});
+   // Copy/condition/balance edits are not a new choice scene. Keep the actual
+   // buttons (and their CSS animation clocks/focus) while updating their text.
+   const reuse=!fresh&&buttons.length===next.options.length&&next.options.every((o,i)=>buttons[i].dataset.choice===o.id);
+   rejected=-1;if(!reuse){panel.replaceChildren(marker);buttons=next.options.map((o,i)=>{const b=document.createElement('button');b.type='button';b.dataset.choice=o.id;b.style.setProperty('--choice-order',i);b.innerHTML='<span></span>';b.addEventListener('keydown',key);panel.append(b);return b;});}
+   buttons.forEach((b,i)=>{const o=next.options[i],span=b.querySelector('span');b.disabled=!!o.disabled&&!next.rejectUnavailable;b.setAttribute('aria-disabled',String(!!o.disabled));span.textContent=o.label;if(next.rejectUnavailable)span.setAttribute('aria-live','polite');else{b.removeAttribute('aria-label');span.removeAttribute('aria-live');if(o.disabled){const note=document.createElement('small');note.textContent=reason(o);span.append(note);}}});
    if(!fresh&&previous){const at=buttons.findIndex(b=>b.dataset.choice===previous);if(at>=0)state.index=at;}
    if(!buttons[state.index]||buttons[state.index].disabled)state.index=buttons.findIndex(b=>!b.disabled);
-   if(Number.isFinite(next.money)){const balance=document.createElement('small');balance.className='bd-balance';balance.textContent='소지금 '+next.money.toLocaleString('ko-KR')+'원';panel.insertBefore(balance,buttons[0]||null);}
+   let balance=panel.querySelector('.bd-balance');if(Number.isFinite(next.money)){if(!balance){balance=document.createElement('small');balance.className='bd-balance';panel.insertBefore(balance,buttons[0]||null);}balance.textContent='소지금 '+next.money.toLocaleString('ko-KR')+'원';}else balance?.remove();
    panel.setAttribute('aria-label',next.label||'대화 선택지');paint();
   }
   const head=next.head,w=panel.offsetWidth,h=panel.offsetHeight,right=next.facing===-1||next.facing==='left';

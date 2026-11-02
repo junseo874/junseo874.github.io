@@ -576,6 +576,14 @@
     ],
     [
       "script",
+      "src/features/outside/events/outside-newspaper.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/outside-believer.js"
+    ],
+    [
+      "script",
       "src/features/outside/events/outside-residents.js"
     ],
     [
@@ -621,6 +629,10 @@
     [
       "script",
       "src/shared/dialogue/dialogue-rhythm.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/outside-authoring.js"
     ],
     [
       "script",
@@ -836,6 +848,10 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/live-data.js"
+    ],
+    [
+      "script",
       "src/app/app.js"
     ]
   ],
@@ -875,6 +891,114 @@
     [
       "script",
       "src/dev/dialogue-editor/editor.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/live-data.js"
+    ]
+  ],
+  "bar-playtest/dialogue-editors.html": [
+    [
+      "link",
+      "src/dev/dialogue-editor/editor.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/outside-editor.css"
+    ]
+  ],
+  "bar-playtest/outside-dialogue-editor.html": [
+    [
+      "link",
+      "src/dev/dialogue-editor/editor.css"
+    ],
+    [
+      "link",
+      "src/shared/dialogue/exterior-textbox.css"
+    ],
+    [
+      "link",
+      "src/shared/dialogue/world-choices.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/outside-editor.css"
+    ],
+    [
+      "script",
+      "src/shared/data/csv-catalog.js"
+    ],
+    [
+      "script",
+      "src/shared/data/runtime-projection.js"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/text-effects.js"
+    ],
+    [
+      "script",
+      "src/core/story-conditions.js"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/dialogue-rhythm.js"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/exterior-textbox.js"
+    ],
+    [
+      "script",
+      "data/runtime/outside-scene-data.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/outside-ambient.js"
+    ],
+    [
+      "script",
+      "src/features/outside/samho-animation.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/editor-model.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/outside-authoring.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-choice-model.js"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/world-choices.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-model.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/export-package.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/storage-client.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-preview.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/live-data.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-editor.js"
     ]
   ],
   "bar-playtest/resource-review.html": [

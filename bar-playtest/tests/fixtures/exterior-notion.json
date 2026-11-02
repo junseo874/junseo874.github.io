@@ -1,0 +1,311 @@
+{
+  "source": "https://app.notion.com/p/4071612298dc8078bfe4c1a003995248",
+  "synced": "2026-11-03",
+  "dialogues": {
+    "neighborhood/reveal": {
+      "rows": 1,
+      "spoken": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "neighborhood/cat": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "37bfbe49249e3eda8da0be0ffd5fbce0a88d8a6369eddf9b82d90b6742e5b408"
+    },
+    "neighborhood/feed": {
+      "rows": 9,
+      "spoken": 5,
+      "sha256": "e6159f874dd9171917b99468f2748a70c95c399de8596def8c6aaadc96dbeeee"
+    },
+    "neighborhood/rest": {
+      "rows": 7,
+      "spoken": 5,
+      "sha256": "7339494245001b60fb3d9fb82d38c1a2f917ddb4bf9ccf27d4bb18e4dcd0111b"
+    },
+    "neighborhood/repairGreeting": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "2da7e92869b658f3772e8c05e335910fc4686cf666728cd8a488ff3fc1bf77ec"
+    },
+    "neighborhood/repairIntro": {
+      "rows": 12,
+      "spoken": 12,
+      "sha256": "9ab4cdf180a999adba81ca01a3d4d38c3af2a873fc7abc9b6e1b35b6d9b94ba0"
+    },
+    "neighborhood/repairMenu": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "393e7a910cc3b48619a28a2059aca4d28751a061a31084c051615df7a5a5a5b1"
+    },
+    "neighborhood/repairPaid": {
+      "rows": 7,
+      "spoken": 6,
+      "sha256": "5dd05af1c1d066f88908274bc55f74969b295bbb8215a2b941d58c950fa8146f"
+    },
+    "neighborhood/guardBlocked": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "94e95e925c0d8d0c2b54229a33aa35a8b6db03fdef9d5e20a0feac6ab7c1f0cf"
+    },
+    "neighborhood/guardMenu": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "94e95e925c0d8d0c2b54229a33aa35a8b6db03fdef9d5e20a0feac6ab7c1f0cf"
+    },
+    "neighborhood/guardPass": {
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "eb299b36ba9fc9457b4a8b33106793493394bf85f4dd2270a0f73657c9a63fbe"
+    },
+    "neighborhood/bossIntro": {
+      "rows": 23,
+      "spoken": 22,
+      "sha256": "9b3dd92c4000b7db96ddb8fc7cf26e3d66941edd775054dfdffdede1bb50f786"
+    },
+    "neighborhood/bossWait": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "292c8800aa55d7712004ca49b290617dcddf2d382b11dcada90508a41e95c6b4"
+    },
+    "neighborhood/bossRepairFirst": {
+      "rows": 8,
+      "spoken": 7,
+      "sha256": "da5faa9662cceff88a18962e8e16c7fbaf131a107256da82c628056cb43b4fe8"
+    },
+    "neighborhood/bossPayFirst": {
+      "rows": 6,
+      "spoken": 5,
+      "sha256": "105d0d935b6e3072af526e8446bc64af82dae1f4131086b045c34ec9b7a7dc30"
+    },
+    "neighborhood/bossRepeat": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "d29dce44599400e91369dcb73219036a75e288e10977201507f8c1cbd84186a7"
+    },
+    "neighborhood/bossRepairRepeat": {
+      "rows": 6,
+      "spoken": 5,
+      "sha256": "5a8a8490803fde2b203c3980d2cd3d80c583ffd55d7d1bd750d0538ea93b2dac"
+    },
+    "neighborhood/bossPayRepeat": {
+      "rows": 6,
+      "spoken": 5,
+      "sha256": "105d0d935b6e3072af526e8446bc64af82dae1f4131086b045c34ec9b7a7dc30"
+    },
+    "neighborhood/bossDone": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "7d57bcad5edfb0c15f94f9054496d6fb3586b22e9742a6609e2f39e6696ca72e"
+    },
+    "beggar/intro": {
+      "rows": 8,
+      "spoken": 7,
+      "sha256": "ce30a0b3b680d44661214c3d2c026a3bb5bc7a23307e74e26cc585f455336efc"
+    },
+    "beggar/repeat": {
+      "rows": 2,
+      "spoken": 1,
+      "sha256": "18cde4e6d77f3216b3dcaf64c8f1d64aebfa755583293dc3e3d768d8ec0d4575"
+    },
+    "beggar/paid": {
+      "rows": 3,
+      "spoken": 3,
+      "sha256": "ee9029a00d4d6bd1b45a942d262799079e4d8d080fa9ebf2adc910e86be1927c"
+    },
+    "beggar/refused": {
+      "rows": 2,
+      "spoken": 2,
+      "sha256": "96d9b5fdf270bfab35af27dbf68bbac56e07ca0f329d6613ee6d0711cd1bb361"
+    },
+    "beggar/questioned": {
+      "rows": 6,
+      "spoken": 6,
+      "sha256": "4e0bbd57933d0086c87f9a5c739dfc1394a7c58221535818aceafce45aa1d7e5"
+    },
+    "beggar/warning/unmet": {
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "94a36727fcd47064850ff999a832e8bf9a8071a078e026a1807bca53bd3620bc"
+    },
+    "beggar/warning/met": {
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "6b843b3bd0f7c00e01593d32248872c912eb0cd025c0a4c2625f436cf3d0cd9f"
+    },
+    "beggar/warning/unpaid-repeat": {
+      "rows": 2,
+      "spoken": 2,
+      "sha256": "5ce83db7c3563801987f0e6c1905168520ef47c5fc0e8f4abf632080ec7080bc"
+    },
+    "beggar/warning/paid": {
+      "rows": 6,
+      "spoken": 6,
+      "sha256": "e89c5c231bdb0297c17e592de3db199d12ffd6fc0719328c7fa1dcc471dc2dd2"
+    },
+    "beggar/warning/paid-repeat": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "250239dd7dcd3ac1d47216e992204ef02447eb8c037b92877745ce6af455a62c"
+    },
+    "shop/intro": {
+      "rows": 13,
+      "spoken": 11,
+      "sha256": "436fbbd82234921cea664ff950eb51cd48de32983ade63b5b539114b10ebe8df"
+    },
+    "shop/revisit": {
+      "rows": 2,
+      "spoken": 1,
+      "sha256": "f298fc38d8ef3204bd77e2c8374f6d9faed0bd236fefee102f21d2ca2f21310f"
+    },
+    "shop/allowance": {
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "04871ff984f8eec66800570e6ea530b81b8729312b635e85b23ea9937372cbba"
+    },
+    "shop/quizIntro": {
+      "rows": 15,
+      "spoken": 15,
+      "sha256": "942d6f56c0e6d3192d887a5f7f95bd0ed86d85ff83338e3ad990e402016c8ae8"
+    },
+    "shop/lesson": {
+      "rows": 9,
+      "spoken": 9,
+      "sha256": "099035c6e0454bc421e4eb6f26a4c55eba23b8b10552092442400e9ed48943a5"
+    },
+    "thug/intro": {
+      "rows": 11,
+      "spoken": 11,
+      "sha256": "92e8b0aac97cd8de63b6369d868653d6e87f267b316b2793b8887bea75176948"
+    },
+    "thug/paid": {
+      "rows": 9,
+      "spoken": 8,
+      "sha256": "b7134ed1bb6b245298260ee81843de0cf532c771355063902ecba432e97b3c76"
+    },
+    "thug/refused": {
+      "rows": 8,
+      "spoken": 6,
+      "sha256": "c092904249573f69ca86735ea591872d5932b1412e2f9f5214aed4da01e80401"
+    },
+    "notion/intro": {
+      "rows": 6,
+      "spoken": 6,
+      "sha256": "1973289bdba15738a3c26d68119d4ffee6f5537fc9fc0e5c96108b72098d842e"
+    },
+    "notion/info/gang": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "d618de11a546046bc828fde954fd94b1ad48ed3e806d537822c14e1fb258af19"
+    },
+    "notion/info/coratech": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "ea93f636addcc73fd74bfd05d95a1cf1daf1f28319f3daf830154f2361f6d8cd"
+    },
+    "notion/info/chris": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "17e80f03dd08ad13f246b6b330cb72f62647557334b0faae8cf116aef19c521a"
+    },
+    "ambient/outside_day1_samho_smuggler": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "50868eac472df7bd56b758118c0f99b98ebd0ce39be766422258789a86cdb3c0"
+    },
+    "commute2": {
+      "rows": 30,
+      "spoken": 29,
+      "sha256": "84effe71f9f604f4c3d51c8b5f3c64c045695f107e4cf6de676927c8719a330b"
+    },
+    "commute3": {
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "dec163a76600aa3bb789f006ea453dd350d22509042cc7cf5ceed04b76d756b2"
+    },
+    "notion/contract": {
+      "rows": 23,
+      "spoken": 20,
+      "sha256": "1961fe8e9086e3bfbcfba827627285eb73b6f333886e65ea318bc6c2ed7b528c"
+    },
+    "ambient/outside_day0_store_passers": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "e53a90f5d13512a93846846b0a61a3ae1f151f4efbdacd759be2f096402ba66d"
+    },
+    "ambient/outside_day0_port_pair": {
+      "rows": 10,
+      "spoken": 10,
+      "sha256": "28239fcdcf16cbbb737f62b9a9b7e268655f738dcd9cf1da04e785e7d1bf4c20"
+    },
+    "ambient/outside_day0_building_residents": {
+      "rows": 4,
+      "spoken": 4,
+      "sha256": "bc59b2547a3928abc3223faacfa5ef47c73ebcee479ea43e70bf691086398215"
+    },
+    "ambient/outside_day1_commute_passers2": {
+      "rows": 6,
+      "spoken": 6,
+      "sha256": "021897ad8accb56137924d806d7480311877adc5ffa961bbb3171c4a076f319f"
+    },
+    "ambient/outside_day2_commute_reopening": {
+      "rows": 13,
+      "spoken": 13,
+      "sha256": "b2de311efed6a28896288fda2b3a4e8dec919770886908694363f23ba8dad73e"
+    },
+    "StudioOpening.source.tv": {
+      "rows": 33,
+      "spoken": 33,
+      "sha256": "974c03bc18ffe8aa4f8514539058aa28d489fbce455cad924188327c03bc333a"
+    },
+    "ambient/outside_day1_tv_news2": {
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "afad48f3702cb5a5f62f221a040c47cd94f3825dbae96fce5b0b24f2adc41598"
+    },
+    "ambient/outside_day0_tv_news1": {
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "3f9c8703e6c9a04c7ca2d508c732025d533ef473afc46237af7ea3e15761ca2b"
+    },
+    "night0": {
+      "rows": 22,
+      "spoken": 22,
+      "sha256": "b36ad3a78dc60181d4dcf0dda38e83aaf8220fec3dc8e2baf1cade4734e9af30"
+    },
+    "terraceMemory": {
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "863096410b027e88058adca996ebf3402afd0cca2b03acb807aa407ef765fdf0"
+    },
+    "workshop": {
+      "rows": 12,
+      "spoken": 12,
+      "sha256": "15fd368e0c29353422d4eae5d6b11a4afb977d112038c3e0848192c3c7c0daf5"
+    },
+    "night1": {
+      "rows": 19,
+      "spoken": 19,
+      "sha256": "e4cd66cf367364925ff399511159198fbb989736f851da6b460ebaa52aad79f8"
+    },
+    "night2": {
+      "rows": 13,
+      "spoken": 13,
+      "sha256": "c5929d8ec6371e98278f12dc93e527c3e2ec879c9c90217b4cf847ad2adc0e99"
+    },
+    "johnny": {
+      "rows": 56,
+      "spoken": 56,
+      "sha256": "a33410d29f1323a9825fad01acde2d9d5cc8d518a16a9e02278ba6f34c57d270"
+    },
+    "ending": {
+      "rows": 20,
+      "spoken": 20,
+      "sha256": "30d3ded749162ca180e7e14cb85ffe168935b5f085accbb626e7d3088654fe3d"
+    },
+    "terraceMemory3": {
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "0f0f6cdc34c56ae5fe2908bdc2a4759048966ae210825f19247e0cec302dbf92"
+    }
+  }
+}

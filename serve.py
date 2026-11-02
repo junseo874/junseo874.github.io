@@ -22,24 +22,25 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def editor_host_ok(self):
         return self.headers.get('Host') in (f'127.0.0.1:{PORT}', f'localhost:{PORT}')
 
-    def editor_run(self, payload=None):
+    def editor_run(self, payload=None, runtime=False):
         args = [NODE, str(ROOT / 'tools/dialogue-editor-storage.cjs')]
         if payload is None:
-            args.append('--snapshot')
+            args.append('--runtime' if runtime else '--snapshot')
         result = subprocess.run(args, input=payload, text=True, capture_output=True, timeout=60, cwd=ROOT)
         if result.returncode:
             raise ValueError(result.stderr or 'CSV 처리에 실패했습니다.')
         return json.loads(result.stdout)
 
     def do_GET(self):
-        if self.path.split('?')[0] != '/api/dialogue-editor':
+        endpoint = self.path.split('?')[0]
+        if endpoint not in ('/api/dialogue-editor', '/api/dialogue-editor/runtime'):
             return super().do_GET()
         if not self.editor_host_ok():
             return self.editor_response({'error': '로컬 주소만 허용합니다.'}, 403)
         try:
             with SAVE_LOCK:
-                value = self.editor_run()
-            self.editor_response({**value, 'token': TOKEN, 'mode': 'local-csv'})
+                value = self.editor_run(runtime=endpoint.endswith('/runtime'))
+            self.editor_response(value if endpoint.endswith('/runtime') else {**value, 'token': TOKEN, 'mode': 'local-csv'})
         except Exception as error:
             self.editor_response({'error': str(error)}, 500)
 

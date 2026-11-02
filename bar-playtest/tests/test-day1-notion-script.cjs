@@ -70,8 +70,8 @@ for(const answers of [[1,1],[1,2],[2,1],[2,2]]){
  assert.equal(seen.some(t=>t.includes('힘들었던 날에')),answers[0]===1);assert.equal(seen.some(t=>t.includes('위로가 말도')),answers[0]===2);
 }
 const night=W.LUNA_CAMPAIGN_DATA.scenes.night1;
-assert(night.some(s=>s.text==='... 물론 우리가 찾는 기록이 온전할지는 모르지만.'));
+assert(night.some(s=>s.text==='물론 우리가 찾는 기록까지 복원할 수 있을지는 모르지만.'));
 assert.deepEqual(Array.from(night.find(s=>s.emphasis?.length).emphasis),['와일드 독','비터스','각설탕']);
-assert(W.LUNA_DATA.sharedStory['neighborhood/repairPaid'].some(s=>s.text==='자 이제 고쳐졌을 거야'));
+assert(W.LUNA_DATA.sharedStory['neighborhood/repairPaid'].some(s=>s.text==='다 됐다. 한동안은 고장 안 나게 어찌 잘 해뒀으니까 나중에 타 봐, 아가씨.'));
 assert(W.LUNA_DATA.sharedStory['neighborhood/repairPaid'].some(s=>s.action==='repair'));
 console.log('DAY1_NOTION_SCRIPT_OK: authored coaster positions, four empty-glass timings, all choice combinations, orders/name alert and preserved terrace/repair actions');

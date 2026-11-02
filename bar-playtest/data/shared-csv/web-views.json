@@ -28337,6 +28337,15 @@
     }
   },
   "outside": {
+    "believer/intro": {"source": "script/street", "scene": "shared-believer-intro", "branch": null, "offset": 0},
+    "believer/finish": {"source": "script/street", "scene": "shared-believer-finish", "branch": null, "offset": 0},
+    "newspaper/options": {"source": "script/street", "scene": "shared-newspaper-options", "branch": null, "offset": 0},
+    "newspaper/intro": {"source": "script/street", "scene": "shared-newspaper-intro", "branch": null, "offset": 0},
+    "newspaper/wrong": {"source": "script/street", "scene": "shared-newspaper-wrong", "branch": null, "offset": 0},
+    "newspaper/right": {"source": "script/street", "scene": "shared-newspaper-right", "branch": null, "offset": 0},
+    "newspaper/common": {"source": "script/street", "scene": "shared-newspaper-common", "branch": null, "offset": 0},
+    "newspaper/finish": {"source": "script/street", "scene": "shared-newspaper-finish", "branch": null, "offset": 0},
+    "newspaper/repeat": {"source": "script/street", "scene": "shared-newspaper-repeat", "branch": null, "offset": 0},
     "ambient/outside_day0_store_passers": {
       "source": "script/ambient",
       "scene": "outside_day0_store_passers",

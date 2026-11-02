@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const root = path.resolve(__dirname, '..');
 const entries = ['index.html', 'intro.html', 'direction.html', 'simulator.html', 'LUNA_TestTool.html',
-  'bar-playtest/index.html', 'bar-playtest/dialogue-editor.html', 'bar-playtest/resource-review.html', 'bar-playtest/story-guide.html', 'cutscene-studio/index.html'];
+  'bar-playtest/index.html', 'bar-playtest/dialogue-editor.html', 'bar-playtest/dialogue-editors.html', 'bar-playtest/outside-dialogue-editor.html', 'bar-playtest/resource-review.html', 'bar-playtest/story-guide.html', 'cutscene-studio/index.html'];
 const contractFile = path.join(root, 'docs/architecture/runtime-contract.json');
 const contract = {};
 for (const file of entries) {

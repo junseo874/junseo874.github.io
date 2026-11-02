@@ -32,7 +32,7 @@
     tv: 'TV 보기',
     sofa: '휴식하기'
   });
-  const TALK_TARGETS = new Set(['shiba-shop', 'street-beggar', 'street-beggar-witness', 'day2-thug-information', 'story-samho']);
+  const TALK_TARGETS = new Set(['shiba-shop', 'street-beggar', 'street-beggar-witness', 'street-newspaper', 'street-believer', 'day2-thug-information', 'story-samho']);
   function interactionLabel(model, target) {
     if (!target) return '상호작용';
     let id = target.id;
@@ -405,7 +405,7 @@
         label: this.elevatorY < 4 ? '엘리베이터 · 올라가기' : '엘리베이터 호출',
         x: EX,
         y: -.7
-      }, ...(global.LunaOutsideContent?.targets(this) || []), ...(global.LunaOutsideShop?.targets(this) || []), ...(global.LunaOutsideBeggar?.targets(this) || [])];
+      }, ...(global.LunaOutsideContent?.targets(this) || []), ...(global.LunaOutsideShop?.targets(this) || []), ...(global.LunaOutsideBeggar?.targets(this) || []), ...(global.LunaOutsideNewspaper?.targets(this) || []), ...(global.LunaOutsideBeliever?.targets(this) || [])];
     }
     updateNear() {
       global.LunaStoryNotices?.forced(this);

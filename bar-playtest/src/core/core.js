@@ -43,6 +43,7 @@
       return this.text(r, 'name') || id || '';
     }
     reset(day = 0, mode = 'full', seed = 1, run = true, settings = {}) {
+      this.refreshDialogueData?.();
       const upkeepOverride = this.parseUpkeepOverride(settings.upkeepOverride);
       this.serviceVersion = 'A';
       this.qaKeepGeneral = false;

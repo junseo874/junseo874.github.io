@@ -59,6 +59,7 @@
       return true;
     }
     startStoryPhase(phase) {
+      this.refreshDialogueData?.();
       this.storyCoaster = null;
       this.phase = phase === 'bar_open' ? 'opening' : 'regular';
       this.progress.phase = phase;
@@ -104,6 +105,7 @@
       }
     }
     loadScene(scene) {
+      this.refreshDialogueData?.();
       this.storyCoaster = null;
       this.lastStoryLine = null;
       this.craftReminder = null;

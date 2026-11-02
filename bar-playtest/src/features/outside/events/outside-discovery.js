@@ -30,7 +30,7 @@ function objectKey(m,id){
 }
 function objectToken(m,id){return key(objectKey(m,id),[]);}
 function preview(m,t){
- for(const owner of [W.LunaOutsideNeighborhood,W.LunaOutsideBeggar,W.LunaOutsideShop,W.LunaOutsideNotion]){
+ for(const owner of [W.LunaOutsideNeighborhood,W.LunaOutsideBeggar,W.LunaOutsideNewspaper,W.LunaOutsideBeliever,W.LunaOutsideShop,W.LunaOutsideNotion]){
   const flow=owner?.preview?.(m,t);if(flow)return flow;
  }
  if(t.source&&W.LUNA_OUTSIDE_DIALOGUES[t.source])return {id:t.source,rows:W.LUNA_OUTSIDE_DIALOGUES[t.source]};

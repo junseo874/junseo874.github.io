@@ -18,14 +18,15 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  assert.equal(audit.fps,16);assert.equal(audit.frames,32,'1/1.5/2.5 UV speeds repeat after 2s, exactly 32 stepped frames');assert(audit.min>30&&audit.max<22*29);assert(audit.warm>0&&audit.white>0&&audit.partial>0);assert(audit.same&&audit.still);
  const integration=await p.evaluate(()=>{
   const ctx=document.querySelector('#outside-root canvas').getContext('2d'),original=ctx.drawImage,F=LunaBarrelFire,paint=F.paintSprite,draw=F.draw,events=[];
-  ctx.drawImage=function(img,...a){if(img.src)events.push(img.src.split('/').pop());return original.call(this,img,...a);};
-  F.draw=function(...a){events.push('fire');return draw(...a);};
+  let drawingFire=false,additive=false;
+  ctx.drawImage=function(img,...a){if(img.src)events.push(img.src.split('/').pop());if(drawingFire){if(this.globalCompositeOperation!=='lighter')throw Error('Flame is not additive');additive=true;}return original.call(this,img,...a);};
+  F.draw=function(...a){events.push('fire');const before=ctx.globalCompositeOperation;drawingFire=true;try{return draw(...a);}finally{drawingFire=false;if(ctx.globalCompositeOperation!==before)throw Error('Flame leaked blend mode');}};
   F.paintSprite=function(c,...a){const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.getTransform()]),before=state();paint(c,...a);if(state()!==before)throw Error('Fire leaked canvas state');};
   try{fireDraw(0);}finally{ctx.drawImage=original;F.draw=draw;F.paintSprite=paint;}
   const data=LUNA_BARREL_FIRE,fire=F.placement(),front=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-front');
-  return {back:events.indexOf('object_1%201.png'),fire:events.indexOf('fire'),front:events.indexOf('object_2.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
+  return {additive,back:events.indexOf('object_1%201.png'),fire:events.indexOf('fire'),front:events.indexOf('object_2.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
  });
- assert(integration.back>=0&&integration.back<integration.fire&&integration.fire<integration.front&&integration.front<integration.near,'back -> flame -> front lip -> foreground');assert(integration.dx<.002);assert(integration.lip<integration.fireTop);
+ assert(integration.additive);assert(integration.back>=0&&integration.back<integration.fire&&integration.fire<integration.front&&integration.front<integration.near,'back -> flame -> front lip -> foreground');assert(integration.dx<.002);assert(integration.lip<integration.fireTop);
  // Review actual new props and engine FX at several animation phases and camera positions.
  for(const [name,x,t]of [['left',-16.4,.25],['center',-15.95,1.5],['right',-15.4,3.1]]){
   await p.evaluate(([x,t])=>{const o=outsidePlaytest,m=o.model;m.x=x;m.time=t;o.snapCamera();fireDraw(0);},[x,t]);await p.screenshot({path:'/private/tmp/engine-fire-'+name+'.png'});

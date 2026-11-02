@@ -1,0 +1,35 @@
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path');
+const rt=require('../../tools/lib/test-runtime.cjs');
+(async()=>{const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});try{
+ const page=await b.newPage({viewport:{width:1280,height:720}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
+ if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
+ await page.evaluate(async()=>{const c=lunaCampaign;c.outside.exit(true);c.session.uninstall();c.session.install({developer:false});barGame.reset(1,'full',1,false);barGame.progress.money=1000;c.session.carry=structuredClone(barGame.progress);Object.assign(outsidePlaytest.config,{day:1,flow:'in',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);const m=outsidePlaytest.model;m.x=LunaOutsideNewspaper.place.x+.3;m.y=-.7;m.level=0;m.story.cancel();m.backgroundStory.cancel();m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
+ assert.equal(await page.evaluate(()=>outsidePlaytest.model.near.id),'street-newspaper');
+ assert.equal(await page.evaluate(()=>LunaOutsideBeggar.targets(outsidePlaytest.model).length),0);
+ await fs.mkdir(path.join(__dirname,'../../artifacts/newspaper-npc'),{recursive:true});
+ await page.waitForTimeout(300);await page.screenshot({path:path.join(__dirname,'../../artifacts/newspaper-npc/location.png')});
+ await page.keyboard.press('KeyE');
+ await page.waitForFunction(()=>outsidePlaytest.model.story.speech?.id==='street-newspaper');
+ await page.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<30&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=999;m.story.advance();}outsidePlaytest.refreshHUD();});
+ assert(await page.locator('[data-choice="newspaper-right"]').isVisible());
+ assert((await page.locator('.outside-speech').filter({visible:true}).innerText()).includes('자살률'));
+ await page.waitForTimeout(600);await page.screenshot({path:path.join(__dirname,'../../artifacts/newspaper-npc/choices.png')});
+ await page.locator('[data-choice="newspaper-right"]').click();
+ await page.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<50&&m.story.speech&&!barGame.progress.flags.newspaper_gear_received;i++){m.story.speech.elapsed=999;m.story.advance();}outsidePlaytest.tick(.1);});
+ assert.equal(await page.evaluate(()=>barGame.progress.inventory.gear_part),1);
+ assert.equal(await page.locator('.outside-item-notice strong').innerText(),'기어 부품 획득!');
+ await page.waitForTimeout(280);await page.screenshot({path:path.join(__dirname,'../../artifacts/newspaper-npc/reward.png')});
+ await page.evaluate(()=>{const m=outsidePlaytest.model;while(m.story.speech){m.story.speech.elapsed=999;m.story.advance();}});
+ assert(await page.evaluate(()=>barGame.progress.flags.newspaper_conversation_done));
+ assert.equal(await page.evaluate(()=>lunaCampaign.session.carry.inventory.gear_part),1);
+ // The existing mechanic accepts the actual earned item, without charging 400.
+ await page.evaluate(()=>{const m=outsidePlaytest.model,N=LunaOutsideNeighborhood;m.x=N.places.repair.x+.28;m.story.cancel();m.updateNear();barGame.progress.flags.repairman_met=true;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
+ await page.keyboard.press('KeyE');
+ await page.evaluate(()=>{const m=outsidePlaytest.model;while(m.story.speech&&!m.story.speech.choice){m.story.speech.elapsed=999;m.story.advance();}outsidePlaytest.refreshHUD();});
+ await page.waitForTimeout(600);assert(await page.locator('[data-choice="gear"]').isVisible());await page.locator('[data-choice="gear"]').click();
+ await page.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<300&&m.story.speech;i++){if(m.neighborhood?.action)m.tick(.1);else {m.story.speech.elapsed=999;m.story.advance();}}});
+ assert(await page.evaluate(()=>barGame.progress.flags.elevator_repaired));assert.equal(await page.evaluate(()=>barGame.progress.money),1000);
+ assert.equal(await page.evaluate(()=>{outsidePlaytest.model.config.flow='out';return LunaOutsideNewspaper.targets(outsidePlaytest.model).length;}),0);
+ assert.deepEqual(errors,[]);console.log('NEWSPAPER_UI_OK actual E/choices, retained question, gear notice, carry, real repair without charge, evening absence.');
+}finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

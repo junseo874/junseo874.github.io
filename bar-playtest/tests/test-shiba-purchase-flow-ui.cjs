@@ -11,7 +11,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    await p.evaluate(({day,money})=>{const a=outsidePlaytest,m=a.model;Object.assign(barGame.progress,{money,inventory:{},flags:{shiba_shop_met:true}});m.start({day,flow:'out',place:'bar'});m.controlsTutorial=false;m.x=-2.87;m.updateNear();LunaOutsideShop.interact(m,LunaOutsideShop.targets(m)[0]);a.snapCamera();},{day,money});
    await finish();
    assert.deepEqual(await p.locator('.world-choices button').evaluateAll(es=>es.map(e=>e.dataset.choice)),['shop-yes','shop-no']);
-   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'뭐야? 살 거 아니면 꺼져, 시바.');
+   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'살 거 아니면 꺼져, 시바.');
    assert(await p.locator('.outside-speech').isVisible(),'greeting remains above the choices');
    assert.equal(await p.evaluate(()=>LunaOutsideShop.choose(outsidePlaytest.model,'shop-buy-tuna_can')),false,'Greeting cannot purchase even through a stale choice');
    await p.waitForTimeout(550);await p.locator('[data-choice="shop-yes"]').click();await finish();
@@ -20,7 +20,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     assert.equal(await p.locator('[data-choice="shop-buy-tuna_can"]').count(),0);
     await p.waitForTimeout(550);await p.locator('[data-choice="shop-allowance-no"]').click();await finish();
    }
-   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'...전부 다 보여 주긴 싫고 몇 개만 보여 줄게.');
+   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.view().full),'전부 다 보여 주긴 싫고, 몇 개만 보여 줄게.');
    if(day===2&&money===1000)await p.screenshot({path:'/private/tmp/shiba-retained-stock.png'});
    assert.deepEqual(await p.locator('.world-choices button').evaluateAll(es=>es.map(e=>e.dataset.choice)),['shop-no','shop-buy-bitters','shop-buy-tuna_can']);
    assert.equal(await p.locator('.world-choices button.is-selected').getAttribute('data-choice'),'shop-no');
@@ -42,7 +42,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   }
   // First encounter still reaches stock only after Luna says she will browse.
   const first=await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;Object.assign(barGame.progress,{money:1000,inventory:{},flags:{}});m.start({day:2,flow:'out',place:'bar'});m.controlsTutorial=false;LunaOutsideShop.interact(m,LunaOutsideShop.targets(m)[0]);const lines=[];for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){lines.push(m.story.view().full);m.story.speech.elapsed=99;m.story.advance();}a.tick(0);return {lines,stage:m.story.speech.line.stage};});
-  assert(first.lines.some(s=>s.includes('한번 보고 생각해 볼게요.')));assert.equal(first.stage,'items');
+  assert(first.lines.some(s=>s.includes('한 번 보고 생각해 볼게요.')));assert.equal(first.stage,'items');
   // Sold items remain unavailable even after consumption and on the next day.
   for(const day of [2,3])for(const inventory of [{bitters:1,tuna_can:1},{}]){
    await p.evaluate(({day,inventory})=>{const a=outsidePlaytest,m=a.model;Object.assign(barGame.progress,{money:1000,inventory,flags:{shiba_shop_met:true,shiba_bought_bitters:true,shiba_bought_tuna_can:true}});m.start({day,flow:'in',place:'bar'});m.controlsTutorial=false;m.x=-2.87;LunaOutsideShop.interact(m,LunaOutsideShop.targets(m)[0]);m.story.speech.elapsed=99;a.snapCamera();a.tick(0);},{day,inventory});

@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUNA · 바 대사 편집기</title>
 <link rel="stylesheet" href="src/dev/dialogue-editor/editor.css"></head><body>
-<header><nav><a href="index.html?dev=1">← 바 시뮬레이터</a><strong>대사 편집</strong><a href="data-review.html">CSV 확인</a></nav><div class="save-tools"><span id="storage-mode">연결 확인 중</span><button id="review" disabled>변경 내역 / 저장</button></div></header>
+<header><nav><a href="dialogue-editors.html">← 편집 공간</a><strong>바 대사 편집</strong><a href="outside-dialogue-editor.html">외부로 전환</a><a href="data-review.html">CSV 확인</a></nav><div class="save-tools"><span id="storage-mode">연결 확인 중</span><button id="reconnect-local" hidden>저장 연결 다시 확인</button><button id="review" disabled>변경 내역 / 저장</button></div></header>
+<p id="storage-warning" role="alert" hidden></p>
 <div class="scene-toolbar"><label>일차 <select id="day" aria-label="일차"></select></label><label>장면 <select id="scene" aria-label="장면"></select></label><button id="reload">원본 다시 불러오기</button><span id="dirty">수정 없음</span><span id="status" role="status">CSV 불러오는 중...</span></div>
 <main><section class="workspace"><div class="preview-shell"><div id="preview-fit"><iframe id="preview" src="index.html?dev=1&amp;dialogue-preview=1" title="실제 바 화면 미리보기"></iframe></div></div>
 <div class="transport"><button id="previous">← 이전 줄</button><button id="line-play">현재 줄 재생</button><button id="play">▶ 연속 재생</button><button id="next">다음 줄 →</button><span id="cursor"></span></div>
@@ -9,7 +10,7 @@
 <div class="list-toolbar"><input id="search" placeholder="대사 / 인물 / ID 검색" aria-label="대사 검색"><select id="add-type" aria-label="추가할 줄 종류"></select><button id="add">+ 추가</button><button id="duplicate">복제</button><button id="up" title="한 줄 위로">↑</button><button id="down" title="한 줄 아래로">↓</button><button id="delete" class="danger">삭제</button><button id="undo">되돌리기</button><button id="redo">다시 실행</button></div>
 <div id="line-list" role="list" aria-label="장면 대사 목록"></div></section>
 <aside id="inspector" aria-label="선택한 대사 편집"><p>장면을 불러오고 있습니다.</p></aside></main>
-<dialog id="review-dialog"><h2>변경 내역 확인</h2><p id="save-explanation"></p><div id="validation" role="alert"></div><div id="changes"></div><footer><button id="close-review">계속 편집</button><button id="commit">저장</button></footer></dialog>
+<dialog id="review-dialog"><h2>변경 내역 확인</h2><p id="save-explanation"></p><div id="validation" role="alert"></div><div id="changes"></div><footer><button id="close-review">계속 편집</button><button id="export-backup" hidden>ZIP 파일만 내보내기</button><button id="commit">저장</button></footer></dialog>
 <dialog id="color-dialog" aria-labelledby="color-title"><h2 id="color-title">텍스트 색상</h2><p id="color-scope"></p>
 <label class="color-native-label">색상판 열기<input id="color-native" type="color" value="#72dae3" aria-label="색상판에서 색상 선택"></label>
 <div class="color-swatches" aria-label="추천 색상">
@@ -18,4 +19,5 @@
 <div class="color-rgb"><label>R<input id="color-r" type="number" min="0" max="255" step="1"></label><label>G<input id="color-g" type="number" min="0" max="255" step="1"></label><label>B<input id="color-b" type="number" min="0" max="255" step="1"></label></div>
 <div id="color-sample" aria-label="선택한 텍스트 색상 미리보기"></div><p id="color-error" role="alert"></p><p class="hint">색상을 고르면 바 화면에도 미리 표시됩니다. 적용을 눌러야 편집 내용에 반영됩니다.</p><footer><button id="color-cancel">취소</button><button id="color-apply">적용</button></footer></dialog>
 <script src="src/shared/data/csv-catalog.js"></script><script src="src/shared/data/runtime-projection.js"></script><script src="src/shared/dialogue/text-effects.js"></script><script src="src/core/story-conditions.js"></script><script src="src/dev/dialogue-editor/editor-model.js"></script><script src="src/dev/dialogue-editor/export-package.js"></script><script src="src/dev/dialogue-editor/color-picker.js"></script><script src="src/dev/dialogue-editor/editor.js"></script>
+<script src="src/dev/dialogue-editor/live-data.js"></script>
 </body></html>

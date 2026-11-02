@@ -21,6 +21,8 @@ const suites = {
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
+suites.ui.unshift(game('test-choice-live-text-ui'));
+suites.smoke.unshift(game('test-outside-choice-authoring'));
 suites.smoke.unshift(game('test-dialogue-editor'));
 suites.smoke.unshift(game('test-guest-random-appearance'));
 suites.smoke.unshift(game('test-guest-mouth-pairing'));
@@ -40,10 +42,16 @@ suites.ui.unshift(game('test-bar-choice-hold-clock'));
 suites.ui.unshift(game('test-loading-pigeon-ui'));
 suites.ui.unshift(game('test-story-service-entry-ui'));
 suites.ui.unshift(game('test-resource-current-artwork-ui'));
+suites.ui.unshift(game('test-dialogue-live-data-ui'));
 suites.cinema.unshift(game('test-day-quotes-ui'));
 suites.cinema.unshift(game('test-johnny-memory-speech-ui'));
 suites.cinema.unshift(game('test-day0-phone-branches-ui'),game('test-cinema-typing-rhythm'),game('test-cinema-typing-rhythm-ui'),game('test_intro_text_ui'));
 suites.outside.unshift(game('test-outside-character-sheets'), game('test-outside-typing-rhythm'), game('test-outside-typing-rhythm-ui'));
+suites.outside.unshift(game('test-outside-newspaper'), game('test-outside-newspaper-ui'));
+suites.outside.unshift(game('test-outside-believer'), game('test-outside-believer-ui'));
+suites.outside.unshift(game('test-exterior-notion-sync'));
+suites.smoke.unshift(game('test-outside-dialogue-editor'));
+suites.ui.unshift(game('test-outside-dialogue-editor-ui'));
 if (choice === '--list') {
   for (const [name, files] of Object.entries(suites)) console.log(name + '\n  ' + files.join('\n  '));
   process.exit();

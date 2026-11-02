@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUNA · 외부 대사 편집기</title>
+<link rel="stylesheet" href="src/dev/dialogue-editor/editor.css"><link rel="stylesheet" href="src/shared/dialogue/exterior-textbox.css"><link rel="stylesheet" href="src/shared/dialogue/world-choices.css"><link rel="stylesheet" href="src/dev/dialogue-editor/outside-editor.css"></head>
+<body class="outside-editor"><header><nav><a href="dialogue-editors.html">← 편집 공간</a><strong>외부 대사 편집</strong><a href="dialogue-editor.html">바 내부로 전환</a></nav><div class="save-tools"><span id="storage-mode">연결 확인 중</span><button id="reconnect">저장 연결 확인</button><button id="review" disabled>변경 내역 / 저장</button></div></header>
+<p id="storage-warning" role="alert" hidden></p>
+<div class="scene-toolbar"><span id="flow-title">대사 불러오는 중...</span><span id="dirty">수정 없음</span><span id="status" role="status"></span><button id="reload">원본 다시 불러오기</button><button id="help">지원 범위</button></div>
+<main class="exterior-workspace">
+<section class="flow-browser" aria-label="대화 흐름 선택"><label>흐름 검색<input id="flow-search" placeholder="NPC · 장소 · 대사 내용"></label><select id="flow-group" aria-label="흐름 분류"><option value="">전체 장소 / 인물</option></select><label class="favorite-filter"><input id="favorites-only" type="checkbox"> 즐겨찾기만</label><div id="flow-count"></div><div id="flow-list"></div></section>
+<section class="workspace"><div id="preview-stage" tabindex="0" aria-label="외부 대사 미리보기"><canvas id="actors" width="1000" height="480"></canvas><span class="stage-label">EXTERIOR / BLOCKOUT</span><div id="campaign-root"><div id="speech" class="exterior-textbox" hidden><b id="speaker"></b><p id="speech-text"></p></div></div><div id="preview-choices"></div><div id="notice" role="status" hidden></div><div id="stage-caption"></div></div>
+<div class="transport"><button id="flow-back" disabled>← 이전 흐름</button><button id="previous">이전 줄</button><button id="line-play">현재 줄 재생</button><button id="play">▶ 연속 재생</button><button id="next">다음 줄</button><span id="cursor"></span></div>
+<p id="preview-note">연출 배치 확인용 미리보기 · 실제 게임 상태에는 영향을 주지 않습니다.</p>
+<div class="list-toolbar"><input id="line-search" placeholder="현재 흐름 안에서 검색" aria-label="대사 검색"><button id="add">+ 대사</button><button id="add-menu">+ 선택지 장면</button><button id="duplicate">복제</button><button id="up">↑</button><button id="down">↓</button><button id="delete" class="danger">삭제</button><button id="undo">되돌리기</button><button id="redo">다시 실행</button></div><div id="line-list" role="list" aria-label="대사 목록"></div><div id="related-flows"></div>
+</section><aside id="inspector" aria-label="대사 편집"></aside></main>
+<dialog id="review-dialog"><h2>외부 대사 변경 확인</h2><p id="save-explanation"></p><div id="validation" role="alert"></div><div id="changes"></div><footer><button id="close-review">계속 편집</button><button id="export-backup">ZIP만 내보내기</button><button id="commit">로컬 CSV 저장</button></footer></dialog>
+<dialog id="help-dialog"><h2>저장되는 것과 아직 지원하지 않는 것</h2><p>현재 CSV 구조를 그대로 사용합니다. 회색 항목은 저장 가능한 것처럼 처리하지 않습니다.</p><ul>
+<li>거리·집 상호작용의 선택지 장면과 선택지 1~4개를 추가·삭제·순서 변경할 수 있습니다. 문구·추가 조건·불가 사유와 선택 후 연결을 함께 저장합니다. 자동 배경 대화·캠페인 컷씬에는 새 선택지 장면을 삽입하지 않습니다.</li>
+<li>선택지는 대사 흐름 안에 들어 있습니다. 직전 말풍선과 실제 거리 선택바를 함께 표시하며, 분기가 나뉠 때만 별도 흐름으로 이동합니다. 신문 NPC의 답변도 질문 바로 뒤에서 수정합니다.</li>
+<li>선택 후에는 다음 대사, 대화 종료, 기존 구매·수리 등의 동작, 지정한 대사 분기로 연결할 수 있습니다. ‘대사 분기 만들기’로 후속 대사도 추가합니다. 기존 동작 대신 대사 분기를 지정하면 원래 구매·수리 동작은 실행되지 않습니다.</li>
+<li>기존 거래의 가격·재고·완료 상태 검사는 유지합니다. 물품 가격 자체, 신규 아이템·보상 명령 추가는 별도 구현 대상입니다. CSV와 웹 연결 파일을 함께 저장하며 Unity에 자동 적용되지는 않습니다.</li>
+<li>캐릭터 이미지·방향·애니메이션·속도는 줄별 미리보기 전용입니다. FieldAnimations에는 동작 리소스 목록이 있지만, 외부 대사 줄의 인물별 클립·유지 범위를 실행하는 연결은 아직 없습니다. 이 부분의 본편 저장은 보류하며 없는 걷기·말하기 시트를 임의로 만들지 않습니다.</li>
+<li>현재 외부 실행기는 바의 텍스트 효과 태그를 해석하지 않습니다. 효과 태그·새 타임라인·보상 명령 추가는 보류합니다. 기존 연출 행은 확인만 하며 삭제·복제하지 않습니다.</li>
+<li>도입·테라스·회상도 대사를 편집하지만 실제 배경/카메라/합성 연출을 재현하는 타임라인 편집기는 아닙니다. CSV에 없는 TV 다큐 원문·엘리베이터 메뉴·코드 전용 짧은 응답은 별도 기능 연결이 필요합니다.</li>
+</ul><footer><button id="close-help">확인</button></footer></dialog>
+<script src="src/shared/data/csv-catalog.js"></script><script src="src/shared/data/runtime-projection.js"></script><script src="src/shared/dialogue/text-effects.js"></script><script src="src/core/story-conditions.js"></script><script src="src/shared/dialogue/dialogue-rhythm.js"></script><script src="src/shared/dialogue/exterior-textbox.js"></script>
+<script src="data/runtime/outside-scene-data.js"></script><script src="src/features/outside/events/outside-ambient.js"></script><script src="src/features/outside/samho-animation.js"></script>
+<script src="src/dev/dialogue-editor/editor-model.js"></script><script src="src/features/outside/events/outside-authoring.js"></script><script src="src/dev/dialogue-editor/outside-choice-model.js"></script><script src="src/shared/dialogue/world-choices.js"></script><script src="src/dev/dialogue-editor/outside-model.js"></script><script src="src/dev/dialogue-editor/export-package.js"></script><script src="src/dev/dialogue-editor/storage-client.js"></script><script src="src/dev/dialogue-editor/outside-preview.js"></script><script src="src/dev/dialogue-editor/live-data.js"></script><script src="src/dev/dialogue-editor/outside-editor.js"></script>
+</body></html>

@@ -1763,6 +1763,7 @@
   });
   window.LunaSettings.restore();
   dialoguePreview = window.LunaDialoguePreview?.({g,D,ui,render});
+  window.lunaDialogueLiveData = window.LunaDialogueLiveData?.attach({g,D,raw:window.LUNA_DATA,campaign,story:window.LUNA_CAMPAIGN_DATA,onStatus:toast});
   render(true);
   window.LunaFocusSettings.startLoop(frame);
   window.LunaCtrlDiagnostic(() => ({

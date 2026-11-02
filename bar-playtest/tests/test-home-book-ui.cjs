@@ -51,13 +51,21 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
     out.push(m.near?.id==='home-book'&&!LunaOutsideDiscovery.unseen(m,t)&&m.interact()&&m.dialog?.kind==='inspection');m.interact();
    }
    m.start({day:1,flow:'out',place:'homeDoor'});out.push(!m.targets().some(t=>t.id==='home-book'));
-   const poster=LunaOutsideInspection.forTarget({id:'wanted-poster'});out.push(poster.text==='누군가 수배하는 포스터.'&&poster.image.includes('shiba-wanted'));
+   const poster=LunaOutsideInspection.forTarget({id:'wanted-poster'});out.push(poster.text==='누군가 수배하는 포스터.'&&poster.image==='assets/01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png');
    return out;
   });assert(cases.every(Boolean));assert.equal(await p.evaluate(()=>barGame.progress.money),money);
+  // Verify the actual inspection image, not just the renamed path string.
+  await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:1,flow:'out',place:'bar'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();const t=m.targets().find(t=>t.id==='wanted-poster');m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);});
+  await p.keyboard.press('KeyE');await p.locator('.outside-inspection').waitFor();
+  await p.waitForFunction(()=>{const i=document.querySelector('.outside-inspection-image');return i?.complete&&i.naturalWidth>0&&i.naturalHeight>0;});
+  assert.equal(await p.locator('.outside-inspection-image').getAttribute('src'),'assets/01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png');
+  assert.equal(await p.locator('#outside-inspection-description').textContent(),'누군가 수배하는 포스터.');
+  await p.screenshot({path:'/private/tmp/home-book-poster-inspection.png'});
+  await p.keyboard.press('Escape');assert.equal(await p.locator('.outside-inspection').count(),0);
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>resourceReview.ready);
   const card=await p.evaluate(()=>resourceReview.rows.find(r=>r.id==='outside:home-book'));
   assert.equal(card.layers[0].w,1024);assert.equal(card.layers[0].h,1536);assert(card.layers[0].src.endsWith('/nietzsche-the-gay-science.png'));
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
-  console.log('HOME_BOOK_OK: book-only glow and badge, original preloaded cover, exact caption, E/click/Esc, movement lock, resize, first-use history, all days/routes, poster retained, resource review');
+  console.log('HOME_BOOK_OK: book-only glow, no badge, original preloaded cover, exact caption, E/click/Esc, movement lock, resize, first-use history, all days/routes, current poster decoded and inspected, resource review');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

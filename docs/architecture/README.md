@@ -46,7 +46,7 @@ node tools/locate.cjs campaign --symbols
 | 컷씬 공통 재생 | `cinema/` |
 | 말풍선·선택지·공유 UI·오디오 | `shared/dialogue`, `shared/ui`, `shared/audio` |
 | 개발자 기능·리소스 검수 | `dev/` |
-| 바 대사 편집·로컬 CSV 저장·웹 내보내기 | `dev/dialogue-editor/`, `tools/dialogue-editor-storage.cjs` · [저장/구현 계약](dialogue-editor.md) |
+| 바 / 외부 대사 편집·로컬 CSV 저장·웹 내보내기 | `dev/dialogue-editor/`, `tools/dialogue-editor-storage.cjs` · [저장/구현 계약과 지원 대기](dialogue-editor.md) |
 | 컷씬 편집기 | 저장소 루트 `cutscene-studio/src/` |
 
 ## 필요한 문서만 읽기

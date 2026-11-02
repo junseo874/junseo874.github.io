@@ -4,12 +4,24 @@ const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 assert.equal(d.props._Anim_Fps,16);assert.equal(d.props._Pixel_Size,.01);assert.equal(d.fire.order,-1);assert.equal(d.front.order,0);assert.equal(d.front.sortingLayer,d.fire.sortingLayer);
 assert.deepEqual([d.back.sprite.w,d.back.sprite.h],[2218,207]);assert.deepEqual([d.front.sprite.w,d.front.sprite.h],[21,28]);
 assert.equal(d.constants.hotGain,10);assert.equal(d.constants.warmGain,.5);assert.equal(d.props._Tex_D_speedY,1.5);assert.equal(d.props._Tex_D_02_speedY,2.5);
+assert.equal(d.version,2);assert.deepEqual([d.props._Heat_Scale,d.props._Heat_Bias,d.props._Brightness,d.props._SrcBlend,d.props._DstBlend],[.6,0,2,5,1]);
+assert(d.placementSources['Assets/01.Game/01.Scenes/OutSide.unity'],'Retain original placement provenance, not a claim of current scene parity');
+require('../src/features/outside/effects/outside-barrel-fire.js');
+const toLinear=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
+for(const [heat,color]of [[-1,d.colors.edge],[0,d.colors.edge],[.5/.6,d.colors.mid],[1/.6,d.colors.core],[10,d.colors.core]]){
+ const actual=LunaBarrelFire.heatColor(heat);['r','g','b'].forEach((ch,i)=>assert(Math.abs(actual[i]-toLinear(color[ch])*2)<1e-10,'linear heat ramp '+heat+' '+ch));
+}
 for(const a of Object.values(d.assets))assert.equal(hash(fs.readFileSync(path.join(game,a.src))),a.sha256,a.src);
 (async()=>{
  const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
  // Verify originals when the source checkout is available; CI only needs the snapshot.
  if(fs.existsSync(engine)){
   for(const [f,v]of Object.entries(d.sources))assert.equal(hash(fs.readFileSync(path.join(engine,f))),v.sha256,'engine snapshot changed: '+f);
+  const mat=fs.readFileSync(path.join(engine,'Assets/01.Game/03.Content/03.Vfx/02.Materials/FX_Mat_Fire.mat'),'utf8');
+  for(const key of ['_Heat_Scale','_Heat_Bias','_Brightness','_SrcBlend','_DstBlend'])assert.equal(Number(mat.match(new RegExp('    - '+key+': ([^\\n]+)'))[1]),d.props[key]);
+  for(const [key,prop]of [['edge','_Color_Edge'],['mid','_Color_Mid'],['core','_Color_Core']]){
+   const color=Object.fromEntries(mat.match(new RegExp('    - '+prop+': \\{([^}]+)'))[1].split(',').map(v=>v.trim().split(': ').map((x,i)=>i?Number(x):x)));assert.deepEqual(d.colors[key],color);
+  }
   for(const a of Object.values(d.assets)){
    const source=path.join(engine,a.source),dest=path.join(game,a.src);
    if(/\.png$/i.test(source))assert.deepEqual(fs.readFileSync(source),fs.readFileSync(dest),'original PNG bytes');
@@ -19,5 +31,5 @@ for(const a of Object.values(d.assets))assert.equal(hash(fs.readFileSync(path.jo
    }
   }
  }
- console.log('ENGINE_BARREL_FIRE_OK original PNG bytes, lossless TGA RGB/orientation, current source hashes, scene sorting, 16fps/100PPU and graph material parameters');
+ console.log('ENGINE_BARREL_FIRE_OK original PNG bytes, lossless TGA RGB/orientation, current shader/material hashes, retained web placement, 16fps/100PPU, linear heat ramp and additive blend');
 })().catch(e=>{console.error(e);process.exitCode=1;});

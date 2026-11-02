@@ -3,8 +3,7 @@
  * Only browser-incompatible TGA storage is converted; source samples are intact. */
 (function(W){'use strict';
 const D=()=>W.LUNA_BARREL_FIRE,clamp=v=>Math.max(0,Math.min(1,v));
-// Warm HDR presentation from FX_Fire.gif; the high 10x core still clips white.
-// Reuse this temperature for the retained web character-light bridge.
+// Retained local character lighting; the flame itself uses the engine heat ramp.
 const temperature=[1,.48,.12];
 const linear=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
 const display=v=>v<=.0031308?v*12.92:1.055*Math.max(0,v)**(1/2.4)-.055;
@@ -61,6 +60,11 @@ function shade(u,v,t){
  const intensity=c.hotGain*Math.round(h**c.hotPower)+c.warmGain*Math.round(h**c.warmPower)+Math.abs(v)**c.basePower+Math.abs(sum*v)**c.bodyPower;
  return {intensity:Number.isFinite(intensity)?Math.max(0,intensity):0,mask};
 }
+// FX_Mat_Fire colors are authored in sRGB; ShaderGraph interpolates in linear RGB.
+function heatColor(heat){
+ const d=D(),t=clamp(heat*d.props._Heat_Scale+d.props._Heat_Bias),lo=clamp(t*2),hi=clamp(t*2-1);
+ return ['r','g','b'].map(ch=>{const edge=linear(d.colors.edge[ch]),mid=linear(d.colors.mid[ch]),center=linear(d.colors.core[ch]);return ((edge+(mid-edge)*lo)*(1-hi)+center*hi)*d.props._Brightness;});
+}
 function render(time,still=false,images){
  if(images&&!prepare(images))return null;if(!prepared)return null;
  const d=D(),p=d.props,f=placement(),t=clock(time,still),pixel=p._Pixel_Size;
@@ -74,10 +78,7 @@ function render(time,still=false,images){
   const wx=left+(x+.5)*pixel,wy=top-(y+.5)*pixel,ux=(wx-cx)/f.sx+.5,uy=(wy-cy)/f.sy+.5;
   if(ux<0||ux>1||uy<0||uy>1)continue;
   const s=shade(ux-p._Offset_X,uy-p._Offset_Y,t),a=clamp(s.intensity),i=(y*w+x)*4;if(a<=0)continue;
-  for(const [k,ch]of ['r','g','b'].entries()){
-   const base=linear(d.colors.base[ch]),hot=linear(d.colors.hot[ch]);
-   out.data[i+k]=Math.round(clamp(display(Math.max(0,base+(hot-base)*s.mask)*s.intensity*temperature[k]))*255);
-  }
+  for(const [k,color]of heatColor(s.mask).entries())out.data[i+k]=Math.round(clamp(display(color*s.intensity))*255);
   out.data[i+3]=Math.round(a*255);total+=a;
  }
  ctx.putImageData(out,0,0);
@@ -95,7 +96,8 @@ function draw(ctx,node,model,cam,images,surface){
  if(center.x+Math.abs(at.sx)*s<0||center.x-Math.abs(at.sx)*s>1280||center.y+Math.abs(at.sy)*s<0||center.y-Math.abs(at.sy)*s>720)return;
  const f=render(model.time,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches,images);if(!f)return;
  const sp={w:f.w,h:f.h,ppu:1/f.pixel,pivot:{x:0,y:1}},p=W.LunaPixelCamera.sprite(sp,f.left,f.top,1,1,false,cam,surface);
- ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(f.core,p.x,p.y,p.w,p.h);ctx.restore();
+ // Unity SrcAlpha/One: additive flame, never darken the background with smoke.
+ ctx.save();ctx.globalCompositeOperation='lighter';ctx.imageSmoothingEnabled=false;ctx.drawImage(f.core,p.x,p.y,p.w,p.h);ctx.restore();
 }
 function paintSprite(ctx,key,sp,w,h,time,still=false,images){
  if(key!=='B_Obects'&&key!=='barrel-front')return;
@@ -106,6 +108,6 @@ function paintSprite(ctx,key,sp,w,h,time,still=false,images){
  ctx.save();if(key==='barrel-front'){ctx.beginPath();ctx.rect(-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);ctx.clip();}
  ctx.globalCompositeOperation='screen';ctx.imageSmoothingEnabled=true;ctx.drawImage(f.light,x-.48*s,y-.48*s,.96*s,.96*s);ctx.restore();
 }
-W.LunaBarrelFire={apply,prepare,render,shade,sample,clock,energy,worldLight,placement,paintSprite,draw,get fps(){return D().props._Anim_Fps;}};
+W.LunaBarrelFire={apply,prepare,render,shade,heatColor,sample,clock,energy,worldLight,placement,paintSprite,draw,get fps(){return D().props._Anim_Fps;}};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

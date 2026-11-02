@@ -553,6 +553,8 @@
     function renderSceneNode(n) {
       if(n.name==='barrel-fire'){global.LunaBarrelFire.draw(ctx,n,model,renderCam,images,surface);return;}
       if (global.LunaOutsideBeggar?.drawNode(model, n, drawSprite)) return;
+      if (global.LunaOutsideNewspaper?.drawNode(model, n, drawSprite)) return;
+      if (global.LunaOutsideBeliever?.drawNode(model, n, drawSprite)) return;
       if (global.LunaOutsideResidents.drawNode(model, n, drawSprite, ctx, position)) return;
       if (global.LunaOutsideEncounters.drawNode(model, n, drawSprite)) return;
       if (!global.LunaOutsideContent.visibleNode(model, n)) return;

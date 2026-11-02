@@ -83,9 +83,9 @@ function choiceView(m){const stage=m.story.speech.line.stage,p=progress(),option
  if(stage==='repair')options.push({id:'gear',label:'기어 부품 건네주기',disabled:!(p.inventory?.gear_part>0),disabledReason:'기어 부품이 없습니다.'},{id:'pay',label:'비용 건네주기 · 400원',disabled:p.money<400,disabledReason:'돈이 부족합니다.'});
  if(stage==='guard')options.push({id:'ask',label:'술을 찾고 있어요.'});
  if(stage==='boss-first'||stage==='boss-repeat')return{money:p.money,label:names.boss,options:[
-  {id:'boss-wait',label:'조금만 기다려주세요'},
-  {id:'boss-repair',label:stage==='boss-first'?'이미 고쳤습니다.':'엘레베이터를 고쳤습니다.',disabled:!repaired()||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'엘리베이터 수리가 필요합니다.'},
-  {id:'boss-pay',label:'돈을 드릴께요 · 500원',disabled:p.money<500||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'돈이 부족합니다.'}
+  {id:'boss-wait',label:'( 대화 그만두기 )'},
+  {id:'boss-repair',label:stage==='boss-first'?'승강기는 이미 고쳤습니다.':'승강기 고쳤습니다.',disabled:!repaired()||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'엘리베이터 수리가 필요합니다.'},
+  {id:'boss-pay',label:'돈으로 살게요 · 500원',disabled:p.money<500||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'돈이 부족합니다.'}
  ]};
  options.push({id:'cancel',label:stage==='guard'?'자리를 뜬다.':stage==='repair-intro'?'무시한다.':'취소'});
  return{money:stage==='home-cat'?undefined:p.money,label:names[m.story.speech.line.actor]||'선택',options};

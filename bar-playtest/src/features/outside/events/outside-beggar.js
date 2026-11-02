@@ -1,4 +1,4 @@
-/* Optional authored encounter: Day 0 homeward / Day 1 commute.
+/* Optional authored encounter: Day 0 homeward only.
  * Reuses existing street NPC art; promises are dialogue, not a reward grant. */
 (function(W){
 'use strict';
@@ -12,7 +12,7 @@ const progress=()=>W.barGame.progress;
 const flags=()=>progress().flags??={};
 const refusal=m=>'street_beggar_refused_'+m.config.day+'_'+m.config.flow;
 const balance=()=>Math.max(0,Number(progress().money)||0);
-function present(m){return !m.qa&&m.scene==='street'&&(m.config.day===0&&m.config.flow==='out'||m.config.day===1&&m.config.flow==='in');}
+function present(m){return !m.qa&&m.scene==='street'&&m.config.day===0&&m.config.flow==='out';}
 function active(m){return present(m)&&!m.level;}
 const visitKey=m=>m.config.day+':'+m.config.flow;
 // Keep the paid reaction available only during the street visit where Luna paid.
@@ -46,7 +46,7 @@ function interact(m,t){
  flags().street_beggar_met=true;sync();return m.story.beginRows(id,t,dialogue);
 }
 function choiceView(m){const money=balance(),repeat=m?.story.speech?.rows!==intro;return {label:'대답하기',money,options:[
- {id:'beggar-pay',label:repeat?'네 드릴게요 (200원을 준다.)':'네. 여기요 (200원을 준다.)',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
+ {id:'beggar-pay',label:'네, 믿을게요 · 200원',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
  {id:'beggar-refuse',label:repeat?'아니요.':'싫어요.',disabled:false},
  {id:'beggar-question',label:flags().street_beggar_warned?'혹시 사기꾼인가요?':'???',disabled:!flags().street_beggar_warned,disabledReason:'관련 정보가 필요합니다.'}
  ]};}
@@ -55,7 +55,7 @@ function choose(m,choice){
  if(!['beggar-pay','beggar-refuse','beggar-question'].includes(choice)||choice==='beggar-pay'&&balance()<cost||choice==='beggar-question'&&!flags().street_beggar_warned)return false;
  s.choice=false;
  if(choice==='beggar-question'){m.story.beginRows(id,s.target,rows('questioned'));return true;}
- if(choice==='beggar-refuse'){flags()[refusal(m)]=true;m.story.beginRows(id,s.target,refused);sync();return true;}
+ if(choice==='beggar-refuse'){const text=s.rows===intro?'싫어요.':'아니요.';flags()[refusal(m)]=true;m.story.beginRows(id,s.target,refused.map((r,i)=>i===0&&r.actor==='luna'?{...r,text}:r));sync();return true;}
  // Mark paid before notifying observers: repeated clicks cannot charge again.
  const before=balance();progress().money=before-cost;flags().street_beggar_paid=true;flags().street_beggar_paid_day=m.config.day;
  m.beggarWitnessPaidVisit=visitKey(m);

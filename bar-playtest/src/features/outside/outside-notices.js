@@ -1,13 +1,15 @@
 /* Screen-space transaction notices; no gameplay state or dialogue focus changes. */
 (function(W){
 'use strict';
+// Quest parts are not cocktail ingredients. No invented image when art is absent.
+const questItems={gear_part:{ko:'기어 부품',en:'Gear part'},machine_church_emblem:{ko:'기신교의 엠블럼',en:'Machine Church emblem'}};
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 W.LunaOutsideNotices={create(host,currency){
  const layer=document.createElement('div');layer.className='outside-notices';layer.innerHTML='<div class="outside-money-notice"></div><div class="outside-item-notice story-notice" role="status" aria-live="polite" aria-atomic="true" hidden></div>';host.querySelector('.outside-stage').append(layer);
  const money=layer.firstElementChild,item=layer.lastElementChild,reduced=W.matchMedia('(prefers-reduced-motion: reduce)'),qaCurrency=W.LunaCurrencyView();
  let owner=null,story=null,model=null,queue=[],current=null,age=0;
  function sync(m){const p=m.qa?.shopProgress||W.barGame.progress;if(model!==m||owner!==p||story!==m.story){model=m;owner=p;story=m.story;queue=[];current=null;age=0;money.replaceChildren();item.hidden=true;(m.qa?qaCurrency:currency).reset(p);}return p;}
- function next(){current=queue.shift()||null;age=0;item.hidden=!current;if(!current)return;const g=W.barGame,row=g.t.shelf_items.find(i=>i.id===current),assets=g.data.assets,art=assets['recipe_item_'+current]||assets['item_'+current],ko=g.lang==='ko',name=g.text(row,'name');item.dataset.item=current;item.innerHTML='<span class="outside-item-preview" aria-hidden="true"><img src="'+esc(art.src)+'" alt="" draggable="false"></span><div><small>'+(ko?'재료 획득':'INGREDIENT')+'</small><strong>'+esc(ko?'신규 재료 '+name+' 추가!':'New ingredient '+name+' added!')+'</strong></div>';}
+ function next(){current=queue.shift()||null;age=0;item.hidden=!current;if(!current)return;const g=W.barGame,row=g.t.shelf_items.find(i=>i.id===current),assets=g.data.assets,art=assets['recipe_item_'+current]||assets['item_'+current],ko=g.lang==='ko',quest=questItems[current],name=quest?.[ko?'ko':'en']||g.text(row,'name');item.dataset.item=current;item.innerHTML=(art?'<span class="outside-item-preview" aria-hidden="true"><img src="'+esc(art.src)+'" alt="" draggable="false"></span>':'')+'<div><small>'+(quest?(ko?'아이템 획득':'ITEM ACQUIRED'):(ko?'재료 획득':'INGREDIENT'))+'</small><strong>'+esc(quest?(ko?name+' 획득!':name+' acquired!'):(ko?'신규 재료 '+name+' 추가!':'New ingredient '+name+' added!'))+'</strong></div>';}
  function showMoney(f,p){let el=money.firstElementChild;if(!f.active){money.replaceChildren();return;}if(!el){money.innerHTML=W.LunaCurrencyView.html(f,p,{lang:W.barGame.lang,reducedMotion:reduced.matches});return;}
   const income=f.delta>0,fmt=n=>Math.round(n).toLocaleString(),ko=W.barGame.lang==='ko';el.className='currency-hud '+(income?'currency-income':'currency-spending');el.style.opacity=f.opacity;el.setAttribute('aria-label',(income?(ko?'수입':'Income'):(ko?'차감':'Spent'))+' '+fmt(Math.abs(f.delta))+', '+(ko?'소지금':'Balance')+' '+fmt(p.money));const value=fmt(reduced.matches?p.money:f.displayed);el.querySelector('.currency-value').textContent=value;el.style.setProperty('--currency-digits',value.length);const d=el.querySelector('.currency-delta');d.textContent=(income?'+':'−')+fmt(Math.abs(f.delta));d.style.transform='translateY('+(reduced.matches?0:-Math.min(12,f.elapsed*7))+'px)';
  }
@@ -17,6 +19,6 @@ W.LunaOutsideNotices={create(host,currency){
   if(current!==previous){const shown=current;W.LunaStoryNoticeAudio?.play(()=>current===shown&&layer.isConnected&&!item.hidden);}
   const enter=Math.min(1,age/.24),leave=Math.max(0,(age-2.5)/.3),visible=enter*(1-leave),travel=item.offsetWidth+24;item.style.opacity=String(visible);item.style.transform=reduced.matches?'none':'translateX('+(-travel*Math.pow(1-enter,3)*(1-leave)-travel*leave)+'px)';
  }
- return{update,add(m,id){sync(m);const g=W.barGame,row=g.t.shelf_items.find(i=>i.id===id);if(row?.kind!=='ingredient'||!(g.data.assets['recipe_item_'+id]||g.data.assets['item_'+id]))return false;queue.push(id);update(m);return true;},dispose(){queue=[];current=null;layer.remove();currency.reset(W.barGame.progress);}};
+ return{update,add(m,id){sync(m);const g=W.barGame,row=g.t.shelf_items.find(i=>i.id===id);if(!questItems[id]&&(row?.kind!=='ingredient'||!(g.data.assets['recipe_item_'+id]||g.data.assets['item_'+id])))return false;queue.push(id);update(m);return true;},dispose(){queue=[];current=null;layer.remove();currency.reset(W.barGame.progress);}};
 }};
 })(window);

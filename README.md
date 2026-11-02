@@ -43,7 +43,7 @@ python3 serve.py
 | 사이트 입구 | `/` | `index.html` |
 | 게임 본편 | `/bar-playtest/` | `bar-playtest/src/` |
 | 개발자 모드 | `/bar-playtest/?dev=1` | 본편과 같은 코드 |
-| 바 대사 편집 | `/bar-playtest/dialogue-editor.html` | `bar-playtest/src/dev/dialogue-editor/` · [사용/저장 안내](docs/architecture/dialogue-editor.md) |
+| 바 / 외부 대사 편집 | `/bar-playtest/dialogue-editors.html` | 내부 7개 장면 / 외부 CSV 연결 80개 흐름 · [사용·저장·지원 범위](docs/architecture/dialogue-editor.md) |
 | 리소스 검수 | `/bar-playtest/resource-review.html` | `bar-playtest/src/dev/resources/` |
 | 컷씬 편집기 | `/cutscene-studio/` | `cutscene-studio/src/` |
 | 기존 프로토타입 | `/simulator.html` 등 | `js/`, `css/`, `assets/prototype/` |

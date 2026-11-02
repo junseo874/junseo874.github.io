@@ -25,6 +25,7 @@ const assert=require('node:assert/strict');
    assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
    const expected={tv:'TV 보기',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
    Object.assign(expected,{bed:'보기',wardrobe:'보기','home-book':'보기','neighborhood-boss':'대화하기','neighborhood-guard':'대화하기','neighborhood-repair':'대화하기','neighborhood-box':'보기','neighborhood-cat':'보기','neighborhood-home-cat':'보기'});
+   expected['street-newspaper']='대화하기';expected['street-believer']='대화하기';
    assert(expected[r.id],'Unclassified target '+r.id);assert.equal(r.text,'E'+expected[r.id]);assert(r.ordered);assert.equal(r.inline,'');
   }
   const ids=new Set(results.map(r=>r.id));for(const id of ['bed','wardrobe','home-book','tv','exit','sofa','home','elevator','bar','wanted-poster','shiba-shop','street-beggar','street-beggar-witness'])assert(ids.has(id));

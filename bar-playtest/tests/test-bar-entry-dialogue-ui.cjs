@@ -34,7 +34,7 @@ const { chromium } = runtime.load('playwright');
     await page.waitForFunction(() => !barGame.cameraMoving && barGame.currentDialogue()?.actor === 'chris');
     await page.locator('#app .dialogue-wrap').waitFor();
     assert.equal(await page.locator('#app .dialogue-wrap').count(), 1);
-    assert.equal(await page.evaluate(() => barGame.dialogue.text), '그럼. 이제 시작해 보려고 하는데. 전에 내가 말했던 것들 혹시 기억해?');
+    assert.equal(await page.evaluate(() => barGame.dialogue.text), '그럼. 이제 시작해 보려고 하는데. 전에 내가 말했던 것들 혹시 기억하나?');
     // A later actor/camera transition must not resurrect the raw pending line either.
     await page.evaluate(() => {
       const line = barGame.dialogue;
