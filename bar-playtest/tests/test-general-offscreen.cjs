@@ -173,6 +173,7 @@ for (const selected of ['gin_tonic', 'gin_fizz']) {
   const g = setup(), guest = g.seats[g.focus];
   g.setBarks(guest, ['call']);
   // This assertion tests partial history, not which random bark was selected.
+  guest.arrivalAt = g.realTime - guest.arrivalDuration;
   guest.lines[0].text = '아직 모두 읽지 않은 충분히 긴 일반 손님 호출 대사입니다.';
   ticks(g, .2);
   const line = guest.lines[0], visible = line.chars;

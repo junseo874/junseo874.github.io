@@ -339,7 +339,8 @@ window.LunaBarViews = function ({
     }
     state.pose = pose.pose;
     if (guest.state === 'EXITING' && state.exitAt === null) state.exitAt = g.realTime;
-    const entering = guest.seated ? 1 : Math.min(1, (g.realTime - state.start) / .65);
+    const entering = guest.seated ? 1 : Math.min(1, Math.max(0,
+      (g.realTime - (guest.arrivalAt ?? state.start)) / (guest.arrivalDuration ?? .65)));
     // General farewell dialogue remains visible, then the guest leaves.
     const exiting = state.exitAt === null ? 0 : Math.min(1, Math.max(0, (g.realTime - state.exitAt - (g.phase === 'general' ? 2.5 : 0)) / .45));
     const opacity = Math.min(entering, 1 - exiting),

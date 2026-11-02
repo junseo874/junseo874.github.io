@@ -289,6 +289,7 @@
       if (this.cameraMoving || this.cameraLeft > 0 || this.transition > 0) return null;
       if (this.phase === 'general') {
         const g = this.seats[this.focus];
+        if (g?.arrivalAt != null && this.realTime < g.arrivalAt + g.arrivalDuration) return null;
         return !this.cameraLeft ? g?.lines?.[g.lineIndex] : null;
       }
       return this.dialogue;

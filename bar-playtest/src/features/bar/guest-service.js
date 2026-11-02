@@ -88,6 +88,8 @@
         slot,
         personality: p,
         appearance: slot.character ? null : this.appearance(),
+        arrivalAt: this.realTime,
+        arrivalDuration: .65,
         seat,
         state: 'WAIT_COASTER',
         coaster: false,
@@ -433,13 +435,18 @@
         const visible = g.seat === this.focus && this.cameraLeft === 0 && !this.cameraMoving && !holdSpeech;
         const line = g.lines[g.lineIndex];
         if (line) {
-          if (line.chars < line.text.length) this.typeLine(line, realDt, visible);
+          // The arrival fade and first utterance use the same real-time clock.
+          // Do not spend this tick's pre-arrival time on typing or line holds.
+          const speechDt = g.arrivalAt == null ? realDt : Math.min(realDt,
+            Math.max(0, this.realTime - g.arrivalAt - g.arrivalDuration));
+          if (speechDt <= 0) continue;
+          if (line.chars < line.text.length) this.typeLine(line, speechDt, visible);
           if (visible) {
             line.seen = true;
             line.visibleChars = line.chars;
           }
           if (line.chars >= line.text.length) {
-            line.hold += realDt * this.dialogSpeed;
+            line.hold += speechDt * this.dialogSpeed;
             if (line.hold >= this.c('order_bark_gap_sec', 1.5)) {
               if (line.visibleChars > 0) this.history.push({
                 actor: line.actor,

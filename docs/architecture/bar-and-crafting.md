@@ -26,6 +26,10 @@
 
 ## 일반 손님 랜덤 외형
 
+단골의 `enter`도 `arrivalAt`·`arrivalDuration`을 기록하고 0.65초 페이드가 완료된 후 다음 대본 단계로 진행한다. 2인 동시 입장은 함께 완료한 뒤 진행하며 코스터·주문 트리거의 대본상 순서는 유지한다. `entrance: seated`는 이미 착석한 장면이므로 새 페이드나 대기 시간을 추가하지 않는다. 일반/단골 모두 표시를 처음 그린 시점이 아니라 실제 입장 시각으로 페이드 진행률을 계산한다. 검증: `test-regular-arrival-speech.cjs`.
+
+일반 손님의 첫 인사는 입장 페이드 0.65초가 끝난 뒤 시작한다. `spawn`의 `arrivalAt`·`arrivalDuration`을 화면의 투명도와 대사 표시/타이핑이 함께 사용한다. 입장 중에는 대사 글자 수와 유지 시간을 진행하지 않으며 말풍선도 숨긴다. 완료 후 실제 타이핑에 맞춰 입이 움직인다. 속도 배율과 별개인 `realTime` 기준이고 일시정지 중에는 함께 정지한다. 기존 비집중 좌석의 자동 진행과 인내심 규칙은 유지한다. 검증: `test-guest-arrival-speech-ui.cjs`.
+
 시뮬레이터 상단 **손님 외형** 탭은 실제 `appearance(gender)` 생성기를 사용한다. 여성/남성을 전환하고 랜덤 재생성 또는 파츠 썸네일을 직접 선택할 수 있다. 왼쪽은 합성 결과와 선택 파일명, 오른쪽은 실제 리소스 후보와 선택 표시다. 성별별 마지막 조합은 탭 안에서 유지하며 게임 손님·대본·주문 상태에는 반영하지 않는다. 정적 파츠 확인 화면이며 대사 애니메이션 검수는 바 QA에서 한다. `appearanceParts`와 `appearanceAllowed`를 게임과 공유해 민소매 전용 팔 밴드 제약도 동일하다. 구현: `src/dev/qa/guest-appearance.js`, 검증: `test-guest-appearance-tab-ui.cjs`.
 
 외형 추첨은 일차/주문용 고정 seed와 분리된 `appearanceRng`(기본 `Math.random`)를 사용한다. 같은 일차·seed로 재시작해도 남녀와 파츠가 새로 추첨된다. 검수에서만 `reset` 설정의 `appearanceRng`로 고정 난수 함수를 넣을 수 있다.

@@ -182,6 +182,8 @@
               id: e.actor,
               actor: e.actor,
               seated: e.entrance === 'seated',
+              arrivalAt: this.realTime,
+              arrivalDuration: e.entrance === 'seated' ? 0 : .65,
               state: 'STORY',
               coaster: false,
               glass: null,
@@ -193,7 +195,8 @@
           this.focus = s.arg;
           this.story.index += group.length;
           if (group.every(e => e.entrance === 'seated')) continue;
-          this.setTransition(0.8, () => this.pump());
+          // Match the rendered entrance clock; only then run dialogue/coaster cues.
+          this.setTransition(Math.max(...group.map(e => this.seats[e.arg].arrivalDuration)), () => this.pump());
           return;
         }
         if (s.type === 'exit') {

@@ -23,10 +23,12 @@ const suites = {
 const choice = process.argv[2] || 'smoke';
 suites.smoke.unshift(game('test-guest-random-appearance'));
 suites.smoke.unshift(game('test-guest-mouth-pairing'));
+suites.smoke.unshift(game('test-regular-arrival-speech'));
 suites.smoke.unshift(game('test-endless-general'));
 suites.ui.unshift(game('test-guest-random-appearance-ui'));
 suites.ui.unshift(game('test-endless-general-ui'));
 suites.ui.unshift(game('test-guest-appearance-tab-ui'));
+suites.ui.unshift(game('test-guest-arrival-speech-ui'));
 suites.smoke.unshift(game('test-latest-story-timings'));
 suites.smoke.unshift(game('test-shared-birds-and-bar-gates'));
 suites.smoke.unshift('tools/check-engine-art-sync.cjs','tools/check-art-resource-paths.cjs');
