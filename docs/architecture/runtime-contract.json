@@ -870,6 +870,10 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/color-picker.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/editor.js"
     ]
   ],

@@ -5,6 +5,9 @@ const {Model,decode}=window.LunaDialogueEditorModel;
 const types={say:'대사',enter:'입장',exit:'퇴장',choice:'선택지',coaster:'코스터 제공',order:'주문',craft:'제조 대기',serve:'음료 제공',empty_glass:'빈잔 전환',expression:'표정 유지',effect:'상태 변경',story_cue:'연출 신호',tutorial:'튜토리얼',end_part:'장면 종료'};
 const draftKey='luna.bar.dialogue-editor.draft.v1';let model,local=null,sourceRevision='',selected='',scene='',playing=false,previewReady=false,expressions={},picks={},lastField='',reviewResult=null,saving=false,initializing=false,previewFlags={},previewMoney=1000;
 const frame=$('preview'),status=text=>$('status').textContent=text,rows=()=>model.rows(scene),current=()=>model.row(selected);
+let lastEditAt=0,lastInputType='';
+const colorPicker=window.LunaDialogueColorPicker.create();let colorPreview=null;
+const previewRow=r=>colorPreview?.rowId===r.row_id?{...r,[colorPreview.key]:colorPreview.text}:r;
 const actorName=id=>model.projected.data.tables.characters.find(c=>c.id===id)?.['name.ko']||id;
 function resize(){const el=document.querySelector('.preview-shell'),scale=Math.min(el.clientWidth/1280,el.clientHeight/720);$('preview-fit').style.transform='scale('+scale+')';$('preview-fit').style.left=(el.clientWidth-1280*scale)/2+'px';}
 new ResizeObserver(resize).observe(document.querySelector('.preview-shell'));
@@ -12,7 +15,7 @@ function stop(){playing=false;$('play').textContent='▶ 연속 재생';frame.co
 function send(animate=false){if(!previewReady||!model||!current())return;
  const flags=previewFlags;
  const r=current(),index=rows().findIndex(x=>x.row_id===selected);
- frame.contentWindow.postMessage({channel:'luna-dialogue-editor',type:'show',payload:{day:Number(model.scenes.find(s=>s.id===scene).day),rows:rows().map(x=>model.step(x)),index,choices:model.choices(r.arg).map(x=>Object.fromEntries(Object.entries(x).map(([k,v])=>[k,decode(v)]))),picks,flags,money:previewMoney,animate,playing}},location.origin);
+ frame.contentWindow.postMessage({channel:'luna-dialogue-editor',type:'show',payload:{day:Number(model.scenes.find(s=>s.id===scene).day),rows:rows().map(x=>model.step(previewRow(x))),index,choices:model.choices(r.arg).map(x=>Object.fromEntries(Object.entries(previewRow(x)).map(([k,v])=>[k,decode(v)]))),picks,flags,money:previewMoney,animate,playing}},location.origin);
 }
 function autosave(){if(initializing)return;try{if(model.dirty())localStorage.setItem(draftKey,JSON.stringify({revision:local?.revision||sourceRevision,files:model.output(),scene,selected}));else localStorage.removeItem(draftKey);}catch{status('임시 보관 공간이 부족합니다. 저장하거나 내보내 주세요.');}}
 function mark(){const dirty=model.dirty();$('dirty').textContent=dirty?'● 저장하지 않은 변경':'수정 없음';$('review').disabled=!dirty;$('undo').disabled=!model.undoStack.length;$('redo').disabled=!model.redoStack.length;autosave();}
@@ -21,12 +24,12 @@ function drawList(){
  $('line-list').innerHTML=rows().map((r,i)=>({r,i})).filter(({r})=>[r['text.ko'],r.actor,actorName(r.actor),r.row_id,types[r.type]].join(' ').toLowerCase().includes(query)).map(({r,i})=>`<button class="line ${changed.has(r.row_id)?'changed':''}" data-line="${esc(r.row_id)}" aria-current="${r.row_id===selected}"><small>${i+1}</small><small>${esc(types[r.type]||r.type)}</small><span>${esc(actorName(r.actor))}</span><span>${esc(decode(r['text.ko'])||decode(r.arg)||'—')}</span></button>`).join('');
  $('cursor').textContent=`${rows().findIndex(r=>r.row_id===selected)+1} / ${rows().length}`;
 }
-const field=(label,key,value,multi=false)=>`<label>${label}${multi?`<textarea data-field="${key}">${esc(decode(value))}</textarea>`:`<input data-field="${key}" value="${esc(decode(value))}">`}</label>`;
+const field=(label,key,value,multi=false)=>`<label>${label}${multi?`<textarea data-field="${key}">${esc(decode(value))}</textarea>`:`<input data-field="${key}" value="${esc(decode(value))}">`}</label>${multi&&key==='text.ko'?'<button class="text-color-button" data-color-field="text.ko"><span aria-hidden="true">A</span> 텍스트 색상</button>':''}`;
 function inspector(){const r=current();if(!r)return;
  const actors=[...new Set(['luna',...Object.keys(model.presentation.characterLayers),...Object.keys(expressions),r.actor])],poses=[...(expressions[r.actor]||['default'])];if(['say','expression'].includes(r.type)&&!poses.includes(r.arg))poses.push(r.arg);
  $('inspector').innerHTML=`<h2>${esc(types[r.type]||r.type)} 편집</h2><p class="row-id">${esc(r.row_id)}</p><div class="field-pair"><label>진행 종류<select data-field="type">${Object.entries(types).map(([id,name])=>`<option value="${id}" ${r.type===id?'selected':''}>${name}</option>`).join('')}</select></label><label>화자 / 대상<select data-field="actor">${actors.map(id=>`<option value="${esc(id)}" ${r.actor===id?'selected':''}>${esc(actorName(id))}</option>`).join('')}</select></label></div>
  ${['say','expression'].includes(r.type)?`<label>표정<select data-field="arg">${poses.map(id=>`<option ${id===r.arg?'selected':''} value="${esc(id)}">${esc(id==='default'?'기본':id)}</option>`).join('')}</select></label>`:r.type==='enter'?`<div class="field-pair"><label>좌석<select data-field="arg"><option value="L" ${r.arg==='L'?'selected':''}>왼쪽</option><option value="R" ${r.arg==='R'?'selected':''}>오른쪽</option></select></label><label>등장<select data-field="entrance"><option value="" ${!r.entrance?'selected':''}>페이드 등장</option><option value="seated" ${r.entrance==='seated'?'selected':''}>이미 앉아 있음</option></select></label></div>`:field(r.type==='order'?'주문 (예: exact:gin_tonic)':r.type==='choice'?'선택지 그룹 ID':'인수 / 연출 ID','arg',r.arg)}
- ${['say','order'].includes(r.type)?field('한국어 대사','text.ko',r['text.ko'],true)+`<div class="tags">${[['shake','흔들림'],['wave','물결'],['pop','팝'],['name','이름 색'],['order','주문 색'],['big','크게'],['slow','천천히'],['color=#72DAE3','색상']].map(([tag,label])=>`<button data-tag="${tag}">${label}</button>`).join('')}<button data-delay>대기 0.3초</button></div><p class="hint">문장을 선택하고 효과를 누르세요. 예: &lt;shake amp=0.7 hz=18&gt;대사&lt;/shake&gt;, &lt;300&gt;은 300ms 대기. 엔진 전용 FX 프리셋·TMP sprite 태그는 이 편집기에서 아직 지원하지 않습니다.</p><details><summary>영문 대사</summary>${field('영문 (자동 번역하지 않음)','text.en',r['text.en'],true)}</details>`:''}
+ ${['say','order'].includes(r.type)?field('한국어 대사','text.ko',r['text.ko'],true)+`<div class="tags">${[['shake','흔들림'],['wave','물결'],['pop','팝'],['name','이름 색'],['order','주문 색'],['big','크게'],['slow','천천히']].map(([tag,label])=>`<button data-tag="${tag}">${label}</button>`).join('')}<button data-delay>대기 0.3초</button></div><p class="hint">문장을 선택하고 효과를 누르세요. 예: &lt;shake amp=0.7 hz=18&gt;대사&lt;/shake&gt;, &lt;300&gt;은 300ms 대기. 엔진 전용 FX 프리셋·TMP sprite 태그는 이 편집기에서 아직 지원하지 않습니다.</p><details><summary>영문 대사</summary>${field('영문 (자동 번역하지 않음)','text.en',r['text.en'],true)}</details>`:''}
  ${r.type==='choice'?`<section id="choice-fields">${model.choices(r.arg).map((c,i)=>`<div class="choice-editor" data-choice-row="${esc(c.row_id)}"><div class="choice-head"><b>선택지 ${i+1}</b><button data-remove-choice="${esc(c.row_id)}">삭제</button></div>${field('선택지 문구','text.ko',c['text.ko'],true)}<label>이동할 장면<select data-field="goto"><option value="">현재 장면의 다음 줄</option>${model.scenes.filter(s=>s.day===$('day').value).map(s=>`<option value="${esc(s.id)}" ${c.goto===s.id?'selected':''}>${esc(s.title||s.id)} · ${esc(s.id)}</option>`).join('')}</select></label><details><summary>조건 · 효과 · 영문</summary>${field('조건','when',c.when)}${field('선택 효과','effects',c.effects)}${field('선택 불가 사유','lock_reason.ko',c['lock_reason.ko'])}${field('영문','text.en',c['text.en'])}</details></div>`).join('')}</section><button id="add-choice" ${model.choices(r.arg).length>=4?'disabled':''}>+ 선택지 추가 (최대 4개)</button><p class="hint">화면의 선택지를 누르면 해당 분기를 미리봅니다. 그룹 ID를 공유하는 줄은 같은 선택지를 사용합니다. 줄 복제 시 그룹은 독립 복제됩니다.</p>`:''}
  <details><summary>실행 조건 · 효과 · 동시 진행</summary>${field('이 줄의 실행 조건','when',r.when)}${field('완료 시 효과','effects',r.effects)}<label>동시 진행<select data-field="sync"><option value="wait" ${r.sync==='wait'?'selected':''}>이 줄 완료까지 대기</option><option value="no_wait" ${r.sync==='no_wait'?'selected':''}>다음 입장과 동시 진행</option></select></label></details><details><summary>미리보기 조건 (CSV에 저장하지 않음)</summary><label>소지금<input id="preview-money" type="number" min="0" value="1000"></label><label>플래그 JSON<textarea id="flags">{}</textarea></label><button id="apply-preview">조건 적용</button></details><p class="hint">${r.type==='expression'?'이 표정은 이후 대사·듣기에도 유지됩니다. 기본으로 되돌리려면 표정 유지 줄을 추가하세요.':r.type==='say'?'이 줄의 표정만 변경합니다. 이후에도 유지하려면 ‘표정 유지’ 줄을 추가하세요.':'제조·튜토리얼은 편집 재생에서 입력 과정을 생략하고 연출 신호와 결과 상태를 확인합니다.'}</p>`;
  if($('flags'))$('flags').value=JSON.stringify(previewFlags,null,2);if($('preview-money'))$('preview-money').value=previewMoney;
@@ -61,13 +64,41 @@ $('add').onclick=()=>mutate(()=>model.add(scene,rows().findIndex(r=>r.row_id===s
 $('duplicate').onclick=()=>mutate(()=>model.add(scene,rows().findIndex(r=>r.row_id===selected)+1,current().type,current()));
 $('delete').onclick=()=>{if(!confirm('현재 줄을 삭제할까요? 되돌리기로 복구할 수 있습니다.'))return;mutate(()=>{const i=rows().findIndex(r=>r.row_id===selected);model.remove(scene,selected);selected=rows()[Math.min(i,rows().length-1)].row_id;});};
 for(const [id,delta]of [['up',-1],['down',1]])$(id).onclick=()=>mutate(()=>{const ids=rows().map(r=>r.row_id),i=ids.indexOf(selected),j=i+delta;if(j<0||j>=ids.length)return;[ids[i],ids[j]]=[ids[j],ids[i]];model.reorder(scene,ids);});
-$('undo').onclick=()=>{stop();model.undo();if(!current())selected=rows()[0].row_id;select(selected);};$('redo').onclick=()=>{stop();model.redo();if(!current())selected=rows()[0].row_id;select(selected);};
+function history(direction){
+ if(!model||saving||!model[direction+'Stack'].length)return;
+ const active=document.activeElement,key=active?.dataset.field,cid=active?.closest('[data-choice-row]')?.dataset.choiceRow,
+  start=active?.selectionStart,end=active?.selectionEnd,scroll=active?.scrollTop,
+  opened=[...$('inspector').querySelectorAll('details')].map(d=>d.open);
+ stop();model[direction]();if(!current())selected=rows()[0].row_id;select(selected);
+ // Rebuilding the inspector must not take the caret away from the edited field.
+ if(key){
+  [...$('inspector').querySelectorAll('details')].forEach((d,i)=>{d.open=opened[i]||false;});
+  const target=[...$('inspector').querySelectorAll('[data-field]')].find(el=>el.dataset.field===key&&el.closest('[data-choice-row]')?.dataset.choiceRow===cid);
+  if(target){target.focus({preventScroll:true});if(typeof start==='number')target.setSelectionRange(Math.min(start,target.value.length),Math.min(end,target.value.length));target.scrollTop=scroll;}
+ }
+}
+$('undo').onclick=()=>history('undo');$('redo').onclick=()=>history('redo');
 $('reload').onclick=async()=>{if(model?.dirty()&&!confirm('저장하지 않은 편집을 버리고 원본을 다시 불러올까요?'))return;localStorage.removeItem(draftKey);stop();await initialize();};
 $('inspector').addEventListener('input',e=>{const key=e.target.dataset.field;if(!key)return;stop();const cid=e.target.closest('[data-choice-row]')?.dataset.choiceRow,row=cid?model.tables.bar_choices.find(r=>r.row_id===cid):current(),keyId=row.row_id+'/'+key;
- if(lastField!==keyId){model.checkpoint();lastField=keyId;}model.set(row,key,e.target.value);drawList();send();mark();
+ const now=performance.now(),inputType=e.inputType||'replace';
+ if(lastField!==keyId||(!e.isComposing&&(now-lastEditAt>800||inputType!==lastInputType||inputType==='insertFromPaste'||inputType==='replace'))){model.checkpoint();lastField=keyId;}
+ lastEditAt=now;lastInputType=inputType;model.set(row,key,e.target.value);drawList();send();mark();
  if(e.target.tagName==='SELECT'&&['type','actor','arg'].includes(key)){inspector();lastField='';}
 });
 $('inspector').addEventListener('focusout',()=>{lastField='';});
+$('inspector').addEventListener('beforeinput',e=>{if(e.target.dataset.field&&['historyUndo','historyRedo'].includes(e.inputType)){e.preventDefault();history(e.inputType==='historyUndo'?'undo':'redo');}});
+$('inspector').addEventListener('click',e=>{
+ const b=e.target.closest('[data-color-field]');if(!b)return;stop();
+ const container=b.closest('[data-choice-row]')||$('inspector'),t=container.querySelector('textarea[data-field="text.ko"]'),
+  row=container.dataset.choiceRow?model.tables.bar_choices.find(r=>r.row_id===container.dataset.choiceRow):current(),
+  key=b.dataset.colorField,start=t.selectionStart,end=t.selectionEnd,text=t.value;
+ colorPicker.open({text,start,end,
+  validate:value=>window.LunaTextEffects.compile(value,model.projected.data.tables.text_tags).errors[0],
+  onPreview:value=>{colorPreview={rowId:row.row_id,key,text:value};send();},
+  onCancel:()=>{colorPreview=null;send();t.focus({preventScroll:true});t.setSelectionRange(start,end);},
+  onApply:value=>{colorPreview=null;lastField='';if(value!==text){model.checkpoint();model.set(row,key,value);}t.value=value;t.focus({preventScroll:true});drawList();send();mark();}
+ });
+});
 $('inspector').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='apply-preview'){try{const flags=JSON.parse($('flags').value);if(!flags||Array.isArray(flags)||typeof flags!=='object')throw Error('플래그는 JSON 객체로 입력하세요.');previewFlags=flags;previewMoney=Number($('preview-money').value);send();}catch(e){status(e.message);}return;}if(b.id==='add-choice'){mutate(()=>{model.addChoice(current().arg);});return;}if(b.dataset.removeChoice){mutate(()=>model.removeChoice(current().arg,b.dataset.removeChoice));return;}
  if(b.dataset.tag||b.hasAttribute('data-delay')){const t=$('inspector').querySelector('textarea[data-field="text.ko"]');if(!t)return;const start=t.selectionStart,end=t.selectionEnd,tag=b.dataset.tag,wrap=tag?'<'+tag+'>'+t.value.slice(start,end)+'</'+tag.split('=')[0]+'>':'<300>';model.checkpoint();model.set(current(),'text.ko',t.value.slice(0,start)+wrap+t.value.slice(end));t.value=current()['text.ko'];t.focus();t.setSelectionRange(start+wrap.length,start+wrap.length);drawList();send();mark();}
 };
@@ -92,6 +123,15 @@ $('commit').onclick=async()=>{if(saving)return;saving=true;$('commit').disabled=
  }catch(e){$('validation').textContent=e.message;}finally{saving=false;$('commit').disabled=false;}};
 window.addEventListener('beforeunload',e=>{if(model?.dirty()){e.preventDefault();e.returnValue='';}});
 const hello=()=>frame.contentWindow.postMessage({channel:'luna-dialogue-editor',type:'hello'},location.origin);frame.addEventListener('load',hello);hello();
-window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();if(model?.dirty())$('review').click();}if((e.ctrlKey||e.metaKey)&&e.key==='z'&&!['TEXTAREA','INPUT'].includes(e.target.tagName)){e.preventDefault();$(e.shiftKey?'redo':'undo').click();}});
+window.addEventListener('keydown',e=>{
+ if(!(e.ctrlKey||e.metaKey)||e.altKey||e.isComposing)return;
+ const key=/^Key[SYZ]$/.test(e.code)?e.code.slice(3).toLowerCase():e.key.toLowerCase();
+ if($('color-dialog').open){if(key==='s')e.preventDefault();return;}
+ if(key==='s'){e.preventDefault();if(model?.dirty())$('review').click();return;}
+ if(key!=='z'&&key!=='y')return;
+ // Search and preview-only inputs retain their native text undo history.
+ if($('review-dialog').open||((e.target.matches('input,textarea')||e.target.isContentEditable)&&!e.target.dataset.field))return;
+ e.preventDefault();history(key==='y'||e.shiftKey?'redo':'undo');
+});
 try{await initialize();}catch(e){status('불러오기 실패: '+e.message);$('inspector').textContent='불러오기에 실패했습니다. 로컬 서버 또는 배포 파일을 확인해 주세요.';}
 })();

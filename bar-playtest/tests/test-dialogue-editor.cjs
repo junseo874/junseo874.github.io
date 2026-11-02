@@ -1,8 +1,13 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {snapshot,save}=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../src/dev/dialogue-editor/editor-model.js');
 const {compile,html}=require('../src/shared/dialogue/text-effects.js');
+const {range}=require('../src/dev/dialogue-editor/color-picker.js');
 const root=path.resolve(__dirname,'../..');
 (async()=>{
+ assert.deepEqual(range('안녕 루나',0,2),{start:0,end:2,content:'안녕',color:'#72DAE3',existing:false});
+ assert.equal(range('안녕 루나',2,2).content,'안녕 루나','no selection colors the whole line');
+ const colored='앞 <color=#ff6666>안녕</color> 뒤',inside=colored.indexOf('안녕'),editRange=range(colored,inside,inside);
+ assert.equal(editRange.existing,true);assert.equal(editRange.color,'#FF6666');assert.equal(editRange.content,'안녕');assert.equal(colored.slice(editRange.start,editRange.end),'<color=#ff6666>안녕</color>');
  const source=await snapshot(),m=await new Model(source.files,source.presentation).init();assert.equal(m.scenes.length,7);assert.deepEqual((await m.validate()).errors,[]);assert.deepEqual(m.output(),{});
  const scene='campaign_d3_bar',r=m.rows(scene).find(r=>r.type==='say'),original=r['text.ko'];m.checkpoint();m.set(r,'text.ko','안녕, "루나".\n<shake amp=1 hz=18>반가워!</shake>');assert(m.dirty());m.undo();assert.equal(m.row(r.row_id)['text.ko'],original);m.redo();
  const added=m.add(scene,2,'say');m.set(added,'text.ko','테스트 대사');const copy=m.add(scene,3,'say',added);assert.notEqual(copy.row_id,added.row_id);m.remove(scene,added.row_id);
