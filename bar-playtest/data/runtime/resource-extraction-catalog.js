@@ -15,13 +15,6 @@ window.ResourceExtractionAssets=[
     "h": 64
   },
   {
-    "src": "assets/ui/pour/receiver-glass.png",
-    "title": "receiver-glass.png",
-    "category": "UI · 원본 조각",
-    "w": 160,
-    "h": 270
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox.png",
     "title": "GRD_textbox.png",
     "category": "UI · 원본 조각",
@@ -631,6 +624,13 @@ window.ResourceExtractionAssets=[
     "h": 232
   },
   {
+    "src": "assets/01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png",
+    "title": "Interaction_Test_image.png",
+    "category": "UI · 원본 조각",
+    "w": 1024,
+    "h": 1536
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox_1.png",
     "title": "외부 말풍선 · GRD_textbox_1.png",
     "category": "UI · 원본 조각",
@@ -755,6 +755,13 @@ window.ResourceExtractionAssets=[
     "category": "UI · 원본 조각",
     "w": 5820,
     "h": 550
+  },
+  {
+    "src": "assets/01.ArtResources/03.Crafting/04.Minigames/03.pour/cup3.png",
+    "title": "cup3.png",
+    "category": "UI · 원본 조각",
+    "w": 160,
+    "h": 270
   },
   {
     "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",

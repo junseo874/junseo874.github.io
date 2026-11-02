@@ -2,6 +2,7 @@
   "common": [
     "assets/01.ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Legacy_shake.png",
     "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/stir_Sheet.png",
+    "assets/01.ArtResources/03.Crafting/04.Minigames/03.pour/cup3.png",
     "assets/01.ArtResources/03.Crafting/05.Serving/01.Coasters/coaster.png",
     "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox.png",
     "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/GRD_textbox_5.png",
@@ -206,8 +207,7 @@
     "assets/tutorials/mixing/stir-0.png",
     "assets/tutorials/mixing/stir-1.png",
     "assets/ui/imported/choice.png",
-    "assets/ui/outside/IMG_interaction.png",
-    "assets/ui/pour/receiver-glass.png"
+    "assets/ui/outside/IMG_interaction.png"
   ],
   "bar": [
     "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",

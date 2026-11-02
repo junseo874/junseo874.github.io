@@ -7328,6 +7328,36 @@
       "path": "00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/02.Tools_for_Recipes/mixing_glass.png",
       "sha256": "b5e6f1216303e9a0fae3ef70707f7db8d33d61021be7cf4396835bc20de60e79",
       "kind": "existing-bytes"
+    },
+    {
+      "from": "02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+      "path": "02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+      "sha256": "84f8628425532287fe7e5bd368dd31b72d59d1a07054ee95d48bb82fa2828d05",
+      "kind": "existing-bytes"
+    },
+    {
+      "from": "02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+      "path": "02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+      "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06",
+      "kind": "existing-bytes"
+    },
+    {
+      "from": "02.Environments/03.Home/01.Sprites/IntractObjects.png",
+      "path": "02.Environments/03.Home/01.Sprites/IntractObjects.png",
+      "sha256": "035fbd614b769698c368ecf5ae45b4251d19dab23abd827d4f1b829bbc1b5b4f",
+      "kind": "existing-bytes"
+    },
+    {
+      "from": "05.UI/06.Ect/ImageViewer/Interaction_Test_image.png",
+      "path": "05.UI/06.Ect/ImageViewer/Interaction_Test_image.png",
+      "sha256": "37e3e4723257a277e51de1f9a42f72c74f48beac3c42e7708fe539fdfcbf4ea5",
+      "kind": "existing-pixels"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/03.pour/cup3.png",
+      "path": "03.Crafting/04.Minigames/03.pour/cup3.png",
+      "sha256": "15a6e06157e3668cf4504d3403506a59b8fb49383eba384303daab858bf405dd",
+      "kind": "existing-pixels"
     }
   ]
 }

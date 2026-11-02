@@ -11,7 +11,9 @@ async function snapshot(directory){
 }
 async function main(){
  const mode=process.argv[2]||'--check';if(!['--check','--to-engine','--from-engine'].includes(mode))throw Error('Use --check, --to-engine or --from-engine [Unity CSV directory].');
- const engine=path.resolve(process.argv[3]||path.join(root,'../Human-Bartender/HumanBartender/Assets/StreamingAssets/csv'));
+ const acceptEngine=process.argv.includes('--accept-engine');
+ if(acceptEngine&&mode!=='--from-engine')throw Error('--accept-engine requires --from-engine and explicit approval to replace the web CSV.');
+ const engine=path.resolve(process.argv.slice(3).find(arg=>arg!=='--accept-engine')||path.join(root,'../Human-Bartender/HumanBartender/Assets/StreamingAssets/csv'));
  if(!engine.endsWith(path.join('StreamingAssets','csv'))||engine===web)throw Error('Target must be a Unity StreamingAssets/csv directory.');
  const local=await snapshot(web),remote=await snapshot(engine);
  if(mode==='--check'){
@@ -20,7 +22,8 @@ async function main(){
  }
  const from=mode==='--to-engine'?local:remote,to=mode==='--to-engine'?remote:local,destination=mode==='--to-engine'?engine:web;
  let baseline;try{baseline=JSON.parse(await fs.readFile(path.join(web,'engine-sync.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;if(mode!=='--to-engine')throw Error('Initial publication must be --to-engine.');baseline=JSON.parse(await fs.readFile(path.join(root,'artifacts/shared-data-backup/engine-baseline.json'),'utf8'));}
- for(const[name,text]of Object.entries(from.files))if(to.files[name]!==text&&to.files[name]!==undefined&&hash(to.files[name])!==baseline[name])throw Error('Destination changed since last synchronization; refusing overwrite: '+name);
+ // Explicit engine adoption bypasses only the historical baseline, not validation or concurrent-edit checks.
+ for(const[name,text]of Object.entries(from.files))if(!acceptEngine&&to.files[name]!==text&&to.files[name]!==undefined&&hash(to.files[name])!==baseline[name])throw Error('Destination changed since last synchronization; refusing overwrite: '+name);
  const views=JSON.parse(await fs.readFile(path.join(web,'web-views.json'),'utf8'));
  project(from.catalog,views,{}); // All web references must resolve before any copy.
  // Recheck destinations immediately before writing; concurrent edits are conflicts.

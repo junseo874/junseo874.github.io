@@ -2,6 +2,10 @@
 
 ## 공통 원본 경로 (2026-11-01)
 
+2026-11-02 엔진 대조에서 기존 공통 이미지 1,221개는 경로·파일명·바이트가 모두 일치했다. 별도 웹 폴더의 이미지 5개도 크기·RGBA 동일성을 확인해 엔진 경로로 통합했다: 거리 모닥불 `object_1 1.png` / `object_2.png`, 집 `IntractObjects.png`, 수배 포스터 `Interaction_Test_image.png`, 따르기 잔 `cup3.png`. 웹 이미지 바이트는 보존하고 이전 중복 경로는 제거했다. 아래 수량은 이전 정리 당시 기록이며 현재 목록은 `engine-art-sync.json`을 따른다.
+
+CSV의 `sprite`, `serve_sprite`, `clip` 등은 리소스 식별자이며 항상 PNG 파일명이 아니다. 예를 들어 `Finished_GinTonic`을 이유로 엔진 원본 PNG 이름을 바꾸지 않는다. CSV는 엔진과 동일하게 유지하고 웹 표시 등록부가 실제 엔진 상대 경로에 연결한다. Unity 전용 Sprite 하위 이름(`resource_bindings.csv`의 대괄호 부분)은 PNG 파일명이 아니므로 웹 파일명에 붙이지 않는다.
+
 공통 그래픽은 `assets/01.ArtResources/` 아래에 엔진의 `HumanBartender/Assets/01.Game/03.Content/01.ArtResources/`와 **상대 폴더·파일명·대소문자를 동일하게** 둡니다. 파일 바이트 또는 크기·RGBA가 같은 기존 리소스는 엔진 경로를 재사용합니다. 공백·밑줄·철자도 유지합니다. 이 규칙은 코드 파일의 소문자 kebab-case 규칙보다 우선합니다.
 
 현재 병합 기준은 `bar-playtest/data/presentation/engine-art-sync.json`입니다. 1,221개 중 기존 엔진 경로 408개, 신규 경로 813개이며 웹의 원본 바이트를 보존했습니다. 엔진 파일은 수정하지 않았습니다. 폴더 전체 교체·삭제 동기화가 아닌 **파일 병합**으로 전달하며 엔진에만 있는 파일과 `.meta`는 보존합니다. 아트 폴더에 관리 문서를 넣지 않습니다. `node tools/check-engine-art-sync.cjs`로 경로·해시·잔존 중복 경로를 검증합니다.

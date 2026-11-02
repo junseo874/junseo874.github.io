@@ -26,7 +26,7 @@ function collect(rows,F){
   add(file,'타이틀 · '+title,'bar-ui',{src:'assets/01.ArtResources/05.UI/02.Title/01.Sprites/'+source+'.png'});
  for(const [key,a]of Object.entries(F.LunaMixExamples||{}))add('mix-example:'+key,'제조 튜토리얼 · '+key,'bar-ui',a);
  for(const [file,title]of [['interaction-npc','인물'],['interaction-tv','TV']])add(file,'상호작용 튜토리얼 · '+title,'out-ui',{src:'assets/tutorials/controls/'+file+'.png'});
- add('wanted-poster','개시바 · 현상 수배 포스터','out-ui',{src:'assets/outside/shiba-wanted-poster-20261019.png'});
+ add('wanted-poster','개시바 · 현상 수배 포스터','out-ui',{src:'assets/01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png'});
  add('wine-opener','와인 개봉 연습 · 오프너','bar-items',{src:'assets/items/wine-practice-opener.png'},{itemKind:'tool',note:'시뮬레이터 전용 와인 개봉 연습에서 사용하는 원본입니다. 본편 리소스와 구분합니다.'});
  add('campaign-lab','연구소 · 이야기 배경','out-backgrounds',{src:'assets/01.ArtResources/02.Environments/05.Cutscenes/01.Lab/90.PreviousVersions/LAB_BG_room.png'},{backgroundScreen:'컷씬',backgroundKind:'풀샷'});
  for(const manifest of [F.LUNA_BARREL_FIRE,F.LUNA_STREET_EFFECTS])for(const [key,a]of Object.entries(manifest?.assets||{}))

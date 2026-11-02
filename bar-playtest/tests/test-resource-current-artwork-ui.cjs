@@ -7,7 +7,7 @@ const root=path.resolve(__dirname,'..');
  const inventory=await p.evaluate(()=>({rows:resourceReview.rows,entries:ResourceExtraction.entries}));
  assert.equal(new Set(inventory.rows.map(r=>r.id)).size,inventory.rows.length,'unique review IDs');
  for(const kind of ['beer','cocktail','long_drink'])assert(inventory.rows.some(r=>r.id==='art:table_empty_glass_'+kind&&r.facets.kind==='glass'&&r.facets.usage==='table'));
- for(const file of ['01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png','01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png','01.ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png','outside/effects/fire/cloud.png','outside/effects/fire/distortion.png','outside/effects/tx-ledsign-scrollmask-01.png','outside/shiba-wanted-poster-20261019.png','tutorials/mixing/stir-0.png','tutorials/controls/interaction-npc.png'])assert(inventory.entries.some(e=>e.src==='assets/'+file),file);
+ for(const file of ['01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png','01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png','01.ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png','outside/effects/fire/cloud.png','outside/effects/fire/distortion.png','outside/effects/tx-ledsign-scrollmask-01.png','01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png','tutorials/mixing/stir-0.png','tutorials/controls/interaction-npc.png'])assert(inventory.entries.some(e=>e.src==='assets/'+file),file);
  assert(!inventory.entries.some(e=>/\.ttf|reference\/(exports|previews)/.test(e.src)),'only reusable image assets');
  assert(!inventory.rows.find(r=>r.id==='actor:tom:idle_talk').note.includes('정적 이미지'));
  // Decode every standalone source, including previously missed non-animated art.

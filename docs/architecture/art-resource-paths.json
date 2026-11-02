@@ -3096,6 +3096,41 @@
       "source": "01.Characters/02.Outside/01.Luna/04.Sleep/luna_sleep.png",
       "match": "bytes",
       "sha256": "4f7370df53f11a09a13fe3ff70be3aa24f7cd9f6c15f24656664f659ac9285ad"
+    },
+    {
+      "from": "assets/outside/effects/fire/barrel-front.png",
+      "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+      "source": "02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+      "match": "pixels",
+      "sha256": "84f8628425532287fe7e5bd368dd31b72d59d1a07054ee95d48bb82fa2828d05"
+    },
+    {
+      "from": "assets/outside/effects/fire/camp-props.png",
+      "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+      "source": "02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+      "match": "pixels",
+      "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06"
+    },
+    {
+      "from": "assets/outside/intract-objects-035fbd.png",
+      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects.png",
+      "source": "02.Environments/03.Home/01.Sprites/IntractObjects.png",
+      "match": "pixels",
+      "sha256": "035fbd614b769698c368ecf5ae45b4251d19dab23abd827d4f1b829bbc1b5b4f"
+    },
+    {
+      "from": "assets/outside/shiba-wanted-poster-20261019.png",
+      "to": "assets/01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png",
+      "source": "05.UI/06.Ect/ImageViewer/Interaction_Test_image.png",
+      "match": "pixels",
+      "sha256": "37e3e4723257a277e51de1f9a42f72c74f48beac3c42e7708fe539fdfcbf4ea5"
+    },
+    {
+      "from": "assets/ui/pour/receiver-glass.png",
+      "to": "assets/01.ArtResources/03.Crafting/04.Minigames/03.pour/cup3.png",
+      "source": "03.Crafting/04.Minigames/03.pour/cup3.png",
+      "match": "pixels",
+      "sha256": "15a6e06157e3668cf4504d3403506a59b8fb49383eba384303daab858bf405dd"
     }
   ]
 }

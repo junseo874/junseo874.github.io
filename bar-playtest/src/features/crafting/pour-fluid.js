@@ -4,7 +4,7 @@
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),STEP=1/120;
 // Supplied 160×270 art at 0.75 scale. Cavity follows native x=16..143,
 // y=0..256, with clipped lower corners; retain the established rim/fill height.
-const GLASS_ART=Object.freeze({src:'assets/ui/pour/receiver-glass.png',x:491,y:330,w:120,h:202.5});
+const GLASS_ART=Object.freeze({src:'assets/01.ArtResources/03.Crafting/04.Minigames/03.pour/cup3.png',x:491,y:330,w:120,h:202.5});
 const GLASS={left:500,right:601,top:330,bottom:525};
 function wallsAt(y,b=GLASS){const inset=clamp(y-(b.bottom-3-3),0,3);return{left:b.left+3+inset,right:b.right-3-inset};}
 function cavityPath(ctx,b=GLASS){

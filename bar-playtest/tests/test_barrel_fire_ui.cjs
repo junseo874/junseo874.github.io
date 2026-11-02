@@ -23,7 +23,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   F.paintSprite=function(c,...a){const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.getTransform()]),before=state();paint(c,...a);if(state()!==before)throw Error('Fire leaked canvas state');};
   try{fireDraw(0);}finally{ctx.drawImage=original;F.draw=draw;F.paintSprite=paint;}
   const data=LUNA_BARREL_FIRE,fire=F.placement(),front=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-front');
-  return {back:events.indexOf('camp-props.png'),fire:events.indexOf('fire'),front:events.indexOf('barrel-front.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
+  return {back:events.indexOf('object_1%201.png'),fire:events.indexOf('fire'),front:events.indexOf('object_2.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
  });
  assert(integration.back>=0&&integration.back<integration.fire&&integration.fire<integration.front&&integration.front<integration.near,'back -> flame -> front lip -> foreground');assert(integration.dx<.002);assert(integration.lip<integration.fireTop);
  // Review actual new props and engine FX at several animation phases and camera positions.

@@ -53,14 +53,14 @@
   },
   "assets": {
     "street-camp-props": {
-      "src": "assets/outside/effects/fire/camp-props.png",
+      "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
       "w": 2218,
       "h": 207,
       "source": "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
       "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06"
     },
     "street-barrel-front": {
-      "src": "assets/outside/effects/fire/barrel-front.png",
+      "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
       "w": 21,
       "h": 28,
       "source": "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
