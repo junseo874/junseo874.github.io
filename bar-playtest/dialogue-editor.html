@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUNA · 바 대사 편집기</title>
+<link rel="stylesheet" href="src/dev/dialogue-editor/editor.css"></head><body>
+<header><nav><a href="index.html?dev=1">← 바 시뮬레이터</a><strong>대사 편집</strong><a href="data-review.html">CSV 확인</a></nav><div class="save-tools"><span id="storage-mode">연결 확인 중</span><button id="review" disabled>변경 내역 / 저장</button></div></header>
+<div class="scene-toolbar"><label>일차 <select id="day" aria-label="일차"></select></label><label>장면 <select id="scene" aria-label="장면"></select></label><button id="reload">원본 다시 불러오기</button><span id="dirty">수정 없음</span><span id="status" role="status">CSV 불러오는 중...</span></div>
+<main><section class="workspace"><div class="preview-shell"><div id="preview-fit"><iframe id="preview" src="index.html?dev=1&amp;dialogue-preview=1" title="실제 바 화면 미리보기"></iframe></div></div>
+<div class="transport"><button id="previous">← 이전 줄</button><button id="line-play">현재 줄 재생</button><button id="play">▶ 연속 재생</button><button id="next">다음 줄 →</button><span id="cursor"></span></div>
+<p id="preview-note">편집용 미리보기 · 제조/코스터 입력은 결과 상태로 확인합니다. 본편 진행은 변경하지 않습니다.</p>
+<div class="list-toolbar"><input id="search" placeholder="대사 / 인물 / ID 검색" aria-label="대사 검색"><select id="add-type" aria-label="추가할 줄 종류"></select><button id="add">+ 추가</button><button id="duplicate">복제</button><button id="up" title="한 줄 위로">↑</button><button id="down" title="한 줄 아래로">↓</button><button id="delete" class="danger">삭제</button><button id="undo">되돌리기</button><button id="redo">다시 실행</button></div>
+<div id="line-list" role="list" aria-label="장면 대사 목록"></div></section>
+<aside id="inspector" aria-label="선택한 대사 편집"><p>장면을 불러오고 있습니다.</p></aside></main>
+<dialog id="review-dialog"><h2>변경 내역 확인</h2><p id="save-explanation"></p><div id="validation" role="alert"></div><div id="changes"></div><footer><button id="close-review">계속 편집</button><button id="commit">저장</button></footer></dialog>
+<script src="src/shared/data/csv-catalog.js"></script><script src="src/shared/data/runtime-projection.js"></script><script src="src/shared/dialogue/text-effects.js"></script><script src="src/core/story-conditions.js"></script><script src="src/dev/dialogue-editor/editor-model.js"></script><script src="src/dev/dialogue-editor/export-package.js"></script><script src="src/dev/dialogue-editor/editor.js"></script>
+</body></html>

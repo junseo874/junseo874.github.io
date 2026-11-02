@@ -1,0 +1,8 @@
+.dialogue-fx-shake,.dialogue-fx-wave,.dialogue-fx-pop{display:inline-block;white-space:pre;animation-play-state:var(--fx-play,running)}
+.dialogue-fx-shake{animation:dialogue-shake var(--fx-time,.055s) steps(2,end) infinite;animation-delay:var(--fx-delay)}
+.dialogue-fx-wave{animation:dialogue-wave var(--fx-time,.5s) ease-in-out infinite;animation-delay:var(--fx-delay)}
+.dialogue-fx-pop{animation:dialogue-pop var(--fx-time,.12s) ease-out both}
+.text-measure [class^="dialogue-fx"]{animation:none}
+@keyframes dialogue-shake{0%,100%{transform:translate(calc(var(--fx-amp)*-1),var(--fx-amp))}50%{transform:translate(var(--fx-amp),calc(var(--fx-amp)*-1))}}
+@keyframes dialogue-wave{0%,100%{transform:translateY(var(--fx-amp))}50%{transform:translateY(calc(var(--fx-amp)*-1))}}
+@keyframes dialogue-pop{0%{transform:scale(var(--fx-peak))}100%{transform:scale(1)}}

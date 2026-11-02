@@ -272,7 +272,8 @@ window.LunaBarViews = function ({
       keys: [],
       pose: 'placeholder'
     };
-    const state = expression === 'default' ? 'idle' : expression || 'idle';
+    const persistent = guest.expression && guest.expression !== 'default' ? guest.expression : 'idle';
+    const state = !expression || expression === 'default' || expression === 'idle' ? persistent : expression;
     const suffix = '_' + (talking ? 'talk' : 'default');
     const key = Object.keys(states).find(k => k.toLowerCase().endsWith(state.toLowerCase() + suffix)) || Object.keys(states).find(k => k.endsWith('idle' + suffix)) || Object.keys(states).find(k => k.endsWith('idle_default')) || Object.keys(states)[0];
     return {
@@ -290,20 +291,11 @@ window.LunaBarViews = function ({
         loopPose: null,
         speech: null,
         exitAt: null,
-        glass: guest.glass,
-        drinkUntil: 0,
         blinkSeed: Math.imul(++actorSerial, 2654435761) >>> 0
       };
       state.blinkAt = g.realTime + 2.4 + blinkRandom(state) * 3;
       actors.set(guest, state);
     }
-    if (g.variant === 'gpt' && g.phase === 'general') {
-      if (guest.state === 'DRINKING' && state.guestState !== 'DRINKING') state.drinkUntil = g.realTime + 1.2;
-      state.guestState = guest.state;
-    } else if (guest.glass && guest.glass !== state.glass) {
-      state.drinkUntil = g.realTime + 1;
-    }
-    state.glass = guest.glass;
     const d = g.phase === 'general' ? g.guestDialogue(guest) : g.currentDialogue();
     // Anonymous personality IDs may repeat; each guest owns their own line.
     const speaking = !!d && d.actor === guest.actor;
@@ -335,8 +327,8 @@ window.LunaBarViews = function ({
       }
       if (state.speech && g.realTime >= speech.stopAt) state.speech = null;
     }
-    const drinking = guest.actor === 'samho' && g.realTime < state.drinkUntil && !state.speech;
-    const requestedPose = state.speech?.pose || actorLayers(guest, drinking ? 'drink' : speaking ? d.expression : 'idle', false);
+    // Receiving a glass never changes expression; only authored cues do.
+    const requestedPose = state.speech?.pose || actorLayers(guest, speaking ? d.expression : 'idle', false);
     const pose = paintedPose(guest, state, requestedPose);
     const family = poseFamily(pose);
     if (family !== state.loopPose) {

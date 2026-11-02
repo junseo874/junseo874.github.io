@@ -10,6 +10,7 @@ const entries=[
 ];
 const storageKey='luna.bar.updates.dismissed.v1';
 function mount({preview=false}={}){
+ if(new URLSearchParams(location.search).has('dialogue-preview'))return;
  if(document.getElementById('luna-updates')||!entries.length)return;
  const latest=entries[0].id;
  try{let dismissed=localStorage.getItem(storageKey);

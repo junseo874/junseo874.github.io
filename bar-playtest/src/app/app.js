@@ -10,6 +10,7 @@
   const mini = window.LunaMinigames.attach(g);
   window.barGame = g;
   window.barData = D;
+  let dialoguePreview = null;
   const siteHome = /\/bar-playtest\/(?:index\.html)?$/.test(location.pathname);
   try {
     g.read = new Set(JSON.parse(localStorage.getItem('luna.bar.playtest.read.v1') || '[]'));
@@ -155,6 +156,7 @@
     return views.actorHTML(guest, x);
   }
   function tagged(raw, count) {
+    if(window.LunaTextEffects)return window.LunaTextEffects.html(raw,count,D.tables.text_tags);
     let used = 0,
       html = '',
       stack = [];
@@ -722,7 +724,7 @@
     tip.style.left = (x - r.left) / sx - anchor.clientLeft + 'px';
     tip.style.top = (y - r.top) / sy - anchor.clientTop + 'px';
   }
-  const choiceHold = window.LunaChoiceHold({
+  const choiceHold = parent !== window && new URLSearchParams(location.search).has('dialogue-preview') ? {sync(){},cancel(){}} : window.LunaChoiceHold({
     root,
     choice: () => g.choice,
     allowed: () => !!g.choice && g.screen === 'bar' && !g.isPaused() && !g.finished && !g.cameraMoving && !g.cameraLeft && !g.transition && !ui.inspector && !ui.drag && !outside.active && !campaign?.blocking,
@@ -764,7 +766,7 @@
     window.LunaDialogueHistory.sync(root);
     syncIngredientPointerTip();
     tutorialView.sync(root);
-    choiceHold.sync();
+    if(!dialoguePreview?.active)choiceHold.sync();
     window.LunaSettlementView.sync();
     const lesson = root.querySelector('.mix-tutorial');
     root.querySelector('.mix-screen')?.toggleAttribute('inert', !!lesson);
@@ -790,7 +792,7 @@
       });
     }
     // Focus a new choice only once, after staging. Never steal focus from a menu.
-    if (!g.choice) lastFocusedChoice = null;else if (lastFocusedChoice !== g.choice && liveBar && !g.isPaused() && !ui.inspector && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0) {
+    if (!g.choice) lastFocusedChoice = null;else if (!dialoguePreview?.active && lastFocusedChoice !== g.choice && liveBar && !g.isPaused() && !ui.inspector && !g.cameraMoving && g.cameraLeft === 0 && g.transition === 0) {
       const first = root.querySelector('.choices button:not(:disabled)');
       if (first) {
         first.focus({
@@ -1656,6 +1658,7 @@
     lastReadCount = g.read.size,
     skipTimer = 0;
   function frame(now, dt) {
+    if(dialoguePreview?.active){dialoguePreview.tick(dt);render();return;}
     bgm.syncLocation(campaign, outside);
     window.LunaStoryNotices.tick(g, outside, campaign, dt);
     window.lunaQA?.tick(Math.min(.05, dt));
@@ -1758,6 +1761,7 @@
     clearInput: clearControlSkip
   });
   window.LunaSettings.restore();
+  dialoguePreview = window.LunaDialoguePreview?.({g,D,ui,render});
   render(true);
   window.LunaFocusSettings.startLoop(frame);
   window.LunaCtrlDiagnostic(() => ({

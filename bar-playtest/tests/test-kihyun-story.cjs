@@ -29,7 +29,7 @@ for(const answer of [1,2])for(const day of [0,1,2,3]){
  if(day===0){assert(g.progress.flags.day0_port_tip_received);assert(!seen.some(t=>t.includes('진 피즈의 역사')));}
  if(day===1){assert(seen.some(t=>t.includes('내 이름이야, 톰 거너')));assert(g.progress.flags.tom_name_known);assert(g.progress.flags.tom_introduction_notified);assert(!seen.some(t=>t.includes('샴페인')));assert(seen.some(t=>t.includes(answer===1?'힘들었던 날에':'위로가 말도')));}
  if(day===2){assert(g.progress.flags.johnny_chip_received);assert(g.progress.flags.day2_luna_left);assert(seen.some(t=>t.includes('2033년식')));assert(seen.some(t=>t.includes(answer===1?'칼 한 번 맞고':'인간보단 차라리 동물')));}
- if(day===3){assert(g.progress.flags.day3_sugar_received);assert(g.progress.flags.johnny_recipe_unlocked);assert(seen.some(t=>t.includes(answer===1?'조니가 말대로':'저 팔로 누군가를')));}
+ if(day===3){assert(g.progress.flags.day3_sugar_received);assert(g.progress.flags.johnny_recipe_unlocked);assert(seen.some(t=>t.includes(answer===1?'조니의 말대로':'저 팔로 누군가를')));}
 }
 const rows=D.tables.steps.filter(r=>r.context==='campaign_d3_bar');
 assert(rows.findIndex(r=>r.type==='serve'&&r.actor==='tom')<rows.findIndex(r=>r.type==='enter'&&r.actor==='samho'));

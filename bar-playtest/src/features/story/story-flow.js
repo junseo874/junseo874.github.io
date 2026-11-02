@@ -250,6 +250,13 @@
           this.waitForStoryCoaster(s, 'step');
           return;
         }
+        if (s.type === 'expression') {
+          const guest = Object.values(this.seats).find(guest => guest?.actor === s.actor);
+          if (!guest) throw Error('표정 대상 없음: ' + s.actor);
+          guest.expression = s.arg || 'default';
+          this.stepDone(s);
+          return;
+        }
         if (s.type === 'empty_glass') {
           const seat = Object.keys(this.seats).find(k => this.seats[k]?.actor === s.actor);
           if (!seat) throw Error('빈잔 대상 없음: ' + s.actor);
@@ -378,6 +385,8 @@
       return actor === 'tom' && this.day === 1 && this.phase === 'regular' && !this.progress.flags.tom_name_known ? '???' : this.name(actor);
     }
     makeLine(actor, text, id = null, expression = 'default') {
+      const compiler=typeof module==='undefined'?root.LunaTextEffects:require('../../shared/dialogue/text-effects.js');
+      if(compiler){const compiled=compiler.compile(text,this.t.text_tags,this.c('typing_interval_ms',50));return {actor,text:compiled.text,raw:text,id,expression:expression||'default',chars:0,hold:0,seen:false,timings:compiled.timings,typeMs:0};}
       const timings = [],
         speedStack = [this.c('typing_interval_ms', 50)];
       for (const part of String(text).split(/(<\/?[a-z]+>)/g)) {

@@ -7,3 +7,5 @@
 .workspace>.start-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:92px 40px 24px}
 .workspace>.start-screen>.start-card{width:490px;max-width:100%;max-height:100%;flex:0 1 auto}
 .start-screen .version-tabs{white-space:nowrap}
+/* Keep the expanded simulator tabs clear of the fixed mode-return button. */
+.workspace>.start-screen .version-tabs{max-width:calc(100% - 360px);flex-wrap:wrap;justify-content:center}

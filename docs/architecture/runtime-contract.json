@@ -815,12 +815,62 @@
       "src/dev/qa/guest-appearance.css"
     ],
     [
+      "link",
+      "src/shared/dialogue/text-effects.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/preview.css"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/text-effects.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/preview-bridge.js"
+    ],
+    [
       "script",
       "src/dev/qa/guest-appearance.js"
     ],
     [
       "script",
       "src/app/app.js"
+    ]
+  ],
+  "bar-playtest/dialogue-editor.html": [
+    [
+      "link",
+      "src/dev/dialogue-editor/editor.css"
+    ],
+    [
+      "script",
+      "src/shared/data/csv-catalog.js"
+    ],
+    [
+      "script",
+      "src/shared/data/runtime-projection.js"
+    ],
+    [
+      "script",
+      "src/shared/dialogue/text-effects.js"
+    ],
+    [
+      "script",
+      "src/core/story-conditions.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/editor-model.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/export-package.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/editor.js"
     ]
   ],
   "bar-playtest/resource-review.html": [
