@@ -796,24 +796,24 @@
       "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_3.png",
       "w": 551,
       "h": 530,
-      "source": "4. 캐릭터 (내부)/NPC/남/mouth_3.png",
-      "alphaBBox": [
-        266,
-        222,
-        285,
-        225
-      ]
-    },
-    "guest_m_mouth_1": {
-      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
-      "w": 551,
-      "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/남/mouth_1.png",
       "alphaBBox": [
         264,
         223,
         286,
         231
+      ]
+    },
+    "guest_m_mouth_1": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/남/mouth_3.png",
+      "alphaBBox": [
+        266,
+        222,
+        285,
+        225
       ]
     },
     "guest_m_mouth_4": {
@@ -1072,18 +1072,6 @@
       "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_2.png",
       "w": 551,
       "h": 530,
-      "source": "4. 캐릭터 (내부)/NPC/여/mouth_2.png",
-      "alphaBBox": [
-        268,
-        256,
-        284,
-        266
-      ]
-    },
-    "guest_f_mouth_3": {
-      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
-      "w": 551,
-      "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_3.png",
       "alphaBBox": [
         269,
@@ -1092,20 +1080,20 @@
         261
       ]
     },
-    "guest_f_mouth_1": {
-      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
+    "guest_f_mouth_3": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
       "w": 551,
       "h": 530,
-      "source": "4. 캐릭터 (내부)/NPC/여/mouth_1.png",
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_5.png",
       "alphaBBox": [
-        266,
-        256,
-        286,
-        265
+        270,
+        257,
+        282,
+        260
       ]
     },
-    "guest_f_mouth_4": {
-      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
+    "guest_f_mouth_1": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
       "w": 551,
       "h": 530,
       "source": "4. 캐릭터 (내부)/NPC/여/mouth_4.png",
@@ -1116,16 +1104,28 @@
         261
       ]
     },
+    "guest_f_mouth_4": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
+      "w": 551,
+      "h": 530,
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_1.png",
+      "alphaBBox": [
+        266,
+        256,
+        286,
+        265
+      ]
+    },
     "guest_f_mouth_5": {
       "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_5.png",
       "w": 551,
       "h": 530,
-      "source": "4. 캐릭터 (내부)/NPC/여/mouth_5.png",
+      "source": "4. 캐릭터 (내부)/NPC/여/mouth_2.png",
       "alphaBBox": [
-        270,
-        257,
-        282,
-        260
+        268,
+        256,
+        284,
+        266
       ]
     },
     "guest_f_top_1": {

@@ -22,6 +22,7 @@ const suites = {
 };
 const choice = process.argv[2] || 'smoke';
 suites.smoke.unshift(game('test-guest-random-appearance'));
+suites.smoke.unshift(game('test-guest-mouth-pairing'));
 suites.smoke.unshift(game('test-endless-general'));
 suites.ui.unshift(game('test-guest-random-appearance-ui'));
 suites.ui.unshift(game('test-endless-general-ui'));

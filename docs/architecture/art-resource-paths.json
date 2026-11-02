@@ -509,36 +509,36 @@
     },
     {
       "from": "assets/characters/guests/guest-f-mouth-1.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
-      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
+      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
       "match": "bytes",
       "sha256": "67a9cd71a01b6939024463b9af5e1f1bb44da05bd033519fdde21c016ac714b4"
     },
     {
       "from": "assets/characters/guests/guest-f-mouth-2.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_2.png",
-      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_2.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_5.png",
+      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_5.png",
       "match": "bytes",
       "sha256": "b3d8ba0b7f2196e9aa82a80187899048adfe37755ce10fcbdeefc09058842a26"
     },
     {
       "from": "assets/characters/guests/guest-f-mouth-3.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
-      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_2.png",
+      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_2.png",
       "match": "bytes",
       "sha256": "61fa3079a45a2dd6ffee3ea116735384c8ecf278d3433d546d4a01e64198f96b"
     },
     {
       "from": "assets/characters/guests/guest-f-mouth-4.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
-      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_4.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_1.png",
       "match": "bytes",
       "sha256": "99e092a4b42a4ad2b516d0d3aa32cad843ca943609fbb530c36780267a55a597"
     },
     {
       "from": "assets/characters/guests/guest-f-mouth-5.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_5.png",
-      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_5.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/01.Female/mouth_3.png",
       "match": "bytes",
       "sha256": "7dae26704a456c926df52742dcb66591238ab9b634f3292246a5e73408d0f0a5"
     },
@@ -740,8 +740,8 @@
     },
     {
       "from": "assets/characters/guests/guest-m-mouth-1.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
-      "source": "01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_3.png",
+      "source": "01.Characters/01.Bar/09.Customers/02.Male/mouth_3.png",
       "match": "bytes",
       "sha256": "65635504204b1946c15f80498da708daef807eb267200fcb34a106a18fab9255"
     },
@@ -754,8 +754,8 @@
     },
     {
       "from": "assets/characters/guests/guest-m-mouth-3.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_3.png",
-      "source": "01.Characters/01.Bar/09.Customers/02.Male/mouth_3.png",
+      "to": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
+      "source": "01.Characters/01.Bar/09.Customers/02.Male/mouth_1.png",
       "match": "bytes",
       "sha256": "241e168d0083eda138013b5a992611d7e6332728fc0a3ef6156301c3ae2a112d"
     },
