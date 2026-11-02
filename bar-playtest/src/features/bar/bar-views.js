@@ -213,17 +213,23 @@ window.LunaBarViews = function ({
           y: matrix.d * y + matrix.f,
           scale: matrix.a * .75
         });
+        if (g.phase === 'general') {
+          // Keep independent bubbles attached to their seats, not piled up at
+          // the viewport edge when their owners move offscreen with the camera.
+          el.style.left = (matrix.a * x + matrix.e) + 'px';
+          el.style.setProperty('--tail-x', (el.offsetWidth / 2) + 'px');
+        }
       });
     }
     // getAnimations forces style resolution, so a newly applied transform is
     // observed before it can reveal/type the next line. No guessed timeout.
     g.cameraMoving = !!plane && (plane.dataset.cameraKey !== layout.key || plane.getAnimations().some(a => a.playState === 'running' || a.pending));
   }
-  function dialogueAnchor(actor, line) {
+  function dialogueAnchor(actor, line, ownerSeat) {
     const c = cameraLayout();
     // Luna addresses the whole group from the bar's authored center, not the
     // pending order's seat. Cache that world position for the lifetime of the line.
-    const seat = actor === 'luna' ? !c.general && c.visible.length > 1 ? 'M' : g.currentOrder?.seat || (c.general ? g.focus : c.visible[0]?.[0]) || g.focus : c.general ? g.focus : c.visible.find(([, guest]) => guest.actor === actor)?.[0] || g.focus;
+    const seat = ownerSeat || (actor === 'luna' ? !c.general && c.visible.length > 1 ? 'M' : g.currentOrder?.seat || (c.general ? g.focus : c.visible[0]?.[0]) || g.focus : c.general ? g.focus : c.visible.find(([, guest]) => guest.actor === actor)?.[0] || g.focus);
     let x = c.coords[seat] ?? 1020;
     const y = actor === 'luna' ? 601 : 555.5;
     if (actor === 'luna' && line && typeof line === 'object') {
@@ -298,9 +304,9 @@ window.LunaBarViews = function ({
       state.drinkUntil = g.realTime + 1;
     }
     state.glass = guest.glass;
-    const d = g.currentDialogue();
-    // Personality IDs may repeat; only the focused general guest owns this bubble.
-    const speaking = !!d && d.actor === guest.actor && (g.phase !== 'general' || g.seats[g.focus] === guest);
+    const d = g.phase === 'general' ? g.guestDialogue(guest) : g.currentDialogue();
+    // Anonymous personality IDs may repeat; each guest owns their own line.
+    const speaking = !!d && d.actor === guest.actor;
     const talking = g.screen === 'bar' && speaking && d.chars < d.text.length;
     const poseFamily = pose => guest.appearance ? 'guest' : pose.pose.replace(/_(talk|default)$/, '');
     if (talking) {

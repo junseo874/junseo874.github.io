@@ -19,7 +19,7 @@
 | 공통 정지 / `core/core.js:isPaused` | `paused`, `hidden`, `error`, `overlay` 중 하나가 유효 | Game tick 중지. 오류/팝업의 전용 복귀 조작만 UI가 처리 | 원인을 소유한 화면이 해당 상태 해제. 다른 잠금은 유지 |
 | 안정된 바 화면 / `barInteractionBlocked` | 정지 상태, `screen !== bar`, `cameraMoving`, `cameraLeft > 0`, `transition > 0` | 대사 넘기기와 세 종류 코스터 전달의 공통 차단. 이 함수 자체는 시간/상태를 변경하지 않음 | 모든 조건이 해소되어야 재입력 가능 |
 | 전환 / `setTransition`, `tick` | 입장·퇴장·코스터 튜토리얼 등 전환 예약 | 전환 시계만 진행하는 tick 분기. 새 대사/제공 입력 차단 | 시간이 0이면 `pendingTransition`을 먼저 비우고 콜백 실행. 중복 완료 금지 |
-| 바 카메라 / `app/app.js`, `guest-service.js` | 좌석 변경·대본 화자 전환 | 이동 중 대사 숨김/직접 넘김·선택 홀드·코스터 전달 차단. 일반 손님은 다른 좌석에서도 진행 | `cameraMoving`과 `cameraLeft` 모두 해제. 도착했다고 held 입력을 재생하지 않음 |
+| 바 카메라 / `app/app.js`, `guest-service.js` | 좌석 변경·대본 화자 전환 | 이동 중 단골 대사 숨김/직접 넘김·선택 홀드·코스터 전달 차단. 일반 손님은 각 좌석 말풍선·입 애니메이션·대사 진행 유지 | `cameraMoving`과 `cameraLeft` 모두 해제. 도착했다고 held 입력을 재생하지 않음 |
 | 단골 `say` / `story-flow.js:advance` | 대사 행 진입 | 타이핑 중 첫 확정은 해당 줄 완전 표시, 새 확정으로 행 완료. 일반 손님에는 이 수동 경로 미적용 | `finishLine → stepDone → pump`. 행의 효과는 완료 시 처리; 시작 알림은 별도 |
 | 바 자동 진행·Ctrl / `app.js:frame` | auto 또는 readSkip 입력 | 안정된 바·현재 대사·정지/드래그 없음일 때만 진행. Ctrl은 opening/regular, 선택지/검수창/입력필드 중에는 금지 | auto는 완독 뒤 2초, Ctrl 경로는 0.12초마다 `advance`. 코스터/제조/선택을 자동 성공 처리하지 않음 |
 | 단골 `coaster` / `story-flow.js`, `guest-service.js` | 지정 actor의 현재 좌석에 코스터 없음 | 지정 좌석에 드래그/키보드 전달만 허용. 다른 좌석·단축 호출·중복 전달 거부. 대본은 기다림 | 실제 전달 성공 → `storyCoaster` 제거 → 같은 행 재평가 → 다음 행. 이미 있으면 즉시 다음 행 |

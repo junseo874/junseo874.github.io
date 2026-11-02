@@ -195,8 +195,8 @@
           this.focus = s.arg;
           this.story.index += group.length;
           if (group.every(e => e.entrance === 'seated')) continue;
-          // Match the rendered entrance clock; only then run dialogue/coaster cues.
-          this.setTransition(Math.max(...group.map(e => this.seats[e.arg].arrivalDuration)), () => this.pump());
+          // Finish the rendered entrance, wait one second, then run authored cues.
+          this.setTransition(Math.max(...group.map(e => this.seats[e.arg].arrivalDuration)) + 1, () => this.pump());
           return;
         }
         if (s.type === 'exit') {

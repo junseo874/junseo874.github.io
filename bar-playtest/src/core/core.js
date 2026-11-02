@@ -285,13 +285,16 @@
       }
     }
 
+    guestDialogue(guest) {
+      if (guest?.arrivalAt != null && this.realTime < guest.arrivalAt + guest.arrivalDuration + (guest.arrivalSpeechDelay ?? 1)) return null;
+      return guest?.lines?.[guest.lineIndex] || null;
+    }
+
     currentDialogue() {
-      if (this.cameraMoving || this.cameraLeft > 0 || this.transition > 0) return null;
       if (this.phase === 'general') {
-        const g = this.seats[this.focus];
-        if (g?.arrivalAt != null && this.realTime < g.arrivalAt + g.arrivalDuration) return null;
-        return !this.cameraLeft ? g?.lines?.[g.lineIndex] : null;
+        return this.guestDialogue(this.seats[this.focus]);
       }
+      if (this.cameraMoving || this.cameraLeft > 0 || this.transition > 0) return null;
       return this.dialogue;
     }
 

@@ -95,7 +95,7 @@ for (const selected of ['gin_tonic', 'gin_fizz']) {
   const g = setup(), guest = order(g), before = g.progress.money;
   assert.equal(g.history.length, 0, 'unwatched lines are not reading history');
   serve(g, guest, selected);
-  // Camera motion / coaster dragging hide speech, not guest lifecycle.
+  // Camera motion / coaster dragging must not interrupt guest lifecycle.
   g.cameraMoving = true;
   ticks(g, 35, { holdSpeech: true });
   assert.equal(g.seats[guest.seat], null, 'unwatched reaction must settle and leave');
@@ -173,7 +173,7 @@ for (const selected of ['gin_tonic', 'gin_fizz']) {
   const g = setup(), guest = g.seats[g.focus];
   g.setBarks(guest, ['call']);
   // This assertion tests partial history, not which random bark was selected.
-  guest.arrivalAt = g.realTime - guest.arrivalDuration;
+  guest.arrivalAt = g.realTime - guest.arrivalDuration - 1;
   guest.lines[0].text = '아직 모두 읽지 않은 충분히 긴 일반 손님 호출 대사입니다.';
   ticks(g, .2);
   const line = guest.lines[0], visible = line.chars;

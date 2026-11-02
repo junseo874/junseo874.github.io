@@ -9,7 +9,7 @@
     }
     nextEndlessGuest() {
       const personality = this.t.personalities[Math.floor(this.appearanceRng() * this.t.personalities.length)].id;
-      return {personality, order: null, max_rounds: 1, delay_sec: this.c('spawn_delay_default_sec', 10)};
+      return {personality, order: null, max_rounds: 1, delay_sec: 6};
     }
     startGeneral() {
       this.storyCoaster = null;
@@ -27,7 +27,7 @@
       if (this.endlessGeneral) this.queue = [this.nextEndlessGuest()];
       this.queueIndex = 0;
       this.spawnBlocked = false;
-      this.spawnLeft = this.c('first_spawn_delay_sec', 5) + n(this.queue[0]?.delay_sec);
+      this.spawnLeft = this.endlessGeneral ? 6 : this.c('first_spawn_delay_sec', 5) + n(this.queue[0]?.delay_sec);
       this.focus = 'L';
       this.log('phase_start', {
         phase: 'general',
@@ -385,7 +385,7 @@
         if (this.spawnBlocked) {
           if (Object.keys(this.seats).some(k => !this.seats[k] && !this.tableFades[k])) {
             this.spawnBlocked = false;
-            this.spawnLeft = this.c('reseat_delay_sec', 10);
+            this.spawnLeft = this.endlessGeneral ? 6 : this.c('reseat_delay_sec', 10);
           }
         } else {
           this.spawnLeft -= dt;
@@ -430,15 +430,15 @@
             this.beginOrder(g, true);
           }
         }
-        // Looking elsewhere hides speech, but must not stall orders, settlement
-        // callbacks or reorders. Global pauses are handled by tick().
+        // All seats keep their bubbles and lifecycle. Focus only limits typing
+        // audio and reading history. Global pauses are handled by tick().
         const visible = g.seat === this.focus && this.cameraLeft === 0 && !this.cameraMoving && !holdSpeech;
         const line = g.lines[g.lineIndex];
         if (line) {
           // The arrival fade and first utterance use the same real-time clock.
-          // Do not spend this tick's pre-arrival time on typing or line holds.
+          // Wait one second after the fade; don't spend that time on typing/holds.
           const speechDt = g.arrivalAt == null ? realDt : Math.min(realDt,
-            Math.max(0, this.realTime - g.arrivalAt - g.arrivalDuration));
+            Math.max(0, this.realTime - g.arrivalAt - g.arrivalDuration - (g.arrivalSpeechDelay ?? 1)));
           if (speechDt <= 0) continue;
           if (line.chars < line.text.length) this.typeLine(line, speechDt, visible);
           if (visible) {
