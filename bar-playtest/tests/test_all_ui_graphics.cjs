@@ -27,10 +27,10 @@ const root=path.resolve(__dirname,'..'),dir=path.join(root,'data/presentation/ge
   const p=await browser.newPage({viewport:{width:1500,height:1000},acceptDownloads:true}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html?tab=extract');await p.waitForFunction(()=>resourceReview.ready,null,{timeout:60000});
   for(const label of ['새로운 목표','목표 달성','이벤트 발생','인물정보 등록','호감도 상승','호감도 하락']){
-   await p.locator('[data-extract-shortcut="'+label+'"]').click();assert.equal(await p.locator('.extract-card').count(),5,label);
-   await p.selectOption('#extract-part','background');assert.equal(await p.locator('.extract-card').count(),1);
+   await p.locator('[data-extract-shortcut="'+label+'"]').click();assert.equal(await p.locator('.extract-card').count(),4,label);
+   await p.selectOption('#extract-part','surface');assert.equal(await p.locator('.extract-card').count(),1);
    const event=p.waitForEvent('download');await p.locator('.extract-card [data-extract="raw"]').click();const d=await event;assert.equal(await d.failure(),null);const m=await sharp(fs.readFileSync(await d.path())).metadata();assert.equal(m.width,350);assert(m.height<150);
-   await p.selectOption('#extract-part','border');assert.equal(await p.locator('.extract-card').count(),2);
+   await p.selectOption('#extract-part','border');assert.equal(await p.locator('.extract-card').count(),1);
    await p.selectOption('#extract-part','icon');assert.equal(await p.locator('.extract-card').count(),1);
    await p.selectOption('#extract-part','all');
   }

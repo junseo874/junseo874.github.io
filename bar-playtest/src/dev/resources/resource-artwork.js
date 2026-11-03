@@ -19,6 +19,7 @@ function collect(rows,F){
  }
  // UI artwork loaded directly by CSS is not part of the bar asset registry.
  for(const a of W.ResourceExtractionAssets||[]){
+  if(a.partKind==='surface'){add(a.src,a.title,a.category==='UI · 팝업 분리'?'common-popups':'bar-ui',a,{usage:'배경+윤곽선 PNG',note:a.note});continue;}
   if(a.category!=='UI · 원본 조각'||a.src.includes('/extracted/'))continue;
   add(a.src,a.title,/exterior[-_]textbox/.test(a.src)?'out-ui':'bar-ui',a);
  }

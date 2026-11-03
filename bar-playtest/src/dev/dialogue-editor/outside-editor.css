@@ -15,3 +15,20 @@
 .outside-editor #status{overflow-wrap:anywhere}.outside-editor #flow-title{overflow-wrap:anywhere}
 @media(max-width:1250px){.outside-editor main.exterior-workspace{grid-template-columns:190px minmax(320px,1fr)}.outside-editor aside{grid-column:1/-1;max-height:none;display:block}.flow-browser{max-height:800px}.outside-editor #speech-text{font-size:17px}}
 @media(max-width:740px){.outside-editor main.exterior-workspace{display:flex;flex-direction:column}.flow-browser{max-height:260px}.outside-editor #preview-stage{aspect-ratio:4/3}.outside-editor #speech-text{font-size:15px}.editor-cards{grid-template-columns:1fr}#preview-choices{max-width:60%}.outside-editor .line{grid-template-columns:25px 55px 65px 1fr}}
+/* Keep the editor inside the viewport. Only individual panes scroll. */
+.outside-editor{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.outside-editor main.exterior-workspace{width:100%;flex:1;min-height:0;display:grid;grid-template-columns:clamp(145px,15vw,220px) minmax(0,1fr) clamp(235px,23vw,340px);grid-template-rows:minmax(0,1fr)}
+.outside-editor .flow-browser,.outside-editor #inspector{grid-column:auto;min-height:0;max-height:none;overflow:auto}
+.outside-editor .workspace{min-height:0;display:flex;flex-direction:column}
+.outside-editor #preview-stage{flex:0 1 clamp(165px,39dvh,380px);min-height:100px;aspect-ratio:auto}
+.outside-editor #preview-stage #preview-choices{width:100%;height:100%;transform:none}
+.outside-editor #preview-choices .world-choices{width:min(320px,calc(100% - 82px))}
+.outside-editor #preview-choices .world-choices button{font-size:18px;min-height:36px}
+.outside-editor .transport{margin-top:6px}
+.outside-editor #preview-note{min-height:0;margin:2px 0}
+.outside-editor #line-list{flex:1 1 0;height:auto;min-height:44px;overflow:auto}
+.outside-editor #related-flows{max-height:54px;overflow:auto;margin:5px 0 0}
+.outside-editor #speech{top:5%;max-height:none;overflow:visible}
+.outside-editor #speech-text{max-height:clamp(45px,14dvh,120px);overflow:auto}
+.pane-switch{display:none}
+@media(max-width:840px){.outside-editor main.exterior-workspace{grid-template-columns:minmax(0,1fr);padding:6px}.outside-editor .pane-switch{display:flex;gap:6px;padding:4px 8px}.outside-editor main.exterior-workspace>:is(section,aside){display:none}.outside-editor[data-pane=flows] .exterior-workspace>.flow-browser,.outside-editor[data-pane=edit] .exterior-workspace>#inspector{display:block}.outside-editor:not([data-pane]) .exterior-workspace>.workspace,.outside-editor[data-pane=preview] .exterior-workspace>.workspace{display:flex}.pane-switch button[aria-pressed=true]{border-color:var(--cyan)}}

@@ -71,4 +71,5 @@ async function initialize(){restoring=true;let draft;try{draft=JSON.parse(localS
  W.addEventListener('keydown',e=>{if(!model||e.isComposing)return;if((e.ctrlKey||e.metaKey)&&!e.altKey){const key=e.key.toLowerCase();if(key==='s'){e.preventDefault();if(model.dirty())$('review').click();}if((key==='z'||key==='y')&&!$('review-dialog').open&&(!e.target.matches('input,textarea')||e.target.dataset.field)){e.preventDefault();undo(key==='y'||e.shiftKey?'redo':'undo');}}else if(e.target===$('preview-stage')&&e.code==='Space'){e.preventDefault();$('play').click();}});
  W.addEventListener('beforeunload',e=>{if(model?.dirty()){e.preventDefault();e.returnValue='';}});
  try{await initialize();}catch(e){status('불러오기 실패: '+e.message);$('inspector').textContent='CSV 또는 저장 연결을 확인하세요.';console.error(e);}
+ document.querySelector('.pane-switch').onclick=e=>{const tab=e.target.closest('[data-pane]');if(!tab)return;document.body.dataset.pane=tab.dataset.pane;for(const b of tab.parentNode.children)b.setAttribute('aria-pressed',String(b===tab));};
 })(window);

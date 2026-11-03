@@ -62,8 +62,9 @@ function create(parent,onChoose,state={}){
   const head=next.head,w=panel.offsetWidth,h=panel.offsetHeight,right=next.facing===-1||next.facing==='left';
   panel.dataset.side=right?'right':'left';
   // Reserve the separate E marker's gutter, including at the viewport edge.
-  panel.style.left=Math.round(Math.max(right?44:12,Math.min((right?1268:1236)-w,right?head.x+66:head.x-66-w)))+'px';
-  panel.style.top=Math.round(Math.max(18,Math.min(702-h,head.y-16)))+'px';
+  const width=next.bounds?.width??1280,height=next.bounds?.height??720;
+  panel.style.left=Math.round(Math.max(right?44:12,Math.min(width-(right?12:44)-w,right?head.x+66:head.x-66-w)))+'px';
+  panel.style.top=Math.round(Math.max(18,Math.min(height-18-h,head.y-16)))+'px';
   placeMarker();
   if(next.tutorial&&!state.tutorialPlayed){state.tutorialPlayed=true;W.LunaControlsTutorial?.play(()=>available()&&!guide.hidden);}
  }
