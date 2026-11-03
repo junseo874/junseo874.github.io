@@ -29,7 +29,10 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  // This API is a scoped dialogue editor, not an arbitrary CSV writer.
  for(const table of Object.keys(activePaths)){
   const permitted=r=>exterior?(table==='steps'?(exteriorIds.has(r.row_id)||r.row_id.startsWith('exterior_editor_')&&model.flows.some(f=>f.parent===r.parent_id&&!f.onlyChoices)):choiceIds.has(r.row_id)||r.row_id.startsWith('exterior_editor_')&&Object.values(model.views.outsideChoiceEdits||{}).some(c=>c.stepId===r.parent_id)):/^script\/bar\/day[0-3]$/.test(r.dataset_id);
-  const before=model.base.tables[table].filter(r=>!permitted(r)),after=model.tables[table].filter(r=>!permitted(r));
+  // Engine-only continuation rows are not editable. Their indices can shift
+  // when an editor inserts dialogue before the terminal goto/effect.
+  const scopeRow=r=>exterior&&table==='steps'&&r.row_id.startsWith('native_scenes_shared_')&&model.flows.some(f=>f.parent===r.parent_id)?{...r,seq:'',source_order:''}:r;
+  const before=model.base.tables[table].filter(r=>!permitted(r)).map(scopeRow),after=model.tables[table].filter(r=>!permitted(r)).map(scopeRow);
   if(JSON.stringify(before)!==JSON.stringify(after)){
    const index=before.findIndex((r,i)=>JSON.stringify(r)!==JSON.stringify(after[i])),row=before[index]||after[before.length],changed=Object.keys(row||{}).filter(k=>row[k]!==after[index]?.[k]);
    throw Error('이 편집기의 허용 범위 밖 데이터는 저장할 수 없습니다. ('+table+': '+(row?.row_id||'행 수')+' / '+changed.join(', ')+')');

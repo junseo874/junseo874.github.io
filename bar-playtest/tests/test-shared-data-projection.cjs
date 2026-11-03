@@ -14,7 +14,7 @@ assert(raw,'Find an actual shared campaign line');
 const row=rows.find(r=>r[headers.indexOf('row_id')]===raw.row_id);
 const marker='공통 CSV 수정 검증: "따옴표", 줄바꿈\n두 번째 줄';row[headers.indexOf('text.ko')]=marker;
 files['Steps.csv']=encode(rows);
-const changed=new csv.Catalog(files),result=project(changed,views,{});
+const changed=new csv.Catalog(files),result=project(changed,views,require('../data/presentation/runtime-assets.json'));
 assert(changed.read(ref.source).scenes.find(s=>s.id===ref.scene).steps.some(s=>s.text?.ko===marker));
 assert(result.story.bar['1'].some(s=>s.text===marker));
 assert(result.data.tables.steps.some(s=>s['text.ko']===marker));

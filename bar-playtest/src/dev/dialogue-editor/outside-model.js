@@ -43,7 +43,7 @@ class Model extends Base.Model{
  rowsFor(f){const all=this.tables.steps.filter(r=>r.parent_id===f.parent).sort((a,b)=>+a.source_order-+b.source_order);return all.slice(f.offset).filter(r=>f.onlyChoices?this.tables.street_choices.some(c=>c.parent_id===r.row_id):!!decode(r['web_fields.type'])||!!decode(r.web_core_keys));}
  rows(id){const f=this.flow(id);return f?this.rowsFor(f):[];}
  choices(id){return this.tables.street_choices.filter(c=>c.parent_id===id).sort((a,b)=>+a.source_order-+b.source_order);}
- kind(row){return decode(row['web_fields.type'])||row.type;}
+ kind(row){return Projection.optionalPresentation(row).type||decode(row['web_fields.type'])||row.type;}
  canEdit(row,key,flow){if(!row)return false;if(this.tables.street_choices.includes(row))return ['text.ko','text.en','when','lock_reason.ko','lock_reason.en'].includes(key)&&(Object.hasOwn(flow?.links||{},row.id)||Object.values(this.views.outsideChoiceEdits||{}).some(c=>c.active.includes(row.row_id)));
   if(key==='text.ko'&&this.flows.some(f=>f.onlyChoices&&this.rows(f.id).includes(row)))return true;
   if(['text.ko','text.en'].includes(key))return (row.web_core_keys||'').split('|').includes(key==='text.ko'?'text':'en')&&['say','timeline'].includes(this.kind(row))||key==='text.ko'&&(row.web_core_keys||'').split('|').includes('text');

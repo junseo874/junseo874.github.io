@@ -9249,9 +9249,9 @@
       "table": "GuestParts",
       "rows": [
         {
-          "id": "guest_parts_guest_f_Acc_1",
+          "id": "guest_parts_body_m",
           "key": {
-            "id": "guest_f_Acc_1"
+            "id": "body_m"
           },
           "fields": [
             "id",
@@ -9268,9 +9268,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_Acc_2",
+          "id": "guest_parts_body_f",
           "key": {
-            "id": "guest_f_Acc_2"
+            "id": "body_f"
           },
           "fields": [
             "id",
@@ -9287,9 +9287,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_Acc_3",
+          "id": "guest_parts_outfit_m_1",
           "key": {
-            "id": "guest_f_Acc_3"
+            "id": "outfit_m_1"
           },
           "fields": [
             "id",
@@ -9306,9 +9306,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_body",
+          "id": "guest_parts_outfit_m_2",
           "key": {
-            "id": "guest_f_body"
+            "id": "outfit_m_2"
           },
           "fields": [
             "id",
@@ -9325,9 +9325,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_1",
+          "id": "guest_parts_outfit_m_3",
           "key": {
-            "id": "guest_f_eyebrow_1"
+            "id": "outfit_m_3"
           },
           "fields": [
             "id",
@@ -9344,9 +9344,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_2",
+          "id": "guest_parts_outfit_f_1",
           "key": {
-            "id": "guest_f_eyebrow_2"
+            "id": "outfit_f_1"
           },
           "fields": [
             "id",
@@ -9363,9 +9363,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_3",
+          "id": "guest_parts_outfit_f_2",
           "key": {
-            "id": "guest_f_eyebrow_3"
+            "id": "outfit_f_2"
           },
           "fields": [
             "id",
@@ -9382,9 +9382,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_4",
+          "id": "guest_parts_outfit_f_3",
           "key": {
-            "id": "guest_f_eyebrow_4"
+            "id": "outfit_f_3"
           },
           "fields": [
             "id",
@@ -9401,9 +9401,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_5",
+          "id": "guest_parts_outerwear_f_1",
           "key": {
-            "id": "guest_f_eyebrow_5"
+            "id": "outerwear_f_1"
           },
           "fields": [
             "id",
@@ -9420,9 +9420,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyebrow_6",
+          "id": "guest_parts_necklace_m_1",
           "key": {
-            "id": "guest_f_eyebrow_6"
+            "id": "necklace_m_1"
           },
           "fields": [
             "id",
@@ -9439,9 +9439,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyes_1",
+          "id": "guest_parts_necklace_f_1",
           "key": {
-            "id": "guest_f_eyes_1"
+            "id": "necklace_f_1"
           },
           "fields": [
             "id",
@@ -9458,9 +9458,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyes_2",
+          "id": "guest_parts_eyes_m_1",
           "key": {
-            "id": "guest_f_eyes_2"
+            "id": "eyes_m_1"
           },
           "fields": [
             "id",
@@ -9477,9 +9477,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyes_3",
+          "id": "guest_parts_eyes_m_2",
           "key": {
-            "id": "guest_f_eyes_3"
+            "id": "eyes_m_2"
           },
           "fields": [
             "id",
@@ -9496,9 +9496,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_eyes_4",
+          "id": "guest_parts_eyes_m_3",
           "key": {
-            "id": "guest_f_eyes_4"
+            "id": "eyes_m_3"
           },
           "fields": [
             "id",
@@ -9515,9 +9515,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_hair_1",
+          "id": "guest_parts_eyes_m_4",
           "key": {
-            "id": "guest_f_hair_1"
+            "id": "eyes_m_4"
           },
           "fields": [
             "id",
@@ -9534,9 +9534,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_hair_2",
+          "id": "guest_parts_eyes_f_1",
           "key": {
-            "id": "guest_f_hair_2"
+            "id": "eyes_f_1"
           },
           "fields": [
             "id",
@@ -9553,9 +9553,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_mouth_1",
+          "id": "guest_parts_eyes_f_2",
           "key": {
-            "id": "guest_f_mouth_1"
+            "id": "eyes_f_2"
           },
           "fields": [
             "id",
@@ -9572,9 +9572,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_mouth_2",
+          "id": "guest_parts_eyes_f_3",
           "key": {
-            "id": "guest_f_mouth_2"
+            "id": "eyes_f_3"
           },
           "fields": [
             "id",
@@ -9591,9 +9591,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_mouth_3",
+          "id": "guest_parts_eyes_f_4",
           "key": {
-            "id": "guest_f_mouth_3"
+            "id": "eyes_f_4"
           },
           "fields": [
             "id",
@@ -9610,9 +9610,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_top_1",
+          "id": "guest_parts_eyebrows_m_1",
           "key": {
-            "id": "guest_f_top_1"
+            "id": "eyebrows_m_1"
           },
           "fields": [
             "id",
@@ -9629,9 +9629,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_top_2",
+          "id": "guest_parts_eyebrows_m_2",
           "key": {
-            "id": "guest_f_top_2"
+            "id": "eyebrows_m_2"
           },
           "fields": [
             "id",
@@ -9648,9 +9648,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_f_top_3",
+          "id": "guest_parts_eyebrows_m_3",
           "key": {
-            "id": "guest_f_top_3"
+            "id": "eyebrows_m_3"
           },
           "fields": [
             "id",
@@ -9667,9 +9667,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_Acc_1",
+          "id": "guest_parts_eyebrows_m_4",
           "key": {
-            "id": "guest_m_Acc_1"
+            "id": "eyebrows_m_4"
           },
           "fields": [
             "id",
@@ -9686,9 +9686,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_Acc_2",
+          "id": "guest_parts_eyebrows_m_5",
           "key": {
-            "id": "guest_m_Acc_2"
+            "id": "eyebrows_m_5"
           },
           "fields": [
             "id",
@@ -9705,9 +9705,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_body",
+          "id": "guest_parts_eyebrows_m_6",
           "key": {
-            "id": "guest_m_body"
+            "id": "eyebrows_m_6"
           },
           "fields": [
             "id",
@@ -9724,9 +9724,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_cyberware_1",
+          "id": "guest_parts_eyebrows_f_1",
           "key": {
-            "id": "guest_m_cyberware_1"
+            "id": "eyebrows_f_1"
           },
           "fields": [
             "id",
@@ -9743,9 +9743,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_cyberware_2",
+          "id": "guest_parts_eyebrows_f_2",
           "key": {
-            "id": "guest_m_cyberware_2"
+            "id": "eyebrows_f_2"
           },
           "fields": [
             "id",
@@ -9762,9 +9762,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_cyberware_3",
+          "id": "guest_parts_eyebrows_f_3",
           "key": {
-            "id": "guest_m_cyberware_3"
+            "id": "eyebrows_f_3"
           },
           "fields": [
             "id",
@@ -9781,9 +9781,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_1",
+          "id": "guest_parts_eyebrows_f_4",
           "key": {
-            "id": "guest_m_eyebrow_1"
+            "id": "eyebrows_f_4"
           },
           "fields": [
             "id",
@@ -9800,9 +9800,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_2",
+          "id": "guest_parts_eyebrows_f_5",
           "key": {
-            "id": "guest_m_eyebrow_2"
+            "id": "eyebrows_f_5"
           },
           "fields": [
             "id",
@@ -9819,9 +9819,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_3",
+          "id": "guest_parts_eyebrows_f_6",
           "key": {
-            "id": "guest_m_eyebrow_3"
+            "id": "eyebrows_f_6"
           },
           "fields": [
             "id",
@@ -9838,9 +9838,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_4",
+          "id": "guest_parts_mouth_m_1",
           "key": {
-            "id": "guest_m_eyebrow_4"
+            "id": "mouth_m_1"
           },
           "fields": [
             "id",
@@ -9857,9 +9857,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_5",
+          "id": "guest_parts_mouth_m_2",
           "key": {
-            "id": "guest_m_eyebrow_5"
+            "id": "mouth_m_2"
           },
           "fields": [
             "id",
@@ -9876,9 +9876,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyebrow_6",
+          "id": "guest_parts_mouth_m_3",
           "key": {
-            "id": "guest_m_eyebrow_6"
+            "id": "mouth_m_3"
           },
           "fields": [
             "id",
@@ -9895,9 +9895,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyes_1",
+          "id": "guest_parts_mouth_f_1",
           "key": {
-            "id": "guest_m_eyes_1"
+            "id": "mouth_f_1"
           },
           "fields": [
             "id",
@@ -9914,9 +9914,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyes_2",
+          "id": "guest_parts_mouth_f_2",
           "key": {
-            "id": "guest_m_eyes_2"
+            "id": "mouth_f_2"
           },
           "fields": [
             "id",
@@ -9933,9 +9933,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyes_3",
+          "id": "guest_parts_mouth_f_3",
           "key": {
-            "id": "guest_m_eyes_3"
+            "id": "mouth_f_3"
           },
           "fields": [
             "id",
@@ -9952,9 +9952,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_eyes_4",
+          "id": "guest_parts_hair_m_1",
           "key": {
-            "id": "guest_m_eyes_4"
+            "id": "hair_m_1"
           },
           "fields": [
             "id",
@@ -9971,9 +9971,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_hair_1",
+          "id": "guest_parts_hair_m_2",
           "key": {
-            "id": "guest_m_hair_1"
+            "id": "hair_m_2"
           },
           "fields": [
             "id",
@@ -9990,9 +9990,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_hair_2",
+          "id": "guest_parts_hair_f_1",
           "key": {
-            "id": "guest_m_hair_2"
+            "id": "hair_f_1"
           },
           "fields": [
             "id",
@@ -10009,9 +10009,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_mouth_1",
+          "id": "guest_parts_hair_f_2",
           "key": {
-            "id": "guest_m_mouth_1"
+            "id": "hair_f_2"
           },
           "fields": [
             "id",
@@ -10028,9 +10028,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_mouth_2",
+          "id": "guest_parts_arm_accessory_m_1",
           "key": {
-            "id": "guest_m_mouth_2"
+            "id": "arm_accessory_m_1"
           },
           "fields": [
             "id",
@@ -10047,66 +10047,9 @@
           "booleans": []
         },
         {
-          "id": "guest_parts_guest_m_mouth_3",
+          "id": "guest_parts_arm_accessory_f_1",
           "key": {
-            "id": "guest_m_mouth_3"
-          },
-          "fields": [
-            "id",
-            "gender",
-            "mode",
-            "sprite",
-            "emotions",
-            "parts",
-            "weight",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_parts_guest_m_top_1",
-          "key": {
-            "id": "guest_m_top_1"
-          },
-          "fields": [
-            "id",
-            "gender",
-            "mode",
-            "sprite",
-            "emotions",
-            "parts",
-            "weight",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_parts_guest_m_top_2",
-          "key": {
-            "id": "guest_m_top_2"
-          },
-          "fields": [
-            "id",
-            "gender",
-            "mode",
-            "sprite",
-            "emotions",
-            "parts",
-            "weight",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_parts_guest_m_top_3",
-          "key": {
-            "id": "guest_m_top_3"
+            "id": "arm_accessory_f_1"
           },
           "fields": [
             "id",
@@ -10128,8 +10071,10 @@
       "table": "GuestExclusions",
       "rows": [
         {
-          "id": "guest_exclusions_1",
-          "key": {},
+          "id": "guest_exclusions_arm_accessory_m_1_outfit_m_1",
+          "key": {
+            "row_id": "guest_exclusions_arm_accessory_m_1_outfit_m_1"
+          },
           "fields": [
             "a",
             "b",
@@ -10140,8 +10085,10 @@
           "booleans": []
         },
         {
-          "id": "guest_exclusions_2",
-          "key": {},
+          "id": "guest_exclusions_arm_accessory_m_1_outfit_m_2",
+          "key": {
+            "row_id": "guest_exclusions_arm_accessory_m_1_outfit_m_2"
+          },
           "fields": [
             "a",
             "b",
@@ -10152,44 +10099,10 @@
           "booleans": []
         },
         {
-          "id": "guest_exclusions_3",
-          "key": {},
-          "fields": [
-            "a",
-            "b",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_exclusions_4",
-          "key": {},
-          "fields": [
-            "a",
-            "b",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_exclusions_5",
-          "key": {},
-          "fields": [
-            "a",
-            "b",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "guest_exclusions_6",
-          "key": {},
+          "id": "guest_exclusions_arm_accessory_f_1_outerwear_f_1",
+          "key": {
+            "row_id": "guest_exclusions_arm_accessory_f_1_outerwear_f_1"
+          },
           "fields": [
             "a",
             "b",
@@ -10406,29 +10319,6 @@
           "id": "scene_t99_seats",
           "key": {
             "id": "t99_seats"
-          },
-          "fields": [
-            "id",
-            "day",
-            "seq",
-            "phase",
-            "trigger",
-            "when",
-            "title",
-            "skippable",
-            "group",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": [
-            "skippable"
-          ]
-        },
-        {
-          "id": "scene_t99_fxsfx",
-          "key": {
-            "id": "t99_fxsfx"
           },
           "fields": [
             "id",
@@ -11186,94 +11076,6 @@
         },
         {
           "id": "step_t99_flag_test_choice_5",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "step_t99_fxsfx_fx_1",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "step_t99_fxsfx_sfx_2",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "step_t99_fxsfx_fx_3",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "step_t99_fxsfx_choice_5",
           "key": {},
           "fields": [
             "context",
@@ -26214,28 +26016,6 @@
           "booleans": []
         },
         {
-          "id": "notion_d3_samho_drunk_pose",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
           "id": "notion_d3_samho_beer_taste",
           "key": {},
           "fields": [
@@ -26397,44 +26177,6 @@
         },
         {
           "id": "bar_choices_ch_t99_back4_2",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "text.ko",
-            "text.en",
-            "when",
-            "effects",
-            "goto",
-            "lock_reason.ko",
-            "lock_reason.en",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "bar_choices_ch_t99_back5_1",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "text.ko",
-            "text.en",
-            "when",
-            "effects",
-            "goto",
-            "lock_reason.ko",
-            "lock_reason.en",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "bar_choices_ch_t99_back5_2",
           "key": {},
           "fields": [
             "context",
@@ -26814,25 +26556,6 @@
           "booleans": []
         },
         {
-          "id": "bar_choices_ch_t99_stage_2",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "text.ko",
-            "text.en",
-            "when",
-            "effects",
-            "goto",
-            "lock_reason.ko",
-            "lock_reason.en",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
           "id": "bar_choices_ch_t99_stage_3",
           "key": {},
           "fields": [
@@ -27127,19 +26850,6 @@
           "id": "choice_group_ch_t99_back4",
           "key": {
             "choice_group": "ch_t99_back4"
-          },
-          "fields": [
-            "choice_group",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "choice_group_ch_t99_back5",
-          "key": {
-            "choice_group": "ch_t99_back5"
           },
           "fields": [
             "choice_group",
@@ -28337,15 +28047,60 @@
     }
   },
   "outside": {
-    "believer/intro": {"source": "script/street", "scene": "shared-believer-intro", "branch": null, "offset": 0},
-    "believer/finish": {"source": "script/street", "scene": "shared-believer-finish", "branch": null, "offset": 0},
-    "newspaper/options": {"source": "script/street", "scene": "shared-newspaper-options", "branch": null, "offset": 0},
-    "newspaper/intro": {"source": "script/street", "scene": "shared-newspaper-intro", "branch": null, "offset": 0},
-    "newspaper/wrong": {"source": "script/street", "scene": "shared-newspaper-wrong", "branch": null, "offset": 0},
-    "newspaper/right": {"source": "script/street", "scene": "shared-newspaper-right", "branch": null, "offset": 0},
-    "newspaper/common": {"source": "script/street", "scene": "shared-newspaper-common", "branch": null, "offset": 0},
-    "newspaper/finish": {"source": "script/street", "scene": "shared-newspaper-finish", "branch": null, "offset": 0},
-    "newspaper/repeat": {"source": "script/street", "scene": "shared-newspaper-repeat", "branch": null, "offset": 0},
+    "believer/intro": {
+      "source": "script/street",
+      "scene": "shared-believer-intro",
+      "branch": null,
+      "offset": 0
+    },
+    "believer/finish": {
+      "source": "script/street",
+      "scene": "shared-believer-finish",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/options": {
+      "source": "script/street",
+      "scene": "shared-newspaper-options",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/intro": {
+      "source": "script/street",
+      "scene": "shared-newspaper-intro",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/wrong": {
+      "source": "script/street",
+      "scene": "shared-newspaper-wrong",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/right": {
+      "source": "script/street",
+      "scene": "shared-newspaper-right",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/common": {
+      "source": "script/street",
+      "scene": "shared-newspaper-common",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/finish": {
+      "source": "script/street",
+      "scene": "shared-newspaper-finish",
+      "branch": null,
+      "offset": 0
+    },
+    "newspaper/repeat": {
+      "source": "script/street",
+      "scene": "shared-newspaper-repeat",
+      "branch": null,
+      "offset": 0
+    },
     "ambient/outside_day0_store_passers": {
       "source": "script/ambient",
       "scene": "outside_day0_store_passers",

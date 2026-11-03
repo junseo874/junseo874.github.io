@@ -8391,24 +8391,6 @@
         "entrance": null
       },
       {
-        "type": "expression",
-        "who": "삼호",
-        "payment": null,
-        "tomPresent": null,
-        "served": null,
-        "cinemaAfter": null,
-        "memoryKey": null,
-        "stage": null,
-        "emphasis": [],
-        "actor": "samho",
-        "arg": "drunk",
-        "text": null,
-        "en": null,
-        "when": null,
-        "effects": null,
-        "entrance": null
-      },
-      {
         "type": "say",
         "who": "삼호",
         "payment": null,

@@ -8,25 +8,13 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  assert.equal(await p.locator('[data-id="guest_f_mouth_4"],[data-id="guest_f_mouth_5"]').count(),0);
  const layers=()=>p.locator('[data-look-layer]').evaluateAll(els=>els.map(e=>e.dataset.lookLayer));
  const female=await layers();await p.locator('[data-act="guestLooksGender"][data-id="m"]').click();
- assert.equal(await p.locator('[data-act="guestLooksPart"]').count(),25);
+ assert.equal(await p.locator('[data-act="guestLooksPart"]').count(),22);
  assert.equal(await p.locator('[data-id="guest_m_mouth_4"],[data-id="guest_m_mouth_5"]').count(),0);
  await p.locator('[data-id="guest_m_top_3"]').click();await p.locator('[data-id="guest_m_Acc_2"]').click();
  assert((await layers()).includes('guest_m_Acc_2'));
  await p.locator('[data-id="guest_m_top_1"]').click();assert(!(await layers()).includes('guest_m_Acc_2'));
  assert(await p.locator('[data-id="guest_m_Acc_2"]').isDisabled());
- for(const key of ['guest_m_cyberware_1','guest_m_cyberware_3']){
-  assert(await p.locator(`[data-id="${key}"]`).isDisabled());
-  await p.locator('[data-id="guest_m_top_3"]').click();await p.locator(`[data-id="${key}"]`).click();
-  assert((await layers()).includes(key));
-  await p.locator('[data-id="guest_m_top_2"]').click();assert(!(await layers()).includes(key));
-  assert(await p.locator(`[data-id="${key}"]`).isDisabled());
- }
- for(const top of [1,2,3]){
-  await p.locator(`[data-id="guest_m_top_${top}"]`).click();
-  assert(!(await p.locator('[data-id="guest_m_cyberware_2"]').isDisabled()));
-  await p.locator('[data-id="guest_m_cyberware_2"]').click();
-  assert((await layers()).includes('guest_m_cyberware_2'));
- }
+ assert.equal(await p.locator('[data-id^="guest_m_cyberware_"]').count(),0);
  await p.locator('[data-act="guestLooksGender"][data-id="f"]').click();assert.deepEqual(await layers(),female);
  await p.locator('[data-act="guestLooksRandom"]').click();
  const selected=await p.locator('.guest-look-options [aria-pressed="true"]').evaluateAll(es=>es.map(e=>e.dataset.id).filter(k=>k!=='none'));
@@ -36,5 +24,5 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  await p.mouse.move(1400,950);await p.waitForTimeout(200);
  await p.screenshot({path:'/private/tmp/guest-look-tab.png'});
  await p.locator('[data-act="version"][data-id="original"]').click();assert(await p.locator('#start-mode').isVisible());
- assert.deepEqual(errors,[]);console.log('GUEST_APPEARANCE_TAB_UI_OK: both genders, all 46 eligible assets, selection persistence, accessory constraints, tab navigation and images.');
+ assert.deepEqual(errors,[]);console.log('GUEST_APPEARANCE_TAB_UI_OK: both genders, all 43 eligible assets, selection persistence, accessory constraints, tab navigation and images.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

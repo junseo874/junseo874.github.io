@@ -14,7 +14,7 @@ function complete(m){flags().newspaper_conversation_done=true;flags().newspaper_
 function begin(m,t,key,done){m.anim='idle';m.facing=t.x>m.x?1:-1;W.outsidePlaytest?.clearInput();return m.story.beginRows(id,t,rows(key),false,done);}
 function interact(m,t){if(t.id!==id||!targets(m).length)return false;const key=entry();return begin(m,t,key,key==='finish'?()=>complete(m):null);}
 function preview(m,t){return t.id===id?{id,rows:rows(entry()),alternatives:['wrong','right','common','finish'].map(key=>({id:id+'/'+key,rows:rows(key)}))}:null;}
-function choiceView(){return{label:'대답하기',options:['wrong','right'].map((key,i)=>({id:'newspaper-'+key,label:rows('options')[i].text}))};}
+function choiceView(){const options=W.LUNA_DATA.outsideChoices?.filter(c=>c.parent_id==='steps_shared_newspaper_intro_12'&&['newspaper-wrong','newspaper-right'].includes(c.id));return{label:'대답하기',options:['wrong','right'].map((key,i)=>({id:'newspaper-'+key,label:options?.find(o=>o.id==='newspaper-'+key)?.['text.ko']||rows('options')[i].text}))};}
 function branch(m,dialogue){const s=m.story.speech;return m.story.beginRows(id,s.target,[...dialogue,...rows('common'),...rows('finish')],false,()=>complete(m));}
 function choose(m,choice){const s=m.story.speech;if(!visible(m)||m.level||s?.id!==id||s.line?.type!=='newspaper-choice'||!s.choice)return false;
  const key=choice==='newspaper-wrong'?'wrong':choice==='newspaper-right'?'right':null;if(!key)return false;
