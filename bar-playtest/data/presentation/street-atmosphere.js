@@ -3,11 +3,15 @@
   "sources": [
     {
       "file": "Assets/01.Game/01.Scenes/OutSide.unity",
-      "sha256": "47dd517d329ebc0f98d7a1f3a3f9fc09a412751ddaeaeec69ea6493b9f177401"
+      "sha256": "2c7b33d38f3ad14eece054e99c0fa6d546e4a0e752a524d818cae78165112667"
     },
     {
       "file": "Assets/01.Game/05.Settings/02.Rendering/VP_OutSide.asset",
-      "sha256": "10e8920ba349588c11f2a4278f8a28fc0d3aaf9e7b5929153dfb732d314952b6"
+      "sha256": "841a3f619097d7f2d7c39dea51780bed8cf15995937cc47aa31a879be4ca2e19"
+    },
+    {
+      "file": "ProjectSettings/TagManager.asset",
+      "sha256": "17a85ef58fb50dc01e14832e0171d028569c113b4d008bc199759d3933aba7e0"
     },
     {
       "file": "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_OutsidePuddle.shader",
@@ -22,6 +26,22 @@
       "sha256": "d1f635d32b42157a72c2b444eb5766afa5a0ab54465be2b734421614dd322fd8"
     }
   ],
+  "sortingLayers": {
+    "Default": 0,
+    "Sky": 1,
+    "BackgroundFar": 2,
+    "BackgroundMid": 3,
+    "CityLight": 4,
+    "Foreground": 5,
+    "Floorground": 6,
+    "ForeNoneLightground": 8,
+    "ForeLightground": 9,
+    "GroundPuddle": 10,
+    "GroundShadow": 11,
+    "Character": 12,
+    "ForeFore": 13,
+    "Effect": 14
+  },
   "puddles": [
     {
       "name": "Puddle 01",
@@ -349,7 +369,7 @@
   ],
   "bloom": {
     "threshold": 0.75,
-    "intensity": 1.4,
+    "intensity": 0.7,
     "scatter": 0.75
   },
   "tint": [

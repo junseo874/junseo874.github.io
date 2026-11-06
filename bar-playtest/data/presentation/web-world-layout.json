@@ -1391,8 +1391,8 @@
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 21,
+          "layer": 5,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "residence-warm-light",
@@ -1419,8 +1419,8 @@
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 21,
+          "layer": 5,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "residence-home-light",
@@ -1441,14 +1441,14 @@
         {
           "id": "street-neon-convenience",
           "name": "간판 발광 · convenience",
-          "x": -5.035,
+          "x": -5.165,
           "y": 0.015000000000000013,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1463,20 +1463,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-vertical-left",
           "name": "간판 발광 · vertical-left",
-          "x": -4.325,
+          "x": -4.455,
           "y": 0.83,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-b-light-1-7-base",
@@ -1491,20 +1491,20 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-b-light-1-7-base.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-upper-left",
           "name": "간판 발광 · upper-left",
-          "x": -3.6350000000000002,
+          "x": -3.765,
           "y": 0.9600000000000001,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1519,20 +1519,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-shiba-cluster",
           "name": "간판 발광 · shiba-cluster",
-          "x": -3.025,
+          "x": -3.155,
           "y": -0.015000000000000013,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1547,20 +1547,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-left-lanterns",
           "name": "간판 발광 · left-lanterns",
-          "x": -3.95,
+          "x": -4.08,
           "y": -0.475,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1575,20 +1575,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-service-strip",
           "name": "간판 발광 · service-strip",
-          "x": -1.6749999999999998,
+          "x": -1.805,
           "y": 0.91,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1603,20 +1603,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-service-cluster",
           "name": "간판 발광 · service-cluster",
-          "x": -0.5,
+          "x": -0.63,
           "y": -0.32500000000000007,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-b-light-3-7-base",
@@ -1631,20 +1631,20 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-b-light-3-7-base.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-service-inset",
           "name": "간판 발광 · service-inset",
-          "x": 0.13,
+          "x": -2.7755575615628914e-17,
           "y": -0.11499999999999999,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-2",
@@ -1659,20 +1659,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_2.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-service-top",
           "name": "간판 발광 · service-top",
-          "x": 0.81,
+          "x": 0.68,
           "y": 0.6149999999999999,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1687,20 +1687,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-bar-script",
           "name": "간판 발광 · bar-script",
-          "x": 0.98,
+          "x": 0.85,
           "y": -0.385,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-3",
@@ -1715,20 +1715,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_3.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-vending",
           "name": "간판 발광 · vending",
-          "x": 0.594,
+          "x": 0.46399999999999997,
           "y": -0.53,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1743,20 +1743,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-door-lamp",
           "name": "간판 발광 · door-lamp",
-          "x": 0.95,
+          "x": 0.82,
           "y": -0.745,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1771,20 +1771,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-leaning-sign",
           "name": "간판 발광 · leaning-sign",
-          "x": 1.4100000000000001,
+          "x": 1.28,
           "y": -0.675,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1799,20 +1799,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-restaurant-cluster",
           "name": "간판 발광 · restaurant-cluster",
-          "x": 2.54,
+          "x": 2.41,
           "y": 0.5400000000000001,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "engine-fx-ledsign-lightcookie-01",
@@ -1827,20 +1827,20 @@
             }
           },
           "src": "assets/outside/effects/tx-ledsign-lightcookie-01.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-exit-signs",
           "name": "간판 발광 · exit-signs",
-          "x": 3.835,
+          "x": 3.705,
           "y": -0.585,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1855,20 +1855,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-roof-sign",
           "name": "간판 발광 · roof-sign",
-          "x": 4.7,
+          "x": 4.57,
           "y": 1.455,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1883,20 +1883,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-food-bar",
           "name": "간판 발광 · food-bar",
-          "x": 4.72,
+          "x": 4.59,
           "y": 0.555,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1911,20 +1911,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-poker-open",
           "name": "간판 발광 · poker-open",
-          "x": 4.705,
+          "x": 4.575,
           "y": -0.19000000000000006,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1939,20 +1939,20 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "street-neon-right-store",
           "name": "간판 발광 · right-store",
-          "x": 6.01,
+          "x": 5.88,
           "y": -0.47,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "flip": false,
           "sprite": {
             "asset": "street-sign-1",
@@ -1967,19 +1967,19 @@
             "ppu": 100
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-1359778145",
           "name": "Engine neon · 1359778145",
-          "x": -0.4999999999999999,
+          "x": -0.6299999999999999,
           "y": -0.3250000000000003,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-smallorangesign",
             "x": 0,
@@ -1993,19 +1993,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-smallorangesign.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-388911712",
           "name": "Engine neon · 388911712",
-          "x": -0.4999999999999999,
+          "x": -0.6299999999999999,
           "y": -0.3250000000000003,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-pinkcard",
             "x": 0,
@@ -2019,19 +2019,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-pinkcard.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-381637808",
           "name": "Engine neon · 381637808",
-          "x": 2.5400005000000005,
-          "y": 0.54,
+          "x": 2.4100005000000007,
+          "y": 0.5400000000000001,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-butchericon",
             "x": 0,
@@ -2045,19 +2045,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-butchericon.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-394931651",
           "name": "Engine neon · 394931651",
-          "x": 2.5400005000000005,
-          "y": 0.54,
+          "x": 2.4100005000000007,
+          "y": 0.5400000000000001,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-butcheryuk",
             "x": 0,
@@ -2071,19 +2071,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-butcheryuk.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-1123960836",
           "name": "Engine neon · 1123960836",
-          "x": 2.5400005000000005,
-          "y": 0.54,
+          "x": 2.4100005000000007,
+          "y": 0.5400000000000001,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-butcherredline",
             "x": 0,
@@ -2097,19 +2097,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-butcherredline.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-1999163603",
           "name": "Engine neon · 1999163603",
-          "x": -4.32499978,
-          "y": 0.8299997000000001,
+          "x": -4.45499978,
+          "y": 0.8299997000000002,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-neonflicker-cookie-greenglyph",
             "x": 0,
@@ -2123,19 +2123,19 @@
             }
           },
           "src": "assets/outside/effects/tx-neonflicker-cookie-greenglyph.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "engine-neon-1012078442",
           "name": "Engine neon · 1012078442",
-          "x": -7.6605,
-          "y": 0.875,
+          "x": -7.7905,
+          "y": 0.8750000000000001,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
-          "layer": 8,
-          "order": 1,
+          "layer": 9,
+          "order": 0.01,
           "sprite": {
             "asset": "engine-fx-b-light-1",
             "x": 342,
@@ -2149,8 +2149,8 @@
             }
           },
           "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
-          "engineNode": null,
-          "placementSource": "web-only"
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         },
         {
           "id": "1985635297",
@@ -2698,6 +2698,34 @@
           "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png",
           "engineNode": null,
           "placementSource": "web-only"
+        },
+        {
+          "id": "street-storefront-scanlines",
+          "name": "street-storefront-scanlines",
+          "x": 0.08499999999999996,
+          "y": -0.89,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0.02,
+          "flip": false,
+          "sprite": {
+            "asset": "18f24eafa457af",
+            "x": 0,
+            "y": 0,
+            "w": 1293,
+            "h": 310,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
+          "engineNode": "1041447592",
+          "placementSource": "web-child"
         }
       ]
     },

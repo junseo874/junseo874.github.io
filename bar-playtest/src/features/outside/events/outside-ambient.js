@@ -33,7 +33,7 @@ function facing(node,model){
  if(model.encounter?.kind==='direct'&&node.id==='ambient-'+model.encounter.target.actor)return faceTarget(node.x,model.x);
  return node.flip;
 }
-function visible(model,node){return model.scene==='street'&&(node?.notionEvent?global.LunaOutsideContent.present(model,global.LunaOutsideContent.events.find(e=>e.id===node.notionEvent)):model.config.day===0&&model.config.flow==='out');}
+function visible(model,node){const eventId=node?.notionEvent||(node?.id?.startsWith('ambient-store-')?'outside_day0_store_passers':'outside_day0_port_pair');return model.scene==='street'&&global.LunaOutsideContent.present(model,global.LunaOutsideContent.events.find(e=>e.id===eventId));}
 // Match the idle LOOP, not just FPS: Luna has 9 cells; supplied NPCs have 6/8/9.
 // At Luna's 12 FPS they need 8 / 10.667 / 12 FPS for the same .75s breath.
 // Never accelerate longer clips (e.g. Shiba) beyond Luna's frame rate.

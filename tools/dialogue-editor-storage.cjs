@@ -45,7 +45,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
   const editableNew=new Set(['row_id','web_row_id','dialogue_id','seq','source_order','text.ko','text.en','actor','web_fields.who']);
   for(const row of model.tables.steps.filter(r=>!model.base.tables.steps.some(b=>b.row_id===r.row_id))){
    const source=model.base.tables.steps.find(b=>exteriorIds.has(b.row_id)&&model.plain(b)&&Object.keys(b).every(k=>editableNew.has(k)||b[k]===row[k]));
-   const menu=model.kind(row)==='editor-choice'&&row.template_id==='steps_format_62'&&model.menuConfig(row);
+   const menu=model.kind(row)==='choice'&&row.type==='choice'&&row.template_id==='steps_format_62'&&model.menuConfig(row);
    const branch=row.parent_field==='result_steps'&&row.template_id==='steps_format_30'&&model.tables.street_choices.some(c=>c.row_id===row.parent_id&&c.row_id.startsWith('exterior_editor_'));
    if((!menu&&!branch&&(!source||model.kind(row)!=='say'))||/[<>]/.test((row['text.ko']||'')+(row['text.en']||'')))throw Error('새 줄은 기존 대사·선택지 구조를 유지해야 합니다.');
   }
@@ -76,7 +76,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
 }
 async function runtimeSnapshot(base=BASE){
  const source=await snapshot(base),{result}=await generate(p=>Promise.resolve(source.files[p]));
- return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes,prologue:result.story.prologue}};
+ return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{ambient:result.data.outsideAmbient,newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes,prologue:result.story.prologue}};
 }
 if(require.main===module)(async()=>{if(process.argv.includes('--runtime'))return runtimeSnapshot();if(process.argv.includes('--snapshot'))return snapshot();let input='';process.stdin.setEncoding('utf8');for await(const chunk of process.stdin)input+=chunk;return save(JSON.parse(input));})().then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{process.stderr.write(e.message);process.exitCode=1;});
 module.exports={snapshot,save,runtimeSnapshot};

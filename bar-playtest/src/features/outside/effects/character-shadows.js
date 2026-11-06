@@ -3,11 +3,12 @@
  * Unblocked light and authored fill volumes reduce shadow contrast. Scene art overrides supply the moving receiver transform. */
 (function(W){'use strict';
 const states=new WeakMap(),D=()=>W.LUNA_CHARACTER_SHADOWS,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
-function liftPoint(x,y,m){const l=W.LunaResidence.layout;return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
+function liftScale(){return W.LunaEngineWorld?1:.6;}
+function liftPoint(x,y,m){const l=W.LunaResidence.layout;if(W.LunaEngineWorld)return{x,y:y+m.elevatorY-l.elevatorBottom};return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
 function storefrontOffset(){const node=W.LUNA_OUTSIDE_DATA?.scenes.street.nodes.find(n=>n.name==='B_Fore_Building_1'),source=W.LUNA_STREET_EFFECTS?.parent;return node&&source?{x:node.x-source.x,y:node.y-source.y}:{x:0,y:0};}
 function lights(m){const list=D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current},offset=l.storefront?storefrontOffset():{x:0,y:0};return {...l,x:l.x+offset.x,y:l.y+offset.y,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});const fire=W.LunaBarrelFire?.worldLight(m);if(fire)list.push(fire);return list;}
 function receivers(m){return D().receivers.filter(r=>r.active).map(r=>{
- if(r.ancestry.includes('Elevator')){const a=liftPoint(r.rect[0],r.rect[1],m),b=liftPoint(r.rect[2],r.rect[3],m);return {...r,rect:[a.x,a.y,b.x,b.y],surface:liftPoint(r.x,r.surface,m).y,tolerance:r.tolerance*.6};}
+ if(r.ancestry.includes('Elevator')){const a=liftPoint(r.rect[0],r.rect[1],m),b=liftPoint(r.rect[2],r.rect[3],m);return {...r,rect:[a.x,a.y,b.x,b.y],surface:liftPoint(r.x,r.surface,m).y,tolerance:r.tolerance*liftScale()};}
  if(r.name==='2F'){const dy=W.LunaResidence.layout.upperY+D().player.foot.y-r.surface;return {...r,rect:[r.rect[0],r.rect[1]+dy,r.rect[2],r.rect[3]+dy],surface:r.surface+dy};}
  return r;
  });}
@@ -28,7 +29,7 @@ function coverage(p,l){
 function fillVolumes(m){return (W.LUNA_SHADOW_LIGHTING?.illumination||[]).map(l=>{
  const offset=l.storefront?storefrontOffset():{x:0,y:0};
  const points=l.ancestry.includes('Elevator')?l.points.map(([x,y])=>{const p=liftPoint(x,y,m);return [p.x,p.y];}):l.points.map(([x,y])=>[x+offset.x,y+offset.y]);
- const falloff=l.falloff*(l.ancestry.includes('Elevator')?.6:1);
+ const falloff=l.falloff*(l.ancestry.includes('Elevator')?liftScale():1);
  return {...l,points,falloff,bounds:[Math.min(...points.map(p=>p[0]))-falloff,Math.min(...points.map(p=>p[1]))-falloff,Math.max(...points.map(p=>p[0]))+falloff,Math.max(...points.map(p=>p[1]))+falloff],gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};
 });}
 function fillAt(p,volumes){let sum=0;for(const l of volumes){const b=l.bounds;if(p.x<b[0]||p.y<b[1]||p.x>b[2]||p.y>b[3])continue;sum+=power(l)*coverage(p,l);}return sum;}

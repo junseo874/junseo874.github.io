@@ -117,8 +117,14 @@ const events=[
  {id:poster,label:'상시 · 개시바 지명수배 포스터',persistent:true,auto:false,kind:'object',title:'지명수배',object:'wanted-poster',node:'5 poster_shiba_wanted_day1',x:-1.9849996,y:-.7}
 ];
 // Presence belongs to the location/day, not the floor Luna currently occupies.
-const present=(m,e)=>!!e&&m.scene===(e.scene||'street')&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
-const active=(m,e)=>present(m,e)&&(e.scene==='home'||!m.level);
+function ambientCondition(m,expr){return !expr||g.LunaCore.condition(expr,{...g.barGame?.progress,day:m.config.day,flags:g.barGame?.progress?.flags||{},affinity:g.barGame?.progress?.affinity||{}});}
+function present(m,e){
+ if(!e)return false;
+ const rule=g.LUNA_DATA?.outsideAmbient?.[e.id];
+ if(rule)return m.scene===rule.scene&&(rule.phase==='both'||rule.phase==='commute_'+m.config.flow)&&(rule.day==null||m.config.day===rule.day)&&ambientCondition(m,rule.spawnWhen)&&ambientCondition(m,rule.when)&&ambientCondition(m,rule.sceneWhen);
+ return m.scene===(e.scene||'street')&&(e.persistent?m.config.day>=0&&m.config.day<=3:m.config.day===e.day&&m.config.flow===e.flow);
+}
+const active=(m,e)=>present(m,e)&&(e.scene==='home'||!m.level)&&ambientCondition(m,g.LUNA_DATA?.outsideAmbient?.[e.id]?.interactWhen);
 // Keep original atlases for animation QA, but retired street props never render.
 const retired=new Set(['1 experiment_recruit','3 poster_help_wanted','7 poster_human_trafficking','10 real_estate_posting']);
 g.LunaOutsideContent={source,events,active,present,

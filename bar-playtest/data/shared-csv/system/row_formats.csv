@@ -1,4 +1,4 @@
-"template_id","node_id","parent_node","field","field_order","kind","column","type","table","slot","container","key_column","parent","row_id","map_key","owner"
+﻿"template_id","node_id","parent_node","field","field_order","kind","column","type","table","slot","container","key_column","parent","row_id","map_key","owner"
 "balance_root_format_01","0","","","0","object","","","","","","","","","","BalanceRoot"
 "balance_root_format_01","0.0","0","config","0","children","","","BalanceConfig","config","dict","setting","","","",""
 "balance_root_format_01","0.1","0","grade_cuts","1","children","","","GradeCuts","grade_cuts","list","","","","",""
@@ -2235,7 +2235,6 @@
 "uistrings_format_01","0.1","0","en","1","cell","en","str","","","","","","","",""
 "uistrings_format_01","0.2","0","web_row_id","2","cell","web_row_id","str","","","","","","","",""
 "source_ui_strings","0","","","0","children","","","UIStrings","","dict","string_id","@ui_strings","","",""
-"source_script_ambient","0","","","0","record","","","","","","","","script_files_script_ambient","",""
 "steps_format_68","0","","","0","object","","","","","","","","","","Steps"
 "steps_format_68","0.0","0","seq","0","cell","seq","int","","","","","","","",""
 "steps_format_68","0.1","0","type","1","cell","type","str","","","","","","","",""

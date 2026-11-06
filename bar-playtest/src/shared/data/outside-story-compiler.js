@@ -2,10 +2,29 @@
    No game state, DOM, or effect execution. */
 (function(root){'use strict';
 function optionalPresentation(raw){
+ if(raw?.actor==='tv_announcer')return {actor:'tv'}; // Existing Unity TV speaker; web screen anchor keeps its ID.
  if(raw?.actor==='street-newspaper'&&raw.type==='choice'&&raw['web_fields.type']==='choice')return {type:'newspaper-choice',who:'신문 읽는 남자'};
  if(raw?.type==='effect'&&raw.arg==='gear_part')return {type:'newspaper-action',action:'grant-gear'};
  if(raw?.type==='effect'&&raw.arg==='machine_church_emblem')return {type:'believer-action',action:'grant-emblem'};
  return {};
+}
+
+// Use the same proximity definitions the Unity scene controller consumes.
+// The web view selects content; it does not own a second day/route rule set.
+function compileAmbientInteractions(catalog,views){
+ const result={};
+ for(const [key,ref]of Object.entries(views.outside||{})){
+  if(!key.startsWith('ambient/')||!['script/home','script/street'].includes(ref.source))continue;
+  const home=ref.source==='script/home',scene=catalog.read(ref.source).scenes.find(s=>s.id===ref.scene);
+  const points=catalog.read(home?'interact_points_home':'interact_points_outside');
+  const matches=points.flatMap(point=>(point.dialogue_flows||[]).filter(flow=>flow.scene_id===ref.scene&&point.activation_mode==='proximity').map(flow=>({point,flow})));
+  if(!matches.length)continue; // Forced encounters and inspectable posters are not ambient groups.
+  if(matches.length!==1||!scene)throw Error('주변 자동 대화 연결이 모호합니다: '+ref.scene);
+  const {point,flow}=matches[0];
+  if(point.action_type!=='dialogue'||scene.start_mode!=='auto'||!scene.steps.length||scene.steps.some(s=>s.type!=='say'))throw Error('기본 자동 대화 형식이 아닙니다: '+ref.scene);
+  result[ref.scene]={sourceId:point.source_id,scene:home?'home':'street',phase:point.phase,spawnWhen:point.spawn_when,interactWhen:point.interact_when,day:flow.day,when:flow.when,sceneWhen:scene.when,playType:flow.play_type,actors:[...new Set(scene.steps.map(s=>s.actor))]};
+ }
+ return result;
 }
 
 function compileNewspaperRoutes(catalog,views){
@@ -50,5 +69,5 @@ function compileNewspaperRoutes(catalog,views){
  const native=Object.values(routes);const join=native[0]?.filter(key=>native.every(route=>route.includes(key)))||[];
  return {parent:rawMenu.row_id,routes,join};
 }
-const api={optionalPresentation,compileNewspaperRoutes};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaStoryProjectionParts=api;
+const api={optionalPresentation,compileNewspaperRoutes,compileAmbientInteractions};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaStoryProjectionParts=api;
 })(typeof window==='undefined'?globalThis:window);

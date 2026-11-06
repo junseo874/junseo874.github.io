@@ -21,6 +21,7 @@ const suites = {
     'test_serve_carbonation_ui', 'test_pixel_pour', 'test_pour_overflow_ui', 'test-pour-input-recovery-ui'].map(game),
 };
 const choice = process.argv[2] || 'smoke';
+suites.ui.unshift(game('test-day3-samho-expression-ui'));
 suites.smoke.unshift(game('test-outside-choice-parity'));
 suites.ui.unshift(game('test-choice-live-text-ui'));
 suites.smoke.unshift(game('test-outside-choice-authoring'));
@@ -53,7 +54,9 @@ suites.outside.unshift(game('test-outside-newspaper'), game('test-outside-newspa
 suites.outside.unshift(game('test-outside-believer'), game('test-outside-believer-ui'));
 suites.outside.unshift(game('test-exterior-notion-sync'));
 suites.outside.unshift(game('test-home-tv-power-ui'));
+suites.outside.unshift(game('test-ambient-native-csv'));
 suites.outside.unshift(game('test-engine-world-layout'),game('test-engine-world-layout-ui'));
+suites.outside.unshift(game('test-street-effect-composition-ui'));
 suites.smoke.unshift(game('test-outside-dialogue-editor'));
 suites.ui.unshift(game('test-outside-dialogue-editor-ui'));
 if (choice === '--list') {

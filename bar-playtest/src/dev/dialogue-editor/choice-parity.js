@@ -1,5 +1,5 @@
 /* Static next-dialogue audit, not a Unity simulation. Unknown native actions
- * are reported as unverified, never guessed. Web-only saves remain possible. */
+ * are reported as unverified, never guessed. Divergent saves are blocked. */
 (function(root){'use strict';
 const clean=v=>v==='\\N'||v==='\\E'?'':v||'';
 function compare(m,result){
@@ -12,6 +12,10 @@ function compare(m,result){
   const step=m.row(cfg.stepId),all=m.choices(cfg.stepId).slice().sort((a,b)=>+a.seq-+b.seq);
   const native=step['web_fields.type'],label=step.context+' #'+step.seq;
   if(native==='editor-choice'){warnings.push(label+' · 새 선택지 장면: 현재 Unity는 editor-choice 명령을 읽지 못합니다.');continue;}
+  // These existing Unity handlers read the CSV options and their result_steps.
+  // Copy/conditions may change; replacing their action routes still needs review.
+  const csvHandler=native==='thug-choice'||native==='shop-choice'&&['greeting','allowance'].includes(step['web_fields.stage']);
+  if(csvHandler){const original=m.menuOutcomes(step);if(original.length===cfg.active.length&&original.every((o,i)=>o.row?.row_id===cfg.active[i]&&o.route===cfg.routes[cfg.active[i]]))continue;}
   if(native!=='choice'&&native!==''){warnings.push(label+' · '+native+'는 엔진의 사건 처리기가 선택지를 구성합니다. 활성 목록·후속 동작의 동일성은 확인되지 않았습니다.');continue;}
   if(all.map(o=>o.row_id).join('|')!==cfg.active.join('|'))warnings.push(label+' · 엔진 CSV의 선택지 목록/순서와 웹 활성 목록이 다릅니다.');
   const tail=(children.get(step.parent_id)||[]).filter(r=>+r.seq>+step.seq);

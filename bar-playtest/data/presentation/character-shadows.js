@@ -3,7 +3,7 @@
   "sources": [
     {
       "file": "Assets/01.Game/01.Scenes/OutSide.unity",
-      "sha256": "47dd517d329ebc0f98d7a1f3a3f9fc09a412751ddaeaeec69ea6493b9f177401"
+      "sha256": "2c7b33d38f3ad14eece054e99c0fa6d546e4a0e752a524d818cae78165112667"
     },
     {
       "file": "Assets/01.Game/03.Content/03.Vfx/02.Materials/M_OutsideCharacterShadow.mat",
@@ -23,7 +23,7 @@
     },
     {
       "file": "Assets/01.Game/02.Scripts/05.Presentation/04.Vfx/OutsideGround/CharacterSpriteLighting.cs",
-      "sha256": "deb0f607d7014f56bf1abf8d22d328bf6d9cddfce63e74680843561b8ae34511"
+      "sha256": "19c18072eb9f8d4b92d01575de1595fe107f7195d87449c322757f9de362984b"
     },
     {
       "file": "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_OutsideCharacterShadow.shader",
@@ -50,6 +50,36 @@
       0.025,
       1
     ]
+  },
+  "lighting": {
+    "shadeColor": [
+      0.32,
+      0.3,
+      0.45
+    ],
+    "ambientDirection": [
+      0.35,
+      1
+    ],
+    "rimColor": [
+      1,
+      0.85,
+      0.7
+    ],
+    "groundOcclusion": 0.35,
+    "occlusionHeight": 0.45,
+    "sideShadow": 0.4,
+    "sideShadowWidth": 2,
+    "ambientSideShadow": 0.4,
+    "rimIntensity": 0.4,
+    "rimWidth": 1,
+    "rimUsesLightColor": 0.75,
+    "rimFocus": 2,
+    "rimDistanceFalloff": 1.5,
+    "rimGlow": 0.1,
+    "rimGlowWidth": 1,
+    "rimFullInfluence": 0.6,
+    "transitionSeconds": 0.3
   },
   "receivers": [
     {
@@ -139,8 +169,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 12.39,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -169,8 +199,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 12.39,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -269,8 +299,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 1.73,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.14609292,
         0.27593562,
@@ -299,8 +329,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 12.39,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -364,8 +394,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 12.39,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -394,8 +424,8 @@
       "active": true,
       "type": 1,
       "radius": 3.5,
-      "priority": 1,
-      "intensity": 12.39,
+      "priority": 0.05,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,

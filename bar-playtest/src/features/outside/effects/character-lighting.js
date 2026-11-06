@@ -2,7 +2,7 @@
  * OutSide.unity / CharacterSpriteLighting.cs / SH_CharacterSpriteLit.shader.
  * Native-frame body shading + directional rim; not an interaction outline. */
 (function(W){'use strict';
-const config=Object.freeze({shadeColor:[.32,.3,.45],groundOcclusion:.35,occlusionHeight:.45,sideShadow:.4,sideShadowWidth:2,ambientDirection:[.35,1],ambientSideShadow:.4,rimIntensity:1.2,rimWidth:1,rimUsesLightColor:.75,rimColor:[1,.85,.7],rimFocus:2,rimDistanceFalloff:1.5,rimGlow:.6,rimGlowWidth:3,rimFullInfluence:.6,transitionSeconds:.3});
+const config=Object.freeze({...W.LUNA_CHARACTER_SHADOWS.lighting});
 const states=new WeakMap(),clamp=n=>Math.max(0,Math.min(1,n));
 function select(foot,lights,current){
  const influence=l=>W.LunaCharacterShadows.influence(foot,l);

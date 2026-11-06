@@ -103,6 +103,10 @@ function spillFrames(image) {
   if (spillCache.has(image)) return spillCache.get(image);
   const raw = pixels(image), sp = D.parentSprite, left = D.parent.x - sp.w * sp.pivot.x / sp.ppu, top = D.parent.y + sp.h * (1 - sp.pivot.y) / sp.ppu;
   const frames = D.spills.map(light => {
+    // Keep retained flicker groups, but use current scene energy/geometry for
+    // their surviving Light2D spill volumes after the lighting rebalance.
+    const current=[...(W.LUNA_SHADOW_LIGHTING?.casters||[]),...(W.LUNA_SHADOW_LIGHTING?.illumination||[])].find(l=>l.id===light.id);
+    if(current)light={...light,...current};
     const points = light.points.map(([x, y]) => [(x - left) * sp.ppu, (top - y) * sp.ppu]), falloff = light.falloff * sp.ppu;
     const x = Math.max(0, Math.floor(Math.min(...points.map(p => p[0])) - falloff)), y = Math.max(0, Math.floor(Math.min(...points.map(p => p[1])) - falloff));
     const w = Math.min(raw.width, Math.ceil(Math.max(...points.map(p => p[0])) + falloff)) - x, h = Math.min(raw.height, Math.ceil(Math.max(...points.map(p => p[1])) + falloff)) - y;

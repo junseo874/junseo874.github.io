@@ -6,7 +6,7 @@ const people=[{id:'resident-left',name:'빌딩 주민 1',kind:'M2',x:-18.8,y:9.3
 // Preserve the old silhouettes and idle motion, without dialogue identities/triggers.
 const dummies=[{id:'silent-resident-left',kind:'M2',x:-14.9,y:7.61,railY:7.86,faces:'silent-resident-right'},{id:'silent-resident-right',kind:'W1',x:-14.22,y:7.61,railY:7.86,faces:'silent-resident-left'}];
 const allPeople=[...people,...dummies],actor=id=>people.find(p=>p.id===id);
-function visible(m){return !m.qa&&m.scene==='street'&&m.config.day===0&&m.config.flow==='out';}
+function visible(m){return !m.qa&&W.LunaOutsideContent.present(m,W.LunaOutsideContent.events.find(e=>e.id===id));}
 function onScreen(cam){const h=cam.w*720/1280;return people.every(p=>p.x-.18>cam.x-cam.w/2&&p.x+.18<cam.x+cam.w/2&&p.top+.9<cam.y+h/2&&railY>cam.y-h/2);}
 function tickView(m,cam){if(!visible(m)||m.paused||m.transition||m.encounter||m.story.blocking||m.playedAmbient.has(id))return;
  if(!(m.ride&&!m.ride.call||m.level===1)||!onScreen(cam))return;

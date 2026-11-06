@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-07",
+  "suites": {
+    "smoke": {
+      "total": 42,
+      "passed": 39,
+      "failed": [
+        {
+          "file": "bar-playtest/tests/test-day3-notion-script.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 0
+        },
+        {
+          "file": "bar-playtest/tests/test-latest-story-timings.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 0
+        },
+        {
+          "file": "bar-playtest/tests/test-kihyun-story-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 18
+        }
+      ]
+    },
+    "outside": {
+      "total": 75,
+      "passed": 61,
+      "failed": [
+        {
+          "file": "bar-playtest/tests/test-corridor-birds-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 8
+        },
+        {
+          "file": "bar-playtest/tests/test-engine-barrel-fire.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 0
+        },
+        {
+          "file": "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 6
+        },
+        {
+          "file": "bar-playtest/tests/test-day2-neighborhood-gates-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        },
+        {
+          "file": "bar-playtest/tests/test-outside-discovery-stability-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        },
+        {
+          "file": "bar-playtest/tests/test-outside-npc-animation.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 0
+        },
+        {
+          "file": "bar-playtest/tests/test-gang-wild-dog-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        },
+        {
+          "file": "bar-playtest/tests/test-neighborhood-events-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 7
+        },
+        {
+          "file": "bar-playtest/tests/test-neighborhood-staging-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        },
+        {
+          "file": "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 34
+        },
+        {
+          "file": "bar-playtest/tests/test-home-art-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 7
+        },
+        {
+          "file": "bar-playtest/tests/test-home-weather-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 6
+        },
+        {
+          "file": "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 6
+        },
+        {
+          "file": "bar-playtest/tests/test-lift-right-boundary-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        }
+      ]
+    },
+    "ui": {
+      "total": 45,
+      "passed": 44,
+      "failed": [
+        {
+          "file": "bar-playtest/tests/test-generated-art-ui.cjs",
+          "code": 1,
+          "signal": null,
+          "timedOut": false,
+          "seconds": 5
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Effect composition, engine lighting/atmosphere snapshots, character-light isolation, shadows, fog, CRT, puddle motion and render-budget checks passed.",
+    "UI generated-art failure reproduced with pre-change effect files.",
+    "Outside UI placement/weather/camera failures and smoke Kihyun failure reproduced with pre-change effect files.",
+    "Outside NPC animation unit test does not load modified effects; it lacks the current LunaOutsideContent dependency.",
+    "Fire source hash failure concerns ProjectSettings.asset; actual fire shaders/material/art unchanged and color space still linear.",
+    "Smoke story data assertions do not execute the modified rendering modules.",
+    "Concurrent dialogue/data edits were retained.",
+    "Engine/source-art files remain read-only."
+  ],
+  "captures": [
+    "before.png",
+    "bar.png",
+    "restaurant.png",
+    "camp.png",
+    "corridor.png"
+  ]
+}

@@ -2,7 +2,7 @@
 (function(W){W.LUNA_SHADOW_LIGHTING={
   "source": {
     "file": "Assets/01.Game/01.Scenes/OutSide.unity",
-    "sha256": "5efe99a11fcff63a1ac55168416051b924768577731e456850581b02c37eb186"
+    "sha256": "2c7b33d38f3ad14eece054e99c0fa6d546e4a0e752a524d818cae78165112667"
   },
   "casters": [
     {
@@ -15,7 +15,7 @@
         "Atmospheric Light",
         "Atmospheric Light (8)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -90,7 +90,7 @@
         "Atmospheric Light",
         "Atmospheric Light (1)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -223,12 +223,12 @@
           0.9242444999999999
         ],
         [
-          -7.337910934,
-          -0.20979505999999998
+          -7.3234942400000005,
+          -0.8556135
         ],
         [
-          -6.7157057,
-          -0.022335800000000017
+          -6.6473077,
+          -0.45426244
         ],
         [
           -7.39378576,
@@ -249,7 +249,7 @@
         "Atmospheric Light",
         "Atmospheric Light (2)"
       ],
-      "intensity": 1.73,
+      "intensity": 3,
       "color": [
         0.14609292,
         0.27593562,
@@ -288,7 +288,7 @@
         "Atmospheric Light",
         "Atmospheric Light (7)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -443,7 +443,7 @@
         "Atmospheric Light",
         "Atmospheric Light (6)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -506,7 +506,7 @@
         "Atmospheric Light",
         "Atmospheric Light (5)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -631,19 +631,19 @@
       "falloff": 0.25,
       "points": [
         [
-          -6.336571750000001,
+          -6.3455717499999995,
           -0.57103971
         ],
         [
-          -6.4014607,
+          -6.4104607,
           -0.56622133
         ],
         [
-          -6.39942366,
+          -6.4084236599999995,
           -0.6157024799999999
         ],
         [
-          -6.334385930000001,
+          -6.34338593,
           -0.61186764
         ]
       ],
@@ -660,7 +660,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X-0.4_Y0.0_03"
       ],
-      "intensity": 15.33,
+      "intensity": 3,
       "color": [
         0.5283019,
         0.23951139,
@@ -736,7 +736,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X2.2_Y-0.1_05"
       ],
-      "intensity": 13.6,
+      "intensity": 7,
       "color": [
         0.8207547,
         0.059594017,
@@ -774,7 +774,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X-1.3_Y-0.4_02"
       ],
-      "intensity": 13.6,
+      "intensity": 3,
       "color": [
         0.8113208,
         0.095674604,
@@ -974,7 +974,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X3.1_Y0.9_08"
       ],
-      "intensity": 6.97,
+      "intensity": 7,
       "color": [
         0.14070843,
         0.7211022,
@@ -1012,7 +1012,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X-0.1_Y-0.2_01"
       ],
-      "intensity": 13.6,
+      "intensity": 3,
       "color": [
         0.83137256,
         0.19215682,
@@ -1087,7 +1087,7 @@
         "Atmospheric Light",
         "Atmospheric Light (9)"
       ],
-      "intensity": 12.39,
+      "intensity": 3,
       "color": [
         0.3915094,
         0.55780506,
@@ -1205,7 +1205,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X2.2_Y-0.1_01"
       ],
-      "intensity": 13.6,
+      "intensity": 7,
       "color": [
         0.8207547,
         0.059594017,
@@ -1243,7 +1243,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X1.8_Y-0.1_04"
       ],
-      "intensity": 13.13,
+      "intensity": 7,
       "color": [
         0.1280868,
         0.074509814,
@@ -1319,7 +1319,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X0.2_Y-0.4_05"
       ],
-      "intensity": 7.2,
+      "intensity": 3,
       "color": [
         0.7735849,
         0.38018355,
@@ -1395,7 +1395,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X3.2_Y-0.1_02"
       ],
-      "intensity": 12.97,
+      "intensity": 7,
       "color": [
         0.16862746,
         0.41176474,
@@ -1553,7 +1553,7 @@
         "Light_Sprite_X0.9_Y-0.8_07",
         "Light_Freeform_X1.0_Y-0.6_02"
       ],
-      "intensity": 13.57,
+      "intensity": 3,
       "color": [
         0.81960785,
         0.24820589,
@@ -1594,7 +1594,7 @@
         "Atmospheric Light",
         "Atmospheric Light (3)"
       ],
-      "intensity": 2.94,
+      "intensity": 3,
       "color": [
         0.1715023,
         0.383768,
@@ -1670,7 +1670,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X3.2_Y-0.3_03"
       ],
-      "intensity": 2.51,
+      "intensity": 7,
       "color": [
         0.16862746,
         0.41176474,
@@ -1708,7 +1708,7 @@
         "Light_Sprite_X0.8_Y0.6_14",
         "Light_Freeform_X1.3_Y0.1_01"
       ],
-      "intensity": 11.69,
+      "intensity": 3,
       "color": [
         1,
         0.40945286,
@@ -1745,7 +1745,7 @@
         "Atmospheric Light",
         "Atmospheric Light"
       ],
-      "intensity": 37.01,
+      "intensity": 3,
       "color": [
         0.12459949,
         0.29640388,
@@ -1949,7 +1949,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X1.7_Y0.9_06"
       ],
-      "intensity": 12.04,
+      "intensity": 7,
       "color": [
         0.8018868,
         0.1357704,
@@ -1995,7 +1995,7 @@
         "Light_Sprite_X2.5_Y0.5_11",
         "Light_Freeform_X2.8_Y0.9_07"
       ],
-      "intensity": 7.69,
+      "intensity": 7,
       "color": [
         1,
         0.22497252,
@@ -2113,7 +2113,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X0.4_Y-0.5_04"
       ],
-      "intensity": 7.2,
+      "intensity": 3,
       "color": [
         0.7735849,
         0.38018355,
@@ -2227,7 +2227,7 @@
         "Light_Sprite_X0.6_Y-0.5_06",
         "Light_Freeform_X0.5_Y-0.5_01"
       ],
-      "intensity": 7,
+      "intensity": 3,
       "color": [
         0.7811914,
         0.33374867,
@@ -2320,67 +2320,67 @@
       "falloff": 0.12,
       "points": [
         [
-          -6.560783440000001,
+          -6.56978344,
           -0.92706219
         ],
         [
-          -6.554617,
+          -6.563617,
           -0.90042779
         ],
         [
-          -6.557150900000001,
+          -6.5661509,
           -0.849893185
         ],
         [
-          -6.49370485,
+          -6.50270485,
           -0.81074557
         ],
         [
-          -6.435658500000001,
+          -6.4446585,
           -0.85259298
         ],
         [
-          -6.35602814,
+          -6.36502814,
           -0.85623947
         ],
         [
-          -6.338625970000001,
+          -6.34762597,
           -0.67786196
         ],
         [
-          -6.486533700000001,
+          -6.4955337,
           -0.67786196
         ],
         [
-          -6.5271793,
+          -6.5361793,
           -0.7483901709999999
         ],
         [
-          -6.609789900000001,
+          -6.6187899,
           -0.7764671169999999
         ],
         [
-          -6.64396053,
+          -6.65296053,
           -0.733956548214
         ],
         [
-          -6.670385420000001,
+          -6.67938542,
           -0.644993576
         ],
         [
-          -6.788007800000001,
+          -6.7970078,
           -0.644283685
         ],
         [
-          -6.827508030000001,
+          -6.83650803,
           -0.80395344
         ],
         [
-          -6.776487400000001,
+          -6.7854874,
           -0.81137321
         ],
         [
-          -6.7353025,
+          -6.7443025,
           -0.87847147
         ]
       ],
@@ -2511,7 +2511,7 @@
         "Light_Sprite_X1.4_Y-0.7_08",
         "Light_Freeform_X1.5_Y-0.6_01"
       ],
-      "intensity": 7.41,
+      "intensity": 3,
       "color": [
         0.16470587,
         0.33688867,
@@ -2603,7 +2603,7 @@
         "Light_Sprite_X-0.5_Y-0.3_10",
         "Light_Freeform_X0.7_Y-0.2_06"
       ],
-      "intensity": 7.2,
+      "intensity": 3,
       "color": [
         0.16470587,
         0.77254903,
@@ -2682,7 +2682,7 @@
         "Atmospheric Light",
         "Atmospheric Light (4)"
       ],
-      "intensity": 2.94,
+      "intensity": 3,
       "color": [
         0.1715023,
         0.383768,

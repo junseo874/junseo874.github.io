@@ -16,7 +16,10 @@ const {compileNewspaperRoutes}=require('../src/shared/data/outside-story-compile
  m.setMenuField(q,0,'route','end');check=await m.validate();assert(check.warnings.some(x=>x.includes('웹: 종료')&&x.includes('steps_shared_newspaper_wrong')));
  m.setMenuField(q,0,'route','native:newspaper-right');assert((await m.validate()).warnings.some(x=>x.includes('steps_shared_newspaper_right')&&x.includes('steps_shared_newspaper_wrong')));
  m.removeMenuOption(q,m.menuConfig(q).active[1]);assert((await m.validate()).warnings.some(x=>x.includes('목록/순서')));
- const menu=m.addMenu('believer/intro',1);assert((await m.validate()).warnings.some(x=>x.includes('editor-choice')));
+ const fresh=await new Model(s.files,s.presentation).init(),menu=fresh.addMenu('believer/intro',1);
+ assert.equal(menu.type,'choice');assert.equal(menu['web_fields.type'],'choice');assert.deepEqual((await fresh.validate()).errors,[]);
+ fresh.addOptionBranch(menu,0);assert((await fresh.validate()).errors.some(x=>x.includes('엔진과 다른 선택지 연결')));
+ assert((await m.validate()).errors.length,'divergence now blocks saving rather than allowing web-only publication');
  for(const [alter,expected]of [[s=>s.at(-1).when='flag.example',/무조건 goto/],[s=>s.push({...s.at(-1)}),/무조건 goto/],[s=>s.push({type:'say'}),/무조건 goto/],[s=>s.at(-1).scene_id='shared-newspaper-wrong',/Invalid newspaper goto/]]){
   const street=structuredClone(m.catalog.read('script/street'));alter(street.scenes.find(s=>s.id==='shared-newspaper-wrong').steps);
   assert.throws(()=>compileNewspaperRoutes({rawTables:m.catalog.rawTables,read:()=>street},m.views),expected);

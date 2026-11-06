@@ -51,7 +51,7 @@ function project(catalog,views,presentation){
  for(const key of ['prologue','day0Bar'])story[key]=lines(views.campaign[key]);
  const outsideChoices=(catalog.rawTables.get('StreetChoices')||[]).filter(r=>['script/street','script/home'].includes(r.dataset_id)).map(r=>Object.fromEntries(['row_id','parent_id','id','text.ko','text.en','when','lock_reason.ko'].map(k=>[k,decode(r[k])])));
  const outsideChoiceEdits=Object.fromEntries(Object.entries(views.outsideChoiceEdits||{}).map(([key,cfg])=>{const r=records.get(cfg.stepId);return[key,{...cfg,prompt:{text:decode(r?.['text.ko'])||'',actor:decode(r?.actor),...(cfg.who?{who:cfg.who}:{})}}];}));
- return{data:{...presentation,tables,newspaperRoutes:adapters.compileNewspaperRoutes(catalog,views),outsideChoices,outsideChoiceEdits,sharedStory:Object.fromEntries(Object.entries(views.outside||{}).map(([id,ref])=>[id,lines(ref)]))},story};
+ return{data:{...presentation,tables,outsideAmbient:adapters.compileAmbientInteractions(catalog,views),newspaperRoutes:adapters.compileNewspaperRoutes(catalog,views),outsideChoices,outsideChoiceEdits,sharedStory:Object.fromEntries(Object.entries(views.outside||{}).map(([id,ref])=>[id,lines(ref)]))},story};
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={project,optionalPresentation};
 else root.LunaRuntimeProjection={project,optionalPresentation};

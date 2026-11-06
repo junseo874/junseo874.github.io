@@ -68,7 +68,13 @@ class Model extends Base.Model{
    if(change.key==='when')try{for(const part of decode(row.when).split('&&'))conditions.condition(part,{money:1000,day:1,flags:{},affinity:{}});}catch(e){errors.push(e.message);}
    if(change.kind==='수정'&&row.parent_id===this.answerParent&&['source_order','seq'].includes(change.key))errors.push('정답·오답에 연결된 답변 순서는 고정입니다.');
    if((change.kind==='추가'?['text.ko','text.en']:change.key?.startsWith('text.')?[change.key]:[]).some(key=>/[<>]/.test(decode(row[key]))))errors.push('외부 대사에는 아직 텍스트 효과 태그를 저장할 수 없습니다. 일반 텍스트를 사용하세요.');
-  }errors.push(...this.validateMenus());const warnings=errors.length?[]:(browser?root.LunaChoiceParity:require('./choice-parity.js')).compare(this,result);return{errors:[...new Set(errors)],warnings,result};
+  }
+  for(const row of [...this.tables.steps,...this.tables.street_choices])errors.push(...Base.engineExpressionErrors(row,baseline.get(row.row_id)));
+  for(const row of this.tables.steps)if(row['web_fields.type']==='editor-choice')errors.push('editor-choice는 엔진 미지원 타입입니다. 기존 choice 구조를 사용하세요.');
+  errors.push(...this.validateMenus());const warnings=errors.length?[]:(browser?root.LunaChoiceParity:require('./choice-parity.js')).compare(this,result);
+  // A warning is not permission to publish different branches to the engine.
+  for(const warning of warnings)errors.push('엔진과 다른 선택지 연결은 저장할 수 없습니다. 기존 구조로 연결하거나 변경 승인을 요청하세요. '+warning);
+  return{errors:[...new Set(errors)],warnings,result};
  }
 }
 (browser?root.LunaOutsideChoiceModel:require('./outside-choice-model.js')).install(Model);

@@ -74,10 +74,24 @@ function paintSprite(ctx,key,image,sp,width,height){
  ctx.drawImage(canvas,sp.x,sp.y,sp.w,sp.h,-width*sp.pivot.x,-height*(1-sp.pivot.y),width,height);
  ctx.restore();
 }
+// Rebuild road illumination in the actual floor's native frame. These three
+// receivers previously included the retired +13px storefront translation.
+function align(data){
+ const floor=data.scenes.street.nodes.find(n=>n.name==='1F Floor');if(!floor)return;
+ const lights=[...(W.LUNA_SHADOW_LIGHTING?.casters||[]),...(W.LUNA_SHADOW_LIGHTING?.illumination||[])],sp=floor.sprite;
+ const left=floor.x-sp.w*sp.pivot.x/sp.ppu*floor.sx,top=floor.y+sp.h*(1-sp.pivot.y)/sp.ppu*floor.sy;
+ for(const r of regions.filter(r=>r.target==='1F Floor')){
+  const light=lights.find(l=>l.name===r.source);if(!light)continue;
+  const points=light.points.map(([x,y])=>[(x-left)*sp.ppu/floor.sx,(top-y)*sp.ppu/floor.sy]);
+  const dx=Math.min(...points.map(p=>p[0]))-Math.min(...r.points.map(p=>p[0])),dy=Math.min(...points.map(p=>p[1]))-Math.min(...r.points.map(p=>p[1]));
+  const b=receivers[r.id];Object.assign(b,{left:Math.floor(b.left+dx),right:Math.ceil(b.right+dx),top:Math.floor(b.top+dy),bottom:Math.ceil(b.bottom+dy)});
+  r.points=points;r.falloff=light.falloff*sp.ppu/Math.abs(floor.sx);
+ }
+}
 // Legacy scene import kept scale/position but discarded the five authored
 // CityUpLight rotations. These are backdrop rays, not surface/rim receivers.
 const cityRays=[{id:'161762518',rotation:.120970604},{id:'1008935154',rotation:-.118153786},{id:'1337494587',rotation:-.354118561},{id:'1454036149',rotation:-.190566422},{id:'1640816513',rotation:.071593061}];
 function apply(data){for(const ray of cityRays){const n=data.scenes.street.nodes.find(n=>n.id===ray.id&&n.name==='CityUpLight');if(n)n.lightRotation=ray.rotation;}return data;}
-W.LunaWallLighting={regions,receivers,coverage,render,paintSprite,cityRays,apply};
+W.LunaWallLighting={regions,receivers,coverage,render,paintSprite,cityRays,apply,align};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await page.locator('.updates-confirm').click();
   await page.evaluate(()=>{LunaFocusSettings.setEnabled(false);lunaCampaign.session.day=2;lunaCampaign.scene('night2','2일차 테라스','terrace',()=>{window.night2Finished=true;lunaCampaign.screen('developer');});});
   await page.waitForFunction(()=>lunaCampaign.view==='scene'&&!lunaCampaign.memoryTransition);
-  assert.equal(await page.locator('.terrace-characters').evaluate(el=>el.style.clipPath),'inset(0px 0px 39px)');
+  assert.equal(await page.locator('.terrace-characters').evaluate(el=>el.style.clipPath),'inset(0px)','Engine layout keeps the full sprite, without the legacy 39px crop');
   assert.equal(await page.evaluate(()=>lunaCampaign.dialog.rows.length),13);
   assert.equal(await page.evaluate(()=>lunaCampaign.dialog.rows[0].text),'다행히 말씀해 주신 재료는 다 구한 것 같아요.');
   await page.screenshot({path:'/private/tmp/notion-terrace-two-people.png'});
@@ -19,7 +19,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   assert(await page.evaluate(()=>lunaCampaign.dialog.johnnyView.g.seats.R?.actor==='tom'));
   await page.evaluate(()=>{const c=lunaCampaign;for(let i=0;i<100&&c.dialog?.background==='johnny-memory'&&!c.memoryTransition;i++){c.dialog.chars=1e5;c.next();}});
   await page.waitForFunction(()=>lunaCampaign.dialog?.background==='terrace'&&!lunaCampaign.memoryTransition);
-  assert.equal(await page.locator('.terrace-characters').evaluate(el=>el.style.clipPath),'inset(0px 0px 39px)');
+  assert.equal(await page.locator('.terrace-characters').evaluate(el=>el.style.clipPath),'inset(0px)','Full engine sprite is preserved after returning from the memory');
   assert(await page.evaluate(()=>barGame.progress.flags.campaign_observation));
   assert.equal(await page.evaluate(()=>lunaCampaign.dialog.rows[lunaCampaign.dialog.index].text),'...');
   await page.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.next();});

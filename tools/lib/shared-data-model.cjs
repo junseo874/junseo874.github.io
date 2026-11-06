@@ -88,7 +88,7 @@ function mergeWeb(catalog,data,story,outside={}){
  };
  for(const[key,rows]of Object.entries(outside)){
   let source='script/street',id=sceneMap[key]?.[0]||key.slice(8),branch=sceneMap[key]?.[1];
-  if(key.startsWith('ambient/')){if(values.get('script/ambient').scenes.some(s=>s.id===id))source='script/ambient';}
+  if(key.startsWith('ambient/')){if(values.get('script/home').scenes.some(s=>s.id===id))source='script/home';}
   else if(!sceneMap[key])id='shared-'+key.replaceAll('/','-');
   const group=values.get(source);let scene=group.scenes.find(s=>s.id===id);
   if(!scene){scene={id,day:0,phase:'street',seq:group.scenes.length+1,start_mode:'manual',title:id,steps:[]};group.scenes.push(scene);}

@@ -155,6 +155,12 @@
         }
         if (this.campaignStep?.(s)) return;
         if (s.type === 'say' || s.type === 'order' && this.text(s)) {
+          // Match BarStoryPresenter.ShowSayAsync: a say expression stays on
+          // the actor until their next explicit expression or re-entry.
+          if (s.type === 'say' && s.arg) {
+            const guest = Object.values(this.seats).find(guest => guest?.actor === s.actor);
+            if (guest) guest.expression = s.arg;
+          }
           this.dialogue = this.makeLine(s.actor, this.text(s), s.dialogue_id, s.arg);
           this.dialogue.step = s;
           root.LunaStoryNotices?.dialogueStarted(this.progress, this.dialogue);

@@ -9,6 +9,16 @@ const paths={steps:'story/steps.csv',bar_choices:'story/bar_choices.csv',bar_cho
 const clone=x=>JSON.parse(JSON.stringify(x)),empty=v=>v==null||v===''||v==='\\N',decode=v=>empty(v)?'':v==='\\E'?'':v;
 const csv=(header,rows)=>[header,...rows.map(r=>header.map(k=>r[k]??''))].map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\n')+'\n';
 const uid=()=> 'editor_'+(globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'_'+Math.random().toString(36).slice(2)).replaceAll('-','');
+// Editing must not introduce semantics absent from the current Unity ConditionUtil.
+// Existing unsupported source rows remain visible for explicit user decisions.
+function engineExpressionErrors(row,before){
+ const errors=[],changed=key=>!before||row[key]!==before[key];
+ if(changed('effects'))for(const clause of decode(row.effects).split(';').map(x=>x.trim()).filter(Boolean)){
+  if(!/^(?:flag\.\w+\s*=\s*(?:true|false)|affinity\.\w+\s*(?:\+=|-=|=)\s*-?\d+|money\s*(?:\+=|-=)\s*\d+)$/.test(clause))errors.push('엔진이 지원하지 않는 효과입니다. 구조 변경은 승인 후 진행하세요: '+clause);
+ }
+ if(changed('when')&&/\b(?:reputation|phase|cocktail|alive|ordered_cocktail|served_cocktail)\b/.test(decode(row.when).replace(/"[^"]*"|'[^']*'/g,'')))errors.push('엔진이 지원하지 않는 조건 값입니다: '+row.when);
+ return errors;
+}
 class Model{
  constructor(files,presentation){this.files={...files};this.presentation=presentation;this.views=JSON.parse(files['web-views.json']);this.tables={};this.headers={};for(const [table,path]of Object.entries(paths)){this.tables[table]=Csv.parseRows(files[path],path);this.headers[table]=Csv.parseCsv(files[path])[0];}this.undoStack=[];this.redoStack=[];this.base=this.snapshot();}
  async init(){this.catalog=await Csv.load(p=>Promise.resolve(this.files[p]));this.projected=Projection.project(this.catalog,this.views,this.presentation);this.scenes=this.projected.data.tables.scenes.filter(s=>Number(s.day)>=0&&Number(s.day)<=3);return this;}
@@ -53,6 +63,10 @@ class Model{
   const files={...this.files,...this.output()},errors=[];let result;
   try{const catalog=await Csv.load(p=>Promise.resolve(files[p]));result=Projection.project(catalog,this.views,this.presentation);}catch(e){return {errors:[e.message]};}
   const ids=new Set(result.data.tables.scenes.map(s=>s.id));
+  const baseline=new Map([...this.base.tables.steps,...this.base.tables.bar_choices].map(r=>[r.row_id,r]));
+  for(const row of [...this.tables.steps,...this.tables.bar_choices])errors.push(...engineExpressionErrors(row,baseline.get(row.row_id)));
+  const supported=new Set(['say','enter','exit','effect','choice','order','craft','serve','end_part','timeline','tutorial','coaster','empty_glass','popup']);
+  for(const row of this.tables.steps)if((!baseline.has(row.row_id)||baseline.get(row.row_id).type!==row.type)&&!supported.has(row.type))errors.push('엔진 실행기가 지원하지 않는 대사 타입: '+row.type);
   for(const scene of this.scenes){const rows=this.rows(scene.id);for(const [index,r]of rows.entries()){
    const label=scene.day+'일차 '+(index+1)+'번';
    const ctx={day:Number(scene.day),money:1000,reputation:0,phase:'bar',flags:{},affinity:{},grade:'good',craft_grade:'good',final_grade:'good',order_match:true,cocktail:{id:'gin_tonic',abv:10},tags:[],ordered:'gin_tonic',served:'gin_tonic'};
@@ -69,5 +83,5 @@ class Model{
   return {errors:[...new Set(errors)],result};
  }
 }
-const api={Model,paths,csv,decode};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueEditorModel=api;
+const api={Model,paths,csv,decode,engineExpressionErrors};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueEditorModel=api;
 })(typeof window==='undefined'?globalThis:window);

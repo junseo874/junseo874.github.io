@@ -28102,19 +28102,19 @@
       "offset": 0
     },
     "ambient/outside_day0_store_passers": {
-      "source": "script/ambient",
+      "source": "script/street",
       "scene": "outside_day0_store_passers",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day0_building_residents": {
-      "source": "script/ambient",
+      "source": "script/street",
       "scene": "outside_day0_building_residents",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day0_port_pair": {
-      "source": "script/ambient",
+      "source": "script/street",
       "scene": "outside_day0_port_pair",
       "branch": null,
       "offset": 0
@@ -28132,25 +28132,25 @@
       "offset": 0
     },
     "ambient/outside_day0_tv_news1": {
-      "source": "script/ambient",
+      "source": "script/home",
       "scene": "outside_day0_tv_news1",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day1_tv_news2": {
-      "source": "script/ambient",
+      "source": "script/home",
       "scene": "outside_day1_tv_news2",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day1_commute_passers2": {
-      "source": "script/ambient",
+      "source": "script/street",
       "scene": "outside_day1_commute_passers2",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day2_commute_reopening": {
-      "source": "script/ambient",
+      "source": "script/street",
       "scene": "outside_day2_commute_reopening",
       "branch": null,
       "offset": 0

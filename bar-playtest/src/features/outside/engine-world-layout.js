@@ -37,7 +37,7 @@ function actorNodes(m,draw,ctx,position,images,glow){
  if(m.qa)return[];
  const result=[];m.engineActorViews=[];
  const capture=(sp,x,y,sx=1,sy=1,flip=false,alpha=1)=>{
-  const view={sp,x,y,sx,sy,flip,alpha,engineActor:sp.engineActor};m.engineActorViews.push(view);
+  const view={sp,x,y,sx,sy,flip,alpha,layer:sp.engineLayer??14,order:sp.engineOrder??0,engineActor:sp.engineActor};m.engineActorViews.push(view);
   result.push({id:'engine-actor-'+result.length,name:sp.lightingId||sp.engineActor?.role||'web-actor',layer:sp.engineLayer??14,order:sp.engineOrder??0,z:0,engineDraw:()=>draw(sp,x,y,sx,sy,flip,alpha)});
  };
  for(const p of W.LunaOutsideNeighborhood.poses(m))capture({...p.sp,lightingId:p.id,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??p.scale,p.sy??p.scale,p.flip,p.alpha);
@@ -130,6 +130,8 @@ function residence(){
 }
 function applyStreet(data){
  if(data.engineWorldVersion===source.version)return data;
+ const storefront=data.scenes.street.nodes.find(n=>n.name==='B_Fore_Building_1');
+ const previousStorefront=storefront&&{...storefront};
  for(const n of data.scenes.street.nodes){
   const e=node('street',n.id);if(!e)continue;
   // Story conditions, current animation sheets and web effect implementations
@@ -139,6 +141,18 @@ function applyStreet(data){
  }
  data.scenes.street.nodes=data.scenes.street.nodes.filter(n=>n.name!=='Elevator Connector');
  const nodes=data.scenes.street.nodes,building=nodes.find(n=>n.name==='residence-building'),rail=nodes.find(n=>n.name==='residence-railing');
+ // These cookies are web renderers attached to the storefront, so they have
+ // no numeric Unity renderer ID. Rebase them along with their receiver instead
+ // of leaving their old position and sorting layer behind the opaque building.
+ if(previousStorefront)for(const n of nodes.filter(n=>n.ancestry?.includes('StreetSigns'))){
+  const rx=storefront.sx/previousStorefront.sx,ry=storefront.sy/previousStorefront.sy;
+  Object.assign(n,{x:storefront.x+(n.x-previousStorefront.x)*rx,y:storefront.y+(n.y-previousStorefront.y)*ry,
+   sx:n.sx*rx,sy:n.sy*ry,layer:storefront.layer,order:storefront.order+.01,
+   engineNode:storefront.engineNode,placementSource:'web-child'});
+ }
+ if(storefront)nodes.push({...storefront,id:'street-storefront-scanlines',name:'street-storefront-scanlines',
+  ancestry:['StreetEffects'],order:storefront.order+.02,scanlinesOnly:true,scanReceiver:storefront.name,
+  placementSource:'web-child'});
  // The latest web barrel is split into back/flame/front, unlike the current
  // engine atlas. Keep the split children attached to its engine-aligned root.
  const back=nodes.find(n=>n.name==='B_Obects'),fire=W.LUNA_BARREL_FIRE;
@@ -150,13 +164,18 @@ function applyStreet(data){
  }
  if(building){
   const e=node('street','1151976387');
-  const oldLeft=building.x,oldTop=building.y;
+  const oldLeft=building.x,oldTop=building.y,oldScaleX=building.sx,oldScaleY=building.sy;
   transform(building,e,{size:true});
   if(rail)transform(rail,node('street','647539757'),{size:true});
   const left=building.x-building.sprite.w*building.sprite.pivot.x/100*building.sx;
   const top=building.y+building.sprite.h*(1-building.sprite.pivot.y)/100*building.sy;
-  for(const n of nodes.filter(n=>['residence-warm-light','residence-home-light'].includes(n.name))){n.x+=left-oldLeft;n.y+=top-oldTop;n.placementSource='web-building-child';n.engineNode=e.id;}
+  for(const n of nodes.filter(n=>['residence-warm-light','residence-home-light'].includes(n.name))){
+   const rx=building.sx/oldScaleX,ry=building.sy/oldScaleY;
+   Object.assign(n,{x:left+(n.x-oldLeft)*rx,y:top+(n.y-oldTop)*ry,sx:n.sx*rx,sy:n.sy*ry,
+    layer:building.layer,order:building.order+.01,placementSource:'web-building-child',engineNode:e.id});
+  }
  }
+ W.LunaWallLighting?.align(data);
  data.engineWorldVersion=source.version;return data;
 }
 function exportLayout(data){

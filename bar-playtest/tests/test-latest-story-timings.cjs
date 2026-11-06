@@ -11,7 +11,7 @@ const specs=[
  ['campaign_d3_bar','coaster','tom',null,'네. 지금 만들어 드릴까요?'],
  ['campaign_d3_bar','coaster','samho','루나, 나도 톰처럼 술 한 잔 줘!','뭐로 드릴까요?'],
  ['campaign_d3_bar','empty_glass','tom',null,'믿고 부탁하셨으니까요.'],
- ['campaign_d3_bar','empty_glass','samho','여기 있어요.',null]
+ ['campaign_d3_bar','empty_glass','samho','여기 있어요.','크.. 시원하네.']
 ];
 for(const [scene,type,actor,prev,next]of specs){const a=rows(scene),hits=a.filter(r=>r.type===type&&r.actor===actor);assert.equal(hits.length,1);const i=a.indexOf(hits[0]);if(prev)assert.equal(a[i-1]['text.ko'],prev);if(next)assert(a[i+1]['text.ko'].startsWith(next));}
 assert(!rows('campaign_d1_bar').some(r=>r.type==='coaster'&&r.actor==='chris'));
@@ -29,6 +29,12 @@ for(const answer of [1,2])for(const day of [0,1,2,3]){
   if(g.choice){g.choose(day===0?2:answer);continue;}
   if(g.dialogue){
    const text=g.dialogue.text,guest=a=>Object.values(g.seats).find(s=>s?.actor===a);
+   if(day===3&&text==='여기 있어요.')assert.equal(guest('samho').expression,'default');
+   if(day===3&&g.dialogue.actor==='samho'){
+    const drunk=['크.. 시원하네.','아이, 나를 뭘로 보고!','으음, 한 잔만 더! 딸꾹.','끅, 루나 안녕~...'].includes(text);
+    assert.equal(g.dialogue.expression,drunk?'drunk':'default');
+    assert.equal(guest('samho').expression,drunk?'drunk':'default');
+   }
    if(day===0&&text.startsWith('크으... 솜씨는')){assert.equal(guest('port').glassEmpty,true);empties.push('port');}
    if(day===2&&text==='크흐, 하! 이거 괜찮은데!'){assert.equal(guest('samho').glassEmpty,true);empties.push('samho');}
    if(day===3&&text.startsWith('정말 똑같잖아?'))assert.equal(guest('tom').glassEmpty,false);
