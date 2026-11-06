@@ -34,6 +34,7 @@ node tools/locate.cjs campaign --symbols
 | 외부 상태·이동·상호작용 | `features/outside/outside.js` |
 | 외부 화면·카메라·HUD·입력 | `features/outside/outside-view.js` |
 | 외부 사건·상점·대사 타이핑 | `features/outside/events/` |
+| 신문 NPC: 선택 → 공통 합류 → 기어 | `shared/data/outside-story-compiler.js`가 CSV의 선택 결과와 `goto`를 읽고, `events/newspaper-dialogue.js`가 그 경로의 대사를 재생한다. `events/newspaper-progress.js`는 지급·완료 상태, `events/outside-newspaper.js`는 거리 배치·상호작용을 소유한다(세 events 파일은 `features/outside/` 아래). |
 | 집 배치·상호작용 | `features/outside/home-*.js` |
 | 거리 조명·비·그림자·광고 차량 | `features/outside/effects/` |
 | 본편 화면 조율·입력 | `features/campaign/campaign.js` |

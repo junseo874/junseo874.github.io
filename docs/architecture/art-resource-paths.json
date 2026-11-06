@@ -1274,35 +1274,35 @@
       "from": "assets/cocktails/completed/table/beer.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "c06da1726cac09d5d7820861d5bf2aef12197dfaa43b90ae8ea695e8085d4ec1"
     },
     {
       "from": "assets/cocktails/completed/table/cosmopolitan.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "ddfbf6cfd05785ab51f2fedf91ba1514be895fb4947eb60ee859083a3ce69061"
     },
     {
       "from": "assets/cocktails/completed/table/dry_martini.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "0c85484bf77c3888dd8a040313031d1d0cdcf7325b37786d6c66aaa495199f5a"
     },
     {
       "from": "assets/cocktails/completed/table/screwdriver.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "1058d8e7320150772830fe084ed1fd95f44d3a8406b687ef6eb8c7f676342923"
     },
     {
       "from": "assets/cocktails/completed/table/tequila_sunrise.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "356d2c14943e581a4be46c265604e095d3340765c42c1aabbae8a1adefb0330a"
     },
     {
@@ -1328,17 +1328,17 @@
     },
     {
       "from": "assets/cocktails/static/cocktail-champagne.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",
-      "source": "00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",
-      "match": "bytes",
-      "sha256": "e5c212cf947255960821d68dd1b2791690d50fa6745ef0aca68ff1e5fad7f5d3"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "4ad890ceaab8483791fe515e589d6a8cf243501dfc6a009af59267d73eec9b06"
     },
     {
       "from": "assets/cocktails/static/cocktail-godfather.png",
-      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
-      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
-      "match": "bytes",
-      "sha256": "4a09bc34298f70a514442384630e96b7d5627edd6d71dbb931a4d704e865e86b"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "88f97af52eff1692fce7e4ea76243621bb52d6d09668cfea18dca7a1d1862e8b"
     },
     {
       "from": "assets/cocktails/static/cocktail-long-island.png",
@@ -1349,24 +1349,17 @@
     },
     {
       "from": "assets/cocktails/static/cocktail-red-wine.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/red_wine_final.png",
-      "source": "00.Dummy_Assets/01.Cocktail_Preview_Images/red_wine_final.png",
-      "match": "bytes",
-      "sha256": "e3c3b82730fdc945964099813b73801ee8098dd7ed59b9c12f48beeb854f5d88"
-    },
-    {
-      "from": "assets/cocktails/static/cocktail-whiskey-sour.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/whiskey_sour_final.png",
-      "source": "00.Dummy_Assets/01.Cocktail_Preview_Images/whiskey_sour_final.png",
-      "match": "bytes",
-      "sha256": "0c6b745cd1cbfaa253f814f18318358e32b8fa2ad50d4ff9beb302f6a175b01f"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "980a047d1467c0b08894f0bc59b176f15a65be134a86d734205bc09a75db3b58"
     },
     {
       "from": "assets/cocktails/static/recipe-cocktail-champagne.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/champagne_final.png",
-      "source": "00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/champagne_final.png",
-      "match": "bytes",
-      "sha256": "ea9fc497cca92ffca96ec93fee09cc1422c2c0382b5510899b501960d9227be7"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "4ad890ceaab8483791fe515e589d6a8cf243501dfc6a009af59267d73eec9b06"
     },
     {
       "from": "assets/cocktails/static/recipe-cocktail-long-island.png",
@@ -1377,30 +1370,23 @@
     },
     {
       "from": "assets/cocktails/static/recipe-cocktail-red-wine.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
-      "source": "00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
-      "match": "bytes",
-      "sha256": "5a0675fdfe65a78b1f06fae1ac214af28c8ca4c4fe4105adec94ceffaf5239e1"
-    },
-    {
-      "from": "assets/cocktails/static/recipe-cocktail-whiskey-sour.png",
-      "to": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
-      "source": "00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
-      "match": "bytes",
-      "sha256": "d9aacc3b236d96d36db636d953c59c8f8bf403f1893a943e294e8c77203e4c23"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "980a047d1467c0b08894f0bc59b176f15a65be134a86d734205bc09a75db3b58"
     },
     {
       "from": "assets/cocktails/static/table-cocktail-gin-fizz.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "97d585b5b19090e22c908fa76bc913876ed8176e77124bf9031e4dd459afea60"
     },
     {
       "from": "assets/cocktails/static/table-cocktail-gin-tonic.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "3b2b528bd88490013ba76d63d9097855bc39926a04f8b939d1cb439d9b481f0e"
     },
     {
@@ -1888,65 +1874,65 @@
     },
     {
       "from": "assets/outside/chris-home/Chrishouse1.png",
-      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse1.png",
-      "source": "02.Environments/03.Home/01.Sprites/Chrishouse1.png",
-      "match": "bytes",
-      "sha256": "76ddb63af901ee9c7ce622e1a8221a12242d9eb6eb1862bd1bb20a1ecaf33d1d"
+      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse.png",
+      "source": "02.Environments/03.Home/01.Sprites/Chrishouse.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "021329013fe5a8dd50448522d5498bd75a73af6b7abf098778996ddf8dcc64fe"
     },
     {
       "from": "assets/outside/chris-home/Chrishouse2.png",
-      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse2.png",
-      "source": "02.Environments/03.Home/01.Sprites/Chrishouse2.png",
-      "match": "bytes",
-      "sha256": "f1a7b199f44bda8ddf7f4f891ded60efc8783b246d0e44beb8a662a1d06f1b1d"
+      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse.png",
+      "source": "02.Environments/03.Home/01.Sprites/Chrishouse.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "021329013fe5a8dd50448522d5498bd75a73af6b7abf098778996ddf8dcc64fe"
     },
     {
       "from": "assets/outside/chris-home/Chrishouse_BG_City.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
       "source": "02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
-      "match": "bytes",
-      "sha256": "22596ac84b8a49d79de5652aadaed20ae5d5963981332b29cf81738434eac0d5"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "39a48f351a1d53781dbfed9d6cfd6dd18d47193af5cd96b90040ddfb3971b961"
     },
     {
       "from": "assets/outside/chris-home/Hanger.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png",
       "source": "02.Environments/03.Home/01.Sprites/Hanger.png",
-      "match": "bytes",
-      "sha256": "cd0635e2180fcab22756b7123ad622eec59c7911dd6c046db20a46f9ffc77a40"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "af62651a6d3cf2ecd09592f74760356b6b6e0451534ed0eaa1e29d98c6111d39"
     },
     {
       "from": "assets/outside/chris-home/IntractObjects_Bedding.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bedding.png",
       "source": "02.Environments/03.Home/01.Sprites/IntractObjects_Bedding.png",
-      "match": "bytes",
-      "sha256": "619e6ae098427b1042f33f4d2ed4d468b65fbf9467812a0daa3831b2fa7ae397"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "67924c5204c348d4379d372f063bc7761eded5e9e7a227c74e75a5bbdb658e2e"
     },
     {
       "from": "assets/outside/chris-home/IntractObjects_Herbpot.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png",
       "source": "02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png",
-      "match": "bytes",
-      "sha256": "67e6f97e4fab1d72444a3a95416c00378bf1cd8f062b1ccc2aee35785fa8d2bc"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "9bbe0f5f227352a7a92750c09b191218d9ba60cfa96cffc51e5cd5b7d8547c8f"
     },
     {
       "from": "assets/outside/chris-home/IntractObjects_TV.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV.png",
       "source": "02.Environments/03.Home/01.Sprites/IntractObjects_TV.png",
-      "match": "bytes",
-      "sha256": "93cafb825dd5782f38351fc8946b73aa75be6220f2aa06467494127cf659cf51"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "b6aecdd7cf62a9e2aa8f5eb2ef158216044f858470bb18e27cce3db938688a8c"
     },
     {
       "from": "assets/outside/chris-home/Room_Entrance.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Room_Entrance.png",
       "source": "02.Environments/03.Home/01.Sprites/Room_Entrance.png",
-      "match": "bytes",
-      "sha256": "67a3be7da118ce5d1c0224e5a76b95a69497dcf469ee143cf42806332b930ad2"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "aebf3c4851f8eb5849798dd972ff465a70c2f36e35aaf44d2895412b5d8b8d61"
     },
     {
       "from": "assets/outside/chris-home/Terrace_Entrance.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
       "source": "02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "7c052072db66af622b941cd48728d0c8717cbb3f6c65be33152b4dc718b6f25d"
     },
     {
@@ -2009,8 +1995,8 @@
       "from": "assets/outside/hanger-cd0635.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png",
       "source": "02.Environments/03.Home/01.Sprites/Hanger.png",
-      "match": "bytes",
-      "sha256": "cd0635e2180fcab22756b7123ad622eec59c7911dd6c046db20a46f9ffc77a40"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "af62651a6d3cf2ecd09592f74760356b6b6e0451534ed0eaa1e29d98c6111d39"
     },
     {
       "from": "assets/outside/intract-objects-e4adec.png",
@@ -2044,8 +2030,8 @@
       "from": "assets/outside/room-entrance-67a3be.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Room_Entrance.png",
       "source": "02.Environments/03.Home/01.Sprites/Room_Entrance.png",
-      "match": "bytes",
-      "sha256": "67a3be7da118ce5d1c0224e5a76b95a69497dcf469ee143cf42806332b930ad2"
+      "match": "supplied-update-2026-11-06",
+      "sha256": "aebf3c4851f8eb5849798dd972ff465a70c2f36e35aaf44d2895412b5d8b8d61"
     },
     {
       "from": "assets/outside/samho-dead-opning-sheet-755259.png",
@@ -2275,15 +2261,15 @@
       "from": "assets/outside/terrace-entrance-7c0520.png",
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
       "source": "02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
-      "match": "bytes",
+      "match": "supplied-update-2026-11-06",
       "sha256": "7c052072db66af622b941cd48728d0c8717cbb3f6c65be33152b4dc718b6f25d"
     },
     {
       "from": "assets/reference/previews/chris-home-fullshot.png",
-      "to": "assets/01.ArtResources/02.Environments/03.Home/chris_house_fullshot.png",
-      "source": "02.Environments/03.Home/chris_house_fullshot.png",
-      "match": "pixels",
-      "sha256": "5a56d0f4d511706a25c47e93bedb0197c699425f3dd87f47880100afcc2c2a58"
+      "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
+      "source": "02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "39a48f351a1d53781dbfed9d6cfd6dd18d47193af5cd96b90040ddfb3971b961"
     },
     {
       "from": "assets/serving/atlases/background.png",
@@ -3078,10 +3064,10 @@
     },
     {
       "from": "../assets/prototype/cocktail/C_3.png",
-      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
-      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
-      "match": "bytes",
-      "sha256": "4a09bc34298f70a514442384630e96b7d5627edd6d71dbb931a4d704e865e86b"
+      "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "source": "03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "match": "supplied-update-2026-11-06",
+      "sha256": "88f97af52eff1692fce7e4ea76243621bb52d6d09668cfea18dca7a1d1862e8b"
     },
     {
       "from": "../assets/prototype/cocktail/C_4.png",

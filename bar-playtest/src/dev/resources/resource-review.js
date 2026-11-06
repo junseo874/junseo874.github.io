@@ -61,7 +61,20 @@ const variantLaunch=(r,v=variantFor(r))=>({...v?.launch,...(!v?r.launch:{}),...(
 function variantControls(r,id){const v=variantFor(r);return v?'<label class="state-picker">표시 상태<select id="'+id+'">'+r.variants.map(x=>'<option value="'+E(x.id)+'" '+(x.id===v.id?'selected':'')+'>'+E(x.label)+'</option>').join('')+'</select></label>':'';}
 function syncVariantControls(d){const r=rows.find(r=>r.id===d.reviewId);if(r)variantSelections.set(r.id,d.variantId);$('#lab-state-controls').innerHTML=variantControls(r,'lab-state');const input=$('#inspect-state');if(input&&selected?.id===r?.id){input.value=d.variantId;$('#inspect-downloads').innerHTML=ResourceDownload.controls(r,d.variantId);const preview=$('.ui-preview img');if(preview&&ResourceLatest.isScreen(r))preview.src=ResourceLatest.screen(r,d.variantId);}}
 const count=r=>Math.max(1,...(r.layers||[]).map(l=>l.frames||1));
-function image(src){if(!src)return null;if(!cache.has(src)){const im=new Image();cache.set(src,im);im.onload=()=>{if(!redrawPending){redrawPending=true;requestAnimationFrame(()=>{redrawPending=false;drawThumbs();drawPreview();});}};im.onerror=()=>{if(selected?.layers?.some(l=>l.src===src))$('#preview-status').textContent='파일을 불러오지 못했습니다. 원본 경로를 확인해 주세요.';};im.src=src;}return cache.get(src);}
+function image(src){
+ if(!src)return null;
+ if(!cache.has(src)){
+  // A 4K image sequence must not retain hundreds of decoded 32 MB frames.
+  if(src.includes('/simchung_dark_flame_alpha_2160p60/')){
+   const frames=[...cache.keys()].filter(k=>k.includes('/simchung_dark_flame_alpha_2160p60/')&&!k.endsWith('_0000.png'));
+   while(frames.length>=4){const key=frames.shift(),old=cache.get(key);old.onload=old.onerror=null;old.src='';cache.delete(key);}
+  }
+  const im=new Image();cache.set(src,im);
+  im.onload=()=>{if(!redrawPending){redrawPending=true;requestAnimationFrame(()=>{redrawPending=false;drawThumbs();drawPreview();});}};
+  im.onerror=()=>{if(selected?.layers?.some(l=>l.src===src))$('#preview-status').textContent='파일을 불러오지 못했습니다. 원본 경로를 확인해 주세요.';};im.src=src;
+ }
+ return cache.get(src);
+}
 function geometry(l,n){if(l.rects){const f=l.rects[n%l.rects.length];return {src:f.src||l.src,x:f.x||0,y:f.y||0,w:f.w,h:f.h,ox:f.ox||0,oy:f.oy||0,cw:f.cw||f.w,ch:f.ch||f.h};}const im=image(l.src),cols=l.cols||l.frames||1,w=l.fw||l.w/cols||im?.naturalWidth/cols||1,h=l.fh||l.h||im?.naturalHeight||1;return{src:l.src,x:(l.sx||0)+n%cols*(l.dx||w),y:(l.sy||0)+Math.floor(n/cols)*(l.dy||h),w,h,ox:0,oy:0,cw:w,ch:h};}
 function paint(canvas,r,n,muted=new Set()){
  if(!canvas)return;const ctx=canvas.getContext('2d');let sw=r.stage?.[0]||1,sh=r.stage?.[1]||1;

@@ -21,4 +21,4 @@ assert.equal(D.sharedStory['neighborhood/repairPaid'][5].action,'repair');assert
 for(const key of ['intro','info/gang','info/coratech','info/chris'])assert(D.sharedStory['notion/'+key].every(r=>['luna','day2-corridor-thug'].includes(r.actor)));
 assert(D.sharedStory['notion/contract'].filter(r=>r.text).every(r=>['luna','contract-samho','contract-smuggler'].includes(r.actor)));
 assert.equal(D.sharedStory['believer/intro'].filter(r=>r.action==='grant-emblem').length,1);assert.equal(D.sharedStory['newspaper/common'].filter(r=>r.action==='grant-gear').length,1);
-console.log('EXTERIOR_NOTION_SYNC_OK: 60 source tables, text/order, actors, actions, terrace links and memory staging.');
+console.log('EXTERIOR_NOTION_SYNC_OK: Notion dialogue tables, text/order, actors, actions, terrace links and memory staging.');

@@ -59,11 +59,12 @@ const flags=m=>m.qa?state(m).flags:W.lunaCampaign?.active?(W.barGame.progress.fl
 function save(m,key){flags(m)[key]=true;const c=W.lunaCampaign;if(!m.qa&&c?.active&&c.session.carry){c.session.carry.flags??={};c.session.carry.flags[key]=true;}}
 const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m.level===1&&m.config.day===2&&m.config.flow==='in';
 const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
-const tx=m=>m.qa?.25:R.homeX+1.90; // In front of the next door, clear of Boobi’s box.
-const base=m=>m.qa?-.45:R.elevatorX+1.35;
-const thugY=m=>m.qa?-.7:R.upperY;
+const tx=m=>m.qa?.25:(W.LunaEngineWorld?.actorPoint('street',thug,'thug')?.x??R.homeX+1.90);
+const base=m=>m.qa?-.45:(W.LunaEngineWorld?.actorPoint('street',contract,'samho')?.x??R.elevatorX+2.05)-.7;
+const dealerBase=m=>m.qa?base(m):(W.LunaEngineWorld?.actorPoint('street',contract,'dealer')?.x??base(m));
+const thugY=m=>m.qa?-.7:(W.LunaEngineWorld?.actorPoint('street',thug,'thug')?.y??R.upperY);
 function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:anchor(m,thug).y,label:'불량배'}]:[];}
-const infoGreeting=[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}];
+const infoGreeting=[{type:'notion-choice',actor:thug,text:'왜, 물어볼 거라도 있어?',stage:'topic'}];
 function preview(m,t){return t.id===info?{id:info,rows:infoGreeting,alternatives:state(m).money>=50?Object.values(infoRows).map(rows=>({id:info,rows})):[]}:null;}
 function infoStart(m,target){m.story.beginRows(info,target,infoGreeting);return true;}
 function interact(m,t){return t.id===info&&infoStart(m,t);}
@@ -72,7 +73,7 @@ function start(m,kind=mode(m)){
  m.story.cancel();m.backgroundStory.cancel();W.outsidePlaytest?.clearInput();m.anim='idle';m.animTime=0;
  if(kind===info){save(m,'day2_thug_done');return infoStart(m,{id:info,x:tx(m),y:thugY(m)});}
  const x=kind===contract?base(m)+.7:tx(m),to=kind===contract?x+1.0:Math.min(m.x,x-.55),y=kind===contract?-.7:thugY(m);
- m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX:base(m),alpha:1,dealerAlpha:1,camera:{x:kind===contract?x+.2:(x+to)/2,y:y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y}};
+ m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX:dealerBase(m),alpha:1,dealerAlpha:1,camera:{x:kind===contract?x+.2:(x+to)/2,y:y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y}};
  m.facing=kind===contract?-1:1;m.updateNear();return true;
 }
 function runAction(m,row){const e=m.encounter;if(e?.kind!==contract)return false;e.stage=row.action;e.elapsed=0;e.actionX=row.action==='dealer-exit'?e.dealerX:e.npcX;if(row.action==='approach')e.camera={x:(e.npcX+m.x)/2,y:-.7+.65,w:4.8};return true;}
@@ -97,7 +98,7 @@ function tick(m,dt){let e=m.encounter;
 function choiceView(m){const line=m.story.speech?.line,money=Number(state(m).money)||0;return{label:'정보 구매',money,options:line.stage==='topic'?[{id:'info-gang',label:'갱에 대해서'},{id:'info-coratech',label:'코라테크에 대해서'},{id:'info-chris',label:'크리스에 대해서'},{id:'info-cancel',label:'대화 그만하기'}]:[{id:'info-pay',label:'네. (50원)',disabled:money<50,disabledReason:'돈이 부족합니다.'},{id:'info-cancel',label:'아니요.'}]};}
 function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)return false;
  if(id==='info-cancel'){m.story.cancel();return true;}
- if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'...맨입으로는 안 돼. 50원만 주면 알려 주지.',stage:'payment',topic:id.slice(5)}]);return true;}
+ if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'맨입으로는 나도 어렵고. 50원만 줘봐. 아는 만큼 알려주지.',stage:'payment',topic:id.slice(5)}]);return true;}
  if(id!=='info-pay'||sp.line.stage!=='payment'||!infoRows[sp.line.topic]||state(m).money<50)return false;
  const progress=state(m),before=progress.money;sp.choice=false;progress.money-=50;
  if(!m.qa){const c=W.lunaCampaign;if(c?.active&&c.session.carry)c.session.carry.money=progress.money;W.barGame.log('thug_information_purchase',{topic:sp.line.topic,price:50,before,after:progress.money});W.barGame.changed();}
@@ -110,12 +111,13 @@ function anchor(m,actor){const e=m.encounter;
 }
 function draw(m,sprite,ctx,position){
  const e=m.encounter;
- const idle=(kind,x,y,target,alpha=1)=>sprite(W.LunaOutsideAmbient.sprite(kind,m.time),x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,target),alpha);
- if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-.274,m.x);if(!m.qa)ctx.restore();}
+ const idle=(kind,x,y,target,alpha=1,event=thug,role='thug')=>{const sp=W.LunaOutsideAmbient.sprite(kind,m.time),flip=W.LunaOutsideAmbient.faceTarget(x,target);if(W.LunaEngineWorld&&!m.qa)W.LunaEngineWorld.drawActor(sprite,'street',event,role,sp,x,y,flip,alpha);else sprite(sp,x,y,1,1,flip,alpha);};
+ if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-(W.LunaEngineWorld&&!m.qa?0:.274),m.x);if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
-  const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:base(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
-  sprite(W.LunaSamhoAnimation.frame(m.time),x,-.7,1,1,W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),e?.kind===contract?e.alpha:1);
-  idle('M1',dx,-.94,stage==='dealer-exit'?dx-1:x,e?.kind===contract?e.dealerAlpha:1);
+  const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:dealerBase(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
+  const sp=W.LunaSamhoAnimation.frame(m.time),flip=W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),alpha=e?.kind===contract?e.alpha:1;
+  if(W.LunaEngineWorld&&!m.qa)W.LunaEngineWorld.drawActor(sprite,'street',contract,'samho',sp,x,-.7,flip,alpha);else sprite(sp,x,-.7,1,1,flip,alpha);
+  idle('M1',dx,W.LunaEngineWorld&&!m.qa?-.7:-.94,stage==='dealer-exit'?dx-1:x,e?.kind===contract?e.dealerAlpha:1,contract,'dealer');
  }
 }
 for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;

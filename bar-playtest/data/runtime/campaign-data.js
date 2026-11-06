@@ -39,7 +39,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "오늘부터 실전이다. 잘할 수 있지?",
-        "en": "오늘부터 실전이다. 잘할 수 있지?",
+        "en": "You're on the job for real today. Ready?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -57,7 +57,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "배운 만큼 해 보겠습니다.",
-        "en": "배운만큼 해보겠습니다.",
+        "en": "I'll put what I've learned into practice.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -75,7 +75,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "그래, 오늘 거래처에서 새로 받아 온 재료도 있으니까 잘 확인해 보고.",
-        "en": "그래, 오늘 거래처에서 새로 받아 온 재료도 있으니까 잘 확인해보고.",
+        "en": "Good. Have a look at the new ingredients our supplier brought in today, too.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -93,7 +93,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "생각했던 것만큼 선반이 가득 차진 않네요.",
-        "en": "생각했던 것만큼 선반이 가득 차진 않네요.",
+        "en": "The shelves aren't as full as I expected.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -111,7 +111,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "가득 차려면 좀 멀었지. 그나마 있는 것들도 소량이라 어쩔 수 없어.",
-        "en": "가득 차려면 좀 멀었지. 그나마 있는 것들도 소량이라 어쩔 수 없어.",
+        "en": "They won't be full for a while. We only got a little of everything.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -129,7 +129,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "요즘은 이런 재료를 취급하는 곳 자체가 없어서 있는 게 감지덕지지.",
-        "en": "요즘은 이런 재료를 취급하는 곳 자체가 없어서 있는 게 감지덕지지.",
+        "en": "Hardly anyone stocks this stuff anymore. We're lucky to have it at all.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -147,7 +147,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "술 재료가 구하기 어려운 거였군요? 몰랐어요.",
-        "en": "술 재료가 구하기 어려운 거였군요? 몰랐어요.",
+        "en": "I didn't realize cocktail ingredients were so hard to come by.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -165,7 +165,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아무튼 디스플레이에 추가해 뒀으니까 확인해 봐.\n오늘부터 메뉴에 추가되는 거 레시피 넣어 놨다.",
-        "en": "아무튼 디스플레이에 추가해 뒀으니까 확인해 봐.\n오늘부터 메뉴에 추가되는 거 레시피 넣어놨다.",
+        "en": "Anyway, check the display. I've added the recipes for today's new menu items.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -183,7 +183,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -201,7 +201,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "어제 재료가 없어서 못 가르쳐 준 게 있다.\n짧게 알려 줄 테니 병따개랑 맥주 하나 꺼내 봐.",
-        "en": "어제 재료가 없어서 못 가르쳐 준 게 있다.\n짧게 알려줄테니 병따개랑 맥주 하나 꺼내봐.",
+        "en": "We were missing an ingredient yesterday, so there's something I couldn't show you. Grab a bottle opener and a beer. This won't take long.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -237,7 +237,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그냥 맥주가 드시고 싶으신 거 아닌가요?",
-        "en": "그냥 맥주가 드시고 싶으신 거 아닌가요?",
+        "en": "Are you sure you don't just want a beer?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -255,7 +255,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 만들기나 해.",
-        "en": "... 만들기나 해.",
+        "en": "...Just pour it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -273,7 +273,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(맥주 한 잔...)",
-        "en": "(맥주 한 잔...)",
+        "en": "(One beer...)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -345,7 +345,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "여기 있어요.",
-        "en": "여기 있어요.",
+        "en": "Here you go.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -381,7 +381,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "나쁘지 않네, 잘했다.",
-        "en": "나쁘지 않네, 잘했다.",
+        "en": "Not bad. Nice work.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -399,7 +399,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(그냥 맥주가 마시고 싶었던 것 같은데.)",
-        "en": "(그냥 맥주가 마시고 싶었던 것 같은데.)",
+        "en": "(I think he just wanted a beer.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -417,7 +417,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그냥 뚜껑만 따고 따르면 되는데, 따로 배울 필요가 있었나요?",
-        "en": "그냥 뚜껑만 따고 따르면 되는데, 따로 배울 필요가 있었나요?",
+        "en": "All I did was open the bottle and pour. Did I need a lesson for that?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -435,7 +435,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "간단해도 도구 쓰는 법은 익혀 둬야지.\n맥주랑 합성 샴페인만큼 자주 나가는 술이 또 없어.",
-        "en": "간단해도 도구 쓰는 법은 익혀 둬야지.\n맥주랑 합성 샴페인만큼 자주 나가는 술이 또 없어.",
+        "en": "Simple or not, you need to know your tools. Nothing sells as often as beer and synthetic champagne.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -453,7 +453,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "이유가 있나요?",
-        "en": "이유가 있나요?",
+        "en": "Is there a reason?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -471,7 +471,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "이 동네에 비싼 술을 마실 만큼 형편 좋은 놈들이 살진 않거든.\n그래서 보통 싸고 빠르게 취할 수 있는 걸 찾는 경우가 많다. 알아둬.",
-        "en": "이 동네에 비싼 술을 마실 만큼 형편 좋은 놈들이 살진 않거든.\n그래서 보통 싸고 빠르게 취할 수 있는 걸 찾는 경우가 많다. 알아둬.",
+        "en": "People around here can't afford fancy drinks. Most want something cheap that'll get them drunk fast. Remember that.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -489,7 +489,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "남은 술집들도 대부분 공장에서 만든 병 칵테일만 따서 팔다 보니\n다른 걸 마셔 볼 기회도 별로 없고, 그러니까 익숙한 것만 마시는 거지.",
-        "en": "남은 술집들도 대부분 공장에서 만든 병 칵테일만 따서 팔다 보니\n다른 걸 마셔 볼 기회도 별로 없고, 그러니까 익숙한 것만 마시는 거지.",
+        "en": "Most of the bars left just crack open factory-bottled cocktails. People don't get to try much else, so they stick to what they know.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -507,7 +507,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "저도 술을 다양하게 즐길 수 있다는 건 여기 와서 처음 알았어요.",
-        "en": "저도 술을 다양하게 즐길 수 있다는 건 여기 와서 처음 알았어요.",
+        "en": "I didn't know there were so many ways to enjoy a drink until I came here.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -525,7 +525,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "이제라도 알았으면 됐다. 일할 준비는 다 됐지?",
-        "en": "이제라도 알았으면 됐다. 일 할 준비는 다 됐지?",
+        "en": "Well, now you know. Ready for work?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -543,7 +543,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -561,7 +561,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "좋다, 나중에 보자. 너무 긴장하진 말고.",
-        "en": "좋다, 나중에 보자. 너무 긴장하진 말고.",
+        "en": "Good. See you later. Don't be too nervous.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -579,7 +579,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(시작해 보자.)",
-        "en": "(시작해 보자.)",
+        "en": "(Let's begin.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -599,7 +599,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "지각이다, 루나.",
-        "en": "지각이다, 루나.",
+        "en": "You're late, Luna.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -617,7 +617,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "죄송합니다.",
-        "en": "죄송합니다.",
+        "en": "I'm sorry.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -635,7 +635,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 사과는 됐고, 입고된 재료 정리한 뒤에 재고 확인해.",
-        "en": "... 사과는 됐고, 입고된 재료 정리한 뒤에 재고 확인해.",
+        "en": "...Never mind the apology. Put the delivery away and check the stock.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -653,7 +653,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "뭐가 또 새로 들어왔나요?",
-        "en": "뭐가 또 새로 들어왔나요?",
+        "en": "Did something new come in?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -671,7 +671,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아는 사장이 술 재료를 좀 공수해왔다길래 받아왔다.\n레시피도 디스플레이에 업데이트 하고 있으니까 좀 이따 확인해.",
-        "en": "아는 사장이 술 재료를 좀 공수해왔다길래 받아왔다.\n레시피도 디스플레이에 업데이트 하고 있으니까 좀 이따 확인해.",
+        "en": "A shopkeeper I know got hold of some ingredients. I'm updating the recipes on the display, so have a look later.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -689,7 +689,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "알겠습니다.",
-        "en": "알겠습니다.",
+        "en": "Understood.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -707,7 +707,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "좋아, 그럼 부탁한다.",
-        "en": "좋아, 그럼 부탁한다.",
+        "en": "Good. I'll leave it to you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -727,7 +727,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "영업할 준비 해라, 루나.\n톰한테는 손님 없고 한적한 때 오라고 언질 줬으니 알아두고.",
-        "en": "영업할 준비 해라, 루나.\n톰한테는 손님 없고 한적한 때 오라고 언질 줬으니 알아두고.",
+        "en": "Get ready to open, Luna. I told Tom to stop by when things were quiet.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -745,7 +745,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "감사합니다. 혹시 각설탕은 찾으셨나요?",
-        "en": "감사합니다. 혹시 각설탕은 찾으셨나요?",
+        "en": "Thank you. Were you able to find the sugar cubes?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -763,7 +763,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "곧 누가 와서 주고 갈 거야. 너무 보채지 말라고.",
-        "en": "곧 누가 와서 주고 갈 거야. 너무 보채지 말라고.",
+        "en": "Someone's dropping them off soon. Don't rush me.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -781,7 +781,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "알겠습니다.",
-        "en": "알겠습니다.",
+        "en": "Understood.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -799,7 +799,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "다른 재료는 다 챙겨왔지?",
-        "en": "다른 재료는 다 챙겨왔지?",
+        "en": "You've got the other ingredients, right?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -817,7 +817,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 선반에 좀 넣어둘게요.",
-        "en": "네, 선반에 좀 넣어둘게요.",
+        "en": "Yes. I'll put them on the shelf.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -835,7 +835,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 톰이 최근에 일이 좀 복잡하게 많았다더군.\n기왕 부탁까지 했으니 칵테일 한 잔 제대로 만들어 줘.",
-        "en": "... 톰이 최근에 일이 좀 복잡하게 많았다더군.\n기왕 부탁까지 했으니 칵테일 한 잔 제대로 만들어 줘.",
+        "en": "...Sounds like Tom's had a lot on his plate lately. He asked you for this drink. Make him a good one.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -853,7 +853,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "오늘은 교대 없이 마감까지 하는 거 잊지 말고.",
-        "en": "오늘은 교대 없이 마감까지 하는 거 잊지 말고.",
+        "en": "Remember, you're on until closing today. No shift change.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -871,7 +871,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -889,7 +889,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(영업을 시작하자.)",
-        "en": "(영업을 시작하자.)",
+        "en": "(Time to open.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -929,7 +929,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "나 왔다. 일은 좀 어때.",
-        "en": "나 왔다. 일은 좀 어때.",
+        "en": "I'm back. How's work?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -947,7 +947,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "제가 잘하고 있는 건지 모르겠지만 아직은 크게 어렵지 않은 것 같아요.",
-        "en": "제가 잘하고 있는 건지 모르겠지만 아직은 크게 어렵지 않은 것 같아요.",
+        "en": "I don't know if I'm doing it well, but so far it hasn't been too difficult.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -965,7 +965,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "첫날 치곤 괜찮네.",
-        "en": "첫 날 치곤 괜찮네.",
+        "en": "Not bad for a first day.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -983,7 +983,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "담배 좀 피고 온다, 교대까지만 잘 좀 부탁해.",
-        "en": "담배 좀 피고 온다, 교대까지만 잘 좀 부탁해.",
+        "en": "I'm stepping out for a smoke. Hold the fort till shift change.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1001,7 +1001,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1037,7 +1037,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(...생각보다 일 자체는 평범한 것 같은데.)",
-        "en": "(...생각보다 일 자체는 평범한 것 같은데.)",
+        "en": "(...The work itself seems more ordinary than I expected.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1091,7 +1091,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "주문 안 받을 거야?",
-        "en": "주문 안 받을 거야?",
+        "en": "Aren't you going to take my order?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1127,7 +1127,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "손님이신가요?",
-        "en": "손님이신가요?",
+        "en": "Are you a customer?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1145,7 +1145,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "보면 몰라?",
-        "en": "보면 몰라?",
+        "en": "What do I look like?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1163,7 +1163,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "봐도 모르겠는데요.",
-        "en": "봐도 모르겠는데요.",
+        "en": "I couldn't tell by looking.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1181,7 +1181,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "됐고, 여기 맥주. 진짜 맥아로 만드는 거 맞나?",
-        "en": "됐고, 여기 맥주. 진짜 맥아로 만드는 거 맞나?",
+        "en": "Forget it. Your beer. Do they use real malt?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1199,7 +1199,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "잘 모르겠는데요.",
-        "en": "잘 모르겠는데요.",
+        "en": "I'm not sure.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1217,7 +1217,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "보리를 발효시켜 만든 술이라는 것만 알고 있어요.",
-        "en": "보리를 발효시켜 만든 술이라는 것만 알고 있어요.",
+        "en": "I only know it's made by fermenting barley.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1235,7 +1235,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "하, 그건 옆집 뽀삐도 알고 있는 거고.",
-        "en": "하, 그건 옆집 뽀삐도 알고 있는 거고.",
+        "en": "Hah. Even the mutt next door knows that.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1253,7 +1253,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "자기가 파는 맥주가 어디서 어떻게 만들어지는지도 모르는군.",
-        "en": "자기가 파는 맥주가 어디서 어떻게 만들어지는지도 모르는군.",
+        "en": "You don't even know where or how your own beer is made.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1271,7 +1271,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그런 걸 알고 있어야 하나요?",
-        "en": "그런 걸 알고 있어야 하나요?",
+        "en": "Is that something I need to know?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1289,7 +1289,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "그 정도는 기본으로 알고 있어야지.",
-        "en": "그 정도는 기본으로 알고 있어야지.",
+        "en": "It's the bare minimum.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1307,7 +1307,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "지금 맥주를 드리는 데 필요한 정보는 아닌 것 같은데요.",
-        "en": "지금 맥주를 드리는 데 필요한 정보는 아닌 것 같은데요.",
+        "en": "I don't think I need that information to serve you a beer.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1325,7 +1325,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "아주 당당하구만? 그럼 한 잔 가져와 봐.",
-        "en": "아주 당당하구만? 그럼 한 잔 가져와 봐.",
+        "en": "Confident little thing, aren't you? Bring me one, then.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1343,7 +1343,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 알겠습니다.",
-        "en": "네, 알겠습니다.",
+        "en": "Yes, of course.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1361,7 +1361,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(개에게 맥주 한 잔...)",
-        "en": "(개에게 맥주 한 잔...)",
+        "en": "(One beer for the dog...)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1433,7 +1433,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "여기 있어요.",
-        "en": "여기 있어요.",
+        "en": "Here you go.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1451,7 +1451,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "흠 보기엔 그럴듯한데.",
-        "en": "흠 보기엔 그럴듯한데.",
+        "en": "Hmm. Looks the part.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1487,7 +1487,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "뭐야, 이 개똥만도 못한 건?!",
-        "en": "뭐야, 이 개똥만도 못한 건?!",
+        "en": "What is this dogshit?!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1505,7 +1505,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "주문하신 맥주입니다.",
-        "en": "주문하신 맥주입니다.",
+        "en": "Here's the beer you ordered.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1523,7 +1523,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "맥주가 이런 맛이라고?",
-        "en": "맥주가 이런 맛이라고?",
+        "en": "This is what beer tastes like?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1541,7 +1541,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1559,7 +1559,7 @@
         "actor": "shiba",
         "arg": "default",
         "text": "쯧, 완전히 허탕쳤구만.",
-        "en": "쯧, 완전히 허탕쳤구만.",
+        "en": "Tch. What a waste of a trip.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1595,7 +1595,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "... 거짓말은 아니었는데.",
-        "en": "... 거짓말은 아니었는데.",
+        "en": "...I didn't lie, though.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1613,7 +1613,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그나저나 이 동네는 개가 술을 마시러도 오기도 하는구나.",
-        "en": "그나저나 이 동네는 개가 술을 마시러도 오기도 하는구나.",
+        "en": "So dogs come out for drinks in this neighborhood, too.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1685,7 +1685,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어서 오세요.",
-        "en": "어서 오세요.",
+        "en": "Welcome.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1703,7 +1703,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "아, 처음 보는 얼굴이네.",
-        "en": "아, 처음 보는 얼굴이네.",
+        "en": "Oh, a new face.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1721,7 +1721,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "혹시 백발에 맨날 분위기나 잡는 무서운 아저씨 알아?\n볼일이 좀 있는데.",
-        "en": "혹시 백발에 맨날 분위기나 잡는 무서운 아저씨 알아?\n볼 일이 좀 있는데.",
+        "en": "Know a scary-looking guy with white hair who's always brooding? I've got business with him.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1739,7 +1739,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "크리스 말씀하시는 거 맞나요?\n교대 전까지 잠깐 담배 피고 온다고 했어요.",
-        "en": "크리스 말씀하시는 거 맞나요?\n교대 전까지 잠깐 담배 피고 온다고 했어요.",
+        "en": "Do you mean Chris? He went out for a smoke before shift change.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1757,7 +1757,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그래? 그렇구만... 다시 영업 시작했으면 말이라도 좀 해주지.",
-        "en": "그래? 그렇구만... 다시 영업 시작했으면 말이라도 좀 해주지.",
+        "en": "Did he? Huh... He could've told me the place was open again.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1775,7 +1775,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "크리스를 불러드릴까요?",
-        "en": "크리스를 불러드릴까요?",
+        "en": "Shall I get Chris for you?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1793,7 +1793,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "아니, 그럴 필요까지는 없어.",
-        "en": "아니, 그럴 필요까지는 없어.",
+        "en": "No, no need.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1811,7 +1811,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "일한 지 얼마 안 되어 보이기는 한데, 혹시 올드 패션드 주문 되나?",
-        "en": "일한 지 얼마 안 되어 보이기는 한데, 혹시 올드 패션드 주문 되나?",
+        "en": "You look new here, but can I order an Old Fashioned?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1829,7 +1829,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "지금은 올드 패션드를 제공하기 어렵습니다.\n가게 재료로 만들 수 있는 목록에 없어요.",
-        "en": "지금은 올드 패션드를 제공하기 어렵습니다.\n가게 재료로 만들 수 있는 목록에 없어요.",
+        "en": "I'm afraid I can't serve an Old Fashioned right now. It's not on the list of drinks I can make with what we have.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1847,7 +1847,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 하긴, 오래 쉬었으니 그럴 만도 하네.",
-        "en": "... 하긴, 오래 쉬었으니 그럴만도 하네.",
+        "en": "...Fair enough. You've been closed a long time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1865,7 +1865,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그럼 지금 되는 건 뭐 있어? 다른 거라도 한잔하고 싶은데.",
-        "en": "그럼 지금 되는 건 뭐 있어? 다른 거라도 한 잔 하고 싶은데.",
+        "en": "So what can you make? I'd still like a drink.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1883,7 +1883,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "진 피즈, 진 토닉, 드라이 마티니는 주문 가능합니다.",
-        "en": "진 피즈, 진 토닉, 드라이 마티니는 주문 가능합니다.",
+        "en": "I can offer a Gin Fizz, a Gin and Tonic, or a Dry Martini.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1901,7 +1901,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그러면 드라이 마티니로 한 잔.",
-        "en": "그러면 드라이 마티니로 한 잔.",
+        "en": "A Dry Martini, then.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1919,7 +1919,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 주문받았습니다.",
-        "en": "네, 주문받았습니다.",
+        "en": "Certainly. One Dry Martini.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -1991,7 +1991,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "여기 있습니다.",
-        "en": "여기 있습니다.",
+        "en": "Here you are.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2009,7 +2009,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "오호.",
-        "en": "오호.",
+        "en": "Oh, now.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2045,7 +2045,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "원하시던 맛인가요?",
-        "en": "원하시던 맛인가요?",
+        "en": "Is that the taste you wanted?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2063,7 +2063,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "이 정도면 꽤 괜찮은데. 여기서 일한 지 얼마나 됐어?",
-        "en": "이 정도면 꽤 괜찮은데. 여기서 일한 지 얼마나 됐어?",
+        "en": "That's pretty good. How long have you worked here?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2081,7 +2081,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "오늘이 근무 첫날이에요.",
-        "en": "오늘이 근무 첫 날이에요.",
+        "en": "It's my first day on duty.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2099,7 +2099,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "첫날부터 이 정도면 다음엔 좀 기대하고 와도 되겠는데?",
-        "en": "첫날부터 이 정도면 다음엔 좀 기대하고 와도 되겠는데?",
+        "en": "If this is your first day, I've got something to look forward to next time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2117,7 +2117,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떤 걸 기대하신다는 건가요?",
-        "en": "어떤 걸 기대하신다는 건가요?",
+        "en": "What are you looking forward to?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2135,7 +2135,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "실력이지, 바텐더로서의.",
-        "en": "실력이지, 바텐더로서의.",
+        "en": "Seeing what you can do as a bartender.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2153,7 +2153,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그럼 지금의 저는 바텐더로서의 실력이 없나요?",
-        "en": "그럼 지금의 저는 바텐더로서의 실력이 없나요?",
+        "en": "Do you mean I'm not skilled as a bartender yet?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2171,7 +2171,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "아무래도 전에 있던 마스터보다는 그럴 수밖에 없지.\n실력이 장난 아니었거든, 좋은 사람이기도 했고...",
-        "en": "아무래도 전에 있던 마스터보다는 그럴 수 밖에 없지.\n실력이 장난 아니었거든, 좋은 사람이기도 했고...",
+        "en": "Well, nobody starts out as good as the last guy. He was one hell of a bartender, and a good man...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2189,7 +2189,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그런 것들을 배우면 손님의 기대를 충족시킬 수 있는 건가요?",
-        "en": "그런 것들을 배우면 손님의 기대를 충족시킬 수 있는 건가요?",
+        "en": "If I learn those things, will I be able to meet your expectations, sir?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2207,7 +2207,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "손님 말고, 톰.",
-        "en": "손님 말고, 톰.",
+        "en": "Not “sir.” Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2225,7 +2225,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네?",
-        "en": "네?",
+        "en": "Pardon?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2243,7 +2243,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "내 이름이야, 톰 거너. 이름으로 불러줄래?",
-        "en": "내 이름이야, 톰 거너. 이름으로 불러줄래?",
+        "en": "My name. Tom Gunner. Call me Tom, would you?",
         "when": null,
         "effects": "flag.tom_name_known = true",
         "entrance": null
@@ -2261,7 +2261,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "알겠습니다, 톰.",
-        "en": "알겠습니다, 톰.",
+        "en": "Understood, Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2279,7 +2279,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "뜬금없긴 한데, 네가 굉장히 특이한 사람이란 건 알겠어.",
-        "en": "뜬끔없긴 한데, 네가 굉장히 특이한 사람이란 건 알겠어.",
+        "en": "This might sound out of the blue, but I can tell you're a pretty unusual person.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2297,7 +2297,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그래서 말해 주는 건데, 넌 내 기대를 꼭 충족시켜 줄 필요는 없어.\n정확히 말하자면 그럴 ‘의무’나 ‘책임’은 없다는 거지.",
-        "en": "그래서 말해 주는 건데, 넌 내 기대를 꼭 충족시켜 줄 필요는 없어.\n정확히 말하자면 그럴 ‘의무’나 ‘책임’은 없다는 거지.",
+        "en": "And here's the thing: you don't have to meet my expectations. What I mean is, you don't owe me that. It's not your responsibility.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2315,7 +2315,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그렇지만 바텐더는 손님이 원하거나 필요로 하는 걸\n내어 주는 사람이라고 배웠는데요.",
-        "en": "그렇지만 바텐더는 손님이 원하거나 필요로 하는 걸\n내어 주는 사람이라고 배웠는데요.",
+        "en": "But I was taught that a bartender serves people what they want or need.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2333,7 +2333,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "으음, 크리스도 가르치는 데는 영 소질이 없구나.",
-        "en": "으음, 크리스도 가르치는 데는 영 소질이 없구나.",
+        "en": "Hmm. Chris isn't much of a teacher either, is he?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2351,7 +2351,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "뭐, 내친김에 얘기해 주자면 내가 원하는 건 칵테일 한 잔이야.\n전 마스터였던 조니라는 영감이 만들어 준 건데...",
-        "en": "뭐, 내친김에 얘기해주자면 내가 원하는 건 칵테일 한 잔이야.\n전 마스터였던 조니라는 영감이 만들어 준 건데...",
+        "en": "Well, since we're talking, what I'd like is a certain cocktail. An old man named Johnny, the last bartender here, made it for me...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2369,7 +2369,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 그게 요즘 들어 자꾸 생각나더라고. 일이 좀 있어서 그런가.",
-        "en": "... 그게 요즘 들어 자꾸 생각나더라고. 일이 좀 있어서 그런가.",
+        "en": "...I've been thinking about it a lot lately. Maybe it's all the stuff that's been going on.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2405,7 +2405,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그 칵테일이 올드 패션드였나요?",
-        "en": "그 칵테일이 올드 패션드였나요?",
+        "en": "Was that cocktail an Old Fashioned?",
         "when": "flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2423,7 +2423,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "맞아. 힘들었던 날에 우연찮게 받았던 거라 그런지 기억에 좀 남네.",
-        "en": "맞아. 힘들었던 날에 우연찮게 받았던 거라 그런지 기억에 좀 남네.",
+        "en": "That's right. Someone happened to give me one on a rough day. Guess it stuck with me.",
         "when": "flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2441,7 +2441,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "이제 딱 반년인가? ... 아무튼 사정 때문에 그걸 마셔 본 지도 좀 되어서 말이야.",
-        "en": "이제 딱 반년인가? ... 아무튼 사정 때문에 그걸 마셔본지도 좀 되어서 말이야.",
+        "en": "Has it been six months already? ...Anyway, things happened, and it's been a while since I had one.",
         "when": "flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2459,7 +2459,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그걸 조니 대신 제가 만들어 줬으면 하는 거군요.",
-        "en": "그걸 조니 대신 제가 만들어줬으면 하는 거군요.",
+        "en": "You'd like me to make it for you in Johnny's place.",
         "when": "flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2477,7 +2477,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "정확해.",
-        "en": "정확해.",
+        "en": "Exactly.",
         "when": "flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2495,7 +2495,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "맛있었나 보네요.",
-        "en": "맛있었나 보네요.",
+        "en": "It must have tasted good.",
         "when": "!flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2513,7 +2513,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "하하! 물론 맛도 끝내주긴 했지.",
-        "en": "하하! 물론 맛도 끝내주긴 했지.",
+        "en": "Ha! Sure, it tasted incredible.",
         "when": "!flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2531,7 +2531,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "맛도 맛이지만 그 지친 날에 주던 위로가 말도 안 되게 좋았거든...",
-        "en": "맛도 맛이지만 그 지친 날에 주던 위로가 말도 안 되게 좋았거든...",
+        "en": "But more than the taste, it was the comfort of that drink after such a long day...",
         "when": "!flag.campaign_d1_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -2549,7 +2549,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "어때. 그 영감이 만들던 칵테일, 한 번 만들어 볼 수 있겠어?",
-        "en": "어때. 그 영감이 만들던 칵테일, 한 번 만들어 볼 수 있겠어?",
+        "en": "What do you think? Could you try making that old man's drink?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2567,7 +2567,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "시도해 보겠습니다.",
-        "en": "시도해보겠습니다.",
+        "en": "I'll try.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2585,7 +2585,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "고마워. 사실 크리스한테도 부탁한 적 있긴 한데...\n그 아저씨가 만드는 것들은 영 내 취향이 아니란 말이지.",
-        "en": "고마워. 사실 크리스한테도 부탁한 적 있긴 한데...\n그 아저씨가 만드는 것들은 영 내 취향이 아니란 말이지.",
+        "en": "Thanks. I've asked Chris before, actually... but his drinks just aren't to my taste.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2603,7 +2603,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그럼 기억나는 것을 더 말씀해 주실 수 있나요?\n사용한 재료나, 레시피 같은 거요.",
-        "en": "그럼 기억나는 것을 더 말씀해 주실 수 있나요?\n사용한 재료나, 레시피 같은거요.",
+        "en": "Could you tell me anything else you remember? Ingredients he used, or the recipe, for instance?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2621,7 +2621,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "미안, 내가 술에 조예가 깊진 않아서\n재료나 레시피는 잘 모르겠고...",
-        "en": "미안, 내가 술에 조예가 깊진 않아서\n재료나 레시피는 잘 모르겠고...",
+        "en": "Sorry. I'm no expert on liquor. I can't tell you the ingredients or the recipe...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2639,7 +2639,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그 칵테일 이름이 올드 패션드였다는 것,\n맛이랑 향은 위스키랑 오렌지 위주였다는 거 정도가 전부야.",
-        "en": "그 칵테일 이름이 올드 패션드였다는 것,\n맛이랑 향은 위스키랑 오렌지 위주였다는 거 정도가 전부야.",
+        "en": "All I know is it was called an Old Fashioned, and it mostly tasted and smelled of whiskey and orange.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2657,7 +2657,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "위스키 맛에 오렌지 향...",
-        "en": "위스키 맛에 오렌지 향...",
+        "en": "The taste of whiskey and the scent of orange...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2675,7 +2675,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어쩌면 크리스가 레시피를 알고 있을지도 모르겠네요.\n한 번 물어보겠습니다.",
-        "en": "어쩌면 크리스가 레시피를 알고 있을지도 모르겠네요.\n한 번 물어보겠습니다.",
+        "en": "Chris might know the recipe. I'll ask him.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2693,7 +2693,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "좋아, 기대할게. 다만 무리하지는 않았으면 좋겠어.\n네가 만드는 다른 것도 충분히 마음에 드니까 말이야.",
-        "en": "좋아, 기대할게. 다만 무리하지는 않았으면 좋겠어.\n네가 만드는 다른 것도 충분히 마음에 드니까 말이야.",
+        "en": "Great. I'll look forward to it. But don't go out of your way. I like the other things you make just fine.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2711,7 +2711,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "감사합니다.",
-        "en": "감사합니다.",
+        "en": "Thank you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2729,7 +2729,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "가기 전에 마지막으로 네 이름 좀 듣고 싶은데.",
-        "en": "가기 전에 마지막으로 네 이름 좀 듣고 싶은데.",
+        "en": "One last thing before I go. What's your name?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2747,7 +2747,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "루나예요.",
-        "en": "루나예요.",
+        "en": "It's Luna.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2765,7 +2765,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "루나... 그래, 오늘은 잘 마셨어.\n다시 올 때는 좀 기대해도 될까?",
-        "en": "루나... 그래, 오늘은 잘 마셨어.\n다시 올 때는 좀 기대해도 될까?",
+        "en": "Luna... Thanks for the drink. Mind if I get my hopes up for next time?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2783,7 +2783,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "노력해 볼게요.",
-        "en": "노력해볼게요.",
+        "en": "I'll do my best.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2801,7 +2801,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "하하! 너 진짜 솔직하구나. 그래, 다음에 또 봐. 안녕.",
-        "en": "하하! 너 진짜 솔직하구나. 그래, 다음에 또 봐. 안녕.",
+        "en": "Ha! You really are honest. See you next time, then. Bye.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2837,7 +2837,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(현재 레시피 DB에는 관련 기록이 아예 없네.\n크리스한테 물어보는 것 이외에는 방법이 없나?)",
-        "en": "(현재 레시피 DB에는 관련 기록이 아예 없네.\n크리스한테 물어보는 것 이외에는 방법이 없나?)",
+        "en": "(There's nothing about it in the recipe database. Is asking Chris my only option?)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2873,7 +2873,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "안녕, 예쁜이! 일 잘하고 있었어?",
-        "en": "안녕, 예쁜이! 일 잘 하고 있었어?",
+        "en": "Hey, cutie! How's work going?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2891,7 +2891,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어서 오세요.",
-        "en": "어서 오세요.",
+        "en": "Welcome.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2909,7 +2909,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "하하, 딱딱한 건 여전하네!",
-        "en": "하하, 딱딱한 건 여전하네!",
+        "en": "Ha! Still as stiff as ever!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2927,7 +2927,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "딱딱하다는 건 잘 모르겠지만, 이게 제 평소 상태인데요.",
-        "en": "딱딱하다는 건 잘 모르겠지만, 이게 제 평소 상태인데요.",
+        "en": "I'm not sure what you mean by stiff. This is how I normally am.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2945,7 +2945,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "으음, 딱딱한 것도 매력적이지만 그래도 좀 아쉽단 말이지.\n좀 웃어 봐, 응? 너 웃는 거 되게 예쁠 것 같은데.",
-        "en": "으음, 딱딱한 것도 매력적이지만 그래도 좀 아쉽단 말이지.\n좀 웃어봐, 응? 너 웃는 거 되게 예쁠 것 같은데.",
+        "en": "Hmm. Stiff has its charms, but it's a bit of a shame. Give me a smile? I bet you've got a lovely one.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2963,7 +2963,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그래서 무슨 일로 오셨나요, 아일리?",
-        "en": "그래서 무슨 일로 오셨나요, 아일리?",
+        "en": "So what brings you here, Aili?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2981,7 +2981,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "잔 닦다가 깨 먹고 문 못 열어서 부숴 먹은 뒤에 출력 재조정한 건\n좀 괜찮나 물어보러 왔지요~ 감도 어때? 적당한 것 같아?",
-        "en": "잔 닦다가 깨먹고 문 못 열어서 부숴먹은 뒤에 출력 재조정한 건\n좀 괜찮나 물어보러 왔지요~ 감도 어때? 적당한 것 같아?",
+        "en": "After you broke that glass drying it and busted the door trying to open it, I tweaked your output. Came to see how it's treating you! Sensitivity feel about right?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -2999,7 +2999,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "전신 의체 출력 재조정해 주신 뒤로 또 그런 적은 없어요.",
-        "en": "전신 의체 출력 재조정해 주신 뒤로 또 그런 적은 없어요.",
+        "en": "It hasn't happened again since you recalibrated my prosthetic body's output.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3017,7 +3017,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "다행이네. 지난번처럼 루나가 또 우리 집 문을 또 개박살 내면\n아무리 나라도 더 웃어넘기기는 어렵단 말이지...",
-        "en": "다행이네. 지난번처럼 루나가 또 우리 집 문을 또 개박살내면\n아무리 나라도 더 웃어넘기기는 어렵단 말이지...",
+        "en": "That's a relief. If you smash my front door to bits again, even I'm gonna have trouble laughing it off...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3035,7 +3035,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "문 고치기 전까지 동네 고양이들이 죄다 우리 집으로\n들어오는 바람에 잠도 제대로 못 잤고 말이야.",
-        "en": "문 고치기 전까지 동네 고양이들이 죄다 우리 집으로\n들어오는 바람에 잠도 제대로 못 잤고 말이야.",
+        "en": "Till I got the door fixed, every cat on the block kept wandering into my place. I barely got any sleep.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3053,7 +3053,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "... 그럴 의도는 없었지만 죄송해요.",
-        "en": "... 그럴 의도는 없었지만 죄송해요.",
+        "en": "...I didn't mean to. I'm sorry.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3071,7 +3071,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아냐, 따지고 보면 수리 후 출력 조정을 깜빡한 내 탓이지.\n이런 칙칙한 얘기는 이제 그만!",
-        "en": "아냐, 따지고 보면 수리 후 출력 조정을 깜빡한 내 탓이지.\n이런 칙칙한 얘기는 이제 그만!",
+        "en": "Nah, my fault for forgetting to adjust your output after the repairs. Enough gloomy talk!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3089,7 +3089,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "네가 여기서 바텐더로 일한다고 들어서 안구 정화도 할 겸 한 잔 하러 왔어.\n바텐더 복장 잘 어울리네, 귀엽다~",
-        "en": "네가 여기서 바텐더로 일한다고 들어서 안구 정화도 할 겸 한 잔 하러 왔어.\n바텐더 복장 잘 어울리네, 귀엽다~",
+        "en": "Heard you were tending bar here, so I came for a drink and a little eye candy. That outfit suits you. Cute!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3107,7 +3107,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "무언가를 보는 것만으로 안구를 정화할 수도 있나요?",
-        "en": "무언가를 보는 것만으로 안구를 정화할 수도 있나요?",
+        "en": "Is it possible to cleanse one's eyes just by looking at something?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3125,7 +3125,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "하하! 비유야, 비유! 칙칙하고 늙어빠진 아저씨나 손님들\n보다가 너처럼 예쁜 애들 보면 기분이라도 좋잖아.",
-        "en": "하하! 비유야, 비유! 칙칙하고 늙어빠진 아저씨나 손님들\n보다가 너처럼 예쁜 애들 보면 기분이라도 좋잖아.",
+        "en": "Ha! It's a figure of speech! After looking at gloomy old men and grumpy customers, seeing a pretty girl like you cheers me up.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3161,7 +3161,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그렇군요. 그럼 주문은 어떻게 하시겠어요?",
-        "en": "그렇군요. 그럼 주문은 어떻게 하시겠어요?",
+        "en": "I see. What would you like to order?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3179,7 +3179,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "으음, 코스모폴리탄 될까? 예전에 맨날 마시던 거라서.",
-        "en": "으음, 코스모폴리탄 될까? 예전에 맨날 마시던 거라서.",
+        "en": "Hmm, can you do a Cosmopolitan? Used to drink them all the time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3197,7 +3197,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "지금은 재료가 부족해서 불가능합니다.",
-        "en": "지금은 재료가 부족해서 불가능합니다.",
+        "en": "We don't have the ingredients right now.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3215,7 +3215,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "잉, 아쉬워라. 그래도 나중엔 만들어 줄 수 있는 거지?",
-        "en": "잉, 아쉬워라. 그래도 나중엔 만들어 줄 수 있는 거지?",
+        "en": "Aww, too bad. You'll be able to make one later, though, right?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3233,7 +3233,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "크리스가 재료를 구해 온다면요.",
-        "en": "크리스가 재료를 구해 온다면요.",
+        "en": "If Chris gets the ingredients.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3251,7 +3251,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "못 마시면 그쪽을 조지라는 뜻이구만.",
-        "en": "못 마시면 그쪽을 조지라는 뜻이구만.",
+        "en": "So if I can't have one, he's the one I should give hell.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3269,7 +3269,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "그럼 혹시 스크류드라이버는 있어?",
-        "en": "그럼 혹시 스크류드라이버은 있어?",
+        "en": "Any chance you have a Screwdriver, then?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3287,7 +3287,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 있습니다.",
-        "en": "네, 있습니다.",
+        "en": "Yes, we do.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3305,7 +3305,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "오호라, 이건 또 있나 보네. 그럼 그걸로 한 잔 부탁해.",
-        "en": "오호라, 이건 또 있나 보네. 그럼 그걸로 한 잔 부탁해.",
+        "en": "Oh, you've got that one! One of those, please.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3323,7 +3323,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(스크류드라이버 한 잔.)",
-        "en": "(스크류드라이버 한 잔.)",
+        "en": "(One Screwdriver.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3395,7 +3395,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "주문하신 메뉴 나왔습니다.",
-        "en": "스크류드라이버 나왔습니다.",
+        "en": "Here's your order.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3413,7 +3413,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "...아하, 스크류드라이버는 예전에 팔던 거랑 똑같은 걸 쓰나 보네.",
-        "en": "... 아하, 스크류드라이버은 예전에 팔던 거랑 똑같은 걸 쓰나 보네.",
+        "en": "...Aha. Looks like you're using the same stuff for the Screwdriver as before.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3449,7 +3449,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "다행이네요.",
-        "en": "다행이네요.",
+        "en": "I'm glad.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3467,7 +3467,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "일하는 건 꽤 익숙해 보이네.\n어때, 이 동네랑 생활에는 좀 적응한 것 같아?",
-        "en": "일하는 건 꽤 익숙해 보이네.\n어때, 이 동네랑 생활에는 좀 적응한 것 같아?",
+        "en": "You look pretty comfortable behind the bar. How about the neighborhood? Getting used to life here?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3485,7 +3485,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "업무는 대부분 이해한 것 같아요. 하지만...",
-        "en": "업무는 대부분 이해한 것 같아요. 하지만...",
+        "en": "I think I understand most of the work. But...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3503,7 +3503,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "하지만?",
-        "en": "하지만?",
+        "en": "But?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3521,7 +3521,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떤 손님이 제가 모르는 레시피의 칵테일을 만들어 달라고 하셔서\n어떻게 하면 좋을지 고민돼요.",
-        "en": "어떤 손님이 제가 모르는 레시피의 칵테일을 만들어 달라고 하셔서\n어떻게 하면 좋을 지 고민돼요.",
+        "en": "A customer asked me to make a cocktail I don't know the recipe for. I'm trying to figure out what to do.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3539,7 +3539,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "무슨 술이길래? 대부분 다 가게 디스플레이에 있지 않나?",
-        "en": "무슨 술이길래? 대부분 다 가게 디스플레이에 있지 않나?",
+        "en": "What drink is it? Aren't most of them on the bar display?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3557,7 +3557,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "레시피 디스플레이에 없는 칵테일이에요. 예전에 계셨던\n조니라는 마스터께서 만든 칵테일이라고 했는데...",
-        "en": "레시피 디스플레이에 없는 칵테일이에요. 예전에 계셨던\n조니라는 마스터께서 만든 칵테일이라고 했는데...",
+        "en": "It's not in the recipe display. They said the previous bartender, a man named Johnny, made it for them...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3575,7 +3575,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아하, 할아범이 만든 거라면 그럴 만하지.",
-        "en": "아하, 할아범이 만든 거라면 그럴 만하지.",
+        "en": "Ahh. If the old man made it, that figures.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3593,7 +3593,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "아시는 게 있나요?",
-        "en": "아시는 게 있나요?",
+        "en": "Do you know anything about it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3611,7 +3611,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "그 할범은 자기가 정한 기본 레시피를 지키는 편이긴 했는데,\n가끔 상황 따라 레시피를 바꿔 주기도 했거든.",
-        "en": "그 할범은 자기가 정한 기본 레시피를 지키는 편이긴 했는데,\n가끔 상황 따라 레시피를 바꿔주기도 했거든.",
+        "en": "The old guy usually stuck to his own basic recipes, but sometimes he'd change them to suit the situation.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3629,7 +3629,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떤 상황에서 레시피를 바꾸는 건가요?",
-        "en": "어떤 상황에서 레시피를 바꾸는 건가요?",
+        "en": "When would he change a recipe?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3647,7 +3647,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "음, 만약 내가 만취한 채로 술을 더 달라고 하면 루나 넌 어떻게 할래?",
-        "en": "음, 만약 내가 만취한 채로 술을 더 달라고 하면 루나 넌 어떻게 할래?",
+        "en": "Hmm. Say I'm completely hammered and I ask for another drink. What would you do, Luna?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3665,7 +3665,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "술을 드릴 것 같습니다.",
-        "en": "술을 드릴 것 같습니다.",
+        "en": "I think I would give you a drink.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3683,7 +3683,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "그걸 마시고 내가 토를 하거나 난동을 부린다면?",
-        "en": "그걸 마시고 내가 토를 하거나 난동을 부린다면?",
+        "en": "And if I drank it and threw up or started a fight?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3701,7 +3701,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그럼 드리지 않는 게 맞는 것 같아요.",
-        "en": "그럼 드리지 않는 게 맞는 것 같아요.",
+        "en": "Then I suppose I shouldn't give it to you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3719,7 +3719,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "그 상황에서 술을 왜 안 주냐고 화를 내거나 따진다면?",
-        "en": "그 상황에서 술을 왜 안 주냐고 화를 내거나 따진다면?",
+        "en": "What if I got mad and demanded to know why you wouldn't serve me?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3755,7 +3755,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "어쨌든 제법 난감한 상황이잖아?\n근데 조니는 그런 상황도 쉽게 해결하더라고.",
-        "en": "어쨌든 제법 난감한 상황이잖아?\n근데 조니는 그런 상황도 쉽게 해결하더라고.",
+        "en": "Either way, that's an awkward spot, right? But Johnny made even that look easy.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3773,7 +3773,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떻게 해결했나요?",
-        "en": "어떻게 해결했나요?",
+        "en": "How did he do it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3791,7 +3791,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "도수가 높은 거라면 낮은 도수의 술을 추천하거나,\n맛에 영향을 덜 줄 정도로만 술을 줄이거나... 실은 나도 잘 몰라.",
-        "en": "도수가 높은 거라면 낮은 도수의 술을 추천하거나,\n맛에 영향을 덜 줄 정도로만 술을 줄이거나... 실은 나도 잘 몰라.",
+        "en": "If I asked for something strong, he'd suggest a lighter drink, or go easy on the booze without changing the flavor too much... Honestly, I'm not sure myself.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3809,7 +3809,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어렵네요.",
-        "en": "어렵네요.",
+        "en": "This is difficult.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3827,7 +3827,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "어렵지, 그치만 그 어려운 걸 해내는 사람이라 유명했어.\n3대 기업의 높으신 작자들도 여길 간혹 찾아올 정도였으니까.",
-        "en": "어렵지, 그치만 그 어려운 걸 해내는 사람이라 유명했어.\n3대 기업의 높으신 작자들도 여길 간혹 찾아올 정도였으니까.",
+        "en": "Tricky, huh? That's why he was famous. Even the big shots from the three megacorps would stop by sometimes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3863,7 +3863,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아, 너도 그쪽 놈들한테 그리 좋은 감정은 없지? 미안.",
-        "en": "아, 너도 그쪽 놈들한테 그리 좋은 감정은 없지? 미안.",
+        "en": "Ah. You're not exactly fond of those guys either, are you? Sorry.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3881,7 +3881,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "충돌이 있을 수는 있다고 생각되어서 조심하고 있어요.",
-        "en": "충돌이 있을 수는 있다고 생각되어서 조심하고 있어요.",
+        "en": "I think there could be a conflict, so I'm being careful.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3899,7 +3899,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "걱정 마, 그 개자식들도 우리한테 된통 깨지고 나서는 안 오니까.",
-        "en": "걱정 마, 그 개자식들도 우리한테 된통 깨지고 나서는 안 오니까.",
+        "en": "Don't worry. Those bastards haven't shown their faces since we gave them a beating.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3917,7 +3917,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아무튼! 기억력이 워낙 좋아서 다 외우고 다니던 양반이니만큼,\n아까 그 손님이 원하는 레시피는 없을 수도 있겠다 싶어.",
-        "en": "아무튼! 기억력이 워낙 좋아서 다 외우고 다니던 양반이니만큼,\n아까 그 손님이 원하는 레시피는 없을 수도 있겠다 싶어.",
+        "en": "Anyway! His memory was so good he kept it all in his head. Your customer's recipe might not exist on paper.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3935,7 +3935,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "차라리 크리스한테 물어보는 게...",
-        "en": "차라리 크리스한테 물어보는 게...",
+        "en": "You might be better off asking Chris...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3971,7 +3971,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "오, 호랑이도 제 말 하니까 오네.",
-        "en": "오, 호랑이도 제 말 하니까 오네.",
+        "en": "Oh, speak of the devil.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -3989,7 +3989,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "루나 슬슬 교대해도...",
-        "en": "루나 슬슬 교대해도...",
+        "en": "Luna, I can take over now...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4007,7 +4007,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "뭐야, 마지막으로 남은 손님이 너였냐.",
-        "en": "뭐야, 마지막으로 남은 손님이 너였냐.",
+        "en": "Oh. You're the last customer?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4025,7 +4025,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "안녕, 음침한 크리스. 너 요즘도 잠 못 자냐?",
-        "en": "안녕, 음침한 크리스. 너 요즘도 잠 못 자냐?",
+        "en": "Hi, gloomy Chris. Still not sleeping?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4043,7 +4043,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 요즘 왜 자꾸 주변에서 음침하다는 소리를 하는지.",
-        "en": "... 요즘 왜 자꾸 주변에서 음침하다는 소리를 하는 지.",
+        "en": "...Why does everybody keep calling me gloomy lately?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4061,7 +4061,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "너네 집엔 거울이 없어?",
-        "en": "너네 집엔 거울이 없어?",
+        "en": "Don't you own a mirror?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4079,7 +4079,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "루나가 녹슨 게 신기하다고 건드리다가 부숴 먹긴 했지.",
-        "en": "루나가 녹슨 게 신기하다고 건드리다가 부숴먹긴 했지.",
+        "en": "Luna did break it. Got curious about the rust and touched it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4097,7 +4097,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아무튼 거울 좀 보고 살아. 항상 그렇게 ( -_- ) 같은 표정으로\n다니니까 너무 음침해 보여. 상큼하진 않잖아, 적어도.",
-        "en": "아무튼 거울 좀 보고 살아. 항상 그렇게 ( -_- ) 같은 표정으로\n다니니까 너무 음침해보여. 상큼하진 않잖아, 적어도.",
+        "en": "Anyway, look in a mirror once in a while. You're always walking around looking like this: ( -_- ). No wonder you look gloomy. It's hardly cheerful.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4133,7 +4133,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "‘음침’이랑 ‘상큼’이라는 단어가 이렇게도 쓰일 수 있군요.",
-        "en": "‘음침’이랑 ‘상큼’이라는 단어가 이렇게도 쓰일 수 있군요.",
+        "en": "I didn't know “gloomy” and “cheerful” could be used that way.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4151,7 +4151,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 하아, 저런 건 배우지 마.",
-        "en": "... 하아, 저런 건 배우지 마.",
+        "en": "...Ugh. Don't pick that up from her.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4169,7 +4169,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "그래서, 이 꼬맹이 온 거 빼고 별일 없었나?",
-        "en": "그래서, 이 꼬맹이 온 거 빼고 별 일 없었나?",
+        "en": "So, anything happen apart from this kid showing up?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4187,7 +4187,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "누구 보고 꼬맹이래? 맞고 싶어서 작정했나.",
-        "en": "누구 보고 꼬맹이래? 맞고 싶어서 작정했나.",
+        "en": "Who are you calling a kid? Asking for a punch?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4205,7 +4205,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네. 별일보다는 예전에 조니가 만든 칵테일을\n다시 한 번 만들어 달라는 부탁을 받았습니다.",
-        "en": "네. 별 일보다는 예전에 조니가 만든 칵테일을\n다시 한 번 만들어 달라는 부탁을 받았습니다.",
+        "en": "Yes. A customer asked me to recreate a cocktail Johnny used to make.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4223,7 +4223,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "누가?",
-        "en": "누가?",
+        "en": "Who asked?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4241,7 +4241,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "이름은 톰이라고 했고,\n늑대 엠블럼이 박힌 코트를 입고 있었어요.",
-        "en": "이름은 톰이라고 했고,\n늑대 엠블럼이 박힌 코트를 입고 있었어요.",
+        "en": "He said his name was Tom. He wore a coat with a wolf emblem.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4259,7 +4259,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아, 그 톰인가.",
-        "en": "아, 그 톰인가.",
+        "en": "Ah. That Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4277,7 +4277,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "그 칵테일은 레시피가 없을 거야. 정식 메뉴도 아니었고,\n전 마스터가 기본 레시피를 변형해서 만들어 주던 거라.",
-        "en": "그 칵테일은 레시피가 없을 거야. 정식 메뉴도 아니었고,\n전 마스터가 기본 레시피를 변형해서 만들어주던 거라.",
+        "en": "There probably isn't a written recipe. It wasn't on the menu. The old man made it by adapting a basic recipe.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4295,7 +4295,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그럼 레시피를 찾을 방법이 없는 건가요?",
-        "en": "그럼 레시피를 찾을 방법이 없는 건가요?",
+        "en": "Then is there no way to find the recipe?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4313,7 +4313,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아마도.",
-        "en": "아마도.",
+        "en": "Probably not.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4331,7 +4331,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "... 아니지, 조니의 기억 데이터가 있잖아.",
-        "en": "... 아니지, 조니의 기억 데이터가 있잖아.",
+        "en": "...Wait. We have Johnny's memory data.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4349,7 +4349,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "뭐?",
-        "en": "뭐?",
+        "en": "What?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4367,7 +4367,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "납골당에 조니 유골이랑 10년짜리 기억 데이터 칩 몇 개 있잖아.\n크리스 네가 직접 보는 게 힘들면 차라리 루나한테 직접 보여줘.",
-        "en": "납골당에 조니 유골이랑 10년짜리 기억 데이터 칩 몇 개 있잖아.\n크리스 네가 직접 보는 게 힘들면차라리 루나한테 직접 보여줘.",
+        "en": "Johnny's ashes are at the columbarium, along with some chips holding ten years of memories. If you can't face watching them yourself, Chris, let Luna see them.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4385,7 +4385,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 그 영감이 살아 있었다면 그대로 시킬 것 같은 괴랄한 방법이군.",
-        "en": "... 그 영감이 살아있었다면 그대로 시킬 것 같은 괴랄한 방법이군.",
+        "en": "...That's exactly the sort of bizarre idea the old man would've gone for if he were alive.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4403,7 +4403,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그 칩에 담긴 기억을 보면 톰이 제게 부탁한 칵테일의 레시피를 알아낼 수 있는 건가요?",
-        "en": "그 칩에 담긴 기억을 보면 톰이 제게 부탁한 칵테일의 레시피를 알아낼 수 있는 건가요?",
+        "en": "If I view the memories on that chip, could I find the recipe for the cocktail Tom asked for?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4421,7 +4421,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아마도. 하지만 사고로 손상된 부분도 있고, 워낙 데이터가 많아서 정리도 필요할 거다.",
-        "en": "아마도. 하지만 사고로 손상된 부분도 있고, 워낙 데이터가 많아서 정리도 필요할 거다.",
+        "en": "Maybe. Some of it was damaged in the accident, and there's a lot of data to sort through.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4439,7 +4439,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "그건 요 위층 작업장에 처박혀서 기계만 잡는 포트 전문이지. 어제 수리하던 거 끝냈다는 거 보면 지금 한가할걸?",
-        "en": "그건 요 윗층 작업장에 처박혀서 기계만 잡는 포트 전문이지. 어제 수리하던 거 끝냈다는 거 보면 지금 한가할 걸?",
+        "en": "That's Port's specialty. He's always up in his workshop tinkering with machines. Said he finished yesterday's repair, so he's probably free.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4457,7 +4457,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 좋아, 오늘 영업 끝나는 대로 포트한테 기억 칩 좀 복원해 달라고 부탁해야겠군.",
-        "en": "... 좋아, 오늘 영업 끝나는대로 포트한테 기억 칩 좀 복원해달라고 부탁해야겠군.",
+        "en": "...All right. As soon as we close, I'll ask Port to restore the memory chip.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4475,7 +4475,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "뭔가 기대되네.",
-        "en": "뭔가 기대되네.",
+        "en": "Now that's something to look forward to.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4493,7 +4493,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떤 게요?",
-        "en": "어떤게요?",
+        "en": "What is?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4511,7 +4511,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "네가 조니 뒤를 잇는 마스터가 될 것 같아서. 크리스가 아니라.",
-        "en": "네가 조니 뒤를 잇는 마스터가 될 것 같아서. 크리스가 아니라.",
+        "en": "I think you're going to be the one who takes over from Johnny. Not Chris.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4529,7 +4529,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "뒤를 잇는다는 게 무슨 말인지 모르겠어요.",
-        "en": "뒤를 잇는다는 게 무슨 말인 지 모르겠어요.",
+        "en": "I don't understand what you mean by “take over.”",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4547,7 +4547,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "하하, 조니의 후계자가 된다는 거지.\n조니 같은 사람이 될 수 있을 것 같다는 말이야.",
-        "en": "하하, 조니의 후계자가 된다는 거지.\n조니같은 사람이 될 수 있을 것 같다는 말이야.",
+        "en": "Ha, I mean becoming Johnny's successor. I think you could be someone like him.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4565,7 +4565,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그런가요.",
-        "en": "그런가요.",
+        "en": "You think so?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4583,7 +4583,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "일단 나머지는 다음에 더 얘기하고.\n루나, 오늘은 더 늦기 전에 먼저 들어가.",
-        "en": "일단 나머지는 다음에 더 얘기하고.\n루나, 오늘은 더 늦기 전에 먼저 들어가.",
+        "en": "Let's talk about the rest another time. Luna, head home before it gets any later.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4601,7 +4601,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아, 오늘 야간 영업 단속 뜨는 날이구나... 타이밍이 안 좋았네.",
-        "en": "아, 오늘 야간 영업 단속 뜨는 날이구나... 타이밍이 안 좋았네.",
+        "en": "Oh, they're checking for after-hours trading tonight... Bad timing.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4619,7 +4619,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "단속이 있나요?",
-        "en": "단속이 있나요?",
+        "en": "They're doing inspections?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4637,7 +4637,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "유흥이나 식당이 새벽에 영업하다 걸리면 벌금 내는 날이야.\n혹시 모르니까 너도 얼른 가는 게 낫겠는데?",
-        "en": "유흥이나 식당이 새벽에 영업하다 걸리면 벌금 내는 날이야.\n혹시 모르니까 너도 얼른 가는 게 낫겠는데?",
+        "en": "Bars and restaurants get fined if they're caught open in the small hours tonight. You should probably get going, just in case.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4655,7 +4655,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그럼 먼저 가보겠습니다.",
-        "en": "그럼 먼저 가보겠습니다.",
+        "en": "I'll be going, then.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4673,7 +4673,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "잘 가, 예쁜이! 다음에 또 보자.",
-        "en": "잘 가, 예쁜이! 다음에 또 보자.",
+        "en": "Bye, cutie! See you soon.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4691,7 +4691,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네. 다음에 봐요, 아일리.",
-        "en": "네. 다음에 봐요, 아일리.",
+        "en": "Goodbye, Aili. See you next time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4729,7 +4729,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(이제 손님이 더 안 오네, 오늘은 좀 일찍 정리할까.)",
-        "en": "(이제 손님이 더 안 오네, 오늘은 좀 일찍 정리할까.)",
+        "en": "(No more customers. Maybe I should start closing up early.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4765,7 +4765,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "이봐, 나 기억해?",
-        "en": "이봐, 나 기억해?",
+        "en": "Hey, remember me?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4783,7 +4783,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "아까 길에서 말 거신 분으로 기억하고 있습니다.",
-        "en": "아까 길에서 말 거신 분으로 기억하고 있습니다.",
+        "en": "You're the person who spoke to me in the street earlier.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4801,7 +4801,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뭐야, 맹하게 생겼는데 기억력은 그래도 나쁘지 않나 봐?",
-        "en": "뭐야, 맹하게 생겼는데 기억력은 그래도 나쁘지 않나 봐?",
+        "en": "Huh. You look a little spacey, but your memory's all right.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4819,7 +4819,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(칭찬인가?)",
-        "en": "(칭찬인가?)",
+        "en": "(Was that a compliment?)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4837,7 +4837,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "생각보다 가게가 특이하진 않네.\n말만 들었을 때는 이 동네랑 전혀 안 어울리는 곳이라고 들었는데.",
-        "en": "생각보다 가게가 특이하진 않네.\n말만 들었을 때는 이 동네랑 전혀 안 어울리는 곳이라고 들었는데.",
+        "en": "This bar isn't as weird as I expected. People made it sound like it didn't belong in this neighborhood at all.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4855,7 +4855,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "잘 모르겠어요. 그나저나 손님으로 오신 게 맞으신가요?",
-        "en": "잘 모르겠어요. 그나저나 손님으로 오신 게 맞으신가요?",
+        "en": "I wouldn't know. Are you here as a customer?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4873,7 +4873,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "맞아. 그나저나 너도 참 별종같단 말이지.",
-        "en": "맞아. 그나저나 너도 참 별종같단 말이지.",
+        "en": "Yeah. You're a strange one, you know that?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4891,7 +4891,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "제가요?",
-        "en": "제가요?",
+        "en": "Me?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4909,7 +4909,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "아까도 길에서 말했잖아? 이 동네에서 너처럼 존댓말 쓰는 사람은 없다고.",
-        "en": "아까도 길에서 말했잖아? 이 동네에서 너처럼 존댓말 쓰는 사람은 없다고.",
+        "en": "Like I said out there, nobody around here talks as formally as you do.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4927,7 +4927,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "존댓말의 유무가 동네에 따라서 나뉘게 되나요?",
-        "en": "존댓말의 유무가 동네에 따라서 나뉘게 되나요?",
+        "en": "Do people choose how formally to speak based on their neighborhood?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4945,7 +4945,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "... 너 도대체 어디서 살다가 온, 아니다.\n이런 걸 물어 볼만한 사이도 아니고.",
-        "en": "... 너 도대체 어디서 살다가 온, 아니다.\n이런 걸 물어 볼만한 사이도 아니고.",
+        "en": "...Where the hell did you grow up? No, forget it. I don't know you well enough to ask.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4963,7 +4963,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "아무튼 이 동네 사람들은 존댓말 안 써.\n너도 얕보이기 싫으면 고치는 게 좋을 걸.",
-        "en": "아무튼 이 동네 사람들은 존댓말 안 써.\n너도 얕보이기 싫으면 고치는 게 좋을 걸.",
+        "en": "Anyway, folks here don't stand on ceremony. Better drop it if you don't want people looking down on you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4981,7 +4981,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "얕보이는 건 별로 상관없어요.",
-        "en": "얕보이는 건 별로 상관없어요.",
+        "en": "I don't mind if they look down on me.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -4999,7 +4999,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뭐?",
-        "en": "뭐?",
+        "en": "What?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5035,7 +5035,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "우선 주문하시겠어요?\n손님 한 명당 한 잔 주문이 가게 방침이라서요.",
-        "en": "우선 주문하시겠어요?\n손님 한 명당 한 잔 주문이 가게 방침이라서요.",
+        "en": "Would you like to order? The bar has a one-drink minimum.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5053,7 +5053,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "... 술은 아는 게 없어. 추천해주던가 아무거나 만들어줘.",
-        "en": "... 술은 아는 게 없어. 추천해주던가 아무거나 만들어줘.",
+        "en": "...I don't know anything about booze. Recommend something. Or just make me whatever.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5071,7 +5071,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "나랑 어울릴만한 걸로. 쓰러질 만큼 독한 것만 아니면 돼.",
-        "en": "나랑 어울릴만한 걸로. 쓰러질 만큼 독한 것만 아니면 돼.",
+        "en": "Something that suits me. Just nothing strong enough to knock me flat.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5089,7 +5089,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네.",
-        "en": "네.",
+        "en": "Yes.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5107,7 +5107,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(앞에 손님과 어울릴만한 걸로. 단, 도수가 높지 않을 것.)",
-        "en": "(앞에 손님과 어울릴만한 걸로. 단, 도수가 높지 않을 것.)",
+        "en": "(Something that suits the guest, but not too strong.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5197,7 +5197,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "크흐, 하! 이거 괜찮은데!",
-        "en": "크흐, 하! 이거 괜찮은데!",
+        "en": "Ahh, ha! That's pretty good!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5215,7 +5215,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "마음에 드시나요?",
-        "en": "마음에 드시나요?",
+        "en": "Do you like it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5233,7 +5233,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "생각보다 실력 좋구나? 너.\n보스가 좋다고 했던 게 거짓말은 아니었나 보네.",
-        "en": "생각보다 실력 좋구나? 너.\n보스가 좋다고 했던 게 거짓말은 아니었나 보네.",
+        "en": "You're better at this than I thought. Guess the boss wasn't lying about this place.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5251,7 +5251,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "보스? 손님도 일을 하시나요?",
-        "en": "보스? 손님도 일을 하시나요?",
+        "en": "Your boss? Do you have a job, too?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5269,7 +5269,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "당연하지! 정식은 아니지만 곧, 잠시만...\n내가 그냥 할 일 없는 개백수로 보여?!",
-        "en": "당연하지! 정식은 아니지만 곧, 잠시만...\n내가 그냥 할 일 없는 개백수로 보여?!",
+        "en": "Of course! Not officially, but soon—hold on. Do I look like some unemployed bum to you?!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5287,7 +5287,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "보스라고 하시길래 궁금했어요.",
-        "en": "보스라고 하시길래 궁금했어요.",
+        "en": "You mentioned a boss. I was curious.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5305,7 +5305,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "이 팔 안 보여? 이렇게 강력한 놈을 달고도\n일을 안 하면 그건 멍청이지.",
-        "en": "이 팔 안 보여? 이렇게 강력한 놈을 달고도\n일을 안 하면 그건 멍청이지.",
+        "en": "See this arm? Anyone who had something this powerful and didn't put it to work would be an idiot.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5323,7 +5323,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "... 아, 군용이네요. 어디서 구한 거죠?",
-        "en": "... 아, 군용이네요. 어디서 구한 거죠?",
+        "en": "...Oh, it's military issue. Where did you get it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5341,7 +5341,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뭐야, 너도 군수 물건에 흥미 있어?",
-        "en": "뭐야, 너도 군수 물건에 흥미 있어?",
+        "en": "What, you're into military gear too?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5359,7 +5359,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "2033년식 코라테크 군용 팔이야.\n완전 쩔지 않아? 통일 전쟁 때 현역으로 뛰었던 거라고!",
-        "en": "2033년식 코라테크 군용 팔이야.\n완전 쩔지 않아? 통일 전쟁 때 현역으로 뛰었던 거라고!",
+        "en": "It's a 2033 CoraTech military arm. How sick is that? This thing saw action in the Unification War!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5377,7 +5377,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "멋지네요.",
-        "en": "멋지네요.",
+        "en": "That's impressive.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5395,7 +5395,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "이 놈이라면, 톰도 나를 인정해주지 않곤 못 배길 걸.",
-        "en": "이 놈이라면, 톰도 나를 인정해주지 않곤 못 배길 걸.",
+        "en": "With this baby, even Tom's gonna have to take me seriously.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5413,7 +5413,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "톰?",
-        "en": "톰?",
+        "en": "Tom?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5431,7 +5431,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "아, 우리 갱단 보스가 톰이야.",
-        "en": "아, 우리 갱단 보스가 톰이야.",
+        "en": "Oh, Tom's the boss of our gang.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5449,7 +5449,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "나도 애니멀에 들어가고 싶다고 몇 년째 말하고 있는데,\n자꾸 나보고 부족하다고 해서 미치겠어! 자기가 뭔 아빠도 아니고.",
-        "en": "나도 애니멀에 들어가고 싶다고 몇 년째 말하고 있는데,\n자꾸 나보고 부족하다고 해서 미치겠어! 자기가 뭔 아빠도 아니고.",
+        "en": "I've been asking to join Animal for years, and he keeps saying I'm not ready. Drives me nuts! He's not my dad.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5467,7 +5467,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "애니멀이 갱단 이름인가 보네요.",
-        "en": "애니멀이 갱단 이름인가 보네요.",
+        "en": "Animal must be the name of the gang.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5485,7 +5485,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "맞아. 사실 보스를 제외하면 싸울 수 있는 놈들도\n그다지 없어서 갱이라고 하기도 조금 그렇지만...",
-        "en": "맞아. 사실 보스를 제외하면 싸울 수 있는 놈들도\n그다지 없어서 갱이라고 하기도 조금 그렇지만...",
+        "en": "Yeah. Though aside from the boss, hardly anyone in it can fight. Calling it a gang is kind of a stretch...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5503,7 +5503,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "도와준 놈 등짝에 칼 꽂는 인간 쓰레기보단 차라리 짐승이 낫지. 안 그래?",
-        "en": "도와준 놈 등짝에 칼 꽂는 인간 쓰레기보단 차라리 짐승이 낫지. 안 그래?",
+        "en": "Better an animal than a piece of human trash who stabs the person who helped them in the back. Right?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5539,7 +5539,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "잘 모르겠습니다.",
-        "en": "잘 모르겠습니다.",
+        "en": "I'm not sure.",
         "when": "flag.campaign_d2_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -5557,7 +5557,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뭐, 모르는 쪽이 나을 때도 있지.\n칼 한 번 맞고 나면 너도 알게 될 걸.",
-        "en": "뭐, 모르는 쪽이 나을 때도 있지.\n칼 한 번 맞고 나면 너도 알게 될 걸.",
+        "en": "Well, sometimes it's better not to know. Get stabbed once and you'll get it.",
         "when": "flag.campaign_d2_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -5575,7 +5575,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(내 몸에 칼이 들어가긴 할까? 안 될 것 같은데.)",
-        "en": "(내 몸에 칼이 들어가긴 할까? 안 될 것 같은데.)",
+        "en": "(Could a knife even penetrate my body? I don't think so.)",
         "when": "flag.campaign_d2_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -5593,7 +5593,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그런 것 같습니다.",
-        "en": "그런 것 같습니다.",
+        "en": "I suppose so.",
         "when": "!flag.campaign_d2_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -5611,7 +5611,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "역시 그렇지? 인간보단 차라리 동물이 낫다니까.",
-        "en": "역시 그렇지? 인간보단 차라리 동물이 낫다니까.",
+        "en": "Right? Better an animal than a human, I say.",
         "when": "!flag.campaign_d2_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -5629,7 +5629,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "근데, 너 생각보다 말 잘 통해서 마음에 드네!\n이름이 뭐야?",
-        "en": "근데, 너 생각보다 말 잘 통해서 마음에 드네!\n이름이 뭐야?",
+        "en": "Hey, I like you. You're easier to talk to than I thought! What's your name?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5647,7 +5647,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "루나입니다.",
-        "en": "루나입니다.",
+        "en": "My name is Luna.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5665,7 +5665,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "난 삼호야, 잘 기억해둬.",
-        "en": "난 삼호야, 잘 기억해둬.",
+        "en": "I'm Samho. Remember it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5683,7 +5683,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "언젠가 이 동네에서 가장 강한 갱 보스가 될 거니까, 히끅!",
-        "en": "언젠가 이 동네에서 가장 강한 갱 보스가 될 거니까, 히끅!",
+        "en": "One day I'm gonna be the toughest gang boss in the neighborhood. Hic!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5701,7 +5701,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "... 삼호, 취한 것 같은데요.",
-        "en": "... 삼호, 취한 것 같은데요.",
+        "en": "...Samho, I think you're drunk.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5719,7 +5719,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "아아니, 내가! 끅. 겨우 그거 마시고 취했을 것 같아?\n그리고 톰 자주 온다며! 그으니까, 얘기는 좀 하고 가야겠어...",
-        "en": "아아니, 내가! 끅. 겨우 그거 마시고 취했을 것 같아?\n그리고 톰 자주 온다며! 그으니까, 얘기는 좀 하고 가야겠어...",
+        "en": "Nooo way! Hic. You think one drink's gonna get me drunk? And Tom comes here all the time! Sooo I'm gonna talk to him before I go...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5737,7 +5737,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "오늘은 안 올 것 같아요. 영업 시간도 끝나가고요.",
-        "en": "오늘은 안 올 것 같아요. 영업 시간도 끝나가고요.",
+        "en": "I don't think he's coming today. We're closing soon.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5755,7 +5755,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "요즘, 딸꾹. 바쁘다면서 나랑 말도 안 한단 말이야아...",
-        "en": "요즘, 딸꾹. 바쁘다면서 나랑 말도 안 한단 말이야아...",
+        "en": "Lately, hic, he says he's busy. Won't even talk to meee...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5773,7 +5773,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "예전에는 뭐든 도와주고 그랬으면서.\n... 나 이제 어리지도 않은데...",
-        "en": "예전에는 뭐든 도와주고 그랬으면서.\n... 나 이제 어리지도 않은데...",
+        "en": "Used to help me with everything. ...I'm not a kid anymore...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5791,7 +5791,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "오늘이 아니어도 톰은 여기에 다시 올 거예요.\n만들어 달라고 부탁했던 술이 있어서.",
-        "en": "오늘이 아니어도 톰은 여기에 다시 올 거예요.\n만들어 달라고 부탁했던 술이 있어서.",
+        "en": "Maybe not today, but Tom will come back. He asked me to make him a drink.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5809,7 +5809,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "... 진짜? 끅. 거어짓, 말 아니지?",
-        "en": "... 진짜? 끅. 거어짓, 말 아니지?",
+        "en": "...Really? Hic. You're not lyyying, are you?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5827,7 +5827,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "정말이에요.",
-        "en": "정말이에요.",
+        "en": "It's true.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5863,7 +5863,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "삼호?",
-        "en": "삼호?",
+        "en": "Samho?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5881,7 +5881,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "거짓말하는 눈은 아니네...",
-        "en": "거짓말하는 눈은 아니네...",
+        "en": "Your eyes don't look like you're lying...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5899,7 +5899,7 @@
         "actor": "samho",
         "arg": "drunk",
         "text": "믿고, 딸꾹. 다음에 또 올 테니까...\n보스 오면 좀 잡아놓고, 히끅. 그러라고!",
-        "en": "믿고, 딸꾹. 다음에 또 올 테니까...\n보스 오면 좀 잡아놓고, 히끅. 그러라고!",
+        "en": "I'll trust you. Hic. I'll be back, so... when the boss shows up, keep him here for me. Hic! Got it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5953,7 +5953,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "나 왔다.",
-        "en": "나 왔다.",
+        "en": "I'm back.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5971,7 +5971,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "루나, 방금 나간 놈한테 술을 얼마나 준 거야?\n무슨 애가 그렇게 인사불성이 되어선...",
-        "en": "루나, 방금 나간 놈한테 술을 얼마나 준 거야?\n무슨 애가 그렇게 인사불성이 되어선...",
+        "en": "Luna, how much did you give that kid who just left? Could barely stand up straight...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -5989,7 +5989,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "톰 찾으러 오셨다고 하길래 한 잔만 드렸어요.",
-        "en": "톰 찾으러 오셨다고 하길래 한 잔만 드렸어요.",
+        "en": "Just one drink. Samho said they were here to see Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6007,7 +6007,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "삼호 저 놈은 아마 이제 갓 스물 됐을 거다.\n다음에 술 줄 때는 좀 더 약한 거 줘.",
-        "en": "삼호 저 놈은 아마 이제 갓 스물 됐을 거다.\n다음에 술 줄 때는 좀 더 약한 거 줘.",
+        "en": "Samho's probably only just turned twenty. Make it a little lighter next time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6025,7 +6025,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아, 그리고 네가 부탁했던 칵테일 재료 말인데.",
-        "en": "아, 그리고 네가 부탁했던 칵테일 재료 말인데.",
+        "en": "Oh, about those cocktail ingredients you asked for.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6043,7 +6043,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "구하셨나요?",
-        "en": "구하셨나요?",
+        "en": "Did you find them?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6061,7 +6061,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "각설탕은 구할 수 있을 것 같아도 와일드 독이랑 비터스는 방법이 없다.\n... 그것들은 수입 규제도 안 풀려서 지금 당장 파는 곳이 도저히 안 보여.",
-        "en": "각설탕은 구할 수 있을 것 같아도 와일드 독이랑 비터스는 방법이 없다.\n... 그것들은 수입 규제도 안 풀려서 지금 당장 파는 곳이 도저히 안 보여.",
+        "en": "I think I can get sugar cubes, but Wild Dog and bitters are a dead end. ...They're still under import restrictions. Nobody's selling them as far as I can tell.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6079,7 +6079,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "알겠습니다.",
-        "en": "알겠습니다.",
+        "en": "Understood.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6115,7 +6115,7 @@
         "actor": "port",
         "arg": "default",
         "text": "나 왔다.",
-        "en": "나 왔다.",
+        "en": "I'm back.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6133,7 +6133,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "아직 영업시간 아닌가?",
-        "en": "전파사는 아직 영업시간 아닌가?",
+        "en": "Aren't you still open?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6151,7 +6151,7 @@
         "actor": "port",
         "arg": "default",
         "text": "네가 맡긴 거 주러 왔다! 이 악덕 고용주놈아.",
-        "en": "네가 맡긴 거 주러 왔다! 이 악덕 고용주놈아.",
+        "en": "Brought what you asked for, you lousy boss!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6169,7 +6169,7 @@
         "actor": "port",
         "arg": "default",
         "text": "받아라, 루나. 저 겁쟁이 자식은 볼 용기가 없댄다.\n데이터 칩 재생 시키는 법은 알지?",
-        "en": "받아라, 루나. 저 겁쟁이 자식은 볼 용기가 없댄다.\n데이터 칩 재생 시키는 법은 알지?",
+        "en": "Here, Luna. That coward hasn't got the guts to watch it. You know how to play a data chip, right?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6187,7 +6187,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 감사합니다.",
-        "en": "네, 감사합니다.",
+        "en": "Yes, thank you.",
         "when": null,
         "effects": "flag.johnny_chip_received = true",
         "entrance": null
@@ -6205,7 +6205,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 고맙다.",
-        "en": "... 고맙다.",
+        "en": "...Thanks.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6223,7 +6223,7 @@
         "actor": "port",
         "arg": "default",
         "text": "소름 끼치니까 집어치우라고.\n늙다리 남정네가 하는 감사 인사는 필요 없어.",
-        "en": "소름 끼치니까 집어치우라고.\n늙다리 남정네가 하는 감사 인사는 필요 없어.",
+        "en": "Knock it off. You're giving me the creeps. Don't need thanks from an old geezer like you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6241,7 +6241,7 @@
         "actor": "port",
         "arg": "default",
         "text": "아, 루나. 영업 시간 끝났나? 한 잔만 부탁하고 싶은데.",
-        "en": "아, 루나. 영업 시간 끝났나? 한 잔만 부탁하고 싶은데.",
+        "en": "Hey, Luna. Are you closed? Wouldn't mind one drink.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6277,7 +6277,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "주문하고 싶으신 거 있으신가요?",
-        "en": "주문하고 싶으신 거 있으신가요?",
+        "en": "Is there something you'd like to order?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6295,7 +6295,7 @@
         "actor": "port",
         "arg": "default",
         "text": "맥주로 좀 부탁하지.",
-        "en": "맥주로 좀 부탁하지.",
+        "en": "A beer, please.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6367,7 +6367,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "이만 들어가 있어라, 루나. 가게는 내가 정리할테니.",
-        "en": "이만 들어가 있어라, 루나. 가게는 내가 정리할테니.",
+        "en": "Go on home, Luna. I'll close up.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6385,7 +6385,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "먼저 가보겠습니다.",
-        "en": "먼저 가보겠습니다.",
+        "en": "I'll head out, then.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6421,7 +6421,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "하나 물어보고 싶은 게 있는데.",
-        "en": "하나 물어보고 싶은 게 있는데.",
+        "en": "Something I wanted to ask you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6439,7 +6439,7 @@
         "actor": "port",
         "arg": "default",
         "text": "뭐.",
-        "en": "뭐.",
+        "en": "What?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6457,7 +6457,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "어차피 편집하면서 레시피 내용은 다 나왔을텐데,\n왜 루나가 직접 보도록 칩까지 만들어서 준 거지?",
-        "en": "어차피 편집하면서 레시피 내용은 다 나왔을텐데,\n왜 루나가 직접 보도록 칩까지 만들어서 준 거지?",
+        "en": "You must've seen the whole recipe while you were editing. Why bother making a chip for Luna to watch herself?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6475,7 +6475,7 @@
         "actor": "port",
         "arg": "default",
         "text": "쯧, 이러니까 아직 네가 애송이라는 거야.",
-        "en": "쯧, 이러니까 아직 네가 애송이라는 거야.",
+        "en": "Tch. That's why you're still a rookie.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6493,7 +6493,7 @@
         "actor": "port",
         "arg": "default",
         "text": "시작부터 끝까지 모든 걸 알려주면 다 해결될 거라 생각하지 마.\n저 아가씨도 직접 해보면서 자립하고 실패하고 성장할 수 있는 거여.",
-        "en": "시작부터 끝까지 모든 걸 알려주면 다 해결될 거라 생각하지 마.\n저 아가씨도 직접 해보면서 자립하고 실패하고 성장할 수 있는 거여.",
+        "en": "You think handing someone every answer solves everything? Let the girl try it herself. Let her stand on her own feet, fail sometimes, and grow.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6529,7 +6529,7 @@
         "actor": "port",
         "arg": "default",
         "text": "조니가 하늘에서 네 쌍욕이나 했으면 좋겠구만.",
-        "en": "조니가 하늘에서 네 쌍욕이나 했으면 좋겠구만.",
+        "en": "Hope Johnny's cursing you out from up there.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6547,7 +6547,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "... 조니가 욕을 하는 사람이 아닌 건 알잖아.\n가르치는 게 나랑 잘 어울리는 게 아닌 것도.",
-        "en": "... 조니가 욕을 하는 사람이 아닌 건 알잖아.\n가르치는 게 나랑 잘 어울리는 게 아닌 것도.",
+        "en": "...You know Johnny wasn't one to swear. And you know teaching isn't my thing.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6565,7 +6565,7 @@
         "actor": "port",
         "arg": "default",
         "text": "허! 그럼 너도 저 아가씨랑 다를 바 없는 거지.\n아니, 루나보다도 못하겠구만! 배울 의지도 없으니.",
-        "en": "허! 그럼 너도 저 아가씨랑 다를 바 없는 거지.\n아니, 루나보다도 못하겠구만! 배울 의지도 없으니.",
+        "en": "Hah! Then you're no different from her. No, you're worse! At least Luna wants to learn.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6583,7 +6583,7 @@
         "actor": "chris",
         "arg": "default",
         "text": "할 말이 없군.",
-        "en": "할 말이 없군.",
+        "en": "Can't argue with that.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6601,7 +6601,7 @@
         "actor": "port",
         "arg": "default",
         "text": "알면 저 애한테 잘 해.\n너 같은 놈 자가복제 시키지 말고.",
-        "en": "알면 저 애한테 잘 해.\n너 같은 놈 자가복제 시키지 말고.",
+        "en": "Then do right by her. Don't turn her into another you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6657,7 +6657,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아안녀엉, 루나!",
-        "en": "아안녀엉, 루나!",
+        "en": "Hellooo, Luna!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6675,7 +6675,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "안녕하세요, 아일리. 뭐로 주문하시겠어요?",
-        "en": "안녕하세요, 아일리. 뭐로 주문하시겠어요?",
+        "en": "Hello, Aili. What would you like to order?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6693,7 +6693,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "후후... 아쉽지만 오늘은 손님으로 온 게 아니지.",
-        "en": "후후... 아쉽지만 오늘은 손님으로 온 게 아니지.",
+        "en": "Heh... Sadly, I'm not here as a customer today.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6711,7 +6711,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "자, 주문하신 각설탕 배달 왔습니다~",
-        "en": "자, 주문하신 각설탕 배달 왔습니다~",
+        "en": "One delivery of sugar cubes, as requested!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6729,7 +6729,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "아, 가져다주신다는 분이 아일리였군요.\n어디서 구하셨나요?",
-        "en": "아, 가져다주신다는 분이 아일리였군요.\n어디서 구하셨나요?",
+        "en": "Oh, you're the one bringing them. Where did you get them?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6747,7 +6747,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "포트가 숨겨 둔 다과 세트에서 몰래 훔쳤지 큭큭...",
-        "en": "포트가 숨겨 둔 다과 세트에서 몰래 훔쳤지 큭큭...",
+        "en": "Swiped them from Port's secret tea set. Hee hee...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6765,7 +6765,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "생긴 건 우락부락하면서 단 거 좋아하는 게 은근 웃기다니까.",
-        "en": "생긴 건 우락부락하면서 단 거 좋아하는 게 은근 웃기다니까.",
+        "en": "Always cracks me up. Big, tough guy with a secret sweet tooth.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6783,7 +6783,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "참, 보수는 크리스한테 이미 받았어! 넌 물건만 받으면 돼.",
-        "en": "참, 보수는 크리스한테 이미 받았어! 넌 물건만 받으면 돼.",
+        "en": "Oh, Chris already paid me! All you have to do is take them.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6801,7 +6801,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "... 감사해요.",
-        "en": "... 감사해요.",
+        "en": "...Thank you.",
         "when": null,
         "effects": "flag.day3_sugar_received = true",
         "entrance": null
@@ -6819,7 +6819,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "별말씀을! 고마우면 나중에 데이트나 한 번 해 줘.\n요즘 손님으로 아저씨들만 와서 예쁜이랑 좀 놀고 싶거든.",
-        "en": "별말씀을! 고마우면 나중에 데이트나 한 번 해 줘.\n요즘 손님으로 아저씨들만 와서 예쁜이랑 좀 놀고 싶거든.",
+        "en": "Anytime! If you're grateful, take me on a date sometime. Nothing but old guys in my shop lately. I want to hang out with someone cute.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6837,7 +6837,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "일하는 시간이랑 겹치지 않는다면 문제없어요.",
-        "en": "일하는 시간이랑 겹치지 않는다면 문제없어요.",
+        "en": "As long as it doesn't conflict with work, I see no problem.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6855,7 +6855,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "아하하! 약속한 거다? 무르기 없어!",
-        "en": "아하하! 약속한 거다? 무르기 없어!",
+        "en": "Ha ha! That's a promise, then? No takebacks!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6873,7 +6873,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네, 좋아요.",
-        "en": "네, 좋아요.",
+        "en": "Yes, I'd like that.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6891,7 +6891,7 @@
         "actor": "aili",
         "arg": "default",
         "text": "좋아. 임무도 끝났겠다, 이만 가 볼게!\n예약이 있거든. 일 열심히 해~",
-        "en": "좋아. 임무도 끝났겠다, 이만 가 볼게!\n예약이 있거든. 일 열심히 해~",
+        "en": "Great. Mission accomplished. I'd better run! Got an appointment. Have a good shift!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6909,7 +6909,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "안녕히 가세요.",
-        "en": "안녕히 가세요.",
+        "en": "Goodbye.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6945,7 +6945,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(이제 재료는 다 구비됐어.)",
-        "en": "(이제 재료는 다 구비됐어.)",
+        "en": "(I have all the ingredients now.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6963,7 +6963,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(과연 똑같이 만들 수 있으려나.)",
-        "en": "(과연 똑같이 만들 수 있으려나.)",
+        "en": "(I wonder if I can really recreate it.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -6981,7 +6981,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(똑같이 만들어도 맛이 과연 같을지...)",
-        "en": "(똑같이 만들어도 맛이 과연 같을지...)",
+        "en": "(Even if I make it the same way, will it taste the same...?)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7017,7 +7017,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 안녕, 루나.",
-        "en": "... 안녕, 루나.",
+        "en": "...Hi, Luna.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7035,7 +7035,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "마침 오셨네요, 톰.",
-        "en": "마침 오셨네요, 톰.",
+        "en": "Just in time, Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7053,7 +7053,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "내가 괜찮은 타이밍에 왔을지 모르겠네.\n부탁했던 칵테일 재료랑 레시피를 다 찾았다면서?",
-        "en": "내가 괜찮은 타이밍에 왔을지 모르겠네.\n부탁했던 칵테일 재료랑 레시피를 다 찾았다면서?",
+        "en": "Hope I'm not too early. I heard you found the ingredients and the recipe for that cocktail I asked about?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7089,7 +7089,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "네. 지금 만들어 드릴까요?",
-        "en": "네. 지금 만들어 드릴까요?",
+        "en": "Yes. Shall I make it for you now?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7107,7 +7107,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "응, 부탁할게.",
-        "en": "응, 부탁할게.",
+        "en": "Yes, please.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7125,7 +7125,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(조니의 올드 패션드 한 잔.)",
-        "en": "(조니의 올드 패션드 한 잔.)",
+        "en": "(One of Johnny's Old Fashioneds.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7215,7 +7215,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "어떤가요?",
-        "en": "어떤가요?",
+        "en": "How is it?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7233,7 +7233,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "정말 똑같잖아? 하하...",
-        "en": "정말 똑같잖아? 하하...",
+        "en": "It really is the same! Ha...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7251,7 +7251,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "너.. 마법이라도 부릴 줄 아는 거야?",
-        "en": "너.. 마법이라도 부릴 줄 아는 거야?",
+        "en": "You... know magic or something?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7287,7 +7287,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "믿고 부탁하셨으니까요.",
-        "en": "믿고 부탁하셨으니까요.",
+        "en": "You trusted me with it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7305,7 +7305,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "다시는 못 마실 거라 생각했는데...",
-        "en": "다시는 못 마실 거라 생각했는데...",
+        "en": "I thought I'd never taste this again...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7323,7 +7323,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "고마워, 루나. 진심으로.",
-        "en": "고마워, 루나. 진심으로.",
+        "en": "Thank you, Luna. I mean it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7341,7 +7341,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "그렇게 힘들지는 않았어요.",
-        "en": "그렇게 힘들지는 않았어요.",
+        "en": "It wasn't that difficult.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7359,7 +7359,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "하하 이럴 땐 생색내는 거야. 그렇게 이타적으로 살다간 다 뺏긴다?",
-        "en": "하하 이럴 땐 생색내는 거야. 그렇게 이타적으로 살다간 다 뺏긴다?",
+        "en": "Ha! This is where you take some credit. Keep being so selfless and people will take everything you've got.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7377,7 +7377,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "...기억해 두겠습니다.",
-        "en": "...기억해 두겠습니다.",
+        "en": "...I'll remember that.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7395,7 +7395,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그나저나 크리스도 잘 모르는 눈치던데.\n레시피는 어떻게 알아낸 거야?",
-        "en": "그나저나 크리스도 잘 모르는 눈치던데.\n레시피는 어떻게 알아낸 거야?",
+        "en": "Chris didn't seem to know it either. How did you find the recipe?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7413,7 +7413,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "조니의 기억 데이터를 직접 봤어요.",
-        "en": "조니의 기억 데이터를 직접 봤어요.",
+        "en": "I viewed Johnny's memory data myself.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7431,7 +7431,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "거기서 15년 전 조니가 톰에게 만들어 준 레시피를 찾았죠.",
-        "en": "거기서 15년 전 조니가 톰에게 만들어 준 레시피를 찾았죠.",
+        "en": "That's where I found the recipe Johnny used for your drink fifteen years ago.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7449,7 +7449,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "십오 년 전? 엄청 오래전이잖아?",
-        "en": "십오 년 전? 엄청 오래전이잖아?",
+        "en": "Fifteen years ago? That far back?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7467,7 +7467,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "음... 그때 영감이랑 알게 된 지 얼마 안 되었을 때 같은데.\n어때, 그때 영감이랑 나랑 좀 친해 보였어?",
-        "en": "음... 그때 영감이랑 알게 된 지 얼마 안 되었을 때 같은데.\n어때, 그때 영감이랑 나랑 좀 친해 보였어?",
+        "en": "Hmm... I don't think I'd known him very long then. Did the old man and I look close?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7485,7 +7485,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "개인적으로는 친밀한 사이라고 생각했어요.\n중요한 고민도 조니에게 상담하시는 걸 보니.",
-        "en": "개인적으로는 친밀한 사이라고 생각했어요.\n중요한 고민도 조니에게 상담하시는 걸 보니.",
+        "en": "I thought you were close. You went to Johnny for advice on something important.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7503,7 +7503,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "고민? 무슨 고민?",
-        "en": "고민? 무슨 고민?",
+        "en": "Advice? About what?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7521,7 +7521,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "사고로 보호자를 잃은 아이를 구할지 말지 고민하셨던 날이요.",
-        "en": "사고로 보호자를 잃은 아이를 구할지 말지 고민하셨던 날이요.",
+        "en": "The day you were wondering whether to save a child who'd lost their guardian in an accident.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7575,7 +7575,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "드디어 만났네, 톰.",
-        "en": "드디어 만났네, 톰.",
+        "en": "Finally caught you, Tom.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7593,7 +7593,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 여긴 어쩐 일이야?",
-        "en": "... 여긴 어쩐 일이야?",
+        "en": "...What brings you here?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7611,7 +7611,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "왜? 내가 못 올 곳에 온 것도 아니고.",
-        "en": "왜? 내가 못 올 곳에 온 것도 아니고.",
+        "en": "Why? I'm allowed in here, aren't I?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7629,7 +7629,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그건 그렇지, 간섭할 생각은 없었어.\n칵테일 잘 마셨어, 루나. 나는 일 때문에...",
-        "en": "그건 그렇지, 간섭할 생각은 없었어.\n칵테일 잘 마셨어, 루나. 나는 일 때문에...",
+        "en": "Of course. I didn't mean to pry. Thanks for the cocktail, Luna. I'd better get to work...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7647,7 +7647,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "아, 작작 도망쳐! 언제까지 회피할 건데?",
-        "en": "아, 작작 도망쳐! 언제까지 회피할 건데?",
+        "en": "Oh, quit running away! How long are you gonna keep dodging me?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7665,7 +7665,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "내가 합류하고 싶다는 얘기만 하면 늘 피했잖아.\n대체 그놈의 자격이 뭐라고...",
-        "en": "내가 합류하고 싶다는 얘기만 하면 늘 피했잖아.\n대체 그놈의 자격이 뭐라고...",
+        "en": "Every time I say I want to join, you duck out. What the hell does it take to qualify...?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7683,7 +7683,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "진정하세요.",
-        "en": "진정하세요.",
+        "en": "Please calm down.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7719,7 +7719,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "톰, 솔직하게 말해봐. 나를 갱에 들일 마음이 있긴 해?",
-        "en": "톰, 솔직하게 말해봐. 나를 갱에 들일 마음이 있긴 해?",
+        "en": "Tom, tell me straight. Do you have any intention of letting me join the gang?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7737,7 +7737,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 피는 안 섞였지만 너는 결국 내 자식 같은 존재야.\n고작 나에 대한 동경 하나로 갱단 일을 하게 둘 순 없어.",
-        "en": "... 피는 안 섞였지만 너는 결국 내 자식 같은 존재야.\n고작 나에 대한 동경 하나로 갱단 일을 하게 둘 순 없어.",
+        "en": "...We may not be related by blood, but you're my kid all the same. I can't let you join a gang just because you look up to me.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7755,7 +7755,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "네가 사람 죽이는 것도 보고 싶지 않고.",
-        "en": "네가 사람 죽이는 것도 보고 싶지 않고.",
+        "en": "And I don't want to see you kill anyone.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7773,7 +7773,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "내가 죽는 꼴은 볼 자신 있어?",
-        "en": "내가 죽는 꼴은 볼 자신 있어?",
+        "en": "Could you stand to see me die?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7791,7 +7791,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "...말조심해.",
-        "en": "...말조심해.",
+        "en": "...Watch what you say.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7809,7 +7809,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "여기 나이트 타운이야. 손에 피 한 번 안 묻히고 사는 게\n가능할 거라고 생각해?",
-        "en": "여기 나이트 타운이야. 손에 피 한 번 안 묻히고 사는 게\n가능할 거라고 생각해?",
+        "en": "This is Night Town. You really think I can live here without ever getting blood on my hands?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7827,7 +7827,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "그래서 네가 이 동네를 떠나길 바랐던 거야.\n늘 말했잖아, 다른 곳으로 가라고.",
-        "en": "그래서 네가 이 동네를 떠나길 바랐던 거야.\n늘 말했잖아, 다른 곳으로 가라고.",
+        "en": "That's why I wanted you to leave. I've always told you to go somewhere else.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7845,7 +7845,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "톰, 애초에 난 이 빌어처먹을 동네 못 떠나.\n너랑 가족들이 다 여기 있는 마당에 떠날 이유도 없고.",
-        "en": "톰, 애초에 난 이 빌어처먹을 동네 못 떠나.\n너랑 가족들이 다 여기 있는 마당에 떠날 이유도 없고.",
+        "en": "Tom, I can't leave this goddamn neighborhood. And why would I, when you and the rest of my family's here?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7863,7 +7863,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뒤져서 저승 가는 것 말고 내가 도대체 어딜 갈 수 있다는 건데?",
-        "en": "뒤져서 저승 가는 것 말고 내가 도대체 어딜 갈 수 있다는 건데?",
+        "en": "Where the hell else can I go, short of dying and going straight to hell?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7899,7 +7899,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "애니멀이랑 상관없이 일을 하다 보면 분명 죽을 거야.\n총을 맞든, 주먹에 뭉개지든, 칼에 썰리든.",
-        "en": "애니멀이랑 상관없이 일을 하다 보면 분명 죽을 거야.\n총을 맞든, 주먹에 뭉개지든, 칼에 썰리든.",
+        "en": "If I keep taking jobs outside Animal, I'm gonna get killed. Shot, beaten to a pulp, cut to pieces.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7917,7 +7917,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "내가 죽는 게 무섭잖아.",
-        "en": "내가 죽는 게 무섭잖아.",
+        "en": "You're scared I'll die, aren't you?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7935,7 +7935,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "...그래 무섭지.",
-        "en": "...그래 무섭지.",
+        "en": "...Yeah. I'm scared.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7953,7 +7953,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "그럼 함께 일하면서 차라리 날 지켜.",
-        "en": "그럼 함께 일하면서 차라리 날 지켜.",
+        "en": "Then work with me. Protect me yourself.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7971,7 +7971,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "난 적어도 내 앞가림을 생각해서 갱에 들어가겠다고 한 거야.\n내가 지켜지는 것도, 갱단원을 지키는 것도 다 생각해서.",
-        "en": "난 적어도 내 앞가림을 생각해서 갱에 들어가겠다고 한 거야.\n내가 지켜지는 것도, 갱단원을 지키는 것도 다 생각해서.",
+        "en": "I asked to join because I'm trying to look out for myself. I've thought about what it means to have the gang at my back, and to have theirs.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -7989,7 +7989,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "루나, 오늘 네가 조니처럼 보여서 그러는데...\n네가 볼 때 어떤 생각이 드는지 알려줄 수 있어?",
-        "en": "루나, 오늘 네가 조니처럼 보여서 그러는데...\n네가 볼 때 어떤 생각이 드는지 알려줄 수 있어?",
+        "en": "Luna, you remind me of Johnny today... Could you tell me what you think?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8007,7 +8007,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "...너 진짜 머저리가 된 거야? 루나는 잘 알지도\n못하는데 그런 걸 물어본다고?",
-        "en": "...너 진짜 머저리가 된 거야? 루나는 잘 알지도\n못하는데 그런 걸 물어본다고?",
+        "en": "...Are you actually an idiot? Luna barely knows us and you're asking her?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8043,7 +8043,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "책임질 생각을 했다면 끝까지 책임을 지는 게 맞다고 생각합니다.",
-        "en": "책임질 생각을 했다면 끝까지 책임을 지는 게 맞다고 생각합니다.",
+        "en": "If you chose to take responsibility for someone, I think you should see it through.",
         "when": "flag.campaign_d3_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -8061,7 +8061,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "조니의 말대로 톰 아래에서 자란 삼호라면 다른 누군가를 지킬 수도 있고요.",
-        "en": "조니의 말대로 톰 아래에서 자란 삼호라면 다른 누군가를 지킬 수도 있고요.",
+        "en": "And as Johnny said, someone raised by you might grow up to protect somebody else, Tom.",
         "when": "flag.campaign_d3_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -8079,7 +8079,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "삼호는 더 이상 톰의 기억 속 어린아이가 아니에요.",
-        "en": "삼호는 더 이상 톰의 기억 속 어린아이가 아니에요.",
+        "en": "Samho isn't the little kid you remember anymore.",
         "when": "!flag.campaign_d3_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -8097,7 +8097,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "저 팔로 누군가를 해칠 수도 있지만, 지킬 수도 있다는 것 아닌가요?",
-        "en": "저 팔로 누군가를 해칠 수도 있지만, 지킬 수도 있다는 것 아닌가요?",
+        "en": "That arm could hurt someone. Doesn't that mean it could protect someone, too?",
         "when": "!flag.campaign_d3_bar_answer_1",
         "effects": null,
         "entrance": null
@@ -8115,7 +8115,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "뭐? 무슨 소리야 그건?",
-        "en": "뭐? 무슨 소리야 그건?",
+        "en": "What? What's that supposed to mean?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8151,7 +8151,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "좋아, 너희 둘 다 정말 못 이기겠네.",
-        "en": "좋아, 너희 둘 다 정말 못 이기겠네.",
+        "en": "All right. There's no winning against the two of you.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8187,7 +8187,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "삼호가 갱에 정식으로 들어오는 건 진지하게 고려해 볼게.\n나한테도 생각할 시간을 좀 줘.",
-        "en": "삼호가 갱에 정식으로 들어오는 건 진지하게 고려해 볼게.\n나한테도 생각할 시간을 좀 줘.",
+        "en": "I'll give some real thought to letting Samho join the gang officially. Give me a little time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8205,7 +8205,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "하하! 아, 진작 이렇게 나오지 그랬어! 속이 다 시원하네!",
-        "en": "하하! 아, 진작 이렇게 나오지 그랬어! 속이 다 시원하네!",
+        "en": "Ha! Why didn't you just say that to begin with? That's a load off!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8223,7 +8223,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "삼호, 아직 너 데려오겠다고 말 안 했다?",
-        "en": "삼호, 아직 너 데려오겠다고 말 안 했다?",
+        "en": "Samho, I haven't said I'm taking you on yet.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8241,7 +8241,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "루나, 나도 톰처럼 술 한 잔 줘!",
-        "en": "루나, 나도 톰처럼 술 한 잔 줘!",
+        "en": "Luna, give me a drink too, just like Tom!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8277,7 +8277,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "뭐로 드릴까요?",
-        "en": "뭐로 드릴까요?",
+        "en": "What would you like?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8295,7 +8295,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "시원하게 맥주!",
-        "en": "시원하게 맥주!",
+        "en": "An ice-cold beer!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8367,7 +8367,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "여기 있어요.",
-        "en": "여기 있어요.",
+        "en": "Here you go.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8403,7 +8403,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "크.. 시원하네.",
-        "en": "크.. 시원하네.",
+        "en": "Ahh... Nice and cold.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8421,7 +8421,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "많이 마시지는 마, 취해서 정신 못 차릴라.",
-        "en": "많이 마시지는 마, 취해서 정신 못 차릴라.",
+        "en": "Don't drink too much. You'll be out of it.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8439,7 +8439,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "아이, 나를 뭘로 보고!",
-        "en": "아이, 나를 뭘로 보고!",
+        "en": "Hey, what do you take me for?!",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8457,7 +8457,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "얼굴 새빨개졌는데.",
-        "en": "얼굴 새빨개졌는데.",
+        "en": "Your face is bright red.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8475,7 +8475,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "저번에도 한 잔 마시고 취하긴 했어요.",
-        "en": "저번에도 한 잔 마시고 취하긴 했어요.",
+        "en": "Last time, one drink was enough.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8493,7 +8493,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "이렇게 주량이 약해서... 삼호, 일어나 볼래?",
-        "en": "이렇게 주량이 약해서... 삼호, 일어나 볼래?",
+        "en": "With a tolerance like that... Samho, think you can stand up?",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8511,7 +8511,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "으음, 한 잔만 더! 딸꾹.",
-        "en": "으음, 한 잔만 더! 딸꾹.",
+        "en": "Mmm, just one more! Hic.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8529,7 +8529,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 하아.",
-        "en": "... 하아.",
+        "en": "...Sigh.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8547,7 +8547,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "고마워, 루나. 덕분에 생각 정리가 좀 많이 된 것 같아.\n간만에 가장 좋아하던 칵테일도 마셔 보고.",
-        "en": "고마워, 루나. 덕분에 생각 정리가 좀 많이 된 것 같아.\n간만에 가장 좋아하던 칵테일도 마셔 보고.",
+        "en": "Thanks, Luna. You've given me a lot of clarity. And I got to have my favorite cocktail again after all this time.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8565,7 +8565,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "재료가 있다면 언제든지 다시 만들어드리겠습니다.",
-        "en": "재료가 있다면 언제든지 다시 만들어드리겠습니다.",
+        "en": "If I have the ingredients, I'll gladly make it for you anytime.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8583,7 +8583,7 @@
         "actor": "tom",
         "arg": "default",
         "text": "... 하하, 정말로 조니랑 똑같은 얘기를 하네.\n오늘은 이만 가 볼게, 조심히 들어가.",
-        "en": "... 하하, 정말로 조니랑 똑같은 얘기를 하네.\n오늘은 이만 가 볼게, 조심히 들어가.",
+        "en": "...Ha. That's exactly what Johnny used to say. I'll get going. Get home safe.",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8601,7 +8601,7 @@
         "actor": "samho",
         "arg": "default",
         "text": "끅, 루나 안녕~...",
-        "en": "끅, 루나 안녕~...",
+        "en": "Hic. Bye, Lunaaa...",
         "when": null,
         "effects": null,
         "entrance": null
@@ -8655,7 +8655,7 @@
         "actor": "luna",
         "arg": "default",
         "text": "(이제 가게 정리하고 가야겠다.)",
-        "en": "(이제 가게 정리하고 가야겠다.)",
+        "en": "(Time to clean up and head home.)",
         "when": null,
         "effects": null,
         "entrance": null
@@ -9706,197 +9706,169 @@
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "뭐야, 넌. 못 보던 얼굴인데?",
+        "text": "뭐야, 넌? 못 보던 얼굴인데.",
         "editorRowId": "steps_commute2_1"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "이 동네에 온 지 얼마 안 되었어요.",
+        "text": "이 동네에 온 지 얼마 안 됐어요.",
         "editorRowId": "steps_commute2_2"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "흠... 복장이 좀 특이한데...",
+        "text": "복장이 특이한데. 어디 소속이야?",
         "editorRowId": "steps_commute2_3"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "너 혹시 어디 소속이야?",
-        "editorRowId": "steps_commute2_4"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
         "text": "제가 일하는 곳을 말하는 건가요?",
-        "editorRowId": "steps_commute2_5"
+        "editorRowId": "steps_commute2_4"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "그래, 뭐 갱이나 회사 같은 거. 있어?",
-        "editorRowId": "steps_commute2_6"
+        "text": "그래, 뭐 갱이나 회사 같은 거.",
+        "editorRowId": "steps_commute2_5"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "저 앞 건물에 언노운이라는 가게에서 일하고 있어요.",
+        "text": "저 앞 건물의 언노운이라는 가게에서 일하고 있어요.",
+        "editorRowId": "steps_commute2_6"
+      },
+      {
+        "type": "say",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "언노운? 언노운, 어디서 들어봤는데...",
         "editorRowId": "steps_commute2_7"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "언노운?... 언노운... 어디서 들어봤는데.",
+        "text": "아, 혹시 그 술 파는 곳이냐?",
         "editorRowId": "steps_commute2_8"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "혹시 거기 술 파는 곳이야?",
-        "editorRowId": "steps_commute2_9"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
         "text": "네, 맞아요.",
+        "editorRowId": "steps_commute2_9"
+      },
+      {
+        "type": "say",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "뭐야, 난 또 무슨 새로 생긴 갱단인 줄 알았네.",
         "editorRowId": "steps_commute2_10"
       },
       {
         "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "아 보스가 전에 말했던 곳이구나. 새로 생긴 갱단인 줄 알았네.",
+        "who": "루나",
+        "actor": "luna",
+        "text": "혹시 갱단은 뭘 하는 곳인가요?",
         "editorRowId": "steps_commute2_11"
       },
       {
         "type": "say",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "... 너 그런 것도 몰라?",
+        "editorRowId": "steps_commute2_12"
+      },
+      {
+        "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "갱단은 뭐 하는 곳인가요?",
-        "editorRowId": "steps_commute2_12"
+        "text": "제가 사람이 없는 곳에서 살다 와서요.",
+        "editorRowId": "steps_commute2_13"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "...너 그런 것도 몰라?",
-        "editorRowId": "steps_commute2_13"
-      },
-      {
-        "type": "say",
-        "who": "루나",
-        "actor": "luna",
-        "text": "제가 사람이 별로 없는 곳에 살다가 온 지 얼마 안 돼서요.",
+        "text": "하이랜더나 촌구석 출신인가 보네.",
         "editorRowId": "steps_commute2_14"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "뭐야, 너 산에 살다 왔어?",
+        "text": "대충 돈 되는 거라면 다 하는 팀이라고 생각해.",
         "editorRowId": "steps_commute2_15"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "전에 있던 곳이 산 쪽에 위치하긴 했죠.",
+        "text": "돈을 많이 버는 직업인가요?",
         "editorRowId": "steps_commute2_16"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "하이랜더 출신인가 보네. 그러면 그럴 수 있지.",
+        "text": "글쎄, 딱히. 나도 그것까진 잘 몰라.",
         "editorRowId": "steps_commute2_17"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "그냥 돈 되는 거 이것저것 하는 팀 같은 거라고 생각해.",
-        "editorRowId": "steps_commute2_18"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "돈을 많이 버는 직업인가요?",
+        "text": "갱단에서 일하시는 분이 아닌가요?",
+        "editorRowId": "steps_commute2_18"
+      },
+      {
+        "type": "say",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "... 지금은 아니지만 곧 들어갈 거야.",
         "editorRowId": "steps_commute2_19"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "...나도 그런 건 잘 몰라.",
+        "text": "너도 내 이름이 엄청나게 유명해지는 걸 듣게 될 걸.",
         "editorRowId": "steps_commute2_20"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "갱단에서 일하시는 분이 아니었나요?",
+        "text": "지금 듣는 건 안 되나요?",
         "editorRowId": "steps_commute2_21"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "지금은 아니지만 곧 들어갈 예정이지.",
+        "text": "삼호야, 삼호. 조만간 애니멀 소속이 될 몸이지.",
         "editorRowId": "steps_commute2_22"
       },
       {
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "들어가기만 하면 너도 곧 내 이름이 유명해지는 걸 듣게 될 거야.",
+        "text": "아까 네가 일하는 곳 이름이 언노운이라고 했던가?",
         "editorRowId": "steps_commute2_23"
       },
       {
         "type": "say",
-        "who": "루나",
-        "actor": "luna",
-        "text": "지금 들으면 안 되나요?",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "나중에 놀러가면 서비스 좀 챙겨줘, 그럼 이만!",
         "editorRowId": "steps_commute2_24"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "...삼호야, 삼호. 조만간 애니멀 갱단원이 될 몸이지.",
-        "editorRowId": "steps_commute2_25"
-      },
-      {
-        "type": "say",
-        "who": "루나",
-        "actor": "luna",
-        "text": "네. 잘 부탁드려요.",
-        "editorRowId": "steps_commute2_26"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "처음 본 사이인데 뭔 부탁까지 해.",
-        "editorRowId": "steps_commute2_27"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "언노운이라고 했지? 나중에 놀러 갈 테니까 서비스 좀 제대로 챙겨 주라고.",
-        "editorRowId": "steps_commute2_28"
       },
       {
         "type": "samho-action",
@@ -9907,8 +9879,8 @@
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "...서비스?",
-        "editorRowId": "steps_commute2_30"
+        "text": "... 서비스?",
+        "editorRowId": "steps_commute2_25"
       }
     ],
     "johnny": [
@@ -11176,14 +11148,14 @@
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "어, 루나. 출근해?",
+        "text": "어, 루나! 출근해?",
         "editorRowId": "steps_commute3_1"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "네, 맞아요.",
+        "text": "네.",
         "editorRowId": "steps_commute3_2"
       },
       {
@@ -11204,22 +11176,29 @@
         "type": "say",
         "who": "삼호",
         "actor": "samho",
-        "text": "의뢰 중개인이랑 잠깐 얘기하느라.",
+        "text": "의뢰 중개인이랑 잠깐 얘기하던 중. 이 팔 구하느라 돈 좀 썼거든.",
         "editorRowId": "steps_commute3_5"
-      },
-      {
-        "type": "say",
-        "who": "삼호",
-        "actor": "samho",
-        "text": "이따 갈게. 오늘은 뭔가 보스가 거기로 갈 거 같단 말이지.",
-        "editorRowId": "steps_commute3_6"
       },
       {
         "type": "say",
         "who": "루나",
         "actor": "luna",
-        "text": "네. 바에서 뵐게요.",
+        "text": "아, 실은 오늘 톰이 가게에 올 것 같아요.",
+        "editorRowId": "steps_commute3_6"
+      },
+      {
+        "type": "say",
+        "who": "삼호",
+        "actor": "samho",
+        "text": "... 좋아. 그럼 나중에 언노운으로 찾아갈게, 그때 보자고.",
         "editorRowId": "steps_commute3_7"
+      },
+      {
+        "type": "say",
+        "who": "루나",
+        "actor": "luna",
+        "text": "네, 바에서 뵐게요.",
+        "editorRowId": "steps_commute3_notion_20261105_8"
       }
     ],
     "night3": [],
@@ -11836,7 +11815,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그럼. 이제 시작해 보려고 하는데. 전에 내가 말했던 것들 혹시 기억하나?",
-      "en": "그럼. 이제 시작해 보려고 하는데. 전에 내가 말했던 것들 혹시 기억해?",
+      "en": "Well, let's get started. Do you remember what I told you before?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -11872,7 +11851,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "다시 한 번 알려주실 수 있나요?",
-      "en": "다시 한 번 알려주실 수 있나요?",
+      "en": "Could you go over that again?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11890,7 +11869,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그래. 이번엔 제대로 기억해. 두 번 알려주는 건 좋아하지 않으니까.",
-      "en": "그래. 이번엔 제대로 기억해. 두 번 알려주는 건 좋아하지 않으니까.",
+      "en": "Sure. Remember it this time. I don't like explaining things twice.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11908,7 +11887,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "손님 응대부터 알려줄게.",
-      "en": "손님 응대부터 알려줄게.",
+      "en": "Let's start with serving customers.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11926,7 +11905,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "우선 바 테이블에 앉을 수 있는 <name>자리</name>가 총 몇 개지?",
-      "en": "우선 바 테이블에 앉을 수 있는 자리가 총 몇 개지?",
+      "en": "First, how many <name>seats</name> are there at the bar?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11962,7 +11941,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "<name>3개</name>로 보입니다. 생각보다 자리가 적네요.",
-      "en": "3개로 보입니다. 생각보다 자리가 적네요.",
+      "en": "I count <name>three</name>. Fewer than I expected.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11980,7 +11959,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "가게가 작은 편이니 어쩔 수 없지.",
-      "en": "가게가 작은 편이니 어쩔 수 없지.",
+      "en": "It's a small bar. Comes with the territory.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -11998,7 +11977,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "자리가 많진 않지만 한 번에 네가 모든 손님을 신경 쓰기 힘들어도\n손님의 상태에 따라 표시가 될 테니 보면 도움이 될 거다.",
-      "en": "자리가 많진 않지만 한 번에 네가 모든 손님을 신경 쓰기 힘들어도\n손님의 상태에 따라 표시가 될 테니 보면 도움이 될 거다.",
+      "en": "Even with so few seats, it's hard to watch everyone at once. The indicators show how each guest is doing. Keep an eye on them.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12034,7 +12013,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "자, 방금 막 손님이 자리에 앉았다고 생각해 봐.\n무엇부터 해야 하지?",
-      "en": "자, 방금 막 손님이 자리에 앉았다고 생각해 봐.\n무엇부터 해야 하지?",
+      "en": "Say a customer just sat down. What's the first thing you do?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12052,7 +12031,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "손님께 주문을 받으면 되나요?",
-      "en": "손님께 주문을 받으면 되나요?",
+      "en": "Take their order?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12070,7 +12049,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "주문을 여쭤보기 전에 <name>코스터</name>부터 드려.",
-      "en": "주문을 여쭤보기 전에 코스터부터 드려.",
+      "en": "Give them a <name>coaster</name> before you ask for their order.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12088,7 +12067,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "이유가 있나요?",
-      "en": "이유가 있나요?",
+      "en": "Is there a reason?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12106,7 +12085,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그냥 줘. 그게 우리 가게 방식이니까.",
-      "en": "그냥 줘. 그게 우리 가게 방식이다.",
+      "en": "Just do it. That's how we do things here.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12142,7 +12121,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "여기 있습니다.",
-      "en": "여기 있습니다.",
+      "en": "Here you are.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12160,7 +12139,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그래. 그 후에 주문을 여쭤보는 거야.",
-      "en": "그래. 그 후에 주문을 여쭤보는 거야.",
+      "en": "Right. Then you ask what they'd like.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12178,7 +12157,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "어떤 걸 주문하시겠어요, 이런 식으로요?",
-      "en": "어떤 걸 주문하시겠어요, 이런 식으로요?",
+      "en": "Something like, “What can I get you?”",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12196,7 +12175,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "...다 좋은데, 주문받을 때 손님을 빤히 쳐다보지는 마.",
-      "en": "... 다 좋은데, 주문받을 때 손님을 빤히 쳐다보지는 마.",
+      "en": "...Good, except don't stare at the customer while you're taking their order.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12214,7 +12193,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "바텐더는 항상 손님을 관찰해야 한다고 하지 않으셨나요?",
-      "en": "바텐더는 항상 손님을 관찰해야 한다고 하지 않으셨나요?",
+      "en": "Didn't you say a bartender should always watch the customers?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12232,7 +12211,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그렇게 뚫어져라 쳐다보는 걸 부담스러워하거나\n시비로 받아들이는 손님이 있을 수도 있어.",
-      "en": "그렇게 뚫어져라 쳐다보는 걸 부담스러워하거나\n시비로 받아들이는 손님이 있을 수도 있어.",
+      "en": "Some people don't like being stared at. Some might even think you're picking a fight.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12250,7 +12229,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "어렵네요.",
-      "en": "어렵네요.",
+      "en": "This is difficult.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12268,7 +12247,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "원래 처음 배우는 건 다 어렵지.\n너 정도면 빨리 배우는 거야.",
-      "en": "원래 처음 배우는 건 다 어렵지.\n너 정도면 빨리 배우는 거야.",
+      "en": "Everything's difficult at first. You're picking it up pretty fast.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12286,7 +12265,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "일단 얼추 기본 응대는 배웠으니 다음으로는..",
-      "en": "일단 얼추 기본 응대는 배웠으니 다음으로는..",
+      "en": "That about covers the basics of service. Next up...",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12304,7 +12283,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "한 번 <order>진토닉</order>을 만들어 보면서 칵테일 제조에 대해 배워보자.\n전에 줬던 바텐더 마스터 칩 꽂고 있는 상태 맞지?",
-      "en": "한 번 진토닉을 만들어 보면서 칵테일 제조에 대해 배워보자.\n전에 줬던 바텐더 마스터 칩 꽂고 있는 상태 맞지?",
+      "en": "Let's learn how to mix a cocktail by making a <order>Gin and Tonic</order>. You've still got that master bartender chip I gave you plugged in, right?",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12322,7 +12301,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "네.",
-      "en": "네.",
+      "en": "Yes.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12340,7 +12319,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그러면 디스플레이에 <name>레시피 DB</name>를 확인할 수 있을 테니까 시작해 보자고.",
-      "en": "그러면 디스플레이에 레시피 DB를 확인할 수 있을 테니까 시작해 보자고.",
+      "en": "Then you should be able to see the <name>recipe database</name> on your display. Let's begin.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12358,7 +12337,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "확인했어요.",
-      "en": "확인했어요.",
+      "en": "I see it.",
       "when": "!flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12376,7 +12355,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "...기억한다니 다행이네.",
-      "en": "...기억한다니 다행이네.",
+      "en": "...Glad you remember.",
       "when": "flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12394,7 +12373,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그럼 말했던 걸 기억하면서 <order>진토닉</order> 한 잔 만들어 봐.",
-      "en": "그럼 말했던 걸 기억하면서 진 토닉 한 잔 만들어 봐.",
+      "en": "Keep what I told you in mind and make me a <order>Gin and Tonic</order>.",
       "when": "flag.day0_skip_tutorial",
       "effects": null,
       "entrance": null
@@ -12412,7 +12391,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "<order>진토닉</order> 한 잔...",
-      "en": "진토닉 한 잔...",
+      "en": "One <order>Gin and Tonic</order>...",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12502,7 +12481,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "여기 있어요.",
-      "en": "여기 있어요.",
+      "en": "Here you go.",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -12520,7 +12499,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "음...",
-      "en": "음...",
+      "en": "Hmm...",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -12556,7 +12535,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "어떤가요?",
-      "en": "어떤가요?",
+      "en": "How is it?",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -12574,7 +12553,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "나쁘지 않아. 만들기 어려운 칵테일은 아니지만\n네가 재능이 하나만 있는 게 아니라 다행이군.",
-      "en": "나쁘지 않아. 만들기 어려운 칵테일은 아니지만\n네가 재능이 하나만 있는 게 아니라 다행이군.",
+      "en": "Not bad. It's not a difficult cocktail, but it's good to know you've got more than one talent.",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -12592,7 +12571,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "루나, 내가 지시한 건 <order>진토닉</order>이지 진피즈가 아니야.\n다시 확인하고 제조해.",
-      "en": "루나, 내가 지시한 건 진토닉이지 진피즈가 아니야.\n다시 확인하고 제조해.",
+      "en": "Luna, I asked for a <order>Gin and Tonic</order>, not a Gin Fizz. Check again and remake it.",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -12610,7 +12589,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "죄송해요. 다시 만들어 보겠습니다.",
-      "en": "죄송해요. 다시 만들어 보겠습니다.",
+      "en": "I'm sorry. I'll make it again.",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -12700,7 +12679,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "제게 다른 재능도 있나요?",
-      "en": "제게 다른 재능도 있나요?",
+      "en": "I have another talent?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12718,7 +12697,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "너 같은 외모를 가진 사람이면 싫어하기는 어렵지..\n호감을 사는 외모도 재능이라면 재능이라 할 수 있을 거고.",
-      "en": "너 같은 외모를 가진 사람이면 싫어하기는 어렵지..\n호감을 사는 외모도 재능이라면 재능이라 할 수 있을 거고.",
+      "en": "With looks like yours, it's hard not to like you... Getting people to warm to you is a talent of sorts.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12736,7 +12715,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "전에 있던 시설에서는 그게 꼭 좋은 것만은 아니라고 배웠는데\n제가 배웠던 게 틀린 건가요?",
-      "en": "전에 있던 시설에서는 그게 꼭 좋은 것만은 아니라고 배웠는데\n제가 배웠던 게 틀린 건가요?",
+      "en": "At the facility, they taught me that wasn't always a good thing. Was I taught wrong?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12754,7 +12733,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "물론 호감을 사는 외모가 언제나 좋진 않지.\n사람이라면 그렇겠지만 넌 그 외니까 상관없다.",
-      "en": "물론 호감을 사는 외모가 언제나 좋진 않지.\n사람이라면 그렇겠지만 넌 그 외니까 상관없다.",
+      "en": "Being easy on the eyes isn't always a good thing, no. Not for a human, anyway. That doesn't apply to you.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12772,7 +12751,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "알겠습니다. 그나저나 크리스, 궁금한 게 있는데요.",
-      "en": "알겠습니다. 그나저나 크리스, 궁금한 게 있는데요.",
+      "en": "I understand. By the way, Chris, may I ask you something?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12790,7 +12769,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "여기선 크리스 말고 보스라고 불러라.",
-      "en": "여기선 크리스 말고 보스라고 불러라.",
+      "en": "It's Boss, not Chris, when we're here.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12808,7 +12787,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "보스, 궁금한 게 있습니다.",
-      "en": "보스, 궁금한 게 있습니다.",
+      "en": "Boss, may I ask you something?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12826,7 +12805,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "말해봐.",
-      "en": "말해봐.",
+      "en": "Go ahead.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12844,7 +12823,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "왜 가게에 재료가 이것밖에 없나요?",
-      "en": "왜 가게에 재료가 이것밖에 없나요?",
+      "en": "Why do we have so few ingredients?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12862,7 +12841,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "아까 사고가 터져서 반년 동안 장사를 못 했다고 했잖아. 수입 규제 때문에\n수입이 막힌 것도 있었고. 오히려 재료가 많은 게 더 이상하겠지.",
-      "en": "아까 사고가 터져서 반년 동안 장사를 못 했다고 했잖아. 수입 규제 때문에\n수입이 막힌 것도 있었고. 오히려 재료가 많은 게 더 이상하겠지.",
+      "en": "Like I said, we were closed for six months after the incident. Import restrictions cut off some supplies, too. It'd be stranger if the shelves were full.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12880,7 +12859,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "무슨 사고였는지 못 들었던 것 같아서요.",
-      "en": "무슨 사고였는지 못 들었던 것 같아서요.",
+      "en": "I don't think you told me what happened.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12898,7 +12877,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "갱 패싸움에 휘말린 사람 몇 명이 죽었어.\n...이 동네에서는 흔한 일이야.",
-      "en": "갱 패싸움에 휘말린 사람 몇 명이 죽었어.\n...이 동네에서는 흔한 일이야.",
+      "en": "A few people got caught in a gang fight and died. ...Happens around here.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12916,7 +12895,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "문제는 죽은 사람 중에 내 전 스승이자 원래 이 바 마스터였던 영감이 죽었단 거지.",
-      "en": "문제는 죽은 사람 중에 내 전 스승이자 원래 이 바 마스터였던 영감이 죽었단 거지.",
+      "en": "Only this time, one of them was the old man who taught me. This was his bar.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12934,7 +12913,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "이해했습니다. 가게 운영을 못했던 사유가\n이전 관리인이 죽어버렸기 때문이군요.",
-      "en": "이해했습니다. 가게 운영을 못했던 사유가\n이전 관리인이 죽어버렸기 때문이군요.",
+      "en": "I understand. The bar was unable to operate because its previous proprietor died.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12970,7 +12949,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "왜 그러시죠? 제가 실수한 게 있나요?",
-      "en": "왜 그러시죠? 제가 실수한 게 있나요?",
+      "en": "What's wrong? Did I make a mistake?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -12988,7 +12967,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "아니야, 이런 것도 차차 나아지겠지.",
-      "en": "아니야, 이런 것도 차차 나아지겠지.",
+      "en": "No. You'll get better at this, too.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13006,7 +12985,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "...아직 제가 말하는 방식이 부자연스럽나 보네요.",
-      "en": "...아직 제가 말하는 방식이 부자연스럽나 보네요.",
+      "en": "...I still don't sound natural, do I?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13024,7 +13003,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "천천히 배우라고 여기서 일해 보라고 권유한 거니까\n너무 조바심 낼 필요 없어.",
-      "en": "천천히 배우라고 여기서 일해 보라고 권유한 거니까\n너무 조바심 낼 필요 없어.",
+      "en": "I asked you to work here so you could learn at your own pace. There's no rush.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13042,7 +13021,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "크리스, 제가 사람처럼 말하고 행동할 수 있을까요?",
-      "en": "크리스, 제가 사람처럼 말하고 행동할 수 있을까요?",
+      "en": "Chris, do you think I'll be able to talk and act like a human?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13060,7 +13039,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "사람처럼 말하는 게 중요한 게 아니라 너의 <color=#FF4D4D>감정</color>부터 이해하는 게 첫 순서야.",
-      "en": "사람처럼 말하는 게 중요한 게 아니라 너의 감정부터 이해하는 게 첫 순서야.",
+      "en": "Sounding human isn't the important part. Understanding your own <color=#FF4D4D>feelings</color> comes first.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13078,7 +13057,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "난 네가 이 일을 잘 배운다면 충분히 가능할 거라고 생각한다.",
-      "en": "난 네가 이 일을 잘 배운다면 충분히 가능할 거라고 생각한다.",
+      "en": "I think you can, if you give this job a chance.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13114,7 +13093,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "왜?",
-      "en": "왜?",
+      "en": "Why?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13132,7 +13111,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "이전까지 값싼 노동자로 절 쓰는 게 아닐지 생각하고 있었어요.",
-      "en": "이전까지 값싼 노동자로 절 쓰는 게 아닐지 생각하고 있었어요.",
+      "en": "Until now, I thought you might just want cheap labor.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13150,7 +13129,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "...지금은?",
-      "en": "...지금은?",
+      "en": "...And now?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13168,7 +13147,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "배워 봐도 손해는 아니라고 생각되네요.",
-      "en": "배워 봐도 손해는 아니라고 생각되네요.",
+      "en": "I think it wouldn't hurt to learn.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13186,7 +13165,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그래 한번 며칠 일해 보고 판단해.",
-      "en": "그래 한번 며칠 일해 보고 판단해.",
+      "en": "Give it a few days, then make up your mind.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13204,7 +13183,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "알겠습니다.",
-      "en": "알겠습니다.",
+      "en": "Understood.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13240,7 +13219,7 @@
       "actor": "port",
       "arg": "default",
       "text": "뭐야.",
-      "en": "뭐야.",
+      "en": "Well, now.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13258,7 +13237,7 @@
       "actor": "port",
       "arg": "default",
       "text": "웬일로 불이 켜져 있길래 와 본 건데.\n다시 영업하기로 한 거냐?",
-      "en": "웬일로 불이 켜져 있길래 와 본 건데.\n다시 영업하기로 한 거냐?",
+      "en": "Saw the lights on for a change, so I came by. Opening up again?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13276,7 +13255,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그래, 주변도 잠잠해졌겠다... 다시 시작해 봐야지.\n언제까지고 여기를 방치할 수도 없으니까.",
-      "en": "그래, 주변도 잠잠해졌겠다... 다시 시작해 봐야지.\n언제까지고 여기를 방치할 수도 없으니까.",
+      "en": "Yeah. Things have quieted down... Time to give it another shot. Can't let the place sit empty forever.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13294,7 +13273,7 @@
       "actor": "port",
       "arg": "default",
       "text": "뭐, 나야 퇴근하고 술 한 잔 할 수 있어서 좋지.\n아가씨, 몸은 좀 어때. 고쳐준 곳 다 괜찮나?",
-      "en": "뭐, 나야 퇴근하고 술 한 잔 할 수 있어서 좋지.\n아가씨, 몸은 좀 어때. 고쳐준 곳 다 괜찮나?",
+      "en": "Fine by me. Somewhere to drink after work. How are you feeling, miss? Everything I fixed working all right?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13312,7 +13291,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "전보다 신체 감도가 민감해진 것 빼고는\n잘 움직입니다.",
-      "en": "전보다 신체 감도가 민감해진 것 빼고는\n잘 움직입니다.",
+      "en": "Everything moves properly, though my body is more sensitive than before.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13330,7 +13309,7 @@
       "actor": "port",
       "arg": "default",
       "text": "감도 부분은 아일리가 설정한 거라 걔한테 물어봐야 해서 말해 줄 수가 없네.\n그래도 다행이구만, 그런 전신 의체를 수리하는 건 처음이었는데 말이지.",
-      "en": "감도 부분은 아일리가 설정한 거라 걔한테 물어봐야 해서 말해 줄 수가 없네.\n그래도 다행이구만, 그런 전신 의체를 수리하는 건 처음이었는데 말이지.",
+      "en": "Aili set the sensitivity. You'd have to ask her about that. Glad the rest works. Never repaired a full-body prosthesis like yours before.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13348,7 +13327,7 @@
       "actor": "port",
       "arg": "default",
       "text": "그래도 혹시 모르니 이상 있으면 말해. 돈 걱정은 말고.",
-      "en": "그래도 혹시 모르니 이상 있으면 말해. 돈 걱정은 말고.",
+      "en": "If anything feels off, tell me. Don't worry about the bill.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13366,7 +13345,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "네, 알겠어요.",
-      "en": "네, 알겠어요.",
+      "en": "Yes, I will.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13384,7 +13363,7 @@
       "actor": "port",
       "arg": "default",
       "text": "그래서 저 얼간이 아래에서 일 배우는 건 할 만하고?",
-      "en": "그래서 저 얼간이 아래에서 일 배우는 건 할 만하고?",
+      "en": "So how's it learning the trade from that idiot?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13402,7 +13381,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "아직 배운 게 많지 않아서 잘 모르겠습니다.",
-      "en": "아직 배운 게 많지 않아서 잘 모르겠습니다.",
+      "en": "I haven't learned enough to say yet.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13420,7 +13399,7 @@
       "actor": "port",
       "arg": "default",
       "text": "어이, 크리스. 이 아가씨 지금 술 만드는 거 다 배웠나?",
-      "en": "어이, 크리스. 이 아가씨 지금 술 만드는 거 다 배웠나?",
+      "en": "Hey, Chris. Taught the girl how to mix drinks yet?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13438,7 +13417,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "기본적인 것만.",
-      "en": "기본적인 것만.",
+      "en": "Just the basics.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13456,7 +13435,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "근데 재료가 별로 없어. 지금은 진토닉이랑 진피즈만 가능해.",
-      "en": "근데 재료가 별로 없어. 지금은 진토닉이랑 진피즈만 가능해.",
+      "en": "We're low on supplies. Gin and Tonic or Gin Fizz. That's it for now.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13474,7 +13453,7 @@
       "actor": "port",
       "arg": "default",
       "text": "이 상태로 어떻게 영업하려는 건지 모르겠다만은...\n<order>진피즈</order>로 한 잔 만들어봐, 돈은 제값 쳐주지.",
-      "en": "이 상태로 어떻게 영업하려는 건지 모르겠다만은...\n진피즈로 한 잔 만들어봐, 돈은 제값 쳐주지.",
+      "en": "Not sure how you plan to run a bar like this... Make me a <order>Gin Fizz</order>. I'll pay full price.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13510,7 +13489,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "주문받았습니다.",
-      "en": "주문받았습니다.",
+      "en": "Order taken.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13582,7 +13561,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "주문하신 진피즈입니다.",
-      "en": "주문하신 진 피즈입니다.",
+      "en": "Your Gin Fizz.",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -13600,7 +13579,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "어떤가요?",
-      "en": "어떤가요?",
+      "en": "How is it?",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -13636,7 +13615,7 @@
       "actor": "port",
       "arg": "default",
       "text": "크으... 솜씨는 나쁘지 않네. 쓰던 재료는 예전이랑 똑같나 보구만.",
-      "en": "크으... 솜씨는 나쁘지 않네. 쓰던 재료는 예전이랑 똑같나 보구만.",
+      "en": "Ahh... Not bad at all. Same ingredients you always used, I take it.",
       "when": "order_match",
       "effects": null,
       "entrance": null
@@ -13654,7 +13633,7 @@
       "actor": "port",
       "arg": "default",
       "text": "이건 진피즈가 아니라 진토닉 같은데?\n크리스, 제대로 가르친 거 맞냐?",
-      "en": "이건 진피즈가 아니라 진토닉 같은데?\n크리스, 제대로 가르친 거 맞냐?",
+      "en": "This tastes like a Gin and Tonic, not a Gin Fizz. You sure you taught her right, Chris?",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -13672,7 +13651,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "제대로 가르쳤으니까 민원 넣을 거면 저기 대고 얘기해.",
-      "en": "제대로 가르쳤으니까 민원 넣을 거면 저기 대고 얘기해.",
+      "en": "I taught her just fine. Complaints go to her.",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -13690,7 +13669,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "주문과 다르게 만들었나 보네요. 확인해볼게요.",
-      "en": "주문과 다르게 만들었나 보네요. 확인해볼게요.",
+      "en": "It seems I made the wrong drink. I'll check.",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -13708,7 +13687,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "결과를 보고 어디서 달라졌는지부터 찾아봐.",
-      "en": "결과를 보고 어디서 달라졌는지부터 찾아봐.",
+      "en": "Look at the result and see where you went wrong.",
       "when": "!order_match",
       "effects": null,
       "entrance": null
@@ -13726,7 +13705,7 @@
       "actor": "port",
       "arg": "default",
       "text": "아, 이건 <order>팁</order>이니까 받아 둬. 앞으로 잘 부탁한다, 아가씨.",
-      "en": "아, 이건 팁이니까 받아 둬. 앞으로 잘 부탁한다, 아가씨.",
+      "en": "Oh, and this is your <order>tip</order>. Keep it. Looking forward to seeing more of you, miss.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13744,7 +13723,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "술값과는 별개로 주시는 건가요?",
-      "en": "술값과는 별개로 주시는 건가요?",
+      "en": "Is this separate from the price of the drink?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13762,7 +13741,7 @@
       "actor": "port",
       "arg": "default",
       "text": "그래. 네 몫이니까 편하게 받아.",
-      "en": "그래. 네 몫이니까 편하게 받아.",
+      "en": "Yeah. It's yours. Go ahead and take it.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13798,7 +13777,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "감사합니다.",
-      "en": "감사합니다.",
+      "en": "Thank you.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13816,7 +13795,7 @@
       "actor": "port",
       "arg": "default",
       "text": "그나저나 아가씨, 이름이 로난이라고 했던가?",
-      "en": "그나저나 아가씨, 이름이 로난이라고 했던가?",
+      "en": "By the way, miss, was your name Ronan?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13834,7 +13813,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "<color=#80BDFF>루나</color>입니다.",
-      "en": "루나입니다.",
+      "en": "It's <color=#80BDFF>Luna</color>.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13852,7 +13831,7 @@
       "actor": "port",
       "arg": "default",
       "text": "아, 루나였군. 미안하네. 요즘 기억력이 영 안 좋아서.",
-      "en": "아, 루나였군. 미안하네. 요즘 기억력이 영 안 좋아서.",
+      "en": "Ah, Luna. Sorry about that. My memory's not what it used to be.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13870,7 +13849,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "괜찮아요.",
-      "en": "괜찮아요.",
+      "en": "It's all right.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13888,7 +13867,7 @@
       "actor": "port",
       "arg": "default",
       "text": "흠.. 봐도 봐도 신기하단 말이지... 이 정도로 정교하게 만들 수 있다는 게.",
-      "en": "흠.. 봐도 봐도 신기하단 말이지... 이 정도로 정교하게 만들 수 있다는 게.",
+      "en": "Hmm... No matter how many times I look, it's amazing. Making something this intricate...",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13906,7 +13885,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "포트. 다시 한 번 말하지만...",
-      "en": "포트. 다시 한 번 말하지만...",
+      "en": "Port. I'll say it again...",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13924,7 +13903,7 @@
       "actor": "port",
       "arg": "default",
       "text": "아, 알겠다고. 하여간에 깐깐하긴.",
-      "en": "아, 알겠다고. 하여간에 깐깐하긴.",
+      "en": "Yeah, yeah, I know. Always so uptight.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13942,7 +13921,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "루나가 잡혀가면 고쳐준 너랑 아일리부터 나까지 싸그리 다 잡혀간다고.\n태평하게 생각하지 말고 좀 예민하게도 받아들여.",
-      "en": "루나가 잡혀가면 고쳐준 너랑 아일리부터 나까지 싸그리 다 잡혀간다고.\n태평하게 생각하지 말고 좀 예민하게도 받아들여.",
+      "en": "If they take Luna, they'll come for you and Aili for fixing her, and for me, too. Would it kill you to take this seriously?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13960,7 +13939,7 @@
       "actor": "port",
       "arg": "default",
       "text": "이런 거렁뱅이 소굴에 겨우 남아 있는 가게에 도청이라도 있을까 봐 그러냐?\n그런 말 하나하나가 다 겁나서 이 아가씨 잘 곳이나 집은 또 어째 구하려고 그래?",
-      "en": "이런 거렁뱅이 소굴에 겨우 남아 있는 가게에 도청이라도 있을까 봐 그러냐?\n그런 말 하나하나가 다 겁나서 이 아가씨 잘 곳이나 집은 또 어째 구하려고 그래?",
+      "en": "What, you think someone bugged the last bar standing in this den of beggars? If you're that scared to talk, how are you gonna find the girl a place to sleep?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13978,7 +13957,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "당분간은 내 집에서 지내게 할 생각이야.",
-      "en": "당분간은 내 집에서 지내게 할 생각이야.",
+      "en": "She'll stay at my place for now.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -13996,7 +13975,7 @@
       "actor": "port",
       "arg": "default",
       "text": "하, 너네 집에 잘 곳이 있기는 하냐? 홀애비 냄새 풀풀 끼치는\n그 집에서 잘 바에는 쓰레기장이 더 포근하고 안락하겠구만.",
-      "en": "하, 너네 집에 잘 곳이 있기는 하냐? 홀애비 냄새 풀풀 끼치는\n그 집에서 잘 바에는 쓰레기장이 더 포근하고 안락하겠구만.",
+      "en": "Ha! Got room to sleep in there? With that bachelor stink, she'd be cozier on a trash heap.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14014,7 +13993,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "당분간이라고 말했을 텐데.",
-      "en": "당분간이라고 말했을 텐데.",
+      "en": "I said for now.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14032,7 +14011,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "그렇게 좁은 편도 아니야, 거실에서 못 잘 것도 없고.",
-      "en": "그렇게 좁은 편도 아니야, 거실에서 못 잘 것도 없고.",
+      "en": "It's not that small. There's room in the living room.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14050,7 +14029,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "잠을 자야 하긴 해도 수면 공간에 영향을 받진 않아요.",
-      "en": "잠을 자야 하긴 해도 수면 공간에 영향을 받진 않아요.",
+      "en": "I need to sleep, but my surroundings don't affect the quality of my rest.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14068,7 +14047,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "거봐.",
-      "en": "거봐.",
+      "en": "See?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14086,7 +14065,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "무엇보다 크리스 집은 월세도 안 나오고요.",
-      "en": "무엇보다 크리스 집은 월세도 안 나오고요.",
+      "en": "More importantly, Chris doesn't charge me rent.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14104,7 +14083,7 @@
       "actor": "port",
       "arg": "default",
       "text": "하! 크게 될 놈의 배짱이 있네, 이 아가씨.",
-      "en": "하! 크게 될 놈의 배짱이 있네, 이 아가씨.",
+      "en": "Ha! You've got nerve, miss. You'll go far.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14122,7 +14101,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "다 마셨으면 얼른 꺼져. 정리하고 쉴 거니까.",
-      "en": "다 마셨으면 얼른 꺼져. 정리하고 쉴 거니까.",
+      "en": "If you're done drinking, get lost. I want to close up and get some rest.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14140,7 +14119,7 @@
       "actor": "port",
       "arg": "default",
       "text": "허이고, 이젠 손님까지 내쫓으려고 하네! 넌 임마\n돈 벌 생각 없어? 조용히 마시고 간다니까?",
-      "en": "허이고, 이젠 손님까지 내쫓으려고 하네! 넌 임마\n돈 벌 생각 없어? 조용히 마시고 간다니까?",
+      "en": "Listen to him, throwing out paying customers! You allergic to money? I'll sit here and drink in peace!",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14158,7 +14137,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "루나, 먼저 집으로 가서 쉬고 있어. 직진해서 나오는\n빌딩 1803호. 위치 기억하지?",
-      "en": "루나, 먼저 집으로 가서 쉬고 있어. 직진해서 나오는\n빌딩 1803호. 위치 기억하지?",
+      "en": "Luna, head home and get some rest. Straight ahead, apartment 1803. Remember where it is?",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14176,7 +14155,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "네.",
-      "en": "네.",
+      "en": "Yes.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14194,7 +14173,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "좋아. 노망난 노친네랑 바는 내가 정리하고 갈 테니까\n가서 생각 정리나 오늘 배운 거 복기하고 있어라.",
-      "en": "좋아. 노망난 노친네랑 바는 내가 정리하고 갈 테니까\n가서 생각 정리나 오늘 배운 거 복기하고 있어라.",
+      "en": "Good. I'll take care of the bar and this senile old coot. Go clear your head, go over what you learned.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14212,7 +14191,7 @@
       "actor": "port",
       "arg": "default",
       "text": "잘 가라고, 로나. 다음에 또 봐.",
-      "en": "잘 가라고, 로나. 다음에 또 봐.",
+      "en": "See you around, Rona.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14230,7 +14209,7 @@
       "actor": "chris",
       "arg": "default",
       "text": "진짜 노망났나 보군.",
-      "en": "진짜 노망났나 보군.",
+      "en": "He really is losing it.",
       "when": null,
       "effects": null,
       "entrance": null
@@ -14248,7 +14227,7 @@
       "actor": "luna",
       "arg": "default",
       "text": "먼저 가보겠습니다.",
-      "en": "먼저 가보겠습니다.",
+      "en": "I'll head out, then.",
       "when": null,
       "effects": null,
       "entrance": null

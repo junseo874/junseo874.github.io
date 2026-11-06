@@ -29,9 +29,10 @@ const boxEdge=[[0,3],[3,3],[3,2],[7,2],[7,1],[14,1],[14,0],[17,0],[17,3],[26,3],
 function region(target,node,sp,x,y,model){
  if(!target)return null;
  const name=node?.name,full=[0,0,sp.w,sp.h];
- if(target.id==='bed')return name==='main_bg'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
- if(target.id==='wardrobe')return name==='main_bg'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
- if(target.id==='home-book')return name==='ForeFore_Object'?[...W.LunaHomeArt.book.rect,W.LunaHomeArt.book.edge]:null;
+ if(target.id==='bed')return name==='home-bed'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
+ if(target.id==='wardrobe')return name==='home-wardrobe'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
+ if(target.id==='home-book')return name==='home-book'?[...W.LunaHomeArt.book.rect,W.LunaHomeArt.book.edge]:null;
+ if(target.id==='sofa'&&name==='home-bedding')return full;
  if(target.nodeName&&name===target.nodeName)return full;
  if(target.id==='bar'&&name==='Bar Spawn Point')return [2,15,34,51];
  if(target.id==='exit'&&name==='Room_Entrance')return full;
@@ -48,7 +49,10 @@ function region(target,node,sp,x,y,model){
   if(name==='residence-building'&&!(model.neighborhood?.shake>0))return [647,424,27,28,boxEdge];
   if(name==='neighborhood-shaking-box')return [0,0,27,28,boxEdge];
  }
- if(['neighborhood-repair','neighborhood-guard','neighborhood-boss','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&Math.abs(x-target.x)<.01&&Math.abs(y-target.y)<.01){
+ // Unity sprite children can be offset from the interaction root. Identify
+ // those actors by role rather than comparing their rendered pivot to the root.
+ const engineRole=sp.engineActor?.role;
+ if(['neighborhood-repair','neighborhood-guard','neighborhood-boss','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&(engineRole===target.actor||Math.abs(x-target.x)<.01&&Math.abs(y-target.y)<.01)){
   const kind=W.LunaOutsideAmbient.roleKinds[target.actor||target.id.slice('neighborhood-'.length)];
   if(kind&&sp.asset==='ambient-'+kind||target.id.endsWith('cat')&&sp.asset.startsWith('neighborhood-cat-'))return full;
  }
@@ -62,7 +66,7 @@ function region(target,node,sp,x,y,model){
   }
  }
  // This NPC is drawn directly, not through a scene node. Match only his cell.
- if(target.id==='day2-thug-information'&&sp.asset==='ambient-'+W.LunaOutsideAmbient.roleKinds['day2-corridor-thug']&&Math.abs(x-target.x)<.01&&Math.abs(y-(target.y-.274))<.01)return full;
+ if(target.id==='day2-thug-information'&&sp.asset==='ambient-'+W.LunaOutsideAmbient.roleKinds['day2-corridor-thug']&&(engineRole==='thug'||Math.abs(x-target.x)<.01&&Math.abs(y-(target.y-.274))<.01))return full;
  return null;
 }
 function create(){

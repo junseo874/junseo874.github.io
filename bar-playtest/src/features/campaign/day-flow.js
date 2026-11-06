@@ -206,13 +206,7 @@
     interactOutside(model, target) {
       if (model !== this.outside.model || model.qa) return false;
       if (target.id === 'sofa' && model.config.flow !== 'out') return true;
-      if (target.id === 'tv' && model.config.day === 0) {
-        if(this.g.progress.flags.day0_tv_seen){
-          model.dialog={kind:'tv',key:'tv:'+ ++model.revision};model.anim='idle';model.animTime=0;model.updateNear();return true;
-        }
-        this.playDayZeroTV(model);
-        return true;
-      }
+      if (target.id === 'tv') return global.LunaOutsideTV.open(model);
       // Check on boarding the upward homeward lift, not when calling it or leaving home.
       if ((this.active || this.session.developer) && target.id === 'elevator' && model.scene === 'street' && model.level === 0 && model.config.flow === 'out' && (target.fast || Math.abs(model.elevatorY - global.LunaResidence.layout.elevatorBottom) <= .01)) {
         const missing = this.dayEndRequirements(model.config.day);

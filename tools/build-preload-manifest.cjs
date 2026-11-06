@@ -4,6 +4,8 @@ const root=path.resolve(__dirname,'../bar-playtest'),groups={common:[],bar:[]};
 function walk(dir,group){if(!fs.existsSync(path.join(root,dir)))return;for(const entry of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const file=dir+'/'+entry.name;if(file==='assets/ui/extracted')continue;if(entry.isDirectory())walk(file,group);else if(/\.(png|webp|jpe?g|gif|svg|woff2?|ttf|otf)$/i.test(file))groups[group].push(file);}}
 for(const dir of ['ui','tutorials','fonts'])walk('assets/'+dir,'common');
 for(const dir of ['backgrounds','characters','cocktails','items','serving'])walk('assets/'+dir,'bar');
+// Newly supplied bar assets may have no historical path-migration entry.
+for(const a of Object.values(require('../bar-playtest/data/presentation/runtime-assets.json').assets))if(a.src?.startsWith('assets/'))groups.bar.push(a.src);
 // Keep the same loading groups after canonical art paths are moved. Outside-only
 // artwork remains on-demand; do not bulk-preload the entire shared art tree.
 for(const {from,to} of require('../docs/architecture/art-resource-paths.json').records){

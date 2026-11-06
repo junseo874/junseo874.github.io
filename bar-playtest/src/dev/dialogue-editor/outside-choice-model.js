@@ -8,10 +8,10 @@ function install(Model){
  p.menuKey=function(row){return A.key(this.step(row));};
  p.menuConfig=function(row){return this.views.outsideChoiceEdits?.[this.menuKey(row)];};
  p.menu=function(row){const cfg=this.menuConfig(row);if(cfg)return cfg.active.map(id=>this.tables.street_choices.find(c=>c.row_id===id)).filter(Boolean).map(c=>({id:c.id,label:c['text.ko'],when:c.when,reason:c['lock_reason.ko'],row:c,route:cfg.routes[c.row_id]}));
-  const line=this.step(row),native=this.choices(row.row_id);return A.defaults(line,native,this.rows('newspaper/options')).map(c=>({...c,route:'native:'+c.dispatch}));
+  const line=this.step(row),native=this.choices(row.row_id);return A.defaults(line,native).map(c=>({...c,route:'native:'+c.dispatch}));
  };
  p.isMenu=function(row){return !!row&&(/choice/.test(this.kind(row))||!!this.menuConfig(row));};
- p.menuOutcomes=function(row){return A.defaults(this.step(row),this.base.tables.street_choices.filter(c=>c.parent_id===row.row_id&&!c.id.startsWith('exterior_editor_')),this.rows('newspaper/options')).map(c=>({...c,route:'native:'+c.dispatch}));};
+ p.menuOutcomes=function(row){return A.defaults(this.step(row),this.base.tables.street_choices.filter(c=>c.parent_id===row.row_id&&!c.id.startsWith('exterior_editor_'))).map(c=>({...c,route:'native:'+c.dispatch}));};
  p.menuEditable=function(row){return this.isMenu(row)&&['script/street','script/home'].includes(row.dataset_id);};
  p.ensureMenu=function(row){if(!this.menuEditable(row))throw Error('이 장면의 선택지는 외부 편집 대상이 아닙니다.');let cfg=this.menuConfig(row);if(cfg)return cfg;
   const original=this.menu(row),key=this.menuKey(row);cfg={stepId:row.row_id,who:row['web_fields.who']||'',active:[],routes:{}};
@@ -49,9 +49,9 @@ function install(Model){
  p.restore=function(s){oldRestore.call(this,s);this.refreshChoiceFlows();};
  p.set=function(row,key,value){if(key==='text.ko'&&this.flows.some(f=>f.onlyChoices&&this.rows(f.id).includes(row)))this.ensureMenu(row);oldSet.call(this,row,key,value);};
  // Hide choice-copy tables. Menus live at their dialogue position, not in separate navigation entries.
- const merged={'notion/intro':['choices/info'],'shop/intro':['choices/stock'],'shop/revisit':['choices/stock'],'newspaper/wrong':['newspaper/common','newspaper/finish'],'newspaper/right':['newspaper/common','newspaper/finish'],'believer/intro':['believer/finish'],'shop/quizIntro':['shop/lesson']};
- p.visibleFlows=function(){const hidden=new Set(['newspaper/options',...Object.values(merged).flat()]);return this.flows.filter(f=>!hidden.has(f.id));};
- p.sequence=function(id){const parent=this.flow(id)?.parent,config=Object.values(this.views.outsideChoiceEdits||{}).find(c=>c.active.includes(parent)),newspaper=config&&this.kind(this.row(config.stepId))==='newspaper-choice';return [id,...(merged[id]||(newspaper?['newspaper/common','newspaper/finish']:[]))].flatMap(k=>this.rows(k));};
+ const merged={'notion/intro':['choices/info'],'shop/intro':['choices/stock'],'shop/revisit':['choices/stock'],'believer/intro':['believer/finish'],'shop/quizIntro':['shop/lesson']};
+ p.visibleFlows=function(){const hidden=new Set(['newspaper/options',...this.projected.data.newspaperRoutes.join,...Object.values(merged).flat()]);return this.flows.filter(f=>!hidden.has(f.id));};
+ p.sequence=function(id){const parent=this.flow(id)?.parent,config=Object.values(this.views.outsideChoiceEdits||{}).find(c=>c.active.includes(parent)),newspaper=config&&this.kind(this.row(config.stepId))==='newspaper-choice';const plan=this.projected.data.newspaperRoutes,path=Object.values(plan.routes).find(keys=>keys[0]===id);return (path||[id,...(merged[id]||(newspaper?plan.join:[]))]).flatMap(k=>this.rows(k));};
  p.owner=function(id){return this.flows.find(f=>this.rows(f.id).some(r=>r.row_id===id));};
  p.validateMenus=function(){const errors=[];for(const [key,cfg]of Object.entries(this.views.outsideChoiceEdits||{})){
   const row=this.row(cfg.stepId);if(!row||row.type!=='choice'||key!==this.menuKey(row)||!this.menuEditable(row)){errors.push('선택지 연결 행이 올바르지 않습니다: '+key);continue;}

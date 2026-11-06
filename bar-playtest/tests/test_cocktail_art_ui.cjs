@@ -26,18 +26,18 @@ for(const [src]of Object.entries(inventory.graphics))assert(!/assets\/cocktails\
  for(const [id,name] of Object.entries(reps)){
   await p.evaluate(()=>{barGame.reset(99,'practice',1,true,{variant:'original'});lunaCampaign.render(true);});
   const card=p.locator('.recipe-card[data-id="'+id+'"] .drink-art');
-  assert((await card.getAttribute('src')).endsWith('/representative/'+name+'.png'));
+  assert.equal(await card.getAttribute('src'),data.assets['table_cocktail_'+id].src,'Compact list uses the latest table thumbnail');
   await p.evaluate(id=>{barGame.selectCocktail(id);lunaCampaign.render(true);},id);
   if(!await p.locator('#prep-recipe-detail').isVisible())await p.locator('.prep-recipe-brief').click();
   const hero=p.locator('#prep-recipe-detail .drink-art');
-  await hero.waitFor();assert((await hero.getAttribute('src')).endsWith('/representative/'+name+'.png'));
+  await hero.waitFor();assert((await hero.getAttribute('src')).endsWith('/01.RatingReveal/01.Finished/'+name+'.png'));
   assert(await hero.evaluate(async e=>{await e.decode();return e.naturalWidth>0;}));
   if(id==='tequila_sunrise')await p.screenshot({path:'/private/tmp/cocktail-latest-recipe.png'});
  }
  for(const [id,name] of Object.entries(tables)){
   await p.evaluate(id=>{const g=barGame;g.reset(99,'practice',1,true,{variant:'original'});g.screen='bar';g.seats.M={id:'chris',actor:'chris',state:'STORY',coaster:true,glass:id,expression:'idle',seated:true};g.transition=0;g.cameraLeft=0;g.cameraMoving=false;lunaCampaign.render(true);},id);
   const glass=p.locator('.native-coaster .drink-art');await glass.waitFor();
-  assert((await glass.getAttribute('src')).endsWith('/table/'+name+'.png'));
+  assert((await glass.getAttribute('src')).endsWith('/02.Table/01.Finished/'+name+'.png'));
   assert.deepEqual(await glass.evaluate(async e=>{await e.decode();const s=getComputedStyle(e);return [e.naturalWidth,e.naturalHeight,s.width,s.height,s.objectFit,s.objectPosition];}),[69,112,'69px','112px','contain','50% 100%']);
   if(id==='tequila_sunrise')await p.screenshot({path:'/private/tmp/cocktail-latest-table.png'});
  }

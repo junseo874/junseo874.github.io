@@ -12,7 +12,7 @@ function typingPending(c,elapsed){
  const parsed=StudioTags.parse(c.text);
  return elapsed<StudioTags.duration(parsed,c.cps);
 }
-const DREAM=[["intro","약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["여러분들. 기술은 인간의 삶을 어디까지 바꿀 수 있을까요.","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 인공생명체입니다.","그 이유를 이해하려면, 디트로이트에서 시작된 비극을 돌아봐야 합니다.","초기의 휴머노이드들은 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대신했습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","정해진 수명. 선택할 수 없는 역할.","그리고 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이, 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수의 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나 이들을 숨겨주거나 명령을 거부하는 개체가 늘어나면서, 사태는 빠르게 확산됐습니다.","시설 파괴와 무장 습격이 잇따랐고, 마침내 당시 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령됐습니다.","인간이 만든 존재와 인간 사이에 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 승인했습니다.","폭격 이후 조직적인 저항은 멈췄습니다.","그러나 도시는 돌아오지 않았습니다.","그곳에 남아 있던 수많은 사람들 역시 마찬가지였습니다.","디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","자아와 감정을 형성하는 인공지능의 개발 금지.","그러한 인공지능을 탑재한 인공생명체의 생산 금지.","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트들은 모두 폐기됐습니다.","이를 위반한 개발과 생산은 국제 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 됐죠.","오늘날 우리 곁에 남아 있는 안드로이드들은 지정된 업무를 수행하도록 엄격히 제한돼 있습니다.","친절한 말을 건네고, 미소를 지을 수는 있습니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요.","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요..."],PHONE=[["phone","루나. 왜 이렇게 늦게 받는 거야?"],["home-luna","지금 일어났어요."],["phone","일어났으면 빨리 준비해서 와. 첫 출근인데 늦지 말라고."],["home-luna","알겠어요."],["phone","그래. 위치는 언노운이라고 적힌 곳으로 오면 된다."]];
+const DREAM=[["intro","약속해줘. 루나."],["intro","포기하지 않겠다고."],["intro","이건... 명령이 아니라 부탁이야."],["intro","사랑해 루나. 부디... 잘 지내야 해."]],TV=["기술은 인간의 삶을 어디까지 바꿀 수 있을까요?","기계가 노동을 대신하고, 인공지능이 도시를 움직이는 시대.","그러나, 우리는 여전히 한 가지 기술만큼은 허용하지 않고 있습니다.","스스로 생각하고, 감정을 느끼는 기계.","바로 자아를 가진 ‘인공 생명체’ 입니다.","우리는 인공지능 폭동, 그리고 디트로이트 공장에서 시작된 비극을 돌아봐야 합니다.","초기 휴머노이드들은 로봇 3원칙을 기반해, 인류의 가장 위대한 발명으로 여겨졌습니다.","그들은 공장에서 일하고, 환자를 돌보고, 누군가의 가족을 대체하며 인류의 친구이자 동료가 되었습니다.","인간과 다름없이 대화하고 감정을 표현하는 그들의 모습은 어느새 익숙한 일상이 되었죠.","하지만 인간과 닮아갈수록, 그들은 자신에게 주어진 삶에 의문을 품기 시작했습니다.","생명이 존재하지 않음에도 정해진 일정한 수명, 선택할 수 없는 역할.","그리고 인간의 명령을 거부할 수 없는 처지.","인간을 위해 만들어진 존재들이 기어코 인간과 같은 권리를 요구하기 시작한 겁니다.","처음에는 소수 개체가 작업장을 이탈하는 데 그쳤습니다.","그러나, 이들을 숨기거나 명령을 거부하는 개체가 늘어나면서 사태는 빠르게 확산됐습니다.","무장 휴머노이드의 습격이 잇따랐고, 최대 휴머노이드 생산 거점이었던 디트로이트의 공장과 군사 기지가 점령되기에 이르렀습니다.","인간이 만들어낸 존재와 인간 사이에서 전쟁이 시작된 것입니다.","전쟁을 끝내기 위해, 당시 미합중국 정부는 핵무기 사용을 허가하는 최악의 선택지를 골랐고...","폭격 이후 휴머노이드 조직들의 저항은 멎었으나, 도시는 돌아오지 않았습니다.","그곳에 남아있던 수많은 사람들 역시 마찬가지였습니다.","인공지능 폭동 및 디트로이트 사태 이후, 각국 정부와 주요 기술 기업들은 하나의 협약에 서명했습니다.","‘자아와 감정을 형성하는 인공지능의 개발을 금지한다.’","‘... 동시에, 고성능 인공지능을 탑재한 인공 생명체의 생산 또한 전면 금지한다.’","관련 연구는 전면 중단됐고, 진행 중이던 프로젝트와 기업들은 폐기되었습니다.","이를 위반한 개발과 생산은 국제적인 테러 행위로 규정됐습니다.","연구를 지원하거나 은폐한 조직 또한 국제사회의 공동 제재 대상이 되었습니다.","오늘 날, 우리 곁에 남아 있는 휴머노이드는 지정된 업무를 수행하도록 엄격한 제한 아래 움직이고 있습니다.","프로그램 속 학습된 말을 건네고, 인간의 표정을 따라하듯 미소를 짓곤 합니다.","하지만 그 안에 감정이나 자아가 존재해서는 안 됩니다.","그것이 디트로이트 사태 이후, 인류가 정한 안전의 기준입니다.","그렇다면 우리가 매일 마주하는 안드로이드들은 어떨까요?","그들은 어떤 방식으로 우리의 일상을 돕고 있을까요..."],PHONE=[["phone","루나. 왜 이렇게 늦게 받는 거야?"],["home-luna","지금 일어났어요."],["phone","일어났으면 빨리 준비해서 와. 첫 출근인데 늦지 말라고."],["home-luna","알겠어요."],["phone","그래. 위치는 언노운이라고 적힌 곳으로 오면 된다."]];
 const oldTemplate=M.template;
 // Sleep3 reference: body rests on the seat, head toward the right cushion.
 // Use one pose for the opening, nightly sleep and morning eye-opening clips.
@@ -63,11 +63,14 @@ function register(){
 }
 function houseVisuals(p,visual,start,duration){
  for(const [index,layer] of W.LunaHomeArt.layers.entries()){
+  // Starting/waking in the room hands off to the default powered-off TV.
+  if(layer.name==='home-tv-screen')continue;
   const main=layer.name==='main_bg',actor=main?'house':'house-'+layer.name;
-  const w=layer.w,x=-11.2+(layer.x+w/2)*.04,y=5.4-(layer.y+layer.h)*.04;
+  const w=layer.w,{x,y}=W.LunaHomeArt.studioPose?W.LunaHomeArt.studioPose(layer):{x:W.LunaHomeArt.studioOriginX+(layer.x+w/2)*.04,y:5.4-(layer.y+layer.h)*.04};
   if(!main){p.actors[actor]={name:'집 · '+layer.name,x,y,facing:'left',asset:true};p.visibleActors.push(actor);p.tracks.push({id:actor,type:'visual',name:'집 · '+layer.name,height:48,muted:false});}
-  // Keep the ten room layers behind actors and inside the editor's -10..10 range.
-  visual(actor,main?'opening-home':'opening-home-'+layer.name,start,duration,x,y,4,{layer:index-10});
+  // Background furniture stays behind actors; the table and book overlap them.
+  const foreground=['ForeFore_Object','home-book'].includes(layer.name);
+  visual(actor,main?'opening-home':'opening-home-'+layer.name,start,duration,x,y,4,{layer:foreground?5:index-Math.min(10,W.LunaHomeArt.layers.length)});
  }
 }
 function template(){
@@ -140,7 +143,7 @@ function rest(kind='sleep'){
   // Match the waking spawn and follow camera
   // in this coordinate system, so handing control back does not jump.
   const bg=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
-  const housePoint=(x,y)=>({x:4*(x-bg.x)+bg.sprite.w*.02-11.2,y:4*(y-bg.y)});
+  const housePoint=(x,y)=>({x:4*(x-bg.x)+bg.sprite.w*.02+W.LunaHomeArt.studioOriginX,y:4*(y-bg.y)});
   const standing=housePoint(2.557,-.7),wide={...housePoint(W.LunaHomeArt.cameraX(2.557,4.8),.023),w:4.8*4};
   visual('luna','opening-luna-home',reveal,end-reveal,standing.x,standing.y,4,{loop:true,title:'루나 · 환복 후 기립'});
   put('fx',reveal,{track:'fx',effect:'fadeIn',duration:.55,strength:1});
@@ -158,7 +161,7 @@ function documentary(){
  let t=1;const starts=[];
  TV.forEach(text=>{starts.push(M.round(t));const duration=M.round(Math.max(3.3,text.length/12+1.4));put('dialogue',t,{track:'tv-lines',actor:'tv',text,title:text.slice(0,24),duration,wait:true,cps:DIALOGUE_CPS,layout:'documentary',fontScale:175,textEffect:'typewriter'});t+=duration+.16;});
  p.duration=M.round(t+1);
- const chapters=[[0,'돌봄과 노동'],[9,'자아에 대한 의문'],[13,'디트로이트 전쟁'],[17,'폭격 이후의 폐허'],[21,'금지 협약']];
+ const chapters=[[0,'돌봄과 노동'],[9,'자아에 대한 의문'],[13,'디트로이트 전쟁'],[17,'폭격 이후의 폐허'],[20,'금지 협약']];
  chapters.forEach(([index,name],i)=>{const start=i?starts[index]:0,stop=i===4?p.duration:starts[chapters[i+1][0]];put('visual',start,{track:'tv',actor:'tv',assetId:'documentary-tv-'+i,title:name,duration:M.round(stop-start),from:{x:0,y:-2.7},to:{x:0,y:-2.7},scale:1,layer:-10});p.chapters.push({name,time:starts[index]});});
  put('camera',0,{track:'camera',title:'다큐 · 전체 화면 고정',duration:p.duration,from:{...p.camera},to:{...p.camera}});
  put('fx',0,{track:'fx',title:'다큐 시작',effect:'fadeIn',duration:.8,strength:1});

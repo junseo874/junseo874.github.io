@@ -72,7 +72,7 @@ function speech(c,s){
   // Gameplay rounds the zoom and viewport edges to physical pixels. Use that
   // rendered endpoint, including after a resize, rather than its logical 4.8 width.
   const camera=W.LunaPixelCamera.view(outside.camera,outside.pixelSurface,{scene:'home'});
-  const endpoint={x:4*(camera.x-bg.x)+bg.sprite.w*.02-11.2,y:4*(camera.y-bg.y),w:camera.w*4};
+  const endpoint={x:4*(camera.x-bg.x)+bg.sprite.w*.02+W.LunaHomeArt.studioOriginX,y:4*(camera.y-bg.y),w:camera.w*4};
   for(const [axis,value] of Object.entries(endpoint))W.StudioKeyframes.endpoint(clip,'to',axis,value);
  }
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null,effectTime=t){

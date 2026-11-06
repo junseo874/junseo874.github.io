@@ -4,8 +4,10 @@
 const R=W.LunaResidence.layout;
 // These coordinates are visible soles, not Luna's pivot or an atlas corner.
 const road=-.974,corridor=R.upperY-.274;
-const places=Object.freeze({box:{x:R.homeX+.77,y:10.07},cat:{x:R.homeX+1.02,y:9.82},neighbor:{x:R.homeX+2.10,y:corridor},sofa:{x:2.65,y:-.46},chris:{x:1.75,y:road},repair:{x:R.elevatorX+.97,y:road},guard:{x:R.elevatorX-1.48,y:road},boss:{x:-15.5,y:road},gangmate:{x:-14.72,y:road}});
-const motion=Object.freeze({neighborStop:places.cat.x+.60,neighborSpeed:.24,departureSpeed:.24,departureDuration:1.6});
+const actorEvents={neighbor:['street','neighborhood-reveal','neighbor'],repair:['street','neighborhood-repairGreeting','repair'],guard:['street','neighborhood-guardBlocked','guard'],boss:['street','neighborhood-bossIntro','boss'],gangmate:['street','neighborhood-bossIntro','gangmate'],chris:['home','neighborhood-homeCat','chris'],cat:['street','neighborhood-reveal','boobi'],sofa:['home','neighborhood-homeCat','boobi']};
+const placeDefaults={box:{x:R.homeX+.77,y:10.07},cat:{x:R.homeX+1.02,y:9.82},neighbor:{x:R.homeX+2.10,y:corridor},sofa:{x:2.65,y:-.46},chris:{x:1.75,y:road},repair:{x:R.elevatorX+.97,y:road},guard:{x:R.elevatorX-1.48,y:road},boss:{x:-15.5,y:road},gangmate:{x:-14.72,y:road}};
+const places=Object.freeze(Object.fromEntries(Object.entries(placeDefaults).map(([key,p])=>[key,actorEvents[key]?W.LunaEngineWorld?.actorPoint(...actorEvents[key],p)||p:key==='box'&&W.LunaEngineWorld?{x:W.LunaEngineWorld.target('street','neighborhood-reveal').x,y:W.LunaEngineWorld.target('street','neighborhood-reveal').y}:p])));
+const motion=Object.freeze({neighborStop:places.cat.x+(W.LunaEngineWorld ? .8 : .60),neighborSpeed:.24,departureSpeed:.24,departureDuration:1.6});
 const names={luna:'루나',boobi:'부비',neighbor:'옆집 아저씨',repair:'수리공',guard:'갱단원',chris:'크리스',boss:'덩치 큰 남자',gangmate:'갱단원'};
 const action=name=>({type:'neighborhood-action',action:name});
 // Dialogue content is projected from the web-owned shared CSV catalog.
@@ -77,18 +79,18 @@ function interact(m,t){if(m.qa||!t.id.startsWith('neighborhood-')||!targets(m).s
  return false;
 }
 function choiceView(m){const stage=m.story.speech.line.stage,p=progress(),options=[];
- if(stage==='cat')options.push({id:'pet',label:'쓰다듬기'},{id:'feed',label:'참치캔 주기',disabled:!(p.inventory?.tuna_can>0),disabledReason:'참치캔이 없습니다.'});
+ if(stage==='cat')options.push({id:'pet',label:'쓰다듬기'},{id:'feed',label:'참치캔 주기'});
  if(stage==='home-cat')options.push({id:'pet',label:'쓰다듬기'});
  if(stage==='repair-intro')options.push({id:'talk',label:'대화한다.'});
- if(stage==='repair')options.push({id:'gear',label:'기어 부품 건네주기',disabled:!(p.inventory?.gear_part>0),disabledReason:'기어 부품이 없습니다.'},{id:'pay',label:'비용 건네주기 · 400원',disabled:p.money<400,disabledReason:'돈이 부족합니다.'});
+ if(stage==='repair')options.push({id:'gear',label:'기어 부품 건네주기'},{id:'pay',label:'비용 건네주기 · 400원'});
  if(stage==='guard')options.push({id:'ask',label:'술을 찾고 있어요.'});
- if(stage==='boss-first'||stage==='boss-repeat')return{money:p.money,label:names.boss,options:[
+ if(stage==='boss-first'||stage==='boss-repeat')return{money:p.money,label:names.boss,options:W.LunaNeighborhoodChoiceRules.apply(stage,[
   {id:'boss-wait',label:'( 대화 그만두기 )'},
-  {id:'boss-repair',label:stage==='boss-first'?'승강기는 이미 고쳤습니다.':'승강기 고쳤습니다.',disabled:!repaired()||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'엘리베이터 수리가 필요합니다.'},
-  {id:'boss-pay',label:'돈으로 살게요 · 500원',disabled:p.money<500||wildDogDone()||bossPending(),disabledReason:wildDogDone()?'이미 받았습니다.':bossPending()?'거래 중입니다.':'돈이 부족합니다.'}
- ]};
+  {id:'boss-repair',label:stage==='boss-first'?'승강기는 이미 고쳤습니다.':'승강기 고쳤습니다.'},
+  {id:'boss-pay',label:'돈으로 살게요 · 500원'}
+ ],p)};
  options.push({id:'cancel',label:stage==='guard'?'자리를 뜬다.':stage==='repair-intro'?'무시한다.':'취소'});
- return{money:stage==='home-cat'?undefined:p.money,label:names[m.story.speech.line.actor]||'선택',options};
+ return{money:stage==='home-cat'?undefined:p.money,label:names[m.story.speech.line.actor]||'선택',options:W.LunaNeighborhoodChoiceRules.apply(stage,options,p)};
 }
 function choose(m,id){const s=m.story.speech;if(s?.line?.type!=='neighborhood-choice'||!s.choice)return false;
  const option=choiceView(m).options.find(o=>o.id===id);if(!option||option.disabled)return false;
@@ -182,7 +184,7 @@ function campFacing(m,id,x){
 }
 function poses(m){
  const n=state(m),a=n.action,list=[];
- const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=W.LunaOutsideAmbient.roleKinds[id];list.push({id,kind,x,y,scale,flip,alpha,sp:W.LunaOutsideAmbient.sprite(kind,m.time)});};
+ const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=W.LunaOutsideAmbient.roleKinds[id],sp=W.LunaOutsideAmbient.sprite(kind,m.time),e=actorEvents[id],p=e&&W.LunaEngineWorld?W.LunaEngineWorld.actorPose(...e,sp,x,y,flip,alpha):{x,y,scale,flip,alpha,sp};list.push({id,kind,...p,scale:p.sx??scale});};
  if(m.scene==='street'){
   if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair',places.repair.x,places.repair.y);
   else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}
@@ -200,7 +202,7 @@ function poses(m){
  return list;
 }
 function anchor(m,actor,stable=false){
- if(actor==='boobi'){const p=m.scene==='home'?places.sofa:places.cat;return{x:p.x,y:p.y+.2275};}
+ if(actor==='boobi'){const p=m.scene==='home'?places.sofa:places.cat,e=W.LunaEngineWorld?.actor(m.scene,m.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');return{x:p.x,y:p.y+(e?e.sprite.h/e.sprite.ppu*Math.hypot(e.visual.c,e.visual.d):.2275)};}
  const p=poses(m).find(p=>p.id===actor);if(!p)return null;
  const head=W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.scale,p.scale,p.flip)||{x:p.x,y:p.y+(p.kind==='M2'?.61:.56)*p.scale};
  // Badges belong to the actor's fixed origin, not its mirrored head offset.
@@ -216,7 +218,7 @@ function faceConversation(m,line){
  const other=line.actor==='luna'?(state(m).chris?'chris':state(m).neighbor?'neighbor':m.story.speech.target.actor||(m.story.speech.target.id?.endsWith('cat')?'boobi':null)):line.actor;
  const p=anchor(m,other);if(p&&Math.abs(p.x-m.x)>.02)m.facing=p.x>m.x?1:-1;
 }
-function human(sprite,p){sprite({...p.sp,lightingId:p.id},p.x,p.y,p.scale,p.scale,p.flip,p.alpha);}
+function human(sprite,p){sprite({...p.sp,lightingId:p.id,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??p.scale,p.sy??p.scale,p.flip,p.alpha);}
 const campActors=new Set(['guard','boss','gang-left','gang-far','gangmate']);
 const inCamp=m=>m.scene==='street'&&!m.level&&after(m,0,'out')&&m.x<places.guard.x+.4;
 // The camp uses the walking strip in FRONT of the black scrap silhouette.
@@ -232,7 +234,9 @@ function catFrame(time,pose){
  const value={image,sp:{asset:'neighborhood-cat-'+key,x:0,y:0,w:40,h:44,pivot:{x:.5,y:6/44}}};catFrames.set(key,value);return value;
 }
 function drawCat(ctx,position,x,y,time,pose='sit',glow,model){
- const p=position(x,y),scale=Math.abs(position(x+1,y).x-p.x)/100;
+ const engine=model&&W.LunaEngineWorld?.actor(model.scene,model.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');
+ const size=engine?engine.sprite.h/engine.sprite.ppu*Math.hypot(engine.visual.c,engine.visual.d)/.247:1;
+ const p=position(x,y),scale=Math.abs(position(x+1,y).x-p.x)/100*size;
  ctx.save();ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale(scale*.65,scale*.65);
  if(pose==='pet')ctx.rotate(Math.sin(time*7)*.035*Math.sin(Math.PI*Math.min(1,time/1.6)));
  // Replaceable Canvas dummy: a small grey cat, not a new human asset.
@@ -264,17 +268,17 @@ function paintCat(ctx,phase,pose){
  ctx.fillStyle='#3c4147';ctx.fillRect(-1,head+2,2,2);
  ctx.fillStyle='#aeb8bf';ctx.fillRect(-7,-2,5,3);ctx.fillRect(2,-2,5,3);
 }
-function draw(m,sprite,ctx,position,images,glow){if(m.qa)return;const n=state(m),a=n.action;
+function draw(m,sprite,ctx,position,images,glow,onlyCats=false){if(m.qa)return;const n=state(m),a=n.action;
  if(m.scene==='street'){
-  poses(m).filter(p=>!campActors.has(p.id)).forEach(p=>human(sprite,p));
+  if(!onlyCats)poses(m).filter(p=>!campActors.has(p.id)).forEach(p=>human(sprite,p));
   if(catAvailable(m)){
    if(n.shake>0){const img=images.get('residence-building'),left=R.homeX-5.83,top=14.32,p=position(left+6.47,top-4.24),q=position(left+6.74,top-4.52),w=q.x-p.x,h=q.y-p.y;if(img){ctx.drawImage(img,619,424,27,28,p.x,p.y,w,h);ctx.save();ctx.translate(p.x+Math.sin(n.shake*40)*w/27,p.y);ctx.drawImage(img,647,424,27,28,0,0,w,h);glow?.paint(ctx,img,{asset:'residence-building',x:647,y:424,w:27,h:28,pivot:{x:0,y:1}},{name:'neighborhood-shaking-box'},places.box.x,places.box.y,w,h);ctx.restore();}}
    if(a?.name==='reveal'&&a.time<.55){const p=position(places.box.x,places.box.y-.14),s=Math.abs(position(places.box.x+.01,places.box.y).x-p.x);ctx.fillStyle='#d4d383';ctx.fillRect(p.x-4*s,p.y,2*s,s);ctx.fillRect(p.x+2*s,p.y,2*s,s);}
    if(flags().boobi_revealed||a?.name==='reveal'&&a.time>=.55){let p=places.cat;if(a?.name==='reveal'){const t=Math.min(1,(a.time-.55)/.9);p={x:places.box.x+(places.cat.x-places.box.x)*t,y:places.box.y+(places.cat.y-places.box.y)*t+Math.sin(t*Math.PI)*.55};}drawCat(ctx,position,p.x,p.y,a?.name==='pet'?a.time:m.time,a?.name==='feed'?'eat':a?.name==='pet'?'pet':'sit',glow,m);}
   }
  }else if(m.scene==='home'){
-  if(flags().boobi_adopted)drawCat(ctx,position,places.sofa.x,places.sofa.y,a?.name==='pet'?a.time:m.time,a?.name==='pet'?'pet':'sit',glow);
-  poses(m).forEach(p=>human(sprite,p));
+  if(flags().boobi_adopted)drawCat(ctx,position,places.sofa.x,places.sofa.y,a?.name==='pet'?a.time:m.time,a?.name==='pet'?'pet':'sit',glow,m);
+  if(!onlyCats)poses(m).forEach(p=>human(sprite,p));
  }
 }
 W.LunaOutsideNeighborhood={places,motion,scripts,after,targets,interact,preview,choose,choiceView,action:startAction,cancel,tick,draw,drawCamp,inCamp,poses,anchor,targetAnchor,faceConversation,camera,clampBoundary,fastTravel,repaired,beforeRest,fadeAlpha};

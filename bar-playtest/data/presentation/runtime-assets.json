@@ -469,100 +469,106 @@
       ]
     },
     "cocktail_gin_tonic": {
-      "src": "assets/cocktails/static/cocktail-gin-tonic.png",
-      "w": 216,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_and_tonic_final.png",
+      "w": 220,
       "h": 411,
       "frames": 1,
-      "frameWidth": 216,
+      "frameWidth": 220,
       "frameHeight": 411,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진토닉_완성.png",
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        4,
-        1,
-        215,
-        408
-      ]
+        5,
+        3,
+        216,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/gin_and_tonic_final.png"
     },
     "cocktail_gin_fizz": {
-      "src": "assets/cocktails/static/cocktail-gin-fizz.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_fizz_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진피즈_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        13,
-        5,
-        187,
-        343
-      ]
+        23,
+        72,
+        197,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/gin_fizz_final.png"
     },
     "cocktail_dry_martini": {
-      "src": "assets/cocktails/static/cocktail-dry-martini.png",
-      "w": 200,
-      "h": 337,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/dry_martini_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 337,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/드라이마티니_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        0,
-        0,
-        200,
-        337
-      ]
+        10,
+        73,
+        210,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/dry_martini_final.png"
     },
     "cocktail_cosmopolitan": {
-      "src": "assets/cocktails/static/cocktail-cosmopolitan.png",
-      "w": 198,
-      "h": 327,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/cosmopolitan_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 198,
-      "frameHeight": 327,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/코스모폴리탄_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        0,
-        0,
-        198,
-        327
-      ]
+        11,
+        83,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/cosmopolitan_final.png"
     },
     "cocktail_kahlua_milk": {
-      "src": "assets/cocktails/static/cocktail-kahlua-milk.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/kahlua_milk_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/깔루아밀크_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        2,
-        90,
-        200,
-        342
-      ]
+        11,
+        158,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/kahlua_milk_final.png"
     },
     "cocktail_godfather": {
-      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/갓파더_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        1,
-        107,
-        200,
-        345
-      ]
+        11,
+        170,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/godfather_final.png"
     },
     "guest_m_eyebrow_6": {
       "src": "assets/01.ArtResources/01.Characters/01.Bar/09.Customers/02.Male/eyebrow_6.png",
@@ -3328,20 +3334,21 @@
       ]
     },
     "recipe_cocktail_gin_tonic": {
-      "src": "assets/cocktails/static/cocktail-gin-tonic.png",
-      "w": 216,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_and_tonic_final.png",
+      "w": 220,
       "h": 411,
       "frames": 1,
-      "frameWidth": 216,
+      "frameWidth": 220,
       "frameHeight": 411,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진토닉_완성.png",
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        4,
-        1,
-        215,
-        408
-      ]
+        5,
+        3,
+        216,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/gin_and_tonic_final.png"
     },
     "table_cocktail_gin_tonic": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
@@ -3350,30 +3357,32 @@
       "frames": 1,
       "frameWidth": 69,
       "frameHeight": 112,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/7. 칵테일 - 바 테이블 위/완성 칵테일/진토닉.png",
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
         11,
         1,
         68,
         111
-      ]
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png"
     },
     "recipe_cocktail_gin_fizz": {
-      "src": "assets/cocktails/static/cocktail-gin-fizz.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_fizz_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/진피즈_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        13,
-        5,
-        187,
-        343
-      ]
+        23,
+        72,
+        197,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/gin_fizz_final.png"
     },
     "table_cocktail_gin_fizz": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
@@ -3382,118 +3391,151 @@
       "frames": 1,
       "frameWidth": 69,
       "frameHeight": 112,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/7. 칵테일 - 바 테이블 위/완성 칵테일/진피즈.png",
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
         11,
         18,
         58,
         111
-      ]
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png"
     },
     "recipe_cocktail_red_wine": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
-      "w": 635,
-      "h": 635,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 635,
-      "frameHeight": 635,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/레드와인_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        125,
-        0,
-        509,
-        634
-      ]
+        24,
+        14,
+        181,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/wine_final.png"
     },
     "cocktail_red_wine": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/red_wine_final.png",
-      "w": 384,
-      "h": 634,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 384,
-      "frameHeight": 634,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/레드와인_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        0,
-        0,
-        384,
-        634
-      ]
+        24,
+        14,
+        181,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/wine_final.png"
     },
     "recipe_cocktail_champagne": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/champagne_final.png",
-      "w": 635,
-      "h": 635,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 635,
-      "frameHeight": 635,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/샴페인_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        125,
-        0,
-        509,
-        634
-      ]
+        42,
+        14,
+        179,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Champagne_final.png"
     },
     "cocktail_champagne": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",
-      "w": 384,
-      "h": 634,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 384,
-      "frameHeight": 634,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/샴페인_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        0,
-        0,
-        384,
-        634
-      ]
+        42,
+        14,
+        179,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Champagne_final.png"
     },
     "recipe_cocktail_screwdriver": {
-      "src": "assets/cocktails/completed/representative/screwdriver_final.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/screwdriver_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
+      "frameWidth": 220,
+      "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/screwdriver_final.png"
+      "static": true,
+      "alphaBBox": [
+        24,
+        74,
+        196,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/screwdriver_final.png"
     },
     "cocktail_screwdriver": {
-      "src": "assets/cocktails/completed/representative/screwdriver_final.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/screwdriver_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
+      "frameWidth": 220,
+      "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/screwdriver_final.png"
+      "static": true,
+      "alphaBBox": [
+        24,
+        74,
+        196,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/screwdriver_final.png"
     },
     "recipe_cocktail_tequila_sunrise": {
-      "src": "assets/cocktails/completed/representative/tequila_sunrise_final.png",
-      "w": 216,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/tequila_sunrise_final.png",
+      "w": 220,
       "h": 411,
       "frames": 1,
-      "frameWidth": 216,
+      "frameWidth": 220,
       "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/tequila_sunrise_final.png"
+      "static": true,
+      "alphaBBox": [
+        7,
+        67,
+        213,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/tequila_sunrise_final.png"
     },
     "cocktail_tequila_sunrise": {
-      "src": "assets/cocktails/completed/representative/tequila_sunrise_final.png",
-      "w": 216,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/tequila_sunrise_final.png",
+      "w": 220,
       "h": 411,
       "frames": 1,
-      "frameWidth": 216,
+      "frameWidth": 220,
       "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/tequila_sunrise_final.png"
+      "static": true,
+      "alphaBBox": [
+        7,
+        67,
+        213,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/tequila_sunrise_final.png"
     },
     "recipe_cocktail_long_island": {
       "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/long_island_iced_tea_final.png",
@@ -3528,52 +3570,55 @@
       ]
     },
     "recipe_cocktail_whiskey_sour": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
-      "w": 635,
-      "h": 635,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/whisky_sour_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 635,
-      "frameHeight": 635,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 대표 칵테일 이미지/위스키사워_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        210,
-        18,
-        425,
-        617
-      ]
+        11,
+        81,
+        209,
+        410
+      ],
+      "source": "User supplied whisky_sour_final.png"
     },
     "cocktail_whiskey_sour": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/whiskey_sour_final.png",
-      "w": 300,
-      "h": 601,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/whisky_sour_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 300,
-      "frameHeight": 601,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/칵테일 대표 이미지/위스키사워_완성본.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        41,
-        2,
-        256,
-        601
-      ]
+        11,
+        81,
+        209,
+        410
+      ],
+      "source": "User supplied whisky_sour_final.png"
     },
     "recipe_cocktail_dry_martini": {
-      "src": "assets/cocktails/static/cocktail-dry-martini.png",
-      "w": 200,
-      "h": 337,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/dry_martini_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 337,
-      "fps": 12,
-      "source": "6. 칵테일-재료 리소스/6. 칵테일 - 제공 컷씬/완성 칵테일/드라이마티니_완성.png",
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        0,
-        0,
-        200,
-        337
-      ]
+        10,
+        73,
+        210,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/dry_martini_final.png"
     },
     "mix_stir_motion": {
       "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/stir_Sheet.png",
@@ -3624,24 +3669,38 @@
       ]
     },
     "cocktail_bottle_beer": {
-      "src": "assets/cocktails/completed/representative/beer_final.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/beer_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
+      "frameWidth": 220,
+      "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/beer_final.png"
+      "static": true,
+      "alphaBBox": [
+        24,
+        70,
+        197,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/beer_final.png"
     },
     "recipe_cocktail_bottle_beer": {
-      "src": "assets/cocktails/completed/representative/beer_final.png",
-      "w": 200,
-      "h": 345,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/beer_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
-      "frameWidth": 200,
-      "frameHeight": 345,
+      "frameWidth": 220,
+      "frameHeight": 411,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / representative/beer_final.png"
+      "static": true,
+      "alphaBBox": [
+        24,
+        70,
+        197,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/beer_final.png"
     },
     "table_cocktail_bottle_beer": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
@@ -3651,7 +3710,14 @@
       "frameWidth": 69,
       "frameHeight": 112,
       "fps": 0,
-      "source": "Latest supplied cocktail artwork, 2026-10-18 / table/beer.png"
+      "static": true,
+      "alphaBBox": [
+        10,
+        18,
+        59,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/beer.png"
     },
     "char_tom_static": {
       "src": "assets/characters/tom/char-tom-static.png",
@@ -3731,16 +3797,21 @@
       ]
     },
     "cocktail_johnny_old_fashioned": {
-      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
-      "w": 175,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Old_fashioned_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        22,
-        19,
-        168,
-        178
-      ]
+        0,
+        145,
+        220,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Old_fashioned_final.png"
     },
     "inventory_item_wild_dog": {
       "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
@@ -3791,28 +3862,38 @@
       ]
     },
     "recipe_cocktail_johnny_old_fashioned": {
-      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
-      "w": 175,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Old_fashioned_final.png",
+      "w": 220,
+      "h": 411,
       "frames": 1,
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        22,
-        19,
-        168,
-        178
-      ]
+        0,
+        145,
+        220,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Old_fashioned_final.png"
     },
     "table_cocktail_johnny_old_fashioned": {
-      "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
-      "w": 175,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
+      "w": 69,
+      "h": 112,
       "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
       "alphaBBox": [
-        22,
-        19,
-        168,
-        178
-      ]
+        4,
+        13,
+        65,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/Old_Fashioned.png"
     },
     "table_empty_glass_beer": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
@@ -3843,6 +3924,295 @@
       "frameHeight": 93,
       "fps": 0,
       "source": "User supplied table empty glass / long-drink-glass.png"
+    },
+    "table_cocktail_dry_martini": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        4,
+        18,
+        64,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/dry_martini.png"
+    },
+    "recipe_cocktail_cosmopolitan": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/cosmopolitan_final.png",
+      "w": 220,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        11,
+        83,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/cosmopolitan_final.png"
+    },
+    "table_cocktail_cosmopolitan": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        4,
+        18,
+        64,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/cosmopolitan.png"
+    },
+    "recipe_cocktail_kahlua_milk": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/kahlua_milk_final.png",
+      "w": 220,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        11,
+        158,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/kahlua_milk_final.png"
+    },
+    "table_cocktail_screwdriver": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        11,
+        18,
+        58,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/screwdriver.png"
+    },
+    "table_cocktail_tequila_sunrise": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        8,
+        16,
+        65,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/tequila_sunrise.png"
+    },
+    "recipe_cocktail_godfather": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
+      "w": 220,
+      "h": 411,
+      "frames": 1,
+      "frameWidth": 220,
+      "frameHeight": 411,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        11,
+        170,
+        209,
+        410
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/godfather_final.png"
+    },
+    "table_cocktail_godfather": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        8,
+        13,
+        62,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/godfather.png"
+    },
+    "table_cocktail_red_wine": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        14,
+        0,
+        56,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/Wine.png"
+    },
+    "table_empty_glass_wine": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        14,
+        0,
+        56,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/Wine_glass.png"
+    },
+    "table_empty_glass_flute": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Champagne_glass.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        15,
+        0,
+        55,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/Sour_glass.png"
+    },
+    "table_empty_glass_old_fashioned": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        8,
+        13,
+        62,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/Old_fashioned_glass.png"
+    },
+    "char_haru_static": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/Haru_Idle.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        166,
+        120,
+        373,
+        422
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/Haru_Idle.png"
+    },
+    "char_tom_fail": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/07.Tom/fail/Tom_fail.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        95,
+        109,
+        460,
+        441
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/07.Tom/fail/Tom_fail.png"
+    },
+    "char_tom_success": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/07.Tom/success/Tom_success.png",
+      "w": 551,
+      "h": 530,
+      "frames": 1,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        96,
+        109,
+        460,
+        453
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/07.Tom/success/Tom_success.png"
+    },
+    "table_cocktail_whiskey_sour": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
+      "w": 60,
+      "h": 93,
+      "frames": 1,
+      "frameWidth": 60,
+      "frameHeight": 93,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        0,
+        0,
+        60,
+        93
+      ],
+      "source": "User supplied whisky_sour.png"
+    },
+    "table_cocktail_champagne": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
+      "w": 69,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 69,
+      "frameHeight": 112,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        15,
+        0,
+        55,
+        111
+      ],
+      "source": "User supplied Champagne.png"
     }
   },
   "characterLayers": {
@@ -4036,6 +4406,14 @@
       ],
       "idle_talk": [
         "char_tom_static"
+      ]
+    },
+    "haru": {
+      "idle_default": [
+        "char_haru_static"
+      ],
+      "idle_talk": [
+        "char_haru_static"
       ]
     }
   },
@@ -4289,7 +4667,17 @@
       ]
     },
     "bubi": {},
-    "tom": {}
+    "tom": {},
+    "haru": {
+      "idle_default": [
+        0,
+        0
+      ],
+      "idle_talk": [
+        0,
+        0
+      ]
+    }
   },
   "webActorBounds": {
     "chris": [
@@ -4327,6 +4715,12 @@
       119,
       448,
       440
+    ],
+    "haru": [
+      166,
+      120,
+      373,
+      422
     ]
   },
   "mixView": {

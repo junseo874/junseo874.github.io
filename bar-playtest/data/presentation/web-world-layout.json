@@ -1,0 +1,5931 @@
+{
+  "version": 1,
+  "artPolicy": "latest-web-images",
+  "sourceFiles": {
+    "Assets/01.Game/01.Scenes/Home.unity": "b40052c5f3c1609d8ab0dbb2550791f9d7c935fe39464b83bd9c856543d170d2",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/01.Luna/05.Terrace/Terrace.png.meta": "3f5c1057c0559ec8d934bbc3ce2075fb5c6a8d0ca9874e39b2ac7a74582aa098",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png.meta": "7e8e0770659008f25323c188e4c5ba992fd740f08820ae03689249f1ca626076",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV.png.meta": "8ab64430b1afe707683e64cc0191e56f113b72894228e7dc4c74f0b4ffb1f233",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/01.Luna/01.Idle/luna_idle.png.meta": "b796c775c33f7a684aab2feefd6798e754db29ce008bfe97333541eb55c71405",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png.meta": "05cd57c8382a172480b59ac2923d3eb85f24e2f930d990575d878f78752ebf52",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/04.Bubi/01.Idle/bubi_sleep.png.meta": "9c20ce3c553ef8125edc3c4c4188b3aba5b7e9c4877e7497e2ec225f4c957b1e",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/02.Chris/Chris_idle.png.meta": "0958baaab4ba7ce1c9d57e6fbd3f0b0044c04f1f93b8b77b18c4df806913b15a",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object.png.meta": "e9a67bae929f6fbeeaaba29b551654775e42029f941541876f5b7109234b70ea",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png.meta": "e16ee4ca9ab8bc46d4faad7da4bdac74c24fe735c47587af3be9b571f2310527",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/Room_Entrance.png.meta": "317bd88e8843b1b8ae9472cbf38344b26b1d0c2e17ca69068cb3dab558c7f0bf",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/04.Terrace/Terrace_BG_City.png.meta": "22983ab304b6f6b0b088549dfbc441fe32df839557b950e036e1a5dcd692d74e",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/04.Terrace/balustrade.png.meta": "732c3327bfae016e60a008fec315e0ca4a7ca4728e153199ac4f1487cc2245d5",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse.png.meta": "fa96c6f72710e4492a5d8775518a7db18ece476c77d70adacd48b4b16ca639ab",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Sofa.png.meta": "b22ba428bd7d4c0e4d51836656a7cfc31b7a2feebbb66e32ed539800de712d1e",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/04.Terrace/Terrace.png.meta": "c9be6f0a5b33f3e6c8387425669a7b4cbd9c35f609bd62b336eafa04d2dd3167",
+    "Assets/01.Game/01.Scenes/OutSide.unity": "2c7b33d38f3ad14eece054e99c0fa6d546e4a0e752a524d818cae78165112667",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png.meta": "76279fad2e8c28f9bee8b065349ec5a3a4509794af997ec4e0e960b1ff7f7119",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png.meta": "032947c91ad3df78b67f0ec98ffbf13c40d4021ff8c36191d297ea64ec9e7a0c",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png.meta": "ea90f3e980d59db7ee524612edc416791505036ef19e18c0b08e15f308c04a21",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png.meta": "2f0343be113ef6b58fc8a0fbca9f5f3dbf59fb924e331ceea50bba4c7afec036",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png.meta": "89a40b200e99154c6b4d07b98c142c0e7089d99bcf0fda06100071ca83631b36",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC1_idle.png.meta": "71f4ce884d4518c521552726768030899714ddcd35f3b1d02ac81b96ab421b02",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png.meta": "65ed51b674a22661430c607b3d667bc17da8950411525498038cec096f4ebe1b",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Repairman_idle.png.meta": "c6a91604274e1187d8b7a4fdf6234ac333206d6559a71afbfb0b254256b76dd2",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/shiba_idle.png.meta": "ee34e343a93ea43fcde6cc27b450079398d76a1a2ae6350c5b53b26d94dffd19",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png.meta": "955751af22f80a30f0d01ea149a4c5ffe71d4263b8bcd5f91d0b4a72a9584200",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png.meta": "9dd01b2eec89a6c00d47eb0744295eb1324dcfc8cdfddf49855f6dd41cdbc413",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png.meta": "f3e9ede1e9b66db9051462b2ae39d86d039044cfe6aea2096347854a7660519c",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/03.Samho/01.Idle/samho_idle.png.meta": "f66f5c2f922bb5bafb20a709e327c9e1c862ebc3f6c1fae927da8fb6d8d12735",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png.meta": "971958617980f6f362079a484ea3d55dd48916345d0a9fb228972db18aa1a1b9",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png.meta": "6c2a8a0e4e1fe7a61ff712ff0c9f7c2fdf28b3e161f9ced66dd69bedca590831",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png.meta": "14e7ceb489f5bda34460cb7511fc7cf4e620da3b19b0673b8402884323c81a79",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/sky.png.meta": "7d0519cb66647dc139ac8bbec89072e5926af089187f0d30be337bbb304d95ae",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/House Entrance.png.meta": "cca5be679e34b94838340ea48e7790f9b2bb373a5898a12acea73e395e05b2b5",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png.meta": "1c85a96a275ef30a87b70a2690c1f665c7cbd009c5071df221193122a81f2eac",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Bar Entrance.png.meta": "e146b16e7caf400bbb31a558a5e70bd8788064716dbe637ac034f1e25cb5b77c",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC3_idle.png.meta": "77c240dd048762fe4cae5822782c94c70363e36301a5cce782de019754f88fb0",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png.meta": "0cb2d149ea5da6d660a0744c2ffb504c816540daaec31275400c7bc482542fcd",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png.meta": "c187f89d81c8563eedfa55648be3f009eaec705f762813351a047450e9f44ed2",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png.meta": "86015e357fe651947ac64c4e3e9054a57eb7cc74c9bc1a128cb9794d9d22d7a7",
+    "Assets/01.Game/03.Content/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC5_idle.png.meta": "bb3543299400e70503b292240b0fe4a7d1a019634becfa28b26d8a9fb84b1591",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png.meta": "ec3b1f134a69209621c2dc0db74263c251e7c85a8e5c59e8127e843a2e8b9677",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png.meta": "fb12b49d202db7745b04105df29d735e0f722697ef96be787aabb96bfa0346b6",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_2 1.png.meta": "c35036e51c5bdb9365e9cf76b401de81a8096b53a84ab18c084ddcc7f7f3a273",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/fence.png.meta": "9aeb2a8b0b22ba57f9f537d042077bb9ee3767d20a7fdae3fb18b2362cf31c6d",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_1.png.meta": "6fb89c67aa7723759081b89616e41826dc1f9dbb1d08deba117d76e610d8a8e9",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png.meta": "2a189a6c48ad9ddcf83073eb4ca72861d60f019651e2c8081747fede0bc867ee",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png.meta": "1d527bf30af2446eaaaea424e8a9a8c072080dcb54463915abedcad4cae6c3b3",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png.meta": "201408a902fdd36f6ce24bd3673071e81fdb3f81e0646d442a02826006ac1f08",
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_1 1.png.meta": "4084fa134945779636f06f29c658b32ea1ad016e3c6bf1dfd44c259f83d7fdaa"
+  },
+  "notes": [
+    "Engine actor position, size and sorting are intentional, including Default-layer actors occluded by the street background.",
+    "New split house artwork is registered to the engine door; web-only objects retain their local authored offsets.",
+    "Scene examples and engine-only dialogue content are not imported into the web story."
+  ],
+  "scenes": {
+    "street": {
+      "camera": {
+        "width": 4.8,
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "liftWidth": 19.2,
+        "lift": {
+          "cameraMode": 1,
+          "offsetCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "resolutionCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 0.58412015,
+                "outSlope": 0.58412015,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 0.39955154,
+                "value": 0.2333861,
+                "inSlope": 0.80710626,
+                "outSlope": 0.80710626,
+                "tangentMode": 0,
+                "weightedMode": 0,
+                "inWeight": 0.17232336,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1.2767355,
+                "outSlope": 1.2767355,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0.33333334,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "cameraParent": {
+            "fileID": 1582674271
+          },
+          "cameraOffset": {
+            "x": 8.4,
+            "y": -0.5,
+            "z": 0
+          },
+          "offsetDuration": 3,
+          "resolutionDuration": 3,
+          "isChangeResolution": 1,
+          "targetResolution": 1
+        },
+        "return": {
+          "cameraMode": 2,
+          "offsetCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "resolutionCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 0.58412015,
+                "outSlope": 0.58412015,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 0.39955154,
+                "value": 0.2333861,
+                "inSlope": 0.80710626,
+                "outSlope": 0.80710626,
+                "tangentMode": 0,
+                "weightedMode": 0,
+                "inWeight": 0.17232336,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1.2767355,
+                "outSlope": 1.2767355,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0.33333334,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "cameraParent": {
+            "fileID": 1582674271
+          },
+          "cameraOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "offsetDuration": 6,
+          "resolutionDuration": 6,
+          "isChangeResolution": 1,
+          "targetResolution": 3
+        },
+        "bounds": {
+          "left": -21.850000029999997,
+          "right": 6.51779597,
+          "bottom": -1.4346307080000003,
+          "top": 14.629998292
+        }
+      },
+      "nodes": [
+        {
+          "id": "11317597",
+          "name": "C_Middle_Building_2",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 4,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f6d48b7443f092",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 536,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png",
+          "engineNode": "11317597",
+          "placementSource": "engine"
+        },
+        {
+          "id": "18732692",
+          "name": "1 experiment_recruit",
+          "x": -7.645,
+          "y": -0.44500017,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 12,
+            "y": 15,
+            "w": 17,
+            "h": 43,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "18732692",
+          "placementSource": "engine"
+        },
+        {
+          "id": "86088168",
+          "name": "C_Middle_Object_1",
+          "x": -6.91,
+          "y": 2.07,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 4,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "a3ab6dbb5a8c98",
+            "x": 0,
+            "y": 0,
+            "w": 1296,
+            "h": 613,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png",
+          "engineNode": "86088168",
+          "placementSource": "engine"
+        },
+        {
+          "id": "161762518",
+          "name": "CityUpLight",
+          "x": -10.490189999999998,
+          "y": -4.18301,
+          "z": 0,
+          "sx": 0.049999999999999996,
+          "sy": 2.88,
+          "rotation": 0.12097060439690044,
+          "layer": 3,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f3c3502a56c3c7",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1200,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+          "engineNode": "161762518",
+          "placementSource": "engine"
+        },
+        {
+          "id": "350656400",
+          "name": "Elevator Fore",
+          "x": -12.645000000000001,
+          "y": -0.955,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 13,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "7804fb0ce01e52",
+            "x": 0,
+            "y": 0,
+            "w": 57,
+            "h": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png",
+          "engineNode": "350656400",
+          "placementSource": "engine"
+        },
+        {
+          "id": "398070674",
+          "name": "Luna",
+          "x": -15.93,
+          "y": 9.79,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 12,
+          "order": 5,
+          "flip": false,
+          "sprite": {
+            "asset": "62634d34afb444",
+            "x": 0,
+            "y": 0,
+            "w": 89,
+            "h": 86,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.4
+            },
+            "name": "luna_v2-idle_Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png",
+          "engineNode": "398070674",
+          "placementSource": "engine"
+        },
+        {
+          "id": "466114103",
+          "name": "B_Fore_StandLight_1",
+          "x": -1.9299999999999997,
+          "y": -0.855,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 7,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "a3cf32b242a4a8",
+            "x": 0,
+            "y": 0,
+            "w": 96,
+            "h": 183,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
+          "engineNode": "466114103",
+          "placementSource": "engine"
+        },
+        {
+          "id": "545197855",
+          "name": "Elevator Line",
+          "x": -13.025,
+          "y": -0.83,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 6,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "a2c3aaa197a031",
+            "x": 0,
+            "y": 0,
+            "w": 105,
+            "h": 1467,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png",
+          "engineNode": "545197855",
+          "placementSource": "engine"
+        },
+        {
+          "id": "692369228",
+          "name": "C_Middle_Building_3",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 3,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "4963b29180acdc",
+            "x": 0,
+            "y": 0,
+            "w": 729,
+            "h": 1620,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
+          "engineNode": "692369228",
+          "placementSource": "engine"
+        },
+        {
+          "id": "792484003",
+          "name": "10 real_estate_posting",
+          "x": 6.09,
+          "y": -0.5251,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 97,
+            "y": 94,
+            "w": 14,
+            "h": 16,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_8",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "792484003",
+          "placementSource": "engine"
+        },
+        {
+          "id": "828715986",
+          "name": "Sky",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 1,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "077d7eeeba7ded",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 1620,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/sky.png",
+          "engineNode": "828715986",
+          "placementSource": "engine"
+        },
+        {
+          "id": "872018025",
+          "name": "CityLight",
+          "x": -6.72,
+          "y": -2.25,
+          "z": 0,
+          "sx": 1.193125,
+          "sy": 1.3275325,
+          "rotation": 0,
+          "layer": 5,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "9979d0c3ee3a15",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1153,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v16.png",
+          "engineNode": "872018025",
+          "placementSource": "engine"
+        },
+        {
+          "id": "901115603",
+          "name": "SAMHO_DEAD-OPNING-Sheet_0",
+          "x": -9.1,
+          "y": -0.656,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "75525934b9714f",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.35
+            },
+            "name": "SAMHO_DEAD-OPNING-Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/SAMHO_DEAD_OPNING_Sheet.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "917009659",
+          "name": "Bar Spawn Point",
+          "x": 0.8800001,
+          "y": -0.5100002,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "66c64bd9a7c116",
+            "x": 0,
+            "y": 0,
+            "w": 38,
+            "h": 67,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Bar Entrance.png",
+          "engineNode": "917009659",
+          "placementSource": "engine"
+        },
+        {
+          "id": "974909251",
+          "name": "1F Floor",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 6,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "0e1f4400a31a4f",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 67,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
+          "engineNode": "974909251",
+          "placementSource": "engine"
+        },
+        {
+          "id": "980668472",
+          "name": "B_Obects",
+          "x": -5.59,
+          "y": -1.045,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "street-camp-props",
+            "x": 0,
+            "y": 0,
+            "w": 2218,
+            "h": 207,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100,
+            "wireOffsetX": 6
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+          "engineNode": "980668472",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1008935154",
+          "name": "CityUpLight",
+          "x": -7.840189999999999,
+          "y": -2.6930099999999992,
+          "z": 0,
+          "sx": -0.09,
+          "sy": 2.1,
+          "rotation": -0.1181537859673835,
+          "layer": 4,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f3c3502a56c3c7",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1200,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+          "engineNode": "1008935154",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1041447592",
+          "name": "B_Fore_Building_1",
+          "x": 0.08499999999999996,
+          "y": -0.89,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "18f24eafa457af",
+            "x": 0,
+            "y": 0,
+            "w": 1293,
+            "h": 310,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
+          "engineNode": "1041447592",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1135728412",
+          "name": "C_Middle_Object_2",
+          "x": -6.305,
+          "y": 1.6099999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 4,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "8a80d5b374c6ce",
+            "x": 0,
+            "y": 0,
+            "w": 1090,
+            "h": 1014,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png",
+          "engineNode": "1135728412",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1209062157",
+          "name": "7 poster_human_trafficking",
+          "x": 1.5605803,
+          "y": -0.6353,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 57,
+            "y": 91,
+            "w": 28,
+            "h": 18,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_6",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "1209062157",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1228587064",
+          "name": "C_Back_Building_2",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 1,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "8e7b981e6be610",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 673,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_2 1.png",
+          "engineNode": "1228587064",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1245340165",
+          "name": "Fence",
+          "x": -7.85,
+          "y": -0.83,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 7,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "8c0048cc47da05",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 84,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/fence.png",
+          "engineNode": "1245340165",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1268683209",
+          "name": "B_ForeFore_Object_1",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 13,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "3c56e129d59ff1",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 324,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_1.png",
+          "engineNode": "1268683209",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1286119217",
+          "name": "2 toilet_bin",
+          "x": -7.23,
+          "y": -0.7600002,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 17,
+            "y": 75,
+            "w": 28,
+            "h": 34,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_5",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "1286119217",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1319968555",
+          "name": "C_Middle_Building_1",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 4,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "ac30cc7049369f",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 677,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
+          "engineNode": "1319968555",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1331420476",
+          "name": "6 vending_machine",
+          "x": 0.45007992,
+          "y": -0.59529996,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 75,
+            "y": 14,
+            "w": 38,
+            "h": 59,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_2",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "1331420476",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1337494587",
+          "name": "CityUpLight",
+          "x": -3.7301899999999986,
+          "y": -2.4830099999999993,
+          "z": 0,
+          "sx": -0.014999999999999998,
+          "sy": 1.6900002000000003,
+          "rotation": -0.35411856128482966,
+          "layer": 2,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f3c3502a56c3c7",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1200,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+          "engineNode": "1337494587",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1366513161",
+          "name": "5 poster_shiba_wanted_day1",
+          "x": -2.13492,
+          "y": -0.4803,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 43,
+            "y": 16,
+            "w": 17,
+            "h": 19,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_1",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "1366513161",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1454036149",
+          "name": "CityUpLight",
+          "x": -4.920189999999999,
+          "y": -4.056110999999999,
+          "z": 0,
+          "sx": -0.03743331999999999,
+          "sy": 2.4200000000000004,
+          "rotation": -0.19056642215547476,
+          "layer": 3,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f3c3502a56c3c7",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1200,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+          "engineNode": "1454036149",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1582674272",
+          "name": "Elevator",
+          "x": -12.705000000000002,
+          "y": -1.045,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "a6cb4f2caa2edc",
+            "x": 0,
+            "y": 0,
+            "w": 69,
+            "h": 154,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png",
+          "engineNode": "1582674272",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1617999573",
+          "name": "3 poster_help_wanted",
+          "x": -5.795,
+          "y": -0.53499985,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "e4adecb8ff1c9c",
+            "x": 46,
+            "y": 48,
+            "w": 15,
+            "h": 22,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "IntractObjects 1_4",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/IntractObjects.png",
+          "engineNode": "1617999573",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1640816513",
+          "name": "CityUpLight",
+          "x": -6.410189999999999,
+          "y": -2.153009999999999,
+          "z": 0,
+          "sx": -0.015,
+          "sy": 1.6900001999999998,
+          "rotation": 0.07159306099878329,
+          "layer": 2,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "f3c3502a56c3c7",
+            "x": 0,
+            "y": 0,
+            "w": 2400,
+            "h": 1200,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityUpLight_v9.png",
+          "engineNode": "1640816513",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1699909095",
+          "name": "Bubi",
+          "x": -0.29414368,
+          "y": -0.9197216,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 12,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "b1d4b5f917c9f6",
+            "x": 0,
+            "y": 0,
+            "w": 41,
+            "h": 22,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/outside/bubi-b1d4b5.png",
+          "engineNode": "1699909095",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1913906405",
+          "name": "'CityLight '",
+          "x": -4.1899996999999995,
+          "y": -2.96,
+          "z": 0,
+          "sx": 1,
+          "sy": 1.7387397,
+          "rotation": 0,
+          "layer": 4,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "9889560ece3f01",
+            "x": 0,
+            "y": 0,
+            "w": 2354,
+            "h": 1153,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/CityLight_v20.png",
+          "engineNode": "1913906405",
+          "placementSource": "engine"
+        },
+        {
+          "id": "2013009711",
+          "name": "C_Back_Building_1",
+          "x": -7.85,
+          "y": -1.5,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 2,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "58c3b57b08591e",
+            "x": 0,
+            "y": 0,
+            "w": 2880,
+            "h": 605,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_1 1.png",
+          "engineNode": "2013009711",
+          "placementSource": "engine"
+        },
+        {
+          "id": "2030078814",
+          "name": "Samho",
+          "x": -5.99,
+          "y": -0.6999998,
+          "z": -1,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 12,
+          "order": 5,
+          "flip": false,
+          "sprite": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png",
+          "engineNode": "2030078814",
+          "placementSource": "engine"
+        },
+        {
+          "id": "2074752860",
+          "name": "shiba",
+          "x": -2.87,
+          "y": -0.5960002,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 12,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "c1b43e035f15a6",
+            "x": 10,
+            "y": 9,
+            "w": 38,
+            "h": 18,
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "name": "shi_Bar-Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/outside/shi-bar-sheet-c1b43e.png",
+          "engineNode": "2074752860",
+          "placementSource": "engine"
+        },
+        {
+          "id": "933110851",
+          "name": "Square",
+          "x": -15.059,
+          "y": 9.717,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 11,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "44f9592db7d11d",
+            "x": 0,
+            "y": 0,
+            "w": 256,
+            "h": 256,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Square",
+            "ppu": 256
+          },
+          "src": "assets/outside/square-44f959.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "residence-building",
+          "name": "residence-building",
+          "x": -17.490000000000002,
+          "y": -1.5,
+          "z": 1.79,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 5,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "residence-building",
+            "x": 0,
+            "y": 0,
+            "w": 952,
+            "h": 1587,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
+          "engineNode": "1151976387",
+          "placementSource": "engine"
+        },
+        {
+          "id": "residence-railing",
+          "name": "residence-railing",
+          "x": -17.490000000000002,
+          "y": 4.99,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 13,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "residence-railing",
+            "x": 0,
+            "y": 0,
+            "w": 952,
+            "h": 709,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
+          "engineNode": "647539757",
+          "placementSource": "engine"
+        },
+        {
+          "id": "residence-warm-light",
+          "name": "residence-warm-light",
+          "x": -21.91,
+          "y": 10.469999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 21,
+          "flip": false,
+          "sprite": {
+            "asset": "residence-warm-light",
+            "x": 0,
+            "y": 0,
+            "w": 743,
+            "h": 352,
+            "pivot": {
+              "x": 0,
+              "y": 1
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/A_light_1.png",
+          "engineNode": "1151976387",
+          "placementSource": "web-building-child"
+        },
+        {
+          "id": "residence-home-light",
+          "name": "residence-home-light",
+          "x": -16.68,
+          "y": 10.459999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 21,
+          "flip": false,
+          "sprite": {
+            "asset": "residence-home-light",
+            "x": 0,
+            "y": 0,
+            "w": 52,
+            "h": 50,
+            "pivot": {
+              "x": 0,
+              "y": 1
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/A_light_2.png",
+          "engineNode": "1151976387",
+          "placementSource": "web-building-child"
+        },
+        {
+          "id": "street-neon-convenience",
+          "name": "간판 발광 · convenience",
+          "x": -5.035,
+          "y": 0.015000000000000013,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 279,
+            "y": 27,
+            "w": 147,
+            "h": 14,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-vertical-left",
+          "name": "간판 발광 · vertical-left",
+          "x": -4.325,
+          "y": 0.83,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-b-light-1-7-base",
+            "x": 0,
+            "y": 0,
+            "w": 15,
+            "h": 45,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-b-light-1-7-base.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-upper-left",
+          "name": "간판 발광 · upper-left",
+          "x": -3.6350000000000002,
+          "y": 0.9600000000000001,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 28,
+            "y": 39,
+            "w": 87,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-shiba-cluster",
+          "name": "간판 발광 · shiba-cluster",
+          "x": -3.025,
+          "y": -0.015000000000000013,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 52,
+            "y": 107,
+            "w": 161,
+            "h": 120,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-left-lanterns",
+          "name": "간판 발광 · left-lanterns",
+          "x": -3.95,
+          "y": -0.475,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 28,
+            "y": 180,
+            "w": 24,
+            "h": 64,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-service-strip",
+          "name": "간판 발광 · service-strip",
+          "x": -1.6749999999999998,
+          "y": 0.91,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 339,
+            "y": 115,
+            "w": 29,
+            "h": 1,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-service-cluster",
+          "name": "간판 발광 · service-cluster",
+          "x": -0.5,
+          "y": -0.32500000000000007,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-b-light-3-7-base",
+            "x": 0,
+            "y": 0,
+            "w": 254,
+            "h": 102,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-b-light-3-7-base.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-service-inset",
+          "name": "간판 발광 · service-inset",
+          "x": 0.13,
+          "y": -0.11499999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-2",
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 25,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_2.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-service-top",
+          "name": "간판 발광 · service-top",
+          "x": 0.81,
+          "y": 0.6149999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 347,
+            "y": 130,
+            "w": 70,
+            "h": 2,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-bar-script",
+          "name": "간판 발광 · bar-script",
+          "x": 0.98,
+          "y": -0.385,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-3",
+            "x": 0,
+            "y": 0,
+            "w": 38,
+            "h": 26,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_3.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-vending",
+          "name": "간판 발광 · vending",
+          "x": 0.594,
+          "y": -0.53,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 451,
+            "y": 199,
+            "w": 27,
+            "h": 38,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-door-lamp",
+          "name": "간판 발광 · door-lamp",
+          "x": 0.95,
+          "y": -0.745,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 494,
+            "y": 234,
+            "w": 12,
+            "h": 12,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-leaning-sign",
+          "name": "간판 발광 · leaning-sign",
+          "x": 1.4100000000000001,
+          "y": -0.675,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 537,
+            "y": 215,
+            "w": 18,
+            "h": 34,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-restaurant-cluster",
+          "name": "간판 발광 · restaurant-cluster",
+          "x": 2.54,
+          "y": 0.5400000000000001,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "engine-fx-ledsign-lightcookie-01",
+            "x": 0,
+            "y": 0,
+            "w": 230,
+            "h": 185,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-ledsign-lightcookie-01.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-exit-signs",
+          "name": "간판 발광 · exit-signs",
+          "x": 3.835,
+          "y": -0.585,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 782,
+            "y": 202,
+            "w": 13,
+            "h": 42,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-roof-sign",
+          "name": "간판 발광 · roof-sign",
+          "x": 4.7,
+          "y": 1.455,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 795,
+            "y": 0,
+            "w": 134,
+            "h": 40,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-food-bar",
+          "name": "간판 발광 · food-bar",
+          "x": 4.72,
+          "y": 0.555,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 587,
+            "y": 229,
+            "w": 166,
+            "h": 20,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-poker-open",
+          "name": "간판 발광 · poker-open",
+          "x": 4.705,
+          "y": -0.19000000000000006,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 807,
+            "y": 166,
+            "w": 111,
+            "h": 37,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-neon-right-store",
+          "name": "간판 발광 · right-store",
+          "x": 6.01,
+          "y": -0.47,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "street-sign-1",
+            "x": 798,
+            "y": 56,
+            "w": 130,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-1359778145",
+          "name": "Engine neon · 1359778145",
+          "x": -0.4999999999999999,
+          "y": -0.3250000000000003,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-smallorangesign",
+            "x": 0,
+            "y": 0,
+            "w": 254,
+            "h": 102,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-smallorangesign.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-388911712",
+          "name": "Engine neon · 388911712",
+          "x": -0.4999999999999999,
+          "y": -0.3250000000000003,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-pinkcard",
+            "x": 0,
+            "y": 0,
+            "w": 254,
+            "h": 102,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-pinkcard.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-381637808",
+          "name": "Engine neon · 381637808",
+          "x": 2.5400005000000005,
+          "y": 0.54,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-butchericon",
+            "x": 0,
+            "y": 0,
+            "w": 230,
+            "h": 185,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-butchericon.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-394931651",
+          "name": "Engine neon · 394931651",
+          "x": 2.5400005000000005,
+          "y": 0.54,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-butcheryuk",
+            "x": 0,
+            "y": 0,
+            "w": 230,
+            "h": 185,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-butcheryuk.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-1123960836",
+          "name": "Engine neon · 1123960836",
+          "x": 2.5400005000000005,
+          "y": 0.54,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-butcherredline",
+            "x": 0,
+            "y": 0,
+            "w": 230,
+            "h": 185,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-butcherredline.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-1999163603",
+          "name": "Engine neon · 1999163603",
+          "x": -4.32499978,
+          "y": 0.8299997000000001,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-neonflicker-cookie-greenglyph",
+            "x": 0,
+            "y": 0,
+            "w": 15,
+            "h": 45,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/tx-neonflicker-cookie-greenglyph.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "engine-neon-1012078442",
+          "name": "Engine neon · 1012078442",
+          "x": -7.6605,
+          "y": 0.875,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 8,
+          "order": 1,
+          "sprite": {
+            "asset": "engine-fx-b-light-1",
+            "x": 342,
+            "y": 66,
+            "w": 82,
+            "h": 22,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Lights/B_Light_1.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "1985635297",
+          "name": "barrel-front",
+          "x": -15.915000000000001,
+          "y": -0.995,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0.02,
+          "flip": false,
+          "sprite": {
+            "asset": "street-barrel-front",
+            "x": 0,
+            "y": 0,
+            "w": 21,
+            "h": 28,
+            "pivot": {
+              "x": 0.5,
+              "y": 0
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+          "engineNode": "980668472",
+          "placementSource": "web-child"
+        },
+        {
+          "id": "engine-barrel-fire",
+          "name": "barrel-fire",
+          "x": -15.916,
+          "y": -0.629,
+          "z": 0,
+          "sx": -0.1891237,
+          "sy": -0.26430625,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0.01,
+          "flip": false,
+          "sprite": {
+            "asset": "street-fire-aura",
+            "x": 0,
+            "y": 0,
+            "w": 100,
+            "h": 100,
+            "ppu": 100,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "src": "assets/outside/effects/fire/aura.png",
+          "engineNode": "980668472",
+          "placementSource": "web-child"
+        },
+        {
+          "id": "ambient-store-pair-left",
+          "name": "ambient-store-pair-left",
+          "x": -5.78,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": true,
+          "sprite": {
+            "asset": "ambient-M1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-store-pair-right",
+          "name": "ambient-store-pair-right",
+          "x": -5.12,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-bar-pair-left",
+          "name": "ambient-bar-pair-left",
+          "x": -1.18,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": true,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-bar-pair-right",
+          "name": "ambient-bar-pair-right",
+          "x": -0.65,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "ambient-W1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-beggar",
+          "name": "street-beggar",
+          "x": -7.3,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-beggar-witness",
+          "name": "street-beggar-witness",
+          "x": -8.2,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "ambient-M1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-newspaper",
+          "name": "street-newspaper",
+          "x": -7.23,
+          "y": -0.974,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "street-believer",
+          "name": "street-believer",
+          "x": 4.7,
+          "y": -0.974,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "ambient-M1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "building-resident-left",
+          "name": "building-resident-left",
+          "x": -18.8,
+          "y": 9.346,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "building-resident-right",
+          "name": "building-resident-right",
+          "x": -18.15,
+          "y": 9.346,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-W1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "building-silent-resident-left",
+          "name": "building-silent-resident-left",
+          "x": -14.9,
+          "y": 7.61,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "building-silent-resident-right",
+          "name": "building-silent-resident-right",
+          "x": -14.22,
+          "y": 7.61,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-W1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "optional-trade-samho",
+          "name": "optional-trade-samho",
+          "x": 3.0000001000000003,
+          "y": -0.7,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "optional-trade-smuggler",
+          "name": "optional-trade-smuggler",
+          "x": 5.0000001,
+          "y": -0.7,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 1,
+          "sprite": {
+            "asset": "ambient-M1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-commute-pair-left",
+          "name": "commute-pair-left",
+          "x": -11.255000000000003,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-M1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-commute-pair-right",
+          "name": "commute-pair-right",
+          "x": -10.555000000000001,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-reopening-pair-left",
+          "name": "reopening-pair-left",
+          "x": -4.35,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-M2",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "ambient-reopening-pair-right",
+          "name": "reopening-pair-right",
+          "x": -3.65,
+          "y": -0.94,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 0,
+          "sprite": {
+            "asset": "ambient-W1",
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.17391304347826086
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_w1_idle.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        }
+      ]
+    },
+    "home": {
+      "camera": {
+        "width": 4.8,
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "liftWidth": 12.8,
+        "lift": {
+          "cameraMode": 1,
+          "offsetCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "resolutionCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 0.58412015,
+                "outSlope": 0.58412015,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 0.39955154,
+                "value": 0.2333861,
+                "inSlope": 0.80710626,
+                "outSlope": 0.80710626,
+                "tangentMode": 0,
+                "weightedMode": 0,
+                "inWeight": 0.17232336,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1.2767355,
+                "outSlope": 1.2767355,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0.33333334,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "cameraParent": {
+            "fileID": 0
+          },
+          "cameraOffset": {
+            "x": 5.7,
+            "y": 0,
+            "z": 0
+          },
+          "offsetDuration": 6,
+          "resolutionDuration": 6,
+          "isChangeResolution": 1,
+          "targetResolution": 1
+        },
+        "return": {
+          "cameraMode": 2,
+          "offsetCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1,
+                "outSlope": 1,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "resolutionCurve": {
+            "serializedVersion": 2,
+            "m_Curve": [
+              {
+                "serializedVersion": 3,
+                "time": 0,
+                "value": 0,
+                "inSlope": 0.58412015,
+                "outSlope": 0.58412015,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 0.39955154,
+                "value": 0.2333861,
+                "inSlope": 0.80710626,
+                "outSlope": 0.80710626,
+                "tangentMode": 0,
+                "weightedMode": 0,
+                "inWeight": 0.17232336,
+                "outWeight": 0.33333334
+              },
+              {
+                "serializedVersion": 3,
+                "time": 1,
+                "value": 1,
+                "inSlope": 1.2767355,
+                "outSlope": 1.2767355,
+                "tangentMode": 34,
+                "weightedMode": 0,
+                "inWeight": 0.33333334,
+                "outWeight": 0
+              }
+            ],
+            "m_PreInfinity": 2,
+            "m_PostInfinity": 2,
+            "m_RotationOrder": 4
+          },
+          "cameraParent": {
+            "fileID": 0
+          },
+          "cameraOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "offsetDuration": 6,
+          "resolutionDuration": 6,
+          "isChangeResolution": 1,
+          "targetResolution": 3
+        },
+        "bounds": {
+          "left": -2.0416391999999988,
+          "right": 4.364437200000001,
+          "bottom": -1.3757259,
+          "top": 1.4165318999999998
+        }
+      },
+      "nodes": [
+        {
+          "id": "220094232",
+          "name": "Terrace_Entrance",
+          "x": 3.362,
+          "y": -0.492,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "7c052072db66af",
+            "x": 0,
+            "y": 0,
+            "w": 31,
+            "h": 101,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
+          "engineNode": "220094232",
+          "placementSource": "engine"
+        },
+        {
+          "id": "398070674",
+          "name": "Luna",
+          "x": -1.451,
+          "y": -0.7,
+          "z": -1,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 9,
+          "order": 5,
+          "flip": false,
+          "sprite": {
+            "asset": "62634d34afb444",
+            "x": 0,
+            "y": 0,
+            "w": 89,
+            "h": 86,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.4
+            },
+            "name": "luna_v2-idle_Sheet_0",
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png",
+          "engineNode": null,
+          "placementSource": "web-only"
+        },
+        {
+          "id": "953149914",
+          "name": "ForeFore_Object",
+          "x": 3.042,
+          "y": -0.882,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 10,
+          "flip": false,
+          "sprite": {
+            "asset": "253e8e169d8d13",
+            "x": 0,
+            "y": 0,
+            "w": 188,
+            "h": 27,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object.png",
+          "engineNode": "953149914",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1144763783",
+          "name": "Hanger",
+          "x": 3.162,
+          "y": -0.567,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "cd0635e2180fca",
+            "x": 0,
+            "y": 0,
+            "w": 23,
+            "h": 86,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png",
+          "engineNode": "1144763783",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1183900665",
+          "name": "Room_Entrance",
+          "x": -1.623,
+          "y": -0.532,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "67a3be7da118ce",
+            "x": 0,
+            "y": 0,
+            "w": 26,
+            "h": 87,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Room_Entrance.png",
+          "engineNode": "1183900665",
+          "placementSource": "engine"
+        },
+        {
+          "id": "1429427378",
+          "name": "main_bg",
+          "x": 1.382,
+          "y": 0.0129999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 0,
+          "flip": false,
+          "sprite": {
+            "asset": "629b82812402bc",
+            "x": 0,
+            "y": 0,
+            "w": 631,
+            "h": 270,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse.png",
+          "engineNode": "1183900665",
+          "placementSource": "web-room-frame"
+        },
+        {
+          "id": "2030127651",
+          "name": "IntractObjects",
+          "x": 1.212,
+          "y": -0.37599999999999995,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "035fbd614b7696",
+            "x": 0,
+            "y": 0,
+            "w": 54,
+            "h": 40,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV.png",
+          "engineNode": "289449519",
+          "placementSource": "engine"
+        },
+        {
+          "id": "home-city",
+          "name": "home-city",
+          "x": 1.382,
+          "y": 0.0129999999999999,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": -1,
+          "flip": false,
+          "sprite": {
+            "asset": "home-city",
+            "x": 0,
+            "y": 0,
+            "w": 631,
+            "h": 270,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/90.PreviousVersions/ver.4/Chrishouse_BG_City.png",
+          "engineNode": "1183900665",
+          "placementSource": "web-room-frame"
+        },
+        {
+          "id": "home-tv-screen",
+          "name": "home-tv-screen",
+          "x": 1.2269999999999999,
+          "y": -0.346,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1.01,
+          "flip": false,
+          "sprite": {
+            "asset": "home-tv-screen",
+            "x": 0,
+            "y": 0,
+            "w": 47,
+            "h": 30,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV_on.png",
+          "engineNode": "289449519",
+          "placementSource": "web-child"
+        },
+        {
+          "id": "home-bed",
+          "name": "home-bed",
+          "x": -0.8079999999999999,
+          "y": -0.627,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "home-bed",
+            "x": 0,
+            "y": 0,
+            "w": 91,
+            "h": 26,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bed.png",
+          "engineNode": "1183900665",
+          "placementSource": "web-room-frame"
+        },
+        {
+          "id": "home-wardrobe",
+          "name": "home-wardrobe",
+          "x": -0.20299999999999985,
+          "y": -0.492,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "home-wardrobe",
+            "x": 0,
+            "y": 0,
+            "w": 24,
+            "h": 69,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Closet.png",
+          "engineNode": "1183900665",
+          "placementSource": "web-room-frame"
+        },
+        {
+          "id": "home-bedding",
+          "name": "home-bedding",
+          "x": 2.577,
+          "y": -0.686,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "home-bedding",
+            "x": 0,
+            "y": 0,
+            "w": 111,
+            "h": 54,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bedding.png",
+          "engineNode": "2030127651",
+          "placementSource": "engine"
+        },
+        {
+          "id": "home-herb",
+          "name": "home-herb",
+          "x": 2.442,
+          "y": -0.362,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 1,
+          "flip": false,
+          "sprite": {
+            "asset": "home-herb",
+            "x": 0,
+            "y": 0,
+            "w": 11,
+            "h": 19,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png",
+          "engineNode": "463204427",
+          "placementSource": "engine"
+        },
+        {
+          "id": "home-book",
+          "name": "home-book",
+          "x": 2.327,
+          "y": -0.742,
+          "z": 0,
+          "sx": 1,
+          "sy": 1,
+          "rotation": 0,
+          "layer": 0,
+          "order": 10.01,
+          "flip": false,
+          "sprite": {
+            "asset": "home-book",
+            "x": 0,
+            "y": 0,
+            "w": 21,
+            "h": 9,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100
+          },
+          "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object_Book.png",
+          "engineNode": "953149914",
+          "placementSource": "web-child"
+        }
+      ]
+    }
+  },
+  "actorAlignmentStatus": "engine-position-scale-and-sorting",
+  "actors": {
+    "home": {
+      "neighborhood-homeCat": {
+        "boobi": {
+          "root": {
+            "x": 2.65,
+            "y": -0.46,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "visual": {
+            "x": 2.65,
+            "y": -0.1850000055,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "layer": 0,
+          "order": 100,
+          "art": "web-procedural-cat",
+          "height": 0.549999989
+        },
+        "chris": {
+          "sp": {
+            "asset": "ambient-Chris",
+            "x": 50,
+            "y": 50,
+            "w": 28,
+            "h": 65,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Chris_idle_0",
+            "engineFrames": [
+              {
+                "x": 50,
+                "y": 50,
+                "w": 28,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_0"
+              },
+              {
+                "x": 179,
+                "y": 50,
+                "w": 28,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_1"
+              },
+              {
+                "x": 308,
+                "y": 49,
+                "w": 28,
+                "h": 66,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_2"
+              },
+              {
+                "x": 437,
+                "y": 48,
+                "w": 28,
+                "h": 67,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_3"
+              },
+              {
+                "x": 566,
+                "y": 48,
+                "w": 28,
+                "h": 67,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_4"
+              },
+              {
+                "x": 695,
+                "y": 49,
+                "w": 28,
+                "h": 66,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_5"
+              },
+              {
+                "x": 824,
+                "y": 50,
+                "w": 28,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_6"
+              },
+              {
+                "x": 953,
+                "y": 51,
+                "w": 28,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_7"
+              },
+              {
+                "x": 1082,
+                "y": 50,
+                "w": 28,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Chris_idle_8"
+              }
+            ]
+          },
+          "x": 1.75,
+          "y": -0.1199999399999998,
+          "sx": 2.6153848,
+          "sy": 2.6153848,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "home",
+            "event": "neighborhood-homeCat",
+            "role": "chris"
+          },
+          "root": {
+            "x": 1.75,
+            "y": -0.97
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/02.Chris/Chris_idle.png"
+        }
+      }
+    },
+    "street": {
+      "neighborhood-reveal": {
+        "boobi": {
+          "root": {
+            "x": -15.34,
+            "y": 9.82,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "visual": {
+            "x": -15.34,
+            "y": 10.0949999945,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "layer": 0,
+          "order": 100,
+          "art": "web-procedural-cat",
+          "height": 0.549999989
+        },
+        "neighbor": {
+          "sp": {
+            "asset": "ambient-Neighbor",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Neighbor_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_8"
+              }
+            ]
+          },
+          "x": -14.2600001,
+          "y": 10.576000156499997,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "neighborhood-reveal",
+            "role": "neighbor"
+          },
+          "root": {
+            "x": -14.2600001,
+            "y": 9.72600014
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
+        }
+      },
+      "neighborhood-repairGreeting": {
+        "repair": {
+          "sp": {
+            "asset": "ambient-Repairman",
+            "x": 49,
+            "y": 51,
+            "w": 30,
+            "h": 64,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Repairman_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 51,
+                "w": 30,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 51,
+                "w": 30,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 50,
+                "w": 30,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 49,
+                "w": 30,
+                "h": 66,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 49,
+                "w": 30,
+                "h": 66,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 50,
+                "w": 30,
+                "h": 65,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 51,
+                "w": 30,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 51,
+                "w": 30,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Repairman_idle_8"
+              }
+            ]
+          },
+          "x": -11.675,
+          "y": -0.12399993599999992,
+          "sx": 2.6562502,
+          "sy": 2.6562502,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "neighborhood-repairGreeting",
+            "role": "repair"
+          },
+          "root": {
+            "x": -11.675,
+            "y": -0.974
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Repairman_idle.png"
+        }
+      },
+      "shiba-shop-revisit": {
+        "shiba": {
+          "sp": {
+            "asset": "c1b43e035f15a6",
+            "x": 10,
+            "y": 9,
+            "w": 38,
+            "h": 18,
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "name": "shi_Bar-Sheet_0",
+            "ppu": 100
+          },
+          "x": -2.68,
+          "y": -0.596,
+          "sx": 9.69298302631579,
+          "sy": 9.444445,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "shiba-shop-revisit",
+            "role": "shiba"
+          },
+          "root": {
+            "x": -2.68,
+            "y": -0.596
+          },
+          "src": "assets/outside/shi-bar-sheet-c1b43e.png"
+        }
+      },
+      "commute3": {
+        "samho": {
+          "sp": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "x": -11.06,
+          "y": 0.03099998881999999,
+          "sx": 2.0987654,
+          "sy": 2.0987654,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "commute3",
+            "role": "samho"
+          },
+          "root": {
+            "x": -11.06,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png"
+        }
+      },
+      "day3-samho-contract": {
+        "samho": {
+          "sp": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "x": -10.060000400000002,
+          "y": 0.03099998881999999,
+          "sx": 2.0987654,
+          "sy": 2.0987654,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "day3-samho-contract",
+            "role": "samho"
+          },
+          "root": {
+            "x": -10.060000400000002,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png"
+        },
+        "dealer": {
+          "sp": {
+            "asset": "ambient-M1",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "npc_m2_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_5"
+              }
+            ]
+          },
+          "x": -8.060000400000002,
+          "y": 0.15000001649999994,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "day3-samho-contract",
+            "role": "dealer"
+          },
+          "root": {
+            "x": -8.060000400000002,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png"
+        }
+      },
+      "neighborhood-bossIntro": {
+        "boss": {
+          "sp": {
+            "asset": "ambient-Gang5",
+            "x": 49,
+            "y": 44,
+            "w": 30,
+            "h": 71,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "GangNPC5_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 44,
+                "w": 30,
+                "h": 71,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 44,
+                "w": 30,
+                "h": 71,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 43,
+                "w": 30,
+                "h": 72,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 42,
+                "w": 30,
+                "h": 73,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 42,
+                "w": 30,
+                "h": 73,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 43,
+                "w": 30,
+                "h": 72,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 44,
+                "w": 30,
+                "h": 71,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 45,
+                "w": 30,
+                "h": 70,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 44,
+                "w": 30,
+                "h": 71,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC5_idle_8"
+              }
+            ]
+          },
+          "x": -15.5,
+          "y": -0.12399996349999998,
+          "sx": 2.3943663,
+          "sy": 2.3943663,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "neighborhood-bossIntro",
+            "role": "boss"
+          },
+          "root": {
+            "x": -15.5,
+            "y": -0.974
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC5_idle.png"
+        },
+        "gangmate": {
+          "sp": {
+            "asset": "ambient-Gang3",
+            "x": 55,
+            "y": 53,
+            "w": 21,
+            "h": 62,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "GangNPC3_idle_0",
+            "engineFrames": [
+              {
+                "x": 55,
+                "y": 53,
+                "w": 21,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_0"
+              },
+              {
+                "x": 184,
+                "y": 53,
+                "w": 21,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_1"
+              },
+              {
+                "x": 313,
+                "y": 52,
+                "w": 21,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_2"
+              },
+              {
+                "x": 442,
+                "y": 51,
+                "w": 21,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_3"
+              },
+              {
+                "x": 571,
+                "y": 51,
+                "w": 21,
+                "h": 64,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_4"
+              },
+              {
+                "x": 700,
+                "y": 52,
+                "w": 21,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_5"
+              },
+              {
+                "x": 829,
+                "y": 53,
+                "w": 21,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_6"
+              },
+              {
+                "x": 958,
+                "y": 54,
+                "w": 21,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC3_idle_7"
+              }
+            ]
+          },
+          "x": -14.72000027,
+          "y": -0.12399999499999992,
+          "sx": 2.7419355,
+          "sy": 2.7419355,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "neighborhood-bossIntro",
+            "role": "gangmate"
+          },
+          "root": {
+            "x": -14.72000027,
+            "y": -0.974
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC3_idle.png"
+        }
+      },
+      "shiba-shop": {
+        "shiba": {
+          "sp": {
+            "asset": "c1b43e035f15a6",
+            "x": 10,
+            "y": 9,
+            "w": 38,
+            "h": 18,
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "name": "shi_Bar-Sheet_0",
+            "ppu": 100
+          },
+          "x": -2.68,
+          "y": -0.596,
+          "sx": 9.69298302631579,
+          "sy": 9.444445,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "shiba-shop",
+            "role": "shiba"
+          },
+          "root": {
+            "x": -2.68,
+            "y": -0.596
+          },
+          "src": "assets/outside/shi-bar-sheet-c1b43e.png"
+        }
+      },
+      "day1-corridor-thug": {
+        "thug": {
+          "sp": {
+            "asset": "ambient-Neighbor",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Neighbor_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_8"
+              }
+            ]
+          },
+          "x": -15.66,
+          "y": 10.4700000165,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "day1-corridor-thug",
+            "role": "thug"
+          },
+          "root": {
+            "x": -15.66,
+            "y": 9.62
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
+        }
+      },
+      "day2-thug-information": {
+        "thug": {
+          "sp": {
+            "asset": "ambient-Neighbor",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Neighbor_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_8"
+              }
+            ]
+          },
+          "x": -15.66,
+          "y": 10.4700000165,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "day2-thug-information",
+            "role": "thug"
+          },
+          "root": {
+            "x": -15.66,
+            "y": 9.62
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
+        }
+      },
+      "outside_day1_samho_smuggler": {
+        "samho": {
+          "sp": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "x": 3.0000001000000003,
+          "y": 0.03099998881999999,
+          "sx": 2.0987654,
+          "sy": 2.0987654,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "outside_day1_samho_smuggler",
+            "role": "samho"
+          },
+          "root": {
+            "x": 3.0000001000000003,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png"
+        },
+        "dealer": {
+          "sp": {
+            "asset": "ambient-M1",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "npc_m2_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "npc_m2_idle_5"
+              }
+            ]
+          },
+          "x": 5.0000001,
+          "y": 0.15000001649999994,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "outside_day1_samho_smuggler",
+            "role": "dealer"
+          },
+          "root": {
+            "x": 5.0000001,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m1_idle.png"
+        }
+      },
+      "day2-corridor-thug": {
+        "thug": {
+          "sp": {
+            "asset": "ambient-Neighbor",
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "Neighbor_idle_0",
+            "engineFrames": [
+              {
+                "x": 49,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_0"
+              },
+              {
+                "x": 178,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_1"
+              },
+              {
+                "x": 307,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_2"
+              },
+              {
+                "x": 436,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_3"
+              },
+              {
+                "x": 565,
+                "y": 52,
+                "w": 30,
+                "h": 63,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_4"
+              },
+              {
+                "x": 694,
+                "y": 53,
+                "w": 30,
+                "h": 62,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_5"
+              },
+              {
+                "x": 823,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_6"
+              },
+              {
+                "x": 952,
+                "y": 55,
+                "w": 30,
+                "h": 60,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_7"
+              },
+              {
+                "x": 1081,
+                "y": 54,
+                "w": 30,
+                "h": 61,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "Neighbor_idle_8"
+              }
+            ]
+          },
+          "x": -15.66,
+          "y": 10.4700000165,
+          "sx": 2.7868853,
+          "sy": 2.7868853,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "day2-corridor-thug",
+            "role": "thug"
+          },
+          "root": {
+            "x": -15.66,
+            "y": 9.62
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
+        }
+      },
+      "commute2": {
+        "samho": {
+          "sp": {
+            "asset": "samho-idle",
+            "x": 0,
+            "y": 0,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "samho-IDLE_Sheet_0",
+            "ppu": 100
+          },
+          "x": -5.99,
+          "y": 0.03099998881999999,
+          "sx": 2.0987654,
+          "sy": 2.0987654,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "commute2",
+            "role": "samho"
+          },
+          "root": {
+            "x": -5.99,
+            "y": -0.7
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/03.Samho/Legacy/samho_IDLE_Sheet.png"
+        }
+      },
+      "neighborhood-guardBlocked": {
+        "guard": {
+          "sp": {
+            "asset": "ambient-Gang1",
+            "x": 55,
+            "y": 60,
+            "w": 19,
+            "h": 55,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "ppu": 100,
+            "name": "GangNPC1_idle_0",
+            "engineFrames": [
+              {
+                "x": 55,
+                "y": 60,
+                "w": 19,
+                "h": 55,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_0"
+              },
+              {
+                "x": 184,
+                "y": 60,
+                "w": 19,
+                "h": 55,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_1"
+              },
+              {
+                "x": 313,
+                "y": 59,
+                "w": 19,
+                "h": 56,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_2"
+              },
+              {
+                "x": 442,
+                "y": 58,
+                "w": 19,
+                "h": 57,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_3"
+              },
+              {
+                "x": 571,
+                "y": 58,
+                "w": 19,
+                "h": 57,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_4"
+              },
+              {
+                "x": 700,
+                "y": 59,
+                "w": 19,
+                "h": 56,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_5"
+              },
+              {
+                "x": 829,
+                "y": 60,
+                "w": 19,
+                "h": 55,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_6"
+              },
+              {
+                "x": 958,
+                "y": 61,
+                "w": 19,
+                "h": 54,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_7"
+              },
+              {
+                "x": 1087,
+                "y": 60,
+                "w": 19,
+                "h": 55,
+                "pivot": {
+                  "x": 0.5,
+                  "y": 0.5
+                },
+                "name": "GangNPC1_idle_8"
+              }
+            ]
+          },
+          "x": -14.125,
+          "y": -0.12400002499999996,
+          "sx": 3.090909,
+          "sy": 3.090909,
+          "flip": false,
+          "alpha": 1,
+          "layer": 0,
+          "order": 100,
+          "engineActor": {
+            "scene": "street",
+            "event": "neighborhood-guardBlocked",
+            "role": "guard"
+          },
+          "root": {
+            "x": -14.125,
+            "y": -0.974
+          },
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/GangNPC1_idle.png"
+        }
+      }
+    }
+  },
+  "engineActorReference": {
+    "home": {
+      "neighborhood-homeCat": {
+        "boobi": {
+          "root": {
+            "x": 2.65,
+            "y": -0.46,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "visual": {
+            "x": 2.65,
+            "y": -0.1850000055,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "sprite": {
+            "x": 53,
+            "y": 95,
+            "w": 37,
+            "h": 23,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "bubi_sleep_0",
+            "asset": "engine-594b1a2af569043738bf3ce2478ddae8",
+            "ppu": 100
+          },
+          "rendererId": "638972482",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        },
+        "chris": {
+          "root": {
+            "x": 1.75,
+            "y": -0.97,
+            "z": 0,
+            "a": 2.6153848,
+            "b": 0,
+            "c": 0,
+            "d": 2.6153848
+          },
+          "visual": {
+            "x": 1.75,
+            "y": -0.11999993999999992,
+            "z": 0,
+            "a": 2.6153848,
+            "b": 0,
+            "c": 0,
+            "d": 2.6153848
+          },
+          "sprite": {
+            "x": 50,
+            "y": 50,
+            "w": 28,
+            "h": 65,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Chris_idle_0",
+            "asset": "engine-dbcec45705dea42c2b1dcdfdb81db283",
+            "ppu": 100
+          },
+          "rendererId": "1364887202",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": false
+        }
+      }
+    },
+    "street": {
+      "neighborhood-reveal": {
+        "boobi": {
+          "root": {
+            "x": -15.34,
+            "y": 9.82,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "visual": {
+            "x": -15.34,
+            "y": 10.0949999945,
+            "z": 0,
+            "a": 2.3913043,
+            "b": 0,
+            "c": 0,
+            "d": 2.3913043
+          },
+          "sprite": {
+            "x": 53,
+            "y": 95,
+            "w": 37,
+            "h": 23,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "bubi_sleep_0",
+            "asset": "engine-594b1a2af569043738bf3ce2478ddae8",
+            "ppu": 100
+          },
+          "rendererId": "1795489895",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        },
+        "neighbor": {
+          "root": {
+            "x": -14.2600001,
+            "y": 9.72600014,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": -14.2600001,
+            "y": 10.5760001565,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Neighbor_idle_0",
+            "asset": "engine-d40020f60603f44d79a86ec18158bb84",
+            "ppu": 100
+          },
+          "rendererId": "52136532",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": false
+        }
+      },
+      "neighborhood-repairGreeting": {
+        "repair": {
+          "root": {
+            "x": -11.675,
+            "y": -0.974,
+            "z": 0,
+            "a": 2.6562502,
+            "b": 0,
+            "c": 0,
+            "d": 2.6562502
+          },
+          "visual": {
+            "x": -11.675,
+            "y": -0.12399993599999992,
+            "z": 0,
+            "a": 2.6562502,
+            "b": 0,
+            "c": 0,
+            "d": 2.6562502
+          },
+          "sprite": {
+            "x": 49,
+            "y": 51,
+            "w": 30,
+            "h": 64,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Repairman_idle_0",
+            "asset": "engine-b59f96a62e8fc47d2b09afc57b55cd89",
+            "ppu": 100
+          },
+          "rendererId": "399975685",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "shiba-shop-revisit": {
+        "shiba": {
+          "root": {
+            "x": -2.68,
+            "y": -0.596,
+            "z": 0,
+            "a": 9.444445,
+            "b": 0,
+            "c": 0,
+            "d": 9.444445
+          },
+          "visual": {
+            "x": -2.68,
+            "y": -0.596,
+            "z": 0,
+            "a": 9.444445,
+            "b": 0,
+            "c": 0,
+            "d": 9.444445
+          },
+          "sprite": {
+            "x": 176,
+            "y": 98,
+            "w": 39,
+            "h": 18,
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "name": "Game_shiba_idle_07b8e279",
+            "asset": "engine-b5620af1d12eb4b9aa4153c9ea917ca8",
+            "ppu": 100
+          },
+          "rendererId": "1057413647",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "commute3": {
+        "samho": {
+          "root": {
+            "x": -11.06,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "visual": {
+            "x": -11.06,
+            "y": 0.03099998881999999,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "sprite": {
+            "x": 417,
+            "y": 40,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "Game_samho_idle_48a08784",
+            "asset": "engine-c318ea44034c3466680e7d51908bac22",
+            "ppu": 100
+          },
+          "rendererId": "1225768650",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "day3-samho-contract": {
+        "samho": {
+          "root": {
+            "x": -10.060000400000002,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "visual": {
+            "x": -10.060000400000002,
+            "y": 0.03099998881999999,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "sprite": {
+            "x": 417,
+            "y": 40,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "Game_samho_idle_48a08784",
+            "asset": "engine-c318ea44034c3466680e7d51908bac22",
+            "ppu": 100
+          },
+          "rendererId": "1904043829",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        },
+        "dealer": {
+          "root": {
+            "x": -8.060000400000002,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": -8.060000400000002,
+            "y": 0.15000001649999994,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "npc_m2_idle_0",
+            "asset": "engine-0f1673b910a1f4b14b7113ef2ae68d5e",
+            "ppu": 100
+          },
+          "rendererId": "410970453",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "neighborhood-bossIntro": {
+        "boss": {
+          "root": {
+            "x": -15.5,
+            "y": -0.974,
+            "z": 0,
+            "a": 2.3943663,
+            "b": 0,
+            "c": 0,
+            "d": 2.3943663
+          },
+          "visual": {
+            "x": -15.5,
+            "y": -0.12399996349999998,
+            "z": 0,
+            "a": 2.3943663,
+            "b": 0,
+            "c": 0,
+            "d": 2.3943663
+          },
+          "sprite": {
+            "x": 49,
+            "y": 44,
+            "w": 30,
+            "h": 71,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "GangNPC5_idle_0",
+            "asset": "engine-2e9f8d78850e7443b8dd8f444a06efe1",
+            "ppu": 100
+          },
+          "rendererId": "1050468970",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        },
+        "gangmate": {
+          "root": {
+            "x": -14.72000027,
+            "y": -0.974,
+            "z": 0,
+            "a": 2.7419355,
+            "b": 0,
+            "c": 0,
+            "d": 2.7419355
+          },
+          "visual": {
+            "x": -14.72000027,
+            "y": -0.12399999500000003,
+            "z": 0,
+            "a": 2.7419355,
+            "b": 0,
+            "c": 0,
+            "d": 2.7419355
+          },
+          "sprite": {
+            "x": 55,
+            "y": 53,
+            "w": 21,
+            "h": 62,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "GangNPC3_idle_0",
+            "asset": "engine-1ea8fecc03fc64eee951256cec2c9969",
+            "ppu": 100
+          },
+          "rendererId": "973190735",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "shiba-shop": {
+        "shiba": {
+          "root": {
+            "x": -2.68,
+            "y": -0.596,
+            "z": 0,
+            "a": 9.444445,
+            "b": 0,
+            "c": 0,
+            "d": 9.444445
+          },
+          "visual": {
+            "x": -2.68,
+            "y": -0.596,
+            "z": 0,
+            "a": 9.444445,
+            "b": 0,
+            "c": 0,
+            "d": 9.444445
+          },
+          "sprite": {
+            "x": 176,
+            "y": 98,
+            "w": 39,
+            "h": 18,
+            "pivot": {
+              "x": 0,
+              "y": 0
+            },
+            "name": "Game_shiba_idle_07b8e279",
+            "asset": "engine-b5620af1d12eb4b9aa4153c9ea917ca8",
+            "ppu": 100
+          },
+          "rendererId": "2100228961",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "day1-corridor-thug": {
+        "thug": {
+          "root": {
+            "x": -15.66,
+            "y": 9.62,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": -15.66,
+            "y": 10.470000016499998,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Neighbor_idle_0",
+            "asset": "engine-d40020f60603f44d79a86ec18158bb84",
+            "ppu": 100
+          },
+          "rendererId": "345436430",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "day2-thug-information": {
+        "thug": {
+          "root": {
+            "x": -15.66,
+            "y": 9.62,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": -15.66,
+            "y": 10.470000016499998,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Neighbor_idle_0",
+            "asset": "engine-d40020f60603f44d79a86ec18158bb84",
+            "ppu": 100
+          },
+          "rendererId": "1570378282",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "outside_day1_samho_smuggler": {
+        "samho": {
+          "root": {
+            "x": 3.0000001000000003,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "visual": {
+            "x": 3.0000001000000003,
+            "y": 0.03099998881999999,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "sprite": {
+            "x": 417,
+            "y": 40,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "Game_samho_idle_48a08784",
+            "asset": "engine-c318ea44034c3466680e7d51908bac22",
+            "ppu": 100
+          },
+          "rendererId": "2082788083",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        },
+        "dealer": {
+          "root": {
+            "x": 5.0000001,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": 5.0000001,
+            "y": 0.15000001649999994,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "npc_m2_idle_0",
+            "asset": "engine-0f1673b910a1f4b14b7113ef2ae68d5e",
+            "ppu": 100
+          },
+          "rendererId": "65286576",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "day2-corridor-thug": {
+        "thug": {
+          "root": {
+            "x": -15.66,
+            "y": 9.62,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "visual": {
+            "x": -15.66,
+            "y": 10.470000016499998,
+            "z": 0,
+            "a": 2.7868853,
+            "b": 0,
+            "c": 0,
+            "d": 2.7868853
+          },
+          "sprite": {
+            "x": 49,
+            "y": 54,
+            "w": 30,
+            "h": 61,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "Neighbor_idle_0",
+            "asset": "engine-d40020f60603f44d79a86ec18158bb84",
+            "ppu": 100
+          },
+          "rendererId": "1213701204",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "commute2": {
+        "samho": {
+          "root": {
+            "x": -5.99,
+            "y": -0.7,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "visual": {
+            "x": -5.99,
+            "y": 0.03099998881999999,
+            "z": 0,
+            "a": 2.0987654,
+            "b": 0,
+            "c": 0,
+            "d": 2.0987654
+          },
+          "sprite": {
+            "x": 417,
+            "y": 40,
+            "w": 84,
+            "h": 81,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.43
+            },
+            "name": "Game_samho_idle_48a08784",
+            "asset": "engine-c318ea44034c3466680e7d51908bac22",
+            "ppu": 100
+          },
+          "rendererId": "637985114",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      },
+      "neighborhood-guardBlocked": {
+        "guard": {
+          "root": {
+            "x": -14.125,
+            "y": -0.974,
+            "z": 0,
+            "a": 3.090909,
+            "b": 0,
+            "c": 0,
+            "d": 3.090909
+          },
+          "visual": {
+            "x": -14.125,
+            "y": -0.12400002499999996,
+            "z": 0,
+            "a": 3.090909,
+            "b": 0,
+            "c": 0,
+            "d": 3.090909
+          },
+          "sprite": {
+            "x": 55,
+            "y": 60,
+            "w": 19,
+            "h": 55,
+            "pivot": {
+              "x": 0.5,
+              "y": 0.5
+            },
+            "name": "GangNPC1_idle_0",
+            "asset": "engine-4a72a3208fcff47ce831ff822c02a8cb",
+            "ppu": 100
+          },
+          "rendererId": "119463680",
+          "layer": 0,
+          "order": 100,
+          "flip": false,
+          "visible": true
+        }
+      }
+    }
+  },
+  "terrace": {
+    "camera": {
+      "name": "CM_Terrace",
+      "lens": {
+        "FieldOfView": 40,
+        "OrthographicSize": 1.35,
+        "NearClipPlane": 0.3,
+        "FarClipPlane": 1000,
+        "Dutch": 0,
+        "ModeOverride": 1,
+        "PhysicalProperties": {
+          "GateFit": 2,
+          "SensorSize": {
+            "x": 21.946,
+            "y": 16.002
+          },
+          "LensShift": {
+            "x": 0,
+            "y": 0
+          },
+          "FocusDistance": 10,
+          "Iso": 200,
+          "ShutterSpeed": 0.005,
+          "Aperture": 16,
+          "BladeCount": 5,
+          "Curvature": {
+            "x": 2,
+            "y": 11
+          },
+          "BarrelClipping": 0.25,
+          "Anamorphism": 0
+        }
+      },
+      "enabled": false,
+      "x": 0.34,
+      "y": -4.3,
+      "z": -11,
+      "a": 1,
+      "b": 0,
+      "c": 0,
+      "d": 1
+    },
+    "nodes": [
+      {
+        "id": "48449420",
+        "go": "48449418",
+        "name": "Terrace_0",
+        "sprite": {
+          "x": 0,
+          "y": 0,
+          "w": 129,
+          "h": 138,
+          "pivot": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "name": "Terrace_0",
+          "asset": "engine-26eb8b1d91f3440f591f7cb4cb2f4507",
+          "ppu": 100
+        },
+        "layer": 0,
+        "layerId": 0,
+        "order": 3,
+        "flip": false,
+        "flipY": false,
+        "enabled": true,
+        "active": true,
+        "ancestry": [
+          "Terrace_0"
+        ],
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        },
+        "x": -0.575,
+        "y": -4.58,
+        "z": 0,
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1
+      },
+      {
+        "id": "1300846248",
+        "go": "1300846247",
+        "name": "Terrace_BG_City",
+        "sprite": {
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "h": 270,
+          "pivot": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "asset": "engine-70460f505a32f154cb06a22de7fed4dd",
+          "ppu": 100
+        },
+        "layer": 0,
+        "layerId": 0,
+        "order": 0,
+        "flip": false,
+        "flipY": false,
+        "enabled": true,
+        "active": true,
+        "ancestry": [
+          "Terrace_BG_City"
+        ],
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        },
+        "x": 0.34,
+        "y": -4.3,
+        "z": 0,
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1
+      },
+      {
+        "id": "1390137155",
+        "go": "1390137153",
+        "name": "balustrade",
+        "sprite": {
+          "x": 0,
+          "y": 0,
+          "w": 133,
+          "h": 19,
+          "pivot": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "asset": "engine-d02dbe5bbfbed0d42a4b29f122237e57",
+          "ppu": 100
+        },
+        "layer": 0,
+        "layerId": 0,
+        "order": 4,
+        "flip": false,
+        "flipY": false,
+        "enabled": true,
+        "active": true,
+        "ancestry": [
+          "Terrace_BG_City",
+          "balustrade"
+        ],
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        },
+        "x": -0.5349999999999999,
+        "y": -4.845,
+        "z": 0,
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1
+      },
+      {
+        "id": "2061146641",
+        "go": "2061146639",
+        "name": "Terrace",
+        "sprite": {
+          "x": 0,
+          "y": 0,
+          "w": 480,
+          "h": 270,
+          "pivot": {
+            "x": 0.5,
+            "y": 0.5
+          },
+          "asset": "engine-4db7b59eb15b72a45a255bdefe67fe9d",
+          "ppu": 100
+        },
+        "layer": 0,
+        "layerId": 0,
+        "order": 1,
+        "flip": false,
+        "flipY": false,
+        "enabled": true,
+        "active": true,
+        "ancestry": [
+          "Terrace_BG_City",
+          "Terrace"
+        ],
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        },
+        "x": 0.34,
+        "y": -4.3,
+        "z": 0,
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1
+      }
+    ]
+  }
+}

@@ -10,6 +10,7 @@ function surface(width,height,dpr=1){
  return {w,h,dpr,factor:w/WIDTH,cssScale:w/(WIDTH*dpr),left:Math.round((width*dpr-w)/2)/dpr,top:Math.round((height*dpr-h)/2)/dpr};
 }
 function settledWidth(width,target){
+ if(W.LunaEngineWorld)return width;
  const raw=target.w/(width*PPU);
  const zoom=raw>=1?Math.max(1,Math.round(raw)):1/Math.max(1,Math.round(1/raw));
  return target.w/(PPU*zoom);
@@ -25,11 +26,12 @@ function view(camera,target,{scene='street',qa=false,floor=-1.48,displayWidth}={
  // A supplied displayWidth is the continuous tween between those endpoints.
  const w=displayWidth??settledWidth(camera.w,target),zoom=target.w/(w*PPU),h=w*HEIGHT/WIDTH,grid=PPU*zoom;
  let x=camera.x,y=camera.y;
- if(scene==='street'&&!qa){x=w>28.8?-7.85:Math.max(-22.25+w/2,Math.min(6.55-w/2,x));y=Math.max(y,floor+h/2);}
+ if(W.LunaEngineWorld&&!qa)({x,y}=W.LunaEngineWorld.confine(scene,{x,y,w}));
+ else if(scene==='street'&&!qa){x=w>28.8?-7.85:Math.max(-22.25+w/2,Math.min(6.55-w/2,x));y=Math.max(y,floor+h/2);}
  // Snap viewport edges, not physics or actor coordinates.
  x=Math.round((x-w/2)*grid)/grid+w/2;
  y=Math.round((y+h/2)*grid)/grid-h/2;
- if(scene==='street'&&!qa&&y-h/2<floor)y=Math.ceil((floor+h)*grid)/grid-h/2;
+ if(!W.LunaEngineWorld&&scene==='street'&&!qa&&y-h/2<floor)y=Math.ceil((floor+h)*grid)/grid-h/2;
  return {x,y,w,zoom,ppu:PPU};
 }
 function position(x,y,camera){const scale=WIDTH/camera.w;return{x:WIDTH/2+(x-camera.x)*scale,y:HEIGHT/2-(y-camera.y)*scale};}

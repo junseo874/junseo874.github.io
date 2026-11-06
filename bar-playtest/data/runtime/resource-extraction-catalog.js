@@ -5813,19 +5813,19 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/cocktail-gin-tonic.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_and_tonic_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 216,
+    "w": 220,
     "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/cocktail-gin-fizz.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_fizz_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 345,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
@@ -5949,35 +5949,35 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/completed/representative/beer_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/beer_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 345,
-    "note": "실제 UI에서 참조하는 원본 PNG"
-  },
-  {
-    "src": "assets/cocktails/completed/representative/screwdriver_final.png",
-    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
-    "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 345,
-    "note": "실제 UI에서 참조하는 원본 PNG"
-  },
-  {
-    "src": "assets/cocktails/completed/representative/tequila_sunrise_final.png",
-    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
-    "category": "UI · 원본 조각",
-    "w": 216,
+    "w": 220,
     "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/cocktail-dry-martini.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/screwdriver_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 337,
+    "w": 220,
+    "h": 411,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/tequila_sunrise_final.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 220,
+    "h": 411,
+    "note": "실제 UI에서 참조하는 원본 PNG"
+  },
+  {
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/dry_martini_final.png",
+    "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
+    "category": "UI · 원본 조각",
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
@@ -6029,19 +6029,19 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/red_wine_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 635,
-    "h": 635,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/champagne_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Champagne_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 635,
-    "h": 635,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
@@ -6053,43 +6053,35 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/01.Cocktail_Preview_Images_for_Recipes/whiskey_sour_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/whisky_sour_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 635,
-    "h": 635,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/cocktail-cosmopolitan.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/cosmopolitan_final.png",
     "title": "본편 · 확인 / 안내 팝업 · 추천 칵테일 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 198,
-    "h": 327,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/cocktails/static/cocktail-kahlua-milk.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/kahlua_milk_final.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 345,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Legacy/Legacy_godfather_final.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
     "title": "신규 재료·레시피 해금 · 2일차 해금 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 200,
-    "h": 345,
-    "note": "실제 UI에서 참조하는 원본 PNG"
-  },
-  {
-    "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/red_wine_final.png",
-    "title": "맥주 제조 튜토리얼 · 맥주 레시피 · 원본 이미지",
-    "category": "UI · 원본 조각",
-    "w": 384,
-    "h": 634,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
@@ -6101,11 +6093,11 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/backgrounds/campaign/johnny-johnny_old_fashioned.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Old_fashioned_final.png",
     "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 175,
-    "h": 192,
+    "w": 220,
+    "h": 411,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
@@ -6138,14 +6130,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 원본 조각",
     "w": 490,
     "h": 280,
-    "note": "실제 UI에서 참조하는 원본 PNG"
-  },
-  {
-    "src": "assets/01.ArtResources/00.Dummy_Assets/01.Cocktail_Preview_Images/champagne_final.png",
-    "title": "바 튜토리얼 · 단계별 안내 · 레시피 선택 · 원본 이미지",
-    "category": "UI · 원본 조각",
-    "w": 384,
-    "h": 634,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {

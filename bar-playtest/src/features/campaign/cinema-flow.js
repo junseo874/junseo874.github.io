@@ -80,7 +80,6 @@
       this.morningSeen.clear();
       this.nightStarted = false;
       this.clearInput();
-      this.g.lang = 'ko';
       this.ui.day = 0;
       this.ui.variant = 'original';
       this.ui.serviceVersion = 'A';

@@ -22,7 +22,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.keyboard.press('KeyE');
   const speech=await p.evaluate(()=>{const m=outsidePlaytest.model;return {id:m.story.speech.id,line:m.story.speech.line,view:m.story.view(),x:m.x,seen:barGame.progress.flags.outside_interacted_v1_bed,carry:lunaCampaign.session.carry.flags.outside_interacted_v1_bed};});
   assert.equal(speech.id,'home/bed');assert.equal(speech.line.actor,'luna');assert.equal(speech.view.title,'루나');
-  assert.equal(speech.view.full,'크리스가 사용하는 침대... 푹신해보인다.');assert(Math.abs(speech.view.anchor.x-speech.x)<.2);
+  assert.equal(speech.view.full,'크리스가 사용하는 침대. 푹신해 보인다.');assert(Math.abs(speech.view.anchor.x-speech.x)<.2);
   assert(speech.seen&&speech.carry);await p.keyboard.press('KeyE');await p.waitForTimeout(100);
   await p.screenshot({path:'/private/tmp/home-bed-speech.png'});
   await p.keyboard.press('KeyE');assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
@@ -31,7 +31,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    for(const day of [0,1,2,3])for(const flow of ['in','out']){
     m.start({day,flow,place:'home'});m.controlsTutorial=false;const t=m.targets().find(t=>t.id==='bed');m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);
     if(m.near?.id!=='bed'||D.unseen(m,t)||a.discoveryMarkers.some(t=>t.id==='bed'))throw Error('Persistent first interaction history');
-    if(!m.interact()||m.story.view().full!=='크리스가 사용하는 침대... 푹신해보인다.')throw Error('Repeat inspection missing');
+    if(!m.interact()||m.story.view().full!=='크리스가 사용하는 침대. 푹신해 보인다.')throw Error('Repeat inspection missing');
     m.story.cancel();result.push(day+flow);
    }
    m.start({day:1,flow:'out',place:'homeDoor'});if(m.targets().some(t=>t.id==='bed'))throw Error('Bed leaked outside');

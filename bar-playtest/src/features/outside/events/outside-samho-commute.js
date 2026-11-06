@@ -5,7 +5,7 @@
 const id='day2-samho-commute',qaId='runtime:commute2',npcX=-5.99,groundY=-.7;
 const day=m=>m.qa?.caseId==='runtime:commute3'?3:m.qa?.caseId===qaId?2:m.config.day;
 const isQA=m=>[qaId,'runtime:commute3'].includes(m.qa?.caseId);
-const xFor=m=>day(m)===3?W.LunaResidence.layout.elevatorX+1.45:npcX;
+const xFor=m=>W.LunaEngineWorld?.actorPoint('street','commute'+day(m),'samho')?.x??(day(m)===3?W.LunaResidence.layout.elevatorX+1.45:npcX);
 const doneKey=m=>'day'+day(m)+'_samho_done';
 const sceneKey=m=>'commute'+day(m);
 function flags(m){return !m.qa&&W.lunaCampaign?.active?(W.barGame.progress.flags??={}):(m.samhoCommuteFlags??={});}
@@ -30,7 +30,9 @@ function tick(m,dt){let e=m.encounter;if(e?.kind!==id)return false;
 function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.encounter:null;if(isQA(m)&&m.qa.done&&!e)return;const x=e?.npcX??(isQA(m)?.25:xFor(m));
  // Source faces left: use the shared target-facing rule, including departure.
  // NPCs belong to the street, never to the passenger's moving lift height.
- sprite(W.LunaSamhoAnimation.frame(m.time),x,groundY+(e?.stage==='depart'?Math.sin(e.elapsed*15)*.014:0),1,1,W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),e?.alpha??1);
+ const sp=W.LunaSamhoAnimation.frame(m.time),flip=W.LunaOutsideAmbient.faceTarget(x,e?.stage==='depart'?x+e.direction:m.x),alpha=e?.alpha??1;
+ if(W.LunaEngineWorld&&!isQA(m))W.LunaEngineWorld.drawActor(sprite,'street',sceneKey(m),'samho',sp,x,groundY,flip,alpha);
+ else sprite(sp,x,groundY,1,1,flip,alpha);
 }
 function offer(m){W.LunaOutsideStory.events.offer(m,id,()=>!m.level&&visible(m)&&Math.abs(m.x-xFor(m))<=.86,()=>start(m),40);}
 W.LunaOutsideSamhoCommute={id,qaId,visible,start,tick,action,draw,offer};

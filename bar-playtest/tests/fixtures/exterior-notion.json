@@ -1,6 +1,6 @@
 {
   "source": "https://app.notion.com/p/4071612298dc8078bfe4c1a003995248",
-  "synced": "2026-11-03",
+  "synced": "2026-11-05",
   "dialogues": {
     "neighborhood/reveal": {
       "rows": 1,
@@ -175,97 +175,97 @@
     "thug/intro": {
       "rows": 11,
       "spoken": 11,
-      "sha256": "92e8b0aac97cd8de63b6369d868653d6e87f267b316b2793b8887bea75176948"
+      "sha256": "0ac825e47db2db54799c14f05e8bc7403474a3cb6854762078df18777c1a68a1"
     },
     "thug/paid": {
       "rows": 9,
       "spoken": 8,
-      "sha256": "b7134ed1bb6b245298260ee81843de0cf532c771355063902ecba432e97b3c76"
+      "sha256": "0bb8076cae35864e457abfb0101f53bf6e388c924f78e7b71e9eaa71beb4d5a2"
     },
     "thug/refused": {
       "rows": 8,
       "spoken": 6,
-      "sha256": "c092904249573f69ca86735ea591872d5932b1412e2f9f5214aed4da01e80401"
+      "sha256": "7ca6e7b5aeee59d221ee041399e58c69470653eb59e1f11f9b01c626c6702162"
     },
     "notion/intro": {
       "rows": 6,
       "spoken": 6,
-      "sha256": "1973289bdba15738a3c26d68119d4ffee6f5537fc9fc0e5c96108b72098d842e"
+      "sha256": "72386f24118806016c1c54834ceef0196d96b3e67b76965e34c33abfaf9bf53f"
     },
     "notion/info/gang": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "d618de11a546046bc828fde954fd94b1ad48ed3e806d537822c14e1fb258af19"
+      "sha256": "d2caca72a133af9603d0ccba8f49bab9f4fe42f308e88f94564bf8af37ed09e4"
     },
     "notion/info/coratech": {
-      "rows": 8,
-      "spoken": 8,
-      "sha256": "ea93f636addcc73fd74bfd05d95a1cf1daf1f28319f3daf830154f2361f6d8cd"
+      "rows": 9,
+      "spoken": 9,
+      "sha256": "405cc646416996261ab91635995d8f2837c117e86c2524a606821becdb0e52e5"
     },
     "notion/info/chris": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "17e80f03dd08ad13f246b6b330cb72f62647557334b0faae8cf116aef19c521a"
+      "sha256": "cf406db890e80552d6d2be1cbfdec8b14a9fe878b09c5632e26c32acf5ed1d3a"
     },
     "ambient/outside_day1_samho_smuggler": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "50868eac472df7bd56b758118c0f99b98ebd0ce39be766422258789a86cdb3c0"
+      "sha256": "5384c5aef66820fdd15712fa97c6932a4f8c974da26281bfb6a755ab8431e353"
     },
     "commute2": {
-      "rows": 30,
-      "spoken": 29,
-      "sha256": "84effe71f9f604f4c3d51c8b5f3c64c045695f107e4cf6de676927c8719a330b"
+      "rows": 26,
+      "spoken": 25,
+      "sha256": "8d4405ec5de6cb29d22d3cf23b44b33a633e0aeb9842f39d146136863b5d2186"
     },
     "commute3": {
-      "rows": 7,
-      "spoken": 7,
-      "sha256": "dec163a76600aa3bb789f006ea453dd350d22509042cc7cf5ceed04b76d756b2"
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "988d2c45bf777514176c5f78b26184a287514ca8562e2900d4ba75ec8c688e8c"
     },
     "notion/contract": {
       "rows": 23,
       "spoken": 20,
-      "sha256": "1961fe8e9086e3bfbcfba827627285eb73b6f333886e65ea318bc6c2ed7b528c"
+      "sha256": "e0613ad523b112d287442cefa409e992cf841520cbb09daeeef982d10493f46b"
     },
     "ambient/outside_day0_store_passers": {
-      "rows": 8,
-      "spoken": 8,
-      "sha256": "e53a90f5d13512a93846846b0a61a3ae1f151f4efbdacd759be2f096402ba66d"
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "d937d51cf288fe8b41cb9a79f877eb6e787ec3a74659ebb5f997722ddb12c31a"
     },
     "ambient/outside_day0_port_pair": {
       "rows": 10,
       "spoken": 10,
-      "sha256": "28239fcdcf16cbbb737f62b9a9b7e268655f738dcd9cf1da04e785e7d1bf4c20"
+      "sha256": "a7330875c30cab8b2a4ad731451d11419d89b3ba5c03d850cad0d0e9fe8f5b5c"
     },
     "ambient/outside_day0_building_residents": {
       "rows": 4,
       "spoken": 4,
-      "sha256": "bc59b2547a3928abc3223faacfa5ef47c73ebcee479ea43e70bf691086398215"
+      "sha256": "06f3d7fa7b694f88d612837e7cf17cd8a5087170d6da09bbf9c332e99fa6acfb"
     },
     "ambient/outside_day1_commute_passers2": {
-      "rows": 6,
-      "spoken": 6,
-      "sha256": "021897ad8accb56137924d806d7480311877adc5ffa961bbb3171c4a076f319f"
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "40a70758713bb3397fefe64c65302dceaef173a15bae033f704ff494af750f07"
     },
     "ambient/outside_day2_commute_reopening": {
-      "rows": 13,
-      "spoken": 13,
-      "sha256": "b2de311efed6a28896288fda2b3a4e8dec919770886908694363f23ba8dad73e"
+      "rows": 12,
+      "spoken": 12,
+      "sha256": "e164d8751c007fbcb8a0d02c4e6876f5db343f6cfc2531ebc9d8ed8b8d98f2de"
     },
     "StudioOpening.source.tv": {
-      "rows": 33,
-      "spoken": 33,
-      "sha256": "974c03bc18ffe8aa4f8514539058aa28d489fbce455cad924188327c03bc333a"
+      "rows": 32,
+      "spoken": 32,
+      "sha256": "2daeffe4b3a662c49da3ee44ddaf66bd282c4ac6e49dd59a80c743745ceee371"
     },
     "ambient/outside_day1_tv_news2": {
       "rows": 7,
       "spoken": 7,
-      "sha256": "afad48f3702cb5a5f62f221a040c47cd94f3825dbae96fce5b0b24f2adc41598"
+      "sha256": "80ca34f7833c9704e6c3b247029b5474c9d9e9ede1c7c4e4280c94e2ca45bcef"
     },
     "ambient/outside_day0_tv_news1": {
       "rows": 5,
       "spoken": 5,
-      "sha256": "3f9c8703e6c9a04c7ca2d508c732025d533ef473afc46237af7ea3e15761ca2b"
+      "sha256": "0da2f52f17d1122653a6dc5a11754752f0b2c5fcc90c89381e3f819532a42398"
     },
     "night0": {
       "rows": 22,
@@ -306,6 +306,46 @@
       "rows": 5,
       "spoken": 5,
       "sha256": "0f0f6cdc34c56ae5fe2908bdc2a4759048966ae210825f19247e0cec302dbf92"
+    },
+    "newspaper/intro": {
+      "rows": 13,
+      "spoken": 12,
+      "sha256": "96dcd46ed79db4ae5b11485a5d8a6ef45254bfb4b025ed7bf2bd5c1b53aabeca"
+    },
+    "newspaper/wrong": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "d36ee39ad82baff57a43447f8cc1e41bcad9d5cb9307888447dd855d21405594"
+    },
+    "newspaper/right": {
+      "rows": 2,
+      "spoken": 2,
+      "sha256": "54e076052992674098e47ebc835bae75712f70733dac035ecda2242c11ef5ad7"
+    },
+    "newspaper/common": {
+      "rows": 11,
+      "spoken": 10,
+      "sha256": "79c01ce36b404ddaf68c7f49137e0183a6537599b5575ef9ebe3253a0997dbc9"
+    },
+    "newspaper/finish": {
+      "rows": 2,
+      "spoken": 2,
+      "sha256": "95ce52bdb2a21f4f9bf1d7cd5c3236757ad093b44955cd12b1cda700422e2452"
+    },
+    "newspaper/repeat": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "98dfd14ec68d1a7373d002b25728f674fb43137ae4ce63ac9ebd7610dcaa3b23"
+    },
+    "believer/intro": {
+      "rows": 16,
+      "spoken": 15,
+      "sha256": "82f1493ee001f19c55428652b1dd4e7bf6e9ebe9eee3a23e9a232353d93aa1f9"
+    },
+    "believer/finish": {
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "d590b5a3139103bb5368d0ffdc4bfa0a0e2a4ced8eb3d99246d2e0b7273b846e"
     }
   }
 }

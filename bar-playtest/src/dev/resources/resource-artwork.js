@@ -11,8 +11,12 @@ function collect(rows,F){
    note:'현재 사용 중인 그래픽 원본입니다. 원본 다운로드는 파일 크기·투명도·바이트를 유지하며, 시트는 프레임별로도 추출할 수 있습니다.',...extra});
  }
  const A=F.barData.assets;
+ const flameRoot='assets/01.ArtResources/05.UI/02.Title/02.Logo/simchung_dark_flame_alpha_2160p60/';
+ const flameFrames=Array.from({length:348},(_,i)=>({src:flameRoot+'simchung_dark_flame_alpha_2160p60_'+String(i).padStart(4,'0')+'.png',x:0,y:0,w:3840,h:2160}));
+ add('title-flame','팀 로고 · 불꽃 알파 애니메이션','bar-ui',{src:flameFrames[0].src,w:3840,h:2160,frames:348,fps:60,rects:flameFrames},{usage:'신규 원본 · 348프레임 / 60fps',note:'UI_Logo_Fire_flame_alpha.zip의 원본 PNG 시퀀스입니다. 프레임별 원본 다운로드가 가능합니다. 게임 로고와 다른 신규 효과이므로 기존 로고를 대체하거나 시작 연출을 임의로 추가하지 않습니다.'});
+ add('home-current-fullshot','집 내부 · 최신 풀샷 참고','out-backgrounds',F.LUNA_OUTSIDE_DATA.assets['home-current-fullshot'],{backgroundScreen:'집 내부',backgroundKind:'풀샷',note:'현재 집의 합성 참고 원본입니다. 본편은 분리된 배경·침대·옷장·소파·TV·책을 사용합니다.'});
  for(const [key,a]of Object.entries(A)){
-  if(key.startsWith('table_empty_glass_'))add(key,'빈 잔 · '+({beer:'맥주 잔',cocktail:'칵테일 잔',long_drink:'롱드링크 잔'}[key.slice(18)]||key),'bar-items',a,{itemKind:'glass',artUsage:'table',note:'손님이 마신 뒤 테이블의 칵테일을 교체하는 빈 잔 원본입니다. 없는 잔 종류의 대체 연결은 본편의 tableDrinkArt가 결정합니다.'});
+  if(key.startsWith('table_empty_glass_'))add(key,'빈 잔 · '+({beer:'맥주 잔',cocktail:'칵테일 잔',long_drink:'롱드링크 잔',wine:'와인 잔',flute:'샴페인 잔',old_fashioned:'올드패션드 잔'}[key.slice(18)]||key),'bar-items',a,{itemKind:'glass',artUsage:'table',note:'손님이 마신 뒤 테이블의 칵테일을 해당 종류의 빈 잔 원본으로 교체합니다.'});
   if(key.startsWith('guest_')){
    const [,sex,...parts]=key.split('_');add(key,'일반 손님 · '+(sex==='m'?'남성':'여성')+' · '+parts.join(' '),'bar-characters',a);
   }

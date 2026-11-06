@@ -4,22 +4,33 @@ const asset='assets/backgrounds/campaign/terrace-20261018.png';
 // The old composite is reference art only. Preserve the supplied sheets byte-for-byte.
 const assets={city:'assets/01.ArtResources/02.Environments/04.Terrace/Terrace_BG_City.png?v=city-replacement-20261019',building:'assets/01.ArtResources/02.Environments/04.Terrace/Terrace.png',characters:'assets/01.ArtResources/01.Characters/02.Outside/01.Luna/05.Terrace/Terrace.png',balustrade:'assets/01.ArtResources/02.Environments/04.Terrace/balustrade.png'};
 const animation={frames:8,width:129,height:138,fps:6};
+const engine=W.LunaEngineWorld;
+function sourceRect(id,fallback){
+ if(!engine)return fallback;
+ const n=engine.node('home',id),cam=engine.source.scenes.home.cameras.views.find(c=>c.name==='CM_Terrace'),s=n.sprite;
+ return{x:(n.x-cam.x+2.4)*100-s.w*s.pivot.x,y:(cam.y+1.35-n.y)*100-s.h*(1-s.pivot.y)};
+}
+const actorRect=sourceRect('48449420',{x:85,y:98}),railRect=sourceRect('1390137155',{x:86,y:179});
 // Translation only: the city travels at one fifth of the foreground speed.
 // Fixed city overscan provides edge coverage throughout the pan, never an animated zoom.
-const cityCamera={parallax:.2,scale:1.15};
+const cityCamera={parallax:engine?0:.2,scale:engine?1:1.15};
 const entrance={hold:.7,move:5.6,settle:.5,duration:6.8};
 function beginEntrance(dialog){
  W.LunaTerraceBirds.begin(dialog,dialog.terraceDay??W.lunaCampaign?.session?.day??0);
  dialog.terraceEntryTime=0;
- dialog.terraceEntryDuration=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:entrance.duration;
+ dialog.terraceEntryDuration=engine||W.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:entrance.duration;
 }
 function camera(dialog){
+ if(engine)return{x:0,y:0,zoom:1};
  const t=dialog.terraceEntryDuration?(dialog.terraceEntryTime??entrance.duration):entrance.duration;
  const p=Math.max(0,Math.min(1,(t-entrance.hold)/entrance.move)),ease=p*p*p*(p*(p*6-15)+10);
  return {x:160*(1-ease),y:0,zoom:1};
 }
 function paintCamera(dialog,host){
  const view=camera(dialog);
+ const pair=host.querySelector('.terrace-characters'),rail=host.querySelector('.terrace-balustrade');
+ if(pair){pair.style.left=actorRect.x+'px';pair.style.top=actorRect.y+'px';}
+ if(rail){rail.style.left=railRect.x+'px';rail.style.top=railRect.y+'px';}
  for(const layer of host.querySelectorAll('.terrace-city,.terrace-sign-scanlines'))
   layer.style.transform='translateX('+(-view.x*cityCamera.parallax)+'px) scale('+cityCamera.scale+')';
  for(const layer of host.querySelectorAll('.terrace-building,.terrace-characters,.terrace-balustrade,.terrace-birds'))
@@ -54,13 +65,13 @@ function paintCharacters(dialog,host){
  // The sheet contains Luna on the left and Chris on the right. Hide only
  // Chris while Luna reads the chip, in both the DOM and refracted glass pass.
  const alone=dialog.rows[dialog.index].stage==='luna-alone';
- actors.style.clipPath=alone?'inset(0 65px 39px 0)':'inset(0 0 39px 0)';
+ actors.style.clipPath=alone?'inset(0 65px '+(engine?0:39)+'px 0)':'inset(0 0 '+(engine?0:39)+'px 0)';
  host.querySelector('.terrace-art')?.setAttribute('aria-label',alone?'도시 야경이 보이는 테라스에 루나가 혼자 앉아 있다':'도시 야경이 보이는 테라스에 왼쪽 루나와 오른쪽 크리스가 나란히 앉아 있다');
 }
 function tick(dialog,dt){W.LunaTerraceBirds.advance(dialog);dialog.terraceTime=(dialog.terraceTime||0)+Math.max(0,Math.min(.05,Number(dt)||0));}
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Actor anchors are measured from the supplied 480 × 270 terrace composition.
-const seats={chris:{x:163/480*1280,y:151/270*720},luna:{x:134/480*1280,y:151/270*720}};
+const seats={chris:{x:(actorRect.x+78)/480*1280,y:(actorRect.y+53)/270*720},luna:{x:(actorRect.x+49)/480*1280,y:(actorRect.y+53)/270*720}};
 function rows(key,data){return data.scenes[key];}
 // Escape each text segment; reveal orange ingredient names with the same typing cursor.
 function textHTML(row,count=Infinity){
@@ -94,8 +105,9 @@ function paintGlass(dialog,host,state,view){
  c.drawImage(raster(building,rasterScale),0,0);
  const frame=Math.floor((dialog.terraceTime||0)*animation.fps)%animation.frames;
  const actorWidth=dialog.rows[dialog.index].stage==='luna-alone'?64:129;
- c.drawImage(raster(actors,rasterScale),frame*129*rasterScale,0,actorWidth*rasterScale,99*rasterScale,85*rasterScale,98*rasterScale,actorWidth*rasterScale,99*rasterScale);
- c.drawImage(raster(rail,rasterScale),86*rasterScale,179*rasterScale);
+ const actorHeight=engine?138:99;
+ c.drawImage(raster(actors,rasterScale),frame*129*rasterScale,0,actorWidth*rasterScale,actorHeight*rasterScale,actorRect.x*rasterScale,actorRect.y*rasterScale,actorWidth*rasterScale,actorHeight*rasterScale);
+ c.drawImage(raster(rail,rasterScale),railRect.x*rasterScale,railRect.y*rasterScale);
  W.LunaTerraceBirds.draw(c,dialog,preparedImages,rasterScale);c.restore();
  // Dry and rainy scenes share the same presentation grid, including after
  // remounts. Filtering only the enlarged texels keeps pixel art crisp but lets

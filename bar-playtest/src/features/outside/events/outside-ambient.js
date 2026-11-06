@@ -47,7 +47,7 @@ function prepareBounds(images,data){artImages=images;artData=data;boundsCache.cl
 function bounds(sp){
  const animation=Object.values(artData?.animations||{}).find(a=>a.frames[0]?.asset===sp.asset);
  const sheet=sheets[sp.asset.slice(8)];
- const cells=animation?.frames||(sheet?Array.from({length:sheet.frames},(_,i)=>({...sp,x:i*129})): [sp]);
+ const cells=sp.engineFrames||animation?.frames||(sheet?Array.from({length:sheet.frames},(_,i)=>({...sp,x:i*129})): [sp]);
  const key=[sp.asset,animation?'animation':sp.asset.startsWith('ambient-')?'idle':sp.x,sp.y,sp.w,sp.h].join(':');
  if(boundsCache.has(key))return boundsCache.get(key);
  const image=artImages?.get(sp.asset);if(!image)return null;

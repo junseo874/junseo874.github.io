@@ -28,7 +28,13 @@ const tomTalkLayers=['body','face_top','eyes','eyebrow','face_bottom_talk'].map(
  return id;
 });
 D.characterLayers.tom={idle_default:tomLayers,idle_talk:tomTalkLayers};
+// Supplied reactions are complete single-frame portraits, not mouth sheets.
+for(const [expression,mood] of [['success','success'],['joy','success'],['fail','fail'],['anger','fail']]){
+ for(const suffix of ['default','talk'])D.characterLayers.tom[expression+'_'+suffix]=['char_tom_'+mood];
+}
 D.webPoseOffsets.tom={idle_default:[0,0],idle_talk:[0,0]};
 D.webActorBounds.tom=[96,109,454,441];
 D.webTableAnchors={...D.webTableAnchors,tom:420};
+// Haru's supplied portrait shares the 551×530 actor canvas; no animation yet.
+D.webTableAnchors.haru=422;
 })(window);

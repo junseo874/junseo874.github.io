@@ -146,7 +146,8 @@
       txt = txt.replace(/\{cocktail\}/g, this.name(g.order?.cocktail || g.nextCocktail));
       return {
         ...this.makeLine(actor || g.actor, txt, row?.row_id, row?.expression),
-        situation
+        situation, speechSource:row || (situation === 'ask_order' ? {'text.ko':'주문하시겠어요?', 'text.en':'What would you like?'} : null),
+        cocktailId:g.order?.cocktail || g.nextCocktail
       };
     }
     setBarks(g, situations, onDone = null) {
@@ -259,7 +260,8 @@
         return true;
       }
       g.reasking = true;
-      g.lines = [this.makeLine('luna', this.lang === 'ko' ? "주문하신 메뉴가 어떤 거였죠?" : "Could you remind me what you ordered?"), this.bark(g, 'order')];
+      const speechSource = {'text.ko':'주문하신 메뉴가 어떤 거였죠?', 'text.en':'Could you remind me what you ordered?'};
+      g.lines = [{...this.makeLine('luna', this.text(speechSource)), speechSource}, this.bark(g, 'order')];
       g.lineIndex = 0;
       g.lineDone = () => {
         g.reasking = false;

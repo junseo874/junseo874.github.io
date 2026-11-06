@@ -13,9 +13,9 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     const has=rows=>rows.some(r=>r.id==='long_island'||r.context==='long_island');
     if(has(g.t.cocktails)!==developer||has(g.t.recipes)!==developer||has(g.t.cocktail_tags)!==developer)throw Error('Main catalog/practice isolation');
     const unlocked=g.cocktailsAvailable().some(r=>r.id==='long_island'),daily=g.dailyUnlocks().cocktails.some(r=>r.id==='long_island');
-    if(unlocked!==(developer&&day>=2)||daily!==(developer&&day===2))throw Error('Unlock gate');
+    if(unlocked!==(developer&&day===99)||daily!==(developer&&day===99))throw Error('Day 99 unlock gate');
     const barks=g.setBarks;g.setBarks=()=>{};
-    try{for(let i=0;i<200;i++){const guest={slot:{},personality:{think_chance:0}};g.beginOrder(guest,false);if(!developer&&guest.nextCocktail==='long_island')throw Error('Main random order');}}finally{g.setBarks=barks;}
+    try{for(let i=0;i<200;i++){const guest={slot:{},personality:{think_chance:0}};g.beginOrder(guest,false);if((!developer||day!==99)&&guest.nextCocktail==='long_island')throw Error('Demo random order');}}finally{g.setBarks=barks;}
     if(!developer){g.currentOrder={cocktail:'long_island'};if(g.selectCocktail('long_island'))throw Error('Stale order restored excluded recipe');g.currentOrder=null;}
     if(!['gin','vodka','rum','tequila','cola'].every(id=>g.t.shelf_items.some(r=>r.id===id)))throw Error('Shared ingredient removed');
     window.longIslandOriginal={original,recipes,tags};return {developer,day,unlocked};
@@ -23,7 +23,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    await page.waitForFunction(expected=>document.querySelectorAll('.recipe-card').length>0&&document.querySelectorAll('.recipe-card[data-id="long_island"]').length===expected,developer?1:0);
    assert.equal(await page.locator('.recipe-card[data-id="long_island"]').count(),developer?1:0,JSON.stringify({developer,variant,day}));
    assert(await page.evaluate(()=>{
-    const g=barGame,canLong=lunaCampaign.session.developer&&g.day>=2;
+    const g=barGame,canLong=lunaCampaign.session.developer&&g.day===99;
+    if(!canLong&&g.selectCocktail('long_island'))return false;
     if(canLong){if(!g.selectCocktail('long_island'))return false;}else if(!g.selectCocktail('gin_tonic'))return false;
     g.debugFill();g.startCraft();return g.screen==='gimmick';
    }),'Other drinks remain craftable; developer Long Island retained: '+JSON.stringify(result));

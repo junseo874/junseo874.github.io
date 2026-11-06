@@ -135,7 +135,7 @@
   function drinkArt(id, usage = 'hero', glassKind = null) {
     if (usage === 'empty') {
       const glass = glassKind || g.cocktail(id).glass;
-      const resource = ({weizen:'beer',martini:'cocktail',flute:'cocktail',wine:'cocktail',old_fashioned:'long_drink',long_drink:'long_drink'})[glass] || 'long_drink';
+      const resource = ({weizen:'beer',martini:'cocktail',flute:'flute',wine:'wine',old_fashioned:'old_fashioned',long_drink:'long_drink'})[glass] || 'long_drink';
       return '<img class="drink-art empty-glass" src="' + a('table_empty_glass_' + resource) + '" data-art-usage="empty" data-glass-kind="' + esc(glass) + '" alt="' + L('빈 잔', 'Empty glass') + '" draggable="false">';
     }
     const c = g.cocktail(id),

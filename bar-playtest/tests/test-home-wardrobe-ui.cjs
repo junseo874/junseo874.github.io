@@ -23,7 +23,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   const money=await p.evaluate(()=>barGame.progress.money);
   await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="press"]').waitFor({state:'visible'});
   assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['누른다','취소']);
-  assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model,v=m.story.view();return [v.title,v.full,m.story.speech.line.actor];}),['루나','무언가 버튼이 보인다.','luna']);
+  assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model,v=m.story.view();return [v.title,v.full,m.story.speech.line.actor];}),['루나','기능을 알 수 없는 버튼이 보인다.','luna']);
   assert(await p.evaluate(()=>barGame.progress.flags.outside_interacted_v1_wardrobe&&lunaCampaign.session.carry.flags.outside_interacted_v1_wardrobe));
   await p.waitForTimeout(550);await p.screenshot({path:'/private/tmp/home-wardrobe-menu.png'});
   await p.locator('[data-choice="cancel"]').click();assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
@@ -37,7 +37,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    for(const day of [0,1,2,3])for(const flow of ['in','out']){
     m.start({day,flow,place:'home'});m.controlsTutorial=false;const t=m.targets().find(t=>t.id==='wardrobe');m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);
     if(m.near?.id!=='wardrobe'||LunaOutsideDiscovery.unseen(m,t))throw Error('Wardrobe history/target');
-    if(!m.interact()||m.story.view().full!=='무언가 버튼이 보인다.')throw Error('Repeat interaction');
+    if(!m.interact()||m.story.view().full!=='기능을 알 수 없는 버튼이 보인다.')throw Error('Repeat interaction');
     m.story.cancel();
    }
    m.start({day:1,flow:'out',place:'homeDoor'});if(m.targets().some(t=>t.id==='wardrobe'))throw Error('Wardrobe outside');

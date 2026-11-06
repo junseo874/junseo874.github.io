@@ -3,7 +3,6 @@
   'use strict';
   const key = 'luna.dialogue.saved.v1';
   const tables = ['steps', 'bar_choices', 'bar_choice_groups'];
-
   function controller({g, D, raw, campaign, story}) {
     let pending = null, revision = '';
     function apply() {
@@ -38,6 +37,7 @@
         raw.sharedStory||={};merge(raw.sharedStory,next.exterior.sharedStory);
         if(D!==raw){D.sharedStory||={};merge(D.sharedStory,next.exterior.sharedStory);}
         raw.outsideChoices=next.exterior.choices;D.outsideChoices=next.exterior.choices;
+        if(next.exterior.newspaperRoutes)D.newspaperRoutes=raw.newspaperRoutes=next.exterior.newspaperRoutes;
         raw.outsideChoiceEdits=next.exterior.choiceEdits||{};D.outsideChoiceEdits=raw.outsideChoiceEdits;
         for(const target of new Set([story,campaign.data,campaign.session.story]))if(target){target.scenes||={};merge(target.scenes,next.exterior.scenes);target.prologue=next.exterior.prologue;}
         for(const [key,rows]of Object.entries(raw.sharedStory))if(key.startsWith('ambient/')&&root.LUNA_OUTSIDE_DIALOGUES)root.LUNA_OUTSIDE_DIALOGUES[key.slice(8)]=rows;

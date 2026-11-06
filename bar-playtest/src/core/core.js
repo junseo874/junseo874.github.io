@@ -33,6 +33,24 @@
     text(row, key = 'text') {
       return row?.[key + '.' + this.lang] || row?.[key + '.ko'] || '';
     }
+    get lang() { return this._lang; }
+    set lang(value) {
+      if (!['ko','en'].includes(value) || value === this._lang) return;
+      this._lang = value;
+      // Refresh the text in place; don't replay the story step, reroll a bark or issue an order.
+      const lines = [this.dialogue, this.lastStoryLine, this.craftReminder,
+        ...Object.values(this.seats || {}).flatMap(guest => guest?.lines || [])];
+      for (const line of new Set(lines)) {
+        const row = line?.step || line?.speechSource;
+        if (!row) continue;
+        const raw = this.text(row).replace(/\{cocktail\}/g, () => this.name(line.cocktailId));
+        if (!raw || raw === line.raw) continue;
+        const translated = this.makeLine(line.actor, raw, line.id, line.expression);
+        const progress = line.text.length ? line.chars / line.text.length : 0;
+        Object.assign(line, {raw:translated.raw, text:translated.text, timings:translated.timings,
+          chars:Math.min(translated.text.length, Math.round(progress * translated.text.length)), typeMs:0});
+      }
+    }
     cocktail(id) {
       const c = this.t.cocktails.find(c => c.id === id);
       if (!c) throw Error('칵테일 없음: ' + id);

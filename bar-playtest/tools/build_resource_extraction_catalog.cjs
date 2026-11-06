@@ -25,6 +25,8 @@ const tailLabels={A:'중앙',B:'왼쪽',C:'오른쪽'};
 const rows=[],seen=new Set();
 function walk(dir){if(!fs.existsSync(path.join(root,dir)))return;for(const f of fs.readdirSync(path.join(root,dir),{withFileTypes:true})){const src=dir+'/'+f.name;if(['extracted','parts','cursors','WebGenerated'].includes(f.name))continue;if(f.isDirectory()){walk(src);continue;}record(src);}}
 function record(src){const f={name:path.basename(src)};if(!/\.png$/i.test(f.name)||seen.has(src))return;seen.add(src);
+ // The 4K flame sequence has one animated review card with frame downloads.
+ if(src.includes('/simchung_dark_flame_alpha_2160p60/'))return;
  // The unsliced exterior sheet is a layout example with baked-in sample dialogue.
  if(src==='assets/01.ArtResources/05.UI/06.Ect/exterior_textbox/GRD_textbox.png')return;
  const data=fs.readFileSync(path.join(root,src));if(data.toString('hex',0,8)!=='89504e470d0a1a0a')throw Error('Not PNG: '+src);

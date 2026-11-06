@@ -20,7 +20,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   assert.equal(ready.id,'home-book');assert(!ready.marker);
   assert.equal(ready.marker,undefined,'D11 removes the badge, not the book interaction');
   assert.equal(ready.glow.target,'home-book');assert.equal(ready.glow.drawn.length,1);
-  assert.equal(ready.glow.drawn[0].node,'ForeFore_Object');assert.deepEqual(ready.glow.drawn[0].region,[...ready.art.rect,ready.art.edge]);
+  assert.equal(ready.glow.drawn[0].node,'home-book');assert.deepEqual(ready.glow.drawn[0].region,[...ready.art.rect,ready.art.edge]);
   assert.equal((await p.locator('.outside-interact').innerText()).replace(/\s+/g,' '),'E 보기');
   await p.screenshot({path:'/private/tmp/home-book-ready.png'});
   const money=await p.evaluate(()=>barGame.progress.money),x=await p.evaluate(()=>outsidePlaytest.model.x);

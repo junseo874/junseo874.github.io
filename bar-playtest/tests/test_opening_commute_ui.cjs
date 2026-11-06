@@ -44,7 +44,7 @@ const assert=require('node:assert/strict');
    await p.keyboard.press('KeyE');assert(await p.evaluate(()=>!!lunaCampaign.memoryTransition));
    await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition,null,{timeout:15000});
    assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.template),'documentary');
-   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.clips.filter(c=>c.type==='dialogue').length),33);
+   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.clips.filter(c=>c.type==='dialogue').length),32);
    assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.clips.filter(c=>c.type==='visual').length),5);
    await p.evaluate(()=>{lunaCampaign.cinema.time=7;lunaCampaign.cinema.player.render(7,null,false);});
    await p.locator('.campaign-stage').screenshot({path:'/private/tmp/main-opening-documentary.png'});

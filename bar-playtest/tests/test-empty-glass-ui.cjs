@@ -23,7 +23,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  assert((await empty.getAttribute('src')).endsWith('long_drink_glass.png'));
  const box=await empty.boundingBox();assert(Math.abs(full.y+full.height-box.y-box.height)<2,'Glass bases stay on the coaster');
  await p.screenshot({path:'/private/tmp/day0-glass-empty.png'});
- for(const [kind,file] of [['weizen','beer_glass.png'],['martini','cocktail_glass.png'],['flute','cocktail_glass.png'],['wine','cocktail_glass.png'],['old_fashioned','long_drink_glass.png'],['unknown','long_drink_glass.png']]){
+ for(const [kind,file] of [['weizen','beer_glass.png'],['martini','cocktail_glass.png'],['flute','Champagne_glass.png'],['wine','Wine_glass.png'],['old_fashioned','Old_fashioned_glass.png'],['unknown','long_drink_glass.png']]){
   await p.evaluate(kind=>{barGame.seats.R.glassKind=kind;lunaCampaign.render(true);},kind);await empty.evaluate(e=>e.decode());assert((await empty.getAttribute('src')).endsWith(file),kind);
  }
  assert.deepEqual(errors,[]);console.log('EMPTY_GLASS_UI_OK: explicit coaster drag, full to empty at dialogue trigger, matching base and six fallback mappings');

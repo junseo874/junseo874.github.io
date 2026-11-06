@@ -44,7 +44,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const alignment=await p.evaluate(()=>{
     const c=lunaCampaign,s=StudioModel.sample(c.cinema.scene,c.cinema.scene.end-.001),cam=s.camera,out=outsidePlaytest.renderCamera,bg=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg');
     const screen=(x,y,v)=>[640+(x-v.x)*1280/v.w,360-(y-v.y)*1280/v.w];
-    const points=[[425,184],[519,224],[302,159],[610,175]].map(([u,v])=>({cinema:screen(-11.2+u*.04,5.4-v*.04,cam),game:screen(bg.x+(u-bg.sprite.w*.5)/100,bg.y+(bg.sprite.h*.5-v)/100,out)}));
+    const points=[[425,184],[519,224],[302,159],[610,175]].map(([u,v])=>({cinema:screen(-11.2+(u+29)*.04,5.4-v*.04,cam),game:screen(bg.x+(u-bg.sprite.w*.5)/100,bg.y+(bg.sprite.h*.5-v)/100,out)}));
     points.push({cinema:screen(s.actors.luna.x,s.actors.luna.y,cam),game:screen(outsidePlaytest.model.x,outsidePlaytest.model.y,out)});
     return {points,scale:s.actors.luna.scale/cam.w,outScale:1/out.w};
    });

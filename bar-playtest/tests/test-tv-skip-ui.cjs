@@ -21,6 +21,9 @@ const runtime = require('../../tools/lib/test-runtime.cjs');
       m.x = 1.22; m.updateNear(); outsidePlaytest.tick(0);
     });
     await page.keyboard.press('KeyE');
+    await page.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});
+    await page.waitForTimeout(550);
+    await page.locator('.world-choices [data-choice="confirm"]').click();
     await page.waitForFunction(() => lunaCampaign.cinema?.dialogueWait && !lunaCampaign.memoryTransition, null, {timeout: 60000});
     assert(await page.evaluate(() => lunaCampaign.canSkipCinema()));
     // Scanline pixels must move while the actual caption/image timeline waits.

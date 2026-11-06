@@ -176,7 +176,7 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 ```text
 type                  choice
 actor                 luna
-text.ko               무언가 버튼이 보인다.
+text.ko               기능을 알 수 없는 버튼이 보인다.
 web_fields.type       home-choice
 web_fields.stage      wardrobe
 web_core_keys         actor|text
@@ -192,7 +192,7 @@ web_core_keys         actor|text
 }
 ```
 
-생성 후 `LUNA_DATA.sharedStory['home/wardrobe']`의 행은 `type: home-choice`, `stage: wardrobe`, `actor: luna`, `text: 무언가 버튼이 보인다.`가 된다. **원본 `choice`를 외부 실행기가 그대로 읽는 것이 아니라 웹 실행용 타입으로 투영한다.**
+생성 후 `LUNA_DATA.sharedStory['home/wardrobe']`의 행은 `type: home-choice`, `stage: wardrobe`, `actor: luna`, `text: 기능을 알 수 없는 버튼이 보인다.`가 된다. **원본 `choice`를 외부 실행기가 그대로 읽는 것이 아니라 웹 실행용 타입으로 투영한다.**
 
 실제 진행:
 
@@ -243,7 +243,7 @@ web_core_keys         actor|text
 
 ### 외부 원고 동기화 · 2026-11-03
 
-[외부 이벤트·대사 원고](https://app.notion.com/p/4071612298dc8078bfe4c1a003995248)를 이번 외부 대사의 정본으로 적용했다. 거리 NPC·상점·주변 대화·집 상호작용·테라스·회상까지이며 바 영업 대사는 변경하지 않았다. TV 다큐는 33줄 모두 동일함을 확인했고, 비활성 뉴스·작업장 막간은 문구만 대조하며 활성화하지 않았다. 노션의 연출 설명은 화면 텍스트에 섞지 않고 기존 액션을 유지한다. `…`는 기존 출력 규칙에 맞춰 `...`로 저장한다. `싫어요. / 아니요.`는 선택 진입 경로에 따라 각각 표시한다.
+[외부 이벤트·대사 원고](https://app.notion.com/p/4071612298dc8078bfe4c1a003995248)를 이번 외부 대사의 정본으로 적용했다. 거리 NPC·상점·주변 대화·집 상호작용·테라스·회상까지이며 바 영업 대사는 변경하지 않았다. 11월 5일 수정본의 TV 다큐 32줄을 적용했고, 비활성 뉴스·작업장 막간은 문구만 대조하며 활성화하지 않았다. 노션의 연출 설명은 화면 텍스트에 섞지 않고 기존 액션을 유지한다. `…`는 기존 출력 규칙에 맞춰 `...`로 저장한다. `싫어요. / 아니요.`는 선택 진입 경로에 따라 각각 표시한다.
 
 2일차 테라스는 새 원고의 13줄 순차 대화로 교체했다. 크리스가 처음부터 함께 있으며 12번째 ‘네, 알겠어요.’ 뒤 조니 기억 56줄, 복귀 후 마지막 침묵 순서다. 이전 `luna-alone` 시작·재료 출처 선택지는 실행하지 않는다. 0일차 회상은 14번째 대사 뒤, 3일차 회상은 8번째 뒤다. 조니 기억은 첫 침묵 이후 톰 표시, ‘자. 여기.’부터 잔 표시를 CSV의 `web_fields.tomPresent`·`web_fields.served`로 지정한다.
 

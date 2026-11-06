@@ -1,13 +1,8 @@
 /* Runtime views are projections, never independent content sources. */
 (function(root){
-// Unity consumes native choice/effect steps; the browser additionally presents the
-// original NPC animation, item notice and inventory without replaying a transaction.
-function optionalPresentation(raw){
- if(raw?.row_id==='steps_shared_newspaper_intro_12')return {type:'newspaper-choice',who:'신문 읽는 남자'};
- if(raw?.type==='effect'&&raw.arg==='gear_part')return {type:'newspaper-action',action:'grant-gear'};
- if(raw?.type==='effect'&&raw.arg==='machine_church_emblem')return {type:'believer-action',action:'grant-emblem'};
- return {};
-}
+const adapters=typeof module==='undefined'?root.LunaStoryProjectionParts:require('./outside-story-compiler.js');
+const {optionalPresentation}=adapters;
+const applyGuestArtwork=typeof module==='undefined'?root.LunaGuestArtworkView:require('./guest-artwork-view.js');
 function project(catalog,views,presentation){
  const nullish=v=>v==null||v===''||v==='\\N';
  const decode=v=>nullish(v)?null:v==='\\E'?'':v?.startsWith('\\\\')?v.slice(1):v;
@@ -31,19 +26,7 @@ function project(catalog,views,presentation){
    }));
   });
  }
- // Guest CSV IDs and Guest/... addresses are Unity's. Translate only the web
- // rendering view using the filenames bound in Unity's Addressables group.
- const guestKeys=new Map();
- for(const part of tables.guest_parts){
-  const address=part.sprite?.replace(/^Guest\//,''),match=/^(.+)_([mf])(?:_(\d+))?$/.exec(address||'');
-  if(!match||match[2]!==part.gender)throw Error('Invalid guest address: '+part.sprite);
-  const [,slot,sex,n]=match;
-  const art=slot==='necklace'?'Acc_1':slot==='outerwear'?'Acc_2':slot==='arm_accessory'?(sex==='m'?'Acc_2':'Acc_3'):({outfit:'top',eyebrows:'eyebrow'}[slot]||slot)+(n?'_'+n:'');
-  const key='guest_'+sex+'_'+art;if(!presentation.assets[key])throw Error('Missing guest graphic: '+part.sprite);
-  guestKeys.set(part.id,key);part.id=key;part.sprite=presentation.assets[key].src;
- }
- for(const pair of tables.guest_exclusions)for(const field of ['a','b']){const key=guestKeys.get(pair[field]);if(!key)throw Error('Unknown excluded guest part: '+pair[field]);pair[field]=key;}
- for(const row of tables.guest_settings)for(const field of Object.keys(row))if(field.startsWith('defaults.')&&row[field])row[field]=guestKeys.get(row[field])||row[field];
+ applyGuestArtwork(tables,presentation);
  function lines(ref){
   const scene=catalog.read(ref.source).scenes.find(s=>s.id===ref.scene);if(!scene)throw Error('View scene missing: '+ref.scene);
   function option(steps,id){for(const step of steps)for(const o of step.options||[]){if(o.id===id)return o;const nested=option(o.result_steps||[],id);if(nested)return nested;}return null;}
@@ -68,7 +51,7 @@ function project(catalog,views,presentation){
  for(const key of ['prologue','day0Bar'])story[key]=lines(views.campaign[key]);
  const outsideChoices=(catalog.rawTables.get('StreetChoices')||[]).filter(r=>['script/street','script/home'].includes(r.dataset_id)).map(r=>Object.fromEntries(['row_id','parent_id','id','text.ko','text.en','when','lock_reason.ko'].map(k=>[k,decode(r[k])])));
  const outsideChoiceEdits=Object.fromEntries(Object.entries(views.outsideChoiceEdits||{}).map(([key,cfg])=>{const r=records.get(cfg.stepId);return[key,{...cfg,prompt:{text:decode(r?.['text.ko'])||'',actor:decode(r?.actor),...(cfg.who?{who:cfg.who}:{})}}];}));
- return{data:{...presentation,tables,outsideChoices,outsideChoiceEdits,sharedStory:Object.fromEntries(Object.entries(views.outside||{}).map(([id,ref])=>[id,lines(ref)]))},story};
+ return{data:{...presentation,tables,newspaperRoutes:adapters.compileNewspaperRoutes(catalog,views),outsideChoices,outsideChoiceEdits,sharedStory:Object.fromEntries(Object.entries(views.outside||{}).map(([id,ref])=>[id,lines(ref)]))},story};
 }
 if(typeof module!=='undefined'&&module.exports)module.exports={project,optionalPresentation};
 else root.LunaRuntimeProjection={project,optionalPresentation};

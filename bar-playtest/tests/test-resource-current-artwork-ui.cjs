@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,'..');
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html?tab=extract');await p.waitForFunction(()=>window.resourceReview?.ready,null,{timeout:90000});
  const inventory=await p.evaluate(()=>({rows:resourceReview.rows,entries:ResourceExtraction.entries}));
  assert.equal(new Set(inventory.rows.map(r=>r.id)).size,inventory.rows.length,'unique review IDs');
- for(const kind of ['beer','cocktail','long_drink'])assert(inventory.rows.some(r=>r.id==='art:table_empty_glass_'+kind&&r.facets.kind==='glass'&&r.facets.usage==='table'));
+ for(const kind of ['beer','cocktail','long_drink','wine','flute','old_fashioned'])assert(inventory.rows.some(r=>r.id==='art:table_empty_glass_'+kind&&r.facets.kind==='glass'&&r.facets.usage==='table'));
  for(const file of ['01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/body.png','01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Talk/face_bottom_talk.png','01.ArtResources/05.UI/02.Title/01.Sprites/IMG_logo.png','outside/effects/fire/cloud.png','outside/effects/fire/distortion.png','outside/effects/tx-ledsign-scrollmask-01.png','01.ArtResources/05.UI/06.Ect/ImageViewer/Interaction_Test_image.png','tutorials/mixing/stir-0.png','tutorials/controls/interaction-npc.png'])assert(inventory.entries.some(e=>e.src==='assets/'+file),file);
  assert(!inventory.entries.some(e=>/\.ttf|reference\/(exports|previews)/.test(e.src)),'only reusable image assets');
  assert(!inventory.rows.find(r=>r.id==='actor:tom:idle_talk').note.includes('정적 이미지'));
@@ -28,7 +28,7 @@ const root=path.resolve(__dirname,'..');
  for(let i=0;i<actual.length;i+=4){assert.equal(actual[i+3],expected[i+3]);if(actual[i+3]===255)assert(actual.subarray(i,i+3).equals(expected.subarray(i,i+3)));}
  await mouth.locator('input').fill('999');pending=p.waitForEvent('download');await mouth.locator('[data-download-image]').click();await pending;assert.equal(await mouth.locator('input').inputValue(),'4');
  await p.screenshot({path:'/private/tmp/resource-current-tom.png',fullPage:true});
- await p.click('[data-group="bar-items"]');await p.fill('#search','빈 잔');assert.equal(await p.locator('#grid .card').count(),3);await p.evaluate(()=>resourceReview.select('art:table_empty_glass_beer'));
+ await p.click('[data-group="bar-items"]');await p.fill('#search','빈 잔');assert.equal(await p.locator('#grid .card').count(),6);await p.evaluate(()=>resourceReview.select('art:table_empty_glass_beer'));
  pending=p.waitForEvent('download');await p.locator('#inspect-downloads a').click();d=await pending;assert(fs.readFileSync(await d.path()).equals(fs.readFileSync(path.join(root,'assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png'))));
  await p.screenshot({path:'/private/tmp/resource-current-glasses.png',fullPage:true});
  await p.click('[data-group="extraction"]');await p.fill('#extract-search','꼬리');assert.equal(await p.locator('.extract-card').count(),3);

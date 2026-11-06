@@ -32,7 +32,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   }
  }
  await p.evaluate(async()=>{const c=lunaCampaign;c.outside.exit(true);c.session.uninstall();c.session.beginCommute(0);delete barGame.progress.flags.day0_tv_seen;Object.assign(c.outside.config,{day:0,flow:'in',place:'home'});await c.outside.start();c.screen('game');const m=c.outside.model;m.x=1.22;m.story.cancel();m.updateNear();c.outside.snapCamera();c.outside.tick(0);});
- await p.keyboard.press('KeyE');await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');
+ assert(await p.evaluate(()=>outsidePlaytest.model.tvOff));
+ await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});
+ assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['본다','끈다','취소']);
+ assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);
+ await p.waitForTimeout(550);await p.locator('[data-choice="confirm"]').click();await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');
  assert(!await p.evaluate(()=>!!barGame.progress.flags.day0_tv_seen));
  await p.waitForFunction(()=>!lunaCampaign.memoryTransition);
  assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('.campaign-prologue')).cursor),'none');
@@ -46,9 +50,9 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  await p.evaluate(()=>{const c=lunaCampaign,done=c.cinema.returnTo;c.disposeCinema();done();});
  assert(await p.evaluate(()=>barGame.progress.flags.day0_tv_seen&&lunaCampaign.session.carry.flags.day0_tv_seen));
  assert.notEqual(await p.evaluate(()=>getComputedStyle(document.body).cursor),'none');
- await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['TV를 본다','끈다']);
- assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.waitForTimeout(550);await p.locator('[data-choice="cancel"]').click();
+ await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});assert.deepEqual(await p.locator('.world-choices button').allTextContents(),['본다','끈다','취소']);
+ assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);await p.waitForTimeout(550);await p.locator('[data-choice="off"]').click();
  assert(await p.evaluate(()=>outsidePlaytest.model.tvOff));assert.equal(await p.evaluate(()=>lunaCampaign.cinema),null);
  await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="confirm"]').click();await p.waitForFunction(()=>lunaCampaign.cinema?.scene?.template==='documentary');assert(!await p.evaluate(()=>outsidePlaytest.model.tvOff));
- assert.deepEqual(errors,[]);console.log('PASS elevator both directions/cancel/Escape, repaired fast-first/default selection/normal ride, first TV direct, seen flag/carry, replay/off and replay after off');
+ assert.deepEqual(errors,[]);console.log('PASS elevator both directions/cancel/Escape, repaired fast-first/default selection/normal ride, TV power/menu, seen flag/carry, replay/off and replay after off');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

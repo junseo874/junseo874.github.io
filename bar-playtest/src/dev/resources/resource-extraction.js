@@ -31,7 +31,16 @@ function collect(rows,assets={}){
  }
  return all;
 }
-function load(src){if(!images.has(src)){const im=new Image();im.src=src;const promise=im.decode().then(()=>im).catch(e=>{images.delete(src);throw e;});images.set(src,promise);}return images.get(src);}
+function load(src){
+ if(!images.has(src)){
+  if(src.includes('/simchung_dark_flame_alpha_2160p60/')){
+   const frames=[...images.keys()].filter(k=>k.includes('/simchung_dark_flame_alpha_2160p60/')&&!k.endsWith('_0000.png'));
+   while(frames.length>=4)images.delete(frames.shift());
+  }
+  const im=new Image();im.src=src;const promise=im.decode().then(()=>im).catch(e=>{images.delete(src);throw e;});images.set(src,promise);
+ }
+ return images.get(src);
+}
 function frames(a){return a.layer?.rects?.length||a.layer?.frames||1;}
 function geometry(a,n,im){
  const l=a.layer||{};

@@ -62,8 +62,8 @@ function draw(ctx,m,cam,position,pass='all'){
 }
 // Native house apertures. Rain is behind the room sheet; glass beads are
 // confined to the two exposed panes below the blinds, before props and actors.
-const HOME_OPENINGS=[[339,132,124,51],[585,22,58,53],[585,95,58,143]];
-const HOME_GLASS=[[340,156,54,24],[400,156,60,24]];
+const HOME_OPENINGS=[[310,132,124,51],[615,22,16,53],[615,95,16,143]];
+const HOME_GLASS=[[311,156,54,24],[371,156,60,24]];
 function drawHome(ctx,m,cam,position,bg,pass){
  if(m?.scene!=='home'||!wet(m)||!bg)return;
  const sp=bg.sprite,left=bg.x-sp.w*sp.pivot.x/sp.ppu,top=bg.y+sp.h*(1-sp.pivot.y)/sp.ppu;

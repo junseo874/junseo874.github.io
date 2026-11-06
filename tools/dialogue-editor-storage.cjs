@@ -76,7 +76,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
 }
 async function runtimeSnapshot(base=BASE){
  const source=await snapshot(base),{result}=await generate(p=>Promise.resolve(source.files[p]));
- return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes,prologue:result.story.prologue}};
+ return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes,prologue:result.story.prologue}};
 }
 if(require.main===module)(async()=>{if(process.argv.includes('--runtime'))return runtimeSnapshot();if(process.argv.includes('--snapshot'))return snapshot();let input='';process.stdin.setEncoding('utf8');for await(const chunk of process.stdin)input+=chunk;return save(JSON.parse(input));})().then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{process.stderr.write(e.message);process.exitCode=1;});
 module.exports={snapshot,save,runtimeSnapshot};

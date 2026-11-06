@@ -12,15 +12,23 @@ const sharp=load('sharp');
  }
  const coverFile=path.basename(window.LUNA_OUTSIDE_DATA.assets[window.LunaHomeArt.book.cover].src);
  assert(fs.existsSync(path.join(dir,coverFile)),'Inspection cover is available alongside the house art');
- assert.equal(new Set([...layers.map(l=>window.LunaHomeArt.assetPath(l.file)),...['Chrishouse1.png','Chrishouse3.png'].map(window.LunaHomeArt.assetPath)]).size,12);
- const composed=await sharp({create:{width:643,height:270,channels:4,background:'#000'}})
-  .composite(layers.map(l=>({input:path.join(root,window.LunaHomeArt.assetPath(l.file)),left:l.x,top:l.y}))).removeAlpha().raw().toBuffer();
- const reference=await sharp(path.join(root,'assets/01.ArtResources/02.Environments/03.Home/chris_house_fullshot.png')).removeAlpha().raw().toBuffer();
- let delta=0;
- // Compare the unchanged full shot; the separated fence is deliberately shifted
- // one native pixel left to meet the exterior opening at x=585.
- for(let y=0;y<270;y++)for(let x=0;x<643;x++)for(let c=0;c<3;c++)if(!(x>=585&&y>=198))delta+=Math.abs(composed[(y*643+x)*3+c]-reference[(y*643+x)*3+c]);
- assert(delta/(643*270*3)<.5,'Complete composition differs by less than half an RGB level from the supplied full shot');
+ assert.equal(layers.length,13);
+ assert.equal(new Set(layers.map(l=>window.LunaHomeArt.assetPath(l.file))).size,13);
+ const parts=[];
+ for(const l of layers){
+  const file=path.join(root,window.LunaHomeArt.assetPath(l.file)),meta=await sharp(file).metadata();
+  assert.equal(meta.width,l.name==='home-city'?643:l.w);assert.equal(meta.height,l.h);
+  parts.push({input:await sharp(file).resize(l.w,l.h).toBuffer(),left:l.x,top:l.y});
+ }
+ const composed=await sharp({create:{width:631,height:270,channels:4,background:'#000'}}).composite(parts).removeAlpha().raw().toBuffer();
+ const reference=await sharp(path.join(root,window.LunaHomeArt.assetPath('Chrishouse_BG_City.png'))).flatten({background:'#000'}).removeAlpha().raw().toBuffer();
+ let delta=0,count=0;
+ // The skyline moves independently; all other pixels match the current full shot.
+ for(let y=0;y<270;y++)for(let x=0;x<615;x++){
+  if(x>=307&&x<=436&&y>=130&&y<=185)continue;
+  for(let c=0;c<3;c++){delta+=Math.abs(composed[(y*631+x)*3+c]-reference[(y*631+x)*3+c]);count++;}
+ }
+ assert(delta/count<.5,'Current split room matches the artist full shot');
  const browser=await load('playwright').chromium.launch({executablePath:chrome,headless:true});
  try{
   const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
@@ -35,30 +43,10 @@ const sharp=load('sharp');
    return calls;
   });
   assert(depth.length>=2&&depth.at(-1)>depth[0],'Rendered city responds to camera movement');
-  const exterior=await page.evaluate(()=>{
-   const bg=LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='main_bg'),cam=outsidePlaytest.renderCamera;
-   const canvas=document.querySelector('.outside-stage canvas'),ctx=canvas.getContext('2d');
-   return [[610,175],[610,218],[570,170],[570,237],[610,245],[585,250],[610,250]].map(([u,v])=>{
-    const x=640+(bg.x+(u-bg.sprite.w/2)/100-cam.x)*1280/cam.w;
-    const y=360-(bg.y+(bg.sprite.h/2-v)/100-cam.y)*1280/cam.w;
-    return {x,y,u,v,floor:v===237,black:(u===570&&v===170)||v>=245,pixel:Array.from(ctx.getImageData(Math.floor(x*canvas.width/1280),Math.floor(y*canvas.height/720),1,1).data)};
-   });
-  });
-  for(const sample of exterior){assert(sample.x>=0&&sample.x<1280,'Exterior lies inside the camera');if(sample.floor)assert(Math.min(...sample.pixel.slice(0,3))>60,'Floor joins the room and railing across the pillar');else if(sample.black)for(let c=0;c<3;c++)assert(Math.abs(sample.pixel[c]-(sample.v>=245?[1,1,7][c]:reference[(sample.v*643+sample.u)*3+c]))<=3,'Pillar remains intact and city cannot show below the floor: '+JSON.stringify(sample));else assert(Math.max(...sample.pixel.slice(0,3))>20,'Exterior city and railing stay visible at their authored position');}
-  const floorPixels=await page.evaluate(async()=>{
-   const cv=document.createElement('canvas');cv.width=643;cv.height=270;
-   const ctx=cv.getContext('2d');ctx.fillStyle='#39caff';ctx.fillRect(0,0,643,270);
-   const im=new Image();im.src=LunaHomeArt.root+'123.png';await im.decode();
-   LunaHomeArt.paintFence(ctx,im,585,198,56,55);
-   return {seam:Array.from(ctx.getImageData(585,198,1,4).data),edge:Array.from(ctx.getImageData(558,238,85,1).data),below:Array.from(ctx.getImageData(558,239,85,31).data)};
-  });
-  assert.deepEqual(floorPixels.seam.slice(0,4),[1,1,4,255],'Fence top rail reaches the exterior opening without a blue one-pixel slit');
-  for(let i=0;i<floorPixels.edge.length;i+=4)assert.deepEqual(floorPixels.edge.slice(i,i+4),[108,106,130,255],'Neutral footing without a magnified cyan fringe');
-  for(let i=0;i<floorPixels.below.length;i+=4)assert.deepEqual(floorPixels.below.slice(i,i+4),[1,1,7,255],'No city visible below the footing');
   const roomFringe=await page.evaluate(async()=>{
-   const im=new Image();im.src=LunaHomeArt.assetPath('Chrishouse2.png');await im.decode();
-   const cv=document.createElement('canvas');cv.width=643;cv.height=270;const ctx=cv.getContext('2d');
-   LunaHomeArt.paintRoom(ctx,im,0,0,643,270);
+   const im=new Image();im.src=LunaHomeArt.assetPath('Chrishouse.png');await im.decode();
+   const cv=document.createElement('canvas');cv.width=631;cv.height=270;const ctx=cv.getContext('2d');
+   LunaHomeArt.paintRoom(ctx,im,0,0,631,270);
    return [50,320,500].map(x=>[Array.from(ctx.getImageData(x,237,1,1).data),Array.from(ctx.getImageData(x,238,1,1).data)]);
   });
   for(const [floor,edge]of roomFringe)assert.deepEqual(edge,floor,'Room floor extends without the cyan source fringe');
@@ -72,7 +60,8 @@ const sharp=load('sharp');
    });
    for(const kind of ['opening','sleep','morning']){
     const scene=await lunaCampaign.prepareStudio(kind),house=scene.clips.filter(c=>c.track==='house'||c.track.startsWith('house-'));
-    if(house.length!==LunaHomeArt.layers.length)throw Error('Missing room layer in '+kind);
+    if(house.length!==LunaHomeArt.layers.length-1)throw Error('Missing room layer in '+kind);
+    if(house.some(c=>c.assetId==='opening-home-home-tv-screen'))throw Error('TV must start off in '+kind);
     const base=house.find(c=>c.track==='house');
     for(const clip of house){
      if(clip.start!==base.start||clip.duration!==base.duration)throw Error('Room layer disappears in '+kind);
@@ -83,6 +72,6 @@ const sharp=load('sharp');
   });
   for(const [i,l]of layers.entries())assert.deepEqual(audit[i],{name:l.name,src:window.LunaHomeArt.assetPath(l.file),x:l.x,y:l.y});
   assert.deepEqual(errors,[]);
-  console.log('PASS 12 original house sheets; full-shot mean RGB difference '+(delta/(643*270*3)).toFixed(4)+'; gameplay placements and opening/sleep/morning use the same complete room');
+  console.log('PASS 13 current house layers; full-shot mean RGB difference '+(delta/count).toFixed(4)+'; gameplay placements and opening/sleep/morning use the same complete room');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

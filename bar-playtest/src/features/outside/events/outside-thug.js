@@ -1,7 +1,7 @@
 // Day 1 forced corridor encounter. Reuses the street actor and speech layers.
 (function(W){
 'use strict';
-const id='day1-corridor-thug',R=W.LunaResidence.layout,home=R.homeX,npcX=home+.7;
+const id='day1-corridor-thug',R=W.LunaResidence.layout,home=R.homeX,enginePoint=W.LunaEngineWorld?.actorPoint('street',id,'thug'),npcX=enginePoint?.x??home+.7;
 const say=(actor,text)=>({type:'say',actor,text}),n=text=>say(id,text),l=text=>say('luna',text);
 const intro=W.LUNA_DATA?.sharedStory?.['thug/intro']||[n('...뭐야, 너.'),l('누구신가요?'),n('여기 사는 사람인데. 너, 그 집에 사는 거야?'),l('어제부터 지내고 있습니다.'),n('하. 그 남자, 세상 무뚝뚝한 척은 다 하더니. 이런 어린 여자나 꼬시고 있었어?'),n('즐길 건 다 즐기면서 살고 있었구만.'),l('무슨 일이신가요?'),n('...별건 아니고. 여기 새로 들어오면 입주 비용을 내야 하는데, 알고 있어?'),l('그런 비용이 있다는 말은 듣지 못했습니다.'),n('그래? 그럼 나한테 500원만 줘. 내가 대신 처리해 줄 테니까.'),{type:'thug-choice',actor:id,text:'입주 비용으로 500원을 건네시겠습니까?'}];
 const paid=W.LUNA_DATA?.sharedStory?.['thug/paid']||[n('뭐야. 생각보다 고분고분하잖아?'),n('너, 나랑 같이 살 생각은 없어? 내가 그 남자보단 따뜻하게 대해 줄 수 있는데.'),l('그럴 생각은 없습니다.'),n('칫. 이런 건 또 딱 잘라 거절하네.'),n('뭐, 됐어. 아침부터 돈도 생기고, 오늘은 운이 좋네.'),l('...입주 비용을 처리해 주시는 거 아니었나요?'),n('아, 알아서 한다니까. 넌 가던 길이나 가.'),{type:'thug-action',action:'depart'},l('...')];
@@ -27,17 +27,17 @@ function tick(m,dt){let e=m.encounter;
  else if(e.stage==='leaving'&&e.cameraReady&&e.elapsed>.4){save(m,'day1_thug_done',true);m.encounter=null;W.outsidePlaytest?.clearInput();m.updateNear();}
  return true;
 }
-function choiceView(){const money=Math.max(0,Number(W.barGame?.progress.money)||0);return{label:'입주 비용 선택',money,options:[{id:'thug-pay',label:'500원을 준다.',disabled:money<500,disabledReason:'돈이 부족합니다.'},{id:'thug-refuse',label:'주지 않는다.',disabled:false}]};}
+function choiceView(){const money=Math.max(0,Number(W.barGame?.progress.money)||0);return{label:'입주 비용 선택',money,options:[{id:'thug-pay',label:'500원을 준다 · 500원',disabled:money<500,disabledReason:'돈이 부족합니다.'},{id:'thug-refuse',label:'주지 않는다.',disabled:false}]};}
 function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return false;const pay=choice==='thug-pay';if(!pay&&choice!=='thug-refuse'||pay&&Math.max(0,Number(W.barGame?.progress.money)||0)<500)return false;s.choice=false;
  if(pay){const g=W.barGame,before=g.progress.money;g.progress.money=before-500;const c=W.lunaCampaign;if(c?.session.active&&c.session.carry)c.session.carry.money=g.progress.money;g.log('corridor_thug_payment',{before,after:g.progress.money,price:500});g.changed();}
  save(m,'day1_thug_choice',pay?'pay':'refuse');m.story.beginRows(id,s.target,pay?paid:refused);return true;
 }
-function pose(m){const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??npcX;return{sp:W.LunaOutsideAmbient.sprite('Neighbor',m.time),x,y:R.upperY-.274,flip:e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha:e?.alpha??1};}
-function anchor(m,actor){if(actor!==id)return null;const p=pose(m);return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,1,1,p.flip)||{x:p.x,y:p.y+.61};}
+function pose(m){const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??npcX,p={sp:W.LunaOutsideAmbient.sprite('Neighbor',m.time),x,y:enginePoint?.y??R.upperY-.274,flip:e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha:e?.alpha??1};return W.LunaEngineWorld?W.LunaEngineWorld.actorPose('street',id,'thug',p.sp,p.x,p.y,p.flip,p.alpha):p;}
+function anchor(m,actor){if(actor!==id)return null;const p=pose(m);return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.sx??1,p.sy??1,p.flip)||{x:p.x,y:p.y+.61};}
 function draw(m,sprite,ctx,position){if(!visible(m))return;const p=pose(m);
  // The right-hand pillar is baked into the building art; clip the NPC behind it.
  ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();
- sprite(p.sp,p.x,p.y,1,1,p.flip,p.alpha);
+ sprite({...p.sp,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??1,p.sy??1,p.flip,p.alpha);
  // The existing body lunge/recoil conveys the hit. Do not draw an extra limb.
  ctx.restore();
 }

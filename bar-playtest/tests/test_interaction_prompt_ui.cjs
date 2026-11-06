@@ -23,7 +23,7 @@ const assert=require('node:assert/strict');
   assert(results.length>20);
   for(const r of results){
    assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
-   const expected={tv:'TV 보기',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
+   const expected={tv:'TV 상호작용',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};
    Object.assign(expected,{bed:'보기',wardrobe:'보기','home-book':'보기','neighborhood-boss':'대화하기','neighborhood-guard':'대화하기','neighborhood-repair':'대화하기','neighborhood-box':'보기','neighborhood-cat':'보기','neighborhood-home-cat':'보기'});
    expected['street-newspaper']='대화하기';expected['street-believer']='대화하기';
    assert(expected[r.id],'Unclassified target '+r.id);assert.equal(r.text,'E'+expected[r.id]);assert(r.ordered);assert.equal(r.inline,'');
@@ -81,6 +81,9 @@ const assert=require('node:assert/strict');
   await p.keyboard.press('Escape');assert(await prompt.isHidden());await p.keyboard.press('Escape');assert(await prompt.isVisible());
   // The relocated hint still performs the same interaction on click.
   await prompt.click();
+  await p.locator('.world-choices [data-choice="confirm"]').waitFor({state:'visible'});
+  await p.waitForTimeout(550);
+  await p.locator('.world-choices [data-choice="confirm"]').click();
   await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.memoryTransition,null,{timeout:60000});
   assert.equal(await p.evaluate(()=>lunaCampaign.cinema.scene.template),'documentary');
   assert(await prompt.isHidden());

@@ -1,6 +1,8 @@
 (function (global) {
   'use strict';
 
+  global.LunaEngineWorld?.applyStreet(global.LUNA_OUTSIDE_DATA);
+
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v)),
     mix = (a, b, t) => a + (b - a) * t,
     smooth = t => t * t * (3 - 2 * t);
@@ -17,7 +19,7 @@
   const SOFA = {
     id: 'sofa',
     label: '소파 살펴보기',
-    x: 2.557,
+    x: global.LunaEngineWorld?.point('home','home_sofa')?.x??2.557,
     y: -.7
   };
   // HUD verbs describe the action, while target.label remains the object's name
@@ -29,7 +31,7 @@
     home: '들어가기',
     exit: '나가기',
     elevator: '작동하기',
-    tv: 'TV 보기',
+    tv: 'TV 상호작용',
     sofa: '휴식하기'
   });
   const TALK_TARGETS = new Set(['shiba-shop', 'street-beggar', 'street-beggar-witness', 'street-newspaper', 'street-believer', 'day2-thug-information', 'story-samho']);
@@ -110,7 +112,7 @@
     const rank = n => n.ancestry?.[0] === 'BG' || n.ancestry?.[0] === 'Residence' ? 0 : 1;
     // The residential facade is foreground art despite sharing layer 5 with
     // distant city displays. Keep those displays behind the facade as a group.
-    const depth = n => n.name === 'residence-building' ? 5.5 : n.layer;
+    const depth = n => !global.LunaEngineWorld&&n.name === 'residence-building' ? 5.5 : n.layer;
     return nodes.slice().sort((a, b) => depth(a) - depth(b) || a.order - b.order || b.z - a.z || rank(a) - rank(b) || String(a.id).localeCompare(String(b.id)));
   }
   function interactionAnchor(model, target, data, stable = false) {
@@ -203,7 +205,7 @@
       this.neighborhood = null;
       this.scene = this.config.place === 'home' ? 'home' : 'street';
       this.level = this.config.place === 'bar' ? 0 : 1;
-      this.x = this.config.place === 'bar' ? 1 : this.config.place === 'home' ? -1.28 : R.homeX;
+      this.x = this.config.place === 'bar' ? (global.LunaEngineWorld?.point('street','04.Gameplay/BarSpawn')?.x??1) : this.config.place === 'home' ? (global.LunaEngineWorld?.point('home','04.Gameplay/HomeSafeSpawn')?.x??-1.28) : R.homeX;
       this.y = this.scene === 'home' || !this.level ? -.7 : R.upperY;
       this.controlsTutorial = false;
       this.controlsInteractUntil = 0;
@@ -226,7 +228,7 @@
       this.backgroundStory = new global.LunaOutsideStory.BackgroundStories(this);
       this.playedAmbient = new Set();
       this.tvNewsInRange = false;
-      this.tvOff = false;
+      this.tvOff = true;
       this.notionCommuteSeen = false;
       global.LunaOutsideQA?.init(this, qaOptions);
       this.updateNear();
@@ -263,15 +265,14 @@
     }
     chooseObject(id) {
       const d=this.dialog;
-      if(this.paused||!d||!['elevator','tv'].includes(d.kind)||!['confirm','cancel','fast'].includes(id))return false;
+      if(d?.kind==='tv')return global.LunaOutsideTV.choose(this,id);
+      if(this.paused||!d||d.kind!=='elevator'||!['confirm','cancel','fast'].includes(id))return false;
       if(id==='fast'&&(d.kind!=='elevator'||!global.LunaOutsideNeighborhood?.repaired()))return false;
       this.dialog=null;this.revision++;this.updateNear();
       if(id==='cancel'){
-        if(d.kind==='tv'){this.tvOff=true;this.backgroundStory.cancel();}
         return true;
       }
-      if(d.kind==='tv'){this.tvOff=false;global.lunaCampaign?.playDayZeroTV(this);}
-      else if(!global.lunaCampaign?.interactOutside(this,{id:'elevator',fast:id==='fast'})){
+      if(!global.lunaCampaign?.interactOutside(this,{id:'elevator',fast:id==='fast'})){
         if(id==='fast')global.LunaOutsideNeighborhood.fastTravel(this);else this.startLift();
       }
       return true;
@@ -365,7 +366,7 @@
         }, [{
           type: 'say',
           actor: 'luna',
-          text: "바 '언노운' 여기인가보네."
+          text: "바 '언노운'이면 여기인가 보네."
         }], false, () => global.outsidePlaytest?.clearInput());
       }
       this.updateNear();
@@ -373,15 +374,15 @@
     }
     targets() {
       if (this.qa) return global.LunaOutsideQA.targets(this);
-      if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), global.LunaHomeArt.bookTarget(), ...(this.config.day === 0 ? [{
+      if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), global.LunaHomeArt.bookTarget(), {
         id: 'tv',
-        label: 'TV 다큐 보기',
-        x: 1.22,
+        label: 'TV 상호작용',
+        x: global.LunaEngineWorld?.node('home','289449519')?.x??1.22,
         y: -.7
-      }] : []), {
+      }, {
         id: 'exit',
         label: '밖으로 나가기',
-        x: -1.581,
+        x: global.LunaEngineWorld?.point('home','home_exit_door')?.x??-1.581,
         y: -.7
       }, ...(this.config.flow === 'out' ? [SOFA] : []), ...(global.LunaOutsideNeighborhood?.targets(this) || [])];
       if (this.level) return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideNotion?.targets(this) || []), {
@@ -398,7 +399,7 @@
       return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideEncounters?.targets(this) || []), {
         id: 'bar',
         label: '바 입구',
-        x: 1.0086,
+        x: global.LunaEngineWorld?.node('street','917009659')?.x??1.0086,
         y: -.7
       }, {
         id: 'elevator',
@@ -463,6 +464,7 @@
         this.updateNear();
         return true;
       }
+      if(t.id==='tv')return global.LunaOutsideTV.open(this);
       if(t.id==='elevator'){
         global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
         this.dialog={kind:'elevator',key:'elevator:'+ ++this.revision};
@@ -565,7 +567,7 @@
           t.swapped = true;
           this.scene = t.to;
           this.level = t.barArrival ? 0 : 1;
-          this.x = t.barArrival ? FIRST_COMMUTE_ARRIVAL.from : this.scene === 'home' ? -1.28 : R.homeX;
+          this.x = t.barArrival ? FIRST_COMMUTE_ARRIVAL.from : this.scene === 'home' ? (global.LunaEngineWorld?.point('home','04.Gameplay/HomeSafeSpawn')?.x??-1.28) : R.homeX;
           this.y = t.barArrival || this.scene === 'home' ? -.7 : R.upperY;
           this.elevatorY = t.barArrival ? BOTTOM : TOP;
           if (t.barArrival) {
@@ -623,7 +625,7 @@
           }, [{
             type: 'say',
             actor: 'luna',
-            text: '지금은 언노운 가게로 출근해야해.'
+            text: '지금은 언노운으로 출근해야 해.'
           }], false, () => global.outsidePlaytest?.clearInput());
         }
       }

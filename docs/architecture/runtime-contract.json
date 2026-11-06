@@ -91,6 +91,18 @@
   ],
   "bar-playtest/index.html": [
     [
+      "script",
+      "src/features/outside/events/neighborhood-choice-rules.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/newspaper-progress.js"
+    ],
+    [
+      "script",
+      "src/features/outside/events/newspaper-dialogue.js"
+    ],
+    [
       "link",
       "src/app/styles.css"
     ],
@@ -508,6 +520,14 @@
     ],
     [
       "script",
+      "data/presentation/engine-world-layout.js"
+    ],
+    [
+      "script",
+      "src/features/outside/engine-world-layout.js"
+    ],
+    [
+      "script",
       "src/features/outside/samho-animation.js"
     ],
     [
@@ -866,6 +886,14 @@
     ],
     [
       "script",
+      "src/shared/data/guest-artwork-view.js"
+    ],
+    [
+      "script",
+      "src/shared/data/outside-story-compiler.js"
+    ],
+    [
+      "script",
       "src/shared/data/runtime-projection.js"
     ],
     [
@@ -930,6 +958,14 @@
     ],
     [
       "script",
+      "src/shared/data/guest-artwork-view.js"
+    ],
+    [
+      "script",
+      "src/shared/data/outside-story-compiler.js"
+    ],
+    [
+      "script",
       "src/shared/data/runtime-projection.js"
     ],
     [
@@ -966,6 +1002,10 @@
     ],
     [
       "script",
+      "src/features/outside/events/neighborhood-choice-rules.js"
+    ],
+    [
+      "script",
       "src/features/outside/events/outside-authoring.js"
     ],
     [
@@ -975,6 +1015,10 @@
     [
       "script",
       "src/shared/dialogue/world-choices.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/choice-parity.js"
     ],
     [
       "script",
@@ -1165,6 +1209,14 @@
     [
       "script",
       "../bar-playtest/data/runtime/outside-scene-data.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/data/presentation/engine-world-layout.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/features/outside/engine-world-layout.js"
     ],
     [
       "script",
