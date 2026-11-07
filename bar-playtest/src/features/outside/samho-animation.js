@@ -8,5 +8,8 @@ function apply(data){
  data.animations.samhoIdle={fps:12,frames};node.sprite=frames[0];
 }
 function frame(time){const a=W.LUNA_OUTSIDE_DATA.animations.samhoIdle;return a.frames[Math.floor(Math.max(0,time)*a.fps)%a.frames.length];}
-W.LunaSamhoAnimation={apply,frame};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
+// All eight supplied idle cells end their visible soles at pixel 74, not 81.
+// Seat visible pixels on the road without scaling the transparent cell padding.
+function groundOrigin(sp,scale,ground){return ground-((1-sp.pivot.y)*sp.h-74)/sp.ppu*scale;}
+W.LunaSamhoAnimation={apply,frame,groundOrigin};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

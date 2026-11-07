@@ -55,8 +55,9 @@
     "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_1 1.png.meta": "4084fa134945779636f06f29c658b32ea1ad016e3c6bf1dfd44c259f83d7fdaa"
   },
   "notes": [
-    "Engine actor position, size and sorting are intentional, including Default-layer actors occluded by the street background.",
-    "New split house artwork is registered to the engine door; web-only objects retain their local authored offsets.",
+    "NPCs use latest web frames and native 100 PPU proportions relative to Luna, not engine auto-sized visual children. Engine root positions and corrected walking layers remain; day2 information NPC shares the next-door neighbor anchor, not the cat perch.",
+    "All latest split house artwork shares its full-shot pixel offsets anchored to the engine door, including TV/screen and table/book.",
+    "Lift camera metadata retains engine endpoints/timing; liftCamera() uses quintic/log-scale interpolation and continuous passenger anchors instead of the original intermediate curves.",
     "Scene examples and engine-only dialogue content are not imported into the web story."
   ],
   "scenes": {
@@ -2922,7 +2923,7 @@
           "id": "220094232",
           "name": "Terrace_Entrance",
           "x": 3.362,
-          "y": -0.492,
+          "y": -0.502,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -2944,7 +2945,7 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png",
           "engineNode": "220094232",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "398070674",
@@ -2978,8 +2979,8 @@
         {
           "id": "953149914",
           "name": "ForeFore_Object",
-          "x": 3.042,
-          "y": -0.882,
+          "x": 2.5970000000000004,
+          "y": -0.8919999999999999,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3001,13 +3002,13 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object.png",
           "engineNode": "953149914",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "1144763783",
           "name": "Hanger",
-          "x": 3.162,
-          "y": -0.567,
+          "x": 3.1720000000000006,
+          "y": -0.577,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3029,7 +3030,7 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png",
           "engineNode": "1144763783",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "1183900665",
@@ -3090,8 +3091,8 @@
         {
           "id": "2030127651",
           "name": "IntractObjects",
-          "x": 1.212,
-          "y": -0.37599999999999995,
+          "x": 1.2170000000000003,
+          "y": -0.44700000000000006,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3113,7 +3114,7 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV.png",
           "engineNode": "289449519",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "home-city",
@@ -3146,8 +3147,8 @@
         {
           "id": "home-tv-screen",
           "name": "home-tv-screen",
-          "x": 1.2269999999999999,
-          "y": -0.346,
+          "x": 1.232,
+          "y": -0.41700000000000004,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3169,7 +3170,7 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV_on.png",
           "engineNode": "289449519",
-          "placementSource": "web-child"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "home-bed",
@@ -3230,8 +3231,8 @@
         {
           "id": "home-bedding",
           "name": "home-bedding",
-          "x": 2.577,
-          "y": -0.686,
+          "x": 2.5920000000000005,
+          "y": -0.6970000000000001,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3253,13 +3254,13 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bedding.png",
           "engineNode": "2030127651",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "home-herb",
           "name": "home-herb",
-          "x": 2.442,
-          "y": -0.362,
+          "x": 2.4220000000000006,
+          "y": -0.3520000000000001,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3281,13 +3282,13 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png",
           "engineNode": "463204427",
-          "placementSource": "engine"
+          "placementSource": "web-room-frame"
         },
         {
           "id": "home-book",
           "name": "home-book",
-          "x": 2.327,
-          "y": -0.742,
+          "x": 1.882,
+          "y": -0.7520000000000002,
           "z": 0,
           "sx": 1,
           "sy": 1,
@@ -3309,12 +3310,12 @@
           },
           "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object_Book.png",
           "engineNode": "953149914",
-          "placementSource": "web-child"
+          "placementSource": "web-room-frame"
         }
       ]
     }
   },
-  "actorAlignmentStatus": "engine-position-scale-and-sorting",
+  "actorAlignmentStatus": "engine-roots-with-native-web-sprite-proportions",
   "actors": {
     "home": {
       "neighborhood-homeCat": {
@@ -3330,141 +3331,39 @@
           },
           "visual": {
             "x": 2.65,
-            "y": -0.1850000055,
+            "y": -0.46,
             "z": 0,
             "a": 2.3913043,
             "b": 0,
             "c": 0,
             "d": 2.3913043
           },
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "art": "web-procedural-cat",
-          "height": 0.549999989
+          "height": 0.247
         },
         "chris": {
           "sp": {
             "asset": "ambient-Chris",
-            "x": 50,
-            "y": 50,
-            "w": 28,
-            "h": 65,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Chris_idle_0",
-            "engineFrames": [
-              {
-                "x": 50,
-                "y": 50,
-                "w": 28,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_0"
-              },
-              {
-                "x": 179,
-                "y": 50,
-                "w": 28,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_1"
-              },
-              {
-                "x": 308,
-                "y": 49,
-                "w": 28,
-                "h": 66,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_2"
-              },
-              {
-                "x": 437,
-                "y": 48,
-                "w": 28,
-                "h": 67,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_3"
-              },
-              {
-                "x": 566,
-                "y": 48,
-                "w": 28,
-                "h": 67,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_4"
-              },
-              {
-                "x": 695,
-                "y": 49,
-                "w": 28,
-                "h": 66,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_5"
-              },
-              {
-                "x": 824,
-                "y": 50,
-                "w": 28,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_6"
-              },
-              {
-                "x": 953,
-                "y": 51,
-                "w": 28,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_7"
-              },
-              {
-                "x": 1082,
-                "y": 50,
-                "w": 28,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Chris_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": 1.75,
-          "y": -0.1199999399999998,
-          "sx": 2.6153848,
-          "sy": 2.6153848,
+          "y": -0.97,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "home",
             "event": "neighborhood-homeCat",
@@ -3492,141 +3391,39 @@
           },
           "visual": {
             "x": -15.34,
-            "y": 10.0949999945,
+            "y": 9.82,
             "z": 0,
             "a": 2.3913043,
             "b": 0,
             "c": 0,
             "d": 2.3913043
           },
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "art": "web-procedural-cat",
-          "height": 0.549999989
+          "height": 0.247
         },
         "neighbor": {
           "sp": {
             "asset": "ambient-Neighbor",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Neighbor_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": -14.2600001,
-          "y": 10.576000156499997,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "y": 9.392,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-reveal",
@@ -3634,7 +3431,7 @@
           },
           "root": {
             "x": -14.2600001,
-            "y": 9.72600014
+            "y": 9.392
           },
           "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
         }
@@ -3643,126 +3440,24 @@
         "repair": {
           "sp": {
             "asset": "ambient-Repairman",
-            "x": 49,
-            "y": 51,
-            "w": 30,
-            "h": 64,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Repairman_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 51,
-                "w": 30,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 51,
-                "w": 30,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 50,
-                "w": 30,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 49,
-                "w": 30,
-                "h": 66,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 49,
-                "w": 30,
-                "h": 66,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 50,
-                "w": 30,
-                "h": 65,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 51,
-                "w": 30,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 51,
-                "w": 30,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Repairman_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": -11.675,
-          "y": -0.12399993599999992,
-          "sx": 2.6562502,
-          "sy": 2.6562502,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-repairGreeting",
@@ -3790,14 +3485,14 @@
             "name": "shi_Bar-Sheet_0",
             "ppu": 100
           },
-          "x": -2.68,
+          "x": -2.87,
           "y": -0.596,
-          "sx": 9.69298302631579,
-          "sy": 9.444445,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "shiba-shop-revisit",
@@ -3826,13 +3521,13 @@
             "ppu": 100
           },
           "x": -11.06,
-          "y": 0.03099998881999999,
-          "sx": 2.0987654,
-          "sy": 2.0987654,
+          "y": -0.6957,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "commute3",
@@ -3861,13 +3556,13 @@
             "ppu": 100
           },
           "x": -10.060000400000002,
-          "y": 0.03099998881999999,
-          "sx": 2.0987654,
-          "sy": 2.0987654,
+          "y": -0.6957,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "day3-samho-contract",
@@ -3882,93 +3577,24 @@
         "dealer": {
           "sp": {
             "asset": "ambient-M1",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "npc_m2_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_5"
-              }
-            ]
+            "ppu": 100
           },
           "x": -8.060000400000002,
-          "y": 0.15000001649999994,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "day3-samho-contract",
@@ -3985,126 +3611,24 @@
         "boss": {
           "sp": {
             "asset": "ambient-Gang5",
-            "x": 49,
-            "y": 44,
-            "w": 30,
-            "h": 71,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "GangNPC5_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 44,
-                "w": 30,
-                "h": 71,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 44,
-                "w": 30,
-                "h": 71,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 43,
-                "w": 30,
-                "h": 72,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 42,
-                "w": 30,
-                "h": 73,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 42,
-                "w": 30,
-                "h": 73,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 43,
-                "w": 30,
-                "h": 72,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 44,
-                "w": 30,
-                "h": 71,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 45,
-                "w": 30,
-                "h": 70,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 44,
-                "w": 30,
-                "h": 71,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC5_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": -15.5,
-          "y": -0.12399996349999998,
-          "sx": 2.3943663,
-          "sy": 2.3943663,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 14,
+          "order": 0,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-bossIntro",
@@ -4119,115 +3643,24 @@
         "gangmate": {
           "sp": {
             "asset": "ambient-Gang3",
-            "x": 55,
-            "y": 53,
-            "w": 21,
-            "h": 62,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "GangNPC3_idle_0",
-            "engineFrames": [
-              {
-                "x": 55,
-                "y": 53,
-                "w": 21,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_0"
-              },
-              {
-                "x": 184,
-                "y": 53,
-                "w": 21,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_1"
-              },
-              {
-                "x": 313,
-                "y": 52,
-                "w": 21,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_2"
-              },
-              {
-                "x": 442,
-                "y": 51,
-                "w": 21,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_3"
-              },
-              {
-                "x": 571,
-                "y": 51,
-                "w": 21,
-                "h": 64,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_4"
-              },
-              {
-                "x": 700,
-                "y": 52,
-                "w": 21,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_5"
-              },
-              {
-                "x": 829,
-                "y": 53,
-                "w": 21,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_6"
-              },
-              {
-                "x": 958,
-                "y": 54,
-                "w": 21,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC3_idle_7"
-              }
-            ]
+            "ppu": 100
           },
           "x": -14.72000027,
-          "y": -0.12399999499999992,
-          "sx": 2.7419355,
-          "sy": 2.7419355,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 14,
+          "order": 0,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-bossIntro",
@@ -4255,14 +3688,14 @@
             "name": "shi_Bar-Sheet_0",
             "ppu": 100
           },
-          "x": -2.68,
+          "x": -2.87,
           "y": -0.596,
-          "sx": 9.69298302631579,
-          "sy": 9.444445,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "shiba-shop",
@@ -4279,126 +3712,24 @@
         "thug": {
           "sp": {
             "asset": "ambient-Neighbor",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Neighbor_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": -15.66,
-          "y": 10.4700000165,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "y": 9.392,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "day1-corridor-thug",
@@ -4406,7 +3737,7 @@
           },
           "root": {
             "x": -15.66,
-            "y": 9.62
+            "y": 9.392
           },
           "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
         }
@@ -4415,134 +3746,32 @@
         "thug": {
           "sp": {
             "asset": "ambient-Neighbor",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Neighbor_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_8"
-              }
-            ]
+            "ppu": 100
           },
-          "x": -15.66,
-          "y": 10.4700000165,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "x": -14.2600001,
+          "y": 9.392,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "day2-thug-information",
             "role": "thug"
           },
           "root": {
-            "x": -15.66,
-            "y": 9.62
+            "x": -14.2600001,
+            "y": 9.392
           },
           "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
         }
@@ -4563,13 +3792,13 @@
             "ppu": 100
           },
           "x": 3.0000001000000003,
-          "y": 0.03099998881999999,
-          "sx": 2.0987654,
-          "sy": 2.0987654,
+          "y": -0.6957,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "outside_day1_samho_smuggler",
@@ -4584,93 +3813,24 @@
         "dealer": {
           "sp": {
             "asset": "ambient-M1",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "npc_m2_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "npc_m2_idle_5"
-              }
-            ]
+            "ppu": 100
           },
           "x": 5.0000001,
-          "y": 0.15000001649999994,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "outside_day1_samho_smuggler",
@@ -4687,134 +3847,32 @@
         "thug": {
           "sp": {
             "asset": "ambient-Neighbor",
-            "x": 49,
-            "y": 54,
-            "w": 30,
-            "h": 61,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "Neighbor_idle_0",
-            "engineFrames": [
-              {
-                "x": 49,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_0"
-              },
-              {
-                "x": 178,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_1"
-              },
-              {
-                "x": 307,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_2"
-              },
-              {
-                "x": 436,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_3"
-              },
-              {
-                "x": 565,
-                "y": 52,
-                "w": 30,
-                "h": 63,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_4"
-              },
-              {
-                "x": 694,
-                "y": 53,
-                "w": 30,
-                "h": 62,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_5"
-              },
-              {
-                "x": 823,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_6"
-              },
-              {
-                "x": 952,
-                "y": 55,
-                "w": 30,
-                "h": 60,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_7"
-              },
-              {
-                "x": 1081,
-                "y": 54,
-                "w": 30,
-                "h": 61,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "Neighbor_idle_8"
-              }
-            ]
+            "ppu": 100
           },
-          "x": -15.66,
-          "y": 10.4700000165,
-          "sx": 2.7868853,
-          "sy": 2.7868853,
+          "x": -14.2600001,
+          "y": 9.392,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "day2-corridor-thug",
             "role": "thug"
           },
           "root": {
-            "x": -15.66,
-            "y": 9.62
+            "x": -14.2600001,
+            "y": 9.392
           },
           "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Neighbor_idle.png"
         }
@@ -4835,13 +3893,13 @@
             "ppu": 100
           },
           "x": -5.99,
-          "y": 0.03099998881999999,
-          "sx": 2.0987654,
-          "sy": 2.0987654,
+          "y": -0.6957,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "commute2",
@@ -4858,126 +3916,24 @@
         "guard": {
           "sp": {
             "asset": "ambient-Gang1",
-            "x": 55,
-            "y": 60,
-            "w": 19,
-            "h": 55,
+            "x": 0,
+            "y": 0,
+            "w": 129,
+            "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.5
+              "y": 0.17391304347826086
             },
-            "ppu": 100,
-            "name": "GangNPC1_idle_0",
-            "engineFrames": [
-              {
-                "x": 55,
-                "y": 60,
-                "w": 19,
-                "h": 55,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_0"
-              },
-              {
-                "x": 184,
-                "y": 60,
-                "w": 19,
-                "h": 55,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_1"
-              },
-              {
-                "x": 313,
-                "y": 59,
-                "w": 19,
-                "h": 56,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_2"
-              },
-              {
-                "x": 442,
-                "y": 58,
-                "w": 19,
-                "h": 57,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_3"
-              },
-              {
-                "x": 571,
-                "y": 58,
-                "w": 19,
-                "h": 57,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_4"
-              },
-              {
-                "x": 700,
-                "y": 59,
-                "w": 19,
-                "h": 56,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_5"
-              },
-              {
-                "x": 829,
-                "y": 60,
-                "w": 19,
-                "h": 55,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_6"
-              },
-              {
-                "x": 958,
-                "y": 61,
-                "w": 19,
-                "h": 54,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_7"
-              },
-              {
-                "x": 1087,
-                "y": 60,
-                "w": 19,
-                "h": 55,
-                "pivot": {
-                  "x": 0.5,
-                  "y": 0.5
-                },
-                "name": "GangNPC1_idle_8"
-              }
-            ]
+            "ppu": 100
           },
           "x": -14.125,
-          "y": -0.12400002499999996,
-          "sx": 3.090909,
-          "sy": 3.090909,
+          "y": -0.974,
+          "sx": 1,
+          "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 0,
-          "order": 100,
+          "layer": 14,
+          "order": 0,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-guardBlocked",

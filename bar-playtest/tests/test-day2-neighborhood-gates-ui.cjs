@@ -28,10 +28,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   c.session.uninstall();c.session.install({developer:true});c.screen('developer');
   g.progress.flags={boobi_revealed:true};m.start({day:2,flow:'in',place:'homeDoor'});m.controlsTutorial=false;
   m.x=N.places.cat.x;m.tick(.05);ok(!m.encounter,'cat approach does not force neighbor dialogue');
-  m.x=R.homeX+1.90-.30;m.tick(.05);m.tick(.05);ok(m.encounter?.kind==='day2-corridor-thug','door approach starts neighbor');
-  ok(Math.abs(m.encounter.npcX-(R.homeX+1.90))<1e-8,'actor at next door');
-  m.story.cancel();m.encounter=null;g.progress.flags.day2_thug_done=true;m.notionFlags.day2_thug_done=true;m.x=R.homeX+1.75;
-  const info=LunaOutsideNotion.targets(m)[0];ok(Math.abs(info.x-(R.homeX+1.90))<1e-8,'information target matches actor');
+  m.x=N.places.neighbor.x-.30;m.tick(.05);m.tick(.05);ok(m.encounter?.kind==='day2-corridor-thug','door approach starts neighbor');
+  ok(Math.abs(m.encounter.npcX-N.places.neighbor.x)<1e-8,'actor at next door');
+  m.story.cancel();m.encounter=null;g.progress.flags.day2_thug_done=true;m.notionFlags.day2_thug_done=true;m.x=N.places.neighbor.x-.18;
+  const info=LunaOutsideNotion.targets(m)[0];ok(Math.abs(info.x-N.places.neighbor.x)<1e-8,'information target matches actor');
   ok(info.x-N.places.cat.x>.8,'cat and NPC separated');
   m.x=N.places.cat.x;m.updateNear();ok(m.near?.id==='neighborhood-cat','cat remains independently selectable');
   m.x=info.x-.18;m.updateNear();ok(m.near?.id===info.id,'neighbor independently selectable');

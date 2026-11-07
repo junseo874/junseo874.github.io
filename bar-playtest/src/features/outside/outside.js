@@ -377,7 +377,7 @@
       if (this.scene === 'home') return [global.LunaHomeArt.bedTarget(), global.LunaHomeArt.wardrobeTarget(), global.LunaHomeArt.bookTarget(), {
         id: 'tv',
         label: 'TV 상호작용',
-        x: global.LunaEngineWorld?.node('home','289449519')?.x??1.22,
+        x: global.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='IntractObjects')?.x??1.22,
         y: -.7
       }, {
         id: 'exit',

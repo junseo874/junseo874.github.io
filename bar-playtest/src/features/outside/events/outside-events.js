@@ -57,7 +57,9 @@ const mode=m=>qaCases.find(c=>c.id===m.qa?.caseId)?.notion;
 const state=m=>m.qa?(m.qa.shopProgress??={money:1000,flags:{},inventory:{}}):W.barGame.progress;
 const flags=m=>m.qa?state(m).flags:W.lunaCampaign?.active?(W.barGame.progress.flags??={}):(m.notionFlags??={});
 function save(m,key){flags(m)[key]=true;const c=W.lunaCampaign;if(!m.qa&&c?.active&&c.session.carry){c.session.carry.flags??={};c.session.carry.flags[key]=true;}}
-const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m.level===1&&m.config.day===2&&m.config.flow==='in';
+// The Boobi scene temporarily owns the same neighbor actor. Do not draw a
+// second stationary copy (or offer its information menu) during that entrance.
+const visibleThug=m=>[thug,info].includes(mode(m))||!m.qa&&m.scene==='street'&&m.level===1&&m.config.day===2&&m.config.flow==='in'&&!m.neighborhood?.neighbor;
 const visibleContract=m=>mode(m)===contract||!m.qa&&m.scene==='street'&&m.config.day===3&&m.config.flow==='out'&&!flags(m).day3_contract_done;
 const tx=m=>m.qa?.25:(W.LunaEngineWorld?.actorPoint('street',thug,'thug')?.x??R.homeX+1.90);
 const base=m=>m.qa?-.45:(W.LunaEngineWorld?.actorPoint('street',contract,'samho')?.x??R.elevatorX+2.05)-.7;
@@ -105,7 +107,11 @@ function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)retur
  m.story.beginRows(info,sp.target,infoRows[sp.line.topic]);return true;
 }
 function anchor(m,actor){const e=m.encounter;
- if(actor===thug){const x=e?.kind===thug?e.npcX:tx(m),y=thugY(m)-.274;return W.LunaOutsideAmbient.head(W.LunaOutsideAmbient.sprite('Neighbor'),x,y,1,1,W.LunaOutsideAmbient.faceTarget(x,m.x))||{x,y:y+.61};}
+ if(actor===thug){
+  const x=e?.kind===thug?e.npcX:tx(m),y=thugY(m),sp=W.LunaOutsideAmbient.sprite('Neighbor'),flip=W.LunaOutsideAmbient.faceTarget(x,m.x);
+  const p=W.LunaEngineWorld&&!m.qa?W.LunaEngineWorld.actorPose('street',thug,'thug',sp,x,y,flip):{sp,x,y:y-.274,sx:1,sy:1,flip};
+  return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.sx,p.sy,p.flip)||{x,y:y+.61};
+ }
  if(e?.kind===contract&&[samho,dealer].includes(actor))return{x:actor===samho?e.npcX:e.dealerX,y:-.7+.44};
  return null;
 }

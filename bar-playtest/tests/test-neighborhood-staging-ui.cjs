@@ -84,7 +84,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    const feet=await p.evaluate(()=>{const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood,canvas=document.querySelector('.outside-stage canvas'),ctx=canvas.getContext('2d'),factor=canvas.width/1280;
     const subjects=N.poses(m).filter(p=>['guard','boss','gang-left','gang-far','gangmate'].includes(p.id));
     const patches=()=>subjects.map(p=>{const v=LunaPixelCamera.position(p.x,p.y,a.renderCamera);return ctx.getImageData(Math.round((v.x-18)*factor),Math.round((v.y-8)*factor),Math.ceil(36*factor),Math.ceil(8*factor)).data;});
-    a.tick(0);const shown=patches(),draw=N.drawCamp;let absent;try{N.drawCamp=()=>{};a.tick(0);absent=patches();}finally{N.drawCamp=draw;a.tick(0);}
+    a.tick(0);const shown=patches(),poses=N.poses,ids=new Set(subjects.map(p=>p.id));let absent;
+    // Engine-sorted actorNodes consumes poses, not the legacy late drawCamp.
+    // Invalidate the render stamp while keeping the same animation frame.
+    try{N.poses=model=>poses(model).filter(p=>!ids.has(p.id));m.time+=.000001;a.tick(0);absent=patches();}
+    finally{N.poses=poses;m.time+=.000001;a.tick(0);}
     return subjects.map((p,i)=>({id:p.id,changed:shown[i].reduce((n,v,k)=>n+(k%4!==3&&v!==absent[i][k]?1:0),0)}));
    });assert(feet.every(p=>p.changed>5),'visible foot pixels must survive foreground: '+JSON.stringify(feet));
   }

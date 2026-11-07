@@ -202,7 +202,7 @@ function poses(m){
  return list;
 }
 function anchor(m,actor,stable=false){
- if(actor==='boobi'){const p=m.scene==='home'?places.sofa:places.cat,e=W.LunaEngineWorld?.actor(m.scene,m.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');return{x:p.x,y:p.y+(e?e.sprite.h/e.sprite.ppu*Math.hypot(e.visual.c,e.visual.d):.2275)};}
+ if(actor==='boobi'){const p=m.scene==='home'?places.sofa:places.cat;return{x:p.x,y:p.y+.2275};}
  const p=poses(m).find(p=>p.id===actor);if(!p)return null;
  const head=W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.scale,p.scale,p.flip)||{x:p.x,y:p.y+(p.kind==='M2'?.61:.56)*p.scale};
  // Badges belong to the actor's fixed origin, not its mirrored head offset.
@@ -234,9 +234,7 @@ function catFrame(time,pose){
  const value={image,sp:{asset:'neighborhood-cat-'+key,x:0,y:0,w:40,h:44,pivot:{x:.5,y:6/44}}};catFrames.set(key,value);return value;
 }
 function drawCat(ctx,position,x,y,time,pose='sit',glow,model){
- const engine=model&&W.LunaEngineWorld?.actor(model.scene,model.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');
- const size=engine?engine.sprite.h/engine.sprite.ppu*Math.hypot(engine.visual.c,engine.visual.d)/.247:1;
- const p=position(x,y),scale=Math.abs(position(x+1,y).x-p.x)/100*size;
+ const p=position(x,y),scale=Math.abs(position(x+1,y).x-p.x)/100;
  ctx.save();ctx.translate(Math.round(p.x),Math.round(p.y));ctx.scale(scale*.65,scale*.65);
  if(pose==='pet')ctx.rotate(Math.sin(time*7)*.035*Math.sin(Math.PI*Math.min(1,time/1.6)));
  // Replaceable Canvas dummy: a small grey cat, not a new human asset.

@@ -432,7 +432,7 @@
       if (lastScene !== model.scene) snapCamera();
       const restCamera=global.LunaOutsideNeighborhood?.camera(model);
       if(restCamera){Object.assign(cam,restCamera);pixelWidth=global.LunaPixelCamera.settledWidth(restCamera.w,surface);return;}
-      const engineLift=global.LunaEngineWorld?.liftCamera(model);
+      const engineLift=global.LunaEngineWorld?.liftCamera(model,cam);
       if(engineLift){Object.assign(cam,engineLift);pixelWidth=engineLift.w;return;}
       let w = 4.8,
         x = model.x,
@@ -580,7 +580,7 @@
         if(global.LunaEngineWorld&&!model.qa)return; // sorted engine actor command owns this NPC
         if (global.LunaOutsideShop.visible(model)) {
           const a = data.animations.shiba;
-          drawSprite(a.frames[global.LunaOutsideAmbient.frameIndex(model.time, a.frames.length)], n.x, n.y, n.sx, n.sy, n.flip);
+          drawSprite(a.frames[Math.floor(model.time*a.fps)%a.frames.length], n.x, n.y, n.sx, n.sy, n.flip);
         }
         return;
       }
@@ -763,14 +763,14 @@
             if(!engineLayout){global.LunaOutsideThug?.draw(model, drawSprite, ctx, position);
             global.LunaOutsideNotion?.draw(model, drawSprite, ctx, position);
             global.LunaOutsideNeighborhood?.draw(model, drawSprite, ctx, position, images, global.LunaCaptureMode?.hidden ? null : glowRenderer);}
-            if(engineLayout||!global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
+            if(!global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
           } else {
             renderNode(n);
             if(n.name==='residence-building')global.LunaCorridorBirds.draw(model,n,streetParallax(n,renderCam,model),drawSprite);
           }
         }
-        if(!engineLayout){global.LunaOutsideNeighborhood?.drawCamp(model,drawSprite);
-        if(global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();}
+        if(!engineLayout)global.LunaOutsideNeighborhood?.drawCamp(model,drawSprite);
+        if(global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
       }
       global.LunaOutsideRain?.draw(ctx, model, renderCam, position, 'drops');
       // OutSide's volume has no vignette; retain the old room shading only indoors.
