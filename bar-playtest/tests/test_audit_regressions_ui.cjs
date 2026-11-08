@@ -53,7 +53,7 @@ const macChrome='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
   await load();
   for(const size of [{width:1280,height:720},{width:960,height:540},{width:1920,height:1080}]){
    await p.setViewportSize(size);
-   for(const id of ['gin_tonic','long_island','bottle_beer']){
+   for(const id of ['gin_tonic','cosmopolitan','bottle_beer']){
     await p.evaluate(id=>{const g=barGame;lunaCampaign.ui.recipeOpen=false;g.reset(99,'practice',1,true,{variant:'original'});g.selectCocktail(id);lunaCampaign.render(true);},id);
     // Let the logical-stage resize settle before comparing tray positions.
     await p.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));

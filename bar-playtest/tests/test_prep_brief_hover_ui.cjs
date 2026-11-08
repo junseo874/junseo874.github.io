@@ -6,7 +6,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];page.setDefaultTimeout(12000);page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await page.locator('.updates-confirm').click();
   const brief=page.locator('.prep-recipe-brief'),list=page.locator('.prep-brief-reveal');
-  for(const variant of ['original','gpt'])for(const id of ['gin_tonic','long_island','bottle_beer']){
+  for(const variant of ['original','gpt'])for(const id of ['gin_tonic','cosmopolitan','bottle_beer']){
    await page.mouse.move(1200,10);
    await page.evaluate(({variant,id})=>{const g=barGame;g.reset(99,'practice',1,true,{variant});g.selectCocktail(id);},{variant,id});
    await brief.waitFor();await brief.evaluate(e=>e.blur());await page.waitForTimeout(300);

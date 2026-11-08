@@ -11,23 +11,23 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     const original=g.t.cocktails,recipes=g.t.recipes,tags=g.t.cocktail_tags;
     c.session.install({developer});c.ui.variant=variant;g.variant=variant;g.reset(day,'practice',1,true);c.ui.peek=null;c.ui.remixFilter='all';c.screen(c.playView);g.changed();
     const has=rows=>rows.some(r=>r.id==='long_island'||r.context==='long_island');
-    if(has(g.t.cocktails)!==developer||has(g.t.recipes)!==developer||has(g.t.cocktail_tags)!==developer)throw Error('Main catalog/practice isolation');
+    if(has(g.t.cocktails)||has(g.t.recipes)||has(g.t.cocktail_tags))throw Error('Removed cocktail remains in main/developer catalog');
     const unlocked=g.cocktailsAvailable().some(r=>r.id==='long_island'),daily=g.dailyUnlocks().cocktails.some(r=>r.id==='long_island');
-    if(unlocked!==(developer&&day===99)||daily!==(developer&&day===99))throw Error('Day 99 unlock gate');
+    if(unlocked||daily)throw Error('Removed cocktail reappears at unlock, including day 99');
     const barks=g.setBarks;g.setBarks=()=>{};
-    try{for(let i=0;i<200;i++){const guest={slot:{},personality:{think_chance:0}};g.beginOrder(guest,false);if((!developer||day!==99)&&guest.nextCocktail==='long_island')throw Error('Demo random order');}}finally{g.setBarks=barks;}
-    if(!developer){g.currentOrder={cocktail:'long_island'};if(g.selectCocktail('long_island'))throw Error('Stale order restored excluded recipe');g.currentOrder=null;}
+    try{for(let i=0;i<200;i++){const guest={slot:{},personality:{think_chance:0}};g.beginOrder(guest,false);if(guest.nextCocktail==='long_island')throw Error('Removed random order');}}finally{g.setBarks=barks;}
+    g.currentOrder={cocktail:'long_island'};if(g.selectCocktail('long_island'))throw Error('Stale order restored excluded recipe');g.currentOrder=null;
     if(!['gin','vodka','rum','tequila','cola'].every(id=>g.t.shelf_items.some(r=>r.id===id)))throw Error('Shared ingredient removed');
     window.longIslandOriginal={original,recipes,tags};return {developer,day,unlocked};
    },{developer,variant,day});
-   await page.waitForFunction(expected=>document.querySelectorAll('.recipe-card').length>0&&document.querySelectorAll('.recipe-card[data-id="long_island"]').length===expected,developer?1:0);
-   assert.equal(await page.locator('.recipe-card[data-id="long_island"]').count(),developer?1:0,JSON.stringify({developer,variant,day}));
+   await page.waitForFunction(()=>document.querySelectorAll('.recipe-card').length>0&&document.querySelectorAll('.recipe-card[data-id="long_island"]').length===0);
+   assert.equal(await page.locator('.recipe-card[data-id="long_island"]').count(),0,JSON.stringify({developer,variant,day}));
    assert(await page.evaluate(()=>{
-    const g=barGame,canLong=lunaCampaign.session.developer&&g.day===99;
-    if(!canLong&&g.selectCocktail('long_island'))return false;
-    if(canLong){if(!g.selectCocktail('long_island'))return false;}else if(!g.selectCocktail('gin_tonic'))return false;
+    const g=barGame;
+    if(g.selectCocktail('long_island'))return false;
+    if(!g.selectCocktail('gin_tonic'))return false;
     g.debugFill();g.startCraft();return g.screen==='gimmick';
-   }),'Other drinks remain craftable; developer Long Island retained: '+JSON.stringify(result));
+   }),'Other drinks remain craftable; Long Island absent in all modes: '+JSON.stringify(result));
    assert(await page.evaluate(()=>{lunaCampaign.session.uninstall();const g=barGame,o=longIslandOriginal;return g.t.cocktails===o.original&&g.t.recipes===o.recipes&&g.t.cocktail_tags===o.tags;}),'Exact table references restore after leaving main');
   }
   assert.deepEqual(errors,[]);console.log('LONG_ISLAND_MAIN_EXCLUDED_OK 40 main/developer/day/UI cases, 8000 random orders, locked cards, daily unlocks, stale order, crafting, shared ingredients and exact session restoration');

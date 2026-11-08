@@ -8,6 +8,23 @@ for(const t of csv.parseRows(files['_Tables.csv']))files[t.table+'.csv']=fs.read
 const views=JSON.parse(fs.readFileSync(path.join(base,'web-views.json'),'utf8'));
 const ref=views.campaign.bar['1'],rows=csv.parseCsv(files['Steps.csv']),headers=rows[0];
 const original=new csv.Catalog(files),scene=original.read(ref.source).scenes.find(s=>s.id===ref.scene);
+// Craft CSV is the shipped web catalog, not an engine superset hidden by views.
+// Removed recipes must also be absent in QA99 and the developer catalog.
+for(const name of ['cocktails','shelf_items','recipes','cocktail_tags']){
+ const view=views.tables[name],raw=original.rawTables.get(view.table);
+ const selected=view.rows.map(spec=>raw.find(r=>spec.id&&r.web_row_id===spec.id)||raw.find(r=>Object.keys(spec.key).length&&Object.entries(spec.key).every(([k,v])=>r[k]===String(v))));
+ assert(selected.every(Boolean),'All web craft rows must resolve: '+name);
+ assert.equal(new Set(selected).size,raw.length,'Remove unused CSV rows instead of only hiding them in the web view: '+name);
+}
+const cocktails=original.rawTables.get('Cocktails'),items=original.rawTables.get('ShelfItems');
+const cocktailIds=new Set(cocktails.map(r=>r.id)),itemIds=new Set(items.map(r=>r.id));
+for(const row of original.rawTables.get('Recipes')){
+ assert(cocktailIds.has(row.context),'Recipe cocktail exists: '+row.row_id);
+ assert(itemIds.has(row.ingredient),'Recipe ingredient exists: '+row.row_id);
+}
+for(const row of original.rawTables.get('CocktailTags'))assert(cocktailIds.has(row.context),'Tag cocktail exists: '+row.row_id);
+for(const row of cocktails)assert(itemIds.has(row.glass),'Cocktail glass exists: '+row.id);
+assert(!cocktailIds.has('long_island'),'Long Island is removed, including QA99');
 const step=scene.steps.find(s=>s.text?.ko&&s.web_core_keys?.includes('text'));
 const raw=original.rawTables.get('Steps').find(r=>r.web_row_id===step.web_row_id);
 assert(raw,'Find an actual shared campaign line');
@@ -23,9 +40,7 @@ result.data.sharedCsv=true;const before=JSON.stringify(result.data.tables);
 const session=new W.LunaCampaignEngine.Session({},result.data,result.story);session.install({developer:true});
 assert.equal(JSON.stringify(result.data.tables),before,'Developer session must not overwrite CSV content');session.uninstall();
 const mainExpected=JSON.parse(before);
-mainExpected.cocktails=mainExpected.cocktails.filter(row=>row.id!=='long_island');
-for(const key of ['recipes','cocktail_tags'])mainExpected[key]=mainExpected[key].filter(row=>row.context!=='long_island');
 session.install();
-assert.equal(JSON.stringify(result.data.tables),JSON.stringify(mainExpected),'Main session only filters the intentionally parked cocktail');
+assert.equal(JSON.stringify(result.data.tables),JSON.stringify(mainExpected),'Main and developer sessions use the same authoritative CSV catalog');
 session.uninstall();assert.equal(JSON.stringify(result.data.tables),before,'Leaving main restores all source rows and edits');
 console.log('SHARED_DATA_PROJECTION_OK: one CSV edit reaches typed engine data, web story and bar tables; main filtering preserves edits and restores source.');

@@ -7,7 +7,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
   const ids=await p.evaluate(()=>LUNA_DATA.tables.cocktails.map(c=>c.id).filter(id=>!LUNA_SERVE_SHEETS[id]));
   // Bacardi was removed; verify the remaining paths by identity, not only count.
-  assert.deepEqual([...ids].sort(),['red_wine','champagne','long_island','whiskey_sour','godfather','johnny_old_fashioned'].sort());
+  assert.deepEqual([...ids].sort(),['red_wine','champagne','whiskey_sour','godfather','johnny_old_fashioned'].sort());
   for(const id of ids){
    await p.evaluate(id=>{const g=barGame;g.reset(99,'practice',1,true);g.selectCocktail(id);g.debugFill();g.startCraft();g.craft.results=g.craft.queue.map(q=>({...q,value:q.target,completed:true,completion:1,failures:0}));g.craft.index=g.craft.queue.length;g.nextGimmick();g.changed();},id);
    await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),1);
