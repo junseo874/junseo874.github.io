@@ -6,6 +6,24 @@ const root = path.resolve(__dirname, '..');
 const C = require(root + '/src/core/core.js');
 const ctx = { window: {} };
 vm.runInNewContext(fs.readFileSync(root + '/data/runtime/game-data.js', 'utf8'), ctx);
+// Authored arrival order is independent of the randomly selected seat/appearance.
+for(const [day,orders] of [[1,['tequila_sunrise','screwdriver']],[2,['whiskey_sour','champagne']]]){
+  for(const [index,id] of orders.entries()){
+    const g=new C.Game(ctx.window.LUNA_DATA);
+    g.reset(day,'general',42,true);
+    assert.equal(g.queue.length,2);
+    assert.equal(g.queue[index].order,id);
+    g.queueIndex=index;g.spawn();
+    const guest=Object.values(g.seats).find(Boolean);
+    g.setBarks=(_guest,_situations,done)=>done();
+    g.beginOrder(guest,false);
+    assert.equal(guest.order.cocktail,id,'The real order uses the configured CSV drink');
+    g.currentOrder=guest.order;g.screen='recipe';
+    assert(g.selectCocktail(id),'Order must be selectable on its assigned day');
+    const available=new Set(g.itemsAvailable().map(r=>r.id));
+    for(const r of g.t.recipes.filter(r=>r.context===id))assert(available.has(r.ingredient),'Ordered ingredient is available: '+day+'/'+r.ingredient);
+  }
+}
 // Arrivals never select a seat, including the next arrival after an empty bar.
 for (const focus of ['L', 'M', 'R']) {
   for (const overview of [false, true]) {

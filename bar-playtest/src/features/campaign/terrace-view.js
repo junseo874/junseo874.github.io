@@ -11,17 +11,18 @@ function sourceRect(id,fallback){
  return{x:(n.x-cam.x+2.4)*100-s.w*s.pivot.x,y:(cam.y+1.35-n.y)*100-s.h*(1-s.pivot.y)};
 }
 const actorRect=sourceRect('48449420',{x:85,y:98}),railRect=sourceRect('1390137155',{x:86,y:179});
-// Translation only: the city travels at one fifth of the foreground speed.
-// Fixed city overscan provides edge coverage throughout the pan, never an animated zoom.
+// Keep the engine skyline at its authored scale/framing. Legacy previews retain
+// their fixed overscan/parallax; neither mode animates zoom during entrance.
 const cityCamera={parallax:engine?0:.2,scale:engine?1:1.15};
 const entrance={hold:.7,move:5.6,settle:.5,duration:6.8};
 function beginEntrance(dialog){
  W.LunaTerraceBirds.begin(dialog,dialog.terraceDay??W.lunaCampaign?.session?.day??0);
  dialog.terraceEntryTime=0;
- dialog.terraceEntryDuration=engine||W.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:entrance.duration;
+ dialog.terraceEntryDuration=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:entrance.duration;
 }
 function camera(dialog){
- if(engine)return{x:0,y:0,zoom:1};
+ // Temporary presentation offset only: zero settles exactly on CM_Terrace.
+ // Engine actor/rail coordinates and the final camera never change.
  const t=dialog.terraceEntryDuration?(dialog.terraceEntryTime??entrance.duration):entrance.duration;
  const p=Math.max(0,Math.min(1,(t-entrance.hold)/entrance.move)),ease=p*p*p*(p*(p*6-15)+10);
  return {x:160*(1-ease),y:0,zoom:1};

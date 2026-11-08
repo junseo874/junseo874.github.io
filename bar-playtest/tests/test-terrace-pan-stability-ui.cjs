@@ -24,11 +24,12 @@ const assert = require('node:assert/strict'), rt = require('../../tools/lib/test
     const e=expanded.getContext('2d');e.imageSmoothingEnabled=false;e.drawImage(legacy,0,0,1920,1080);
     legacyFrames.push(e.getImageData(0,0,1920,1080));
    }
-   // 1.25 native camera pixels = .25 city pixels = exactly one high-res pixel.
-   // The same skyline must translate rigidly; its columns must never widen/shrink.
+   // Engine mode preserves the exact skyline framing; legacy mode moves it
+   // by .25 source pixels (one high-res pixel) per sample, without rescaling.
+   const cityShift=window.LunaEngineWorld?0:1;
    let maximum=0,total=0,legacyMaximum=0;
    for(let f=1;f<frames.length;f++)for(let y=80;y<200;y++)for(let x=1250;x<1750;x++)for(let k=0;k<3;k++){
-    const delta=Math.abs(frames[f].data[(y*source.width+x+1)*4+k]-frames[f-1].data[(y*source.width+x)*4+k]);maximum=Math.max(maximum,delta);total+=delta;
+    const delta=Math.abs(frames[f].data[(y*source.width+x+cityShift)*4+k]-frames[f-1].data[(y*source.width+x)*4+k]);maximum=Math.max(maximum,delta);total+=delta;
     legacyMaximum=Math.max(legacyMaximum,Math.abs(legacyFrames[f].data[(y*1920+x+1)*4+k]-legacyFrames[f-1].data[(y*1920+x)*4+k]));
    }
    const dimensions=[source.width,source.height],smooth=options.smoothPresentation;

@@ -15,7 +15,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const state=await page.evaluate(()=>{
    const c=lunaCampaign,d=c.dialog,host=document.querySelector('.terrace-scene').parentElement;
    const samples=[];
-   for(const time of [0,1,3,7,20]){
+   for(const time of [0,1,3,6.8,7,20]){
     d.terraceEntryTime=time;d.terraceTime=time;d.chars=1e5;c.paintLine();
     const a=host.querySelector('.terrace-characters'),r=host.querySelector('.terrace-balustrade');
     samples.push({camera:LunaTerrace.camera(d),actor:[parseFloat(a.style.left),parseFloat(a.style.top)],rail:[parseFloat(r.style.left),parseFloat(r.style.top)],clip:getComputedStyle(a).clipPath});
@@ -24,8 +24,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    const rect=id=>{const n=LunaEngineWorld.node('home',id),s=n.sprite;return[(n.x-cam.x+2.4)*100-s.w*s.pivot.x,(cam.y+1.35-n.y)*100-s.h*(1-s.pivot.y)];};
    return{samples,actor:rect('48449420'),rail:rect('1390137155'),index:d.index,entryDuration:d.terraceEntryDuration};
   });
-  assert.equal(state.entryDuration,0,'Unity terrace camera is fixed, without the legacy web entrance pan');
-  for(const s of state.samples){assert.deepEqual(s.camera,{x:0,y:0,zoom:1});for(const key of ['actor','rail'])assert(s[key].every((n,i)=>Math.abs(n-state[key][i])<1e-8));assert.equal(s.clip,'inset(0px)','Use the full engine sprite, not the legacy 39px foot crop');}
+  assert.equal(state.entryDuration,6.8,'Entrance pan is restored without changing Unity placement');
+  assert.equal(state.samples[0].camera.x,160);
+  assert(state.samples[2].camera.x>0&&state.samples[2].camera.x<state.samples[1].camera.x);
+  for(const [i,s] of state.samples.entries()){assert.equal(s.camera.y,0);assert.equal(s.camera.zoom,1);if(i>=3)assert.deepEqual(s.camera,{x:0,y:0,zoom:1});for(const key of ['actor','rail'])assert(s[key].every((n,i)=>Math.abs(n-state[key][i])<1e-8));assert.equal(s.clip,'inset(0px)','Use the full engine sprite, not the legacy 39px foot crop');}
   await page.screenshot({path:'/tmp/luna-engine-layout-terrace.png'});
   await page.locator('.terrace-speech').click();assert.equal(await page.evaluate(()=>lunaCampaign.dialog.index),state.index+1);
   for(const place of ['home','homeDoor','bar']){
