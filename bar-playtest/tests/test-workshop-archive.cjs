@@ -37,6 +37,5 @@ vm.runInNewContext(fs.readFileSync(path.join(root, 'data/runtime/campaign-data.j
 vm.runInNewContext(fs.readFileSync(path.join(root, 'src/features/campaign/cutscene-library.js'), 'utf8'), {window: W});
 assert.equal(W.LUNA_CAMPAIGN_DATA.scenes.workshop.length, 12);
 const entry = W.LunaCutsceneLibrary.catalog.find(c => c.id === 'A-workshop');
-assert.equal(entry.background, 'black');
-assert.match(entry.description, /본편 미사용/);
-console.log('WORKSHOP_ARCHIVE_OK: all day/rest/cat/fallback routes skip workshop; original 12 lines and gallery retained');
+assert.equal(entry, undefined);
+console.log('WORKSHOP_ARCHIVE_OK: rest skips workshop; original 12 lines retained, excluded from timeline production gallery');

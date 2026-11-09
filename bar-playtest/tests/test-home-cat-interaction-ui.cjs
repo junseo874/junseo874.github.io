@@ -34,7 +34,7 @@ const runtime=require('../../tools/lib/test-runtime.cjs');
    if(m.neighborhood.action?.name!=='pet')throw Error('Pet selection starts reaction');
    m.neighborhood.action.time=.65;a.tick(0);
    const canvas=document.querySelector('.outside-stage canvas'),ctx=canvas.getContext('2d'),f=a.pixelSurface.factor;
-   const p=LunaPixelCamera.position(N.places.sofa.x,N.places.sofa.y,a.renderCamera);
+   const p=LunaPixelCamera.position(LunaBubiArt.sofa().x,LunaBubiArt.sofa().y,a.renderCamera);
    const rect=[Math.floor((p.x-35)*f),Math.floor((p.y-125)*f),Math.ceil(105*f),Math.ceil(145*f)];
    const snapshot=()=>Array.from(ctx.getImageData(...rect).data);
    const happy=snapshot(),action=m.neighborhood.action;

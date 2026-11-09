@@ -1,0 +1,25 @@
+/* Keep the supplied two-panel design inside the simulator's 16:9 viewport. */
+html,body{margin:0;min-height:100%;height:auto}
+.app{max-width:1440px}
+.lab-nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lab-nav button{padding:7px 12px;background:#13262f;border:1px solid #2a4350;cursor:pointer}
+.lab-nav small{color:#8aa2ad}
+.stage{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px}
+.luna canvas#lv{width:min(100%,calc((100vh - 128px)*760/712));height:auto;margin:auto}
+.panel canvas#cv{display:block;width:min(100%,calc((100vh - 190px)*880/640));height:auto;margin:auto;touch-action:none}
+.modal,.tut,.result{overflow:auto}
+.sbox{max-height:94vh;overflow:auto}
+.row:has(#oMusic),.row:has(#oStreet),.row:has(#oVoice),.row:has(#oBgm){display:none}
+@media(max-width:640px){.stage{gap:8px}.top{flex-wrap:wrap}.tabs button{font-size:11px}.tbox{max-height:94vh;overflow:auto}.tgrid{grid-template-columns:1fr 1fr}}
+/* Fixed 16:9 playfield, uniformly scaled with black letterboxing. ESC retains settings. */
+html,body{width:100%;height:100%;min-height:0;overflow:hidden;padding:0;background:#000}
+.app{position:absolute;left:50%;top:50%;width:1280px;height:720px;max-width:none;padding:14px 16px;background:var(--bg);transform:translate(-50%,-50%) scale(var(--lab-scale,1));transform-origin:center;gap:12px}
+.top{display:none}
+.row:has(#oSnd){display:none}
+#openSet{display:none}
+.stage{flex:1;min-height:0;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:stretch}
+.luna,.panel{min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.luna canvas#lv{width:100%;height:100%;max-height:100%;object-fit:cover;margin:0}
+.panel canvas#cv{width:100%;height:auto;margin:auto 0;flex:none}
+.panel .bar{position:absolute;left:0;right:0;bottom:0;width:86%;height:22px}
+.tabs button{font-size:13px}

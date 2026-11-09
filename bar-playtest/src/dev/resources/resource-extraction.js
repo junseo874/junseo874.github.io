@@ -7,7 +7,7 @@ view.innerHTML='<h2>리소스 추출</h2><p>화면 캡처가 아닌, 재사용�
 document.querySelector('main').append(view);
 const partNames={all:'모든 요소',surface:'배경+윤곽선',background:'배경',border:'테두리',icon:'아이콘',shadow:'그림자',decoration:'장식',original:'원본 이미지'};
 view.querySelector('.extract-tools').insertAdjacentHTML('beforeend','<label>요소 종류<select id="extract-part">'+Object.entries(partNames).map(([v,t])=>'<option value="'+v+'">'+t+'</option>').join('')+'</select></label>');
-view.querySelector('.extract-tools').insertAdjacentHTML('beforebegin','<div class="extract-shortcuts" role="group" aria-label="팝업 빠른 찾기">'+['전체 그래픽','새로운 목표','목표 달성','이벤트 발생','인물정보 등록','호감도 상승','호감도 하락'].map((t,i)=>'<button data-extract-shortcut="'+(i?t:'')+'">'+t+'</button>').join('')+'</div>');
+view.querySelector('.extract-tools').insertAdjacentHTML('beforebegin','<div class="extract-shortcuts" role="group" aria-label="팝업 빠른 찾기">'+['전체 그래픽','새로운 목표','목표 달성','이벤트 발생','인물정보 등록','호감도 상승','호감도 하락','신규 재료 획득'].map((t,i)=>'<button data-extract-shortcut="'+(i?t:'')+'">'+t+'</button>').join('')+'</div>');
 let entries=[],page=0,epoch=0,observer,signature='';const pageSize=36,images=new Map();
 const search=view.querySelector('#extract-search'),category=view.querySelector('#extract-category'),part=view.querySelector('#extract-part');
 search.value=new URLSearchParams(location.search).get('q')||'';
@@ -67,7 +67,7 @@ async function download(a,n,raw,trimmed){
  const blob=await new Promise(resolve=>c.toBlob(resolve,'image/png'));if(!blob)throw Error('PNG를 생성하지 못했습니다.');
  const url=URL.createObjectURL(blob);save(url,filename(a)+(raw?'':'--frame-'+String(n+1).padStart(3,'0'))+(trimmed?'--trimmed':'')+'.png');setTimeout(()=>URL.revokeObjectURL(url),30000);
 }
-const noticeSearch={'새로운 목표':'goal-new','목표 달성':'goal-complete','이벤트 발생':'event','인물정보 등록':'meet','호감도 상승':'up','호감도 하락':'down'};
+const noticeSearch={'신규 재료 획득':'ingredient','새로운 목표':'goal-new','목표 달성':'goal-complete','이벤트 발생':'event','인물정보 등록':'meet','호감도 상승':'up','호감도 하락':'down'};
 const filtered=()=>entries.filter(a=>(category.value==='all'||a.category===category.value)&&(part.value==='all'||(a.partKind||'original')===part.value)&&
  (category.value==='UI · 팝업 분리'&&noticeSearch[search.value]?a.noticeKinds?.includes(noticeSearch[search.value]):search.value.toLowerCase().split(/\s+/).filter(Boolean).every(word=>a.search.toLowerCase().includes(word))));
 async function preview(card,a,token){try{

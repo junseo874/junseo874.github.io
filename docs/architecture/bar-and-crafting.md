@@ -58,6 +58,10 @@
 
 `restoration-notices.js`의 `LunaRestorationNotices.check`가 실제 거래 뒤 호출됩니다. 목표 ID는 `old_fashioned_materials`, 레시피 팝업은 `johnnyUnlock`입니다. 목표와 실제 해금의 차이는 [바 영업과 제조](../gameplay/README.md#바-영업과-제조)를 따릅니다. 검증: `test-restoration-notices.cjs`, `test-restoration-notices-ui.cjs`.
 
+## 시뮬레이터 쉐이킹 버전 선택
+
+쉐이킹도 목록에서 버전 선택 팝업을 사용합니다. **버전 1은 기존 쉐이킹**, **버전 2는 제공된 v9 틴 닫기·A/D 순서 입력 프로토타입**입니다. 버전 2의 구현·원본 추출·사운드·일시정지 경계는 [쉐이킹 실험 화면 안내](../../bar-playtest/src/dev/shaking/README.md)를 참고하세요. 본편 제조 방식과 엔진 CSV는 변경하지 않습니다. 검증: `test-shaking-versions-ui.cjs`.
+
 ## 시뮬레이터 와인 개봉
 
 기믹 미니게임 목록의 **와인 개봉 → 버전 선택**에서만 실행합니다. 사용자 `2버전.html`은 버전 1(호일·스크류·뽑기), `4버전.html`은 버전 2(중앙 맞추기·기울기·2단 지렛대·린넨 포함)에 대응합니다. 본편 큐·레시피·CSV·저장 데이터에는 연결하지 않습니다. `minigames.js`의 기본 `KINDS`/`startMinigame` 계약도 유지합니다.

@@ -15,6 +15,8 @@ for(const {from,to} of require('../docs/architecture/art-resource-paths.json').r
 const generated=require('../bar-playtest/data/presentation/generated-art/manifest.json');
 for(const r of generated.records)if(r.sources.some(s=>s.src.startsWith('assets/ui/parts/')||s.src.startsWith('assets/ui/cursors/')))groups.common.push('assets/01.ArtResources/'+r.path);
 groups.common.push(...require('../bar-playtest/data/presentation/generated-art-preload.json'));
+// Shared authored notifications must be decoded before the first story event.
+for(const name of ['decrease','increase','ingredient','new_character','new_event','objective','objective_complete'])groups.common.push('assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_'+name+'.png');
 // Old extraction copies are excluded while a migration is being verified.
 const migrated=new Set(generated.records.flatMap(r=>r.sources.map(s=>s.src)));
 for(const key of Object.keys(groups))groups[key]=[...new Set(groups[key].filter(p=>!migrated.has(p)))].sort();

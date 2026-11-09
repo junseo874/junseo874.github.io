@@ -2,7 +2,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
 (async()=>{const browser=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});try{
  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
- await p.locator('[data-act="version"][data-id="cutscenes"]').click();await p.locator('[data-act="cutscenePlay"][data-id="opening-a"]').click();
+ // Test the complete main-game opening; the timeline gallery intentionally excludes the phone system sequence.
+ await p.evaluate(()=>lunaCampaign.newGame());
  await p.waitForFunction(()=>lunaCampaign.view==='prologue'&&lunaCampaign.cinema?.player&&!lunaCampaign.memoryTransition,null,{timeout:60000});
  const report=await p.evaluate(()=>{
   LunaFocusSettings.setEnabled(false);const c=lunaCampaign;c.tick=()=>false;const s=c.cinema,player=s.player;
@@ -34,8 +35,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const dom=[...document.querySelectorAll('.studio-speech-bubble span')].filter(e=>e.style.visibility!=='hidden').map(e=>e.textContent).join('');
   return{failures,checks,phoneLines:lines.filter(l=>l.track==='phone-lines').length,intro:lines.filter(l=>l.layout==='intro').length,beforeDot,afterPause,dom};
  });
- assert.deepEqual(report.failures,[]);assert.equal(report.phoneLines,5);assert.equal(report.intro,4);assert(report.checks>50);
+ assert.deepEqual(report.failures,[]);assert.equal(report.phoneLines,5);assert.equal(report.intro,3);assert(report.checks>50);
  assert.equal(report.beforeDot,4);assert.equal(report.afterPause,4);assert(report.dom.includes('크리스.'));
  await p.screenshot({path:'/private/tmp/cinema-period-phone.png'});
- assert.deepEqual(errors,[]);console.log('CINEMA_TYPING_RHYTHM_UI_OK: all four opening cards and five contact lines, exact pauses, .5/1/2/4 speed, redraw, full reveal and actual phone bubble.');
+ assert.deepEqual(errors,[]);console.log('CINEMA_TYPING_RHYTHM_UI_OK: all three opening cards and five contact lines, exact pauses, .5/1/2/4 speed, redraw, full reveal and actual phone bubble.');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

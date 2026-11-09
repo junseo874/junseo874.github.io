@@ -53,7 +53,7 @@ function actorNodes(m,draw,ctx,position,images,glow){
  };
  for(const p of W.LunaOutsideNeighborhood.poses(m))capture({...p.sp,lightingId:p.id,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??p.scale,p.sy??p.scale,p.flip,p.alpha);
  const cat=actor(m.scene,m.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');
- if(cat)result.push({id:'engine-cat',name:'boobi',...actorSorting(m.scene,'boobi',cat.layer,cat.order),z:0,engineDraw:()=>W.LunaOutsideNeighborhood.draw(m,draw,ctx,position,images,glow,true)});
+ if(cat)result.push({id:'engine-cat',name:'boobi',...(m.scene==='home'?{layer:1,order:2}:actorSorting(m.scene,'boobi',cat.layer,cat.order)),z:0,engineDraw:()=>W.LunaOutsideNeighborhood.draw(m,draw,ctx,position,images,glow,true)});
  if(m.scene==='street'){
   W.LunaOutsideThug.draw(m,capture,ctx,position);
   W.LunaOutsideNotion.draw(m,capture,ctx,position);
@@ -207,7 +207,7 @@ function applyStreet(data){
 function exportLayout(data){
  const kinds={neighbor:'Neighbor',repair:'Repairman',guard:'Gang1',boss:'Gang5',gangmate:'Gang3',chris:'Chris',thug:'Neighbor',dealer:'M1'};
  const actors=Object.fromEntries(Object.entries(source.scenes).map(([name,s])=>[name,Object.fromEntries(Object.entries(s.actors).map(([event,group])=>[event,Object.fromEntries(Object.entries(group).map(([role,a])=>{
-  if(role==='boobi')return[role,{root:a.root,visual:a.root,...actorSorting(name,role,a.layer,a.order),art:'web-procedural-cat',height:.247}];
+  if(role==='boobi'){const b=W.LunaBubiArt?.box(),visual=name==='home'?W.LunaBubiArt?.sofa():b&&{x:b.x+.25,y:b.y};return[role,{root:a.root,visual:visual||a.root,...(name==='home'?{layer:1,order:2}:actorSorting(name,role,a.layer,a.order)),art:'native-bubi-sheet',height:.24}];}
   const sp=role==='samho'?W.LunaSamhoAnimation.frame(0):role==='shiba'?data.animations.shiba.frames[0]:W.LunaOutsideAmbient.sprite(kinds[role],0);
   const root=actorPoint(name,event,role),p=actorPose(name,event,role,sp,root.x,root.y,a.flip);
   return[role,{...p,src:data.assets[sp.asset].src}];

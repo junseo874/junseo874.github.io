@@ -1,0 +1,49 @@
+{
+  "behavior": [
+    "Approach: one 8-frame shake, then static empty box",
+    "E: one 22-frame eye animation, then one 15-frame jump",
+    "No automatic or repeated eye animation",
+    "Saved approach flag preserved; reveal completes before control returns"
+  ],
+  "targeted": [
+    "BUBI_BOX_SEQUENCE_OK: single approach shake, static waiting/re-entry, real E, 22 eye frames then 15 jump frames once, input lock and completion, saved flag, E during shake.",
+    "NEIGHBORHOOD_EVENTS_OK { intro: 12, gang: 7, feed: 5, rest: 5 }",
+    "NEIGHBORHOOD_STAGING_OK 229 checks: complete silhouettes/soles, shared heads, facing, slow arrival/exit, cat clearance, opaque rest fade, fixed Chris, constant-scale horizontal pan"
+  ],
+  "suites": {
+    "smoke": {
+      "total": 42,
+      "passed": 42,
+      "failures": []
+    },
+    "outside": {
+      "total": 76,
+      "passed": 67,
+      "failures": [
+        "bar-playtest/tests/test-corridor-birds-ui.cjs",
+        "bar-playtest/tests/test-engine-barrel-fire.cjs",
+        "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+        "bar-playtest/tests/test-outside-discovery-ui.cjs",
+        "bar-playtest/tests/test-outside-npc-animation.cjs",
+        "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+        "bar-playtest/tests/test-home-weather-ui.cjs",
+        "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+        "bar-playtest/tests/test-lift-right-boundary-ui.cjs"
+      ]
+    }
+  },
+  "resolved_after_suite": {
+    "test-outside-discovery-ui": "The previous 2-second completion assertion was updated to cover eyes followed by jump; the real discovery/history test passes on rerun."
+  },
+  "remaining_failures": [
+    "bar-playtest/tests/test-corridor-birds-ui.cjs",
+    "bar-playtest/tests/test-engine-barrel-fire.cjs",
+    "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+    "bar-playtest/tests/test-outside-npc-animation.cjs",
+    "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+    "bar-playtest/tests/test-home-weather-ui.cjs",
+    "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+    "bar-playtest/tests/test-lift-right-boundary-ui.cjs"
+  ],
+  "remaining_failures_note": "The same eight outside regression failures were already recorded before the Bubi sequence change; do not count them as passing."
+}

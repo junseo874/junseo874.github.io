@@ -190,6 +190,90 @@ window.ResourceExtractionAssets=[
     "h": 43
   },
   {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_decrease.png",
+    "title": "알람 · 호감도 상승",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "up"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_increase.png",
+    "title": "알람 · 호감도 하락",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "down"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_ingredient.png",
+    "title": "알람 · 신규 재료 획득",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "ingredient"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_new_character.png",
+    "title": "알람 · 새로운 인물",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "meet"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_new_event.png",
+    "title": "알람 · 외부 이벤트",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "event"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_objective.png",
+    "title": "알람 · 새로운 목표",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "goal-new"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_objective_complete.png",
+    "title": "알람 · 목표 달성",
+    "category": "UI · 팝업 분리",
+    "w": 762,
+    "h": 232,
+    "partKind": "original",
+    "noticeKinds": [
+      "goal-complete"
+    ],
+    "note": "현재 게임 원본 · 제목/아이콘/배경 일체형 · 변하는 본문은 실제 화면 테스트에서 확인 · 1280×720 화면에서 254×77⅓px"
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/BTN_Disable.png",
     "title": "BTN_Disable.png",
     "category": "UI · 원본 조각",
@@ -1589,19 +1673,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_goal_new.png",
-    "title": "팝업 · 새로운 목표 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "goal-new"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 아이콘 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본 popup:goal--bar-new popup:goal--outside-new | 팝업 · 새로운 목표 · .story-notice-icon · 아이콘 팝업 · 새로운 목표 span.story-notice-icon 기본 notification-goal-new",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_stir_live_glass_icon.png",
     "title": "스터 / 제조 기믹 · 기본 · .stir-live-glass · 아이콘",
     "w": 360,
@@ -1611,22 +1682,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "스터 / 제조 기믹 · 기본 · .stir-live-glass · 아이콘 스터 / 제조 기믹 · 기본 svg.stir-live-glass 기본 | 스터 이미지 튜토리얼 · 스터 · 노드 / 조작 안내 svg.stir-live-glass 기본 | 스터 이미지 튜토리얼 · 스터 · 타이밍 안내 svg.stir-live-glass 기본 ui:mini:stir--default popup:lesson-stir--stir-0 popup:lesson-stir--stir-1",
     "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_down_shadow.png",
-    "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 그림자",
-    "w": 446,
-    "h": 186,
-    "partKind": "shadow",
-    "noticeKinds": [
-      "down",
-      "event",
-      "meet",
-      "up"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 그림자 호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본 popup:affinity--bar-down popup:affinity--outside-down | 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 그림자 외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본 ui:exterior:poor--poor popup:meet--bar popup:meet--outside popup:affinity--bar-up popup:affinity--outside-up | 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 그림자 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본 popup:event--outside | 팝업 · 호감도 하락 · .story-notice.story-notice-people · 그림자 팝업 · 호감도 하락 div.story-notice.story-notice-people 기본 notification-down | 팝업 · 이벤트 발생 · .story-notice.story-notice-event · 그림자 팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본 notification-event | 팝업 · 인물정보 등록 · .story-notice.story-notice-people · 그림자 팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본 notification-meet | 팝업 · 호감도 상승 · .story-notice.story-notice-people · 그림자 팝업 · 호감도 상승 div.story-notice.story-notice-people 기본 notification-up",
-    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
     "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_day0_guide_art_rect_day0_guide_outline_icon_variant4.png",
@@ -1692,19 +1747,6 @@ window.ResourceExtractionAssets=[
     "noticeKinds": [],
     "category": "UI · 기타 분리",
     "contexts": "맥주 제조 튜토리얼 · 병맥주 선택 · .day0-guide-art · 아이콘 맥주 제조 튜토리얼 · 병맥주 선택 svg.day0-guide-art 기본 popup:beer-guides--beerAdd",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_event.png",
-    "title": "팝업 · 이벤트 발생 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "event"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 아이콘 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본 popup:event--outside | 팝업 · 이벤트 발생 · .story-notice-icon · 아이콘 팝업 · 이벤트 발생 span.story-notice-icon 기본 notification-event",
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
@@ -3303,19 +3345,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_goal_complete.png",
-    "title": "팝업 · 목표 달성 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "goal-complete"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 아이콘 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본 popup:goal--bar-complete popup:goal--outside-complete | 팝업 · 목표 달성 · .story-notice-icon · 아이콘 팝업 · 목표 달성 span.story-notice-icon 기본 notification-goal-complete",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/02.Pour/WebGenerated/Web_GRD_pour_tutorial_focus_border.png",
     "title": "따르기 튜토리얼 · 현재량 / 마치기 · .pour-tutorial-focus · 테두리",
     "w": 169,
@@ -3459,19 +3488,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_meet.png",
-    "title": "팝업 · 인물정보 등록 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "meet"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 아이콘 외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본 ui:exterior:poor--poor popup:meet--bar popup:meet--outside | 팝업 · 인물정보 등록 · .story-notice-icon · 아이콘 팝업 · 인물정보 등록 span.story-notice-icon 기본 notification-meet",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Web_IMG_kbd_icon_variant3.png",
     "title": "조작 설명 · 기본 ·  · 아이콘",
     "w": 31,
@@ -3481,19 +3497,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "조작 설명 · 기본 ·  · 아이콘 조작 설명 · 기본 kbd 기본 ui:overlay:help--default",
     "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_event_icon_border.png",
-    "title": "팝업 · 이벤트 발생 · .story-notice-icon · 테두리",
-    "w": 39,
-    "h": 39,
-    "partKind": "border",
-    "noticeKinds": [
-      "event"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 테두리 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본 popup:event--outside | 팝업 · 이벤트 발생 · .story-notice-icon · 테두리 팝업 · 이벤트 발생 span.story-notice-icon 기본 notification-event",
-    "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
     "src": "assets/01.ArtResources/05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v03.png",
@@ -3648,20 +3651,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "바 튜토리얼 · 단계별 안내 · 레시피 열기 · .day0-guide-art · 아이콘 바 튜토리얼 · 단계별 안내 · 레시피 열기 svg.day0-guide-art 기본 popup:bar-guides--prepRecipeOpen",
     "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_complete_shadow.png",
-    "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 그림자",
-    "w": 446,
-    "h": 188,
-    "partKind": "shadow",
-    "noticeKinds": [
-      "goal-complete",
-      "goal-new"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 그림자 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본 popup:goal--bar-new popup:goal--outside-new | 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 그림자 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본 popup:goal--bar-complete popup:goal--outside-complete | 팝업 · 목표 달성 · .story-notice.story-notice-event · 그림자 팝업 · 목표 달성 div.story-notice.story-notice-event 기본 notification-goal-complete | 팝업 · 새로운 목표 · .story-notice.story-notice-event · 그림자 팝업 · 새로운 목표 div.story-notice.story-notice-event 기본 notification-goal-new",
-    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/WebGenerated/Web_IMG_svg_g_mix_guide_marks_icon.png",
@@ -3970,19 +3959,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "칵테일 드래그 / 제공 · 정상 칵테일 · .selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim · 테두리 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 기본 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 호버 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 누름 | 칵테일 드래그 / 제공 · 정상 칵테일 button.selected.seat-occupied.seat-pulse-arrival.seat-pulse-dim 포커스 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 기본 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 호버 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 누름 | 칵테일 드래그 / 제공 · 잘못된 칵테일 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 기본 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 호버 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 누름 | 칵테일 드래그 / 제공 · 필수 재료 누락 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 주문 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 주문 되묻기 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 기본 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 호버 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 누름 | 말풍선 / 1인 · 일반 손님 / 추가 주문 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 기본 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 호버 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 누름 | 좌석 인디케이터 · 빈 좌석 button.selected.seat-empty 포커스 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 기본 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 호버 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 누름 | 좌석 인디케이터 · 입장 / 점멸 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 기본 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 호버 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 누름 | 좌석 인디케이터 · 손님 있음 / 일반 button.selected.seat-occupied 포커스 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 기본 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 호버 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 누름 | 좌석 인디케이터 · 인내심 절반 / 주황 button.selected.seat-warn 포커스 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 기본 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 호버 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 누름 | 좌석 인디케이터 · 인내심 10초 이하 / 빨강 button.selected.seat-danger 포커스 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 기본 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 호버 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 누름 | 좌석 인디케이터 · 퇴장 / 점멸 button.selected.seat-exit.seat-pulse-exit 포커스 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 기본 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 호버 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 누름 | 좌석 인디케이터 · 3좌석 점유 button.selected.seat-occupied 포커스 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 서비스 패널 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 설정 / 볼륨 / 언어 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 조작 설명 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 대사 기록 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 매출 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 기본 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 호버 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 누름 | 히든 칵테일 해금 · 기본 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 기본 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 호버 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 누름 | 코스터 / 칵테일 드래그 팝업 · 완성 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 포커스 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 기본 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 호버 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 누름 | 바 튜토리얼 · 단계별 안내 · 칵테일 제공 button.selected.seat-occupied.seat-pulse-arrival 포커스 ui:serve--serve ui:serve--serve ui:serve--serve ui:serve--serve ui:serve--wrong ui:serve--wrong ui:serve--wrong ui:serve--wrong ui:serve--missing ui:serve--missing ui:serve--missing ui:serve--missing ui:solo--order ui:solo--order ui:solo--order ui:solo--order ui:solo--reask ui:solo--reask ui:solo--reask ui:solo--reask ui:solo--reorder ui:solo--reorder ui:solo--reorder ui:solo--reorder ui:indicators--empty ui:indicators--empty ui:indicators--empty ui:indicators--empty ui:indicators--arrival ui:indicators--arrival ui:indicators--arrival ui:indicators--arrival ui:indicators--wait ui:indicators--wait ui:indicators--wait ui:indicators--wait ui:indicators--orange ui:indicators--orange ui:indicators--orange ui:indicators--orange ui:indicators--red ui:indicators--red ui:indicators--red ui:indicators--red ui:indicators--exit ui:indicators--exit ui:indicators--exit ui:indicators--exit ui:indicators--full ui:indicators--full ui:indicators--full ui:indicators--full ui:overlay:service--default ui:overlay:service--default ui:overlay:service--default ui:overlay:service--default ui:overlay:settings--default ui:overlay:settings--default ui:overlay:settings--default ui:overlay:settings--default ui:overlay:help--default ui:overlay:help--default ui:overlay:help--default ui:overlay:help--default ui:overlay:history--default ui:overlay:history--default ui:overlay:history--default ui:overlay:history--default ui:overlay:sales--default ui:overlay:sales--default ui:overlay:sales--default ui:overlay:sales--default ui:overlay:johnnyUnlock--default ui:overlay:johnnyUnlock--default ui:overlay:johnnyUnlock--default ui:overlay:johnnyUnlock--default popup:serving-hud--drink popup:serving-hud--drink popup:serving-hud--drink popup:serving-hud--drink popup:bar-guides--serveDrink popup:bar-guides--serveDrink popup:bar-guides--serveDrink popup:bar-guides--serveDrink",
     "note": "설명 텍스트 제외 · 테두리만 분리 · 효과 여백 4px"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_down.png",
-    "title": "팝업 · 호감도 하락 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "down"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 아이콘 호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본 popup:affinity--bar-down popup:affinity--outside-down | 팝업 · 호감도 하락 · .story-notice-icon · 아이콘 팝업 · 호감도 하락 span.story-notice-icon 기본 notification-down",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
   },
   {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_GRD_mix_board_rhythm_board_background.png",
@@ -4392,19 +4368,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_down_icon_border.png",
-    "title": "팝업 · 호감도 하락 · .story-notice-icon · 테두리",
-    "w": 39,
-    "h": 39,
-    "partKind": "border",
-    "noticeKinds": [
-      "down"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 테두리 호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본 popup:affinity--bar-down popup:affinity--outside-down | 팝업 · 호감도 하락 · .story-notice-icon · 테두리 팝업 · 호감도 하락 span.story-notice-icon 기본 notification-down",
-    "note": "설명 텍스트 제외 · 테두리만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Tutorial/Web_IMG_rhythm_stage_path_rhythm_track_icon.png",
     "title": "쉐이킹 이미지 튜토리얼 · 세로 2레인 · 노드 / 조작 안내 · .rhythm-stage / path.rhythm-track · 아이콘",
     "w": 208,
@@ -4502,19 +4465,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 · .campaign-card · 그림자 본편 · 확인 / 안내 팝업 · 조니의 관찰 메모 section.campaign-card 기본 popup:campaign-dialogs--observation",
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_new_icon_border.png",
-    "title": "팝업 · 새로운 목표 · .story-notice-icon · 테두리",
-    "w": 39,
-    "h": 39,
-    "partKind": "border",
-    "noticeKinds": [
-      "goal-new"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 테두리 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본 popup:goal--bar-new popup:goal--outside-new | 팝업 · 새로운 목표 · .story-notice-icon · 테두리 팝업 · 새로운 목표 span.story-notice-icon 기본 notification-goal-new",
-    "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
     "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_IMG_seat_state_picture_icon_v04.png",
@@ -4825,19 +4775,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_goal_complete_icon_border.png",
-    "title": "팝업 · 목표 달성 · .story-notice-icon · 테두리",
-    "w": 39,
-    "h": 39,
-    "partKind": "border",
-    "noticeKinds": [
-      "goal-complete"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 테두리 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본 popup:goal--bar-complete popup:goal--outside-complete | 팝업 · 목표 달성 · .story-notice-icon · 테두리 팝업 · 목표 달성 span.story-notice-icon 기본 notification-goal-complete",
-    "note": "설명 텍스트 제외 · 테두리만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon_variant2.png",
     "title": "월드 말풍선 / 외부 · 기본 · .textbox-piece.piece-6 · 아이콘",
     "w": 22,
@@ -4957,20 +4894,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "본편 · 확인 / 안내 팝업 · 본편 설정 · .campaign-card · 그림자 본편 · 확인 / 안내 팝업 · 본편 설정 section.campaign-card 기본 | 본편 · 확인 / 안내 팝업 · 추천 칵테일 section.campaign-card 기본 popup:campaign-dialogs--options popup:campaign-dialogs--menu",
     "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/IMG_notification_meet_icon_border.png",
-    "title": "팝업 · 인물정보 등록 · .story-notice-icon · 테두리",
-    "w": 39,
-    "h": 39,
-    "partKind": "border",
-    "noticeKinds": [
-      "meet",
-      "up"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 테두리 외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본 ui:exterior:poor--poor popup:meet--bar popup:meet--outside popup:affinity--bar-up popup:affinity--outside-up | 팝업 · 인물정보 등록 · .story-notice-icon · 테두리 팝업 · 인물정보 등록 span.story-notice-icon 기본 notification-meet | 팝업 · 호감도 상승 · .story-notice-icon · 테두리 팝업 · 호감도 상승 span.story-notice-icon 기본 notification-up",
-    "note": "설명 텍스트 제외 · 테두리만 분리"
   },
   {
     "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_span_shadow_v03.png",
@@ -5105,19 +5028,6 @@ window.ResourceExtractionAssets=[
     "note": "설명 텍스트 제외 · 배경만 분리"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/ICN_notification_up.png",
-    "title": "팝업 · 호감도 상승 · .story-notice-icon · 아이콘",
-    "w": 39,
-    "h": 39,
-    "partKind": "icon",
-    "noticeKinds": [
-      "up"
-    ],
-    "category": "UI · 팝업 분리",
-    "contexts": "호감도 상승 / 하락 · 바 내부 · 상승 · .story-notice-icon · 아이콘 호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본 popup:affinity--bar-up popup:affinity--outside-up | 팝업 · 호감도 상승 · .story-notice-icon · 아이콘 팝업 · 호감도 상승 span.story-notice-icon 기본 notification-up",
-    "note": "설명 텍스트 제외 · 아이콘만 분리"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/WebGenerated/Web_BTN_shelf_arrow_prev_background_v03.png",
     "title": "재료 선택 / 레시피 패널 · 재료 선택 / 기본 · .shelf-arrow.prev · 배경",
     "w": 26,
@@ -5226,17 +5136,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "contexts": "컷씬 스킵 안내 · i · 배경 컷씬 스킵 안내 i 기본 fixture-skip",
     "note": "설명 텍스트 제외 · 배경만 분리"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
-    "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 그림자",
-    "w": 446,
-    "h": 192,
-    "partKind": "shadow",
-    "noticeKinds": [],
-    "category": "UI · 기타 분리",
-    "contexts": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 그림자 재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본 ui:exterior:purchase--default",
-    "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
   },
   {
     "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Seats/Web_GRD_seat_color_dot_shadow_v03.png",
@@ -6278,33 +6177,6 @@ window.ResourceExtractionAssets=[
     "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_63bcf1630e.png",
-    "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 90,
-    "category": "UI · 팝업 분리",
-    "noticeKinds": [
-      "meet",
-      "up"
-    ],
-    "contexts": " 외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 테두리 외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본 팝업 · 인물정보 등록 · .story-notice.story-notice-people · 테두리 팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본 팝업 · 호감도 상승 · .story-notice.story-notice-people · 테두리 팝업 · 호감도 상승 div.story-notice.story-notice-people 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_38ab6f8684.png",
-    "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 90,
-    "category": "UI · 팝업 분리",
-    "noticeKinds": [
-      "down"
-    ],
-    "contexts": " 호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 테두리 호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본 팝업 · 호감도 하락 · .story-notice.story-notice-people · 테두리 팝업 · 호감도 하락 div.story-notice.story-notice-people 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Settings/Combined/Web_GRD_kbd_surface_8bffa91d4c.png",
     "title": "조작 설명 · 기본 ·  · 배경+윤곽선",
     "partKind": "surface",
@@ -6599,19 +6471,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "noticeKinds": [],
     "contexts": " 본편 · 확인 / 안내 팝업 · 타이틀 복귀 ·  · 테두리 본편 · 확인 / 안내 팝업 · 타이틀 복귀 button 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_new_surface_ea841cbcfc.png",
-    "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 92,
-    "category": "UI · 팝업 분리",
-    "noticeKinds": [
-      "goal-new"
-    ],
-    "contexts": " 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 테두리 새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본 팝업 · 새로운 목표 · .story-notice.story-notice-event · 테두리 팝업 · 새로운 목표 div.story-notice.story-notice-event 기본",
     "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
   },
   {
@@ -7019,17 +6878,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "noticeKinds": [],
     "contexts": " 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 테두리 / 포커스 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 포커스 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 포커스 병따기 / 제조 기믹 · 기본 · .primary.opening-hit · 테두리 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 기본 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 호버 | 병따기 / 제조 기믹 · 기본 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 시작 안내 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 다시 시도 button.primary.opening-hit 누름 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 기본 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 호버 | 병따기 튜토리얼 · 완료 button.primary.opening-hit 누름",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Combined/Web_GRD_outside_item_preview_surface_c2690d642e.png",
-    "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 52,
-    "h": 57,
-    "category": "UI · 기타 분리",
-    "noticeKinds": [],
-    "contexts": " 재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 테두리 재료 획득 알림 / 외부 · 기본 span.outside-item-preview 기본",
     "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
   },
   {
@@ -7451,17 +7299,6 @@ window.ResourceExtractionAssets=[
     "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
   },
   {
-    "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Notifications/Combined/Web_GRD_outside_item_notice_story_notice_surface_3e90c8e13b.png",
-    "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 96,
-    "category": "UI · 기타 분리",
-    "noticeKinds": [],
-    "contexts": " 재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 테두리 재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/03.Bar/WebGenerated/Service/Combined/Web_GRD_service_panel_surface_58b4583ceb.png",
     "title": "서비스 패널 · 기본 · #service-panel · 배경+윤곽선",
     "partKind": "surface",
@@ -7536,32 +7373,6 @@ window.ResourceExtractionAssets=[
     "category": "UI · 기타 분리",
     "noticeKinds": [],
     "contexts": " 바 출입 / 로딩 · 입장 / 문 열림 · .bar-door-sill · 테두리 바 출입 / 로딩 · 입장 / 문 열림 div.bar-door-sill 기본 | 바 출입 / 로딩 · 퇴장 / 문 닫힘 div.bar-door-sill 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_complete_surface_dd6fee626d.png",
-    "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 92,
-    "category": "UI · 팝업 분리",
-    "noticeKinds": [
-      "goal-complete"
-    ],
-    "contexts": " 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 테두리 새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본 팝업 · 목표 달성 · .story-notice.story-notice-event · 테두리 팝업 · 목표 달성 div.story-notice.story-notice-event 기본",
-    "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
-  },
-  {
-    "src": "assets/01.ArtResources/05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_event_surface_0d92338f98.png",
-    "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 배경+윤곽선",
-    "partKind": "surface",
-    "w": 350,
-    "h": 90,
-    "category": "UI · 팝업 분리",
-    "noticeKinds": [
-      "event"
-    ],
-    "contexts": " 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 테두리 새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본 팝업 · 이벤트 발생 · .story-notice.story-notice-event · 테두리 팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본",
     "note": "배경과 윤곽선을 합친 PNG · 텍스트 제외"
   },
   {

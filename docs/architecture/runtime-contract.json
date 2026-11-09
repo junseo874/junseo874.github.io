@@ -620,6 +620,10 @@
     ],
     [
       "script",
+      "src/features/outside/bubi-art.js"
+    ],
+    [
+      "script",
       "src/features/outside/events/outside-neighborhood.js"
     ],
     [

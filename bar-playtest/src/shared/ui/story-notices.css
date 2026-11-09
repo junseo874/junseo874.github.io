@@ -1,30 +1,18 @@
-/* HUD notifications, deliberately separate from world-anchored dialogue bubbles. */
-#story-notices{position:fixed;inset:0;z-index:11000;pointer-events:none;overflow:hidden;font-family:inherit}
+/* Reference: 762×232 art at native size in a 3840×2160 frame = 254×77⅓ at 1280×720. */
+/* Supplied panels include their heading, icon and scanlines. Only changing text is live. */
+#story-notices{position:fixed;inset:0;z-index:11000;pointer-events:none;overflow:hidden;font-family:inherit;display:flex;flex-direction:column;align-items:flex-start;gap:calc(8px / 3);padding:20px;box-sizing:border-box}
 #story-notices[hidden],#story-notices [hidden]{display:none!important}
-.story-notice{position:absolute;right:24px;width:350px;max-width:calc(100vw - 48px);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:20px 22px;border:1px solid #477880;border-left:3px solid var(--notice-accent,#8de5df);border-radius:5px;background:linear-gradient(100deg,#102b36f5,#0a1521f5);box-shadow:0 6px 22px #0006;color:#e9f6f4;will-change:transform,opacity}
-.story-notice-people{top:calc(50% - 48px)}
-.story-notice>div{min-width:0}
-.story-notice-event{bottom:30px;--notice-accent:#e4c482;border-color:#726348;background:linear-gradient(100deg,#30271bf5,#151b22f5)}
-.story-notice[data-kind="down"]{--notice-accent:#e6a295;border-color:#835d58}
-.story-notice[data-kind="goal-new"]{--notice-accent:#89deed;border-color:#427e91;background:linear-gradient(100deg,#102e3bf5,#101b29f5)}
-.story-notice[data-kind="goal-complete"]{--notice-accent:#a2e3b3;border-color:#537e62;background:linear-gradient(100deg,#163327f5,#101e24f5)}
-.story-notice[data-kind^="goal-"] small{font-size:15px;letter-spacing:.4px}
-.story-notice-icon{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;border:1px solid currentColor;border-radius:50%;color:var(--notice-accent,#8de5df);font-size:26px}
-.story-notice[data-kind="up"] .story-notice-icon,.story-notice[data-kind="down"] .story-notice-icon{overflow:hidden}
-.story-notice-arrow{display:block;line-height:1;animation:notice-arrow-rise 1.15s cubic-bezier(.25,.65,.4,1) infinite;will-change:transform,opacity}
-.story-notice[data-kind="down"] .story-notice-arrow{animation-name:notice-arrow-fall}
-@keyframes notice-arrow-rise{0%{transform:translateY(10px);opacity:0}25%{opacity:1}40%,55%{transform:translateY(0);opacity:1}100%{transform:translateY(-10px);opacity:0}}
-@keyframes notice-arrow-fall{0%{transform:translateY(-10px);opacity:0}25%{opacity:1}40%,55%{transform:translateY(0);opacity:1}100%{transform:translateY(10px);opacity:0}}
-#story-notices[hidden] .story-notice-arrow,.story-notice[hidden] .story-notice-arrow{animation-play-state:paused}
-@media(prefers-reduced-motion:reduce){.story-notice[data-kind] .story-notice-arrow{animation:none;transform:none;opacity:1}}
-.story-notice small{display:block;margin-bottom:8px;color:var(--notice-accent,#8de5df);font-size:13px;letter-spacing:1px}
-.story-notice strong{display:block;font-size:19px;line-height:1.4;font-weight:400;word-break:keep-all;overflow-wrap:anywhere}
-.story-notice[data-kind="meet"]{width:max-content;min-width:min(220px,calc(100vw - 24px));padding:16px 20px;gap:0;top:calc(50% - 45px)}
-.story-notice[data-kind="meet"] small{font-size:15px;line-height:1.3;letter-spacing:0;margin-bottom:6px}
-.story-notice[data-kind="meet"] strong{font-size:22px;line-height:1.35}
-@media(max-width:600px){.story-notice{right:12px;width:300px;max-width:calc(100vw - 24px);padding:16px;gap:12px}.story-notice strong{font-size:17px}.story-notice-event{bottom:16px}}
-
-/* Half-size notification cards; individual scale preserves scripted slide motion. */
-.story-notice{scale:.5;transform-origin:right center}
-.story-notice-event{transform-origin:right bottom}
-.outside-item-notice.story-notice{transform-origin:left top}
+.story-notice{position:relative;width:254px;max-width:calc(100vw - 40px);height:calc(232px / 3);flex:none;box-sizing:border-box;border:0;border-radius:0;box-shadow:none;background:var(--notice-art) left top/100% 100% no-repeat;color:var(--notice-accent,#a1edff);will-change:transform,opacity;image-rendering:pixelated}
+.story-notice>div{position:absolute;left:var(--notice-text-left,31%);top:48%;right:3%;min-width:0}
+.story-notice small{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.story-notice strong{display:block;font-size:calc(46px / 3);line-height:1.25;font-weight:400;word-break:keep-all;overflow-wrap:anywhere;text-shadow:0 0 5px currentColor}
+.story-notice[data-kind="up"]{--notice-accent:#ffa2b0;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_decrease.png')}
+.story-notice[data-kind="down"]{--notice-accent:#b0a0ff;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_increase.png')}
+.story-notice[data-kind="meet"]{--notice-text-left:10.5%;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_new_character.png')}
+.story-notice[data-kind="event"]{--notice-text-left:28.1%;--notice-accent:#ffdda4;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_new_event.png')}
+.story-notice[data-kind="goal-new"]{--notice-text-left:28.1%;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_objective.png')}
+.story-notice[data-kind="goal-complete"]{--notice-text-left:28.1%;--notice-accent:#dcffa8;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_objective_complete.png')}
+.outside-item-notice.story-notice{--notice-text-left:32.15%;--notice-art:url('../../../assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_ingredient.png');position:absolute;left:20px;top:20px;right:auto;width:254px;height:calc(232px / 3);min-height:0;padding:0;scale:1;transform-origin:left top}
+.outside-item-notice.story-notice strong{font-size:calc(46px / 3)}
+.outside-item-preview{position:absolute;left:10.5%;top:25%;width:15%;height:50%;display:flex;align-items:center;justify-content:center;border:0;border-radius:0;background:none}
+.outside-item-notice .outside-item-preview img{width:90%;height:90%;object-fit:contain;image-rendering:pixelated}

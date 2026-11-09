@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAST CALL 쉐이크</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="prototype.css">
+<link rel="stylesheet" href="session.css">
+
+</head><body>
+<div class="app">
+  <div class="top">
+    <div class="left">
+      <div class="sndtabs" id="sndtabs"><button type="button" data-s="1" aria-pressed="true">사운드 1</button><button type="button" data-s="2" aria-pressed="false">사운드 2</button></div>
+      <div class="tabs" id="tabs"></div>
+    </div>
+    <button class="menuBtn" id="openSet" type="button">☰ 설정 <kbd>ESC</kbd></button>
+  </div>
+  <main class="stage">
+    <section class="luna" aria-label="루나 쉐이킹 일러스트">
+      <canvas id="lv" width="760" height="712"></canvas>
+    </section>
+    <section class="panel">
+      <div class="timer" aria-label="조작 시간"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="13.5" r="8"/><path d="M12 13.5V9M9.5 2.5h5M12 2.5v3"/></svg><span id="timer">00:00</span></div>
+      <canvas id="cv" width="880" height="640"></canvas>
+      <div class="bar" id="bar"></div>
+    </section>
+  </main>
+</div>
+
+<div class="tut" id="tut" hidden>
+  <div class="tbox" role="dialog" aria-label="튜토리얼">
+    <div class="thead"><small>TUTORIAL</small><h2>쉐이크</h2><span class="pg" id="tutPage">1 / 2</span></div>
+    <div class="tgrid">
+      <div class="tfig"><canvas id="tutCv" width="300" height="190"></canvas><small>실제 화면 예시 · 조작하지 않아도 됩니다</small></div>
+      <div class="ttext"><h3 id="tutHead"></h3><div class="chip2" id="tutChip"></div><div id="tutBody"></div></div>
+    </div>
+    <div class="tfoot"><small>안내를 읽는 동안 제조 시간과 점수는 변하지 않습니다</small><button type="button" id="tutPrev">이전</button><button type="button" class="main" id="tutNext">다음 · <kbd>E</kbd></button></div>
+  </div>
+</div>
+
+<div class="result" id="res" hidden>
+  <div class="rs">
+    <div class="eyebrow">SINGLE GIMMICK / RESULT</div>
+    <img src="assets/asset-02.png" alt="">
+    <h2 id="rsTitle">-</h2>
+    <div class="score"><b id="rsScore">0</b><small>/ 100</small></div>
+    <div class="sub" id="rsSub"></div>
+    <div class="line" id="rsLine"></div>
+    <div class="chips" id="rsChips"></div>
+    <div class="rows" id="rsRows"></div>
+    <div class="btns"><button class="main" id="again" type="button">같은 기믹 다시 하기</button><button id="other" type="button">다른 기믹 고르기</button><button id="home" type="button">영업 시작 화면</button></div>
+    <div class="note" id="rsNote"></div>
+  </div>
+</div>
+
+
+<div class="modal" id="settings" hidden>
+  <div class="sbox" role="dialog" aria-label="설정">
+    <div class="shead"><span class="ham">☰</span><h2>설정</h2><button class="x" id="sClose" type="button" aria-label="닫기">✕</button></div>
+    <div class="sbody">
+      <nav class="snav" id="snav">
+        <button type="button" data-tab="sound" aria-selected="true">사운드 <span>›</span></button>
+        <button type="button" data-tab="game" aria-selected="false">게임 설정 <span></span></button>
+        <button type="button" data-tab="help" aria-selected="false">조작 안내 <span></span></button>
+      </nav>
+      <div>
+        <div class="spane" data-pane="sound">
+          <div class="row"><div><div class="t">음악 음량</div><div class="d">배경 음악의 크기를 조절합니다.</div></div><div class="ctl"><input type="range" id="oMusic" min="0" max="100"><span class="num" id="nMusic"></span></div></div>
+          <div class="row"><div><div class="t">효과음 음량</div><div class="d">UI · 상호작용 · 제조 효과음</div></div><div class="ctl"><input type="range" id="oSfx" min="0" max="100"><span class="num" id="nSfx"></span></div></div>
+          <div class="row"><div><div class="t">거리 환경음</div><div class="d">도시의 소음과 빗소리</div></div><div class="ctl"><input type="range" id="oStreet" min="0" max="100"><span class="num" id="nStreet"></span></div></div>
+          <div class="row"><div><div class="t">대사 출력음</div><div class="d">글자가 나타날 때 재생되는 소리</div></div><div class="ctl"><select class="sel" id="oVoice"><option value="low">낮고 부드러운 음</option><option value="digital">맑은 전자음</option><option value="type">타자기 소리</option><option value="off">끄기</option></select></div></div>
+          <div class="pair">
+            <div class="row"><div><div class="t">배경 음악</div><div class="d">장소별 음악 재생</div></div><button type="button" class="tg" id="oBgm">켜짐</button></div>
+            <div class="row"><div><div class="t">제조 효과음</div><div class="d">따르기 · 병따기 · 믹스 · 쉐이킹</div></div><button type="button" class="tg" id="oSfxOn">켜짐</button></div>
+          </div>
+        </div>
+        <div class="spane" data-pane="game" hidden>
+          <div class="row"><div><div class="t">판정 난이도</div><div class="d">재료 방울 크기</div></div><div class="ctl"><select class="sel" id="oDiff"><option value="easy">쉬움 · 제한 시간 +25%</option><option value="normal">보통</option><option value="hard">어려움 · 제한 시간 −20%</option></select></div></div>
+          <div class="row"><div><div class="t">타이밍 가이드</div><div class="d">쉐이커 속 얼음 위치 표시</div></div><button type="button" class="tg" id="oRing">켜짐</button></div>
+          <div class="row"><div><div class="t">화면 흔들림</div><div class="d">크랙 · 틴 빠짐 반동 연출</div></div><button type="button" class="tg" id="oShake">켜짐</button></div>
+          <div class="row"><div><div class="t">크랙 효과음</div><div class="d">상단 사운드 1 / 2 탭과 같음</div></div><div class="ctl"><select class="sel" id="oSnd"><option value="1">사운드 1 · 두꺼운 틴</option><option value="2">사운드 2 · 얇은 틴 (울림 김)</option></select></div></div>
+        </div>
+        <div class="spane" data-pane="help" hidden>
+          <div class="help">
+            <kbd>A</kbd><span>틴 닫기. 기울기 바늘이 금색일 때 눌러 작은 틴을 밀어 넣는다('쩍'). 잘 닫을수록 허용 MISS가 늘어난다.</span>
+            <kbd>A → D</kbd><span>강조된 키를 순서대로, 캡슐 게이지가 다 닳기 전에. 1회 완성마다 진행 바 한 칸.</span>
+            <kbd>A→D→A→D</kbd><span>위스키 사워는 두 번 왕복하는 회차가 섞여 나온다 (제한 시간도 두 배).</span>
+            <kbd>MISS</kbd><span>순서가 틀리거나 시간이 끝나면 빨간 칸. 허용 MISS를 넘기면 틴이 빠진다.</span>
+            <kbd>E</kbd><span>튜토리얼 다음 · 확인</span>
+            <kbd>ESC</kbd><span>설정 열기 / 닫기 (일시정지)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sfoot">
+      <button type="button" class="plain" id="sReset">이 항목 초기화</button>
+      <button type="button" class="ghost" id="sMenu">기믹 선택으로</button>
+      <button type="button" class="main" id="sBack">돌아가기 <kbd>Esc</kbd></button>
+    </div>
+  </div>
+
+</div>
+<script src="session-audio.js"></script>
+<script src="session-clock.js"></script>
+<script src="game.js"></script>
+<script src="luna.js"></script>
+<script src="settings.js"></script>
+<script src="session.js"></script>
+
+</body></html>

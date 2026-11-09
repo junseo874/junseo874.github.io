@@ -33,6 +33,8 @@ const {chromium}=runtime.load('playwright');
    p.flags={};start(2,'homeDoor');t=target('neighborhood-box');interact(t);
    ok(!D.unseen(m,t),'box clears before reveal animation completes');
    for(let i=0;i<40;i++)LunaOutsideNeighborhood.tick(m,.05);
+   ok(!p.flags.boobi_revealed,'eye animation finishes before the jump completes');
+   for(let i=0;i<40;i++)LunaOutsideNeighborhood.tick(m,.05);
    ok(p.flags.boobi_revealed,'box reveal still completes');
    t=target('neighborhood-cat');ok(!D.unseen(m,t),'revealed cat has no badge either');
    interact(t);m.story.cancel();p.inventory.tuna_can=1;

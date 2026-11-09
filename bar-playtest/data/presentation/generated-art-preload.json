@@ -48,9 +48,5 @@
   "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_campaign_skip_is_visible_background_v02.png",
   "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Cutscenes/Web_GRD_campaign_skip_track_background.png",
   "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_overlay_is_inspection_background.png",
-  "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_background.png",
-  "assets/01.ArtResources/05.UI/07.Popup/BG_notification_down.png",
-  "assets/01.ArtResources/05.UI/07.Popup/BG_notification_event.png",
-  "assets/01.ArtResources/05.UI/07.Popup/BG_notification_goal_complete.png",
-  "assets/01.ArtResources/05.UI/07.Popup/BG_notification_goal_new.png"
+  "assets/01.ArtResources/05.UI/06.Ect/WebGenerated/Outside/Web_GRD_world_choice_confirm_background.png"
 ]

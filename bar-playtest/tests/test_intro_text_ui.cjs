@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
-const lines=['약속해줘. 루나.','포기하지 않겠다고.','이건... 명령이 아니라 부탁이야.','사랑해 루나. 부디... 잘 지내야 해.'];
+const lines=['약속해줘, 루나. 포기하지 않겠다고.','잘 지내야 해. 알겠지?','...■■■ ■■.'];
 (async()=>{
  const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
@@ -43,58 +43,51 @@ const lines=['약속해줘. 루나.','포기하지 않겠다고.','이건... 명
   assert(early>middle*1.3&&middle>late*2&&late>0,'Guide dims gradually over all three seconds');
   await p.waitForFunction(()=>lunaCampaign.cinema.time>=4.5);
   assert(await p.evaluate(()=>{const c=lunaCampaign.cinema;if(c.time>=6||c.dialogueWait)return false;const canvas=lunaCampaign.host.querySelector('canvas'),pixels=canvas.getContext('2d').getImageData(0,0,1280,720).data;return pixels.every((v,i)=>i%4===3?v===255:v===0);}), 'After fade, two seconds stay pure black');
-  await p.waitForFunction(()=>lunaCampaign.cinema?.dialogueWait);
-  assert.equal(await p.evaluate(()=>lunaCampaign.cinema.time),6);
-  const text=()=>p.evaluate(()=>{const c=lunaCampaign.cinema;return c.scene.clips.find(l=>l.id===c.dialogueWait?.id)?.text?StudioTags.parse(c.scene.clips.find(l=>l.id===c.dialogueWait.id).text).text:undefined;});
-  const meta=await p.evaluate(()=>{const c=lunaCampaign,scene=c.cinema.scene;StudioModel.validate(scene);return {lines:scene.clips.filter(l=>l.layout==='intro'&&!l.introNotice&&!l.introStart).map(l=>({text:StudioTags.parse(l.text).text,wait:l.wait,effect:l.textEffect})),home:scene.clips.find(l=>l.actor==='house').start,alarm:scene.clips.find(l=>l.assetId==='opening-alarm').start,earlyArt:scene.clips.some(l=>l.type==='visual'&&l.start<10),canSkip:c.canSkipCinema()};});
-  assert.deepEqual(meta.lines.map(l=>l.text),lines);assert(meta.lines.every(l=>l.wait&&l.effect==='typewriter'));
-  assert.equal(meta.home,10);assert.equal(meta.alarm,10);assert.equal(meta.earlyArt,false);assert.equal(meta.canSkip,false);
-  const punctuation=await p.evaluate(()=>{
-   const clips=lunaCampaign.cinema.scene.clips.filter(c=>c.layout==='intro'&&!c.introNotice&&!c.introStart);
-   return clips.map(c=>{
-    const parsed=StudioTags.parse(c.text),timing=LunaDialogueRhythm.timing(parsed.text,c.cps);let valid=true;
-    for(let i=1;i<parsed.chars.length;i++){
-     const prev=parsed.chars[i-1].ch,next=parsed.chars[i].ch,before=parsed.chars[i-2]?.ch;
-     const gap=prev==='.'&&next==='.'?.3:prev==='.'&&before!=='.'?.35:1/c.cps;
-     valid&&=Math.abs(timing.times[i]-timing.times[i-1]-gap)<1e-8;
-     valid&&=StudioTags.count(parsed,timing.times[i]-.001,c.cps)===i;
-     valid&&=StudioTags.count(parsed,timing.times[i],c.cps)===i+1;
-    }
-    return {valid,pauses:parsed.pauses.map(x=>x.duration),initial:StudioTags.count(parsed,0,c.cps),partial:StudioTags.count(parsed,.08,c.cps)};
-   });
+  const meta=await p.evaluate(async()=>{
+   const c=lunaCampaign,scene=c.cinema.scene;LunaFocusSettings.setEnabled(false);StudioModel.validate(scene);
+   window.introNoiseBuffer=await StudioMedia.decode('opening-memory-noise');window.introAudioTrace=[];
+   const start=AudioBufferSourceNode.prototype.start,stop=AudioBufferSourceNode.prototype.stop;
+   AudioBufferSourceNode.prototype.start=function(...args){if(this.buffer===introNoiseBuffer)introAudioTrace.push({kind:'start',time:c.cinema.time,offset:args[1],loop:this.loop});return start.apply(this,args);};
+   AudioBufferSourceNode.prototype.stop=function(...args){if(this.buffer===introNoiseBuffer)introAudioTrace.push({kind:'stop',time:c.cinema.time,delay:(args[0]||0)-this.context.currentTime});return stop.apply(this,args);};
+   const lines=scene.clips.filter(l=>l.layout==='intro'&&!l.introNotice),noise=scene.clips.find(l=>l.assetId==='opening-memory-noise'),home=scene.clips.find(l=>l.actor==='house').start;
+   return {lines:lines.map(l=>({text:l.text,start:l.start,duration:l.duration,wait:l.wait,typing:StudioTags.duration(StudioTags.parse(l.text),l.cps)})),home,alarm:scene.clips.find(l=>l.assetId==='opening-alarm').start,noise,bufferDuration:introNoiseBuffer.duration,gains:[0,.25,.5,.75,1].map(x=>StudioKeyframes.audioGain(noise,noise.duration*x)),canSkip:c.canSkipCinema()};
   });
-  assert.deepEqual(punctuation.map(x=>x.pauses),[[],[],[],[]],'No duplicated intro-only punctuation tags');
-  assert(punctuation.every(x=>x.valid&&x.initial===0&&x.partial>0));
-  for(let i=0;i<4;i++){
-   assert.equal(await text(),lines[i]);
-   if(i===0){
-    const id=await p.evaluate(()=>lunaCampaign.cinema.dialogueWait.id);
-    for(const key of ['KeyE','Space','Enter'])await p.keyboard.press(key);
-    await canvas.click();
-    assert(await p.evaluate(id=>{const c=lunaCampaign.cinema,w=c.dialogueWait,line=c.scene.clips.find(l=>l.id===id);return w.id===id&&!w.revealed&&c.player.dialogueCount(line)<StudioTags.parse(line.text).chars.length;},id),'Keys and clicks cannot reveal or skip partial intro text');
-    await p.waitForFunction(()=>{const c=lunaCampaign.cinema,w=c.dialogueWait,l=c.scene.clips.find(l=>l.id===w.id);return c.player.dialogueCount(l)===StudioTags.parse(l.text).chars.length&&StudioOpening.typingPending(l,c.time-l.start+w.age);});
-    await p.keyboard.press('KeyE');assert.equal(await p.evaluate(()=>lunaCampaign.cinema.dialogueWait.id),id,'Final full-stop pause also completes naturally');
+  assert.deepEqual(meta.lines.map(l=>l.text),lines);assert(meta.lines.every(l=>!l.wait&&l.duration>l.typing+1));
+  assert.equal(meta.alarm,meta.home);assert.equal(meta.noise.start+meta.noise.duration,meta.home);
+  assert.equal(meta.noise.start,meta.lines[0].start,'Quiet noise begins with the first card');
+  const keys=meta.noise.keyframes.volume;
+  assert(keys[0].value>0&&keys[2].value<=.12&&keys[3].value>=.6,'Keep early cards quiet and rise quickly in the last card');
+  assert(keys.every(k=>k.value<=.65),'The climax is capped below the previous .95 gain');
+  assert.equal(meta.noise.loop,false);assert.equal(meta.noise.fadeOut,0);assert(meta.bufferDuration>=meta.noise.offset+meta.noise.duration);
+  assert(meta.gains.every((v,i,a)=>!i||v>a[i-1]));assert.equal(meta.canSkip,false);
+  for(const [i,line] of meta.lines.entries()){
+   await p.waitForFunction(start=>lunaCampaign.cinema.time>=start,line.start);
+   const before=await p.evaluate(()=>lunaCampaign.cinema.time);
+   for(const key of ['KeyE','Space','Enter'])await p.keyboard.press(key);
+   await canvas.click();
+   assert(await p.evaluate(({before,line})=>{const c=lunaCampaign.cinema;return !c.dialogueWait&&c.time<line.start+line.duration&&c.time-before<.6;},{before,line}),'Auto cards cannot be skipped by input');
+   await p.waitForFunction(at=>lunaCampaign.cinema.time>=at,line.start+line.typing+.1);
+   assert.equal(await p.evaluate(()=>{const c=lunaCampaign.cinema,l=StudioModel.sample(c.scene,c.time).dialogue;return c.player.dialogueCount(l)===StudioTags.parse(l.text).chars.length;}),true);
+   if(i===1){
+    await p.keyboard.press('Escape');const paused=await p.evaluate(()=>lunaCampaign.cinema.time);
+    await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>lunaCampaign.cinema.time),paused,'Settings pause automatic playback');
+    await p.keyboard.press('Escape');
    }
-   await p.waitForFunction(()=>{const c=lunaCampaign.cinema,w=c.dialogueWait,l=c.scene.clips.find(l=>l.id===w.id);return !StudioOpening.typingPending(l,c.time-l.start+w.age);});
-   await p.waitForTimeout(150);assert.equal(await text(),lines[i],'No automatic advancement');
-   const bounds=await p.locator('.campaign-host canvas, .campaign-cinema canvas, canvas').first().evaluate(canvas=>{
-    const data=canvas.getContext('2d').getImageData(0,0,1280,720).data;let x0=1280,x1=0,y0=720,y1=0;
-    for(let y=0;y<720;y++)for(let x=0;x<1280;x++){const n=(y*1280+x)*4;if(data[n]||data[n+1]||data[n+2]){x0=Math.min(x0,x);x1=Math.max(x1,x);y0=Math.min(y0,y);y1=Math.max(y1,y);}}
-    return {x0,x1,y0,y1};
-   });
-   assert(Math.abs((bounds.x0+bounds.x1)/2-640)<12);assert(Math.abs((bounds.y0+bounds.y1)/2-360)<12);
-   assert(bounds.y1-bounds.y0<45,'Only centered text on pure black');
-   if(i===0)await p.screenshot({path:'/private/tmp/luna-intro-text.png'});
-   if(i===1){await p.keyboard.down('Space');await p.waitForTimeout(1800);assert.equal(await text(),lines[2],'Holding Space cannot skip additional lines');await p.keyboard.up('Space');}
-   else await p.keyboard.press(i===2?'Enter':'KeyE');
-   if(i<3)await p.waitForFunction(expected=>{const c=lunaCampaign.cinema;return c.scene.clips.find(l=>l.id===c.dialogueWait?.id)&&StudioTags.parse(c.scene.clips.find(l=>l.id===c.dialogueWait.id).text).text===expected;},lines[i+1]);
+   await p.screenshot({path:'/private/tmp/luna-intro-auto-'+i+'.png'});
+   // No confirmation: simply wait for the next authored boundary.
   }
+  await p.waitForFunction(home=>lunaCampaign.cinema.time>=home,meta.home);
   assert(await p.evaluate(()=>{const c=lunaCampaign.cinema,s=StudioModel.sample(c.scene,c.time);return !c.dialogueWait&&s.actors.house.active&&s.actors['home-luna'].assetId==='opening-luna-sleep';}));
-  await p.waitForFunction(()=>StudioMedia.activeVoices>0);await p.screenshot({path:'/private/tmp/luna-intro-to-contact.png'});
+  const trace=await p.evaluate(()=>introAudioTrace);
+  assert(trace.some(x=>x.kind==='start'&&!x.loop&&x.offset>=.8));
+  const cut=trace.filter(x=>x.kind==='stop'&&x.time>=meta.home).at(-1);assert(cut&&cut.time-meta.home<.1&&cut.delay<=0,'Noise must hard-stop on the exact room/alarm boundary, not retire with a fade');
+  await p.screenshot({path:'/private/tmp/luna-intro-to-contact.png'});
   await p.waitForFunction(()=>{const c=lunaCampaign.cinema;return c.scene.clips.find(l=>l.id===c.dialogueWait?.id)?.actor==='phone';},null,{timeout:15000});
-  assert.equal(await p.evaluate(()=>outsidePlaytest.model.paused),true);
+  const sleepingX=await p.evaluate(()=>outsidePlaytest.model.x);
+  await p.keyboard.down('ArrowRight');await p.waitForTimeout(200);await p.keyboard.up('ArrowRight');
+  assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),sleepingX,'Manual call still blocks exterior movement after settings resume');
   await p.goto('http://127.0.0.1:8123/cutscene-studio/?template=opening&revision=guide-fade-in-20261016');await p.waitForFunction(()=>window.cutsceneStudio?.ready);
   assert.deepEqual(await p.evaluate(()=>cutsceneStudio.project.clips.filter(c=>c.layout==='intro'&&!c.introNotice&&!c.introStart).map(c=>StudioTags.parse(c.text).text)),lines);
-  assert.deepEqual(errors,[]);console.log('PASS four exact centered black-screen cards; manual E/Enter/Space; no auto/repeat/skip; call + sleep/wake continuation; shared editor.');
+  assert.deepEqual(errors,[]);console.log('PASS three Notion cards autoplay without skipping; recorded noise crescendo/hard cut; settings pause; alarm + sleep/wake; manual call; shared editor.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

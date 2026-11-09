@@ -35,7 +35,7 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
       assert.equal(await page.evaluate(() => barGame.dialogue.chars), 0, 'announce when line begins, not after advancing');
       const notice = page.locator('.story-notice-people[data-kind="meet"][data-actor="tom"]');
       await notice.waitFor({state: 'visible'});
-      assert.equal(await notice.locator('small').textContent(), '새로운 인물!');
+      assert.equal(await notice.locator('small').textContent(), '새로운 인물');
       assert.equal(await notice.locator('strong').textContent(), await page.evaluate(() => barGame.name('tom')));
       assert.equal(await page.evaluate(() => LunaStoryNotices.pending.filter(e => e.actor === 'tom' && e.kind === 'meet').length), 1);
       assert(await page.evaluate(() => barGame.progress.flags.tom_name_known));

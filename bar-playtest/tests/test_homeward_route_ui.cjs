@@ -35,6 +35,11 @@ const assert=require('node:assert/strict');
   await page.evaluate(()=>{const m=outsidePlaytest.model;m.story.cancel();m.backgroundStory.cancel();outsidePlaytest.refreshHUD();});
   const guide=page.locator('.outside-homeward-guide');assert(await guide.isVisible());
   await page.waitForTimeout(450);
+  // Temporary notifications own the upper-left corner; the route guide
+  // moves below them and returns when the queue has expired or is cleared.
+  const noticeCount=await page.locator('#story-notices:not([hidden]) .story-notice:not([hidden])').count();
+  if(noticeCount)assert.equal((await guide.boundingBox()).y,14+noticeCount*80);
+  await page.evaluate(()=>{LunaStoryNotices.clear();outsidePlaytest.tick(0);});
   const firstBox=await guide.boundingBox();assert.equal(firstBox.x,32);assert.equal(firstBox.y,14);
   assert.equal(firstBox.width,256);assert.equal(firstBox.height,67);assert(!(await guide.textContent()).includes('현재 목표'));
   const skin=await guide.evaluate(el=>({background:getComputedStyle(el).backgroundImage,light:getComputedStyle(el,'::before').backgroundImage,font:getComputedStyle(el.querySelector('strong')).fontFamily,weight:getComputedStyle(el.querySelector('strong')).fontWeight,detail:getComputedStyle(el.querySelector('small')).fontSize,arrow:!!el.querySelector('.homeward-direction')}));

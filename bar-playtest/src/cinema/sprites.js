@@ -12,13 +12,14 @@ window.Sprites = (function () {
   }
 
   function load(done) {
+    const complete=()=>Promise.resolve(window.StageDisposal?.ready).then(done);
     const names = Object.keys(window.SHEETS);
     let left = names.length;
     names.forEach(function (n) {
       const d = window.SHEETS[n];
       const img = new Image();
-      img.onload = function () { if (--left === 0) done(); };
-      img.onerror = function () { console.error('시트 로드 실패', n); if (--left === 0) done(); };
+      img.onload = function () { if (--left === 0) complete(); };
+      img.onerror = function () { console.error('시트 로드 실패', n); if (--left === 0) complete(); };
       img.src = d.png;
       sheets[n] = {
         img: img,
@@ -27,7 +28,7 @@ window.Sprites = (function () {
         anchorY: median(d.frames.map(f => f.oy + f.sh)),
       };
     });
-    if (!names.length) done();
+    if (!names.length) complete();
   }
 
   function get(n) { return sheets[n]; }

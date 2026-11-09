@@ -1,0 +1,77 @@
+{
+  "devices": [
+    {
+      "vendorId": 4203,
+      "deviceId": 0,
+      "vendorString": "Google Inc. (Apple)",
+      "deviceString": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4 Pro, Version 26.2 (Build 25C56))",
+      "driverVendor": "Apple",
+      "driverVersion": "26.2"
+    }
+  ],
+  "dpr": 2,
+  "physicalSize": [
+    2560,
+    1440
+  ],
+  "raining": true,
+  "gpuTimerAvailable": true,
+  "rejectedQueries": 0,
+  "gpuMilliseconds": {
+    "fog": {
+      "samples": 180,
+      "median": 0.907541,
+      "p90": 1.535583,
+      "mean": 1.0590207611111115
+    },
+    "shafts": {
+      "samples": 60,
+      "median": 0,
+      "p90": 0,
+      "mean": 0
+    },
+    "puddles": {
+      "samples": 60,
+      "median": 0.630666,
+      "p90": 1.102333,
+      "mean": 0.7434522666666668
+    },
+    "characterShadow": {
+      "samples": 60,
+      "median": 0.94925,
+      "p90": 1.641291,
+      "mean": 1.07685725
+    },
+    "post": {
+      "samples": 60,
+      "median": 1.186166,
+      "p90": 1.930041,
+      "mean": 1.2650800499999995
+    },
+    "maps": {
+      "samples": 60,
+      "median": 0.238583,
+      "p90": 0.409125,
+      "mean": 0.2616474333333333
+    },
+    "render": {
+      "samples": 60,
+      "median": 0.394583,
+      "p90": 0.601958,
+      "mean": 0.40422316666666663
+    }
+  },
+  "cpuSubmissionMilliseconds": {
+    "samples": 60,
+    "median": 12.700000002980232,
+    "p90": 16.5,
+    "mean": 13.20833333345751
+  },
+  "rafMilliseconds": {
+    "samples": 60,
+    "median": 16.699999999999818,
+    "p90": 16.700000000000273,
+    "mean": 16.943333333333335
+  },
+  "errors": []
+}

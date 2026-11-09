@@ -766,6 +766,7 @@
             if(!global.LunaOutsideNeighborhood?.inCamp(model))drawPlayer();
           } else {
             renderNode(n);
+            if(n.name==='residence-building')global.LunaBubiArt.cover(model,n,drawSprite);
             if(n.name==='residence-building')global.LunaCorridorBirds.draw(model,n,streetParallax(n,renderCam,model),drawSprite);
           }
         }
@@ -891,6 +892,8 @@
         // Establish the off-screen position before the first entrance transition.
         el.getBoundingClientRect();
       }
+      const noticeCount=document.querySelectorAll('#story-notices:not([hidden]) .story-notice:not([hidden])').length+(host.querySelector('.outside-item-notice:not([hidden])')?1:0);
+      el.style.top=(14+noticeCount*80)+'px';
       const m = model,
         cue = homewardCues(m)[0];
       // Keep directions visible during conversations; boarding the lift hides them.

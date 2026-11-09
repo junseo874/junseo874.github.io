@@ -40,12 +40,22 @@ function fillField(p,volumes,cache){
  const local=volumes.filter(l=>l.bounds[0]<=x+(width-1)*step&&l.bounds[2]>=x&&l.bounds[1]<=y+(height-1)*step&&l.bounds[3]>=y),data=new Uint8Array(width*height*4);
  // Polygon distances are geometric; blinking changes power, not coverage.
  // Cache only this small world-grid window, never an unbounded walked trail.
- if(cache&&(cache.x!==x||cache.y!==y)){cache.x=x;cache.y=y;cache.samples=new Map();}
+ const previous=cache?.samples,dx=cache?Math.round((x-cache.x)/step):width,dy=cache?Math.round((y-cache.y)/step):height;
+ const moved=cache&&(cache.x!==x||cache.y!==y);
+ if(cache&&moved){cache.x=x;cache.y=y;cache.samples=new Map();}
  const samples=cache?.samples||new Map(),live=new Set();
  const fields=local.map(l=>{
   const key=JSON.stringify([l.id,l.points,l.falloff,l.bounds]);live.add(key);let weights=samples.get(key);
-  if(!weights){weights=new Float64Array(width*height);for(let row=0;row<height;row++)for(let col=0;col<width;col++){
-   const p={x:x+col*step,y:y+row*step},b=l.bounds;
+  if(!weights){
+   const old=moved&&previous?.get(key),b=l.bounds;
+   // Different floating-point origins can straddle exact bounds. Refresh
+   // those columns/rows instead of carrying an epsilon-side decision over.
+   const edgeX=old&&Array.from({length:width},(_,i)=>Math.abs(x+i*step-b[0])<1e-10||Math.abs(x+i*step-b[2])<1e-10);
+   const edgeY=old&&Array.from({length:height},(_,i)=>Math.abs(y+i*step-b[1])<1e-10||Math.abs(y+i*step-b[3])<1e-10);
+   weights=new Float64Array(width*height);for(let row=0;row<height;row++)for(let col=0;col<width;col++){
+   const ox=col+dx,oy=row+dy;
+   if(old&&!edgeX[col]&&!edgeY[row]&&ox>=0&&ox<width&&oy>=0&&oy<height){weights[row*width+col]=old[oy*width+ox];continue;}
+   const p={x:x+col*step,y:y+row*step};
    if(p.x>=b[0]&&p.y>=b[1]&&p.x<=b[2]&&p.y<=b[3])weights[row*width+col]=coverage(p,l);
   }samples.set(key,weights);}return {weights,power:power(l)};
  });

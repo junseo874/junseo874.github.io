@@ -1,0 +1,220 @@
+{
+  "source_sheet": "https://docs.google.com/spreadsheets/d/1jelVM71g9OpQ7Zc4mxsOox7iFdlTOWMHz2Rrw8ysGTM/edit?gid=904944759",
+  "source_tab": "리소스 업로드",
+  "imported_original_pngs": 21,
+  "runtime_art_comparison": "All uniquely named current source PNGs match registered runtime PNG bytes. Historical versions and explicit test images are not promoted.",
+  "validation": {
+    "new_resources_and_live_memory": "RESOURCE_REFRESH_OK: 21 original files, 7 Bubi sheets/pivots, native notices/stacking, Haru reactions, actual disposal renderer, reference-scale notice variants and resource preview/downloads.",
+    "original_art_and_animation_review": "PASS current artwork: 854 review rows; 1144 extraction entries; 1451 decoded image sources; every animation frame; original bytes, alpha, layer frame downloads, empty glasses, three tails and mobile layout",
+    "latest_supplied_art": "LATEST_ART_OK: 46 registrations, 12 cocktail representatives, Haru static, Tom reactions, 13 house layers, review and 348 flame frames.",
+    "bubi_interactions": "NEIGHBORHOOD_EVENTS_OK { intro: 12, gang: 7, feed: 5, rest: 5 }",
+    "sofa_bubi": "HOME_CAT_OK: meow/two choices, cancel, pet face/tail/hearts, pause/end/cancel, repeat, rest unchanged, no inventory cost, outdoor menu preserved { changed: 1358, hearts: 143 }",
+    "notification_native_panels": "GENERATED_ART_UI_OK: current generated PNGs registered; archived notice fragments excluded; 6 native runtime notice skins; 12 PNG cursors; old paths blocked without requests",
+    "story_notice_flow": "PASS: bar first encounter, positive/negative affinity, upper-left layout, outside registration and aliases, actual forced event, upper-left stack, P hide/resume, FIFO and auto-dismiss",
+    "ingredient_notices": "PASS shared profile theme, requested ingredient copy, preview, upper-left compact layout, FIFO/expiry, reduced motion, small viewport and cleanup",
+    "tom_introduction": "PASS main/developer: actual CSV entrance and earlier name stay silent; full introduction announces on line start once; encounter/name flags and copied progress preserved",
+    "viewport_338_checks": "PASS 338 game-frame bounds / proportional UI checks: DPR 1/2, repeated resize, updates, people/events/affinity, QA, settings, profiles, unlocks, warnings, toast and drag edges",
+    "recipe_table_images": "RECIPE_TABLE_ART_OK: original/remix, locked/unlocked table sprites, decoded/contained, detail art preserved, recipe selection",
+    "effect_composition": "STREET_EFFECT_COMPOSITION_OK {\"trace\":[\"building\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"neon\",\"scan\",\"puddle\"],\"lights\":214706,\"scans\":56414,\"capture\":488294,\"actorCount\":8,\"neons\":true,\"lamp\":0.82,\"lift\":[-13.285000000000002,-1.395,-12.125000000000002,-0.7449999999999999],\"engineLift\":[-13.285000000000002,-1.395,-12.125000000000002,-0.7449999999999999],\"error\":null,\"gl\":0}"
+  },
+  "initial_suite_runs": {
+    "smoke": {
+      "total": 42,
+      "passed": 41,
+      "failures": [
+        "tools/build-preload-manifest.cjs"
+      ]
+    },
+    "ui": {
+      "total": 46,
+      "passed": 42,
+      "failures": [
+        "bar-playtest/tests/test-generated-art-ui.cjs",
+        "bar-playtest/tests/test-tom-introduction-ui.cjs",
+        "bar-playtest/tests/test-recipe-copy-ui.cjs",
+        "bar-playtest/tests/test_game_viewport_ui.cjs"
+      ]
+    },
+    "outside": {
+      "total": 75,
+      "passed": 66,
+      "failures": [
+        "bar-playtest/tests/test-corridor-birds-ui.cjs",
+        "bar-playtest/tests/test-engine-barrel-fire.cjs",
+        "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+        "bar-playtest/tests/test-outside-npc-animation.cjs",
+        "bar-playtest/tests/test-neighborhood-events-ui.cjs",
+        "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+        "bar-playtest/tests/test-home-weather-ui.cjs",
+        "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+        "bar-playtest/tests/test-lift-right-boundary-ui.cjs"
+      ]
+    },
+    "craft": {
+      "total": 14,
+      "passed": 14,
+      "failures": []
+    },
+    "cinema": {
+      "total": 19,
+      "passed": 18,
+      "failures": [
+        "bar-playtest/tests/test-terrace-foreground-ui.cjs"
+      ]
+    }
+  },
+  "resolved_after_initial_runs": [
+    "Preload manifest rebuilt and verified",
+    "Native notice size/text/placement expectations updated and rerun passed",
+    "Generated artwork review excludes intentionally hidden/superseded surfaces",
+    "Bubi alpha interaction outline updated and neighborhood event test passed"
+  ],
+  "remaining_regression_failures": [
+    {
+      "test": "test-recipe-copy-ui",
+      "observation": "expects 14 cocktails; current table contains 13; no cocktail rows were modified by this task"
+    },
+    {
+      "test": "test-corridor-birds-ui",
+      "observation": "old upper-sill position assertion differs from current engine placement"
+    },
+    {
+      "test": "test-engine-barrel-fire",
+      "observation": "local Unity ProjectSettings hash differs from stored snapshot; Unity files were not modified"
+    },
+    {
+      "test": "test-campfire-lighting-ui",
+      "observation": "expected fixed flame origin differs from current engine placement"
+    },
+    {
+      "test": "test-outside-npc-animation",
+      "observation": "test fixture does not load LunaOutsideContent required by current NPC module"
+    },
+    {
+      "test": "test-street-parallax-engine-ui",
+      "observation": "arrival camera fixed-position assertion differs by about 0.0144 world units"
+    },
+    {
+      "test": "test-home-weather-ui",
+      "observation": "old 643px sample coordinates differ from current 631px room/exterior placement"
+    },
+    {
+      "test": "test_upper_crate_boundary_ui",
+      "observation": "expected old crate boundary differs from current placement"
+    },
+    {
+      "test": "test-lift-right-boundary-ui",
+      "observation": "right foot/body clearance assertion differs by 0.005 world units"
+    },
+    {
+      "test": "test-terrace-foreground-ui",
+      "observation": "legacy day-2 feet clipping pixel check fails; engine terrace layout test passes"
+    },
+    {
+      "test": "test_terrace_memory_ui (extra)",
+      "observation": "old sleep-confirm entry is no longer found; new direct real-memory test passes"
+    },
+    {
+      "test": "test_homeward_route_ui (extra)",
+      "observation": "new notice/guide stacking and restoration checks pass; subsequent old lift-boarding assertion fails"
+    }
+  ],
+  "performance": {
+    "fill_benchmark": "[{\"name\":\"before\",\"ms\":[166.03258300000002,161.444083,153.702041,153.765667]},{\"name\":\"after\",\"ms\":[57.07695799999999,50.163832999999954,50.944375000000036,49.89220799999998]}]\ndifferentBytes 0",
+    "equivalence": "600 walking positions vs pre-change RGBA: 0 different bytes. Additional 180 positions vs fresh calculation cover vertical travel, reversal, power and geometry changes.",
+    "scope": "The isolated fill calculation improvement is not a whole-frame FPS claim. Shader content, render resolution and visual feature counts were preserved.",
+    "texture_upload": "texSubImage2D experiment removed: it showed no whole-frame improvement. Original texture upload preserved.",
+    "browser_comparison": {
+      "original": {
+        "cpu": {
+          "samples": 60,
+          "median": 11.699999995529652,
+          "p90": 14.100000001490116,
+          "mean": 11.945000000173847
+        },
+        "raf": {
+          "samples": 60,
+          "median": 16.699999999999818,
+          "p90": 16.799999999999727,
+          "mean": 16.668333333333333
+        },
+        "errors": []
+      },
+      "texture_experiment": {
+        "cpu": {
+          "samples": 60,
+          "median": 12.700000002980232,
+          "p90": 16.5,
+          "mean": 13.20833333345751
+        },
+        "raf": {
+          "samples": 60,
+          "median": 16.699999999999818,
+          "p90": 16.700000000000273,
+          "mean": 16.943333333333335
+        },
+        "errors": []
+      },
+      "retained_shadow_cache_only": {
+        "cpu": {
+          "samples": 60,
+          "median": 11.799999997019768,
+          "p90": 14.799999997019768,
+          "mean": 12.22666666644315
+        },
+        "raf": {
+          "samples": 60,
+          "median": 16.699999999999818,
+          "p90": 16.700000000000273,
+          "mean": 16.665
+        },
+        "errors": []
+      },
+      "original_repeat": {
+        "cpu": {
+          "samples": 60,
+          "median": 11.399999998509884,
+          "p90": 15,
+          "mean": 11.99500000004967
+        },
+        "raf": {
+          "samples": 60,
+          "median": 16.699999999999818,
+          "p90": 16.700000000000273,
+          "mean": 16.665000000000003
+        },
+        "errors": []
+      }
+    },
+    "conclusion": "Retain byte-equivalent moving-light weight reuse only. Isolated calculation improves about 67%; whole-frame CPU/GPU improvement is not established by these browser samples. All samples remain around 60 fps on this machine."
+  },
+  "server": "http://127.0.0.1:8123/bar-playtest/",
+  "notification_reference": {
+    "reference_screen": [
+      3840,
+      2160
+    ],
+    "source_panel": [
+      762,
+      232
+    ],
+    "game_frame": [
+      1280,
+      720
+    ],
+    "panel": [
+      254,
+      77.33333333333333
+    ],
+    "previous_panel": [
+      381,
+      116
+    ],
+    "scale_change": 0.6666666666666666,
+    "stack_stride": 80,
+    "source_panels": 7,
+    "refreshed_preview_states": 12,
+    "placement": "upper left, 20 game pixels from top and left",
+    "resource_review": "all 7 native panels, all 12 bar/outside variants; original downloads and current screenshots; legacy generated fragments omitted from active extraction inventory"
+  }
+}

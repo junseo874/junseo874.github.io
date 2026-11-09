@@ -79,7 +79,7 @@ CSV의 `sprite`, `serve_sprite`, `clip` 등은 리소스 식별자이며 항상 
 
 `bar-playtest/data/presentation/generated-art/manifest.json`은 현재 경로·이전 웹 경로·사용 화면·선택자·본체 영역·해시를 연결합니다. `sources[].src`는 이전 위치를 기록한 이력이며 실행 URL이 아닙니다. 개발자/구형 도움말 추출물은 `05.UI/99.Review`로 분리하며 검수/추출용으로 보존합니다.
 
-웹 커서·광고·선택지 조각·튜토리얼은 해당 PNG를 직접 참조합니다. `tools/build-generated-ui-css.cjs`가 명확하게 대응하는 정적 UI 배경 69개 상태를 PNG로 연결합니다. 배치·텍스트·모서리·테두리·동적 게이지·Canvas·애니메이션은 원래 CSS/JS가 담당합니다. 남은 추출 레이어는 리소스 확인/개별 추출용이며, 모든 CSS 효과를 정지 이미지로 대체한 것은 아닙니다.
+웹 커서·광고·선택지 조각·튜토리얼은 해당 PNG를 직접 참조합니다. `tools/build-generated-ui-css.cjs`가 명확하게 대응하는 정적 UI 배경 63개 상태를 PNG로 연결합니다. 배치·텍스트·모서리·테두리·동적 게이지·Canvas·애니메이션은 원래 CSS/JS가 담당합니다. 남은 추출 레이어는 리소스 확인/개별 추출용이며, 모든 CSS 효과를 정지 이미지로 대체한 것은 아닙니다.
 
 변경 후 `node tools/build-generated-ui-css.cjs --write`, `node bar-playtest/tools/build_resource_extraction_catalog.cjs`, `node tools/build-preload-manifest.cjs --write`로 목록을 갱신합니다. 생성 PNG 792개 중 엔진과 같은 28개는 엔진 파일명을 사용하고 나머지 764개는 `Web_` 접두사를 사용합니다. `node tools/check-web-generated-art.cjs`는 바이트와 파일명 규칙을 검증합니다. 관리 데이터는 `data/presentation/generated-art/`에 두고 아트 폴더에는 문서를 생성하지 않습니다. 재캡처 도구는 `artifacts/ui-graphic-staging/`에만 출력하며 현재 라이브러리를 덮어쓰지 않습니다. 상위 원본·Drive·Unity에는 내보내지 않습니다.
 
@@ -91,3 +91,16 @@ CSV의 `sprite`, `serve_sprite`, `clip` 등은 리소스 식별자이며 항상 
 - 회귀 검사: `node bar-playtest/tests/test-resource-current-artwork-ui.cjs`. 모든 등록 이미지 디코딩·시트 프레임 범위·원본 바이트·투명도·개별 다운로드·모바일 배치를 확인합니다.
 
 2026-10-31 사용자 요청으로 사용하지 않는 그래픽 163개(14,157,394바이트)를 제거했습니다. 교체 전 배경·정적 제공 이미지, 옛 화면 캡처, 미등록 원본이 대상이며 현재 검수 화면과 테스트가 사용하는 파일은 유지했습니다. `reference/unmapped/`와 `serving/static/`는 더 이상 사용하지 않습니다. 이전 경로 이동표는 당시 기록이며 삭제된 파일의 현재 존재를 보장하지 않습니다. 이미지 원본은 Git 이력에서 복구할 수 있습니다.
+
+
+## 2026-11-09 리소스 업로드 반영
+
+공유 시트 `리소스 업로드` 탭과 상위 `9_ArtResources` 원본을 대조해 신규·변경 PNG 21개를 바이트 그대로 복사했다. 목록과 원본 해시는 `artifacts/resource-refresh/imported.json`에 기록했다. 과거 버전·테스트용 이미지는 최신 운영 리소스를 덮어쓰지 않는다.
+
+- 부비: Box 5종, Walk, Sleep 원본 셀을 `bubi-art.js`에서 재생한다. 접근은 흔들림 1회 후 빈 박스 정지, E는 눈 1회→점프 1회 순서로 재생한다. 클립 길이는 프레임 수와 FPS에서 계산한다. 박스 점프의 셀 내부 이동을 보존하고, 건물에 구워진 이전 상자 영역은 같은 벽면으로 가린 뒤 새 상자를 그린다. 집에서는 실제 소파 좌석 픽셀에 발을 맞춰 걷기·도약·수면으로 이어진다. 게임 진행 조건과 대사는 바꾸지 않는다.
+- 송하루: 최신 Idle은 이미 반영되어 있었고 fail/success 원본을 해당 표정에 연결했다. 칵테일 대표/테이블 등록을 대조하고 변경된 테이블용 위스키 사워를 갱신했다. 레시피 좌측 슬롯은 계속 테이블용 이미지를 사용한다.
+- 제조 배경: cocktail_making_minigame, shaking_minigame, stirring_minigame 원본을 기존 dummy 대신 연결했다. 폐기물처리장 원본은 실제 StageDisposal과 Studio 목록 양쪽에 등록한다. StageDisposal은 종횡비를 유지하며 원본 바닥 350행을 기존 인물 발 좌표에 맞춘다.
+- 알림: notify 원본 7종은 제목·아이콘이 합쳐져 있으므로 변하는 본문만 렌더한다. 1280×720 기준 좌측 상단 20px, 254×77⅓px (3840×2160 참고 화면 대비 동일 비율)로 쌓는다. 파일명과 그림이 반대이므로 **호감도 상승=IMG_decrease(분홍 위 화살표), 하락=IMG_increase(보라 아래 화살표)**이다. 이 원본 패널은 generated-art.css의 이전 알림 스킨에서 제외한다. 리소스 확인의 12개 상태별 화면/투명 PNG를 실제 렌더러로 갱신했고, 알람 빠른 찾기는 현재 원본 7종을 가리킨다. 이전 생성 스킨은 디스크에 보관하되 현재 추출 목록에서는 제외한다.
+- 외부 성능: 그림자 채움 계산의 이동 전후 겹치는 격자 가중치를 재사용한다. 텍스처 부분 갱신은 전체 프레임 비교에서 이점이 확인되지 않아 적용하지 않는다. 셰이더·광원 수·해상도·반사·안개 효과는 유지한다. 이동 600지점의 채움 RGBA를 이전 계산과 비교해 차이 0바이트를 확인했다. 부분 계산 시간 개선은 전체 FPS 개선과 구분한다.
+
+검증: `test-november-resource-refresh-ui.cjs`, 기존 리소스·레시피 테이블 이미지·집 부비·알림·뷰포트·외부 효과·회상 테스트를 사용한다.

@@ -10613,7 +10613,7 @@
     },
     {
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
-      "sha256": "a60021afacff72da0f9ad99834d8996f75c13cbacd18f65b577db477e5371993",
+      "sha256": "d6407deefcf4c4951b2abafbeda11d4b4ae9c2c427401c8eedca2264793a7fa1",
       "kind": "new",
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png"
     },
@@ -10622,6 +10622,146 @@
       "sha256": "606d7280a9ae4a63f7d228e48637220fad45592897d9b4e4d8d097e9880a199c",
       "kind": "new",
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png"
+    },
+    {
+      "source": "02.Environments/01.Bar/03.Minigames/cocktail_making_minigame.png",
+      "path": "02.Environments/01.Bar/03.Minigames/cocktail_making_minigame.png",
+      "sha256": "6a44ecbb30b17409eecb16e24d2b06e6f4bf8903845ebcfbc89c72bc849c4b96",
+      "from": "02.Environments/01.Bar/03.Minigames/cocktail_making_minigame.png",
+      "kind": "new"
+    },
+    {
+      "source": "02.Environments/01.Bar/03.Minigames/shaking_minigame.png",
+      "path": "02.Environments/01.Bar/03.Minigames/shaking_minigame.png",
+      "sha256": "84623d753955e95c0e20441019febbc6e12b8067084332f3bf57143c50aff601",
+      "from": "02.Environments/01.Bar/03.Minigames/shaking_minigame.png",
+      "kind": "new"
+    },
+    {
+      "source": "02.Environments/01.Bar/03.Minigames/stirring_minigame.png",
+      "path": "02.Environments/01.Bar/03.Minigames/stirring_minigame.png",
+      "sha256": "733c5d6e5d1cb1eccae0cfa1942c98c7af6180acc2b9b3eac48f8ce23b2e968d",
+      "from": "02.Environments/01.Bar/03.Minigames/stirring_minigame.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
+      "path": "01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
+      "sha256": "98ba7ffb235562f67bf3b83904fa5e189396350c2b7804bedebb3da590688f6c",
+      "from": "01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/01.Bar/10.Haru/success/Haru_success.png",
+      "path": "01.Characters/01.Bar/10.Haru/success/Haru_success.png",
+      "sha256": "217973f220ad1966232be571017779c6f65a4a74517692693642e8cf68412763",
+      "from": "01.Characters/01.Bar/10.Haru/success/Haru_success.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_decrease.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_decrease.png",
+      "sha256": "7be7693c2226946c740fb28041fb58c573cc848050f6fae8961b615cd7ec0100",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_decrease.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_increase.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_increase.png",
+      "sha256": "de1800af5b44aa73c0520cb72b81475dbba216f63095ea5fcf3ba74c9d9ea692",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_increase.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_ingredient.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_ingredient.png",
+      "sha256": "c1c0fcd48486e73a3ec988cc401cf20a9505b5d8b10ab63de1b4565587af27c5",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_ingredient.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_new_character.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_new_character.png",
+      "sha256": "0d1e4c31f9730d54c12814c0d77cfd42cceef3019d3ca92d53681eea3a45c201",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_new_character.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_new_event.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_new_event.png",
+      "sha256": "e3471db7a695282217519326e92acb50461c544683a230119e231609e7cf0647",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_new_event.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_objective.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_objective.png",
+      "sha256": "0e0af1e247ef0c339164094e33b26ef15f0d0a796926b01584bc521cf55ec360",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_objective.png",
+      "kind": "new"
+    },
+    {
+      "source": "05.UI/01.Shared/MainScreen/notify/IMG_objective_complete.png",
+      "path": "05.UI/01.Shared/MainScreen/notify/IMG_objective_complete.png",
+      "sha256": "806652b1dcfb97cd871235d953919f75937d0e78924b8617f176c8ee458249b3",
+      "from": "05.UI/01.Shared/MainScreen/notify/IMG_objective_complete.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_idle.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_idle.png",
+      "sha256": "d44fe6753a9e73c01ab4ee8ec11812ed601b4a5b629c9b0a9a95698e8a7ef187",
+      "from": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_idle.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_eyes.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_eyes.png",
+      "sha256": "6ff8882de2f7e2f5ffa75b16dd758bca57bacad337676af3a52594a61614f1b8",
+      "from": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_eyes.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_jump.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_jump.png",
+      "sha256": "8afbe72fb333a29d4e8da75c0f66ea9088dfc41ad42c2a91a43eb2cbd13686b2",
+      "from": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_jump.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_meow.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_meow.png",
+      "sha256": "308b57056950f5f8a47323c83171808b4a762b044c3d8ce1f1f42cb324765bf5",
+      "from": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_meow.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_shaking.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_shaking.png",
+      "sha256": "22c165fd5eba8679a0f2b7397151c6d2a5cc290000d2dbfc7534965628c9796c",
+      "from": "01.Characters/02.Outside/04.Bubi/Box/bubi_box_shaking.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
+      "sha256": "094614ec9de6c50892f9f20c411ea5c32f3e7f2a0a7cc9fffee5e8fe7f97ebfc",
+      "from": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
+      "kind": "new"
+    },
+    {
+      "source": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
+      "path": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
+      "sha256": "319c89b9887513254c28efe01eb8583846b9c946be80a91f7340fa5c18fbe1ec",
+      "from": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
+      "kind": "new"
+    },
+    {
+      "source": "02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png",
+      "path": "02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png",
+      "sha256": "cfb10d6c896b4c573f8843c85b38f5fe61f1aff528a35595710ea4c09043123c",
+      "from": "02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png",
+      "kind": "new"
     }
   ]
 }

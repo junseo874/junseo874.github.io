@@ -567,9 +567,15 @@
           t.swapped = true;
           this.scene = t.to;
           this.level = t.barArrival ? 0 : 1;
-          this.x = t.barArrival ? FIRST_COMMUTE_ARRIVAL.from : this.scene === 'home' ? (global.LunaEngineWorld?.point('home','04.Gameplay/HomeSafeSpawn')?.x??-1.28) : R.homeX;
+          // Door traversal is distinct from the safe spawn used by scene setup.
+          // Step just inside the doorway and stay within the room's walk bounds.
+          this.x = t.barArrival ? FIRST_COMMUTE_ARRIVAL.from : this.scene === 'home' ? clamp((global.LunaEngineWorld?.point('home','home_exit_door')?.x??-1.581)+.16,-1.5,3.4) : R.homeX;
           this.y = t.barArrival || this.scene === 'home' ? -.7 : R.upperY;
           this.elevatorY = t.barArrival ? BOTTOM : TOP;
+          if (this.scene === 'home') {
+            this.facing = 1;
+            global.outsidePlaytest?.clearInput();
+          }
           if (t.barArrival) {
             this.facing = 1;
             this.backgroundStory.cancel();

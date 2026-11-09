@@ -62,8 +62,8 @@ function forced(m){
 function label(e,g){
  if(e.kind.startsWith('goal-'))return e.title;
  if(e.kind==='meet')return g.name(e.actor);
- if(e.kind==='event')return '새로운 이벤트 발생!';
- return (g.speakerName?.(e.actor)||g.name(e.actor))+' 호감도 '+(e.kind==='up'?'상승!':'하락!');
+ if(e.kind==='event')return '새로운 이벤트 발생';
+ return (g.speakerName?.(e.actor)||g.name(e.actor))+' 호감도 '+(e.kind==='up'?'상승':'하락');
 }
 function mount(){
  if(layer?.isConnected)return;
@@ -93,16 +93,8 @@ function tick(g,outside,campaign,dt){
   if(!lane.current&&lane.queue.length){
    lane.current=lane.queue.shift();lane.age=0;const e=lane.current;
    lane.el.dataset.kind=e.kind;lane.el.dataset.actor=e.actor;lane.el.dataset.serial=String(e.serial);
-   let icon=lane.el.querySelector('.story-notice-icon');
-   if(e.kind==='meet')icon?.remove();
-   else{
-    if(!icon){icon=document.createElement('span');icon.className='story-notice-icon';icon.setAttribute('aria-hidden','true');lane.el.prepend(icon);}
-    icon.textContent={up:'↑',down:'↓',event:'!','goal-new':'◇','goal-complete':'✓'}[e.kind];
-    if(e.kind==='up'||e.kind==='down'){
-     const arrow=document.createElement('span');arrow.className='story-notice-arrow';arrow.textContent=icon.textContent;icon.replaceChildren(arrow);
-    }
-   }
-   lane.el.querySelector('small').textContent={'goal-new':'새로운 목표','goal-complete':'목표 달성',meet:'새로운 인물!',event:'외부 이벤트'}[e.kind]||'관계 변화';
+   lane.el.querySelector('.story-notice-icon')?.remove();
+   lane.el.querySelector('small').textContent={'goal-new':'새로운 목표','goal-complete':'목표 달성',meet:'새로운 인물',event:'외부 이벤트'}[e.kind]||'관계 변화';
    lane.el.querySelector('strong').textContent=label(e,g);
    W.LunaStoryNoticeAudio?.play(()=>lane.current===e&&!layer.hidden,e.kind);
   }
@@ -111,7 +103,7 @@ function tick(g,outside,campaign,dt){
   lane.el.style.opacity=String(visible);
   const reduced=W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const travel=lane.el.offsetWidth+32;
-  lane.el.style.transform=reduced?'none':'translateX('+((1-Math.pow(enter,1/3))*travel+exit*travel)+'px)';
+  lane.el.style.transform=reduced?'none':'translateX('+(-((1-Math.pow(enter,1/3))*travel+exit*travel))+'px)';
  }
 }
 function clear(){W.LunaStoryNoticeAudio?.stop();for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}

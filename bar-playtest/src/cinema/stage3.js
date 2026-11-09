@@ -1,7 +1,7 @@
 /* 지하 폐기물 처리장 — S#3 「마지막 대화」 배경.
    좌측 중문(하운드가 부순다) / 중앙 폐기물 탱크·컨테이너 / 우측 바닥의 폐기물 처리 통로
    입구(해치)와 그 옆 제어 단말·폐쇄 버튼. 약한 경보음 상황이라 적색등은 은은하게만.
-   축척 동일(1px ≒ 3.6cm). 임시 배경이다. */
+   기존 연출 좌표는 유지하고 신규 원본 배경을 종횡비 보존하여 정렬한다. */
 window.StageDisposal = (function () {
 
   const W = 980, H = 460, FLOOR = 380, CEIL = 64;
@@ -150,12 +150,19 @@ window.StageDisposal = (function () {
     for(let x=30;x<W;x+=220) ra(g,x,FLOOR+8,40,2,C.haz,0.35);   // 유도선
   }
 
+  const art=new Image(),artURL=new URL('../../assets/01.ArtResources/02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png',document.currentScript.src).href;
+  const ready=new Promise(resolve=>{art.onload=()=>{staticCanvas=null;resolve(true);};art.onerror=()=>resolve(false);});
   let staticCanvas=null;
+  art.src=artURL;
   function buildStatic(){
     const c=document.createElement('canvas'); c.width=W; c.height=H;
     const g=c.getContext('2d'); g.imageSmoothingEnabled=false;
     r(g,0,0,W,H,C.void);
-    ceiling(g); wall(g); tanks(g); floorPlate(g);
+    if(art.complete&&art.naturalWidth){
+      // Original floor row 350 must coincide with the actors' existing foot plane.
+      const scale=W/art.naturalWidth;
+      g.drawImage(art,0,FLOOR-350*scale,W,art.naturalHeight*scale);
+    }else{ceiling(g); wall(g); tanks(g); floorPlate(g);}
     staticCanvas=c;
   }
 
@@ -175,12 +182,14 @@ window.StageDisposal = (function () {
   function paint(g,t,st){
     if(!staticCanvas) buildStatic();
     g.drawImage(staticCanvas,0,0);
-    door(g,t,st);
-    pit(g,t,st);
-    console_(g,t,st);
-    button(g,t,st);
+    // Keep interactive story geometry only while it is active; the supplied
+    // room already contains doors, containers and consoles.
+    if(!art.naturalWidth||st.door>.5)door(g,t,st);
+    if(!art.naturalWidth||st.chute>0)pit(g,t,st);
+    if(!art.naturalWidth||st.hack>0)console_(g,t,st);
+    if(!art.naturalWidth||st.btn>0)button(g,t,st);
     alarmLight(g,t,st);
   }
 
-  return { W:W, H:H, FLOOR:FLOOR, PIT:PIT, paint:paint, C:C };
+  return { W:W, H:H, FLOOR:FLOOR, PIT:PIT, paint:paint, C:C, ready, artURL };
 })();

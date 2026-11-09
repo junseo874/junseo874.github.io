@@ -30,33 +30,10 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const state=()=>p.evaluate(()=>JSON.stringify({progress:barGame.progress,carry:lunaCampaign.session.carry,day:barGame.day,sessionDay:lunaCampaign.session.day,config:outsidePlaytest.config,outsideUI:lunaCampaign.ui.outside}));
   const before=await state();
   const entries=['boobi-reveal','boobi-adoption','boobi-rest','elevator-repair'];
-  for(const id of entries)for(const complete of [false,true]){
-   await p.locator('[data-act="cutscenePlay"][data-id="'+id+'"]').click();
-   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading&&!!outsidePlaytest.model.story.speech);
-   assert.equal(await p.locator('#outside-root').evaluate(e=>getComputedStyle(e).cursor==='none'),await p.evaluate(()=>!!outsidePlaytest.model.neighborhood.action),'Only automatic action hides the cursor');
-   if(id==='boobi-rest')assert.equal(await p.evaluate(()=>outsidePlaytest.model.neighborhood.action.name),'chris-in');
-   if(id==='elevator-repair')assert.equal(await p.evaluate(()=>LunaOutsideNeighborhood.poses(outsidePlaytest.model).find(p=>p.id==='repair').sp.asset),'ambient-Repairman');
-   if(id==='boobi-rest'){
-    // Chris is placed only at the opaque midpoint, not before the fade begins.
-    await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<20&&!m.neighborhood.chris;i++)m.tick(.05);outsidePlaytest.tick(0);});
-    assert.equal(await p.evaluate(()=>LunaOutsideNeighborhood.poses(outsidePlaytest.model).find(p=>p.id==='chris').sp.asset),'ambient-Chris');
-   }
-   await p.screenshot({path:'/private/tmp/cutscene-review-'+id+'.png'});
-   if(complete){
-    const result=await p.evaluate(()=>{const m=outsidePlaytest.model,lines=[];for(let i=0;i<2000&&m.story.speech;i++){if(m.neighborhood.action)m.tick(.1);else{if(m.story.speech.choice)throw Error('Unexpected choice in cutscene');lines.push(m.story.view().full);m.story.speech.elapsed=99;m.story.advance();}}outsidePlaytest.tick(0);return {done:!m.story.speech,lines,flags:{...barGame.progress.flags},scene:m.scene};});
-    assert(result.done,id+' completes');
-    assert(result.flags[{'boobi-reveal':'boobi_revealed','boobi-adoption':'boobi_adopted','boobi-rest':'boobi_rest_seen','elevator-repair':'elevator_repaired'}[id]],id);
-    if(id==='boobi-adoption')assert.equal(result.scene,'home');
-    if(id==='elevator-repair')await p.locator('.story-notice-event strong',{hasText:'엘레베이터 수리!'}).waitFor({state:'visible'});
-    await p.locator('.cutscene-list').waitFor();
-   }else{await p.keyboard.press('Escape');await p.locator('.cutscene-list').waitFor();}
-   assert.equal(await state(),before,id+' does not change game progress/config/day');
-   assert.equal(await p.locator('#cutscene-preview-toolbar').count(),0);
-   assert.equal(await p.locator('#outside-root').count(),0);
-  }
+  for(const id of entries)assert.equal(await p.locator('[data-act="cutscenePlay"][data-id="'+id+'"]').count(),0,'System event is not a standalone timeline');
   // Closing before the asynchronous outside preload completes must stay closed.
   await p.evaluate(()=>{LunaCutsceneLibrary.play(lunaCampaign,'boobi-rest');LunaCutsceneLibrary.close();});
   await p.waitForTimeout(1500);assert.equal(await state(),before);assert.equal(await p.locator('#outside-root').count(),0);
-  assert.deepEqual(errors,[]);console.log('REVIEW_AUDIT_OK: corrected live popups, NPC names/speeds/roles, four missing cutscenes, full completion/cancel/early cancel and exact progress restoration');
+  assert.deepEqual(errors,[]);console.log('REVIEW_AUDIT_OK: corrected live popups, NPC names/speeds/roles, system events excluded from timeline gallery, unavailable preview no-op and exact progress restoration');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

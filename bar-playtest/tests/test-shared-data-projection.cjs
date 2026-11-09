@@ -8,6 +8,40 @@ for(const t of csv.parseRows(files['_Tables.csv']))files[t.table+'.csv']=fs.read
 const views=JSON.parse(fs.readFileSync(path.join(base,'web-views.json'),'utf8'));
 const ref=views.campaign.bar['1'],rows=csv.parseCsv(files['Steps.csv']),headers=rows[0];
 const original=new csv.Catalog(files),scene=original.read(ref.source).scenes.find(s=>s.id===ref.scene);
+// Legacy timeline registrations are not the live Studio/campaign cutscene list.
+// Preserve the engine opening call, all protected finished/serve entries and posters.
+const cutscenes=original.rawTables.get('Cutscenes'),cutsceneIds=new Set(cutscenes.map(r=>r.id));
+assert.deepEqual([...cutsceneIds].sort(),[
+ 'tl_finished_cosmo','tl_finished_martini','tl_finished_ginfizz','tl_finished_kahlua',
+ 'tl_serve_cosmo','tl_serve_martini','tl_serve_ginfizz','tl_serve_kahlua','tl_serve_unknown',
+ 'sp_parttime_poster','sp_experiment_poster','tl_intro'
+].sort(),'Keep the live engine opening registration as well as protected entries');
+assert.equal(cutscenes.find(r=>r.id==='tl_intro').resource_key,'INTRO');
+for(const row of original.rawTables.get('Steps')){
+ // The day-zero programme is dispatched by the existing engine TV binding.
+ if(row.type==='timeline'&&row.arg&&row.arg!=='\\N'&&row.arg!=='tv_news_d0')assert(cutsceneIds.has(row.arg),'Catalog timeline reference must still resolve: '+row.row_id);
+}
+const home=original.read('script/home'),tv=home.scenes.find(s=>s.id==='home_tv_cutscene');
+assert.equal(tv.steps.length,1,'TV never autoplays a timeline before a choice');
+assert.equal(tv.steps[0].type,'choice');
+const watch=tv.steps[0].options.find(o=>o.id==='home_tv_day0_watch');
+const leave=tv.steps[0].options.find(o=>o.id==='home_tv_day0_leave');
+assert.equal(watch.text.ko,'본다');assert.equal(leave.text.ko,'취소');
+assert.equal(watch.lock_reason.ko,'볼만한 방송이 없습니다.');
+const {condition}=require('../src/core/story-conditions.js')({GRADES:[],n:Number,root:{}});
+for(const day of [0,1,2,3])for(const seen of [false,true]){
+ const context={day,flags:{tv_news_d0_seen:seen}};
+ assert(condition(tv.steps[0].when,context),'TV choice available irrespective of seen flag');
+ assert.equal(condition(watch.when,context),day===0,'Only the day-zero documentary is watchable');
+ assert(condition(leave.when,context),'Cancel stays available');
+}
+assert.deepEqual(watch.result_steps.filter(r=>r.type==='timeline').map(r=>r.arg),['tv_news_d0']);
+assert.equal(watch.result_steps[0].effects,'flag.tv_news_d0_seen = true');
+assert(!original.rawTables.get('Steps').some(r=>/^tv_news_d[1-3]$/.test(r.arg)));
+assert(!original.rawTables.get('StreetChoices').some(r=>/^home_tv_day[1-3]_/.test(r.id)));
+// Do not introduce an ID the unchanged engine's CSV-memory fallback cannot play.
+const memories=original.rawTables.get('Steps').filter(r=>r['web_fields.cinemaAfter']==='terrace-memory');
+assert.equal(memories.length,2);assert(memories.some(r=>r['web_fields.memoryKey']==='terraceMemory3'));
 // Craft CSV is the shipped web catalog, not an engine superset hidden by views.
 // Removed recipes must also be absent in QA99 and the developer catalog.
 for(const name of ['cocktails','shelf_items','recipes','cocktail_tags']){

@@ -14,7 +14,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');
    if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
    assert.equal(await p.evaluate(()=>lunaCampaign.ui.shakeMode),'path',storage);
-   await p.locator('[data-act="miniStart"][data-id="shake"]').click();
+   await p.locator('[data-act="miniStart"][data-id="shake"]').click();await p.locator('[data-act="miniShakePlay"][data-id="1"]').click();
    assert.deepEqual(await p.evaluate(()=>({mode:barGame.gimmick.rhythm.mode,lesson:barGame.gimmick.mixTutorial.mode,page:barGame.gimmick.mixTutorial.page})),{mode:'path',lesson:'path',page:0});
    assert((await p.locator('.mix-guide-image image').getAttribute('href')).includes('path-0'));
    assert((await p.locator('.mix-tutorial').innerText()).includes('SPACE'));

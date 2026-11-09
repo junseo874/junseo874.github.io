@@ -21,11 +21,12 @@ const manifest=require('../data/presentation/generated-art/manifest.json');
   for(const c of LunaCursors){if(!c.src.endsWith('.png'))throw Error('Non-PNG cursor');const im=new Image();im.src=c.src;await im.decode();if(im.naturalWidth!==32)throw Error('Cursor size');}
   return results;
  });
- for(const r of result){assert(r.bg.includes('/01.ArtResources/'));assert.equal(r.w,350);}
+ for(const r of result){assert(r.bg.includes('/01.ArtResources/'));assert.equal(r.w,762);}
  await p.locator('#generated-art-fixture').screenshot({path:'/private/tmp/generated-notices-runtime.png'});
  await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>window.resourceReview?.ready);
  const entries=await p.evaluate(()=>ResourceExtraction.collect(resourceReview.rows));
- for(const r of manifest.records)assert(entries.some(e=>decodeURIComponent(e.src).endsWith('assets/01.ArtResources/'+r.path)),r.path);
+ const hidden=new Set(require('../data/presentation/generated-art/surfaces.json').hidden);
+ for(const r of manifest.records.filter(r=>!hidden.has('assets/01.ArtResources/'+r.path)&&!r.sources.some(s=>/story-notice|outside-item-preview/.test(s.selector||''))))assert(entries.some(e=>decodeURIComponent(e.src).endsWith('assets/01.ArtResources/'+r.path)),r.path);
  assert.deepEqual(retired,[]);assert.deepEqual(errors,[]);
- console.log('GENERATED_ART_UI_OK: 792 local PNGs registered; 6 runtime notice skins; 12 PNG cursors; old paths blocked without requests');
+ console.log('GENERATED_ART_UI_OK: current generated PNGs registered; archived notice fragments excluded; 6 native runtime notice skins; 12 PNG cursors; old paths blocked without requests');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

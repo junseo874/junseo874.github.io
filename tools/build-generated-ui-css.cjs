@@ -25,11 +25,7 @@ for(const [key,values]of candidates){
  const suffix=state!=='normal'?':'+state:button?':not(:hover):not(:active):not(:focus-visible)':'';
  rule(selector+suffix+(button?':not(:disabled):not([aria-disabled="true"])':''),[...values.values()][0]);
 }
-for(const kind of ['goal-new','goal-complete','event','meet','up','down']){
- const r=manifest.records.find(r=>r.kind==='background'&&r.sources.some(s=>s.src.startsWith('assets/ui/extracted/notification-'+kind+'-')));
- if(!r)throw Error('Missing notice '+kind);
- rule('.story-notice[data-kind="'+kind+'"]',r);
-}
+// Notifications now use supplied artwork in story-notices.css.
 const files={
  'src/shared/ui/generated-art.css':lines.join('\n')+'\n',
  'data/presentation/generated-art-preload.json':JSON.stringify([...new Set(used)].sort(),null,2)+'\n'

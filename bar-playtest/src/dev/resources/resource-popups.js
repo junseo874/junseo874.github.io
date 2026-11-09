@@ -9,12 +9,19 @@ function collect(rows,C){
  const result=rows.filter(r=>!duplicates.has(r.id)).map(r=>moved.has(r.id)?{...r,sourceGroup:r.group,group,popupKind:['ui:income','ui:exterior:purchase'].includes(r.id)?'toast':'dialog'}:r);
  const make=(id,title,variants,note)=>({id:'popup:'+id,group,title,usage:'실제 알림 · 클릭하여 재생',status:'code',layers:[],popupKind:'toast',variants,launch:variants[0].launch,note,preview:'assets/reference/previews/popup_'+id+'.jpg',previewNote:'실제 팝업 테스트 화면 · 2026-10-12'});
  const places=(kind)=>['bar','outside'].map(place=>({id:place,label:place==='bar'?'바 내부':'외부 거리',launch:{type:'popup-story',kind,place}}));
- result.push(make('meet','신규 인물 정보 등록',places('meet'),'화면 오른쪽 중앙에 등장한 뒤 자동으로 사라집니다. 인물·장소를 바꿔 반복 확인할 수 있습니다.'));
+ result.push(make('meet','신규 인물 정보 등록',places('meet'),'화면 좌측 상단에 등장한 뒤 자동으로 사라집니다. 인물·장소를 바꿔 반복 확인할 수 있습니다.'));
  result.push(make('affinity','호감도 상승 / 하락',['bar','outside'].flatMap(place=>['up','down'].map(kind=>({id:place+'-'+kind,label:(place==='bar'?'바 내부':'외부 거리')+' · '+(kind==='up'?'상승':'하락'),launch:{type:'popup-story',place,kind}}))),'같은 관계 알림의 상승·하락 문구와 색상을 비교합니다. 테스트 인물은 위에서 선택하세요.'));
- result.push(make('event','새로운 이벤트 발생',[{id:'outside',label:'외부 거리 · 강제 이벤트',launch:{type:'popup-story',place:'outside',kind:'event'}}],'외부 강제 이벤트 진입 시의 우측 하단 알림만 재생합니다. 컷씬은 시작하지 않습니다.'));
- const goal=make('goal','새로운 목표 / 목표 달성',['bar','outside'].flatMap(place=>['new','complete'].map(kind=>({id:place+'-'+kind,label:(place==='bar'?'바 내부':'외부 거리')+' · '+(kind==='new'?'새로운 목표':'목표 달성'),launch:{type:'popup-goal',place,kind}}))),'우측 하단의 목표 등록·달성 팝업 리소스를 반복 테스트합니다. 현재 게임에 적용된 목표 알림 디자인을 사용하며, 이 테스트에서는 실제 진행 상태를 바꾸지 않습니다.');
- goal.preview='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="560" height="300" viewBox="0 0 560 300"><rect width="560" height="300" fill="#0b151e"/><g font-family="sans-serif"><rect x="55" y="40" width="450" height="96" rx="6" fill="#102e3b" stroke="#427e91"/><text x="80" y="78" fill="#89deed" font-size="19">◇ 새로운 목표</text><text x="110" y="112" fill="#e9f6f4" font-size="22">바로 출근하기</text><rect x="55" y="164" width="450" height="96" rx="6" fill="#163327" stroke="#537e62"/><text x="80" y="202" fill="#a2e3b3" font-size="19">✓ 목표 달성</text><text x="110" y="236" fill="#e9f6f4" font-size="22">바로 출근하기</text></g></svg>');
- goal.previewNote='목표 알림 · 등록 / 달성 상태 미리보기';result.push(goal);
+ result.push(make('event','새로운 이벤트 발생',[{id:'outside',label:'외부 거리 · 강제 이벤트',launch:{type:'popup-story',place:'outside',kind:'event'}}],'외부 강제 이벤트 진입 시의 좌측 상단 알림만 재생합니다. 컷씬은 시작하지 않습니다.'));
+ const goal=make('goal','새로운 목표 / 목표 달성',['bar','outside'].flatMap(place=>['new','complete'].map(kind=>({id:place+'-'+kind,label:(place==='bar'?'바 내부':'외부 거리')+' · '+(kind==='new'?'새로운 목표':'목표 달성'),launch:{type:'popup-goal',place,kind}}))),'좌측 상단의 목표 등록·달성 팝업 리소스를 반복 테스트합니다. 현재 게임에 적용된 목표 알림 디자인을 사용하며, 이 테스트에서는 실제 진행 상태를 바꾸지 않습니다.');
+ result.push(goal);
+ const files={up:'decrease',down:'increase',meet:'new_character',event:'new_event','goal-new':'objective','goal-complete':'objective_complete',ingredient:'ingredient'};
+ for(const r of result){
+  const kinds=r.id==='popup:affinity'?['up','down']:r.id==='popup:meet'?['meet']:r.id==='popup:event'?['event']:r.id==='popup:goal'?['goal-new','goal-complete']:r.id==='ui:exterior:purchase'?['ingredient']:null;
+  if(!kinds)continue;
+  r.status='registered';r.uiArtPending=false;r.usage='원본 알람 · 게임 크기 / 실제 재생 / PNG';
+  r.layers=kinds.map(kind=>({key:kind,src:'assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_'+files[kind]+'.png',w:762,h:232,frames:1}));
+  r.note+=' 1280×720 기준 254×77⅓px, 좌측·상단 20px. 원본에 포함된 제목·아이콘과 변하는 본문을 함께 확인합니다. 아래에서 원본 PNG도 받을 수 있습니다.';
+ }
  const currency=result.find(r=>r.id==='ui:income');
  currency.variants.push(...['income','expense'].map(id=>({id:'outside-'+id,label:'외부 거리 · '+(id==='income'?'증가':'차감'),launch:{type:'popup-money',id}})));
  const warning=result.find(r=>r.id==='ui:warnings');
@@ -54,7 +61,7 @@ async function play(F,d,isCurrent){
   n.startGoal(g.progress,goalId,'바로 출근하기');
   if(d.kind==='complete'){n.clear();n.completeGoal(g.progress,goalId);}return;
  }
- if(d.kind==='meet'){delete g.progress.flags[id+'_met'];n.meet(g.progress,id);}
+ if(d.kind==='meet'){delete g.progress.flags[id+'_met'];if(id==='tom'){delete g.progress.flags.tom_introduction_notified;n.dialogueStarted(g.progress,{actor:id,id:'campaign_d1_bar_77'});}else n.meet(g.progress,id);}
  else if(d.kind==='event')n.forced({encounter:{},qa:null});
  else n.affinity(g.progress,id,d.kind==='up'?1:-1);
 }

@@ -97,10 +97,10 @@
       ]
     },
     "gimmick": {
-      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
+      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/cocktail_making_minigame.png",
       "w": 490,
       "h": 280,
-      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/칵테일 제조 기믹.png",
+      "source": "9_ArtResources/02.Environments/01.Bar/03.Minigames/cocktail_making_minigame.png",
       "alphaBBox": [
         0,
         0,
@@ -109,10 +109,10 @@
       ]
     },
     "gimmick_shake": {
-      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
+      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/shaking_minigame.png",
       "w": 970,
       "h": 550,
-      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/쉐이킹 기믹.png",
+      "source": "9_ArtResources/02.Environments/01.Bar/03.Minigames/shaking_minigame.png",
       "alphaBBox": [
         0,
         0,
@@ -121,10 +121,10 @@
       ]
     },
     "gimmick_stir": {
-      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
+      "src": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/stirring_minigame.png",
       "w": 970,
       "h": 550,
-      "source": "1. 배경 (내부)/3. 기믹 플레이 화면/스터 기믹.png",
+      "source": "9_ArtResources/02.Environments/01.Bar/03.Minigames/stirring_minigame.png",
       "alphaBBox": [
         0,
         0,
@@ -4182,20 +4182,20 @@
     },
     "table_cocktail_whiskey_sour": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
-      "w": 60,
-      "h": 93,
+      "w": 69,
+      "h": 112,
       "frames": 1,
       "frameWidth": 60,
       "frameHeight": 93,
       "fps": 0,
       "static": true,
       "alphaBBox": [
-        0,
-        0,
-        60,
-        93
+        5,
+        18,
+        65,
+        111
       ],
-      "source": "User supplied whisky_sour.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/whisky_sour.png"
     },
     "table_cocktail_champagne": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
@@ -4213,6 +4213,34 @@
         111
       ],
       "source": "User supplied Champagne.png"
+    },
+    "char_haru_fail": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
+      "w": 551,
+      "h": 530,
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
+      "alphaBBox": [
+        159,
+        124,
+        359,
+        432
+      ],
+      "frames": 1,
+      "fps": 0
+    },
+    "char_haru_success": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/success/Haru_success.png",
+      "w": 551,
+      "h": 530,
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/success/Haru_success.png",
+      "alphaBBox": [
+        174,
+        123,
+        365,
+        422
+      ],
+      "frames": 1,
+      "fps": 0
     }
   },
   "characterLayers": {
@@ -4414,6 +4442,18 @@
       ],
       "idle_talk": [
         "char_haru_static"
+      ],
+      "fail_default": [
+        "char_haru_fail"
+      ],
+      "fail_talk": [
+        "char_haru_fail"
+      ],
+      "success_default": [
+        "char_haru_success"
+      ],
+      "success_talk": [
+        "char_haru_success"
       ]
     }
   },

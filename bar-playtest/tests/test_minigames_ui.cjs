@@ -8,7 +8,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  for(const variant of ['gpt','original']){
   await p.locator(`[data-act="miniRules"][data-id="${variant}"]`).click();
   for(const kind of ['open','pour','fill_up','shake','stir']){
-   await p.locator(`[data-act="miniStart"][data-id="${kind}"]`).click();assert.equal(await p.evaluate(()=>barGame.gimmick.type),kind);assert.equal(await p.locator('.currency-hud').count(),0);assert.equal(await p.evaluate(()=>barGame.craft.queue.length),1);await p.keyboard.press('F2');assert.equal(await p.locator('.inspector').count(),0);
+   await p.locator(`[data-act="miniStart"][data-id="${kind}"]`).click();if(kind==='shake')await p.locator('[data-act="miniShakePlay"][data-id="1"]').click();assert.equal(await p.evaluate(()=>barGame.gimmick.type),kind);assert.equal(await p.locator('.currency-hud').count(),0);assert.equal(await p.evaluate(()=>barGame.craft.queue.length),1);await p.keyboard.press('F2');assert.equal(await p.locator('.inspector').count(),0);
    if(variant==='gpt')await p.screenshot({path:`/tmp/luna-minigame-${kind}.png`});
    if(['pour','fill_up'].includes(kind)){
     await p.keyboard.down('Space');await p.waitForFunction(()=>barGame.gimmick.angle>95);await p.keyboard.up('Space');await p.keyboard.press('Escape');const elapsed=await p.evaluate(()=>barGame.craft.elapsed);await p.waitForTimeout(250);assert.equal(await p.evaluate(()=>barGame.craft.elapsed),elapsed);await p.keyboard.press('Escape');

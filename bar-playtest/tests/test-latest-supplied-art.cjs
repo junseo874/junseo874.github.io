@@ -5,9 +5,9 @@ const web=path.resolve(__dirname,'..'),D=require('../data/presentation/runtime-a
  const updated=Object.entries(D.assets).filter(([,a])=>a.source?.startsWith('9_ArtResources/'));
  for(const [key,a]of updated){
   const bytes=fs.readFileSync(path.join(web,a.src)),meta=await sharp(bytes).metadata();
-  assert.deepEqual([meta.width,meta.height],[a.w,a.h],key);assert(meta.hasAlpha,key);
+  assert.deepEqual([meta.width,meta.height],[a.w,a.h],key);
   const original=path.resolve(web,'../../..',a.source);
-  if(fs.existsSync(original))assert(bytes.equals(fs.readFileSync(original)),key+' preserves supplied bytes');
+  if(fs.existsSync(original)){const supplied=fs.readFileSync(original);assert(bytes.equals(supplied),key+' preserves supplied bytes');assert.equal(meta.hasAlpha,(await sharp(supplied).metadata()).hasAlpha,key+' preserves original transparency');}
  }
  for(const id of ['bottle_beer','gin_tonic','gin_fizz','dry_martini','cosmopolitan','kahlua_milk','screwdriver','tequila_sunrise','godfather','red_wine','champagne','johnny_old_fashioned']){
   assert.equal(D.assets['cocktail_'+id].src,D.assets['recipe_cocktail_'+id].src);

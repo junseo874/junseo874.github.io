@@ -37,3 +37,15 @@ const raisedLight=S.lights(m).find(l=>l.ancestry.includes('Elevator'));m.elevato
 m.x=100;assert.equal(S.advance(m).receiver,null);m.scene='home';assert.equal(S.advance(m).receiver,null);
 m.scene='street';m.x=-10;m.y=-.7;m.time=0;assert(S.advance(m).slots.every(d=>d.energy===0),'Restart resets irradiance');
 console.log('CHARACTER_SHADOWS_OK direction/length, disabled lights, simultaneous emitters, polygon fill, pause/reset, street/corridor/lift receivers');
+
+// Reusing a moving grid must match a fresh calculation, including reversals,
+// vertical travel, varying light power and changes to the source geometry.
+const movingCache={};
+for(let i=0;i<180;i++){
+ const p={x:Math.sin(i*.08)*3,y:Math.cos(i*.07)*.35},v={...volume,gain:(i%7)/6};
+ if(i>90)v.points=volume.points.map(([x,y])=>[x+.15,y]);
+ const actual=S.fillField(p,[v],movingCache),fresh=S.fillField(p,[v]);
+ assert.deepEqual(actual.data,fresh.data,'Moving fill cache at '+i);
+ assert(movingCache.samples.size<=1,'Only the current window is retained');
+}
+console.log('MOVING_FILL_CACHE_OK: 180 positions, reversal/vertical motion, power and geometry changes, exact RGBA equivalence');

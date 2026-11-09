@@ -11,6 +11,9 @@ function collect(rows,F){
    note:'현재 사용 중인 그래픽 원본입니다. 원본 다운로드는 파일 크기·투명도·바이트를 유지하며, 시트는 프레임별로도 추출할 수 있습니다.',...extra});
  }
  const A=F.barData.assets;
+ for(const [id,a]of Object.entries(F.LunaBubiArt?.clips||{}))add('bubi-'+id,'부비 · '+id,'out-characters',a);
+ for(const id of ['decrease','increase','ingredient','new_character','new_event','objective','objective_complete'])add('notice-'+id,'진행 알림 · '+({decrease:'호감도 상승',increase:'호감도 하락',ingredient:'신규 재료 획득',new_character:'새로운 인물',new_event:'외부 이벤트',objective:'새로운 목표',objective_complete:'목표 달성'}[id]),'bar-ui',{src:'assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_'+id+'.png',w:762,h:232});
+ add('lab-waste','연구소 · 폐기물처리장','out-backgrounds',{src:'assets/01.ArtResources/02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png',w:720,h:480},{backgroundScreen:'컷씬',backgroundKind:'풀샷'});
  const flameRoot='assets/01.ArtResources/05.UI/02.Title/02.Logo/simchung_dark_flame_alpha_2160p60/';
  const flameFrames=Array.from({length:348},(_,i)=>({src:flameRoot+'simchung_dark_flame_alpha_2160p60_'+String(i).padStart(4,'0')+'.png',x:0,y:0,w:3840,h:2160}));
  add('title-flame','팀 로고 · 불꽃 알파 애니메이션','bar-ui',{src:flameFrames[0].src,w:3840,h:2160,frames:348,fps:60,rects:flameFrames},{usage:'신규 원본 · 348프레임 / 60fps',note:'UI_Logo_Fire_flame_alpha.zip의 원본 PNG 시퀀스입니다. 프레임별 원본 다운로드가 가능합니다. 게임 로고와 다른 신규 효과이므로 기존 로고를 대체하거나 시작 연출을 임의로 추가하지 않습니다.'});

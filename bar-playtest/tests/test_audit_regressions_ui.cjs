@@ -37,7 +37,7 @@ const macChrome='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
   // No score injection: repeated keyboard presses at the same fixed-node visit.
   await load('?dev=1&mode=minigames');
-  await p.locator('[data-act="miniStart"][data-id="shake"]').click();
+  await p.locator('[data-act="miniStart"][data-id="shake"]').click();await p.locator('[data-act="miniShakePlay"][data-id="1"]').click();
   while(await p.locator('.mix-tutorial').isVisible())await p.locator('[data-act="mixTutorialNext"]').click();
   await p.evaluate(()=>{window.auditTick=barGame.tick;barGame.tick=()=>{};});
   await p.keyboard.press('Space');await p.keyboard.press('Space');

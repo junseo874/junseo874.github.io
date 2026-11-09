@@ -479,6 +479,7 @@
     }) + '</div>';
     if (g.overlay === 'miniIngredient') return miniUI.ingredientHTML();
     if (g.overlay === 'miniWineVersions') return miniUI.wineVersionsHTML();
+    if (g.overlay === 'miniShakeVersions') return miniUI.shakeVersionsHTML();
     if (g.overlay === 'johnnyUnlock') return johnnyUnlockHTML();
     if (g.overlay === 'dailyUnlocks') return dailyUnlocksHTML();
     if (g.overlay === 'ingredientWarning') return ingredientWarningHTML();
@@ -948,7 +949,26 @@
       }});
       return;
     }
+    if (name === 'miniShakePlay') {
+      if (!ui.minigames || g.phase !== 'ready' || g.overlay !== 'miniShakeVersions') return;
+      if (id === '1') {
+        miniStart('shake');render(true);
+      } else if (id === '2') {
+        g.overlay = 'miniShakeRunning';render(true);
+        window.LunaMinigames.openShakePractice({sound:ui.gimmickAudio !== false,voice:ui.shakeSound,onClose(action) {
+          g.overlay = action === 'versions' ? 'miniShakeVersions' : null;
+          render(true);
+          root.querySelector(action === 'versions' ? '[data-act="miniShakePlay"]' : '[data-act="miniStart"][data-id="shake"]')?.focus({preventScroll:true});
+        }});
+      }
+      return;
+    }
     if (name === 'miniStart') {
+      if (id === 'shake' && ui.minigames && g.phase === 'ready') {
+        show('miniShakeVersions');
+        root.querySelector('[data-act="miniShakePlay"]')?.focus({preventScroll:true});
+        return;
+      }
       if (['pour', 'fill_up'].includes(id)) {
         ui.miniIngredientKind = id;
         show('miniIngredient');
@@ -1486,7 +1506,7 @@
       return;
     }
     if (g.overlay === 'history' && window.LunaDialogueHistory.key(e,root)) return;
-    if (g.overlay === 'miniIngredient' || g.overlay === 'miniWineVersions') {
+    if (g.overlay === 'miniIngredient' || g.overlay === 'miniWineVersions' || g.overlay === 'miniShakeVersions') {
       if (e.code === 'Tab') {
         const buttons = [...root.querySelectorAll('.mini-ingredient-modal button')],
           i = buttons.indexOf(document.activeElement);

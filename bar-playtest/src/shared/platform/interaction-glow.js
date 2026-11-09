@@ -25,9 +25,8 @@ const HOME_SOFA={asset:'629b82812402bc',rect:[410,180,109,53],edge:[
  [454,181],[462,181],[462,182],[464,182],[464,181],[465,181]
 ]};
 const sofaRegion=[...HOME_SOFA.rect,HOME_SOFA.edge.map(([x,y])=>[x-HOME_SOFA.rect[0],y-HOME_SOFA.rect[1]])];
-const boxEdge=[[0,3],[3,3],[3,2],[7,2],[7,1],[14,1],[14,0],[17,0],[17,3],[26,3],[26,28],[0,28]];
 function region(target,node,sp,x,y,model){
- if(!target)return null;
+ if(!target||sp.noInteractionGlow)return null;
  const name=node?.name,full=[0,0,sp.w,sp.h];
  if(target.id==='bed')return name==='home-bed'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
  if(target.id==='wardrobe')return name==='home-wardrobe'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
@@ -43,12 +42,9 @@ function region(target,node,sp,x,y,model){
  }
  // The apartment doorway is baked into the residence layer, above the railing.
  if(target.id==='home'&&name==='residence-building')return node.interactionRegions?.home||[567,438,44,77];
- // The Boobi box is baked into an opaque atlas. Trace only its stepped lid
- // and sides, not the wall or the bin beneath it.
- if(target.id==='neighborhood-box'){
-  if(name==='residence-building'&&!(model.neighborhood?.shake>0))return [647,424,27,28,boxEdge];
-  if(name==='neighborhood-shaking-box')return [0,0,27,28,boxEdge];
- }
+ // The supplied Bubi sheets have real alpha. Highlight the current cell,
+ // never the retired baked carton or the empty background replacement.
+ if(['neighborhood-box','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&sp.asset.startsWith('bubi-'))return full;
  // Unity sprite children can be offset from the interaction root. Identify
  // those actors by role rather than comparing their rendered pivot to the root.
  const engineRole=sp.engineActor?.role;

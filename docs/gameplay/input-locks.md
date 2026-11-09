@@ -89,6 +89,7 @@
 | 컷씬 수동 대사 `dialogueWait` | 타임라인은 그 줄에서 대기, 타이핑의 age는 진행. 첫 확정 완전 표시, 다음 입력 진행. choice가 있으면 먼저 처리; 도입부 typingPending 구간은 성급한 진행 거부 | `cinema-flow.js:tickCinemaDialogue/advanceCinemaDialogue` |
 | TV 다큐 | 대사 대기 중에도 별도 effectTime으로 주사선 계속 재생. Space 2초 연속 홀드 스킵은 TV만 허용. 설정/해제/전환 시 홀드 취소 | `cinema-flow.js:canSkipCinema`, campaign key/tick |
 | 다른 컷씬 | 도입부 연락·조니 기억 등을 TV처럼 통째로 스킵하지 않음. 수동 줄 넘김과 전체 스킵 구분 | `cinema-flow.js`, Studio dialogue 설정 |
+| 마지막 부탁 자동 대사 | 세 문장 3.6/3.2/3초는 입력 대기 없이 재생. E/Enter/Space/클릭으로 건너뛰거나 즉시 완성하지 않음. 설정/비활성화 때 기존 컷씬 시계를 멈추고 재개하며, 기상 전환에서 노이즈를 즉시 중단 | `opening-template.js`, 기존 `wait:false` 대사·audio 키프레임 |
 | 설정/기록/정보 팝업 | 아래 게임 조작 정지. 취소 가능한 최상위 화면부터 닫음 | `app.js`, 각 overlay, campaign options |
 | `johnnyUnlock` / `dailyUnlocks` | Esc·일반 진행키로 우회 불가. 해당 확인 버튼으로만 완료; Tab 포커스는 내부 제한 | `app.js`와 story/day-flow |
 | 획득/인물/호감도/목표 알림 | 토스트 자체는 조작락/거래 실행기가 아님. 차단 화면 중 숨기고 큐 대기, 진행 데이터 owner가 바뀌면 오래된 알림 제거 | `shared/ui/story-notices.js`, `currency-view.js`, 외부 획득 UI |

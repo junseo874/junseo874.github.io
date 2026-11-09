@@ -5,7 +5,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
  assert.equal(await p.locator('[data-act="miniRules"],[data-act="miniDifficulty"]').count(),0);assert.equal(await p.locator('.minigame-card').count(),5);
  await p.screenshot({path:'/private/tmp/unified-minigames.png'});
  for(const kind of ['open','pour','fill_up','shake','stir']){
-  await p.locator('[data-act="miniStart"][data-id="'+kind+'"]').click();
+  await p.locator('[data-act="miniStart"][data-id="'+kind+'"]').click();if(kind==='shake')await p.locator('[data-act="miniShakePlay"][data-id="1"]').click();
   assert.deepEqual(await p.evaluate(()=>({v:barGame.variant,m:barGame.minigame.variant,d:barGame.minigame.difficulty,kind:barGame.minigame.kind})),{v:'original',m:'original',d:'standard',kind});
   await p.evaluate(()=>{barGame.retryMinigame();if(barGame.variant!=='original')throw Error('retry variant');});
   await p.locator('[data-act="miniExit"]').click();

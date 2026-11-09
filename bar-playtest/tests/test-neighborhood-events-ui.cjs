@@ -31,7 +31,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    // Browse first; tuna belongs to stock, never the greeting or allowance choice.
    start(2,'out','bar');m.x=-2.68;LunaOutsideShop.begin(m,{id:LunaOutsideShop.id,x:m.x,y:-.596},false);finish();check(!LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'no greeting purchase');check(m.story.choose('shop-yes'),'browse stock');finish();if(m.story.speech.line.stage==='allowance'){check(m.story.choose('shop-allowance-no'),'decline optional allowance');finish();}check(LunaOutsideShop.choiceView(m).options.some(o=>o.id==='shop-buy-tuna_can'),'tuna offer');p.money=49;check(!m.story.choose('shop-buy-tuna_can'),'tuna insufficient');p.money=100;check(m.story.choose('shop-buy-tuna_can'),'buy tuna');finish();check(p.inventory.tuna_can===1&&p.money===50,'50 currency tuna');
    start(2,'in','homeDoor');check(N.targets(m).some(t=>t.id==='neighborhood-box'),'unseen cat persists next day');m.x=N.places.box.x-.6;run(.05);check(p.flags.boobi_box_shaken,'box proximity once');run(1);check(m.neighborhood.shake===0,'shake ends');
-   m.x=N.places.box.x;t=N.targets(m).find(t=>t.id==='neighborhood-box');N.interact(m,t);run(2);check(p.flags.boobi_revealed&&!m.story.speech&&!m.story.blocking&&!m.neighborhood.action,'reveal ends without dialogue or choices');
+   m.x=N.places.box.x;t=N.targets(m).find(t=>t.id==='neighborhood-box');N.interact(m,t);run(3.7);check(p.flags.boobi_revealed&&!m.story.speech&&!m.story.blocking&&!m.neighborhood.action,'reveal ends without dialogue or choices');
    t=N.targets(m).find(t=>t.id==='neighborhood-cat');check(t&&!N.targets(m).some(t=>t.id==='neighborhood-box'),'cat replaces box as interaction target');N.interact(m,t);check(m.story.speech.choice&&m.story.view().full==='야옹','separate cat interaction shows meow and choices');check(m.story.choose('pet'),'pet');finish();
    t=N.targets(m).find(t=>t.id==='neighborhood-cat');N.interact(m,t);check(m.story.choose('feed'),'feed');check(p.inventory.tuna_can===1,'tuna stays unlocked');const feed=finish();check(feed.join('|').includes('잘 먹네.')&&feed.at(-1)==='... 데려와도 괜찮겠지?','feeding neighbor home dialogue');check(m.scene==='home'&&p.flags.boobi_adopted,'cat adopted');
    let continued=0;check(N.beforeRest(m,()=>continued++),'rest starts cat scene');const rest=finish();check(rest.length===5&&continued===1&&p.flags.boobi_rest_seen,'rest continues after Chris');check(!N.beforeRest(m,()=>continued++),'rest only once');
@@ -56,7 +56,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
     const t=N.targets(m).find(t=>t.id==='neighborhood-'+id);m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);return a.interactionGlow;
    },id);
    assert.equal(glow.target,'neighborhood-'+id);assert.equal(glow.drawn.length,1,JSON.stringify(glow));
-   if(id==='box')assert(glow.drawn[0].region[4],'baked box uses a silhouette, not its opaque atlas rectangle');
+   if(id==='box')assert(glow.drawn[0].asset.startsWith('bubi-')&&!glow.drawn[0].region[4],'supplied box uses its true per-frame alpha');
    if(id==='box'){
     const shaking=await p.evaluate(()=>{outsidePlaytest.model.neighborhood.shake=.5;outsidePlaytest.tick(0);return outsidePlaytest.interactionGlow;});
     assert.equal(shaking.drawn.length,1);assert.equal(shaking.drawn[0].node,'neighborhood-shaking-box');

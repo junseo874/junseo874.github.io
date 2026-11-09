@@ -2,7 +2,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
 (async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});try{
  const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));
  await p.addInitScript(()=>localStorage.setItem('luna.shake.mode.v1','drum'));
- await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');await p.locator('.updates-confirm').click();await p.locator('[data-act="miniStart"][data-id="shake"]').click();
+ await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');await p.locator('.updates-confirm').click();await p.locator('[data-act="miniStart"][data-id="shake"]').click();await p.locator('[data-act="miniShakePlay"][data-id="1"]').click();
  while(await p.locator('.mix-tutorial').isVisible())await p.locator('[data-act="mixTutorialNext"]').click();
  assert.equal(await p.locator('[data-act="shakeMode"]').count(),3);assert.equal(await p.locator('[data-id="drum"]').count(),0);assert.equal(await p.locator('.rhythm-board').getAttribute('data-rhythm-mode'),'path');
  await p.locator('[data-act="shakeMode"][data-id="fall"]').click();await p.locator('[data-act="shakeMode"][data-id="path"]').click();

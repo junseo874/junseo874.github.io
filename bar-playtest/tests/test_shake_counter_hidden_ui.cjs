@@ -8,7 +8,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');
   if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
   for(const mode of ['path','fall','cross']){
-   await page.locator('[data-act="miniStart"][data-id="shake"]').click();
+   await page.locator('[data-act="miniStart"][data-id="shake"]').click();await page.locator('[data-act="miniShakePlay"][data-id="1"]').click();
    while(await page.locator('.mix-tutorial').isVisible())await page.locator('[data-act="mixTutorialNext"]').click();
    await page.locator('[data-act="shakeMode"][data-id="'+mode+'"]').click();
    assert.equal(await page.locator('[data-rhythm-count]').count(),0);

@@ -5,7 +5,8 @@ const version='20261018',root='assets/reference/exports/',revision='preview-path
 const safe=s=>String(s).replace(/[^a-z0-9_-]/gi,'_');
 const stem=(row,variant)=>safe(row.id)+'--'+safe(variant||row.variants?.[0]?.id||'default');
 const refreshed=new Set(['ui:pair','ui:solo','ui:choices','ui:world-speech','ui:exterior:poor','popup:serving-hud']);
-const previewRevision=r=>refreshed.has(r.id)?'artwork-20261101':r.launch?.type==='day-transition'?'day-quotes-small-20261101':['popup:campaign-dialogs'].includes(r.id)?'review-audit-20261026':r.id==='ui:income'?'money-art-20261025':revision;
+const currentNotices=new Set(['popup:meet','popup:affinity','popup:event','popup:goal','ui:exterior:purchase']);
+const previewRevision=r=>currentNotices.has(r.id)?'notice-scale-20261109':refreshed.has(r.id)?'artwork-20261101':r.launch?.type==='day-transition'?'day-quotes-small-20261101':['popup:campaign-dialogs'].includes(r.id)?'review-audit-20261026':r.id==='ui:income'?'money-art-20261025':revision;
 const screen=(r,v)=>root+stem(r,v)+'.png?v='+previewRevision(r);
 const popup=(r,v)=>root+stem(r,v)+'--popup.png?v='+previewRevision(r);
 const isScreen=r=>!!r.launch&&(['bar-ui','out-ui','common-popups','bar-fx','out-fx'].includes(r.group)||!r.layers?.length);
@@ -39,7 +40,7 @@ function collect(rows){
   if(r.id==='ui:exterior:street'){r.title='상호작용 키 안내 / E';r.note='제공된 IMG_interaction 사각 E 키와 페이퍼로지 Bold 상호작용 텍스트를 화면 좌측 하단에서 확인합니다. 대상의 시안색 윤곽선도 함께 표시합니다.';r.variants=r.variants.filter(v=>v.id==='e');}
   if(r.id==='ui:prep')r.needsRevision=false;
   if(r.id==='outside:terrace-chris')r.previewNote='최신 테라스 배경 · 오른쪽 크리스 / 왼쪽 루나 · 배경 합성 이미지';
-  if(isScreen(r)){r.preview=screen(r);r.previewNote=refreshed.has(r.id)?'현재 게임 화면 · 2026-11-01 갱신 · PNG 다운로드 가능':r.launch?.type==='day-transition'?'일차별 명언 실제 화면 · 2026-11-01 · PNG 다운로드 가능':'저장된 화면 참고 · '+version+' · 최신 동작은 실제 화면 테스트에서 확인';}
+  if(isScreen(r)){r.preview=screen(r);r.previewNote=currentNotices.has(r.id)?'현재 게임 알람 · 2026-11-09 · 실제 크기와 문구 반영':refreshed.has(r.id)?'현재 게임 화면 · 2026-11-01 갱신 · PNG 다운로드 가능':r.launch?.type==='day-transition'?'일차별 명언 실제 화면 · 2026-11-01 · PNG 다운로드 가능':'저장된 화면 참고 · '+version+' · 최신 동작은 실제 화면 테스트에서 확인';}
  }
  return rows;
 }
