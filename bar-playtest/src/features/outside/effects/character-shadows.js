@@ -4,7 +4,7 @@
 (function(W){'use strict';
 const states=new WeakMap(),D=()=>W.LUNA_CHARACTER_SHADOWS,clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 function liftScale(){return W.LunaEngineWorld?1:.6;}
-function liftPoint(x,y,m){const l=W.LunaResidence.layout;if(W.LunaEngineWorld)return{x,y:y+m.elevatorY-l.elevatorBottom};return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
+function liftPoint(x,y,m){const l=W.LunaResidence.layout;if(W.LunaEngineWorld)return{x,y:y+m.elevatorY-l.elevatorBottom+(l.cabinOffsetY||0)};return {x:l.elevatorX+(x+12.18)*.6,y:m.elevatorY+(y+1.09)*.6};}
 function storefrontOffset(){const node=W.LUNA_OUTSIDE_DATA?.scenes.street.nodes.find(n=>n.name==='B_Fore_Building_1'),source=W.LUNA_STREET_EFFECTS?.parent;return node&&source?{x:node.x-source.x,y:node.y-source.y}:{x:0,y:0};}
 function lights(m){const list=D().lights.map(original=>{const current=W.LUNA_SHADOW_LIGHTING?.casters.find(l=>l.id===original.id),l={...original,...current},offset=l.storefront?storefrontOffset():{x:0,y:0};return {...l,x:l.x+offset.x,y:l.y+offset.y,...(l.ancestry.includes('Elevator')?liftPoint(l.x,l.y,m):{}),gain:W.LunaStreetEngineEffects?.lightLevel(l.id,m.time||0,!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches)??1};});const fire=W.LunaBarrelFire?.worldLight(m);if(fire)list.push(fire);return list;}
 function receivers(m){return D().receivers.filter(r=>r.active).map(r=>{

@@ -844,6 +844,10 @@
     ],
     [
       "script",
+      "src/features/crafting/shake-v2.js"
+    ],
+    [
+      "script",
       "src/cinema/exterior-speech.js"
     ],
     [

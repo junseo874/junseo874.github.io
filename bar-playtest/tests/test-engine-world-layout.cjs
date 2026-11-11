@@ -7,6 +7,9 @@ E.applyStreet(D);assert.equal(JSON.stringify(D.assets),art,'layout must never re
 for(const n of D.scenes.street.nodes.filter(n=>n.placementSource==='engine')){
  const e=E.node('street',n.engineNode);near(n.x,e.x);near(n.y,e.y);assert.equal(n.layer,e.layer);assert.equal(n.order,e.order);
 }
+for(const n of D.scenes.street.nodes.filter(n=>n.placementSource==='web-lift-framing')){
+ const e=E.node('street',n.engineNode);near(n.x,e.x);near(n.y,e.y+E.residence().cabinOffsetY);near(n.sprite.w*n.sx/n.sprite.ppu,e.sprite.w*Math.hypot(e.a,e.b)/e.sprite.ppu);near(n.sprite.h*n.sy/n.sprite.ppu,e.sprite.h*Math.hypot(e.c,e.d)/e.sprite.ppu);
+}
 const door=E.node('home','1183900665'),doorPixels=W.LunaHomeArt.layers.find(l=>l.name==='Room_Entrance');
 for(const layer of W.LunaHomeArt.layers){
  const n=D.scenes.home.nodes.find(n=>n.name===layer.name);

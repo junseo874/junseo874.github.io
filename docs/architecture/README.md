@@ -28,6 +28,7 @@ node tools/locate.cjs campaign --symbols
 | 바 표시·대화 기록 | `features/bar/bar-views.js`, `dialogue-history.js` |
 | 제조 준비 | `features/crafting/preparation-flow.js` |
 | 제조 큐·기믹 진행·제공 | `features/crafting/craft-flow.js` |
+| 본편 쉐이킹 V2·공유 화면 연결 | `features/crafting/shake-v2.js`, `dev/shaking/session-craft.js` (기존 큐/결과 계약 유지) |
 | 단위 변환·레시피 판정 | `features/crafting/craft-rules.js` |
 | 개봉·쉐이크·스터 연산 | `features/crafting/gimmick-mechanics.js` |
 | 개별 기믹 화면·따르기 물리 | `features/crafting/*-view.js`, `pour-fluid.js` |

@@ -796,6 +796,9 @@
     const c = global.lunaCampaign;
     if (!c) return;
     c.control = false;
+    // Focusing the embedded main-game shaker is not leaving the game.
+    // Its own settings/blur handler owns pause while this modal is open.
+    if (document.querySelector('.shake-craft-dialog[open]')) return;
     if (global.LunaFocusSettings.enabled && c.active && !c.memoryTransition && ['game', 'scene', 'prologue', 'awakening'].includes(c.view)) {
       c.resumeView = c.view;
       c.screen('options');
@@ -805,6 +808,7 @@
     const c = global.lunaCampaign;
     if (document.hidden && c) {
       c.releaseCinemaSkip();
+      if (document.querySelector('.shake-craft-dialog[open]')) return;
       if (global.LunaFocusSettings.enabled && c.active && !c.memoryTransition && ['game', 'scene', 'prologue', 'awakening'].includes(c.view)) {
         c.resumeView = c.view;
         c.screen('options');

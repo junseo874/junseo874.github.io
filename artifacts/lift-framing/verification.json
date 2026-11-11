@@ -1,0 +1,81 @@
+{
+  "adjustment": "Moving elevator shell lowered by 18 native pixels; unchanged passenger, stop and camera anchors.",
+  "targeted": {
+    "passenger_framing": "150 idle/walk/run frame/facing/stop cases passed; both travel directions",
+    "lighting_reflections": "street-effect-composition passed",
+    "landing_dust": "passed",
+    "structure_site_boundaries_source_index": "passed"
+  },
+  "smoke": {
+    "passed": 42,
+    "failed": 0
+  },
+  "outside": {
+    "passed": 69,
+    "preexisting_failures": [
+      {
+        "file": "bar-playtest/tests/test-corridor-birds-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 5
+      },
+      {
+        "file": "bar-playtest/tests/test-engine-barrel-fire.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 0
+      },
+      {
+        "file": "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 6
+      },
+      {
+        "file": "bar-playtest/tests/test-outside-npc-animation.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 0
+      },
+      {
+        "file": "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 34
+      },
+      {
+        "file": "bar-playtest/tests/test-home-weather-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 5
+      },
+      {
+        "file": "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 5
+      },
+      {
+        "file": "bar-playtest/tests/test-lift-right-boundary-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 5
+      }
+    ]
+  },
+  "screenshots": [
+    "upper.png",
+    "descending.png",
+    "descending-landed.png",
+    "ascending.png",
+    "ascending-landed.png"
+  ]
+}

@@ -1,8 +1,8 @@
 // Hand-authored art override: kept separate from the Unity importer output.
 (function(global){
 'use strict';
-// Reference framing: show the hips above the corridor rail, but only the head
-// above the lift's front panel. Both stops share one flat passenger offset.
+// Passenger anchors follow the engine. The shared cabinOffsetY presentation
+// correction lowers the moving shell so the neck/chest clears its front panel.
 const upperY=9.74,passengerOffset=.39;
 // Ground access continues past the lift and drums to the black scrap wall.
 // near_foreground_1 row 270 ends at x=552: -22.25 + 5.52, plus the

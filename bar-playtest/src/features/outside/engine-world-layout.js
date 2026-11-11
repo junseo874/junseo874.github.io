@@ -4,6 +4,9 @@
 (function(W){
 'use strict';
 const source=W.LUNA_ENGINE_WORLD;
+// User-approved cabin framing: lower the whole moving shell by 18 native pixels.
+// Passenger/spawn/camera anchors and the stationary support rail stay unchanged.
+const cabinOffsetY=-.18;
 if(!source)return;
 const scene=name=>source.scenes[name];
 const node=(name,id)=>scene(name).nodes.find(n=>n.id===String(id));
@@ -152,7 +155,7 @@ function residence(){
  const home=point('street','04.Gameplay/HomeSpawn'),top=point('street','04.Gameplay/InteractionObjects/Elevator/TopPoint'),bottom=point('street','04.Gameplay/InteractionObjects/Elevator/BottomPoint');
  // Passenger movement in Unity adds the platform delta, never rescales Luna.
  const bar=point('street','04.Gameplay/BarSpawn'),offset=bar.y-bottom.y;
- return{homeX:home.x,upperY:home.y,elevatorX:bottom.x,elevatorBottom:bottom.y,elevatorTop:top.y,passengerOffset:offset};
+ return{homeX:home.x,upperY:home.y,elevatorX:bottom.x,elevatorBottom:bottom.y,elevatorTop:top.y,passengerOffset:offset,cabinOffsetY};
 }
 function applyStreet(data){
  if(data.engineWorldVersion===source.version)return data;
@@ -164,6 +167,7 @@ function applyStreet(data){
   // remain owned by their modules. Only authored placement is replaced here.
   if(n.name==='Elevator')n.sprite={...n.sprite,x:0,y:0,w:69,h:154};
   transform(n,e,{size:n.ancestry.includes('Elevator')});
+  if(n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name)){n.y+=cabinOffsetY;n.placementSource='web-lift-framing';}
  }
  data.scenes.street.nodes=data.scenes.street.nodes.filter(n=>n.name!=='Elevator Connector');
  const nodes=data.scenes.street.nodes,building=nodes.find(n=>n.name==='residence-building'),rail=nodes.find(n=>n.name==='residence-railing');

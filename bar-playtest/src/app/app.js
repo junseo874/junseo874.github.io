@@ -56,6 +56,7 @@
   }
   const shakeRhythm = window.LunaShakeRhythm.attach(g, () => ui.shakeMode);
   const mixTutorial = window.LunaMixTutorial.attach(g);
+  const shakeV2 = window.LunaShakeV2.attach(g, { sound: () => ui.gimmickAudio !== false });
   try {
     ui.shakeSound = localStorage.getItem('luna.shake.sound.v2') === '2' ? 2 : 1;
   } catch {}
@@ -320,6 +321,7 @@
   function gimmickHTML() {
     const s = g.gimmick;
     if (!s) return '';
+    if (shakeV2.uses()) return '<div class="craft-screen" aria-label="쉐이킹"></div>';
     if (s.fluid) return pourView.html(s, views.craftTimer());
     if (s.type === 'open') return openView.html(s, views.craftTimer());
     if (['stir', 'shake'].includes(s.type)) return views.mixHTML(s) + mixTutorial.html(L);
@@ -1670,6 +1672,7 @@
   });
   window.addEventListener('blur', () => {
     releaseBackgroundInput();
+    if (shakeV2.active()) return;
     if (outside.active || campaign?.blocking) return;
     if (window.LunaFocusSettings.enabled && g.phase !== 'ready' && !g.finished && !g.overlay) show('settings');
   });
@@ -1679,6 +1682,7 @@
     lastReadCount = g.read.size,
     skipTimer = 0;
   function frame(now, dt) {
+    shakeV2.sync();
     if(dialoguePreview?.active){dialoguePreview.tick(dt);render();return;}
     bgm.syncLocation(campaign, outside);
     window.LunaStoryNotices.tick(g, outside, campaign, dt);

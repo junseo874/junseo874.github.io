@@ -11,11 +11,11 @@ const OPT={music:0,sfx:70,street:50,voice:'low',bgm:true,sfxOn:true,ring:true,sh
 const DIFF={easy:1.25,normal:1,hard:.8};   // 한 회 제한 시간 배율
 const RECIPES=[
   {id:'daiquiri',name:'다이키리',lv:'EASY',spec:'화이트 럼 45 · 라임 20 · 시럽 15',
-   layers:[['시럽','#e9b04e',.2],['라임','#86c83e',.28],['럼','#e6e9de',.52]],ice:4,rounds:10,win:1400,pattern:['AD'],rev:.15},
+   layers:[['시럽','#e9b04e',.2],['라임','#86c83e',.28],['럼','#e6e9de',.52]],ice:4,rounds:10,win:1400,pattern:['AD']},
   {id:'fizz',name:'진 피즈',lv:'NORMAL',spec:'진 45 · 레몬 20 · 시럽 15 · 달걀흰자',
-   layers:[['시럽','#e9b04e',.18],['레몬','#efd650',.24],['흰자','#f7f2e0',.18],['진','#cfe3ea',.4]],ice:5,rounds:10,win:1150,pattern:['AD'],rev:.3},
+   layers:[['시럽','#e9b04e',.18],['레몬','#efd650',.24],['흰자','#f7f2e0',.18],['진','#cfe3ea',.4]],ice:5,rounds:10,win:1150,pattern:['AD']},
   {id:'sour',name:'위스키 사워',lv:'HARD',spec:'버번 50 · 레몬 25 · 시럽 15 · 흰자',
-   layers:[['시럽','#e9b04e',.16],['레몬','#efd650',.26],['흰자','#f7f2e0',.14],['버번','#a45a1c',.44]],ice:5,rounds:10,win:1150,pattern:['AD','ADAD'],rev:.4},
+   layers:[['시럽','#e9b04e',.16],['레몬','#efd650',.26],['흰자','#f7f2e0',.14],['버번','#a45a1c',.44]],ice:5,rounds:10,win:1150,pattern:['AD','ADAD']},
 ];
 const B={
   CLOSE:{center:6.5,amp:16,speed:2.4,perfect:[3,8],good:[-1,12],wild:[-5,18]},
@@ -243,7 +243,7 @@ function paintBar(){[...$('bar').children].forEach((s,i)=>{s.className=S.res[i]=
 // ───────── 튜토리얼 (스터와 같은 모달)
 const TUT=[
   {t:'틴 닫기',chip:'SPACE',body:['① 위쪽 작은 틴이 얕은 반원 궤적으로 좌우를 오갑니다.','② 중앙의 <b>금색 구간</b>에 맞춰 Space를 누르면 아래로 끼워집니다.','결합하면 쉐이커가 가로로 회전하며 확대됩니다. 잘 닫을수록 MISS를 더 버틸 수 있습니다.'],demo:'close'},
-  {t:'시간 안에 한 번 흔들기',chip:'A → D',body:['① 쉐이커를 감싼 게이지가 한 번의 남은 시간을 나타냅니다.','② 강조된 다음 키를 순서대로 눌러 제한 시간 안에 한 번을 완성하세요.','회차가 갈수록 빨라지고, 가끔 <b>반대 순서(D → A)</b>가 나옵니다.','MISS마다 이음새로 술이 새고, 허용된 MISS를 넘기면 틴이 빠집니다.'],demo:'shake'},
+  {t:'시간 안에 한 번 흔들기',chip:'A → D',body:['① 쉐이커를 감싼 게이지가 한 번의 남은 시간을 나타냅니다.','② 강조된 다음 키를 순서대로 눌러 제한 시간 안에 한 번을 완성하세요.','회차가 갈수록 빨라집니다. 순서는 항상 <b>A → D</b>로 유지됩니다.','MISS마다 이음새로 술이 새고, 허용된 MISS를 넘기면 틴이 빠집니다.'],demo:'shake'},
 ];
 function showTut(p){
   S.tutPage=p;$('tut').hidden=false;setPause(true);
@@ -313,6 +313,7 @@ function press(k){
   ShakeLabAudio.hit();
   throwTo(k);
   if(k!==want){miss(now,'wrong');return}
+  strokeImpact(k,now);
   S.k++;
   if(S.k>=S.seq.length)success(now);
 }
@@ -349,24 +350,25 @@ function startShake(){
 }
 function win(){const k=1-(1-B.SPEEDUP)*Math.min(1,S.round/Math.max(1,R.rounds-1));return R.win*DIFF[OPT.diff]*(S.seq.length/2)*k}
 function nextRound(){
-  if(S.round>=R.rounds){const pose=shakerXf();S.phase='unseal';S.endT=GT;S.unseal={t:GT,x:S.px,y:S.py,a:pose.a};S.fx=[];S.drops2=[];S.cam=0;S.flash=0;S.label=null;popText('쉐이크 완료!',W/2,90,'#f0c987',1.3);return}
+  if(S.round>=R.rounds){const pose=shakerXf();S.phase='unseal';S.endT=GT;S.unseal={t:GT,x:S.px,y:S.py,a:pose.a};S.drops2=[];S.cam=0;S.flash=0;S.label=null;popText('쉐이크 완료!',W/2,90,'#f0c987',1.3);return}
   S.seq=R.pattern[S.round%R.pattern.length];
-  // 3회차부터 가끔 반대 순서 (D→A) — 습관적으로 A부터 누르면 MISS
-  if(R.rev&&S.round>=2&&Math.random()<R.rev){S.seq=S.seq.split('').map(c=>c==='A'?'D':'A').join('');popText('반대로!',W/2,560,'#ff9a6a',.9)}
+  // Every round keeps A → D; only the time window and repeat count vary.
   S.k=0;S.roundT=GT;
-  // 다음 회 시작 키가 이미 그쪽에 있으면 반대부터 (A→D 다음엔 A로 돌아오며 시작)
 }
-function success(now){
+// Per-input feedback belongs to the pressed end, not only the completed A/D pair.
+function strokeImpact(key,now){
   const t=(now-S.roundT)/win(),fast=t<.55;
-  S.res.push('O');S.round++;S.combo++;S.best=Math.max(S.best,S.combo);
-  S.mix=Math.min(100,S.mix+100/R.rounds);S.chill=Math.min(100,S.chill+100/R.rounds);
   S.flash=1;S.cam=Math.max(S.cam,fast?9:6);if(fast)S.hitstopUntil=performance.now()+45;
-  const side=S.kickKey==='A'?-1:1,[ex,ey]=toWorld(side<0?B.CH.x0:B.CH.x1,0);
+  const side=key==='A'?-1:1,[ex,ey]=toWorld(side<0?B.CH.x0:B.CH.x1,0);
   S.fx.push({k:'ring',x:ex,y:ey,t:now,big:fast});
   for(let i=0;i<(fast?22:12);i++){const a=Math.random()*Math.PI*2,sp=rand(80,fast?320:200);S.fx.push({k:'p',x:ex,y:ey,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-60,life:rand(.25,.5),max:.5,c:'#e6fbff',r:3,g:500})}
-  popText(fast?'CRACK!':'좋아',ex-side*60,ey-60,fast?'#f0c987':'#55d7ee',fast?1.2:.9);
+  popText(fast?'PERFECT':'GOOD',ex-side*60,ey-60,fast?'#f0c987':'#55d7ee',fast?1.2:.9);
   S.label={t:now,g:'ok',fast};
   iceClack(fast?1:.7);
+}
+function success(now){
+  S.res.push('O');S.round++;S.combo++;S.best=Math.max(S.best,S.combo);
+  S.mix=Math.min(100,S.mix+100/R.rounds);S.chill=Math.min(100,S.chill+100/R.rounds);
   paintBar();nextRound();
 }
 function miss(now,why){
@@ -472,11 +474,15 @@ function draw(now){
 const CAP={x:118,y:212,w:644,h:220,r:110};
 function capPath(c){c.beginPath();c.roundRect(CAP.x,CAP.y,CAP.w,CAP.h,CAP.r)}
 const CAP_LEN=2*(CAP.w-2*CAP.r)+2*Math.PI*CAP.r;
+// Elapsed fraction of the current round (not the cumulative crafting clock).
+function gaugeColor(elapsed){
+  return elapsed<.25?'rgba(240,250,255,.95)':elapsed<.5?'#b7ee55':elapsed<.75?'#ff993d':'#ff4b4b';
+}
 function drawGauge(now){
   ctx.save();
   capPath(ctx);ctx.strokeStyle='rgba(120,150,165,.18)';ctx.lineWidth=5;ctx.stroke();
-  let rem=0,col='rgba(240,250,255,.95)';
-  if(S.phase==='shake'&&now>=S.waitT){rem=Math.max(0,1-(now-S.roundT)/win());if(rem<.25)col='rgba(255,154,106,.95)'}
+  let rem=0,col=gaugeColor(0);
+  if(S.phase==='shake'&&now>=S.waitT){const elapsed=Math.max(0,Math.min(1,(now-S.roundT)/win()));rem=1-elapsed;col=gaugeColor(elapsed)}
   if(S.phase==='close'&&!S.closeQ)rem=0;
   if(rem>0){
     // 12시(상단 중앙)부터 시작하도록 대시 오프셋
@@ -484,9 +490,9 @@ function drawGauge(now){
     ctx.beginPath();ctx.moveTo(CAP.x+CAP.w/2,CAP.y);ctx.lineTo(CAP.x+CAP.w-CAP.r,CAP.y);ctx.arc(CAP.x+CAP.w-CAP.r,CAP.y+CAP.r,CAP.r,-Math.PI/2,Math.PI/2);
     ctx.lineTo(CAP.x+CAP.r,CAP.y+CAP.h);ctx.arc(CAP.x+CAP.r,CAP.y+CAP.r,CAP.r,Math.PI/2,Math.PI*1.5);ctx.lineTo(CAP.x+CAP.w/2,CAP.y);
     ctx.setLineDash([CAP_LEN*rem,CAP_LEN]);ctx.lineDashOffset=0;
-    ctx.shadowColor='rgba(150,230,255,.8)';ctx.shadowBlur=12;ctx.strokeStyle=col;ctx.lineWidth=5;ctx.stroke();
+    ctx.shadowColor=col;ctx.shadowBlur=12;ctx.strokeStyle=col;ctx.lineWidth=5;ctx.stroke();
   }
-  if(S.flash>.02){capPath(ctx);ctx.setLineDash([]);ctx.shadowBlur=0;ctx.strokeStyle=`rgba(85,215,238,${S.flash})`;ctx.lineWidth=3;ctx.stroke()}
+  if(S.flash>.02){capPath(ctx);ctx.setLineDash([]);ctx.shadowBlur=0;ctx.globalAlpha=S.flash;ctx.strokeStyle=col;ctx.lineWidth=3;ctx.stroke();ctx.globalAlpha=1}
   if(S.label&&S.label.g==='miss'&&now-S.label.t<350){capPath(ctx);ctx.setLineDash([]);ctx.strokeStyle=`rgba(255,90,90,${1-(now-S.label.t)/350})`;ctx.lineWidth=4;ctx.stroke()}
   ctx.restore();
 }
@@ -532,11 +538,16 @@ function drawKeys(now){
   // 이음새 내구도 (허용 MISS 핍)
   if(S.closeQ&&(S.phase==='shake'||S.phase==='pop')){
     const left=S.dur-S.misses,last=left<=0,blink=Math.floor(now/180)%2;
-    ctx.textAlign='left';ctx.font='700 15px "Galmuri11",monospace';ctx.fillStyle=last?(blink?'#ff6a6a':'#ffb0b0'):'#8aa2ad';ctx.fillText('이음새',24,44);
+    // Fixed shaker/gauge center, independent of its A/D motion. Center the
+    // complete label + variable pip row, with a separate centered hint below.
+    const center=CAP.x+CAP.w/2,rowY=CAP.y-72;
+    ctx.textAlign='left';ctx.font='700 18px "Galmuri11",monospace';
+    const labelWidth=ctx.measureText('이음새').width,pipWidth=(S.dur+1)*26-6,rowX=center-(labelWidth+14+pipWidth)/2,pipX=rowX+labelWidth+14;
+    ctx.fillStyle=last?(blink?'#ff6a6a':'#ffb0b0'):'#8aa2ad';ctx.fillText('이음새',rowX,rowY+16);
     for(let i=0;i<S.dur+1;i++){const alive=i<left+1;ctx.fillStyle=i===S.dur?(last?(blink?'#ff6a6a':'#5a1e24'):'#ff6a6a33'):alive?'#7be3a4':'#2a1a1e';
-      ctx.fillRect(96+i*26,28,20,20);if(i===S.dur){ctx.strokeStyle='#ff6a6a';ctx.lineWidth=1.5;ctx.strokeRect(96+i*26,28,20,20)}}
-    ctx.font='700 11px "Galmuri11",monospace';ctx.fillStyle=last?'#ff6a6a':'#5d7480';
-    ctx.fillText(last?'한 번 더 틀리면 틴이 빠진다':`MISS ${left}번 더 버틴다`,24,68);
+      ctx.fillRect(pipX+i*26,rowY,20,20);if(i===S.dur){ctx.strokeStyle='#ff6a6a';ctx.lineWidth=1.5;ctx.strokeRect(pipX+i*26,rowY,20,20)}}
+    ctx.textAlign='center';ctx.font='700 14px "Galmuri11",monospace';ctx.fillStyle=last?'#ff6a6a':'#8aa2ad';
+    ctx.fillText(last?'한 번 더 틀리면 틴이 빠진다':`MISS ${left}번 더 버틴다`,center,rowY+43);
     if(last&&S.phase==='shake'&&Math.random()<.5){const [sx,sy]=toWorld(40,rand(-60,60));S.fx.push({k:'p',x:sx,y:sy,vx:rand(-30,30),vy:20,life:.7,max:.7,c:avgCol(),r:3,g:900})}
   }
 }

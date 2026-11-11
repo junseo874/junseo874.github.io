@@ -60,7 +60,7 @@
 
 ## 시뮬레이터 쉐이킹 버전 선택
 
-쉐이킹도 목록에서 버전 선택 팝업을 사용합니다. **버전 1은 기존 쉐이킹**, **버전 2는 제공된 v9 틴 닫기·A/D 순서 입력 프로토타입**입니다. 버전 2의 구현·원본 추출·사운드·일시정지 경계는 [쉐이킹 실험 화면 안내](../../bar-playtest/src/dev/shaking/README.md)를 참고하세요. 본편 제조 방식과 엔진 CSV는 변경하지 않습니다. 검증: `test-shaking-versions-ui.cjs`.
+시뮬레이터 목록에서는 버전 선택 팝업을 유지합니다. **버전 1은 기존 쉐이킹**, **버전 2는 틴 닫기·A/D 순서 입력**입니다. **본편 제조 큐의 shake는 V2를 바로 사용**합니다. `features/crafting/shake-v2.js`가 큐 소유자이고 공유 화면 `dev/shaking/session-craft.js`와 출처·창·시도 토큰을 검증하여 시간/점수만 주고받습니다. 동일 프레임을 일반 화면 재렌더링 밖에서 유지하며, 완료 시 기존 `endGimmick()`으로 복귀합니다. 기존 CSV와 결과 필드는 바꾸지 않습니다. 상세: [쉐이킹 화면 안내](../../bar-playtest/src/dev/shaking/README.md). 검증: `test-shaking-main-ui.cjs`, `test-shaking-versions-ui.cjs`.
 
 ## 시뮬레이터 와인 개봉
 

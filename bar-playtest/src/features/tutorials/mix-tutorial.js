@@ -5,6 +5,7 @@ W.LunaMixTutorial={attach(g){
  const base=Object.fromEntries(['nextGimmick','gimmickInput','tickGimmick','endGimmick'].map(k=>[k,g[k].bind(g)])),miniSeen=new Set();
  function state(){
   const s=g.gimmick;if(g.screen!=='gimmick'||!s||!['shake','stir'].includes(s.type))return null;
+  if(s.type==='shake'&&!g.minigame&&W.LunaShakeV2)return null;
   if(s.mixTutorial)return s.mixTutorial;
   if(g.progress.flags['mix_tutorial_'+s.type]||g.minigame&&miniSeen.has(s.type)||s.started)return null;
   return s.mixTutorial={kind:s.type,mode:s.type==='stir'?'stir':s.rhythm?.mode||'path',page:0};

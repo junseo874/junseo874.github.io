@@ -81,6 +81,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    assert.ok(Math.abs(iceCheck.coverage-.25)<1e-6,'Ice fills 25% of the cutaway area');assert.ok(iceCheck.valid,'Large ice remains finite and inside the shaker under strong alternating acceleration');
    for(let round=0;round<10;round++){
     const seq=await f.evaluate(()=>{S.roundT=GT;return S.seq;});
+    assert.match(seq,/^(AD)+$/,'Every round keeps A → D without a reversed phase');
     for(const key of seq)await p.keyboard.press('Key'+key);
    }
    assert.equal(await f.evaluate(()=>S.phase),'unseal');

@@ -43,7 +43,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     capture:difference(captured,withoutBuilding),actorCount,
     neons:neons.every(n=>n.layer===building.layer&&n.order>building.order&&n.order<raster.order),
     lamp:neons.find(n=>n.id==='street-neon-door-lamp').x,
-    lift:lift.rect,engineLift:engineLift.rect,error:LunaStreetAtmosphere.inspect(m).error,gl:r.gl.getError()};
+    lift:lift.rect,engineLift:engineLift.rect.map((v,i)=>v+(i%2?R.cabinOffsetY:0)),error:LunaStreetAtmosphere.inspect(m).error,gl:r.gl.getError()};
   });
   assert(result.neons);assert(Math.abs(result.lamp-.82)<1e-6,'lamp follows its receiver, not old +13px placement');
   assert(result.trace.indexOf('building')<result.trace.indexOf('neon'),JSON.stringify(result));
@@ -52,7 +52,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert(result.lights>1000,'neon actually changes visible screen pixels');
   assert(result.scans>100,'CRT raster survives cookies and post processing');
   assert(result.capture>10000,'foreground facade occludes fence in reflection capture');
-  assert.deepEqual(result.lift,result.engineLift,'engine-sized lift receiver must not be scaled a second time');
+  assert.deepEqual(result.lift,result.engineLift,'engine-sized lift receiver follows the cabin framing offset without rescaling');
   assert.equal(result.error,null);assert.equal(result.gl,0);
   await page.screenshot({path:'/tmp/street-effects-composed-bar.png'});
   for(const [label,x,level]of [['camp',-6,0],['left',-14,0],['corridor',-16,1],['restaurant',3,0]]){

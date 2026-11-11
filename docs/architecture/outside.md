@@ -54,3 +54,7 @@
 ## Street puddles, fog and postprocessing
 
 `data/presentation/street-atmosphere.js` contains read-only Unity scene overrides; `src/features/outside/effects/street-atmosphere.js` and `street-atmosphere-renderer.js` render world-anchored pools, three fog layers, the authored light shaft and linear-color bloom before lens water. See [street-atmosphere.md](street-atmosphere.md) for source settings, rendering order, browser adaptations and tests. Import only with `bar-playtest/tools/import-street-atmosphere.cjs --write`; original art and engine files remain untouched.
+
+### 승강기 상반신 가림 보정 (2026-11-10)
+
+`engine-world-layout.js`의 `residence().cabinOffsetY=-0.18`로 움직이는 몸체·앞판·문을 함께 18 원본 픽셀 아래로 내립니다. 목/상반신을 창 안에 드러내고 발은 앞판의 하단 안쪽에서 가립니다. 원본 크기, 고정 레일, 탑승자/정류장 좌표와 카메라 이동은 유지합니다. 조명·그림자 수신면은 같은 보정을 사용하고 물웅덩이 캡처는 보정된 장면 노드를 읽습니다. 착지 먼지는 시각적 몸체 이동과 별개로 기존 거리 접지면을 유지합니다.

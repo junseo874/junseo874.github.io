@@ -41,10 +41,11 @@
 | 레시피 열기 | 바가 아니거나 정지/전환 중, 이미 든 음료, 허용되지 않는 이야기 단계, 튜토리얼 선행단계 미완료 | 본편 craft 대기 또는 일반 영업 등 해당 진입 조건 충족 | `preparation-flow.js:openRecipes` |
 | 준비/제조 시작 | 필요한 잔·재료·도구/병따개와 튜토리얼 순서 검증. 경고 overlay 동안 정지 | 부족 항목 보완·경고 확인 후 다시 시작 | `preparation-flow.js`, `craft-flow.js:startCraft` |
 | 기믹 첫 입력 | 관련 없는 키는 시작·채점 시계에 영향 없음 | 종류별 유효 키/포인터 입력 | `craft-flow.js:gimmickInput`, 각 view |
-| 스터·쉐이크 안내 | `mixTutorial`의 두 페이지를 읽는 동안 기믹 입력·tick·종료 차단 | 안내 확인 완료. 일반 본편은 종류별 progress 플래그, 미니게임은 세션의 miniSeen에 기록 | `features/tutorials/mix-tutorial.js` |
+| 스터·V1 쉐이크 안내 | `mixTutorial`의 두 페이지를 읽는 동안 기믹 입력·tick·종료 차단 | 안내 확인 완료. 본편 스터는 progress 플래그, 미니게임은 세션의 miniSeen에 기록 | `features/tutorials/mix-tutorial.js` |
+| 본편 V2 쉐이크 | 자체 안내 중 시계/입력 차단. 안내 후 틴 맞추기부터 시계 시작. 설정/창 이탈과 부모 게임의 pause는 입력·연출·시간을 함께 정지. 다른 기믹/취소/초기화 시 iframe과 수신기 해제 | 안내 완료는 기존 `mix_tutorial_shake` 플래그. 성공은 3초 분리 마무리, 실패는 1.5초 비산 완료 뒤 한 번만 큐 진행. 임의 종료·결과 재시도 없음 | `features/crafting/shake-v2.js`, `dev/shaking/session-craft.js` |
 | 따르기 복귀 | 잡고 있거나 각도 `!== 0` 또는 병 입구 원점 거리 `>= 0.1px`면 종료 거부 | 놓은 뒤 각도와 위치 모두 복귀 | `pour-fluid.js:canFinish`, `pour-view.js`, `endGimmick` |
 | 따르기 승인 후 | `finishRequested=true`부터 재잡기/재입력 거부, 버튼 ‘정리 중..’ | 각도 복귀+공중 액체 소진+위치 복귀 상태가 0.2초 초과 지속하여 ready, 이후 0.8초 완료 표시 | `pour-fluid.js:step`, `craft-flow.js` |
-| 스터·쉐이크 완료 | `completed` 이후 기믹 입력 무효 | 완료 표시 0.9초(`MIX.completionHoldSec`) 뒤 진행 | `gimmick-mechanics.js`, `craft-flow.js` |
+| 스터·V1 쉐이크 완료 | `completed` 이후 기믹 입력 무효 | 완료 표시 0.9초(`MIX.completionHoldSec`) 뒤 진행. 본편 V2는 위의 자체 마무리로 대체하며 중복 대기하지 않음 | `gimmick-mechanics.js`, `craft-flow.js` |
 | 병따기 완료 | 완료 후 탄산 연출 도중 진행 차단; 튜토리얼은 미완료 종료도 금지 | `OPEN.carbonationSec=2.05` 후 진행 | 같은 파일의 OPEN / `endGimmick` |
 | 버리기 | `screen=discarding` | 1.3초 피드백 후 새 prep로 복귀 | `core.js:tick`, `craft-flow.js` |
 

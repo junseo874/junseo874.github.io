@@ -43,7 +43,9 @@ function paintSprite(ctx,model,key,sp,w,h,reduced=false){
  const sx=w/sp.w,sy=h/sp.h;
  // Front art is 6px right / 9px above the body bottom. Match the body,
  // not the passenger foot or the camera, and keep all dust above ground.
- const liftOffset=(model.elevatorY-W.LunaResidence.layout.elevatorBottom)*sp.ppu;
+ const layout=W.LunaResidence.layout;
+ // Shell framing is visual; the landing puff remains on the street contact plane.
+ const liftOffset=(model.elevatorY-layout.elevatorBottom+(layout.cabinOffsetY||0))*sp.ppu;
  const x=-w*sp.pivot.x+w*.5-(center+6)*sx,y=h*sp.pivot.y+(9-floor+liftOffset)*sy;
  ctx.save();ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=false;
  ctx.drawImage(canvas,x,y,width*sx,height*sy);ctx.restore();

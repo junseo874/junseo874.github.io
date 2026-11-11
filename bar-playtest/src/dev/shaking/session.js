@@ -6,6 +6,8 @@ function labLeave(action){
 }
 function fitLab(){document.documentElement.style.setProperty('--lab-scale',Math.min(innerWidth/1280,innerHeight/720));}
 addEventListener('resize',fitLab);fitLab();
+// Embedded document resize events may be coalesced while a modal is paused.
+new ResizeObserver(fitLab).observe(document.documentElement);
 $('other').onclick=()=>labLeave('versions');$('other').textContent='버전 선택';
 $('home').onclick=()=>labLeave('exit');$('home').textContent='기믹 목록';
 $('sMenu').onclick=()=>labLeave('exit');

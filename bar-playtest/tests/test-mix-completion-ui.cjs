@@ -16,12 +16,14 @@ const { chromium } = runtime.load('playwright');
         if (!practice) barGame.minigame = null;
         barGame.changed();
       }, {kind, practice});
-      await page.waitForFunction(kind => !!document.querySelector('.' + ({open: 'opening', pour: 'fluid', fill_up: 'fluid'}[kind] || kind) + '-screen'), kind);
+      if (kind === 'shake' && !practice) await page.locator('.shake-craft-dialog').waitFor();
+      else await page.waitForFunction(kind => !!document.querySelector('.' + ({open: 'opening', pour: 'fluid', fill_up: 'fluid'}[kind] || kind) + '-screen'), kind);
       assert.equal(await page.getByRole('button', {name: /현재 기믹 마치기|Finish this step/}).count(), 0);
       if (['stir', 'shake'].includes(kind)) assert.equal(await page.locator('[data-act="endGimmick"]').count(), 0);
       else assert.equal(await page.locator('[data-act="endGimmick"]').count(), 1, 'keep explicit pour/open completion');
     }
-    for (const kind of ['stir', 'shake']) for (const next of [true, false]) {
+    // Main V2 has its own ending/queue tests in test-shaking-main-ui.cjs.
+    for (const kind of ['stir']) for (const next of [true, false]) {
       await page.evaluate(({ kind, next }) => {
         const g = barGame; g.startMinigame(kind); g.minigame = null;
         g.progress.flags['mix_tutorial_' + kind] = true; delete g.gimmick.mixTutorial;
@@ -61,6 +63,6 @@ const { chromium } = runtime.load('playwright');
       }
     }
     assert.deepEqual(errors, []);
-    console.log('MIX_COMPLETION_UI_OK: stir/shake feedback visible, .9s automatic next/serve, pause, input protection');
+    console.log('MIX_COMPLETION_UI_OK: no early-exit button; stir .9s automatic next/serve, pause, input protection; V2 ending covered separately');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
