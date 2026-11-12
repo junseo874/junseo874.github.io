@@ -41,7 +41,7 @@ window.LunaServePixels={
   canvas.dataset.pixelScale=String(layout.scale);
  }
 };
-window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
+window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
  const sheets=window.LUNA_SERVE_SHEETS,background=window.LUNA_SERVE_BACKGROUND;
  const drinkOffsetY=window.LUNA_SERVE_COMPOSITION.drinkOffsetY;
  const images=new Map(),duration=1.5;
@@ -67,7 +67,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType}){
   const sheet=sheets[g.result.selected],bg=image(background.src),art=sheet?image(sheet.src):null;
   const loaded=(bg.ready||bg.failed)&&(!art||art.ready||art.failed);
   current.loaded=loaded;
-  if(loaded&&current.startedAt===null)current.startedAt=g.realTime;
+  if(loaded&&current.startedAt===null){current.startedAt=g.realTime;onStart?.(current);}
   current.elapsed=current.startedAt===null?0:Math.max(0,g.realTime-current.startedAt);
   current.frame=Math.min(background.frames-1,Math.floor(current.elapsed*background.fps));
   current.ready=loaded&&current.elapsed>=duration;

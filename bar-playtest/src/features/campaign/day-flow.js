@@ -7,7 +7,9 @@
       this.runDoorTransition('in', async () => {
         await global.LunaResources.prepare('common');
         await global.LunaResources.prepare('bar');
-        await Promise.all(Object.values(this.D.assets).map(a => a.src).filter(src => /\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)).map(src => this.image(src)));
+        const images=[...new Set(Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)))];
+        let next=0;
+        await Promise.all(Array.from({length:Math.min(4,images.length)},async()=>{while(next<images.length)await this.image(images[next++]);}));
       }, () => {
         // Keep the outside scene until the opaque door owns the screen. Prepare the
         // real bar underneath it before beginning the reveal, never the setup lobby.
@@ -131,6 +133,7 @@
         wakeAtSofa
       });
       if (token !== this.token || dayTransition && this.dayTransition !== dayTransition) return;
+      if (this.outside.loadError) throw Error(this.outside.loadError);
       this.outside.tick(0);
       this.screen(this.playView);
     }

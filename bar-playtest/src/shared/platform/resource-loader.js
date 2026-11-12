@@ -37,9 +37,20 @@
   return groups.get(group);
  }
  async function image(src){
-  const img=new Image();img.src=new URL(src,base).href;
-  let timer;try{await Promise.race([img.decode(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('이미지 준비 시간 초과: '+src)),45000);})]);}finally{clearTimeout(timer);}
-  return img;
+  const url=new URL(src,base).href;
+  for(let attempt=0;attempt<2;attempt++){
+   const img=new Image();let timer;
+   try{
+    // A new request bypasses a cached failed response on retry, not a real missing file.
+    const target=new URL(url);if(attempt)target.searchParams.set('lunaRetry',String(Date.now()));
+    img.src=target.href;
+    await Promise.race([img.decode(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('이미지 준비 시간 초과')),45000);})]);
+    return img;
+   }catch(error){
+    img.src='';
+    if(attempt===1)throw Error('이미지 로딩 실패: '+url+' ('+error.message+')',{cause:error});
+   }finally{clearTimeout(timer);}
+  }
  }
  W.LunaResources={prepare,batch,image};
 })(window);

@@ -6,6 +6,9 @@
     onExit = () => {},
     currencyView = global.LunaCurrencyView()
   } = {}) {
+    // A MediaQueryList stays live when the OS preference changes; reuse it
+    // instead of creating dozens of query objects for every drawn frame.
+    const motionPreference = global.matchMedia?.('(prefers-reduced-motion: reduce)');
     const glowRenderer = global.LunaInteractionGlow.create();
     let discoveryMarkers = [];
     let renderingNode = null,
@@ -537,23 +540,23 @@
       if (renderingNode?.lightRotation||renderingNode?.engineRotation) ctx.rotate(-(renderingNode.lightRotation??renderingNode.engineRotation));
       ctx.scale((sx < 0 ? -1 : 1) * (flip ? -1 : 1), sy < 0 ? -1 : 1);
       if(renderingNode?.scanlinesOnly){
-        global.LunaSignScanlines?.paintSprite(ctx,renderingNode.scanReceiver,sp,w,h,model.time,global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+        global.LunaSignScanlines?.paintSprite(ctx,renderingNode.scanReceiver,sp,w,h,model.time,motionPreference?.matches);
         ctx.restore();return;
       }
       if (lit) ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);
       else if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
       else if (renderingNode?.name === 'main_bg' && model.scene === 'home') global.LunaHomeArt.paintRoom(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
-      else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.engineLightId || renderingNode.id, model.time, global.matchMedia?.("(prefers-reduced-motion: reduce)").matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
-      if (model.scene === 'street') global.LunaStreetEngineEffects?.paintSprite(ctx, renderingNode?.name, img, images, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+      else if (renderingNode?.neon) global.LunaStreetSigns.paint(ctx, img, sp, w, h, renderingNode.engineLightId || renderingNode.id, model.time, motionPreference?.matches);else ctx.drawImage(img, sp.x, sp.y, sp.w, sp.h, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
+      if (model.scene === 'street') global.LunaStreetEngineEffects?.paintSprite(ctx, renderingNode?.name, img, images, sp, w, h, model.time, motionPreference?.matches);
       if (model.scene === 'street' && !model.qa) global.LunaWallLighting?.paintSprite(ctx, renderingNode?.name, img, sp, w, h);
       // Storefront raster is drawn after its emissive cookies, otherwise their
       // opaque cores erase the scanlines. Distant screens stay receiver-local.
-      if (model.scene === 'street' && renderingNode?.name !== 'B_Fore_Building_1') global.LunaSignScanlines?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
-      if (model.scene === 'street' && !model.qa) global.LunaVentSteam?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
-      if (renderingNode?.name === 'B_Obects') global.LunaWireSpark?.paint(ctx, img, images.get('street-wire-spark'), sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
-      if (model.scene === 'street' && !model.qa) global.LunaBarrelFire?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches, images);
-      global.LunaLiftDust?.paintSprite(ctx, model, renderingNode?.name, sp, w, h, global.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+      if (model.scene === 'street' && renderingNode?.name !== 'B_Fore_Building_1') global.LunaSignScanlines?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, motionPreference?.matches);
+      if (model.scene === 'street' && !model.qa) global.LunaVentSteam?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, motionPreference?.matches);
+      if (renderingNode?.name === 'B_Obects') global.LunaWireSpark?.paint(ctx, img, images.get('street-wire-spark'), sp, w, h, model.time, motionPreference?.matches);
+      if (model.scene === 'street' && !model.qa) global.LunaBarrelFire?.paintSprite(ctx, renderingNode?.name, sp, w, h, model.time, motionPreference?.matches, images);
+      global.LunaLiftDust?.paintSprite(ctx, model, renderingNode?.name, sp, w, h, motionPreference?.matches);
       if (!global.LunaCaptureMode?.hidden) glowRenderer.paint(ctx, img, sp, renderingNode, x, y, w, h);
       ctx.restore();
     }
@@ -615,7 +618,7 @@
       const k = 1280 / renderCam.w,
         p = position(door.x, -.98);
       if (p.x + .3 * k < 0 || p.x - .3 * k > 1280) return;
-      const still = global.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+      const still = motionPreference?.matches,
         t = still ? 0 : model.time;
       const drift = still ? 0 : Math.sin(t * Math.PI * 2 / .9) * .012 * k;
       ctx.save();

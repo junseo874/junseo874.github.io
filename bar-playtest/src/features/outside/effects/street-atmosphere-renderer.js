@@ -353,7 +353,12 @@ class Renderer{
   // buffers. The actor and its reflection share the result immediately.
   if(!this.spriteOnly){this.lightingRenderer??=new Renderer({spriteOnly:true});return this.lightingRenderer.characterLighting(image,sp,p);}
   if(this.gl.isContextLost())return null;
-  if(this.canvas.width!==sp.w||this.canvas.height!==sp.h){this.canvas.width=sp.w;this.canvas.height=sp.h;}
+  // Resizing a WebGL drawing buffer can synchronously drain the GPU queue.
+  // Mixed NPC sheet sizes used to resize it for almost every actor/reflection.
+  // Keep a bounded high-water surface; the viewport and returned crop still
+  // cover exactly one native frame (no scaling or change to shader sampling).
+  if(this.canvas.width<sp.w)this.canvas.width=2**Math.ceil(Math.log2(sp.w));
+  if(this.canvas.height<sp.h)this.canvas.height=2**Math.ceil(Math.log2(sp.h));
   const g=this.gl;
   this.lightingTextures??=new Map();
   let texture=this.lightingTextures.get(image);
@@ -372,7 +377,17 @@ class Renderer{
   this.uniform('rimParams',[c.rimIntensity,c.rimWidth,c.rimGlow,c.rimGlowWidth]);
   this.uniform('shapeParams',[c.rimFocus,c.rimDistanceFalloff,0,c.ambientSideShadow]);
   this.draw();g.disable(g.SCISSOR_TEST);
-  return {image:this.canvas,x:0,y:this.canvas.height-sp.h,w:sp.w,h:sp.h};
+  // Present an exact native-cell surface. A subrect in a taller GPU canvas
+  // can round differently in Canvas2D's strongly foreshortened reflections.
+  // Reuse the small 2D cells as well; never resize the WebGL drawing buffer.
+  this.lightingCells??=new Map();const key=sp.w+':'+sp.h;
+  let cell=this.lightingCells.get(key);
+  if(!cell){const image=document.createElement('canvas');image.width=sp.w;image.height=sp.h;cell={image,ctx:image.getContext('2d')};this.lightingCells.set(key,cell);
+   if(this.lightingCells.size>32)this.lightingCells.delete(this.lightingCells.keys().next().value);
+  }
+  cell.ctx.clearRect(0,0,sp.w,sp.h);cell.ctx.imageSmoothingEnabled=false;
+  cell.ctx.drawImage(this.canvas,0,this.canvas.height-sp.h,sp.w,sp.h,0,0,sp.w,sp.h);
+  return {image:cell.image,x:0,y:0,w:sp.w,h:sp.h};
  }
  post(ctx,settings){
   this.upload(this.scene,ctx.canvas);

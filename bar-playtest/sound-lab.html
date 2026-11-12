@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LUNA · 사운드 테스트</title>
+<link rel="stylesheet" href="src/shared/ui/typography.css"><link rel="stylesheet" href="src/features/crafting/serve-view.css"><link rel="stylesheet" href="src/dev/sound/sound-lab.css"></head>
+<body><header><a href="index.html?dev=1">← 시뮬레이터</a><h1>사운드</h1><span>본편에 적용하지 않는 비교 화면</span></header>
+<main><aside><h2>테스트 화면</h2><button id="open-serve" aria-pressed="false">제공하기 <span>잔 밀기 · 3개 버전</span></button><p>같은 제공 애니메이션에 소리만 바꿔 비교합니다.</p></aside>
+<section id="welcome"><h2>어떤 화면의 소리를 들어볼까요?</h2><p>왼쪽에서 ‘제공하기’를 선택하세요.</p></section>
+<section id="lab" hidden><div class="heading"><div><h2>제공하기 · 잔 밀기</h2><p>잔이 움직이기 시작할 때 소리가 재생됩니다.</p></div><label>칵테일 <select id="drink"><option value="gin_tonic">진토닉</option><option value="dry_martini">드라이 마티니</option><option value="cosmopolitan">코스모폴리탄</option><option value="gin_fizz">진피즈</option><option value="screwdriver">스크류드라이버</option><option value="tequila_sunrise">데킬라 선라이즈</option><option value="bottle_beer">병맥주</option><option value="kahlua_milk">깔루아 밀크</option></select></label></div>
+<div id="viewport"><div id="stage"></div></div><div id="versions" aria-label="사운드 버전"><button data-version="0" disabled>버전 1 재생<small>glass_slide_01.wav</small></button><button data-version="1" disabled>버전 2 재생<small>glass_slide_02.wav</small></button><button data-version="2" disabled>버전 3 재생<small>glass_slide_03.wav</small></button></div>
+<div class="controls"><button id="replay" disabled>다시 재생 · Space</button><button id="stop">정지 · Esc</button><label>볼륨 <input id="volume" aria-label="볼륨" type="range" min="0" max="100" value="75"><output id="volume-value">75%</output></label></div><p id="status" role="status">제공하기를 선택하면 리소스를 준비합니다.</p><p class="note">원본 WAV · 원래 재생 속도 · 앞 무음과 음량, 시작·끝 페이드만 조정. 시간 늘리기·반복·압축 효과는 사용하지 않습니다. 본편은 그대로 유지합니다.</p></section></main>
+<script src="src/features/crafting/serve-view.js"></script><script src="src/dev/sound/sound-lab.js?v=original-audio-20261113"></script></body></html>

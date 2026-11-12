@@ -1,0 +1,33 @@
+{
+  "smoke": {
+    "passed": 43,
+    "total": 43
+  },
+  "outside": {
+    "passed": 70,
+    "total": 78,
+    "preexistingFailures": [
+      "bar-playtest/tests/test-corridor-birds-ui.cjs",
+      "bar-playtest/tests/test-engine-barrel-fire.cjs",
+      "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+      "bar-playtest/tests/test-outside-npc-animation.cjs",
+      "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+      "bar-playtest/tests/test-home-weather-ui.cjs",
+      "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+      "bar-playtest/tests/test-lift-right-boundary-ui.cjs"
+    ]
+  },
+  "finalCodeReruns": [
+    "96-case native and compressed pixel equivalence; no warm GPU-buffer resizes; offscreen plume CPU fields skipped",
+    "character lighting GPU isolation at DPR 1/2",
+    "actual character lighting/alpha/facing/resize",
+    "final street light/scanline/reflection composition"
+  ],
+  "staticChecks": [
+    "structure",
+    "site",
+    "code boundaries",
+    "source index"
+  ],
+  "pixelComparison": "4 actual scenes: zero changed final-canvas pixels"
+}

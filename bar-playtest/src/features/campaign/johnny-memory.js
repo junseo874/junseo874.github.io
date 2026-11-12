@@ -34,7 +34,7 @@ function sync(host,dialog,D,dt=0){
  const m=new DOMMatrixReadOnly(getComputedStyle(plane).transform),y=johnny?601:555.5;
  W.LunaWorldSpeech.place(bubble,{x:m.a*1290+m.e,y:m.d*y+m.f,scale:m.a*.75});
 }
-async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_johnny_old_fashioned','cocktail_johnny_old_fashioned'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>{const img=new Image();img.src=D.assets[k].src;return img.decode();}));}
+async function prepare(D){const keys=['bar_far','bar_mid','bar_front','char_tom_static','coaster','table_cocktail_johnny_old_fashioned','cocktail_johnny_old_fashioned'];await Promise.all(keys.filter(k=>D.assets[k]).map(k=>W.LunaResources.image(D.assets[k].src)));}
 let audio;
 function cue(kind,enabled=true){
  if(!enabled)return;try{audio??=new(W.AudioContext||W.webkitAudioContext)();audio.resume().catch(()=>{});const at=audio.currentTime,bus=W.LunaSfx.output(audio);

@@ -64,8 +64,16 @@ function paintSprite(ctx,key,sp,w,h,time,still=false){
  const vents=sources[key];if(!vents)return;
  ctx.save();ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=false;
  const sx=w/sp.w,sy=h/sp.h;
- for(const vent of vents){const e=render(vent,time,still);
-  ctx.drawImage(e.canvas,-w*sp.pivot.x+(e.x-sp.x)*sx,-h*(1-sp.pivot.y)+(e.y-sp.y)*sy,width*sx,height*sy);
+ const matrix=ctx.getTransform();
+ for(const vent of vents){
+  const x=-w*sp.pivot.x+(vent.x-originX-sp.x)*sx,y=-h*(1-sp.pivot.y)+(vent.y-originY-sp.y)*sy;
+  // The receiving building can span several screens. Cull the plume itself
+  // before evaluating its pixel field, using the actual rotated/flipped/DPR
+  // transform. Time is absolute, so re-entry renders the correct current plume.
+  const corners=[[x,y],[x+width*sx,y],[x,y+height*sy],[x+width*sx,y+height*sy]].map(([x,y])=>[matrix.a*x+matrix.c*y+matrix.e,matrix.b*x+matrix.d*y+matrix.f]);
+  if(Math.max(...corners.map(p=>p[0])) < -1 || Math.min(...corners.map(p=>p[0])) > ctx.canvas.width+1 || Math.max(...corners.map(p=>p[1])) < -1 || Math.min(...corners.map(p=>p[1])) > ctx.canvas.height+1)continue;
+  const e=render(vent,time,still);
+  ctx.drawImage(e.canvas,x,y,width*sx,height*sy);
  }
  ctx.restore();
 }

@@ -22,6 +22,10 @@ const suites = {
 };
 suites.ui.unshift(game('test-november-resource-refresh-ui'));
 const choice = process.argv[2] || 'smoke';
+suites.ui.unshift(game('test-sound-lab-ui'));
+suites.smoke.unshift(game('test-resource-image-recovery'));
+suites.cinema.unshift(game('test-day-resource-transitions-ui'));
+suites.cinema.unshift('cutscene-studio/tests/test-trailer-ui.cjs');
 suites.craft.unshift(game('test-shaking-main-ui'));
 suites.ui.unshift(game('test-day3-samho-expression-ui'));
 suites.smoke.unshift(game('test-outside-choice-parity'));
@@ -58,7 +62,7 @@ suites.outside.unshift(game('test-exterior-notion-sync'));
 suites.outside.unshift(game('test-home-tv-power-ui'));
 suites.outside.unshift(game('test-ambient-native-csv'));
 suites.outside.unshift(game('test-engine-world-layout'),game('test-engine-world-layout-ui'));
-suites.outside.unshift(game('test-street-effect-composition-ui'));
+suites.outside.unshift(game('test-street-effect-composition-ui'),game('test-street-buffer-reuse-ui'));
 suites.smoke.unshift(game('test-outside-dialogue-editor'));
 suites.ui.unshift(game('test-outside-dialogue-editor-ui'));
 if (choice === '--list') {

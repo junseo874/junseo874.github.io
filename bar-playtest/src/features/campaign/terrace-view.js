@@ -56,7 +56,7 @@ function raster(image,scale,stamp=0){
  return entry.canvas;
 }
 function prepare(){
- if(!prepared)prepared=Promise.all([...Object.values(assets),...Object.values(W.LunaTerraceBirds.assets)].map(src=>{const image=new Image();image.src=src;return image.decode().then(()=>preparedImages.set(src,image));})).catch(error=>{prepared=null;throw error;});
+ if(!prepared)prepared=Promise.all([...Object.values(assets),...Object.values(W.LunaTerraceBirds.assets)].map(src=>W.LunaResources.image(src).then(image=>preparedImages.set(src,image)))).catch(error=>{prepared=null;throw error;});
  return prepared;
 }
 function paintCharacters(dialog,host){
