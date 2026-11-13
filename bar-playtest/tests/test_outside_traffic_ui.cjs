@@ -11,7 +11,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.start({day:3,flow:'out',place:'bar'});m.x=-8.78;m.tick=()=>{};o.snapCamera();});
   // Inspect real draw order and context cleanup, not just helper output.
   const order=await p.evaluate(()=>{
-   const o=outsidePlaytest,c=document.querySelector('#outside-root canvas').getContext('2d'),draw=c.drawImage,traffic=LunaOutsideTraffic.draw,events=[];
+   const o=outsidePlaytest,c=outsidePlaytest.sceneContext,draw=c.drawImage,traffic=LunaOutsideTraffic.draw,events=[];
    c.drawImage=function(im,...args){events.push(im.src||'canvas-effect');return draw.call(this,im,...args);};
    LunaOutsideTraffic.draw=function(...args){events.push(args[4]);const before=[c.globalAlpha,c.globalCompositeOperation,JSON.stringify(c.getTransform())];traffic(...args);const after=[c.globalAlpha,c.globalCompositeOperation,JSON.stringify(c.getTransform())];if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Canvas state leaked');};
    try{o.tick(0);}finally{c.drawImage=draw;LunaOutsideTraffic.draw=traffic;}

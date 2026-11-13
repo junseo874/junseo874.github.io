@@ -4,7 +4,14 @@
 (function(W){
 'use strict';
 const layers=new WeakMap();
-function reset(layer){layer.simulation=null;layer.lastTime=null;layer.cameraMotion=new W.LunaRainSimulation.Motion();layer.subjectMotion=new W.LunaRainSimulation.Motion();layer.referenceHeight=0;layer.windTime=0;layer.renderer?.clear();}
+function reset(layer){layer.simulation=null;layer.preparedSimulation=null;layer.lastTime=null;layer.cameraMotion=new W.LunaRainSimulation.Motion();layer.subjectMotion=new W.LunaRainSimulation.Motion();layer.referenceHeight=0;layer.windTime=0;layer.renderer?.clear();}
+function prepare(canvas,model,shared){
+ if(!canvas||model.qa||!W.LunaOutsideRain?.wet(model))return;
+ let layer=layers.get(canvas);if(!layer){layer={renderer:null,error:null};reset(layer);layers.set(canvas,layer);}
+ if(layer.simulation||layer.preparedSimulation||layer.error)return;
+ try{layer.owner=model;layer.renderer??=new W.LunaRainRenderer.Renderer({shared});layer.preparedSimulation=new W.LunaRainSimulation.Simulation();layer.preparedSimulation.prewarm(8);}
+ catch(error){layer.error=error.message;console.warn('Window rain preparation unavailable:',error);}
+}
 function canCompose(canvas,model){const layer=layers.get(canvas);return model.scene==='street'&&!model.qa&&!layer?.error&&(!!W.LunaOutsideRain?.enabled(model)||!!layer?.simulation);}
 function draw(ctx,model,options={}){
  // An explicit owner is the conversation lifetime, not the current DOM canvas.
@@ -15,7 +22,7 @@ function draw(ctx,model,options={}){
  if(!layer){if(!raining)return false;layer={renderer:null,error:null};layers.set(key,layer);reset(layer);}
  layers.set(canvas,layer);
  if(layer.owner!==owner||(layer.lastTime!==null&&time<layer.lastTime)){reset(layer);layer.owner=owner;}
- if(!layer.simulation){if(!raining)return false;layer.simulation=new W.LunaRainSimulation.Simulation();layer.simulation.prewarm(8);layer.lastTime=time;}
+ if(!layer.simulation){if(!raining)return false;layer.simulation=layer.preparedSimulation||new W.LunaRainSimulation.Simulation();if(!layer.preparedSimulation)layer.simulation.prewarm(8);layer.preparedSimulation=null;layer.lastTime=time;}
  if(layer.error)return false;
  try{
   if(layer.renderer?.lost){layer.renderer.dispose();layer.renderer=null;}
@@ -41,5 +48,5 @@ function draw(ctx,model,options={}){
   return !!image;
  }catch(error){if(!layer.error){layer.error=error.message;console.warn('Window rain renderer unavailable:',error);}return false;}
 }
-W.LunaRainGlass={draw,canCompose,inspect:canvas=>layers.get(canvas)||null};
+W.LunaRainGlass={draw,canCompose,prepare,dispose(canvas){const layer=layers.get(canvas);layer?.renderer?.dispose();layers.delete(canvas);},inspect:canvas=>layers.get(canvas)||null};
 })(typeof window==='undefined'?globalThis:window);

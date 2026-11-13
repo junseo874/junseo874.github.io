@@ -15,7 +15,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    window.paintCarrierScene=o.tick;o.tick=()=>{};
    m.start({day:3,flow:'out',place:'bar'});m.story.cancel();m.backgroundStory.cancel();m.tick=()=>{};
    m.x=-8.78;m.time=0;o.snapCamera();LunaCaptureMode.set(true);
-   const c=document.querySelector('#outside-root canvas').getContext('2d'),draw=c.drawImage,adDraw=A.draw,events=[];
+   const c=outsidePlaytest.sceneContext,draw=c.drawImage,adDraw=A.draw,events=[];
    let image,portraitImages;
    c.drawImage=function(im,...args){events.push(im.src||'canvas');return draw.call(this,im,...args);};
    A.draw=function(...args){events.push('ad-carrier');image=args[4].get(A.assetId);window.carrierTestImages=args[4];portraitImages=Object.keys(A.artAssets).map(id=>args[4].get(id));
@@ -126,7 +126,7 @@ try{for(const [x,y] of [[-11,oldY],[-9,oldY],[-7,oldY],[-9,.95]]){route.y=y;rout
   const residenceOrder=await p.evaluate(()=>{
    const o=outsidePlaytest,m=o.model,A=LunaOutsideAdCarrier;
    m.x=-13;m.y=7;m.time=(23/29*124-52)/A.travelRate;o.snapCamera();
-   const c=document.querySelector('#outside-root canvas').getContext('2d'),draw=c.drawImage,ad=A.draw,events=[];
+   const c=outsidePlaytest.sceneContext,draw=c.drawImage,ad=A.draw,events=[];
    const node=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='residence-building'),src=LUNA_OUTSIDE_DATA.assets[node.sprite.asset].src;
    c.drawImage=function(im,...args){if(im.src?.endsWith(src))events.push('residence');return draw.call(this,im,...args);};
    A.draw=function(...args){events.push('carrier');return ad(...args);};

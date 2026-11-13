@@ -44,7 +44,7 @@ const { chromium } = runtime.load('playwright');
       assert.deepEqual(walked[name], initial[name], name + ' fixed as authored');
     await page.screenshot({ path: '/private/tmp/engine-parallax-walked.png' });
     const paint = await page.evaluate(() => {
-      const o = outsidePlaytest, ctx = document.querySelector('#outside-root canvas').getContext('2d');
+      const o = outsidePlaytest, ctx = outsidePlaytest.sceneContext;
       const translate = ctx.translate, draw = ctx.drawImage, seen = []; let xy;
       ctx.translate = function (x, y) { xy = [x, y]; return translate.call(this, x, y); };
       ctx.drawImage = function (image, ...args) { seen.push({ src: image.src, xy }); return draw.call(this, image, ...args); };

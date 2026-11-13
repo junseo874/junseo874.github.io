@@ -1,0 +1,239 @@
+{
+  "baseline": null,
+  "rows": [
+    {
+      "name": "shops",
+      "rate": 1,
+      "cpu": {
+        "mean": 2.0391666663189727,
+        "median": 1.899999976158142,
+        "p95": 3.2999999821186066
+      },
+      "frame": {
+        "mean": 16.665833333333335,
+        "median": 16.699999999999818,
+        "p95": 16.700000000000273
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 104926284,
+      "sourceStats": {
+        "draws": 61,
+        "uploads": 4,
+        "uploadPixels": 263328,
+        "fallbacks": 2
+      },
+      "effectGpuMs": null
+    },
+    {
+      "name": "camp",
+      "rate": 1,
+      "cpu": {
+        "mean": 1.8116666659712792,
+        "median": 1.600000023841858,
+        "p95": 3
+      },
+      "frame": {
+        "mean": 16.66583333333333,
+        "median": 16.699999999999818,
+        "p95": 16.799999999999272
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119239192,
+      "sourceStats": {
+        "draws": 42,
+        "uploads": 4,
+        "uploadPixels": 1067568,
+        "fallbacks": 1
+      },
+      "effectGpuMs": null
+    },
+    {
+      "name": "dry",
+      "rate": 1,
+      "cpu": {
+        "mean": 1.627499999354283,
+        "median": 1.300000011920929,
+        "p95": 3.300000011920929
+      },
+      "frame": {
+        "mean": 16.66583333333333,
+        "median": 16.69999999999891,
+        "p95": 16.700000000000728
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119600860,
+      "sourceStats": {
+        "draws": 58,
+        "uploads": 3,
+        "uploadPixels": 1158304,
+        "fallbacks": 1
+      },
+      "effectGpuMs": null
+    },
+    {
+      "name": "shops",
+      "rate": 8,
+      "cpu": {
+        "mean": 20.265833333383004,
+        "median": 19.099999994039536,
+        "p95": 29.69999998807907
+      },
+      "frame": {
+        "mean": 24.72166666666667,
+        "median": 16.80000000000109,
+        "p95": 33.399999999999636
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119600860,
+      "sourceStats": {
+        "draws": 61,
+        "uploads": 4,
+        "uploadPixels": 2206880,
+        "fallbacks": 2
+      },
+      "effectGpuMs": null
+    },
+    {
+      "name": "camp",
+      "rate": 8,
+      "cpu": {
+        "mean": 17.85333333487312,
+        "median": 17,
+        "p95": 25.30000001192093
+      },
+      "frame": {
+        "mean": 22.498333333333328,
+        "median": 16.700000000000728,
+        "p95": 33.400000000001455
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119600860,
+      "sourceStats": {
+        "draws": 42,
+        "uploads": 4,
+        "uploadPixels": 1067568,
+        "fallbacks": 1
+      },
+      "effectGpuMs": null
+    },
+    {
+      "name": "dry",
+      "rate": 8,
+      "cpu": {
+        "mean": 14.824166666716337,
+        "median": 13.099999994039536,
+        "p95": 24.700000017881393
+      },
+      "frame": {
+        "mean": 18.8875,
+        "median": 16.700000000000728,
+        "p95": 33.39999999999782
+      },
+      "gpu": {},
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119600860,
+      "sourceStats": {
+        "draws": 58,
+        "uploads": 3,
+        "uploadPixels": 1158304,
+        "fallbacks": 1
+      },
+      "effectGpuMs": null
+    }
+  ]
+}

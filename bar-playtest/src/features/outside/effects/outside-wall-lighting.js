@@ -65,7 +65,7 @@ function render(image,target='B_Fore_Building_1'){
    if(!out.data[i+3])pixels++;out.data[i+3]=Math.min(255,alpha);
   }
  }
- ctx.putImageData(out,0,0);const value={canvas,pixels};entries.set(target,value);return value;
+ ctx.putImageData(out,0,0);W.LunaStreetGpuSurface?.markStatic(canvas);const value={canvas,pixels};entries.set(target,value);return value;
 }
 function paintSprite(ctx,key,image,sp,width,height){
  if(key!=='B_Fore_Building_1'&&key!=='1F Floor')return;

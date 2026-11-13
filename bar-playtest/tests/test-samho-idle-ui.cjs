@@ -7,13 +7,15 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   const a=outsidePlaytest,m=a.model,D=LUNA_OUTSIDE_DATA,anim=D.animations.samhoIdle,records=[];
   const ctx=document.querySelector('#outside-root canvas').getContext('2d'),original=ctx.drawImage;
   function capture(){
-   const cells=[],proto=LunaStreetAtmosphereRenderer.prototype,shade=proto.characterLighting;let shaded=null;
+   const cells=[],proto=LunaStreetAtmosphereRenderer.prototype,shade=proto.characterLighting,gpu=LunaStreetGpuSurface.prototype,quad=gpu.quad;let shaded=null;
    // Native-cell lighting changes the drawn image to a GPU canvas, not the
    // selected animation cell. Check the actual final draw against its source.
    const source=D.assets[anim.frames[0].asset].src;
    proto.characterLighting=function(im,sp,...rest){const out=shade.call(this,im,sp,...rest);shaded=im.src?.endsWith(source)?{...out,cell:[sp.x,sp.y,sp.w,sp.h]}:null;return out;};
    ctx.drawImage=function(im,...args){if(im.src?.endsWith(source))cells.push(args.slice(0,4));else if(shaded&&im===shaded.image&&args[0]===shaded.x&&args[1]===shaded.y&&args[2]===shaded.w&&args[3]===shaded.h)cells.push(shaded.cell);return original.call(this,im,...args);};
-   try{a.snapCamera();a.tick(0);}finally{ctx.drawImage=original;proto.characterLighting=shade;}return cells;
+   // Unified drawing consumes the same native cell as an FBO texture.
+   gpu.quad=function(texture,...args){if(shaded?.image?.gpuTexture===texture)cells.push(shaded.cell);return quad.call(this,texture,...args);};
+   try{a.snapCamera();a.tick(0);}finally{ctx.drawImage=original;proto.characterLighting=shade;gpu.quad=quad;}return cells;
   }
   for(const [day,flow]of [[1,'out'],[2,'in'],[3,'in'],[3,'out']]){
    m.start({day,flow,place:'bar'});m.controlsTutorial=false;m.paused=true;

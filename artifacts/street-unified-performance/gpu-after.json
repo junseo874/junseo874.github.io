@@ -1,0 +1,221 @@
+{
+  "baseline": null,
+  "rows": [
+    {
+      "name": "shops",
+      "rate": 1,
+      "cpu": {
+        "mean": 2.685833332439264,
+        "median": 2.2999999821186066,
+        "p95": 4.5999999940395355
+      },
+      "frame": {
+        "mean": 16.66583333333333,
+        "median": 16.699999999999818,
+        "p95": 16.799999999999955
+      },
+      "gpu": {
+        "fog": {
+          "count": 360,
+          "mean": 0.7924277249999994,
+          "median": 0.737249,
+          "p95": 1.454374
+        },
+        "puddles": {
+          "count": 120,
+          "mean": 0.9699439416666666,
+          "median": 0.853,
+          "p95": 2.218749
+        },
+        "characterShadow": {
+          "count": 120,
+          "mean": 0.877293625,
+          "median": 0.74025,
+          "p95": 2.215791
+        },
+        "post": {
+          "count": 120,
+          "mean": 1.0568533333333336,
+          "median": 0.886041,
+          "p95": 2.800333
+        },
+        "maps": {
+          "count": 120,
+          "mean": 1.0864134,
+          "median": 0.926166,
+          "p95": 3.203124
+        },
+        "render": {
+          "count": 120,
+          "mean": 0.9718807333333331,
+          "median": 0.768833,
+          "p95": 2.815125
+        }
+      },
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 104926284,
+      "sourceStats": {
+        "draws": 61,
+        "uploads": 4,
+        "uploadPixels": 263328,
+        "fallbacks": 2
+      },
+      "effectGpuMs": 7.339668208333325
+    },
+    {
+      "name": "camp",
+      "rate": 1,
+      "cpu": {
+        "mean": 2.5050000021855037,
+        "median": 2.300000011920929,
+        "p95": 4.399999976158142
+      },
+      "frame": {
+        "mean": 16.665000000000003,
+        "median": 16.699999999999818,
+        "p95": 16.700000000000728
+      },
+      "gpu": {
+        "fog": {
+          "count": 360,
+          "mean": 1.965484352777777,
+          "median": 1.847458,
+          "p95": 3.285583
+        },
+        "puddles": {
+          "count": 120,
+          "mean": 6.911660333333335,
+          "median": 7.89125,
+          "p95": 10.561999
+        },
+        "characterShadow": {
+          "count": 120,
+          "mean": 4.208524808333333,
+          "median": 5.086541,
+          "p95": 5.756875
+        },
+        "post": {
+          "count": 120,
+          "mean": 1.9779855916666669,
+          "median": 2.288375,
+          "p95": 2.842874
+        },
+        "maps": {
+          "count": 120,
+          "mean": 4.962531725,
+          "median": 6.252874,
+          "p95": 6.912708
+        },
+        "render": {
+          "count": 120,
+          "mean": 1.9509631666666665,
+          "median": 2.105666,
+          "p95": 2.975624
+        }
+      },
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119239192,
+      "sourceStats": {
+        "draws": 42,
+        "uploads": 4,
+        "uploadPixels": 1067568,
+        "fallbacks": 1
+      },
+      "effectGpuMs": 25.908118683333317
+    },
+    {
+      "name": "dry",
+      "rate": 1,
+      "cpu": {
+        "mean": 1.5458333338300387,
+        "median": 1.300000011920929,
+        "p95": 3.0999999940395355
+      },
+      "frame": {
+        "mean": 16.666666666666668,
+        "median": 16.699999999999818,
+        "p95": 16.700000000000728
+      },
+      "gpu": {
+        "fog": {
+          "count": 360,
+          "mean": 1.179161055555555,
+          "median": 1.005124,
+          "p95": 2.886333
+        },
+        "puddles": {
+          "count": 120,
+          "mean": 2.280806441666667,
+          "median": 1.715666,
+          "p95": 5.886541
+        },
+        "characterShadow": {
+          "count": 120,
+          "mean": 2.3111418666666665,
+          "median": 1.659375,
+          "p95": 6.291124
+        },
+        "post": {
+          "count": 120,
+          "mean": 2.291290758333334,
+          "median": 1.704124,
+          "p95": 6.866624
+        }
+      },
+      "transfers": {
+        "scene": 0,
+        "rain": 0
+      },
+      "movement": 0.46666666666666856,
+      "error": null,
+      "gl": 0,
+      "pixels": [
+        2560,
+        1440
+      ],
+      "quality": {
+        "tier": 0,
+        "scale": 1,
+        "changes": 0
+      },
+      "textureBytes": 119600860,
+      "sourceStats": {
+        "draws": 58,
+        "uploads": 3,
+        "uploadPixels": 1158304,
+        "fallbacks": 1
+      },
+      "effectGpuMs": 10.420722233333333
+    }
+  ]
+}

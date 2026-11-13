@@ -55,7 +55,7 @@ function bloom(image,sp){
  // Each emissive core and its two falloff distances share the same gain.
  ctx.globalAlpha=.28;ctx.filter='blur(7px)';ctx.drawImage(source,0,0);
  ctx.globalAlpha=.48;ctx.filter='blur(2px)';ctx.drawImage(source,0,0);
- const value={canvas,pad};frames.set(key,value);return value;
+ W.LunaStreetGpuSurface?.markStatic(canvas);const value={canvas,pad};frames.set(key,value);return value;
 }
 // Draw in the caller's sprite-local transform. Actors/rails still draw later.
 function paint(ctx,image,sp,width,height,id=null,time=0,still=false){
@@ -69,6 +69,6 @@ function paint(ctx,image,sp,width,height,id=null,time=0,still=false){
  ctx.drawImage(image,sp.x,sp.y,sp.w,sp.h,left,top,width,height);ctx.restore();
 }
 const faultLevel=(id,time,still)=>W.LunaStreetEngineEffects?.lightLevel(id==='street-neon-service-strip'?'881909181':id,time,still)??1;
-W.LunaStreetSigns={apply,paint,signs,faultLevel};
+W.LunaStreetSigns={apply,paint,signs,faultLevel,prepare:bloom};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

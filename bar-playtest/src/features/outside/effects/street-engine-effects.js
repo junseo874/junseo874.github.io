@@ -83,7 +83,7 @@ function patch(image, key, x, y, w, h, stamp, sample) {
   if (p.stamp !== stamp) {
     const ctx = p.canvas.getContext('2d'), out = ctx.createImageData(w, h), raw = pixels(image);
     for (let py = 0; py < h; py++) for (let px = 0; px < w; px++) sample(raw, out.data, (py * w + px) * 4, x + px, y + py);
-    ctx.putImageData(out, 0, 0); p.stamp = stamp;
+    ctx.putImageData(out, 0, 0); p.stamp = stamp;W.LunaStreetGpuSurface?.version(p.canvas,stamp);
   }
   return p;
 }
@@ -98,7 +98,18 @@ function fanSource(x, y, center, time) {
 }
 const linear = v => v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4;
 const srgb = v => 255 * (v <= .0031308 ? v * 12.92 : 1.055 * Math.max(0, v) ** (1 / 2.4) - .055);
-const spillCache = new WeakMap();
+const spillCache = new WeakMap(),ledCache=new WeakMap();
+function ledPixels(image,maskImage,glowImage){
+ let e=ledCache.get(image);if(e&&e.mask===maskImage&&e.glow===glowImage)return e;
+ const led=D.led,raw=pixels(image),mask=pixels(maskImage),glow=pixels(glowImage),[x,y,w,h]=led.rect,lit=new Uint8ClampedArray(w*h*4);
+ for(let my=0;my<h;my++)for(let mx=0;mx<w;mx++){
+  const i=(my*w+mx)*4;copy(raw,lit,i,x+mx,y+my);
+  if(mask.data[i]<=127)continue;
+  const gi=((y+my+led.glowOffset[1])*glow.width+x+mx+led.glowOffset[0])*4;
+  for(let c=0;c<3;c++){const base=linear(lit[i+c]/255),light=linear(glow.data[gi+c]/255)*led.glowColor[c]*led.strength;lit[i+c]=Math.min(255,Math.round(srgb(base+base*light+light*glow.data[gi+3]/255*led.volume*lit[i+3]/255)));}
+ }
+ e={mask:maskImage,glow:glowImage,maskPixels:mask,lit};ledCache.set(image,e);return e;
+}
 function spillFrames(image) {
   if (spillCache.has(image)) return spillCache.get(image);
   const raw = pixels(image), sp = D.parentSprite, left = D.parent.x - sp.w * sp.pivot.x / sp.ppu, top = D.parent.y + sp.h * (1 - sp.pivot.y) / sp.ppu;
@@ -128,7 +139,7 @@ function spillFrames(image) {
       for (let c = 0; c < 3; c++) out.data[i + c] = srgb(light.color[c]);
       out.data[i + 3] = raw.data[ri + 3] * coverage * coverage * (1 - Math.exp(-light.intensity * .045));
     }
-    ctx.putImageData(out, 0, 0); return { id: light.id, canvas, x, y };
+    ctx.putImageData(out, 0, 0);W.LunaStreetGpuSurface?.markStatic(canvas); return { id: light.id, canvas, x, y };
   }).filter(Boolean);
   spillCache.set(image, frames); return frames;
 }
@@ -137,18 +148,14 @@ function paintSprite(ctx, name, image, images, sp, width, height, time, still) {
   const t = still ? 0 : time, led = D.led, maskImage = images.get(led.mask.asset), glowImage = images.get(led.glow.asset);
   ctx.save(); ctx.translate(-width * sp.pivot.x, -height * (1 - sp.pivot.y)); ctx.scale(width / sp.w, height / sp.h); ctx.imageSmoothingEnabled = false;
   if (maskImage && glowImage) {
-    const mask = pixels(maskImage), glow = pixels(glowImage), [x, y, w, h] = led.rect;
+    const prepared=ledPixels(image,maskImage,glowImage),mask=prepared.maskPixels,[x,y,w,h]=led.rect;
     const shift = Math.floor((t * led.speed + led.offset) / led.step) * led.step;
     const p = patch(image, 'led', x, y, w, h, shift, (raw, out, i, px, py) => {
       const mx = px - x, my = py - y, selected = mask.data[(my * w + mx) * 4] > 127;
       if (!selected) { copy(raw, out, i, px, py); return; }
       const sx = mod(mx + shift, w), valid = mask.data[(my * w + sx) * 4] > 127;
-      copy(raw, out, i, valid ? x + sx : led.blank[0], valid ? py : led.blank[1]);
-      if (valid) {
-        const gi = ((py + led.glowOffset[1]) * glow.width + x + sx + led.glowOffset[0]) * 4;
-        for (let c = 0; c < 3; c++) { const base = linear(out[i + c] / 255), light = linear(glow.data[gi + c] / 255) * led.glowColor[c] * led.strength;
-          out[i + c] = Math.min(255, Math.round(srgb(base + base * light + light * glow.data[gi + 3] / 255 * led.volume * out[i + 3] / 255))); }
-      }
+      if(valid){const at=(my*w+sx)*4;for(let c=0;c<4;c++)out[i+c]=prepared.lit[at+c];}
+      else copy(raw,out,i,led.blank[0],led.blank[1]);
     });
     ctx.drawImage(p.canvas, p.x - sp.x, p.y - sp.y);
   }
@@ -170,7 +177,7 @@ function paintSprite(ctx, name, image, images, sp, width, height, time, still) {
         for (let ch = 0; ch < 3; ch++) out.data[at + ch] = srgb(linear(raw.data[at + ch] / 255) * gain);
         out.data[at + 3] = raw.data[at + 3];
       }
-      c.putImageData(out, 0, 0); p.level = on[i];
+      c.putImageData(out, 0, 0); p.level = on[i];W.LunaStreetGpuSurface?.version(p.canvas,on[i]);
     }
     ctx.drawImage(p.canvas, -sp.x, -sp.y);
   });
@@ -180,6 +187,9 @@ function paintSprite(ctx, name, image, images, sp, width, height, time, still) {
   ctx.restore();
   ctx.restore();
 }
-W.LunaStreetEngineEffects = { data: D, apply, createFlicker, lightLevel, levels, fanSource, paintSprite };
+W.LunaStreetEngineEffects = { data: D, apply, createFlicker, lightLevel, levels, fanSource, paintSprite,prepare(images){
+ const image=images.get(D.parentSprite.asset),mask=images.get(D.led.mask.asset),glow=images.get(D.led.glow.asset);
+ if(image){spillFrames(image);if(mask&&glow)ledPixels(image,mask,glow);}
+} };
 if (W.LUNA_OUTSIDE_DATA) apply(W.LUNA_OUTSIDE_DATA);
 })(window);

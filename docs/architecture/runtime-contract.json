@@ -744,6 +744,14 @@
     ],
     [
       "script",
+      "src/features/outside/effects/street-render-budget.js"
+    ],
+    [
+      "script",
+      "src/features/outside/effects/street-gpu-surface.js"
+    ],
+    [
+      "script",
       "src/features/outside/effects/street-atmosphere-renderer.js"
     ],
     [

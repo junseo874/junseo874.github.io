@@ -32,7 +32,13 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    LunaSignScanlines.paintSprite=()=>{};const withoutScans=pixels();LunaSignScanlines.paintSprite=scan;
    // Removing the foreground building must change the water's captured source
    // as well as the visible facade. Previously the capture contained only fence.
-   const capture=()=>{compositionTick(0);return r.captureCtx.getImageData(0,0,1280,720).data;};
+   const capture=()=>{compositionTick(0);
+    if(!r.reflectionSurface)return r.captureCtx.getImageData(0,0,1280,720).data;
+    // The production mirror source now stays in its GPU framebuffer. Read it
+    // only in this test; keep the same foreground-occlusion pixel assertion.
+    const g=r.gl,old=g.getParameter(g.FRAMEBUFFER_BINDING),pixels=new Uint8Array(1280*720*4);
+    g.bindFramebuffer(g.FRAMEBUFFER,r.reflectionSurface.target.f);g.readPixels(0,0,1280,720,g.RGBA,g.UNSIGNED_BYTE,pixels);g.bindFramebuffer(g.FRAMEBUFFER,old);return pixels;
+   };
    const captured=capture();building.active=false;const withoutBuilding=capture();building.active=true;
    const R=LunaResidence.layout,model={...m,elevatorY:R.elevatorBottom};
    const engineLift=LUNA_CHARACTER_SHADOWS.receivers.find(r=>r.ancestry.includes('Elevator'));

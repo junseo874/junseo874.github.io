@@ -21,17 +21,18 @@ for(const r of W.LUNA_STREET_EFFECTS?.scans||[]){
  const points=[[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]].map(([x,y])=>[r.x+r.a*x+r.c*y,r.y+r.b*x+r.d*y]);
  (masks[r.receiver]??=[]).push({...r,points});
 }
-const cache=new Map();
+const cache=new Map(),regionBounds=new WeakMap();
 function bounds(points){const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]);return{x:Math.min(...xs),y:Math.min(...ys),right:Math.max(...xs),bottom:Math.max(...ys)};}
-function render(key,time=0,still=false){
+function render(key,time=0,still=false,visible=null){
  const regions=masks[key];if(!regions)return null;
  let entry=cache.get(key);
  if(!entry){const b=bounds(regions.flatMap(r=>r.points)),canvas=document.createElement('canvas');b.x=Math.floor(b.x);b.y=Math.floor(b.y);canvas.width=Math.ceil(b.right)-b.x;canvas.height=Math.ceil(b.bottom)-b.y;entry={canvas,x:b.x,y:b.y,stamp:null};cache.set(key,entry);}
  const terrace=key==='terrace';
- const fps=terrace?12:60,stamp=still?0:Math.floor(Math.max(0,time)*fps)+1;if(entry.stamp===stamp)return entry;
+ const fps=terrace?12:60,stamp=still?0:Math.floor(Math.max(0,time)*fps)+1;const selection=visible?.join(',')??'all';if(entry.stamp===stamp&&entry.selection===selection)return entry;entry.selection=selection;
  entry.stamp=stamp;const t=still?0:(stamp-1)/fps,ctx=entry.canvas.getContext('2d');
  ctx.clearRect(0,0,entry.canvas.width,entry.canvas.height);ctx.save();ctx.translate(-entry.x,-entry.y);
  regions.forEach((r,index)=>{
+  if(visible&&!visible.includes(index))return;
   if(!terrace){
    ctx.save();ctx.transform(r.a,r.b,r.c,r.d,r.x,r.y);ctx.beginPath();ctx.rect(-.5,-.5,1,1);ctx.clip();
    const rows=Math.max(1,Math.ceil(Math.hypot(r.c,r.d)*2)),frequency=r.frequency;
@@ -56,10 +57,19 @@ function render(key,time=0,still=false){
    for(let i=0;i<band;i++){ctx.fillStyle='rgba(211,235,249,'+(.035*Math.sin(Math.PI*i/band))+')';ctx.fillRect(b.x,Math.floor(cy+i),w,1);}
   }
   ctx.restore();
- });ctx.restore();return entry;
+ });ctx.restore();W.LunaStreetGpuSurface?.version(entry.canvas,stamp+':'+selection);return entry;
 }
 function paintSprite(ctx,key,sp,width,height,time,still){
- const e=render(key,time,still);if(!e)return;
+ const regions=masks[key];if(!regions)return;
+ const m=ctx.getTransform(),sx0=width/sp.w,sy0=height/sp.h,visible=[];
+ regions.forEach((r,i)=>{
+  let b=regionBounds.get(r);if(!b){b=bounds(r.points);regionBounds.set(r,b);}
+  const x=-width*sp.pivot.x+(b.x-sp.x)*sx0,y=-height*(1-sp.pivot.y)+(b.y-sp.y)*sy0,w=(b.right-b.x)*sx0,h=(b.bottom-b.y)*sy0;
+  const p=[[x,y],[x+w,y],[x,y+h],[x+w,y+h]].map(([x,y])=>[m.a*x+m.c*y+m.e,m.b*x+m.d*y+m.f]);
+  if(Math.max(...p.map(p=>p[0]))>=-2&&Math.min(...p.map(p=>p[0]))<=ctx.canvas.width+2&&Math.max(...p.map(p=>p[1]))>=-2&&Math.min(...p.map(p=>p[1]))<=ctx.canvas.height+2)visible.push(i);
+ });
+ if(!visible.length)return;
+ const e=render(key,time,still,visible);if(!e)return;
  ctx.save();ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=false;
  const sx=width/sp.w,sy=height/sp.h;
  ctx.drawImage(e.canvas,-width*sp.pivot.x+(e.x-sp.x)*sx,-height*(1-sp.pivot.y)+(e.y-sp.y)*sy,e.canvas.width*sx,e.canvas.height*sy);ctx.restore();

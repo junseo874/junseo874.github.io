@@ -26,7 +26,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),rt=require('../
   views.push(await page.evaluate(({name,x,level,day})=>{
    const o=outsidePlaytest,m=o.model;m.start({day,flow:day===0?'in':'out',place:'bar'});m.story.cancel();m.backgroundStory.cancel();m.x=x;m.level=level;if(level)m.y=LunaResidence.layout.upperY;m.time=2;
    const lightURLs=new Set(LUNA_OUTSIDE_DATA.scenes.street.nodes.filter(n=>!n.neon&&(n.light||/City.*Light/.test(n.name))).map(n=>new URL(LUNA_OUTSIDE_DATA.assets[n.sprite.asset].src,location.href).href));
-   const proto=CanvasRenderingContext2D.prototype,draw=proto.drawImage;let lights=0,blocked=0;
+   const proto=outsidePlaytest.sceneContext,draw=proto.drawImage;let lights=0,blocked=0;
    proto.drawImage=function(source,...args){if(source instanceof HTMLImageElement&&lightURLs.has(source.src)&&this.globalCompositeOperation==='screen'){lights++;if(!this.imageSmoothingEnabled)blocked++;}return draw.call(this,source,...args);};
    try{for(const offset of [0,.02,-.02,0]){m.x=x+offset;m.time+=1/60;o.snapCamera();softLightTick(0);}}finally{proto.drawImage=draw;}
    const r=LunaStreetAtmosphere.inspect(m);return {name,lights,blocked,error:r.error,gl:r.renderer.gl.getError()};

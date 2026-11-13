@@ -18,11 +18,12 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  assert.equal(audit.fps,16);assert.equal(audit.frames,32,'1/1.5/2.5 UV speeds repeat after 2s, exactly 32 stepped frames');assert(audit.min>30&&audit.max<22*29);assert(audit.warm>0&&audit.white>0&&audit.partial>0);assert(audit.same&&audit.still);
  const integration=await p.evaluate(()=>{
   const ctx=document.querySelector('#outside-root canvas').getContext('2d'),original=ctx.drawImage,F=LunaBarrelFire,paint=F.paintSprite,draw=F.draw,events=[];
-  let drawingFire=false,additive=false;
+  let drawingFire=false,additive=false;const gpu=LunaStreetGpuSurface.prototype,texture=gpu.texture;
   ctx.drawImage=function(img,...a){if(img.src)events.push(img.src.split('/').pop());if(drawingFire){if(this.globalCompositeOperation!=='lighter')throw Error('Flame is not additive');additive=true;}return original.call(this,img,...a);};
-  F.draw=function(...a){events.push('fire');const before=ctx.globalCompositeOperation;drawingFire=true;try{return draw(...a);}finally{drawingFire=false;if(ctx.globalCompositeOperation!==before)throw Error('Flame leaked blend mode');}};
+  gpu.texture=function(img){if(img.src)events.push(img.src.split('/').pop());if(drawingFire){if(this.context.globalCompositeOperation!=='lighter')throw Error('Flame is not additive');additive=true;}return texture.call(this,img);};
+  F.draw=function(...a){events.push('fire');const drawingContext=a[0],before=drawingContext.globalCompositeOperation;drawingFire=true;try{return draw(...a);}finally{drawingFire=false;if(drawingContext.globalCompositeOperation!==before)throw Error('Flame leaked blend mode');}};
   F.paintSprite=function(c,...a){const state=()=>JSON.stringify([c.globalAlpha,c.globalCompositeOperation,c.imageSmoothingEnabled,c.getTransform()]),before=state();paint(c,...a);if(state()!==before)throw Error('Fire leaked canvas state');};
-  try{fireDraw(0);}finally{ctx.drawImage=original;F.draw=draw;F.paintSprite=paint;}
+  try{fireDraw(0);}finally{ctx.drawImage=original;F.draw=draw;F.paintSprite=paint;gpu.texture=texture;}
   const data=LUNA_BARREL_FIRE,fire=F.placement(),front=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-front');
   return {additive,back:events.indexOf('object_1%201.png'),fire:events.indexOf('fire'),front:events.indexOf('object_2.png'),near:events.indexOf('near_foreground_1.png'),dx:Math.abs(fire.x-front.x),lip:front.y+front.sprite.h/front.sprite.ppu,fireTop:fire.y+Math.abs(fire.sy)/2};
  });

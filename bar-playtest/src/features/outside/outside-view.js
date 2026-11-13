@@ -47,7 +47,9 @@
         ...cam
       },
       pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
-    let panoramaTween = false, drawingEngineActor = false;
+    let panoramaTween = false, drawingEngineActor = false, warming=false;
+    const renderQuality=new global.LunaStreetRenderBudget();
+    let preparation={done:false,jobs:0,milliseconds:0};
     const esc = s => String(s).replace(/[&<>"']/g, c => ({
       '&': '&amp;',
       '<': '&lt;',
@@ -65,6 +67,27 @@
         while(index<queue.length){const [id,a]=queue[index++];images.set(id,await global.LunaResources.image(a.src));}
       }));
       global.LunaOutsideAmbient.prepareBounds(images,data);
+    }
+    async function prepareStreet(token) {
+      const started=performance.now(),valid=()=>active&&token===generation;
+      const wait=()=>new Promise(resolve=>setTimeout(resolve,0));
+      const gpu=global.LUNA_GPU_STREET===false?null:global.LunaStreetAtmosphere.surface(model,canvas);
+      const jobs=[()=>global.LunaStreetEngineEffects?.prepare(images)];
+      const seen=new Set();
+      for(const node of data.scenes.street.nodes){
+        const sp=node.sprite,image=sp&&images.get(sp.asset);if(!image)continue;
+        if(node.name==='B_Fore_Building_1'||node.name==='1F Floor')jobs.push(()=>global.LunaWallLighting?.render(image,node.name));
+        if(node.neon)jobs.push(()=>global.LunaStreetSigns?.prepare(image,sp));
+        if(gpu&&!seen.has(image)){seen.add(image);jobs.push(()=>{gpu.texture(image);gpu.serial++;gpu.evict();});}
+      }
+      if(gpu)jobs.push(()=>global.LunaRainGlass?.prepare(canvas,model,gpu.renderer));
+      // Yield between small batches while the existing loading overlay owns
+      // input. Preparing art never ticks the model, conversations, or weather.
+      preparation={done:false,jobs:0,milliseconds:0};
+      for(let i=0;i<jobs.length;){const slice=performance.now();do{if(!valid())return;jobs[i++]();preparation.jobs++;}while(i<jobs.length&&performance.now()-slice<6);await wait();}
+      if(!valid())return;
+      if(model.scene==='street'){warming=true;try{draw(false);await wait();if(valid())draw(false);}finally{warming=false;}}
+      if(valid())preparation={...preparation,done:true,milliseconds:performance.now()-started};
     }
     function fit() {
       if (!host) return;
@@ -320,6 +343,7 @@
       showDevHint = false
     } = {}) {
       if (active) return;
+      renderQuality.reset();gpuFailed=false;
       wakeSpawn = wakeAtSofa;
       generation++;
       const token = generation;
@@ -364,6 +388,8 @@
       try {
         await global.LunaResources.prepare('common');
         await loadImages();
+        if(token!==generation)return;
+        await prepareStreet(token);
         if (token !== generation) return;
         loading = false;
         hintOpen = showDevHint && !global.lunaCampaign?.active;
@@ -380,6 +406,8 @@
     }
     function exit(silent = false) {
       choiceUI?.dispose();
+      global.LunaRainGlass?.dispose(canvas);
+      global.LunaStreetAtmosphere?.dispose(model);
       choiceUI = null;
       global.LunaControlsTutorial.stop();
       global.LunaHomeDoorAudio?.stop();
@@ -662,7 +690,16 @@
       const m = model;
       return m && !m.paused && !loading && !loadError && !devOpen && !hintOpen && !m.controlsTutorial && !m.dialog && !m.story.blocking && !global.lunaCampaign?.blocking ? m.near : null;
     }
+    let gpuFailed=false;
     function draw(advanceParallax = true) {
+      const output=ctx;
+      try{drawFrame(advanceParallax);}catch(error){
+        if(!ctx?.gpu)throw error;
+        gpuFailed=true;const r=global.LunaStreetAtmosphere?.inspect(model)?.renderer;if(r)r.gpuFrame=false;console.warn('Street GPU surface fallback:',error);ctx=output;drawFrame(false);
+      }finally{const r=global.LunaStreetAtmosphere?.inspect(model)?.renderer;if(r)r.gpuFrame=false;ctx=output;}
+    }
+    function drawFrame(advanceParallax = true) {
+      const output=ctx;
       discoveryMarkers = [];
       if (!ctx || !model) return;
       if (surface.dpr !== devicePixelRatio) fit();
@@ -677,7 +714,11 @@
       ctx.imageSmoothingEnabled = false;
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, 1280, 720);
-      if (loading || loadError) return;
+      if ((loading&&!warming) || loadError) return;
+      if(model.scene==='street'&&!model.qa&&!gpuFailed&&global.LUNA_GPU_STREET!==false){
+        const gpu=global.LunaStreetAtmosphere.surface(model,canvas);
+        if(gpu){gpu.renderer.effectScale=global.LUNA_STREET_QUALITY==='high'?1:renderQuality.scale;gpu.begin();gpu.renderer.gpuFrame=true;ctx=gpu.context;ctx.setTransform(surface.factor,0,0,surface.factor,0,0);ctx.imageSmoothingEnabled=false;}
+      }
       if (advanceParallax) global.LunaStreetParallax.update(model, data.scenes.street.nodes, { x: cam.x, locked: panorama || panoramaTween || !!model.ride });
       if (model.qa) {
         global.LunaOutsideQA.draw({
@@ -790,6 +831,8 @@
         ctx.fillRect(0, 0, 1280, 720);
       }
       const postFrame=global.LunaStreetAtmosphere?.post(ctx, model, {defer:global.LunaRainGlass?.canCompose(canvas,model)});
+      if(ctx.gpu&&!postFrame?.texture)throw Error('Street GPU composition failed');
+      if(ctx.gpu){ctx.gpu.flush();ctx.gpu.evict();ctx.gpu.renderer.gpuFrame=false;ctx=output;}
       const wet=global.LunaRainGlass?.draw(ctx, model, {camera:renderCam,gpuSource:postFrame?.texture?postFrame:null});
       if(postFrame?.texture&&!wet)postFrame.renderer.present(ctx,postFrame);
       if(interactionTarget()&&!model.qa&&!global.LunaCaptureMode?.hidden){
@@ -975,7 +1018,7 @@
       }
       paintControlsTutorial();
       updateSpeech();
-      paintDev();
+      if(devOpen)paintDev();
       paintHomewardGuide();
       host.querySelector('.outside-speech').inert = devOpen;
       host.querySelectorAll('.outside-background-speech').forEach(el => el.inert = devOpen);
@@ -1107,14 +1150,17 @@
       }
       // Hidden background-play still simulates, but cannot present a frame.
       // Draw at most 60 Hz on 120/144 Hz displays; input/physics keep their clock.
-      if (document.hidden) { renderBudget = 0; renderStamp = null; return; }
+      if (document.hidden) { renderQuality.sample(performance.now(),{active:false});renderBudget = 0; renderStamp = null; return; }
       renderBudget += Math.max(0, dt);
       if (dt > 0 && renderBudget + .00001 < 1 / 60) return;
       renderBudget %= 1 / 60;
       const stamp = [model.time, model.scene, model.paused, cam.x, cam.y, pixelWidth, loading, loadError, devOpen, hintOpen, model.controlsTutorial, model.near?.id, model.anim, model.animTime].join('|');
       // Explicit tick(0), resize and input-triggered draws always refresh. A
       // paused scene otherwise does not rerun its unchanged GPU effects.
-      if (dt === 0 || stamp !== renderStamp) { draw(); renderStamp = stamp; }
+      if (dt === 0 || stamp !== renderStamp) {
+        const now=performance.now();draw();renderStamp=stamp;
+        renderQuality.sample(now,{active:dt>0&&!loading&&!model.paused&&!devOpen&&!hintOpen&&!document.hidden&&model.scene==='street',cpu:performance.now()-now,mode:global.LUNA_STREET_QUALITY||'auto'});
+      }else renderQuality.sample(performance.now(),{active:false});
       updateHUD();
     }
     document.addEventListener('change', e => {
@@ -1277,6 +1323,8 @@
       }
     }
     return {
+      get sceneContext(){return model?.scene==='street'&&!model.qa&&!gpuFailed&&global.LUNA_GPU_STREET!==false?global.LunaStreetAtmosphere?.inspect(model)?.renderer?.surface?.context||ctx:ctx;},
+      get renderingStatus(){return {quality:renderQuality.snapshot(),preparation:{...preparation},gpu:!gpuFailed&&!!global.LunaStreetAtmosphere?.inspect(model)?.renderer?.surface};},
       get interactionGlow() {
         return glowRenderer.snapshot();
       },

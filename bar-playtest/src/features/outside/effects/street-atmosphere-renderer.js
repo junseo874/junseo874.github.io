@@ -15,7 +15,8 @@ vec3 linearColor(vec3 c){return mix(c/12.92,pow((c+.055)/1.055,vec3(2.4)),step(v
 vec3 displayColor(vec3 c){return mix(c*12.92,1.055*pow(max(c,0.),vec3(1./2.4))-.055,step(vec3(.0031308),c));}
 vec2 worldAt(vec2 p){return camera.xy+(p-.5)*vec2(camera.z,camera.z*720./1280.);}
 vec2 screenAt(vec2 p){return .5+(p-camera.xy)/vec2(camera.z,camera.z*720./1280.);}
-vec3 sampleScene(vec2 p){return linearColor(texture(scene,clamp(vec2(p.x,1.-p.y),0.,1.)).rgb);}
+uniform float sceneFlip;
+vec3 sampleScene(vec2 p){return linearColor(texture(scene,clamp(vec2(p.x,mix(p.y,1.-p.y,sceneFlip)),0.,1.)).rgb);}
 `;
 const fogDensity=`uniform vec4 area,density,noise,style;
 uniform vec3 fogColor;
@@ -103,6 +104,21 @@ void main(){
  // Composite against the untouched road in linear space, with opaque output.
  result=vec4(displayColor(mix(sampleScene(uv),color,alpha)),1);
 }`;
+// The water shader snaps every sample to an authored world cell. Evaluate
+// that cell once, then composite at full scene resolution (including alpha).
+const puddleField=puddle.replace('vec2 local=(worldAt(uv)-area.xy)/area.zw+.5;',
+ 'vec2 local=(floor(gl_FragCoord.xy)+.5)/(area.zw*surface.z);').replace(
+ 'if(any(lessThan(local,vec2(0)))||any(greaterThan(local,vec2(1))))discard;', '').replace(
+ 'result=vec4(displayColor(mix(sampleScene(uv),color,alpha)),1);','result=vec4(color,alpha);');
+const puddleComposite=common+`
+uniform sampler2D waterField;uniform vec4 area,surface;
+void main(){
+ vec2 local=(worldAt(uv)-area.xy)/area.zw+.5;
+ if(any(lessThan(local,vec2(0)))||any(greaterThan(local,vec2(1))))discard;
+ ivec2 at=clamp(ivec2(floor(local*area.zw*surface.z)),ivec2(0),textureSize(waterField,0)-1);
+ vec4 water=texelFetch(waterField,at,0);
+ result=vec4(displayColor(mix(sampleScene(uv),water.rgb,water.a)),1);
+}`;
 const shaftVertex=`#version 300 es
 precision highp float;
 uniform vec3 camera;
@@ -186,7 +202,7 @@ void main(){
  for(int y=0;y<4;y++)for(int x=0;x<4;x++){
   vec2 at=uv+(vec2(x,y)-1.5)/(outputSize*4.);
   ivec2 pixel=clamp(ivec2(floor(at*vec2(size))),ivec2(0),size-1);
-  sum+=bright(linearColor(texelFetch(scene,ivec2(pixel.x,size.y-1-pixel.y),0).rgb));
+  sum+=bright(linearColor(texelFetch(scene,ivec2(pixel.x,sceneFlip>.5?size.y-1-pixel.y:pixel.y),0).rgb));
  }
  result=vec4(sum/16.,1);}`;
 // Reduce the already thresholded light, never the original scene. Every
@@ -219,10 +235,11 @@ uniform sampler2D actor;
 uniform vec4 cell,body,shadeParams,rimParams,shapeParams;
 uniform vec3 shadeColor,rimColor,localLight;
 uniform vec2 foot,lightPosition,ambientDirection;
-uniform float facing,lightWeight;
+uniform float facing,lightWeight,actorFlip;
 vec4 sprite(vec2 p){
  if(any(lessThan(p,vec2(0)))||any(greaterThanEqual(p,cell.zw)))return vec4(0);
- return texelFetch(actor,ivec2(cell.xy+floor(p)),0);
+ ivec2 at=ivec2(cell.xy+floor(p));if(actorFlip>.5)at.y=textureSize(actor,0).y-1-at.y;
+ vec4 c=texelFetch(actor,at,0);if(actorFlip>.5&&c.a>0.)c.rgb/=c.a;return c;
 }
 float edge(vec2 p,vec2 dir,float width,float focus){
  vec4 w=pow(max(vec4(dir.x,-dir.x,dir.y,-dir.y),0.),vec4(focus));
@@ -249,7 +266,7 @@ void main(){
  float localAttenuation=pow(clamp(1.-distance/max(.01,localLight.x),0.,1.),shapeParams.y)*localLight.z;
  attenuation=mix(attenuation,localAttenuation,localLight.y);
  color+=rimColor*lightWeight*attenuation*(rimParams.x*rim*(1.+rimParams.z)+glow*rimParams.z*.6);
- result=vec4(displayColor(color),original.a);
+ result=vec4(displayColor(color),original.a);if(actorFlip>.5)result.rgb*=result.a;
 }`;
 const composite=common+`
 uniform sampler2D bloom;
@@ -261,8 +278,11 @@ class Renderer{
   this.canvas=document.createElement('canvas');this.canvas.width=spriteOnly?1:1280;this.canvas.height=spriteOnly?1:720;
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
+  this.lost=false;this.needsRebuild=false;
+  this.onLost=e=>{e.preventDefault();this.lost=true;};this.onRestored=()=>{this.lost=false;this.needsRebuild=true;};
+  this.canvas.addEventListener('webglcontextlost',this.onLost);this.canvas.addEventListener('webglcontextrestored',this.onRestored);
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  const sources=spriteOnly?{characterLighting}:{fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite,copy:common+'void main(){result=texture(scene,uv);}'};
+  const sources=spriteOnly?{characterLighting}:{characterLighting,fog:fogComposite,fogDirect:fog,fogField,puddle,puddleField,puddleComposite,shaft,characterShadow,extract,downsample,blur,composite,copy:common+'void main(){result=texture(scene,uv);}'};
   this.locations=new Map();this.programs={};for(const [key,source]of Object.entries(sources)){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
@@ -278,6 +298,14 @@ class Renderer{
  // their sample coordinates in the shaders, not the full texture on upload.
  // Actor/reflection textures retain their existing orientation contract.
  upload(t,canvas){if(t===this.scene&&(this.canvas.width!==canvas.width||this.canvas.height!==canvas.height)){this.canvas.width=canvas.width;this.canvas.height=canvas.height;}const g=this.gl;g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,t);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,!(t===this.scene&&!this.spriteOnly));g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,canvas);}
+ input(ctx){
+  const surface=ctx.gpu;this.activeSurface=surface||null;this.sceneInput=null;
+  if(!surface){this.upload(this.scene,ctx.canvas);return;}
+  surface.flush();const w=ctx.canvas.width,h=ctx.canvas.height;
+  if(this.canvas.width!==w||this.canvas.height!==h){this.canvas.width=w;this.canvas.height=h;}
+  if(!this.effectOutput||this.effectOutput.w!==w||this.effectOutput.h!==h){if(this.effectOutput){this.gl.deleteTexture(this.effectOutput.t);this.gl.deleteFramebuffer(this.effectOutput.f);}this.effectOutput=this.target(w,h,true);}
+  this.sceneInput=surface.target.t;
+ }
  location(name){let table=this.locations.get(this.program);if(!table){table=new Map();this.locations.set(this.program,table);}if(!table.has(name))table.set(name,this.gl.getUniformLocation(this.program,name));return table.get(name);}
  // Conservative device-pixel bounds. Scissor AND copy only the affected area;
  // off-screen effects never upload a scene or capture a reflection.
@@ -287,19 +315,22 @@ class Renderer{
   return right>x&&top>y?[x,y,right-x,top-y]:null;
  }
  clip(box){const g=this.gl;g.enable(g.SCISSOR_TEST);g.scissor(...box);g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);}
- finishRegion(ctx,box){this.gl.disable(this.gl.SCISSOR_TEST);const [x,y,w,h]=box,top=this.canvas.height-y-h;ctx.drawImage(this.canvas,x,top,w,h,x*1280/this.canvas.width,top*720/this.canvas.height,w*1280/this.canvas.width,h*720/this.canvas.height);}
+ finishRegion(ctx,box){this.gl.disable(this.gl.SCISSOR_TEST);const [x,y,w,h]=box,top=this.canvas.height-y-h;
+  if(ctx.gpu){const s=ctx.gpu,W=this.canvas.width,H=this.canvas.height;s.quad(this.effectOutput.t,[x/W,(y+h)/H,(x+w)/W,y/H],[[x,top],[x+w,top],[x+w,top+h],[x,top+h]],[1,1,1,1],[0,0,1,1],{mode:'source-over',smooth:false,clip:false});s.flush();return;}
+  ctx.drawImage(this.canvas,x,top,w,h,x*1280/this.canvas.width,top*720/this.canvas.height,w*1280/this.canvas.width,h*720/this.canvas.height);
+ }
  bind(name,unit,t){const g=this.gl;g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,t);g.uniform1i(this.location(name),unit);}
- use(name,target){const g=this.gl;this.program=this.programs[name];g.useProgram(this.program);g.bindFramebuffer(g.FRAMEBUFFER,target?.f||null);g.viewport(0,0,target?.w||this.canvas.width,target?.h||this.canvas.height);this.bind('scene',0,this.scene);}
+ use(name,target){const g=this.gl;target=target||(this.activeSurface?this.effectOutput:null);this.program=this.programs[name];g.disable(g.BLEND);g.disable(g.SCISSOR_TEST);g.bindVertexArray(null);g.useProgram(this.program);g.bindFramebuffer(g.FRAMEBUFFER,target?.f||null);g.viewport(0,0,target?.w||this.canvas.width,target?.h||this.canvas.height);this.bind('scene',0,this.sceneInput||this.scene);this.uniform('sceneFlip',this.activeSurface?0:1);}
  uniform(name,values){const g=this.gl,l=this.location(name);if(typeof values==='number')g.uniform1f(l,values);else g['uniform'+values.length+'fv'](l,values);}
  camera(cam){this.uniform('camera',[cam.x,cam.y,cam.w]);}
  draw(){this.gl.drawArrays(this.gl.TRIANGLES,0,3);}
  paint(ctx){ctx.drawImage(this.canvas,0,0,1280,720);}
  fog(ctx,cam,f,area,time){
   const box=this.bounds(cam,[area[0]-area[2]/2,area[1]-area[3]/2,area[0]+area[2]/2,Math.min(area[1]+area[3]/2,f.groundY+f.height)],ctx.canvas);if(!box)return;
-  this.upload(this.scene,ctx.canvas);
+  this.input(ctx);
   // One guard cell on each side keeps interpolation world-anchored even as
   // the camera crosses a cell boundary; viewport edges never clamp a sample.
-  const ppu=f.pixelsPerUnit,origin=[Math.floor((cam.x-cam.w/2)*ppu)-1,Math.floor((cam.y-cam.w*720/1280/2)*ppu)-1],w=Math.ceil(cam.w*ppu)+3,h=Math.ceil(cam.w*720/1280*ppu)+3;
+  const ppu=f.pixelsPerUnit*(this.effectScale||1),origin=[Math.floor((cam.x-cam.w/2)*ppu)-1,Math.floor((cam.y-cam.w*720/1280/2)*ppu)-1],w=Math.ceil(cam.w*ppu)+3,h=Math.ceil(cam.w*720/1280*ppu)+3;
   // Very wide panorama can exceed native-grid budget. Direct evaluation is
   // cheaper there; the normal walking camera always uses the native grid.
   if(w*h>this.canvas.width*this.canvas.height/2){this.use('fogDirect');this.camera(cam);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.uniform('time',time);this.clip(box);this.draw();this.finishRegion(ctx,box);return;}
@@ -309,23 +340,38 @@ class Renderer{
  }
  puddles(ctx,cam,pools,rippleData,reflectors){
   const visible=pools.map(p=>({p,box:this.bounds(cam,[p.x-p.width/2,p.y-p.height/2,p.x+p.width/2,p.y+p.height/2],ctx.canvas)})).filter(v=>v.box);if(!visible.length)return;
-  this.upload(this.scene,ctx.canvas);const c=this.captureCtx;let capturePlane=null;
+  this.input(ctx);let c=this.captureCtx;let capturePlane=null;
   this.use('puddle');const g=this.gl;const x=Math.min(...visible.map(v=>v.box[0])),y=Math.min(...visible.map(v=>v.box[1]));const box=[x,y,Math.max(...visible.map(v=>v.box[0]+v.box[2]))-x,Math.max(...visible.map(v=>v.box[1]+v.box[3]))-y];this.clip(box);this.camera(cam);this.bind('reflection',1,this.reflection);
   this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
   for(const {p,box} of visible){
    const key=p.line+':'+p.reflectionCompression;
    if(capturePlane!==key){
-    capturePlane=key;c.clearRect(0,0,1280,720);c.drawImage(ctx.canvas,0,0,1280,720);reflectors(c,p);
-    this.upload(this.reflection,this.capture);this.use('puddle');g.enable(g.SCISSOR_TEST);this.bind('scene',0,this.scene);this.bind('reflection',1,this.reflection);
+    capturePlane=key;
+    if(ctx.gpu){
+     this.reflectionSurface??=new W.LunaStreetGpuSurface(this,this.capture);const rs=this.reflectionSurface;rs.begin();
+     const tex=ctx.gpu.target.t;rs.quad(tex,[0,1,1,0],[[0,0],[1280,0],[1280,720],[0,720]],[1,1,1,1],[0,0,1,1],{mode:'source-over',smooth:false,clip:false});rs.flush();
+     c=rs.context;c.setTransform(1,0,0,1,0,0);reflectors(c,p);rs.flush();
+    }else{c.clearRect(0,0,1280,720);c.drawImage(ctx.canvas,0,0,1280,720);reflectors(c,p);this.upload(this.reflection,this.capture);}
+    this.use('puddle');g.enable(g.SCISSOR_TEST);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);
    }
    this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
-   g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.scissor(...box);this.draw();
+   if(this.floatBloom){
+    const width=Math.max(1,Math.ceil(p.width*p.pixelsPerUnit)),height=Math.max(1,Math.ceil(p.height*p.pixelsPerUnit));
+    this.waterFields??=new Map();const key=width+':'+height;let field=this.waterFields.get(key);
+    if(!field){field=this.target(width,height);this.waterFields.set(key,field);}
+    this.use('puddleField',field);this.camera(cam);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);
+    this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
+    this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
+    g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.draw();
+    this.use('puddleComposite');this.camera(cam);this.bind('waterField',1,field.t);this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);g.enable(g.SCISSOR_TEST);g.scissor(...box);this.draw();
+    this.use('puddle');this.camera(cam);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
+   }else{g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.scissor(...box);this.draw();}
   }this.finishRegion(ctx,box);
  }
  shafts(ctx,cam,shafts,time){
   for(const p of shafts){
    const box=this.bounds(cam,[Math.min(...p.corners.map(c=>c[0])),Math.min(...p.corners.map(c=>c[1])),Math.max(...p.corners.map(c=>c[0])),Math.max(...p.corners.map(c=>c[1]))],ctx.canvas);if(!box)continue;
-   this.upload(this.scene,ctx.canvas);this.use('shaft');const g=this.gl;g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.camera(cam);
+   this.input(ctx);this.use('shaft');const g=this.gl;g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.camera(cam);
    g.uniform2fv(this.location('corners[0]'),p.corners.flat());
    this.uniform('shape',[p.falloff,p.edgeSoftness,p.rayStrength,p.rayCount]);this.uniform('raySpeed',p.raySpeed);this.uniform('fade',[p.startFade,p.flicker,p.brightnessSteps,0]);this.uniform('time',time);
    this.uniform('color',p.tint.map((v,i)=>linear((v+(p.lightColor[i]-v)*p.useLightColor)*p.intensity)));
@@ -335,7 +381,7 @@ class Renderer{
  characterShadow(ctx,cam,p){
   const spread=(p.maxLength??.85)+p.width+.15;
   const box=this.bounds(cam,[Math.max(p.rect[0],p.foot.x-spread),Math.max(p.rect[1],p.foot.y-spread),Math.min(p.rect[2],p.foot.x+spread),Math.min(p.rect[3],p.foot.y)],ctx.canvas);if(!box)return;
-  this.upload(this.scene,ctx.canvas);
+  this.input(ctx);
   if(this.actorImage!==p.image){this.upload(this.actor,p.image);this.actorImage=p.image;}
   this.use('characterShadow');this.camera(cam);this.bind('actor',1,this.actor);
   const sp=p.sp;this.uniform('spriteRect',[sp.x/p.image.width,1-(sp.y+sp.h)/p.image.height,sp.w/p.image.width,sp.h/p.image.height]);
@@ -354,21 +400,28 @@ class Renderer{
   // scratch sprite: discarded pool pixels would expose a miniature actor.
   // Reuse one native-cell canvas/context, with only this shader and no scene
   // buffers. The actor and its reflection share the result immediately.
-  if(!this.spriteOnly){this.lightingRenderer??=new Renderer({spriteOnly:true});return this.lightingRenderer.characterLighting(image,sp,p);}
+  if(!this.spriteOnly&&!this.gpuFrame){this.lightingRenderer??=new Renderer({spriteOnly:true});return this.lightingRenderer.characterLighting(image,sp,p);}
   if(this.gl.isContextLost())return null;
   // Resizing a WebGL drawing buffer can synchronously drain the GPU queue.
   // Mixed NPC sheet sizes used to resize it for almost every actor/reflection.
   // Keep a bounded high-water surface; the viewport and returned crop still
   // cover exactly one native frame (no scaling or change to shader sampling).
-  if(this.canvas.width<sp.w)this.canvas.width=2**Math.ceil(Math.log2(sp.w));
-  if(this.canvas.height<sp.h)this.canvas.height=2**Math.ceil(Math.log2(sp.h));
+  const unified=!!this.gpuFrame;
+  if(!unified&&this.canvas.width<sp.w)this.canvas.width=2**Math.ceil(Math.log2(sp.w));
+  if(!unified&&this.canvas.height<sp.h)this.canvas.height=2**Math.ceil(Math.log2(sp.h));
   const g=this.gl;
+  let target;
+  if(unified){
+   this.surface.flush();this.reflectionSurface?.flush();
+   this.litTargets??=new Map();const key=sp.w+':'+sp.h;target=this.litTargets.get(key);
+   if(!target){target=this.target(sp.w,sp.h,true);target.image={gpuTexture:target.t,owner:this,width:sp.w,height:sp.h};this.litTargets.set(key,target);}
+  }
   this.lightingTextures??=new Map();
-  let texture=this.lightingTextures.get(image);
+  let texture=unified?this.surface.texture(image)?.t:this.lightingTextures.get(image);
   if(!texture){texture=this.texture();this.upload(texture,image);this.lightingTextures.set(image,texture);
    if(this.lightingTextures.size>64){const [old,t]=this.lightingTextures.entries().next().value;g.deleteTexture(t);this.lightingTextures.delete(old);}
   }
-  this.use('characterLighting');g.viewport(0,0,sp.w,sp.h);this.clip([0,0,sp.w,sp.h]);this.bind('actor',1,texture);
+  this.use('characterLighting',target);this.uniform('actorFlip',unified?1:0);g.viewport(0,0,sp.w,sp.h);this.clip([0,0,sp.w,sp.h]);this.bind('actor',1,texture);
   const c=p.config,s=p.state;
   this.uniform('cell',[sp.x,image.height-sp.y-sp.h,sp.w,sp.h]);
   this.uniform('body',[p.x-p.width*(p.flip?1-sp.pivot.x:sp.pivot.x),p.y-p.height*sp.pivot.y,p.width,p.height]);
@@ -380,6 +433,7 @@ class Renderer{
   this.uniform('rimParams',[c.rimIntensity,c.rimWidth,c.rimGlow,c.rimGlowWidth]);
   this.uniform('shapeParams',[c.rimFocus,c.rimDistanceFalloff,0,c.ambientSideShadow]);
   this.draw();g.disable(g.SCISSOR_TEST);
+  if(unified)return {image:target.image,x:0,y:0,w:sp.w,h:sp.h};
   // Present an exact native-cell surface. A subrect in a taller GPU canvas
   // can round differently in Canvas2D's strongly foreshortened reflections.
   // Reuse the small 2D cells as well; never resize the WebGL drawing buffer.
@@ -392,14 +446,24 @@ class Renderer{
   cell.ctx.drawImage(this.canvas,0,this.canvas.height-sp.h,sp.w,sp.h,0,0,sp.w,sp.h);
   return {image:cell.image,x:0,y:0,w:sp.w,h:sp.h};
  }
- present(ctx,frame){const g=this.gl;g.disable(g.BLEND);g.disable(g.SCISSOR_TEST);g.bindVertexArray(null);this.use('copy');this.bind('scene',0,frame.texture);this.draw();this.paint(ctx);}
+ dispose(){
+  this.canvas.removeEventListener('webglcontextlost',this.onLost);this.canvas.removeEventListener('webglcontextrestored',this.onRestored);
+  const g=this.gl;this.surface?.dispose();this.reflectionSurface?.dispose();this.lightingRenderer?.dispose();
+  const targets=new Set([...(this.buffers||[]),...(this.bloomLevels||[]),...(this.litTargets?.values()||[]),...(this.waterFields?.values()||[]),this.fogBuffer,this.effectOutput,this.postBuffer].filter(Boolean));
+  for(const b of targets){g.deleteTexture(b.t);g.deleteFramebuffer(b.f);}
+  for(const t of[this.scene,this.actor,this.reflection,this.shadowFill,...(this.lightingTextures?.values()||[])])if(t)g.deleteTexture(t);
+  for(const p of Object.values(this.programs))g.deleteProgram(p);
+  g.getExtension('WEBGL_lose_context')?.loseContext();
+ }
+
+ present(ctx,frame){this.activeSurface=null;this.sceneInput=null;const g=this.gl;g.disable(g.BLEND);g.disable(g.SCISSOR_TEST);g.bindVertexArray(null);this.use('copy');this.bind('scene',0,frame.texture);this.draw();this.paint(ctx);}
  post(ctx,settings,{defer=false}={}){
-  this.upload(this.scene,ctx.canvas);
-  const width=Math.ceil(this.canvas.width/4),height=Math.ceil(this.canvas.height/4),g=this.gl,key=width+':'+height;
+  defer=defer||!!ctx.gpu;this.input(ctx);
+  const width=Math.ceil(this.canvas.width/4),height=Math.ceil(this.canvas.height/4),g=this.gl,limit=320*(this.effectScale||1),key=width+':'+height+':'+limit;
   if(this.bloomSize!==key){
    for(const b of [...this.buffers,...(this.bloomLevels||[])]){g.deleteTexture(b.t);g.deleteFramebuffer(b.f);}
    const a=this.target(width,height);this.bloomLevels=[];let w=width,h=height;
-   while(w>320){w=Math.ceil(w/2);h=Math.ceil(h/2);this.bloomLevels.push(this.target(w,h));}
+   while(w>limit){w=Math.ceil(w/2);h=Math.ceil(h/2);this.bloomLevels.push(this.target(w,h));}
    this.buffers=[this.target(w,h),this.target(w,h),a];this.bloomSize=key;
   }
   const [c,b,a]=this.buffers;
@@ -427,6 +491,7 @@ class Renderer{
    this.postBuffer=this.target(this.canvas.width,this.canvas.height,true);
   }
   this.use('composite',defer?this.postBuffer:null);this.bind('bloom',1,c.t);this.uniform('intensity',settings.intensity);this.draw();
+  this.activeSurface=null;this.sceneInput=null;
   if(defer)return {texture:this.postBuffer.t,renderer:this,width:this.canvas.width,height:this.canvas.height};
   this.paint(ctx);
  }

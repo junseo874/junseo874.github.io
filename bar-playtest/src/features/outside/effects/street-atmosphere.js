@@ -19,7 +19,7 @@ function advance(model){
   }
  }return s;
 }
-function render(s,fn){if(s.error)return false;try{if(!s.renderer)s.renderer=new W.LunaStreetAtmosphereRenderer();if(s.renderer.gl.isContextLost())return false;fn(s.renderer);return true;}catch(e){s.error=e.message;console.warn('Street atmosphere unavailable:',e.message);return false;}}
+function render(s,fn){if(s.error)return false;try{if(s.renderer?.needsRebuild){s.renderer.dispose();s.renderer=null;}if(!s.renderer)s.renderer=new W.LunaStreetAtmosphereRenderer();if(s.renderer.gl.isContextLost())return false;fn(s.renderer);return true;}catch(e){s.error=e.message;console.warn('Street atmosphere unavailable:',e.message);return false;}}
 function begin(model){if(model.scene!=='street'||model.qa)return null;const s=advance(model);s.fogIndex=0;s.paintedPools=false;return s;}
 // Reproject the current animation into the background capture's mirror space.
 // Its own mirror starts at the visible soles, not the building/fence baseline.
@@ -90,6 +90,7 @@ function beforeNode(ctx,model,cam,node,nodes,images,position){
   }));
  }
 }
+function surface(model,canvas){const s=state(model);let result;render(s,r=>{if(r.surface?.canvas!==canvas){r.surface?.dispose();r.surface=new W.LunaStreetGpuSurface(r,canvas);}result=r.surface;});return result;}
 function post(ctx,model,options){if(model.scene!=='street'||model.qa)return false;let frame;const ok=render(state(model),r=>{frame=r.post(ctx,D().bloom,options);});return frame||ok;}
-W.LunaStreetAtmosphere={begin,beforeNode,post,advance,playerReflection,actorReflection,actorViews,inspect:model=>states.get(model)||null};
+W.LunaStreetAtmosphere={begin,beforeNode,post,surface,dispose(model){const s=states.get(model);s?.renderer?.dispose();states.delete(model);},advance,playerReflection,actorReflection,actorViews,inspect:model=>states.get(model)||null};
 })(typeof window==='undefined'?globalThis:window);

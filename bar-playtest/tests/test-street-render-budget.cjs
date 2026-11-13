@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+const window={};vm.runInNewContext(fs.readFileSync('bar-playtest/src/features/outside/effects/street-render-budget.js','utf8'),{window});
+const b=new window.LunaStreetRenderBudget();let clock=0;
+const frames=(count,ms,options={})=>{for(let i=0;i<count;i++){clock+=ms;b.sample(clock,{cpu:4,...options});}};
+frames(300,16.67);assert.equal(b.scale,1,'Stable 60 fps keeps original effect quality');
+frames(200,33.34);assert.equal(b.scale,.75,'Sustained slow frames lower only one tier');
+frames(100,33.34);assert.equal(b.scale,.75,'Cooldown prevents oscillation');
+frames(300,33.34);assert.equal(b.scale,.5);frames(1000,50);assert.equal(b.scale,.5,'Bounded minimum');
+const changes=b.changes;frames(120,16.67);assert.equal(b.changes,changes,'Brief recovery cannot flip quality');
+frames(3600,16.67);assert.equal(b.scale,1,'Long recovery restores full quality');
+frames(600,50,{active:false});assert.equal(b.scale,1,'Hidden/loading/paused time does not degrade quality');
+frames(100,500);assert.equal(b.scale,1,'Long debugger/transition stalls are excluded');
+frames(400,50,{mode:'high'});assert.equal(b.scale,1,'High quality override remains fixed');
+b.reset();assert.equal(b.changes,0);assert.equal(b.scale,1);
+console.log('STREET_RENDER_BUDGET_OK');

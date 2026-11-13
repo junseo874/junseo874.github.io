@@ -58,7 +58,7 @@ function render(source,time,still=false){
   pixels.data[i]=137;pixels.data[i+1]=158;pixels.data[i+2]=170;
   pixels.data[i+3]=d<.20?10:d<.48?23:39;
  }
- ctx.putImageData(pixels,0,0);return e;
+ ctx.putImageData(pixels,0,0);W.LunaStreetGpuSurface?.version(e.canvas,stamp);return e;
 }
 function paintSprite(ctx,key,sp,w,h,time,still=false){
  const vents=sources[key];if(!vents)return;
