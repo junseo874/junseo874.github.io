@@ -15,7 +15,7 @@ vec3 linearColor(vec3 c){return mix(c/12.92,pow((c+.055)/1.055,vec3(2.4)),step(v
 vec3 displayColor(vec3 c){return mix(c*12.92,1.055*pow(max(c,0.),vec3(1./2.4))-.055,step(vec3(.0031308),c));}
 vec2 worldAt(vec2 p){return camera.xy+(p-.5)*vec2(camera.z,camera.z*720./1280.);}
 vec2 screenAt(vec2 p){return .5+(p-camera.xy)/vec2(camera.z,camera.z*720./1280.);}
-vec3 sampleScene(vec2 p){return linearColor(texture(scene,clamp(p,0.,1.)).rgb);}
+vec3 sampleScene(vec2 p){return linearColor(texture(scene,clamp(vec2(p.x,1.-p.y),0.,1.)).rgb);}
 `;
 const fogDensity=`uniform vec4 area,density,noise,style;
 uniform vec3 fogColor;
@@ -186,7 +186,7 @@ void main(){
  for(int y=0;y<4;y++)for(int x=0;x<4;x++){
   vec2 at=uv+(vec2(x,y)-1.5)/(outputSize*4.);
   ivec2 pixel=clamp(ivec2(floor(at*vec2(size))),ivec2(0),size-1);
-  sum+=bright(linearColor(texelFetch(scene,pixel,0).rgb));
+  sum+=bright(linearColor(texelFetch(scene,ivec2(pixel.x,size.y-1-pixel.y),0).rgb));
  }
  result=vec4(sum/16.,1);}`;
 // Reduce the already thresholded light, never the original scene. Every
@@ -262,7 +262,7 @@ class Renderer{
   const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,premultipliedAlpha:false,antialias:false,depth:false,preserveDrawingBuffer:false});
   if(!gl)throw Error('WebGL2 unavailable');
   this.floatBloom=!!gl.getExtension('EXT_color_buffer_float');
-  const sources=spriteOnly?{characterLighting}:{fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite};
+  const sources=spriteOnly?{characterLighting}:{fog:fogComposite,fogDirect:fog,fogField,puddle,shaft,characterShadow,extract,downsample,blur,composite,copy:common+'void main(){result=texture(scene,uv);}'};
   this.locations=new Map();this.programs={};for(const [key,source]of Object.entries(sources)){
    const program=gl.createProgram();for(const [type,code]of [[gl.VERTEX_SHADER,key==='shaft'?shaftVertex:vertex],[gl.FRAGMENT_SHADER,source]]){const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));gl.attachShader(program,s);gl.deleteShader(s);}
    gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));this.programs[key]=program;
@@ -273,8 +273,11 @@ class Renderer{
   this.capture=document.createElement('canvas');this.capture.width=1280;this.capture.height=720;this.captureCtx=this.capture.getContext('2d');
  }
  texture(){const g=this.gl,t=g.createTexture();g.bindTexture(g.TEXTURE_2D,t);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);return t;}
- target(w,h){const g=this.gl,t=this.texture(),f=g.createFramebuffer();g.texImage2D(g.TEXTURE_2D,0,this.floatBloom?g.RGBA16F:g.RGBA,w,h,0,g.RGBA,this.floatBloom?g.HALF_FLOAT:g.UNSIGNED_BYTE,null);g.bindFramebuffer(g.FRAMEBUFFER,f);g.framebufferTexture2D(g.FRAMEBUFFER,g.COLOR_ATTACHMENT0,g.TEXTURE_2D,t,0);return {t,f,w,h};}
- upload(t,canvas){if(t===this.scene&&(this.canvas.width!==canvas.width||this.canvas.height!==canvas.height)){this.canvas.width=canvas.width;this.canvas.height=canvas.height;}const g=this.gl;g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,t);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,canvas);}
+ target(w,h,display=false){const g=this.gl,t=this.texture(),f=g.createFramebuffer();g.texImage2D(g.TEXTURE_2D,0,!display&&this.floatBloom?g.RGBA16F:g.RGBA,w,h,0,g.RGBA,!display&&this.floatBloom?g.HALF_FLOAT:g.UNSIGNED_BYTE,null);if(display){g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.NEAREST);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.NEAREST);}g.bindFramebuffer(g.FRAMEBUFFER,f);g.framebufferTexture2D(g.FRAMEBUFFER,g.COLOR_ATTACHMENT0,g.TEXTURE_2D,t,0);return {t,f,w,h};}
+ // Opaque scene canvases can use the browser's direct GPU copy path. Flip
+ // their sample coordinates in the shaders, not the full texture on upload.
+ // Actor/reflection textures retain their existing orientation contract.
+ upload(t,canvas){if(t===this.scene&&(this.canvas.width!==canvas.width||this.canvas.height!==canvas.height)){this.canvas.width=canvas.width;this.canvas.height=canvas.height;}const g=this.gl;g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,t);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,!(t===this.scene&&!this.spriteOnly));g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,canvas);}
  location(name){let table=this.locations.get(this.program);if(!table){table=new Map();this.locations.set(this.program,table);}if(!table.has(name))table.set(name,this.gl.getUniformLocation(this.program,name));return table.get(name);}
  // Conservative device-pixel bounds. Scissor AND copy only the affected area;
  // off-screen effects never upload a scene or capture a reflection.
@@ -389,7 +392,8 @@ class Renderer{
   cell.ctx.drawImage(this.canvas,0,this.canvas.height-sp.h,sp.w,sp.h,0,0,sp.w,sp.h);
   return {image:cell.image,x:0,y:0,w:sp.w,h:sp.h};
  }
- post(ctx,settings){
+ present(ctx,frame){const g=this.gl;g.disable(g.BLEND);g.disable(g.SCISSOR_TEST);g.bindVertexArray(null);this.use('copy');this.bind('scene',0,frame.texture);this.draw();this.paint(ctx);}
+ post(ctx,settings,{defer=false}={}){
   this.upload(this.scene,ctx.canvas);
   const width=Math.ceil(this.canvas.width/4),height=Math.ceil(this.canvas.height/4),g=this.gl,key=width+':'+height;
   if(this.bloomSize!==key){
@@ -415,7 +419,16 @@ class Renderer{
   this.use('blur',b);this.bind('scene',0,input.t);this.uniform('axis',[1/c.w,0]);
   this.uniform('centerWeight',kernel.center);this.uniform('tapCount',kernel.count);g.uniform2fv(this.location('taps[0]'),kernel.taps);this.draw();
   this.use('blur',c);this.bind('scene',0,b.t);this.uniform('axis',[0,1/c.h]);this.draw();
-  this.use('composite');this.bind('bloom',1,c.t);this.uniform('intensity',settings.intensity);this.draw();this.paint(ctx);
+  // The rain pass can consume this RGBA8 result in the same WebGL context.
+  // Preserve the original display quantization, without a full-size roundtrip
+  // through Canvas2D and a second texture upload. Standalone callers still paint.
+  if(defer&&(!this.postBuffer||this.postBuffer.w!==this.canvas.width||this.postBuffer.h!==this.canvas.height)){
+   if(this.postBuffer){g.deleteTexture(this.postBuffer.t);g.deleteFramebuffer(this.postBuffer.f);}
+   this.postBuffer=this.target(this.canvas.width,this.canvas.height,true);
+  }
+  this.use('composite',defer?this.postBuffer:null);this.bind('bloom',1,c.t);this.uniform('intensity',settings.intensity);this.draw();
+  if(defer)return {texture:this.postBuffer.t,renderer:this,width:this.canvas.width,height:this.canvas.height};
+  this.paint(ctx);
  }
 }
 function linear(c){return c<=.04045?c/12.92:((c+.055)/1.055)**2.4;}

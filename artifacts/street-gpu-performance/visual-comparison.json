@@ -1,0 +1,58 @@
+[
+  {
+    "name": "shops",
+    "changed": 0,
+    "max": 0,
+    "box": [
+      99999,
+      99999,
+      0,
+      0
+    ],
+    "mean": 0,
+    "repeated": 0,
+    "error": null
+  },
+  {
+    "name": "camp",
+    "changed": 0,
+    "max": 0,
+    "box": [
+      99999,
+      99999,
+      0,
+      0
+    ],
+    "mean": 0,
+    "repeated": 0,
+    "error": null
+  },
+  {
+    "name": "corridor",
+    "changed": 0,
+    "max": 0,
+    "box": [
+      99999,
+      99999,
+      0,
+      0
+    ],
+    "mean": 0,
+    "repeated": 0,
+    "error": null
+  },
+  {
+    "name": "dry",
+    "changed": 0,
+    "max": 0,
+    "box": [
+      99999,
+      99999,
+      0,
+      0
+    ],
+    "mean": 0,
+    "repeated": 0,
+    "error": null
+  }
+]

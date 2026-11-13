@@ -129,10 +129,10 @@ void main(){
 }`;
 const defaults=Object.freeze({strength:.45,shadingPixelSize:1,refraction:.045,dispersion:.65,highlight:.45,rimShadow:.3,trailStrength:.5,trailLifetime:2.5});
 class Renderer{
- constructor(){
-  this.canvas=document.createElement('canvas');const gl=this.gl=this.canvas.getContext('webgl2',{alpha:true,antialias:false,premultipliedAlpha:false,depth:false,stencil:false});
+ constructor({shared=null}={}){
+  this.canvas=shared?.canvas||document.createElement('canvas');const gl=this.gl=shared?.gl||this.canvas.getContext('webgl2',{alpha:true,antialias:false,premultipliedAlpha:false,depth:false,stencil:false});
   if(!gl||!gl.getExtension('EXT_color_buffer_float'))throw Error('Window rain requires WebGL2 float render targets');
-  this.lost=false;this.canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.lost=true;});
+  this.lost=false;this.onLost=e=>{e.preventDefault();this.lost=true;};this.canvas.addEventListener('webglcontextlost',this.onLost);
   this.drop=this.program(dropVertex,dropFragment);this.trail=this.program(trailVertex,trailFragment);this.fade=this.program(fullVertex,fadeFragment);this.composite=this.program(fullVertex,compositeFragment);
   this.vao=gl.createVertexArray();gl.bindVertexArray(this.vao);this.buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,this.buffer);
   for(let i=0;i<4;i++){gl.enableVertexAttribArray(i);gl.vertexAttribPointer(i,4,gl.FLOAT,false,64,i*16);gl.vertexAttribDivisor(i,1);}
@@ -147,6 +147,7 @@ class Renderer{
  clear(){const g=this.gl;g.clearColor(0,0,0,0);for(const target of[this.water,this.film]){g.bindFramebuffer(g.FRAMEBUFFER,target.f);g.clear(g.COLOR_BUFFER_BIT);}}
  maps(sim,dt,options={}){
   const g=this.gl;this.resize(sim.width,sim.height);const data=sim.upload(),count=data.length/16;
+  g.disable(g.SCISSOR_TEST);
   g.bindVertexArray(this.vao);g.bindBuffer(g.ARRAY_BUFFER,this.buffer);g.bufferData(g.ARRAY_BUFFER,data,g.DYNAMIC_DRAW);g.viewport(0,0,this.width,this.height);g.enable(g.BLEND);g.blendEquation(g.MAX);g.blendFunc(g.ONE,g.ONE);
   g.bindFramebuffer(g.FRAMEBUFFER,this.water.f);g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);g.useProgram(this.drop.p);g.uniform2f(this.uniform(this.drop,'grid'),this.width,this.height);g.uniform1f(this.uniform(this.drop,'rainTime'),sim.time);g.drawArraysInstanced(g.TRIANGLES,0,6,count);
   g.bindFramebuffer(g.FRAMEBUFFER,this.film.f);g.blendEquation(g.FUNC_ADD);g.blendFunc(g.DST_COLOR,g.ZERO);g.bindVertexArray(this.empty);g.useProgram(this.fade.p);g.uniform1f(this.uniform(this.fade,'fade'),dt>0?Math.exp(-dt/(options.trailLifetime??defaults.trailLifetime)):1);g.drawArrays(g.TRIANGLES,0,3);
@@ -156,11 +157,12 @@ class Renderer{
   const g=this.gl,o={...defaults,...options};if(this.lost)return null;
   if(this.canvas.width!==source.width||this.canvas.height!==source.height){this.canvas.width=source.width;this.canvas.height=source.height;}
   g.bindFramebuffer(g.FRAMEBUFFER,null);g.viewport(0,0,this.canvas.width,this.canvas.height);g.disable(g.BLEND);g.bindVertexArray(this.empty);g.useProgram(this.composite.p);
-  g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,this.source);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,source);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);
-  for(const [unit,name,texture]of[[0,'sceneTexture',this.source],[1,'waterTexture',this.water.t],[2,'trailTexture',this.film.t]]){g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,texture);g.uniform1i(this.uniform(this.composite,name),unit);}
+  const input=options.gpuSource?.renderer.gl===g?options.gpuSource.texture:null;
+  if(!input){g.activeTexture(g.TEXTURE0);g.bindTexture(g.TEXTURE_2D,this.source);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,true);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,g.RGBA,g.UNSIGNED_BYTE,source);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);}
+  for(const [unit,name,texture]of[[0,'sceneTexture',input||this.source],[1,'waterTexture',this.water.t],[2,'trailTexture',this.film.t]]){g.activeTexture(g.TEXTURE0+unit);g.bindTexture(g.TEXTURE_2D,texture);g.uniform1i(this.uniform(this.composite,name),unit);}
   g.uniform2f(this.uniform(this.composite,'grid'),this.width,this.height);g.uniform4f(this.uniform(this.composite,'optics'),o.refraction,o.dispersion,o.highlight,o.rimShadow);g.uniform2f(this.uniform(this.composite,'style'),o.strength,o.shadingPixelSize);g.uniform1f(this.uniform(this.composite,'trailStrength'),o.trailStrength);g.drawArrays(g.TRIANGLES,0,3);return this.canvas;
  }
- dispose(){const g=this.gl;for(const p of[this.drop,this.trail,this.fade,this.composite])g.deleteProgram(p.p);for(const t of[this.water,this.film]){g.deleteFramebuffer(t.f);g.deleteTexture(t.t);}g.deleteTexture(this.source);g.deleteBuffer(this.buffer);g.deleteVertexArray(this.vao);g.deleteVertexArray(this.empty);}
+ dispose(){this.canvas.removeEventListener('webglcontextlost',this.onLost);const g=this.gl;for(const p of[this.drop,this.trail,this.fade,this.composite])g.deleteProgram(p.p);for(const t of[this.water,this.film]){g.deleteFramebuffer(t.f);g.deleteTexture(t.t);}g.deleteTexture(this.source);g.deleteBuffer(this.buffer);g.deleteVertexArray(this.vao);g.deleteVertexArray(this.empty);}
 }
 W.LunaRainRenderer={Renderer,defaults};
 })(window);

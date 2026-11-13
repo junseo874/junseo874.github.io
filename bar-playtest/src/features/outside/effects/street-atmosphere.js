@@ -90,6 +90,6 @@ function beforeNode(ctx,model,cam,node,nodes,images,position){
   }));
  }
 }
-function post(ctx,model){if(model.scene!=='street'||model.qa)return false;return render(state(model),r=>r.post(ctx,D().bloom));}
+function post(ctx,model,options){if(model.scene!=='street'||model.qa)return false;let frame;const ok=render(state(model),r=>{frame=r.post(ctx,D().bloom,options);});return frame||ok;}
 W.LunaStreetAtmosphere={begin,beforeNode,post,advance,playerReflection,actorReflection,actorViews,inspect:model=>states.get(model)||null};
 })(typeof window==='undefined'?globalThis:window);

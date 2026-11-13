@@ -75,16 +75,25 @@ class Simulation{
   this.drops.push(...spawned);this.merge();this.drops=this.drops.filter(d=>d.radius>=.35&&d.y>=-d.radius*4&&d.x>=-8&&d.x<=this.width+8);
  }
  merge(){
-  const grid=new Map(),dead=new Set(),key=(x,y)=>x+','+y;
-  this.drops.forEach((d,i)=>{const k=key(Math.floor(d.x/8),Math.floor(d.y/8));if(!grid.has(k))grid.set(k,[]);grid.get(k).push(i);});
-  for(let i=0;i<this.drops.length;i++){if(dead.has(i))continue;let a=this.drops[i];const cx=Math.floor(a.x/8),cy=Math.floor(a.y/8);
-   for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++)for(const j of grid.get(key(cx+ox,cy+oy))||[]){if(j===i||dead.has(j))continue;const b=this.drops[j],reach=(a.radius+b.radius)*.8;if((a.x-b.x)**2+(a.y-b.y)**2>reach*reach)continue;
+  // Reuse numeric buckets/links instead of allocating ~3,000 string keys
+  // and empty arrays every frame. Reverse insertion retains the original
+  // ascending candidate order, so merges and the random stream stay identical.
+  const count=this.drops.length;if(!count)return;
+  const grid=this.mergeGrid??=new Map();grid.clear();
+  if(!this.mergeLinks||this.mergeLinks.length<count){this.mergeLinks=new Int32Array(2**Math.ceil(Math.log2(count)));this.mergeDead=new Uint8Array(this.mergeLinks.length);}
+  const next=this.mergeLinks,dead=this.mergeDead;dead.fill(0,0,count);
+  let minX=Infinity,minY=Infinity,maxY=-Infinity;
+  for(const d of this.drops){minX=Math.min(minX,Math.floor(d.x/8));minY=Math.min(minY,Math.floor(d.y/8));maxY=Math.max(maxY,Math.floor(d.y/8));}
+  minX--;minY--;const rows=maxY-minY+2,key=(x,y)=>(x-minX)*rows+y-minY;
+  for(let i=count-1;i>=0;i--){const d=this.drops[i],k=key(Math.floor(d.x/8),Math.floor(d.y/8));next[i]=grid.get(k)??-1;grid.set(k,i);}
+  for(let i=0;i<count;i++){if(dead[i])continue;let a=this.drops[i];const cx=Math.floor(a.x/8),cy=Math.floor(a.y/8);
+   for(let ox=-1;ox<=1;ox++)for(let oy=-1;oy<=1;oy++)for(let j=grid.get(key(cx+ox,cy+oy))??-1;j>=0;j=next[j]){if(j===i||dead[j])continue;const b=this.drops[j],reach=(a.radius+b.radius)*.8;if((a.x-b.x)**2+(a.y-b.y)**2>reach*reach)continue;
     const aa=a.radius*a.radius,ab=b.radius*b.radius,total=aa+ab,keepA=a.sliding===b.sliding?aa>=ab:a.sliding;
     const keep={...(keepA?a:b)},other=keepA?b:a,area=keep.radius*keep.radius,otherArea=other.radius*other.radius;
     keep.mx=other.x-keep.x;keep.my=other.y-keep.y;keep.mergeFraction=otherArea/total;keep.mergeRemaining=1;keep.age=Math.max(keep.age,other.age);
-    keep.x=lerp(keep.x,other.x,otherArea/total*.5);keep.y=lerp(keep.y,other.y,otherArea/total*.5);keep.vx=(keep.vx*area+other.vx*otherArea)/total;keep.vy=(keep.vy*area+other.vy*otherArea)/total;keep.radius=Math.sqrt(total);a=keep;dead.add(j);
+    keep.x=lerp(keep.x,other.x,otherArea/total*.5);keep.y=lerp(keep.y,other.y,otherArea/total*.5);keep.vx=(keep.vx*area+other.vx*otherArea)/total;keep.vy=(keep.vy*area+other.vy*otherArea)/total;keep.radius=Math.sqrt(total);a=keep;dead[j]=1;
    }this.drops[i]=a;
-  }this.drops=this.drops.filter((d,i)=>!dead.has(i));
+  }this.drops=this.drops.filter((d,i)=>!dead[i]);
  }
  upload(){const data=new Float32Array(this.drops.length*16);this.drops.forEach((d,i)=>{
   const speed=Math.hypot(d.vx,d.vy),moving=speed>.1,stretch=moving?clamp(1+speed/35,1,2.6):1,remaining=smooth(d.mergeRemaining),fraction=d.mergeFraction*remaining,growth=this.formation(d),mx=d.mx*remaining,my=d.my*remaining;

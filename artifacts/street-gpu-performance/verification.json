@@ -1,0 +1,867 @@
+{
+  "smoke": [
+    {
+      "file": "bar-playtest/tests/test-outside-dialogue-editor.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 2
+    },
+    {
+      "file": "tools/check-web-generated-art.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/build-generated-ui-css.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/check-engine-art-sync.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/check-art-resource-paths.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-shared-birds-and-bar-gates.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-day3-notion-script.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-latest-story-timings.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-endless-general.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-regular-arrival-speech.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-guest-mouth-pairing.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-guest-random-appearance.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-dialogue-editor.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 1
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-choice-authoring.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 2
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-choice-parity.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 1
+    },
+    {
+      "file": "bar-playtest/tests/test-resource-image-recovery.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/check-structure.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/check-site.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/check-code-boundaries.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/test-source-index.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "tools/build-preload-manifest.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-kihyun-story.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-day1-notion-script.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-kihyun-story-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 17
+    },
+    {
+      "file": "bar-playtest/tests/test-tom-talk-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-general-offscreen.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test_story_coaster.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-empty-glass.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-empty-glass-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-choice-speech-continuity.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-approved-rules.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-approved-rules-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test_shiba_shop.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-shiba-purchase-flow-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 11
+    },
+    {
+      "file": "bar-playtest/tests/test_day0_tutorial.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test_resource_missing.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-resource-preload-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test_bd_vendor_removed_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-bacardi-removed-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-long-island-main-excluded-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 4
+    },
+    {
+      "file": "bar-playtest/tests/test-triple-sec-unified-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test_current_serve_sheets_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 32
+    },
+    {
+      "file": "bar-playtest/tests/test-resource-preview-paths-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    }
+  ],
+  "outside": [
+    {
+      "file": "bar-playtest/tests/test-street-effect-composition-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-street-buffer-reuse-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 4
+    },
+    {
+      "file": "bar-playtest/tests/test-street-rain-shared-gpu-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-rain-merge-equivalence.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 3
+    },
+    {
+      "file": "bar-playtest/tests/test-engine-world-layout.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-engine-world-layout-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 8
+    },
+    {
+      "file": "bar-playtest/tests/test-ambient-native-csv.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-home-tv-power-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 19
+    },
+    {
+      "file": "bar-playtest/tests/test-exterior-notion-sync.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-believer.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-believer-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-newspaper.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-newspaper-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-character-sheets.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-typing-rhythm.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-typing-rhythm-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-corridor-birds-ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-engine-barrel-fire.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test_barrel_fire_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-character-lighting.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-character-lighting-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-character-lighting-isolation-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-day2-neighborhood-gates-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-home-book-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-samho-idle-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-weather-ambience-matrix-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 71
+    },
+    {
+      "file": "bar-playtest/tests/test-shiba-cancel-first-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 9
+    },
+    {
+      "file": "bar-playtest/tests/test-home-wardrobe-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-home-bed-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-home-cat-interaction-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-gang-guard-interaction-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 17
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-choice-rejection-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 8
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-discovery-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-discovery-stability-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 9
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-npc-animation.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-gang-wild-dog.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-gang-wild-dog-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-bubi-box-sequence-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-neighborhood-events-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-neighborhood-staging-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-ad-carrier.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-ad-carrier-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 9
+    },
+    {
+      "file": "bar-playtest/tests/test_outside_traffic.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test_outside_traffic_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test_bd_vendor_removed_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test_outside_beggar.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test_outside_beggar_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 9
+    },
+    {
+      "file": "bar-playtest/tests/test_day1_thug_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 17
+    },
+    {
+      "file": "bar-playtest/tests/test_outside_console_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 11
+    },
+    {
+      "file": "bar-playtest/tests/test_story_notices.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-restoration-notices.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-restoration-notices-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 39
+    },
+    {
+      "file": "bar-playtest/tests/test-repair-goal-notice-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test_ambient_interaction_pause_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test_interaction_prompt_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 10
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-resize-qa-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 10
+    },
+    {
+      "file": "bar-playtest/tests/test-object-confirmation-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 18
+    },
+    {
+      "file": "bar-playtest/tests/test_sofa_choices_ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 11
+    },
+    {
+      "file": "bar-playtest/tests/test-outside-render-budget-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-character-shadows.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-character-shadows-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-street-atmosphere.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-street-atmosphere-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-street-atmosphere-motion-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-street-bloom-continuity-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-street-soft-light-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-street-parallax-engine.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 20
+    },
+    {
+      "file": "bar-playtest/tests/test-street-engine-effects.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-street-engine-effects-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-rain-glass-engine.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 7
+    },
+    {
+      "file": "bar-playtest/tests/test-rain-glass-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 6
+    },
+    {
+      "file": "bar-playtest/tests/test-home-city-parallax.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 0
+    },
+    {
+      "file": "bar-playtest/tests/test-home-art-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-home-weather-ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-lift-npc-presence-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-lift-passenger-framing-ui.cjs",
+      "code": 0,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    },
+    {
+      "file": "bar-playtest/tests/test-lift-right-boundary-ui.cjs",
+      "code": 1,
+      "signal": null,
+      "timedOut": false,
+      "seconds": 5
+    }
+  ]
+}

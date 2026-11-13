@@ -354,7 +354,9 @@
       notices.update(model);
       document.querySelector('#app').hidden = true;
       canvas = host.querySelector('canvas');
-      ctx = canvas.getContext('2d');
+      // draw() always fills the complete scene with opaque black first. Tell
+      // the browser so scene transfers need no alpha/unpremultiply conversion.
+      ctx = canvas.getContext('2d', {alpha: false});
       fit();
       hudSignature = '';
       draw();
@@ -787,8 +789,9 @@
         ctx.fillStyle = shade;
         ctx.fillRect(0, 0, 1280, 720);
       }
-      global.LunaStreetAtmosphere?.post(ctx, model);
-      global.LunaRainGlass?.draw(ctx, model, {camera:renderCam});
+      const postFrame=global.LunaStreetAtmosphere?.post(ctx, model, {defer:global.LunaRainGlass?.canCompose(canvas,model)});
+      const wet=global.LunaRainGlass?.draw(ctx, model, {camera:renderCam,gpuSource:postFrame?.texture?postFrame:null});
+      if(postFrame?.texture&&!wet)postFrame.renderer.present(ctx,postFrame);
       if(interactionTarget()&&!model.qa&&!global.LunaCaptureMode?.hidden){
         discoveryMarkers=global.LunaOutsideDiscovery.draw(ctx,model,model.targets(),discoveryPosition,t=>interactionAnchor(model,t,data,true),surface.factor);
       }

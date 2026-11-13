@@ -62,7 +62,7 @@ suites.outside.unshift(game('test-exterior-notion-sync'));
 suites.outside.unshift(game('test-home-tv-power-ui'));
 suites.outside.unshift(game('test-ambient-native-csv'));
 suites.outside.unshift(game('test-engine-world-layout'),game('test-engine-world-layout-ui'));
-suites.outside.unshift(game('test-street-effect-composition-ui'),game('test-street-buffer-reuse-ui'));
+suites.outside.unshift(game('test-street-effect-composition-ui'),game('test-street-buffer-reuse-ui'),game('test-street-rain-shared-gpu-ui'),game('test-rain-merge-equivalence'));
 suites.smoke.unshift(game('test-outside-dialogue-editor'));
 suites.ui.unshift(game('test-outside-dialogue-editor-ui'));
 if (choice === '--list') {

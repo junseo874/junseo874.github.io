@@ -5,6 +5,7 @@
 'use strict';
 const layers=new WeakMap();
 function reset(layer){layer.simulation=null;layer.lastTime=null;layer.cameraMotion=new W.LunaRainSimulation.Motion();layer.subjectMotion=new W.LunaRainSimulation.Motion();layer.referenceHeight=0;layer.windTime=0;layer.renderer?.clear();}
+function canCompose(canvas,model){const layer=layers.get(canvas);return model.scene==='street'&&!model.qa&&!layer?.error&&(!!W.LunaOutsideRain?.enabled(model)||!!layer?.simulation);}
 function draw(ctx,model,options={}){
  // An explicit owner is the conversation lifetime, not the current DOM canvas.
  // Preserve both simulation and GPU trail textures across settings/cutscene remounts.
@@ -18,7 +19,7 @@ function draw(ctx,model,options={}){
  if(layer.error)return false;
  try{
   if(layer.renderer?.lost){layer.renderer.dispose();layer.renderer=null;}
-  if(!layer.renderer)layer.renderer=new W.LunaRainRenderer.Renderer();
+  if(!layer.renderer)layer.renderer=new W.LunaRainRenderer.Renderer({shared:options.gpuSource?.renderer});
   const reduced=!!W.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   const dt=reduced?0:Math.min(4/30,Math.max(0,time-layer.lastTime));layer.lastTime=time;
   const cam=options.camera||{x:0,y:0,w:4.8};
@@ -31,10 +32,14 @@ function draw(ctx,model,options={}){
   const force={x:-14+gust-(motion.vx*1.1+motion.ax*.3)*270,y:-(motion.vy*1.1+motion.ay*.3)*270};
   layer.simulation.step(dt,raining?1:0,force,motion.moving||layer.subjectMotion.moving);
   layer.renderer.maps(layer.simulation,dt);
-  const image=layer.renderer.render(options.source||canvas);
+  let gpuSource=options.gpuSource;
+  // A pre-existing standalone renderer (e.g. an owner-preserved cutscene)
+  // keeps its wet trails. Fall back to presenting the post frame before upload.
+  if(gpuSource&&gpuSource.renderer.gl!==layer.renderer.gl){gpuSource.renderer.present(ctx,gpuSource);gpuSource=null;}
+  const image=layer.renderer.render(options.source||canvas,{gpuSource});
   if(image){ctx.save();ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.imageSmoothingEnabled=!!options.smoothPresentation;ctx.imageSmoothingQuality='low';ctx.drawImage(image,0,0,1280,720);ctx.restore();}
   return !!image;
  }catch(error){if(!layer.error){layer.error=error.message;console.warn('Window rain renderer unavailable:',error);}return false;}
 }
-W.LunaRainGlass={draw,inspect:canvas=>layers.get(canvas)||null};
+W.LunaRainGlass={draw,canCompose,inspect:canvas=>layers.get(canvas)||null};
 })(typeof window==='undefined'?globalThis:window);
