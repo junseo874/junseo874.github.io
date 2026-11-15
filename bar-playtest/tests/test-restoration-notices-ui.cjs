@@ -32,9 +32,11 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.evaluate(()=>{const c=lunaCampaign;while(c.dialog?.background==='johnny-memory'&&!c.memoryTransition){c.dialog.chars=1e5;c.next();}});
   await p.waitForFunction(()=>lunaCampaign.dialog?.background==='terrace'&&!lunaCampaign.memoryTransition);
   assert(await p.evaluate(()=>barGame.progress.flags.campaign_observation&&!barGame.progress.flags.old_fashioned_recipe_notice_pending&&!barGame.progress.flags.old_fashioned_recipe_notified));
-  // The Notion exterior revision has one final silence, without a source choice.
-  assert.equal(await p.evaluate(()=>lunaCampaign.dialog.rows[lunaCampaign.dialog.index].text),'...');
+  // Latest night2 returns to Chris, then offers the material-source branch.
+  assert.equal(await p.evaluate(()=>lunaCampaign.dialog.rows[lunaCampaign.dialog.index].text),'... 아, 크리스.');
   const drainTerrace=()=>p.evaluate(()=>{const c=lunaCampaign;for(let i=0;i<80&&c.view==='scene'&&c.dialog&&!c.memoryTransition&&!c.dayTransition;i++){c.dialog.chars=1e5;c.next();}});
+  await drainTerrace();
+  await p.locator('.world-choices button').first().waitFor();await p.waitForTimeout(850);await p.locator('[data-choice="1"]').click();
   await drainTerrace();
   await p.waitForFunction(()=>outsidePlaytest.active&&!outsidePlaytest.loading&&!lunaCampaign.dayTransition&&['game','developer'].includes(lunaCampaign.view)&&outsidePlaytest.model.config.day===3,null,{timeout:20000});
   assert.equal(await p.locator('.story-notice-recipe').count(),0);

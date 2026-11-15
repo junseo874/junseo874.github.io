@@ -7,7 +7,7 @@ const road=-.974,corridor=R.upperY-.274;
 const actorEvents={neighbor:['street','neighborhood-reveal','neighbor'],repair:['street','neighborhood-repairGreeting','repair'],guard:['street','neighborhood-guardBlocked','guard'],boss:['street','neighborhood-bossIntro','boss'],gangmate:['street','neighborhood-bossIntro','gangmate'],chris:['home','neighborhood-homeCat','chris'],cat:['street','neighborhood-reveal','boobi'],sofa:['home','neighborhood-homeCat','boobi']};
 const placeDefaults={box:{x:R.homeX+.77,y:10.07},cat:{x:R.homeX+1.02,y:9.82},neighbor:{x:R.homeX+2.10,y:corridor},sofa:{x:2.65,y:-.46},chris:{x:1.75,y:road},repair:{x:R.elevatorX+.97,y:road},guard:{x:R.elevatorX-1.48,y:road},boss:{x:-15.5,y:road},gangmate:{x:-14.72,y:road}};
 const places=Object.freeze(Object.fromEntries(Object.entries(placeDefaults).map(([key,p])=>[key,actorEvents[key]?W.LunaEngineWorld?.actorPoint(...actorEvents[key],p)||p:key==='box'&&W.LunaEngineWorld?{x:W.LunaEngineWorld.target('street','neighborhood-reveal').x,y:W.LunaEngineWorld.target('street','neighborhood-reveal').y}:p])));
-const motion=Object.freeze({neighborStop:places.cat.x+(W.LunaEngineWorld ? .8 : .60),neighborSpeed:.24,departureSpeed:.24,departureDuration:1.6});
+const motion=Object.freeze({get neighborStop(){return places.cat.x+(W.LunaEngineWorld ? .8 : .60);},neighborSpeed:.24,departureSpeed:.24,departureDuration:1.6});
 const names={luna:'루나',boobi:'부비',neighbor:'옆집 아저씨',repair:'수리공',guard:'갱단원',chris:'크리스',boss:'덩치 큰 남자',gangmate:'갱단원'};
 const action=name=>({type:'neighborhood-action',action:name});
 // Dialogue content is projected from the web-owned shared CSV catalog.
@@ -85,9 +85,9 @@ function choiceView(m){const stage=m.story.speech.line.stage,p=progress(),option
  if(stage==='repair')options.push({id:'gear',label:'기어 부품 건네주기'},{id:'pay',label:'비용 건네주기 · 400원'});
  if(stage==='guard')options.push({id:'ask',label:'술을 찾고 있어요.'});
  if(stage==='boss-first'||stage==='boss-repeat')return{money:p.money,label:names.boss,options:W.LunaNeighborhoodChoiceRules.apply(stage,[
-  {id:'boss-wait',label:'( 대화 그만두기 )'},
-  {id:'boss-repair',label:stage==='boss-first'?'승강기는 이미 고쳤습니다.':'승강기 고쳤습니다.'},
-  {id:'boss-pay',label:'돈으로 살게요 · 500원'}
+  {id:'boss-wait',label:'조금만 기다려 주세요'},
+  {id:'boss-repair',label:stage==='boss-first'?'이미 고쳤습니다.':'엘리베이터를 고쳤습니다.'},
+  {id:'boss-pay',label:'돈을 드릴게요 · 500원'}
  ],p)};
  options.push({id:'cancel',label:stage==='guard'?'자리를 뜬다.':stage==='repair-intro'?'무시한다.':'취소'});
  return{money:stage==='home-cat'?undefined:p.money,label:names[m.story.speech.line.actor]||'선택',options:W.LunaNeighborhoodChoiceRules.apply(stage,options,p)};
@@ -148,7 +148,7 @@ function tick(m,dt){if(m.qa)return false;const n=state(m),a=n.action;
   if(a.name==='neighbor-out'){duration=(places.neighbor.x-motion.neighborStop)/motion.neighborSpeed;n.neighbor.x=Math.min(places.neighbor.x,motion.neighborStop+t*motion.neighborSpeed);if(t>=duration)n.neighbor=null;}
   if(a.name==='chris-in'){
    duration=2.7;
-   if(t>=.45&&!a.swapped){a.swapped=true;n.chris={x:places.chris.x};m.x=2.20;m.y=-.7;m.facing=-1;
+   if(t>=.45&&!a.swapped){a.swapped=true;n.chris={x:places.chris.x};m.x=W.LunaNpcScene?.shift('home-cat',2.20)??2.20;m.y=-.7;m.facing=-1;
     const to=W.LunaHomeArt.cameraX(m.x,4.8);n.restCamera={from:to-.32,to,time:-.25};
     m.backgroundStory.cancel();W.outsidePlaytest?.snapCamera?.();m.revision++;
    }

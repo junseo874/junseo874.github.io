@@ -7,7 +7,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8123/bar-playtest/outside-dialogue-editor.html?flow=newspaper/intro');
   await page.waitForFunction(()=>window.outsideDialogueEditor?.model);
-  await page.locator('#line-list .line').last().click();await page.waitForTimeout(650);
+  await page.locator('#view-script').click();await page.locator('#line-list .line').last().click();await page.waitForTimeout(650);
   await page.locator('#preview-choices button').nth(1).focus();
   await page.evaluate(()=>{window.originalChoiceNodes=[...document.querySelectorAll('#preview-choices button')];window.choiceEntries=0;document.querySelector('#preview-choices').addEventListener('animationstart',e=>{if(/^world-choice-in/.test(e.animationName))choiceEntries++;});});
   const text=page.locator('[data-menu-index="1"] textarea[data-menu-field="text.ko"]');
@@ -18,7 +18,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert(await page.evaluate(()=>originalChoiceNodes.every((b,i)=>b===document.querySelectorAll('#preview-choices button')[i])),'reuse button nodes');
   assert.equal(await page.locator('#preview-choices button').nth(1).getAttribute('aria-current'),'true');
   assert(await text.evaluate(el=>el===document.activeElement&&el.selectionStart===el.value.length),'typing caret stays in editor');
-  await page.locator('[data-menu-index="1"] input[data-menu-field="when"]').fill('money >= 99999');
+  const choice=page.locator('[data-menu-index="1"]');await choice.locator('[data-gate-kind]').selectOption('money');await choice.locator('[data-gate-num]').fill('99999');await choice.locator('[data-gate-add]').click();
   assert.equal(await page.locator('#preview-choices button').nth(1).getAttribute('aria-disabled'),'true');
   assert.equal(await page.evaluate(()=>choiceEntries),0,'condition edits must not replay entry');
   assert(await page.locator('#preview-choices button').nth(1).evaluate(el=>getComputedStyle(el).clipPath.startsWith('polygon(')));

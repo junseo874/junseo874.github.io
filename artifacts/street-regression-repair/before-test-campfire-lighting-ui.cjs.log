@@ -1,0 +1,11 @@
+AssertionError [ERR_ASSERTION]: source matches the replacement prop flame, not original atlas
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-campfire-lighting-ui.cjs:21:2
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:541:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

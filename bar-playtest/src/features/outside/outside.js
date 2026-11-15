@@ -108,12 +108,15 @@
   // Equal Unity sorting keys must not inherit serialized component/file-ID order.
   // Wall/fence dressing goes on the background, NPCs follow their sorting order,
   // and only genuine foreground art (railings/lift front) covers the player.
-  function streetDrawOrder(nodes) {
-    const rank = n => n.ancestry?.[0] === 'BG' || n.ancestry?.[0] === 'Residence' ? 0 : 1;
+  const streetRank = n => n.ancestry?.[0] === 'BG' || n.ancestry?.[0] === 'Residence' ? 0 : 1;
     // The residential facade is foreground art despite sharing layer 5 with
     // distant city displays. Keep those displays behind the facade as a group.
-    const depth = n => !global.LunaEngineWorld&&n.name === 'residence-building' ? 5.5 : n.layer;
-    return nodes.slice().sort((a, b) => depth(a) - depth(b) || a.order - b.order || b.z - a.z || rank(a) - rank(b) || String(a.id).localeCompare(String(b.id)));
+  const streetDepth = n => !global.LunaEngineWorld&&n.name === 'residence-building' ? 5.5 : n.layer;
+  function compareStreetNodes(a,b) {
+    return streetDepth(a)-streetDepth(b) || a.order-b.order || b.z-a.z || streetRank(a)-streetRank(b) || String(a.id).localeCompare(String(b.id));
+  }
+  function streetDrawOrder(nodes) {
+    return nodes.slice().sort(compareStreetNodes);
   }
   function interactionAnchor(model, target, data, stable = false) {
     if (model.qa) return {
@@ -502,6 +505,7 @@
       return true;
     }
     tick(dt, input = {}) {
+      global.LunaNpcScene?.apply(this);
       dt = clamp(Number(dt) || 0, 0, .05);
       if (this.paused) return;
       // Inspecting an image must not start a proximity scene or move the player
@@ -645,7 +649,7 @@
   }
   function create(options) {
     const factory = typeof module === 'undefined' ? global.LunaOutsideParts.view : require('./outside-view.js');
-    return factory({ BOTTOM, EX, FLOWS, OutsideModel, PLACES, R, TOP, VIEWPOINT, atViewpoint, clamp, firstCommuteEntranceCue, global, homewardCues, interactionAnchor, interactionLabel, mix, smooth, streetDrawOrder, streetParallax })(options);
+    return factory({ BOTTOM, EX, FLOWS, OutsideModel, PLACES, R, TOP, VIEWPOINT, atViewpoint, clamp, firstCommuteEntranceCue, global, homewardCues, interactionAnchor, interactionLabel, mix, smooth, compareStreetNodes, streetParallax })(options);
   }
   global.LunaOutside = {
     Model: OutsideModel,

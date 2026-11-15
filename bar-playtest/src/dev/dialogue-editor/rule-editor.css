@@ -1,0 +1,38 @@
+.studio-icon{display:inline-block;width:16px;height:16px;vertical-align:middle;pointer-events:none;flex:none}.card-tools .studio-icon{width:15px;height:15px}
+.flow-card .pin-trash,.pin-icon-action{color:#ebb0a2}.flow-card .pin-trash{position:absolute;z-index:2;left:9px;width:23px;height:23px;display:grid;place-items:center;margin:0;padding:0;background:#2d2426;border:1px solid #6b4343;border-radius:4px}.flow-card .port-label{right:0;padding-right:12px}.flow-card .port-label.with-trash{left:38px}
+#map-menu [data-menu="drop-pin"],#map-menu [data-menu="drop-option"]{color:#ffc3b0}#map-menu .studio-icon{margin-right:6px}
+.pin-tab strong{margin-right:auto}.pin-tab{gap:5px}.pin-tab .pin-icon-action{padding:4px}.pin-group>.pin-icon-action{margin-right:4px}
+.flow-card .card-add{display:flex;justify-content:center;align-items:center;gap:4px;background:#1b3038;line-height:18px;font-weight:650}
+.flow-card .card-add .studio-icon{width:13px;height:13px}
+/* Shared controls for bar node, choice, line and output-pin inspectors. */
+.rule-composer{display:grid;gap:5px;min-width:0;margin:5px 0 9px;container-type:inline-size}
+.rc-field-title{display:block;color:#cfdee5;font-size:12px;margin:8px 0 2px}
+.rule-composer .rc-summary{margin:0;color:#b9d9da;font-size:12px;line-height:1.5}
+.rc-list{display:grid;gap:3px;min-width:0}
+.rc-row{display:grid;grid-template-columns:minmax(64px,.95fr) minmax(90px,1.55fr) 24px;gap:4px;align-items:center;border:1px solid #344952;border-radius:4px;background:#111c23;padding:4px}
+.rc-name{min-width:0;color:#e3edf0;font-size:12px;font-weight:600;overflow-wrap:anywhere}
+.rc-values{min-width:0;display:flex;gap:3px;align-items:center;flex-wrap:wrap}
+.rc-values :is(input,select){width:0;min-width:43px;flex:1 1 44px;margin:0;max-width:100%;font-size:12px;padding:3px 4px;height:28px}
+.rc-values [aria-label="호감도 인물"]{flex-basis:100%}
+.rc-values .rc-switch{display:inline-flex;gap:2px}.rc-switch button,.rc-name button,.rule-composer .rc-delete,.rc-tools button{font-size:12px;line-height:1.3;margin:0;padding:4px 6px;min-height:26px}
+.rc-name button{display:inline-flex;align-items:center;max-width:100%;text-align:left;white-space:normal;overflow-wrap:anywhere;background:#1b3037;color:#d8f6ee}
+.rc-switch button[aria-pressed=true]{border-color:#79ccc4;background:#2a5356;color:#eefffc}
+.rc-raw,.rc-message{overflow-wrap:anywhere;font-size:11px;color:#e0b985}.rc-message:empty,.rc-list:empty{display:none}
+.rc-caption{font-size:11px;color:#a0b9c5}.rc-tools{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.rc-tools button{background:#182a35;color:#c5dee8}.rc-tools [data-add-rule=flag]{color:#a7e5d7}
+.rule-composer .rc-delete{padding:0;color:#bbced5}.rule-composer .rc-delete:hover{color:#ffbdac;border-color:#ae7566}
+@container(max-width:250px){.rc-row{grid-template-columns:1fr 24px}.rc-name{grid-column:1}.rc-values{grid-column:1;grid-row:2}.rc-delete{grid-column:2;grid-row:1 / 3}}
+#node-detail .pin-editor{display:flex;flex-direction:column;min-width:0;min-height:100%;gap:6px}
+.pin-tab{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #34505d;padding:0 0 5px;color:#bacee0;font-size:12px}.pin-tab button{font-size:12px;padding:4px 8px}
+#node-detail .pin-heading{background:#182630;border:1px solid #324753;border-inline-start:3px solid #dba35e;border-radius:4px;padding:7px 9px}
+#node-detail .pin-editor .pin-heading h2{margin:2px 0;font-size:15px}
+.pin-group{--group:#87b6ce;min-width:0;border:1px solid #324652;border-radius:4px;background:#15232d;padding:0 7px 5px}
+.pin-group[data-pin-group=text]{--group:#c39cd8}.pin-group[data-pin-group=choiceWhen]{--group:#aa9edc}.pin-group[data-pin-group=choiceEffects]{--group:#d8ae76}.pin-group[data-pin-group=predicate]{--group:#7dc8b8}
+#node-detail .pin-group>h3{margin:0 -7px 5px;padding:5px 7px;color:#e9f0f3;font-size:12px;background:#233640;border-inline-start:3px solid var(--group)}
+.pin-property{display:grid;grid-template-columns:minmax(55px,26%) minmax(0,1fr);align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #2c3b46}
+.pin-property :is(span,strong){font-size:12px;overflow-wrap:anywhere}.pin-property span{color:#b9cbd3}
+.pin-property :is(textarea,select){padding:4px 6px;width:100%;min-width:0;font-size:12px;margin:0}.pin-property textarea{resize:vertical;min-height:28px}
+.pin-jumps{display:flex;flex-wrap:wrap;gap:3px}.pin-jumps button{padding:3px 7px;font-size:11px;background:#192b38;border-radius:3px}
+.pin-group>button{margin-top:6px;font-size:12px;padding:5px 8px}
+.pin-editor .pin-editor-actions{position:sticky;bottom:0;z-index:2;display:flex;justify-content:space-between;border-top:1px solid #39525c;background:#11212a;margin-top:auto;padding:7px}
+.pin-editor .pin-status{flex:1;min-width:0;font-size:12px;overflow-wrap:anywhere;color:#b3c6cf}.pin-editor[data-pin-dirty=true] .pin-status{color:#ffd49a}.pin-editor [data-pin-apply]:enabled{background:#275851;border-color:#79bdb0}

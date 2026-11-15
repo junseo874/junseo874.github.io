@@ -61,9 +61,11 @@ const rt = require('../../tools/lib/test-runtime.cjs');
     }
     await page.setViewportSize({width:1280,height:720});
     await page.screenshot({path:'/private/tmp/loading-pigeon-small-stardust.png'});
-    // Door-art fallback uses the same presentation, then leaves cleanly when art is ready.
-    await page.evaluate(() => {lunaCampaign.doorTransition={artReady:false};lunaCampaign.screen('bar-door');});
-    assert.equal(await page.locator('.resource-loading-copy').textContent(), 'Loading');
+    // The bar door shows only its loading track while the illustration is being prepared.
+    await page.evaluate(() => {lunaCampaign.doorTransition={direction:'in',artReady:false};lunaCampaign.screen('bar-door');});
+    assert.equal(await page.locator('.bar-door-scene').innerText(), '');
+    assert(await page.locator('.bar-door-load-track').isVisible());
+    assert(await page.locator('.bar-door-composition').isHidden());
     await page.evaluate(() => {lunaCampaign.doorTransition.artReady=true;lunaCampaign.doorTransition.direction='in';lunaCampaign.draw();});
     assert.equal(await page.locator('.resource-loading').count(), 0);
     assert.equal(await page.locator('.bar-door-scene').count(), 1);

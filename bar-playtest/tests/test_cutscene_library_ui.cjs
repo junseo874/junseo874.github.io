@@ -8,7 +8,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await p.locator('[data-act="version"][data-id="cutscenes"]').click();
  const entries=await p.evaluate(()=>LunaCutsceneLibrary.catalog);
  assert(!entries.some(x=>x.id==='A-workshop'));
- assert.equal(entries.length,5);assert(entries.every(x=>!x.id.startsWith('B-')&&x.id!=='opening-b'));assert.equal(await p.locator('.cutscene-card').count(),entries.length);
+ assert.equal(entries.length,6);assert(entries.every(x=>!x.id.startsWith('B-')&&x.id!=='opening-b'));assert.equal(await p.locator('.cutscene-card').count(),entries.length);
  assert.equal(await p.locator('.version-tabs button.selected').count(),1);
  await p.locator('[data-act="cutsceneFilter"][data-id="2일차"]').click();assert.equal(await p.locator('.cutscene-card').count(),entries.filter(x=>x.day==='2일차').length);
  await p.locator('[data-act="cutsceneFilter"][data-id="all"]').click();
@@ -17,7 +17,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  const before=await state();
  for(const entry of entries.filter(x=>x.kind!=='neighborhood')){
   await p.locator('[data-act="cutscenePlay"][data-id="'+entry.id+'"]').click();
-  await p.waitForFunction(()=>['scene','prologue','load-error'].includes(lunaCampaign.view)&&!lunaCampaign.memoryTransition,null,{timeout:60000});
+  await p.waitForFunction(()=>['scene','prologue','ending','load-error'].includes(lunaCampaign.view)&&!lunaCampaign.memoryTransition,null,{timeout:60000});
   assert.notEqual(await p.evaluate(()=>lunaCampaign.view),'load-error',entry.id+': '+await p.evaluate(()=>lunaCampaign.loadError));
   if(entry.background==='terrace')assert.equal(await p.evaluate(()=>lunaCampaign.dialog.terraceWeather.config.day),Number.parseInt(entry.day,10),entry.id+' uses its own day/weather');
   await p.waitForTimeout(150);

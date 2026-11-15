@@ -4,7 +4,7 @@ const {parseRows,parseCsv,Catalog}=require('../../bar-playtest/src/shared/data/c
 const META=['dataset_id','row_id','parent_id','parent_field','source_order','template_id'];
 const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex').slice(0,16);
 const encode=v=>v==null?'\\N':v===''?'\\E':typeof v==='string'&&v.startsWith('\\')?'\\'+v:String(v);
-const csv=matrix=>'\ufeff'+matrix.map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\r\n')+'\r\n';
+const csv=matrix=>'\ufeff'+matrix.map(row=>row.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(',')).join('\n')+'\n';
 function serialize(original,values){
  const tables=parseRows(original['_Tables.csv']),oldColumns=parseRows(original['_Columns.csv']),oldSchemas=parseRows(original['_Schemas.csv']),sources=parseRows(original['_Sources.csv']);
  const nodes=new Map(oldSchemas.map(n=>[n.template_id+'|'+n.node_id,n]));

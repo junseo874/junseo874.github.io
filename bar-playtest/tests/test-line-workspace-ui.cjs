@@ -1,0 +1,41 @@
+const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runtime.cjs');
+(async()=>{
+ const browser=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
+ try{
+  const page=await browser.newPage({viewport:{width:1440,height:900}}),errors=[];page.on('pageerror',e=>errors.push(e.message));page.setDefaultTimeout(9000);
+  await page.goto((process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/dialogue-editor.html?view=lines');const rows=page.locator('.line');await rows.first().waitFor();
+  assert.equal(await page.getByText('다른 작업 공간',{exact:true}).count(),0);assert.equal(await page.locator('#scene select').count(),0);assert(await page.locator('[data-phase=bar_open]').isDisabled());
+  await page.selectOption('#day','1');await page.click('[data-phase=bar]');const total=await rows.count();assert(total>30);
+  await page.selectOption('#line-kind','choice');assert.equal(await rows.count(),await page.locator('.line.tone-choice').count());await rows.first().click();
+  const label=page.locator('.choice-editor textarea[data-field="text.ko"]').first(),value=await label.inputValue();assert(value);await page.fill('#search',value.slice(0,5));assert(await rows.count()>0);
+  await page.fill('#search','no-such-line-827618');assert.equal(await rows.count(),0);await page.click('#reset-line-search');assert.equal(await rows.count(),total);
+  await page.selectOption('#line-kind','speech');await rows.first().click();const text=page.locator('.line-primary textarea');await text.fill('대사 편집기 화면 검수');await page.click('#line-changed');assert.equal(await rows.count(),1);assert(await page.locator('.line.changed').isVisible());assert(await page.locator('#up').isDisabled());
+  await page.click('#line-changed');await page.locator('#line-list').focus();await page.keyboard.press('End');const id=await page.evaluate(()=>dialogueEditor.selected);await page.keyboard.press('ArrowUp');assert.notEqual(await page.evaluate(()=>dialogueEditor.selected),id);await page.keyboard.press('Enter');assert(await text.evaluate(e=>document.activeElement===e));
+  const height=()=>page.locator('#line-list').evaluate(e=>e.clientHeight),old=await height();await page.click('#preview-fold');assert(await height()>old+60);await page.click('#preview-fold');assert(await page.locator('#line-preview').isVisible());await page.click('#preview-large');assert(await height()<old-60);await page.click('#preview-large');
+  await page.selectOption('#line-kind','all');
+  const source=await page.evaluate(()=>dialogueEditor.model.rows('campaign_d1_bar').find(r=>r.type==='say'&&Number(r.seq)>2).row_id);
+  const row=id=>page.locator('#line-list [data-line="'+id+'"]'),menu=page.locator('#line-menu'),pick=key=>menu.locator('[data-menu="'+key+'"]').click();page.on('dialog',dlg=>dlg.accept());
+  await row(source).click({button:'right'});await pick('after');const inserted=await page.evaluate(()=>dialogueEditor.selected);
+  assert.equal(await page.evaluate(([a,b])=>{const list=dialogueEditor.model.rows('campaign_d1_bar');return list.findIndex(r=>r.row_id===b)-list.findIndex(r=>r.row_id===a);},[source,inserted]),1);
+  await row(inserted).focus();await page.keyboard.press('Shift+F10');await pick('type');await pick('type-choice');
+  assert.equal(await page.locator('.choice-editor').count(),2);assert.equal(await page.getByLabel('선택지 그룹 ID').getAttribute('readonly'),'');assert.equal(await page.locator('#inspector details:not([open])').count(),0);
+  const order=await page.locator('#inspector').evaluate(el=>[...el.querySelectorAll('.choice-editor,.choice-rule,[data-fold="execution"],[data-fold="source"]')].map(e=>e.classList.contains('choice-editor')?'text':e.classList.contains('choice-rule')?'rule':e.dataset.fold));
+  assert.deepEqual(order,['text','text','rule','rule','execution','source']);
+  const group=await page.evaluate(()=>dialogueEditor.model.row(dialogueEditor.selected).arg);
+  await row(inserted).click({button:'right'});await pick('duplicate');const copy=await page.evaluate(()=>dialogueEditor.selected);assert.notEqual(copy,inserted);assert.notEqual(await page.evaluate(()=>dialogueEditor.model.row(dialogueEditor.selected).arg),group);
+  await row(inserted).click({button:'right'});await pick('delete');assert.equal(await page.evaluate(k=>dialogueEditor.model.choices(k).length,group),0);
+  await page.click('#undo');assert.equal(await page.evaluate(k=>dialogueEditor.model.choices(k).length,group),2);
+  await row(inserted).click({button:'right'});await pick('type');await pick('type-say');assert.equal(await page.evaluate(k=>dialogueEditor.model.choices(k).length,group),0);
+  await row(inserted).click({button:'right'});await pick('before');const before=await page.evaluate(()=>dialogueEditor.selected);assert.notEqual(before,source);
+  await row(before).click({button:'right'});await pick('down');await row(before).click({button:'right'});await pick('up');
+  await page.selectOption('#line-kind','speech');await row(before).click({button:'right'});assert(await menu.locator('[data-menu=up]').isDisabled());await page.keyboard.press('Escape');assert(await menu.isHidden());
+  await row(before).click({button:'right'});await pick('chart');await page.locator('#flow-panel').waitFor();assert.equal(await page.title(),'LUNA · 플로우 차트');assert.equal(await page.locator('#node-detail details:not([open])').count(),0);await page.goBack();await page.locator('#line-workspace').waitFor();
+  await row(before).click();
+  assert(await page.locator('#inspector .row-id').isVisible());assert.equal(await page.locator('#inspector details:not([open])').count(),0);
+  assert.equal(await page.getByRole('button',{name:'플로우 차트',exact:true}).first().isVisible(),true);assert.equal(await page.title(),'LUNA · 대사 편집기');
+  await page.setViewportSize({width:390,height:844});await page.click('#line-pane-switch [data-pane=both]');assert(await page.locator('#inspector').isVisible());assert(await rows.first().isVisible());await page.locator('#line-pane-switch [data-pane=list]').click();await rows.first().click();assert(await text.isVisible());assert.equal(await page.locator('#line-list').isVisible(),false);await page.click('#line-pane-switch [data-pane=list]');assert(await rows.first().isVisible());
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight));assert.deepEqual(errors,[]);
+  await page.click('#studio-back');await page.waitForURL('**/bar-playtest/index.html?dev=1');await page.locator('.version-tabs').waitFor();
+  console.log('LINE_WORKSPACE_OK: phase buttons, no extra destinations, option-text search, type/changed-only filters, scoped keyboard navigation, live inline editing, collapsible preview and phone panes.');
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

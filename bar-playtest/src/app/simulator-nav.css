@@ -1,0 +1,191 @@
+:root {
+  --sim-rail: clamp(158px,13.6vw,207px);
+  --sim-font: system-ui,-apple-system,sans-serif;
+  --sim-rail-padding: 18px 12px 12px;
+  --sim-gutter: 16px;
+}
+/* Setup screens are browser workspaces. The playable stage resumes its native
+   1280 × 720 coordinate system as soon as the setup screen closes. */
+.app-shell:has(.workspace > .start-screen .sim-nav):not(:has(.modal-backdrop,.dossier-screen)) {
+  position: fixed; inset: 0; width: 100%; height: 100dvh; transform: none;
+}
+.app-shell:has(.start-screen .sim-nav):not(:has(.modal-backdrop,.dossier-screen)) > .workspace {width: 100%; height: 100%}
+/* Native dialogs and gameplay overlays use the same matte as the game. */
+body:has(#campaign-root[hidden]):has(#campaign-developer-back:not([hidden])):has(.start-screen .sim-nav):not(:has(dialog[open],.modal-backdrop,.dossier-screen)) #game-letterbox {display: none}
+body:has(.start-screen .sim-nav) #campaign-developer-back {
+  left: auto; top: 10px; right: var(--sim-gutter); transform: none; font: 12px var(--sim-font);
+}
+body[data-sim-page], .workspace > .start-screen:has(.sim-nav) {
+  font: 13px/1.45 var(--sim-font); color: #e5edf1; background: #0b141d;
+}
+body[data-sim-page] {margin: 0 0 0 var(--sim-rail)}
+.workspace > .start-screen:has(.sim-nav) {
+  display: block; overflow: auto!important; scrollbar-gutter: auto;
+  padding: 0 var(--sim-gutter) 20px calc(var(--sim-rail) + var(--sim-gutter));
+}
+.workspace > .start-screen:has(.sim-nav) :is(button,input,select,textarea,h1,h2,h3,p) {font-family: var(--sim-font)}
+.workspace > .start-screen:has(.sim-nav) > :is(.start-card,.guest-look-layout,.minigame-cards) {margin: 16px 0}
+.workspace > .start-screen:has(.sim-nav) > .cutscene-panel {height: auto; min-height: 0; padding-top: 16px}
+.workspace > .start-screen:has(.sim-nav) .cutscene-list {overflow: visible}
+.workspace > .start-screen:has(.sim-nav) .guest-look-layout {width: 100%}
+.sim-heading, body[data-sim-page] > header {
+  box-sizing: border-box; height: 54px; min-height: 54px; display: flex; align-items: center;
+  margin: 0; padding: 0 var(--sim-gutter); background: #0b151e; border-bottom: 1px solid #29404f;
+}
+.workspace .sim-heading {margin-inline: calc(-1 * var(--sim-gutter))}
+.sim-heading h1, body[data-sim-page] > header h1 {margin: 0; color: #e5edf1; font: 700 20px/1.25 var(--sim-font); letter-spacing: -.04em}
+.sim-nav.version-tabs, .workspace > .start-screen .sim-nav.version-tabs {
+  box-sizing: border-box; position: fixed; inset: 0 auto 0 0; transform: none;
+  width: var(--sim-rail); max-width: none; margin: 0; padding: var(--sim-rail-padding);
+  display: flex; flex-flow: column nowrap; justify-content: flex-start; align-items: stretch;
+  gap: 13px; overflow: auto; background: #111d28; border: 0; border-right: 1px solid #29404f;
+  border-radius: 0; z-index: 4; color: #e5edf1; text-align: left; font: 13px/1.45 var(--sim-font);
+}
+.sim-nav .sim-brand {display: flex; align-items: center; gap: 9px; padding: 1px 2px 8px; font: 700 17px/1.45 var(--sim-font); letter-spacing: -.04em}
+.sim-brand i {display: grid; place-items: center; flex: none; width: 32px; height: 34px; background: #183830; color: #71e2ce; border: 1px solid #3a796e; border-radius: 8px; font: 22px var(--sim-font)}
+.sim-nav-group {display: grid; gap: 6px}
+.sim-nav-group small {margin-bottom: 2px; color: #96a9b7; font: 600 10px/1.4 ui-monospace,monospace; letter-spacing: .11em}
+.sim-nav.version-tabs :is(button,a) {
+  box-sizing: border-box; display: block; width: 100%; min-width: 0; margin: 0; padding: 8px 10px;
+  background: #18242e; color: #e5edf1; border: 1px solid #30444e; border-radius: 5px;
+  font: inherit; text-align: left; text-decoration: none; white-space: normal; letter-spacing: normal;
+}
+.sim-nav.version-tabs :is(button,a):hover {border-color: #72dae3}
+.sim-nav.version-tabs :is(.selected,[aria-current=page]) {background: #173d3c; color: #b4f2e2; border-color: #427d73}
+.sim-nav :focus-visible {outline: 2px solid #71e2ce; outline-offset: 1px}
+body[data-sim-page="dialogue-editors"] .editor-hub {margin: 0; padding: 20px var(--sim-gutter)}
+@media(max-width:1080px) {
+  :root {--sim-rail:147px; --sim-rail-padding:12px 9px}
+  .workspace .minigame-lobby .minigame-cards {grid-template-columns: repeat(auto-fit,minmax(min(160px,100%),1fr))}
+}
+@media(max-width:760px) {
+  :root {--sim-rail:120px; --sim-gutter:10px}
+  .sim-nav .sim-brand {font-size:15px}
+  .sim-brand i {display:none}
+  .sim-nav.version-tabs, .workspace > .start-screen .sim-nav.version-tabs {font-size:12px}
+  .workspace .guest-look-layout {grid-template-columns:minmax(0,1fr)}
+  .workspace .guest-look-preview {position:static}
+  .workspace .cutscene-list {grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:460px) {
+  :root {--sim-rail:98px; --sim-rail-padding:7px 4px}
+  .sim-nav.version-tabs :is(button,a) {padding-inline:4px}
+  .workspace .sim-heading h1 {font-size:17px}
+}
+
+/* Content surfaces share the editor's spacing and type scale. Card counts
+   follow the available content width after the navigation rail. */
+:root {
+  --sim-panel: #111e29;
+  --sim-line: #304653;
+  --sim-muted: #a2b5c1;
+  --sim-gap: clamp(12px,1.3vw,20px);
+  --sim-pad: clamp(14px,1.6vw,24px);
+}
+.workspace .start-screen .sim-panel,
+.workspace .guest-look-layout :is(.guest-look-preview,.guest-look-parts>section),
+body[data-sim-page] .editor-cards>a,
+body[data-sim-page] .controls {
+  background: var(--sim-panel); border: 1px solid var(--sim-line);
+  border-radius: 8px; box-shadow: none; color: #e5edf1;
+}
+.workspace .start-screen .session-layout,
+.workspace .start-screen .location-launch,
+body[data-sim-page] .editor-cards {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,340px),1fr));
+  gap: var(--sim-gap); align-items: start; max-width: 1120px; margin: var(--sim-gap) 0;
+}
+.workspace .start-screen .session-settings {
+  width: 100%; max-width: none; max-height: none; min-width: 0; overflow: visible;
+  display: grid; padding: var(--sim-pad); gap: 16px;
+}
+.workspace .session-settings :is(h2,label,select,fieldset,legend,.day-list,.upkeep-setup),
+.workspace .session-summary :is(h2,p), .workspace .location-launch :is(h2,p) {margin: 0}
+.workspace .session-settings :is(fieldset,legend) {padding: 0; border: 0; min-width: 0}
+.workspace .session-settings .day-list {display: flex; flex-wrap: wrap; gap: 5px}
+.workspace .session-settings :is(select,.day-list) {margin-top: 6px}
+.workspace .session-settings .day-list button {flex: 1 0 auto; padding: 8px}
+.workspace .session-settings :is(.primary,.subtle), .workspace .location-launch .primary {font-size: 14px; padding: 10px 16px}
+.workspace .session-settings footer {display: flex; flex-wrap: wrap; gap: 8px}
+.workspace .session-settings footer .primary {width: auto; flex: 1}
+.workspace .session-summary, .workspace .location-launch {overflow: hidden}
+.workspace .session-summary img, .workspace .location-launch img, body[data-sim-page] .editor-cards img {
+  display: block; width: 100%; aspect-ratio: 16/9; object-fit: cover;
+}
+.workspace .session-summary>div, .workspace .location-launch>div {padding: var(--sim-pad)}
+.workspace .session-summary .start-note, .workspace .location-launch p {
+  margin: 8px 0 0; min-height: 0; padding: 0; border: 0; background: transparent;
+  color: var(--sim-muted); font: 14px/1.65 var(--sim-font);
+}
+.workspace .start-screen .location-launch {align-items: center; gap: 0}
+.workspace .location-launch .primary {margin-top: 18px}
+.workspace .start-screen .minigame-cards, .workspace .start-screen .cutscene-list {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,230px),1fr));
+  gap: var(--sim-gap); max-width: 1440px; padding: 0;
+}
+.workspace .start-screen :is(.minigame-card,.sim-wine,.cutscene-card) {
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  padding: var(--sim-pad); height: auto; min-height: 0; gap: 8px; margin: 0;
+  background: var(--sim-panel); border: 1px solid var(--sim-line); border-radius: 8px; box-shadow: none;
+}
+.workspace .start-screen :is(.minigame-card,.sim-wine,.cutscene-card):hover,
+body[data-sim-page] .editor-cards>a:hover {background: #19313b; border-color: #579d95}
+.workspace .start-screen :is(.minigame-card,.sim-wine) :is(p,h2,small,strong) {margin: 0; min-height: 0}
+.workspace .start-screen :is(.minigame-art,.sim-wine>img) {height: 64px; margin: 0; align-self: center}
+.workspace .minigame-art img {height: 60px}
+.workspace .start-screen .sim-wine .minigame-enter {display:block}
+.workspace .start-screen :is(.minigame-enter,.cutscene-card>b) {margin-top: auto; padding-top: 8px; color: #a4e4d9}
+.workspace .start-screen :is(.session-layout,.location-launch,.minigame-cards,.cutscene-panel,.guest-look-layout) h2,
+body[data-sim-page] .editor-hub h2 {font-size: 18px; line-height: 1.35; letter-spacing: -.025em}
+.workspace .start-screen .cutscene-panel {max-width: 1440px}
+.workspace .cutscene-filters, .workspace .cutscene-trailer-link {flex-wrap: wrap}
+.workspace .cutscene-filters {gap: 6px}
+.workspace .cutscene-filters button {padding: 6px 12px}
+.workspace .cutscene-card>b {align-self: flex-start}
+.workspace .guest-look-layout {gap: var(--sim-gap); max-width: 1440px}
+.workspace .guest-look-parts {grid-template-columns: repeat(auto-fit,minmax(min(100%,290px),1fr)); align-content: start}
+.workspace .guest-look-preview details {margin-top: 12px; color: var(--sim-muted)}
+.workspace .guest-look-preview details summary {cursor: pointer}
+body[data-sim-page] .editor-hub {max-width: 1152px}
+body[data-sim-page] .editor-cards>a {display: grid; padding: 0 0 var(--sim-pad); gap: 10px; overflow: hidden}
+body[data-sim-page] .editor-cards>a>:not(img) {margin: 0; padding-inline: var(--sim-pad)}
+body[data-sim-page] .editor-cards img {margin-bottom: 4px}
+body[data-sim-page="data-review"] main {padding: var(--sim-gap) var(--sim-gutter)}
+body[data-sim-page] .controls {display: grid; padding: var(--sim-pad); gap: 12px; grid-template-columns: repeat(auto-fit,minmax(min(100%,174px),1fr))}
+body[data-sim-page] .controls .search {min-width: 0!important}
+body[data-sim-page] .controls :is(select,input[type=search]) {max-width: none}
+body[data-sim-page] .controls a {justify-self: start}
+body[data-sim-page] .table-scroll {background: var(--sim-panel); overscroll-behavior: contain}
+body[data-sim-page="resource-review"] .workspace>main {padding: var(--sim-gap) var(--sim-gutter)}
+body[data-sim-page="resource-review"] #catalog-view .toolbar {align-items: end; padding: var(--sim-pad); background: var(--sim-panel); border: 1px solid var(--sim-line); border-radius: 8px}
+body[data-sim-page="resource-review"] #grid {grid-template-columns: repeat(auto-fill,minmax(min(100%,184px),1fr)); gap: 12px}
+@media(max-width:760px) {
+  .workspace .start-screen .session-settings {gap: 12px}
+  .workspace .cutscene-filters small {flex-basis: 100%; margin: 0}
+  .workspace .cutscene-panel header {align-items: flex-start}
+  .workspace .guest-look-screen .guest-look-stage {height: 165px}
+}
+.workspace .session-settings .day-list button {background:#182832; border:1px solid #36505d; color:#e5edf1}
+.workspace .session-settings .day-list button.selected,
+.workspace .cutscene-filters button[aria-pressed=true] {background:#173d3c; border-color:#427d73; color:#b4f2e2}
+.workspace .start-screen :is(.session-settings,.location-launch,.guest-look-preview) .primary {
+  background:#a0dfcf; border-color:#a0dfcf; color:#0c2927;
+}
+
+/* Simulator menus use browser pixels even when their game preview is scaled. */
+.workspace:has(>.start-screen .sim-nav) > .modal-backdrop {
+  padding:clamp(8px,2vw,24px); font:13px/1.45 var(--sim-font);
+}
+.workspace:has(>.start-screen .sim-nav) > .modal-backdrop .modal {
+  max-width:100%; max-height:100%; min-width:0; padding:clamp(14px,2vw,24px);
+  border:1px solid var(--sim-line); border-radius:8px; background:var(--sim-panel);
+  color:#e5edf1; font:inherit; overscroll-behavior:contain;
+}
+.workspace:has(>.start-screen .sim-nav) .modal :is(button,select,input,h2) {font-family:var(--sim-font)}
+.workspace:has(>.start-screen .sim-nav) .modal-title {gap:12px; margin-bottom:12px}
+.workspace:has(>.start-screen .sim-nav) .modal-title h2 {font-size:18px; margin:0; color:inherit}
+.workspace .mini-ingredient-modal .wine-version-grid {grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:10px}
+.workspace .wine-version-grid button {padding:14px;gap:8px}
+.workspace .mini-ingredient-modal .mini-ingredient-grid {grid-template-columns:repeat(auto-fit,minmax(min(100%,138px),1fr));max-height:min(48dvh,380px)}
+.workspace .mini-ingredient-modal > p > span {float:none;display:inline-block;margin-inline-start:6px}
+body:has(.wine-practice-dialog[open]) .wine-practice-dialog::backdrop {clip-path:none}

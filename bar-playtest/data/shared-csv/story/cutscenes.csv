@@ -13,3 +13,6 @@
 "sp_experiment_poster","sprite","Poster/experiment","임상시험 전단 포스터 뷰 — 이미지 발주 대기(가칭 키)","cutscenes","cutscenes_sp_experiment_poster","@cutscenes","\N","22","cutscenes_format_01"
 "tv_news_d0","timeline","tl_documentary","0일차 TV 다큐 — 기존 호출명 / Cutscene Studio 연결","cutscenes","cutscenes_tv_news_d0","@cutscenes","\N","23","cutscenes_format_01"
 "johnny-memory","timeline","tl_johnny_memory","2일차 조니 회상 — 기존 호출명 / Cutscene Studio 연결","cutscenes","cutscenes_johnny-memory","@cutscenes","\N","24","cutscenes_format_01"
+"tl_documentary","timeline","tl_documentary","0일차 TV 다큐","cutscenes","cutscenes_tl_documentary","@cutscenes","\N","25","cutscenes_format_01"
+"tl_yuna_memory_d0","timeline","tl_yuna_memory_d0","0일차 유나 회상","cutscenes","cutscenes_tl_yuna_memory_d0","@cutscenes","\N","26","cutscenes_format_01"
+"tl_yuna_memory_d3","timeline","tl_yuna_memory_d3","3일차 유나 회상","cutscenes","cutscenes_tl_yuna_memory_d3","@cutscenes","\N","27","cutscenes_format_01"

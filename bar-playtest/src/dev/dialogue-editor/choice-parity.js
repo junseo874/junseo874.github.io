@@ -22,7 +22,8 @@ function compare(m,result){
   function trace(list,visited=new Set()){
    const ids=[];
    for(const r of list){
-    if(r.type==='effect'||r.type==='set_state')continue;
+    // Conditional non-blocking notifications do not change the next spoken line.
+    if(r.type==='effect'||r.type==='set_state'||(r.type==='popup'&&r.sync==='nowait'))continue;
     if(clean(r.when))throw Error('조건에 따라 경로가 달라짐: '+r.row_id);
     if(r.type==='say'||r.type==='timeline'){if(clean(r['text.ko']))ids.push(r.row_id);continue;}
     if(r.type==='goto'){const sc=m.rawScenes.find(s=>s.id===r.scene_id&&s.dataset_id===step.dataset_id);

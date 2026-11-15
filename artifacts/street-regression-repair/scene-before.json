@@ -1,0 +1,1156 @@
+{
+  "R": {
+    "homeX": -16.401,
+    "upperY": 9.666,
+    "elevatorX": -12.705000000000002,
+    "elevatorBottom": -1.045,
+    "elevatorTop": 9.238,
+    "passengerOffset": 0.345,
+    "lowerMin": -16.3,
+    "upperMin": -18.98,
+    "upperMax": -12.54,
+    "cabinOffsetY": -0.18
+  },
+  "nodes": [
+    {
+      "id": "350656400",
+      "go": "350656398",
+      "name": "Elevator Fore",
+      "x": -12.645000000000001,
+      "y": -1.135,
+      "z": 1.79,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "ObjectManager",
+        "Interact Obj",
+        "Object",
+        "Elevator",
+        "Elevator",
+        "Elevator Fore"
+      ],
+      "sprite": {
+        "asset": "7804fb0ce01e52",
+        "x": 0,
+        "y": 0,
+        "w": 57,
+        "h": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100
+      },
+      "layer": 13,
+      "order": 0,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "350656400",
+      "placementSource": "web-lift-framing",
+      "engineRotation": 0
+    },
+    {
+      "id": "980668472",
+      "go": "980668470",
+      "name": "B_Obects",
+      "x": -5.59,
+      "y": -1.045,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "BG",
+        "Foreground",
+        "B_Obects"
+      ],
+      "sprite": {
+        "asset": "street-camp-props",
+        "x": 0,
+        "y": 0,
+        "w": 2218,
+        "h": 207,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100,
+        "wireOffsetX": 6
+      },
+      "layer": 9,
+      "order": 0,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "980668472",
+      "placementSource": "engine",
+      "engineRotation": 0
+    },
+    {
+      "id": "1582674272",
+      "go": "1582674270",
+      "name": "Elevator",
+      "x": -12.705000000000002,
+      "y": -1.2249999999999999,
+      "z": 1.79,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "ObjectManager",
+        "Interact Obj",
+        "Object",
+        "Elevator",
+        "Elevator"
+      ],
+      "sprite": {
+        "asset": "a6cb4f2caa2edc",
+        "x": 0,
+        "y": 0,
+        "w": 69,
+        "h": 154,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100
+      },
+      "layer": 9,
+      "order": 0,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1582674272",
+      "placementSource": "web-lift-framing",
+      "engineRotation": 0
+    },
+    {
+      "id": "residence-building",
+      "go": "residence-building",
+      "name": "residence-building",
+      "x": -17.490000000000002,
+      "y": -1.5,
+      "z": 1.79,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Residence"
+      ],
+      "sprite": {
+        "asset": "residence-building",
+        "x": 0,
+        "y": 0,
+        "w": 952,
+        "h": 1587,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100
+      },
+      "layer": 5,
+      "order": 0,
+      "flip": false,
+      "interactionRegions": {
+        "home": [
+          562,
+          397,
+          43,
+          80
+        ]
+      },
+      "engineNode": "1151976387",
+      "placementSource": "engine",
+      "engineRotation": 0
+    },
+    {
+      "id": "residence-railing",
+      "go": "residence-railing",
+      "name": "residence-railing",
+      "x": -17.490000000000002,
+      "y": 4.99,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Residence"
+      ],
+      "sprite": {
+        "asset": "residence-railing",
+        "x": 0,
+        "y": 0,
+        "w": 952,
+        "h": 709,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100
+      },
+      "layer": 13,
+      "order": 1,
+      "flip": false,
+      "engineNode": "647539757",
+      "placementSource": "engine",
+      "engineRotation": 0
+    },
+    {
+      "id": "1985635297",
+      "go": "1985635295",
+      "name": "barrel-front",
+      "x": -15.915000000000001,
+      "y": -0.995,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "BG",
+        "Foreground"
+      ],
+      "sprite": {
+        "asset": "street-barrel-front",
+        "x": 0,
+        "y": 0,
+        "w": 21,
+        "h": 28,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        },
+        "ppu": 100
+      },
+      "layer": 9,
+      "order": 0.02,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "sortingLayer": 1950817317,
+      "engineNode": "980668472",
+      "placementSource": "web-child"
+    },
+    {
+      "id": "engine-barrel-fire",
+      "go": "980668470",
+      "name": "barrel-fire",
+      "x": -15.916,
+      "y": -0.629,
+      "z": 0,
+      "sx": -0.1891237,
+      "sy": -0.26430625,
+      "active": true,
+      "ancestry": [
+        "BG",
+        "Foreground"
+      ],
+      "sprite": {
+        "asset": "street-fire-aura",
+        "x": 0,
+        "y": 0,
+        "w": 100,
+        "h": 100,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "layer": 9,
+      "order": 0.01,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "980668472",
+      "placementSource": "web-child"
+    }
+  ],
+  "fire": {
+    "id": "barrel-fire",
+    "name": "Barrel fire",
+    "type": 0,
+    "ancestry": [
+      "B_Obects"
+    ],
+    "x": -15.916,
+    "y": -0.629,
+    "active": true,
+    "localFalloff": true,
+    "color": [
+      1,
+      0.48,
+      0.12
+    ],
+    "intensity": 3,
+    "radius": 2.6,
+    "priority": 1,
+    "layers": [
+      1950817317
+    ],
+    "gain": 0.9143452378494807
+  },
+  "gang": [
+    {
+      "id": "repair",
+      "kind": "Repairman",
+      "sp": {
+        "asset": "ambient-Repairman",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      },
+      "x": -11.675,
+      "y": -0.974,
+      "sx": 1,
+      "sy": 1,
+      "flip": false,
+      "alpha": 1,
+      "layer": 12,
+      "order": 4,
+      "engineActor": {
+        "scene": "street",
+        "event": "neighborhood-repairGreeting",
+        "role": "repair"
+      },
+      "root": {
+        "x": -11.675,
+        "y": -0.974
+      },
+      "scale": 1
+    },
+    {
+      "id": "guard",
+      "kind": "Gang1",
+      "sp": {
+        "asset": "ambient-Gang1",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      },
+      "x": -14.125,
+      "y": -0.974,
+      "sx": 1,
+      "sy": 1,
+      "flip": false,
+      "alpha": 1,
+      "layer": 14,
+      "order": 0,
+      "engineActor": {
+        "scene": "street",
+        "event": "neighborhood-guardBlocked",
+        "role": "guard"
+      },
+      "root": {
+        "x": -14.125,
+        "y": -0.974
+      },
+      "scale": 1
+    },
+    {
+      "id": "boss",
+      "kind": "Gang5",
+      "sp": {
+        "asset": "ambient-Gang5",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      },
+      "x": -15.5,
+      "y": -0.974,
+      "sx": 1,
+      "sy": 1,
+      "flip": true,
+      "alpha": 1,
+      "layer": 14,
+      "order": 0,
+      "engineActor": {
+        "scene": "street",
+        "event": "neighborhood-bossIntro",
+        "role": "boss"
+      },
+      "root": {
+        "x": -15.5,
+        "y": -0.974
+      },
+      "scale": 1
+    },
+    {
+      "id": "gang-left",
+      "kind": "Gang2",
+      "x": -16.08,
+      "y": -0.974,
+      "scale": 1,
+      "flip": true,
+      "alpha": 1,
+      "sp": {
+        "asset": "ambient-Gang2",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      }
+    },
+    {
+      "id": "gang-far",
+      "kind": "Gang4",
+      "x": -16.38,
+      "y": -0.974,
+      "scale": 1,
+      "flip": true,
+      "alpha": 1,
+      "sp": {
+        "asset": "ambient-Gang4",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      }
+    },
+    {
+      "id": "gangmate",
+      "kind": "Gang3",
+      "sp": {
+        "asset": "ambient-Gang3",
+        "x": 0,
+        "y": 0,
+        "w": 129,
+        "h": 138,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.17391304347826086
+        },
+        "ppu": 100
+      },
+      "x": -14.72000027,
+      "y": -0.974,
+      "sx": 1,
+      "sy": 1,
+      "flip": false,
+      "alpha": 1,
+      "layer": 14,
+      "order": 0,
+      "engineActor": {
+        "scene": "street",
+        "event": "neighborhood-bossIntro",
+        "role": "gangmate"
+      },
+      "root": {
+        "x": -14.72000027,
+        "y": -0.974
+      },
+      "scale": 1
+    }
+  ],
+  "home": [
+    {
+      "id": "220094232",
+      "go": "220094231",
+      "name": "Terrace_Entrance",
+      "x": 3.362,
+      "y": -0.502,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Terrace_Entrance"
+      ],
+      "sprite": {
+        "asset": "7c052072db66af",
+        "x": 0,
+        "y": 0,
+        "w": 31,
+        "h": 101,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "220094232",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Terrace_Entrance.png"
+    },
+    {
+      "id": "398070674",
+      "go": "398070673",
+      "name": "Luna",
+      "x": -1.451,
+      "y": -0.7,
+      "z": -1,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Luna"
+      ],
+      "sprite": {
+        "asset": "62634d34afb444",
+        "x": 0,
+        "y": 0,
+        "w": 89,
+        "h": 86,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.4
+        },
+        "name": "luna_v2-idle_Sheet_0",
+        "ppu": 100
+      },
+      "layer": 9,
+      "order": 5,
+      "flip": false,
+      "color": {
+        "r": 0.9009434,
+        "g": 0.9203241,
+        "b": 1,
+        "a": 1
+      },
+      "src": "assets/01.ArtResources/01.Characters/02.Outside/01.Luna/Legacy/luna_v2_idle_Sheet.png"
+    },
+    {
+      "id": "953149914",
+      "go": "953149913",
+      "name": "ForeFore_Object",
+      "x": 2.5970000000000004,
+      "y": -0.8919999999999999,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "ForeFore_Object"
+      ],
+      "sprite": {
+        "asset": "253e8e169d8d13",
+        "x": 0,
+        "y": 0,
+        "w": 188,
+        "h": 27,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 10,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "953149914",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object.png"
+    },
+    {
+      "id": "1144763783",
+      "go": "1144763782",
+      "name": "Hanger",
+      "x": 3.1720000000000006,
+      "y": -0.577,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Hanger"
+      ],
+      "sprite": {
+        "asset": "cd0635e2180fca",
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 86,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1144763783",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Hanger.png"
+    },
+    {
+      "id": "1183900665",
+      "go": "1183900664",
+      "name": "Room_Entrance",
+      "x": -1.623,
+      "y": -0.532,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "Room_Entrance"
+      ],
+      "sprite": {
+        "asset": "67a3be7da118ce",
+        "x": 0,
+        "y": 0,
+        "w": 26,
+        "h": 87,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1183900665",
+      "placementSource": "engine",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Room_Entrance.png"
+    },
+    {
+      "id": "1429427378",
+      "go": "1429427377",
+      "name": "main_bg",
+      "x": 1.382,
+      "y": 0.0129999999999999,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "main_bg"
+      ],
+      "sprite": {
+        "asset": "629b82812402bc",
+        "x": 0,
+        "y": 0,
+        "w": 631,
+        "h": 270,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 0,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1183900665",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse.png"
+    },
+    {
+      "id": "2030127651",
+      "go": "2030127650",
+      "name": "IntractObjects",
+      "x": 1.2170000000000003,
+      "y": -0.44700000000000006,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "IntractObjects"
+      ],
+      "sprite": {
+        "asset": "035fbd614b7696",
+        "x": 0,
+        "y": 0,
+        "w": 54,
+        "h": 40,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "289449519",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV.png"
+    },
+    {
+      "id": "home-city",
+      "go": "home-city",
+      "name": "home-city",
+      "x": 1.382,
+      "y": 0.0129999999999999,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-city"
+      ],
+      "sprite": {
+        "asset": "home-city",
+        "x": 0,
+        "y": 0,
+        "w": 631,
+        "h": 270,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": -1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1183900665",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/90.PreviousVersions/ver.4/Chrishouse_BG_City.png"
+    },
+    {
+      "id": "home-tv-screen",
+      "go": "home-tv-screen",
+      "name": "home-tv-screen",
+      "x": 1.232,
+      "y": -0.41700000000000004,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-tv-screen"
+      ],
+      "sprite": {
+        "asset": "home-tv-screen",
+        "x": 0,
+        "y": 0,
+        "w": 47,
+        "h": 30,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1.01,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "289449519",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_TV_on.png"
+    },
+    {
+      "id": "home-bed",
+      "go": "home-bed",
+      "name": "home-bed",
+      "x": -0.8079999999999999,
+      "y": -0.627,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-bed"
+      ],
+      "sprite": {
+        "asset": "home-bed",
+        "x": 0,
+        "y": 0,
+        "w": 91,
+        "h": 26,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1183900665",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bed.png"
+    },
+    {
+      "id": "home-wardrobe",
+      "go": "home-wardrobe",
+      "name": "home-wardrobe",
+      "x": -0.20299999999999985,
+      "y": -0.492,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-wardrobe"
+      ],
+      "sprite": {
+        "asset": "home-wardrobe",
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 69,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "1183900665",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Closet.png"
+    },
+    {
+      "id": "home-bedding",
+      "go": "home-bedding",
+      "name": "home-bedding",
+      "x": 2.5920000000000005,
+      "y": -0.6970000000000001,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-bedding"
+      ],
+      "sprite": {
+        "asset": "home-bedding",
+        "x": 0,
+        "y": 0,
+        "w": 111,
+        "h": 54,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "2030127651",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bedding.png"
+    },
+    {
+      "id": "home-herb",
+      "go": "home-herb",
+      "name": "home-herb",
+      "x": 2.4220000000000006,
+      "y": -0.3520000000000001,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-herb"
+      ],
+      "sprite": {
+        "asset": "home-herb",
+        "x": 0,
+        "y": 0,
+        "w": 11,
+        "h": 19,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 1,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "463204427",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Herbpot.png"
+    },
+    {
+      "id": "home-book",
+      "go": "home-book",
+      "name": "home-book",
+      "x": 1.882,
+      "y": -0.7520000000000002,
+      "z": 0,
+      "sx": 1,
+      "sy": 1,
+      "active": true,
+      "ancestry": [
+        "home-book"
+      ],
+      "sprite": {
+        "asset": "home-book",
+        "x": 0,
+        "y": 0,
+        "w": 21,
+        "h": 9,
+        "pivot": {
+          "x": 0.5,
+          "y": 0.5
+        },
+        "ppu": 100
+      },
+      "layer": 0,
+      "order": 10.01,
+      "flip": false,
+      "color": {
+        "r": 1,
+        "g": 1,
+        "b": 1,
+        "a": 1
+      },
+      "engineNode": "953149914",
+      "placementSource": "web-room-frame",
+      "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/ForeFore_Object_Book.png"
+    }
+  ],
+  "birds": [
+    {
+      "kind": "crow",
+      "frame": 0,
+      "x": -17.08,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 52,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 2,
+      "x": -16.93,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 310,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 4,
+      "x": -16.25,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 568,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 6,
+      "x": -16.07,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 826,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 8,
+      "x": -15.83,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 1084,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 11,
+      "x": -15.26,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 1471,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    },
+    {
+      "kind": "crow",
+      "frame": 1,
+      "x": -15.02,
+      "y": 11.16,
+      "sprite": {
+        "asset": "corridor-crow",
+        "x": 181,
+        "y": 98,
+        "w": 24,
+        "h": 17,
+        "ppu": 100,
+        "pivot": {
+          "x": 0.5,
+          "y": 0
+        }
+      }
+    }
+  ]
+}

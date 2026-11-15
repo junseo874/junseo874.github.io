@@ -2,6 +2,20 @@
 
 플레이 결과의 기준은 [본편 구현 확정 기준](../gameplay/README.md)과 [사건별 흐름](../gameplay/events.md)입니다. 테스트는 이 기준의 검증 자료이며 개발자/QA에서 강제로 만든 상태를 본편 규칙으로 정의하지 않습니다. 데이터 수정 시 [CSV 변경 순서](../gameplay/data-and-dialogue.md#안전한-변경-순서)를 함께 따릅니다.
 
+## 현재 웹을 검사할 때
+
+- 저장소 루트에서 `node tools/run-tests.cjs --list`로 현재 관리하는 검사를 확인한다. `all`은 등록된 7개 묶음을 같은 파일은 한 번만 실행한다. 오래된 단독 실험 파일까지 모두 통과했다는 뜻은 아니다.
+- 범위별로는 `data`(CSV·저장), `craft`(제조), `outside`(외부), `cinema`(일차 전환·컷씬), `ui`(화면·편집기), `site`(진입 경로), `smoke`(공통 회귀)를 실행한다. 브라우저 검사는 로컬 8123 서버가 필요하다. 원본 폰트 바이트 비교는 Git 이력도 필요하다.
+- 검사 파일을 등록하는 곳은 [묶음 목록](../../tools/lib/regression-suites.cjs) 한 곳이다. 공개 페이지와 미니게임 경로는 [공통 진입점 목록](../../tools/lib/site-entrypoints.cjs)에서 관리하며, 불러오는 순서와 브라우저의 실제 로딩을 함께 검사한다.
+- 외부 화면의 [그리기 순서 검사](../../bar-playtest/tests/test-scene-draw-lists.cjs)는 집·거리의 배경 및 NPC가 이전과 같은 순서인지 확인한다. [차트 검사](../../bar-playtest/tests/test-outside-graph-index.cjs)는 NPC별 선택지·합류·소유 대사를 비교하고, [로컬 저장 알림 검사](../../bar-playtest/tests/test-dialogue-live-signals.cjs)는 중복 알림과 읽는 중 발생한 추가 저장, 삭제한 분기 및 오류 복구를 확인한다.
+- 배포 전에는 `node tools/build-shared-data.cjs`, `node tools/build-preload-manifest.cjs`, `python3 bar-playtest/tools/package.py --check`를 실행한다. 셋 모두 원본을 쓰지 않는다. 실행 CSV를 옛 노션 기록으로 다시 생성하지 않는다.
+
+### 무엇까지 확인하는 검사인가
+
+- [0일차 튜토리얼](../../bar-playtest/tests/test_day0_tutorial_ui.cjs)은 기본·실험 버전에서 코스터를 잘못 놓았다 다시 놓고, 실제 버튼으로 진토닉 레시피를 선택하며, 안내를 건너뛴 경로도 확인한다. 실험 버전에서는 이전에 본 술이나 즐겨찾기 필터가 튜토리얼의 유일한 제조 버튼을 가리면 안 된다.
+- [일차 전환 검사](../../bar-playtest/tests/test-day-resource-transitions-ui.cjs)는 각 일차 퇴근 시점에서 시작해 실제 리소스를 요청하고, 0→1·1→2·2→3일차의 다음 영업 입장과 3일차 엔딩을 확인한다. 하루씩 분리한 검사이며 한 플레이 기록으로 나흘을 연속 완주한 검사는 아니다.
+- `test_campaign_flow_ui.cjs`는 과거 타이틀의 ‘시작 일차 선택’과 옛 씬 위치를 전제로 한 단독 검사다. 현재 타이틀에서는 새 게임을 누르면 바로 도입부로 간다. 이 파일의 옛 버튼 대기를 본편 로딩 오류로 판정하거나 현재 완주 증거로 사용하지 않는다.
+
 ## 원본 그래픽 경로 통일 검수 (2026-11-01)
 
 ### 후속: 웹 생성 PNG를 웹 assets로 통합

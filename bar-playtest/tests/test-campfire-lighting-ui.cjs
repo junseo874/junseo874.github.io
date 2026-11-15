@@ -13,12 +13,14 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   n.x+=2;n.y+=3;const shifted=F.worldLight(m);Object.assign(n,original);n.flip=!n.flip;const flipped=F.worldLight(m);Object.assign(n,original);
   n.active=false;const inactive=F.worldLight(m);Object.assign(n,original);
   const gains=[1,1.04,1.2,1.7].map(time=>{m.time=time;return [F.worldLight(m).gain,F.render(time).energy];});
-  const p={x:fire.x,y:-.974};return {fire,shift:[shifted.x-fire.x,shifted.y-fire.y],mirror:flipped.x+fire.x-2*n.x,inactive:inactive.active,gains,
+  const d=LUNA_BARREL_FIRE,p={x:fire.x,y:-.974},flame=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-fire'),front=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='barrel-front');return {fire,expected:[n.x+(d.fire.x-d.back.x)*n.sx/d.back.sx,n.y+(d.fire.y-d.back.y)*n.sy/d.back.sy],flame:[flame.x,flame.y],front:[front.x,front.y],shift:[shifted.x-fire.x,shifted.y-fire.y],mirror:flipped.x+fire.x-2*n.x,inactive:inactive.active,gains,
    upstairs:S.influence({x:fire.x,y:9.74},fire),distant:S.influence({x:-10,y:p.y},fire),
    near:S.influence(p,fire),far:S.influence({x:fire.x-1.5,y:p.y},fire),
    directions:[S.direction({x:fire.x-.4,y:p.y},fire,1)[0],S.direction({x:fire.x+.4,y:p.y},fire,1)[0]]};
  });
- assert(Math.abs(source.fire.x+15.946)<1e-6&&Math.abs(source.fire.y+.629)<1e-6,'source matches the replacement prop flame, not original atlas');
+ assert.deepEqual([source.fire.x,source.fire.y],source.expected,'Light follows the current prop root and authored flame offset');
+ assert.deepEqual([source.fire.x,source.fire.y],source.flame,'Rendered flame and light occupy the same world point');
+ assert(Math.abs(source.front[0]-source.fire.x)<.01&&source.fire.y>source.front[1],'Fire is above the split barrel front');
  assert.deepEqual(source.shift,[2,3]);assert(Math.abs(source.mirror)<1e-6);assert.equal(source.inactive,false);
  assert(source.gains.every(([a,b])=>a===b));assert(new Set(source.gains.map(p=>p[0])).size>1);
  assert.equal(source.upstairs,0);assert.equal(source.distant,0);assert(source.near>source.far);assert(source.directions[0]<0&&source.directions[1]>0);

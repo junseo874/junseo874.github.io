@@ -103,6 +103,10 @@
       "src/features/outside/events/newspaper-dialogue.js"
     ],
     [
+      "script",
+      "src/dev/dialogue-editor/session-playtest.js"
+    ],
+    [
       "link",
       "src/app/styles.css"
     ],
@@ -307,6 +311,18 @@
       "src/shared/ui/generated-art.css"
     ],
     [
+      "link",
+      "src/app/simulator-nav.css"
+    ],
+    [
+      "link",
+      "src/shared/ui/preview-fullscreen.css"
+    ],
+    [
+      "script",
+      "src/shared/ui/preview-fullscreen.js"
+    ],
+    [
       "script",
       "src/shared/platform/focus-settings.js"
     ],
@@ -436,6 +452,10 @@
     ],
     [
       "script",
+      "src/app/simulator-nav.js"
+    ],
+    [
+      "script",
       "src/features/bar/remix-ui.js"
     ],
     [
@@ -521,6 +541,14 @@
     [
       "script",
       "data/presentation/engine-world-layout.js"
+    ],
+    [
+      "script",
+      "src/features/outside/npc-placement.js"
+    ],
+    [
+      "script",
+      "src/features/outside/npc-placement-runtime.js"
     ],
     [
       "script",
@@ -828,6 +856,10 @@
     ],
     [
       "script",
+      "src/features/outside/scene-draw-lists.js"
+    ],
+    [
+      "script",
       "src/features/outside/outside-view.js"
     ],
     [
@@ -897,6 +929,34 @@
       "src/dev/dialogue-editor/editor.css"
     ],
     [
+      "link",
+      "src/dev/dialogue-editor/flow.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/line-workspace.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/workbench.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/rule-editor.css"
+    ],
+    [
+      "link",
+      "src/shared/ui/preview-fullscreen.css"
+    ],
+    [
+      "script",
+      "src/shared/ui/preview-fullscreen.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/draft-store.js"
+    ],
+    [
       "script",
       "src/shared/data/csv-catalog.js"
     ],
@@ -922,6 +982,34 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/flow-wiring.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-sections.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-days.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/bar-audit.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flag-tools.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flag-picker.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/workbench.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/editor-model.js"
     ],
     [
@@ -931,6 +1019,62 @@
     [
       "script",
       "src/dev/dialogue-editor/color-picker.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-model.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-authoring.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-layout.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-canvas.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-player.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-playtest.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/rule-editor.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-author-ui.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-workspace-menu.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-detail-panel.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-pin-inspector.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-view.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/line-actions.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/line-workspace.js"
     ],
     [
       "script",
@@ -949,12 +1093,24 @@
     [
       "link",
       "src/dev/dialogue-editor/outside-editor.css"
+    ],
+    [
+      "link",
+      "src/app/simulator-nav.css"
+    ],
+    [
+      "script",
+      "src/app/simulator-nav.js"
     ]
   ],
   "bar-playtest/outside-dialogue-editor.html": [
     [
       "link",
       "src/dev/dialogue-editor/editor.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/flow.css"
     ],
     [
       "link",
@@ -967,6 +1123,18 @@
     [
       "link",
       "src/dev/dialogue-editor/outside-editor.css"
+    ],
+    [
+      "link",
+      "src/shared/ui/preview-fullscreen.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/outside-studio.css"
+    ],
+    [
+      "script",
+      "src/shared/ui/preview-fullscreen.js"
     ],
     [
       "script",
@@ -1010,7 +1178,15 @@
     ],
     [
       "script",
+      "src/features/outside/bubi-art.js"
+    ],
+    [
+      "script",
       "src/features/outside/samho-animation.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/flow-days.js"
     ],
     [
       "script",
@@ -1038,6 +1214,14 @@
     ],
     [
       "script",
+      "src/features/outside/npc-placement.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-wiring.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/outside-model.js"
     ],
     [
@@ -1055,6 +1239,26 @@
     [
       "script",
       "src/dev/dialogue-editor/live-data.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-flow-map.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-gates.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-chart.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-details.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-placement.js"
     ],
     [
       "script",
@@ -1089,6 +1293,22 @@
     [
       "script",
       "src/shared/ui/cursors.js"
+    ],
+    [
+      "link",
+      "src/app/simulator-nav.css"
+    ],
+    [
+      "link",
+      "src/shared/ui/preview-fullscreen.css"
+    ],
+    [
+      "script",
+      "src/shared/ui/preview-fullscreen.js"
+    ],
+    [
+      "script",
+      "src/app/simulator-nav.js"
     ],
     [
       "link",
@@ -1187,6 +1407,128 @@
     [
       "script",
       "src/shared/ui/cursors.js"
+    ]
+  ],
+  "bar-playtest/data-review.html": [
+    [
+      "link",
+      "src/dev/data/data-review.css"
+    ],
+    [
+      "link",
+      "src/app/simulator-nav.css"
+    ],
+    [
+      "script",
+      "src/app/simulator-nav.js"
+    ],
+    [
+      "script",
+      "src/shared/data/csv-catalog.js"
+    ],
+    [
+      "script",
+      "src/dev/data/data-review.js"
+    ]
+  ],
+  "bar-playtest/sound-lab.html": [
+    [
+      "link",
+      "src/shared/ui/typography.css"
+    ],
+    [
+      "link",
+      "src/features/crafting/serve-view.css"
+    ],
+    [
+      "link",
+      "src/dev/sound/sound-lab.css"
+    ],
+    [
+      "script",
+      "src/features/crafting/serve-view.js"
+    ],
+    [
+      "script",
+      "src/dev/sound/sound-lab.js"
+    ]
+  ],
+  "bar-playtest/src/dev/shaking/version-2.html": [
+    [
+      "link",
+      "../../shared/ui/typography.css"
+    ],
+    [
+      "link",
+      "prototype.css"
+    ],
+    [
+      "link",
+      "../../features/tutorials/mix-tutorial.css"
+    ],
+    [
+      "link",
+      "../../shared/ui/generated-art.css"
+    ],
+    [
+      "link",
+      "session.css"
+    ],
+    [
+      "script",
+      "session-audio.js"
+    ],
+    [
+      "script",
+      "session-clock.js"
+    ],
+    [
+      "script",
+      "game.js"
+    ],
+    [
+      "script",
+      "luna.js"
+    ],
+    [
+      "script",
+      "settings.js"
+    ],
+    [
+      "script",
+      "session.js"
+    ],
+    [
+      "script",
+      "session-craft.js"
+    ]
+  ],
+  "bar-playtest/src/dev/wine-opening/version-1.html": [
+    [
+      "link",
+      "wine-opening.css"
+    ],
+    [
+      "script",
+      "session.js"
+    ],
+    [
+      "script",
+      "version-1.js"
+    ]
+  ],
+  "bar-playtest/src/dev/wine-opening/version-2.html": [
+    [
+      "link",
+      "wine-opening.css"
+    ],
+    [
+      "script",
+      "session.js"
+    ],
+    [
+      "script",
+      "version-2.js"
     ]
   ],
   "cutscene-studio/index.html": [
@@ -1357,6 +1699,28 @@
     [
       "script",
       "src/studio.js"
+    ]
+  ],
+  "cutscene-studio/trailer.html": [
+    [
+      "link",
+      "styles/trailer.css"
+    ],
+    [
+      "script",
+      "src/trailer-scenes.js"
+    ],
+    [
+      "script",
+      "src/trailer-game.js"
+    ],
+    [
+      "script",
+      "src/trailer-effects.js"
+    ],
+    [
+      "script",
+      "src/trailer-preview.js"
     ]
   ]
 }

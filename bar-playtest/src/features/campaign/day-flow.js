@@ -52,7 +52,10 @@
       global.LunaBarDoor.paint(this.host, d);
       this.retryLoad = () => this.runDoorTransition(direction, prepare, commit);
       Promise.all([Promise.all(global.LunaBarDoor.assets.map(src => this.image(src))).then(()=>{
-        if(this.doorTransition!==d)return;d.artReady=true;if(this.view==='bar-door')this.draw();
+        if (this.doorTransition !== d) return;
+        d.artReady = true;
+        const composition = this.host.querySelector('.bar-door-composition');
+        if (composition) composition.hidden = false;
       }), Promise.resolve().then(() => {
         if (this.doorTransition === d) return prepare();
       })]).then(() => {

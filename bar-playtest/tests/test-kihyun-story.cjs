@@ -3,7 +3,7 @@ const root=path.resolve(__dirname,'..'),W={};W.window=W;
 for(const file of ['data/runtime/game-data.js','data/runtime/campaign-data.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 require('../src/shared/ui/story-notices.js');
 const C=require('../src/core/core.js'),D=C.millilitreData(W.LUNA_DATA),story=W.LUNA_CAMPAIGN_DATA;
-const expected={0:['gin_tonic','gin_fizz'],1:['bottle_beer','dry_martini','screwdriver'],2:['free','bottle_beer'],3:['johnny_old_fashioned','bottle_beer']};
+const expected={0:['gin_tonic','gin_fizz'],1:['dry_martini','screwdriver','kahlua_milk'],2:['free','bottle_beer','champagne','bottle_beer'],3:['johnny_old_fashioned']};
 const tick=g=>{g.cameraMoving=false;g.tick(.1);assert.equal(g.error,null);};
 for(const answer of [1,2])for(const day of [0,1,2,3]){
  const g=new C.Game(D);g.reset(day,'regular',123,false);g.overlay=null;g.tutorial=null;g.progress.flags.day0_skip_tutorial=true;
@@ -33,12 +33,12 @@ for(const answer of [1,2])for(const day of [0,1,2,3]){
 }
 const rows=D.tables.steps.filter(r=>r.context==='campaign_d3_bar');
 assert(rows.findIndex(r=>r.type==='serve'&&r.actor==='tom')<rows.findIndex(r=>r.type==='enter'&&r.actor==='samho'));
-assert.equal(story.scenes.night2[0].stage,null);assert.equal(story.scenes.night2[11].cinemaAfter,'johnny-memory');
-assert.equal(story.scenes.night2[2].actor,'luna');assert.equal(story.scenes.night2.filter(r=>r.type==='choice').length,0);
+assert.equal(story.scenes.night2[0].stage,'luna-alone');assert.equal(story.scenes.night2[1].cinemaAfter,'johnny-memory');
+assert.equal(story.scenes.night2[2].actor,'luna');assert.equal(story.scenes.night2.filter(r=>r.type==='choice').length,1);
 assert.equal(story.scenes.night0.filter(r=>r.cinemaAfter).length,1);assert.equal(story.scenes.ending.filter(r=>r.memoryKey==='terraceMemory3').length,1);
-assert.equal(story.scenes.terraceMemory.length,8);assert.equal(story.scenes.terraceMemory3.length,5);
-assert(story.scenes.johnny.some(r=>r.text.includes('소형 미사일 탄환')));
+assert.equal(story.scenes.terraceMemory.length,7);assert.equal(story.scenes.terraceMemory3.length,6);
+assert(story.scenes.johnny.some(r=>r.text.includes('중형 폭탄')));
 for(const ingredient of ['와일드 독 45ml','비터스 5ml','각설탕 1개'])assert(story.scenes.johnny.some(r=>r.text.includes(ingredient)));
 assert(!Object.values(story.scenes).flat().some(r=>r.text?.includes('#대괄호')));
 assert.equal(D.tables.cocktails.find(r=>r.id==='screwdriver').unlock_day,'1');
-console.log('KIHYUN_STORY_OK: all four bar days, both branches, 9 drink orders, tip/name/chip/sugar flags, terrace and memory links');
+console.log('KIHYUN_STORY_OK: all four bar days, both branches, 10 drink orders, tip/name/chip/sugar flags, terrace and memory links');

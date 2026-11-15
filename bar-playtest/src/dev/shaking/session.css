@@ -7,10 +7,10 @@ html,body{margin:0;min-height:100%;height:auto}
 .stage{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:18px}
 .luna canvas#lv{width:min(100%,calc((100vh - 128px)*760/712));height:auto;margin:auto}
 .panel canvas#cv{display:block;width:min(100%,calc((100vh - 190px)*880/640));height:auto;margin:auto;touch-action:none}
-.modal,.tut,.result{overflow:auto}
+.modal,.result{overflow:auto}
 .sbox{max-height:94vh;overflow:auto}
 .row:has(#oMusic),.row:has(#oStreet),.row:has(#oVoice),.row:has(#oBgm){display:none}
-@media(max-width:640px){.stage{gap:8px}.top{flex-wrap:wrap}.tabs button{font-size:11px}.tbox{max-height:94vh;overflow:auto}.tgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.stage{gap:8px}.top{flex-wrap:wrap}.tabs button{font-size:11px}}
 /* Fixed 16:9 playfield, uniformly scaled with black letterboxing. ESC retains settings. */
 html,body{width:100%;height:100%;min-height:0;overflow:hidden;padding:0;background:#000}
 .app{position:absolute;left:50%;top:50%;width:1280px;height:720px;max-width:none;padding:14px 16px;background:var(--bg);transform:translate(-50%,-50%) scale(var(--lab-scale,1));transform-origin:center;gap:12px}
@@ -23,3 +23,9 @@ html,body{width:100%;height:100%;min-height:0;overflow:hidden;padding:0;backgrou
 .panel canvas#cv{width:100%;height:auto;margin:auto 0;flex:none}
 .panel .bar{position:absolute;left:0;right:0;bottom:0;width:86%;height:22px}
 .tabs button{font-size:13px}
+
+#tut{font-family:var(--font-dialogue)}
+#shake-guide{display:block;width:100%;height:300px;image-rendering:auto}
+#shake-guide text{font:700 16px var(--font-dialogue);fill:#e9fbff;text-anchor:middle;dominant-baseline:central}
+#shake-guide[data-demo="close"] .guide-shake,
+#shake-guide[data-demo="shake"] .guide-close{display:none}

@@ -1,0 +1,37 @@
+{
+  "revision": "735d0d06485a00d7a9fd1914e1fc071379807ca8",
+  "results": [
+    {
+      "file": "test-corridor-birds-ui.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-engine-barrel-fire.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-campfire-lighting-ui.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-outside-npc-animation.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-street-parallax-engine-ui.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-home-weather-ui.cjs",
+      "code": 1
+    },
+    {
+      "file": "test_upper_crate_boundary_ui.cjs",
+      "code": 1
+    },
+    {
+      "file": "test-lift-right-boundary-ui.cjs",
+      "code": 1
+    }
+  ]
+}

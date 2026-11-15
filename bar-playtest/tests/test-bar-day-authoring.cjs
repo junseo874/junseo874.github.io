@@ -1,0 +1,32 @@
+/* All disk writes are confined to a fresh fixture, never the live game. */
+const assert=require('node:assert/strict'),p=require('node:path'),fs=require('node:fs/promises'),os=require('node:os');
+const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs');
+const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),A=require('../src/dev/dialogue-editor/flow-authoring.js'),F=require('../src/dev/dialogue-editor/flow-model.js'),S=require('../src/dev/dialogue-editor/flow-sections.js'),R=require('../src/dev/dialogue-editor/flow-wiring.js');
+(async()=>{
+ const baseState=await snapshot(),m=await new Model(baseState.files,baseState.presentation).init(),runtimeData=JSON.stringify(m.projected.story);
+ const ch='d1_tutorial_chris',g=F.compile(m,ch),parts=S.partition(m,ch,g.nodes),head=g.nodes[2];
+ assert.deepEqual(parts.map(p=>p.nodes.length),[23,14]);assert.equal(parts[1].nodes[0].rows[0].actor,'port');
+ assert.deepEqual(S.auto(g.nodes.slice(0,10)),[0]);assert.deepEqual(S.auto(Array(13).fill(g.nodes[1])),[0]);assert.deepEqual(S.auto([...Array(10).fill(g.nodes[1]),g.nodes[0]]),[0,10]);
+ assert.throws(()=>S.split(m,ch,parts,g.nodes[0].id,'빈 구간'),/첫 노드/);
+ m.checkpoint();S.split(m,ch,parts,head.id,'새 상담');const rec=()=>S.partition(m,ch,g.nodes);
+ assert.deepEqual(rec().map(p=>p.nodes.length),[2,21,14]);assert.equal(rec()[1].nodes[0],head);assert.deepEqual(Object.keys(m.output()),['web-views.json']);assert.equal(JSON.stringify((await m.validate()).result.story),runtimeData);
+ m.undo();assert(!m.dirty());m.redo();S.rename(m,ch,rec(),rec()[1],'첫 주문');const savedNames=rec().map(x=>x.name);
+ m.checkpoint();S.merge(m,ch,rec(),rec()[1]);assert.equal(rec().length,2);m.undo();
+ const open=m.newDay(4,'첫 신규 영업'),scene='campaign_d4_bar';assert.equal(open,'campaign_d4_bar_open');assert.throws(()=>m.newDay(4,'중복'),/이미/);assert.throws(()=>m.newDay(99,'QA'),/등록|99/);
+ const initial=m.rows(scene)[0],last=()=>F.compile(m,scene).nodes.at(-1),add=(type,more)=>A.create(m,scene,last(),{type,before:true,...more});
+ add('enter',{actor:'chris',arg:'L'});const menu=add('choice',{}),group=menu.arg;assert.equal(m.choices(group).length,2);
+ const third=m.addChoice(group);m.set(third,'text.ko','이 선택지가 길어져도 연결이 온전히 남아야 한다');m.set(third,'effects','flag.listen = true');m.set(third,'when','day >= 4 && money >= 0');
+ add('orderSet',{actor:'chris',arg:'exact:gin_tonic'});add('say',{actor:'chris',text:'맛있네요.',when:'order_match && craft_grade >= good'});
+ add('empty_glass',{actor:'chris'});add('exit',{actor:'chris'});
+ assert.deepEqual((await m.validate()).errors,[]);const out=m.output(),originalMeta=baseState.files;
+ for(const f of ['settings/days.csv','story/scenes.csv','story/script_files.csv','system/data_sets.csv','system/row_formats.csv'])assert(out[f].startsWith(originalMeta[f].trimEnd()+'\n'),'existing CSV changed: '+f);
+ const tmp=await fs.mkdtemp(p.join(os.tmpdir(),'luna-bar-day-')),base=p.join(tmp,'csv'),runtime=p.join(tmp,'runtime'),options={base,runtime,backupRoot:p.join(tmp,'backups')};
+ await fs.cp(p.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(p.join(__dirname,'../data/runtime',f),p.join(runtime,f));
+ const req=files=>({revision:baseState.revision,files});const bad=JSON.parse(out['web-views.json']);bad.barEditorScenes[ch][1].start='not_a_bar_row';await assert.rejects(save(req({...out,'web-views.json':JSON.stringify(bad)}),options),/편집 장면/);
+ const badScenes=out['story/scenes.csv'].replace('0일차 바 · 단골 영업','허용되지 않은 원본 변경');assert.notEqual(out['story/scenes.csv'],badScenes);await assert.rejects(save(req({...out,'story/scenes.csv':badScenes}),options),/등록 이외/);
+ assert.equal((await snapshot(base)).revision,baseState.revision);const result=await save(req(out),options);assert(result.saved);
+ const saved=await snapshot(base),after=await new Model(saved.files,saved.presentation).init();assert.equal(after.scenes.length,m.scenes.length);assert.deepEqual(after.headers,m.headers);assert.deepEqual((await after.validate()).errors,[]);
+ assert.deepEqual(S.partition(after,ch,F.compile(after,ch).nodes).map(p=>p.name),savedNames);assert.equal(after.choices(group)[2]['text.ko'],third['text.ko']);assert.equal(after.row(initial.row_id).context,scene);
+ assert.deepEqual(R.scan(after,scene).errors,[]);assert(after.catalog.read('script/bar/day4'));assert((await runtimeSnapshot(base)).tables.steps.some(r=>r.context===scene&&r.arg==='exact:gin_tonic'));assert.deepEqual(after.projected.story.bar['3'],JSON.parse(runtimeData).bar['3']);assert.equal((await snapshot()).revision,baseState.revision);
+ console.log('BAR_DAY_OK: natural partitions, named suffix, reversible merge, preserved gameplay, protected registry; new real day CSV + choice + exact order + AND result saved and reloaded from disk');
+})().catch(e=>{console.error(e);process.exitCode=1;});

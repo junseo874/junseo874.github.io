@@ -1,0 +1,7 @@
+page.evaluate: Error: Body crosses cabin wall: {"main":false,"day":0,"flow":"in","run":false,"x":-12.56,"radius":0.205,"right":-12.360000000000001}
+    at eval (eval at evaluate (:311:30), <anonymous>:9:82)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-lift-right-boundary-ui.cjs:12:22 {
+  log: []
+}

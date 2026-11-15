@@ -163,26 +163,3 @@ input[type=range]::-moz-range-thumb{width:10px;height:22px;background:#bfeff8;bo
 .bar span{flex:1;height:14px;background:#0b1820;border-right:2px solid #050c11}
 .bar span:first-child{border-radius:5px 0 0 5px}.bar span:last-child{border-radius:0 5px 5px 0;border-right:0}
 .bar .ok{background:linear-gradient(#7fe6f7,#3fb7d2)} .bar .miss{background:linear-gradient(#ff7b7b,#d43f4a)}
-/* 튜토리얼 모달 (스터 동일) */
-.tut{position:fixed;inset:0;z-index:25;background:rgba(3,8,12,.72);display:flex;align-items:center;justify-content:center;padding:16px}
-.tbox{width:min(780px,100%);background:#0a161d;border:1px solid #23404c;position:relative;padding:18px 22px 16px}
-.tbox::before{content:"";position:absolute;left:0;top:-1px;width:56px;height:3px;background:var(--cyan)}
-.thead{text-align:center;position:relative;margin-bottom:14px}
-.thead small{display:block;font:500 10px var(--f-latin);letter-spacing:.45em;color:var(--dim2)}
-.thead h2{margin:2px 0 0;font:700 22px var(--f-pixel)}
-.thead .pg{position:absolute;right:0;top:12px;font:700 12px var(--f-pixel);color:var(--dim)}
-.tgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px}
-@media (max-width:640px){.tgrid{grid-template-columns:1fr}}
-.tfig{border:1px solid #1d3540;background:#0a141b;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center}
-.tfig canvas{width:100%;height:auto;aspect-ratio:300/190}
-.tfig small{font-size:10.5px;color:var(--dim2)}
-.ttext h3{margin:4px 0 10px;font:700 15px var(--f-body)}
-.ttext .chip2{background:#13262f;border:1px solid #1d3540;text-align:center;padding:9px;font:700 13px var(--f-pixel);letter-spacing:.08em;margin-bottom:12px}
-.ttext p{margin:0 0 8px;font-size:12.5px;color:#a9bcc5;line-height:1.6}
-.ttext p b{color:var(--amber)}
-.tfoot{display:flex;align-items:center;gap:8px;margin-top:14px}
-.tfoot small{flex:1;font-size:10.5px;color:var(--dim2)}
-.tfoot button{padding:7px 16px;font:700 13px var(--f-body);background:#13262f;border:1px solid #2a4350;cursor:pointer}
-.tfoot .main{border-color:var(--cyan);color:var(--cyan)}
-.tfoot kbd{background:transparent;color:inherit;padding:0}
-

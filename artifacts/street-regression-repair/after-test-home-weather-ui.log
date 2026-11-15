@@ -1,0 +1,19 @@
+{"cam":{"x":1.9649999999999999,"y":-0.026249999999999885,"w":4.8,"zoom":2.6666666666666665,"ppu":100},"spill":[],"windowChanges":10359,"exteriorChanges":173,"outside":0,"paneLeaks":0,"panes":[489,552,417],"glass":true,"animated":true,"dry":true}
+HOME_WEATHER_OK current source alpha, three panes, visible exterior notch, no room/frame/floor spill, animation and dry days {
+  cam: {
+    x: 1.9649999999999999,
+    y: -0.026249999999999885,
+    w: 4.8,
+    zoom: 2.6666666666666665,
+    ppu: 100
+  },
+  spill: [],
+  windowChanges: 10359,
+  exteriorChanges: 173,
+  outside: 0,
+  paneLeaks: 0,
+  panes: [ 489, 552, 417 ],
+  glass: true,
+  animated: true,
+  dry: true
+}

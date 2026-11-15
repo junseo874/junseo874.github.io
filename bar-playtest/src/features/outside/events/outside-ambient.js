@@ -57,7 +57,12 @@ function bounds(sp){
   for(let y=0;y<sp.h;y++)for(let x=0;x<sp.w;x++)if(rgba[(y*sp.w+x)*4+3]>20){left=Math.min(left,x);right=Math.max(right,x+1);top=Math.min(top,y);bottom=Math.max(bottom,y+1);}}
  const box={left,top,right,bottom};boundsCache.set(key,box);return box;
 }
-function head(sp,x,y,sx=1,sy=1,flip=false){const b=bounds(sp);if(!b)return null;return{x:x+((b.left+b.right)/2-sp.w*sp.pivot.x)/sp.ppu*sx*(flip?-1:1),y:y+((1-sp.pivot.y)*sp.h-b.top)/sp.ppu*sy};}
+function head(sp,x,y,sx=1,sy=1,flip=false){
+ // Tight animation cells can change width/pivot between frames (notably Shiba).
+ // Measure the shared animation envelope in one fixed cell coordinate system.
+ // World movement, camera projection and facing still follow the actual actor.
+ sp=Object.values(artData?.animations||{}).find(a=>a.frames[0]?.asset===sp.asset)?.frames[0]||sp;
+ const b=bounds(sp);if(!b)return null;return{x:x+((b.left+b.right)/2-sp.w*sp.pivot.x)/sp.ppu*sx*(flip?-1:1),y:y+((1-sp.pivot.y)*sp.h-b.top)/sp.ppu*sy};}
 function actorHead(m,actor,target){
  if(actor==='luna'){const sp=global.LUNA_OUTSIDE_DATA.animations.idle.frames[0];return head(sp,m.x,m.y,1,1,m.facing>0);}
  const n=global.LUNA_OUTSIDE_DATA?.scenes[m.scene]?.nodes.find(n=>n.name===(target?.nodeName||actor)||n.id===actor);

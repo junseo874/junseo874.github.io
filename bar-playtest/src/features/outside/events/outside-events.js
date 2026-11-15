@@ -66,7 +66,7 @@ const base=m=>m.qa?-.45:(W.LunaEngineWorld?.actorPoint('street',contract,'samho'
 const dealerBase=m=>m.qa?base(m):(W.LunaEngineWorld?.actorPoint('street',contract,'dealer')?.x??base(m));
 const thugY=m=>m.qa?-.7:(W.LunaEngineWorld?.actorPoint('street',thug,'thug')?.y??R.upperY);
 function targets(m){return visibleThug(m)&&flags(m).day2_thug_done?[{id:info,x:tx(m),y:thugY(m),top:anchor(m,thug).y,label:'불량배'}]:[];}
-const infoGreeting=[{type:'notion-choice',actor:thug,text:'왜, 물어볼 거라도 있어?',stage:'topic'}];
+const infoGreeting=[{type:'notion-choice',actor:thug,text:'뭐야? 물어볼 거라도 있어?',stage:'topic'}];
 function preview(m,t){return t.id===info?{id:info,rows:infoGreeting,alternatives:state(m).money>=50?Object.values(infoRows).map(rows=>({id:info,rows})):[]}:null;}
 function infoStart(m,target){m.story.beginRows(info,target,infoGreeting);return true;}
 function interact(m,t){return t.id===info&&infoStart(m,t);}
@@ -100,7 +100,7 @@ function tick(m,dt){let e=m.encounter;
 function choiceView(m){const line=m.story.speech?.line,money=Number(state(m).money)||0;return{label:'정보 구매',money,options:line.stage==='topic'?[{id:'info-gang',label:'갱에 대해서'},{id:'info-coratech',label:'코라테크에 대해서'},{id:'info-chris',label:'크리스에 대해서'},{id:'info-cancel',label:'대화 그만하기'}]:[{id:'info-pay',label:'네. (50원)',disabled:money<50,disabledReason:'돈이 부족합니다.'},{id:'info-cancel',label:'아니요.'}]};}
 function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)return false;
  if(id==='info-cancel'){m.story.cancel();return true;}
- if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'맨입으로는 나도 어렵고. 50원만 줘봐. 아는 만큼 알려주지.',stage:'payment',topic:id.slice(5)}]);return true;}
+ if(sp.line.stage==='topic'&&infoRows[id.slice(5)]){m.story.beginRows(info,sp.target,[{type:'notion-choice',actor:thug,text:'...맨입으로는 안 돼. 50원만 주면 알려 주지.',stage:'payment',topic:id.slice(5)}]);return true;}
  if(id!=='info-pay'||sp.line.stage!=='payment'||!infoRows[sp.line.topic]||state(m).money<50)return false;
  const progress=state(m),before=progress.money;sp.choice=false;progress.money-=50;
  if(!m.qa){const c=W.lunaCampaign;if(c?.active&&c.session.carry)c.session.carry.money=progress.money;W.barGame.log('thug_information_purchase',{topic:sp.line.topic,price:50,before,after:progress.money});W.barGame.changed();}

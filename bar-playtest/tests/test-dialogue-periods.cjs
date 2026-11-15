@@ -29,8 +29,8 @@ function inspect(value,label){
   const source=fs.readFileSync(path.join(root,file),'utf8');
   assert(!/[\u2026\u22ef]|\\u(?:2026|22ef)/iu.test(source),'Dialogue source still contains a combined ellipsis: '+file);
  }
- const chris=result.data.tables.steps.find(r=>r.context==='d1_tutorial_chris'&&r['text.ko']==='...기억한다니 다행이네.');
- assert(chris,'The actual opening Chris line uses three U+002E periods');
+ const chris=result.data.tables.steps.filter(r=>r.context==='d1_tutorial_chris'&&r.type==='say'&&r.actor==='chris').sort((a,b)=>Number(a.seq)-Number(b.seq))[0];
+ assert.match(chris['text.ko'],/^\.{3}[^.]/u,'The actual opening Chris line uses three U+002E periods');
  assert(fs.readFileSync(path.join(root,'bar-playtest/src/features/bar/remix.js'),'utf8').includes('......딱 원하던 맛이네요.'),'Repeated ellipses retain all six periods');
  console.log('DIALOGUE_PERIODS_OK: '+texts+' projected strings, fallback/editor/legacy sources, opening line and repeated periods; generated data matches CSV.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

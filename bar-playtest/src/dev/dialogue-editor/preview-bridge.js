@@ -3,12 +3,12 @@
 (function(W){
 'use strict';
 W.LunaDialoguePreview=function({g,D,ui,render}){
- if(!new URLSearchParams(location.search).has('dialogue-preview')||parent===W)return null;
- const C=W.LunaCore;let active=false,payload=null,elapsed=0,reported=false,skipped=false;
- const send=value=>parent.postMessage({channel:'luna-dialogue-preview',...value},location.origin);
+ if(!new URLSearchParams(location.search).has('dialogue-preview')||parent===W||new URLSearchParams(location.search).has('bar-rehearsal'))return null;
+ const C=W.LunaCore;let active=false,payload=null,elapsed=0,reported=false,skipped=false,paused=false;
+ const send=value=>parent.postMessage({channel:'luna-dialogue-preview',token:payload?.token,...value},location.origin);
  const ready=()=>send({type:'ready',expressions:Object.fromEntries(Object.entries(D.characterLayers).map(([actor,poses])=>[actor,[...new Set(Object.keys(poses).map(k=>k.replace(/_(?:default|talk)$/,'')))].map(k=>k==='idle'?'default':k)]))});
  function receive(p){
-  payload=p;elapsed=0;reported=false;skipped=false;active=true;
+  payload=p;paused=false;elapsed=0;reported=false;skipped=false;active=true;
   Object.assign(g,{day:p.day,phase:'regular',screen:'bar',story:null,storyCoaster:null,dialogue:null,choice:null,transition:0,pendingTransition:null,cameraLeft:0,cameraMoving:false,tutorial:null,overlay:null,error:null,finished:false,paused:false,hidden:false,currentOrder:null,drink:null,effectVisual:null});
   g.progress={day:p.day,money:p.money??1000,reputation:0,phase:'bar',flags:{tom_name_known:true,day0_skip_tutorial:true,...p.flags},affinity:{}};
   g.resultContext={grade:'good',final_grade:'good',craft_grade:'good',order_match:true};
@@ -27,6 +27,7 @@ W.LunaDialoguePreview=function({g,D,ui,render}){
   };
   for(let i=0;i<=p.index;i++){
    const s=p.rows[i];let enabled=true;try{enabled=C.condition(s.when,g.ctx());}catch(e){warnings.push(e.message);}
+   if(!enabled&&p.scope?.includes(s.row_id)){enabled=true;if(i===p.index)warnings.push('노드 단독 재생 · 이 분기에 진입한 상태로 표시합니다.');}
    if(!enabled&&i<p.index)continue;
    if(i===p.index&&!enabled){warnings.push('현재 조건으로 실행되지 않는 줄입니다. 직접 선택한 줄은 검토용으로 표시합니다.');skipped=!!p.playing;}
    apply(s,i===p.index);
@@ -39,13 +40,13 @@ W.LunaDialoguePreview=function({g,D,ui,render}){
   ui.sound=false;ui.gimmickAudio=false;ui.auto=false;ui.readSkip=false;ui.drag=null;
   render(true);send({type:'state',index:p.index,warnings,cast:Object.values(seats).filter(Boolean).map(x=>x.actor),choices:p.choices?.map(c=>({seq:c.seq,enabled:C.condition(c.when,g.ctx())}))});
  }
- W.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.channel!=='luna-dialogue-editor')return;try{if(e.data.type==='hello')ready();if(e.data.type==='show')receive(e.data.payload);if(e.data.type==='stop'&&payload)payload.playing=false;}catch(error){send({type:'error',message:error.message});}});
- const input=e=>{if(!active)return;const target=e.target.closest?.('[data-act]');if(e.type==='click'){if(target?.dataset.act==='choice')send({type:'choice',seq:target.dataset.id});else if(target?.dataset.act==='advance')send({type:'advance'});}e.preventDefault();e.stopImmediatePropagation();};
+ W.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.channel!=='luna-dialogue-editor')return;try{if(e.data.type==='hello')ready();if(e.data.type==='show')receive(e.data.payload);if(e.data.type==='stop'&&payload)payload.playing=false;if(e.data.type==='pause'&&payload){paused=true;payload.playing=false;}if(e.data.type==='resume'&&payload){paused=false;payload.playing=true;payload.animate=true;}}catch(error){send({type:'error',message:error.message});}});
+ const input=e=>{if(!active)return;if(e.type==='keydown'&&e.key==='Escape'&&payload?.modal)send({type:'escape'});const target=e.target.closest?.('[data-act]');if(e.type==='click'){if(target?.dataset.act==='choice')send({type:'choice',seq:target.dataset.id});else if(target?.dataset.act==='advance')send({type:'advance'});}e.preventDefault();e.stopImmediatePropagation();};
  for(const name of ['click','pointerdown','pointerup','keydown','keyup'])document.addEventListener(name,input,true);
  document.documentElement.classList.add('dialogue-editor-preview');
  ready();
  return {get active(){return active;},tick(dt){
-  if(!payload)return;g.realTime+=dt;g.cameraLeft=0;g.overlay=null;g.paused=false;g.hidden=false;elapsed+=dt;
+  if(!payload||paused)return;g.realTime+=dt;g.cameraLeft=0;g.overlay=null;g.paused=false;g.hidden=false;elapsed+=dt;
   if(g.dialogue&&payload.animate&&!g.cameraMoving)g.typeLine(g.dialogue,dt,false);
   const row=payload.rows[payload.index],done=skipped||(g.dialogue?g.dialogue.chars>=g.dialogue.text.length:elapsed>=(row.type==='enter'?1.65:.8));
   if(payload.playing&&!reported&&row.type!=='choice'&&done&&elapsed>(g.dialogue?g.dialogue.text.length*.018+1.2:.8)){reported=true;send({type:'complete',index:payload.index});}

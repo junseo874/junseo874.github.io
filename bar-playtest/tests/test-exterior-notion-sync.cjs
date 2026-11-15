@@ -11,13 +11,13 @@ for(const[key,expected]of Object.entries(spec.dialogues)){
  assert.equal(crypto.createHash('sha256').update(JSON.stringify(text)).digest('hex'),expected.sha256,key+' Notion text/order');
  assert(!rows.some(r=>r.text&&/…|연결 컷씬:|말풍선에서 선택지 표시/.test(r.text)),key+' no annotations in speech');
 }
-for(const[k,n]of [['night0',13],['night2',11],['ending',7]]){assert(C[k][n].cinemaAfter);assert.equal(C[k].filter(r=>r.cinemaAfter).length,1);}
-assert.equal(C.night2[11].cinemaAfter,'johnny-memory');assert.equal(C.night2.filter(r=>r.type==='choice').length,0);assert(C.night2.every(r=>!r.when&&!r.stage));
-assert.equal(C.ending[7].memoryKey,'terraceMemory3');
+for(const[k,n]of [['night0',16],['night2',1],['ending',8]]){assert(C[k][n].cinemaAfter);assert.equal(C[k].filter(r=>r.cinemaAfter).length,1);}
+assert.equal(C.night2[1].cinemaAfter,'johnny-memory');assert.equal(C.night2.filter(r=>r.type==='choice').length,1);assert(C.night2.slice(0,2).every(r=>r.stage==='luna-alone'));
+assert.equal(C.ending[8].memoryKey,'terraceMemory3');
 assert.deepEqual(Array.from(C.night1.find(r=>r.text.includes('와일드 독, 비터스, 각설탕')).emphasis),['와일드 독','비터스','각설탕']);
-assert.equal(C.johnny[0].tomPresent,false);assert(C.johnny.slice(1).every(r=>r.tomPresent));assert(C.johnny.slice(0,12).every(r=>!r.served));assert(C.johnny.slice(12).every(r=>r.served));
+assert(C.johnny.every(r=>r.tomPresent));assert(C.johnny.slice(0,9).every(r=>!r.served));assert(C.johnny.slice(9).every(r=>r.served));
 for(const key of ['bossRepairFirst','bossRepairRepeat','bossPayFirst','bossPayRepeat']){const r=D.sharedStory['neighborhood/'+key];assert.equal(r.filter(x=>x.action==='wild-dog-grant').length,1,key);}
-assert.equal(D.sharedStory['neighborhood/repairPaid'][5].action,'repair');assert.equal(D.sharedStory['neighborhood/bossIntro'][21].action,'boss-met');
+assert.equal(D.sharedStory['neighborhood/repairPaid'][5].action,'repair');assert.equal(D.sharedStory['neighborhood/bossIntro'].filter(r=>r.action==='boss-met').length,1);
 for(const key of ['intro','info/gang','info/coratech','info/chris'])assert(D.sharedStory['notion/'+key].every(r=>['luna','day2-corridor-thug'].includes(r.actor)));
 assert(D.sharedStory['notion/contract'].filter(r=>r.text).every(r=>['luna','contract-samho','contract-smuggler'].includes(r.actor)));
 assert.equal(D.sharedStory['believer/intro'].filter(r=>r.action==='grant-emblem').length,1);assert.equal(D.sharedStory['newspaper/common'].filter(r=>r.action==='grant-gear').length,1);

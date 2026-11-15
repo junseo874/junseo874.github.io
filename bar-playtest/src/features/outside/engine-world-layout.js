@@ -20,7 +20,7 @@ function actorPoint(name,event,role,fallback){
  const y=name==='street'&&role!=='boobi'&&a.root.y>5?residence().upperY-.274:a.root.y;
  const nextDoor=name==='street'&&['day2-corridor-thug','day2-thug-information'].includes(event);
  const x=nextDoor?actor('street','neighborhood-reveal','neighbor').root.x:a.root.x;
- return{x,y};
+ const id=({'shiba-shop':'shop','shiba-shop-revisit':'shop',commute2:'commute2',commute3:'commute3','day3-samho-contract':role==='dealer'?'contract-partner':'contract','day2-corridor-thug':'information','day2-thug-information':'information','day1-corridor-thug':'thug'})[event];return id&&W.LunaNpcScene?W.LunaNpcScene.adjust(id,{x,y}):{x,y};
 }
 function actorSorting(name,role,layer,order){
  // Default-layer event actors otherwise render behind the opaque world art.

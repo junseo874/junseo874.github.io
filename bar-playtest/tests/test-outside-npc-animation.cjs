@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const W = {};
 W.window = W;
 const root = path.resolve(__dirname, '..');
-for (const file of ['data/runtime/outside-scene-data.js', 'src/features/outside/events/outside-ambient.js', 'src/features/outside/events/outside-residents.js']) {
+for (const file of ['data/runtime/outside-scene-data.js', 'data/runtime/outside-dialogues.js', 'src/features/outside/events/outside-ambient.js', 'src/features/outside/events/outside-residents.js']) {
   vm.runInNewContext(fs.readFileSync(path.join(root, file), 'utf8'), W);
 }
 const data = W.LUNA_OUTSIDE_DATA, ambient = W.LunaOutsideAmbient;

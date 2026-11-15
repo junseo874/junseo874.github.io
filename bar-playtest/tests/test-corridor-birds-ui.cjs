@@ -9,18 +9,20 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    const a=outsidePlaytest,m=a.model;m.start({day,flow,place:'homeDoor'});m.paused=false;m.tick=()=>{};m.controlsTutorial=false;m.time=2.5;a.snapCamera();a.tick(0);
    const n=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='residence-building');
    const poses=LunaCorridorBirds.poses(m,n),draws=[];LunaCorridorBirds.draw(m,n,n,(sp,x,y,sx,sy,flip)=>draws.push({asset:sp.asset,flip,x,y}));
-   return {wet:LunaOutsideRain.wet(m),poses,draws};
+   return {wet:LunaOutsideRain.wet(m),poses,draws,building:n};
   },{day,flow});
   const wet=day===1||day===3||day===0&&flow==='out'||day===2&&flow==='in';
   assert.equal(result.wet,wet);assert.equal(result.poses.length,7);
   assert(result.poses.every(v=>v.kind===(wet?'crow':'pigeon')));assert(result.draws.every(v=>!v.flip));
   const positions=result.poses.map(v=>[v.x,v.y]);if(anchors)assert.deepEqual(positions,anchors,'Stable anchors across weather/day/route');else anchors=positions;
-  assert(result.poses.every(v=>Math.abs(v.y-11.11)<1e-8),'Feet contact the upper sill, not the playable floor');
+  const n=result.building,sp=n.sprite;
+  const sill=n.y+(sp.h*(1-sp.pivot.y)-321)*n.sy/sp.ppu;
+  assert(result.poses.every((v,i)=>Math.abs(v.y-sill)<1e-8&&Math.abs(v.x-(n.x+([517,532,600,618,642,699,723][i]-sp.w*sp.pivot.x)*n.sx/sp.ppu))<1e-8),'Feet contact the authored native sill after engine placement');
   for(let i=1;i<positions.length;i++){
    const gap=positions[i][0]-positions[i-1][0],expected=[.15,.68,.18,.24,.57,.24][i-1];
    assert(Math.abs(gap-expected)<1e-8,'Tight left pair, asymmetric middle trio, unchanged right pair');
   }
-  if(day===0){await p.waitForTimeout(150);await p.screenshot({path:'/private/tmp/corridor-birds-'+(wet?'rain':'dry')+'.png'});}
+  if(day===0){const shot=await p.evaluate(y=>outsidePlaytest.snapshot({x:-16,y:y+.15,w:4.8}),sill);require('node:fs').writeFileSync('/private/tmp/corridor-birds-'+(wet?'rain':'dry')+'.png',Buffer.from(shot.split(',')[1],'base64'));}
  }
  const checks=await p.evaluate(()=>{
   const a=outsidePlaytest,m=a.model,n=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='residence-building');

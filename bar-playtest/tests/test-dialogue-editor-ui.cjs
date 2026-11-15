@@ -10,7 +10,7 @@ const {snapshot,save}=require('../../tools/dialogue-editor-storage.cjs');
  try{
   await page.goto((process.env.EDITOR_URL||'http://127.0.0.1:8124')+'/bar-playtest/dialogue-editor.html');
   await page.waitForFunction(()=>window.dialogueEditor?.model&&document.querySelector('#line-list .line'),{timeout:30000});
-  await page.selectOption('#day','3');await page.selectOption('#scene','campaign_d3_bar');
+  await page.selectOption('#day','3');await page.click('[data-scene=campaign_d3_bar]');
   const frame=page.frameLocator('#preview');await page.locator('#line-list .line').nth(1).click();
   await frame.locator('.dialogue-text .text-ink').waitFor();
   const text=page.locator('#inspector textarea[data-field="text.ko"]'),originalText=await text.inputValue();

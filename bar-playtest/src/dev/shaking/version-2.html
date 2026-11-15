@@ -2,8 +2,11 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LAST CALL 쉐이크</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="../../shared/ui/typography.css">
 <link rel="stylesheet" href="prototype.css">
-<link rel="stylesheet" href="session.css">
+<link rel="stylesheet" href="../../features/tutorials/mix-tutorial.css">
+<link rel="stylesheet" href="../../shared/ui/generated-art.css">
+<link rel="stylesheet" href="session.css?v=vector-guide">
 
 </head><body>
 <div class="app">
@@ -24,16 +27,124 @@
       <div class="bar" id="bar"></div>
     </section>
   </main>
-</div>
-
-<div class="tut" id="tut" hidden>
-  <div class="tbox" role="dialog" aria-label="튜토리얼">
-    <div class="thead"><small>TUTORIAL</small><h2>쉐이크</h2><span class="pg" id="tutPage">1 / 2</span></div>
-    <div class="tgrid">
-      <div class="tfig"><canvas id="tutCv" width="300" height="190"></canvas><small>실제 화면 예시 · 조작하지 않아도 됩니다</small></div>
-      <div class="ttext"><h3 id="tutHead"></h3><div class="chip2" id="tutChip"></div><div id="tutBody"></div></div>
-    </div>
-    <div class="tfoot"><small>안내를 읽는 동안 제조 시간과 점수는 변하지 않습니다</small><button type="button" id="tutPrev">이전</button><button type="button" class="main" id="tutNext">다음 · <kbd>E</kbd></button></div>
+  <div class="mix-tutorial" id="tut" role="dialog" aria-modal="true" aria-labelledby="shake-lesson-title" hidden>
+    <section class="mix-lesson-card">
+      <header>
+        <small>TUTORIAL</small><h2 id="shake-lesson-title">쉐이킹</h2>
+        <span class="mix-guide-page"><span id="tutPage">1</span> <i>/ 2</i></span>
+      </header>
+      <div class="mix-guide-body">
+        <figure class="mix-guide-image">
+          <svg id="shake-guide" viewBox="0 0 400 300" aria-hidden="true">
+            <defs>
+              <pattern id="guide-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0H0V20" fill="none" stroke="#18303c" stroke-width="1"/>
+              </pattern>
+              <linearGradient id="guide-steel" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+                <stop stop-color="#55666e"/><stop offset=".1" stop-color="#f2f8fa"/>
+                <stop offset=".2" stop-color="#a7b8bf"/><stop offset=".42" stop-color="#56686f"/>
+                <stop offset=".55" stop-color="#1d282d"/><stop offset=".72" stop-color="#71868e"/>
+                <stop offset=".9" stop-color="#d6e2e6"/><stop offset="1" stop-color="#7b8e95"/>
+              </linearGradient>
+              <g id="guide-large-tin" fill="url(#guide-steel)" stroke-linejoin="round">
+                <path d="M-94 -17L15 -24V24L-94 17Z" stroke="#94acb5"/>
+                <path d="M-90 -17V17M12 -23V23" stroke="#e6f3f6" opacity=".6"/>
+              </g>
+              <g id="guide-small-tin" fill="url(#guide-steel)" stroke-linejoin="round">
+                <path d="M-11 -22L86 -17V17L-11 22Z" stroke="#9ab0b8"/>
+                <path d="M82 -17V17M-8 -21V21" stroke="#e6f3f6" opacity=".6"/>
+              </g>
+              <path id="guide-chamber" transform="scale(.375)"/>
+              <clipPath id="guide-sight-glass"><use href="#guide-chamber"/></clipPath>
+            </defs>
+            <rect width="400" height="300" fill="#0a1722"/>
+            <rect width="400" height="300" fill="url(#guide-grid)"/>
+            <g class="guide-close">
+              <rect x="116" y="24" width="168" height="8" rx="4" fill="#243d48"/>
+              <rect x="169" y="24" width="62" height="8" fill="#55d7ee"/>
+              <rect x="188" y="21" width="24" height="14" rx="2" fill="#f0c987"/>
+              <g fill="#f4fdff">
+                <animateTransform attributeName="transform" type="translate" values="-70 0;70 0;0 0;0 0;0 0;-70 0" keyTimes="0;.26;.39;.76;.86;1" dur="4s" repeatCount="indefinite"/>
+                <path d="M197 14H203L200 20Z"/><rect x="198.5" y="22" width="3" height="13"/>
+              </g>
+              <g transform="translate(200 153) scale(.9)">
+                <g>
+                  <animateTransform attributeName="transform" type="rotate" values="-90;-90;0;0;-90;-90" keyTimes="0;.53;.68;.78;.88;1" dur="4s" repeatCount="indefinite"/>
+                  <use href="#guide-large-tin"/>
+                  <g>
+                    <animateTransform attributeName="transform" type="translate" values="36 -23;36 23;37 0;7 0;7 0;36 0;36 -23" keyTimes="0;.26;.39;.49;.85;.90;1" dur="4s" repeatCount="indefinite"/>
+                    <use href="#guide-small-tin">
+                      <animateTransform attributeName="transform" type="rotate" values="-12;12;0;0;-12" keyTimes="0;.26;.39;.90;1" dur="4s" repeatCount="indefinite"/>
+                    </use>
+                  </g>
+                </g>
+              </g>
+              <g transform="translate(200 275)">
+                <rect x="-40" y="-15" width="80" height="30" rx="5" fill="#10202b" stroke="#49616c"/>
+                <rect x="-40" y="-15" width="80" height="30" rx="5" fill="#34402e" stroke="#f0c987" stroke-width="2">
+                  <animate attributeName="opacity" values="0;1;0" keyTimes="0;.38;.55" calcMode="discrete" dur="4s" repeatCount="indefinite"/>
+                </rect>
+                <text>SPACE</text>
+              </g>
+            </g>
+            <g class="guide-shake">
+              <path id="guide-ring" d="M200 93H284a50 50 0 0 1 0 100H116a50 50 0 0 1 0-100Z" pathLength="100" fill="none"/>
+              <use href="#guide-ring" stroke="#29424e" stroke-width="4"/>
+              <use href="#guide-ring" stroke="#edfaff" stroke-width="4" stroke-linecap="round" stroke-dasharray="100 100">
+                <animate attributeName="stroke-dashoffset" values="0;98;98" keyTimes="0;.9;1" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="stroke" values="#edfaff;#b7ee55;#ff993d;#ff4b4b" keyTimes="0;.25;.5;.75" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
+              </use>
+              <g transform="translate(200 143)">
+                <g>
+                  <animateTransform attributeName="transform" type="translate" values="0 0;-22 0;-19 0;23 0;19 0;0 0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
+                  <g>
+                    <animateTransform attributeName="transform" type="rotate" values="0;-6;-4;6;4;0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
+                    <use href="#guide-large-tin"/><use href="#guide-small-tin" x="7"/>
+                    <g clip-path="url(#guide-sight-glass)">
+                      <use href="#guide-chamber" fill="#111e27"/>
+                      <g>
+                        <animateTransform attributeName="transform" type="rotate" values="0;6;-2;-6;2;0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
+                        <path id="guide-liquid" d="M-94 1Q-52 -3 -23 0T34 0T94 -1V32H-94Z" fill="#b99456"/>
+                        <path d="M-94 1Q-52 -3 -23 0T34 0T94 -1" fill="none" stroke="#eef5ed"/>
+                        <g fill="#bed9dd" fill-opacity=".65" stroke="#e5f8fb">
+                          <animateTransform attributeName="transform" type="translate" values="0 0;-12 2;2 0;12 2;-1 0;0 0" keyTimes="0;.23;.45;.7;.89;1" dur="2s" repeatCount="indefinite"/>
+                          <rect x="-34" y="-5" width="10" height="10" rx="2" transform="rotate(14 -29 0)"/>
+                          <rect x="23" y="-6" width="12" height="12" rx="2" transform="rotate(-22 29 0)"/>
+                        </g>
+                      </g>
+                    </g>
+                    <use href="#guide-chamber" fill="none" stroke="#899fa7" stroke-width="2"/>
+                  </g>
+                </g>
+              </g>
+              <g transform="translate(39 143)">
+                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#10202b" stroke="#49616c"/>
+                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#173e4a" stroke="#55d7ee" stroke-width="2">
+                  <animate attributeName="opacity" values="1;0" keyTimes="0;.45" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
+                </rect><text>A</text>
+              </g>
+              <g transform="translate(361 143)">
+                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#10202b" stroke="#49616c"/>
+                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#173e4a" stroke="#55d7ee" stroke-width="2">
+                  <animate attributeName="opacity" values="0;1;0" keyTimes="0;.45;.9" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
+                </rect><text>D</text>
+              </g>
+            </g>
+          </svg>
+          <figcaption>조작 예시 · 안내 중에는 입력하지 않아도 됩니다.</figcaption>
+        </figure>
+        <div class="mix-guide-copy">
+          <h3 id="tutHead"></h3><div class="mix-guide-keystrip" id="tutChip"></div><div id="tutBody"></div>
+        </div>
+      </div>
+      <footer>
+        <span>안내를 읽는 동안 제조 시간과 점수는 변하지 않습니다.</span>
+        <nav aria-label="튜토리얼 페이지">
+          <button type="button" id="tutPrev" class="mix-lesson-prev" hidden>이전</button>
+          <button type="button" id="tutNext">다음 · E</button>
+        </nav>
+      </footer>
+    </section>
   </div>
 </div>
 
@@ -81,9 +192,9 @@
         </div>
         <div class="spane" data-pane="help" hidden>
           <div class="help">
-            <kbd>A</kbd><span>틴 닫기. 기울기 바늘이 금색일 때 눌러 작은 틴을 밀어 넣는다('쩍'). 잘 닫을수록 허용 MISS가 늘어난다.</span>
+            <kbd>SPACE</kbd><span>틴 닫기. 기울기 바늘이 금색일 때 눌러 작은 틴을 밀어 넣는다. 잘 닫을수록 허용 MISS가 늘어난다.</span>
             <kbd>A → D</kbd><span>강조된 키를 순서대로, 캡슐 게이지가 다 닳기 전에. 1회 완성마다 진행 바 한 칸.</span>
-            <kbd>A→D→A→D</kbd><span>위스키 사워는 두 번 왕복하는 회차가 섞여 나온다 (제한 시간도 두 배).</span>
+            <kbd>A→D→A→D</kbd><span>위스키 사워는 두 번 왕복하는 회차가 섞여 나온다.</span>
             <kbd>MISS</kbd><span>순서가 틀리거나 시간이 끝나면 빨간 칸. 허용 MISS를 넘기면 틴이 빠진다.</span>
             <kbd>E</kbd><span>튜토리얼 다음 · 확인</span>
             <kbd>ESC</kbd><span>설정 열기 / 닫기 (일시정지)</span>
@@ -101,7 +212,7 @@
 </div>
 <script src="session-audio.js"></script>
 <script src="session-clock.js"></script>
-<script src="game.js?v=perfect-label-20261110"></script>
+<script src="game.js?v=floating-shake"></script>
 <script src="luna.js"></script>
 <script src="settings.js"></script>
 <script src="session.js?v=main-shake-v2"></script>

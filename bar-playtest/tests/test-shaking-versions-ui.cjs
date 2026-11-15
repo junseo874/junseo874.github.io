@@ -13,10 +13,20 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   assert.equal(await f.locator('#openSet').isVisible(),false);
   assert.equal(await f.locator('.top').isVisible(),false);
   assert.equal(await f.locator('#oSnd').isVisible(),false);
-  for(const [width,height]of [[1920,1080],[820,650],[390,844],[1280,720]]){
+  for(const [width,height]of [[3840,2160],[1920,1080],[820,650],[390,844],[1280,720]]){
    await p.setViewportSize({width,height});await p.waitForTimeout(100);
    const fit=await f.evaluate(()=>{const r=document.querySelector('.app').getBoundingClientRect();return Math.abs(r.width/r.height-16/9)<.001&&r.left>=-.1&&r.top>=-.1&&r.right<=innerWidth+.1&&r.bottom<=innerHeight+.1});assert.ok(fit);
   }
+  const lesson=f.getByRole('dialog',{name:'쉐이킹',exact:true});
+  const card=lesson.locator('.mix-lesson-card');
+  assert.match(await card.evaluate(el=>getComputedStyle(el).backgroundImage),/Web_GRD_mix_lesson_card_background/);
+  const diagram=lesson.locator('figure svg');
+  assert(await diagram.locator('.guide-close').isVisible(),'First page renders the vector tin alignment demo');
+  await lesson.getByRole('button',{name:'다음 · E'}).click();
+  assert(await diagram.locator('.guide-shake').isVisible(),'Second page renders the vector A/D demo');
+  assert(!(await diagram.locator('.guide-close').isVisible()),'The two demonstrations never overlap');
+  await lesson.getByRole('button',{name:'이전'}).press('Enter');
+  assert.equal(await lesson.locator('#tutPage').innerText(),'1');
   await f.locator('#tutNext').click();await f.locator('#tutNext').click();
   await f.waitForFunction(()=>S.phase==='close');
   const timerStart=await f.evaluate(()=>S.startT);
@@ -74,9 +84,9 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    await f.locator('#tutNext').click();await f.locator('#tutNext').click();
    await f.evaluate(()=>{S.angDeg=5;press('Space');});await f.waitForFunction(()=>S.phase==='shake');
    const iceCheck=await f.evaluate(()=>{
-    const C=B.CH,coverage=S.ices.reduce((a,o)=>a+4*o.size*o.size,0)/((C.x1-C.x0)*DEPTH);
+    const C=B.CH,coverage=S.ices.reduce((a,o)=>a+4*o.size*o.size,0)/((C.seam-C.x0)*(C.left+C.middle)+(C.x1-C.seam)*(C.middle+C.right));
     for(let i=0;i<600;i++){stepWater(1/240,Math.sin(i*.09)*2800,900);stepIces(1/240,Math.sin(i*.09)*2800,900);}
-    return{coverage,valid:S.ices.every(o=>{const e=o.size*(Math.abs(Math.cos(o.rot))+Math.abs(Math.sin(o.rot)));return[o.x,o.y,o.rot,o.vx,o.vy].every(Number.isFinite)&&o.x-e>=C.x0-.01&&o.x+e<=C.x1+.01&&o.y-e>=C.y0-.01&&o.y+e<=C.y1+.01})};
+    return{coverage,valid:S.ices.every(o=>{const e=o.size*(Math.abs(Math.cos(o.rot))+Math.abs(Math.sin(o.rot)));return[o.x,o.y,o.rot,o.vx,o.vy].every(Number.isFinite)&&o.x-e>=C.x0-.01&&o.x+e<=C.x1+.01&&Math.abs(o.y)+e<=Math.min(halfHeight(o.x-e),halfHeight(o.x+e))+.01})};
    });
    assert.ok(Math.abs(iceCheck.coverage-.25)<1e-6,'Ice fills 25% of the cutaway area');assert.ok(iceCheck.valid,'Large ice remains finite and inside the shaker under strong alternating acceleration');
    for(let round=0;round<10;round++){

@@ -25,6 +25,12 @@ async function audit({base=path.join(root,'bar-playtest/data/shared-csv'),engine
  const commands=[...compiler.matchAll(/\("([^"]+)", (_|"[^"]*"), (_|"[^"]*")\) => OutsideStoryCommand/g)].map(m=>[m[1],...m.slice(2).map(x=>x==='_'?null:x.slice(1,-1))]);
  const engineRows=new Map([...native.rawTables.values()].flat().map(r=>[r.row_id,r]));
  const steps=web.rawTables.get('Steps'),choices=web.rawTables.get('StreetChoices');
+ const actionBody=enums.match(/enum EActionType\s*\{([\s\S]*?)\}/)?.[1];
+ if(!actionBody)throw Error('Engine interaction action enum not found');
+ const actions=new Set([...actionBody.matchAll(/EnumMember\(Value = (null|"[^"]*")\)\]\s*(\w+)/g)].flatMap(([,v,name])=>v==='null'?[name.toLowerCase()]:[name.toLowerCase(),v.slice(1,-1)]));
+ for(const [dataset,points] of web.values)if(Array.isArray(points))for(const point of points){
+  if(Object.hasOwn(point,'action_type')&&!actions.has(String(point.action_type??'').toLowerCase()))errors.push({source:dataset,row:point.id,reason:'엔진에서 읽을 수 없는 action_type: '+point.action_type});
+ }
  for(const row of steps){
   const outside=['script/street','script/home','script/qa/street_day99'].includes(row.dataset_id),kind=clean(row['web_fields.type']);
   if(outside){

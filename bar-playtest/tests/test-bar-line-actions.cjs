@@ -1,0 +1,28 @@
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path');
+const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs');
+const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),L=require('../src/dev/dialogue-editor/line-actions.js'),R=require('../src/dev/dialogue-editor/flow-wiring.js'),F=require('../src/dev/dialogue-editor/flow-model.js');
+(async()=>{
+ const orig=await snapshot(),m=await new Model(orig.files,orig.presentation).init();m.newDay(4,'4일차');
+ const scene='campaign_d4_bar_open',other='campaign_d4_bar',a=m.rows(scene)[0],b=L.insert(m,scene,a,'after'),d=L.insert(m,scene,b,'after'),end=L.insert(m,scene,d,'after');
+ m.set(b,'text.ko','지나가는 대사');m.set(d,'text.ko','첫 목적지');m.set(end,'text.ko','두 번째 목적지');L.changeType(m,scene,a,'choice');
+ const id=a.arg,opts=m.choices(id);assert.equal(opts.length,2);assert(opts.every(o=>!o.effects&&!o.goto));
+ const dup=L.insert(m,scene,a,'after','choice',true);assert.notEqual(dup.arg,id);const dupId=dup.arg;L.remove(m,scene,dup);assert.equal(m.choices(dupId).length,0);
+ const n=()=>F.compile(m,scene,m.rows(scene).map(r=>r.row_id)).nodes,nid=id=>n().find(x=>x.id===id);
+ const pin=i=>({choice:opts[i].row_id,predicate:''}),local=(i,target)=>R.wire(m,scene,nid(a.row_id),nid(target.row_id),pin(i)),toScene=(i,sc)=>R.sceneWire(m,scene,nid(a.row_id),opts[i].row_id,sc),routes=()=>R.scan(m,scene).routes;
+ local(0,d);local(1,d);assert.deepEqual(routes().map(r=>r.target),[d.row_id,d.row_id]);assert.throws(()=>L.remove(m,scene,d),/연결/);
+ const intercept=L.insert(m,scene,d,'before');assert(routes().every(r=>r.target===d.row_id));L.remove(m,scene,intercept);
+ local(0,end);assert.deepEqual(routes().map(r=>r.target),[end.row_id,d.row_id]);
+ toScene(0,other);assert.equal(opts[0].goto,other);assert.equal(routes().length,1);
+ assert.throws(()=>toScene(0,scene));assert.equal(opts[0].goto,other);assert.equal(routes().length,1);
+ local(0,end);assert.equal(opts[0].goto,'');assert.equal(routes().length,2);
+ const terminal=m.rows(other).at(-1);assert.throws(()=>L.insert(m,other,terminal,'after'));assert.throws(()=>L.remove(m,other,terminal));
+ assert.deepEqual((await m.validate()).errors,[]);
+ const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-row-menu-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
+ await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
+ await save({revision:orig.revision,files:m.output()},{base,runtime,backupRoot:path.join(tmp,'backups')});
+ const saved=await snapshot(base),copy=await new Model(saved.files,saved.presentation).init(),live=await runtimeSnapshot(base);assert.equal(copy.row(a.row_id).type,'choice');assert.equal(copy.choices(id).length,2);
+ assert.equal(live.story.opening['4'][0].type,'choice');assert.equal(live.story.opening['4'][0].arg,id);assert.deepEqual(R.scan(copy,scene).routes.map(r=>r.target).sort(),[end.row_id,d.row_id].sort());
+ for(const r of [...routes()].reverse())R.disconnect(m,scene,r);m.checkpoint();L.changeType(m,scene,a,'say');assert.equal(m.choices(id).length,0);m.undo();assert.equal(m.row(a.row_id).type,'choice');assert.equal(m.choices(id).length,2);
+ assert.equal((await snapshot()).revision,orig.revision);
+ console.log('BAR_LINE_ACTIONS_OK: safe CRUD, independent choice groups, protected rows, native and scene-wire replacement, multiple-input merge and isolated CSV/runtime round trip.');
+})().catch(e=>{console.error(e);process.exitCode=1;});

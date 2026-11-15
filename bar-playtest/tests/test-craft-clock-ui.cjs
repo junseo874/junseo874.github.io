@@ -37,13 +37,13 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   await p.keyboard.press('Escape');
  }
  await p.evaluate(()=>{
-  barGame.startMinigame('shake');barGame.minigame=null;barGame.craft.elapsed=125;
+  barGame.startMinigame('shake');barGame.minigame=null;barGame.craft.elapsed=125;barGame.progress.flags.mix_tutorial_shake=false;
   lunaCampaign.session.active=true;lunaCampaign.session.developer=false;lunaCampaign.screen('game');
  });
- await p.locator('.main-story-mix.shake-screen .craft-timer').waitFor();
- if(await p.locator('.mix-tutorial').isVisible()){await p.locator('.mix-lesson-next').click();await p.waitForFunction(()=>document.querySelector('.mix-guide-page')?.textContent.includes('2'));await p.locator('.mix-lesson-next').click();await p.locator('.mix-tutorial').waitFor({state:'hidden'});}
- assert.equal(await p.locator('.rhythm-modes').count(),0);
- assert(await p.evaluate(()=>document.querySelector('.rhythm-stage').getBoundingClientRect().top>document.querySelector('.craft-timer').getBoundingClientRect().bottom),'main story keeps rhythm play below the shared clock');
+ const frame=p.frameLocator('.shake-craft-dialog iframe');
+ await frame.locator('#timer').filter({hasText:/^02:05$/}).waitFor();
+ assert.equal(await frame.locator('#sMenu').isVisible(),false);
+ assert.equal(await p.locator('.main-story-mix.shake-screen').count(),0,'no legacy shake or second clock beneath the V2 stage');
  await p.screenshot({path:'/private/tmp/craft-clock-main-shake.png'});
  await p.evaluate(()=>{lunaCampaign.session.developer=true;lunaCampaign.screen('developer');barGame.startMinigame('stir');barGame.craft.elapsed=6001;});
  await p.waitForFunction(()=>document.querySelector('.craft-timer')?.dataset.craftSeconds==='6001');

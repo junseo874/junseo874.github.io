@@ -46,7 +46,7 @@ function interact(m,t){
  flags().street_beggar_met=true;sync();return m.story.beginRows(id,t,dialogue);
 }
 function choiceView(m){const money=balance(),repeat=m?.story.speech?.rows!==intro;return {label:'대답하기',money,options:[
- {id:'beggar-pay',label:'네, 믿을게요 · 200원',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
+ {id:'beggar-pay',label:repeat?'네, 드릴게요 · 200원':'네. 여기요 · 200원',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
  {id:'beggar-refuse',label:repeat?'아니요.':'싫어요.',disabled:false},
  {id:'beggar-question',label:flags().street_beggar_warned?'혹시 사기꾼인가요?':'???',disabled:!flags().street_beggar_warned,disabledReason:'관련 정보가 필요합니다.'}
  ]};}

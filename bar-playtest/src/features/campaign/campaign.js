@@ -91,6 +91,7 @@
         global.Sfx?.setEnabled(false);
         global.Sfx?.setLowpass(0);
       }
+      if(view==='ending'&&this.view!=='ending'){this.creditTime=0;this.creditsFinished=false;}
       this.view = view;
       document.body.classList.toggle('campaign-cinematic', ['awakening', 'bar-door'].includes(view)||view==='prologue'&&!this.cinema?.dialogueWait&&!this.cinema?.dialogueChoice);
       this.host.classList.toggle('is-dev-console', view === 'dev-console');
@@ -114,8 +115,11 @@
       // Progress callbacks must not recreate the dots and restart their animation.
       if (this.view === 'loading' && this.host.querySelector('.view-loading .resource-loading')) return;
       let body = '';
-      if (this.view === 'picker') body = '<div class="campaign-picker"><img class="picker-logo" src="' + path('title-logo.png') + '" alt="Project LUNA"><h1>어떤 방식으로 플레이할까요?</h1><div class="campaign-paths">' + button('<span>01 / STORY</span><strong>본편 플레이</strong><p>루나의 첫 출근부터, 네 번의 밤까지.</p>', 'title', 'story-path') + button('<span>02 / PLAYTEST</span><strong>개발자 시뮬레이터</strong><p>바 영업 · 기믹 · 외부 공간을 자유롭게 테스트합니다.</p>', 'developer', 'dev-path') + '</div></div>';
-      if (this.view === 'bar-door') body = this.doorTransition?.artReady ? global.LunaBarDoor.html(this.doorTransition.direction) : '<div class="resource-loading" role="status" aria-label="로딩 중"><span class="resource-loading-copy" aria-hidden="true">Loading<span class="resource-loading-dots"></span></span></div>';
+      if (this.view === 'picker') body = '<main class="campaign-picker">' +
+        '<h1><img class="picker-logo" src="' + path('title-logo.png') + '" alt="Project LUNA"></h1>' +
+        button('본편 플레이', 'title', 'story-path') +
+        button('개발자 시뮬레이터', 'developer', 'dev-path') + '</main>';
+      if (this.view === 'bar-door') body = global.LunaBarDoor.html(this.doorTransition.direction, this.doorTransition.artReady);
       if (this.view === 'awakening') body = '<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
       if (this.view === 'title') body = '<div class="campaign-title"><div class="title-logo"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>' + '<nav aria-label="타이틀 메뉴">' + button('새 게임', 'new', 'title-choice') + '<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>' + button('설정', 'options', 'title-choice') + button('종료', 'picker', 'title-choice') + '<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
       if (this.view === 'scene-choice') {
@@ -133,12 +137,13 @@
       if (this.view === 'observation') body = this.card('조니의 관찰 메모', '<p>기억에서 직접 본 내용만 정리해 주세요.</p><div class="observation-fields"><label>고른 베이스<select id="observation-base"><option value="">선택</option><option value="gin">진</option><option value="rye">라이 위스키</option><option value="vodka">보드카</option></select></label><label>재료를 넣은 순서<select id="observation-order"><option value="">선택</option><option value="wrong">시럽 → 비터스 → 위스키</option><option value="right">위스키 → 시럽 → 비터스 → 스터</option></select></label></div><p class="campaign-error" role="alert">' + esc(this.observationError || '') + '</p>' + button('제조 기록 다시 보기', 'replay-memory') + button('준비 목록 완성', 'confirm-observation', 'primary'));
       if (this.view === 'scene') body = this.sceneHTML();
       if (this.view === 'prologue') body = '<canvas class="campaign-prologue" width="480" height="270" aria-label="' + esc(this.cinema?.title || '루나의 꿈 회상 컷씬') + '"></canvas><div class="campaign-cinema-ui"><div class="bubble"><div class="txt"><span class="ghost"></span><span class="vis"></span></div><i class="tail"></i></div></div><aside class="campaign-skip" aria-label="스페이스 바를 2초간 누르면 컷씬을 건너뜁니다"><span>스페이스 바를 눌러 스킵</span><div class="campaign-skip-track" role="progressbar" aria-label="컷씬 스킵" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></aside>';
-      if (this.view === 'ending') body = '<div class="campaign-ending"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><p>...조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>' + button('타이틀로', 'exit-run') + '</div>';
+      if (this.view === 'ending') body = !this.creditsFinished ? global.LunaCutsceneLibrary.creditsHTML() : '<div class="campaign-ending"><img src="' + path('title-logo.png') + '" alt="Project LUNA"><p>...조금 더 해보고 싶어요.</p><span>0—3일차 플레이 완료</span>' + button('타이틀로', 'exit-run') + '</div>';
       this.cinemaChoices?.dispose();
       this.cinemaChoices = null;
       this.sceneChoices?.dispose();
       this.sceneChoices = null;
       this.host.innerHTML = '<div class="campaign-stage view-' + this.view + '">' + body + '</div>';
+      if(this.view==='ending'&&!this.creditsFinished)global.LunaCutsceneLibrary.advanceCredits(this,0);
       if (this.view === 'dev-console') global.LunaCaptureMode?.mount(this.host.querySelector('.campaign-dev-console'));
       this.titleLogo = this.view === 'title' ? global.LunaTitleLogo.mount(this.host.querySelector('.title-logo')) : null;
       if (this.view === 'prologue' && this.cinema) {
@@ -271,7 +276,7 @@
       if (paragraph) {
         if (paragraph.dataset.line !== r.text) {
           paragraph.dataset.line = r.text;
-          global.LunaExteriorTextbox.mountText(paragraph, r.text, r.emphasis || []);
+          global.LunaExteriorTextbox.mountText(paragraph, r.text, r.emphasis || [], false, r.styledText);
         }
         global.LunaExteriorTextbox.revealText(paragraph, Array.from(r.text.slice(0, Math.floor(this.dialog.chars))).length);
         global.LunaDialogueCue.sync(paragraph.closest('.campaign-speech'), !!r.text && this.dialog.chars >= r.text.length);
@@ -385,6 +390,7 @@
     tick(dt) {
       if (this.view === 'title') this.titleLogo?.tick(Math.min(.05, Math.max(0, dt)));
       dt = Math.min(.05, Math.max(0, dt));
+      if(this.view==='ending'&&!this.creditsFinished){if(!global.LunaFocusSettings.hiddenPaused)global.LunaCutsceneLibrary.advanceCredits(this,dt);return true;}
       if (this.memoryTransition) return this.tickMemoryTransition(dt);
       if (this.outside.active && this.outside.devConsoleOpen && !this.blocking) return false;
       if (this.doorTransition) return this.tickDoorTransition(dt);
@@ -562,6 +568,11 @@
       global.LunaUpdates.mount();
     }
     action(a) {
+      if(a==='finish-credits'&&this.view==='ending'){
+        if(global.LunaCutsceneLibrary.active)global.LunaCutsceneLibrary.close();
+        else {this.creditsFinished=true;this.draw();}
+        return;
+      }
       if (global.LunaCutsceneLibrary?.action(a)) return;
       if (this.memoryTransition && a !== 'picker') return;
       if (a.startsWith('scene-choice:')) {

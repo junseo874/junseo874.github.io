@@ -1,0 +1,34 @@
+{
+  "outside": {
+    "total": 83,
+    "initialFailures": []
+  },
+  "ui": {
+    "total": 48,
+    "initialFailures": [
+      {
+        "file": "bar-playtest/tests/test-recipe-copy-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 4
+      },
+      {
+        "file": "bar-playtest/tests/test-resource-workspace-ui.cjs",
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "seconds": 8
+      }
+    ]
+  },
+  "smoke": {
+    "total": 43,
+    "initialFailures": []
+  },
+  "reruns": [
+    "test-recipe-copy-ui: passed",
+    "test-resource-workspace-ui: passed"
+  ],
+  "additional": "test-shiba-speech-anchor-ui: passed (180 frames, 5 animations)"
+}

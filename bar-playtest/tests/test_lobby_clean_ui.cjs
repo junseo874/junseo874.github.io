@@ -4,46 +4,45 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));
- await p.goto(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');
- await p.locator('#luna-updates .updates-confirm').click();
- for(const lang of ['ko','en'])for(const [width,height] of [[1280,720],[960,540],[1440,900]]){
-  await p.setViewportSize({width,height});await p.evaluate(l=>barGame.lang=l,lang);
-  for(const id of ['original','gpt','minigames']){
-   await p.locator('[data-act="version"][data-id="'+id+'"]').click();await p.waitForTimeout(100);
-   const screen=p.locator('.start-screen');
-   assert.equal(await screen.locator('.intro,.eyebrow,.minigame-heading,.remix-feature-grid,.remix-budget-note,.remix-disclaimer').count(),0);
-   const outer=await screen.boundingBox(),tabs=await p.locator('.version-tabs').boundingBox();
-   assert(Math.abs(tabs.x+tabs.width/2-(outer.x+outer.width/2))<2,'Tabs centered');
-   const card=await screen.locator(id==='minigames'?'.minigame-cards':'.start-card').boundingBox();
-   assert(Math.abs(card.x+card.width/2-(outer.x+outer.width/2))<2,'Content centered');
-   assert(card.y>=tabs.y+tabs.height,'No tab overlap');
-   assert(card.y+card.height<=outer.y+outer.height+1,'Content fits');
-   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
-   if(id==='minigames'){
-    assert.equal(await screen.locator('.minigame-card p').count(),5);
-    assert((await screen.locator('.minigame-card p').allTextContents()).every(s=>s.length>0));
-    assert.equal(await screen.locator('.minigame-options>p').count(),0);
-   }else{
-    const start=await screen.locator('[data-act="start"]').boundingBox();
-    assert(start.y+start.height<=outer.y+outer.height,'Start button visible');
-    assert.equal(await screen.locator('.day-list button').count(),5);
-   }
-   if(width===1280)await p.screenshot({path:'/private/tmp/lobby-clean-'+id+'-'+lang+'.png'});
+ const url=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
+ await p.goto(url+'?version=gpt');
+ await p.locator(".updates-dismiss input").check();
+ await p.locator('.updates-confirm').click();
+ const nav=p.locator('.sim-nav');
+ assert.equal(await p.locator('.remix-start').count(),0);
+ const editor=await browser.newPage();
+ await editor.goto(new URL('dialogue-editor.html?view=flow',url).href);
+ async function metrics(rail,control){
+  const {x,y,width,height}=await rail.boundingBox();
+  const type=await control.evaluate(el=>{
+   const css=getComputedStyle(el);
+   return [css.fontFamily,css.fontSize,el.getBoundingClientRect().height];
+  });
+  return [x,y,width,height,...type];
+ }
+ for(const [width,height] of [[1600,900],[1024,768],[390,844]]){
+  await Promise.all([p,editor].map(page=>page.setViewportSize({width,height})));
+  const expected=await metrics(editor.locator('.studio-rail'),editor.locator('#map-mode'));
+  await p.goto(url+'?dev=1');
+  for(const id of ['original','minigames','outside','cutscenes','guest-appearance','dialogue-editors','resource-review','data-review']){
+   const link=['dialogue-editors','resource-review','data-review'].includes(id);
+   await nav.locator(link?'a[href="'+id+'.html"]':'[data-id="'+id+'"]').click();
+   await nav.locator(link?'[aria-current="page"]':'[aria-pressed="true"][data-id="'+id+'"]').waitFor();
+   assert.equal(await nav.locator('a,button').count(),8);
+   assert.deepEqual(await metrics(nav,nav.locator('a,button').first()),expected,id+' should match the dialogue editor');
+   const header=await p.locator('.sim-heading,body[data-sim-page] > header').boundingBox();
+   assert(Math.abs(header.x-expected[2])<1 && header.y===0,id+' heading aligned with rail');
   }
  }
- await p.setViewportSize({width:1280,height:720});
- for(const id of ['original','gpt']){
-  await p.locator('[data-act="version"][data-id="'+id+'"]').click();
-  await p.locator('[data-act="day"][data-id="99"]').click();
-  await p.locator('#start-mode').selectOption('practice');
-  await p.locator('[data-act="start"]').click();
-  await p.waitForFunction(()=>barGame.phase!=='ready');
-  assert.equal(await p.evaluate(()=>barGame.mode),'practice');
-  await p.keyboard.press('Escape');await p.locator('[data-act="restart"]').click();await p.locator('[data-act="setup"]').click();
- }
- await p.locator('[data-act="version"][data-id="minigames"]').click();
- await p.locator('[data-act="miniStart"][data-id="pour"]').click();
- await p.locator('.fluid-screen').waitFor();
+ await editor.close();
+ await nav.locator('[href$="mode=guest-appearance"]').click();
+ await p.locator('.guest-look-layout').waitFor();
+ await nav.locator('[data-id="original"]').click();
+ await p.locator('[data-act="day"][data-id="99"]').click();
+ await p.locator('#start-mode').selectOption('practice');
+ await p.locator('[data-act="start"]').click();
+ await p.waitForFunction(()=>barGame.phase!=='ready');
+ assert.equal(await p.evaluate(()=>barGame.mode),'practice');
  assert.deepEqual(errors,[]);
- console.log('LOBBY_CLEAN_UI_OK: three centered tabs; removed intro/English headings; five skill descriptions; KO/EN × three viewports; preserved session and minigame start.');
+ console.log('SIMULATOR_NAV_OK: eight destinations, active state, three viewport sizes and bar practice.');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

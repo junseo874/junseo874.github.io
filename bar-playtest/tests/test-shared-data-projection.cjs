@@ -14,9 +14,9 @@ const cutscenes=original.rawTables.get('Cutscenes'),cutsceneIds=new Set(cutscene
 assert.deepEqual([...cutsceneIds].sort(),[
  'tl_finished_cosmo','tl_finished_martini','tl_finished_ginfizz','tl_finished_kahlua',
  'tl_serve_cosmo','tl_serve_martini','tl_serve_ginfizz','tl_serve_kahlua','tl_serve_unknown',
- 'sp_parttime_poster','sp_experiment_poster','tl_intro'
+ 'sp_parttime_poster','sp_experiment_poster','tl_intro','tv_news_d0','johnny-memory','tl_documentary','tl_yuna_memory_d0','tl_yuna_memory_d3'
 ].sort(),'Keep the live engine opening registration as well as protected entries');
-assert.equal(cutscenes.find(r=>r.id==='tl_intro').resource_key,'INTRO');
+for(const [id,key] of [['tl_intro','tl_intro'],['tv_news_d0','tl_documentary'],['johnny-memory','tl_johnny_memory']])assert.equal(cutscenes.find(r=>r.id===id).resource_key,key);
 for(const row of original.rawTables.get('Steps')){
  // The day-zero programme is dispatched by the existing engine TV binding.
  if(row.type==='timeline'&&row.arg&&row.arg!=='\\N'&&row.arg!=='tv_news_d0')assert(cutsceneIds.has(row.arg),'Catalog timeline reference must still resolve: '+row.row_id);
@@ -35,13 +35,13 @@ for(const day of [0,1,2,3])for(const seen of [false,true]){
  assert.equal(condition(watch.when,context),day===0,'Only the day-zero documentary is watchable');
  assert(condition(leave.when,context),'Cancel stays available');
 }
-assert.deepEqual(watch.result_steps.filter(r=>r.type==='timeline').map(r=>r.arg),['tv_news_d0']);
+assert.deepEqual(watch.result_steps.filter(r=>r.type==='timeline').map(r=>r.arg),['tl_documentary']);
 assert.equal(watch.result_steps[0].effects,'flag.tv_news_d0_seen = true');
 assert(!original.rawTables.get('Steps').some(r=>/^tv_news_d[1-3]$/.test(r.arg)));
 assert(!original.rawTables.get('StreetChoices').some(r=>/^home_tv_day[1-3]_/.test(r.id)));
-// Do not introduce an ID the unchanged engine's CSV-memory fallback cannot play.
-const memories=original.rawTables.get('Steps').filter(r=>r['web_fields.cinemaAfter']==='terrace-memory');
-assert.equal(memories.length,2);assert(memories.some(r=>r['web_fields.memoryKey']==='terraceMemory3'));
+// Select the installed Studio assets, not the shared fallback's older script.
+const memories=original.rawTables.get('Steps').filter(r=>/^tl_yuna_memory_/.test(r['web_fields.cinemaAfter']));
+assert.deepEqual(memories.map(r=>[r.context,r['web_fields.cinemaAfter']]),[['night0','tl_yuna_memory_d0'],['ending','tl_yuna_memory_d3']]);
 // Craft CSV is the shipped web catalog, not an engine superset hidden by views.
 // Removed recipes must also be absent in QA99 and the developer catalog.
 for(const name of ['cocktails','shelf_items','recipes','cocktail_tags']){

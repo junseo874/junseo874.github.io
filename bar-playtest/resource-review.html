@@ -4,18 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>리소스 확인 · Project LUNA</title>
-<link rel="stylesheet" href="src/dev/resources/resource-review.css?v=review-workspace-20261019">
+<link rel="stylesheet" href="src/dev/resources/resource-review.css?v=drawer-bounds-20261113">
 <link rel="stylesheet" href="src/dev/resources/resource-missing.css?v=cyan-cursors-20261019">
-<link rel="stylesheet" href="src/dev/resources/resource-popups.css?v=review-workspace-20261019">
+<link rel="stylesheet" href="src/dev/resources/resource-popups.css?v=preview-layout-20261115">
 <link rel="stylesheet" href="src/dev/resources/resource-download.css?v=artwork-20261101">
 <link rel="stylesheet" href="src/dev/resources/resource-sounds.css?v=20261018">
 <link rel="stylesheet" href="src/shared/ui/cursors.css?v=cyan-cursors-20261019">
 <script src="src/shared/ui/cursors.js?v=cursor-exports-20261020"></script>
+<link rel="stylesheet" href="src/app/simulator-nav.css?v=preview-layout-20261115">
+<link rel="stylesheet" href="src/shared/ui/preview-fullscreen.css">
+<script defer src="src/shared/ui/preview-fullscreen.js"></script>
 </head>
-<body>
+<body data-sim-page="resource-review"><script src="src/app/simulator-nav.js?v=studio-layout"></script>
 <link rel="stylesheet" href="src/dev/resources/resource-extraction.css?v=all-ui-20261019">
 <header class="top">
-<div class="brand"><a href="index.html?dev=1" aria-label="개발자 시뮬레이터로 돌아가기">←</a><h1>리소스 확인</h1></div>
+<div class="brand"><h1>리소스 확인</h1></div>
 <details class="workspace-tools"><summary>검수 도구</summary><div class="tools-menu">
 <div id="totals" aria-live="polite">데이터를 불러오는 중…</div>
 <button id="export">검수 목록 CSV</button>
@@ -126,7 +129,7 @@
 </div>
 <div class="popup-layout">
 <div class="frame-wrap">
-<iframe id="game" title="리소스 확인용 시뮬레이터" src="index.html?dev=1&amp;resourceReview=1" allow="autoplay">
+<iframe id="game" title="리소스 확인용 시뮬레이터" src="index.html?dev=1&amp;resourceReview=1" allow="autoplay; fullscreen" allowfullscreen>
 </iframe>
 </div>
 </div>
@@ -134,7 +137,7 @@
 </section>
 <script src="src/dev/resources/resource-navigation.js?v=return-20261005">
 </script>
-<script src="src/dev/resources/resource-backgrounds.js?v=resource-refresh-20261109">
+<script src="src/dev/resources/resource-backgrounds.js?v=door-art-20261115">
 </script>
 <script src="src/dev/resources/resource-catalog.js?v=artwork-20261101">
 </script>
@@ -158,7 +161,7 @@
 </script>
 <script src="src/dev/resources/resource-artwork.js?v=notice-scale-20261109">
 </script>
-<script src="src/dev/resources/resource-review.js?v=day-quotes-20261101">
+<script src="src/dev/resources/resource-review.js?v=preview-layout-20261115">
 </script>
 <script src="src/dev/resources/resource-fullscreen.js?v=1">
 </script>

@@ -1,18 +1,18 @@
 const assert=require('assert/strict');const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 (async()=>{const b=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});try{
-const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/bar-playtest/?update=day0-guide');await p.locator('.updates-confirm').click();
+const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&update=day0-guide');await p.locator('.updates-confirm').click();await p.evaluate(()=>lunaCampaign.screen('developer'));
 for(const variant of ['original','gpt']){
 await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);
-await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').first().click();
-await p.keyboard.down('Control');if(variant==='original')await require('../tools/day0-seat-test-driver.cjs')(p);await p.waitForFunction(()=>barGame.tutorial?.kind==='coaster');await p.waitForTimeout(250);await p.keyboard.up('Control');
+await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').filter({hasText:'기억이 잘 안 나요.'}).click({delay:360});
+await p.keyboard.down('Control');if(variant==='original')await require('./helpers/day0-seat-test-driver.cjs')(p);await p.waitForFunction(()=>barGame.tutorial?.kind==='coaster');await p.waitForTimeout(250);await p.keyboard.up('Control');
 const frozen=await p.evaluate(()=>barGame.story.index);await p.waitForTimeout(300);assert.equal(await p.evaluate(()=>barGame.story.index),frozen);
 await p.screenshot({path:'/private/tmp/day0-guide-coaster-'+variant+'.png'});
 const source=p.locator('[data-drag="coaster"]'),target=p.locator('[data-drop="R"]');
 let a=await source.boundingBox(),z=await target.boundingBox();assert(a&&z);await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(100,300,{steps:8});await p.mouse.up();assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
-await p.keyboard.press('Escape');await p.locator('[data-change="language"]').waitFor();await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
+await p.keyboard.press('Escape');await p.locator('.luna-settings:visible').waitFor();await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>barGame.tutorial.kind),'coaster');
 for(const viewport of [{width:960,height:540},{width:1600,height:900},{width:1280,height:720}]){await p.setViewportSize(viewport);await p.waitForTimeout(150);const hole=await p.locator('[data-guide-hole="source"]').boundingBox(),box=await source.boundingBox();assert(hole.x<box.x&&hole.y<box.y&&hole.x+hole.width>box.x+box.width);}
 a=await source.boundingBox();z=await target.boundingBox();await p.mouse.move(a.x+a.width/2,a.y+a.height/2);await p.mouse.down();await p.mouse.move(z.x+z.width/2,z.y+z.height*.8,{steps:12});await p.mouse.up();await p.waitForFunction(()=>!barGame.tutorial&&!!barGame.dialogue);
-assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),true);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'이렇게 하면 되나요?');
+assert.equal(await p.evaluate(()=>barGame.seats.R.coaster),true);assert.equal(await p.evaluate(()=>barGame.dialogue.text),'여기 있습니다.');
 await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.tutorial?.kind==='recipe');await p.keyboard.up('Control');await p.screenshot({path:'/private/tmp/day0-guide-service-'+variant+'.png'});
 assert.equal(await p.locator('.story-craft-prompt').count(),0);await p.locator('.service-handle').click();await p.locator('.tutorial-service').waitFor();
 assert.equal(await p.locator('#service-panel [data-act="sales"]').isDisabled(),true);assert.equal(await p.locator('#service-panel [data-act="dossierOpen"]').isDisabled(),true);
@@ -33,7 +33,7 @@ if(variant==='original'){
 }assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
 console.log('TUTORIAL_UI_OK',variant,'drag rejection, real drag, responsive mask, pause/resume, service/recipe');
 // Skip does not introduce a mandatory action step.
-await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').nth(1).click();await p.keyboard.down('Control');await p.locator('.service-handle').waitFor();await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
+await p.evaluate(variant=>barGame.reset(0,'full',7,true,{variant}),variant);await p.waitForFunction(()=>barGame.dialogue&&!barGame.cameraMoving&&!barGame.transition);await p.keyboard.down('Control');await p.locator('.choices').waitFor();await p.keyboard.up('Control');await p.locator('.choices button').filter({hasText:'다 기억하고 있어요.'}).click({delay:360});await p.keyboard.down('Control');await p.waitForFunction(()=>barGame.storyCoasterReady());await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>!!barGame.tutorial),false);await p.keyboard.press('KeyE');await p.keyboard.down('Control');await p.locator('.service-handle').waitFor();await p.keyboard.up('Control');assert.equal(await p.evaluate(()=>barGame.tutorial),null);assert.equal(await p.locator('.day0-guide').count(),0);
 }
 assert.deepEqual(errors,[]);console.log('No browser exceptions; both skip paths preserve crafting.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

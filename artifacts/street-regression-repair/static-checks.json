@@ -1,0 +1,34 @@
+[
+  {
+    "check": "check-structure",
+    "chunk_id": "ddad87",
+    "wall_time_seconds": 0.116928958,
+    "exit_code": 0,
+    "original_token_count": 21,
+    "output": "STRUCTURE_OK: 12 stable entry points, 809 valid scripts, clean application roots.\n"
+  },
+  {
+    "check": "check-site",
+    "chunk_id": "f9c8ee",
+    "wall_time_seconds": 0.047270417,
+    "exit_code": 0,
+    "original_token_count": 59,
+    "output": "{\n  \"siteFiles\": 3565,\n  \"localReferences\": 776,\n  \"tables\": 29,\n  \"assetKeys\": 289,\n  \"audioTracks\": 4,\n  \"errors\": []\n}\nSITE_RESOURCES_OK: exact-case local links, 29 tables, sprites, fonts, 4 BGM tracks, no external filesystem links.\n"
+  },
+  {
+    "check": "check-code-boundaries",
+    "chunk_id": "d313cf",
+    "wall_time_seconds": 0.000007792,
+    "exit_code": 0,
+    "original_token_count": 30,
+    "output": "CODE_BOUNDARIES_OK: 123 installed feature methods, no duplicates, descriptor parity, no inline maps/atlases in source\n"
+  },
+  {
+    "check": "test-source-index",
+    "chunk_id": "c8eefa",
+    "wall_time_seconds": 0.012328167,
+    "exit_code": 0,
+    "original_token_count": 20,
+    "output": "SOURCE_INDEX_OK: feature/alias/file/symbol lookup and generated-data exclusion\n"
+  }
+]

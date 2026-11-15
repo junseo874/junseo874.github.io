@@ -1,0 +1,40 @@
+/* Exercise graph, preview, actual scene positioning and server save in isolated data copies.
+ * No write ever reaches the working game's dialogue or presentation files. */
+const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
+const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs'),rt=require('../../tools/lib/test-runtime.cjs');
+const baseURL=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
+(async()=>{
+ const original=await snapshot(),tmp=await fs.mkdtemp(path.join(os.tmpdir(),'outside-studio-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime'),backupRoot=path.join(tmp,'backups');
+ await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
+ const browser=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
+ try{const c=await browser.newContext({viewport:{width:1420,height:900}}),errors=[],saves=[];
+ c.on('page',p=>p.on('pageerror',e=>errors.push(String(e.stack||e))));
+ await c.route('**/api/dialogue-editor',async route=>{try{if(route.request().method()==='POST'){const r=await save(route.request().postDataJSON(),{base,runtime,backupRoot});saves.push(r.files);return route.fulfill({json:r});}return route.fulfill({json:{...await snapshot(base),token:'test',mode:'local-csv'}});}catch(e){return route.fulfill({status:409,json:{error:e.message}});}});
+ await c.route('**/api/dialogue-editor/runtime',async r=>r.fulfill({json:await runtimeSnapshot(base)}));
+ await c.route('**/data/presentation/npc-placements.json',async r=>r.fulfill({contentType:'application/json',body:(await snapshot(base)).files['npc-placements.json']}));
+ const game=await c.newPage();await game.goto(baseURL+'?dev=1');await game.waitForFunction(()=>window.lunaDialogueLiveData?.revision);
+ if(await game.locator('.updates-confirm').isVisible())await game.locator('.updates-confirm').click();
+ await game.evaluate(async()=>{const c=lunaCampaign;c.session.install({developer:false});barGame.reset(0,'full',1,false);c.session.carry=structuredClone(barGame.progress);Object.assign(outsidePlaytest.config,{day:0,flow:'out',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);outsidePlaytest.model.story.cancel();outsidePlaytest.model.backgroundStory.cancel();});
+ const p=await c.newPage();await p.goto(baseURL+'outside-dialogue-editor.html?flow=newspaper/intro');await p.waitForSelector('.street-card.join');
+ assert(await p.locator('#street-graph').isVisible());assert(await p.locator('#graph-wires path.is-branch').count()>=2);
+ const menu=p.locator('.street-card.choice').first();await menu.locator('[data-port="0"]').click();
+ await p.locator('.link-target').filter({has:p.locator('.node-head small',{hasText:'정답 분기'})}).getByRole('button',{name:'선택한 분기를 이 흐름에 연결'}).click();
+ assert.equal(await p.evaluate(()=>{const m=outsideDialogueEditor.model,q=m.row(m.projected.data.newspaperRoutes.parent);return m.optionJump(m.menu(q)[0].row).scene_id;}),'shared-newspaper-right');
+ await p.locator('#undo').click();await p.evaluate(()=>outsideDialogueEditor.openFlow('newspaper/intro'));await menu.locator('[data-act=preview]').click();assert(await p.locator('#stage-dialog').isVisible());await p.waitForTimeout(650);await p.locator('#stage-dialog #preview-choices button').nth(1).click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');
+ await p.screenshot({path:path.join(tmp,'dialogue-preview.png')});await p.keyboard.press('Escape');assert(!(await p.locator('#stage-dialog').isVisible()));
+ await p.evaluate(()=>outsideDialogueEditor.openFlow('believer/intro'));await p.locator('#place-npc').click();await p.waitForFunction(()=>document.querySelector('#map-status').textContent.includes('발 위치 보정'));
+ const originalX=Number(await p.locator('#place-x').inputValue());await p.locator('#place-x').fill('999');await p.locator('#place-x').press('Tab');assert.equal(await p.locator('#place-x').inputValue(),'5.95');await p.locator('#cancel-placement').click();assert.equal(await p.locator('#dirty').textContent(),'수정 없음');
+ await p.locator('#place-npc').click();assert.equal(Number(await p.locator('#place-x').inputValue()),originalX);await p.locator('#place-x').fill('2.15');await p.locator('#place-x').press('Tab');await p.locator('#placement-map').focus();await p.keyboard.press('ArrowRight');await p.waitForTimeout(400);await p.screenshot({path:path.join(tmp,'scene-placement.png')});await p.locator('#apply-placement').click();
+ assert.deepEqual(await p.evaluate(()=>outsideDialogueEditor.model.placement.positions.believer),{x:2.16,y:-.974});
+ await p.locator('#undo').click();assert.equal(await p.locator('#dirty').textContent(),'수정 없음');await p.locator('#redo').click();await p.locator('#review').click();await p.locator('#commit').click();await p.waitForFunction(()=>!document.querySelector('#review-dialog').open);
+ assert.deepEqual(saves,[['presentation/npc-placements.json']]);assert.equal((await snapshot(base)).files['story/steps.csv'],original.files['story/steps.csv']);
+ await game.bringToFront();await game.waitForFunction(()=>LunaOutsideBeliever.place.x===2.16);const world=await game.evaluate(()=>{const m=outsidePlaytest.model,n=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.believerActor),t=LunaOutsideBeliever.targets(m)[0];m.x=2.12;m.updateNear();const near=m.near?.id,ok=LunaOutsideBeliever.interact(m,t);return{graphic:n.x,target:t.x,near,speech:m.story.speech?.target?.x,ok};});
+ assert.deepEqual([world.graphic,world.target,world.speech],[2.16,2.16,2.16]);assert(world.ok);
+ await p.reload();await p.waitForFunction(()=>window.outsideDialogueEditor);await p.evaluate(()=>outsideDialogueEditor.openFlow('believer/intro'));await p.locator('#place-npc').click();assert.equal(await p.locator('#place-x').inputValue(),'2.16');await p.keyboard.press('Escape');
+ await p.evaluate(()=>outsideDialogueEditor.openFlow('ambient/outside_day0_store_passers'));await p.locator('#place-npc').click();await p.locator('#place-actor').selectOption('store-pair-partner');await p.locator('#place-x').fill('-4.68');await p.locator('#place-x').press('Tab');await p.locator('#place-actor').selectOption('store-pair');await p.locator('#place-x').fill('1');await p.locator('#place-x').press('Tab');await p.locator('#place-actor').selectOption('store-pair-partner');assert.equal(Number(await p.locator('#place-x').inputValue()),2.1);await p.locator('#apply-placement').click();await p.locator('#review').click();await p.locator('#commit').click();await p.waitForFunction(()=>!document.querySelector('#review-dialog').open);
+ await game.bringToFront();await game.evaluate(()=>{const m=outsidePlaytest.model;m.story.cancel();m.backgroundStory.cancel();});await game.waitForFunction(()=>Math.abs(LunaOutsideEncounters.actor('store-pair-right').x-2.1)<.00001);const pairs=await game.evaluate(()=>['left','right'].map(side=>{const id='store-pair-'+side;return [LunaOutsideEncounters.actor(id).x,LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.id==='ambient-'+id).x];}));assert(pairs.every(([target,sprite],i)=>Math.abs(target-[1,2.1][i])<.00001&&Math.abs(target-sprite)<.00001));assert(saves.every(a=>a.join('')==='presentation/npc-placements.json'));
+ await p.bringToFront();await p.evaluate(()=>outsideDialogueEditor.openFlow('newspaper/intro'));await p.screenshot({path:path.join(tmp,'encounter-chart.png')});await p.setViewportSize({width:617,height:820});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(errors,[]);assert.equal((await snapshot()).revision,original.revision);
+ console.log('OUTSIDE_STUDIO_UI_OK: graph rewiring and undo, branching playback, real map floor clamp, cancel/apply/undo/redo, independent file save, live actor/interaction and reload. Screens: '+tmp);
+ }finally{await browser.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

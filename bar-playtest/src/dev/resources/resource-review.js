@@ -13,7 +13,7 @@ function syncWorkspace(){
  const testing=!lab.classList.contains('parked'),drawer=compact.matches&&inspectorWanted&&!testing&&!$('#inspector').hidden;
  document.body.classList.toggle('lab-open',testing);document.body.classList.toggle('inspector-open',drawer);
  $('#inspector-backdrop').hidden=!drawer;
- for(const el of document.querySelectorAll('.top,.mobile-categories,.workspace>.sidebar,.workspace>main'))el.inert=testing||drawer;
+ for(const el of document.querySelectorAll('.sim-nav,.top,.mobile-categories,.workspace>.sidebar,.workspace>main'))el.inert=testing||drawer;
  $('#inspector').inert=testing;
  if(drawer){$('#inspector').setAttribute('role','dialog');$('#inspector').setAttribute('aria-modal','true');$('#inspector').setAttribute('aria-label','리소스 상세 미리보기');}
  else{for(const name of ['role','aria-modal','aria-label'])$('#inspector').removeAttribute(name);}
@@ -119,6 +119,15 @@ function select(id){ResourceSounds.stop();selected=rows.find(r=>r.id===id);if(!s
  (r.preview?'<figure class="ui-preview"><img src="'+E(r.preview)+'" alt="'+E(r.title)+' 실제 화면 미리보기"><figcaption>'+E(r.previewNote)+'</figcaption></figure>':r.layers?.length?'<div class="preview"><canvas id="preview-canvas"></canvas></div><div class="controls"><button data-action="play">일시정지</button><button data-action="prev" aria-label="이전 프레임">◀</button><button data-action="next" aria-label="다음 프레임">▶</button><label>FPS<input id="fps" type="number" min="1" max="60" value="'+fps+'"></label><button data-action="background">배경 변경</button></div><input class="scrub" id="frame-slider" aria-label="프레임" type="range" min="0" max="'+(count(r)-1)+'" value="0"><small id="frame-label"></small><p id="preview-status"></p>':'<p class="empty">'+(r.status==='missing'?'전용 이미지 미등록':'실제 화면에서 확인하는 UI입니다.')+'</p>')+
  variantControls(r,'inspect-state')+(r.launch?'<button class="primary" data-action="launch">실제 화면 테스트 ↗</button>':'')+'<div id="inspect-downloads">'+ResourceDownload.controls(r,variantFor(r)?.id)+'</div>'+
  '<details class="resource-details"><summary>사용 정보 · 원본 / 레이어</summary><dl class="meta"><dt>용도</dt><dd>'+E(r.usage)+'</dd><dt>사용 / 확인 방법</dt><dd>'+E(r.note||'현재 등록된 게임 리소스입니다. 최종 제작 여부는 담당자 확인이 필요합니다.')+'</dd>'+(r.wanted?'<dt>요청 키 → 실제 사용 키</dt><dd>'+E(r.wanted)+' → '+E(r.key||'없음')+'</dd>':'')+'<dt>레이어 / 원본 출처</dt><dd class="layers">'+(r.layers?.length?r.layers.map(l=>'<label><input type="checkbox" data-layer="'+E(l.key)+'" checked> '+E(l.key)+'</label><span>'+E(l.source||'출처 메타데이터 없음')+'</span><span>'+(l.src?.startsWith('data:')?'내장 이미지 / 코드 배경 미리보기': '<a href="'+E(l.src)+'" target="_blank" rel="noopener">'+E(l.src)+'</a>')+'<br>'+E((l.fw||l.w||'자동')+' × '+(l.fh||l.h||'자동'))+' · '+(l.frames||1)+'프레임</span>').join(''):'별도 이미지 없음 · 게임 코드에서 구성')+'</dd></dl></details>';
+ const artwork=$('#inspector .preview, #inspector .ui-preview');
+ if(artwork){
+  const viewport=document.createElement('div');
+  viewport.className='preview-viewport';viewport.id='artwork-viewport';
+  artwork.before(viewport);viewport.append(artwork);
+  const expand=document.createElement('button');
+  expand.type='button';expand.dataset.expandPreview=viewport.id;expand.textContent='미리보기 전체화면';
+  viewport.after(expand);
+ }
  document.querySelectorAll('.card').forEach(c=>c.classList.toggle('selected',c.dataset.id===id));drawPreview();
  if(!r.preview&&count(r)===1)$('#inspector').querySelectorAll('[data-action="play"],[data-action="prev"],[data-action="next"],.controls label,.scrub,#frame-label').forEach(el=>el.remove());
  showInspector();

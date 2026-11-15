@@ -4,7 +4,8 @@ const p=await b.newPage({viewport:{width:1440,height:1000}}),errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
 await p.addInitScript(()=>{window.audioStarts=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){audioStarts.push({args,frame:document.querySelector('.serve-canvas')?.dataset.frame});return start.apply(this,args);};});
 await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
-await p.getByRole('link',{name:'사운드',exact:true}).click();await p.locator('#open-serve').click();await p.waitForFunction(()=>!document.querySelector('[data-version]').disabled);
+assert.equal(await p.locator('.sim-nav a[href="sound-lab.html"]').count(),0);
+await p.goto(new URL('sound-lab.html',p.url()).href);await p.locator('#open-serve').click();await p.waitForFunction(()=>!document.querySelector('[data-version]').disabled);
 for(let i=0;i<3;i++){
  await p.locator('[data-version="'+i+'"]').click();await p.waitForFunction(()=>LunaSoundLab.playing);
  await p.waitForFunction(()=>!LunaSoundLab.playing);

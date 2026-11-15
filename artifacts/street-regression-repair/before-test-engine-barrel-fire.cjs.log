@@ -1,0 +1,22 @@
+AssertionError [ERR_ASSERTION]: engine snapshot changed: ProjectSettings/ProjectSettings.asset
++ actual - expected
+
++ '25c4edc056539f4e9726c04f379fd5d2e55ad2be503b0706f8e7e3d8ca2fb02e'
+- '14536e8f2e912fe14e57cb684bf7113851a5ab67bf06229bd6c8baa63a8003e9'
+
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-engine-barrel-fire.cjs:19:54
+    at Object.<anonymous> (/Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-engine-barrel-fire.cjs:35:3)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '25c4edc056539f4e9726c04f379fd5d2e55ad2be503b0706f8e7e3d8ca2fb02e',
+  expected: '14536e8f2e912fe14e57cb684bf7113851a5ab67bf06229bd6c8baa63a8003e9',
+  operator: 'strictEqual',
+  diff: 'simple'
+}

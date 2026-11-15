@@ -3,7 +3,8 @@
   "version": 2,
   "sources": {
     "ProjectSettings/ProjectSettings.asset": {
-      "sha256": "14536e8f2e912fe14e57cb684bf7113851a5ab67bf06229bd6c8baa63a8003e9"
+      "sha256": "14536e8f2e912fe14e57cb684bf7113851a5ab67bf06229bd6c8baa63a8003e9",
+      "fields": { "m_ActiveColorSpace": 1 }
     },
     "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png": {
       "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06"

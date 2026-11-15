@@ -1,0 +1,18 @@
+HOME_WEATHER_OK current source alpha, three panes, visible exterior notch, no room/frame/floor spill, animation and dry days {
+  cam: {
+    x: 1.9649999999999999,
+    y: -0.025000000000000133,
+    w: 4.8,
+    zoom: 4,
+    ppu: 100
+  },
+  spill: [],
+  windowChanges: 14211,
+  exteriorChanges: 406,
+  outside: 0,
+  paneLeaks: 0,
+  panes: [ 186, 643, 197 ],
+  glass: true,
+  animated: true,
+  dry: true
+}

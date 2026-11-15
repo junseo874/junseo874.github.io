@@ -1,0 +1,7 @@
+SHIBA_SPEECH_STABLE_OK 4 frames; [
+  { name: 'idle', stable: true },
+  { name: 'walk', stable: true },
+  { name: 'run', stable: true },
+  { name: 'shiba', stable: true },
+  { name: 'samhoIdle', stable: true }
+]

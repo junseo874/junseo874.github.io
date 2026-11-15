@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# The Unity importer reserializes fully quoted records with LF before accepting them.
+bar-playtest/data/shared-csv/**/*.csv text eol=lf

@@ -1,0 +1,84 @@
+const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runtime.cjs');
+(async()=>{
+ const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
+ try{
+  const p=await b.newPage({viewport:{width:1440,height:900}}),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('dialog',d=>d.accept());
+  await p.goto((process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/dialogue-editor.html?view=flow');
+  const cards=p.locator('.flow-card'),first=cards.first(),position=el=>el.evaluate(e=>[e.offsetLeft,e.offsetTop]),at=async el=>{const r=await el.boundingBox();return [r.x+r.width/2,r.y+r.height/2];};
+  const dirty=()=>p.evaluate(()=>dialogueEditor.model.dirty()),count=()=>p.evaluate(()=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes.length);
+  const startDrag=async(card,dx,dy)=>{const head=card.locator('.card-head');await head.scrollIntoViewIfNeeded();const [x,y]=await at(head);await p.mouse.move(x,y);await p.mouse.down();await p.mouse.move(x+dx,y+dy,{steps:8});return [x,y];};
+  const dragBy=async(card,dx,dy)=>{await startDrag(card,dx,dy);await p.mouse.up();};
+  const historySize=()=>p.evaluate(()=>[dialogueEditor.model.undoStack.length,dialogueEditor.model.redoStack.length]);
+  await first.waitFor();assert(await cards.count()>10);const original=await position(first),next=await position(cards.nth(1));
+  const firstId=await first.getAttribute('data-node'),line=p.locator('.wires path[data-from="'+firstId+'"]').first(),originalWire=await line.getAttribute('d');
+  assert(next[0]>original[0]&&next[1]===original[1]);await dragBy(first,63,75);
+  const moved=await position(first),movedWire=await line.getAttribute('d');assert(moved[0]>original[0]+45&&moved[1]>original[1]+50);assert.notEqual(movedWire,originalWire);assert.deepEqual(await historySize(),[1,0]);
+  assert(!await dirty());assert(await p.locator('#review').isDisabled());await p.keyboard.press('Control+z');assert.deepEqual(await position(first),original);assert.equal(await line.getAttribute('d'),originalWire);
+  assert(await p.evaluate(id=>!JSON.parse(localStorage.getItem('luna.bar.graph-workspace.v2')).d1_tutorial_chris.positions.right?.[id],firstId));
+  // Neither selecting a card, returning to the start, nor cancelling a gesture consumes redo.
+  await first.locator('.card-head').click();const origin=await startDrag(first,30,30);await p.mouse.move(...origin);await p.mouse.up();
+  await startDrag(first,35,35);await p.keyboard.press('Escape');await p.mouse.up();assert.deepEqual(await position(first),original);assert.deepEqual(await historySize(),[0,1]);
+  await startDrag(first,35,35);await p.keyboard.press('Control+z');await p.mouse.up();assert.deepEqual(await position(first),original);assert.deepEqual(await historySize(),[0,1]);
+  await p.keyboard.press('Meta+Shift+z');assert.deepEqual(await position(first),moved);assert.equal(await line.getAttribute('d'),movedWire);
+  const second=cards.nth(1);await dragBy(second,30,45);const moved2=await position(second);assert.notDeepEqual(moved2,next);
+  await p.click('#undo');assert.deepEqual(await position(second),next);assert.deepEqual(await position(first),moved);
+  await p.selectOption('#map-direction','down');assert((await position(cards.nth(1)))[1]>(await position(first))[1]);
+  const down=await position(first);await p.keyboard.press('Control+z');assert.deepEqual(await position(first),down);
+  await p.selectOption('#map-direction','right');assert.deepEqual(await position(first),original);await p.click('#redo');await p.click('#redo');assert.deepEqual(await position(first),moved);assert.deepEqual(await position(second),moved2);
+  await p.click('#map-arrange');assert.deepEqual(await position(first),original);assert.deepEqual(await position(second),next);
+  await p.click('#undo');assert.deepEqual(await position(first),moved);assert.deepEqual(await position(second),moved2);await p.click('#undo');assert.deepEqual(await position(second),next);
+  // Mix a real choice-text edit with a new drag of an already manually placed card.
+  const choiceCard=cards.filter({has:p.locator('b',{hasText:'선택지'})}).first();await choiceCard.locator('.card-head').click();
+  const option=p.locator('.quick-option textarea[data-quick-key="text.ko"]').first(),word=await option.inputValue(),cid=await option.evaluate(e=>e.closest('[data-quick-row]').dataset.quickRow);
+  const readOption=()=>p.evaluate(id=>dialogueEditor.model.tables.bar_choices.find(r=>r.row_id===id)['text.ko'],cid);
+  await option.fill('이동과 편집 순서 테스트');await dragBy(first,35,30);const twice=await position(first);assert.notDeepEqual(twice,moved);assert(await p.locator('#redo').isDisabled());
+  await p.keyboard.press('Meta+z');assert.deepEqual(await position(first),moved);assert.equal(await readOption(),'이동과 편집 순서 테스트');
+  await p.keyboard.press('Control+z');assert.equal(await readOption(),word);assert(!await dirty());
+  await p.keyboard.press('Control+y');assert.equal(await readOption(),'이동과 편집 순서 테스트');await p.keyboard.press('Control+Shift+z');assert.deepEqual(await position(first),twice);
+  await p.click('#undo');await p.click('#undo');await first.focus();await first.press('Alt+ArrowDown');assert.deepEqual(await position(first),[moved[0],moved[1]+16]);assert(await p.locator('#redo').isDisabled());
+  await p.click('#undo');assert.deepEqual(await position(first),moved);assert.deepEqual(await p.evaluate(()=>dialogueEditor.model.output()),{});assert(await p.locator('#review').isDisabled());
+  // A move in another scene is reversed there without moving cards in the open scene or navigating away.
+  const phase=()=>p.locator('#scene [aria-pressed=true]').getAttribute('data-scene'),priorPhase=await phase();
+  await p.selectOption('#day','2');const otherPhase=await phase(),otherPos=await position(first);await p.click('#undo');assert.equal(await phase(),otherPhase);assert.deepEqual(await position(first),otherPos);
+  await p.selectOption('#day','0');assert.equal(await phase(),priorPhase);assert.deepEqual(await position(first),original);await p.click('#redo');assert.deepEqual(await position(first),moved);
+  await p.reload();await first.waitFor();assert.deepEqual(await position(first),moved);
+  await p.fill('#map-search','선택지');assert((await p.locator('#map-bookmark option').count())<await cards.count());await p.fill('#map-search','');
+  const branch=cards.filter({has:p.locator('b',{hasText:'선택지'})}).first();await branch.locator('.card-head').click();
+  assert((await p.locator('.flow-jump').allTextContents()).some(t=>t.includes('다 기억하고 있어요.')));
+  await p.locator('.flow-jump').first().click();const branchRows=await p.locator('#node-detail li').count();assert(branchRows>=2);
+  const selected=()=>p.locator('.flow-card.active').getAttribute('data-node'),prior=await selected();const scroll=()=>p.locator('#map-port').evaluate(el=>[el.scrollLeft,el.scrollTop]),beforePopup=await scroll();
+  await p.click('[data-action="play"]');await p.locator('#node-player[open]').waitFor();assert(await p.locator('#flow-panel').isVisible());assert.equal(await p.locator('[data-player-line]').count(),branchRows);
+  await p.frameLocator('#player-frame').locator('.dialogue-text .text-ink').first().waitFor();
+  await p.waitForFunction(()=>document.querySelector('#player-state').textContent.includes('끝났습니다.'),null,{timeout:45000});
+  assert.equal(await p.locator('[data-player-line][aria-current=true]').getAttribute('data-player-line'),String(branchRows-1));
+  await p.click('#player-prev');await p.locator('[data-player-line]').first().click();
+  await p.frameLocator('#player-frame').locator('body').press('Escape');await p.waitForSelector('#node-player',{state:'hidden'});
+  assert.equal(await selected(),prior);assert.deepEqual(await scroll(),beforePopup);assert(!await dirty());
+  await p.click('[data-action="edit"]');assert.equal(await p.locator('.line').count(),branchRows);await p.goBack();await p.locator('#flow-panel').waitFor();assert.equal(await selected(),prior);
+  const ids=await cards.evaluateAll(es=>es.map(e=>e.dataset.node)),get=id=>p.locator('[data-node="'+id+'"]');
+  // Real mouse drag, not a test-only connect API. Position both pins in view.
+  await p.selectOption('#map-scale','50%');const src=get(ids[2]),dst=get(ids[5]);await src.locator('.card-head').click();
+  const out=src.locator('.socket-out').first(),input=dst.locator('.socket-in');
+  await p.evaluate(([a,b])=>{const el=document.querySelector('#map-port'),one=document.querySelector('[data-node="'+a+'"]'),two=document.querySelector('[data-node="'+b+'"]');el.scrollTo((one.offsetLeft+two.offsetLeft+236)*.25-el.clientWidth/2,0);},[ids[2],ids[5]]);
+  const from=await at(out),to=await at(input);await p.mouse.move(...from);await p.mouse.down();await p.mouse.move(...to,{steps:16});await p.mouse.up();await p.waitForFunction(()=>document.querySelector('#wire-hint').textContent.includes('연결됨'));
+  assert.equal(await count(),1);
+  const keys=()=>p.locator('.wires path[data-from]').evaluateAll(es=>es.map(e=>e.dataset.from+'|'+e.dataset.pin));assert.equal(new Set(await keys()).size,(await keys()).length);
+  const destOf=()=>p.evaluate(()=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes[0]?.target);
+  const oldDest=await destOf();await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await src.locator('.socket-in').click();assert.equal(await destOf(),oldDest);await p.keyboard.press('Escape');
+  await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await get(ids[4]).locator('.socket-in').click();assert.equal(await destOf(),ids[4],await p.locator('#wire-hint').innerText());assert.equal(await count(),1);assert.equal(new Set(await keys()).size,(await keys()).length);
+  await p.click('#undo');assert.equal(await destOf(),oldDest);await p.click('#undo');assert.equal(await count(),0);await p.click('#redo');assert.equal(await count(),1);
+  await p.click('[data-remove-route]');assert.equal(await count(),0);
+  const serveId=ids[14];await p.selectOption('#map-bookmark',serveId);await p.selectOption('#pin-preset','order_match && craft_grade >= good');await p.click('[data-action="add-pin"]');
+  assert(await p.locator('.socket.draft').count());await p.selectOption('#map-bookmark',ids[17]);await get(ids[17]).locator('.socket-in').click();assert.equal(await count(),1);
+  await p.click('#undo');await p.selectOption('#map-bookmark',ids[5]);
+  await p.click('[data-action="insert-choice"]');await p.click('[data-action="edit"]');assert.equal(await p.locator('.choice-editor').count(),2);
+  await p.locator('.choice-editor textarea[data-field="text.ko"]').first().fill('새 경로를 묻는다');
+  await p.goBack();await p.locator('#flow-panel').waitFor();assert((await p.locator('.flow-jump').allTextContents()).some(t=>t.includes('새 경로를 묻는다')));
+  await p.click('[data-action="response"]');await p.click('[data-action="edit"]');await p.locator('#inspector textarea[data-field="text.ko"]').fill('분기 확인용 대사');
+  await p.click('#review');await p.waitForFunction(()=>!document.getElementById('commit').disabled);assert((await p.locator('#changes').innerText()).includes('분기 확인용 대사'));
+  await p.click('#close-review');await p.click('#map-mode');await p.selectOption('#day','2');await p.click('[data-scene=campaign_d2_bar]');await p.click('#section-all');
+  assert(await p.locator('.flow-cast').evaluateAll(items=>items.some(el=>el.querySelectorAll('svg').length===2)));assert(await p.locator('.flow-cast').evaluateAll(items=>items.some(el=>el.querySelectorAll('svg').length===1&&el.textContent==='루나')));
+  await p.setViewportSize({width:820,height:700});assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth&&document.documentElement.scrollHeight<=innerHeight));assert.deepEqual(errors,[]);
+  console.log('FLOW_UI_OK: drag/arrange/cancel, position + CSV undo/redo order, direction isolation, layout reload, search, modal playback, real wire drop, rewiring and scoped edits');
+ }finally{await b.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

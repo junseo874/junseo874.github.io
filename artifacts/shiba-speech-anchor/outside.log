@@ -1,0 +1,950 @@
+
+RUN bar-playtest/tests/test-street-water-grid-ui.cjs
+STREET_WATER_GRID_OK {"rows":[{"index":0,"offset":0,"mean":0.00004611545138888889,"max":1},{"index":0,"offset":0.007,"mean":0.000028754340277777777,"max":1},{"index":0,"offset":0.043,"mean":0.000033365885416666665,"max":1},{"index":1,"offset":0,"mean":0.000015462239583333335,"max":1},{"index":1,"offset":0.007,"mean":0.00002251519097222222,"max":1},{"index":1,"offset":0.043,"mean":0.00003228081597222222,"max":1},{"index":2,"offset":0,"mean":0.000018174913194444443,"max":1},{"index":2,"offset":0.007,"mean":0.000020616319444444445,"max":1},{"index":2,"offset":0.043,"mean":0.00002197265625,"max":1},{"index":3,"offset":0,"mean":0.000042317708333333335,"max":1},{"index":3,"offset":0.007,"mean":0.00001708984375,"max":1},{"index":3,"offset":0.043,"mean":0.000020345052083333332,"max":1},{"index":4,"offset":0,"mean":0.00001708984375,"max":1},{"index":4,"offset":0.007,"mean":0.00000732421875,"max":1},{"index":4,"offset":0.043,"mean":0.0000341796875,"max":1},{"index":5,"offset":0,"mean":0.000020887586805555555,"max":1},{"index":5,"offset":0.007,"mean":0.000015462239583333335,"max":1},{"index":5,"offset":0.043,"mean":0.0000830078125,"max":1},{"index":6,"offset":0,"mean":0.000022786458333333334,"max":1},{"index":6,"offset":0.007,"mean":0.0000146484375,"max":1},{"index":6,"offset":0.043,"mean":0.000027669270833333332,"max":1},{"index":7,"offset":0,"mean":0.00000732421875,"max":1},{"index":7,"offset":0.007,"mean":0.00001220703125,"max":1},{"index":7,"offset":0.043,"mean":0.000031195746527777775,"max":1},{"index":8,"offset":0,"mean":0.0000341796875,"max":1},{"index":8,"offset":0.007,"mean":0.000028483072916666667,"max":1},{"index":8,"offset":0.043,"mean":0.000018717447916666665,"max":1}],"sizes":[[108,18],[77,23],[135,15],[144,21],[100,18],[153,24],[113,17],[131,20],[90,16]],"error":0}
+
+RUN bar-playtest/tests/test-street-render-budget.cjs
+STREET_RENDER_BUDGET_OK
+
+RUN bar-playtest/tests/test-street-gpu-surface-ui.cjs
+STREET_GPU_SURFACE_OK {"synthetic":{"max":0,"mean":0,"staticUploads":0,"size":[384,216],"gl":0},"rows":[{"name":"shops","mean":0.04361572265625,"big":0.0009158664279513889,"transfers":0,"gl":0,"status":{"quality":{"tier":0,"scale":1,"changes":0},"preparation":{"done":true,"jobs":80,"milliseconds":407.90000000596046},"gpu":true},"stats":{"draws":63,"uploads":1,"uploadPixels":45000,"fallbacks":1}},{"name":"camp","mean":0.006892157660590278,"big":0.00018446180555555555,"transfers":0,"gl":0,"status":{"quality":{"tier":0,"scale":1,"changes":0},"preparation":{"done":true,"jobs":80,"milliseconds":407.90000000596046},"gpu":true},"stats":{"draws":35,"uploads":3,"uploadPixels":18992,"fallbacks":0}},{"name":"dry","mean":0.041166585286458335,"big":0.0008552381727430556,"transfers":0,"gl":0,"status":{"quality":{"tier":0,"scale":1,"changes":0},"preparation":{"done":true,"jobs":80,"milliseconds":407.90000000596046},"gpu":true},"stats":{"draws":60,"uploads":0,"uploadPixels":0,"fallbacks":0}},{"name":"corridor","mean":0.023564385308159724,"big":0.000022108289930555556,"transfers":0,"gl":0,"status":{"quality":{"tier":0,"scale":1,"changes":0},"preparation":{"done":true,"jobs":80,"milliseconds":407.90000000596046},"gpu":true},"stats":{"draws":27,"uploads":1,"uploadPixels":757760,"fallbacks":0}}],"life":{"preserved":true,"disposed":true,"prepared":true,"error":""}}
+
+RUN bar-playtest/tests/test-street-effect-composition-ui.cjs
+STREET_EFFECT_COMPOSITION_OK {"trace":["building","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","neon","scan","puddle"],"lights":217076,"scans":56325,"capture":488284,"actorCount":8,"neons":true,"lamp":0.82,"lift":[-13.285000000000002,-1.575,-12.125000000000002,-0.9249999999999998],"engineLift":[-13.285000000000002,-1.575,-12.125000000000002,-0.9249999999999998],"error":null,"gl":0}
+
+RUN bar-playtest/tests/test-street-buffer-reuse-ui.cjs
+STREET_BUFFER_REUSE_OK {"cases":96,"mismatches":0,"resizes":0,"ventDiff":0,"offscreenFields":0,"error":0}
+
+RUN bar-playtest/tests/test-street-rain-shared-gpu-ui.cjs
+STREET_RAIN_SHARED_GPU_OK {"rows":[{"width":1280,"max":0,"mean":0},{"width":1280,"max":0,"mean":0},{"width":1280,"max":0,"mean":0},{"width":1280,"max":0,"mean":0},{"width":2560,"max":0,"mean":0},{"width":2560,"max":0,"mean":0},{"width":2560,"max":0,"mean":0},{"width":2560,"max":0,"mean":0},{"width":1920,"max":1,"mean":0.012472270447530864},{"width":1920,"max":0,"mean":0},{"width":1920,"max":0,"mean":0},{"width":1920,"max":0,"mean":0}],"transfers":0,"shared":true,"error":0}
+
+RUN bar-playtest/tests/test-rain-merge-equivalence.cjs
+RAIN_MERGE_EQUIVALENCE_OK: 7,200 steps, three seeds, forces, pause, weather and resize
+
+RUN bar-playtest/tests/test-engine-world-layout.cjs
+ENGINE_WORLD_LAYOUT_OK: current images unchanged, scene transforms, 17 actor poses/scales/sorting, camera joins at 30/60/120fps and confiners
+
+RUN bar-playtest/tests/test-engine-world-layout-ui.cjs
+ENGINE_WORLD_LAYOUT_UI_OK: 24 day/route/location entries; valid NPC atlas crops; no missing images; engine lift lens; stable FOV
+
+RUN bar-playtest/tests/test-ambient-native-csv.cjs
+AMBIENT_NATIVE_CSV_OK: 7 scenes / 50 lines, native bindings, day/route matrix, TV speaker and editor.
+
+RUN bar-playtest/tests/test-home-tv-power-ui.cjs
+HOME_TV_POWER_OK: 8 day/period cases, actual screen layer rendering, power/menu/cancel/Escape/off, broadcast schedule and unavailable choice feedback
+
+RUN bar-playtest/tests/test-exterior-notion-sync.cjs
+EXTERIOR_NOTION_SYNC_OK: Notion dialogue tables, text/order, actors, actions, terrace links and memory staging.
+
+RUN bar-playtest/tests/test-outside-believer.cjs
+BELIEVER_OK date/route/level/QA gates, one-time emblem, completion absence, interrupted reward resume and carry.
+
+RUN bar-playtest/tests/test-outside-believer-ui.cjs
+BELIEVER_UI_OK real interaction, anchored dialogue, emblem notice, one-time reward and disappearance.
+
+RUN bar-playtest/tests/test-outside-newspaper.cjs
+NEWSPAPER_OK day/route gates, both answers, retained question, one-time gear, interruption/resume, carry and unchanged money.
+
+RUN bar-playtest/tests/test-outside-newspaper-ui.cjs
+NEWSPAPER_UI_OK actual E/choices, retained question, gear notice, carry, real repair without charge, evening absence.
+
+RUN bar-playtest/tests/test-outside-character-sheets.cjs
+OUTSIDE_CHARACTER_SHEETS_OK: 11 sheets, source dimensions, every frame, grounded soles, role mapping, loop timing and pauses
+
+RUN bar-playtest/tests/test-outside-typing-rhythm.cjs
+OUTSIDE_TYPING_RHYTHM_OK: exact space/dot boundaries, Unicode, singleton dots, settings, audio pauses, reveal/advance, auto hold, ambient suspension, long choices and scene resets.
+
+RUN bar-playtest/tests/test-outside-typing-rhythm-ui.cjs
+OUTSIDE_TYPING_RHYTHM_UI_OK: real exterior render/audio clock, ambient channel and all campaign scene backgrounds.
+
+RUN bar-playtest/tests/test-corridor-birds-ui.cjs
+CORRIDOR_BIRDS_OK: 8 weather cases, fixed seven anchors, all right-facing, feet/sill, idle phase, camera anchoring, no house/QA leakage
+
+RUN bar-playtest/tests/test-engine-barrel-fire.cjs
+ENGINE_BARREL_FIRE_OK original PNG bytes, lossless TGA RGB/orientation, current shader/material hashes, retained web placement, 16fps/100PPU, linear heat ramp and additive blend
+
+RUN bar-playtest/tests/test_barrel_fire_ui.cjs
+BARREL_FIRE_UI_OK {"frames":32,"min":153,"max":215,"warm":3752,"white":126,"partial":8842,"changed":63,"same":true,"still":true,"fps":16} {"additive":true,"back":11,"fire":12,"front":13,"near":20,"dx":0.0009999999999994458,"lip":-0.715,"fireTop":-0.496846875}
+
+RUN bar-playtest/tests/test-campfire-lighting-ui.cjs
+CAMPFIRE_LIGHTING_UI_OK {"source":{"fire":{"id":"barrel-fire","name":"Barrel fire","type":0,"ancestry":["B_Obects"],"x":-15.916,"y":-0.629,"active":true,"localFalloff":true,"color":[1,0.48,0.12],"intensity":3,"radius":2.6,"priority":1,"layers":[1950817317],"gain":0.7979476663427141},"expected":[-15.916,-0.629],"flame":[-15.916,-0.629],"front":[-15.915000000000001,-0.995],"shift":[2,3],"mirror":0,"inactive":false,"gains":[[0.7979476663427141,0.7979476663427141],[0.7979476663427141,0.7979476663427141],[0.840347345401564,0.840347345401564],[0.881367448170957,0.881367448170957]],"upstairs":0,"distant":0,"near":1.070409822390732,"far":0.23689380827553688,"directions":[-0.8262471269090745,0.8262471269090748]},"optics":{"left":[778,216],"right":[216,778],"flip":[778,216],"far":624,"leaks":0,"gl":0},"samples":[{"name":"left","selected":"barrel-fire","gang":[{"id":"boss","selected":"barrel-fire"},{"id":"gang-left","selected":"barrel-fire"},{"id":"gang-far","selected":"barrel-fire"},{"id":"gangmate","selected":"barrel-fire"}],"soles":[{"id":"boss","y":-0.974},{"id":"gang-left","y":-0.974},{"id":"gang-far","y":-0.974},{"id":"gangmate","y":-0.974},{"id":"boss","y":-0.974},{"id":"gang-left","y":-0.974},{"id":"gang-far","y":-0.974},{"id":"gangmate","y":-0.974}],"stable":true,"slots":11,"fireEnergy":1.5339363909488883,"gl":0},{"name":"right","selected":"barrel-fire","gang":[{"id":"boss","selected":"barrel-fire"},{"id":"gang-left","selected":"barrel-fire"},{"id":"gang-far","selected":"barrel-fire"},{"id":"gangmate","selected":"barrel-fire"}],"soles":[{"id":"boss","y":-0.974},{"id":"gang-left","y":-0.974},{"id":"gang-far","y":-0.974},{"id":"gangmate","y":-0.974},{"id":"boss","y":-0.974},{"id":"gang-left","y":-0.974},{"id":"gang-far","y":-0.974},{"id":"gangmate","y":-0.974}],"stable":true,"slots":11,"fireEnergy":1.482745505150803,"gl":0},{"name":"away","selected":"1054065828","gang":[{"id":"boss","selected":"barrel-fire"},{"id":"gang-left","selected":"barrel-fire"},{"id":"gang-far","selected":"barrel-fire"},{"id":"gangmate","selected":"barrel-fire"}],"soles":[],"stable":true,"slots":11,"fireEnergy":1.6414353632997976,"gl":0},{"name":"upper","selected":"277536108","gang":[{"id":"boss","selected":"barrel-fire"},{"id":"gang-left","selected":"barrel-fire"},{"id":"gang-far","selected":"barrel-fire"},{"id":"gangmate","selected":"barrel-fire"}],"soles":[],"stable":true,"slots":11,"fireEnergy":1.4290342728219172,"gl":0}]}
+
+RUN bar-playtest/tests/test-character-lighting.cjs
+CHARACTER_LIGHTING_OK: engine constants, selected light hysteresis, 0.3s fade, pause, reset, departed light direction
+
+RUN bar-playtest/tests/test-character-lighting-ui.cjs
+CHARACTER_LIGHTING_UI_OK {"left":[7248,5411],"right":[5395,7275],"flip":[7248,5411],"zero":[6132,6260],"leaks":0,"stable":true,"gl":0} street/corridor/lift, source alpha, adjacent atlas protection, flip, pause, resize
+
+RUN bar-playtest/tests/test-character-lighting-isolation-ui.cjs
+LIGHTING_ISOLATION [{"width":1280,"changed":0,"surfaceChanged":false,"alpha":228480,"error":0},{"width":2560,"changed":0,"surfaceChanged":false,"alpha":228480,"error":0}]
+CHARACTER_LIGHTING_ISOLATION_OK 1
+LIGHTING_ISOLATION [{"width":1280,"changed":0,"surfaceChanged":false,"alpha":228480,"error":0},{"width":2560,"changed":0,"surfaceChanged":false,"alpha":228480,"error":0}]
+CHARACTER_LIGHTING_ISOLATION_OK 2
+
+RUN bar-playtest/tests/test-day2-neighborhood-gates-ui.cjs
+DAY2_NEIGHBORHOOD_OK 163 main/developer day/route gates, stale purchase, unchanged repair, door trigger and separated targets
+
+RUN bar-playtest/tests/test-home-book-ui.cjs
+HOME_BOOK_OK: book-only glow, no badge, original preloaded cover, exact caption, E/click/Esc, movement lock, resize, first-use history, all days/routes, current poster decoded and inspected, resource review
+
+RUN bar-playtest/tests/test-samho-idle-ui.cjs
+SAMHO_IDLE_OK { count: 32, frames: 8, fps: 12, loop: true } same actual rendered cells while standing/speaking, all street scenes and QA, full rows, pause and loop
+
+RUN bar-playtest/tests/test-weather-ambience-matrix-ui.cjs
+WEATHER_AMBIENCE_MATRIX_OK 24 day/route/place cases, terrace rain pixels/audio, indoor/outdoor separation, loading silence
+
+RUN bar-playtest/tests/test-shiba-cancel-first-ui.cjs
+SHIBA_CANCEL_FIRST_OK: default/reopen, tuna/bitters/sold-out, insufficient funds, Enter cancels without spending, navigation retained
+
+RUN bar-playtest/tests/test-home-wardrobe-ui.cjs
+HOME_WARDROBE_OK: cabinet-only glow/marker, CSV Luna dialogue, cancel/press, repeat/history, all days/routes, pause, resize, campaign click/Enter
+
+RUN bar-playtest/tests/test-home-bed-ui.cjs
+HOME_BED_OK: Luna CSV dialogue, first-use marker/carry, all days/routes, range, pause, capture, resize, no street target
+
+RUN bar-playtest/tests/test-home-cat-interaction-ui.cjs
+HOME_CAT_OK: meow/two choices, cancel, pet face/tail/hearts, pause/end/cancel, repeat, rest unchanged, no inventory cost, outdoor menu preserved { changed: 1358, hearts: 143 }
+
+RUN bar-playtest/tests/test-gang-guard-interaction-ui.cjs
+GANG_GUARD_INTERACTION_OK: five day/route cases, held/repeated collision silent, free retreat, E/glow, cancel/interruption locked, completed dialogue unlock and carry.
+
+RUN bar-playtest/tests/test-outside-choice-rejection-ui.cjs
+PASS outside locked-option focus, E/Enter/Space/mouse rejection, reset, no transaction, unlock, reasons, responsive layout and reduced motion.
+
+RUN bar-playtest/tests/test-outside-discovery-ui.cjs
+PASS first-interaction badges: untouched NPC no longer has badge; nearest street-beggar-witness; interact street-beggar-witness; badge clears as interaction starts, before reading; cancelled dialogue still counts as interaction; new repeat and paid dialogue never restore badge; nearest neighborhood-repair; interact neighborhood-repair; cancel from NPC choices still counts; newly affordable repair does not restore badge; nearest shiba-shop; interact shiba-shop; shop repeat, stock, quiz and new purchase never restore badge; nearest neighborhood-box; interact neighborhood-box; box clears before reveal animation completes; eye animation finishes before the jump completes; box reveal still completes; revealed cat has no badge either; nearest neighborhood-cat; interact neighborhood-cat; new feeding choice does not reset cat badge; same cat keeps interaction history inside home; nearest wanted-poster; interact wanted-poster; poster is recorded when opened; history survives progress restoration and day changes; history carried into campaign session; routine object excluded even before use: tv; routine object excluded even before use: elevator; routine object excluded even before use: sofa; routine object excluded even before use: home; routine object excluded even before use: exit; routine object excluded even before use: bar; TV never renders a badge: 0/in/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 0/in/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 0/out/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 0/out/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 1/in/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 1/in/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 1/out/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 1/out/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 2/in/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 2/in/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 2/out/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 2/out/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 3/in/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 3/in/true; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 3/out/false; TV interaction and outline retained; TV E prompt retained; TV never renders a badge: 3/out/true; TV interaction and outline retained; TV E prompt retained; repair never gives elevator a badge; legacy NPC met flags migrate; legacy poster history migrates; old blocked guard greeting migrates after flow changes; multiple untouched targets render together, routine objects excluded; question marks never draw a black outline; badge renderer never paints; range 0.399; range 0.4; range 0.401; elevator interaction range unchanged; blocked input cannot create a badge; untouched poster has no badge in real scene
+
+RUN bar-playtest/tests/test-outside-discovery-stability-ui.cjs
+PASS stable discovery markers 1 { width: 973, height: 650 } { factor: 0.75, frames: 140, minX: -11.92, maxX: -11.430000000000023 }
+PASS stable discovery markers 1 { width: 1280, height: 720 } { factor: 1, frames: 140, minX: -11.92, maxX: -11.430000000000023 }
+PASS stable discovery markers 2 { width: 973, height: 650 } {
+  factor: 1.5125,
+  frames: 140,
+  minX: -11.92,
+  maxX: -11.430000000000023
+}
+PASS stable discovery markers 2 { width: 1280, height: 720 } { factor: 2, frames: 140, minX: -11.92, maxX: -11.430000000000023 }
+
+RUN bar-playtest/tests/test-outside-npc-animation.cjs
+OUTSIDE_NPC_ANIMATION_OK: same Luna idle loop duration, 8 FPS silhouettes, no Shiba acceleration, sheet wrapping, phases, residents, paused clock, live metadata changes
+
+RUN bar-playtest/tests/test-gang-wild-dog.cjs
+GANG_WILD_DOG_OK: authored CSV dialogue, 4 reward branches, day/gate conditions, 499/500, repair requirement, wait/revisit, interruption recovery, single charge/reward, carry and legacy saves
+
+RUN bar-playtest/tests/test-gang-wild-dog-ui.cjs
+GANG_WILD_DOG_UI_OK: real E/choices, seated outline, two speaker anchors, 499/500, paid/free handover, item notification/carry, campaign ingredient gate and responsive bounds
+
+RUN bar-playtest/tests/test-bubi-box-sequence-ui.cjs
+BUBI_BOX_SEQUENCE_OK: single approach shake, static waiting/re-entry, real E, 22 eye frames then 15 jump frames once, input lock and completion, saved flag, E during shake.
+
+RUN bar-playtest/tests/test-neighborhood-events-ui.cjs
+NEIGHBORHOOD_EVENTS_OK { intro: 12, gang: 7, feed: 5, rest: 5 }
+
+RUN bar-playtest/tests/test-neighborhood-staging-ui.cjs
+NEIGHBORHOOD_STAGING_OK 229 checks: complete silhouettes/soles, shared heads, facing, slow arrival/exit, cat clearance, opaque rest fade, fixed Chris, constant-scale horizontal pan
+
+RUN bar-playtest/tests/test-ad-carrier.cjs
+AD_CARRIER_OK: 5s ads, bounded independent routes, slower than every traffic depth, deterministic pause, no gameplay mutation, home/QA excluded
+
+RUN bar-playtest/tests/test-ad-carrier-ui.cjs
+Carrier render audit {
+  order: {
+    carrier: 15,
+    back: 2,
+    farMiddle: 7,
+    middle: 13,
+    middle2: 9,
+    residence: 16,
+    fence: 20,
+    shop: 21,
+    display1: 12,
+    display2: 10
+  },
+  opaque: true,
+  darkSamples: [ [ 22, 24, 29, 255 ], [ 158, 217, 244, 255 ] ],
+  lightSamples: [ [ 22, 24, 29, 255 ], [ 158, 217, 244, 255 ] ],
+  decoded: true,
+  distinct: 3,
+  animated: true,
+  repeat: true,
+  still: true,
+  readableBothWays: true,
+  differentSamples: 0,
+  maxDifference: 0
+}
+Carrier visibility [
+  { x: -11, y: 2.55, changed: 17429 },
+  { x: -9, y: 2.55, changed: 15748 },
+  { x: -7, y: 2.55, changed: 16338 },
+  { x: -9, y: 0.95, changed: 14644 }
+]
+AD_CARRIER_UI_OK {
+  order: {
+    carrier: 15,
+    back: 2,
+    farMiddle: 7,
+    middle: 13,
+    middle2: 9,
+    residence: 16,
+    fence: 20,
+    shop: 21,
+    display1: 12,
+    display2: 10
+  },
+  opaque: true,
+  darkSamples: [ [ 22, 24, 29, 255 ], [ 158, 217, 244, 255 ] ],
+  lightSamples: [ [ 22, 24, 29, 255 ], [ 158, 217, 244, 255 ] ],
+  decoded: true,
+  distinct: 3,
+  animated: true,
+  repeat: true,
+  still: true,
+  readableBothWays: true,
+  differentSamples: 0,
+  maxDifference: 0
+} [
+  { id: 'fx:ad-carrier', width: 1983, height: 793 },
+  { id: 'fx:street-ad-violet', width: 2172, height: 724 },
+  { id: 'fx:street-ad-crimson', width: 2172, height: 724 }
+]
+
+RUN bar-playtest/tests/test_outside_traffic.cjs
+PASS increased bounded traffic, simultaneous opposing lanes, seven body colors including black, smooth movement, repeatable paused frames, days 0–3, home/QA exclusion { average: 11.573511037067888, crossings: { '1': 19, '-1': 16 } }
+
+RUN bar-playtest/tests/test_outside_traffic_ui.cjs
+PASS actual occlusion ordering, canvas state, street/panorama/lift render, zoom continuity, indoor/QA exclusion; no browser errors
+
+RUN bar-playtest/tests/test_bd_vendor_removed_ui.cjs
+PASS 32 main/developer/day/route/legacy-save cases: no BD actor, prompt, payment or cinema; removed gallery/resource entries; thug and QA shop wallets retained
+
+RUN bar-playtest/tests/test_outside_beggar.cjs
+BEGGAR_OK CSV first/repeat, 3 choices, information lock/cancel, 200 boundary, duplicate protection, carry, witness one-offs/repeats, persistence and no reward grant
+
+RUN bar-playtest/tests/test_outside_beggar_ui.cjs
+PASS real E choices, 200 deduction/carry, locked/unlocked information choice, repeat after refusal, witness warning, departure and responsive bounds
+
+RUN bar-playtest/tests/test_day1_thug_ui.cjs
+THUG_OK main/developer auto approach, day/route guard, movement lock, both choices, insufficient funds, single charge/carry, punch/action lock, departure, no repeat
+
+RUN bar-playtest/tests/test_outside_console_ui.cjs
+OUTSIDE_CONSOLE_OK main/developer, days0-3 both routes, P/repeat/Esc, freeze, 3 locations, +/-1000 floor0, carry, shop enable, ride/dialog cleanup, QA isolation
+
+RUN bar-playtest/tests/test_story_notices.cjs
+PASS: existing story notices; resource goal registration/completion, validation, dedup and serialization
+
+RUN bar-playtest/tests/test-restoration-notices.cjs
+RESTORATION_NOTICES_OK ingredient/memory order, one-shot material goal, carry/day cloning, QA isolation, no recipe toast and unchanged crafting gate
+
+RUN bar-playtest/tests/test-restoration-notices-ui.cjs
+RESTORATION_NOTICES_UI_OK both actual purchase orders, one-shot goal, no duplicate recipe toast after memory/day change, existing sugar-gated unlock popup retained
+
+RUN bar-playtest/tests/test-repair-goal-notice-ui.cjs
+REPAIR_GOAL_OK pay/gear/resumed gear, invalid payment/cancel silent, final dialogue timing, shared goal toast, carry and one-shot restoration
+
+RUN bar-playtest/tests/test_ambient_interaction_pause_ui.cjs
+AMBIENT_INTERACTION_PAUSE_OK: original/GPT/campaign, poster, object modal, NPC/shop/beggar choices, two channels freeze/hide/silent then resume exact line and typing
+
+RUN bar-playtest/tests/test_interaction_prompt_ui.cjs
+PASS 112 object/NPC targets / fixed bottom-left E + label / book and Shiba inspection exit parity, click/E/Esc / 3 viewport sizes / proximity and pause visibility / click enters TV
+
+RUN bar-playtest/tests/test-outside-resize-qa-ui.cjs
+PASS resize DPR 1
+PASS resize DPR 2
+PASS QA keyboard isolation
+
+RUN bar-playtest/tests/test-object-confirmation-ui.cjs
+PASS elevator both directions/cancel/Escape, repaired fast-first/default selection/normal ride, TV power/menu, seen flag/carry, replay/off and replay after off
+
+RUN bar-playtest/tests/test_sofa_choices_ui.cjs
+PASS sofa choices: navigation/wrap, movement lock, cancel/reopen, feedback expiry, no save writes, developer and campaign sleep.
+
+RUN bar-playtest/tests/test-outside-render-budget-ui.cjs
+OUTSIDE_RENDER_BUDGET_OK {"rates":[{"hz":30,"draws":30,"seconds":0.9999999999999999},{"hz":60,"draws":60,"seconds":0.9999999999999966},{"hz":120,"draws":60,"seconds":0.9999999999999964},{"hz":144,"draws":60,"seconds":1.0000000000000284}],"paused":0,"explicit":1,"hidden":{"draws":0,"seconds":0.9999999999999964},"size":[2560,1440],"grid":[483,273],"scissor":false,"offscreenUploads":0,"error":0} FOG_EQUIVALENCE {"results":[{"x":-0.013,"max":1,"mean":0.01258884006076389},{"x":0,"max":1,"mean":0.012622477213541667},{"x":0.017,"max":1,"mean":0.012596367730034723}],"error":0}
+
+RUN bar-playtest/tests/test-character-shadows.cjs
+CHARACTER_SHADOWS_OK direction/length, disabled lights, simultaneous emitters, polygon fill, pause/reset, street/corridor/lift receivers
+MOVING_FILL_CACHE_OK: 180 positions, reversal/vertical motion, power and geometry changes, exact RGBA equivalence
+
+RUN bar-playtest/tests/test-character-shadows-ui.cjs
+CHARACTER_SHADOWS_UI_OK {"multi":{"left":24960,"right":26955,"weakRight":7293,"fillLeft":24960,"fillRight":6596},"left":{"weight":70809,"x":580.214887937974,"leaks":0,"bright":0},"right":{"weight":73431,"x":692.7288474894799,"leaks":0,"bright":0},"pauseDiff":0,"flipDiff":4516,"walkDiff":5356,"gl":0} real idle/walk/run, corridor, moving lift and resize
+
+RUN bar-playtest/tests/test-street-atmosphere.cjs
+STREET_ATMOSPHERE_OK: bounded impacts, no camera feedback, pause, rain stop/resume, scene restart
+
+RUN bar-playtest/tests/test-street-atmosphere-ui.cjs
+STREET_ATMOSPHERE_UI_OK {"optics":{"before":[16,16,16,255],"reflected":[91,15,19,255],"outside":[16,16,16,255],"changed":[13,33,137,255],"black":[16,16,16,255],"blackAfter":[16,16,16,255],"glError":0},"live":{"error":null,"fog":3,"pools":true,"glError":0},"dimensions":[800,450],"missing":[]}
+
+RUN bar-playtest/tests/test-street-atmosphere-motion-ui.cjs
+STREET_ATMOSPHERE_MOTION_OK {"bloom":{"float":true,"results":[{"width":800,"vertical":true,"energy":[8.942942023277283,8.942942023277283,8.94144457578659,8.94144457578659,8.942942023277283,8.942942023277283,8.94144457578659,8.94144457578659],"variation":0.0001674446157421666},{"width":800,"vertical":false,"energy":[8.943087816238403,8.943087816238403,8.943140625953674,8.943140625953674,8.943087816238403,8.943087816238403,8.943140625953674,8.943140625953674],"variation":0.000005905052540238301},{"width":1280,"vertical":true,"energy":[8.939655900001526,8.939655900001526,8.943055152893066,8.943055152893066,8.939655900001526,8.939655900001526,8.943055152893066,8.943055152893066],"variation":0.0003800997347579673},{"width":1280,"vertical":false,"energy":[8.941486954689026,8.941486954689026,8.943205118179321,8.943205118179321,8.941486954689026,8.941486954689026,8.943205118179321,8.943205118179321],"variation":0.00019211943230540573},{"width":1920,"vertical":true,"energy":[2.2353204488754272,2.2353204488754272,2.2353204488754272,2.2353204488754272,2.2353204488754272,2.2353204488754272,2.2356133460998535,2.2356133460998535],"variation":0.00013101425831852558},{"width":1920,"vertical":false,"energy":[2.235574722290039,2.235574722290039,2.2357211112976074,2.2357211112976074,2.235574722290039,2.235574722290039,2.235574722290039,2.235574722290039],"variation":0.00006547731147173161}],"error":0},"reflected":{"count":927,"leaks":0,"repeat":0,"walk":2934,"run":3428,"flip":5071,"upstairs":0,"riding":0,"error":0}}
+
+RUN bar-playtest/tests/test-street-bloom-continuity-ui.cjs
+BLOOM_CONTINUITY_OK {"cases":[{"width":800,"vertical":true,"phases":[{"echoes":0,"energy":0.35775113105773926,"peak":0.0604248046875},{"echoes":0,"energy":0.35775113105773926,"peak":0.0604248046875},{"echoes":0,"energy":0.3576985001564026,"peak":0.0587158203125},{"echoes":0,"energy":0.3576985001564026,"peak":0.0587158203125}]},{"width":800,"vertical":false,"phases":[{"echoes":0,"energy":0.35767775774002075,"peak":0.058685302734375},{"echoes":0,"energy":0.35767775774002075,"peak":0.058685302734375},{"echoes":0,"energy":0.3578009605407715,"peak":0.060455322265625},{"echoes":0,"energy":0.3578009605407715,"peak":0.060455322265625}]},{"width":1280,"vertical":true,"phases":[{"echoes":0,"energy":0.35767078399658203,"peak":0.037811279296875},{"echoes":0,"energy":0.35767078399658203,"peak":0.037811279296875},{"echoes":0,"energy":0.3577789068222046,"peak":0.037384033203125},{"echoes":0,"energy":0.3577789068222046,"peak":0.037384033203125}]},{"width":1280,"vertical":false,"phases":[{"echoes":0,"energy":0.3577241897583008,"peak":0.037811279296875},{"echoes":0,"energy":0.3577241897583008,"peak":0.037811279296875},{"echoes":0,"energy":0.35765671730041504,"peak":0.037384033203125},{"echoes":0,"energy":0.35765671730041504,"peak":0.037384033203125}]},{"width":1920,"vertical":true,"phases":[{"echoes":0,"energy":0.17883682250976562,"peak":0.0251922607421875},{"echoes":0,"energy":0.17883682250976562,"peak":0.0251922607421875},{"echoes":0,"energy":0.17883682250976562,"peak":0.0251922607421875},{"echoes":0,"energy":0.17883682250976562,"peak":0.0251922607421875}]},{"width":1920,"vertical":false,"phases":[{"echoes":0,"energy":0.17876553535461426,"peak":0.025177001953125},{"echoes":0,"energy":0.17876553535461426,"peak":0.025177001953125},{"echoes":0,"energy":0.17891556024551392,"peak":0.0247039794921875},{"echoes":0,"energy":0.17891556024551392,"peak":0.0247039794921875}]},{"width":2560,"vertical":true,"phases":[{"echoes":0,"energy":0.17883539199829102,"peak":0.0189056396484375},{"echoes":0,"energy":0.17883539199829102,"peak":0.0189056396484375},{"echoes":0,"energy":0.17883539199829102,"peak":0.0189056396484375},{"echoes":0,"energy":0.17883539199829102,"peak":0.0189056396484375}]},{"width":2560,"vertical":false,"phases":[{"echoes":0,"energy":0.1788620948791504,"peak":0.0189056396484375},{"echoes":0,"energy":0.1788620948791504,"peak":0.0189056396484375},{"echoes":0,"energy":0.1788620948791504,"peak":0.0189056396484375},{"echoes":0,"energy":0.1788620948791504,"peak":0.0189056396484375}]},{"width":3840,"vertical":true,"phases":[{"echoes":0,"energy":0.08941841125488281,"peak":0.01259613037109375},{"echoes":0,"energy":0.08941841125488281,"peak":0.01259613037109375},{"echoes":0,"energy":0.08941841125488281,"peak":0.01259613037109375},{"echoes":0,"energy":0.08941841125488281,"peak":0.01259613037109375}]},{"width":3840,"vertical":false,"phases":[{"echoes":0,"energy":0.08938276767730713,"peak":0.0125885009765625},{"echoes":0,"energy":0.08938276767730713,"peak":0.0125885009765625},{"echoes":0,"energy":0.08938276767730713,"peak":0.0125885009765625},{"echoes":0,"energy":0.08938276767730713,"peak":0.0125885009765625}]}],"error":0}
+
+RUN bar-playtest/tests/test-street-soft-light-ui.cjs
+STREET_SOFT_LIGHT_OK {"fog":{"results":[{"x":-0.0101,"maxStep":2,"range":117},{"x":-0.0099,"maxStep":2,"range":117},{"x":0,"maxStep":2,"range":117},{"x":0.0099,"maxStep":2,"range":117},{"x":0.0101,"maxStep":2,"range":117}],"error":0},"views":[{"name":"lift","lights":24,"blocked":0,"error":null,"gl":0},{"name":"alley","lights":28,"blocked":0,"error":null,"gl":0},{"name":"shops","lights":28,"blocked":0,"error":null,"gl":0},{"name":"bar","lights":16,"blocked":0,"error":null,"gl":0},{"name":"restaurant","lights":16,"blocked":0,"error":null,"gl":0},{"name":"apartment","lights":20,"blocked":0,"error":null,"gl":0},{"name":"shops-dry","lights":28,"blocked":0,"error":null,"gl":0},{"name":"bar-dry","lights":16,"blocked":0,"error":null,"gl":0}]}
+
+RUN bar-playtest/tests/test-street-parallax-engine.cjs
+PASS live engine YAML: Luna target, 3 ratios, 100 PPU, horizontal-only, teleport threshold, child hierarchy/positions
+PASS cinematic lock: arrival, transition, encounters, release frame, resume without catch-up
+ENGINE_PARALLAX_OK: 30/60/120fps, subpixel accumulation/reversal, parent transforms, fixed layers, vertical lift, teleport/re-enable/run reset and QA isolation
+PASS camera-synchronized reversals at 30/60/120fps and stationary-camera isolation
+
+RUN bar-playtest/tests/test-street-parallax-engine-ui.cjs
+ENGINE_PARALLAX_UI_OK: real walking/render transforms, panorama, fixed layers, lift, teleport, snapshot and resize
+
+RUN bar-playtest/tests/test-street-engine-effects.cjs
+FLICKER_WAIT_OK: all eight groups independently wait 8–22 seconds after each burst.
+STREET_ENGINE_EFFECTS_OK: source-byte hashes, 10 CRT regions, 8 random groups, 2 masked fans, replay/reduced motion.
+
+RUN bar-playtest/tests/test-street-engine-effects-ui.cjs
+STREET_ENGINE_EFFECTS_UI_OK {
+  changedLed: 1307,
+  fans: [ 89, 97 ],
+  ledLeaks: 0,
+  dim: [
+    { channel: 0, pixels: 240, darker: 240 },
+    { channel: 1, pixels: 278, darker: 278 },
+    { channel: 3, pixels: 59, darker: 59 }
+  ],
+  stable: true,
+  reduced: true,
+  idempotent: true,
+  scans: 10,
+  scanMoves: true
+}
+
+RUN bar-playtest/tests/test-rain-glass-engine.cjs
+PASS engine rain simulation: seeded random, formation, area-preserving merge/relaxation, pause, pinned beads, moving drops, cut rejection
+PASS 180 seconds of bounded rain stationary [{"seconds":30,"drops":273,"coverage":0.06906739429743584},{"seconds":60,"drops":291,"coverage":0.06972361574740094},{"seconds":180,"drops":274,"coverage":0.07263266103066866}]
+PASS 180 seconds of bounded rain walking [{"seconds":30,"drops":311,"coverage":0.06691713390210088},{"seconds":60,"drops":319,"coverage":0.068427310492333},{"seconds":180,"drops":314,"coverage":0.07175228343794739}]
+
+RUN bar-playtest/tests/test-rain-glass-ui.cjs
+PASS GPU wet area over 180 seconds [{"seconds":0,"wetFraction":0.008101851851851851,"drops":269},{"seconds":10,"wetFraction":0.00945216049382716,"drops":313},{"seconds":20,"wetFraction":0.008125,"drops":312},{"seconds":30,"wetFraction":0.009807098765432098,"drops":273},{"seconds":40,"wetFraction":0.014243827160493827,"drops":316},{"seconds":50,"wetFraction":0.009699074074074074,"drops":318},{"seconds":60,"wetFraction":0.013896604938271604,"drops":312},{"seconds":70,"wetFraction":0.007476851851851852,"drops":304},{"seconds":80,"wetFraction":0.008858024691358025,"drops":312},{"seconds":90,"wetFraction":0.008935185185185185,"drops":299},{"seconds":100,"wetFraction":0.009359567901234567,"drops":318},{"seconds":110,"wetFraction":0.006967592592592593,"drops":320},{"seconds":120,"wetFraction":0.006458333333333333,"drops":320},{"seconds":130,"wetFraction":0.010185185185185186,"drops":318},{"seconds":140,"wetFraction":0.009814814814814814,"drops":314},{"seconds":150,"wetFraction":0.009537037037037037,"drops":309},{"seconds":160,"wetFraction":0.011010802469135803,"drops":320},{"seconds":170,"wetFraction":0.014104938271604939,"drops":317},{"seconds":180,"wetFraction":0.010239197530864198,"drops":320}]
+PASS engine rain GPU + scene integration {"bypassError":0,"outsideError":0,"ratio":0.45043374301792327,"refracted":14985,"reflected":6527,"dispersed":65,"oracleError":0,"checked":117,"drying":0.3677681225703179,"glError":0,"trailPixels":120}
+
+RUN bar-playtest/tests/test-home-city-parallax.cjs
+PASS city depth: bounded source, subtle inverse camera motion, fixed room apertures, reduced motion
+
+RUN bar-playtest/tests/test-home-art-ui.cjs
+PASS 13 current house layers; full-shot mean RGB difference 0.0789; gameplay placements and opening/sleep/morning use the same complete room
+
+RUN bar-playtest/tests/test-home-weather-ui.cjs
+HOME_WEATHER_OK current source alpha, three panes, visible exterior notch, no room/frame/floor spill, animation and dry days {
+  cam: {
+    x: 1.9649999999999999,
+    y: -0.026249999999999885,
+    w: 4.8,
+    zoom: 2.6666666666666665,
+    ppu: 100
+  },
+  spill: [],
+  windowChanges: 7606,
+  exteriorChanges: 173,
+  outside: 0,
+  paneLeaks: 0,
+  panes: [ 186, 643, 197 ],
+  glass: true,
+  animated: true,
+  dry: true
+}
+
+RUN bar-playtest/tests/test_upper_crate_boundary_ui.cjs
+PASS upper crate collision: 16 day/route/walk/run cases, real held A/Shift, resize, return movement, house and lift round trips, unchanged ground boundary
+
+RUN bar-playtest/tests/test-lift-npc-presence-ui.cjs
+LIFT_NPC_PRESENCE_OK: eight day/route rides, stable NPC presence before/during/after descent, floor-sensitive interactions and events retained
+
+RUN bar-playtest/tests/test-lift-passenger-framing-ui.cjs
+LIFT_PASSENGER_FRAMING_OK 150 idle/walk/run frame/facing/stop cases: neck and chest visible, no toe leakage; both travel directions, shared receiver offset and unchanged rail/passenger anchors.
+
+RUN bar-playtest/tests/test-lift-right-boundary-ui.cjs
+LIFT_RIGHT_BOUNDARY_OK {
+  cases: 32,
+  radius: 0.205,
+  right: -12.360000000000001,
+  limit: -12.600000000000001,
+  lower: -16.3
+}
+
+[
+  {
+    "file": "bar-playtest/tests/test-street-water-grid-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-street-render-budget.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-street-gpu-surface-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-street-effect-composition-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-street-buffer-reuse-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-street-rain-shared-gpu-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-rain-merge-equivalence.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 3
+  },
+  {
+    "file": "bar-playtest/tests/test-engine-world-layout.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-engine-world-layout-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 16
+  },
+  {
+    "file": "bar-playtest/tests/test-ambient-native-csv.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-home-tv-power-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 22
+  },
+  {
+    "file": "bar-playtest/tests/test-exterior-notion-sync.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-believer.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-believer-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-newspaper.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-newspaper-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-character-sheets.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-typing-rhythm.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-typing-rhythm-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-corridor-birds-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-engine-barrel-fire.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test_barrel_fire_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-campfire-lighting-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-character-lighting.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-character-lighting-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-character-lighting-isolation-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-day2-neighborhood-gates-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-home-book-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-samho-idle-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-weather-ambience-matrix-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 72
+  },
+  {
+    "file": "bar-playtest/tests/test-shiba-cancel-first-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 9
+  },
+  {
+    "file": "bar-playtest/tests/test-home-wardrobe-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-home-bed-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-home-cat-interaction-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-gang-guard-interaction-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 18
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-choice-rejection-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-discovery-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-discovery-stability-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-npc-animation.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-gang-wild-dog.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-gang-wild-dog-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-bubi-box-sequence-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-neighborhood-events-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-neighborhood-staging-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-ad-carrier.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-ad-carrier-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 9
+  },
+  {
+    "file": "bar-playtest/tests/test_outside_traffic.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test_outside_traffic_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test_bd_vendor_removed_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test_outside_beggar.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test_outside_beggar_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 10
+  },
+  {
+    "file": "bar-playtest/tests/test_day1_thug_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 20
+  },
+  {
+    "file": "bar-playtest/tests/test_outside_console_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 14
+  },
+  {
+    "file": "bar-playtest/tests/test_story_notices.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-restoration-notices.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-restoration-notices-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 39
+  },
+  {
+    "file": "bar-playtest/tests/test-repair-goal-notice-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test_ambient_interaction_pause_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test_interaction_prompt_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 10
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-resize-qa-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 11
+  },
+  {
+    "file": "bar-playtest/tests/test-object-confirmation-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 19
+  },
+  {
+    "file": "bar-playtest/tests/test_sofa_choices_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 12
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-render-budget-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-character-shadows.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-character-shadows-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-street-atmosphere.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-street-atmosphere-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-street-atmosphere-motion-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-street-bloom-continuity-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-street-soft-light-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-street-parallax-engine.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-street-parallax-engine-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 16
+  },
+  {
+    "file": "bar-playtest/tests/test-street-engine-effects.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-street-engine-effects-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-rain-glass-engine.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-rain-glass-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-home-city-parallax.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-home-art-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-home-weather-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test_upper_crate_boundary_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-lift-npc-presence-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-lift-passenger-framing-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-lift-right-boundary-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  }
+]

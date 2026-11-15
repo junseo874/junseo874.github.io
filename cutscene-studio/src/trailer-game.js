@@ -14,6 +14,11 @@ W.LunaTrailerGame=class {
   // Notice audio has its own player, separate from the generic Sfx switch.
   // Replace it only in this disposable iframe; campaign notifications keep sound.
   if(w.LunaStoryNoticeAudio){w.LunaStoryNoticeAudio.stop();w.LunaStoryNoticeAudio.play=()=>{};}
+  // The introduction owns one continuous rain layer across black/terrace/team.
+  // Suppress only this iframe terrace's duplicate optical pass, not its falling rain.
+  const drawRain=w.LunaRainGlass.draw;
+  w.LunaRainGlass.draw=(ctx,model,options={})=>this.introRainShared&&options.owner===c.dialog?false:drawRain(ctx,model,options);
+  w.LunaDialogueAudio.reveal=()=>{}; // Trailer sound follows visible characters once, in the parent.
   c.session.uninstall();c.session.install({developer:false});
   this.openView=w.LunaOpenView({g,D:w.LUNA_DATA,L:ko=>ko,esc:String,button:()=>'',ui:{gimmickAudio:false}});
   const style=w.document.createElement('style');style.textContent=`
@@ -27,7 +32,14 @@ W.LunaTrailerGame=class {
  }
  reset(day=1){const {w,c,g}=this;c.outside.exit(true);c.dialog=null;c.ui.minigames=false;c.ui.inspector=false;c.ui.auto=false;g.reset(day,'regular',42,true,{variant:'original'});Object.assign(g,{lang:'ko',overlay:null,tutorial:null,pendingDailyUnlocks:false,transition:0,cameraLeft:0,cameraMoving:false,story:null,choice:null,screen:'bar',phase:'regular',paused:false,hidden:false});w.Sfx?.setEnabled(false);}
  async enter(s){
-  this.scene=s;this.last=0;const {w,c,g}=this;
+  const previous=this.scene;this.scene=s;this.last=0;const {w,c,g}=this;
+  // A speaker change in the ending is one conversation, not a new scene.
+  // Preserve the DOM, rain owner and animation clock; replace only the line.
+  if(s.kind==='terrace'&&s.montage&&s.montage===previous?.montage&&c.dialog?.background==='terrace'){
+   c.dialog.rows=[{actor:s.actor,text:s.text,who:s.actor==='luna'?'루나':'크리스'}];c.dialog.index=0;c.dialog.chars=0;
+   const paragraph=c.host.querySelector('.terrace-speech p');if(paragraph)delete paragraph.dataset.line;
+   this.paint(0);return;
+  }
   this.reset(s.npc==='believer'?0:s.kind==='outside'?2:1);
   w.document.body.classList.toggle('trailer-silent',!!s.silent);
   w.document.body.classList.toggle('trailer-drinks',!!s.drink);
@@ -54,8 +66,11 @@ W.LunaTrailerGame=class {
    const speech=m.story.speech;
    if(speech){
     const end=speech.index;
-    this.outsideClip={speech,start:s.npc==='believer'?0:Math.max(0,end-2),end:s.npc==='believer'?2:end};
+    let start=Math.max(0,end-1);
+    while(start>0&&speech.rows[start]?.type!=='say')start--;
+    this.outsideClip={speech,start:s.npc==='believer'?0:start,end:s.npc==='believer'?1:end};
     speech.index=this.outsideClip.start;speech.choice=false;speech.displayLine=null;m.story.seek();
+    this.outsideClip.nextAt=(speech.typing?.duration||1)+.6;
    }
    outside.refreshHUD();
   }
@@ -64,19 +79,25 @@ W.LunaTrailerGame=class {
  paint(t){
   const {w,c,g,scene:s}=this;if(!s)return;
   const dt=Math.max(0,Math.min(.05,t-this.last));this.last=t;
-  if(s.kind==='bar'){g.cameraMoving=false;g.realTime=t+10;if(g.dialogue)g.dialogue.chars=Math.min(g.dialogue.text.length,Math.floor(t*36));c.render(true);}
+  this.speech=null;
+  if(s.kind==='bar'){g.cameraMoving=false;g.realTime=t+10;if(g.dialogue){g.dialogue.chars=Math.min(g.dialogue.text.length,Math.floor(t*30));this.speech={key:s.title,text:g.dialogue.text,chars:g.dialogue.chars};}c.render(true);}
   if(s.kind==='terrace'){
-   c.dialog.terraceTime=t;c.dialog.chars=Math.floor(t*13);w.LunaTerrace.paint(c.dialog,c.host);
+   const timing=w.LunaOutsideStory.typing(s.text||'',60);
+   const conversation=s.montage==='terrace-ending'?W.LunaTrailerSequence.scenes.find(row=>row.montage===s.montage):s;
+   c.dialog.terraceTime=t+s.start-conversation.start;c.dialog.chars=w.LunaOutsideStory.visible(timing,Math.max(0,t-(s.speechDelay||0)));w.LunaTerrace.paint(c.dialog,c.host);
+   if(!s.silent)this.speech={key:s.title,text:s.text||'',chars:c.dialog.chars};
    // Trailer-only right-to-left panoramic drift; the campaign camera is untouched.
    if(s.silent){const art=c.host.querySelector('.terrace-scene');if(art)art.style.transform=`scale(1.12) translateX(${40-80*Math.min(1,t/s.duration)}px)`;}
   }
   if(s.kind==='outside'){
    const story=w.outsidePlaytest.model.story,clip=this.outsideClip;
-   if(clip){const row=Math.min(clip.end,clip.start+Math.floor(t/1.7));
+   if(clip){const row=t<clip.nextAt?clip.start:clip.end;
     if(story.speech!==clip.speech||clip.speech.index!==row){story.speech=clip.speech;clip.speech.index=row;clip.speech.choice=false;story.seek();}
-    if(story.speech&&!story.speech.choice)story.speech.elapsed=(t%1.7)*1.5;
+    if(story.speech&&!story.speech.choice)story.speech.elapsed=Math.max(0,t-(row===clip.start?0:clip.nextAt));
    }
-   w.outsidePlaytest.tick(dt);
+   // Keep normal exterior typewriter deadlines, without a speed multiplier.
+   const elapsed=story.speech?.elapsed;w.outsidePlaytest.tick(dt);if(story.speech)story.speech.elapsed=elapsed;
+   if(story.speech&&!story.speech.choice)this.speech={key:s.title+':'+story.speech.index,text:story.speech.chars.join(''),chars:w.LunaOutsideStory.visible(story.speech.typing,story.speech.elapsed)};
    w.outsidePlaytest.refreshHUD();
   }
   if(s.kind==='open'){

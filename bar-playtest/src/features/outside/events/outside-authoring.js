@@ -14,18 +14,18 @@ function binding(line){
  return null;
 }
 const menus={
- 'beggar-choice':[['beggar-pay','네, 믿을게요 · 200원'],['beggar-refuse','아니요.'],['beggar-question','혹시 사기꾼인가요?']],
+ 'beggar-choice':[['beggar-pay','네. 여기요 · 200원'],['beggar-refuse','아니요.'],['beggar-question','혹시 사기꾼인가요?']],
  cat:[['pet','쓰다듬기'],['feed','참치캔 주기'],['cancel','취소']],
  'home-cat':[['pet','쓰다듬기'],['cancel','취소']],
  'repair-intro':[['talk','대화한다.'],['cancel','무시한다.']],
  repair:[['gear','기어 부품 건네주기'],['pay','비용 건네주기 · 400원'],['cancel','취소']],
  guard:[['ask','술을 찾고 있어요.'],['cancel','자리를 뜬다.']],
- 'boss-first':[['boss-wait','( 대화 그만두기 )'],['boss-repair','승강기는 이미 고쳤습니다.'],['boss-pay','돈으로 살게요 · 500원']],
- 'boss-repeat':[['boss-wait','( 대화 그만두기 )'],['boss-repair','승강기 고쳤습니다.'],['boss-pay','돈으로 살게요 · 500원']],
+ 'boss-first':[['boss-wait','조금만 기다려 주세요'],['boss-repair','이미 고쳤습니다.'],['boss-pay','돈을 드릴게요 · 500원']],
+ 'boss-repeat':[['boss-wait','조금만 기다려 주세요'],['boss-repair','엘리베이터를 고쳤습니다.'],['boss-pay','돈을 드릴게요 · 500원']],
  wardrobe:[['press','누른다'],['cancel','취소']],
 };
 const key=line=>binding(line)?.parent||line?.editorRowId;
-function prompt(line){if(line.type==='shop-choice'&&line.stage==='items')return '전부 다 보여 주긴 싫고, 몇 개만 보여 줄게.';if(line.type==='notion-choice')return line.stage==='topic'?'왜, 물어볼 거라도 있어?':'맨입으로는 나도 어렵고. 50원만 줘봐. 아는 만큼 알려주지.';return '';}
+function prompt(line){if(line.type==='shop-choice'&&line.stage==='items')return '...전부 다 보여 주긴 싫고 몇 개만 보여 줄게.';if(line.type==='notion-choice')return line.stage==='topic'?'뭐야? 물어볼 거라도 있어?':'...맨입으로는 안 돼. 50원만 주면 알려 주지.';return '';}
 function defaults(line,native=[]){
  const b=binding(line),list=native.map(c=>({id:c.id,dispatch:Object.keys(b?.ids||{}).find(id=>b.ids[id]===c.id)||c.id,label:c['text.ko'],when:c.when,reason:c['lock_reason.ko'],row:c}));
  if(line.type==='shop-choice'&&line.stage==='items'){list.sort((a,b)=>Number(b.id==='shop-no')-Number(a.id==='shop-no'));list.push({id:'shop-buy-tuna_can',dispatch:'shop-buy-tuna_can',label:'참치캔 구매 · 50원',when:'money >= 50',reason:'돈이 부족합니다.'});}

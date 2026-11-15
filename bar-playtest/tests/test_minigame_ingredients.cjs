@@ -4,7 +4,8 @@ vm.runInNewContext(fs.readFileSync(dir+'/data/runtime/game-data.js','utf8'),ctx)
 const C=require('../src/core/core.js'),M=require('../src/features/crafting/minigames.js'),R=require('../src/features/bar/remix.js'),g=new C.Game(ctx.window.LUNA_DATA);
 R.attach(g);M.attach(g);
 const baseline=JSON.stringify(g.data),items=M.ingredients(g);
-assert(items.length>=22);assert(items.some(i=>i.id==='beer'));assert(items.some(i=>i.id==='soda_water'));
+const pourable=new Set(g.t.shelf_items.filter(i=>i.kind==='ingredient'&&['pour','fill_up'].includes(i.default_action)).map(i=>i.id));
+assert.deepEqual(new Set(items.map(i=>i.id)),pourable);assert(items.some(i=>i.id==='beer'));assert(items.some(i=>i.id==='soda_water'));
 for(const item of items){
  g.startMinigame('pour',{ingredient:item.id});
  assert.equal(g.gimmick.ingredient,item.id);assert.equal(g.gimmick.fluid.ingredient,item.id);
@@ -16,7 +17,7 @@ for(const item of M.ingredients(g,'fill_up')){g.startMinigame('fill_up',{ingredi
 const before=g.craft.id;assert.throws(()=>g.startMinigame('pour',{ingredient:'sugar_cube'}));assert.equal(g.craft.id,before);
 assert.equal(JSON.stringify(g.data),baseline);
 for(const ingredient of ['gin','beer','soda_water','cola']){
- g.startMinigame('pour',{ingredient});require('../tools/pour-test-driver.cjs')(g);
+ g.startMinigame('pour',{ingredient});require('./helpers/pour-test-driver.cjs')(g);
  assert.equal(g.screen,'minigame_result');assert.equal(g.minigame.result.score,100);
  g.retryMinigame();assert.equal(g.gimmick.ingredient,ingredient);assert.equal(g.gimmick.started,false);
 }

@@ -5,12 +5,16 @@
   'service','recipes','craftRecipe','closeRecipe','selectRecipe','togglePrepRecipe','prepBack',
   'remixPreview','remixFavorite','remixFilter','tutorialContinue','tutorialBarContinue','pourTutorialNext',
   'rhythmHit','gimmickInput','stir']);
- const quietRegions='.dialogue-wrap,.outside-speech,.outside-background-speech,.campaign-speech,'+
+ const quietRegions='.sim-nav,.dialogue-wrap,.outside-speech,.outside-background-speech,.campaign-speech,'+
   '.day0-guide,.day0-seat-legend,.outside-controls-tutorial,.pour-tutorial,.open-tutorial,'+
   '.service-layer,#service-panel,.service-handle,.recipe-list,.prep-recipe,.recipe-toggle,'+
   '[data-drag],[data-hold],[data-opening-stage],[data-shake-surface]';
+ const query=new URLSearchParams(W.location.search);
+ const toolPreview=W.parent!==W&&(query.has('resourceReview')||query.has('dialogue-preview'));
  function isChoice(el){return el.dataset.act==='choice'||el.dataset.campaign?.startsWith('scene-choice:')||!!el.closest('.choices,.outside-choices');}
  function allows(el,kind){
+  const session=W.lunaCampaign?.session;
+  if(toolPreview||(session?.active&&session.developer)||el.closest('[data-campaign="developer"],#campaign-developer-back'))return false;
   const action=el.dataset.act||'';
   // Gameplay confirmations have their own physical sounds, never UI clicks.
   if(kind==='click'&&el.closest('#app')&&!W.barGame?.overlay&&['gimmick','result','discarding','minigame_result'].includes(W.barGame?.screen))return false;

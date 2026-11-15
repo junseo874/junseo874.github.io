@@ -1,7 +1,7 @@
 /* Exterior view/controller: rendering, camera, DOM, input and developer controls. State stays on the owning instance; dependencies are explicit. */
 (function (root) {
   'use strict';
-  function create({ BOTTOM, EX, FLOWS, OutsideModel, PLACES, R, TOP, VIEWPOINT, atViewpoint, clamp, firstCommuteEntranceCue, global, homewardCues, interactionAnchor, interactionLabel, mix, smooth, streetDrawOrder, streetParallax }) {
+  function create({ BOTTOM, EX, FLOWS, OutsideModel, PLACES, R, TOP, VIEWPOINT, atViewpoint, clamp, firstCommuteEntranceCue, global, homewardCues, interactionAnchor, interactionLabel, mix, smooth, compareStreetNodes, streetParallax }) {
   function create({
     onExit = () => {},
     currencyView = global.LunaCurrencyView()
@@ -10,6 +10,7 @@
     // instead of creating dozens of query objects for every drawn frame.
     const motionPreference = global.matchMedia?.('(prefers-reduced-motion: reduce)');
     const glowRenderer = global.LunaInteractionGlow.create();
+    const drawLists = (global.LunaSceneDrawLists || require('./scene-draw-lists.js')).create(compareStreetNodes);
     let discoveryMarkers = [];
     let renderingNode = null,
       choiceUI = null;
@@ -59,7 +60,7 @@
     })[c]);
     const button = (text, action, cls = '') => `<button class="${cls}" data-outside-action="${action}">${text}</button>`;
     function lobbyHTML(tabs) {
-      return `<div class="start-screen outside-start">${tabs}<section class="start-card outside-setup outside-entry"><small>OUTSIDE EXPLORATION</small><h2>외부 공간</h2><p>거리와 집을 자유롭게 둘러보세요.<br>설정은 탐색 중 <kbd>P</kbd>를 눌러 변경할 수 있습니다.</p>${button('탐색 시작 →', 'start', 'primary')}<span>0일차 · 퇴근길 · 바 문 앞에서 시작</span></section></div>`;
+      return `<div class="start-screen outside-start">${tabs}<section class="sim-panel location-launch"><img src="../assets/site/outside-street-preview.png" alt="루나가 서 있는 바 앞 거리"><div><h2>바 앞 거리</h2><p>0일차 · 퇴근길</p><p>거리와 집을 자유롭게 탐색하세요. 탐색 중 <kbd>P</kbd>를 누르면 일차와 시작 위치를 바꿀 수 있어요.</p>${button('탐색 시작 →','start','primary')}</div></section></div>`;
     }
     async function loadImages() {
       const queue=Object.entries(data.assets).filter(([id])=>!images.has(id));let index=0;
@@ -333,7 +334,7 @@
       Object.assign(cam,global.LunaOutsideNeighborhood?.camera(model)||{});
       if(global.LunaEngineWorld&&!model.qa){
         const settings=global.LunaEngineWorld.camera(model.scene);
-        cam=global.LunaEngineWorld.confine(model.scene,{x:model.x+settings.offset.x,y:model.y+settings.offset.y,w:settings.width});
+        cam=global.LunaEngineWorld.confine(model.scene,{x:arriving ? .65 : model.x+settings.offset.x,y:model.y+settings.offset.y,w:settings.width});
       }
       lastScene = model.scene;
       pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
@@ -386,7 +387,7 @@
       draw();
       updateHUD();
       try {
-        await global.LunaResources.prepare('common');
+        await Promise.all([global.LunaResources.prepare('common'),global.LunaNpcScene?.ready()]);
         await loadImages();
         if(token!==generation)return;
         await prepareStreet(token);
@@ -740,13 +741,13 @@
       }
       const engineLayout=global.LunaEngineWorld&&!model.qa;
       const actorNodes=engineLayout?global.LunaEngineWorld.actorNodes(model,drawSprite,ctx,position,images,global.LunaCaptureMode?.hidden?null:glowRenderer):[];
-      const nodes = [...data.scenes[model.scene].nodes,...actorNodes].sort((a, b) => a.layer - b.layer || a.order - b.order || b.z - a.z);
+      const {base:nodes,paint} = drawLists(data.scenes[model.scene].nodes,actorNodes,model.scene==='street',!!global.LunaEngineWorld);
       if (model.scene === 'home'&&!engineLayout) {
         nodes.filter(n => n.name === 'home-city').forEach(renderNode);
         const bg = nodes.find(n => n.name === 'main_bg');
-        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'rain');
+        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'rain', surface);
         if (bg) renderNode(bg);
-        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'glass');
+        global.LunaOutsideRain?.drawHome(ctx, model, renderCam, position, bg, 'glass', surface);
         nodes.filter(n => !['home-city', 'main_bg', 'ForeFore_Object', 'home-book', 'home-fence'].includes(n.name)).forEach(renderNode);
       }
       const drawPlayer = () => {
@@ -758,9 +759,9 @@
         if(engineLayout){
           for(const n of nodes){
             if(n.name==='Luna'){drawPlayer();continue;}
-            if(n.name==='main_bg')global.LunaOutsideRain?.drawHome(ctx,model,renderCam,position,n,'rain');
+            if(n.name==='main_bg')global.LunaOutsideRain?.drawHome(ctx,model,renderCam,position,n,'rain',surface);
             renderNode(n);
-            if(n.name==='main_bg')global.LunaOutsideRain?.drawHome(ctx,model,renderCam,position,n,'glass');
+            if(n.name==='main_bg')global.LunaOutsideRain?.drawHome(ctx,model,renderCam,position,n,'glass',surface);
           }
         }else{
         global.LunaOutsideNeighborhood?.draw(model, drawSprite, ctx, position, images, global.LunaCaptureMode?.hidden ? null : glowRenderer);
@@ -774,7 +775,7 @@
           adCarrier = false,
           groundRain = false;
         global.LunaStreetAtmosphere?.begin(model);
-        for (const n of streetDrawOrder(nodes)) {
+        for (const n of paint) {
           global.LunaStreetAtmosphere?.beforeNode(ctx, model, renderCam, n, nodes, images, position);
           // Ground impacts belong to the road, behind the frontmost silhouettes
           // (and elevator front). Falling rain gets a separate foreground pass.
@@ -1112,7 +1113,7 @@
         el.tabIndex = !v.auto && !v.choice ? 0 : -1;
         el.setAttribute('aria-label', '대화');
         el.innerHTML = global.LunaExteriorTextbox.html() + '<p></p>';
-        global.LunaExteriorTextbox.mountText(el.querySelector('p'), v.full, v.emphasis || [], background);
+        global.LunaExteriorTextbox.mountText(el.querySelector('p'), v.full, v.emphasis || [], background, v.styledText);
         if (!v.auto && !v.choice && !devOpen) el.focus({
           preventScroll: true
         });

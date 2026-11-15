@@ -23,7 +23,7 @@ const root=path.resolve(__dirname,'../..');
   assert(projected.every(s=>s.editorRowId));
   assert.equal(r.playType,r.scene==='home'?'repeat':'once');
  }
- assert.equal(count,50);
+ assert.equal(count,53);
  const sandbox={LUNA_DATA:result.data,LunaCore:{condition}};sandbox.window=sandbox;
  vm.runInNewContext(fs.readFileSync(path.join(root,'bar-playtest/data/runtime/outside-dialogues.js'),'utf8'),sandbox);
  const C=sandbox.LunaOutsideContent;
@@ -40,5 +40,5 @@ const root=path.resolve(__dirname,'../..');
   assert(model.rows(flow.id).every(row=>row.dataset_id===('script/'+rules[id].scene)));
  }
  assert.equal((await model.validate()).errors.length,0);
- console.log('AMBIENT_NATIVE_CSV_OK: 7 scenes / 50 lines, native bindings, day/route matrix, TV speaker and editor.');
+ console.log('AMBIENT_NATIVE_CSV_OK: 7 scenes / 53 lines, native bindings, day/route matrix, TV speaker and editor.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,0 +1,531 @@
+
+RUN bar-playtest/tests/test-outside-dialogue-editor-ui.cjs
+OUTSIDE_EDITOR_UI_OK: real choices + speech, safe CSV/live saves, undo/redo, branch previews and incompatible save/export blocked.
+
+RUN bar-playtest/tests/test-dialogue-live-data-ui.cjs
+DIALOGUE_LIVE_DATA_UI_OK: saved CSV -> open campaign -> next scene -> day test; active progress preserved; failed load retains data.
+
+RUN bar-playtest/tests/test-resource-current-artwork-ui.cjs
+PASS current artwork: 854 review rows; 1144 extraction entries; 1451 decoded image sources; every animation frame; original bytes, alpha, layer frame downloads, empty glasses, three tails and mobile layout
+
+RUN bar-playtest/tests/test-story-service-entry-ui.cjs
+STORY_SERVICE_ENTRY_OK 33 authored order cases: no center CTA, left handle/click/Tab/close/recipe/prep, tutorial gates, speech/choice/camera/drink/pause guards, general service unchanged
+
+RUN bar-playtest/tests/test-loading-pigeon-ui.cjs
+PASS loading: original 12-frame pigeon at 6fps; 100ms dots; fixed center; progress continuity; campaign/door/exterior; paused-game animation; completion cleanup
+
+RUN bar-playtest/tests/test-bar-choice-hold-clock.cjs
+BAR_CHOICE_HOLD_CLOCK_OK: pointer/E/Enter/Space share 300ms and one-shot confirmation
+
+RUN bar-playtest/tests/test-generated-art-ui.cjs
+GENERATED_ART_UI_OK: current generated PNGs registered; archived notice fragments excluded; 6 native runtime notice skins; 12 PNG cursors; old paths blocked without requests
+
+RUN bar-playtest/tests/test-guest-arrival-speech-ui.cjs
+GUEST_ARRIVAL_SPEECH_UI_OK: fade + 1s wait, mouth sync, all three seat bubbles and mouths persist through focus/camera changes.
+
+RUN bar-playtest/tests/test-guest-appearance-tab-ui.cjs
+GUEST_APPEARANCE_TAB_UI_OK: both genders, all 43 eligible assets, selection persistence, accessory constraints, tab navigation and images.
+
+RUN bar-playtest/tests/test-endless-general-ui.cjs
+ENDLESS_GENERAL_UI_OK: actual QA99 selector starts anonymous-only service, three-seat cap and refill, no QA dialogue or browser errors.
+
+RUN bar-playtest/tests/test-guest-random-appearance-ui.cjs
+GUEST_RANDOM_UI_OK: three spawned composite customers, decoded native assets, stable identities, no browser errors.
+
+RUN bar-playtest/tests/test-choice-live-text-ui.cjs
+CHOICE_LIVE_TEXT_OK: Korean/Latin typing and condition edits retain nodes, selection, caret and animation; reopening and adding options still work.
+
+RUN bar-playtest/tests/test-day3-samho-expression-ui.cjs
+DAY3_SAMHO_EXPRESSION_UI_OK: default before drinking, native drunk say, completed line and speaker handoff, farewell.
+
+RUN bar-playtest/tests/test-sound-lab-ui.cjs
+SOUND_LAB_OK: simulator link, three timed variants, frame 29, source offsets, replay/stop, drink change, responsive layout
+
+RUN bar-playtest/tests/test-november-resource-refresh-ui.cjs
+RESOURCE_REFRESH_OK: 21 original files, 7 Bubi sheets/pivots, native notices/stacking, Haru reactions, actual disposal renderer, reference-scale notice variants and resource preview/downloads.
+
+RUN bar-playtest/tests/test-bar-qa-dialogue-ui.cjs
+QA_DIALOGUE_OK 32 menus limited to four slots, preset/legacy limits, real entry/hold choices, money/reset, mixed coaster, all 43 reachable presets, pose selection, profiles, return loops, viewport and main isolation
+
+RUN bar-playtest/tests/test-bar-qa-presets-ui.cjs
+PASS all 43 preset entries
+PASS 1/2/mixed coaster → real crafting → correct seat service
+PASS choices/notices, 12 profiles, memory roundtrip, pose presets, narrow layout, main/source isolation
+
+RUN bar-playtest/tests/test_profile_resources_ui.cjs
+PASS profile artwork: four-column list, locked identities, 3 affinity stages, gates, detail scroll, close/ESC layers, pause and data preservation, compact/full HD, EN, no missing assets.
+
+RUN bar-playtest/tests/test-tom-introduction-ui.cjs
+PASS main/developer: actual CSV entrance and earlier name stay silent; full introduction announces on line start once; encounter/name flags and copied progress preserved
+
+RUN bar-playtest/tests/test-regular-order-badge-ui.cjs
+PASS main/developer exact/free orders: no top-right badge; order/seat/preparation preserved
+
+RUN bar-playtest/tests/test-dialogue-history-ui.cjs
+DIALOGUE_HISTORY_OK: service order/art, real story recording, read-only pause, no spoilers, anonymous names, escaping, latest/scroll retention, focus, Esc/Y/button/scrim, 4 viewports and main/reset
+
+RUN bar-playtest/tests/test-textbox-proportions-ui.cjs
+TEXTBOX_PROPORTIONS_OK 72 bar guest/Luna and exterior cases, 3 viewports, DPR 1/2, fixed source corners/tails and stable typing
+
+RUN bar-playtest/tests/test-choice-corner-animation-ui.cjs
+PASS fixed chamfer throughout entry AND incoming/outgoing selection transitions: both directions, keyboard/pointer/wheel, rejection and reduced motion
+
+RUN bar-playtest/tests/test-choice-entry-guard-ui.cjs
+CHOICE_ENTRY_GUARD_OK: exterior 499/500ms boundary for E/Enter/Space/click; no cinema delay; held keys, navigation, refresh and reopen.
+
+RUN bar-playtest/tests/test_choice_hold_ui.cjs
+PASS first-choice hint at 3 sizes, remembered completion, 0.3s mouse/E/Enter/Space hold, cancellation, one-shot confirmation and no next-line leak.
+
+RUN bar-playtest/tests/test-currency-art-ui.cjs
+CURRENCY_ART_OK 24 native-art/aspect/number/viewport checks, bar original/remix + main/developer exterior, exact source bytes and preload.
+
+RUN bar-playtest/tests/test_currency_ui.cjs
+CURRENCY_UNIT_OK: initial/reset, income, chained income, pause, spend, exact balance.
+CURRENCY_UI_OK: both versions, actual settlements + bonus, count, combined income, pause, deduction, reset, finished screen, reduced motion.
+
+RUN bar-playtest/tests/test_currency_audio_ui.cjs
+PASS credits: real bar settlement, duplicate guard, spend/income, real street purchase, street income, reset/scene silence, master volume/mute, stale callback guard, single cached WAV, no browser errors
+
+RUN bar-playtest/tests/test-recipe-table-art-ui.cjs
+RECIPE_TABLE_ART_OK: original/remix, locked/unlocked table sprites, decoded/contained, detail art preserved, recipe selection
+
+RUN bar-playtest/tests/test-recipe-copy-ui.cjs
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+13 !== 14
+
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-recipe-copy-ui.cjs:13:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 13,
+  expected: 14,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+RUN bar-playtest/tests/test-speech-focus-ui.cjs
+SPEECH_FOCUS_OK automatic focus, E/Enter/click, terrace/cinema unchanged pixels, choice focus retained
+
+RUN bar-playtest/tests/test-capture-mode-ui.cjs
+CAPTURE_UI_OK outside/bar/crafting, late HUDs, console exception, resize, scene carry, retained memory art, P/Esc/keyboard recovery
+
+RUN bar-playtest/tests/test_game_viewport_ui.cjs
+PASS 338 game-frame bounds / proportional UI checks: DPR 1/2, repeated resize, updates, people/events/affinity, QA, settings, profiles, unlocks, warnings, toast and drag edges
+
+RUN bar-playtest/tests/test_letterbox_ui.cjs
+PASS pure black outside 16:9: 36 pixel audits; DPR 1/2, wide/tall/portrait/fractional sizes, native dialog, title, bar, street, pause and white fades
+
+RUN bar-playtest/tests/test_interaction_prompt_ui.cjs
+PASS 112 object/NPC targets / fixed bottom-left E + label / book and Shiba inspection exit parity, click/E/Esc / 3 viewport sizes / proximity and pause visibility / click enters TV
+
+RUN bar-playtest/tests/test-ambient-speech-motion-ui.cjs
+AMBIENT_MOTION_OK 1 { samples: 173, edges: 39 }
+AMBIENT_MOTION_OK 2 { samples: 173, edges: 39 }
+
+RUN bar-playtest/tests/test-ambient-speech-size-ui.cjs
+AMBIENT_SPEECH_SIZE_OK real NPC channels, 80% body/text/padding/tails, direct manual/auto unchanged, stable gap, edge tails, 3 sizes and DPR 1/2
+
+RUN bar-playtest/tests/test-exterior-tail-ui.cjs
+EXTERIOR_TAIL_OK center/left/right and return, 3 viewports, DPR 1/2, no-tail captions, authored aspect ratios
+
+RUN bar-playtest/tests/test_general_coaster_drag_ui.cjs
+PASS general guests: campaign/developer L/M/R drag delivery, Space/Enter rejected, invalid/cancel restore, paused/camera/expired/other-seat guards, single order and persistent coaster
+
+RUN bar-playtest/tests/test-no-help-corner-ui.cjs
+NO_HELP_CORNER_OK: original/remix bar, prep, gimmick; ESC controls and return preserved
+
+RUN bar-playtest/tests/test_focus_settings_ui.cjs
+PASS shared settings in title/main/exterior/practice / default on / persistence / blur and hidden tab on-off / actual background progression / input release / manual pause preserved
+
+RUN bar-playtest/tests/test-resource-workspace-ui.cjs
+AssertionError [ERR_ASSERTION]: #inspector fits {"b":{"x":16,"y":0,"width":358,"height":848.515625},"v":{"width":390,"height":844}}
+    at within (/Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-resource-workspace-ui.cjs:11:153)
+    at async /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-resource-workspace-ui.cjs:37:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+RUN bar-playtest/tests/test-resource-cursors-ui.cjs
+PASS all 12 cursor PNG originals and exact transparent 32px PNG exports; extraction, navigation and mobile
+
+RUN bar-playtest/tests/test-game-input-guard-ui.cjs
+GAME_INPUT_GUARD_OK: title/settings/cutscene/street, native selection/drag/menu/drop/autoscroll blocked; field editing, sliders, buttons, links and panel scrolling preserved
+
+RUN bar-playtest/tests/test-delivery-hitbox-ui.cjs
+DELIVERY_HITBOX_OK: 24 actual mouse drops; expanded edges, unchanged targets, object cursor alignment, resize/clipping, release/cancel/settings/blur restoration
+
+RUN bar-playtest/tests/test-settings-resume-ui.cjs
+PASS bar resume false escape
+PASS bar resume false button
+PASS bar resume false x
+PASS bar resume true escape
+PASS bar resume true button
+PASS bar resume true x
+PASS street walking resume false escape { loseFocus: false }
+PASS street walking resume false escape { loseFocus: true }
+PASS street walking resume false button { loseFocus: false }
+PASS street walking resume false button { loseFocus: true }
+PASS street walking resume true escape { loseFocus: false }
+PASS street walking resume true escape { loseFocus: true }
+PASS street walking resume true button { loseFocus: false }
+PASS street walking resume true button { loseFocus: true }
+SETTINGS_RESUME_OK
+
+RUN bar-playtest/tests/test-lift-lock-recipe-escape-ui.cjs
+PASS recipe Esc priority { main: false, recipe: 'list' }
+PASS recipe Esc priority { main: false, recipe: 'detail' }
+PASS recipe Esc priority { main: false, recipe: 'overlay' }
+PASS lift lock: both directions, four movement keys, held input and fresh landing input { main: false }
+PASS lift settings pause/resume and empty-cabin call/boarding { main: false }
+PASS recipe Esc priority { main: true, recipe: 'list' }
+PASS recipe Esc priority { main: true, recipe: 'detail' }
+PASS recipe Esc priority { main: true, recipe: 'overlay' }
+PASS lift lock: both directions, four movement keys, held input and fresh landing input { main: true }
+PASS lift settings pause/resume and empty-cabin call/boarding { main: true }
+LIFT_LOCK_RECIPE_ESCAPE_OK
+
+RUN bar-playtest/tests/test-dialogue-native-font-ui.cjs
+NATIVE_DIALOGUE_FONT_OK original bytes, glyph widths/heights including dots, zero added spacing, 17/18/28px, 400/700/800, bar/exterior/terrace/editor Canvas, unchanged text, no supplemental font
+
+[
+  {
+    "file": "bar-playtest/tests/test-outside-dialogue-editor-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 12
+  },
+  {
+    "file": "bar-playtest/tests/test-dialogue-live-data-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-current-artwork-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 12
+  },
+  {
+    "file": "bar-playtest/tests/test-story-service-entry-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 27
+  },
+  {
+    "file": "bar-playtest/tests/test-loading-pigeon-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-bar-choice-hold-clock.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-generated-art-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-guest-arrival-speech-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-guest-appearance-tab-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-endless-general-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-guest-random-appearance-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-choice-live-text-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-day3-samho-expression-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-sound-lab-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 11
+  },
+  {
+    "file": "bar-playtest/tests/test-november-resource-refresh-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 17
+  },
+  {
+    "file": "bar-playtest/tests/test-bar-qa-dialogue-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 25
+  },
+  {
+    "file": "bar-playtest/tests/test-bar-qa-presets-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 17
+  },
+  {
+    "file": "bar-playtest/tests/test_profile_resources_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-tom-introduction-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 4
+  },
+  {
+    "file": "bar-playtest/tests/test-regular-order-badge-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-dialogue-history-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-textbox-proportions-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 17
+  },
+  {
+    "file": "bar-playtest/tests/test-choice-corner-animation-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-choice-entry-guard-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test_choice_hold_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 12
+  },
+  {
+    "file": "bar-playtest/tests/test-currency-art-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test_currency_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 24
+  },
+  {
+    "file": "bar-playtest/tests/test_currency_audio_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-recipe-table-art-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-recipe-copy-ui.cjs",
+    "code": 1,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 4
+  },
+  {
+    "file": "bar-playtest/tests/test-speech-focus-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-capture-mode-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test_game_viewport_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 39
+  },
+  {
+    "file": "bar-playtest/tests/test_letterbox_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 31
+  },
+  {
+    "file": "bar-playtest/tests/test_interaction_prompt_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 10
+  },
+  {
+    "file": "bar-playtest/tests/test-ambient-speech-motion-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-ambient-speech-size-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-exterior-tail-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test_general_coaster_drag_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 13
+  },
+  {
+    "file": "bar-playtest/tests/test-no-help-corner-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test_focus_settings_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 13
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-workspace-ui.cjs",
+    "code": 1,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 8
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-cursors-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 20
+  },
+  {
+    "file": "bar-playtest/tests/test-game-input-guard-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-delivery-hitbox-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 9
+  },
+  {
+    "file": "bar-playtest/tests/test-settings-resume-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 18
+  },
+  {
+    "file": "bar-playtest/tests/test-lift-lock-recipe-escape-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 40
+  },
+  {
+    "file": "bar-playtest/tests/test-dialogue-native-font-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 13
+  }
+]

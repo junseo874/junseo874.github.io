@@ -142,7 +142,7 @@ function paint(dialog,host){
   for(const [axis,value]of[['x',seat?.x],['y',seat?.y]]){
    if(seat)scene.style.setProperty('--speaker-'+axis,value+'px');else scene.style.removeProperty('--speaker-'+axis);
   }
-  W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[]);paragraph.dataset.line=String(dialog.index);
+  W.LunaExteriorTextbox.mountText(paragraph,row.text,row.emphasis||[],false,row.styledText);paragraph.dataset.line=String(dialog.index);
  }
  W.LunaExteriorTextbox.revealText(paragraph,Array.from(row.text.slice(0,Math.floor(dialog.chars))).length);
  W.LunaDialogueCue.sync(bubble,!!row.text&&dialog.chars>=row.text.length);

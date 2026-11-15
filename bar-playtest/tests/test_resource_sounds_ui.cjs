@@ -35,6 +35,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    assert.equal(download.suggestedFilename(),src.split('/').at(-1));assert.equal(await download.failure(),null);
    assert(fs.readFileSync(await download.path()).equals(fs.readFileSync(path.resolve(__dirname,'..',src))),src);
   }
+  await page.locator('#filter-panel>summary').click();
   await page.click('[data-facet=soundKind][data-value=ui]');assert.equal(await page.locator('#grid .card').count(),8);
   await page.click('[data-facet=soundState][data-value=archive]');assert.equal(await page.locator('#grid .card').count(),2);
   await page.click('[data-filter-reset]');await page.fill('#search','change-clothes.wav');assert.equal(await page.locator('#grid .card').count(),1);
@@ -54,8 +55,9 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await page.click('[data-group=common-sounds]');assert.equal(await page.locator('#sound-player').count(),0);
   await select('assets/audio/effects/home-door.wav');
   assert.deepEqual(await audioSettings(),before,'Preview must not save over game audio settings');
-  assert(await page.evaluate(()=>document.querySelector('#game').contentWindow.barBgm.audio.muted),'Hidden simulator BGM must remain muted');
+  await page.waitForFunction(()=>{const bgm=document.querySelector('#game').contentWindow.barBgm;return bgm.suppressed.has('preview')&&bgm.audio.volume===0;});
   await page.screenshot({path:'/private/tmp/resource-sounds-desktop.png',fullPage:true});
+  await page.locator('.workspace-tools>summary').click();
   const csvPending=page.waitForEvent('download');await page.click('#export');const csv=fs.readFileSync(await (await csvPending).path(),'utf8');assert(csv.includes('assets/audio/effects/hover_clean.wav'));assert(csv.includes('src/shared/audio/hover-audio.js'));
   await page.setViewportSize({width:390,height:844});await select('assets/audio/effects/click_clean.wav');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));

@@ -16,7 +16,15 @@ for(const a of Object.values(d.assets))assert.equal(hash(fs.readFileSync(path.jo
  const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
  // Verify originals when the source checkout is available; CI only needs the snapshot.
  if(fs.existsSync(engine)){
-  for(const [f,v]of Object.entries(d.sources))assert.equal(hash(fs.readFileSync(path.join(engine,f))),v.sha256,'engine snapshot changed: '+f);
+  for(const [f,v]of Object.entries(d.sources)){
+   const bytes=fs.readFileSync(path.join(engine,f));
+   // Project-wide build/product settings do not affect this shader. Preserve
+   // the historical hash, but enforce the actual consumed linear-color field.
+   if(f==='ProjectSettings/ProjectSettings.asset'){
+    assert.deepEqual(v.fields,{m_ActiveColorSpace:1});
+    assert.equal(Number(bytes.toString().match(/^  m_ActiveColorSpace: (\d+)$/m)?.[1]),v.fields.m_ActiveColorSpace,'Fire heat ramp requires Unity Linear color space');
+   }else assert.equal(hash(bytes),v.sha256,'engine snapshot changed: '+f);
+  }
   const mat=fs.readFileSync(path.join(engine,'Assets/01.Game/03.Content/03.Vfx/02.Materials/FX_Mat_Fire.mat'),'utf8');
   for(const key of ['_Heat_Scale','_Heat_Bias','_Brightness','_SrcBlend','_DstBlend'])assert.equal(Number(mat.match(new RegExp('    - '+key+': ([^\\n]+)'))[1]),d.props[key]);
   for(const [key,prop]of [['edge','_Color_Edge'],['mid','_Color_Mid'],['core','_Color_Core']]){

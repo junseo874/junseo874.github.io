@@ -1,0 +1,9 @@
+AssertionError [ERR_ASSERTION]: {"windowChanges":330,"exteriorChanges":0,"outside":41,"glass":true,"animated":true,"dry":true}
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-home-weather-ui.cjs:27:2 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

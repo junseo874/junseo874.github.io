@@ -19,7 +19,7 @@ g.startMinigame('stir','original');assert(!g.gimmick.rhythm);assert.equal(g.gimm
 // Exercise the complete gin fizz queue, not just isolated mini-game results.
 for(const mode of S.MODES.filter(mode=>mode!=='path'))for(const variant of ['original','gpt']){
  const g=make(mode,variant);g.reset(99,'practice',2,true,{variant});g.selectCocktail('gin_fizz');g.debugFill();g.startCraft();let guard=0;
- while(g.screen==='gimmick'&&guard++<30){const s=g.gimmick;if(s.fluid){require('../tools/pour-test-driver.cjs')(g);continue;}assert(s.rhythm);g.gimmickInput('Space');for(const n of s.rhythm.notes){step(g,(n.time-s.rhythm.trackTime)/S.noteSpeed());g.gimmickInput(n.lane?'KeyD':'KeyA');}step(g,2);}
+ while(g.screen==='gimmick'&&guard++<30){const s=g.gimmick;if(s.fluid){require('./helpers/pour-test-driver.cjs')(g);continue;}assert(s.rhythm);g.gimmickInput('Space');for(const n of s.rhythm.notes){step(g,(n.time-s.rhythm.trackTime)/S.noteSpeed());g.gimmickInput(n.lane?'KeyD':'KeyA');}step(g,2);}
  assert.equal(g.screen,'result');assert.equal(g.craft.results.filter(r=>r.type==='shake').length,1);assert.equal(g.craft.results.find(r=>r.type==='shake').completion,1);assert.equal(g.error,null);
 }
 console.log('RHYTHM_CORE_OK: 2 chart modes x 2 rules, initial loop, miss stop, single-hit resume, pause, 20 notes, automatic misses, scoring, retry, stir isolation');

@@ -284,12 +284,16 @@
       base = row?.upkeep_gold ?? 0;
     return `<div class="upkeep-setup"><label for="upkeep-test">${L('유지비 테스트값', 'Upkeep test override')} <small>${L('선택', 'optional')}</small></label><div class="row"><input id="upkeep-test" type="number" min="0" step="1" inputmode="numeric" data-input="upkeep" value="${esc(ui.upkeep)}" placeholder="${L('기본값', 'Default')} ${base}" aria-label="유지비 테스트값"><span>G</span></div><small>${L('빈칸이면 일차 데이터 사용. 원본은 변경하지 않습니다.', 'Blank uses day data. Source data stays unchanged.')}</small></div>`;
   }
+  function simulatorTabs() {
+    const active = ui.guestAppearance ? 'guest-appearance' : ui.cutscenes ? 'cutscenes' :
+      ui.outside ? 'outside' : ui.minigames ? 'minigames' : 'original';
+    return window.lunaSimulatorNav(active, L, true);
+  }
   function startHTML() {
-    if (ui.guestAppearance) return guestAppearanceUI.html(remixUI.tabsHTML());
-    if (ui.cutscenes) return window.LunaCutsceneLibrary.html(remixUI.tabsHTML());
-    if (ui.outside) return outside.lobbyHTML(remixUI.tabsHTML());
+    if (ui.guestAppearance) return guestAppearanceUI.html(simulatorTabs());
+    if (ui.cutscenes) return window.LunaCutsceneLibrary.html(simulatorTabs());
+    if (ui.outside) return outside.lobbyHTML(simulatorTabs());
     if (ui.minigames) return miniUI.lobbyHTML();
-    if (ui.variant === 'gpt') return remixUI.startHTML();
     const notes = {
       0: L('크리스의 바텐더 튜토리얼 → 포트 첫 주문. 일반 손님 영업은 건너뜁니다.', 'Chris’s tutorial → Port’s first order. No general guest service.'),
       1: L('개점 대화 → 일반 손님 → 톰·아일리 주문과 조니의 술 복원 부탁 → 매출 정산.', 'Opening → general guests → Tom and Aili → restoration request → settlement.'),
@@ -297,7 +301,23 @@
       3: L('아일리의 각설탕 전달 → 톰·삼호 대화와 올드 패션드 제조 → 퇴근 후 테라스·유나 회상.', 'Aili delivers sugar → Tom and Samho meet over an Old Fashioned → terrace conversation and Yuna flashback after work.'),
       99: L('바 안의 대화 선택지로 캐릭터·코스터 조합·알림·조니 회상·인물 해금을 테스트합니다. 완료 후 다시 테스트하거나 다른 항목을 선택할 수 있습니다.', 'Use the bar dialogue choices to test characters, coasters, notifications, memories and profiles. Retry or choose another test when finished.')
     };
-    return `<div class="start-screen">${remixUI.tabsHTML()}<div class="start-card"><h2 style="margin:15px 0 5px">${L('영업 설정', 'Session setup')}</h2><div class="day-list">${[0, 1, 2, 3, 99].map(day => button(day === 99 ? 'QA 99' : L(day + '일차', 'Day ' + day), 'day', `data-id="${day}"`, ui.day === day ? 'selected' : '')).join('')}</div><p class="start-note">${notes[ui.day]}</p>${upkeepInputHTML()}<label for="start-mode">${L('시작 구간', 'Start at')}</label><select id="start-mode" data-change="mode"><option value="full" ${ui.mode === 'full' ? 'selected' : ''}>${L('바 내부 전체 흐름', 'Full bar flow')}</option><option value="general" ${ui.mode === 'general' ? 'selected' : ''}>${L('일반 손님 영업부터', 'General guest service')}</option><option value="endless-general" ${ui.mode === 'endless-general' ? 'selected' : ''}>${L('일반 손님만 · 무한 영업', 'Endless general guests only')}</option><option value="regular" ${ui.mode === 'regular' ? 'selected' : ''}>${L('단골 손님 영업부터', 'Regular guest service')}</option><option value="practice" ${ui.mode === 'practice' ? 'selected' : ''}>${L('칵테일 제조 연습', 'Craft practice')}</option></select>${button(L('영업 시작 →', 'Open the bar →'), 'start', '', 'primary')}<div class="spacer"></div><div class="row spread"><small><kbd>F2</kbd> ${L('테스트 도구', 'Test tools')}</small>${button(L('조작 안내', 'Controls'), 'help', '', 'subtle')}</div></div></div>`;
+    return `<div class="start-screen service-lobby">${simulatorTabs()}
+      <div class="session-layout">
+        <section class="session-summary sim-panel">
+          <img src="../assets/site/bar-playtest-preview.png" alt="">
+          <div><h2>${ui.day===99?'QA 99':L(ui.day+'일차 영업','Day '+ui.day+' service')}</h2>
+          <p class="start-note">${notes[ui.day]}</p></div>
+        </section>
+        <section class="start-card session-settings sim-panel">
+          <h2>${L('영업 설정','Session setup')}</h2>
+          <fieldset><legend>${L('플레이 일차','Day')}</legend><div class="day-list">${[0, 1, 2, 3, 99].map(day => button(day === 99 ? 'QA 99' : L(day + '일차', 'Day ' + day), 'day', `data-id="${day}" aria-pressed="${ui.day===day}"`, ui.day === day ? 'selected' : '')).join('')}</div></fieldset>
+          <div><label for="start-mode">${L('시작 구간', 'Start at')}</label><select id="start-mode" data-change="mode"><option value="full" ${ui.mode === 'full' ? 'selected' : ''}>${L('바 내부 전체 흐름', 'Full bar flow')}</option><option value="general" ${ui.mode === 'general' ? 'selected' : ''}>${L('일반 손님 영업부터', 'General guest service')}</option><option value="endless-general" ${ui.mode === 'endless-general' ? 'selected' : ''}>${L('일반 손님만 · 무한 영업', 'Endless general guests only')}</option><option value="regular" ${ui.mode === 'regular' ? 'selected' : ''}>${L('단골 손님 영업부터', 'Regular guest service')}</option><option value="practice" ${ui.mode === 'practice' ? 'selected' : ''}>${L('칵테일 제조 연습', 'Craft practice')}</option></select></div>
+          ${upkeepInputHTML()}
+          <footer>${button(L('영업 시작 →','Open the bar →'),'start','','primary')}
+          ${button(L('조작 안내','Controls'),'help','','subtle')}</footer>
+          <small><kbd>F2</kbd> ${L('테스트 도구','Test tools')}</small>
+        </section>
+      </div></div>`;
   }
   function recipeLines(c) {
     return `<ul class="recipe-lines">${g.t.recipes.filter(r => r.context === c.id).map(r => `<li><span>${esc(g.name(r.ingredient))}</span><small>${r.qty ?? '—'} ${r.unit ?? ''} · ${labelType(r.action)}</small></li>`).join('')}</ul><div class="recipe-note">${L('잔', 'Glass')}: ${esc(g.name(c.glass))}<br>${L('제조 방법', 'Method')}: ${c.mix} ${c.mix === 'build' ? L('· 별도 믹스 도구 없음', '· no mixing tool') : ''}<br>${L('제한 시간', 'Time limit')}: ${c.time_limit_sec}s</div>`;
@@ -603,19 +623,7 @@
     recipePanel: views.recipePanel
   });
   const guestAppearanceUI = window.LunaGuestAppearance({g,D,esc,button});
-  if (new URLSearchParams(location.search).get('version') === 'gpt') {
-    ui.variant = 'gpt';
-    ui.day = 0;
-    ui.mode = 'episode';
-    g.reset(0, 'episode', 1, false, {
-      variant: 'gpt'
-    });
-    try {
-      g.read = new Set(JSON.parse(localStorage.getItem('luna.bar.gpt.read.v1') || '[]'));
-    } catch {
-      g.read = new Set();
-    }
-  }
+  if (new URLSearchParams(location.search).get('mode') === 'guest-appearance') ui.guestAppearance = true;
   if (new URLSearchParams(location.search).get('mode') === 'outside') ui.outside = true;
   if (new URLSearchParams(location.search).get('mode') === 'cutscenes') ui.cutscenes = true;
   let campaign = null;
@@ -634,7 +642,7 @@
     esc,
     button,
     itemArt,
-    tabsHTML: remixUI.tabsHTML,
+    tabsHTML: simulatorTabs,
     mini
   });
   if (new URLSearchParams(location.search).get('mode') === 'minigames') ui.minigames = true;
@@ -728,7 +736,8 @@
     tip.style.left = (x - r.left) / sx - anchor.clientLeft + 'px';
     tip.style.top = (y - r.top) / sy - anchor.clientTop + 'px';
   }
-  const choiceHold = parent !== window && new URLSearchParams(location.search).has('dialogue-preview') ? {sync(){},cancel(){}} : window.LunaChoiceHold({
+  const previewQuery = new URLSearchParams(location.search);
+  const choiceHold = parent !== window && previewQuery.has('dialogue-preview') && !previewQuery.has('bar-rehearsal') ? {sync(){},cancel(){}} : window.LunaChoiceHold({
     root,
     choice: () => g.choice,
     allowed: () => !!g.choice && g.screen === 'bar' && !g.isPaused() && !g.finished && !g.cameraMoving && !g.cameraLeft && !g.transition && !ui.inspector && !ui.drag && !outside.active && !campaign?.blocking,
@@ -1035,6 +1044,12 @@
     }
     if (name === 'version') {
       if (g.phase !== 'ready') return;
+      const url = new URL(location.href);
+      url.searchParams.delete('version');
+      url.searchParams.set('dev', '1');
+      if (id === 'original') url.searchParams.delete('mode');
+      else url.searchParams.set('mode', id);
+      history.replaceState(history.state, '', url);
       ui.guestAppearance = id === 'guest-appearance';
       if (ui.guestAppearance) {
         ui.cutscenes = ui.outside = ui.minigames = false;
@@ -1064,9 +1079,9 @@
       try {
         localStorage.setItem(g.variant === 'gpt' ? 'luna.bar.gpt.read.v1' : 'luna.bar.playtest.read.v1', JSON.stringify([...g.read]));
       } catch {}
-      ui.variant = id === 'gpt' ? 'gpt' : 'original';
+      ui.variant = 'original';
       ui.day = 0;
-      ui.mode = ui.variant === 'gpt' ? 'episode' : 'full';
+      ui.mode = 'full';
       ui.upkeep = '';
       ui.peek = null;
       ui.inspector = false;

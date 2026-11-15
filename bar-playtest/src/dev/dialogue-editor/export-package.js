@@ -16,9 +16,10 @@ async function packageFiles(model,result){
  const sources={...model.files,...model.output()},catalog=await W.LunaCsv.load(p=>Promise.resolve(sources[p]));
  const hash=await crypto.subtle.digest('SHA-256',enc.encode([...catalog.values].map(([id,v])=>id+JSON.stringify(v)).join('')));
  result.data.sharedCsv=true;result.data.source={...result.data.source,sharedCsv:'data/shared-csv/system/table_index.csv',contentHash:[...new Uint8Array(hash)].map(n=>n.toString(16).padStart(2,'0')).join(''),tableCount:catalog.tables.length};
- const files=Object.fromEntries(Object.entries(model.output()).map(([p,t])=>['bar-playtest/data/shared-csv/'+p,t]));
+ const files=Object.fromEntries(Object.entries(model.output()).map(([p,t])=>['bar-playtest/data/'+(p==='npc-placements.json'?'presentation/':'shared-csv/')+p,t]));
  files['bar-playtest/data/runtime/game-data.js']='/* Generated from data/shared-csv. Run node tools/build-shared-data.cjs --write; do not edit. */\nwindow.LUNA_DATA = '+JSON.stringify(result.data)+';\n';
  files['bar-playtest/data/runtime/campaign-data.js']='/* Generated from the same engine CSV story rows. Do not edit. */\n(function(root){root.LUNA_CAMPAIGN_DATA='+JSON.stringify(result.story,null,2)+';})(typeof window===\'undefined\'?globalThis:window);\n';
+ if(model.placement)files['bar-playtest/data/presentation/npc-placements.json']=JSON.stringify(model.placement,null,2)+'\n';
  files['APPLY.txt']='LUNA 대사 편집기 내보내기\n압축 안의 bar-playtest 폴더를 같은 버전의 웹 저장소 루트에 병합하세요.\nCSV와 web-views.json, runtime 두 파일을 함께 적용합니다. GitHub에는 적용 후 커밋/푸시해야 반영됩니다.\nUnity 엔진 폴더에는 자동 반영되지 않습니다. 다른 사람이 원본을 수정했다면 먼저 변경 내용을 비교하세요.\n';return files;
 }
 W.LunaDialogueExport={zip,packageFiles};

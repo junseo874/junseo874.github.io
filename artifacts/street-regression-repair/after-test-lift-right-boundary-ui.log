@@ -1,0 +1,7 @@
+LIFT_RIGHT_BOUNDARY_OK {
+  cases: 32,
+  radius: 0.205,
+  right: -12.360000000000001,
+  limit: -12.600000000000001,
+  lower: -16.3
+}

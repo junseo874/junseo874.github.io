@@ -16,7 +16,8 @@ function project(catalog,views,presentation){
    const row=raw.find(r=>spec.id&&r.web_row_id===spec.id)||raw.find(r=>Object.keys(spec.key).length&&Object.entries(spec.key).every(([k,v])=>r[k]===String(v)));
    if(!row)throw Error('View record missing: '+name+'/'+spec.id);
    const parent=records.get(row.parent_id);
-   return Object.fromEntries(spec.fields.map(field=>{
+   const fields=name==='steps'&&row.type==='enter'&&!nullish(row.entrance)&&!spec.fields.includes('entrance')?[...spec.fields,'entrance']:spec.fields;
+   return Object.fromEntries(fields.map(field=>{
     let value=field==='row_id'?spec.id:field==='value_type'?spec.valueType:field==='context'?(parent?.id||parent?.choice_group||decode(row.context)):field==='type'&&row.web_type?decode(row.web_type):field==='text'&&Object.hasOwn(row,'text.ko')?decode(row['text.ko']):decode(row[field]);
     if(value!=null&&value!==''){if(spec.numbers.includes(field))value=Number(value);if(spec.booleans.includes(field))value=value===true||value==='true';}
     // Imported CSV booleans retain the historical web shape.
@@ -38,10 +39,19 @@ function project(catalog,views,presentation){
   return steps.slice(ref.offset).map((step,index)=>{
    if(!step.web_fields)return null;
    const row={...step.web_fields};
+   // The web player uses one presentation for both memories; Unity addresses two Studio assets.
+   if(row.cinemaAfter==='tl_yuna_memory_d0'||row.cinemaAfter==='tl_yuna_memory_d3'){
+    row.memoryKey=row.cinemaAfter==='tl_yuna_memory_d0'?'terraceMemory':'terraceMemory3';row.cinemaAfter='terrace-memory';
+   }
    for(const key of (step.web_core_keys||'').split('|').filter(Boolean))row[key]=key==='text'?step.text?.ko:key==='en'?step.text?.en:key==='arg'&&step.web_empty_arg&&step[key]===null?'':step[key];
    if(ref.source.startsWith('script/street')||ref.source.startsWith('script/home')){
     const raw=rawSteps[(ref.offset||0)+index];
     if(raw){Object.assign(row,optionalPresentation(raw));row.editorRowId=raw.row_id;const config=views.outsideChoiceEdits?.[raw.row_id];if(config?.who)row.who=config.who;}
+   }
+   // World dialogue measures/reveals plain glyphs; keep the authored markup for painting.
+   if(!ref.source.startsWith('script/bar/')&&typeof row.text==='string'&&/<(?:fx=|pop[ >]|shake[ >]|wave[ >]|slow>|fast>|color=|[0-9]+>)/.test(row.text)){
+    row.styledText=row.text;
+    row.text=row.text.replace(/<[^>]+>/g,'');
    }
    return row;
   }).filter(Boolean);

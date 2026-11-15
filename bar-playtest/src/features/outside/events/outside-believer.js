@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const id='street-believer',name='기신교 신도',item='machine_church_emblem';
-const place=Object.freeze({x:4.7,y:-.974,top:-.36,kind:'M1'});
+const place=Object.freeze({get x(){return W.LunaNpcScene?.shift('believer',4.7)??4.7;},y:-.974,top:-.36,kind:'M1'});
 const progress=()=>W.barGame.progress;
 const rows=key=>W.LUNA_DATA.sharedStory['believer/'+key];
 function sync(){const p=progress(),carry=W.lunaCampaign?.session?.carry;if(carry)Object.assign(carry,{flags:{...p.flags},inventory:{...p.inventory}});W.barGame.changed();}

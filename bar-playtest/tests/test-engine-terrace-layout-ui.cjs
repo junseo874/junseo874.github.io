@@ -10,6 +10,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    LunaFocusSettings.setEnabled(false);
    Object.assign(outsidePlaytest.config,{day:2,flow:'in',place:'home'});await outsidePlaytest.start();
    lunaCampaign.session.day=2;lunaCampaign.scene('night2','테라스','terrace',()=>{});
+   // Inspect the full two-person engine placement after the new opening monologue.
+   lunaCampaign.dialog.index=2;lunaCampaign.paintLine();
   });
   await page.waitForFunction(()=>!lunaCampaign.memoryTransition&&lunaCampaign.view==='scene');
   const state=await page.evaluate(()=>{

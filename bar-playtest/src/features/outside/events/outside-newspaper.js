@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const id='street-newspaper',name='신문 읽는 남자';
-const place=Object.freeze({x:W.LunaEngineWorld?.node('street','1286119217')?.x??-7.08,y:-.974,top:-.36,kind:'M2'});
+const place=Object.freeze({get x(){const v=W.LunaEngineWorld?.node('street','1286119217')?.x??-7.08;return W.LunaNpcScene?.shift('newspaper',v)??v;},y:-.974,top:-.36,kind:'M2'});
 const {entry,complete,grantGear,available}=W.LunaNewspaperProgress;
 const {rows,choiceView,branch}=W.LunaNewspaperDialogue;
 function visible(m){return !m.qa&&m.scene==='street'&&m.config.day===1&&['in','out'].includes(m.config.flow)&&available(m.config.flow);}

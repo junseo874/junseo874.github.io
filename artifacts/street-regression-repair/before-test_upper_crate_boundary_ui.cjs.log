@@ -1,0 +1,11 @@
+AssertionError [ERR_ASSERTION]: Stop at the actual crate edge with body clearance
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test_upper_crate_boundary_ui.cjs:24:3
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:541:9) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

@@ -4,6 +4,9 @@ W.LunaDialogueAudio={reveal:(...args)=>audio.push(args)};
 vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../src/shared/dialogue/dialogue-rhythm.js'),'utf8'),W);
 vm.runInNewContext(fs.readFileSync(require('node:path').join(__dirname,'../src/features/outside/events/outside-story.js'),'utf8'),W);
 const T=W.LunaOutsideStory,close=(a,b)=>assert(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+W.LunaTextEffects=require('../src/shared/dialogue/text-effects.js');
+const styled=T.typing('가.나',50,'<fx=emphasis>가.</fx><180>나');
+close(styled.times[0],.155);close(styled.times[1],.21);close(styled.times[2],.21+.18+.35);
 for(const text of ['가 나','가  나','앞\t뒤','😀 다음','..','...','......','가...나','가.나','가. 나','가.','.','1.5','가\n나','']){
  const t=T.typing(text);
  for(let i=0;i<t.chars.length;i++){

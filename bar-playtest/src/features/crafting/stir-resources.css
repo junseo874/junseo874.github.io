@@ -4,7 +4,6 @@
 .stir-screen .mix-cinematic{position:absolute;left:28px;top:24px;width:400px;height:674px;background:#000}
 .stir-screen .mix-cinema{inset:5px 6px;border:0;box-shadow:none;background-size:auto 100%}
 .stir-screen .mix-cinematic::after{content:"";position:absolute;inset:0;background:url('../../../assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/BG_stir_line.png') center/100% 100% no-repeat;pointer-events:none}
-.stir-screen .stir-detail{left:350px;right:auto;top:0;width:187px;height:325px;background:#18202c;border:1px solid #61c3dd;box-shadow:0 0 5px #43c7ef66}
 .stir-screen .stir-board{position:absolute;left:446px;top:26px;width:807px;height:668px;background:none;border:0;box-shadow:none}
 .stir-screen .stir-dial{left:404px;top:88px;width:464px;height:464px}
 .stir-screen .stir-live-glass{inset:52px;width:360px;height:360px}

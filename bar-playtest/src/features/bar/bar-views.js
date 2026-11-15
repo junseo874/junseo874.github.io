@@ -625,7 +625,7 @@ window.LunaBarViews = function ({
     const [x, y, w, h] = crop,
       fw = art.frameWidth,
       fh = art.frameHeight;
-    // Height-based sizing preserves source pixels in the portrait AND the close-up.
+    // Height-based sizing preserves source pixels in the portrait.
     return `<div class="motion-crop"><div class="mix-motion" data-motion-frame="${frame}" style="width:calc(100cqh * ${fw / h});height:calc(100cqh * ${fh / h});left:calc(50% - 100cqh * ${(x + w / 2) / h});top:calc(100cqh * ${-y / h});background-image:url('${art.src}');background-size:${art.frames * 100}% 100%;background-position:${frame / (art.frames - 1) * 100}% 0"></div></div>`;
   }
   function mixGauge(s, vertical = false) {
@@ -773,7 +773,7 @@ window.LunaBarViews = function ({
       ${craftTimer()}
       ${!locked && !stir ? '<div class="shake-sound-picker" role="group" aria-label="' + L('쉐이킹 효과음 선택', 'Shaker sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'shakeSound', 'data-id="' + id + '" aria-pressed="' + (ui.shakeSound === id) + '"', 'shake-sound-option')).join('') + '<small data-shake-audio-status aria-live="polite"></small></div>' : ''}
       ${!locked && stir ? '<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="' + L('스터 효과음 선택', 'Stir sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'stirSound', 'data-id="' + id + '" aria-pressed="' + (ui.stirSound === id) + '"', 'shake-sound-option')).join('') + '<small data-stir-audio-status aria-live="polite"></small></div>' : ''}
-      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir ? 'gimmick_stir' : 'gimmick_shake')}')">${motionHTML(s, stir ? [102, 0, 450, 550] : [350, 0, 650, 600])}</div></div>${stir ? '<div class="mix-detail stir-detail" aria-hidden="true">' + motionHTML(s, [260, 242, 104, 181]) + '</div>' : ''}${stir ? stirBoard(s) : shakeBoard(s)}</div>
+      <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir ? 'gimmick_stir' : 'gimmick_shake')}')">${motionHTML(s, stir ? [102, 0, 450, 550] : [350, 0, 650, 600])}</div></div>${stir ? stirBoard(s) : shakeBoard(s)}</div>
       </div>`;
   }
   return {

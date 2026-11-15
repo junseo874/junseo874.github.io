@@ -19,23 +19,23 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     m.tick(.05,{move:1,run});if(m.x<=R.upperMin)throw Error('Cannot walk back from crates');
    }
    const building=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.name==='residence-building');
-   return {rows,right:building.x+305/building.sprite.ppu,limit:R.upperMin,lower:R.lowerMin,home:R.homeX,lift:R.elevatorX};
+   return {rows,right:building.x+(305-building.sprite.w*building.sprite.pivot.x)*building.sx/building.sprite.ppu,limit:R.upperMin,upperY:R.upperY,lower:R.lowerMin,home:R.homeX,lift:R.elevatorX};
   });
-  assert(Math.abs(results.limit-results.right-.16)<1e-8,'Stop at the actual crate edge with body clearance');
+  assert(Math.abs(results.limit-results.right-.24)<1e-8,'Stop at the current native crate edge with widest-frame body clearance');
   assert.equal(results.lower,-16.3);assert(results.limit<results.home&&results.home<results.lift);
-  for(const r of results.rows){assert.equal(r.x,-18.98,JSON.stringify(r));assert.equal(r.y,9.74);assert.equal(r.anim,'idle');}
+  for(const r of results.rows){assert.equal(r.x,results.limit,JSON.stringify(r));assert.equal(r.y,results.upperY);assert.equal(r.anim,'idle');}
   await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:3,flow:'out',place:'homeDoor'});m.x=LunaResidence.layout.upperMin+.12;a.snapCamera();a.tick(0);});
   await p.keyboard.down('ShiftLeft');await p.keyboard.down('KeyA');await p.waitForTimeout(600);await p.keyboard.up('KeyA');await p.keyboard.up('ShiftLeft');
-  assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),-18.98);
+  assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),results.limit);
   await p.waitForFunction(()=>outsidePlaytest.model.story.view()?.text==='물건들로 막혀있네.');
   assert.equal(await p.locator('.outside-speech .outside-speech-text').innerText(),'물건들로 막혀있네.');
   await p.screenshot({path:'/private/tmp/upper-crates-blocked.png'});
   await p.keyboard.press('KeyE');
   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech),null);
   await p.setViewportSize({width:960,height:720});await p.keyboard.down('KeyA');await p.waitForTimeout(300);await p.keyboard.up('KeyA');
-  assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),-18.98);
+  assert.equal(await p.evaluate(()=>outsidePlaytest.model.x),results.limit);
   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech),null);
-  await p.keyboard.down('KeyD');await p.waitForTimeout(350);await p.keyboard.up('KeyD');assert(await p.evaluate(()=>outsidePlaytest.model.x>-18.9));
+  await p.keyboard.down('KeyD');await p.waitForTimeout(350);await p.keyboard.up('KeyD');assert(await p.evaluate(()=>outsidePlaytest.model.x>LunaResidence.layout.upperMin+.12));
   await p.keyboard.down('KeyA');await p.waitForTimeout(500);await p.keyboard.up('KeyA');
   assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech?.id),'upper_crates_blocked');
   await p.evaluate(()=>{const s=outsidePlaytest.model.story;s.advance();s.advance();});

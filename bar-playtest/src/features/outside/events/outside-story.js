@@ -6,12 +6,24 @@ let nextSpeechId=0;
 const advanceTime=(elapsed,dt)=>elapsed+dt*(Number(global.barGame?.dialogSpeed)||1);
 // Reveal deadlines, in dialogue-clock seconds (the settings multiplier still applies).
 // Spaces use the normal cadence; lone periods pause, adjacent periods keep their own cadence.
-const typing=(text,rate=cps)=>global.LunaDialogueRhythm.timing(text,rate);
+function typing(text,rate=cps,styledText){
+ const base=global.LunaDialogueRhythm.timing(text,rate);
+ if(!styledText)return base;
+ const fx=global.LunaTextEffects?.compile(styledText,global.LUNA_DATA?.tables?.text_tags,1000/rate);
+ if(!fx||fx.text!==text)return base;
+ let offset=0,shift=0;
+ const times=base.chars.map((char,i)=>{
+  const previous=base.chars[i-1],dotPause=previous==='.'&&(char==='.'||base.chars[i-2]!=='.');
+  shift+=(fx.waits.get(offset)||0)/1000+(dotPause?0:fx.glyphs[offset].speed/1000-1/rate);
+  offset+=char.length;return base.times[i]+shift;
+ });
+ return {chars:base.chars,times,duration:base.duration+shift+(fx.waits.get(offset)||0)/1000};
+}
 const visible=(timing,elapsed)=>global.LunaDialogueRhythm.visible(timing,elapsed);
 function sceneTyping(dialog,dt,rate=60){
  const row=dialog.rows[dialog.index],text=row.text||'';
  if(dialog.typingClock?.index!==dialog.index||dialog.typingClock?.text!==text)
-  dialog.typingClock={index:dialog.index,text,elapsed:0,timing:typing(text,rate)};
+  dialog.typingClock={index:dialog.index,text,elapsed:0,timing:typing(text,rate,row.styledText)};
  if(dialog.chars>=text.length)return; // An explicit full-line reveal must stay revealed.
  const clock=dialog.typingClock;clock.elapsed=advanceTime(clock.elapsed,dt);
  dialog.chars=clock.timing.chars.slice(0,visible(clock.timing,clock.elapsed)).join('').length;
@@ -37,7 +49,7 @@ class Story{
   if(next?.type==='home-choice'){this.choiceLine(next);return;}
   if(next?.type==='neighborhood-action'){s.line=null;s.chars=[];s.choice=false;global.LunaOutsideNeighborhood.action(this.model,next);return;}
   if(next?.type==='neighborhood-choice'){global.LunaOutsideNeighborhood.faceConversation(this.model,next);this.choiceLine(next);return;}
-while(s.index<s.rows.length){const row=s.rows[s.index];if(row.type==='notion-action'){s.line=null;s.chars=[];global.LunaOutsideNotion.action(this.model,row);return;}if(row.type==='samho-action'){s.line=null;s.chars=[];global.LunaOutsideSamhoCommute.action(this.model);return;}if(row.type==='shop-open'){this.witnessed(s);global.LunaOutsideShop.openStock(this.model,s.target);return;}if(row.type==='shop-allowance-grant'){global.LunaOutsideShop.grantAllowance(this.model);s.index++;continue;}if(row.type==='shop-intro-done'){global.LunaOutsideShop.completeIntro(this.model);s.index++;continue;}if(row.type==='thug-action'){s.line=null;s.chars=[];global.LunaOutsideThug.action(this.model,row);return;}if(row.type==='choice'||row.type==='qa-choice'||row.type==='beggar-choice'||row.type==='notion-choice'||row.type==='thug-choice'||row.type==='shop-choice'){this.choiceLine(row);return;}if(row.type==='say'||row.type==='timeline'){global.LunaOutsideNeighborhood?.faceConversation(this.model,row);if(!s.auto)global.LunaStoryNotices?.meetOutside(this.model,row.actor);s.line=row;s.displayLine=row;s.typing=typing(row.text||'');s.chars=s.typing.chars;s.elapsed=0;return;}s.index++;}
+while(s.index<s.rows.length){const row=s.rows[s.index];if(row.type==='notion-action'){s.line=null;s.chars=[];global.LunaOutsideNotion.action(this.model,row);return;}if(row.type==='samho-action'){s.line=null;s.chars=[];global.LunaOutsideSamhoCommute.action(this.model);return;}if(row.type==='shop-open'){this.witnessed(s);global.LunaOutsideShop.openStock(this.model,s.target);return;}if(row.type==='shop-allowance-grant'){global.LunaOutsideShop.grantAllowance(this.model);s.index++;continue;}if(row.type==='shop-intro-done'){global.LunaOutsideShop.completeIntro(this.model);s.index++;continue;}if(row.type==='thug-action'){s.line=null;s.chars=[];global.LunaOutsideThug.action(this.model,row);return;}if(row.type==='choice'||row.type==='qa-choice'||row.type==='beggar-choice'||row.type==='notion-choice'||row.type==='thug-choice'||row.type==='shop-choice'){this.choiceLine(row);return;}if(row.type==='say'||row.type==='timeline'){global.LunaOutsideNeighborhood?.faceConversation(this.model,row);if(!s.auto)global.LunaStoryNotices?.meetOutside(this.model,row.actor);s.line=row;s.displayLine=row;s.typing=typing(row.text||'',cps,row.styledText);s.chars=s.typing.chars;s.elapsed=0;return;}s.index++;}
   this.witnessed(s);this.done.add(s.id);this.speech=null;this.model.updateNear();s.onComplete?.();
  }
  advance(){const s=this.speech;if(!s||!s.line||s.auto||s.choice)return false;if(visible(s.typing,s.elapsed)<s.chars.length){s.elapsed=s.typing.duration;return true;}s.index++;this.seek();return true;}
@@ -54,7 +66,7 @@ while(s.index<s.rows.length){const row=s.rows[s.index];if(row.type==='notion-act
  view(){const s=this.speech;if(!s||!s.line)return null;const display=s.choice?s.displayLine:s.line,actor=display?.actor||s.line.actor,m=this.model,extra=global.LunaOutsideEncounters?.actor(actor),event=global.LunaOutsideContent.events.find(e=>e.id===s.id);
   const anchor=global.LunaEngineWorld?.speechAnchor(m,actor)||global.LunaOutsideNeighborhood?.anchor(m,actor)||global.LunaOutsideAmbient?.actorHead?.(m,actor)||global.LunaOutsideBeggar?.anchor(m,actor)||global.LunaOutsideThug?.anchor(m,actor)||global.LunaOutsideNotion?.anchor(m,actor)||(m.qa?global.LunaOutsideQA.anchor(m,actor,s.target):extra?{x:extra.x,y:extra.top+.04}:actor==='luna'?{x:m.x,y:m.y+.36}:{x:s.target.x,y:s.target.y+.42});
   const title=display?.who||(actor==='luna'?'루나':extra?.name||m.qa?.people.find(p=>p.id===actor)?.name||event?.title||'안내');
-  const purchase=this.baseChoices();return{key:s.id+':'+s.serial+':'+s.index+':'+s.line.text,purchase:global.LunaOutsideAuthoring?global.LunaOutsideAuthoring.choices(s.line,purchase,m):purchase,emphasis:display?.emphasis||[],color:extra?.color,title,text:s.chars.slice(0,s.choice?s.chars.length:visible(s.typing,s.elapsed)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
+  const purchase=this.baseChoices();return{key:s.id+':'+s.serial+':'+s.index+':'+s.line.text,purchase:global.LunaOutsideAuthoring?global.LunaOutsideAuthoring.choices(s.line,purchase,m):purchase,styledText:display?.styledText,emphasis:display?.emphasis||[],color:extra?.color,title,text:s.chars.slice(0,s.choice?s.chars.length:visible(s.typing,s.elapsed)).join(''),full:s.chars.join(''),auto:s.auto,choice:!!s.choice,canTreat:false,anchor};
  }
 }
 // Ambient conversations own independent clocks and speaker anchors.

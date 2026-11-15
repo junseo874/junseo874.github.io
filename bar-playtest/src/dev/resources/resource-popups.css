@@ -10,3 +10,12 @@
 .fullscreen-controls{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:6px;padding:5px;border:1px solid #42606c;border-radius:8px;background:#0b1521ed;white-space:nowrap;max-width:calc(100% - 16px)}.fullscreen-controls button{font-size:12px;padding:6px 10px}
 @media(max-width:700px){.lab-header{padding:10px 12px;gap:10px;flex-wrap:wrap}.lab-heading{flex-basis:calc(100% - 90px)}.lab-actions{width:100%;justify-content:flex-end}.lab-header h2{font-size:15px}.lab-toolbar{padding:10px 12px;gap:8px}.lab-toolbar>:is(#popup-rail,#lab-state-controls){flex-basis:calc(50% - 8px);max-width:none}.lab-files{margin-left:0}.lab-files>summary,.lab-help>summary{padding:8px 10px}#lab-downloads,.lab-help>p{position:fixed;left:12px;right:12px;top:auto;width:auto;max-width:none;margin-top:8px}.popup-layout{margin:8px 12px}.lab footer{font-size:10px;padding:0 12px 8px}.fullscreen-controls button{font-size:11px;padding:5px 8px}}
 @media(max-height:500px) and (min-width:701px){.lab-header{padding:7px 14px}.lab-heading small,.lab footer{display:none}.lab-toolbar{padding:7px 14px}.popup-layout{margin:6px 12px}.lab{grid-template-rows:auto auto minmax(0,1fr)}}
+/* Fullscreen the viewing area and independently contain its live 16:9 frame. */
+.lab.review-fullscreen .frame-wrap {display:grid; place-items:center; background:#000; container-type:size}
+.lab.review-fullscreen .frame-wrap #game {width:min(100cqw,calc(100cqh * 16 / 9)); height:auto; aspect-ratio:16/9}
+.lab:not(.parked),#inspector {font:13px/1.45 system-ui,-apple-system,sans-serif}
+.lab button,.lab select,#inspector button,#inspector input {font-family:inherit}
+.lab #lab-downloads {max-height:min(48dvh,360px);overflow:auto;overscroll-behavior:contain}
+@media(max-height:430px) {
+  .lab:not(.parked):not(.review-fullscreen) {overflow:auto;grid-template-rows:auto auto minmax(110px,1fr) auto}
+}

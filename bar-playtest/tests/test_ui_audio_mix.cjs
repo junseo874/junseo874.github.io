@@ -14,6 +14,6 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  const samples=await p.evaluate(()=>uiMix);assert(samples.some(x=>x.type==='hover'));assert(samples.some(x=>x.type==='click'));
  for(const x of samples){assert(Math.abs(x.gain-(x.type==='hover'?.32:.42))<1e-6);assert(Math.abs(x.bus-.8)<1e-6);}
  assert.equal(await p.evaluate(()=>LunaSfx.level('pour2')),.820);assert.equal(await p.evaluate(()=>LunaSfx.volume),.8);
- await p.evaluate(()=>{LunaSfx.setVolume(0);uiMix.length=0;});await p.locator('[data-campaign="music-toggle"]').hover();await p.locator('[data-campaign="music-toggle"]').click();await p.waitForTimeout(150);assert.deepEqual(await p.evaluate(()=>uiMix),[]);
+ await p.evaluate(()=>{LunaSfx.setVolume(0);uiMix.length=0;});await p.locator('#campaign-root [data-setting-toggle="music"]').hover();await p.locator('#campaign-root [data-setting-toggle="music"]').click();await p.waitForTimeout(150);assert.deepEqual(await p.evaluate(()=>uiMix),[]);
  assert.deepEqual(errors,[]);console.log('PASS UI mix: hover 0.32 / click 0.42 source gains, master volume unchanged, other SFX levels unchanged, mute respected.');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

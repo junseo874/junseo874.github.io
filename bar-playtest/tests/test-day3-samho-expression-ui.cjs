@@ -12,8 +12,16 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    Object.assign(g,{screen:'bar',phase:'regular',overlay:null,tutorial:null,transition:0,cameraLeft:0,cameraMoving:false});
    g.seats={L:{actor:'samho',id:'samho',state:'STORY',seated:true,expression:'default',glass:'bottle_beer',coaster:true},M:null,R:{actor:'tom',id:'tom',state:'STORY',seated:true,expression:'default'}};
    const rows=LUNA_DATA.tables.steps.filter(r=>r.context==='campaign_d3_bar').sort((a,b)=>a.seq-b.seq);
-   const first=rows.findIndex(r=>r.row_id==='notion_d3_luna_beer_served'),last=rows.findIndex(r=>r.row_id==='kihyun_campaign_d3_bar_94');
-   g.story={scene:{id:'day3-drunk-review'},steps:rows.slice(first,last+1),index:0};g.pump();lunaCampaign.render(true);
+   if(rows.some(r=>r.actor==='samho'&&r.type==='order'))throw Error('Latest day 3 must not order a drink for Samho');
+   // Test the reusable engine-native pose independently of the revised story,
+   // which no longer contains Samho drinking or drunk dialogue.
+   g.story={scene:{id:'native-drunk-review'},steps:[
+    {type:'say',actor:'luna',arg:'default','text.ko':'여기 있어요.'},
+    {type:'empty_glass',actor:'samho'},
+    {type:'say',actor:'samho',arg:'drunk','text.ko':'크.. 시원하네.'},
+    {type:'say',actor:'tom',arg:'default','text.ko':'일어나 볼래?'},
+    {type:'say',actor:'samho',arg:'drunk','text.ko':'끅, 루나 안녕~...'}
+   ],index:0};g.pump();lunaCampaign.render(true);
   });
   const actor=page.locator('.actor[data-actor="samho"]');
   await page.waitForFunction(()=>!barGame.cameraMoving&&!barGame.cameraLeft);

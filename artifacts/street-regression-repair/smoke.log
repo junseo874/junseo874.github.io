@@ -1,0 +1,446 @@
+
+RUN bar-playtest/tests/test-outside-dialogue-editor.cjs
+OUTSIDE_EDITOR_OK: 80 flows, CRUD/undo, branch-safe CSV, conditions, real temp save/backup/conflict, scoped writes, runtime choice gates and live captured-array update.
+
+RUN tools/check-web-generated-art.cjs
+WEB_GENERATED_ART_OK: 792 PNG files; names and bytes verified
+
+RUN tools/build-generated-ui-css.cjs
+GENERATED_UI_CSS_OK: 63 static state bindings; 50 PNG files
+
+RUN tools/check-engine-art-sync.cjs
+ENGINE_ART_SYNC_OK: 1790 files; 394 engine paths; 1382 new paths; all source bytes preserved
+
+RUN tools/check-art-resource-paths.cjs
+ART_RESOURCE_PATHS_OK: 445 original paths preserved; bytes unchanged.
+
+RUN bar-playtest/tests/test-shared-birds-and-bar-gates.cjs
+SHARED_BIRDS_BAR_GATES_OK: 256 guard combinations, no mutation, corridor scene independence, shared metadata and frame clock
+
+RUN bar-playtest/tests/test-day3-notion-script.cjs
+DAY3_NOTION_SCRIPT_OK: native say/arg sets four drunk lines, persists across speakers and resets with default; serving alone keeps normal idle/talk.
+
+RUN bar-playtest/tests/test-latest-story-timings.cjs
+LATEST_STORY_TIMINGS_OK: days 0–3, both choices, exact coaster/empty-glass boundaries and no duplicate payments
+
+RUN bar-playtest/tests/test-endless-general.cjs
+ENDLESS_GENERAL_OK: fresh identities on same seed, 500 anonymous arrivals, bounded queue, available orders, pause and normal-mode reset.
+
+RUN bar-playtest/tests/test-regular-arrival-speech.cjs
+REGULAR_ARRIVAL_SPEECH_OK: original/remix solo/pair, full fade before speech, pause, delayed first render, coaster timing and seated scenes.
+
+RUN bar-playtest/tests/test-guest-mouth-pairing.cjs
+GUEST_MOUTH_PAIRING_OK: all six static mouths exactly match corresponding talk final-frame pixels (male source Y +1).
+
+RUN bar-playtest/tests/test-guest-random-appearance.cjs
+GUEST_RANDOM_APPEARANCE_OK: 12000 draws, all 43 shipped parts, correct layers/band exclusion, fresh per arrival and stable on focus.
+
+RUN bar-playtest/tests/test-dialogue-editor.cjs
+DIALOGUE_EDITOR_OK: 7 scenes, CRUD/undo, independent choices, tags, real CSV+runtime save, conflict guard and original preserved.
+
+RUN bar-playtest/tests/test-outside-choice-authoring.cjs
+OUTSIDE_CHOICE_AUTHORING_OK native choice creation/continuation, CSV save/delete, undo and divergent route/stock publication rejected.
+
+RUN bar-playtest/tests/test-outside-choice-parity.cjs
+CHOICE_PARITY_OK repair/day matrix; matching, divergent, hidden and unsupported routes; invalid gotos rejected.
+
+RUN bar-playtest/tests/test-resource-image-recovery.cjs
+RESOURCE_IMAGE_RECOVERY_OK: transient recovery, permanent failure URL, fresh manual retry
+
+RUN tools/check-structure.cjs
+STRUCTURE_OK: 12 stable entry points, 809 valid scripts, clean application roots.
+
+RUN tools/check-site.cjs
+{
+  "siteFiles": 3575,
+  "localReferences": 776,
+  "tables": 29,
+  "assetKeys": 289,
+  "audioTracks": 4,
+  "errors": []
+}
+SITE_RESOURCES_OK: exact-case local links, 29 tables, sprites, fonts, 4 BGM tracks, no external filesystem links.
+
+RUN tools/check-code-boundaries.cjs
+CODE_BOUNDARIES_OK: 123 installed feature methods, no duplicates, descriptor parity, no inline maps/atlases in source
+
+RUN tools/test-source-index.cjs
+SOURCE_INDEX_OK: feature/alias/file/symbol lookup and generated-data exclusion
+
+RUN tools/build-preload-manifest.cjs
+PRELOAD_MANIFEST_OK { common: 211, bar: 308 }
+
+RUN bar-playtest/tests/test-kihyun-story.cjs
+KIHYUN_STORY_OK: all four bar days, both branches, 9 drink orders, tip/name/chip/sugar flags, terrace and memory links
+
+RUN bar-playtest/tests/test-day1-notion-script.cjs
+DAY1_NOTION_SCRIPT_OK: authored coaster positions, four empty-glass timings, all choice combinations, orders/name alert and preserved terrace/repair actions
+
+RUN bar-playtest/tests/test-kihyun-story-ui.cjs
+KIHYUN_STORY_UI_OK: Notion 13-line terrace, both characters, 56-line memory, Tom appearance, return and completion.
+
+RUN bar-playtest/tests/test-tom-talk-ui.cjs
+TOM_TALK_CLOCK_OK: 16 head/mouth combinations, independent .9s speech, continuous 1.6s body, completion and speaker handoff
+TOM_TALK_UI_OK: original/remix/main, five decoded layers, all mouth frames, idle/handoff/pause, stable table anchor, review catalog
+
+RUN bar-playtest/tests/test-general-offscreen.cjs
+GENERAL_OFFSCREEN_OK: orders, income/refund once, departure, reorder, timeout, pauses, visible-only history
+
+RUN bar-playtest/tests/test_story_coaster.cjs
+STORY_COASTER_OK original explicit timing, two targets, no implicit gates, guard, duplicate and reset
+STORY_COASTER_OK gpt explicit timing, two targets, no implicit gates, guard, duplicate and reset
+
+RUN bar-playtest/tests/test-empty-glass.cjs
+EMPTY_GLASS_OK original targeted trigger, line timing, automatic drinking, pause, offscreen, refill and single settlement
+EMPTY_GLASS_OK gpt targeted trigger, line timing, automatic drinking, pause, offscreen, refill and single settlement
+
+RUN bar-playtest/tests/test-empty-glass-ui.cjs
+EMPTY_GLASS_UI_OK: explicit coaster drag, full to empty at dialogue trigger, matching base and six fallback mappings
+
+RUN bar-playtest/tests/test-choice-speech-continuity.cjs
+CHOICE_SPEECH_OK: all seven exterior choice types retain speech; bar choices do not
+
+RUN bar-playtest/tests/test-approved-rules.cjs
+APPROVED_RULES_OK: independent lesson in both orders, no quiz charge, allowance once across days, priority/boundary queue, manual typing, ambient pause and 4s repeat interval
+
+RUN bar-playtest/tests/test-approved-rules-ui.cjs
+APPROVED_RULES_UI_OK: topmost cancel then settings, left/right bubble clamping with attached tail, nearest-target hysteresis, no Ctrl/Space skip and manual pointer
+
+RUN bar-playtest/tests/test_shiba_shop.cjs
+SHIBA_SHOP_OK: no Wild Dog sales in game/QA, bitters with/without gang ingredient, quiz, single purchase, legacy inventory, carry and no funds
+
+RUN bar-playtest/tests/test-shiba-purchase-flow-ui.cjs
+SHIBA_PURCHASE_FLOW_OK: greeting/browse/question/stock, day2-3, cancellation default, no funds, allowance, first meeting, single purchase and stale choice guard
+
+RUN bar-playtest/tests/test_day0_tutorial.cjs
+TUTORIAL_CORE_OK original waits, invalid inputs, pause/camera, idempotency, skip, reset, keyboard fallback
+TUTORIAL_CORE_OK gpt waits, invalid inputs, pause/camera, idempotency, skip, reset, keyboard fallback
+GENERAL_COASTER_UNCHANGED
+
+RUN bar-playtest/tests/test_resource_missing.cjs
+RESOURCE_MISSING_UNIT_OK Tom, Shiba and terrace Chris only; other categories and grouping preserved
+
+RUN bar-playtest/tests/test-resource-preload-ui.cjs
+PASS slow UI/bar keeps loading opaque, decoded exterior before reveal, dedupe, failed load retry, full shipped common/bar inventory
+
+RUN bar-playtest/tests/test_bd_vendor_removed_ui.cjs
+PASS 32 main/developer/day/route/legacy-save cases: no BD actor, prompt, payment or cinema; removed gallery/resource entries; thug and QA shop wallets retained
+
+RUN bar-playtest/tests/test-bacardi-removed-ui.cjs
+BACARDI_REMOVED_OK: source CSV, runtime, 2500 random orders, unlocks, recipe selection, shared ingredients, review cards, CSV review and preload
+
+RUN bar-playtest/tests/test-long-island-main-excluded-ui.cjs
+LONG_ISLAND_MAIN_EXCLUDED_OK 40 main/developer/day/UI cases, 8000 random orders, locked cards, daily unlocks, stale order, crafting, shared ingredients and exact session restoration
+
+RUN bar-playtest/tests/test-triple-sec-unified-ui.cjs
+TRIPLE_SEC_UNIFIED_OK: CSV, legacy simulator, main/developer original/remix, unlocks, all affected queues/scoring, resource cards and CSV review
+
+RUN bar-playtest/tests/test_current_serve_sheets_ui.cjs
+PASS current 8 drink sheets + synchronized background; 270 nonempty frames; 56 responsive drink/viewport cases with contained controls and aligned FX; exact source bytes and compositing; load gate, pause, offer/discard, reset, truthful missing-sheet fallback, resource catalog; no retired assets.
+
+RUN bar-playtest/tests/test-resource-preview-paths-ui.cjs
+RESOURCE_PREVIEW_PATHS_OK: 76 cards, 233 decoded image URLs, five categories, variant switching and popup download
+
+[
+  {
+    "file": "bar-playtest/tests/test-outside-dialogue-editor.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 1
+  },
+  {
+    "file": "tools/check-web-generated-art.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/build-generated-ui-css.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/check-engine-art-sync.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/check-art-resource-paths.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-shared-birds-and-bar-gates.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-day3-notion-script.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-latest-story-timings.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-endless-general.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-regular-arrival-speech.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-guest-mouth-pairing.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-guest-random-appearance.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-dialogue-editor.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 1
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-choice-authoring.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 2
+  },
+  {
+    "file": "bar-playtest/tests/test-outside-choice-parity.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 1
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-image-recovery.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/check-structure.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/check-site.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/check-code-boundaries.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/test-source-index.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "tools/build-preload-manifest.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-kihyun-story.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-day1-notion-script.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-kihyun-story-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 17
+  },
+  {
+    "file": "bar-playtest/tests/test-tom-talk-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test-general-offscreen.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test_story_coaster.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-empty-glass.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-empty-glass-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-choice-speech-continuity.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-approved-rules.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-approved-rules-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test_shiba_shop.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-shiba-purchase-flow-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 11
+  },
+  {
+    "file": "bar-playtest/tests/test_day0_tutorial.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test_resource_missing.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 0
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-preload-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 7
+  },
+  {
+    "file": "bar-playtest/tests/test_bd_vendor_removed_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 6
+  },
+  {
+    "file": "bar-playtest/tests/test-bacardi-removed-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test-long-island-main-excluded-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 4
+  },
+  {
+    "file": "bar-playtest/tests/test-triple-sec-unified-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  },
+  {
+    "file": "bar-playtest/tests/test_current_serve_sheets_ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 32
+  },
+  {
+    "file": "bar-playtest/tests/test-resource-preview-paths-ui.cjs",
+    "code": 0,
+    "signal": null,
+    "timedOut": false,
+    "seconds": 5
+  }
+]

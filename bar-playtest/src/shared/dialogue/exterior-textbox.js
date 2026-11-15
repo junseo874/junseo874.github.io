@@ -69,7 +69,7 @@ function fit(el,paragraph=el?.querySelector('p'),force=false){
  const width=Math.min(initial,Math.max(parseFloat(cs.minWidth)||0,Math.ceil(longest+padding+1)))+'px';
  el.style.width=width;fitted.set(paragraph,{signature,width});
 }
-function mountText(paragraph,full,emphasis=[],background=false){
+function mountText(paragraph,full,emphasis=[],background=false,styledText=null){
  const ink=document.createElement('span'),chars=[];
  ink.className=background?'outside-background-text':'outside-speech-text';
  ink.setAttribute('aria-hidden','true');
@@ -80,9 +80,11 @@ function mountText(paragraph,full,emphasis=[],background=false){
   for(let at=full.indexOf(word);at>=0;at=full.indexOf(word,at+word.length))
    for(let i=at;i<at+word.length;i++)marked.add(i);
  }
+ const effects=W.LunaTextEffects,styled=styledText&&effects?.compile(styledText,W.LUNA_DATA?.tables?.text_tags);
  let offset=0;
  for(const char of Array.from(full)){
-  const span=document.createElement('span');span.textContent=char;
+  const span=document.createElement('span');
+  if(styled&&styled.text===full)span.innerHTML=effects.glyphHTML(styled.glyphs.slice(offset,offset+char.length),offset);else span.textContent=char;
   if(marked.has(offset))span.className='outside-story-emphasis';
   span.style.visibility='hidden';ink.append(span);chars.push(span);offset+=char.length;
  }

@@ -4,8 +4,13 @@
 function optionalPresentation(raw){
  if(raw?.actor==='tv_announcer')return {actor:'tv'}; // Existing Unity TV speaker; web screen anchor keeps its ID.
  if(raw?.actor==='street-newspaper'&&raw.type==='choice'&&raw['web_fields.type']==='choice')return {type:'newspaper-choice',who:'신문 읽는 남자'};
- if(raw?.type==='effect'&&raw.arg==='gear_part')return {type:'newspaper-action',action:'grant-gear'};
- if(raw?.type==='effect'&&raw.arg==='machine_church_emblem')return {type:'believer-action',action:'grant-emblem'};
+ // Unity displays this notification and commits the receipt flags on the same step.
+ // The web's existing item handler owns its single notification and inventory increment.
+ if(raw?.type==='popup'&&raw.arg==='event_occurred'){
+  const flags=(raw.effects||'').split(';').map(s=>s.trim());
+  if(flags.includes('flag.newspaper_gear_received = true'))return {type:'newspaper-action',action:'grant-gear'};
+  if(flags.includes('flag.believer_emblem_received = true'))return {type:'believer-action',action:'grant-emblem'};
+ }
  return {};
 }
 
@@ -53,8 +58,11 @@ function compileNewspaperRoutes(catalog,views){
   while(id){
    const key=byScene.get(id),scene=scenes.find(s=>s.id===id);
    if(!key||!scene||keys.includes(key))throw Error('Invalid newspaper goto: '+id);
-   for(const step of scene.steps)if(!['say','effect','goto'].includes(step.type)||step.type==='say'&&step.when)
-    throw Error(id+' #'+step.seq+': 신문 기본 분기는 일반 대사·효과·마지막 무조건 goto만 지원합니다.');
+   for(const step of scene.steps){
+    const reward=step.type==='popup'&&optionalPresentation(step).action==='grant-gear';
+    if((!reward&&!['say','effect','goto'].includes(step.type))||(step.type==='say'&&step.when))
+     throw Error(id+' #'+step.seq+': 신문 분기는 일반 대사·보상·효과·마지막 무조건 goto만 지원합니다.');
+   }
    keys.push(key);
    id=terminalGoto(scene.steps,id);
   }

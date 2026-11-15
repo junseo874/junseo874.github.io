@@ -7,14 +7,20 @@ const upperY=9.74,passengerOffset=.39;
 // Ground access continues past the lift and drums to the black scrap wall.
 // near_foreground_1 row 270 ends at x=552: -22.25 + 5.52, plus the
 // foreground's ~.30 parallax offset and .13 actor clearance => -16.30.
-// Upper corridor: the KORATECH crates end at native x=305 in the current
-// building (world left = homeX - 5.83). Stop Luna's center 16 px to their right:
-// -16.36 - 5.83 + 3.05 + .16 = -18.98. Ground-floor access is independent.
-// Cabin connector center is body pixel 30; support spine center is pixel 80.
-// At 100 PPU, align both at world x=-12.69 (13.5 native pixels left).
-// The scaled cabin's right wall is -12.30. Reserve .205 for the widest
-// idle/walk/run silhouette (both facings) plus .035 clearance, not just the pivot.
-const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,upperMin:-18.98,upperMax:-12.54,...global.LunaEngineWorld?.residence()});
+// Native crate edge: x=305. Resolve against the installed artwork, whose pivot
+// and engine transform can change independently of the house/player spawn.
+// The widest idle/walk/run silhouette is .205 on either side; keep .035 clear.
+const bodyClearance=.24,crateEdge=305;
+let boundaryNodes,boundaryBuilding,boundaryCabin;
+function upperBounds(){
+ const nodes=global.LUNA_OUTSIDE_DATA?.scenes.street.nodes||[];
+ if(nodes!==boundaryNodes){boundaryNodes=nodes;boundaryBuilding=nodes.find(n=>n.name==='residence-building');boundaryCabin=nodes.find(n=>n.name==='Elevator');}
+ const building=boundaryBuilding,cabin=boundaryCabin;
+ const sp=building?.sprite,cp=cabin?.sprite;
+ return {min:sp?building.x+(crateEdge-sp.w*sp.pivot.x)*building.sx/sp.ppu+bodyClearance:-18.98,
+  max:cp?cabin.x+cp.w*(1-cp.pivot.x)*cabin.sx/cp.ppu-bodyClearance:-12.54};
+}
+const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,...global.LunaEngineWorld?.residence(),get upperMin(){return upperBounds().min;},get upperMax(){return upperBounds().max;}});
 function apply(data){
  if(data.residenceVersion===1)return data;
  const replaced=new Set(['1F Left Building','A_Fore_Building','A_Obect','A_Middle_Building_1','A_Middle_Building_2','A_ForeFore_Object_1','2F Floor','House Spawn Point']);
@@ -33,6 +39,6 @@ function apply(data){
  }
  data.residenceVersion=1;return data;
 }
-global.LunaResidence={layout,apply};
+global.LunaResidence={layout,apply,upperBounds};
 if(global.LUNA_OUTSIDE_DATA)apply(global.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

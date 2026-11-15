@@ -30,7 +30,16 @@ const {chromium}=load('playwright');
   await p.selectOption('#popup-switch','popup:affinity');await p.locator('#popup-actor').waitFor();await p.selectOption('#popup-actor','samho');
   await p.waitForTimeout(150);await p.locator('#replay').click();await p.waitForTimeout(150);assert.equal(await p.locator('#popup-actor').inputValue(),'samho');
   await p.locator('#lab-files>summary').click();const pending=p.waitForEvent('download');await p.locator('#lab-downloads').getByRole('link',{name:'팝업 참고 PNG',exact:true}).click();assert.equal(await (await pending).failure(),null);
-  await p.locator('#lab-files>summary').click();await p.locator('#lab-fullscreen').click();await p.locator('#fullscreen-exit').waitFor();await p.locator('#fullscreen-exit').click();await p.waitForTimeout(100);await within('#close-lab');
+  await p.locator('#lab-files>summary').click();
+  for(const [width,height] of [[1280,720],[1024,768],[390,844]]){
+   await p.setViewportSize({width,height});await p.locator('#lab-fullscreen').click();
+   await p.locator('#fullscreen-exit').waitFor();await within('#fullscreen-exit');
+   const stage=await within('#game');
+   assert(Math.abs(stage.width-stage.height*16/9)<2,'Fullscreen game keeps its 16:9 aspect ratio');
+   assert(Math.abs(stage.x*2+stage.width-width)<2 && Math.abs(stage.y*2+stage.height-height)<2,'Fullscreen game is centered');
+   await p.locator('#fullscreen-exit').click();await within('#close-lab');
+  }
+  await p.setViewportSize({width:1280,height:720});
   await p.locator('#close-lab').click();assert(await p.locator('#lab').evaluate(el=>el.inert));
   await p.setViewportSize({width:390,height:844});await p.waitForTimeout(100);
   // Resizing with a selection preserves access to details as a bounded drawer.

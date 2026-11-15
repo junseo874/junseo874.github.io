@@ -5,6 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script src="src/dev/dialogue-editor/session-playtest.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project LUNA · 본편 & 시뮬레이터</title>
 <link rel="preload" as="image" href="assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png" fetchpriority="high">
@@ -24,8 +25,8 @@
 <link rel="stylesheet" href="../cutscene-studio/styles/speech-layer.css?v=1">
 <link rel="stylesheet" href="src/features/outside/outside.css?v=inspection-hint-20261025">
 <link rel="stylesheet" href="src/features/tutorials/controls-tutorial.css?v=controls-run-20261018">
-<link rel="stylesheet" href="src/features/bar/bar-door-transition.css?v=door-1">
-<link rel="stylesheet" href="src/features/campaign/campaign.css?v=day-quotes-small-20261101">
+<link rel="stylesheet" href="src/features/bar/bar-door-transition.css?v=door-art-20261115">
+<link rel="stylesheet" href="src/features/campaign/campaign.css?v=pixel-picker">
 <link rel="stylesheet" href="src/cinema/player.css?v=world-fixed-20261003">
 <link rel="stylesheet" href="src/dev/qa/qa-lab.css?v=bar-qa-dialogue-20261027">
 <link rel="stylesheet" href="src/features/bar/remix-experience.css?v=remove-gpt-outside-20261003">
@@ -37,9 +38,9 @@
 <link rel="stylesheet" href="src/shared/dialogue/dialogue-cue.css?v=1">
 <link rel="stylesheet" href="src/dev/resources/resource-panels.css?v=full-ui-reference-audit-20261019">
 <link rel="stylesheet" href="src/shared/ui/profile-resources.css?v=full-ui-reference-audit-20261019">
-<link rel="stylesheet" href="src/features/crafting/stir-resources.css?v=no-mix-finish-20261027">
+<link rel="stylesheet" href="src/features/crafting/stir-resources.css?v=stir-single-view-20261116">
 <link rel="stylesheet" href="src/features/campaign/title-resources.css?v=full-ui-reference-audit-20261019">
-<link rel="stylesheet" href="src/features/campaign/cutscene-library.css?v=trailer-preview-20261113">
+<link rel="stylesheet" href="src/features/campaign/cutscene-library.css?v=credits-finale-20261115">
 <link rel="stylesheet" href="src/features/bar/preparation-resources.css?v=fixed-center-slots-20261019">
 <link rel="stylesheet" href="src/shared/ui/loading-screen.css?v=pigeon-pixel-small-20261101">
 <link rel="stylesheet" href="src/features/tutorials/mix-tutorial.css?v=unified-ui-20261019">
@@ -60,6 +61,9 @@
 <link rel="stylesheet" href="src/shared/platform/capture-mode.css?v=capture-ui-20261023">
 <script src="src/shared/platform/capture-mode.js?v=capture-ui-20261023"></script>
 <link rel="stylesheet" href="src/shared/ui/generated-art.css?v=resource-refresh-20261109">
+<link rel="stylesheet" href="src/app/simulator-nav.css?v=preview-layout-20261115">
+<link rel="stylesheet" href="src/shared/ui/preview-fullscreen.css">
+<script defer src="src/shared/ui/preview-fullscreen.js"></script>
 </head>
 <body>
 <div id="game-letterbox" aria-hidden="true">
@@ -121,7 +125,7 @@
 </script>
 <script src="src/shared/audio/home-door-audio.js?v=1">
 </script>
-<script src="src/shared/audio/ui-audio-policy.js?v=home-book-20261025">
+<script src="src/shared/audio/ui-audio-policy.js?v=silent-simulator">
 </script>
 <script src="src/shared/audio/click-audio.js?v=ui-mix-20261016">
 </script>
@@ -133,15 +137,16 @@
 <link rel="stylesheet" href="src/shared/audio/street-audio.css?v=1">
 <script src="src/shared/audio/street-audio.js?v=terrace-return-weather-20261020">
 </script>
-<script src="src/features/bar/remix-ui.js?v=sound-lab-20261112">
+<script src="src/app/simulator-nav.js?v=studio-layout"></script>
+<script src="src/features/bar/remix-ui.js?v=guided-recipe">
 </script>
-<script src="src/features/crafting/minigames.js?v=main-shake-v2">
+<script src="src/features/crafting/minigames.js?v=preview-layout-20261115">
 </script>
 <script src="src/features/crafting/shake-rhythm.js?v=mix-completion-hold-20261019">
 </script>
 <script src="src/shared/dialogue/world-speech.js?v=stable-ambient-speech-20261030">
 </script>
-<script src="src/features/bar/bar-views.js?v=bar-choice-no-retained-speech-20261028">
+<script src="src/features/bar/bar-views.js?v=stir-single-view-20261116">
 </script>
 <script src="src/features/bar/dialogue-history.js?v=1"></script>
 <script src="src/shared/audio/bgm.js?v=music-fades-20261018">
@@ -175,11 +180,12 @@
 <script src="data/runtime/outside-scene-data.js?v=notion-sync-20261005">
 </script>
 <script src="data/presentation/engine-world-layout.js?v=resource-refresh-20261109"></script>
+<script src="src/features/outside/npc-placement.js"></script><script src="src/features/outside/npc-placement-runtime.js"></script>
 <script src="src/features/outside/engine-world-layout.js?v=lift-framing-20261110"></script>
 <script src="src/features/outside/samho-animation.js?v=samho-idle-20261025"></script>
 <script src="src/features/outside/home-art.js?v=home-book-20261025">
 </script>
-<script src="src/features/outside/outside-residence.js?v=lift-framing-20261110">
+<script src="src/features/outside/outside-residence.js?v=street-regression-20261113">
 </script>
 <script src="src/features/outside/outside-art.js?v=lift-connector-front-20261019">
 </script>
@@ -193,7 +199,7 @@
 </script>
 <script src="src/features/outside/effects/street-engine-effects.js?v=street-unified-20261113">
 </script>
-<script src="data/presentation/barrel-fire.js?v=engine-fire-20261030"></script>
+<script src="data/presentation/barrel-fire.js?v=street-regression-20261113"></script>
 <script src="src/features/outside/effects/outside-barrel-fire.js?v=engine-fire-20261030">
 </script>
 <script src="src/features/outside/effects/outside-lift-dust.js?v=lift-framing-20261110">
@@ -204,7 +210,7 @@
 </script>
 <script src="data/runtime/outside-dialogues.js?v=dialogue-periods-20261029">
 </script>
-<script src="src/features/outside/events/outside-ambient.js?v=actor-layout-20261025">
+<script src="src/features/outside/events/outside-ambient.js?v=speech-anchor-20261113">
 </script>
 <script src="src/features/outside/events/outside-beggar.js?v=choice-feedback-v2-20261025">
 </script>
@@ -249,7 +255,7 @@
 <script src="src/features/campaign/terrace-birds.js?v=terrace-birds-flight-route-20261101"></script>
 <script src="src/features/campaign/terrace-view.js?v=resource-recovery-20261112">
 </script>
-<script src="src/features/bar/bar-door-transition.js?v=opening-notion-20261017">
+<script src="src/features/bar/bar-door-transition.js?v=door-art-20261115">
 </script>
 <script src="src/features/campaign/johnny-memory.js?v=resource-recovery-20261112">
 </script>
@@ -262,8 +268,8 @@
 </script>
 <script src="src/features/campaign/cinema-flow.js?v=resource-refresh-20261109"></script>
 <script src="src/features/campaign/day-transition.js?v=day-quotes-hold4-20261101"></script>
-<script src="src/features/campaign/day-flow.js?v=resource-recovery-20261112"></script>
-<script src="src/features/campaign/campaign.js?v=main-shake-v2">
+<script src="src/features/campaign/day-flow.js?v=door-art-20261115"></script>
+<script src="src/features/campaign/campaign.js?v=door-art-20261115">
 </script>
 <script src="src/features/outside/outside-notices.js?v=notice-scale-20261109">
 </script>
@@ -276,7 +282,7 @@
 <script src="data/presentation/shadow-lighting.js?v=effect-placement-20261107"></script>
 <script src="src/features/outside/effects/character-shadows.js?v=street-unified-20261113"></script>
 <script src="src/features/outside/effects/character-lighting.js?v=effect-placement-20261107"></script>
-<script src="src/features/outside/effects/outside-rain.js?v=day3-rain-20261025">
+<script src="src/features/outside/effects/outside-rain.js?v=street-regression-20261113">
 </script>
 <script src="src/features/outside/effects/rain-glass-simulation.js?v=street-shared-gpu-20261113"></script>
 <script src="src/features/outside/effects/rain-glass-renderer.js?v=street-shared-gpu-20261113"></script>
@@ -297,10 +303,11 @@
 <script src="src/features/outside/outside-parallax.js?v=camera-parallax-20261020">
 </script>
 <script src="src/features/outside/outside-corridor-birds.js?v=birds-tight-pair-20261101"></script>
-<script src="src/features/outside/outside-view.js?v=street-unified-20261113"></script>
-<script src="src/features/outside/outside.js?v=modules-20261031">
+<script src="src/features/outside/scene-draw-lists.js"></script>
+<script src="src/features/outside/outside-view.js?v=draw-lists-1"></script>
+<script src="src/features/outside/outside.js?v=draw-lists-1">
 </script>
-<script src="src/features/campaign/cutscene-library.js?v=trailer-preview-20261113">
+<script src="src/features/campaign/cutscene-library.js?v=studio-content">
 </script>
 <script src="src/shared/dialogue/choice-hold.js?v=choice-feedback-v2-20261025">
 </script>
@@ -316,9 +323,9 @@
 <link rel="stylesheet" href="src/dev/dialogue-editor/preview.css">
 <script src="src/shared/dialogue/text-effects.js"></script>
 <script src="src/dev/dialogue-editor/preview-bridge.js"></script>
-<script src="src/dev/qa/guest-appearance.js"></script>
-<script src="src/dev/dialogue-editor/live-data.js"></script>
-<script src="src/app/app.js?v=main-shake-v2">
+<script src="src/dev/qa/guest-appearance.js?v=studio-content"></script>
+<script src="src/dev/dialogue-editor/live-data.js?v=save-events"></script>
+<script src="src/app/app.js?v=studio-content">
 </script>
 </body>
 </html>

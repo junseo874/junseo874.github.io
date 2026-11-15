@@ -1,6 +1,6 @@
 /* Read-only static resource audit. Run from any directory: node tools/check-site.cjs */
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert/strict');
-const ROOT=path.resolve(__dirname,'..'),errors=[],checked=new Set(),files=[];
+const ROOT=path.resolve(__dirname,'..'),errors=[],checked=new Set(),files=[],directoryNames=new Map();
 function walk(dir){for(const entry of fs.readdirSync(dir,{withFileTypes:true})){
   if(['.git','node_modules','__pycache__','test-results','playwright-report'].includes(entry.name))continue;
   const full=path.join(dir,entry.name);
@@ -18,8 +18,9 @@ function check(from,ref){
   if(checked.has(dest))return;checked.add(dest);
   let current=ROOT;
   for(const part of relative.split(path.sep).filter(Boolean)){
-    if(!fs.existsSync(current)||!fs.statSync(current).isDirectory()){errors.push('Missing: '+ref+' from '+path.relative(ROOT,from));return;}
-    const exact=fs.readdirSync(current).find(n=>n.normalize('NFC')===part.normalize('NFC'));
+    if(!directoryNames.has(current))directoryNames.set(current,fs.existsSync(current)&&fs.statSync(current).isDirectory()
+      ?new Map(fs.readdirSync(current).map(n=>[n.normalize('NFC'),n])):null);
+    const exact=directoryNames.get(current)?.get(part.normalize('NFC'));
     if(!exact){errors.push('Missing / wrong case: '+ref+' from '+path.relative(ROOT,from));return;}
     current=path.join(current,exact);
   }
@@ -29,6 +30,8 @@ for(const file of files.filter(p=>/\.(?:html|css)$/.test(p))){
   const text=fs.readFileSync(file,'utf8');
   const markup=text.replace(/(<script\b[^>]*>)[\s\S]*?<\/script>/gi,'$1</script>');
   if(file.endsWith('.html'))for(const m of markup.matchAll(/\b(?:src|href|poster)\s*=\s*(["'])(.*?)\1/gs))check(file,m[2]);
+  // Also check explicit art paths inside inline JS data, before the card is opened.
+  if(file.endsWith('.html'))for(const m of text.matchAll(/(["'])(bar-playtest\/assets\/[^"'\n`$<>]+?\.(?:png|webp|gif|jpe?g|svg))\1/gi))check(file,m[2]);
   for(const m of text.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/g))check(file,m[2]);
 }
 const app=path.join(ROOT,'bar-playtest'),ctx={window:{addEventListener(){}},document:{createElement(){return{addEventListener(){}};},body:{append(){}}},localStorage:{getItem(){return null;}}};

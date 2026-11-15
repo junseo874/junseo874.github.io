@@ -1,0 +1,15 @@
+AssertionError [ERR_ASSERTION]: arrival camera stays fixed
++ actual - expected
+
++ 0.4838519420806975
+- 0.4694130030274224
+     ^
+
+    at /Users/lee/Desktop/project/junseo874.github.io/bar-playtest/tests/test-street-parallax-engine-ui.cjs:133:32 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 0.4838519420806975,
+  expected: 0.4694130030274224,
+  operator: 'strictEqual',
+  diff: 'simple'
+}

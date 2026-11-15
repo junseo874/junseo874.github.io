@@ -1,0 +1,19 @@
+/* Modify a single existing order in the browser only, then reload the serialized CSV in memory. */
+const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runtime.cjs');
+(async()=>{
+ const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true}),p=await b.newPage({viewport:{width:1450,height:900}}),err=[];
+ try{p.on('pageerror',e=>err.push(e.message));p.setDefaultTimeout(9000);await p.goto((process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/dialogue-editor.html?view=flow');await p.waitForSelector('.flow-card');await p.selectOption('#day','1');await p.click('[data-scene=campaign_d1_bar]');await p.click('#section-all');
+  const ids=await p.evaluate(()=>{const m=dialogueEditor.model,rs=m.rows('campaign_d1_bar'),order=rs.find(r=>r.type==='order'&&r.actor==='aili'),craft=rs.find(r=>r.actor==='aili'&&r.type==='craft'),other=rs.find(r=>r.actor==='tom'&&r.type==='order');return {order:order.row_id,craft:craft.row_id,other:other.row_id,otherValue:other.arg};});
+  assert(await p.evaluate(()=>{const n=(id,type)=>({id,rows:[{row_id:id,type,actor:'port'}]}),a=n('a','order'),b=n('b','order'),c=n('c','craft'),m={rows:()=>[a.rows[0],b.rows[0],c.rows[0]]},ctx=LunaFlowDetails.orderContext(m,'fixture',{nodes:[a,b,c],edges:[{from:'a',to:'c'},{from:'b',to:'c'}]},c);return ctx.ambiguous&&!ctx.preferred&&ctx.all.length===2;}));
+  const panel=p.locator('#node-detail');await p.selectOption('#map-bookmark',ids.craft);assert.equal(await p.inputValue('#graph-order-source'),ids.order);assert.equal(await p.inputValue('#graph-order'),'exact:screwdriver');
+  assert.deepEqual(await panel.locator(':scope > [data-fold]').evaluateAll(xs=>xs.map(x=>x.dataset.fold).slice(-3)),['content','append','layout']);
+  await panel.locator('[data-category=order]').click();assert.equal(await panel.locator(':scope > details:visible').count(),1);await p.selectOption('#graph-order','exact:dry_martini');assert.equal(await p.locator('.flow-card.active').getAttribute('data-node'),ids.craft);assert.equal(await panel.locator('[data-category=order]').getAttribute('aria-pressed'),'true');assert.equal(await p.inputValue('#graph-order'),'exact:dry_martini');
+  assert.deepEqual(await p.evaluate(async ids=>{const m=dialogueEditor.model,restored=await new LunaDialogueEditorModel.Model({...m.files,...m.output()},m.presentation).init(),changed=m.tables.steps.filter(r=>JSON.stringify(r)!==JSON.stringify(m.base.tables.steps.find(o=>o.row_id===r.row_id)));return [restored.row(ids.order).arg,restored.row(ids.other).arg,changed.map(r=>r.row_id)];},ids),['exact:dry_martini',ids.otherValue,[ids.order]]);
+  await p.click('#undo');assert.equal(await p.inputValue('#graph-order'),'exact:screwdriver');await p.click('#redo');assert.equal(await p.inputValue('#graph-order'),'exact:dry_martini');
+  await panel.locator('[data-category=all]').click();await p.getByLabel('디테일 속성 검색').fill('핀 배치');assert.equal(await panel.locator(':scope > details:visible').getAttribute('data-fold'),'layout');await p.getByLabel('디테일 속성 검색').press('Escape');await p.fill('.dp-search','xyz_no_match');assert(await panel.locator('.dp-empty').isVisible());await p.fill('.dp-search','');
+  await p.selectOption('#graph-order-source',ids.other);assert.equal(await p.inputValue('#graph-order'),ids.otherValue);
+  await p.selectOption('#map-bookmark',ids.order);assert.equal(await p.inputValue('#graph-order'),'exact:dry_martini');
+  for(const width of [1450,1024,820]){await p.setViewportSize({width,height:820});assert(await panel.evaluate(e=>e.scrollWidth<=e.clientWidth+1));}
+  assert.deepEqual(err,[]);console.log('NODE_DETAILS_UI_OK: grouping/filter/search, last three sections, drink edit from craft and original order, unchanged siblings, undo/redo, CSV reload and responsive panel.');
+ }finally{await b.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

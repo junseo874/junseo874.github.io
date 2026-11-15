@@ -5,14 +5,13 @@ const { load, chrome } = require('./lib/test-runtime.cjs');
 const { chromium } = load('playwright');
 const root = path.resolve(__dirname, '..');
 const base = process.env.LUNA_SITE_URL || 'http://127.0.0.1:8123/';
+const {routes} = require('./lib/site-entrypoints.cjs');
 
 (async () => {
   const browser = await chromium.launch({ executablePath: chrome, headless: true, args: ['--mute-audio'] });
   try {
     let assetCount = 0;
-    for (const route of ['', 'intro.html', 'direction.html', 'simulator.html', 'LUNA_TestTool.html',
-      'bar-playtest/', 'bar-playtest/?dev=1', 'bar-playtest/?mode=minigames',
-      'bar-playtest/resource-review.html', 'bar-playtest/story-guide.html', 'cutscene-studio/']) {
+    for (const route of routes) {
       const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
       const errors = [];
       page.on('pageerror', error => errors.push(error.message));
@@ -42,6 +41,6 @@ const base = process.env.LUNA_SITE_URL || 'http://127.0.0.1:8123/';
       console.log('PASS entry point: /' + route);
       await page.close();
     }
-    console.log('ENTRYPOINTS_OK: 11 public routes and ' + assetCount + ' registered asset references');
+    console.log('ENTRYPOINTS_OK: ' + routes.length + ' routes and ' + assetCount + ' registered asset references');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

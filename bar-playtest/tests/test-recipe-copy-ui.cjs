@@ -10,7 +10,8 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
   await page.waitForFunction(()=>window.barGame&&window.lunaCampaign);
   const ids=await page.evaluate(()=>barGame.t.cocktails.map(c=>c.id));
-  assert.equal(ids.length,14);
+  assert.equal(ids.length,13);
+  assert(!ids.includes('long_island'),'Long Island remains excluded from the main recipe catalog');
   for(const id of ids){
    await page.evaluate(id=>{
     const c=lunaCampaign,g=barGame;c.session.uninstall();c.session.install({developer:true});
@@ -54,6 +55,6 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   await page.locator('.prep-recipe-scroll').evaluate(el=>{el.scrollTop=el.scrollHeight;});
   await page.screenshot({path:'/private/tmp/recipe-copy-20261030.png'});
   assert.deepEqual(errors,[]);
-  console.log('RECIPE_COPY_UI_OK: all 14 previews, original paragraphs, scrollable Korean ml copy, glass names/selection/art/tooltips, opener.');
+  console.log('RECIPE_COPY_UI_OK: all 13 current previews, original paragraphs, scrollable Korean ml copy, glass names/selection/art/tooltips, opener.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

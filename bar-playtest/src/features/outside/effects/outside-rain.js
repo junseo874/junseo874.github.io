@@ -61,22 +61,32 @@ function draw(ctx,m,cam,position,pass='all'){
  ctx.restore();
 }
 // Native house apertures. Rain is behind the room sheet; glass beads are
-// confined to the two exposed panes below the blinds, before props and actors.
-const HOME_OPENINGS=[[310,132,124,51],[615,22,16,53],[615,95,16,143]];
-const HOME_GLASS=[[311,156,54,24],[371,156,60,24]];
-function drawHome(ctx,m,cam,position,bg,pass){
+// confined to the three exposed panes of the current 631px room. The room
+// alpha masks rain behind the exterior wall, including its visible upper notch.
+const HOME_OPENINGS=[[310,132,124,51],[596,22,35,216]];
+const HOME_GLASS=[[314,157,20,23],[339,157,65,23],[409,157,20,23]];
+function drawHome(ctx,m,cam,position,bg,pass,surface){
  if(m?.scene!=='home'||!wet(m)||!bg)return;
  const sp=bg.sprite,left=bg.x-sp.w*sp.pivot.x/sp.ppu,top=bg.y+sp.h*(1-sp.pivot.y)/sp.ppu;
- const at=(x,y)=>position(left+x/sp.ppu,top-y/sp.ppu),scale=1280/cam.w/sp.ppu;
+ const rect=surface&&root.LunaPixelCamera.sprite(sp,bg.x,bg.y,bg.sx,bg.sy,bg.flip,cam,surface);
+ const at=rect?(x,y)=>({x:rect.x-rect.w*sp.pivot.x+x*rect.w/sp.w,y:rect.y-rect.h*(1-sp.pivot.y)+y*rect.h/sp.h}):(x,y)=>position(left+x/sp.ppu,top-y/sp.ppu);
+ const scale=rect?rect.w/sp.w:1280/cam.w/sp.ppu;
  ctx.save();ctx.beginPath();
- for(const [x,y,w,h]of pass==='glass'?HOME_GLASS:HOME_OPENINGS){const p=at(x,y);ctx.rect(p.x,p.y,w*scale,h*scale);}
+ for(const [x,y,w,h]of pass==='glass'?HOME_GLASS:HOME_OPENINGS){
+  const p=at(x,y),end=at(x+w,y+h),f=surface?.factor;
+  // Use the same snapped room origin, and keep the entire physical clip pixel
+  // inside glass. Fractional clips otherwise blend beads onto the opaque frame.
+  if(f&&pass==='glass'){const l=Math.ceil(p.x*f)/f,t=Math.ceil(p.y*f)/f;ctx.rect(l,t,Math.max(0,Math.floor(end.x*f)/f-l),Math.max(0,Math.floor(end.y*f)/f-t));}
+  else ctx.rect(p.x,p.y,end.x-p.x,end.y-p.y);
+ }
  ctx.clip();
  if(pass==='rain'){
   // Reuse exactly the street drop field and speed, never its splash pass.
   draw(ctx,{...m,scene:'street'},cam,position,'drops');
  }else{
   const time=root.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:(m.time||0);
-  for(const [pane,[x,y,w,h]]of HOME_GLASS.entries())for(let i=0;i<12;i++){
+  // Keep the previous 24 beads, distributed across the three current panes.
+  for(const [pane,[x,y,w,h]]of HOME_GLASS.entries())for(let i=0;i<(pane===1?14:5);i++){
    const seed=i+pane*43,period=5+random(seed+300)*5,age=mod(time+random(seed+310)*period,period)/period;
    const travel=Math.max(0,(age-.48)/.52),px=x+2+random(seed+320)*(w-4)+Math.sin(travel*5+seed)*.3;
    const py=y+random(seed+330)*h+travel*travel*h;
