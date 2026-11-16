@@ -35,12 +35,34 @@ const assert=require('node:assert/strict');
   await page.evaluate(()=>{const m=outsidePlaytest.model;m.story.cancel();m.backgroundStory.cancel();outsidePlaytest.refreshHUD();});
   const guide=page.locator('.outside-homeward-guide');assert(await guide.isVisible());
   await page.waitForTimeout(450);
-  // Temporary notifications own the upper-left corner; the route guide
-  // moves below them and returns when the queue has expired or is cleared.
-  const noticeCount=await page.locator('#story-notices:not([hidden]) .story-notice:not([hidden])').count();
-  if(noticeCount)assert.equal((await guide.boundingBox()).y,14+noticeCount*80);
+  const firstBox=await guide.boundingBox();assert.equal(firstBox.x,20);assert.equal(firstBox.y,14);
+  await page.evaluate(()=>{
+   LunaStoryNotices.clear();
+   LunaStoryNotices.affinity(barGame.progress,'tom',1);
+   LunaStoryNotices.startGoal(barGame.progress,'homeward_layout_test','길 안내 확인');
+   outsidePlaytest.notifyItem(outsidePlaytest.model,'bitters');
+  });
+  await page.waitForTimeout(400);
+  let bottom=firstBox.y+firstBox.height;
+  for(const panel of await page.locator('#story-notices .story-notice:not([hidden])').all()){
+   const box=await panel.boundingBox();
+   assert.equal(box.x,firstBox.x);assert(box.y>=bottom);bottom=box.y+box.height;
+  }
+  assert.equal(await page.locator('#story-notices .story-notice:not([hidden])').count(),2);
+  const itemBox=await page.locator('.outside-item-notice').boundingBox();
+  assert.equal(itemBox.x,firstBox.x);assert(itemBox.y>=bottom);
+  assert.deepEqual(await guide.boundingBox(),firstBox);
+  await page.screenshot({path:'/private/tmp/homeward-aligned-notices.png'});
+  await page.setViewportSize({width:960,height:720});
+  await page.waitForFunction(()=>Math.abs(document.querySelector('.outside-stage').getBoundingClientRect().width-960)<1);
+  const scaledGuide=await guide.boundingBox();
+  const scaledNotice=await page.locator('.story-notice-people').boundingBox();
+  assert(Math.abs(scaledGuide.x-scaledNotice.x)<1&&scaledNotice.y>scaledGuide.y+scaledGuide.height);
+  await page.setViewportSize({width:1280,height:720});
+  await page.waitForFunction(()=>Math.abs(document.querySelector('.outside-stage').getBoundingClientRect().width-1280)<1);
   await page.evaluate(()=>{LunaStoryNotices.clear();outsidePlaytest.tick(0);});
-  const firstBox=await guide.boundingBox();assert.equal(firstBox.x,32);assert.equal(firstBox.y,14);
+  assert.deepEqual(await guide.boundingBox(),firstBox);
+  assert.equal((await page.locator('.outside-item-notice').boundingBox()).y,94);
   assert.equal(firstBox.width,256);assert.equal(firstBox.height,67);assert(!(await guide.textContent()).includes('현재 목표'));
   const skin=await guide.evaluate(el=>({background:getComputedStyle(el).backgroundImage,light:getComputedStyle(el,'::before').backgroundImage,font:getComputedStyle(el.querySelector('strong')).fontFamily,weight:getComputedStyle(el.querySelector('strong')).fontWeight,detail:getComputedStyle(el.querySelector('small')).fontSize,arrow:!!el.querySelector('.homeward-direction')}));
   assert(skin.background.includes('IMG_quest_background.png')&&skin.light.includes('IMG_quest_light.png'));assert(skin.font.includes('Paperlogy'));assert.equal(skin.weight,'500');assert.equal(skin.detail,'11px');assert.equal(skin.arrow,false);
@@ -60,6 +82,8 @@ const assert=require('node:assert/strict');
    const m=outsidePlaytest.model,r=LunaResidence.layout;
    m.level=0;m.x=r.elevatorX;m.y=-.7;m.elevatorY=r.elevatorBottom;m.updateNear();m.interact();outsidePlaytest.refreshHUD();
   });
+  const rideChoice=page.locator('.world-choices [data-choice="confirm"]');
+  await rideChoice.waitFor();await page.waitForTimeout(550);await rideChoice.click();
   assert(await page.evaluate(()=>!!outsidePlaytest.model.ride&&!outsidePlaytest.model.ride.call));
   assert.equal(await guide.getAttribute('data-visible'),'false');
   await page.waitForTimeout(120);
@@ -84,6 +108,8 @@ const assert=require('node:assert/strict');
   assert.equal(await page.evaluate(()=>lunaCampaign.session.carry.objectives.first_homeward.status),'completed');
   assert.equal(await page.evaluate(()=>LunaOutside.homewardCues(outsidePlaytest.model).length),0);
   await page.waitForTimeout(450);assert.equal(await guide.isVisible(),false);
+  const completed=await page.locator('.story-notice[data-kind="goal-complete"]').boundingBox();
+  assert(completed&&Math.abs(completed.x-20)<1&&completed.y===20,'Home completion uses the first notification row');
   assert.deepEqual(errors,[]);
   console.log('PASS: fixed guide during foreground/background dialogue, left-edge entry/exit, actual elevator ride hide/restore, upper-floor destination, no looping animation/input interception, goal persistence and home completion');
  }finally{await browser.close();}

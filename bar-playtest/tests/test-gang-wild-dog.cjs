@@ -10,7 +10,7 @@ function introduction(m){open(m);const rows=drain(m);assert.equal(rows.length,21
 {
  const {m,p}=setup({},499);m.config.day=0;assert(!N.targets(m).some(t=>t.actor==='boss'));m.config.day=1;m.config.flow='in';assert(!N.targets(m).some(t=>t.actor==='boss'));m.config.flow='out';delete p.flags.gang_pass_granted;assert(!N.targets(m).some(t=>t.actor==='boss'));p.flags.gang_pass_granted=true;assert(!N.targets(m).some(t=>t.actor==='boss'));m.config.day=2;
  introduction(m);assert.deepEqual(Array.from(N.choiceView(m).options,o=>o.id),['boss-wait','boss-repair','boss-pay']);assert(!m.story.choose('boss-repair'));assert(!m.story.choose('boss-pay'));assert.equal(p.money,499);
- assert(m.story.choose('boss-wait'));assert.deepEqual(drain(m).map(r=>r.text),['조금만 기다려주세요.','그래 알아서 재주것 해보라고']);assert(!m.story.speech);
+ assert(m.story.choose('boss-wait'));assert.deepEqual(drain(m).map(r=>r.text),['( 대화 그만두기 )']);assert(!m.story.speech);
  m.config.day=3;open(m);assert.equal(m.story.speech.line.stage,'boss-repeat');assert(m.story.choose('boss-wait'));assert(!m.story.speech,'repeat wait ends immediately');
 }
 for(const repeat of [false,true])for(const repaired of [false,true]){
@@ -19,11 +19,11 @@ for(const repeat of [false,true])for(const repaired of [false,true]){
  const before=p.money;assert(m.story.choose(repaired?'boss-repair':'boss-pay'));assert.equal(p.money,repaired?before:0);assert.equal(p.inventory.wild_dog,undefined,'reward only at authored handover');assert(!m.story.choose('boss-pay'),'double click cannot charge again');
  // Leaving and returning after accepting must resume the same branch, without another charge.
  m.story.cancel();m.config.day=2;open(m);assert.equal(m.story.speech.id,'neighborhood/boss'+(repaired?'Repair':'Pay')+(repeat?'Repeat':'First'));
- const lines=drain(m).map(r=>r.text);assert.equal(lines.at(-2),'감사해요.');assert.equal(lines.at(-1),'이제 일 끝났으면 여기서 썩 꺼져.');assert.equal(p.inventory.wild_dog,1);assert(p.flags.gang_wild_dog_received);assert(!p.flags.gang_wild_dog_paid);assert(!p.flags.gang_wild_dog_repair_promised);assert.deepEqual(notices,['wild_dog']);assert.equal(W.lunaCampaign.session.carry.inventory.wild_dog,1);assert.equal(W.lunaCampaign.session.carry.money,p.money);
+ const lines=drain(m).map(r=>r.text);assert.equal(lines.at(-2),'감사합니다.');assert.equal(lines.at(-1),'이제 볼 일 없으면 여기서 썩 꺼져.');assert.equal(p.inventory.wild_dog,1);assert(p.flags.gang_wild_dog_received);assert(!p.flags.gang_wild_dog_paid);assert(!p.flags.gang_wild_dog_repair_promised);assert.deepEqual(notices,['wild_dog']);assert.equal(W.lunaCampaign.session.carry.inventory.wild_dog,1);assert.equal(W.lunaCampaign.session.carry.money,p.money);
  // Consuming the item cannot reopen either reward route.
  p.inventory.wild_dog=0;open(m);assert.equal(m.story.speech.id,'neighborhood/bossDone');drain(m);assert.equal(p.inventory.wild_dog,0);assert.equal(notices.length,1);
 }
 for(const [flags,inventory]of [[{shiba_bought_wild_dog:true},{}],[{},{wild_dog:1}]]){const {m,p}=setup(flags,800,inventory);open(m);assert.equal(m.story.speech.id,'neighborhood/bossDone');drain(m);assert.equal(p.money,800);assert.equal(notices.length,0);}
 assert.deepEqual(Array.from(W.LunaOutsideShop.items,i=>i.id),['bitters']);
-assert.equal(N.scripts.bossIntro.at(-1).text,'저 망할 수리공 새끼 좀 설득해서 옆에 엘레베이터 좀 고쳐 오면 주는 걸로 하지.');
+assert.equal(N.scripts.bossIntro.at(-1).text,'아님 저 망할 수리공 새끼 설득해다가 승강기 고쳐오면 하나 주지.');
 console.log('GANG_WILD_DOG_OK: authored CSV dialogue, 4 reward branches, day/gate conditions, 499/500, repair requirement, wait/revisit, interruption recovery, single charge/reward, carry and legacy saves');

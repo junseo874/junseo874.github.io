@@ -26639,688 +26639,6 @@
           "countLabel": [],
           "numbers": [],
           "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_91",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_92",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_93",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_94",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_95",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_96",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_97",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night0_98",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_terraceMemory_99",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night1_100",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_101",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_102",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_103",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_104",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_105",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_106",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_107",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_108",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_109",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_110",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_111",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_112",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_113",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_night2_114",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_johnny_115",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_ending_116",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_ending_117",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_ending_118",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_ending_119",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_ending_120",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "notion_20261113_terraceMemory3_121",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "type",
-            "actor",
-            "arg",
-            "text.ko",
-            "text.en",
-            "dialogue_id",
-            "when",
-            "effects",
-            "sync",
-            "scene_id",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
         }
       ]
     },
@@ -28048,44 +27366,6 @@
           "countLabel": [],
           "numbers": [],
           "booleans": []
-        },
-        {
-          "id": "kihyun_ch_night2_1_1",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "text.ko",
-            "text.en",
-            "when",
-            "effects",
-            "goto",
-            "lock_reason.ko",
-            "lock_reason.en",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "kihyun_ch_night2_1_2",
-          "key": {},
-          "fields": [
-            "context",
-            "seq",
-            "text.ko",
-            "text.en",
-            "when",
-            "effects",
-            "goto",
-            "lock_reason.ko",
-            "lock_reason.en",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
         }
       ]
     },
@@ -28291,19 +27571,6 @@
           "id": "choice_group_ch_campaign_d3_bar_1",
           "key": {
             "choice_group": "ch_campaign_d3_bar_1"
-          },
-          "fields": [
-            "choice_group",
-            "row_id"
-          ],
-          "countLabel": [],
-          "numbers": [],
-          "booleans": []
-        },
-        {
-          "id": "choice_group_ch_night2_1",
-          "key": {
-            "choice_group": "ch_night2_1"
           },
           "fields": [
             "choice_group",
@@ -29186,7 +28453,7 @@
   },
   "campaign": {
     "source": "https://app.notion.com/p/3ef1612298dc8016864be134bcc832e8",
-    "revision": "2026-11-13 · 최신본 0–3일차: 바·테라스·회상·외부 대사 동기화, 기존 텍스트 효과 유지",
+    "revision": "2026-11-16 · 바 내부는 일차별 원고, 외부·집·테라스·회상은 외부 이벤트 원고",
     "actors": {
       "개시바": "shiba",
       "시바견": "shiba",
@@ -29203,10 +28470,6 @@
       "주거층 주민": "resident",
       "의뢰 연락 메시지": "message",
       "삼호가 보내는 메시지": "samho",
-      "보안부 3팀 팀장": "captain",
-      "진입조｜무전": "radio",
-      "보안부 대원 A": "soldier",
-      "경계조 A｜무전": "radio",
       "유나": "yuna"
     },
     "opening": {
@@ -29320,11 +28583,6 @@
         "offset": 0
       }
     },
-    "prologue": {
-      "source": "script/cutscene",
-      "scene": "web-authoring-prologue",
-      "offset": 0
-    },
     "day0Bar": {
       "source": "script/bar/day0",
       "scene": "d1_tutorial_chris",
@@ -29387,19 +28645,19 @@
       "offset": 0
     },
     "ambient/outside_day0_store_passers": {
-      "source": "script/street",
+      "source": "script/ambient",
       "scene": "outside_day0_store_passers",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day0_building_residents": {
-      "source": "script/street",
+      "source": "script/ambient",
       "scene": "outside_day0_building_residents",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day0_port_pair": {
-      "source": "script/street",
+      "source": "script/ambient",
       "scene": "outside_day0_port_pair",
       "branch": null,
       "offset": 0
@@ -29417,25 +28675,25 @@
       "offset": 0
     },
     "ambient/outside_day0_tv_news1": {
-      "source": "script/home",
+      "source": "script/ambient",
       "scene": "outside_day0_tv_news1",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day1_tv_news2": {
-      "source": "script/home",
+      "source": "script/ambient",
       "scene": "outside_day1_tv_news2",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day1_commute_passers2": {
-      "source": "script/street",
+      "source": "script/ambient",
       "scene": "outside_day1_commute_passers2",
       "branch": null,
       "offset": 0
     },
     "ambient/outside_day2_commute_reopening": {
-      "source": "script/street",
+      "source": "script/ambient",
       "scene": "outside_day2_commute_reopening",
       "branch": null,
       "offset": 0
@@ -29691,6 +28949,53 @@
     "neighborhood/guardPass": {
       "source": "script/street",
       "scene": "neighborhood-guardPass",
+      "offset": 0
+    },
+    "shop/purchased": {
+      "source": "script/street",
+      "scene": "shiba-purchase-bitters",
+      "branch": null,
+      "offset": 0
+    },
+    "shop/quizCorrect": {
+      "source": "script/street",
+      "scene": "shiba-quiz-bitters",
+      "branch": "answer-bitters",
+      "offset": 0
+    },
+    "shop/quizRetry": {
+      "source": "script/street",
+      "scene": "shiba-quiz-bitters-retry",
+      "branch": null,
+      "offset": 0
+    },
+    "shop/noStockPurchase": {
+      "source": "script/street",
+      "scene": "shiba-stock",
+      "branch": "shop-no",
+      "offset": 0
+    },
+    "shop/noBrowse": {
+      "source": "script/street",
+      "scene": "shiba-shop-revisit",
+      "branch": "shop-no-revisit",
+      "offset": 0
+    },
+    "shop/browse": {
+      "source": "script/street",
+      "scene": "shiba-shop-revisit",
+      "branch": "shop-yes",
+      "offset": 0
+    },
+    "shop/allowanceYes": {
+      "source": "script/street",
+      "scene": "shiba-allowance",
+      "branch": "allow-yes",
+      "offset": 0
+    },
+    "home/book": {
+      "source": "script/home",
+      "scene": "home-book",
       "offset": 0
     }
   }

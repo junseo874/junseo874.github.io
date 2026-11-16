@@ -6,7 +6,7 @@ const clean=F.clean;
 const names={say:'대사',enter:'손님 입장',exit:'손님 퇴장',choice:'선택지',coaster:'코스터 제공',orderSet:'주문 → 제조 → 제공',empty_glass:'빈잔으로 교체',effect:'플래그 / 소지금 / 호감도 변경',tutorial:'튜토리얼',end_part:'영업 종료'};
 function state(m,scene,at){
  const seats={},rows=m.rows(scene).slice(0,at);let pending='';
- for(const r of rows){if(r.type==='enter')seats[r.arg]=r.actor;if(r.type==='exit')for(const k of Object.keys(seats))if(seats[k]===r.actor)delete seats[k];if(r.type==='order')pending=r.actor;if(r.type==='serve')pending='';}
+ for(const r of rows){if(clean(r.when).split('&&').some(term=>term.trim()==='false'))continue;if(r.type==='enter')seats[r.arg]=r.actor;if(r.type==='exit')for(const k of Object.keys(seats))if(seats[k]===r.actor)delete seats[k];if(r.type==='order')pending=r.actor;if(r.type==='serve')pending='';}
  return {seats,pending};
 }
 function create(m,scene,node,params){

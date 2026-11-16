@@ -62,7 +62,7 @@ function forced(m){
 function label(e,g){
  if(e.kind.startsWith('goal-'))return e.title;
  if(e.kind==='meet')return g.name(e.actor);
- if(e.kind==='event')return '새로운 이벤트 발생';
+ if(e.kind==='event')return e.title||'새로운 이벤트 발생';
  return (g.speakerName?.(e.actor)||g.name(e.actor))+' 호감도 '+(e.kind==='up'?'상승':'하락');
 }
 function mount(){
@@ -107,5 +107,6 @@ function tick(g,outside,campaign,dt){
  }
 }
 function clear(){W.LunaStoryNoticeAudio?.stop();for(const lane of Object.values(lanes)){lane.queue=[];lane.current=null;lane.age=0;if(lane.el)lane.el.hidden=true;}}
-W.LunaStoryNotices={roster,meet,meetOutside,dialogueStarted,affinity,effects,forced,startGoal,completeGoal,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
+function outsideEvent(m,title){const e=emit(outsideProgress(m),'event');if(e)e.title=title;}
+W.LunaStoryNotices={roster,meet,meetOutside,dialogueStarted,affinity,effects,forced,outsideEvent,startGoal,completeGoal,tick,clear,get pending(){return Object.values(lanes).flatMap(l=>[...(l.current?[l.current]:[]),...l.queue]);}};
 })(typeof window==='undefined'?globalThis:window);

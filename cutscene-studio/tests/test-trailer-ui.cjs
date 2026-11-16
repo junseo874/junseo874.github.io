@@ -18,6 +18,7 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  const game=page.frames().find(f=>f.url().includes('bar-playtest/'));
  const finalChris=scenes.find(s=>s.kind==='terrace'&&s.actor==='chris'),finalLuna=scenes.find(s=>s.kind==='terrace'&&s.actor==='luna');
  await page.evaluate(t=>lunaTrailerPreview.seek(t),finalChris.end-.01);
+ assert(finalChris.text.startsWith('...')&&finalLuna.text.endsWith('...'));
  const readTime=await game.evaluate(()=>{window.endingDialog=lunaCampaign.dialog;window.endingScene=lunaCampaign.host.querySelector('.terrace-scene');const d=lunaCampaign.dialog;return{full:d.chars===d.rows[0].text.length,duration:LunaOutsideStory.typing(d.rows[0].text,60).duration};});
  assert(readTime.full);assert(finalChris.duration-finalChris.speechDelay-readTime.duration>=1,'give Chris at least one second of fully revealed reading time');
  await page.evaluate(t=>lunaTrailerPreview.seek(t),finalLuna.start+.01);
@@ -51,28 +52,42 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  await page.locator('#chapters button').first().click();
  await page.waitForFunction(()=>!lunaTrailerPreview.loading);
  assert.equal(await game.evaluate(()=>lunaCampaign.view),'scene');
- assert.equal(intro.duration,intro.panDuration);
- for(const t of [0,1,intro.duration-.01]){
+ assert.equal(intro.duration-intro.panDuration,3);
+ for(const t of [0,1,intro.panDuration,intro.duration-.01]){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),t);
   positions.push(await game.locator('.terrace-scene').evaluate(e=>new DOMMatrix(getComputedStyle(e).transform).m41));
   assert(await page.locator('#game').isVisible());
  }
- assert(positions[0]<positions[1]&&positions[1]<positions[2]);
+ assert(positions[0]<positions[1]&&positions[1]<positions[2]);assert.equal(positions[2],positions[3]);
  await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+.02);
  assert(await page.locator('#game').isHidden());
  assert(await page.locator('#footage').evaluate(v=>v.currentTime<.06&&v.offsetLeft===0&&v.offsetWidth===1280));
- assert.equal(team.holdDuration,1);
- await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+team.holdAt+.08);
- await page.locator('#play').click();await page.waitForTimeout(350);
- assert(await page.locator('#footage').evaluate((v,at)=>v.paused&&Math.abs(v.currentTime-at)<.03,team.holdAt));
- await page.locator('#play').click();
- await page.evaluate(t=>lunaTrailerPreview.seek(t),team.end-.15);
- assert(await page.locator('#footage').evaluate((v,at)=>v.currentTime>at+.35,team.holdAt),'resume the original logo exit after the hold');
+ // Sample the band above the final flame. The scattering sparks cross it only before the held logo.
+ async function logoSample(frameIndex){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+frameIndex/30+.005);
+  await page.waitForFunction(()=>{const v=document.querySelector('#footage');return !v.seeking&&v.readyState>=2;});
+  return page.locator('#footage').evaluate(v=>{
+   const c=document.createElement('canvas');c.width=1280;c.height=720;
+   const ctx=c.getContext('2d');ctx.drawImage(v,0,0,1280,720);
+   const maxBlue=(x,y,w,h)=>{
+    const rgba=ctx.getImageData(x,y,w,h).data;let peak=0;
+    for(let i=2;i<rgba.length;i+=4)peak=Math.max(peak,rgba[i]);
+    return peak;
+   };
+   return {sparks:maxBlue(518,165,215,60),wordmark:maxBlue(525,431,210,19)};
+  });
+ }
+ assert.equal(team.duration,6);
+ assert((await logoSample(73)).sparks>50,'the sparks finish moving before the hold');
+ for(const f of [84,120,152]){
+  const logo=await logoSample(f);assert(logo.sparks<15&&logo.wordmark>230,'hold the settled full-bright logo');
+ }
+ assert((await logoSample(174)).wordmark<100,'fade only after the clean hold');
  for(const clip of [puddle,street]){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),clip.start);
   assert(await page.locator('#footage').evaluate((v,d)=>v.readyState>=2&&v.duration>=d-.04,clip.duration));
  }
- assert.equal(puddle.title,'2069년, 한국 서울');
+ assert.equal(puddle.title,'서울 거리 · 물웅덩이');
  const hero=scenes.find(s=>s.text==='당신이 선택한 한잔');
  await page.evaluate(t=>lunaTrailerPreview.seek(t),hero.start+1);
  assert.equal(await page.locator('#card h2').innerText(),hero.text);

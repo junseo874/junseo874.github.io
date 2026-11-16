@@ -3,8 +3,11 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
 (async()=>{
  const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
  try{const c=await b.newContext({viewport:{width:1420,height:900}}),bar=await c.newPage(),p=await c.newPage(),errors=[];
- p.on('pageerror',e=>errors.push(e.message));const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
- await bar.goto(url+'dialogue-editor.html?view=flow');await bar.waitForSelector('#node-detail .dp-tab');
+ for(const page of [bar,p])page.on('pageerror',e=>errors.push(e.message));const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
+ await bar.goto(url+'dialogue-editor.html?view=flow');
+ try{await bar.waitForSelector('#node-detail .dp-tab');}
+ catch(error){console.error('Bar graph startup:',await bar.locator('#status').textContent(),errors);throw error;}
+ assert.equal(await bar.locator('#preview').getAttribute('src'),null,'graph opens without loading an invisible game');
  await p.goto(url+'outside-dialogue-editor.html?flow=newspaper/intro');await p.waitForSelector('#node-detail .dp-tab');
  const box=async(page,sel)=>page.locator(sel).evaluate(e=>{const r=e.getBoundingClientRect();return [r.x,r.y,r.width,r.height].map(Math.round);});
  const same=async(which)=>{assert.deepEqual(await box(bar,'.studio-rail'),await box(p,'.studio-rail'));assert.deepEqual(await box(bar,'.rail-foot'),await box(p,'.rail-foot'));assert.deepEqual(await box(bar,which),await box(p,'#inspector'));};
@@ -16,6 +19,20 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  await p.locator('#view-script').click();await bar.locator('#line-mode').click();await same('#line-workspace #inspector');await p.locator('[data-category=source]').click();assert(await p.locator('[data-field="text.en"]').isVisible());assert(!(await p.locator('#node-detail [data-field="text.ko"]').isVisible()));
  await p.setViewportSize({width:600,height:780});assert(await p.locator('.pane-switch').isVisible());await p.locator('.pane-switch [data-pane=edit]').click();assert(await p.locator('#inspector').isVisible());assert(!(await p.locator('main>.workspace').isVisible()));await p.locator('.pane-switch [data-pane=preview]').click();assert(await p.locator('main>.workspace').isVisible());assert(!(await p.locator('#inspector').isVisible()));
  await p.setViewportSize({width:375,height:680});await p.locator('.pane-switch [data-pane=both]').click();assert(await p.locator('#inspector').isVisible());assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.equal(await p.locator('#dirty').textContent(),'수정 없음');assert.deepEqual(errors,[]);
+ // Recover from a disconnected local server and a transient static read without losing the edit.
+ await bar.route('**/api/dialogue-editor',r=>r.fulfill({status:503,body:'unavailable'}));
+ let indexReads=0;
+ await bar.route('**/data/shared-csv/system/table_index.csv',r=>++indexReads===1?r.abort('connectionreset'):r.continue());
+ await bar.goto(url+'dialogue-editor.html?view=lines');
+ await bar.locator('#line-list .line').nth(1).click();
+ const field=bar.locator('#inspector textarea[data-field="text.ko"]');
+ await field.fill('재연결 후에도 유지할 임시 대사');
+ assert.equal(indexReads,2);
+ assert(await bar.locator('#storage-warning').isVisible());
+ await bar.unroute('**/api/dialogue-editor');await bar.click('#reconnect-local');
+ await bar.waitForFunction(()=>window.dialogueEditor?.local);
+ assert.equal(await field.inputValue(),'재연결 후에도 유지할 임시 대사');
+ assert.deepEqual(errors,[]);
  console.log('OUTSIDE_WORKBENCH_UI_OK: rail and details match the bar in both modes, property filters, member selection, bounded node replay, search navigation, responsive panes.');}
  finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

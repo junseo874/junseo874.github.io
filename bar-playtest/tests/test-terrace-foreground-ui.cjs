@@ -2,16 +2,19 @@ const assert=require('node:assert/strict');
 const{load,chrome}=require('../../tools/lib/test-runtime.cjs');
 (async()=>{const b=await load('playwright').chromium.launch({executablePath:chrome,headless:true});try{const p=await b.newPage({viewport:{width:1280,height:720}});await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();await p.evaluate(async()=>{Object.assign(outsidePlaytest.config,{day:2,flow:'in',place:'home'});await outsidePlaytest.start();lunaCampaign.session.day=2;lunaCampaign.scene('night2','테라스','terrace',()=>{});});await p.waitForFunction(()=>!lunaCampaign.memoryTransition&&lunaCampaign.view==='scene');
  const style=await p.evaluate(()=>{lunaCampaign.dialog.chars=1e5;lunaCampaign.paintLine();const rain=document.querySelector('.terrace-rain'),bubble=document.querySelector('.terrace-speech'),r=bubble.getBoundingClientRect();rain.style.pointerEvents='auto';const front=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===rain;rain.style.pointerEvents='';return{front,pointer:getComputedStyle(rain).pointerEvents,clip:getComputedStyle(document.querySelector('.terrace-characters')).clipPath};});
- assert(style.front&&style.pointer==='none');assert.equal(style.clip,'inset(0px 65px 0px 0px)','Day 2 starts with Luna alone before the chip memory');
+ assert(style.front&&style.pointer==='none');assert.equal(style.clip,'inset(0px)','Day 2 opens on Luna and Chris together with the full engine sprite');
  await p.screenshot({path:'/private/tmp/terrace-foreground-fixed.png'});
- // Compare actor occlusion, not two different frames of animated refracted rain.
- // The optical canvas also contains a copy of the actors, so exclude both rain
- // layers while testing the original character layer's bottom clip.
+ // Sample a solid pixel of the actual engine-positioned rail, after the entrance pan settles.
+ await p.waitForFunction(()=>{const d=lunaCampaign.dialog;return d.terraceEntryTime>=(d.terraceEntryDuration||0);});
  await p.locator('.terrace-rain,.terrace-glass').evaluateAll(els=>els.forEach(el=>el.style.visibility='hidden'));
- const clip={x:320,y:528,width:180,height:16},visible=await p.screenshot({clip});
- await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='hidden');const hidden=await p.screenshot({clip});
- const sharp=load('sharp');assert((await sharp(visible).raw().toBuffer()).equals(await sharp(hidden).raw().toBuffer()),'Neither character draws feet over the balcony wall');
+ const clip=await p.evaluate(async()=>{const rail=document.querySelector('.terrace-balustrade'),actor=document.querySelector('.terrace-characters').getBoundingClientRect();
+  await rail.decode();const r=rail.getBoundingClientRect(),cv=document.createElement('canvas');cv.width=rail.naturalWidth;cv.height=rail.naturalHeight;
+  const ctx=cv.getContext('2d');ctx.drawImage(rail,0,0);const rgba=ctx.getImageData(0,0,cv.width,cv.height).data;
+  for(let y=1;y<cv.height-1;y++)for(let x=1;x<cv.width-1;x++){const px=Math.floor(r.x+(x+.5)*r.width/cv.width),py=Math.floor(r.y+(y+.5)*r.height/cv.height);
+   if(rgba[(y*cv.width+x)*4+3]===255&&px>actor.left+actor.width*.35&&px<actor.right-actor.width*.35&&py>actor.top&&py<actor.bottom)return{x:px,y:py,width:1,height:1};}throw Error('No opaque rail pixel inside the seated character layer');});
+ const visible=await p.screenshot({clip});await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='hidden');const hidden=await p.screenshot({clip});
+ const sharp=load('sharp');assert((await sharp(visible).raw().toBuffer()).equals(await sharp(hidden).raw().toBuffer()),'The solid railing remains in front of the seated characters');
  await p.locator('.terrace-characters').evaluate(el=>el.style.visibility='');await p.locator('.terrace-rain,.terrace-glass').evaluateAll(els=>els.forEach(el=>el.style.visibility=''));
  const index=await p.evaluate(()=>lunaCampaign.dialog.index);await p.locator('.terrace-speech').click();assert.equal(await p.evaluate(()=>lunaCampaign.dialog.index),index+1,'Foreground rain does not block dialogue clicks');
- console.log('PASS terrace foreground: both feet occluded by wall; rain above building and speech; dialogue remains clickable');
+ console.log('PASS terrace foreground: rail occludes the seated character layer; rain above speech; dialogue remains clickable');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

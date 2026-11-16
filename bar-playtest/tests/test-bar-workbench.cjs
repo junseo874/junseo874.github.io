@@ -2,7 +2,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
 const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../src/dev/dialogue-editor/editor-model.js'),F=require('../src/dev/dialogue-editor/flag-tools.js');
 (async()=>{
  const src=await snapshot(),m=await new Model(src.files,src.presentation).init(),p=await fs.mkdtemp(path.join(os.tmpdir(),'luna-workbench-')),base=path.join(p,'csv'),runtime=path.join(p,'runtime'),config={base,runtime,backupRoot:path.join(p,'backup')};
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.cp(path.join(__dirname,'../data/runtime'),runtime,{recursive:true});
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.cp(path.join(__dirname,'../data/runtime'),runtime,{recursive:true});
  const scenes=m.scenes,first=m.rows(scenes[0].id)[0],r=m.rows(scenes[1].id).find(r=>r.type==='say'),menu=m.rows(scenes[2].id).find(r=>r.type==='choice'),choice=m.choices(menu.arg)[0],check=()=>m.validate();
  const baseAudit=await check();assert.deepEqual(baseAudit.issues,[]);for(const s of scenes)for(const e of m.rows(s.id).filter(r=>r.entrance==='seated'))assert.equal(baseAudit.result.data.tables.steps.find(x=>x.row_id===e.web_row_id).entrance,'seated');
  for(const [field,value]of [['text.ko','<shake>안녕'],['lock_reason.ko','잠금 <color=#']]){const orig=choice[field];choice[field]=value;const a=await check();assert(a.issues.some(i=>i.choice===choice.row_id&&i.field===field&&i.severity==='error'));await assert.rejects(save({revision:src.revision,files:m.output()},config),/태그/);choice[field]=orig;}

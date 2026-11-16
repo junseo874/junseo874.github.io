@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
  const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/dialogue-editor.html?view=lines',id='tom_name_known';
  try{
   const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-flag-roundtrip-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
-  await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
+  await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
   await p.route('**/api/dialogue-editor',async r=>{try{await r.fulfill({json:r.request().method()==='POST'?await save(r.request().postDataJSON(),{base,runtime,backupRoot:path.join(tmp,'backup')}):{...await snapshot(base),mode:'local-csv',token:'fixture'}});}catch(e){await r.fulfill({status:409,json:{error:e.message}});}});await p.route('**/api/dialogue-editor/runtime',async r=>r.fulfill({json:await runtimeSnapshot(base)}));
   p.setDefaultTimeout(8000);p.on('pageerror',e=>errors.push(e.message));p.on('dialog',d=>d.accept());await p.goto(url);await p.waitForSelector('#flags-open:enabled');
   assert.deepEqual(await p.evaluate(()=>[
@@ -18,7 +18,16 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert.deepEqual(await p.evaluate(n=>LunaFlagPicker.style(n),id),{icon:'♥',color:'#e0a521'});
   await p.locator('#line-list .line').nth(3).click();const line=p.locator('.choice-rule').first(),choiceId=await line.getAttribute('data-choice-row');
   async function pick(scope,text,truth,query='톰',target=id){await scope.getByRole('button',{name:text,exact:true}).click();await p.fill('#fp-query','zz_no_such_flag');assert(await p.locator('#fp-true').isDisabled());await p.fill('#fp-query',query);const opt=p.locator('#fp-list [data-name="'+target+'"]');await opt.click();await p.click(truth?'#fp-true':'#fp-false');}
-  await line.getByRole('button',{name:'⚑ 플래그 조건 선택',exact:true}).click();await p.fill('#fp-query','새로운 대화 확인');await p.getByLabel('새 플래그 영문 ID').fill('studio_line_created');await p.locator('.fp-create').click();await p.click('#fp-false');assert((await line.locator('[data-field=when]').inputValue()).includes('!flag.studio_line_created'));assert(!(await line.locator('[data-field=effects]').inputValue()).includes('studio_line_created'));
+  await line.getByRole('button',{name:'⚑ 플래그 조건 선택',exact:true}).click();await p.fill('#fp-query','새로운 대화 확인');await p.getByLabel('새 플래그 영문 ID').fill('studio_line_created');await p.locator('.fp-create').click();
+  // The embedded game can finish loading while this modal owns the editable field.
+  await p.waitForFunction(()=>document.querySelector('#preview').contentWindow.barGame);
+  await p.evaluate(()=>new Promise(resolve=>{
+   const preview=document.querySelector('#preview').contentWindow;
+   function ready(e){if(e.source===preview&&e.data?.channel==='luna-dialogue-preview'&&e.data.type==='ready'){window.removeEventListener('message',ready);resolve();}}
+   window.addEventListener('message',ready);
+   preview.postMessage({channel:'luna-dialogue-editor',type:'hello'},location.origin);
+  }));
+  await p.click('#fp-false');assert((await line.locator('[data-field=when]').inputValue()).includes('!flag.studio_line_created'));assert(!(await line.locator('[data-field=effects]').inputValue()).includes('studio_line_created'));
   const effect=line.locator('[data-field=effects]'),when=line.locator('[data-field=when]');const fxTools=line.getByRole('group',{name:'효과 편집'}),whenTools=line.getByRole('group',{name:'조건 편집'});
   const priorEffects=await effect.inputValue(),withOriginal=v=>[priorEffects,v].filter(Boolean).join('; ');
   await fxTools.locator('[data-add-rule=money]').click();await fxTools.getByLabel('변경할 수치').fill('100');await fxTools.getByRole('button',{name:'⚑ 플래그 값 설정'}).click();await p.fill('#fp-query','studio_fixture');await p.locator('.fp-create').click();await p.click('#fp-true');

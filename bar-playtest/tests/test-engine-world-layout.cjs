@@ -59,7 +59,8 @@ function liftRun(down,fps){
  let cam=E.confine('street',{x:m.x+.2,y:m.y,w:4.8});const initial={...cam},samples=new Map();
  for(let i=0;i<=16*fps;i++){
   const t=i/fps;m.time=t;ride.time=t;m.elevatorY=ride.from+(ride.to-ride.from)*smooth((t-.45)/12);
-  m.y=m.elevatorY+R.passengerOffset;
+  const h=(m.elevatorY-R.elevatorBottom)/(R.elevatorTop-R.elevatorBottom);
+  m.y=-.7+h*(R.upperY+.7);
   if(t>=13.1){m.ride=null;m.y=down?-.7:R.upperY;}
   const next=E.liftCamera(m,cam);if(next)cam=next;
   if(i===0){near(cam.x,initial.x);near(cam.y,initial.y);near(cam.w,initial.w);}

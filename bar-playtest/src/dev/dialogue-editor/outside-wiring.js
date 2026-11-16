@@ -6,7 +6,7 @@ function install(Model){
  const p=Model.prototype,fresh=r=>r?.row_id?.startsWith('exterior_editor_'),generatedMenu=r=>fresh(r)&&r.type==='choice'&&r['web_fields.type']==='choice',blank=v=>!v||v==='\\N'||v==='\\E';
  p.optionJump=function(c){return c&&this.tables.steps.find(r=>r.parent_id===c.row_id&&r.type==='goto');};
  p.newspaperDest=function(r,c){if(r?.row_id!==this.projected?.data.newspaperRoutes.parent||!c?.row)return null;const native=c.route?.replace(/^native:/,''),choice=this.choices(r.row_id).find(o=>o.id===native);const jump=this.optionJump(choice);return jump&&this.flows.find(f=>['newspaper/wrong','newspaper/right'].includes(f.id)&&f.ref.scene===jump.scene_id)?.id;};
- p.routeScene=function(f){if(!f||f.campaign||f.onlyChoices||f.ref.branch||f.offset||f.id.startsWith('ambient/'))return false;
+ p.routeScene=function(f){if(!f||f.campaign||f.onlyChoices||f.ref.branch||f.offset||f.ref.scene==='home-book'||f.id.startsWith('ambient/'))return false;
   const native=this.tables.steps.filter(r=>r.parent_id===f.parent),visible=this.rows(f.id);return native.length===visible.length&&visible.length>0&&visible.every(r=>this.kind(r)==='say'&&r.type==='say'&&blank(r.when)&&blank(r.effects)&&!this.step(r).cinema);};
  p.safeJump=function(r){
   if(!r||r.type!=='goto'||r.template_id!=='steps_format_60'||r.parent_field!=='result_steps'||!blank(r.when)||!blank(r.effects))return false;

@@ -290,7 +290,7 @@ class Renderer{
   this.scene=this.texture();
   if(spriteOnly)return;
   this.reflection=this.texture();this.actor=this.texture();this.shadowFill=this.texture();this.buffers=[this.target(320,180),this.target(320,180),this.target(320,180)];
-  this.capture=document.createElement('canvas');this.capture.width=1280;this.capture.height=720;this.captureCtx=this.capture.getContext('2d');
+  this.capture=document.createElement('canvas');
  }
  texture(){const g=this.gl,t=g.createTexture();g.bindTexture(g.TEXTURE_2D,t);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_S,g.CLAMP_TO_EDGE);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_WRAP_T,g.CLAMP_TO_EDGE);return t;}
  target(w,h,display=false){const g=this.gl,t=this.texture(),f=g.createFramebuffer();g.texImage2D(g.TEXTURE_2D,0,!display&&this.floatBloom?g.RGBA16F:g.RGBA,w,h,0,g.RGBA,!display&&this.floatBloom?g.HALF_FLOAT:g.UNSIGNED_BYTE,null);if(display){g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.NEAREST);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.NEAREST);}g.bindFramebuffer(g.FRAMEBUFFER,f);g.framebufferTexture2D(g.FRAMEBUFFER,g.COLOR_ATTACHMENT0,g.TEXTURE_2D,t,0);return {t,f,w,h};}
@@ -338,33 +338,55 @@ class Renderer{
   this.use('fogField',this.fogBuffer);this.uniform('fieldOrigin',origin);this.uniform('area',area);this.uniform('density',[f.density,f.groundY,f.height,f.heightFalloff]);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('time',time);this.draw();
   this.use('fog');this.camera(cam);this.bind('fogGrid',1,this.fogBuffer.t);this.uniform('fieldOrigin',origin);this.uniform('noise',[f.noiseScale,f.noiseStrength,f.driftSpeed,ppu]);this.uniform('style',[f.lightInfluence,f.alphaSteps,f.edgeFade,0]);this.uniform('fogColor',f.color.map(linear));this.clip(box);this.draw();this.finishRegion(ctx,box);
  }
+ capturePuddleReflection(ctx,pool,reflectors){
+  // Copy at 1:1 physical pixels. A logical 1280x720 copy loses alternating
+  // fence texels as a Retina camera pans by half a logical pixel.
+  const {width:w,height:h}=ctx.canvas,cap=this.capture;
+  if(cap.width!==w)cap.width=w;if(cap.height!==h)cap.height=h;
+  if(ctx.gpu){
+   const rs=this.reflectionSurface??=new W.LunaStreetGpuSurface(this,cap),previous=rs.target;
+   rs.begin();
+   if(rs.target!==previous){
+    // Only the private reflection texture is filtered when the water reads it.
+    // Scene sprites, the source copy, the pool mask and ripples stay pixel-sharp.
+    const g=this.gl;g.bindTexture(g.TEXTURE_2D,rs.target.t);
+    g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MIN_FILTER,g.LINEAR);g.texParameteri(g.TEXTURE_2D,g.TEXTURE_MAG_FILTER,g.LINEAR);
+   }
+   rs.quad(ctx.gpu.target.t,[0,1,1,0],[[0,0],[w,0],[w,h],[0,h]],[1,1,1,1],[0,0,1,1],{mode:'source-over',smooth:false,clip:false});rs.flush();
+   rs.context.setTransform(w/1280,0,0,h/720,0,0);reflectors(rs.context,pool);rs.flush();
+   return rs.target.t;
+  }
+  const c=this.captureCtx??=cap.getContext('2d');
+  c.save();
+  try{
+   c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,w,h);c.drawImage(ctx.canvas,0,0);
+   c.setTransform(w/1280,0,0,h/720,0,0);reflectors(c,pool);
+  }finally{c.restore();}
+  this.upload(this.reflection,cap);return this.reflection;
+ }
  puddles(ctx,cam,pools,rippleData,reflectors){
   const visible=pools.map(p=>({p,box:this.bounds(cam,[p.x-p.width/2,p.y-p.height/2,p.x+p.width/2,p.y+p.height/2],ctx.canvas)})).filter(v=>v.box);if(!visible.length)return;
-  this.input(ctx);let c=this.captureCtx;let capturePlane=null;
+  this.input(ctx);let capturePlane=null,reflection=this.reflection;
   this.use('puddle');const g=this.gl;const x=Math.min(...visible.map(v=>v.box[0])),y=Math.min(...visible.map(v=>v.box[1]));const box=[x,y,Math.max(...visible.map(v=>v.box[0]+v.box[2]))-x,Math.max(...visible.map(v=>v.box[1]+v.box[3]))-y];this.clip(box);this.camera(cam);this.bind('reflection',1,this.reflection);
   this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
   for(const {p,box} of visible){
    const key=p.line+':'+p.reflectionCompression;
    if(capturePlane!==key){
     capturePlane=key;
-    if(ctx.gpu){
-     this.reflectionSurface??=new W.LunaStreetGpuSurface(this,this.capture);const rs=this.reflectionSurface;rs.begin();
-     const tex=ctx.gpu.target.t;rs.quad(tex,[0,1,1,0],[[0,0],[1280,0],[1280,720],[0,720]],[1,1,1,1],[0,0,1,1],{mode:'source-over',smooth:false,clip:false});rs.flush();
-     c=rs.context;c.setTransform(1,0,0,1,0,0);reflectors(c,p);rs.flush();
-    }else{c.clearRect(0,0,1280,720);c.drawImage(ctx.canvas,0,0,1280,720);reflectors(c,p);this.upload(this.reflection,this.capture);}
-    this.use('puddle');g.enable(g.SCISSOR_TEST);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);
+    reflection=this.capturePuddleReflection(ctx,p,reflectors);
+    this.use('puddle');g.enable(g.SCISSOR_TEST);this.bind('reflection',1,reflection);
    }
    this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
    if(this.floatBloom){
     const width=Math.max(1,Math.ceil(p.width*p.pixelsPerUnit)),height=Math.max(1,Math.ceil(p.height*p.pixelsPerUnit));
     this.waterFields??=new Map();const key=width+':'+height;let field=this.waterFields.get(key);
     if(!field){field=this.target(width,height);this.waterFields.set(key,field);}
-    this.use('puddleField',field);this.camera(cam);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);
+    this.use('puddleField',field);this.camera(cam);this.bind('reflection',1,reflection);
     this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
     this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);this.uniform('shape',[p.outline,p.seed%997,p.edgeBreakup,p.rippleBrightness]);this.uniform('distortion',p.distortionPixels);this.uniform('rippleSpeed',p.rippleRadius/1.25);
     g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.clearColor(0,0,0,0);g.clear(g.COLOR_BUFFER_BIT);this.draw();
     this.use('puddleComposite');this.camera(cam);this.bind('waterField',1,field.t);this.uniform('area',[p.x,p.y,p.width,p.height]);this.uniform('surface',[p.line,p.reflectionCompression,p.pixelsPerUnit,p.opacity]);g.enable(g.SCISSOR_TEST);g.scissor(...box);this.draw();
-    this.use('puddle');this.camera(cam);this.bind('reflection',1,ctx.gpu?this.reflectionSurface.target.t:this.reflection);this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
+    this.use('puddle');this.camera(cam);this.bind('reflection',1,reflection);this.uniform('tint',W.LUNA_STREET_ATMOSPHERE.tint.map(linear));this.uniform('waterColor',W.LUNA_STREET_ATMOSPHERE.waterColor.map(linear));
    }else{g.uniform4fv(this.location('ripples[0]'),rippleData(p));g.scissor(...box);this.draw();}
   }this.finishRegion(ctx,box);
  }

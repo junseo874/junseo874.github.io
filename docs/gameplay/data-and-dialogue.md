@@ -52,7 +52,7 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 
 2026-11-07 사용자 확정: 신규 데이터·이벤트도 현재 엔진의 기존 표·열·필드 타입·명령 타입·조건/효과 문법만 사용한다. 내용 행은 추가할 수 있지만 데이터 계약을 임의로 확장하지 않는다. 기존 구조로 같은 기능을 구현할 수 없으면 한계·최소 변경안·플레이 영향을 사용자에게 설명하고 명시적 승인을 받은 뒤 진행한다. 별도 JSON이나 `web_fields`에 게임 규칙을 숨기는 우회도 금지한다. 미지원 기능을 삭제하거나 다른 의미의 플래그로 대체해 검사를 통과시키지 않는다.
 
-`node tools/check-engine-data-contract.cjs`는 실제 로컬 엔진의 메타데이터·명령 처리 코드를 읽기 전용으로 대조한다. 현재 44개 표·37개 데이터셋·1,664개 스텝에서 엔진에 없는 표/열/템플릿이나 미지원 명령 이름은 발견되지 않았다. `script/qa/street_day99`는 기존 거리형 QA 데이터이며 바 실행기로 판정하지 않는다. 로더 등록 여부와 실제 씬 연결은 별도 검증 대상이다.
+`node tools/check-engine-data-contract.cjs`는 실제 로컬 엔진의 메타데이터·명령 처리 코드를 읽기 전용으로 대조한다. 기준은 CSV 48개(콘텐츠 표 44개와 구조 설명 4개), 데이터셋 38개다. 검사 결과의 `steps`는 현재 대본의 줄 수다. 엔진에 등록된 묶음이 빠진 경우, 집 상호작용의 대본·TV 선택지·방송 화자가 어긋난 경우도 오류로 보고한다. `script/ambient`와 `script/qa/street_day99`는 바가 아닌 외부 대사 형식이다. 파일을 읽는 것과 실제 씬에 화자가 배치되어 재생되는 것은 별도로 검사한다.
 
 2026-11-07 사용자 요청으로 웹 공용 대본의 미사용 자판기 장면 2개·스텝 5개를 삭제했다. QA99의 `reputation += 1`과 해당 선택지·결과 대사의 평판 증가 안내도 제거했다. 같은 선택지의 돈 +100·포트 호감 +2·완료 플래그는 유지한다. 엔진 원본 CSV는 수정하지 않는다.
 
@@ -61,21 +61,22 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 #### 실행 지원 확인·승인 대기 (구조 오류와 구분)
 
 - 엔진 원본에도 같은 값이 있는 미지원 표현 14건: 엔딩 `alive.haru`, 주문 규칙 3건/취향 10건의 `cocktail.id/abv/tag`. 실제 `ConditionUtil` 검사에서 지원되지 않는다. 의미를 유지할 수 있는 기존 대체 문법이 확인되지 않아 변경하지 않았다.
-- 신문 NPC·기신교 신도의 `effect`는 기존 플래그 변경까지 엔진에서 지원한다. `arg=gear_part/machine_church_emblem`만으로 웹의 인벤토리 증가와 획득 알림까지 실행하지 않는다. 기어의 `flag.has_gear_part`는 엔진 수리 조건에 연결돼 있다. 알림의 기존 `popup` 명령 지원과 실제 아이템 지급은 별개이며, 전체 보상 동등성은 승인 없이 해결된 것으로 간주하지 않는다.
+- 신문 NPC의 기어와 기신교 신도의 엠블럼은 기존 `popup / event_occurred` 줄에서 획득 알림과 수령 플래그를 함께 처리한다. 기어의 `flag.has_gear_part`는 수리 조건에 사용한다. 획득 알림 자체가 인벤토리 수량을 증가시키지는 않는다.
 - 2일차 바 `kihyun_campaign_d2_bar_93`: CSV `effect`의 `flag.day2_luna_left` 변경은 지원한다. 웹의 `web_type=story_cue`로 실행하는 0.9초 전환 대기는 바 엔진 실행기에 대응하지 않는다. 외부의 `DoorCue` 지원을 바 대본 지원으로 혼동하지 않는다. 대기 연출을 삭제하거나 새 명령을 만들지 않고 보류한다.
 - 편집기에서 기존 C# 사건 처리기가 구성하는 메뉴를 웹 전용 활성 목록/분기로 덮는 경우도 동일성 검증 전에는 저장하지 않는다. 기본 대사는 삭제하지 않으며 미지원 초안도 임의로 다른 행동으로 치환하지 않는다.
 
 ### 주변 자동 대화 · 기존 엔진 구조 사용
 
-주변 대화 7개(행인·주민 5개, TV 뉴스 2개)는 별도 `script/ambient` 묶음을 사용하지 않는다. 거리 대사는 `script/street`, TV 뉴스는 `script/home`의 `scenes → steps`에 들어 있다. `interaction/interact_points.csv`의 `activation_mode=proximity`, `action_type=dialogue`와 `dialogue_flows.csv`의 `scene_id`로 연결한다. 새 명령 타입이나 Unity 로더는 필요 없다.
+주변 대화 7개(행인·주민 5개, TV 뉴스 2개)는 엔진과 같은 `script/ambient → scenes → steps`에 **한 번만** 저장한다. 장면의 `trigger=manual`은 대본 스스로 시작하지 않는다는 뜻이다. 실제 시작은 거리 또는 집의 `interact_points`에서 `activation_mode=proximity`, `action_type=dialogue`인 대상과 해당 `dialogue_flows.scene_id`가 맡는다. 삼호와 밀수업자의 강제 이벤트·수배 전단은 이 일곱 장면이 아니다.
 
 - `phase`, `spawn_when`, flow의 `day/when`이 일차·출퇴근 조건의 정본이다. 웹도 이 값을 투영한 `LUNA_DATA.outsideAmbient`로 조건을 검사한다. `web-views.json.outside`의 `ambient/…`는 편집기 분류/웹 조회 키일 뿐 별도 CSV 데이터셋이 아니다.
 - 행인·주민은 `play_type=once`(씬 방문당 한 번), TV는 `repeat`(범위 재진입 시 재생)다. 영구 완료 플래그는 추가하지 않는다. 대사·순서·`dialogue_id`·행 ID는 유지했다.
-- TV는 기존 엔진 `source_id=home_tv`에 연결한다. `p_home_tv_morning`은 최신 1일차 뉴스를 가리키며, 0일차 퇴근 뉴스는 같은 source의 별도 조건 행이다. 화자도 기존 Home 씬의 `tv_announcer`를 사용한다. 웹 화면 앵커 `tv`로의 이름 변환은 표현 어댑터만 담당한다.
+- TV 전원은 `home_tv / p_home_tv_manual`의 **system** 상호작용이다. `home_tv_menu`의 `watch/off/cancel`을 읽는다. 웹 버튼의 기존 확인 키 `confirm`은 이 메뉴의 `watch`와 같다. 주변 방송은 별도 대상 `home_tv_broadcast`와 화자 `tv`를 사용한다. `p_home_tv_evening`은 0일차 퇴근, `p_home_tv_morning`은 1일차 출근이다. 비활성 옛 방송을 다른 날의 시청 프로그램으로 연결하지 않는다.
+- 집의 침대·옷장·책은 각각 `home_bed / home_wardrobe / home_book`에서 `home-bed / home-wardrobe / home-book`으로 연결한다. 옷장은 안내 대사 → 선택 명령 두 줄이며, 웹은 같은 안내와 버튼을 한 화면에 표시한다. 책 표지 아래 설명도 `home-book`의 대사를 사용한다.
 - 거리 그룹의 `source_id`는 각 대화 장면 ID와 같다. 엔진 씬에는 기존 `WorldInteractionContent`의 source ID, `WorldInteractionTarget`의 SpeechBubble 출력, `WorldDialogueSpeakers`의 각 `steps.actor` 앵커를 연결한다. CSV는 씬 오브젝트를 생성하지 않는다. 위치·감지 반경은 엔진 씬 Transform/Target이 소유한다.
-- 웹의 TV 전원/취소 상태, 복도 주민의 엘리베이터 이동 중 화면 노출 확인, 말풍선 배치는 기존 표현 코드에 남는다. 이 CSV 통합은 해당 연출까지 엔진에 새로 구현했다는 뜻이 아니다. 엔진의 기본 proximity로 대본을 재생할 수 있게 연결한 것이다.
+- 웹의 TV 전원/취소 상태, 복도 주민의 엘리베이터 이동 중 화면 노출 확인, 말풍선 배치는 기존 표현 코드에 남는다. 현재 Unity의 `CompileHome`은 집 방송만 읽는다. 거리에서 나머지 다섯 장면을 재생하려면 거리 조회 목록에도 공개하고, 실제 그룹·화자 오브젝트를 연결해야 한다.
 
-검증: `test-ambient-native-csv.cjs`. 대사 편집기의 기존 그룹과 로컬 저장도 같은 거리·집 원본을 사용한다.
+검증: `test-ambient-native-csv.cjs`, `test-outside-dialogue-editor.cjs`, `test-home-tv-power-ui.cjs`. 일곱 대사는 편집기와 본편 모두 같은 `script/ambient` 원본을 사용한다.
 
 ### 엔진 CSV와 동일한 기준본
 
@@ -88,6 +89,8 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 2026-11-08 사용자 요청으로 엔진 원본에서 넘어왔지만 웹에 연결되지 않은 칵테일 15개·재료 14개와 그 자식 레시피 42행·태그 41행을 삭제했다. 이어 롱아일랜드도 99일차 검수용을 포함해 삭제했다(칵테일 1행·레시피 5행·태그 2행). `craft/cocktails.csv`, `shelf_items.csv`, `recipes.csv`, `cocktail_tags.csv`에는 `web-views.json`에서 실제 사용하는 행만 둔다. 현재 칵테일 13개, 선반 항목 30개(재료 22개·잔 6개·도구 2개), 레시피 25행, 태그 28행이다. 럼·콜라는 웹 선반/자유 제조 재료로 남아 있으며 현재 지정 레시피에는 사용하지 않는다. CSV 구조·열·타입·남은 ID와 값은 변경하지 않았다. 엔진 파일은 수정하지 않았으므로 엔진과 내용 행 차이가 나는 것은 의도된 상태다. 엔진 데이터를 다시 복사하며 미사용 항목을 복구하지 않는다. `test-shared-data-projection.cjs`가 웹 목록과 CSV의 일치 및 레시피·재료·잔 연결을 검사한다.
 
 ### 컷씬 등록 CSV 정리
+
+0일차 새 게임의 **‘마지막 부탁’ → 기상 → 크리스 통화**는 오프닝 타임라인에서 재생한다. 외부 편집기에 ‘도입 · 무전’으로 노출되던 것은 별개의 옛 연구소 습격 대본이었다. 이 대본은 웹 장면·대사 CSV에서 제거했다. 엔진의 오프닝 호출 `tl_intro`와 다른 방송 대사 데이터는 삭제 대상이 아니다.
 
 **제작 기준 정정 (2026-11-08):** 웹의 화면 분류/직접 ID 참조 여부만으로 엔진 타임라인 필요 여부를 판단하지 않는다. 컷씬 확인 탭은 독립 도입부, 0일차 TV 다큐, 유나 첫 회상, 조니 제조 회상, 유나 마지막 회상 5개만 표시한다. 도입 미리보기는 집 배경 진입 직전 종료하며 본편의 기상·통화는 변경하지 않는다. 테라스 대화·기상·부비·수리는 시스템 연출이며 이 탭에서 제외한다. 아래 삭제 기록은 당시 웹 참조 기준의 정리 이력이지 엔진 제작 목록이 아니다. 엔진 `NewGameOpening`이 호출하는 `tl_intro`의 웹 CSV 등록은 아래 후속 작업에서 복구했으며 실제 에셋 연결 검증은 남아 있다. 유나 두 회상은 현재 엔진이 `memoryKey`보다 ID 에셋 조회를 우선하므로 별도 ID 또는 에셋 조회 분기가 필요하다. 엔진 파일은 수정하지 않았으며 웹 CSV 후속 변경과 보류 사항은 아래를 따른다.
 
@@ -210,22 +213,16 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 
 3일차 최신 원고에는 삼호의 음료 주문과 취한 대사가 없다. 따라서 그 주문·코스터·빈잔 행을 제거하고 기본 표정을 유지한다. 표정 기능 자체를 제거한 것은 아니다. 기존 엔진과 같은 `say`의 `actor`·`arg`로 표정을 지정하며, `arg=drunk`는 여전히 지원된다. 별도 `expression` 타입은 사용하지 않는다. 음료 수령이나 일반 손님의 `DRINKING` 상태만으로 표정을 임의 변경하지 않는다.
 
-기존 색상·흔들림·이름·주문 태그와 테라스 강조 표시를 유지했다. 기존 행은 가능한 범위에서 ID를 보존하며 새 대사는 고유 ID를 부여한다. `test-notion-daily-dialogue.cjs`는 원고 80개 흐름과 효과 태그 26줄을 비교하고, `test-latest-story-timings.cjs`는 0~3일차 양쪽 분기·코스터·빈잔·중복 정산 방지를 실행 검증한다. 영어 번역은 이번 동기화 범위가 아니며 기존 번역은 보존한다.
+기존 색상·흔들림·이름·주문 태그와 테라스 강조 표시를 유지했다. 기존 행은 가능한 범위에서 ID를 보존하며 새 대사는 고유 ID를 부여한다. `test-notion-daily-dialogue.cjs`는 바 내부 원고와 유지할 효과 태그를 확인하고, `test-latest-story-timings.cjs`는 0~3일차 양쪽 분기·코스터·빈잔·중복 정산 방지를 실행 검증한다. 영어 번역은 이번 동기화 범위가 아니며 기존 번역은 보존한다.
 
 ## 실제 예제 1 옷장
 
 원본 장면은 `Scenes`의 `id=home-wardrobe`, `dataset_id=script/home`, `row_id=shared_home_wardrobe`이다. `Steps`에서 `parent_id=shared_home_wardrobe`인 행이 대사를 담는다.
 
-그 행의 주요 값:
-
-```text
-type                  choice
-actor                 luna
-text.ko               기능을 알 수 없는 버튼이 보인다.
-web_fields.type       home-choice
-web_fields.stage      wardrobe
-web_core_keys         actor|text
-```
+| 순서 | 원본 행 | 내용 |
+| --- | --- | --- |
+| 1 | `shared_home_wardrobe_prompt` · `say` | 루나: 기능을 알 수 없는 버튼이 보인다. 문구를 수정할 곳이다. |
+| 2 | `shared_home_wardrobe_choice` · `choice` | 대사는 비워 둔다. `web_fields.type=home-choice`, `web_fields.stage=wardrobe`로 ‘누른다 / 취소’가 열린다. |
 
 `web-views.json`의 실제 연결:
 
@@ -286,13 +283,13 @@ web_core_keys         actor|text
 
 ## 안전한 변경 순서
 
-### 일차별 원고 동기화 · 2026-11-13
+### 대사 원본 구분 · 2026-11-16
 
-[최신본 0~3일차](https://app.notion.com/p/3ef1612298dc8016864be134bcc832e8)를 이번 대사의 기준으로 삼았다. 이전 별도 외부 원고와 겹치는 부분은 최신 일차별 문구를 사용한다. TV 다큐는 33줄이며 노이즈·자동 진행·통화 선택·연출 타이밍은 유지한다. 노션의 연출 설명은 말풍선에 섞지 않는다. `…`는 기존 출력 규칙에 맞춰 `...`로 저장한다.
+바 내부는 [일차별 최신본](https://app.notion.com/p/3ef1612298dc8016864be134bcc832e8), 거리·집·테라스와 연결 회상은 [외부 이벤트 원고](https://app.notion.com/p/4071612298dc8078bfe4c1a003995248)를 따른다. 외부 원고의 장면별 화자·행 순서와 선택 후 응답이 기준이며, 연출 지시는 말풍선에 넣지 않는다. 말줄임표는 게임의 출력 간격을 유지하도록 `...`로 저장한다. TV에서 선택해 보는 다큐는 32줄이며 TV 전원·시청 조작과 다큐 연출은 유지한다.
 
-2일차 테라스는 루나 혼잣말 두 줄 → 조니 기억 39줄 → 크리스 합류와 기존 구매처 선택 → 공통 마무리다. 첫 두 줄의 `stage=luna-alone`, 두 번째 줄의 `cinemaAfter=johnny-memory`, 기존 선택 그룹 `ch_night2_1`을 사용한다. 0일차는 17번째 대사 뒤 첫 유나 기억, 3일차는 9번째 대사 뒤 마지막 유나 기억이다. 조니 기억에는 톰이 처음부터 있으며 “한 번 마셔보게.”부터 제공된 잔을 표시한다.
+0일차 테라스의 14번째 대사에서 첫 유나 기억, 2일차 12번째에서 조니 기억, 3일차 8번째에서 마지막 유나 기억으로 들어간다. 2일차에는 재료 구매처를 고르지 않는다. 조니 기억은 56줄로 톰은 두 번째 줄에 등장하고 13번째 “자. 여기.”부터 제공된 잔을 표시한다. 개시바 구매·거절·용돈·퀴즈 결과는 본편과 외부 편집기가 같은 CSV 행을 사용한다. 신문 NPC의 기어·신도의 엠블럼은 기존 획득 지점에서 지급하고, 작업장 막간·구형 TV 시청 분기 등 보관 장면을 본편에 연결하지 않는다.
 
-이번 원고에 없는 신문 NPC·기신교 신도, 외부 등장 조건·지급 기록·입력 잠금은 유지한다. 노션 자체는 수정하지 않았다. `test-exterior-notion-sync.cjs`는 기존 외부/회상 범위의 텍스트·액션을 검증하고, `test-notion-daily-dialogue.cjs`는 최신 일차별 본문과 기존 텍스트 효과를 별도로 대조한다. CSV 열·명령 타입·조건/효과 문법은 그대로이며 Unity 파일은 수정하지 않는다.
+`test-exterior-notion-sync.cjs`는 69개 원고 표의 화자·대사·순서와 선택 결과, 회상 연결을 검증한다. `test-notion-daily-dialogue.cjs`는 바 내부 대본과 기존 효과를 별도로 검사한다. 엔진용 CSV 열·명령 타입은 바꾸지 않았다.
 
 1. 본편에서 대상 장면을 확인하고 [사건 목록](events.md)에서 실행 담당을 찾는다.
 2. 해당 키를 `web-views.json`에서 찾아 `source` / `scene` / 필요 시 `branch`를 확인한다.

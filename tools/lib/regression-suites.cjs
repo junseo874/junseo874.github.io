@@ -9,7 +9,7 @@ module.exports = {
     test-dialogue-periods-ui test-shared-data-ui
   `),
   smoke: group(`
-    test-outside-graph-index test-outside-dialogue-editor test-outside-studio
+    test-independent-nodes test-node-preview-routes test-outside-flow-days test-outside-graph-index test-outside-dialogue-editor test-outside-studio
     @tools/check-web-generated-art.cjs @tools/build-generated-ui-css.cjs
     @tools/check-engine-art-sync.cjs @tools/check-art-resource-paths.cjs
     test-shared-birds-and-bar-gates test-day3-notion-script test-latest-story-timings
@@ -27,11 +27,11 @@ module.exports = {
     test_current_serve_sheets_ui test-resource-preview-paths-ui
   `),
   ui: group(`
-    test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
+    test-outside-flow-days-ui test-manual-node-preview-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
     test-dialogue-live-data-ui test-resource-current-artwork-ui test-story-service-entry-ui
     test-loading-pigeon-ui test-bar-choice-hold-clock test-generated-art-ui
     test-guest-arrival-speech-ui test-guest-appearance-tab-ui test-endless-general-ui
-    test-guest-random-appearance-ui test-bar-flow-editor-ui test-bar-authoring-studio-ui
+    test-independent-nodes-ui test-guest-random-appearance-ui test-bar-flow-editor-ui test-bar-authoring-studio-ui
     test-line-workspace-ui test-bar-workbench-ui test-bar-flag-picker-ui test-bar-pin-inspector-ui
     test-bar-node-details-ui test-choice-live-text-ui test-day3-samho-expression-ui
     test-sound-lab-ui test-november-resource-refresh-ui test-bar-qa-dialogue-ui
@@ -47,7 +47,7 @@ module.exports = {
     test-settings-resume-ui test-lift-lock-recipe-escape-ui test-dialogue-native-font-ui
   `),
   outside: group(`
-    test-scene-draw-lists test-street-water-grid-ui test-street-render-budget
+    test-scene-draw-lists test-street-water-grid-ui test-street-reflection-pan-ui test-street-seated-placement-ui test-street-render-budget
     test-street-gpu-surface-ui test-street-effect-composition-ui test-street-buffer-reuse-ui
     test-street-rain-shared-gpu-ui test-rain-merge-equivalence test-engine-world-layout
     test-engine-world-layout-ui test-ambient-native-csv test-home-tv-power-ui

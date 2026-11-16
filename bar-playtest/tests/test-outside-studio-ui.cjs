@@ -5,7 +5,7 @@ const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-stora
 const baseURL=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
 (async()=>{
  const original=await snapshot(),tmp=await fs.mkdtemp(path.join(os.tmpdir(),'outside-studio-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime'),backupRoot=path.join(tmp,'backups');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);
  for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
  const browser=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
  try{const c=await browser.newContext({viewport:{width:1420,height:900}}),errors=[],saves=[];
@@ -21,7 +21,7 @@ const baseURL=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/'
  const menu=p.locator('.street-card.choice').first();await menu.locator('[data-port="0"]').click();
  await p.locator('.link-target').filter({has:p.locator('.node-head small',{hasText:'정답 분기'})}).getByRole('button',{name:'선택한 분기를 이 흐름에 연결'}).click();
  assert.equal(await p.evaluate(()=>{const m=outsideDialogueEditor.model,q=m.row(m.projected.data.newspaperRoutes.parent);return m.optionJump(m.menu(q)[0].row).scene_id;}),'shared-newspaper-right');
- await p.locator('#undo').click();await p.evaluate(()=>outsideDialogueEditor.openFlow('newspaper/intro'));await menu.locator('[data-act=preview]').click();assert(await p.locator('#stage-dialog').isVisible());await p.waitForTimeout(650);await p.locator('#stage-dialog #preview-choices button').nth(1).click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');
+ await p.locator('#undo').click();await p.evaluate(()=>outsideDialogueEditor.openFlow('newspaper/intro'));await menu.locator('[data-act=preview]').click();assert(await p.locator('#stage-dialog').isVisible());await p.waitForTimeout(650);await p.locator('#stage-dialog #preview-choices button').nth(1).click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/intro');await p.locator('#stage-next-node').click();await p.locator('#preview-branch-picker [data-branch][data-selected=true]').click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');
  await p.screenshot({path:path.join(tmp,'dialogue-preview.png')});await p.keyboard.press('Escape');assert(!(await p.locator('#stage-dialog').isVisible()));
  await p.evaluate(()=>outsideDialogueEditor.openFlow('believer/intro'));await p.locator('#place-npc').click();await p.waitForFunction(()=>document.querySelector('#map-status').textContent.includes('발 위치 보정'));
  const originalX=Number(await p.locator('#place-x').inputValue());await p.locator('#place-x').fill('999');await p.locator('#place-x').press('Tab');assert.equal(await p.locator('#place-x').inputValue(),'5.95');await p.locator('#cancel-placement').click();assert.equal(await p.locator('#dirty').textContent(),'수정 없음');

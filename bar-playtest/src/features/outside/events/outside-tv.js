@@ -27,13 +27,20 @@ function open(m){
  m.dialog={kind:'tv',key:'tv:'+ ++m.revision};m.anim='idle';m.animTime=0;
  W.outsidePlaytest?.clearInput();m.updateNear();return true;
 }
-function choiceView(m){return {key:m.dialog.key,label:'TV',options:[
- {id:'confirm',label:'본다',disabled:!programme(m),disabledReason:'볼만한 방송이 없습니다.'},
- {id:'off',label:'끈다'},{id:'cancel',label:'취소'}
-]};}
+function choiceView(m){
+ const progress=W.barGame?.progress||{},ctx={...progress,day:m.config.day,flags:progress.flags||{},affinity:progress.affinity||{}};
+ const options=W.LUNA_DATA.outsideChoices.filter(r=>r.menu==='home_tv_menu').sort((a,b)=>a.order-b.order).map(r=>{
+  const watch=r.id==='watch',item={id:watch?'confirm':r.id,label:r['text.ko']};
+  if(watch||r.when){item.disabled=!!((watch&&!programme(m))||(r.when&&!W.LunaCore.condition(r.when,ctx)));item.disabledReason=r['lock_reason.ko'];}
+  return item;
+ });
+ return {key:m.dialog.key,label:'TV',options};
+}
 function choose(m,id){
- if(m.paused||m.dialog?.kind!=='tv'||!['confirm','off','cancel'].includes(id))return false;
- const p=programme(m);if(id==='confirm'&&!p)return false;
+ if(m.paused||m.dialog?.kind!=='tv')return false;
+ const option=choiceView(m).options.find(o=>o.id===id);
+ if(!option||option.disabled)return false;
+ const p=programme(m);
  m.dialog=null;m.revision++;W.outsidePlaytest?.clearInput();
  if(id==='off'){m.tvOff=true;clearBroadcast(m);}
  m.updateNear();if(id==='confirm')p.play(m);return true;

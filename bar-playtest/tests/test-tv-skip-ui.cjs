@@ -25,6 +25,9 @@ const runtime = require('../../tools/lib/test-runtime.cjs');
     await page.waitForTimeout(550);
     await page.locator('.world-choices [data-choice="confirm"]').click();
     await page.waitForFunction(() => lunaCampaign.cinema?.dialogueWait && !lunaCampaign.memoryTransition, null, {timeout: 60000});
+    const narration = require('../../cutscene-studio/data/opening-dialogue.json').tv;
+    assert.equal(narration.length, 32);
+    assert.deepEqual(await page.evaluate(() => lunaCampaign.cinema.scene.clips.filter(c => c.track === 'tv-lines').map(c => c.text)), narration);
     assert(await page.evaluate(() => lunaCampaign.canSkipCinema()));
     // Scanline pixels must move while the actual caption/image timeline waits.
     const frame = () => page.evaluate(() => {

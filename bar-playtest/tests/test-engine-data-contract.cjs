@@ -32,6 +32,12 @@ const {engineExpressionErrors}=require('../src/dev/dialogue-editor/editor-model.
  assert.equal(entry('street-believer',1,'commute_out',{believer_conversation_done:true}),undefined);
  assert.equal(entry('home_tv',0,'commute_out'),'home_tv_cutscene');
  assert.equal(entry('home_tv_broadcast',0,'commute_out'),'outside_day0_tv_news1');
+ assert.equal(entry('home_tv_broadcast',1,'commute_in'),'outside_day1_tv_news2');
+ for(const id of ['bed','wardrobe','book'])assert.equal(entry('home_'+id,0,'commute_in'),'home-'+id);
+ assert.equal(points.find(p=>p.id==='p_home_tv_manual').action_type,'system');
+ const tvScript=s.files['story/steps.csv'].replace(/("outside_day0_tv_news1","1","say",)"tv"/,'$1"tv_announcer"');
+ assert.notEqual(tvScript,s.files['story/steps.csv']);
+ const badTv=await audit({read:p=>Promise.resolve(p==='story/steps.csv'?tvScript:s.files[p])});assert(badTv.errors.some(e=>e.row==='outside_day0_tv_news1#1'&&e.reason.includes('화자')));
  assert.equal(parseRows(qaFile).find(r=>r.id==='p_qa_pure_display').action_type,'none');
  const invalidQA=qaFile.replace(/("p_qa_pure_display"[^\n]*?)"none"/,'$1"broken_type"');
  const invalid=await audit({read:p=>Promise.resolve(p===interactionFile?invalidQA:s.files[p])});

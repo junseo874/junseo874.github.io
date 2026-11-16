@@ -4,6 +4,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),crypto=require('n
 const {load}=require('../bar-playtest/src/shared/data/csv-catalog.js');
 const {Model,paths}=require('../bar-playtest/src/dev/dialogue-editor/editor-model.js');
 const Days=require('../bar-playtest/src/dev/dialogue-editor/flow-days.js');
+const Nodes=require('../bar-playtest/src/dev/dialogue-editor/outside-node-authoring.js');
 const Exterior=require('../bar-playtest/src/dev/dialogue-editor/outside-model.js');
 const {generate}=require('./build-shared-data.cjs');
 const ROOT=path.resolve(__dirname,'..'),BASE=path.join(ROOT,'bar-playtest/data/shared-csv');
@@ -24,7 +25,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  if(!input.files||Array.isArray(input.files)||Object.keys(input.files).some(p=>!allow.has(p)||typeof input.files[p]!=='string'))throw Error('허용되지 않은 저장 파일입니다.');
  const files={...original.files,...input.files},model=await new (exterior?Exterior.Model:Model)(original.files,original.presentation).init();
  const exteriorIds=exterior?new Set(model.flows.flatMap(f=>model.rows(f.id).map(r=>r.row_id))):null;
- if(exterior)for(const r of model.tables.steps)if(model.safeJump(r))exteriorIds.add(r.row_id);
+ if(exterior)for(const r of model.tables.steps)if(model.safeJump(r)||Nodes.isLink(r)||r.row_id.startsWith('exterior_editor_visit_'))exteriorIds.add(r.row_id);
  const choiceIds=exterior?new Set(model.flows.flatMap(f=>model.rows(f.id).flatMap(r=>model.choices(r.row_id).filter(c=>Object.hasOwn(f.links,c.id)).map(c=>c.row_id)))):null;
  if(exterior)for(const r of model.tables.street_choices)if(model.nativeOption(r)||Object.values(model.views.outsideChoiceEdits||{}).some(c=>c.stepId===r.parent_id))choiceIds.add(r.row_id);
  for(const [table,p]of Object.entries(activePaths))model.tables[table]=require('../bar-playtest/src/shared/data/csv-catalog.js').parseRows(files[p],p);
@@ -33,8 +34,8 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  const validation=await model.validate();if(validation.errors.length)throw Error(validation.errors.join('\n'));
  // This API is a scoped dialogue editor, not an arbitrary CSV writer.
  for(const table of Object.keys(activePaths)){
-  if(!exterior&&Days.paths[table])continue; // Verified by canonical, append-only day registration below.
-  const permitted=r=>exterior?(table==='steps'?(exteriorIds.has(r.row_id)||model.safeJump(r)||r.row_id.startsWith('exterior_editor_')&&model.flows.some(f=>f.parent===r.parent_id&&!f.onlyChoices)):choiceIds.has(r.row_id)||r.row_id.startsWith('exterior_editor_')&&Object.values(model.views.outsideChoiceEdits||{}).some(c=>c.stepId===r.parent_id)):Days.barDataset(r.dataset_id)&&model.scenes.some(s=>s.dataset_id===r.dataset_id);
+  if((!exterior&&Days.paths[table])||(exterior&&table==='scenes'))continue; // Verified by canonical, append-only day registration below.
+  const permitted=r=>exterior?(table==='steps'?(exteriorIds.has(r.row_id)||model.safeJump(r)||Nodes.isLink(r)||r.row_id.startsWith('exterior_editor_')&&model.flows.some(f=>f.parent===r.parent_id&&!f.onlyChoices)):choiceIds.has(r.row_id)||r.row_id.startsWith('exterior_editor_')&&Object.values(model.views.outsideChoiceEdits||{}).some(c=>c.stepId===r.parent_id)):Days.barDataset(r.dataset_id)&&model.scenes.some(s=>s.dataset_id===r.dataset_id);
   // Engine-only continuation rows are not editable. Their indices can shift
   // when an editor inserts dialogue before the terminal goto/effect.
   const scopeRow=r=>exterior&&table==='steps'&&r.row_id.startsWith('native_scenes_shared_')&&model.flows.some(f=>f.parent===r.parent_id)?{...r,seq:'',source_order:''}:r;
@@ -54,9 +55,10 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  }
  if(exterior){
   if(model.base.tables.street_choices.some(r=>!model.tables.street_choices.some(n=>n.row_id===r.row_id)&&(!r.row_id.startsWith('exterior_editor_')||model.row(r.parent_id)&&!model.menuConfig(model.row(r.parent_id)))))throw Error('기존 분기 원본은 보관해야 합니다. 활성 선택지 목록에서 제거하세요.');
-  for(const row of model.base.tables.steps){const next=model.row(row.row_id);if(exteriorIds.has(row.row_id)&&!next&&!(row.row_id.startsWith('exterior_editor_')&&row.parent_id.startsWith('exterior_editor_')&&!model.tables.street_choices.some(c=>c.row_id===row.parent_id)&&model.base.tables.street_choices.some(c=>c.row_id===row.parent_id))&&!model.plain(row)&&!model.removableMenu(row)&&!(row.row_id.startsWith('exterior_editor_')&&row.type==='goto'))throw Error('연출·분기 연결 행은 삭제할 수 없습니다.');}
+  for(const row of model.base.tables.steps){const next=model.row(row.row_id);if(exteriorIds.has(row.row_id)&&!next&&!row.row_id.startsWith('exterior_editor_visit_')&&!model.base.tables.scenes.some(sc=>Nodes.shape.test(sc.id)&&sc.row_id===row.parent_id&&!model.rawScenes.some(k=>k.row_id===sc.row_id))&&!(row.row_id.startsWith('exterior_editor_')&&row.parent_id.startsWith('exterior_editor_')&&!model.tables.street_choices.some(c=>c.row_id===row.parent_id)&&model.base.tables.street_choices.some(c=>c.row_id===row.parent_id))&&!model.plain(row)&&!model.removableMenu(row)&&!(row.row_id.startsWith('exterior_editor_')&&row.type==='goto'))throw Error('연출·분기 연결 행은 삭제할 수 없습니다.');}
   const editableNew=new Set(['row_id','web_row_id','dialogue_id','seq','source_order','text.ko','text.en','actor','web_fields.who']);
   for(const row of model.tables.steps.filter(r=>!model.base.tables.steps.some(b=>b.row_id===r.row_id))){
+   if(Nodes.isLink(row)||row.row_id.startsWith('exterior_editor_visit_')||model.rawScenes.some(sc=>Nodes.shape.test(sc.id)&&sc.row_id===row.parent_id))continue; // Verified by the native scene/command validator above.
    const source=model.base.tables.steps.find(b=>exteriorIds.has(b.row_id)&&model.plain(b)&&Object.keys(b).every(k=>editableNew.has(k)||b[k]===row[k]));
    const menu=model.kind(row)==='choice'&&row.type==='choice'&&row.template_id==='steps_format_62'&&model.menuConfig(row);
    const branch=row.parent_field==='result_steps'&&row.template_id==='steps_format_30'&&model.tables.street_choices.some(c=>c.row_id===row.parent_id&&c.row_id.startsWith('exterior_editor_'));
@@ -66,9 +68,9 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
   const known=new Set(model.base.tables.steps.filter(r=>exteriorIds.has(r.row_id)&&r.web_row_id).map(r=>r.web_row_id));
   const safe=v=>v.tables.steps.rows.filter(r=>!known.has(r.id)&&!r.id?.startsWith('exterior_editor_'));
   if(JSON.stringify(safe(oldViews))!==JSON.stringify(safe(newViews)))throw Error('다른 대화의 웹 연결은 변경할 수 없습니다.');
-  for(const [id,ref]of Object.entries(newViews.outside).filter(([id])=>id.startsWith('editor/'))){const c=model.tables.street_choices.find(c=>c.id===ref.branch&&c.row_id.startsWith('exterior_editor_'));if(!c||!Object.values(model.views.outsideChoiceEdits||{}).some(g=>g.stepId===c.parent_id)||!Object.values(oldViews.outside).some(r=>r.source===ref.source&&r.scene===ref.scene)||ref.offset!==0)throw Error('새 분기 연결이 원본 장면 밖을 가리킵니다.');}
+  for(const [id,ref]of Object.entries(newViews.outside).filter(([id])=>id.startsWith('editor/'))){const c=model.tables.street_choices.find(c=>c.id===ref.branch&&c.row_id.startsWith('exterior_editor_'));if(!c||!Object.values(model.views.outsideChoiceEdits||{}).some(g=>g.stepId===c.parent_id)||!Object.entries(newViews.outside).some(([k,r])=>!k.startsWith('editor/')&&r.source===ref.source&&r.scene===ref.scene)||ref.offset!==0)throw Error('새 분기 연결이 원본 장면 밖을 가리킵니다.');}
   delete oldViews.outsideChoiceEdits;delete newViews.outsideChoiceEdits;
-  for(const v of [oldViews,newViews])for(const id of Object.keys(v.outside))if(id.startsWith('editor/'))delete v.outside[id];
+  for(const v of [oldViews,newViews])for(const id of Object.keys(v.outside))if(id.startsWith('editor/')||id.startsWith('graph/'))delete v.outside[id];
  }
  for(const view of exterior?['steps']:['steps','bar_choices','bar_choice_groups']){delete oldViews.tables[view];delete newViews.tables[view];}
  if(JSON.stringify(oldViews)!==JSON.stringify(newViews))throw Error('장면 외 연결 구조 변경은 허용하지 않습니다.');
@@ -89,7 +91,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
 }
 async function runtimeSnapshot(base=BASE){
  const source=await snapshot(base),{result}=await generate(p=>Promise.resolve(source.files[p]));
- return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{placement:JSON.parse(source.files[Place.file]),ambient:result.data.outsideAmbient,newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes,prologue:result.story.prologue}};
+ return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{placement:JSON.parse(source.files[Place.file]),ambient:result.data.outsideAmbient,newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes}};
 }
 if(require.main===module)(async()=>{if(process.argv.includes('--runtime'))return runtimeSnapshot();if(process.argv.includes('--snapshot'))return snapshot();let input='';process.stdin.setEncoding('utf8');for await(const chunk of process.stdin)input+=chunk;return save(JSON.parse(input));})().then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{process.stderr.write(e.message);process.exitCode=1;});
 module.exports={snapshot,save,runtimeSnapshot};

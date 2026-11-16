@@ -65,7 +65,8 @@ const { chromium } = runtime.load('playwright');
           while (m.ride && frames++ < 400) {
             o.tick(.05);
             if (m.x !== r.elevatorX) throw Error('Passenger escaped cabin horizontally');
-            if (m.ride && Math.abs(m.y - m.elevatorY - r.passengerOffset) > 1e-8) throw Error('Passenger detached vertically');
+            const travel = (m.elevatorY - r.elevatorBottom) / (r.elevatorTop - r.elevatorBottom);
+            if (Math.abs(m.y - (-.7 + travel * (r.upperY + .7))) > 1e-8) throw Error('Passenger departed from floor-to-floor path');
           }
           return { frames, level: m.level, riding: !!m.ride };
         });

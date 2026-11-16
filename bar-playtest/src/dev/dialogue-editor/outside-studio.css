@@ -1,5 +1,30 @@
 
 /* Exterior encounter workbench. Chart and script share one inspector and one stage. */
+#outside-day-panel{display:contents}
+.street-day-note{display:block;padding:4px 8px;color:#a5bac2;font:11px/1.35 system-ui}
+.outside-day-bar{display:flex;flex-wrap:wrap;align-items:center;gap:3px 12px;min-width:0;flex:none;padding:3px 6px;border-bottom:1px solid var(--edge)}
+#outside-day-tabs{display:flex;align-items:center;gap:4px;flex:none}
+#outside-day-tabs button{min-width:46px;padding:7px 9px;border:1px solid transparent;border-bottom:2px solid transparent;border-radius:4px 4px 0 0;background:transparent;color:#acbfc7;font:600 13px/1.2 system-ui;white-space:nowrap}
+#outside-day-tabs button:hover{background:#1d303c;color:#eefbfa}
+#outside-day-tabs button[aria-selected=true]{background:#1b353b;border-bottom-color:#70dfce;color:#dffff6}
+#outside-day-tabs button:focus-visible{outline:2px solid #8deedf;outline-offset:-2px}
+#outside-day-all{margin-left:4px}
+#outside-day-hint{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#a9c1c7;font:11px/1.35 system-ui}
+#outside-trip-filters{display:flex;gap:5px;align-items:center;flex:none}
+#outside-trip-filters button{--active:#78ded1;display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:3px 7px;border-radius:5px;border:1px solid #3b505b;background:#111e27;color:#9fb1ba;font:600 12px/1.15 system-ui;white-space:nowrap}
+#outside-trip-filters button[data-trip=out]{--active:#f0bd88}
+#outside-trip-filters button[aria-pressed=true]{color:var(--active);border-color:color-mix(in srgb,var(--active) 47%,#20303b)}
+#outside-trip-filters button:focus-visible,#outside-trip-reset:focus-visible{outline:2px solid #9aece2;outline-offset:1px}
+#outside-trip-filters i{box-sizing:border-box;display:block;width:21px;height:12px;padding:2px;border-radius:8px;background:#485963}
+#outside-trip-filters i::before{content:"";display:block;width:8px;height:8px;border-radius:50%;background:#c2cbd0}
+#outside-trip-filters [aria-pressed=true] i{background:var(--active)}
+#outside-trip-filters [aria-pressed=true] i::before{transform:translateX(9px);background:#16252c}
+@media(prefers-reduced-motion:no-preference){#outside-trip-filters i::before{transition:transform .12s ease}}
+.outside-editor[data-scope-empty] #outside-day-panel>:not(#outside-trip-empty){display:none!important}
+#outside-trip-empty:not([hidden]){flex:1;display:grid;align-content:center;justify-items:center;gap:8px;text-align:center;padding:16px;color:#d5e8eb}
+#outside-trip-empty p{margin:0 0 6px;color:#a3b9c3;font-size:12px}
+.outside-editor[data-scope-empty] #inspector::before{content:"선택한 대사가 없습니다.";display:block;padding:14px;color:#93aab6;font-size:12px}
+@media(max-width:600px){.outside-day-bar{flex-wrap:wrap;gap:2px;padding:2px 0}#outside-day-tabs{gap:2px}#outside-day-tabs button{min-width:41px;padding:7px}#outside-day-hint{font-size:10px}}
 .outside-editor{--edge:#304552;--teal:#78ddd3;--soft:#9eb4bd;--amber:#e8b778;color:#e0e9eb}
 .outside-editor header{min-height:46px}.outside-editor main.exterior-workspace{gap:8px;padding:8px;grid-template-columns:clamp(164px,15vw,232px) minmax(0,1fr) clamp(244px,24vw,370px)}
 .outside-editor :where(.flow-browser,#inspector){border:1px solid var(--edge);border-radius:7px;background:#101c25;padding:14px}
@@ -42,7 +67,7 @@
 .outside-editor .pane-switch{display:none}.outside-editor #outside-chart{border:0;border-radius:0;background:transparent;min-height:0}.outside-editor .chart-bar{flex-wrap:nowrap;padding:0 16px 9px;border:0}
 .outside-editor #chart-search{width:clamp(90px,14vw,215px);min-width:50px;max-width:45%;font-size:12px;padding:6px 8px}.outside-editor #chart-jump{min-width:52px;max-width:405px;flex:1}.chart-bar button{white-space:nowrap}
 .outside-editor #street-graph{border-block:1px solid var(--steel);background:radial-gradient(#263744 1px,transparent 1px) 0 0 / 18px 18px,#0b1721}.outside-editor #chart-tip{min-height:33px;padding:7px 12px;border:0;background:#0b141d}
-.outside-editor[data-view=map] .workspace>:is(.rows-heading,.list-toolbar,#line-list,.script-tools),.outside-editor[data-view=map] .script-tools,.outside-editor[data-view=script] .outside-scene-head .map-controls{display:none}
+.outside-editor[data-view=map] #outside-day-panel>:is(.rows-heading,.list-toolbar,#line-list,.script-tools),.outside-editor[data-view=map] .script-tools,.outside-editor[data-view=script] .outside-scene-head .map-controls{display:none}
 .outside-editor .script-tools{display:flex;gap:4px}.outside-editor[data-view=script] .exterior-workspace>.workspace{padding:0 14px 10px}.outside-editor[data-view=script] .canvas-head{padding:12px 0}
 .outside-editor .rows-heading{margin:7px 0 3px;font-size:15px}.outside-editor .list-toolbar{padding:5px 0;align-items:center;gap:4px}.outside-editor .list-toolbar button{font-size:12px;padding:5px 8px}.outside-editor #line-search{min-width:45px;flex:1}
 .outside-editor .studio-status{min-height:0;padding:0;border:0;flex:none}.outside-editor #flow-title,.outside-editor .studio-status .status-dot{display:none}

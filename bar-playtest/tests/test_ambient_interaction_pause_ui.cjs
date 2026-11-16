@@ -16,7 +16,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     if(kind==='poster'){m.updateNear();if(!m.near?.source)throw Error('Poster target not found');m.interact();}
     else if(kind==='object-modal')m.dialog={title:'오브젝트',text:'확인 중'};
     else if(kind==='shop')LunaOutsideShop.interact(m,{id:'shiba-shop',x:-2.68,y:-.596});
-    else LunaOutsideBeggar.interact(m,{id:'street-beggar',x:-7.30,y:-.94});
+    else LunaOutsideBeggar.interact(m,LunaOutsideBeggar.targets(m).find(t=>t.id===LunaOutsideBeggar.id));
     // Beggar/shop choice menus must keep the same pause as spoken lines.
     if(['shop','beggar'].includes(kind))for(let i=0;i<100&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}
     const started=!!m.dialog||m.story.blocking,choice=!!m.story.speech?.choice;

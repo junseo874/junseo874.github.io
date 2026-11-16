@@ -85,9 +85,9 @@ function choiceView(m){const stage=m.story.speech.line.stage,p=progress(),option
  if(stage==='repair')options.push({id:'gear',label:'기어 부품 건네주기'},{id:'pay',label:'비용 건네주기 · 400원'});
  if(stage==='guard')options.push({id:'ask',label:'술을 찾고 있어요.'});
  if(stage==='boss-first'||stage==='boss-repeat')return{money:p.money,label:names.boss,options:W.LunaNeighborhoodChoiceRules.apply(stage,[
-  {id:'boss-wait',label:'조금만 기다려 주세요'},
-  {id:'boss-repair',label:stage==='boss-first'?'이미 고쳤습니다.':'엘리베이터를 고쳤습니다.'},
-  {id:'boss-pay',label:'돈을 드릴게요 · 500원'}
+  {id:'boss-wait',label:'( 대화 그만두기 )'},
+  {id:'boss-repair',label:stage==='boss-first'?'승강기는 이미 고쳤습니다.':'승강기 고쳤습니다.'},
+  {id:'boss-pay',label:'돈으로 살게요 · 500원'}
  ],p)};
  options.push({id:'cancel',label:stage==='guard'?'자리를 뜬다.':stage==='repair-intro'?'무시한다.':'취소'});
  return{money:stage==='home-cat'?undefined:p.money,label:names[m.story.speech.line.actor]||'선택',options:W.LunaNeighborhoodChoiceRules.apply(stage,options,p)};

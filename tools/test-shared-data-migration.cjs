@@ -16,6 +16,8 @@ function capture(engine=path.join(root,'../Human-Bartender/HumanBartender/Assets
  new W.LunaCampaignEngine.Session({},data,W.LUNA_CAMPAIGN_DATA).install();
  const outside=require('./lib/capture-outside-data.cjs')(root);
  const model=mergeWeb(catalog,data,W.LUNA_CAMPAIGN_DATA,outside),output=serialize(files,model.values);
+ assert(!model.values.get('script/cutscene').scenes.some(s=>s.id==='web-authoring-prologue'),'an old engine snapshot must not restore the retired raid');
+ assert(!Object.hasOwn(model.views.campaign,'prologue'),'no raid view in the migrated data');
  const {tables,...presentation}=data;
  const result=project(new csv.Catalog(output),model.views,presentation);
  // JSON removes cross-realm prototypes only. No expected values are relaxed.
@@ -25,7 +27,12 @@ function capture(engine=path.join(root,'../Human-Bartender/HumanBartender/Assets
   assert.equal(differences.length,0,JSON.stringify(differences,null,2));
  }
  equal(result.data.tables,data.tables,'tables');
- equal(result.story,W.LUNA_CAMPAIGN_DATA,'campaign');
+ // Only the retired raid and its four display names are intentionally absent.
+ const expectedStory=plain(W.LUNA_CAMPAIGN_DATA);if(expectedStory.prologue){
+  delete expectedStory.prologue;
+  for(const name of ['보안부 3팀 팀장','진입조｜무전','보안부 대원 A','경계조 A｜무전'])delete expectedStory.actors[name];
+ }
+ equal(result.story,expectedStory,'campaign');
  equal(result.data.sharedStory,outside,'outside');
  return{files,output,model,presentation,data,story:W.LUNA_CAMPAIGN_DATA};
 }

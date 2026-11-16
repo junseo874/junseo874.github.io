@@ -11,8 +11,9 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
  assert.equal(data.R.cabinOffsetY,-.18);assert.equal(data.line.y,data.engineLine.y,'stationary support stays fixed');
  const read=async s=>rt.load('sharp')(path.resolve(__dirname,'..',data.assets[s.asset].src)).extract({left:s.x,top:s.y,width:s.w,height:s.h}).ensureAlpha().raw().toBuffer({resolveWithObject:true});
  const front=await read(data.front.sprite),checks=[];
+ const footAt=cabin=>-.7+(data.R.upperY+.7)*(cabin-data.R.elevatorBottom)/(data.R.elevatorTop-data.R.elevatorBottom);
  for(const frame of data.frames){const actor=await read(frame);
-  for(const [label,py,cy]of [['upper',data.R.upperY,data.R.elevatorTop],['lower',-.7,data.R.elevatorBottom],['riding',4+data.R.passengerOffset,4]])for(const flip of [false,true]){
+  for(const [label,py,cy]of [['upper',data.R.upperY,data.R.elevatorTop],['lower',-.7,data.R.elevatorBottom],['riding',footAt(4),4]])for(const flip of [false,true]){
    let shoulders=0,feet=0,leaks=0;
    const fy=data.front.y+cy-data.R.elevatorBottom,sp=data.front.sprite;
    for(let y=26;y<frame.h;y++)for(let x=0;x<frame.w;x++){
@@ -32,14 +33,20 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
  for(const [label,from,to]of [['descending',data.R.elevatorTop,data.R.elevatorBottom],['ascending',data.R.elevatorBottom,data.R.elevatorTop]]){
   const state=await p.evaluate(({from,to})=>{
    const o=outsidePlaytest,m=o.model,R=LunaResidence.layout;m.story.cancel();m.level=from===R.elevatorTop?1:0;m.elevatorY=from;m.y=m.level?R.upperY:-.7;
-   m.ride={from,to,time:0,call:false,duration:12};m.tickLift(6);
+   const startY=m.y;
+   m.ride={from,to,time:0,call:false,duration:12};m.tickLift(.4);
+   if(m.y!==startY)throw Error('Boarding moved Luna before the cabin');
+   m.tickLift(5.6);
    const engine=LUNA_CHARACTER_SHADOWS.receivers.find(r=>r.ancestry.includes('Elevator')),receiver=LunaCharacterShadows.receivers(m).find(r=>r.id===engine.id);
    const expected=engine.rect.map((v,i)=>v+(i%2?m.elevatorY-R.elevatorBottom+R.cabinOffsetY:0));
-   o.snapCamera();o.tick(0);return{offset:m.y-m.elevatorY,expected,actual:receiver.rect};
+   o.snapCamera();o.tick(0);return{foot:m.y,cabin:m.elevatorY,expected,actual:receiver.rect};
   },{from,to});
-  assert(Math.abs(state.offset-data.R.passengerOffset)<1e-9);state.actual.forEach((v,i)=>assert(Math.abs(v-state.expected[i])<1e-9));
+  assert(Math.abs(state.foot-footAt(state.cabin))<1e-9);state.actual.forEach((v,i)=>assert(Math.abs(v-state.expected[i])<1e-9));
   await p.screenshot({path:path.join(out,label+'.png')});
-  await p.evaluate(()=>{const m=outsidePlaytest.model;m.tickLift(8);m.time+=20;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
+  await p.evaluate(()=>{const m=outsidePlaytest.model;m.tickLift(6.5);const foot=m.y;
+   if(!m.ride||m.elevatorY!==m.ride.to)throw Error('Expected stationary occupied cabin');
+   m.tickLift(1);if(Math.abs(m.y-foot)>1e-9)throw Error('Disembarking changed foot height');
+   m.time+=20;outsidePlaytest.snapCamera();outsidePlaytest.tick(0);});
   assert.equal(await p.evaluate(()=>outsidePlaytest.model.ride),null);
   await p.screenshot({path:path.join(out,label+'-landed.png')});
  }

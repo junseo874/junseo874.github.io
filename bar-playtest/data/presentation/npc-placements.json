@@ -1,4 +1,17 @@
 {
   "version": 1,
-  "positions": {}
+  "positions": {
+    "beggar": {
+      "x": -10.01,
+      "y": -0.94
+    },
+    "witness": {
+      "x": -11.05,
+      "y": -0.94
+    },
+    "newspaper": {
+      "x": -7.18,
+      "y": -0.974
+    }
+  }
 }

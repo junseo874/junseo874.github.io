@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  assert.match(await p.locator('.outside-interact').innerText(),/대화하기/);
  assert.equal((await p.evaluate(()=>outsidePlaytest.interactionGlow)).target,'neighborhood-boss');
  assert.equal((await p.evaluate(()=>outsidePlaytest.interactionGlow)).drawn[0].region[3],138,'complete silhouette retains legs and feet');
- await p.keyboard.press('KeyE');assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.text),'넌 뭐야? 우리 중에 여자 부른 놈 있어?');
+ await p.keyboard.press('KeyE');assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.text),'뭐야, 오늘 여자 부른 놈 있냐?');
  const drain=()=>p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;m.story.speech&&!m.story.speech.choice&&i<100;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.tick(0);});
  await p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<4;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.tick(0);});
  assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.line.actor),'gangmate');

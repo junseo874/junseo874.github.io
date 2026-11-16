@@ -47,14 +47,16 @@ function compile(model,scene,starts=[]){
  const arrivals=new Set([...starts,...plan.routes.map(r=>r.target)]);
  for(const [index,row] of list.entries()){
   if(plan.hidden.has(row.row_id))continue;
-  if(row.type==='enter')seats[row.arg]=row.actor;
+  if(row.type==='enter'&&!wiring.asleep(row))seats[row.arg]=row.actor;
   const cast=[...new Set(Object.values(seats))];if(!cast.length&&row.actor&&['say','order','choice'].includes(row.type))cast.push(row.actor);
   const when=wiring.readable(row.when),type=kind(row.type),last=nodes.at(-1);
-  const same=last&&!arrivals.has(row.row_id)&&last.type===type&&clean(last.rows.at(-1).when)===clean(row.when)&&last.cast.join()===cast.join()&&!clean(last.rows.at(-1).effects)
+  const same=last&&wiring.block(last.rows.at(-1))===wiring.block(row)&&!arrivals.has(row.row_id)&&last.type===type&&clean(last.rows.at(-1).when)===clean(row.when)&&last.cast.join()===cast.join()&&!clean(last.rows.at(-1).effects)
    &&(row.type==='say'||row.type==='serve'&&last.rows.at(-1).type==='craft');
-  if(same)last.rows.push(row);
+  if(wiring.decision(last?.rows[0])&&row.row_id===wiring.block(last.rows[0])+'_901')last.rows.push(row);
+  else if(wiring.decision(row))nodes.push({id:row.row_id,index,start:index,type:'조건 분기',when:wiring.asleep(row)?'false':'',branchWhen:wiring.decisionRule(row),cast,rows:[row],routes:[]});
+  else if(same)last.rows.push(row);
   else nodes.push({id:row.row_id,index,start:index,type,when,cast,rows:[row],routes:[]});
-  if(row.type==='exit')for(const k of Object.keys(seats))if(seats[k]===row.actor)delete seats[k];
+  if(row.type==='exit'&&!wiring.asleep(row))for(const k of Object.keys(seats))if(seats[k]===row.actor)delete seats[k];
  }
  for(const n of nodes)n.routes=plan.routes.filter(r=>r.source===n.rows.at(-1).row_id);
  function connect(node,i,choice){
@@ -83,7 +85,10 @@ function compile(model,scene,starts=[]){
    if(enabled===undefined)remember(r.predicate,false,facts,observed);
   }
   for(let j=i+1;j<nodes.length;j++){
-   const target=nodes[j],v=truth(target.when,facts,observed);
+   const target=nodes[j];if(wiring.block(target.rows[0])&&wiring.block(target.rows[0])!==wiring.block(node.rows[0]))continue;
+   if(wiring.asleep(node.rows[0])&&wiring.block(target.rows[0])!==wiring.block(node.rows[0]))break;
+   if(wiring.block(node.rows[0])&&wiring.block(node.rows[0])===wiring.block(target.rows[0])&&node.rows.at(-1).type==='order'&&target.rows[0].type==='craft'){edges.push({...base,to:target.id,guard:''});return;}
+   const v=truth(target.when,facts,observed);
    if(v!==false)edges.push({...base,to:target.id,guard:target.when});
    if(v===true)return;
    if(v===undefined)remember(target.when,false,facts,observed);

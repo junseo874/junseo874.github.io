@@ -298,7 +298,9 @@
       if (p === 1) global.LunaLiftDust?.land(this, r);
       if (!r.call) {
         this.x = EX;
-        this.y = this.elevatorY + R.passengerOffset;
+        // The upper walkway sits slightly above the lower stop's cabin-relative foot height.
+        const ascending = r.to === TOP;
+        this.y = ascending ? mix(-.7, R.upperY, p) : mix(R.upperY, -.7, p);
       }
       if (r.time >= r.duration + 1.1) {
         if (!r.call) {

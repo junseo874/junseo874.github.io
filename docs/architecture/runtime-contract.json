@@ -949,6 +949,10 @@
       "src/shared/ui/preview-fullscreen.css"
     ],
     [
+      "link",
+      "src/dev/dialogue-editor/node-palette.css"
+    ],
+    [
       "script",
       "src/shared/ui/preview-fullscreen.js"
     ],
@@ -1026,6 +1030,14 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/node-palette.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/bar-loose-nodes.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/flow-authoring.js"
     ],
     [
@@ -1035,6 +1047,14 @@
     [
       "script",
       "src/dev/dialogue-editor/flow-canvas.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/bar-preview-route.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/preview-branch-picker.js"
     ],
     [
       "script",
@@ -1075,6 +1095,10 @@
     [
       "script",
       "src/dev/dialogue-editor/line-workspace.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/storage-client.js"
     ],
     [
       "script",
@@ -1131,6 +1155,10 @@
     [
       "link",
       "src/dev/dialogue-editor/outside-studio.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/node-palette.css"
     ],
     [
       "script",
@@ -1222,6 +1250,14 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/node-palette.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-node-authoring.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/outside-model.js"
     ],
     [
@@ -1246,7 +1282,19 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/outside-flow-days.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/preview-branch-picker.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/outside-gates.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/outside-graph-tools.js"
     ],
     [
       "script",

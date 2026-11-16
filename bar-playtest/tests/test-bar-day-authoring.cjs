@@ -21,7 +21,7 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),A=require('.
  assert.deepEqual((await m.validate()).errors,[]);const out=m.output(),originalMeta=baseState.files;
  for(const f of ['settings/days.csv','story/scenes.csv','story/script_files.csv','system/data_sets.csv','system/row_formats.csv'])assert(out[f].startsWith(originalMeta[f].trimEnd()+'\n'),'existing CSV changed: '+f);
  const tmp=await fs.mkdtemp(p.join(os.tmpdir(),'luna-bar-day-')),base=p.join(tmp,'csv'),runtime=p.join(tmp,'runtime'),options={base,runtime,backupRoot:p.join(tmp,'backups')};
- await fs.cp(p.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(p.join(__dirname,'../data/runtime',f),p.join(runtime,f));
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(p.join(__dirname,'../data/runtime',f),p.join(runtime,f));
  const req=files=>({revision:baseState.revision,files});const bad=JSON.parse(out['web-views.json']);bad.barEditorScenes[ch][1].start='not_a_bar_row';await assert.rejects(save(req({...out,'web-views.json':JSON.stringify(bad)}),options),/편집 장면/);
  const badScenes=out['story/scenes.csv'].replace('0일차 바 · 단골 영업','허용되지 않은 원본 변경');assert.notEqual(out['story/scenes.csv'],badScenes);await assert.rejects(save(req({...out,'story/scenes.csv':badScenes}),options),/등록 이외/);
  assert.equal((await snapshot(base)).revision,baseState.revision);const result=await save(req(out),options);assert(result.saved);

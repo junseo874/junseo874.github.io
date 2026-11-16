@@ -8,6 +8,9 @@ for(const t of csv.parseRows(files['_Tables.csv']))files[t.table+'.csv']=fs.read
 const views=JSON.parse(fs.readFileSync(path.join(base,'web-views.json'),'utf8'));
 const ref=views.campaign.bar['1'],rows=csv.parseCsv(files['Steps.csv']),headers=rows[0];
 const original=new csv.Catalog(files),scene=original.read(ref.source).scenes.find(s=>s.id===ref.scene);
+assert(!Object.hasOwn(views.campaign,'prologue'),'no retired raid editor registration');
+assert(!original.read('script/cutscene').scenes.some(s=>s.id==='web-authoring-prologue'));
+assert(!original.rawTables.get('Steps').some(r=>r.parent_id==='scenes_web_authoring_prologue'||r.scene_id==='web-authoring-prologue'));
 // Legacy timeline registrations are not the live Studio/campaign cutscene list.
 // Preserve the engine opening call, all protected finished/serve entries and posters.
 const cutscenes=original.rawTables.get('Cutscenes'),cutsceneIds=new Set(cutscenes.map(r=>r.id));
@@ -66,6 +69,7 @@ const row=rows.find(r=>r[headers.indexOf('row_id')]===raw.row_id);
 const marker='공통 CSV 수정 검증: "따옴표", 줄바꿈\n두 번째 줄';row[headers.indexOf('text.ko')]=marker;
 files['Steps.csv']=encode(rows);
 const changed=new csv.Catalog(files),result=project(changed,views,require('../data/presentation/runtime-assets.json'));
+assert(!Object.hasOwn(result.story,'prologue'),'compiled campaign must not carry an unused raid script');
 assert(changed.read(ref.source).scenes.find(s=>s.id===ref.scene).steps.some(s=>s.text?.ko===marker));
 assert(result.story.bar['1'].some(s=>s.text===marker));
 assert(result.data.tables.steps.some(s=>s['text.ko']===marker));

@@ -14,22 +14,24 @@ function group(key,title,body,attrs=''){
 }
 const conditionTools=W.LunaRuleEditor.attach;
 function create(api){
- const dialog=$('command-dialog');let source;
+ const dialog=$('command-dialog');let source,free;
  function fields(){
   if(!source)return;const m=api.model(),k=$('command-type').value,list=m.rows(api.scene()),before=$('command-position').value==='before',at=list.indexOf(before?source.rows[0]:source.rows.at(-1))+(before?0:1),{seats}=A.state(m,api.scene(),at);
-  const actors=Object.values(seats),choices=k==='enter'?[...new Set([...Object.keys(m.presentation.characterLayers),'shiba'])].filter(id=>id!=='luna'&&!actors.includes(id)):k==='say'?['luna',...actors]:actors;
+  const everyone=[...new Set([...Object.keys(m.presentation.characterLayers),'shiba'])].filter(id=>id!=='luna'),actors=Object.values(seats),choices=free?(k==='say'?['luna',...everyone]:everyone):k==='enter'?everyone.filter(id=>!actors.includes(id)):k==='say'?['luna',...actors]:actors;
   const old=$('command-actor').value;$('command-actor').innerHTML=options(choices.map(id=>[id,api.actorName(id)]));if(choices.includes(old))$('command-actor').value=old;
-  $('cmd-actor-label').hidden=['choice','effect','end_part','tutorial'].includes(k);$('cmd-arg-label').hidden=!['enter','orderSet','tutorial'].includes(k);$('cmd-text-label').hidden=k!=='say';$('cmd-order-note').hidden=k!=='orderSet';$('command-effect-picker').hidden=$('cmd-effects-label').hidden=k!=='effect';
+  $('cmd-actor-label').hidden=['choice','condition','effect','end_part','tutorial'].includes(k);$('cmd-arg-label').hidden=!['enter','orderSet','tutorial'].includes(k);$('cmd-text-label').hidden=k!=='say';$('cmd-order-note').hidden=k!=='orderSet';$('command-effect-picker').hidden=$('cmd-effects-label').hidden=k!=='effect';
   const cocktails=m.projected.data.tables.cocktails.filter(c=>Number(c.unlock_day||0)<=Number(m.scenes.find(s=>s.id===api.scene()).day));
-  const args=k==='orderSet'?[['free','손님이 술을 지정하지 않음'],...cocktails.map(c=>['exact:'+c.id,c['name.ko']||c.id])]:k==='enter'?[['L','왼쪽 좌석'],['R','오른쪽 좌석']].filter(([seat])=>!seats[seat]):[...new Set(m.tables.steps.filter(r=>r.type==='tutorial'&&F.clean(r.arg)).map(r=>r.arg))].map(s=>[s,s]);
+  $('cmd-order-note').textContent=free?'연결할 손님에게 아직 코스터가 없다면 주문 전에 코스터 제공 노드를 연결하세요.':'손님에게 코스터가 없으면 주문 바로 앞에 코스터 제공 노드도 추가합니다.';
+  const args=k==='orderSet'?[['free','손님이 술을 지정하지 않음'],...cocktails.map(c=>['exact:'+c.id,c['name.ko']||c.id])]:k==='enter'?[['L','왼쪽 좌석'],['R','오른쪽 좌석']].filter(([seat])=>free||!seats[seat]):[...new Set(m.tables.steps.filter(r=>r.type==='tutorial'&&F.clean(r.arg)).map(r=>r.arg))].map(s=>[s,s]);
   $('cmd-arg-label').firstElementChild.textContent=k==='orderSet'?'주문할 칵테일':k==='enter'?'입장할 좌석':'튜토리얼';$('command-arg').innerHTML=options(args);
  }
- function open(n,position){
-  if(!n)return;source=n;$('command-type').innerHTML=options(Object.entries(A.names));$('command-position').value=position||(n.rows.at(-1).type==='end_part'?'before':'after');$('command-text').value='';$('command-effect').value='';$('command-when').value=n.when;$('command-error').textContent='';
+ function open(n,position,detached){
+  if(!n)return;source=n;free=detached;$('command-title').textContent=free?'독립 노드 생성':'노드 추가';$('command-position').closest('label').hidden=!!free;$('command-type').innerHTML=options(free?Object.entries(W.LunaBarLooseNodes.types).map(([k,[name]])=>[k,name]):Object.entries(A.names));if(free)$('command-type').value=free.type;$('command-position').value=position||(n.rows.at(-1).type==='end_part'?'before':'after');$('command-text').value='';$('command-effect').value='';$('command-when').value=free?'':n.when;$('command-error').textContent='';
   fields();conditionTools($('command-builder'),$('command-when'),api.model);const fx=$('command-effect-picker');fx.replaceChildren();W.LunaRuleEditor.effects(fx,$('command-effect'),api.model);dialog.showModal();
  }
  $('command-type').onchange=$('command-position').onchange=fields;$('command-cancel').onclick=()=>dialog.close();
  $('command-form').onsubmit=e=>{e.preventDefault();const before=$('command-position').value==='before',m=api.model(),list=m.rows(api.scene()),next=list[list.indexOf(before?source.rows[0]:source.rows.at(-1))+(before?0:1)];
+  if(free){const ok=api.change(()=>{const r=W.LunaBarLooseNodes.create(m,api.scene(),{type:$('command-type').value,actor:$('cmd-actor-label').hidden?'luna':$('command-actor').value||'luna',arg:$('command-arg').value,text:$('command-text').value,effect:$('command-effect').value,when:$('command-when').value});free.place(r);return r;});if(ok)dialog.close();else $('command-error').textContent=$('status').textContent;return;}
   const beforeRows=new Set(list.map(r=>r.row_id));const ok=api.change(()=>{const r=A.create(m,api.scene(),source,{before,type:$('command-type').value,actor:$('command-actor').value||'luna',arg:$('cmd-arg-label').hidden?'':$('command-arg').value,text:$('command-text').value,effect:$('command-effect').value,when:$('command-when').value});const failure=W.LunaBarAudit.audit(m,m.projected.data.tables.text_tags).find(i=>i.scene===api.scene()&&!beforeRows.has(i.row)&&i.severity==='error');if(failure)throw Error(failure.message);api.boundary(r,next);return r;});
   if(ok){dialog.close();api.locate();}else $('command-error').textContent=$('status').textContent;
  };

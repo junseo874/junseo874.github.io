@@ -6,20 +6,43 @@
 const clean=v=>!v||v==='\\N'||v==='\\E'?'':v.trim();
 const terms=(v,sep='&&')=>clean(v).split(sep).map(s=>s.trim()).filter(Boolean);
 const gateOf=id=>'flag.bp_path_'+id, armOf=id=>'flag.bp_take_'+id;
-const owns=t=>/^!?flag\.bp_(?:path|take)_editor_\w+\b/.test(t);
+const owns=t=>/^!?flag\.bp_(?:(?:path|take)_editor_\w+|join_[a-f0-9]{32})\b/.test(t);
+const block=r=>r?.row_id?.match(/^(editor_block_[a-f0-9]{32})_\d+$/)?.[1]||'';
+const asleep=r=>!!block(r)&&terms(r.when).includes('false');
+const decision=r=>!!block(r)&&r.row_id.endsWith('_900')&&r.type==='effect';
+const decisionRule=r=>terms(r.when).filter(t=>t!=='false'&&!owns(t)).join(' && ');
+function setDecision(m,r,expr){if(!expr||expr.includes('flag.bp_')||terms(expr).includes('false'))throw Error('실행할 분기 조건을 목록에서 선택하세요.');m.set(r,'when',[...terms(r.when).filter(t=>owns(t)||t==='false'),expr].join(' && '));}
+function releaseBlock(m,scene,r){const g=block(m.row(r.target));if(!g)return;for(const s of m.rows(scene))if(block(s)===g&&terms(s.when).includes(r.gate))m.set(s,'when',['false',...terms(s.when).filter(t=>t!==r.gate)].join(' && '));}
+const mergeOwner=row=>row?.row_id?.match(/^editor_merge_([a-f0-9]{32})_(?:reset|editor_[a-f0-9]{32})$/)?.[1];
+// Native when only has AND. A many-to-one input resets a private latch at
+// the destination, then any active incoming route can open it. These ordinary
+// effect rows never display or fire from canvas layout.
+function syncInputs(m,scene,g,oldGate=''){
+ if(!g)return;const rows=m.rows(scene),members=rows.filter(r=>block(r)===g);if(!members.length)return;
+ const tag=g.slice('editor_block_'.length),join='flag.bp_join_'+tag,old=rows.filter(r=>mergeOwner(r)===tag),wanted=scan(m,scene).routes.filter(r=>r.target===members[0].row_id);
+ const oldGates=new Set([join,oldGate,...wanted.map(r=>r.gate),...old.map(r=>clean(r.when))].filter(Boolean));
+ for(const r of old)m.remove(scene,r.row_id);
+ if(wanted.length>1){const at=m.rows(scene).indexOf(members[0]);for(const [i,route]of [null,...wanted].entries()){
+   const r=m.add(scene,at+i,'effect'),spec=m.views.tables.steps.rows.find(v=>v.id===r.row_id),id='editor_merge_'+tag+'_'+(route?.id||'reset');spec.id=id;r.row_id=r.web_row_id=id;
+   m.set(r,'actor','luna');m.set(r,'arg','');m.set(r,'web_type','');m.set(r,'web_fields.type','effect');m.set(r,'sync','wait');m.set(r,'when',route?.gate||'');m.set(r,'effects',join+' = '+!!route);
+  }}
+ const gate=wanted.length>1?join:wanted[0]?.gate||'false';
+ for(const r of members)m.set(r,'when',[gate,...terms(r.when).filter(t=>t!=='false'&&!oldGates.has(t))].join(' && '));
+}
 const readable=v=>terms(v).filter(s=>!owns(s)).join(' && ');
 const authorEffects=v=>terms(v,';').filter(s=>!owns(s)).join('; ');
-const preserve=(old,value,sep)=>[...terms(old,sep).filter(owns),...terms(value,sep).filter(t=>!owns(t))].join(sep===';'?'; ':' && ');
+const preserve=(old,value,sep,row)=>[...new Set([...(sep==='&&'&&asleep(row)?['false']:[]),...terms(old,sep).filter(owns),...terms(value,sep).filter(t=>!owns(t))])].join(sep===';'?'; ':' && ');
 const append=(m,r,key,value,sep)=>m.set(r,key,[...new Set([...terms(r[key],sep),value])].join(sep===';'?'; ':' && '));
 const drop=(m,r,key,clause,sep)=>{const a=terms(r[key],sep);if(a.includes(clause))m.set(r,key,a.filter(t=>t!==clause).join(sep===';'?'; ':' && '));};
 // A choice owns one output. An AND expression also owns one output regardless of
 // whitespace or the order in which its clauses were entered. CSV spelling is preserved.
 const pinKey=(choice,predicate)=>choice?'pick:'+choice:clean(predicate)?'if:'+([...new Set(terms(predicate).map(t=>t.replace(/\s+/g,'')))].sort().join('&&')):'next';
-function scan(model,scene){
+function scan(model,scene,verifyLoose=false){
  const list=model.rows(scene),logical=[],hidden=new Set(),routes=[],errors=[],issues=[];
  const warn=(message,row)=>{errors.push(message);issues.push({severity:'error',scene,row:row?.row_id,message});};
  for(let i=0;i<list.length;i++){
   const a=list[i],id=a.row_id,gate=gateOf(id),arm=armOf(id);
+  if(mergeOwner(a)){hidden.add(id);continue;}
   if(a.type!=='effect'||a.effects!==gate+' = false'){logical.push(a);continue;}
   const b=list[i+1],c=list[i+2],src=logical.at(-1),parts=terms(b?.when);
   if(!src||clean(a.when)||b?.type!=='effect'||b.effects!==gate+' = true'||parts[0]!==arm||c?.type!=='effect'||clean(c.when)||c.effects!==arm+' = false'){
@@ -40,6 +63,12 @@ function scan(model,scene){
  }
  const sources=new Map();for(const r of routes){const k=pinKey(r.choice,r.predicate);if(!sources.has(r.source))sources.set(r.source,new Set());const seen=sources.get(r.source);if(seen.has(k))warn('한 출력 핀에 연결이 두 개 있습니다. 해당 연결을 해제한 뒤 다시 지정하세요.',model.row(r.source));seen.add(k);}
  const gates=new Set(routes.flatMap(r=>[r.gate,r.arm]));
+ if(verifyLoose){const groups=new Set(logical.map(block).filter(Boolean));for(const g of groups){
+  const members=logical.filter(r=>block(r)===g),tag=g.slice('editor_block_'.length),join='flag.bp_join_'+tag,ins=routes.filter(r=>r.target===members[0].row_id),markers=list.filter(r=>mergeOwner(r)===tag),gate=ins.length>1?join:ins[0]?.gate||'false';
+  if(members.some(r=>!terms(r.when).includes(gate))||markers.length!==(ins.length>1?ins.length+1:0)||markers.some((r,i)=>list[list.indexOf(members[0])-markers.length+i]!==r||r.type!=='effect'||clean(r.when)!==(i?ins[i-1]?.gate:'')||r.effects!==join+' = '+!!i))
+   warn('독립 노드의 입력 연결이 빠졌습니다. 플로우 차트에서 다시 연결하세요.',members[0]);
+  if(members.some(r=>/_90[01]$/.test(r.row_id))&&(!decision(members[0])||!decisionRule(members[0])||members.length!==2||members[1].row_id!==g+'_901'||members[1].type!=='effect'||routes.some(r=>r.source===members[1].row_id&&r.predicate&&r.predicate!==decisionRule(members[0]))))warn('조건 분기의 기준 줄이나 두 출력이 바뀌었습니다. 노드의 조건 설정을 확인하세요.',members[0]);
+ }for(const r of list.filter(mergeOwner))if(!groups.has('editor_block_'+mergeOwner(r)))warn('합류할 독립 노드가 없습니다.',r);}
  for(const row of list)if([row,...(row.type==='choice'?model.choices(row.arg):[])].flatMap(r=>[r.when,r.effects]).some(value=>(clean(value).match(/flag\.bp_(?:path|take)_editor_\w+/g)||[]).some(k=>!gates.has(k)))){warn('연결을 구성하는 줄이 누락되었습니다. 되돌린 뒤 플로우 차트에서 수정하세요.',row);}
  return {logical,hidden,routes,errors,issues};
 }
@@ -47,6 +76,8 @@ function problem(model,scene,src,dst,port){
  if(!src||!dst)return '같은 장면의 입력 핀을 골라 주세요.';
  const last=src.rows.at(-1),first=dst.rows[0],rows=model.rows(scene);
  if(!rows.includes(last)||!rows.includes(first))return '다른 대본으로 넘어가려면 선택지의 장면 연결을 사용하세요.';
+ if(block(last)&&rows.some(r=>block(r)===block(last)&&rows.indexOf(r)>rows.indexOf(last)))return '주문·제조·제공 묶음은 마지막 제공 핀에서 다음 노드에 연결하세요.';
+ if(block(first)&&rows.find(r=>block(r)===block(first))!==first)return '묶음의 첫 입력 핀에 연결하세요.';
  if((last.type==='choice')!==!!port.choice)return '선택지는 각 문구의 출력 핀 하나로 연결하세요.';
  if(dst.index<=src.index)return '이 장면은 앞으로만 진행합니다. 자기 자신이나 앞 노드로 반복할 수 없습니다.';
  if(last.type==='end_part'||last.sync==='no_wait'||rows[dst.index-1]?.sync==='no_wait')return '장면 종료나 동시 입장 두 줄의 중간에는 연결할 수 없습니다.';
@@ -57,9 +88,12 @@ function problem(model,scene,src,dst,port){
   if(model.tables.steps.filter(s=>s.type==='choice'&&s.arg===last.arg).length>1)return '여러 장면이 공유하는 선택지입니다. 독립된 선택지 묶음에서 연결하세요.';
  }
  const pred=port.predicate||'';
- if(/\b(?:grade|craft_grade|final_grade|order_match)\b/.test(pred)){
+ // A detached authored branch can be prepared before a serve input exists.
+ // On save, BarAudit checks every reachable path (including each merged input);
+ // a guarded serve cannot be decided just from the preceding physical CSV row.
+ if(!block(last)&&/\b(?:grade|craft_grade|final_grade|order_match)\b/.test(pred)){
   const latest=rows.slice(0,rows.indexOf(last)+1).filter(r=>r.type==='order'||r.type==='serve').at(-1);
-  if(latest?.type!=='serve'||clean(latest.when))return '제공 결과는 잔을 제공한 뒤, 다음 주문을 받기 전에만 사용할 수 있습니다.';
+  if(latest?.type!=='serve'||clean(latest.when)&&latest!==last)return '제공 결과는 잔을 제공한 뒤, 다음 주문을 받기 전에만 사용할 수 있습니다.';
  }
  const skipped=rows.slice(rows.indexOf(last)+1,dst.index);
  // A branch can bypass a coaster that its selected option explicitly makes
@@ -86,17 +120,21 @@ function sceneProblem(model,scene,src,choice,dst){
  return reaches(dst)?'이 연결은 원래 장면으로 되돌아오는 고리를 만듭니다. 엔진에서 반복 장면 이동을 허용하지 않습니다.':'';
 }
 function disconnect(model,scene,route){
+ releaseBlock(model,scene,route);
  const clause='!'+route.gate;
  for(const r of model.rows(scene))drop(model,r,'when',clause,'&&');
  if(route.owner)drop(model,route.owner,'effects',route.arm+' = true',';');
  for(const s of route.steps)model.remove(scene,s.row_id);
+ syncInputs(model,scene,block(model.row(route.target)),route.gate);
 }
 function revise(model,scene,src,route,dst,value){
  value=clean(value);if(terms(value).some(owns))throw Error('자동 연결용 플래그는 수정할 수 없습니다.');
+ if(decision(src.rows[0])&&!!route.predicate!==!!value)throw Error('조건 분기는 조건 충족과 그 외 출력이 각각 하나입니다. 노드에서 분기 기준을 변경하세요.');
  const why=problem(model,scene,src,dst,{choice:route.choice,predicate:value});if(why)throw Error(why);
  const all=scan(model,scene).routes.filter(r=>r.source===route.source);
  if(all.some(r=>r.id!==route.id&&pinKey(r.choice,r.predicate)===pinKey(route.choice,value)))throw Error('동일한 조건의 출력이 이미 있습니다.');
- const changed=all.find(r=>r.id===route.id);if(!changed)throw Error('연결이 변경되었습니다. 다시 선택하세요.');if(changed.predicate===value)return;changed.predicate=value;
+ const changed=all.find(r=>r.id===route.id);if(!changed)throw Error('연결이 변경되었습니다. 다시 선택하세요.');if(changed.predicate===value)return;
+ if(decision(src.rows[0])&&decisionRule(src.rows[0])===changed.predicate)setDecision(model,src.rows[0],value);changed.predicate=value;
  // A fallback always runs last. Move only the three-row signal blocks; the
  // source, destination, user conditions and badges on intervening rows stay put.
  const ordered=[...all.filter(r=>r.choice||r.predicate),...all.filter(r=>!r.choice&&!r.predicate)];
@@ -106,11 +144,13 @@ function revise(model,scene,src,route,dst,value){
 }
 function wire(model,scene,src,dst,port){
  const issue=problem(model,scene,src,dst,port);if(issue)throw Error(issue);
+ if(decision(src.rows[0])&&port.predicate&&port.predicate!==decisionRule(src.rows[0]))throw Error('조건 분기의 기준과 그 외 출력만 연결할 수 있습니다.');
  const plan=scan(model,scene);if(plan.errors.length)throw Error(plan.errors[0]);
  const last=src.rows.at(-1),same=plan.routes.filter(r=>r.source===last.row_id);
  const condition=port.predicate||'',choice=port.choice||'',key=pinKey(choice,condition),prior=same.find(r=>pinKey(r.choice,r.predicate)===key);
  if(port.routeId&&port.routeId!==prior?.id)throw Error('이 핀이 변경되었습니다. 현재 출력 핀을 다시 선택하세요.');
  if(prior?.target===dst.rows[0].row_id)return last;
+ const oldGroup=block(model.row(prior?.target));if(prior)releaseBlock(model,scene,prior);
  if(choice){const o=model.choices(last.arg).find(c=>c.row_id===choice);if(clean(o.goto))model.set(o,'goto','');}
  // Insert a new conditional before the unconditional fallback. Existing wires
  // keep their precedence when dragged to a new target.
@@ -133,6 +173,7 @@ function wire(model,scene,src,dst,port){
   if(i>start&&i<end){if(!terms(r.when).includes(skip))model.set(r,'when',[skip,clean(r.when)].filter(Boolean).join(' && '));}
   else drop(model,r,'when',skip,'&&');
  }
+ const newGroup=block(dst.rows[0]);if(oldGroup&&oldGroup!==newGroup)syncInputs(model,scene,oldGroup,prior.gate);syncInputs(model,scene,newGroup);
  return last;
 }
 // Changing a choice between a local wire and a scene destination is also a replacement.
@@ -147,6 +188,6 @@ function sceneWire(model,scene,source,choice,dst){
  for(const r of local)disconnect(model,scene,r);
  model.set(option,'goto',dst);return last;
 }
-const api={scan,problem,sceneProblem,sceneWire,pinKey,wire,disconnect,revise,readable,authorEffects,preserve,owns};
+const api={scan,problem,sceneProblem,sceneWire,pinKey,wire,disconnect,revise,readable,authorEffects,preserve,owns,block,asleep,mergeOwner,decision,decisionRule,setDecision};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarWiring=api;
 })(globalThis);

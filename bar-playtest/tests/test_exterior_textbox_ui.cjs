@@ -51,7 +51,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert(await page.locator('.outside-background-speech .dialogue-advance-cue').isHidden());
   await page.screenshot({path:'/private/tmp/exterior-textbox-ambient.png'});
   // Choice layout and affordability remain functional with the new skin.
-  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.config.day=0;m.backgroundStory.cancel();barGame.progress.money=100;LunaOutsideBeggar.interact(m,{id:'street-beggar',x:-7.30,y:-.94});for(let i=0;i<20&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}m.x=-7.30;o.snapCamera();stepTextbox(0);o.refreshHUD();});
+  await page.evaluate(()=>{const o=outsidePlaytest,m=o.model;m.config.day=0;m.backgroundStory.cancel();barGame.progress.money=100;LunaOutsideBeggar.interact(m,LunaOutsideBeggar.targets(m).find(t=>t.id===LunaOutsideBeggar.id));for(let i=0;i<20&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}m.x=LunaOutsideBeggar.people[0].x;o.snapCamera();stepTextbox(0);o.refreshHUD();});
   assert.equal(await bubble.locator('.outside-choices').count(),0);
   assert(await page.locator('.world-choices').isVisible());assert(await cue.isHidden());
   assert(await page.locator('[data-choice="beggar-pay"]').isDisabled());

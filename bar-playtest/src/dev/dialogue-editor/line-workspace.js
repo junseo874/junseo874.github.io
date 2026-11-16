@@ -33,13 +33,26 @@ function create(a){
   $('previous').disabled=ix<=0;$('next').disabled=!found.length||ix===found.length-1;
   const r=a.current();if(r){const guards=a.rowTools(r,list,isFilter);for(const [id,key,title] of [['up','up','한 줄 위로'],['down','down','한 줄 아래로'],['add','after','다음에 줄 추가'],['duplicate','duplicate','이 줄 복제'],['delete','delete','이 줄 삭제']]){const b=$(id);b.disabled=!!guards[key];b.title=guards[key]||title;}}
  }
+ function refreshCast(){
+  const el=$('inspector'),actor=el.querySelector('select[data-field="actor"]'),r=a.current();
+  if(!actor||!r)return;
+  function sync(select,ids,label,value){
+   const values=[...new Set(ids)];
+   if(values.length===select.length&&values.every((id,i)=>select.options[i].value===id&&select.options[i].text===label(id)))return;
+   select.replaceChildren(...values.map(id=>new Option(label(id),id,false,id===value)));
+  }
+  sync(actor,['luna',...Object.keys(a.model().presentation.characterLayers),...Object.keys(a.poses()),'shiba',r.actor].filter(Boolean),a.actorName,r.actor);
+  const pose=el.querySelector('[data-poses]');
+  if(pose){
+   const names={default:'기본',joy:'기쁨',anger:'화남',drunk:'취함',serious:'진지함',success:'성공',fail:'실패'};
+   sync(pose,['default',...(a.poses()[r.actor]||[]),...(raw(r.arg)?[r.arg]:[])],id=>names[id]||id,r.arg);
+  }
+ }
  function inspector(){
   const m=a.model(),r=a.current();if(!r)return;const isText=['say','order'].includes(r.type),isMenu=r.type==='choice';
-  const actors=[...new Set(['luna',...Object.keys(m.presentation.characterLayers),...Object.keys(a.poses()),'shiba',r.actor].filter(Boolean))],poses=[...new Set(['default',...(a.poses()[r.actor]||[]),...(['say','expression'].includes(r.type)&&raw(r.arg)?[r.arg]:[])])];
   const UI=W.LunaFlowAuthorUI,g=UI.group,el=$('inspector'),restore=UI.inspectorState(el,r.row_id+'/'+r.type);
-  const cast='<label>'+(r.type==='say'?'화자':'대상')+'<select data-field="actor">'+actors.map(id=>opt(id,a.actorName(id),r.actor)).join('')+'</select></label>';
-  const poseNames={default:'기본',joy:'기쁨',anger:'화남',drunk:'취함',serious:'진지함',success:'성공',fail:'실패'};
-  const pose='<label>표정<select data-field="arg">'+poses.map(id=>opt(id,poseNames[id]||id,r.arg)).join('')+'</select></label>';
+  const cast='<label>'+(r.type==='say'?'화자':'대상')+'<select data-field="actor"></select></label>';
+  const pose='<label>표정<select data-field="arg" data-poses></select></label>';
   const opts=isMenu?m.choices(r.arg):[],dest=isMenu?m.scenes.filter(s=>s.id!==a.scene()&&s.day===m.scenes.find(x=>x.id===a.scene()).day):[];
   const argNames={tutorial:'튜토리얼',order:'주문에 맞춰 제조',tutorial_beer:'병맥주 튜토리얼',tutorial_recipe:'레시피 튜토리얼',seatExplore:'좌석 둘러보기',seatIndicator:'좌석 표시'};
   const argList=[...new Set(['',...m.tables.steps.filter(s=>W.LunaBarDays.barDataset(s.dataset_id)&&s.type===r.type).map(s=>raw(s.arg)),raw(r.arg)])];
@@ -73,6 +86,7 @@ function create(a){
   const meta=g('source','진행 종류와 ID','<label>진행 종류<select data-field="type">'+a.typeOptions(r).map(t=>'<option value="'+esc(t.id)+'" '+(t.id===r.type?'selected ':'')+(t.reason?'disabled title="'+esc(t.reason)+'"':'')+'>'+esc(t.name)+'</option>').join('')+'</select></label>'+
    (isMenu?'<label>선택지 그룹 ID<input readonly value="'+esc(r.arg)+'" title="연결은 위의 선택지별 설정에서 변경합니다"></label>':['exit','coaster','empty_glass','craft','serve'].includes(r.type)&&argList.length>1?argField('진행 옵션'):'')+'<p class="row-id">줄 ID · '+esc(r.row_id)+'</p>','class="line-advanced"');
   el.innerHTML='<header class="line-inspector-head inspector-title tone-'+tone(r.type)+'"><h2>'+esc(kind(r))+'</h2><small>'+esc(r.seq)+'번 줄</small></header>'+primary+optionRules+exec+translation+preview+meta;
+  refreshCast();
   const ctx=a.settings();$('preview-money').value=ctx.money;$('flags').value=Object.entries(ctx.flags).map(([id,v])=>'flag.'+id+' = '+(v?'true':'false')).join('; ');W.LunaFlagPicker.attach($('preview-flag-picker'),$('flags'),'effects',a.model);
   const build=UI.conditionTools;build(el.querySelector('.line-condition-tools'),el.querySelector('[data-fold="execution"] [data-field=when]'),a.model);
   for(const box of el.querySelectorAll('.choice-rule'))build(box.querySelector('.choice-condition-tools'),box.querySelector('[data-field=when]'),a.model);
@@ -90,7 +104,7 @@ function create(a){
  $('line-pane-switch').onclick=e=>{const b=e.target.closest('[data-pane]');if(b)pane(b.dataset.pane);};
  $('preview-fold').onclick=foldPreview;$('preview-large').onclick=()=>{const on=$('line-workspace').classList.toggle('large-preview');$('preview-large').setAttribute('aria-pressed',String(on));$('preview-large').textContent=on?'기본 크기':'크게 보기';};
  document.addEventListener('keydown',e=>{if(document.body.classList.contains('map-open')||document.querySelector('dialog[open]')||e.isComposing||e.key!=='/'||e.ctrlKey||e.altKey||e.metaKey||e.target.closest('input,select,textarea,[contenteditable=true]'))return;e.preventDefault();pane('list');$('search').focus();});
- return {draw,inspector,clear,pane,get found(){return found;},get filtered(){return filtersOn();}};
+ return {draw,inspector,refreshCast,clear,pane,get found(){return found;},get filtered(){return filtersOn();}};
 }
 W.LunaLineWorkspace={create};
 })(window);

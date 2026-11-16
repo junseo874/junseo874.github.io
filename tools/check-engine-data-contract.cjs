@@ -1,6 +1,7 @@
 /* Read-only comparison against the installed engine. No schema adoption or writes. */
 const fs=require('node:fs/promises'),path=require('node:path');
 const Csv=require('../bar-playtest/src/shared/data/csv-catalog.js');
+const {isWorldScript}=require('../bar-playtest/src/shared/data/outside-story-compiler.js');
 const root=path.resolve(__dirname,'..');
 const engineRoot=path.resolve(root,'../Human-Bartender/HumanBartender');
 async function audit({base=path.join(root,'bar-playtest/data/shared-csv'),engine=engineRoot,read}={}){
@@ -13,6 +14,8 @@ async function audit({base=path.join(root,'bar-playtest/data/shared-csv'),engine
   for(const row of Csv.parseRows(await webRead(file)))if(!approved.has(JSON.stringify(row)))errors.push({file,row:row.template_id||row.table||row.column,reason:'엔진에 없는 구조/타입. 사용자 승인 필요'});
  }
  for(const [id]of web.values)if(!native.values.has(id))errors.push({source:id,reason:'엔진에 없는 데이터셋. 사용자 승인 필요'});
+ for(const id of native.values.keys())if(!web.values.has(id))errors.push({source:id,reason:'엔진에 등록된 데이터셋이 전체 CSV에서 누락됨'});
+ checkWorldEntryPoints(web,native,errors);
  const scripts=path.join(engine,'Assets/01.Game/02.Scripts');
  const readCode=p=>fs.readFile(path.join(scripts,p),'utf8');
  const [compiler,barRunner,streetRunner,enums]=await Promise.all([
@@ -32,7 +35,7 @@ async function audit({base=path.join(root,'bar-playtest/data/shared-csv'),engine
   if(Object.hasOwn(point,'action_type')&&!actions.has(String(point.action_type??'').toLowerCase()))errors.push({source:dataset,row:point.id,reason:'엔진에서 읽을 수 없는 action_type: '+point.action_type});
  }
  for(const row of steps){
-  const outside=['script/street','script/home','script/qa/street_day99'].includes(row.dataset_id),kind=clean(row['web_fields.type']);
+  const outside=isWorldScript(row.dataset_id)||row.dataset_id==='script/qa/street_day99',kind=clean(row['web_fields.type']);
   if(outside){
    const hasOptions=choices.some(c=>c.parent_id===row.row_id);
    if(kind&&!['say','timeline','effect'].includes(kind)&&!(kind==='choice'&&hasOptions)){
@@ -49,5 +52,32 @@ async function audit({base=path.join(root,'bar-playtest/data/shared-csv'),engine
  return {tables:web.tables.length,datasets:web.values.size,steps:steps.length,errors,gaps};
 }
 function clean(v){return !v||v==='\\N'||v==='\\E'?'':v;}
+// These IDs are looked up by scene components, not by a CSV goto.
+function checkWorldEntryPoints(web,native,errors){
+ const report=(row,reason)=>errors.push({row,reason});
+ const points=web.values.get('interact_points_home')||[],home=web.values.get('script/home')?.scenes||[];
+ const ambient=web.values.get('script/ambient')?.scenes||[];
+ const homeScenes=new Set([...home,...ambient.filter(s=>s.phase==='home')].map(s=>s.id));
+ for(const target of (native.values.get('interact_points_home')||[])){
+  const got=points.find(p=>p.id===target.id);
+  if(!got||['source_id','activation_mode','action_type','action_ref'].some(k=>got[k]!==target[k])){report(target.id,'집 씬 오브젝트와 CSV 상호작용 연결이 다름');continue;}
+  for(const flow of target.dialogue_flows||[])if(!homeScenes.has(flow.scene_id)||!got.dialogue_flows?.some(f=>f.scene_id===flow.scene_id))report(target.id,'집 상호작용에 필요한 대본 없음: '+flow.scene_id);
+ }
+ const nativeMenu=(native.values.get('script/home')?.scenes||[]).find(s=>s.id==='home_tv_menu');
+ if(nativeMenu){
+  const options=home.find(s=>s.id===nativeMenu.id)?.steps.find(s=>s.type==='choice')?.options||[];
+  const required=nativeMenu.steps.find(s=>s.type==='choice').options.map(o=>o.id);
+  if(options.length!==required.length||!required.every(id=>options.some(o=>o.id===id)))report(nativeMenu.id,'TV 전원 메뉴 선택지 ID가 엔진과 일치하지 않음');
+ }
+ for(const expected of native.values.get('script/ambient')?.scenes||[]){
+  const scene=ambient.find(s=>s.id===expected.id),isHome=expected.phase==='home';
+  if(!scene||scene.phase!==expected.phase){report(expected.id,'주변 대사의 원본 묶음 또는 장소가 다름');continue;}
+  const bindings=(isHome?points:web.values.get('interact_points_outside')||[]).filter(p=>p.activation_mode==='proximity'&&p.action_type==='dialogue'&&p.dialogue_flows?.some(f=>f.scene_id===scene.id));
+  if(bindings.length!==1)report(scene.id,'주변 대사의 근접 대상 연결은 정확히 하나여야 함');
+  if(isHome&&bindings[0]?.source_id==='home_tv_broadcast'){
+   const speakers=new Set(expected.steps.map(s=>s.actor));for(const step of scene.steps)if(!speakers.has(step.actor))report(scene.id+'#'+step.seq,'집 TV에 연결되지 않은 방송 화자: '+step.actor);
+  }
+ }
+}
 if(require.main===module)audit().then(r=>{console.log(JSON.stringify(r,null,2));if(r.errors.length)process.exitCode=1;}).catch(e=>{console.error(e);process.exitCode=1;});
 module.exports={audit};

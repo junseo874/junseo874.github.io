@@ -3,7 +3,10 @@
 (function(W){
 'use strict';
 const id='street-beggar',witness='street-beggar-witness',cost=200;
-const people=[{id,name:'노숙자',kind:'Homeless',x:-7.30,y:-.94,top:-.29},{id:witness,name:'근처 행인',kind:'M1',x:-8.20,y:-.94,top:-.34}];
+const P=W.LunaNpcPlacement;
+const people=[['beggar',id,.40],['witness',witness,.60]].map(([slot,id,height])=>{
+ const {kind,x,y}=P.pose(null,slot);return{id,name:P.specs[slot].label,kind,x,y,top:y+height};
+});
 const person=actor=>people.find(p=>p.id===actor);
 // Dialogue is owned by the web CSV, including the witness's one-off/repeat flows.
 const rows=key=>W.LUNA_DATA.sharedStory['beggar/'+key];
@@ -46,7 +49,7 @@ function interact(m,t){
  flags().street_beggar_met=true;sync();return m.story.beginRows(id,t,dialogue);
 }
 function choiceView(m){const money=balance(),repeat=m?.story.speech?.rows!==intro;return {label:'대답하기',money,options:[
- {id:'beggar-pay',label:repeat?'네, 드릴게요 · 200원':'네. 여기요 · 200원',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
+ {id:'beggar-pay',label:'네, 믿을게요 · 200원',disabled:money<cost,disabledReason:'돈이 부족합니다.'},
  {id:'beggar-refuse',label:repeat?'아니요.':'싫어요.',disabled:false},
  {id:'beggar-question',label:flags().street_beggar_warned?'혹시 사기꾼인가요?':'???',disabled:!flags().street_beggar_warned,disabledReason:'관련 정보가 필요합니다.'}
  ]};}

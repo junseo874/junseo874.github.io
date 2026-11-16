@@ -37,7 +37,8 @@ function install(Model){
  p.syncOptionOrder=function(cfg){cfg.active.forEach((id,i)=>{const r=this.tables.street_choices.find(o=>o.row_id===id);r.source_order=String(i);r.seq=String(i+1);});};
  p.moveMenuOption=function(row,id,delta){const cfg=this.ensureMenu(row),i=cfg.active.indexOf(id),j=i+delta;if(i<0||j<0||j>=cfg.active.length)return;[cfg.active[i],cfg.active[j]]=[cfg.active[j],cfg.active[i]];if(this.removableMenu(row))this.syncOptionOrder(cfg);};
  p.setMenuField=function(row,index,key,value){const original=!this.menuConfig(row)&&key!=='route'&&this.menu(row)[index]?.row;if(original&&this.nativeOption(original)){this.set(original,key,value);return;}const cfg=this.ensureMenu(row),r=this.tables.street_choices.find(c=>c.row_id===cfg.active[index]);if(key==='route')cfg.routes[r.row_id]=value;else this.set(r,key,value);};
- p.addMenu=function(flowId,index){const f=this.flow(flowId),anchor=this.rows(flowId)[0];if(f.campaign||flowId.startsWith('ambient/')||!['script/street','script/home'].includes(anchor?.dataset_id))throw Error('선택지 추가는 거리·집의 상호작용 대화에서 지원합니다.');
+ p.canAddMenu=function(f){return !!f&&!f.campaign&&!f.onlyChoices&&f.ref.scene!=='home-book'&&!f.id.startsWith('ambient/')&&['script/street','script/home'].includes(f.ref.source);};
+ p.addMenu=function(flowId,index){const f=this.flow(flowId),anchor=this.rows(flowId)[0];if(!this.canAddMenu(f))throw Error('선택지 추가는 거리·집의 상호작용 대화에서 지원합니다.');
   const r=Object.fromEntries(this.headers.steps.map(k=>[k,''])),id=uid();Object.assign(r,{context:anchor.context,seq:'1',type:'choice',actor:anchor.actor,'text.ko':'','text.en':'',sync:'wait',dataset_id:anchor.dataset_id,row_id:id,parent_id:f.parent,parent_field:anchor.parent_field,source_order:String(Math.max(-1,...this.tables.steps.filter(s=>s.parent_id===f.parent).map(s=>+s.source_order))+1),template_id:'steps_format_62','web_fields.type':'choice',web_core_keys:'actor|text'});this.tables.steps.push(r);
   const ids=this.rows(flowId).filter(x=>x!==r).map(x=>x.row_id);ids.splice(index,0,id);this.reorder(flowId,ids);this.addMenuOption(r);return r;
  };
@@ -56,7 +57,7 @@ function install(Model){
  p.restore=function(s){oldRestore.call(this,s);this.refreshChoiceFlows();};
  p.set=function(row,key,value){if(key==='text.ko'&&this.flows.some(f=>f.onlyChoices&&this.rows(f.id).includes(row)))this.ensureMenu(row);oldSet.call(this,row,key,value);};
  // Hide choice-copy tables. Menus live at their dialogue position, not in separate navigation entries.
- const merged={'notion/intro':['choices/info'],'shop/intro':['choices/stock'],'shop/revisit':['choices/stock'],'believer/intro':['believer/finish'],'shop/quizIntro':['shop/lesson']};
+ const merged={'notion/intro':['choices/info'],'shop/intro':['choices/stock'],'shop/browse':['choices/stock'],'shop/allowanceYes':['choices/stock'],'believer/intro':['believer/finish'],'shop/quizIntro':['shop/lesson'],'shop/quizRetry':['shop/lesson']};
  p.visibleFlows=function(){const plan=this.projected.data.newspaperRoutes,first=new Set(Object.values(plan.routes).map(p=>p[0]));const hidden=new Set(['newspaper/options',...plan.join.filter(id=>!first.has(id)),...Object.values(merged).flat()]);return this.flows.filter(f=>!hidden.has(f.id));};
  p.sequence=function(id){const parent=this.flow(id)?.parent,config=Object.values(this.views.outsideChoiceEdits||{}).find(c=>c.active.includes(parent)),newspaper=config&&this.kind(this.row(config.stepId))==='newspaper-choice';const plan=this.projected.data.newspaperRoutes,path=Object.values(plan.routes).find(keys=>keys[0]===id);return (path||[id,...(merged[id]||(newspaper?plan.join:[]))]).flatMap(k=>this.rows(k));};
  p.owner=function(id){

@@ -22,7 +22,7 @@ const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-stora
  const exit=m.add(second,m.rows(second).indexOf(menu),'exit');require('../src/dev/dialogue-editor/flow-days.js').neutral(m,exit,'chris');
  assert.deepEqual((await m.validate()).errors,[]);
  const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'bar-flow-test-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);
  for(const f of ['campaign-data.js','game-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
  await save({revision:original.revision,files:m.output()},{base,runtime,backupRoot:path.join(tmp,'backup')});
  const live=await runtimeSnapshot(base);for(const r of [reply,newLine]){const saved=live.tables.steps.find(x=>x.dialogue_id===r.dialogue_id);assert.equal(saved.when,r.when);assert.equal(saved['text.ko'],r['text.ko']);}

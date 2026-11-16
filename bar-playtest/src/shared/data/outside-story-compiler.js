@@ -1,9 +1,12 @@
 /* Translate native street CSV commands into web dialogue steps and routes.
    No game state, DOM, or effect execution. */
 (function(root){'use strict';
+const isWorldScript=id=>['script/street','script/home','script/ambient'].includes(id);
 function optionalPresentation(raw){
- if(raw?.actor==='tv_announcer')return {actor:'tv'}; // Existing Unity TV speaker; web screen anchor keeps its ID.
- if(raw?.actor==='street-newspaper'&&raw.type==='choice'&&raw['web_fields.type']==='choice')return {type:'newspaper-choice',who:'신문 읽는 남자'};
+ // Keep the grant between the two spoken lines, even if the surrounding dialogue is edited.
+ if(raw?.parent_id==='street_choices_allow_yes'&&raw.type==='effect'&&raw.effects==='money += 500')return {type:'shop-allowance-grant'};
+ if(raw?.actor==='tv_announcer')return {actor:'tv'}; // Legacy, non-proximity broadcasts share the screen anchor.
+ if(raw?.actor==='street-newspaper'&&raw.type==='choice'&&raw['web_fields.type']==='choice'&&!raw.row_id?.startsWith('exterior_editor_'))return {type:'newspaper-choice',who:'신문 읽는 남자'};
  // Unity displays this notification and commits the receipt flags on the same step.
  // The web's existing item handler owns its single notification and inventory increment.
  if(raw?.type==='popup'&&raw.arg==='event_occurred'){
@@ -18,16 +21,17 @@ function optionalPresentation(raw){
 // The web view selects content; it does not own a second day/route rule set.
 function compileAmbientInteractions(catalog,views){
  const result={};
- for(const [key,ref]of Object.entries(views.outside||{})){
-  if(!key.startsWith('ambient/')||!['script/home','script/street'].includes(ref.source))continue;
-  const home=ref.source==='script/home',scene=catalog.read(ref.source).scenes.find(s=>s.id===ref.scene);
+ for(const scene of catalog.read('script/ambient').scenes){
+  const ref=views.outside?.['ambient/'+scene.id];
+  if(ref?.source!=='script/ambient'||ref.scene!==scene.id)throw Error('주변 대화 원본에 연결되지 않은 웹 장면: '+scene.id);
+  const home=scene.phase==='home';
   const points=catalog.read(home?'interact_points_home':'interact_points_outside');
-  const matches=points.flatMap(point=>(point.dialogue_flows||[]).filter(flow=>flow.scene_id===ref.scene&&point.activation_mode==='proximity').map(flow=>({point,flow})));
-  if(!matches.length)continue; // Forced encounters and inspectable posters are not ambient groups.
-  if(matches.length!==1||!scene)throw Error('주변 자동 대화 연결이 모호합니다: '+ref.scene);
+  const matches=points.flatMap(point=>(point.dialogue_flows||[]).filter(flow=>flow.scene_id===scene.id&&point.activation_mode==='proximity').map(flow=>({point,flow})));
+  if(matches.length!==1)throw Error('주변 대화에 근접 상호작용이 정확히 하나 필요합니다: '+scene.id);
   const {point,flow}=matches[0];
-  if(point.action_type!=='dialogue'||scene.start_mode!=='auto'||!scene.steps.length||scene.steps.some(s=>s.type!=='say'))throw Error('기본 자동 대화 형식이 아닙니다: '+ref.scene);
-  result[ref.scene]={sourceId:point.source_id,scene:home?'home':'street',phase:point.phase,spawnWhen:point.spawn_when,interactWhen:point.interact_when,day:flow.day,when:flow.when,sceneWhen:scene.when,playType:flow.play_type,actors:[...new Set(scene.steps.map(s=>s.actor))]};
+  if(point.action_type!=='dialogue'||scene.trigger!=='manual'||!scene.steps?.length||scene.steps.some(s=>s.type!=='say'))throw Error('기본 주변 대화 형식이 아닙니다: '+scene.id);
+  if(point.source_id==='home_tv_broadcast'&&scene.steps.some(s=>s.actor!=='tv'))throw Error('집 TV 방송의 화자는 tv여야 합니다: '+scene.id);
+  result[scene.id]={sourceId:point.source_id,scene:home?'home':'street',phase:point.phase,spawnWhen:point.spawn_when,interactWhen:point.interact_when,day:flow.day,when:flow.when,sceneWhen:scene.when,playType:flow.play_type,actors:[...new Set(scene.steps.map(s=>s.actor))]};
  }
  return result;
 }
@@ -38,12 +42,11 @@ function compileNewspaperRoutes(catalog,views){
  const scenes=catalog.read('script/street').scenes;
  const intro=scenes.find(s=>byScene.get(s.id)==='newspaper/intro');
  if(!intro)throw Error('신문 NPC의 시작 장면이 없습니다.');
- const menus=intro.steps.filter(s=>s.actor==='street-newspaper'&&s.web_fields?.type==='choice');
- if(menus.length!==1)throw Error(intro.id+': 기본 질문은 하나여야 합니다.');
- const menu=menus[0];
+
  const children=catalog.rawTables.get('Steps');
  const scene=catalog.rawTables.get('Scenes').find(r=>r.dataset_id==='script/street'&&r.id===intro.id);
- const rawMenu=children.find(r=>r.parent_id===scene.row_id&&r.actor==='street-newspaper'&&r['web_fields.type']==='choice');
+ const questions=children.filter(r=>r.parent_id===scene.row_id&&r.actor==='street-newspaper'&&r['web_fields.type']==='choice'&&!r.row_id.startsWith('exterior_editor_'));
+ if(questions.length!==1)throw Error(intro.id+': 기본 질문은 하나여야 합니다.');const rawMenu=questions[0],menu=intro.steps.find(s=>+s.seq===+rawMenu.seq);
  if(!menu||!rawMenu)throw Error('Missing newspaper native choice in '+intro.id);
  function terminalGoto(steps,label){
   const jumps=steps.filter(step=>step.type==='goto');
@@ -65,6 +68,9 @@ function compileNewspaperRoutes(catalog,views){
    }
    keys.push(key);
    id=terminalGoto(scene.steps,id);
+   // A player-authored epilogue runs from the real terminal goto inside
+   // 'finish', after the gear and completion flag; don't flatten it twice.
+   if(key==='newspaper/finish'&&id&&views.outside?.['graph/'+id]?.source==='script/street'&&children.some(r=>r.context===scene.id&&r.type==='goto'&&r.row_id.startsWith('exterior_editor_link_')&&r.scene_id===id))break;
   }
   return keys;
  }
@@ -77,5 +83,5 @@ function compileNewspaperRoutes(catalog,views){
  const native=Object.values(routes);const join=native[0]?.filter(key=>native.every(route=>route.includes(key)))||[];
  return {parent:rawMenu.row_id,routes,join};
 }
-const api={optionalPresentation,compileNewspaperRoutes,compileAmbientInteractions};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaStoryProjectionParts=api;
+const api={isWorldScript,optionalPresentation,compileNewspaperRoutes,compileAmbientInteractions};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaStoryProjectionParts=api;
 })(typeof window==='undefined'?globalThis:window);

@@ -22,11 +22,11 @@ W.LunaDialoguePreview=function({g,D,ui,render}){
    if(s.type==='order')orders[s.actor]=s.arg.replace(/^exact:/,'');
    if(s.type==='serve'&&guest){const id=orders[s.actor];if(D.tables.cocktails.some(c=>c.id===id)){guest.glass=id;guest.glassEmpty=false;}else warnings.push('주문 결과가 정해지지 않은 잔은 표시하지 않습니다.');}
    if(s.type==='empty_glass'&&guest)guest.glassEmpty=true;
-   if(s.type==='choice'&&!last){const selected=p.picks?.[s.row_id];if(selected)C.applyEffects(selected.effects,g.progress);}
+   if(s.type==='choice'&&!last){const selected=p.picks?.[s.row_id];if(selected){if(p.day===0)g.progress.flags.day0_choice_hold_learned=true;C.applyEffects(selected.effects,g.progress);}}
    if(!last)C.applyEffects(s.effects,g.progress);
   };
   for(let i=0;i<=p.index;i++){
-   const s=p.rows[i];let enabled=true;try{enabled=C.condition(s.when,g.ctx());}catch(e){warnings.push(e.message);}
+   const s=p.rows[i];let enabled=true;try{if(!p.pathPreview)enabled=C.condition(s.when,g.ctx());}catch(e){warnings.push(e.message);}
    if(!enabled&&p.scope?.includes(s.row_id)){enabled=true;if(i===p.index)warnings.push('노드 단독 재생 · 이 분기에 진입한 상태로 표시합니다.');}
    if(!enabled&&i<p.index)continue;
    if(i===p.index&&!enabled){warnings.push('현재 조건으로 실행되지 않는 줄입니다. 직접 선택한 줄은 검토용으로 표시합니다.');skipped=!!p.playing;}
@@ -35,12 +35,16 @@ W.LunaDialoguePreview=function({g,D,ui,render}){
   // Keep decoded sprites and speech animation clocks when editing the same cast.
   for(const seat of ['L','M','R'])if(g.seats[seat]?.actor===seats[seat]?.actor&&seats[seat])seats[seat]=Object.assign(g.seats[seat],seats[seat]);
   g.seats=seats;const row=p.rows[p.index];g.focus=Object.keys(seats).find(k=>seats[k]?.actor===row.actor)||Object.keys(seats).find(k=>seats[k])||'R';
+  if(p.pathPreview&&p.previewState){const s=p.previewState;
+   Object.assign(g.progress,{money:s.money,reputation:s.reputation,flags:s.flags,affinity:s.affinity});
+   g.resultContext={grade:s.grade,final_grade:s.final_grade,craft_grade:s.craft_grade,order_match:s.order_match};
+  }
   if(['say','order'].includes(row.type)&&row['text.ko']){g.dialogue=g.makeLine(row.actor,row['text.ko'],row.dialogue_id,row.arg);if(!p.animate)g.dialogue.chars=g.dialogue.text.length;}
   if(row.type==='choice')g.choice={step:row,rows:p.choices};
   ui.sound=false;ui.gimmickAudio=false;ui.auto=false;ui.readSkip=false;ui.drag=null;
   render(true);send({type:'state',index:p.index,warnings,cast:Object.values(seats).filter(Boolean).map(x=>x.actor),choices:p.choices?.map(c=>({seq:c.seq,enabled:C.condition(c.when,g.ctx())}))});
  }
- W.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.channel!=='luna-dialogue-editor')return;try{if(e.data.type==='hello')ready();if(e.data.type==='show')receive(e.data.payload);if(e.data.type==='stop'&&payload)payload.playing=false;if(e.data.type==='pause'&&payload){paused=true;payload.playing=false;}if(e.data.type==='resume'&&payload){paused=false;payload.playing=true;payload.animate=true;}}catch(error){send({type:'error',message:error.message});}});
+ W.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==parent||e.data?.channel!=='luna-dialogue-editor')return;try{if(e.data.type==='hello')ready();if(e.data.type==='focus-choice')document.querySelector('.choices button:not(:disabled)')?.focus({preventScroll:true});if(e.data.type==='show')receive(e.data.payload);if(e.data.type==='stop'&&payload)payload.playing=false;if(e.data.type==='pause'&&payload){paused=true;payload.playing=false;}if(e.data.type==='resume'&&payload){paused=false;payload.playing=true;payload.animate=true;}}catch(error){send({type:'error',message:error.message});}});
  const input=e=>{if(!active)return;if(e.type==='keydown'&&e.key==='Escape'&&payload?.modal)send({type:'escape'});const target=e.target.closest?.('[data-act]');if(e.type==='click'){if(target?.dataset.act==='choice')send({type:'choice',seq:target.dataset.id});else if(target?.dataset.act==='advance')send({type:'advance'});}e.preventDefault();e.stopImmediatePropagation();};
  for(const name of ['click','pointerdown','pointerup','keydown','keyup'])document.addEventListener(name,input,true);
  document.documentElement.classList.add('dialogue-editor-preview');

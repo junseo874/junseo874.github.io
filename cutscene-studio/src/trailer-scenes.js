@@ -4,9 +4,9 @@ const scenes=[];
 function add(kind,duration,title,extra={}){scenes.push({kind,duration,title,...extra});}
 function card(text){add('card',3,text,{text});}
 function clip(file,title,duration,montage,offset=0){add('video',duration,title,{file,montage,offset});}
-add('terrace',2,'테라스 · 야경',{silent:true,panDuration:2,montage:'arrival'});
-add('video',4.9,'심청단',{file:'team',holdAt:3.2,holdDuration:1,montage:'arrival'});
-clip('seoul-puddle','2069년, 한국 서울',5.1,'arrival');
+add('terrace',5,'테라스 · 야경',{silent:true,panDuration:2,montage:'arrival'});
+clip('team','심청단',6,'arrival');
+clip('seoul-puddle','서울 거리 · 물웅덩이',5.1,'arrival');
 clip('street-run','서울 거리 · 달리는 루나',6,'arrival');
 add('identity',5,'루나 · 정체 글리치',{text:'바 ‘언노운’의 바텐더, 루나',alternate:'휴머노이드 실험체, LUNA-1185'});
 add('bar',4,'크리스 · 시작',{actor:'chris',text:'그럼, 시작해 보자고. 루나.'});
@@ -32,8 +32,8 @@ for(const [npc,name] of [['boss','갱두목'],['believer','기신교 신도'],['
  add('outside',2,'거리의 인연 · '+name,{npc,montage:'outside'});
 clip('boobi','부비 · 박스에서 등장',2,'outside',.5);
 clip('yuna-memory','유나와 루나 · 폐기물 처리소의 기억',2,'outside');
-add('terrace',2.4,'크리스 · 마지막 질문',{actor:'chris',text:'…앞으로 어떻게 하고 싶은거지?',montage:'terrace-ending',speechDelay:.65});
-add('terrace',2.5,'루나 · 저는…',{actor:'luna',text:'저는…',montage:'terrace-ending'});
+add('terrace',3,'크리스 · 마지막 질문',{actor:'chris',text:'...앞으로 어떻게 하고 싶은거지?',montage:'terrace-ending',speechDelay:.65});
+add('terrace',2.5,'루나 · 저는...',{actor:'luna',text:'저는...',montage:'terrace-ending'});
 let total=0;for(const s of scenes){s.start=total;total+=s.duration;s.end=total;}
 W.LunaTrailerSequence={scenes,total,emotions:['기쁨','슬픔','짜증','분노','공포','욕망','사랑','희망']};
 })(window);

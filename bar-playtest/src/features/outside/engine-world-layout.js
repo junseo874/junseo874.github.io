@@ -108,25 +108,21 @@ function liftBlend(a,b,t){
 }
 function liftCamera(m,current){
  if(m.scene!=='street'||m.qa){liftRuns.delete(m);return null;}
- const c=camera('street'),r=residence(),normal=confine('street',{x:m.x+c.offset.x,y:m.y+c.offset.y,w:c.width});
+ const c=camera('street'),normal=confine('street',{x:m.x+c.offset.x,y:m.y+c.offset.y,w:c.width});
  let run=liftRuns.get(m);
  if(run&&run.story!==m.story){liftRuns.delete(m);run=null;}
  if(m.ride&&!m.ride.call){
-  if(!run||run.ride!==m.ride){run={ride:m.ride,story:m.story,start:m.time-m.ride.time,from:{...(current||normal)},normal:confine('street',{x:m.x+c.offset.x,y:m.elevatorY+r.passengerOffset+c.offset.y,w:c.width})};liftRuns.set(m,run);}
+  if(!run||run.ride!==m.ride){run={ride:m.ride,story:m.story,start:m.time-m.ride.time,from:{...(current||normal)},normal};liftRuns.set(m,run);}
  }else if(m.ride?.call){liftRuns.delete(m);return null;}
  if(!run)return null;
  const e=scene('street').cameras.elevator,t=Math.max(0,m.time-run.start),backAt=e.duration*e.cameraReturnTiming;
  if(t>=backAt+c.return.resolutionDuration){liftRuns.delete(m);return normal;}
  const returnProgress=liftEase((t-backAt)/c.return.resolutionDuration);
- // HomeSpawn is slightly higher than the cabin passenger anchor. Reconcile
- // that offset over the return, not on the single frame boarding lock ends.
- const landingY=run.ride.to===r.elevatorTop?r.upperY:point('street','04.Gameplay/BarSpawn').y;
- const follow=confine('street',{x:m.x+c.offset.x,y:m.elevatorY+r.passengerOffset+c.offset.y+(landingY-run.ride.to-r.passengerOffset)*returnProgress,w:c.width});
  const wide=confine('street',{x:m.x+c.lift.cameraOffset.x,y:m.elevatorY+c.lift.cameraOffset.y,w:c.liftWidth});
  // Blend already-confined views: a hard clamp on the in-between camera used
  // to catch/release the floor abruptly during zoom. Match the blend to width.
- if(t>=backAt)return liftBlend(wide,follow,returnProgress);
- const from={x:run.from.x+follow.x-run.normal.x,y:run.from.y+follow.y-run.normal.y,w:run.from.w};
+ if(t>=backAt)return liftBlend(wide,normal,returnProgress);
+ const from={x:run.from.x+normal.x-run.normal.x,y:run.from.y+normal.y-run.normal.y,w:run.from.w};
  return liftBlend(from,wide,liftEase(t/c.lift.resolutionDuration));
 }
 function transform(n,e,{size=false}={}){

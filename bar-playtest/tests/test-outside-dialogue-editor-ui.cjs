@@ -4,7 +4,7 @@ const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-stora
 const rt=require('../../tools/lib/test-runtime.cjs');
 (async()=>{
  const original=await snapshot(),tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-outside-editor-ui-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const p of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',p),path.join(runtime,p));
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);for(const p of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',p),path.join(runtime,p));
  const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});try{
   const context=await b.newContext({viewport:{width:1600,height:1000}}),errors=[];context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));
   await context.route('**/api/dialogue-editor',async r=>{try{await r.fulfill({json:r.request().method()==='POST'?await save(r.request().postDataJSON(),{base,runtime,backupRoot:path.join(tmp,'backups')}):{...await snapshot(base),token:'test-only',mode:'local-csv'}});}catch(e){await r.fulfill({status:409,json:{error:e.message}});}});

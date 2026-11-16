@@ -1,6 +1,6 @@
 {
-  "source": "https://app.notion.com/p/3ef1612298dc8016864be134bcc832e8",
-  "synced": "2026-11-13",
+  "source": "https://app.notion.com/p/4071612298dc8078bfe4c1a003995248",
+  "synced": "2026-11-16",
   "dialogues": {
     "neighborhood/reveal": {
       "rows": 1,
@@ -10,342 +10,342 @@
     "neighborhood/cat": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "37bfbe49249e3eda8da0be0ffd5fbce0a88d8a6369eddf9b82d90b6742e5b408"
+      "sha256": "c126498c1ef49e459d0b3f96215287c7d9c43db41790e90b9aeccbc52142b635"
     },
     "neighborhood/feed": {
       "rows": 9,
       "spoken": 5,
-      "sha256": "7ca347346b892e9d72aa572f9fa941a0ae535ab1b4c101e436b4c5f06ec736bd"
+      "sha256": "e1b2e1a59a6fcf15fe4f5d8b640bbd1e6c56f4ca753d9f7d36a2a8d902ce08a7"
     },
     "neighborhood/rest": {
       "rows": 7,
       "spoken": 5,
-      "sha256": "78fbcc205f9e65e985804d81f875f824f62685fb51a9be2d1796e5485b5f489a"
+      "sha256": "41442079591d38e328b22b75c9b56defa2b2556abbad772631258bb7d0e8fc17"
     },
     "neighborhood/repairGreeting": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "1a19f5a5be625224e0afac10d4827fa448c5076cfaf498ffd1218d8cb58434ac"
+      "sha256": "2f22dce618e759eb17555c0d435f225f1e9bb9f6be63cfb5af0bf3215b734389"
     },
     "neighborhood/repairIntro": {
       "rows": 12,
       "spoken": 12,
-      "sha256": "d1a250abb847cdff7d2f071e39e0ff1179552c5f27deca10d99c18d4e5d4b992"
+      "sha256": "3ffeae405548082ac875606867b3864a302deb88269e046248dea8d0e3b3843a"
     },
     "neighborhood/repairMenu": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "2873dcee004f35066a541339055780ff464a35d7f08f86bd8aac1d0d023cb38d"
+      "sha256": "a4e9a6a0961ef7965a134c4422692488d733c67dc5ace5de23da774c01bf0ee4"
     },
     "neighborhood/repairPaid": {
       "rows": 7,
       "spoken": 6,
-      "sha256": "933eea12e485a38187a652ce626e12f6b98a18faf5d8d9ace15726f2aa647739"
+      "sha256": "1a22b999af101882f9fbda26d6d122ef14d2298f6bc08fbe16432a3480a6d19e"
     },
     "neighborhood/guardBlocked": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "94e95e925c0d8d0c2b54229a33aa35a8b6db03fdef9d5e20a0feac6ab7c1f0cf"
+      "sha256": "f6ff605b85cb148ae98da8b0882dc17fe641b59150549147dfd3aa154224d0c4"
     },
     "neighborhood/guardMenu": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "b473387100f272c98c1aa73c903c922e2583665996803ee5a07f119a66b510c6"
+      "sha256": "f6ff605b85cb148ae98da8b0882dc17fe641b59150549147dfd3aa154224d0c4"
     },
     "neighborhood/guardPass": {
       "rows": 7,
       "spoken": 7,
-      "sha256": "0596370983c2e54e81de466ebfcfd48d03d4a285bd98c3e880046def7bdaa450"
+      "sha256": "6648e002db904ea4f88ceedc8f2a8ea299b5de95e2fb944d1f683326fcc0325d"
     },
     "neighborhood/bossIntro": {
       "rows": 23,
       "spoken": 22,
-      "sha256": "f3a469e7a17bc86b5842cdd71612c5f156423de3dbf606e17470087a54b2faff"
+      "sha256": "9d6bb0c25d9a3889fc3447c792da09f5e9fa88de06c7e268e24febc3cb416b9d"
     },
     "neighborhood/bossWait": {
-      "rows": 2,
-      "spoken": 2,
-      "sha256": "d17aeef08db58721050ebcd1adb0c37a4631d8b864854e39bca3dd44d3854a3e"
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "275ed0250e393394ae64b8f4b29a4ea63e23805e7a4db7e896cde9301face4f3"
     },
     "neighborhood/bossRepairFirst": {
       "rows": 8,
       "spoken": 7,
-      "sha256": "7eb6d8cb67a81f5fcdad9d90cac6007db75a407f8d8612b9f088f0ecfe4ccc99"
+      "sha256": "639c4cc8af433e1772761e1e029b2f464c0be3c07b260782ddd845ddda815a96"
     },
     "neighborhood/bossPayFirst": {
       "rows": 6,
       "spoken": 5,
-      "sha256": "39c684b6765206fb9f15f53b78e95d98fbe91d25b5bafb2276a6ba445833e65e"
+      "sha256": "c6cfeec84bf2529a835eae0c08dba4335ce986a8901581e63ada16cb5d5b646f"
     },
     "neighborhood/bossRepeat": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "f2899c738f1616fd4d697af1914c87e44798c598114551a219072ae4d6c5e8c3"
+      "sha256": "ddfa948937417d7e62a0b02e67b193e9542f1b086d170f07cee6afa9dbbc69b6"
     },
     "neighborhood/bossRepairRepeat": {
       "rows": 6,
       "spoken": 5,
-      "sha256": "2cbc866336794772ce2632faad30a4ec6497bce48890650fe54e4269784e7afc"
+      "sha256": "4db2aa589d941d6fe801bd4cb329aa3a444eeb74ddc08afa62cd34a6fa45e70f"
     },
     "neighborhood/bossPayRepeat": {
-      "rows": 7,
-      "spoken": 6,
-      "sha256": "1542f4a49226afaed15841fa47f1d27bced5ac993ef90643c1525aed4d4e0c7c"
+      "rows": 6,
+      "spoken": 5,
+      "sha256": "c6cfeec84bf2529a835eae0c08dba4335ce986a8901581e63ada16cb5d5b646f"
     },
     "neighborhood/bossDone": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "42f5dfcb1fb4b86cff102f54764ecac1d067627c671ba66cb76ab922ac1fd177"
+      "sha256": "d4f7599911a4a5b3ea272d857ba60c66827ac51e9a5e4361c5d66af665766b69"
     },
     "beggar/intro": {
       "rows": 8,
       "spoken": 7,
-      "sha256": "d4c5b6761e1996f951a8ed50228ca38ae6073f3cf5212361f0cb61cf7c5d8e2e"
+      "sha256": "d074cea3f29dc9a612a5a82ae3535302c48af4deaff22c8f0ece6ae2abdbd0d7"
     },
     "beggar/repeat": {
       "rows": 2,
       "spoken": 1,
-      "sha256": "759ab9384c3dda53be3e6fbc7a529eadba855b616413f0b92a5c0484c2174ae5"
+      "sha256": "24b09c0bb26a8c71b8080e94c8415b824a0fe2bb288508f7266638215dd78ac1"
     },
     "beggar/paid": {
       "rows": 3,
       "spoken": 3,
-      "sha256": "ada4d9e533252cff209606beaa321bfa313ceb4328f9f9e3860f76af43f5a87a"
+      "sha256": "5527dd1aea9c621681f73dfee176631ace08867980529b6777bb78e807c21579"
     },
     "beggar/refused": {
-      "rows": 1,
-      "spoken": 1,
-      "sha256": "b5924f0f52ce2def418d2bab1d13dc4ddbe1aafdfc843688a4a6ecadb2ae4967"
+      "rows": 2,
+      "spoken": 2,
+      "sha256": "0c1433e58b1d0019d3a8ff4c1fab8ce6244769667c26122402b8988bdb6ad16c"
     },
     "beggar/questioned": {
-      "rows": 5,
-      "spoken": 5,
-      "sha256": "ac311362c07f35726a106f43ff1946e0030e841af3315d20675c52e43da54366"
+      "rows": 6,
+      "spoken": 6,
+      "sha256": "2383e9af240dfb118b61d5d6c993732fd944170c4733a98ef94f2dbb6aa824bb"
     },
     "beggar/warning/unmet": {
       "rows": 5,
       "spoken": 5,
-      "sha256": "2f693f0fee8fea05b38b4ae95db068f5079f57e08b0e81c0327c796cbd51b5c6"
+      "sha256": "aba4f9cfa92a8da441775a51c95f420215a8d5c6702610c9c21e0aea22b9b02f"
     },
     "beggar/warning/met": {
       "rows": 5,
       "spoken": 5,
-      "sha256": "7525cfe4f0b27a119bd5901735c9b9a128269587d93204a0fcdc9c097193a878"
+      "sha256": "0bb8882cd94d368d82c1f80ca087caf4b15bc11db4b50a3ae4587f6d817a0e93"
     },
     "beggar/warning/unpaid-repeat": {
       "rows": 2,
       "spoken": 2,
-      "sha256": "38658fe6044c112e10d7288b2ddbf299a21802b24eab40516cfa71de1d58315c"
+      "sha256": "0ac1239dfd9ed46bdefdd210a5bca43c570c645ebeef46155aff5542fe28366d"
     },
     "beggar/warning/paid": {
       "rows": 6,
       "spoken": 6,
-      "sha256": "7412ec77ed41bce05854dbae37dc28fb65923faf7140bf4ff273f2ee11c3da9c"
+      "sha256": "2d1ebd4c6dc9897e3910d0e51490c48da47833f5fe6234858c6644104fe4f504"
     },
     "beggar/warning/paid-repeat": {
-      "rows": 2,
-      "spoken": 2,
-      "sha256": "2b0c4ca3260d95d8cd441eca93be4ad0e81e55f037228cc8935ba0833f0e6d3c"
+      "rows": 1,
+      "spoken": 1,
+      "sha256": "522b70c623020d89a617da9edc0002fa30182871ec7da368e1875a8943d13077"
     },
     "shop/intro": {
       "rows": 13,
       "spoken": 11,
-      "sha256": "e0074cc6c68b9b9eaa5c34ecaf500865e5118d5360c5508c0186dcb4972c9834"
+      "sha256": "42b9cbc0a979439c96f02c558ab5bc2de88ffd4a2f0c33373f666ff605bfda7d"
     },
     "shop/revisit": {
       "rows": 2,
       "spoken": 1,
-      "sha256": "e11181e2e43653af4909b7183e1c379263d90595e8e505f01b3f75a05427ed1c"
+      "sha256": "dc492759500f3ab8c34ed229774a913ea44059a4c4cb55ac79124ff2d07625c0"
     },
     "shop/allowance": {
       "rows": 7,
       "spoken": 7,
-      "sha256": "4be1f9a733de0ebb55ff1e562d4500137e75a85dd1b3376f47d63b8b44ae404d"
+      "sha256": "e129a9e033b3b0966a669446573f1d9c6b79095169a29fa1cc39c961e8951ba6"
     },
     "shop/quizIntro": {
-      "rows": 17,
-      "spoken": 17,
-      "sha256": "0746c2e6db7ec1039093ff1922c2b6bdb857233075e23ce5d5d9bb20089927de"
+      "rows": 15,
+      "spoken": 15,
+      "sha256": "f57baf5e55723219e83351917aed4e57edd36d7238a51ee90667f497ae67a830"
     },
     "shop/lesson": {
       "rows": 9,
       "spoken": 9,
-      "sha256": "34b504fce7c45a5258d740279332edd8ed58b4a59f8dfbb073d0acb3667f073d"
+      "sha256": "44d2b8e32b0ba6659efe71ae6661aad30d594ae0151876b3ecd0d277c18c23a1"
     },
     "thug/intro": {
       "rows": 11,
       "spoken": 11,
-      "sha256": "774709a7b44ad1b39daa07fc5d4a3c1b8bf8c79e0a0aecbaaceaa2dae59d16d5"
+      "sha256": "52ffcac375c753fc1b13a8b0248a00d81a4ac5f85f551792dec6411afdf23132"
     },
     "thug/paid": {
       "rows": 9,
       "spoken": 8,
-      "sha256": "d8a261b1689a3f05be3833726696ba0b918a6d2bc6f54b59ab4ea271bb3c30b0"
+      "sha256": "d19f32228f60d99607b832f84c5b161e01e5008704a3d74f6feeea716d1c3d4f"
     },
     "thug/refused": {
       "rows": 8,
       "spoken": 6,
-      "sha256": "825b9b741362f3e491de7f681ae477aebf6e29e34a4096f6f8cb944d135c2015"
+      "sha256": "f60bf3367c6aef00923798f41be361bb8e34913e2b8d017e06a0a92373fd6612"
     },
     "notion/intro": {
       "rows": 6,
       "spoken": 6,
-      "sha256": "e81de1498e8dd5f2eed6ffcdc2b687448763d3a0c6deed8b86b78a93d9af9ad4"
+      "sha256": "96c0c42368864285ba206b435b4aabdd15bd38e6a68230e8e4b789fafd65ecd5"
     },
     "notion/info/gang": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "d618de11a546046bc828fde954fd94b1ad48ed3e806d537822c14e1fb258af19"
+      "sha256": "2f2a73ce6d429070faea5f65e390288f9b8ec0562da71f21630fa162e18cfe0b"
     },
     "notion/info/coratech": {
-      "rows": 8,
-      "spoken": 8,
-      "sha256": "ea93f636addcc73fd74bfd05d95a1cf1daf1f28319f3daf830154f2361f6d8cd"
+      "rows": 9,
+      "spoken": 9,
+      "sha256": "f30102818b158093acb3753e83f2c496e3136535feeaf0895d630e7296081f5f"
     },
     "notion/info/chris": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "17e80f03dd08ad13f246b6b330cb72f62647557334b0faae8cf116aef19c521a"
+      "sha256": "cac0c136b475a3c3fc49d227783e7c42c22edb44a967756744b95696ee10bd0f"
     },
     "ambient/outside_day1_samho_smuggler": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "50868eac472df7bd56b758118c0f99b98ebd0ce39be766422258789a86cdb3c0"
+      "sha256": "84fc56ee0427375f6610d37ec464f058ce1523ca89ca1060a43c9d5475d9d948"
     },
     "commute2": {
-      "rows": 30,
-      "spoken": 29,
-      "sha256": "84effe71f9f604f4c3d51c8b5f3c64c045695f107e4cf6de676927c8719a330b"
+      "rows": 26,
+      "spoken": 25,
+      "sha256": "4a2e8fb4884b6cdeb8d33503d044514cc580b5297fc4bdef03451066cb71b6e6"
     },
     "commute3": {
-      "rows": 7,
-      "spoken": 7,
-      "sha256": "dec163a76600aa3bb789f006ea453dd350d22509042cc7cf5ceed04b76d756b2"
-    },
-    "notion/contract": {
-      "rows": 23,
-      "spoken": 20,
-      "sha256": "1961fe8e9086e3bfbcfba827627285eb73b6f333886e65ea318bc6c2ed7b528c"
-    },
-    "ambient/outside_day0_store_passers": {
       "rows": 8,
       "spoken": 8,
-      "sha256": "e53a90f5d13512a93846846b0a61a3ae1f151f4efbdacd759be2f096402ba66d"
+      "sha256": "b94c8c2e09830dd44b0fe58eb1152cea00c9a359cdaa24a97fd42ac8bc185013"
+    },
+    "notion/contract": {
+      "rows": 20,
+      "spoken": 17,
+      "sha256": "1319cdf7a636d4f89779bc4c601789d392dd7115156fcd3f6df0045aa7901010"
+    },
+    "ambient/outside_day0_store_passers": {
+      "rows": 7,
+      "spoken": 7,
+      "sha256": "ca6b7e5cddeffe6b117fbbe94a63e8081d3de31e62073b53e8998c70d9436040"
     },
     "ambient/outside_day0_port_pair": {
       "rows": 10,
       "spoken": 10,
-      "sha256": "28239fcdcf16cbbb737f62b9a9b7e268655f738dcd9cf1da04e785e7d1bf4c20"
+      "sha256": "7884c466a49500bbd67060d77625feab06ff74fc6d432ae1c8ed50b469da1ef8"
     },
     "ambient/outside_day0_building_residents": {
       "rows": 4,
       "spoken": 4,
-      "sha256": "bc59b2547a3928abc3223faacfa5ef47c73ebcee479ea43e70bf691086398215"
+      "sha256": "029566236e4154d31eb2db5d6aeb85f2657e2d4650460abba3f72e1e2d425c85"
     },
     "ambient/outside_day1_commute_passers2": {
-      "rows": 6,
-      "spoken": 6,
-      "sha256": "dfd7f1360c1369f997c3f5f8600a8485198ef083c5e3cba01025a617b526b0cb"
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "dab6fa75f2da1ab203954f1124342685a491dcb38993ff57007659d2fc43431b"
     },
     "ambient/outside_day2_commute_reopening": {
-      "rows": 13,
-      "spoken": 13,
-      "sha256": "b2de311efed6a28896288fda2b3a4e8dec919770886908694363f23ba8dad73e"
+      "rows": 12,
+      "spoken": 12,
+      "sha256": "0d4ac6ec64df8f0d00a16c3f4897cfdc268c34ce50cafe4175af60e91e8b38a8"
     },
     "StudioOpening.source.tv": {
-      "rows": 33,
-      "spoken": 33,
-      "sha256": "974c03bc18ffe8aa4f8514539058aa28d489fbce455cad924188327c03bc333a"
+      "rows": 32,
+      "spoken": 32,
+      "sha256": "096c85c4fd1d02601b3c1a27780288736e567b6db7945309ea90176800cf39c6"
     },
     "ambient/outside_day1_tv_news2": {
       "rows": 7,
       "spoken": 7,
-      "sha256": "afad48f3702cb5a5f62f221a040c47cd94f3825dbae96fce5b0b24f2adc41598"
+      "sha256": "a15c93081191462a9ae85389e8c7d7e015baa642077197033a239c68e21ccbca"
     },
     "ambient/outside_day0_tv_news1": {
       "rows": 5,
       "spoken": 5,
-      "sha256": "0da2f52f17d1122653a6dc5a11754752f0b2c5fcc90c89381e3f819532a42398"
+      "sha256": "5fa757ea5d05fe4b5dbd9ef913ac8ebca79121e7b00c8b2003034be70b0fdfae"
     },
     "night0": {
-      "rows": 26,
-      "spoken": 26,
-      "sha256": "3ee2f6b2f693e7a21022e57ccfcc4ab9564a29176c30967e4ba930006d360ccf"
+      "rows": 22,
+      "spoken": 22,
+      "sha256": "144620ccc7516e6c7c6c13ac15a42f7bb04132f972d6a3bbd730d7a6b6c9fa58"
     },
     "terraceMemory": {
-      "rows": 7,
-      "spoken": 7,
-      "sha256": "30c921f701c288956cebf077631c77ee07e1e520aacb13aabc6be0406943a59f"
+      "rows": 8,
+      "spoken": 8,
+      "sha256": "84c944a07463f7fa1cf7170f722f508f26c38eb85c6d52f7e817625994067bfc"
     },
     "workshop": {
       "rows": 12,
       "spoken": 12,
-      "sha256": "15fd368e0c29353422d4eae5d6b11a4afb977d112038c3e0848192c3c7c0daf5"
+      "sha256": "b2128c3910443930c1bd0b10715183463e2f2f964c3d25aa74edad6cf4ce7c00"
     },
     "night1": {
       "rows": 19,
       "spoken": 19,
-      "sha256": "532595ac8224b0f95049ad4af4fad0c871d6f5d87b97b18f7990ba325e45a522"
+      "sha256": "191a59d87cdac98432a394abe777178d648519dca3c7377aabf31687426e5a8a"
     },
     "night2": {
-      "rows": 27,
-      "spoken": 26,
-      "sha256": "4451d987d8f026a7574bbc6ae5306e7aee5129063225ce43e50a682775a06011"
+      "rows": 13,
+      "spoken": 13,
+      "sha256": "6959341089d3f7985e25897929efd01693a6e1d21e2d5841cad6c3f38100275f"
     },
     "johnny": {
-      "rows": 39,
-      "spoken": 39,
-      "sha256": "71da403f735fdef75f153e4a7af80a3ca5549c7eb17e263e0f7316410f773966"
+      "rows": 56,
+      "spoken": 56,
+      "sha256": "d6e275291d2f6bfe94dc5175d27fe77a4e6f1e033549a15e427d2b59130911b6"
     },
     "ending": {
-      "rows": 21,
-      "spoken": 21,
-      "sha256": "bd3fa753ae0558f26b9d71e6514e8a478817be1f9641ced55eb33545c91c98a3"
+      "rows": 20,
+      "spoken": 20,
+      "sha256": "700a992c35bb470b0e41639eb057fec534ae3c68d5941d75f5bc363b41695d82"
     },
     "terraceMemory3": {
-      "rows": 6,
-      "spoken": 6,
-      "sha256": "58e14296fe940e716908c5f1250551cd3411127a3c0d13a88e607d8dbf47ba19"
+      "rows": 5,
+      "spoken": 5,
+      "sha256": "ccdebacda66f03b052690c3ae6bcff6d3dc715889bb309b2cd88053d70500faf"
     },
     "newspaper/intro": {
       "rows": 13,
       "spoken": 12,
-      "sha256": "96dcd46ed79db4ae5b11485a5d8a6ef45254bfb4b025ed7bf2bd5c1b53aabeca"
+      "sha256": "e63af06e89cadf372226c9a9569f7916bd60f30690136e844d81788b69e9f051"
     },
     "newspaper/wrong": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "d36ee39ad82baff57a43447f8cc1e41bcad9d5cb9307888447dd855d21405594"
+      "sha256": "c0c3b7051e6b29b0f711a88a324b77cf2522aa9b72cec6bc0f08c775c06b49f1"
     },
     "newspaper/right": {
       "rows": 2,
       "spoken": 2,
-      "sha256": "54e076052992674098e47ebc835bae75712f70733dac035ecda2242c11ef5ad7"
+      "sha256": "2e6071334071f9b54c62a49d43a65dd509dea5995bc520d16f30f592d50c2807"
     },
     "newspaper/common": {
       "rows": 11,
       "spoken": 10,
-      "sha256": "79c01ce36b404ddaf68c7f49137e0183a6537599b5575ef9ebe3253a0997dbc9"
+      "sha256": "3e4b263787d08bb38e1d7936076288ea79be5548dd057ebb55a51109ee57e409"
     },
     "newspaper/finish": {
       "rows": 2,
       "spoken": 2,
-      "sha256": "95ce52bdb2a21f4f9bf1d7cd5c3236757ad093b44955cd12b1cda700422e2452"
+      "sha256": "68f81760b4b32d2311d4106b0ba14230793535996abe69d89bdb746fe7b4649c"
     },
     "newspaper/repeat": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "98dfd14ec68d1a7373d002b25728f674fb43137ae4ce63ac9ebd7610dcaa3b23"
+      "sha256": "7a6532d0a9b81cf07b45227488384a43f5336f70cb66a803951ce72ce29f834b"
     },
     "believer/intro": {
       "rows": 16,
       "spoken": 15,
-      "sha256": "82f1493ee001f19c55428652b1dd4e7bf6e9ebe9eee3a23e9a232353d93aa1f9"
+      "sha256": "5aa658237265943ca957d329f9cf1d2df4bd6e026a320891fc7788f4d7984076"
     },
     "believer/finish": {
       "rows": 1,
       "spoken": 1,
-      "sha256": "d590b5a3139103bb5368d0ffdc4bfa0a0e2a4ced8eb3d99246d2e0b7273b846e"
+      "sha256": "001b5934f6ed661ae5e508b2de502264ef7d15414f468127b759eb83074495a1"
     }
   }
 }

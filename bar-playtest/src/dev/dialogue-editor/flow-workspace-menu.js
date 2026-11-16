@@ -21,7 +21,7 @@ function attach(area,menu,resolve){
  function up(){sub=false;render(rootEntries,parentId);}
  function open(e,keyboard){
   // A row may be redrawn when selected; restore focus by identity, not its old element.
-  const r=e.target.getBoundingClientRect(),ctx=resolve(e.target,keyboard);if(!ctx?.entries.length)return;
+  const r=e.target.getBoundingClientRect(),ctx=resolve(e.target,keyboard,e);if(!ctx?.entries.length)return;
   e.preventDefault();close();origin=ctx.focus;rootEntries=ctx.entries;sub=false;pos=keyboard?[r.left+Math.min(24,r.width/2),r.top+Math.min(24,r.height/2)]:[e.clientX,e.clientY];render(rootEntries);
  }
  area.addEventListener('contextmenu',e=>open(e,false));
@@ -36,10 +36,11 @@ function attach(area,menu,resolve){
  area.addEventListener('wheel',()=>close(),{passive:true});W.addEventListener('resize',()=>close());W.addEventListener('popstate',()=>close());
  return {close};
 }
-function create(commands){
- const area=$('map-port');return attach(area,$('map-menu'),el=>{
+function create(commands,empty){
+ const area=$('map-port');return attach(area,$('map-menu'),(el,keyboard,e)=>{
   if(!area.querySelector('.flow-card'))return;
   const line=el.closest('[data-line-pin]'),card=el.closest('[data-node]'),pin=el.closest('[data-port],[data-pin-label],[data-pin-trash]');
+  if(!card&&!line&&empty){e.preventDefault();const b=area.getBoundingClientRect();empty(keyboard?b.left+b.width/2:e.clientX,keyboard?b.top+b.height/2:e.clientY);return;}
   const index=pin?Number(pin.dataset.port??pin.dataset.pinLabel??pin.dataset.pinTrash):null;
   return {entries:commands(line?.dataset.lineFrom||card?.dataset.node,index,line?.dataset.linePin),focus:()=>[pin,line,card,area].find(n=>n?.isConnected)};
  });

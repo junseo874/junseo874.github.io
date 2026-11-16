@@ -38,7 +38,10 @@ function mergeWeb(catalog,data,story,outside={}){
  bodies.defaults=row('guest_settings',t.guest_settings[0]).defaults;
  bodies.exclusions=t.guest_exclusions.map(r=>row('guest_exclusions',r));
  bodies.web_row_id=t.guest_settings[0].row_id;
- const views={tables:{},campaign:{source:story.source,revision:story.revision,actors:story.actors,opening:{},bar:{},scenes:{}}};
+ const actors={...story.actors};
+ // These display aliases belonged to the removed raid, not to radio broadcasts.
+ if(story.prologue)for(const name of ['보안부 3팀 팀장','진입조｜무전','보안부 대원 A','경계조 A｜무전'])delete actors[name];
+ const views={tables:{},campaign:{source:story.source,revision:story.revision,actors,opening:{},bar:{},scenes:{}}};
  for(const [name,rows]of Object.entries(t))views.tables[name]={table:tableName(name),rows:rows.map(r=>({id:r.row_id??null,key:Object.fromEntries(['id','setting','choice_group','string_id'].filter(k=>Object.hasOwn(r,k)).map(k=>[k,r[k]])),fields:Object.keys(r),countLabel:Object.keys(r).filter(k=>['unit','default_target_unit'].includes(k)&&r[k]==='개'),valueType:r.value_type,numbers:Object.keys(r).filter(k=>typeof r[k]==='number'),booleans:Object.keys(r).filter(k=>typeof r[k]==='boolean')}))};
  function line(r,index,old={}){
   const known=['say','enter','exit','order','craft','serve','coaster','end_part','effect','fx','sfx','choice','goto','set_state','tutorial','timeline','popup','move'];
@@ -72,12 +75,12 @@ function mergeWeb(catalog,data,story,outside={}){
   if(!scene){scene={id,day:0,phase:source.split('/')[1],seq:group.scenes.length+1,trigger:'manual',title:id,skippable:false,steps:[]};group.scenes.push(scene);}
   scene.steps=rows.map((r,i)=>line(r,i,scene.steps[i]));views.campaign.scenes[id]={source,scene:id,offset:0};
  }
- // Keep unused legacy authoring arrays inspectable without making them auto scenes.
- for(const field of ['prologue','day0Bar']){
-  const source='script/cutscene',id='web-authoring-'+field;
-  values.get(source).scenes.push({id,day:0,phase:'intro',seq:900,trigger:'manual',title:id,skippable:true,steps:story[field].map((r,i)=>line(r,i))});
-  views.campaign[field]={source,scene:id,offset:0};
- }
+ // Older engine snapshots contain the retired raid radio. It is not the
+ // Studio new-game opening; never bring it back during legacy migration.
+ const cutsceneSource='script/cutscene',cutscenes=values.get(cutsceneSource),day0Id='web-authoring-day0Bar';
+ cutscenes.scenes=cutscenes.scenes.filter(s=>s.id!=='web-authoring-prologue');
+ if(!cutscenes.scenes.some(s=>s.id===day0Id))cutscenes.scenes.push({id:day0Id,day:0,phase:'intro',seq:900,trigger:'manual',title:day0Id,skippable:true,steps:story.day0Bar.map((r,i)=>line(r,i))});
+ views.campaign.day0Bar={source:cutsceneSource,scene:day0Id,offset:0};
  views.outside={};
  function option(steps,id){for(const step of steps)for(const o of step.options||[]){if(o.id===id)return o;const nested=option(o.result_steps||[],id);if(nested)return nested;}return null;}
  const sceneMap={
@@ -88,7 +91,7 @@ function mergeWeb(catalog,data,story,outside={}){
  };
  for(const[key,rows]of Object.entries(outside)){
   let source='script/street',id=sceneMap[key]?.[0]||key.slice(8),branch=sceneMap[key]?.[1];
-  if(key.startsWith('ambient/')){if(values.get('script/home').scenes.some(s=>s.id===id))source='script/home';}
+  if(key.startsWith('ambient/')){if(values.get('script/ambient').scenes.some(s=>s.id===id))source='script/ambient';}
   else if(!sceneMap[key])id='shared-'+key.replaceAll('/','-');
   const group=values.get(source);let scene=group.scenes.find(s=>s.id===id);
   if(!scene){scene={id,day:0,phase:'street',seq:group.scenes.length+1,start_mode:'manual',title:id,steps:[]};group.scenes.push(scene);}

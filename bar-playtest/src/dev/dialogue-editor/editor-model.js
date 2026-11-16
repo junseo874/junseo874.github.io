@@ -91,7 +91,7 @@ class Model{
   for(const row of [...this.tables.steps,...this.tables.bar_choices]){const messages=engineExpressionErrors(row,baseline.get(row.row_id));errors.push(...messages);if(messages.length){const owner=this.row(row.row_id)||this.tables.steps.find(s=>s.type==='choice'&&this.choices(s.arg).includes(row));for(const message of messages)issues.push({severity:'error',scene:owner?.context,row:owner?.row_id,choice:row===owner?'':row.row_id,message});}}
   const supported=new Set(['say','enter','exit','effect','choice','order','craft','serve','end_part','timeline','tutorial','coaster','empty_glass','popup']);
   for(const row of this.tables.steps)if((!baseline.has(row.row_id)||baseline.get(row.row_id).type!==row.type)&&!supported.has(row.type))errors.push('엔진 실행기가 지원하지 않는 대사 타입: '+row.type);
-  for(const scene of this.scenes){if(wiring){const plan=wiring.scan(this,scene.id);errors.push(...plan.errors);issues.push(...plan.issues);}const rows=this.rows(scene.id);for(const [index,r]of rows.entries()){
+  for(const scene of this.scenes){if(wiring){const plan=wiring.scan(this,scene.id,true);errors.push(...plan.errors);issues.push(...plan.issues);}const rows=this.rows(scene.id);for(const [index,r]of rows.entries()){
    const start=errors.length,label=scene.day+'일차 '+(index+1)+'번';
    const ctx={day:Number(scene.day),money:1000,reputation:0,phase:'bar',flags:{},affinity:{},grade:'good',craft_grade:'good',final_grade:'good',order_match:true,cocktail:{id:'gin_tonic',abv:10},tags:[],ordered:'gin_tonic',served:'gin_tonic'};
    for(const x of [r,...(r.type==='choice'?this.choices(r.arg):[])])try{rules.condition(decode(x.when),ctx);rules.applyEffects(decode(x.effects),{...ctx,flags:{},affinity:{}});}catch(e){errors.push(label+': '+e.message);}
@@ -109,5 +109,5 @@ class Model{
   return {errors:[...new Set(errors)],issues,result};
  }
 }
-const api={Model,paths,csv,decode,engineExpressionErrors};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueEditorModel=api;
+const api={Model,paths,csv,decode,rules,engineExpressionErrors};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueEditorModel=api;
 })(typeof window==='undefined'?globalThis:window);

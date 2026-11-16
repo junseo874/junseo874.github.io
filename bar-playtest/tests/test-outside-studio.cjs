@@ -2,9 +2,10 @@ const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=req
 const S=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../src/dev/dialogue-editor/outside-model.js'),M=require('../src/dev/dialogue-editor/outside-flow-map.js'),P=require('../src/features/outside/npc-placement.js');
 (async()=>{
  const temp=await fs.mkdtemp(path.join(os.tmpdir(),'outside-studio-contract-')),base=path.join(temp,'csv'),runtime=path.join(temp,'runtime'),backupRoot=path.join(temp,'backup');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);
  for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
  const original=await S.snapshot(),initial=await S.snapshot(base);
+ assert.equal(initial.revision,original.revision,'fixture includes the published NPC placements');
  const load=async()=>{const source=await S.snapshot(base);const m=await new Model(source.files,source.presentation).init();m.refreshChoiceFlows();return{m,source};};
  const persist=async(a)=>S.save({revision:a.source.revision,mode:'outside',files:a.m.output()},{base,runtime,backupRoot});
  let a=await load(),m=a.m;assert(m.visibleFlows().every(f=>M.site(m,f).id!=='other'));for(const s of M.sites)assert(s.pins.every(id=>Object.hasOwn(P.specs,id)));
@@ -17,6 +18,12 @@ const S=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../s
  a=await load();m=a.m;for(const s of Object.values(P.specs)){const v=P.empty();P.write(v,s.id,1e6);P.validate(v);assert.equal(P.position(v,s.id),P.snap(s.id,1e6,v).x);}
  m.setPlacement('store-pair-partner',-4.68);m.setPlacement('store-pair',1);assert.equal(P.position(m.placement,'store-pair-partner'),2.1);m.setPlacement('store-pair-partner',1.45);m.setPlacement('believer',1.02);assert.deepEqual((await persist(a)).files,['presentation/npc-placements.json']);await assert.rejects(persist(a),/변경/);
  a=await load();m=a.m;assert.equal(P.position(m.placement,'store-pair-partner'),1.45);assert(!m.dirty());
+ const seatedX=P.position(m.placement,'newspaper'),beggarX=P.position(m.placement,'beggar'),witnessX=P.position(m.placement,'witness');
+ m.setPlacement('beggar',beggarX+.1);assert.equal(P.position(m.placement,'witness'),witnessX,'the informant is independent');
+ m.setPlacement('witness',witnessX-.1);m.setPlacement('newspaper',seatedX+.05);
+ assert.deepEqual((await persist(a)).files,['presentation/npc-placements.json']);
+ a=await load();m=a.m;for(const [id,x] of [['beggar',beggarX+.1],['witness',witnessX-.1],['newspaper',seatedX+.05]])assert(Math.abs(P.position(m.placement,id)-x)<.00001);
+ const seat=P.pose(m.placement,'newspaper');assert.equal(seat.flip,false);assert(Math.abs(seat.y+.9)<.00001);assert(!m.dirty());
  for(const data of [{version:1,positions:{believer:{x:0,y:999}}},{version:1,positions:{unknown:{x:0,y:0}}},{version:1,positions:{'store-pair-partner':{x:4,y:-.94}}}])await assert.rejects(S.save({mode:'outside',revision:a.source.revision,files:{[P.file]:JSON.stringify(data)}},{base,runtime,backupRoot}));
  await assert.rejects(S.save({mode:'bar',revision:a.source.revision,files:{[P.file]:P.defaultText}},{base,runtime,backupRoot}));
  assert.notEqual(initial.revision,a.source.revision);assert.equal(original.revision,(await S.snapshot()).revision);

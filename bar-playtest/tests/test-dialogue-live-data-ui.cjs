@@ -7,7 +7,7 @@ const origin = process.env.EDITOR_URL || 'http://127.0.0.1:8123';
 (async () => {
   const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'luna-live-dialogue-'));
   const base = path.join(tmp, 'csv'), runtime = path.join(tmp, 'runtime');
-  await fs.cp(path.join(__dirname, '../data/shared-csv'), base, {recursive:true});
+  await require('./helpers/copy-editor-source.cjs')(base);
   await fs.cp(path.join(__dirname, '../data/runtime'), runtime, {recursive:true, filter:source => !path.extname(source) || ['game-data.js','campaign-data.js'].includes(path.basename(source))});
   const browser = await chromium.launch({headless:true, executablePath:rt.chrome});
   try {
@@ -38,7 +38,8 @@ const origin = process.env.EDITOR_URL || 'http://127.0.0.1:8123';
       return window.liveBefore.revision;
     });
     await editor.goto(origin+'/bar-playtest/dialogue-editor.html');
-    await editor.waitForFunction(() => window.dialogueEditor?.model);
+    try { await editor.waitForFunction(() => window.dialogueEditor?.model); }
+    catch (error) { console.error('Bar editor startup:', await editor.locator('#status').textContent(), errors); throw error; }
     await editor.locator('#line-list .line').nth(1).click();
     const field = editor.locator('#inspector textarea[data-field="text.ko"]');
     const id = await editor.evaluate(() => dialogueEditor.model.row(dialogueEditor.selected).web_row_id);

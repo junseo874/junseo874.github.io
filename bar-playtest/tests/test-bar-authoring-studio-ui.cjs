@@ -3,7 +3,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),path=require('node:path'),os=require('node:os');
 const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs'),rt=require('../../tools/lib/test-runtime.cjs');
 (async()=>{
- const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-studio-ui-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-studio-ui-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);
  for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
  const live=(await snapshot()).revision,b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
  let stage='load',p;try{

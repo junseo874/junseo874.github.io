@@ -592,11 +592,12 @@ window.Engine = (function () {
 
     // 스캔라인
     g.save(); g.globalAlpha = 0.08 + 0.16 * amount; g.fillStyle = '#000';
-    for (let y = k % 2; y < H; y += 2) g.fillRect(0, y, W, 1);
+    for (let y = k & 1; y < H; y += 2) g.fillRect(0, y, W, 1);
     g.restore();
 
     // 동기 롤링 밴드 — 위에서 아래로 흐르는 밝은 띠
-    const ry = ((t * 110) % (H + 80)) - 40;
+    const period = H + 80;
+    const ry = ((t * 110 % period + period) % period) - 40;
     const lg = g.createLinearGradient(0, ry, 0, ry + 46);
     lg.addColorStop(0, 'rgba(255,255,255,0)');
     lg.addColorStop(0.5, 'rgba(255,255,255,' + (0.05 + 0.10 * amount) + ')');
@@ -663,7 +664,7 @@ window.Engine = (function () {
     g.fillRect(0, VH - h, VW, h);
   };
 
-  Renderer.prototype.render = function (t) {
+  Renderer.prototype.render = function (t, noiseTime = t) {
     const g = this.g, sc = this.sc;
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.fillStyle = '#000'; g.fillRect(0, 0, VW, VH);
@@ -691,7 +692,7 @@ window.Engine = (function () {
       if (left < rel) e = Math.min(e, left / rel);
       nz = Math.max(nz, (f.amount == null ? 0.5 : f.amount) * e);
     }
-    if (nz > 0) this.tvNoise(g, t, nz);
+    if (nz > 0) this.tvNoise(g, noiseTime, nz);
     for (const f of sc.fx)
       if (f.type === 'crtoff' && t >= f.t && t <= f.t + f.dur + 0.001) this.crtOff(g, t, f);
     return cam;

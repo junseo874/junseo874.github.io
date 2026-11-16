@@ -4,20 +4,20 @@
 const names={luna:'루나',chris:'크리스','home-chris':'크리스',tom:'톰',johnny:'조니',yuna:'유나',boobi:'부비',shiba:'개시바',repair:'수리공',neighbor:'옆집 아저씨',guard:'갱단 경비',boss:'갱단 보스',gangmate:'갱단원','street-newspaper':'신문 읽는 남자','street-believer':'기신교 신도','day1-corridor-thug':'복도 불량배','day2-corridor-thug':'옆집 아저씨'};
 const A=W.LunaOutsideAmbient,D=W.LUNA_OUTSIDE_DATA;
 const kinds={...A.roleKinds,'street-newspaper':'Newspaper','street-believer':'M1','luna':'luna','shiba':'shiba',boobi:'boobi',tv_announcer:'broadcast',tv:'broadcast',sign:'sign'};
-Object.assign(kinds,Object.fromEntries(A.placements.map(p=>[p.id,p.kind])),{'street-beggar':'M2','street-beggar-witness':'M1','resident-left':'M2','resident-right':'W1','commute-pair-left':'M1','commute-pair-right':'M2','reopening-pair-left':'M1','reopening-pair-right':'W1','trade-smuggler':'M1','contract-smuggler':'M1','trade-samho':'samho','contract-samho':'samho',samho:'samho','day2-thug-information':'Neighbor'});
-Object.assign(names,{'street-beggar':'노숙자','street-beggar-witness':'근처 행인','resident-left':'주민 1','resident-right':'주민 2','store-pair-left':'행인 1','store-pair-right':'행인 2','bar-pair-left':'행인 1','bar-pair-right':'행인 2','commute-pair-left':'행인 1','commute-pair-right':'행인 2','reopening-pair-left':'행인 1','reopening-pair-right':'행인 2','trade-smuggler':'밀수업자','contract-smuggler':'밀수업자','trade-samho':'삼호','contract-samho':'삼호',samho:'삼호',tv_announcer:'뉴스 앵커',captain:'대장',radio:'무전',soldier:'병사',tv:'TV',sign:'전단지',port:'포트',aili:'아일리'});
+Object.assign(kinds,Object.fromEntries(A.placements.map(p=>[p.id,p.kind])),{'street-beggar':'Homeless','street-beggar-witness':'M1','resident-left':'M2','resident-right':'W1','commute-pair-left':'M1','commute-pair-right':'M2','reopening-pair-left':'M1','reopening-pair-right':'W1','trade-smuggler':'M1','contract-smuggler':'M1','trade-samho':'samho','contract-samho':'samho',samho:'samho','day2-thug-information':'Neighbor'});
+Object.assign(names,{'street-beggar':'노숙자','street-beggar-witness':'근처 행인','resident-left':'주민 1','resident-right':'주민 2','store-pair-left':'행인 1','store-pair-right':'행인 2','bar-pair-left':'행인 1','bar-pair-right':'행인 2','commute-pair-left':'행인 1','commute-pair-right':'행인 2','reopening-pair-left':'행인 1','reopening-pair-right':'행인 2','trade-smuggler':'밀수업자','contract-smuggler':'밀수업자','trade-samho':'삼호','contract-samho':'삼호',samho:'삼호',tv_announcer:'뉴스 앵커',radio:'무전',soldier:'병사',tv:'TV',sign:'전단지',port:'포트',aili:'아일리'});
 const catalog=[{id:'luna',name:'루나',animations:['idle','walk','run']},{id:'shiba',name:'개시바',animations:['idle']},...Object.entries(A.sheets).map(([id,s])=>({id,name:s.label,animations:['idle']}))];
 catalog.push({id:'boobi',name:'부비',animations:['idle']});
 catalog.push({id:'samho',name:'삼호',animations:['idle']});
 const label=id=>names[id]||id||'연출';
 function stageFlip(actor,kind,facing,towardRight){
- const newspaper=['Newspaper','NewspaperDown','NewspaperUp'].includes(kind);
- if(facing==='left'||facing==='right')return (facing==='right')!==newspaper;
+ const newspaper=['Newspaper','NewspaperDown','NewspaperUp'].includes(kind),naturalRight=newspaper||kind==='Homeless';
+ if(facing==='left'||facing==='right')return (facing==='right')!==naturalRight;
  if(actor==='street-newspaper'&&newspaper)return W.LunaNpcPlacement.pose(null,'newspaper').flip;
- return towardRight!==newspaper;
+ return towardRight!==naturalRight;
 }
 function create({onComplete,onChoice}){
- const $=id=>document.getElementById(id),canvas=$('actors'),ctx=canvas.getContext('2d'),images=new Map();let state=null,start=0,ended=false,popupUntil=0;
+ const $=id=>document.getElementById(id),canvas=$('actors'),ctx=canvas.getContext('2d'),images=new Map();let state=null,start=0,pausedAt=null,ended=false,popupUntil=0;
  const assets=new Map();A.prepareBounds(assets,D);
  W.LunaExteriorTextbox.attach($('speech'));
  const choiceUI=W.LunaWorldChoices.create($('preview-choices'),id=>onChoice(state.choices.find(c=>c.id===id)),{inputScope:$('preview-stage')});
@@ -36,7 +36,7 @@ function create({onComplete,onChoice}){
  function placeBubble(){const el=$('speech'),stage=$('preview-stage');if(!state||el.hidden||!stage.clientWidth)return;const w=stage.clientWidth,h=stage.clientHeight,at=castX(state.cast.indexOf(state.row.actor),state.cast.length)*w,half=el.offsetWidth/2,mid=Math.max(half+8,Math.min(w-half-8,at));el.style.left=mid+'px';el.style.top=Math.max(7,h*.43-el.offsetHeight-13)+'px';el.style.setProperty('--tail-x',Math.max(25,Math.min(el.offsetWidth-25,at-mid+half))+'px');}
  new ResizeObserver(placeBubble).observe($('speech'));
  function sprite(kind,anim,t,actor){t=Math.max(0,t);if(kind==='boobi'){const sp=W.LunaBubiArt.frame('sleep',t);return{...sp,src:D.assets[sp.asset].src};}if(kind==='luna'||kind==='shiba'||kind==='samho'){const a=D.animations[kind==='shiba'?'shiba':kind==='samho'?'samhoIdle':anim]||D.animations.idle,sp=a.frames[kind==='shiba'?A.frameIndex(t,a.frames.length):Math.floor(t*a.fps)%a.frames.length];return{...sp,src:D.assets[sp.asset].src};}const sheet=A.sheets[kind];return sheet?{...A.sprite(kind,t,A.placements.find(p=>p.id===actor)?.phase||0),src:sheet.src}:null;}
- function show(payload){state=payload;wake();start=performance.now();ended=false;const row=payload.row,text=row['text.ko']||'';state.timing=W.LunaDialogueRhythm.timing(text,55);const present=[...new Set(payload.rows.map(r=>r.actor).filter(Boolean))];if(!present.length&&row.actor)present.push(row.actor);
+ function show(payload){state=payload;wake();start=performance.now();pausedAt=null;ended=false;const row=payload.row,text=row['text.ko']||'';state.timing=W.LunaDialogueRhythm.timing(text,55);const present=[...new Set(payload.rows.map(r=>r.actor).filter(Boolean))];if(!present.length&&row.actor)present.push(row.actor);
   if(!present.length||payload.choices.length&&!present.includes('luna'))present.push('luna');if(present.length>3){const i=Math.max(0,payload.rows.findIndex(r=>r.row_id===row.row_id)),around=[row.actor,...payload.rows.slice(Math.max(0,i-2),i+4).map(r=>r.actor),...present].filter(Boolean);state.cast=present.filter(a=>[...new Set(around)].slice(0,3).includes(a));}else state.cast=present;
   if(state.cast.includes('luna')&&state.cast.length>1)state.cast=[...state.cast.filter(a=>a!=='luna'),'luna'];
   $('speech').hidden=!text;$('speaker').textContent=row.who||label(row.actor);W.LunaExteriorTextbox.mountText($('speech-text'),text);W.LunaExteriorTextbox.revealText($('speech-text'),payload.animate?0:Array.from(text).length);
@@ -44,7 +44,7 @@ function create({onComplete,onChoice}){
   $('stage-caption').textContent=payload.castNote||'화자·배치 확인용 / 본편 배경과 이동 연출은 생략';
   updateChoices();
   $('notice').hidden=true;
-  if(row.action?.includes('grant-gear'))notice('아이템 획득','기어 부품 획득!');else if(row.action?.includes('grant-emblem'))notice('아이템 획득','기신교의 엠블럼 획득!');else if(row.action==='wild-dog-grant')notice('재료 획득','와일드 독 추가!','wild_dog');else if(row.type==='shop-allowance-grant')notice('수입','+500원');else if(row.action==='repair')notice('목표 달성','엘리베이터 수리!');
+  if(row.type==='popup'&&row.arg==='event_occurred')notice('이벤트',text);else if(row.action?.includes('grant-gear'))notice('아이템 획득','기어 부품 획득!');else if(row.action?.includes('grant-emblem'))notice('아이템 획득','기신교의 엠블럼 획득!');else if(row.action==='wild-dog-grant')notice('재료 획득','와일드 독 추가!','wild_dog');else if(row.type==='shop-allowance-grant')notice('수입','+500원');else if(row.action==='repair')notice('목표 달성','엘리베이터 수리!');
  }
  function notice(title,text,item){const el=$('notice');el.replaceChildren();const src=state?.assets?.['recipe_item_'+item]?.src||state?.assets?.['item_'+item]?.src;if(src){const img=document.createElement('img');img.src=src;img.alt='';el.append(img);}const box=document.createElement('div'),small=document.createElement('small'),strong=document.createElement('div');small.textContent=title+' · 미리보기';strong.textContent=text;box.append(small,strong);el.append(box);el.hidden=false;popupUntil=performance.now()+2800;}
  function draw(now){animation=null;if(!state||document.hidden||!canvas.clientWidth||!canvas.clientHeight)return;animation=requestAnimationFrame(draw);const t=(now-start)/1000,width=Math.round(480*canvas.clientWidth/Math.max(1,canvas.clientHeight));if(width>0&&canvas.width!==width)canvas.width=width;ctx.clearRect(0,0,canvas.width,480);ctx.fillStyle='#06090d';ctx.fillRect(0,0,canvas.width,480);ctx.strokeStyle='#15232d';ctx.lineWidth=1;for(let x=0;x<canvas.width;x+=80){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,480);ctx.stroke();}for(let y=60;y<480;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvas.width,y);ctx.stroke();}ctx.strokeStyle='#385260';ctx.strokeRect(80,80,150,320);ctx.strokeRect(canvas.width-280,135,170,265);ctx.beginPath();ctx.moveTo(0,400);ctx.lineTo(canvas.width,400);ctx.stroke();
@@ -56,7 +56,9 @@ function create({onComplete,onChoice}){
   if(now>popupUntil)$('notice').hidden=true;
  }
  function portrait(el,actors){const ids=actors.slice(0,2);if(!ids.length)return;const c=el.getContext('2d');c.clearRect(0,0,el.width,el.height);c.imageSmoothingEnabled=false;for(const [i,id]of ids.entries()){const sp=sprite(kinds[id],'idle',0,id);if(!sp)continue;const im=image(sp.src);if(!im.complete){im.addEventListener('load',()=>{if(el.isConnected)portrait(el,ids);},{once:true});continue;}if(!im.naturalWidth)continue;assets.set(sp.asset,im);const b=A.bounds(sp);if(!b)continue;const sw=b.right-b.left,sh=Math.max(1,Math.min(b.bottom-b.top,sw*1.25)),scale=Math.min((el.width/ids.length-4)/sw,(el.height-2)/sh);c.shadowColor='#83b2b5';c.shadowBlur=A.sheets[kinds[id]]?1.6:0;c.drawImage(im,sp.x+b.left,sp.y+b.top,sw,sh,(i+.5)*el.width/ids.length-sw*scale/2,el.height-sh*scale,sw*scale,sh*scale);}}
- return{show,notice,catalog,label,portrait,end(){if(state){state.animate=false;state.choices=[];}choiceUI.update(null);$('speech').hidden=true;},stop(){if(state)state.animate=false;}};
+ function pause(){if(!state?.animate)return false;pausedAt=performance.now();state.animate=false;return true;}
+ function resume(){if(!state||pausedAt===null)return false;start+=performance.now()-pausedAt;pausedAt=null;state.animate=true;return true;}
+ return{show,notice,catalog,label,portrait,pause,resume,reveal(){if(state)W.LunaExteriorTextbox.revealText($('speech-text'),Infinity);},end(){if(state){state.animate=false;state.choices=[];}choiceUI.update(null);$('speech').hidden=true;},stop(){pausedAt=null;if(state)state.animate=false;}};
 }
 W.LunaOutsideEditorPreview={create,catalog,label,kinds};
 })(window);

@@ -22,9 +22,7 @@ function syncControls(){ $('clock').textContent=`${stamp(time)} / ${stamp(total)
 function stop(){playing=false;video.pause();rain.pause();noise.pause();fxAudio.stop();fxAudio.dialogue(null,false,0);syncControls();}
 function failure(error){stop();loading=false;$('loading').hidden=false;$('loading').textContent='불러오지 못했습니다: '+error.message+' · 새로고침해 주세요.';console.error(error);}
 function sourceTime(s,t,player){
- const held=s.holdAt==null?0:Math.max(0,Math.min(t-s.holdAt,s.holdDuration));
- const elapsed=t-held;
- return Math.min((s.offset||0)+elapsed*(s.playbackRate||1),Math.max(0,player.duration-.04));
+ return Math.min((s.offset||0)+t*(s.playbackRate||1),Math.max(0,player.duration-.04));
 }
 async function prepareVideo(s,t){
  const next=videoPlayers.get(s.file);
@@ -78,10 +76,9 @@ function paint(seek=false){
  const s=scenes[index];if(!s||loading)return;const t=Math.max(0,time-s.start);
  if(['bar','terrace','outside','open'].includes(s.kind))bridge.paint(t);
  if(s.kind==='video'){
-  const holding=s.holdAt!=null&&t>=s.holdAt&&t<s.holdAt+s.holdDuration;
   const target=sourceTime(s,t,video);
-  if(Math.abs(video.currentTime-target)>(seek||holding?.025:.18))video.currentTime=target;
-  if(playing&&!holding){if(video.paused)video.play().catch(()=>{});}else video.pause();
+  if(Math.abs(video.currentTime-target)>(seek?.025:.18))video.currentTime=target;
+  if(playing){if(video.paused)video.play().catch(()=>{});}else video.pause();
  }
  if(s.kind==='serve')serve(t,s);
  let glitch=false;
@@ -116,7 +113,7 @@ async function init(){
  for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
  // Cache the small edited clips before playback so cuts do not buffer midway.
  await Promise.all([...new Set(scenes.filter(s=>s.file).map(s=>s.file))].map(async file=>{
-  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?6:['pour-soda','boobi'].includes(file)?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
+  const src=`assets/trailer/${file}.mp4?v=${['seoul-puddle','team'].includes(file)?7:['pour-soda','boobi'].includes(file)?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
   const url=URL.createObjectURL(await r.blob());media.set(file,url);
   // Decode each first frame up front as well as fetching bytes: hard cuts must
   // not wait on a new source load or expose a black/loading frame.

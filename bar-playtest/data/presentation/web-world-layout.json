@@ -2324,7 +2324,7 @@
         {
           "id": "street-beggar",
           "name": "street-beggar",
-          "x": -7.3,
+          "x": -10.01,
           "y": -0.94,
           "z": 0,
           "sx": 1,
@@ -2333,25 +2333,25 @@
           "layer": 9,
           "order": 1,
           "sprite": {
-            "asset": "ambient-M2",
+            "asset": "ambient-Homeless",
             "x": 0,
             "y": 0,
             "w": 129,
             "h": 138,
             "pivot": {
               "x": 0.5,
-              "y": 0.17391304347826086
+              "y": 0.14492753623188406
             },
             "ppu": 100
           },
-          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/homeless_idle.png",
           "engineNode": null,
           "placementSource": "web-only"
         },
         {
           "id": "street-beggar-witness",
           "name": "street-beggar-witness",
-          "x": -8.2,
+          "x": -11.05,
           "y": -0.94,
           "z": 0,
           "sx": 1,

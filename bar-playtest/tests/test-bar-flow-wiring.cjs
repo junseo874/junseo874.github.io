@@ -45,7 +45,7 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),F=require('.
  assert.throws(()=>R.revise(m,scene,liveNode(serve.id),forService(),liveNode(dest.id),''),/동일/);
  R.revise(m,scene,liveNode(serve.id),def,liveNode(response.id),'flag.studio_alt');R.revise(m,scene,liveNode(serve.id),forService(),liveNode(dest.id),'');
  const sorted=routes().filter(r=>r.source===serve.rows.at(-1).row_id);assert.deepEqual(sorted.map(r=>r.predicate),['flag.studio_alt','']);assert(sorted[1].steps[1].when.includes('!'+sorted[0].gate));assert.equal(sorted[1].target,dest.id);m.undo();
- const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-pin-save-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);
+ const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-pin-save-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);
  for(const file of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',file),path.join(runtime,file));
  await save({revision:original.revision,files:m.output()},{base,runtime,backupRoot:path.join(tmp,'backups')});
  const saved=await snapshot(base),after=await new Model(saved.files,saved.presentation).init();assert.deepEqual(after.headers,m.headers);

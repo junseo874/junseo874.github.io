@@ -14,9 +14,10 @@ W.LunaOutsideNotices={create(host,currency){
   const income=f.delta>0,fmt=n=>Math.round(n).toLocaleString(),ko=W.barGame.lang==='ko';el.className='currency-hud '+(income?'currency-income':'currency-spending');el.style.opacity=f.opacity;el.setAttribute('aria-label',(income?(ko?'수입':'Income'):(ko?'차감':'Spent'))+' '+fmt(Math.abs(f.delta))+', '+(ko?'소지금':'Balance')+' '+fmt(p.money));const value=fmt(reduced.matches?p.money:f.displayed);el.querySelector('.currency-value').textContent=value;el.style.setProperty('--currency-digits',value.length);const d=el.querySelector('.currency-delta');d.textContent=(income?'+':'−')+fmt(Math.abs(f.delta));d.style.transform='translateY('+(reduced.matches?0:-Math.min(12,f.elapsed*7))+'px)';
  }
  function update(m,dt=0){const p=sync(m),paused=W.LunaFocusSettings?.hiddenPaused??document.hidden,t=paused?0:Math.min(.1,Math.max(0,dt));showMoney((m.qa?qaCurrency:currency).update(p,dt,paused),p);
-  const visibleNotices=document.querySelectorAll('#story-notices:not([hidden]) .story-notice:not([hidden])').length;item.style.top=(20+visibleNotices*80)+'px';
   const previous=current;
   if(!current&&queue.length)next();if(!current)return;age+=t;if(age>=2.8){next();if(!current)return;}
+  const visibleNotices=document.querySelectorAll('#story-notices:not([hidden]) .story-notice:not([hidden])').length;
+  item.style.top='calc(var(--outside-notice-top, 20px) + '+(visibleNotices*80)+'px)';
   if(current!==previous){const shown=current;W.LunaStoryNoticeAudio?.play(()=>current===shown&&layer.isConnected&&!item.hidden);}
   const enter=Math.min(1,age/.24),leave=Math.max(0,(age-2.5)/.3),visible=enter*(1-leave),travel=item.offsetWidth+24;item.style.opacity=String(visible);item.style.transform=reduced.matches?'none':'translateX('+(-travel*Math.pow(1-enter,3)*(1-leave)-travel*leave)+'px)';
  }

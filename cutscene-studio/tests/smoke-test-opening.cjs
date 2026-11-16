@@ -90,7 +90,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     longest:lines.reduce((a,b)=>a.text.length>b.text.length?a:b).start,
     assets:boards.map(c=>{const a=StudioMedia.assets.get(c.assetId),im=StudioMedia.getImage(c.assetId),s=StudioModel.sample(p,c.start+.01),w=a.fw/a.ppu*c.scale,h=a.fh/a.ppu*c.scale;return {src:a.src,start:c.start,loaded:im.complete&&im.naturalWidth===1672,full:!a.captionBand&&w>=s.camera.w&&h>=s.camera.w*9/16};})};
   });
-  assert.deepEqual(doc.issues,[]);assert.deepEqual(doc.texts,doc.source);assert.equal(doc.texts.length,33);assert.ok(doc.centered&&doc.separate);
+  assert.deepEqual(doc.issues,[]);assert.deepEqual(doc.texts,doc.source);assert.equal(doc.texts.length,32);assert.ok(doc.centered&&doc.separate);
   assert.deepEqual(doc.assets.map(a=>a.src),['care','self','war','aftermath','treaty'].map(n=>'assets/opening/documentary-'+n+'.png'));
   assert.ok(doc.assets.every(a=>a.loaded&&a.full));
   for(const [i,a]of doc.assets.entries())await screenshot(a.start+2,'documentary-'+i);

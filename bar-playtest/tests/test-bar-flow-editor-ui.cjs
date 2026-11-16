@@ -49,6 +49,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const selected=()=>p.locator('.flow-card.active').getAttribute('data-node'),prior=await selected();const scroll=()=>p.locator('#map-port').evaluate(el=>[el.scrollLeft,el.scrollTop]),beforePopup=await scroll();
   await p.click('[data-action="play"]');await p.locator('#node-player[open]').waitFor();assert(await p.locator('#flow-panel').isVisible());assert.equal(await p.locator('[data-player-line]').count(),branchRows);
   await p.frameLocator('#player-frame').locator('.dialogue-text .text-ink').first().waitFor();
+  assert.equal(await p.locator('#player-toggle').getAttribute('aria-pressed'),'false');
+  await p.locator('#player-toggle').click();
   await p.waitForFunction(()=>document.querySelector('#player-state').textContent.includes('끝났습니다.'),null,{timeout:45000});
   assert.equal(await p.locator('[data-player-line][aria-current=true]').getAttribute('data-player-line'),String(branchRows-1));
   await p.click('#player-prev');await p.locator('[data-player-line]').first().click();

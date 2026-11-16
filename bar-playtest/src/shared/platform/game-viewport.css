@@ -13,7 +13,7 @@
 .day-transition-title{font-size:56px}
 
 /* Logical sizes stay stable even on portrait browser windows. */
-#story-notices{padding:20px}
+#story-notices{padding:var(--outside-notice-top,20px) 20px 20px}
 #story-notices .story-notice{right:auto;bottom:auto;width:254px;height:calc(232px / 3);max-width:none;min-width:0;padding:0;scale:1;overflow:hidden}
 #story-notices .story-notice strong{font-size:calc(46px / 3)}
 #qa-lab .qa-panel{width:1060px;height:660px;max-width:1232px;max-height:672px}

@@ -18,7 +18,7 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),L=require('.
  const terminal=m.rows(other).at(-1);assert.throws(()=>L.insert(m,other,terminal,'after'));assert.throws(()=>L.remove(m,other,terminal));
  assert.deepEqual((await m.validate()).errors,[]);
  const tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-row-menu-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);for(const f of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',f),path.join(runtime,f));
  await save({revision:orig.revision,files:m.output()},{base,runtime,backupRoot:path.join(tmp,'backups')});
  const saved=await snapshot(base),copy=await new Model(saved.files,saved.presentation).init(),live=await runtimeSnapshot(base);assert.equal(copy.row(a.row_id).type,'choice');assert.equal(copy.choices(id).length,2);
  assert.equal(live.story.opening['4'][0].type,'choice');assert.equal(live.story.opening['4'][0].arg,id);assert.deepEqual(R.scan(copy,scene).routes.map(r=>r.target).sort(),[end.row_id,d.row_id].sort());

@@ -9,8 +9,9 @@ const specs={};function spot(id,label,floor,x,y,min,max,cast){specs[id]={id,labe
 // lift the foot pivot 7.4 art pixels. The open lid is behind the reader on the left.
 spot('newspaper','신문 읽는 남자','street',-7.18,-.974,-13.55,5.95,[['Newspaper',0,.074]]);
 spot('believer','기신교 신도','street',4.7,-.974,-13.55,5.95,[['M1',0]]);
-spot('beggar','노숙자','street',-7.3,-.94,-13.35,5.75,[['M2',0]]);
-spot('witness','근처 행인','street',-8.2,-.94,-13.35,5.75,[['M1',0]]);
+spot('beggar','노숙자','street',-10.01,-.94,-13.35,5.75,[['Homeless',0]]);
+spot('witness','근처 행인','street',-11.05,-.94,-13.35,5.75,[['M1',0]]);
+specs.beggar.nearby='witness';specs.witness.nearby='beggar';
 spot('repair','수리공','street',-11.675,-.974,-13.35,5.65,[['Repairman',0]]);
 spot('guard','통행 경비','street',-14.125,-.974,-14.45,-13.9,[['Gang1',0]]);
 spot('camp','갱단 보스 · 동료','street',-15.5,-.974,-16.05,-15.35,[['Gang5',0],['Gang3',.78]]);

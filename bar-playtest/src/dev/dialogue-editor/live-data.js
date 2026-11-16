@@ -8,7 +8,7 @@
     // The snapshot is complete for editor-created branches. Drop a deleted
     // branch on the next conversation, without erasing native runtime hooks.
     if (authored) for (const id of Object.keys(target)) {
-      if (id.startsWith('editor/') && !Object.hasOwn(source,id)) delete target[id];
+      if ((id.startsWith('editor/') || id.startsWith('graph/')) && !Object.hasOwn(source,id)) delete target[id];
     }
     for (const [id,rows] of Object.entries(source)) {
       if (Array.isArray(target[id])) target[id].splice(0,target[id].length,...rows);
@@ -44,7 +44,7 @@
         if(next.exterior.placement)root.LunaNpcScene?.receive(next.exterior.placement);
         // Freeze active conversations before updating arrays captured by NPC modules.
         const model=root.outsidePlaytest?.model;
-        for(const s of [model?.story?.speech,...[...(model?.backgroundStory?.channels?.values()||[])].map(s=>s.speech)])if(s)s.rows=s.rows.slice();
+        for(const s of [model?.story?.speech,...[...(model?.backgroundStory?.channels?.values()||[])].map(s=>s.speech)])if(s){s.rows=s.rows.slice();if(s.authoring?.sharedStory)s.authoring={...s.authoring,sharedStory:Object.fromEntries(Object.entries(s.authoring.sharedStory).map(([k,lines])=>[k,lines.slice()]))};}
         if(campaign.dialog?.rows)campaign.dialog.rows=campaign.dialog.rows.slice();
         raw.sharedStory||={};D.sharedStory||={};
         for(const target of new Set([raw.sharedStory,D.sharedStory]))updateRows(target,next.exterior.sharedStory,true);
@@ -52,7 +52,7 @@
         if(next.exterior.ambient)D.outsideAmbient=raw.outsideAmbient=next.exterior.ambient;
         if(next.exterior.newspaperRoutes)D.newspaperRoutes=raw.newspaperRoutes=next.exterior.newspaperRoutes;
         raw.outsideChoiceEdits=next.exterior.choiceEdits||{};D.outsideChoiceEdits=raw.outsideChoiceEdits;
-        for(const target of new Set([story,campaign.data,campaign.session.story]))if(target){target.scenes||={};updateRows(target.scenes,next.exterior.scenes);target.prologue=next.exterior.prologue;}
+        for(const target of new Set([story,campaign.data,campaign.session.story]))if(target){target.scenes||={};updateRows(target.scenes,next.exterior.scenes);}
         for(const [key,rows]of Object.entries(raw.sharedStory))if(key.startsWith('ambient/')&&root.LUNA_OUTSIDE_DIALOGUES)root.LUNA_OUTSIDE_DIALOGUES[key.slice(8)]=rows;
       }
       pending = next;

@@ -33,7 +33,7 @@ class Story{
  witnessed(s=this.speech){if(this===this.model.story&&s)global.LunaOutsideDiscovery?.witnessed(this.model,s.id,s.rows);}
  get blocking(){return !!this.speech&&!this.speech.auto;}
  begin(id,target,auto=false){const rows=global.LUNA_OUTSIDE_DIALOGUES[id]||global.LUNA_DATA?.sharedStory?.[id];return this.beginRows(id,target,rows,auto);}
- beginRows(id,target,rows,auto=false,onComplete=null){if(!rows?.length)return false;this.speech={id,serial:++nextSpeechId,target,auto,rows,index:0,elapsed:0,choice:false,authoring:global.LUNA_DATA?{outsideChoiceEdits:global.LUNA_DATA.outsideChoiceEdits,outsideChoices:global.LUNA_DATA.outsideChoices}:undefined,onComplete};this.seek();this.model.updateNear();return true;}
+ beginRows(id,target,rows,auto=false,onComplete=null){if(!rows?.length)return false;this.speech={id,serial:++nextSpeechId,target,auto,rows,index:0,elapsed:0,choice:false,authoring:global.LUNA_DATA?{outsideChoiceEdits:global.LUNA_DATA.outsideChoiceEdits,outsideChoices:global.LUNA_DATA.outsideChoices,sharedStory:global.LUNA_DATA.sharedStory}:undefined,onComplete};this.seek();this.model.updateNear();return true;}
  choiceLine(row){row=global.LunaOutsideAuthoring?.displayLine(row,this.speech?.authoring)||row;const s=this.speech;const previous=s.displayLine||s.line;
   // A blank choice row is UI metadata, not a new empty utterance.
   s.displayLine=String(row.text||'').trim()?row:String(previous?.text||'').trim()?previous:null;
@@ -41,7 +41,13 @@ class Story{
   if(global.LunaOutsideAuthoring?.edited(row,s.authoring)&&!global.LunaOutsideAuthoring.choices(row,this.baseChoices(),this.model)?.options.length){s.choice=false;s.index++;this.seek();}
  }
  seek(){const s=this.speech;if(!s)return;
-  const next=s.rows[s.index];
+  let next=s.rows[s.index];const visited=new Set();
+  while(next?.editorRowId?.startsWith('exterior_editor_')&&['goto','effect','popup'].includes(next.type)){
+   if(visited.has(next.editorRowId))throw Error('외부 대화의 순환 연결: '+next.editorRowId);visited.add(next.editorRowId);
+   const dest=global.LunaOutsideAuthoring.runCommand(next,this.model);
+   if(dest){const rows=s.authoring?.sharedStory?.[dest];if(!rows)throw Error('연결된 외부 대화를 찾을 수 없습니다: '+dest);s.rows=rows;s.index=0;}
+   else s.index++;next=s.rows[s.index];
+  }
   if(next?.type==='choice'){this.choiceLine(next);return;}
   if(next?.type==='newspaper-choice'){this.choiceLine(next);return;}
   if(next?.type==='believer-action'){s.line=null;s.chars=[];s.choice=false;global.LunaOutsideBeliever.action(this.model,next);return;}
@@ -49,14 +55,14 @@ class Story{
   if(next?.type==='home-choice'){this.choiceLine(next);return;}
   if(next?.type==='neighborhood-action'){s.line=null;s.chars=[];s.choice=false;global.LunaOutsideNeighborhood.action(this.model,next);return;}
   if(next?.type==='neighborhood-choice'){global.LunaOutsideNeighborhood.faceConversation(this.model,next);this.choiceLine(next);return;}
-while(s.index<s.rows.length){const row=s.rows[s.index];if(row.type==='notion-action'){s.line=null;s.chars=[];global.LunaOutsideNotion.action(this.model,row);return;}if(row.type==='samho-action'){s.line=null;s.chars=[];global.LunaOutsideSamhoCommute.action(this.model);return;}if(row.type==='shop-open'){this.witnessed(s);global.LunaOutsideShop.openStock(this.model,s.target);return;}if(row.type==='shop-allowance-grant'){global.LunaOutsideShop.grantAllowance(this.model);s.index++;continue;}if(row.type==='shop-intro-done'){global.LunaOutsideShop.completeIntro(this.model);s.index++;continue;}if(row.type==='thug-action'){s.line=null;s.chars=[];global.LunaOutsideThug.action(this.model,row);return;}if(row.type==='choice'||row.type==='qa-choice'||row.type==='beggar-choice'||row.type==='notion-choice'||row.type==='thug-choice'||row.type==='shop-choice'){this.choiceLine(row);return;}if(row.type==='say'||row.type==='timeline'){global.LunaOutsideNeighborhood?.faceConversation(this.model,row);if(!s.auto)global.LunaStoryNotices?.meetOutside(this.model,row.actor);s.line=row;s.displayLine=row;s.typing=typing(row.text||'',cps,row.styledText);s.chars=s.typing.chars;s.elapsed=0;return;}s.index++;}
+while(s.index<s.rows.length){const row=s.rows[s.index];if(row!==next&&row.editorRowId?.startsWith('exterior_editor_')&&['goto','effect','popup'].includes(row.type))return this.seek();if(row.type==='notion-action'){s.line=null;s.chars=[];global.LunaOutsideNotion.action(this.model,row);return;}if(row.type==='samho-action'){s.line=null;s.chars=[];global.LunaOutsideSamhoCommute.action(this.model);return;}if(row.type==='shop-open'){this.witnessed(s);global.LunaOutsideShop.openStock(this.model,s.target);return;}if(row.type==='shop-allowance-grant'){global.LunaOutsideShop.grantAllowance(this.model);s.index++;continue;}if(row.type==='shop-intro-done'){global.LunaOutsideShop.completeIntro(this.model);s.index++;continue;}if(row.type==='thug-action'){s.line=null;s.chars=[];global.LunaOutsideThug.action(this.model,row);return;}if(row.type==='choice'||row.type==='qa-choice'||row.type==='beggar-choice'||row.type==='notion-choice'||row.type==='thug-choice'||row.type==='shop-choice'){this.choiceLine(row);return;}if(row.type==='say'||row.type==='timeline'){global.LunaOutsideNeighborhood?.faceConversation(this.model,row);if(!s.auto)global.LunaStoryNotices?.meetOutside(this.model,row.actor);s.line=row;s.displayLine=row;s.typing=typing(row.text||'',cps,row.styledText);s.chars=s.typing.chars;s.elapsed=0;return;}s.index++;}
   this.witnessed(s);this.done.add(s.id);this.speech=null;this.model.updateNear();s.onComplete?.();
  }
  advance(){const s=this.speech;if(!s||!s.line||s.auto||s.choice)return false;if(visible(s.typing,s.elapsed)<s.chars.length){s.elapsed=s.typing.duration;return true;}s.index++;this.seek();return true;}
  choose(id){const A=global.LunaOutsideAuthoring,s=this.speech;if(!s?.choice)return false;
   if(A?.edited(s.line,s.authoring)){const result=A.resolve(s.line,id,A.choices(s.line,this.baseChoices(),this.model),s.authoring);if(!result||result.blocked)return false;
    if(result.route.startsWith('native:'))id=result.route.slice(7);
-   else{const tail=result.route==='end'?[]:s.rows.slice(s.index+1),branch=result.route.startsWith('flow:')?global.LUNA_DATA.sharedStory[result.route.slice(5)]:[];if(!branch)return false;if(result.route.startsWith('flow:')&&s.line.type==='newspaper-choice')return global.LunaOutsideNewspaper.branch(this.model,branch);s.rows=[...s.rows.slice(0,s.index+1),...branch,...tail];s.index++;s.choice=false;this.seek();return true;}
+   else{const tail=result.transfer||result.route==='end'?[]:s.rows.slice(s.index+1),branch=result.route.startsWith('flow:')?(s.authoring?.sharedStory||global.LUNA_DATA.sharedStory)[result.route.slice(5)]:[];if(!branch)return false;if(result.route.startsWith('flow:')&&s.line.type==='newspaper-choice')return global.LunaOutsideNewspaper.branch(this.model,branch);s.rows=[...s.rows.slice(0,s.index+1),...branch,...tail];s.index++;s.choice=false;this.seek();return true;}
   }else if(A?.choices(s.line,{options:[{id}]},this.model)?.options[0]?.disabled)return false;
   return global.LunaOutsideNewspaper?.choose(this.model,id)||global.LunaHomeInteractions?.choose(this.model,id)||global.LunaOutsideNeighborhood?.choose(this.model,id)||global.LunaOutsideQA?.choose(this.model,id)||global.LunaOutsideBeggar?.choose(this.model,id)||global.LunaOutsideNotion?.choose(this.model,id)||global.LunaOutsideShop?.choose(this.model,id)||global.LunaOutsideThug?.choose(this.model,id)||false;}
  baseChoices(){const s=this.speech,m=this.model;if(!s?.choice)return null;return s.line.type==='newspaper-choice'?global.LunaOutsideNewspaper.choiceView(m):s.line.type==='home-choice'?global.LunaHomeInteractions.choiceView(m):s.line.type==='neighborhood-choice'?global.LunaOutsideNeighborhood.choiceView(m):s.line.type==='qa-choice'?global.LunaOutsideQA.choiceView(m):s.line.type==='beggar-choice'?global.LunaOutsideBeggar.choiceView(m):s.line.type==='notion-choice'?global.LunaOutsideNotion.choiceView(m):s.line.type==='shop-choice'?global.LunaOutsideShop.choiceView(m):s.line.type==='thug-choice'?global.LunaOutsideThug.choiceView():{options:[]};}

@@ -3,6 +3,28 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
  await p.evaluate(()=>lunaCampaign.scene('night0','테라스','terrace',()=>lunaCampaign.screen('developer')));await p.waitForFunction(()=>!lunaCampaign.memoryTransition);await p.evaluate(()=>{const c=lunaCampaign;window.memoryIndex=c.data.scenes.night0.findIndex(r=>r.cinemaAfter==='terrace-memory');if(window.memoryIndex<0)throw Error('Missing terrace memory cue');c.dialog.index=window.memoryIndex;c.dialog.chars=1e5;c.draw();window.swaps=[];const screen=c.screen.bind(c);c.screen=view=>{window.swaps.push({view,alpha:c.memoryTransition?Number(c.memoryTransition.host.style.opacity):null});screen(view);};const script=c.script.bind(c);c.script=async name=>{if(name==='terrace-memory')await new Promise(resolve=>window.releaseMemory=resolve);return script(name);};window.fadeTrace=[];const tick=c.tick.bind(c);c.tick=dt=>{const result=tick(dt),d=c.memoryTransition;if(d)window.fadeTrace.push({phase:d.phase,alpha:Number(d.host.style.opacity),gain:c.bgm.transitionGain});return result;};});
  await p.keyboard.press('KeyE');await p.waitForFunction(()=>lunaCampaign.memoryTransition?.phase==='out'&&lunaCampaign.memoryTransition.time>.2);const initial=await p.evaluate(()=>lunaCampaign.dialog.index);await p.keyboard.press('Space');await p.keyboard.press('ControlLeft');await p.mouse.click(400,340);assert.equal(await p.evaluate(()=>lunaCampaign.dialog.index),initial);await p.waitForFunction(()=>lunaCampaign.memoryTransition?.phase==='hold'&&!!window.releaseMemory);await p.waitForTimeout(350);assert.equal(await p.evaluate(()=>lunaCampaign.view),'memory-transition');assert.equal(await p.locator('.campaign-loading').count(),0);assert.equal(await p.locator('.campaign-memory-transition').evaluate(el=>getComputedStyle(el).opacity),'1');assert.equal(await p.locator('.terrace-scene').count(),1);
  await p.evaluate(()=>window.releaseMemory());await p.waitForFunction(()=>lunaCampaign.memoryTransition?.phase==='in');assert.equal(await p.evaluate(()=>lunaCampaign.cinema.time),0);await p.keyboard.press('Space');await p.mouse.click(400,340);assert.equal(await p.evaluate(()=>lunaCampaign.cinema.time),0);await p.waitForFunction(()=>!lunaCampaign.memoryTransition&&lunaCampaign.view==='prologue');
+ // Check the actual renderer at both fade boundaries, where dialogue time is held.
+ const boundaries=await p.evaluate(()=>{
+  const {renderer,scene,time}=lunaCampaign.cinema;
+  const {cv}=renderer, frames=[];
+  for(const t of [0,scene.end]){
+   renderer.render(t,t);
+   const initial=cv.toDataURL();
+   const calls=[];
+   renderer.render(t,t+.21);
+   const noiseMoved=initial!==cv.toDataURL();
+   renderer.letterbox({fillRect(...args){calls.push(args);}},t);
+   frames.push({noiseMoved,barHeights:calls.map(rect=>rect[3]),zoom:renderer.camera(t).z,
+    graded:scene.fx.some(f=>f.type==='slowmo'&&t>=f.t&&t<=f.t+f.dur)});
+  }
+  renderer.render(time);
+  return frames;
+ });
+ for(const frame of boundaries){
+  assert(frame.noiseMoved&&frame.graded);
+  assert.deepEqual(frame.barHeights,[32,32]);
+  assert.equal(frame.zoom,1.2);
+ }
  const noise=await p.evaluate(()=>{const c=lunaCampaign.cinema,t=c.scene.lines[2].t+1,fx=c.scene.fx;c.time=t;c.player.render(t,null,false,0);const canvas=document.querySelector('.campaign-prologue'),withNoise=canvas.toDataURL();c.scene.fx=fx.filter(f=>f.type!=='tvnoise');c.player.render(t,null,false,0);const without=canvas.toDataURL();c.scene.fx=fx;c.player.render(t,null,false,0);return {different:withNoise!==without,noise:fx.filter(f=>f.type==='tvnoise').length,fade:fx.filter(f=>f.type==='fade').length};});assert(noise.different);assert.equal(noise.fade,0);assert.equal(noise.noise,3);await p.screenshot({path:'/private/tmp/terrace-memory-noise.png'});
  await p.evaluate(()=>{const c=lunaCampaign.cinema;c.time=c.scene.end-.01;lunaCampaign.tick(.05);});await p.waitForFunction(()=>lunaCampaign.memoryTransition?.phase==='in'&&lunaCampaign.view==='scene');assert.equal(await p.evaluate(()=>lunaCampaign.dialog.chars),0);await p.keyboard.press('KeyE');await p.keyboard.press('Space');await p.mouse.click(400,340);assert.equal(await p.evaluate(()=>lunaCampaign.dialog.index),await p.evaluate(()=>window.memoryIndex+1));assert.equal(await p.evaluate(()=>lunaCampaign.dialog.chars),0);await p.waitForFunction(()=>!lunaCampaign.memoryTransition);assert.equal(await p.evaluate(()=>lunaCampaign.dialog.index),await p.evaluate(()=>window.memoryIndex+1));assert.equal(await p.locator('.memory-return').count(),0);assert.equal(await p.evaluate(()=>lunaCampaign.bgm.transitionGain),1);assert.equal(await p.evaluate(()=>lunaCampaign.bgm.audio.muted),false);assert.equal(await p.locator('#campaign-root').getAttribute('inert'),null);
  const swaps=await p.evaluate(()=>window.swaps);assert(swaps.filter(s=>['prologue','scene'].includes(s.view)).every(s=>s.alpha===1));const trace=await p.evaluate(()=>window.fadeTrace);for(let i=1;i<trace.length;i++){const a=trace[i-1],b=trace[i];if(a.phase===b.phase&&b.phase==='out')assert(b.alpha>=a.alpha);if(a.phase===b.phase&&b.phase==='in')assert(b.alpha<=a.alpha);}assert(!swaps.some(s=>s.view==='loading'));

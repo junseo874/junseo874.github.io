@@ -35,6 +35,11 @@ function compare(m,result){
   for(const id of cfg.active){
    const o=all.find(r=>r.row_id===id);if(!o)continue;
    const route=cfg.routes[id],tag=label+' / '+o['text.ko'];
+   // A real result_steps/goto replaces the tail in both players. Nested nodes
+   // are checked at each of their own ports by the native graph validator.
+   const branchRows=children.get(id)||[];
+   if(branchRows.length===1&&/^exterior_editor_link_/.test(branchRows[0].row_id)&&route==='flow:'+m.flows.find(f=>!f.ref.branch&&f.ref.scene===branchRows[0].scene_id&&f.ref.source===step.dataset_id)?.id)continue;
+   if(route==='continue'&&!branchRows.length)continue;
    try{
     // DialogueRunner.PlayChoiceAsync exits its parent on a nonempty result_steps.
     const branch=children.get(id)||[],engine=trace(branch.length?branch:tail);

@@ -1,7 +1,8 @@
 /* Existing outside rule syntax; compose gates from registered IDs instead of transcribing them. */
 (function(W){'use strict';
 const caches=new WeakMap(),esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-function flags(m){if(!caches.has(m)){const all=new Set();for(const [k,text] of Object.entries(m.files))if(k.endsWith('.csv'))for(const match of text.matchAll(/\bflag\.([A-Za-z0-9_]+)/g))all.add(match[1]);caches.set(m,[...all].sort());}return caches.get(m);}
+const collect=(out,text)=>{for(const match of String(text||'').matchAll(/\bflag\.([A-Za-z0-9_]+)/g))if(!/^(?:bp_|graph_seen_)/.test(match[1]))out.add(match[1]);};
+function flags(m){if(!caches.has(m)){const all=new Set();for(const [k,text] of Object.entries(m.files))if(k.endsWith('.csv'))collect(all,text);caches.set(m,[...all]);}const current=new Set(caches.get(m));for(const rows of [m.tables?.steps||[],m.tables?.street_choices||[]])for(const r of rows){collect(current,r.when);collect(current,r.effects);}return [...current].sort();}
 const parts=s=>!s||s==='\\N'||s==='\\E'?[]:s.split('&&').map(v=>v.trim()).filter(Boolean);
 function label(s){return s.replace(/^!flag\.(\w+)$/,'$1 · 거짓').replace(/^flag\.(\w+)(?: == true)?$/,'$1 · 참').replace(/^flag\.(\w+) == false$/,'$1 · 거짓').replace(/^money /,'소지금 ').replace(/^day /,'일차 ');}
 function html(m,c){const terms=parts(c.when);return '<div class="outside-gates"><strong>사용 조건 <small>모두 충족</small></strong><div class="gate-chips">'+(terms.map((s,i)=>'<button type="button" data-gate-remove="'+i+'" title="이 조건 제거">'+esc(label(s))+' ×</button>').join('')||'<small>조건 없음</small>')+'</div><div class="gate-fields"><select data-gate-kind aria-label="조건 종류"><option value="flag">플래그</option><option value="money">소지금</option><option value="day">일차</option></select><select data-gate-flag aria-label="등록된 플래그">'+flags(m).map(k=>'<option>'+esc(k)+'</option>').join('')+'</select><select data-gate-bool aria-label="플래그 값"><option value="true">참</option><option value="false">거짓</option></select><select hidden data-gate-op aria-label="비교">'+['>=','<=','==','!=','>','<'].map(v=>'<option>'+esc(v)+'</option>').join('')+'</select><input hidden data-gate-num aria-label="비교할 수" type="number" min="0" step="1" value="0"><button type="button" data-gate-add>＋ 조건</button></div></div>';}
@@ -10,5 +11,5 @@ function listen(panel,apply){panel.addEventListener('change',e=>{if(!e.target.ma
   if(b.hasAttribute('data-gate-remove'))terms.splice(+b.dataset.gateRemove,1);else{const kind=get('kind');let term;if(kind==='flag'){if(!get('flag'))return;term='flag.'+get('flag')+' == '+get('bool');}else{const num=el.querySelector('[data-gate-num]');if(!num.reportValidity()||!Number.isInteger(num.valueAsNumber))return;term=kind+' '+get('op')+' '+num.valueAsNumber;}if(!terms.includes(term))terms.push(term);}
   apply(+card.dataset.menuIndex,terms.join(' && '));});
 }
-W.LunaOutsideGates={html,listen};
+W.LunaOutsideGates={html,listen,flags,describe:s=>parts(s).map(label).join(' · ')};
 })(window);

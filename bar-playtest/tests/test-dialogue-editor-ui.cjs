@@ -5,7 +5,7 @@ const {snapshot,save}=require('../../tools/dialogue-editor-storage.cjs');
  const browser=await chromium.launch({headless:true,executablePath:rt.chrome}),page=await browser.newPage({viewport:{width:1600,height:1050}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('dialog',dialog=>dialog.accept());
  const initial=await snapshot(),tmp=await fs.mkdtemp(path.join(require('node:os').tmpdir(),'luna-editor-ui-save-')),base=path.join(tmp,'csv'),runtime=path.join(tmp,'runtime');
- await fs.cp(path.join(__dirname,'../data/shared-csv'),base,{recursive:true});await fs.mkdir(runtime);for(const file of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',file),path.join(runtime,file));
+ await require('./helpers/copy-editor-source.cjs')(base);await fs.mkdir(runtime);for(const file of ['game-data.js','campaign-data.js'])await fs.copyFile(path.join(__dirname,'../data/runtime',file),path.join(runtime,file));
  await page.route('**/api/dialogue-editor',async route=>{if(route.request().method()!=='POST')return route.continue();try{const value=await save(route.request().postDataJSON(),{base,runtime,backupRoot:path.join(tmp,'backups')});await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(value)});}catch(e){await route.fulfill({status:409,contentType:'application/json',body:JSON.stringify({error:e.message})});}});
  try{
   await page.goto((process.env.EDITOR_URL||'http://127.0.0.1:8124')+'/bar-playtest/dialogue-editor.html');
