@@ -6,18 +6,15 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  await page.addInitScript(()=>{window.trailerTicks=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.buffer?.duration<.04)trailerTicks.push({rate:this.playbackRate.value,loop:this.loop,time:performance.now()});return start.apply(this,args);};});
  await page.goto('http://127.0.0.1:8123/cutscene-studio/trailer.html');
  await page.waitForFunction(()=>window.lunaTrailerPreview?.ready,null,{timeout:90000});
- const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.equal(scenes[0].kind,'black');assert.equal(scenes.at(-1).kind,'logo');
- assert.equal(scenes[0].duration,4.5,'longer quiet introduction');
- assert.deepEqual(scenes.filter(s=>s.file?.startsWith('pour-')).map(s=>s.file),['pour-gin','pour-soda','pour-beer']);
- assert(scenes.find(s=>s.file==='street').title.includes('0일차 퇴근길'));
- assert(scenes.filter(s=>s.montage==='guests'||s.montage==='emotions').every(s=>s.actor!=='chris'&&s.typingSpeed===30));
- assert.equal(scenes.filter(s=>s.kind==='bar'&&s.actor==='chris').length,1,'keep the requested opening Chris line');
- assert.equal(scenes.find(s=>s.file==='stir').duration,2.85);
- assert.equal(scenes.find(s=>s.file==='shake').duration,3.15);
- assert.equal(scenes.find(s=>s.file==='team').playbackRate,1.3);
- assert.equal(scenes.find(s=>s.kind==='emotions').duration,4);
- assert.equal(scenes.at(-2).kind,'black');assert(scenes.at(-2).duration>=1);
- assert.equal(scenes.find(s=>s.kind==='serve').duration,3.3);
+ const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.equal(scenes[0].kind,'black');assert.equal(scenes.at(-1).actor,'luna');
+ assert.deepEqual(scenes.filter(s=>s.kind==='card').map(s=>s.text),['2069년, 서울 언더타운','당신의 이야기를 담은 칵테일 제조','바를 찾는 손님들','당신이 만들어 가는 이야기']);
+ assert.deepEqual(scenes.filter(s=>s.montage==='craft').map(s=>s.file||s.kind),['ingredients','open','pour-soda','stir','shake','serve']);
+ assert(scenes.filter(s=>s.montage==='craft'&&s.kind!=='serve').every(s=>s.duration===2));
+ const guests=scenes.filter(s=>s.montage==='guests');
+ assert.equal(guests.length,7);assert(guests.every(s=>s.duration===2.5&&s.drink));assert(guests.some(s=>s.glassEmpty)&&guests.some(s=>!s.glassEmpty));
+ assert.deepEqual(scenes.filter(s=>s.montage==='outside').map(s=>s.npc||s.file),['boss','believer','newspaper','shiba','boobi','yuna-memory']);
+ assert(scenes.filter(s=>s.montage==='outside').every(s=>s.duration===2));
+ assert.deepEqual(scenes.slice(-4).map(s=>s.file||s.actor||s.kind),['yuna-memory','black','chris','luna']);
  const game=page.frames().find(f=>f.url().includes('bar-playtest/'));
  const finalChris=scenes.find(s=>s.kind==='terrace'&&s.actor==='chris'),finalLuna=scenes.find(s=>s.kind==='terrace'&&s.actor==='luna');
  await page.evaluate(t=>lunaTrailerPreview.seek(t),finalChris.end-.01);
@@ -41,11 +38,12 @@ const rt=require('../../tools/lib/test-runtime.cjs');
    assert(await game.locator('.outside-speech').count(),'no exterior bubble');
    await page.evaluate(t=>lunaTrailerPreview.seek(t),s.start+.1);
    assert.equal(await game.evaluate(()=>outsidePlaytest.model.story.speech.choice),false,'dialogue before choices');
-   await page.evaluate(t=>lunaTrailerPreview.seek(t),s.start+4.3);
-   if(s.npc!=='believer')assert.equal(await game.evaluate(()=>outsidePlaytest.model.story.speech.choice),true,'choices follow dialogue');
+   await page.evaluate(t=>lunaTrailerPreview.seek(t),s.end-.1);
+   assert(await game.locator('.outside-speech').isVisible(),'NPC speaks through the excerpt');
+   assert(!await game.evaluate(()=>outsidePlaytest.model.story.speech.choice));
   }
   if(s.kind==='terrace')assert(await game.evaluate(()=>LunaOutsideRain.enabled(lunaCampaign.dialog.terraceWeather)),'every terrace is rainy');
-  if(s.drink)assert.equal(await game.evaluate(()=>barGame.seats.M.glass),s.drink);
+  if(s.drink){assert.equal(await game.evaluate(()=>barGame.seats.M.glass),s.drink);assert.equal(await game.locator('.coaster-zone .drink-art').getAttribute('data-art-usage'),s.glassEmpty?'empty':'table');}
   if(['bar','terrace','outside','open','emotions','serve','logo'].includes(s.kind))await page.screenshot({path:`/tmp/luna-trailer-${i}-${s.kind}.png`});
  }
  // Intro uses the live exterior rain-glass renderer, including black/title cards.
@@ -61,18 +59,19 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  const city=scenes.find(s=>s.text==='2069년, 서울 언더타운');assert(city);
  await page.evaluate(t=>lunaTrailerPreview.seek(t),city.start+1);
  assert.equal(await page.locator('#intro-window-rain').evaluate(e=>e.hidden),true,'Seoul card must be dry black');
- const emotional=scenes.find(s=>s.kind==='emotions');
- await page.evaluate(t=>lunaTrailerPreview.seek(t),emotional.start+1);
- const label=await page.locator('.emotion-card small').boundingBox(),word=await page.locator('.emotion-word').boundingBox();
- assert(word.y>label.y+label.height&&word.height>label.height,'larger emotion on its own line');
- const ending=scenes.at(-1);
- await page.evaluate(t=>lunaTrailerPreview.seek(t),ending.start+.75);
- assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),.5,'slow logo reveal');
- assert.equal(await page.locator('.trailer-logo').getAttribute('data-glitch'),'false');
- await page.evaluate(t=>lunaTrailerPreview.seek(t),ending.start+1.95);
- assert.equal(await page.locator('.trailer-logo').getAttribute('data-glitch'),'true');
- await page.evaluate(t=>lunaTrailerPreview.seek(t),ending.start+2.03);
- assert.equal(await page.locator('.trailer-logo').getAttribute('data-glitch'),'false','immediate clean recovery');
+ const team=scenes.find(s=>s.file==='team');
+ for(const t of [team.holdAt+.02,team.holdAt+team.holdDuration-.02]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+t);
+  const frame=await page.locator('#footage').evaluate(v=>({at:v.currentTime,paused:v.paused}));
+  assert(frame.paused&&Math.abs(frame.at-team.holdAt*team.playbackRate)<.05);
+  assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0);
+ }
+ const intro=scenes.find(s=>s.silent),positions=[];
+ for(const t of [.1,intro.duration-.1]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),intro.start+t);
+  positions.push(await game.locator('.terrace-scene').evaluate(e=>new DOMMatrix(getComputedStyle(e).transform).m41));
+ }
+ assert(positions[1]>positions[0],'art moves right as opening camera moves left');
  await page.evaluate(t=>{trailerTicks=[];return lunaTrailerPreview.seek(t);},scenes.find(s=>s.kind==='bar').start+.01);
  await page.locator('#play').click();await page.waitForTimeout(1000);await page.locator('#play').click();
  const ticks=await page.evaluate(()=>trailerTicks);assert(ticks.length>=3&&ticks.length<=17);

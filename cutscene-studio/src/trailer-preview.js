@@ -20,7 +20,7 @@ function audio(a,volume){a.volume=clamp(volume*Number($('volume').value));if(pla
 function sound(){const s=scenes[index],t=time-(s?.start||0);
  const rise=clamp(time/4),softRise=rise*rise*(3-2*rise);
  const introRain=time<teamScene.end?softRise*clamp((teamScene.end-time)/.9)*.75:0;
- audio(rain,introRain||(s?.file==='street'||s?.kind==='terrace'||s?.kind==='outside'?.55:0));
+ audio(rain,introRain||(s?.file==='street-pan'||s?.kind==='terrace'||s?.kind==='outside'?.55:0));
  audio(noise,s?.kind==='identity'&&t>1.8&&t<2.65?.3:s?.kind==='logo'&&effects.canvas.dataset.glitch==='true'?.22:0);
  if(!s)return;
  fxAudio.paint(s,t,playing&&!loading,Number($('volume').value),['bar','terrace','outside'].includes(s.kind)?bridge.speech:null);
@@ -28,10 +28,26 @@ function sound(){const s=scenes[index],t=time-(s?.start||0);
 function syncControls(){ $('clock').textContent=`${stamp(time)} / ${stamp(total)}`;$('seek').value=time;$('play').textContent=playing?'일시정지':'재생';}
 function stop(){playing=false;video.pause();rain.pause();noise.pause();fxAudio.stop();fxAudio.dialogue(null,false,0);syncControls();}
 function failure(error){stop();loading=false;$('loading').hidden=false;$('loading').textContent='불러오지 못했습니다: '+error.message+' · 새로고침해 주세요.';console.error(error);}
-async function prepareVideo(s){
+function sourceTime(s,t,player){
+ const elapsed=Math.min(t,s.holdAt??Infinity);
+ return Math.min((s.offset||0)+elapsed*(s.playbackRate||1),Math.max(0,player.duration-.04));
+}
+async function prepareVideo(s,t){
  const next=videoPlayers.get(s.file);
  if(video!==next){video.removeAttribute('id');video=next;video.id='footage';}
  video.playbackRate=s.playbackRate||1;
+ const target=sourceTime(s,t,video);
+ if(Math.abs(video.currentTime-target)>.04){
+  const reset=new Promise(resolve=>video.addEventListener('seeked',resolve,{once:true}));video.currentTime=target;await reset;
+ }
+}
+let stagedScene=null,stagedWork=Promise.resolve();
+function stageGame(s){
+ if(stagedScene!==s){
+  stagedScene=s;
+  stagedWork=stagedWork.catch(()=>{}).then(()=>bridge.enter(s));
+ }
+ return stagedWork;
 }
 async function enter(next){
  const hardCut=sameMontage(scenes[index],scenes[next]);
@@ -41,15 +57,18 @@ async function enter(next){
  if(!hardCut)show(frame,false);show(video,false);show(canvas,false);show(card,false);title.hidden=false;logo.hidden=true;
  effects.canvas.hidden=true;title.classList.toggle('emotion-card',s.kind==='emotions');delete title.dataset.emotion;
  try{
-  if(['bar','terrace','outside','open'].includes(s.kind)){await bridge.enter(s);show(frame,true);}
-  if(s.kind==='video'){await prepareVideo(s);show(video,true);}
+  if(['bar','terrace','outside','open'].includes(s.kind)){await stageGame(s);}
+  if(s.kind==='video'){await prepareVideo(s,Math.max(0,time-s.start));show(video,true);}
   if(s.kind==='serve')show(canvas,true);
   if(['black','card','identity','emotions','logo'].includes(s.kind)){show(card,true);title.textContent=s.text||'';if(s.kind==='logo'){title.hidden=true;logo.hidden=false;}}
   if(ticket!==generation)return;
+  show(frame,['bar','terrace','outside','open'].includes(s.kind));
   loading=false;$('loading').hidden=true;
   $('status').textContent=s.title+(s.kind==='video'?' · 기존 촬영본':' · 트레일러 전용 연출');
   for(const [i,b]of [...$('chapters').children].entries())b.setAttribute('aria-current',String(i===index));
   paint(true);sound();
+  const following=scenes[next+1];
+  if(s.kind==='card'&&following?.kind==='outside')stageGame(following).catch(error=>{if(index===next)failure(error);});
  }catch(e){if(ticket===generation)failure(e);}
 }
 function serve(t,s){
@@ -78,7 +97,7 @@ function paintIntroRain(s,t){
  if(s===introTerrace){
   const glass=bridge.c.host.querySelector('.terrace-glass'),fall=bridge.c.host.querySelector('.terrace-rain');
   if(glass){bg.save();bg.globalAlpha=clamp(t/1.25)*clamp((s.duration-t)/.9);
-   bg.translate(640,360);bg.scale(1.12,1.12);bg.translate(40-80*clamp(t/s.duration),0);
+   bg.translate(640,360);bg.scale(1.12,1.12);bg.translate(-40+80*clamp(t/s.duration),0);
    bg.drawImage(glass,-640,-360,1280,720);if(fall)bg.drawImage(fall,-640,-360,1280,720);bg.restore();}
  }
  if(s===teamScene&&video.readyState>=2){bg.save();bg.globalCompositeOperation='screen';bg.globalAlpha=clamp(t/.55);bg.drawImage(video,0,0,1280,720);bg.restore();}
@@ -90,9 +109,10 @@ function paint(seek=false){
  const s=scenes[index];if(!s||loading)return;const t=Math.max(0,time-s.start);
  if(['bar','terrace','outside','open'].includes(s.kind))bridge.paint(t);
  if(s.kind==='video'){
-  const target=Math.min(t*(s.playbackRate||1),Math.max(0,video.duration-.04));
-  if(seek||Math.abs(video.currentTime-target)>.18)video.currentTime=target;
-  if(playing&&video.paused)video.play().catch(()=>{});else if(!playing)video.pause();
+  const holding=s.holdAt!=null&&t>=s.holdAt;
+  const target=sourceTime(s,t,video);
+  if(Math.abs(video.currentTime-target)>(seek||holding?.025:.18))video.currentTime=target;
+  if(playing&&!holding){if(video.paused)video.play().catch(()=>{});}else video.pause();
  }
  if(s.kind==='serve')serve(t,s);
  paintIntroRain(s,t);
@@ -107,7 +127,7 @@ function paint(seek=false){
  const montage=['bar','video','serve','outside','open'].includes(s.kind);
  const fadeIn=s.kind==='logo'?1.5:montage?.12:.65,fadeOut=s.kind==='logo'?.85:montage?.12:.55;
  const entering=sameMontage(scenes[index-1],s)||s===introTerrace||s===teamScene?0:1-clamp(t/fadeIn);
- const leaving=s===teamScene?1-clamp((s.duration-t)/.9):sameMontage(s,scenes[index+1])||index===0||s===introTerrace?0:1-clamp((s.duration-t)/fadeOut);
+ const leaving=s===teamScene?clamp((t-s.holdAt-s.holdDuration)/(s.duration-s.holdAt-s.holdDuration)):sameMontage(s,scenes[index+1])||index===0||s===introTerrace?0:1-clamp((s.duration-t)/fadeOut);
  $('fade').style.opacity=String(Math.max(entering,leaving));
  sound();syncControls();
 }
@@ -139,7 +159,10 @@ async function init(){
   // not wait on a new source load or expose a black/loading frame.
   const player=document.createElement('video');player.className='trailer-footage';player.muted=true;player.playsInline=true;player.preload='auto';show(player,false);
   const loaded=new Promise((resolve,reject)=>{player.addEventListener('loadeddata',resolve,{once:true});player.addEventListener('error',()=>reject(Error(file+' 영상 디코딩 실패')),{once:true});});
-  composition.insertBefore(player,canvas);player.src=url;player.load();await loaded;videoPlayers.set(file,player);
+  composition.insertBefore(player,canvas);player.src=url;player.load();await loaded;
+  const offset=scenes.find(s=>s.file===file).offset||0;
+  if(offset){const primed=new Promise(resolve=>player.addEventListener('seeked',resolve,{once:true}));player.currentTime=offset;await primed;}
+  videoPlayers.set(file,player);
  }));
  ready=true;$('play').disabled=false;$('restart').disabled=false;await enter(0);raf=requestAnimationFrame(loop);
 }

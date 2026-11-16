@@ -25,6 +25,7 @@ W.LunaTrailerGame=class {
    .updates-overlay,.updates-modal,#cutscene-preview-toolbar,.campaign-return,.minigame-toolbar,.mini-toolbar{display:none!important}
    body{pointer-events:none!important}body.trailer-silent .terrace-speech{display:none!important}
    .bar-scene-layer{transition:none!important}
+   .outside-hud,.outside-background-speech{display:none!important}
    body.trailer-drinks .dialogue-wrap{translate:0 88px}
    .opening-screen .gimmick-finish,.opening-lesson{display:none!important}
   `;w.document.head.append(style);
@@ -40,38 +41,36 @@ W.LunaTrailerGame=class {
    const paragraph=c.host.querySelector('.terrace-speech p');if(paragraph)delete paragraph.dataset.line;
    this.paint(0);return;
   }
-  this.reset(s.npc==='believer'?0:s.kind==='outside'?2:1);
+  const reuseStreet=s.kind==='outside'&&previous?.kind==='outside'&&w.outsidePlaytest.active;
+  if(!reuseStreet)this.reset(s.kind==='outside'?2:1);
   w.document.body.classList.toggle('trailer-silent',!!s.silent);
   w.document.body.classList.toggle('trailer-drinks',!!s.drink);
   if(s.kind==='terrace'){
    c.dialog={rows:[{actor:s.actor||'chris',text:s.text||'',who:s.actor==='luna'?'루나':'크리스'}],index:0,chars:0,background:'terrace',terraceDay:1,terraceWeather:{scene:'street',config:{day:1,flow:'out'}},terraceTime:0,terraceEntryDuration:0};
    w.LunaTerrace.beginEntrance(c.dialog);c.dialog.terraceEntryDuration=0;c.screen('scene');
   }else if(s.kind==='bar'){
-   const lines=g.t.steps.filter(r=>r.actor===s.actor&&r.type==='say'&&r['text.ko']&&!r.context.startsWith('t99'));
-   const row=(s.expression&&lines.find(r=>r.arg===s.expression))||lines.find(r=>r['text.ko'].length>=24&&r['text.ko'].length<=65)||lines[0];
-   const text=s.text||row?.['text.ko']||g.t.steps.find(r=>r.actor===s.actor&&r['text.ko'])?.['text.ko']||(s.actor==='bubi'?'냐옹.':'');
-   g.seats={L:null,M:{id:s.actor,actor:s.actor,seated:true,state:'STORY',coaster:true,glass:s.drink||null,expression:s.expression||'idle'},R:null};
+   const text=s.text;
+   g.seats={L:null,M:{id:s.actor,actor:s.actor,seated:true,state:'STORY',coaster:true,glass:s.drink||null,glassEmpty:!!s.glassEmpty,expression:s.expression||'idle'},R:null};
    g.dialogue=text?g.makeLine(s.actor,text,null,s.expression||'default'):null;c.screen(c.playView);g.changed();c.render(true);
   }else if(s.kind==='open'){
    g.startMinigame('open');g.paused=false;c.ui.minigames=true;c.screen(c.playView);c.render(true);
   }else if(s.kind==='outside'){
    const day=s.npc==='believer'?0:s.npc==='newspaper'?1:2;
    g.day=day;g.progress.money=1000;Object.assign(g.progress.flags,{gang_pass_granted:true,shiba_shop_met:true});c.session.day=day;c.session.carry=structuredClone(g.progress);
-   const outside=w.outsidePlaytest;Object.assign(outside.config,{day,flow:s.npc==='newspaper'?'in':'out',place:'bar'});await outside.start();c.screen(c.playView);
+   const outside=w.outsidePlaytest;Object.assign(outside.config,{day,flow:s.npc==='newspaper'?'in':'out',place:'bar'});
+   if(reuseStreet)outside.model.start(outside.config);else await outside.start();
+   c.screen(c.playView);
    const m=outside.model;m.y=-.7;m.level=0;m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();
    const positions={boss:w.LunaOutsideNeighborhood.places.boss.x+.3,believer:w.LunaOutsideBeliever.place.x-.35,newspaper:w.LunaOutsideNewspaper.place.x+.3,shiba:-2.87};
    m.x=positions[s.npc];m.updateNear();outside.snapCamera();outside.tick(0);
    if(s.npc==='shiba')w.LunaOutsideShop.interact(m,w.LunaOutsideShop.targets(m)[0]);else m.interact();
-   if(s.npc!=='believer')for(let i=0;i<35&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=999;m.story.advance();}
+   // Hold one NPC line for this short excerpt, before any choice UI.
    const speech=m.story.speech;
-   if(speech){
-    const end=speech.index;
-    let start=Math.max(0,end-1);
-    while(start>0&&speech.rows[start]?.type!=='say')start--;
-    this.outsideClip={speech,start:s.npc==='believer'?0:start,end:s.npc==='believer'?1:end};
-    speech.index=this.outsideClip.start;speech.choice=false;speech.displayLine=null;m.story.seek();
-    this.outsideClip.nextAt=(speech.typing?.duration||1)+.6;
-   }
+   const speaker={boss:'boss',believer:'street-believer',newspaper:'street-newspaper',shiba:'shiba'}[s.npc];
+   const lines=speech?.rows.filter(row=>row.type==='say'&&row.actor===speaker);
+   const line=lines?.find(row=>row.text==='그건 왜 찾고 있지?')||lines?.[0];
+   if(!line)throw Error('거리 대사를 찾을 수 없습니다 · '+s.title);
+   speech.index=speech.rows.indexOf(line);speech.choice=false;speech.displayLine=null;m.story.seek();
    outside.refreshHUD();
   }
   this.paint(0);
@@ -87,14 +86,11 @@ W.LunaTrailerGame=class {
    c.dialog.terraceTime=t+s.start-conversation.start;c.dialog.chars=w.LunaOutsideStory.visible(timing,Math.max(0,t-(s.speechDelay||0)));w.LunaTerrace.paint(c.dialog,c.host);
    if(!s.silent)this.speech={key:s.title,text:s.text||'',chars:c.dialog.chars};
    // Trailer-only right-to-left panoramic drift; the campaign camera is untouched.
-   if(s.silent){const art=c.host.querySelector('.terrace-scene');if(art)art.style.transform=`scale(1.12) translateX(${40-80*Math.min(1,t/s.duration)}px)`;}
+   if(s.silent){const art=c.host.querySelector('.terrace-scene');if(art)art.style.transform=`scale(1.12) translateX(${-40+80*Math.min(1,t/s.duration)}px)`;}
   }
   if(s.kind==='outside'){
-   const story=w.outsidePlaytest.model.story,clip=this.outsideClip;
-   if(clip){const row=t<clip.nextAt?clip.start:clip.end;
-    if(story.speech!==clip.speech||clip.speech.index!==row){story.speech=clip.speech;clip.speech.index=row;clip.speech.choice=false;story.seek();}
-    if(story.speech&&!story.speech.choice)story.speech.elapsed=Math.max(0,t-(row===clip.start?0:clip.nextAt));
-   }
+   const story=w.outsidePlaytest.model.story;
+   if(story.speech)story.speech.elapsed=t;
    // Keep normal exterior typewriter deadlines, without a speed multiplier.
    const elapsed=story.speech?.elapsed;w.outsidePlaytest.tick(dt);if(story.speech)story.speech.elapsed=elapsed;
    if(story.speech&&!story.speech.choice)this.speech={key:s.title+':'+story.speech.index,text:story.speech.chars.join(''),chars:w.LunaOutsideStory.visible(story.speech.typing,story.speech.elapsed)};
