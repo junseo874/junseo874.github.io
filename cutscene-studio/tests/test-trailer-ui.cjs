@@ -6,8 +6,8 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  await page.addInitScript(()=>{window.trailerTicks=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.buffer?.duration<.04)trailerTicks.push({rate:this.playbackRate.value,loop:this.loop,time:performance.now()});return start.apply(this,args);};});
  await page.goto('http://127.0.0.1:8123/cutscene-studio/trailer.html');
  await page.waitForFunction(()=>window.lunaTrailerPreview?.ready,null,{timeout:90000});
- const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.deepEqual(scenes.slice(0,3).map(s=>s.file||s.kind),['terrace','seoul-puddle','street-run']);assert.equal(scenes.at(-1).actor,'luna');
- assert.deepEqual(scenes.filter(s=>s.kind==='card').map(s=>s.text),['바를 찾는 손님들','당신이 만들어 가는 이야기']);
+ const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.deepEqual(scenes.slice(0,4).map(s=>s.file||s.kind),['terrace','team','seoul-puddle','street-run']);assert.equal(scenes.at(-1).actor,'luna');
+ assert.deepEqual(scenes.filter(s=>s.kind==='card').map(s=>s.text),['당신이 선택한 한잔','바를 찾는 손님들','당신이 만들어 가는 이야기']);
  assert.deepEqual(scenes.filter(s=>s.montage==='craft').map(s=>s.file||s.kind),['ingredients','open','pour-soda','stir','shake','serve']);
  assert(scenes.filter(s=>s.montage==='craft'&&s.kind!=='serve').every(s=>s.duration===2));
  const guests=scenes.filter(s=>s.montage==='guests');
@@ -46,65 +46,49 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   if(s.kind==='bar'&&s.drink){assert.equal(await game.evaluate(()=>barGame.seats.M.glass),s.drink);assert.equal(await game.locator('.coaster-zone .drink-art').getAttribute('data-art-usage'),s.glassEmpty?'empty':'table');}
   if(['bar','terrace','outside','open','emotions','serve','logo'].includes(s.kind))await page.screenshot({path:`/tmp/luna-trailer-${i}-${s.kind}.png`});
  }
- // The camera settles before the original team animation starts midway over the city.
- const intro=scenes[0],positions=[];
+ // Cover the stationary terrace from right to left, then play the centered source.
+ const [intro,team,puddle,street]=scenes,positions=[],curtainLeft=[];
  await page.locator('#chapters button').first().click();
  await page.waitForFunction(()=>!lunaTrailerPreview.loading);
  assert.equal(await game.evaluate(()=>lunaCampaign.view),'scene','parent controls leave the terrace visible');
- for(const t of [0,1,1.99,2.3,intro.duration-.04]){
+ for(const t of [0,1,intro.panDuration,intro.panDuration+.4,intro.panDuration+.85,intro.duration-.01]){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),t);
   positions.push(await game.locator('.terrace-scene').evaluate(e=>new DOMMatrix(getComputedStyle(e).transform).m41));
   assert(await page.locator('#game').isVisible());
   assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0);
-  assert.equal(await page.locator('#terrace-team').isVisible(),t>=intro.panDuration);
-  const shade=await page.locator('#terrace-shade').evaluate(e=>Number(getComputedStyle(e).opacity));
-  if(t<intro.panDuration)assert.equal(shade,0);else assert(shade>0);
+  const state=await page.locator('#terrace-curtain').evaluate(e=>({hidden:e.hidden,x:new DOMMatrix(getComputedStyle(e).transform).m41,width:e.offsetWidth}));
+  assert.equal(state.hidden,t<=intro.panDuration);
+  if(!state.hidden)curtainLeft.push(state.x);
+  if(t>intro.duration-.05)assert(state.x+state.width*.22<=0&&state.x+state.width>=1280,'opaque field covers the whole frame');
  }
- assert(positions[0]<positions[1]&&positions[1]<positions[2]);
- assert(Math.abs(positions[2]-positions[3])<.02&&positions[3]===positions[4]);
- const logo=await page.locator('#terrace-team').evaluate(e=>({at:e.currentTime,left:getComputedStyle(e).left,mode:getComputedStyle(e).mixBlendMode}));
- assert(logo.at>intro.logoOffset+1&&parseFloat(logo.left)>640&&logo.mode==='screen');
- assert.equal(intro.logoHold,1);
- const holdStart=intro.end-intro.logoHold,still=intro.logoOffset+holdStart-intro.panDuration;
- await page.evaluate(t=>lunaTrailerPreview.seek(t),holdStart+.08);
- await page.locator('#play').click();await page.waitForTimeout(520);
- const held=await page.locator('#terrace-team').evaluate(e=>({paused:e.paused,time:e.currentTime}));
- assert(held.paused&&Math.abs(held.time-still)<.03,'hold the lit logo frame while the terrace clock advances');
+ assert(positions[0]<positions[1]&&positions[1]<positions[2]&&positions.slice(2).every(x=>x===positions[2]));
+ assert(curtainLeft[0]>curtainLeft[1]&&curtainLeft[1]>curtainLeft[2]);
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+.02);
+ assert(await page.locator('#game').isHidden()&&await page.locator('#terrace-curtain').isHidden());
+ assert(await page.locator('#footage').evaluate(v=>v.currentTime<.06&&v.offsetLeft===0&&v.offsetWidth===1280));
+ assert.equal(team.holdDuration,1);
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+team.holdAt+.08);
+ await page.locator('#play').click();await page.waitForTimeout(350);
+ assert(await page.locator('#footage').evaluate((v,at)=>v.paused&&Math.abs(v.currentTime-at)<.03,team.holdAt));
  await page.locator('#play').click();
- for(const clip of scenes.slice(1,3)){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),clip.start+1);
-  assert(await page.locator('#terrace-team').isHidden());
-  assert.equal(await page.locator('#terrace-shade').evaluate(e=>Number(e.style.opacity)),0);
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),team.end-.15);
+ assert(await page.locator('#footage').evaluate((v,at)=>v.currentTime>at+.35,team.holdAt),'resume the original logo exit after the hold');
+ for(const clip of [puddle,street]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),clip.start);
+  assert(await page.locator('#terrace-curtain').isHidden());
+  assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0,'show the street footage immediately');
   assert(await page.locator('#footage').evaluate((v,d)=>v.readyState>=2&&v.duration>=d-.04,clip.duration));
  }
- const hero=scenes.find(s=>s.kind==='serve-title');
- assert.deepEqual(hero.lines,[['당신이','선택한'],['한','잔']]);
- for(const [at,frame] of [[.3,''],[hero.slideAt+.51,'10'],[hero.duration-.25,'29']]){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),hero.start+at);
-  assert(await page.locator('#serve').isVisible());
-  assert.equal(await page.locator('#serve').getAttribute('data-cocktail'),'cosmopolitan');
-  assert.equal(await page.locator('#serve').getAttribute('data-frame'),frame);
-  if(at===.3){
-   const widths=await page.locator('#serve').evaluate(el=>{
-    const {width:w,height:h}=el,data=el.getContext('2d').getImageData(0,0,w,h).data;
-    return [[0,.4],[.42,1]].map(([top,bottom])=>{
-     let left=w,right=0;
-     for(let y=Math.ceil(h*top);y<h*bottom;y+=4)for(let x=0;x<w;x+=4){
-      const i=(y*w+x)*4;
-      if(data[i]>245&&data[i+1]>237&&data[i+2]>221){left=Math.min(left,x);right=Math.max(right,x);}
-     }
-     return (right-left)/w;
-    });
-   });
-   assert(widths.every(w=>w>.76&&w<.99),'both lines fill the shot within the frame');
-  }
- }
- for(const s of [hero,scenes.find(s=>s.kind==='serve')]){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),s.start+(s.slideAt||0)+.12);
-  await page.locator('#play').click();await page.waitForTimeout(200);
-  assert(await page.evaluate(()=>!lunaTrailerPreview.fxAudio.active),'hand-off is silent');
-  await page.locator('#play').click();
- }
+ assert.equal(puddle.title,'2069년, 한국 서울');
+ const hero=scenes.find(s=>s.text==='당신이 선택한 한잔');
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),hero.start+1);
+ assert.equal(await page.locator('#card h2').innerText(),hero.text);
+ assert(await page.locator('#serve').isHidden()&&await page.locator('#footage').isHidden());
+ const servingClip=scenes.find(s=>s.kind==='serve');
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),servingClip.start+.12);
+ await page.locator('#play').click();await page.waitForTimeout(200);
+ assert(await page.evaluate(()=>!lunaTrailerPreview.fxAudio.active),'hand-off is silent');
+ await page.locator('#play').click();
  await page.evaluate(t=>{trailerTicks=[];return lunaTrailerPreview.seek(t);},scenes.find(s=>s.kind==='bar').start+.01);
  await page.locator('#play').click();await page.waitForTimeout(1000);await page.locator('#play').click();
  const ticks=await page.evaluate(()=>trailerTicks);assert(ticks.length>=3&&ticks.length<=17);

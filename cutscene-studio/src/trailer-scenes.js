@@ -4,12 +4,13 @@ const scenes=[];
 function add(kind,duration,title,extra={}){scenes.push({kind,duration,title,...extra});}
 function card(text){add('card',3,text,{text});}
 function clip(file,title,duration,montage,offset=0){add('video',duration,title,{file,montage,offset});}
-add('terrace',4.8,'테라스 · 심청단',{silent:true,panDuration:2,logoFile:'team',logoOffset:1.45,logoHold:1,montage:'arrival'});
-clip('seoul-puddle','2069, 통일한국 서울',5.1,'arrival');
+add('terrace',3.55,'테라스 · 야경',{silent:true,panDuration:2,montage:'arrival'});
+add('video',4.9,'심청단',{file:'team',holdAt:3.2,holdDuration:1,montage:'arrival'});
+clip('seoul-puddle','2069년, 한국 서울',5.1,'arrival');
 clip('street-run','서울 거리 · 달리는 루나',6,'arrival');
 add('identity',5,'루나 · 정체 글리치',{text:'바 ‘언노운’의 바텐더, 루나',alternate:'휴머노이드 실험체, LUNA-1185'});
 add('bar',4,'크리스 · 시작',{actor:'chris',text:'그럼, 시작해 보자고. 루나.'});
-add('serve-title',3.4,'당신이 선택한 한 잔',{lines:[['당신이','선택한'],['한','잔']],drink:'cosmopolitan',slideAt:.7});
+card('당신이 선택한 한잔');
 clip('ingredients','재료 담기',2,'craft');
 add('open',2,'병따기',{montage:'craft'});
 clip('pour-soda','따르기',2,'craft');

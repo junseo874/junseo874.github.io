@@ -20,10 +20,11 @@ function sound(){const s=scenes[index],t=time-(s?.start||0);
  fxAudio.paint(s,t,playing&&!loading,Number($('volume').value),['bar','terrace','outside'].includes(s.kind)?bridge.speech:null);
 }
 function syncControls(){ $('clock').textContent=`${stamp(time)} / ${stamp(total)}`;$('seek').value=time;$('play').textContent=playing?'일시정지':'재생';}
-function stop(){playing=false;video.pause();videoPlayers.get('team')?.pause();rain.pause();noise.pause();fxAudio.stop();fxAudio.dialogue(null,false,0);syncControls();}
+function stop(){playing=false;video.pause();rain.pause();noise.pause();fxAudio.stop();fxAudio.dialogue(null,false,0);syncControls();}
 function failure(error){stop();loading=false;$('loading').hidden=false;$('loading').textContent='불러오지 못했습니다: '+error.message+' · 새로고침해 주세요.';console.error(error);}
 function sourceTime(s,t,player){
- const elapsed=Math.min(t,s.holdAt??Infinity);
+ const held=s.holdAt==null?0:Math.max(0,Math.min(t-s.holdAt,s.holdDuration));
+ const elapsed=t-held;
  return Math.min((s.offset||0)+elapsed*(s.playbackRate||1),Math.max(0,player.duration-.04));
 }
 async function prepareVideo(s,t){
@@ -46,18 +47,14 @@ function stageGame(s){
 async function enter(next){
  const hardCut=sameMontage(scenes[index],scenes[next]);
  const ticket=++generation;index=next;const s=scenes[index];loading=true;video.pause();sound();$('loading').hidden=hardCut;$('loading').textContent='장면 준비 중...';
- const team=videoPlayers.get('team');team.pause();show(team,false);$('terrace-shade').style.opacity='0';
+ $('terrace-curtain').hidden=true;
  // Montage cuts reuse prepared views, without a fade or loading-screen flash.
  if(!hardCut)show(frame,false);show(video,false);show(canvas,false);show(card,false);title.hidden=false;logo.hidden=true;
  effects.canvas.hidden=true;title.classList.toggle('emotion-card',s.kind==='emotions');delete title.dataset.emotion;
  try{
   if(['bar','terrace','outside','open'].includes(s.kind)){await stageGame(s);}
   if(s.kind==='video'){await prepareVideo(s,Math.max(0,time-s.start));show(video,true);}
-  if(s.kind==='serve'||s.kind==='serve-title'){
-   const scale=s.kind==='serve-title'?2:1;
-   canvas.width=960*scale;canvas.height=540*scale;ctx.setTransform(scale,0,0,scale,0,0);
-   show(canvas,true);
-  }
+  if(s.kind==='serve')show(canvas,true);
   if(['black','card','identity','emotions','logo'].includes(s.kind)){show(card,true);title.textContent=s.text||'';if(s.kind==='logo'){title.hidden=true;logo.hidden=false;}}
   if(ticket!==generation)return;
   show(frame,['bar','terrace','outside','open'].includes(s.kind));
@@ -80,65 +77,21 @@ function serve(t,s){
  ctx.drawImage(images.get(key),sx,sy,954,539,3,60,954,539);
  canvas.dataset.cocktail=key;canvas.dataset.frame=String(n);
 }
-// The serving sheets put the hand and glass on a transparent plane above the table.
-function serveTitle(t,s){
- const age=t-s.slideAt,n=Math.max(0,Math.min(29,Math.floor(age*20)));
- const sx=2+n%6*956,sy=2+Math.floor(n/6)*541;
- ctx.fillStyle='#000';ctx.fillRect(0,0,960,540);ctx.imageSmoothingEnabled=false;
- ctx.drawImage(images.get('background'),sx,sy,954,539,3,0,954,539);
- // The approaching hand starts behind the type. As it crosses the upper line,
- // its leading edge comes in front and the same motion carries through the lower line.
- const emerge=clamp(age/.8);
- const edge=280-285*emerge*emerge*(3-2*emerge);
- function hand(front){
-  if(age<=0)return;
-  ctx.save();ctx.beginPath();
-  ctx.moveTo(0,edge);ctx.quadraticCurveTo(480,edge-24,960,edge);
-  const boundary=front?540:0;
-  ctx.lineTo(960,boundary);ctx.lineTo(0,boundary);ctx.closePath();ctx.clip();
-  ctx.globalAlpha=clamp(age/.10);
-  ctx.drawImage(images.get(s.drink),sx,sy,954,539,3,60,954,539);ctx.restore();
- }
- hand(false);
- ctx.save();
- ctx.fillStyle='#fff7e8';ctx.textBaseline='alphabetic';
- for(const [i,[left,right]] of s.lines.entries()){
-  ctx.save();
-  const lower=i===1,stretch=lower?1.46:1;
-  ctx.translate(480,lower?490:176);ctx.scale(stretch,1);
-  ctx.font='900 '+(lower?300:155)+'px TrailerDisplay';ctx.letterSpacing=lower?'0px':'-6px';
-  ctx.textAlign='right';ctx.fillText(left,-12/stretch,0,440/stretch);
-  ctx.textAlign='left';ctx.fillText(right,12/stretch,0,440/stretch);
-  ctx.restore();
- }
- ctx.restore();
- hand(true);
- canvas.dataset.cocktail=s.drink;canvas.dataset.frame=age<0?'':String(n);
-}
-function paintTeam(s,t,seek){
- const player=videoPlayers.get(s.logoFile),age=t-s.panDuration;
- if(!player)return;
- $('terrace-shade').style.opacity=String(clamp(age/.4));
- if(age<0){player.pause();show(player,false);return;}
- const movingTime=s.duration-s.panDuration-s.logoHold,holding=age>=movingTime;
- const target=s.logoOffset+Math.min(age,movingTime);
- const tolerance=(seek||holding)?0.025:0.14;
- if((seek||!player.seeking)&&Math.abs(player.currentTime-target)>tolerance)player.currentTime=target;
- player.style.opacity=String(clamp(age/.16));show(player,true);
- if(playing&&!holding){if(player.paused)player.play().catch(()=>{});}else player.pause();
-}
 function paint(seek=false){
  const s=scenes[index];if(!s||loading)return;const t=Math.max(0,time-s.start);
  if(['bar','terrace','outside','open'].includes(s.kind))bridge.paint(t);
  if(s.kind==='video'){
-  const holding=s.holdAt!=null&&t>=s.holdAt;
+  const holding=s.holdAt!=null&&t>=s.holdAt&&t<s.holdAt+s.holdDuration;
   const target=sourceTime(s,t,video);
   if(Math.abs(video.currentTime-target)>(seek||holding?.025:.18))video.currentTime=target;
   if(playing&&!holding){if(video.paused)video.play().catch(()=>{});}else video.pause();
  }
  if(s.kind==='serve')serve(t,s);
- if(s.kind==='serve-title')serveTitle(t,s);
- if(s.logoFile)paintTeam(s,t,seek);
+ if(s.panDuration!=null){
+  const p=clamp((t-s.panDuration)/(s.duration-s.panDuration));
+  const curtain=$('terrace-curtain');curtain.hidden=p===0;
+  curtain.style.transform=`translateX(${80-103*p*p*(3-2*p)}%)`;
+ }
  let glitch=false;
  if(s.kind==='identity'){glitch=t>1.8&&t<2.65;title.textContent=glitch?s.alternate:s.text;title.dataset.text=title.textContent;}
  if(s.kind==='emotions')effects.emotions(title,t,s.duration,emotions);
@@ -147,7 +100,7 @@ function paint(seek=false){
  composition.classList.toggle('glitch',s.kind==='logo'&&signal);
  composition.classList.toggle('text-glitch',s.kind==='identity'&&signal);
  title.style.setProperty('--slice-shift',`${Math.floor(t*30)%2?11:-9}px`);
- const montage=['bar','video','serve','serve-title','outside','open'].includes(s.kind);
+ const montage=['bar','video','serve','outside','open'].includes(s.kind);
  const fadeIn=s.kind==='logo'?1.5:montage?.12:.65,fadeOut=s.kind==='logo'?.85:montage?.12:.55;
  const entering=index===0||sameMontage(scenes[index-1],s)?0:1-clamp(t/fadeIn);
  const leaving=sameMontage(s,scenes[index+1])?0:1-clamp((s.duration-t)/fadeOut);
@@ -171,24 +124,19 @@ document.addEventListener('keydown',e=>{if(e.target.matches('input'))return;if(e
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',()=>{stop();cancelAnimationFrame(raf);for(const url of media.values())URL.revokeObjectURL(url);});
 async function init(){
  await bridge.init();
- await Promise.all([
-  fxAudio.prepare(),document.fonts.load('38px LunaPixel'),
-  document.fonts.load('900 155px TrailerDisplay','당신이 선택한 한 잔')
- ]);
+ await Promise.all([fxAudio.prepare(),document.fonts.load('38px LunaPixel')]);
  const sheets={background:bridge.w.LUNA_SERVE_BACKGROUND,...bridge.w.LUNA_SERVE_SHEETS};
  for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
  // Cache the small edited clips before playback so cuts do not buffer midway.
- await Promise.all([...new Set(scenes.flatMap(s=>[s.file,s.logoFile].filter(Boolean)))].map(async file=>{
-  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
+ await Promise.all([...new Set(scenes.filter(s=>s.file).map(s=>s.file))].map(async file=>{
+  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?4:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
   const url=URL.createObjectURL(await r.blob());media.set(file,url);
   // Decode each first frame up front as well as fetching bytes: hard cuts must
   // not wait on a new source load or expose a black/loading frame.
   const player=document.createElement('video');player.className='trailer-footage';player.muted=true;player.playsInline=true;player.preload='auto';show(player,false);
   const loaded=new Promise((resolve,reject)=>{player.addEventListener('loadeddata',resolve,{once:true});player.addEventListener('error',()=>reject(Error(file+' 영상 디코딩 실패')),{once:true});});
   composition.insertBefore(player,canvas);player.src=url;player.load();await loaded;
-  const overlay=scenes.find(s=>s.logoFile===file);
-  if(overlay){player.id='terrace-team';player.setAttribute('aria-label','심청단 로고');}
-  const offset=overlay?.logoOffset||scenes.find(s=>s.file===file)?.offset||0;
+  const offset=scenes.find(s=>s.file===file)?.offset||0;
   if(offset){const primed=new Promise(resolve=>player.addEventListener('seeked',resolve,{once:true}));player.currentTime=offset;await primed;}
   videoPlayers.set(file,player);
  }));
