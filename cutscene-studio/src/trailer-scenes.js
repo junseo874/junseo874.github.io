@@ -4,7 +4,7 @@ const scenes=[];
 function add(kind,duration,title,extra={}){scenes.push({kind,duration,title,...extra});}
 function card(text){add('card',3,text,{text});}
 function clip(file,title,duration,montage,offset=0){add('video',duration,title,{file,montage,offset});}
-add('terrace',3.55,'테라스 · 야경',{silent:true,panDuration:2,montage:'arrival'});
+add('terrace',2,'테라스 · 야경',{silent:true,panDuration:2,montage:'arrival'});
 add('video',4.9,'심청단',{file:'team',holdAt:3.2,holdDuration:1,montage:'arrival'});
 clip('seoul-puddle','2069년, 한국 서울',5.1,'arrival');
 clip('street-run','서울 거리 · 달리는 루나',6,'arrival');
@@ -26,13 +26,12 @@ for(const [actor,name,drink,glassEmpty,line] of [
  ['shiba','개시바','bottle_beer',true,'주문 안 받을 거야?'],
  ['bubi','부비','kahlua_milk',true,'야옹.'],
  ['haru','송하루','champagne',false,'예쁘고 잘생긴 사람들은 뭘 해도 다 되잖아.']
-])add('bar',2.5,name,{actor,drink,glassEmpty,text:line,montage:'guests'});
+])add('bar',2,name,{actor,drink,glassEmpty,text:line,montage:'guests'});
 card('당신이 만들어 가는 이야기');
 for(const [npc,name] of [['boss','갱두목'],['believer','기신교 신도'],['newspaper','신문 읽는 남자'],['shiba','시바견']])
  add('outside',2,'거리의 인연 · '+name,{npc,montage:'outside'});
 clip('boobi','부비 · 박스에서 등장',2,'outside',.5);
 clip('yuna-memory','유나와 루나 · 폐기물 처리소의 기억',2,'outside');
-add('black',1.2,'회상 뒤 · 암전');
 add('terrace',2.4,'크리스 · 마지막 질문',{actor:'chris',text:'…앞으로 어떻게 하고 싶은거지?',montage:'terrace-ending',speechDelay:.65});
 add('terrace',2.5,'루나 · 저는…',{actor:'luna',text:'저는…',montage:'terrace-ending'});
 let total=0;for(const s of scenes){s.start=total;total+=s.duration;s.end=total;}

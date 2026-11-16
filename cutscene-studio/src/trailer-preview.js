@@ -7,7 +7,6 @@ const effects=new W.LunaTrailerEffects(card,logo),fxAudio=new W.LunaTrailerAudio
 let ready=false,playing=false,loading=false,time=0,index=-1,last=0,generation=0,raf=0;const media=new Map(),images=new Map();
 const clamp=v=>Math.max(0,Math.min(1,v)),stamp=t=>`${Math.floor(t/60).toString().padStart(2,'0')}:${Math.floor(t%60).toString().padStart(2,'0')}`;
 const assetRoot='../bar-playtest/';
-const sameMontage=(a,b)=>!!a?.montage&&a.montage===b?.montage;
 function fit(){const r=stage.getBoundingClientRect();composition.style.transform=`scale(${Math.min(r.width/1280,r.height/720)})`;}
 new ResizeObserver(fit).observe(stage);document.addEventListener('fullscreenchange',fit);
 function show(el,value){el.style.visibility=value?'visible':'hidden';}
@@ -45,18 +44,16 @@ function stageGame(s){
  return stagedWork;
 }
 async function enter(next){
- const hardCut=sameMontage(scenes[index],scenes[next]);
- const ticket=++generation;index=next;const s=scenes[index];loading=true;video.pause();sound();$('loading').hidden=hardCut;$('loading').textContent='장면 준비 중...';
- $('terrace-curtain').hidden=true;
- // Montage cuts reuse prepared views, without a fade or loading-screen flash.
- if(!hardCut)show(frame,false);show(video,false);show(canvas,false);show(card,false);title.hidden=false;logo.hidden=true;
- effects.canvas.hidden=true;title.classList.toggle('emotion-card',s.kind==='emotions');delete title.dataset.emotion;
+ const ticket=++generation;index=next;const s=scenes[index];loading=true;video.pause();sound();
  try{
   if(['bar','terrace','outside','open'].includes(s.kind)){await stageGame(s);}
-  if(s.kind==='video'){await prepareVideo(s,Math.max(0,time-s.start));show(video,true);}
-  if(s.kind==='serve')show(canvas,true);
-  if(['black','card','identity','emotions','logo'].includes(s.kind)){show(card,true);title.textContent=s.text||'';if(s.kind==='logo'){title.hidden=true;logo.hidden=false;}}
+  if(s.kind==='video')await prepareVideo(s,Math.max(0,time-s.start));
   if(ticket!==generation)return;
+  for(const player of videoPlayers.values())show(player,s.kind==='video'&&player===video);
+  const onCard=['black','card','identity','emotions','logo'].includes(s.kind);
+  show(canvas,s.kind==='serve');show(card,onCard);
+  title.hidden=false;logo.hidden=true;effects.canvas.hidden=true;title.classList.toggle('emotion-card',s.kind==='emotions');delete title.dataset.emotion;
+  if(onCard){title.textContent=s.text||'';if(s.kind==='logo'){title.hidden=true;logo.hidden=false;}}
   show(frame,['bar','terrace','outside','open'].includes(s.kind));
   loading=false;$('loading').hidden=true;
   $('status').textContent=s.title+(s.kind==='video'?' · 기존 촬영본':' · 트레일러 전용 연출');
@@ -87,11 +84,6 @@ function paint(seek=false){
   if(playing&&!holding){if(video.paused)video.play().catch(()=>{});}else video.pause();
  }
  if(s.kind==='serve')serve(t,s);
- if(s.panDuration!=null){
-  const p=clamp((t-s.panDuration)/(s.duration-s.panDuration));
-  const curtain=$('terrace-curtain');curtain.hidden=p===0;
-  curtain.style.transform=`translateX(${80-103*p*p*(3-2*p)}%)`;
- }
  let glitch=false;
  if(s.kind==='identity'){glitch=t>1.8&&t<2.65;title.textContent=glitch?s.alternate:s.text;title.dataset.text=title.textContent;}
  if(s.kind==='emotions')effects.emotions(title,t,s.duration,emotions);
@@ -100,23 +92,18 @@ function paint(seek=false){
  composition.classList.toggle('glitch',s.kind==='logo'&&signal);
  composition.classList.toggle('text-glitch',s.kind==='identity'&&signal);
  title.style.setProperty('--slice-shift',`${Math.floor(t*30)%2?11:-9}px`);
- const montage=['bar','video','serve','outside','open'].includes(s.kind);
- const fadeIn=s.kind==='logo'?1.5:montage?.12:.65,fadeOut=s.kind==='logo'?.85:montage?.12:.55;
- const entering=index===0||sameMontage(scenes[index-1],s)?0:1-clamp(t/fadeIn);
- const leaving=sameMontage(s,scenes[index+1])?0:1-clamp((s.duration-t)/fadeOut);
- $('fade').style.opacity=String(Math.max(entering,leaving));
  sound();syncControls();
 }
 async function seek(value){if(!ready||loading)return;time=Math.max(0,Math.min(total-.001,value));const next=scenes.findIndex(s=>time<s.end);if(next!==index)await enter(next);else paint(true);syncControls();}
 function loop(now){
  const dt=last?Math.min(.1,(now-last)/1000):0;last=now;
- if(playing&&!loading){time+=dt;if(time>=total){time=total;stop();$('fade').style.opacity='1';}else {const next=scenes.findIndex(s=>time<s.end);if(next!==index)enter(next);}}
+ if(playing&&!loading){time+=dt;if(time>=total){time=total;paint(true);stop();}else {const next=scenes.findIndex(s=>time<s.end);if(next!==index)enter(next);}}
  // Repaint the frozen frame as asynchronous sprite decodes complete, too.
  if(!loading&&time<total)paint();
  raf=requestAnimationFrame(loop);
 }
 $('seek').max=total;
-scenes.forEach((s,i)=>{const b=document.createElement('button'),small=document.createElement('small');small.textContent=stamp(s.start);b.append(small,document.createTextNode(s.title));b.onclick=()=>seek(s.start+.02);$('chapters').append(b);});
+scenes.forEach((s,i)=>{const b=document.createElement('button'),small=document.createElement('small');small.textContent=stamp(s.start);b.append(small,document.createTextNode(s.title));b.onclick=()=>seek(s.start);$('chapters').append(b);});
 $('play').onclick=()=>{if(!ready||loading)return;if(playing)stop();else{if(time>=total)seek(0);playing=true;last=performance.now();sound();syncControls();}};
 $('restart').onclick=()=>{stop();seek(0);};$('seek').oninput=e=>seek(Number(e.target.value));$('volume').oninput=sound;
 $('fullscreen').onclick=()=>document.fullscreenElement?document.exitFullscreen():stage.requestFullscreen();
@@ -129,7 +116,7 @@ async function init(){
  for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
  // Cache the small edited clips before playback so cuts do not buffer midway.
  await Promise.all([...new Set(scenes.filter(s=>s.file).map(s=>s.file))].map(async file=>{
-  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?4:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
+  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?5:file==='pour-soda'?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
   const url=URL.createObjectURL(await r.blob());media.set(file,url);
   // Decode each first frame up front as well as fetching bytes: hard cuts must
   // not wait on a new source load or expose a black/loading frame.
