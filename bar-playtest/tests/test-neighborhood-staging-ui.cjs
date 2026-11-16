@@ -81,16 +81,56 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    m.updateNear();a.snapCamera();a.tick(0);
   },scene);
   if(scene==='gang'){
-   const feet=await p.evaluate(()=>{const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood,canvas=document.querySelector('.outside-stage canvas'),ctx=canvas.getContext('2d'),factor=canvas.width/1280;
-    const subjects=N.poses(m).filter(p=>['guard','boss','gang-left','gang-far','gangmate'].includes(p.id));
-    const patches=()=>subjects.map(p=>{const v=LunaPixelCamera.position(p.x,p.y,a.renderCamera);return ctx.getImageData(Math.round((v.x-18)*factor),Math.round((v.y-8)*factor),Math.ceil(36*factor),Math.ceil(8*factor)).data;});
-    a.tick(0);const shown=patches(),poses=N.poses,ids=new Set(subjects.map(p=>p.id));let absent;
-    // Engine-sorted actorNodes consumes poses, not the legacy late drawCamp.
-    // Invalidate the render stamp while keeping the same animation frame.
-    try{N.poses=model=>poses(model).filter(p=>!ids.has(p.id));m.time+=.000001;a.tick(0);absent=patches();}
-    finally{N.poses=poses;m.time+=.000001;a.tick(0);}
-    return subjects.map((p,i)=>({id:p.id,changed:shown[i].reduce((n,v,k)=>n+(k%4!==3&&v!==absent[i][k]?1:0),0)}));
-   });assert(feet.every(p=>p.changed>5),'visible foot pixels must survive foreground: '+JSON.stringify(feet));
+   const coverage=await p.evaluate(()=>{
+    const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;
+    const data=LUNA_OUTSIDE_DATA,front=data.scenes.street.nodes.find(n=>n.name==='B_ForeFore_Object_1');
+    const canvas=document.querySelector('.outside-stage canvas'),ctx=canvas.getContext('2d'),scale=canvas.width/1280;
+    const result={},actorNodes=LunaEngineWorld.actorNodes,playerX=m.x;
+    const role='gangmate';
+    let hideGang=false;
+    LunaEngineWorld.actorNodes=function(...args){
+     const list=actorNodes(...args);
+     for(const node of list)if(hideGang&&node.name===role)node.engineDraw=()=>{};
+     return list;
+    };
+    function measure(id,x,y,hide){
+     const center=LunaPixelCamera.position(x,y,a.renderCamera);
+     const rect=[Math.round((center.x-45)*scale),Math.round((center.y-150)*scale),Math.round(90*scale),Math.round(148*scale)];
+     const frame=(foreground,hidden)=>{
+      front.active=foreground;hide(hidden);a.tick(0);
+      return ctx.getImageData(...rect).data;
+     };
+     const exposed=frame(false,false),empty=frame(false,true);
+     const normal=frame(true,false),masked=frame(true,true);
+     let visible=0,covered=0;
+     const delta=(one,two,i)=>Math.max(Math.abs(one[i]-two[i]),Math.abs(one[i+1]-two[i+1]),Math.abs(one[i+2]-two[i+2]));
+     for(let i=0;i<normal.length;i+=4){
+      if(delta(exposed,empty,i)<14)continue;
+      const difference=delta(normal,masked,i);
+      if(difference>=14)visible++;
+      else if(difference<=2&&delta(exposed,normal,i)>=14)covered++;
+     }
+     result[id]={visible,covered};hide(false);
+    }
+    try{
+     const pose=N.poses(m).find(p=>p.id===role);
+     measure(role,pose.x,pose.y,v=>{hideGang=v;});
+     // Move Luna behind the same scrap pile and let the camera follow.
+     m.x=N.places.gangmate.x;a.snapCamera();a.tick(0);
+     const anim=data.animations[m.anim],frames=anim.frames;
+     const hidden=frames.map(sp=>({...sp,asset:'missing-player-for-occlusion-test'}));
+     try{measure('Luna',m.x,m.y-.274,v=>{anim.frames=v?hidden:frames;});}
+     finally{anim.frames=frames;}
+    }finally{
+     front.active=true;LunaEngineWorld.actorNodes=actorNodes;
+     m.x=playerX;a.snapCamera();a.tick(0);
+    }
+    return result;
+   });
+   for(const [id,pixels] of Object.entries(coverage)){
+    assert(pixels.covered>150,id+' should disappear behind opaque scrap: '+JSON.stringify(pixels));
+    assert(pixels.visible>150,id+' should remain visible in the gaps: '+JSON.stringify(pixels));
+   }
   }
   await p.screenshot({path:'/private/tmp/neighborhood-fixed-'+scene+'.png'});
   if(scene==='gang'){

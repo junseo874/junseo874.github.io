@@ -14,8 +14,8 @@
     {id: 'puddle-clean', title: '물웅덩이 · 무자막', duration: scenes.find(s => s.file === 'seoul-puddle').duration}
   ];
   function select(source) {
-    const url = 'assets/trailer-sources/' + source.id + '.mp4' +
-      (['full', '03', 'puddle-clean'].includes(source.id) ? '?v=2' : '');
+    const revision = {full: 3, '23': 3, '03': 2, 'puddle-clean': 2}[source.id];
+    const url = 'assets/trailer-sources/' + source.id + '.mp4' + (revision ? '?v=' + revision : '');
     player.src = url;
     player.setAttribute('aria-label', source.title);
     title.textContent = source.title;

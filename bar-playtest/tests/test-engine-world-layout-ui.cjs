@@ -31,7 +31,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     return{actor,target:a.interactionGlow.target,count:a.interactionGlow.drawn.length,layer:pose.layer,foot:pose.y+((1-pose.sp.pivot.y)*pose.sp.h-box.bottom)/pose.sp.ppu*pose.sy,height:(box.bottom-box.top)/pose.sp.ppu*pose.sy};
    });
   });
-  for(const o of outlines){assert.equal(o.target,'neighborhood-'+o.actor);assert.equal(o.count,1,'offset sprite still receives its interaction outline: '+o.actor);assert.equal(o.layer,o.actor==='repair'?12:14,'NPC must render in front of opaque scenery');assert(Math.abs(o.foot+.974)<.001,'NPC soles stay on the road');assert(o.height>=.5&&o.height<=.72,'NPC native height relative to 0.53-unit Luna: '+o.actor);}
+  for(const o of outlines){assert.equal(o.target,'neighborhood-'+o.actor);assert.equal(o.count,1,'offset sprite still receives its interaction outline: '+o.actor);assert.equal(o.layer,12,'street NPCs share the walk plane below the foreground');assert(Math.abs(o.foot+.974)<.001,'NPC soles stay on the road');assert(o.height>=.5&&o.height<=.72,'NPC native height relative to 0.53-unit Luna: '+o.actor);}
   const neighbor=await page.evaluate(()=>{
    const a=outsidePlaytest,m=a.model,N=LunaOutsideNeighborhood;
    barGame.progress.flags={day2_thug_done:true};m.start({day:2,flow:'in',place:'homeDoor'});m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();m.notionFlags.day2_thug_done=true;

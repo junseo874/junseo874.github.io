@@ -220,13 +220,9 @@ function faceConversation(m,line){
 }
 function human(sprite,p){sprite({...p.sp,lightingId:p.id,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??p.scale,p.sy??p.scale,p.flip,p.alpha);}
 const campActors=new Set(['guard','boss','gang-left','gang-far','gangmate']);
-const inCamp=m=>m.scene==='street'&&!m.level&&after(m,0,'out')&&m.x<places.guard.x+.4;
-// The camp uses the walking strip in FRONT of the black scrap silhouette.
-// Keep actors and Luna on one plane; corridor rails/lift still keep their depth.
-function drawCamp(m,sprite){if(m.qa||m.scene!=='street')return;poses(m).filter(p=>campActors.has(p.id)).forEach(p=>human(sprite,p));}
 function draw(m,sprite,ctx,position,images,glow,onlyCats=false){if(m.qa)return;const n=state(m),a=n.action;
  if(m.scene==='street'){
-  if(!onlyCats)poses(m).filter(p=>!campActors.has(p.id)).forEach(p=>human(sprite,p));
+  if(!onlyCats)poses(m).forEach(p=>human(sprite,p));
   if(catAvailable(m)){
    const art=W.LunaBubiArt,b=art.box();
    if(a?.name==='reveal'){
@@ -256,5 +252,5 @@ function draw(m,sprite,ctx,position,images,glow,onlyCats=false){if(m.qa)return;c
  }
 
 }
-W.LunaOutsideNeighborhood={places,motion,scripts,after,targets,interact,preview,choose,choiceView,action:startAction,cancel,tick,draw,drawCamp,inCamp,poses,anchor,targetAnchor,faceConversation,camera,clampBoundary,fastTravel,repaired,beforeRest,fadeAlpha};
+W.LunaOutsideNeighborhood={places,motion,scripts,after,targets,interact,preview,choose,choiceView,action:startAction,cancel,tick,draw,poses,anchor,targetAnchor,faceConversation,camera,clampBoundary,fastTravel,repaired,beforeRest,fadeAlpha};
 })(window);

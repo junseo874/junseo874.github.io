@@ -26,8 +26,7 @@ function actorSorting(name,role,layer,order){
  // Default-layer event actors otherwise render behind the opaque world art.
  // Preserve genuine authored foreground layers; correct only that bad default.
  if(layer!==0)return{layer,order};
- const camp=name==='street'&&['guard','boss','gangmate'].includes(role);
- return{layer:camp?14:12,order:camp?0:4};
+ return{layer:12,order:4};
 }
 function actorPose(name,event,role,sp,x,y,flip=false,alpha=1){
  const a=actor(name,event,role);if(!a)return{sp,x,y,sx:1,sy:1,flip,alpha,layer:12,order:5};
@@ -51,8 +50,8 @@ function actorNodes(m,draw,ctx,position,images,glow){
  if(m.qa)return[];
  const result=[];m.engineActorViews=[];
  const capture=(sp,x,y,sx=1,sy=1,flip=false,alpha=1)=>{
-  const view={sp,x,y,sx,sy,flip,alpha,layer:sp.engineLayer??14,order:sp.engineOrder??0,engineActor:sp.engineActor};m.engineActorViews.push(view);
-  result.push({id:'engine-actor-'+result.length,name:sp.lightingId||sp.engineActor?.role||'web-actor',layer:sp.engineLayer??14,order:sp.engineOrder??0,z:0,engineDraw:()=>draw(sp,x,y,sx,sy,flip,alpha)});
+  const view={sp,x,y,sx,sy,flip,alpha,layer:sp.engineLayer??12,order:sp.engineOrder??4,engineActor:sp.engineActor};m.engineActorViews.push(view);
+  result.push({id:'engine-actor-'+result.length,name:sp.lightingId||sp.engineActor?.role||'web-actor',layer:view.layer,order:view.order,z:0,engineDraw:()=>draw(sp,x,y,sx,sy,flip,alpha)});
  };
  for(const p of W.LunaOutsideNeighborhood.poses(m))capture({...p.sp,lightingId:p.id,engineActor:p.engineActor,engineLayer:p.layer,engineOrder:p.order},p.x,p.y,p.sx??p.scale,p.sy??p.scale,p.flip,p.alpha);
  const cat=actor(m.scene,m.scene==='home'?'neighborhood-homeCat':'neighborhood-reveal','boobi');

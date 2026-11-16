@@ -38,8 +38,7 @@ for(const [name,s]of Object.entries(E.source.scenes))for(const [event,actors]of 
    near(pose.x,p.x);near(pose.y,p.y);
   }
  }
- const camp=name==='street'&&['guard','boss','gangmate'].includes(role);
- assert.equal(p.layer,a.layer===0?(camp?14:12):a.layer);assert.equal(p.order,a.layer===0?(camp?0:4):a.order);
+ assert.equal(p.layer,a.layer===0?12:a.layer);assert.equal(p.order,a.layer===0?4:a.order);
  const placed=E.actorPoint(name,event,role),nextDoor=name==='street'&&['day2-corridor-thug','day2-thug-information'].includes(event);
  near(placed.x,nextDoor?E.actor('street','neighborhood-reveal','neighbor').root.x:a.root.x);
  near(placed.y,name==='street'&&a.root.y>5?E.residence().upperY-.274:a.root.y);
