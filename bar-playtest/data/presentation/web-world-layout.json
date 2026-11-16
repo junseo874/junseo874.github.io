@@ -3627,8 +3627,8 @@
           "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 14,
-          "order": 0,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-bossIntro",
@@ -3659,8 +3659,8 @@
           "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 14,
-          "order": 0,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-bossIntro",
@@ -3932,8 +3932,8 @@
           "sy": 1,
           "flip": false,
           "alpha": 1,
-          "layer": 14,
-          "order": 0,
+          "layer": 12,
+          "order": 4,
           "engineActor": {
             "scene": "street",
             "event": "neighborhood-guardBlocked",
