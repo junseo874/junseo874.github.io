@@ -116,7 +116,7 @@ async function init(){
  for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
  // Cache the small edited clips before playback so cuts do not buffer midway.
  await Promise.all([...new Set(scenes.filter(s=>s.file).map(s=>s.file))].map(async file=>{
-  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?5:file==='pour-soda'?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
+  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?6:file==='pour-soda'?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
   const url=URL.createObjectURL(await r.blob());media.set(file,url);
   // Decode each first frame up front as well as fetching bytes: hard cuts must
   // not wait on a new source load or expose a black/loading frame.
