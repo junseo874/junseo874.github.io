@@ -67,11 +67,11 @@ W.LunaTrailerAudio=class{
  }
  paint(s,t,playing,volume,speech){
   this.dialogue(speech,playing,volume);
-  const key=s.file?.startsWith('pour-')?'pour':s.file==='stir'?'stir':s.file==='shake'?'shake':s.kind==='open'?'open':s.kind==='serve'?'serve':null;
-  const start=key==='open'?.5:key==='pour'&&s.file==='pour-gin'?1.65:0;
+  const key=s.file?.startsWith('pour-')?'pour':s.file==='stir'?'stir':s.file==='shake'?'shake':s.kind==='open'?'open':['serve','serve-title'].includes(s.kind)?'serve':null;
+  const start=s.slideAt??(key==='open'?.5:key==='pour'&&s.file==='pour-gin'?1.65:0);
   if(!key||!playing||t<start){this.stop();return;}
   const buffer=this.buffers.get(key),loop=!['open','serve'].includes(key),at=t-start+(key==='serve'?.2:0);
-  if(!buffer||!loop&&at>=buffer.duration||key==='serve'&&t>=1.25){this.stop();return;}
+  if(!buffer||!loop&&at>=buffer.duration||key==='serve'&&t-start>=1.25){this.stop();return;}
   const context=this.context;if(context.state!=='running'){void context.resume().catch(()=>{});return;}
   const level=volume*(key==='serve'?.24:.8);
   if(this.active&&(this.active.key!==key||this.active.scene!==s||Math.abs(at-(this.active.at+context.currentTime-this.active.epoch))>.2))this.stop();

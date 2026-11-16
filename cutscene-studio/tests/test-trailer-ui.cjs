@@ -6,8 +6,8 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  await page.addInitScript(()=>{window.trailerTicks=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(this.buffer?.duration<.04)trailerTicks.push({rate:this.playbackRate.value,loop:this.loop,time:performance.now()});return start.apply(this,args);};});
  await page.goto('http://127.0.0.1:8123/cutscene-studio/trailer.html');
  await page.waitForFunction(()=>window.lunaTrailerPreview?.ready,null,{timeout:90000});
- const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.equal(scenes[0].kind,'black');assert.equal(scenes.at(-1).actor,'luna');
- assert.deepEqual(scenes.filter(s=>s.kind==='card').map(s=>s.text),['2069년, 서울 언더타운','당신의 이야기를 담은 칵테일 제조','바를 찾는 손님들','당신이 만들어 가는 이야기']);
+ const scenes=await page.evaluate(()=>lunaTrailerPreview.scenes);assert.deepEqual(scenes.slice(0,3).map(s=>s.file||s.kind),['terrace','seoul-puddle','street-run']);assert.equal(scenes.at(-1).actor,'luna');
+ assert.deepEqual(scenes.filter(s=>s.kind==='card').map(s=>s.text),['바를 찾는 손님들','당신이 만들어 가는 이야기']);
  assert.deepEqual(scenes.filter(s=>s.montage==='craft').map(s=>s.file||s.kind),['ingredients','open','pour-soda','stir','shake','serve']);
  assert(scenes.filter(s=>s.montage==='craft'&&s.kind!=='serve').every(s=>s.duration===2));
  const guests=scenes.filter(s=>s.montage==='guests');
@@ -43,35 +43,38 @@ const rt=require('../../tools/lib/test-runtime.cjs');
    assert(!await game.evaluate(()=>outsidePlaytest.model.story.speech.choice));
   }
   if(s.kind==='terrace')assert(await game.evaluate(()=>LunaOutsideRain.enabled(lunaCampaign.dialog.terraceWeather)),'every terrace is rainy');
-  if(s.drink){assert.equal(await game.evaluate(()=>barGame.seats.M.glass),s.drink);assert.equal(await game.locator('.coaster-zone .drink-art').getAttribute('data-art-usage'),s.glassEmpty?'empty':'table');}
+  if(s.kind==='bar'&&s.drink){assert.equal(await game.evaluate(()=>barGame.seats.M.glass),s.drink);assert.equal(await game.locator('.coaster-zone .drink-art').getAttribute('data-art-usage'),s.glassEmpty?'empty':'table');}
   if(['bar','terrace','outside','open','emotions','serve','logo'].includes(s.kind))await page.screenshot({path:`/tmp/luna-trailer-${i}-${s.kind}.png`});
  }
- // Intro uses the live exterior rain-glass renderer, including black/title cards.
- await page.evaluate(()=>lunaTrailerPreview.seek(.6));
- const earlyRain=await page.locator('#intro-window-rain').evaluate(e=>({hidden:e.hidden,opacity:Number(e.style.opacity)}));
- assert(!earlyRain.hidden&&earlyRain.opacity>0&&earlyRain.opacity<1,'rain fades in from initial black');
- await game.evaluate(()=>window.introSimulation=LunaRainGlass.inspect(parent.document.querySelector('#intro-window-rain')).simulation);
- for(const s of [scenes.find(s=>s.kind==='terrace'),scenes.find(s=>s.file==='team')]){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),s.start+.2);
-  assert(await game.evaluate(()=>introSimulation===LunaRainGlass.inspect(parent.document.querySelector('#intro-window-rain')).simulation),'continuous droplets, not a new layer');
-  assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0,'no dip to black inside wet introduction');
- }
- const city=scenes.find(s=>s.text==='2069년, 서울 언더타운');assert(city);
- await page.evaluate(t=>lunaTrailerPreview.seek(t),city.start+1);
- assert.equal(await page.locator('#intro-window-rain').evaluate(e=>e.hidden),true,'Seoul card must be dry black');
- const team=scenes.find(s=>s.file==='team');
- for(const t of [team.holdAt+.02,team.holdAt+team.holdDuration-.02]){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),team.start+t);
-  const frame=await page.locator('#footage').evaluate(v=>({at:v.currentTime,paused:v.paused}));
-  assert(frame.paused&&Math.abs(frame.at-team.holdAt*team.playbackRate)<.05);
-  assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0);
- }
- const intro=scenes.find(s=>s.silent),positions=[];
- for(const t of [.1,intro.duration-.1]){
-  await page.evaluate(t=>lunaTrailerPreview.seek(t),intro.start+t);
+ // The camera settles before the original team animation starts midway over the city.
+ const intro=scenes[0],positions=[];
+ await page.locator('#chapters button').first().click();
+ await page.waitForFunction(()=>!lunaTrailerPreview.loading);
+ assert.equal(await game.evaluate(()=>lunaCampaign.view),'scene','parent controls leave the terrace visible');
+ for(const t of [0,1,1.99,2.3,intro.duration-.04]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),t);
   positions.push(await game.locator('.terrace-scene').evaluate(e=>new DOMMatrix(getComputedStyle(e).transform).m41));
+  assert(await page.locator('#game').isVisible());
+  assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0);
+  assert.equal(await page.locator('#terrace-team').isVisible(),t>=intro.panDuration);
  }
- assert(positions[1]>positions[0],'art moves right as opening camera moves left');
+ assert(positions[0]<positions[1]&&positions[1]<positions[2]);
+ assert(Math.abs(positions[2]-positions[3])<.02&&positions[3]===positions[4]);
+ const logo=await page.locator('#terrace-team').evaluate(e=>({at:e.currentTime,left:getComputedStyle(e).left,mode:getComputedStyle(e).mixBlendMode}));
+ assert(logo.at>intro.logoOffset+1&&parseFloat(logo.left)>640&&logo.mode==='screen');
+ for(const clip of scenes.slice(1,3)){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),clip.start+1);
+  assert(await page.locator('#terrace-team').isHidden());
+  assert(await page.locator('#footage').evaluate((v,d)=>v.readyState>=2&&v.duration>=d-.04,clip.duration));
+ }
+ const hero=scenes.find(s=>s.kind==='serve-title');
+ assert.deepEqual(hero.lines,[['당신이','선택한'],['한','잔']]);
+ for(const [at,frame] of [[.3,''],[hero.slideAt+.51,'10'],[hero.duration-.25,'29']]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),hero.start+at);
+  assert(await page.locator('#serve').isVisible());
+  assert.equal(await page.locator('#serve').getAttribute('data-cocktail'),'cosmopolitan');
+  assert.equal(await page.locator('#serve').getAttribute('data-frame'),frame);
+ }
  await page.evaluate(t=>{trailerTicks=[];return lunaTrailerPreview.seek(t);},scenes.find(s=>s.kind==='bar').start+.01);
  await page.locator('#play').click();await page.waitForTimeout(1000);await page.locator('#play').click();
  const ticks=await page.evaluate(()=>trailerTicks);assert(ticks.length>=3&&ticks.length<=17);

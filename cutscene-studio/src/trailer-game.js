@@ -9,15 +9,13 @@ W.LunaTrailerGame=class {
   const w=this.w=this.frame.contentWindow,c=this.c=w.lunaCampaign,g=this.g=w.barGame;
   // Prevent simulator/settings persistence in the embedded preview only.
   w.Storage.prototype.setItem=function(){};w.Storage.prototype.removeItem=function(){};
+  // Parent playback controls take focus; they must not open the embedded game's pause menu.
+  w.LunaFocusSettings.setEnabled(false);
   w.document.querySelector('.updates-confirm')?.click();
   c.tick=()=>true; c.bgm.setSuppressed('trailer',true);w.Sfx?.setEnabled(false);
   // Notice audio has its own player, separate from the generic Sfx switch.
   // Replace it only in this disposable iframe; campaign notifications keep sound.
   if(w.LunaStoryNoticeAudio){w.LunaStoryNoticeAudio.stop();w.LunaStoryNoticeAudio.play=()=>{};}
-  // The introduction owns one continuous rain layer across black/terrace/team.
-  // Suppress only this iframe terrace's duplicate optical pass, not its falling rain.
-  const drawRain=w.LunaRainGlass.draw;
-  w.LunaRainGlass.draw=(ctx,model,options={})=>this.introRainShared&&options.owner===c.dialog?false:drawRain(ctx,model,options);
   w.LunaDialogueAudio.reveal=()=>{}; // Trailer sound follows visible characters once, in the parent.
   c.session.uninstall();c.session.install({developer:false});
   this.openView=w.LunaOpenView({g,D:w.LUNA_DATA,L:ko=>ko,esc:String,button:()=>'',ui:{gimmickAudio:false}});
@@ -86,7 +84,11 @@ W.LunaTrailerGame=class {
    c.dialog.terraceTime=t+s.start-conversation.start;c.dialog.chars=w.LunaOutsideStory.visible(timing,Math.max(0,t-(s.speechDelay||0)));w.LunaTerrace.paint(c.dialog,c.host);
    if(!s.silent)this.speech={key:s.title,text:s.text||'',chars:c.dialog.chars};
    // Trailer-only right-to-left panoramic drift; the campaign camera is untouched.
-   if(s.silent){const art=c.host.querySelector('.terrace-scene');if(art)art.style.transform=`scale(1.12) translateX(${-40+80*Math.min(1,t/s.duration)}px)`;}
+   if(s.panDuration){
+    const u=Math.min(1,t/s.panDuration),ease=u*u*(3-2*u);
+    const art=c.host.querySelector('.terrace-scene');
+    if(art)art.style.transform=`scale(1.12) translateX(${-40+80*ease}px)`;
+   }
   }
   if(s.kind==='outside'){
    const story=w.outsidePlaytest.model.story;
