@@ -13,7 +13,7 @@ new ResizeObserver(fit).observe(stage);document.addEventListener('fullscreenchan
 function show(el,value){el.style.visibility=value?'visible':'hidden';}
 function audio(a,volume){a.volume=clamp(volume*Number($('volume').value));if(playing&&!loading&&volume>0){if(a.paused)a.play().catch(()=>{});}else a.pause();}
 function sound(){const s=scenes[index],t=time-(s?.start||0);
- const rainy=s?.montage==='arrival'||s?.kind==='terrace'||s?.kind==='outside';
+ const rainy=s?.file==='street-run'||s?.kind==='terrace'||s?.kind==='outside';
  audio(rain,rainy?.55:0);
  audio(noise,s?.kind==='identity'&&t>1.8&&t<2.65?.3:s?.kind==='logo'&&effects.canvas.dataset.glitch==='true'?.22:0);
  if(!s)return;
@@ -46,14 +46,18 @@ function stageGame(s){
 async function enter(next){
  const hardCut=sameMontage(scenes[index],scenes[next]);
  const ticket=++generation;index=next;const s=scenes[index];loading=true;video.pause();sound();$('loading').hidden=hardCut;$('loading').textContent='장면 준비 중...';
- const team=videoPlayers.get('team');team.pause();show(team,false);
+ const team=videoPlayers.get('team');team.pause();show(team,false);$('terrace-shade').style.opacity='0';
  // Montage cuts reuse prepared views, without a fade or loading-screen flash.
  if(!hardCut)show(frame,false);show(video,false);show(canvas,false);show(card,false);title.hidden=false;logo.hidden=true;
  effects.canvas.hidden=true;title.classList.toggle('emotion-card',s.kind==='emotions');delete title.dataset.emotion;
  try{
   if(['bar','terrace','outside','open'].includes(s.kind)){await stageGame(s);}
   if(s.kind==='video'){await prepareVideo(s,Math.max(0,time-s.start));show(video,true);}
-  if(s.kind==='serve'||s.kind==='serve-title')show(canvas,true);
+  if(s.kind==='serve'||s.kind==='serve-title'){
+   const scale=s.kind==='serve-title'?2:1;
+   canvas.width=960*scale;canvas.height=540*scale;ctx.setTransform(scale,0,0,scale,0,0);
+   show(canvas,true);
+  }
   if(['black','card','identity','emotions','logo'].includes(s.kind)){show(card,true);title.textContent=s.text||'';if(s.kind==='logo'){title.hidden=true;logo.hidden=false;}}
   if(ticket!==generation)return;
   show(frame,['bar','terrace','outside','open'].includes(s.kind));
@@ -82,31 +86,46 @@ function serveTitle(t,s){
  const sx=2+n%6*956,sy=2+Math.floor(n/6)*541;
  ctx.fillStyle='#000';ctx.fillRect(0,0,960,540);ctx.imageSmoothingEnabled=false;
  ctx.drawImage(images.get('background'),sx,sy,954,539,3,0,954,539);
- ctx.save();
- ctx.fillStyle='#fff9ec';ctx.shadowColor='#1b1019';ctx.shadowBlur=6;ctx.shadowOffsetY=2;
- ctx.textBaseline='middle';
- for(const [i,[left,right]] of s.lines.entries()){
-  ctx.font=(i===0?'50':'86')+'px LunaPixel';
-  const y=i===0?214:328;
-  ctx.textAlign='right';ctx.fillText(left,i===0?401:397,y);
-  ctx.textAlign='left';ctx.fillText(right,i===0?552:530,y);
+ // The approaching hand starts behind the type. As it crosses the upper line,
+ // its leading edge comes in front and the same motion carries through the lower line.
+ const emerge=clamp(age/.8);
+ const edge=280-285*emerge*emerge*(3-2*emerge);
+ function hand(front){
+  if(age<=0)return;
+  ctx.save();ctx.beginPath();
+  ctx.moveTo(0,edge);ctx.quadraticCurveTo(480,edge-24,960,edge);
+  const boundary=front?540:0;
+  ctx.lineTo(960,boundary);ctx.lineTo(0,boundary);ctx.closePath();ctx.clip();
+  ctx.globalAlpha=clamp(age/.10);
+  ctx.drawImage(images.get(s.drink),sx,sy,954,539,3,60,954,539);ctx.restore();
  }
- ctx.restore();
- if(age>=0){
-  ctx.save();ctx.globalAlpha=clamp(age/.14);
-  ctx.drawImage(images.get(s.drink),sx,sy,954,539,3,60,954,539);
+ hand(false);
+ ctx.save();
+ ctx.fillStyle='#fff7e8';ctx.textBaseline='alphabetic';
+ for(const [i,[left,right]] of s.lines.entries()){
+  ctx.save();
+  const lower=i===1,stretch=lower?1.46:1;
+  ctx.translate(480,lower?490:176);ctx.scale(stretch,1);
+  ctx.font='900 '+(lower?300:155)+'px TrailerDisplay';ctx.letterSpacing=lower?'0px':'-6px';
+  ctx.textAlign='right';ctx.fillText(left,-12/stretch,0,440/stretch);
+  ctx.textAlign='left';ctx.fillText(right,12/stretch,0,440/stretch);
   ctx.restore();
  }
+ ctx.restore();
+ hand(true);
  canvas.dataset.cocktail=s.drink;canvas.dataset.frame=age<0?'':String(n);
 }
 function paintTeam(s,t,seek){
  const player=videoPlayers.get(s.logoFile),age=t-s.panDuration;
  if(!player)return;
+ $('terrace-shade').style.opacity=String(clamp(age/.4));
  if(age<0){player.pause();show(player,false);return;}
- const target=s.logoOffset+age;
- if((seek||!player.seeking)&&Math.abs(player.currentTime-target)>(seek?.025:.14))player.currentTime=target;
+ const movingTime=s.duration-s.panDuration-s.logoHold,holding=age>=movingTime;
+ const target=s.logoOffset+Math.min(age,movingTime);
+ const tolerance=(seek||holding)?0.025:0.14;
+ if((seek||!player.seeking)&&Math.abs(player.currentTime-target)>tolerance)player.currentTime=target;
  player.style.opacity=String(clamp(age/.16));show(player,true);
- if(playing){if(player.paused)player.play().catch(()=>{});}else player.pause();
+ if(playing&&!holding){if(player.paused)player.play().catch(()=>{});}else player.pause();
 }
 function paint(seek=false){
  const s=scenes[index];if(!s||loading)return;const t=Math.max(0,time-s.start);
@@ -152,12 +171,15 @@ document.addEventListener('keydown',e=>{if(e.target.matches('input'))return;if(e
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',()=>{stop();cancelAnimationFrame(raf);for(const url of media.values())URL.revokeObjectURL(url);});
 async function init(){
  await bridge.init();
- await Promise.all([fxAudio.prepare(),document.fonts.load('50px LunaPixel')]);
+ await Promise.all([
+  fxAudio.prepare(),document.fonts.load('38px LunaPixel'),
+  document.fonts.load('900 155px TrailerDisplay','당신이 선택한 한 잔')
+ ]);
  const sheets={background:bridge.w.LUNA_SERVE_BACKGROUND,...bridge.w.LUNA_SERVE_SHEETS};
  for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
  // Cache the small edited clips before playback so cuts do not buffer midway.
  await Promise.all([...new Set(scenes.flatMap(s=>[s.file,s.logoFile].filter(Boolean)))].map(async file=>{
-  const src=`assets/trailer/${file}.mp4?v=2`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
+  const src=`assets/trailer/${file}.mp4?v=${file==='seoul-puddle'?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');
   const url=URL.createObjectURL(await r.blob());media.set(file,url);
   // Decode each first frame up front as well as fetching bytes: hard cuts must
   // not wait on a new source load or expose a black/loading frame.

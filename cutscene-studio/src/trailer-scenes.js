@@ -4,7 +4,7 @@ const scenes=[];
 function add(kind,duration,title,extra={}){scenes.push({kind,duration,title,...extra});}
 function card(text){add('card',3,text,{text});}
 function clip(file,title,duration,montage,offset=0){add('video',duration,title,{file,montage,offset});}
-add('terrace',3.8,'테라스 · 심청단',{silent:true,panDuration:2,logoFile:'team',logoOffset:1.45,montage:'arrival'});
+add('terrace',4.8,'테라스 · 심청단',{silent:true,panDuration:2,logoFile:'team',logoOffset:1.45,logoHold:1,montage:'arrival'});
 clip('seoul-puddle','2069, 통일한국 서울',5.1,'arrival');
 clip('street-run','서울 거리 · 달리는 루나',6,'arrival');
 add('identity',5,'루나 · 정체 글리치',{text:'바 ‘언노운’의 바텐더, 루나',alternate:'휴머노이드 실험체, LUNA-1185'});

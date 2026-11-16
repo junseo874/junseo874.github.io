@@ -44,7 +44,7 @@ W.LunaTrailerAudio=class{
  constructor(){
   const root='../bar-playtest/assets/audio/effects/';
   this.buffers=new Map();this.context=new AudioContext();this.active=null;this.ticks=new Set();this.lastTick=-Infinity;this.serial=0;this.previousSpeech=null;
-  const files={pour:'pour_02_loop.wav',stir:'stir_02_loop.wav',shake:'shaker_02_hit.wav',open:'beercan_open.wav',serve:'glass-slide/glass_slide_03.wav'};
+  const files={pour:'pour_02_loop.wav',stir:'stir_02_loop.wav',shake:'shaker_02_hit.wav',open:'beercan_open.wav'};
   for(let i=0;i<6;i++)files['dialogue'+i]='dialogue/low-'+(i+1)+'.wav';
   this.voices=Object.fromEntries(Object.entries(files).map(([key,path])=>{const a=new Audio(root+path);a.preload='auto';return[key,a];}));
  }
@@ -67,13 +67,13 @@ W.LunaTrailerAudio=class{
  }
  paint(s,t,playing,volume,speech){
   this.dialogue(speech,playing,volume);
-  const key=s.file?.startsWith('pour-')?'pour':s.file==='stir'?'stir':s.file==='shake'?'shake':s.kind==='open'?'open':['serve','serve-title'].includes(s.kind)?'serve':null;
-  const start=s.slideAt??(key==='open'?.5:key==='pour'&&s.file==='pour-gin'?1.65:0);
+  const key=s.file?.startsWith('pour-')?'pour':s.file==='stir'?'stir':s.file==='shake'?'shake':s.kind==='open'?'open':null;
+  const start=key==='open'?.5:key==='pour'&&s.file==='pour-gin'?1.65:0;
   if(!key||!playing||t<start){this.stop();return;}
-  const buffer=this.buffers.get(key),loop=!['open','serve'].includes(key),at=t-start+(key==='serve'?.2:0);
-  if(!buffer||!loop&&at>=buffer.duration||key==='serve'&&t-start>=1.25){this.stop();return;}
+  const buffer=this.buffers.get(key),loop=key!=='open',at=t-start;
+  if(!buffer||!loop&&at>=buffer.duration){this.stop();return;}
   const context=this.context;if(context.state!=='running'){void context.resume().catch(()=>{});return;}
-  const level=volume*(key==='serve'?.24:.8);
+  const level=volume*.8;
   if(this.active&&(this.active.key!==key||this.active.scene!==s||Math.abs(at-(this.active.at+context.currentTime-this.active.epoch))>.2))this.stop();
   if(!this.active){const source=context.createBufferSource(),gain=context.createGain();source.buffer=buffer;source.loop=loop;source.connect(gain);gain.connect(context.destination);gain.gain.setValueAtTime(0,context.currentTime);gain.gain.linearRampToValueAtTime(level,context.currentTime+.015);source.start(0,loop?at%buffer.duration:at);this.active={source,gain,key,scene:s,at,epoch:context.currentTime};}
   else this.active.gain.gain.setTargetAtTime(level,context.currentTime,.015);

@@ -57,14 +57,24 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   assert(await page.locator('#game').isVisible());
   assert.equal(await page.locator('#fade').evaluate(e=>Number(e.style.opacity)),0);
   assert.equal(await page.locator('#terrace-team').isVisible(),t>=intro.panDuration);
+  const shade=await page.locator('#terrace-shade').evaluate(e=>Number(getComputedStyle(e).opacity));
+  if(t<intro.panDuration)assert.equal(shade,0);else assert(shade>0);
  }
  assert(positions[0]<positions[1]&&positions[1]<positions[2]);
  assert(Math.abs(positions[2]-positions[3])<.02&&positions[3]===positions[4]);
  const logo=await page.locator('#terrace-team').evaluate(e=>({at:e.currentTime,left:getComputedStyle(e).left,mode:getComputedStyle(e).mixBlendMode}));
  assert(logo.at>intro.logoOffset+1&&parseFloat(logo.left)>640&&logo.mode==='screen');
+ assert.equal(intro.logoHold,1);
+ const holdStart=intro.end-intro.logoHold,still=intro.logoOffset+holdStart-intro.panDuration;
+ await page.evaluate(t=>lunaTrailerPreview.seek(t),holdStart+.08);
+ await page.locator('#play').click();await page.waitForTimeout(520);
+ const held=await page.locator('#terrace-team').evaluate(e=>({paused:e.paused,time:e.currentTime}));
+ assert(held.paused&&Math.abs(held.time-still)<.03,'hold the lit logo frame while the terrace clock advances');
+ await page.locator('#play').click();
  for(const clip of scenes.slice(1,3)){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),clip.start+1);
   assert(await page.locator('#terrace-team').isHidden());
+  assert.equal(await page.locator('#terrace-shade').evaluate(e=>Number(e.style.opacity)),0);
   assert(await page.locator('#footage').evaluate((v,d)=>v.readyState>=2&&v.duration>=d-.04,clip.duration));
  }
  const hero=scenes.find(s=>s.kind==='serve-title');
@@ -74,6 +84,26 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   assert(await page.locator('#serve').isVisible());
   assert.equal(await page.locator('#serve').getAttribute('data-cocktail'),'cosmopolitan');
   assert.equal(await page.locator('#serve').getAttribute('data-frame'),frame);
+  if(at===.3){
+   const widths=await page.locator('#serve').evaluate(el=>{
+    const {width:w,height:h}=el,data=el.getContext('2d').getImageData(0,0,w,h).data;
+    return [[0,.4],[.42,1]].map(([top,bottom])=>{
+     let left=w,right=0;
+     for(let y=Math.ceil(h*top);y<h*bottom;y+=4)for(let x=0;x<w;x+=4){
+      const i=(y*w+x)*4;
+      if(data[i]>245&&data[i+1]>237&&data[i+2]>221){left=Math.min(left,x);right=Math.max(right,x);}
+     }
+     return (right-left)/w;
+    });
+   });
+   assert(widths.every(w=>w>.76&&w<.99),'both lines fill the shot within the frame');
+  }
+ }
+ for(const s of [hero,scenes.find(s=>s.kind==='serve')]){
+  await page.evaluate(t=>lunaTrailerPreview.seek(t),s.start+(s.slideAt||0)+.12);
+  await page.locator('#play').click();await page.waitForTimeout(200);
+  assert(await page.evaluate(()=>!lunaTrailerPreview.fxAudio.active),'hand-off is silent');
+  await page.locator('#play').click();
  }
  await page.evaluate(t=>{trailerTicks=[];return lunaTrailerPreview.seek(t);},scenes.find(s=>s.kind==='bar').start+.01);
  await page.locator('#play').click();await page.waitForTimeout(1000);await page.locator('#play').click();
