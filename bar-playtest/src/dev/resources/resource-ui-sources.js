@@ -365,6 +365,11 @@ window.ResourceUISources=[
     "h": 76
   },
   {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/GRD_outline.png",
+    "w": 177,
+    "h": 67
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_recipe_igd_box.png",
     "w": 191,
     "h": 191

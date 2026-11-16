@@ -141,8 +141,12 @@
     }
     const c = g.cocktail(id),
       key = usage === 'table' ? 'table_cocktail_' + id : usage === 'recipe' ? 'recipe_cocktail_' + id : 'cocktail_' + id;
-    const src = a(key) || a('cocktail_' + id) || a('recipe_cocktail_' + id) || a('item_' + c.glass);
-    return '<img class="drink-art" src="' + src + '" data-art-usage="' + usage + '" alt="' + esc(g.name(id)) + '" draggable="false">';
+    const art = D.assets[key] || D.assets['cocktail_' + id] || D.assets['recipe_cocktail_' + id] || D.assets['item_' + c.glass];
+    const src = art?.src;
+    // Finished glasses have different transparent headroom; centre their painted bounds in the preview.
+    const bounds = usage === 'recipe' && art?.alphaBBox;
+    const center = bounds && art.h ? ' style="--recipe-art-center-y:' + (50 * (1 - (bounds[1] + bounds[3]) / art.h)) + '%"' : '';
+    return '<img class="drink-art"' + center + ' src="' + src + '" data-art-usage="' + usage + '" alt="' + esc(g.name(id)) + '" draggable="false">';
   }
   function layers(actor, expression, talking) {
     const states = D.characterLayers[actor];

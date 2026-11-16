@@ -5,10 +5,12 @@ const root=path.resolve(__dirname,'../bar-playtest');
 const manifest=require('../bar-playtest/data/presentation/generated-art/manifest.json');
 const candidates=new Map(),used=[];
 const supported=/^(?:#(?:service-panel|prep-recipe-detail)|(?:div|section|aside|article|figure|span|button|i|kbd)\.(?:inventory-slot|prep-|recipe-|shelf-arrow|service-|upkeep-ledger|sales-balance|johnny-unlock|unlock-art|modal-backdrop|day0-seat-legend|controls-motion-card|mix-detail|mix-tutorial|mix-lesson|mix-guide|mix-direction|mix-cinematic|mix-motion|pour-tilt-track|pour-tilt-warning|pour-top-readout|campaign-skip|campaign-modal-shade|outside-controls-shade|outside-overlay|guest-card|world-choice-confirm))/;
+// These surfaces now have authored sprites for their normal and selected states.
+const authoredRecipes = new Set(['#prep-recipe-detail', 'aside.prep-recipe.recipe-preview.recipe-peek', 'button.recipe-card', 'button.recipe-card.locked']);
 for(const r of manifest.records){
  if(r.kind!=='background')continue;
  for(const s of r.sources){
-  const selector=s.selector;if(!selector||!supported.test(selector)||/[ /]|::/.test(selector))continue;
+  const selector=s.selector;if(!selector||!supported.test(selector)||authoredRecipes.has(selector)||/[ /]|::/.test(selector))continue;
   const state=/호버/.test(s.title)?'hover':/누름/.test(s.title)?'active':/포커스/.test(s.title)?'focus-visible':'normal';
   const key=selector+'|'+state;
   if(!candidates.has(key))candidates.set(key,new Map());candidates.get(key).set(r.path,r);

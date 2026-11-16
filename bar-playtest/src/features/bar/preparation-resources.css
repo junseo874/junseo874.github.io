@@ -49,8 +49,13 @@
  border:0;background:transparent url('../../../assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_recipe_igd_box.png') center/100% 100% no-repeat;
 }
 .prep-recipe .prep-recipe-heading>small{text-transform:uppercase;color:#6281a0}
-.prep-recipe .recipe-tags span{color:#6281a0;border-color:#6281a0}
-.prep-recipe .recipe-tags span:first-child{color:#dcb076;border-color:#dcb076}
+.prep-recipe .recipe-tags span{position:relative;min-width:59px;text-align:center;color:#6281a0;border-color:currentColor}
+@supports (-webkit-mask-box-image-source: url('')) {
+ .prep-recipe .recipe-tags span{border-color:transparent}
+ .prep-recipe .recipe-tags span::before{content:'';position:absolute;inset:-1px;pointer-events:none;background:currentColor;
+  -webkit-mask-box-image:url('../../../assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/GRD_outline.png') 32 34 fill / 10.67px 11.33px stretch}
+}
+.prep-recipe .recipe-tags span:first-child{color:#dcb076}
 .prep-recipe section h3{color:#b1b9c3;border-color:#377da7}
 .prep-recipe section p{color:#8f969f;white-space:pre-line}
 .prep-recipe .prep-recipe-heading button{width:25px;height:37px;font-size:0;padding:0;border:0;border-radius:0;background:url('../../../assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/BTN_recipe_close.png') center top/25px 25px no-repeat,url('../../../assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_ESC.png') center bottom/25px 12px no-repeat}
@@ -63,7 +68,7 @@
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-tags{gap:5px;margin:0 0 20px}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-tags span{font-size:10.56px;line-height:14px;padding:3px 13px;white-space:nowrap}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-hero{aspect-ratio:841/431;margin-bottom:17px}
-:is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-hero .drink-art{height:85%;width:80%}
+:is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-hero .drink-art{height:94%;width:auto;max-width:80%;transform:translateY(var(--recipe-art-center-y,0%))}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-icon-grid{gap:6px;padding:17px 0 19px;margin:0 0 19px;border-color:#29323f}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-icon-grid>div{padding:5px}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) section{margin:0 0 16px}
@@ -71,7 +76,7 @@
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) section p{font-size:12.37px;line-height:16.15px;margin:0}
 /* The list header and cards follow the same source spacing. */
 .resource-recipe-list .panel-header{height:130px;padding:34px 22px 16px 31px}
-.resource-recipe-list .recipe-list{padding-left:31px;padding-top:0}
+.resource-recipe-list .recipe-list{padding:0 9px 18px 28px}
 .resource-recipe-list .recipe-card{height:88px;margin-bottom:4px}
 
 /* Original tooltip cap/centre slices preserve the supplied outline without
