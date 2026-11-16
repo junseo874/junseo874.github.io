@@ -38,7 +38,7 @@ for(const [src]of Object.entries(inventory.graphics))assert(!/assets\/cocktails\
   await p.evaluate(id=>{const g=barGame;g.reset(99,'practice',1,true,{variant:'original'});g.screen='bar';g.seats.M={id:'chris',actor:'chris',state:'STORY',coaster:true,glass:id,expression:'idle',seated:true};g.transition=0;g.cameraLeft=0;g.cameraMoving=false;lunaCampaign.render(true);},id);
   const glass=p.locator('.native-coaster .drink-art');await glass.waitFor();
   assert((await glass.getAttribute('src')).endsWith('/02.Table/01.Finished/'+name+'.png'));
-  assert.deepEqual(await glass.evaluate(async e=>{await e.decode();const s=getComputedStyle(e);return [e.naturalWidth,e.naturalHeight,s.width,s.height,s.objectFit,s.objectPosition];}),[69,112,'69px','112px','contain','50% 100%']);
+  assert.deepEqual(await glass.evaluate(async e=>{await e.decode();const s=getComputedStyle(e);return [e.naturalWidth,e.naturalHeight,s.width,s.height,s.objectFit,s.objectPosition];}),[75,112,'75px','112px','contain','50% 100%']);
   if(id==='tequila_sunrise')await p.screenshot({path:'/private/tmp/cocktail-latest-table.png'});
  }
  assert.deepEqual(errors,[]);console.log('PASS: 3 representative images, 5 native-size table images, 11 mappings, recipe UI, transparent PNG decoding; gameplay data unchanged');

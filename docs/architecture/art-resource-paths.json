@@ -120,14 +120,14 @@
       "to": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Crow_idle.png",
       "source": "01.Characters/02.Outside/05.StreetNPC/01.Idle/Crow_idle.png",
       "match": "bytes",
-      "sha256": "e29b61cdf0a55a0a9fd3b5bce3516b6420b988877e3ed9c3be4d20462d1d50f1"
+      "sha256": "2aca2d0738813030d3190b634d0584ca415d014db59c1ee08dc84359fa3666f8"
     },
     {
       "from": "assets/backgrounds/terrace/birds/pigeon-idle.png",
       "to": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png",
       "source": "01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png",
       "match": "bytes",
-      "sha256": "8b814977a399067445f85954426199ad0e2fc17de1260645c4c1d79b67e94bf0"
+      "sha256": "ce21ec3ee2a0003a33ba7aeca1511dcb522d9994f1bffda8cf7b56a9033a76d5"
     },
     {
       "from": "assets/backgrounds/terrace/building.png",
@@ -1275,56 +1275,56 @@
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "c06da1726cac09d5d7820861d5bf2aef12197dfaa43b90ae8ea695e8085d4ec1"
+      "sha256": "c1948740204d7bb23761d058515eba3b2d2f737f2640327658defb2d5cf1dad5"
     },
     {
       "from": "assets/cocktails/completed/table/cosmopolitan.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "ddfbf6cfd05785ab51f2fedf91ba1514be895fb4947eb60ee859083a3ce69061"
+      "sha256": "c422f4b2894b9c2c696beba61dd40467ae62e6918141dd88597f103725e56b6b"
     },
     {
       "from": "assets/cocktails/completed/table/dry_martini.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "0c85484bf77c3888dd8a040313031d1d0cdcf7325b37786d6c66aaa495199f5a"
+      "sha256": "9dce563ef1710958f8e1878f6a074ff3b4b5d03c6ffbe84dbc50415313e13125"
     },
     {
       "from": "assets/cocktails/completed/table/screwdriver.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "1058d8e7320150772830fe084ed1fd95f44d3a8406b687ef6eb8c7f676342923"
+      "sha256": "b5bd6f59d5ff803bbc21d076a2dff6fb28079752b13570cec2daca184681dd1d"
     },
     {
       "from": "assets/cocktails/completed/table/tequila_sunrise.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "356d2c14943e581a4be46c265604e095d3340765c42c1aabbae8a1adefb0330a"
+      "sha256": "7fedf288c8c026ad5c09e7c596ddb7c0f93d152b354c7d12a82cd93d4422f1b3"
     },
     {
       "from": "assets/cocktails/empty/beer-glass.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
       "source": "03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
       "match": "bytes",
-      "sha256": "91d3a37f094c1b2eb36cf5fecf24df991b78abfe4b3627249b77215f87ae1791"
+      "sha256": "17e7fb6ef1c940a35c0341f95f1890e4446ae6e993f2a0158124640441419123"
     },
     {
       "from": "assets/cocktails/empty/cocktail-glass.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
       "source": "03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
       "match": "bytes",
-      "sha256": "02bfb7e3594ebbc042e7cd29cab096d87f045a6f8eb7944b2e19b10de23f4290"
+      "sha256": "a7bc1151fe44659a918cb9644236fcc2845d609b057b91e299a2f29932b437fa"
     },
     {
       "from": "assets/cocktails/empty/long-drink-glass.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
       "source": "03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
       "match": "bytes",
-      "sha256": "5442757204106291f29fb9182f8134457cee357b16ec07ee3d68c49c4764392c"
+      "sha256": "1979f98576a71e65a8507303c9235bfe1c876b828a43b39868c64e9bc7775839"
     },
     {
       "from": "assets/cocktails/static/cocktail-champagne.png",
@@ -1380,14 +1380,14 @@
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "97d585b5b19090e22c908fa76bc913876ed8176e77124bf9031e4dd459afea60"
+      "sha256": "499f021455f017963ea9d4afe77cc73224a1b06490022e8d20e5766df734b772"
     },
     {
       "from": "assets/cocktails/static/table-cocktail-gin-tonic.png",
       "to": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
       "source": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "3b2b528bd88490013ba76d63d9097855bc39926a04f8b939d1cb439d9b481f0e"
+      "sha256": "2d25ee6bb793d37af13eaea21d8b361862702a20e561a1f1008fc395a4b7634f"
     },
     {
       "from": "assets/items/inventory-item-cocktail.png",
@@ -2115,7 +2115,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
       "match": "bytes",
-      "sha256": "750c588246ed25b9701bd4883bc120f451bfb053545354c6240f46bb52ba2362"
+      "sha256": "cf1fb16f0a3cc3fb8a7b34768a1d06efeebdfe66ae289dea5138ade1040b7712"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_B_foreground_building.png",
@@ -2185,7 +2185,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
       "match": "bytes",
-      "sha256": "3c4b6cdfb1e4dc8ca1e384153a74b63b34e9a8870be4df90453718ff9bf7585a"
+      "sha256": "dc4eed5b22b1f4b8986727383d8f68f05eab50f86065134ac8070d1afc74a155"
     },
     {
       "from": "assets/outside/street-20261018/Lights/A_light.png",

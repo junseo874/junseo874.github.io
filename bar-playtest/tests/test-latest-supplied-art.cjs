@@ -3,11 +3,18 @@ const {load,chrome}=require('../../tools/lib/test-runtime.cjs'),sharp=load('shar
 const web=path.resolve(__dirname,'..'),D=require('../data/presentation/runtime-assets.json');
 (async()=>{
  const updated=Object.entries(D.assets).filter(([,a])=>a.source?.startsWith('9_ArtResources/'));
+ const latest=require('../data/provenance/drive-art-refresh.json');
+ assert.equal(latest.length,55);assert.equal(new Set(latest.map(r=>r.src)).size,55);
+ for(const art of latest){
+  const bytes=fs.readFileSync(path.join(web,art.src));
+  assert.equal(require('node:crypto').createHash('md5').update(bytes).digest('hex'),art.md5,art.source);
+  assert.deepEqual([bytes.readUInt32BE(16),bytes.readUInt32BE(20)],[art.width,art.height],art.src);
+ }
  for(const [key,a]of updated){
   const bytes=fs.readFileSync(path.join(web,a.src)),meta=await sharp(bytes).metadata();
   assert.deepEqual([meta.width,meta.height],[a.w,a.h],key);
   const original=path.resolve(web,'../../..',a.source);
-  if(fs.existsSync(original)){const supplied=fs.readFileSync(original);assert(bytes.equals(supplied),key+' preserves supplied bytes');assert.equal(meta.hasAlpha,(await sharp(supplied).metadata()).hasAlpha,key+' preserves original transparency');}
+  if(!latest.some(r=>r.src===a.src)&&fs.existsSync(original)){const supplied=fs.readFileSync(original);assert(bytes.equals(supplied),key+' preserves supplied bytes');assert.equal(meta.hasAlpha,(await sharp(supplied).metadata()).hasAlpha,key+' preserves original transparency');}
  }
  for(const id of ['bottle_beer','gin_tonic','gin_fizz','dry_martini','cosmopolitan','kahlua_milk','screwdriver','tequila_sunrise','godfather','red_wine','champagne','johnny_old_fashioned']){
   assert.equal(D.assets['cocktail_'+id].src,D.assets['recipe_cocktail_'+id].src);
@@ -26,10 +33,10 @@ const web=path.resolve(__dirname,'..'),D=require('../data/presentation/runtime-a
    barGame.cameraLeft=0;barGame.cameraMoving=false;barGame.transition=0;lunaCampaign.render(true);
   });
   await p.waitForTimeout(900);
-  const view=await p.evaluate(()=>({haru:barData.assets.char_haru_static,haruLayers:barData.characterLayers.haru,tom:barData.characterLayers.tom.success_default,html:document.querySelector('#app').innerHTML}));
+  const view=await p.evaluate(()=>({haru:barData.assets.char_haru_idle_body,haruLayers:barData.characterLayers.haru,tom:barData.characterLayers.tom.success_default,html:document.querySelector('#app').innerHTML}));
   assert.deepEqual(view.haruLayers.idle_default,view.haruLayers.idle_talk);
-  assert.equal(view.haru.frames,1);assert.equal(view.haru.fps,0);
-  assert.deepEqual(view.tom,['char_tom_success']);assert(view.html.includes('Haru_Idle.png'));assert(view.html.includes('Tom_success.png'));
+  assert.equal(view.haru.frames,4);assert.equal(view.haru.fps,2.5);assert.equal(view.haruLayers.idle_default.length,5);
+  assert.deepEqual(view.tom,['char_tom_success']);assert(view.html.includes('10.Haru/02.Idle/01.Default/body.png'));assert(view.html.includes('Tom_success.png'));
   await p.screenshot({path:'/private/tmp/luna-latest-bar-art.png'});
   await p.evaluate(async()=>{
    Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'home'});await outsidePlaytest.start();
@@ -50,6 +57,6 @@ const web=path.resolve(__dirname,'..'),D=require('../data/presentation/runtime-a
   await p.evaluate(()=>resourceReview.select('actor:haru:idle_default'));
   await p.waitForTimeout(250);await p.screenshot({path:'/private/tmp/luna-haru-review.png'});
   assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);
-  console.log('LATEST_ART_OK:',updated.length,'registrations, 12 cocktail representatives, Haru static, Tom reactions, 13 house layers, review and 348 flame frames.');
+  console.log('LATEST_ART_OK:',updated.length,'registrations, 12 cocktail representatives, Haru four-frame idle, Tom reactions, 13 house layers, review and 348 flame frames.');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

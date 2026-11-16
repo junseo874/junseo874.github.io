@@ -23,8 +23,8 @@ const replacements=[
  ['CityLight','Lights/CityLight_v16.png',2400,1153],
  ["'CityLight '",'Lights/CityLight_v20.png',2354,1153],
  ['CityUpLight','Lights/CityUpLight_v9.png',2400,1200],
- ['residence-building','Layers/area_A_foreground_building.png',952,1587],
- ['residence-railing','Layers/near_foreground_2.png',952,709],
+ ['residence-building','Layers/area_A_foreground_building.png',952,1520],
+ ['residence-railing','Layers/near_foreground_2.png',952,617],
  ['Elevator','Elevator/elevator_body.png',69,154],
  ['Elevator Fore','Elevator/elevator_front_layer.png',57,100],
  ['Elevator Line','Elevator/elevator_support.png',105,1467]
@@ -59,8 +59,8 @@ function apply(data){
  // The complete foreground begins at building row 229. Its transparent corridor
  // reveals actors; the rail's top edge, diagonal braces and pillars cover them.
  // Cropping at the walking floor incorrectly removes all of those occluders.
- railing.x=building.x;railing.y=building.y-2.29;
- railing.sprite={...railing.sprite,y:0,h:709,pivot:{x:0,y:1}};
+ railing.x=building.x;railing.y=building.y-3.21;
+ railing.sprite={...railing.sprite,y:0,h:617,pivot:{x:0,y:1}};
  railing.layer=10;railing.order=20;
  // New elevator art is already drawn at gameplay pixel scale (old art was .6).
  const body=nodes.find(n=>n.name==='Elevator'),front=nodes.find(n=>n.name==='Elevator Fore'),rail=nodes.find(n=>n.name==='Elevator Line');
@@ -87,6 +87,16 @@ function apply(data){
  }
  light('residence-warm-light','Lights/A_light_1.png',743,352,building.x+.34,building.y-3.90);
  light('residence-home-light','Lights/A_light_2.png',52,50,R.homeX-.26,building.y-3.91);
+ // The rail lost 92 rows at its top. The detached sign and the home door
+ // are registered to the building's top-left, in original artwork pixels.
+ for(const [id,file,w,h,lx,ly,parent] of [
+  ['residence-foreground-fade','near_foreground_Fade.png',861,119,81,362,railing],
+  ['residence-home-door','area_A_foreground_building_door.png',48,75,560,398,building]
+ ]){
+  data.assets[id]={src:root+'Layers/'+file,w,h};
+  data.scenes.street.nodes.push({...parent,id,go:id,name:id,x:building.x+lx/100,y:building.y-ly/100,
+   facadePixel:[lx,ly],order:parent.order+.005,sprite:{asset:id,x:0,y:0,w,h,ppu:100,pivot:{x:0,y:1}}});
+ }
  data.streetArtVersion='20261018';return data;
 }
 W.LunaOutsideArt={apply,replacements,elevatorArtOffsetY};

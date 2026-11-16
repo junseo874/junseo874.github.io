@@ -3352,20 +3352,20 @@
     },
     "table_cocktail_gin_tonic": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        11,
+        14,
         1,
-        68,
+        71,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
+      "static": true
     },
     "recipe_cocktail_gin_fizz": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/gin_fizz_final.png",
@@ -3386,20 +3386,20 @@
     },
     "table_cocktail_gin_fizz": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        11,
+        14,
         18,
-        58,
+        61,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
+      "static": true
     },
     "recipe_cocktail_red_wine": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/wine_final.png",
@@ -3704,20 +3704,20 @@
     },
     "table_cocktail_bottle_beer": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        10,
+        13,
         18,
-        59,
+        62,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/beer.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
+      "static": true
     },
     "char_tom_static": {
       "src": "assets/characters/tom/char-tom-static.png",
@@ -3737,16 +3737,21 @@
       "static": true
     },
     "item_wild_dog": {
-      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
-      "w": 128,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        37,
-        0,
-        91,
-        190
-      ]
+        8,
+        20,
+        49,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "static": true
     },
     "recipe_item_wild_dog": {
       "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
@@ -3761,16 +3766,21 @@
       ]
     },
     "item_sugar_cube": {
-      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
-      "w": 60,
-      "h": 64,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        6,
-        6,
-        57,
-        62
-      ]
+        4,
+        103,
+        53,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "static": true
     },
     "recipe_item_sugar_cube": {
       "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
@@ -3826,16 +3836,21 @@
       ]
     },
     "item_bitters": {
-      "src": "assets/backgrounds/campaign/johnny-bitters.png",
-      "w": 107,
-      "h": 160,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        31,
-        5,
-        76,
-        155
-      ]
+        11,
+        61,
+        46,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "static": true
     },
     "recipe_item_bitters": {
       "src": "assets/backgrounds/campaign/johnny-bitters.png",
@@ -3880,67 +3895,88 @@
     },
     "table_cocktail_johnny_old_fashioned": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        4,
+        10,
         13,
-        65,
+        72,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/Old_Fashioned.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
+      "static": true
     },
     "table_empty_glass_beer": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
-      "w": 60,
-      "h": 93,
+      "w": 75,
+      "h": 112,
       "frames": 1,
-      "frameWidth": 60,
-      "frameHeight": 93,
+      "frameWidth": 75,
+      "frameHeight": 112,
       "fps": 0,
-      "source": "User supplied table empty glass / beer-glass.png"
+      "alphaBBox": [
+        13,
+        18,
+        62,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
+      "static": true
     },
     "table_empty_glass_cocktail": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
-      "w": 60,
-      "h": 93,
+      "w": 75,
+      "h": 112,
       "frames": 1,
-      "frameWidth": 60,
-      "frameHeight": 93,
+      "frameWidth": 75,
+      "frameHeight": 112,
       "fps": 0,
-      "source": "User supplied table empty glass / cocktail-glass.png"
+      "alphaBBox": [
+        8,
+        18,
+        67,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
+      "static": true
     },
     "table_empty_glass_long_drink": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
-      "w": 55,
-      "h": 93,
+      "w": 75,
+      "h": 112,
       "frames": 1,
-      "frameWidth": 55,
-      "frameHeight": 93,
+      "frameWidth": 75,
+      "frameHeight": 112,
       "fps": 0,
-      "source": "User supplied table empty glass / long-drink-glass.png"
+      "alphaBBox": [
+        14,
+        18,
+        61,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
+      "static": true
     },
     "table_cocktail_dry_martini": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        4,
+        8,
         18,
-        64,
+        67,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/dry_martini.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
+      "static": true
     },
     "recipe_cocktail_cosmopolitan": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/cosmopolitan_final.png",
@@ -3961,20 +3997,20 @@
     },
     "table_cocktail_cosmopolitan": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        4,
+        8,
         18,
-        64,
+        67,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/cosmopolitan.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
+      "static": true
     },
     "recipe_cocktail_kahlua_milk": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/kahlua_milk_final.png",
@@ -3995,37 +4031,37 @@
     },
     "table_cocktail_screwdriver": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        11,
+        14,
         18,
-        58,
+        61,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/screwdriver.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
+      "static": true
     },
     "table_cocktail_tequila_sunrise": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        8,
+        14,
         16,
-        65,
+        71,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/tequila_sunrise.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
+      "static": true
     },
     "recipe_cocktail_godfather": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/godfather_final.png",
@@ -4046,54 +4082,54 @@
     },
     "table_cocktail_godfather": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        8,
+        11,
         13,
-        62,
+        65,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/godfather.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
+      "static": true
     },
     "table_cocktail_red_wine": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        14,
+        17,
         0,
-        56,
+        58,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/Wine.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
+      "static": true
     },
     "table_empty_glass_wine": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        14,
+        17,
         0,
-        56,
+        58,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/Wine_glass.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
+      "static": true
     },
     "table_empty_glass_flute": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Champagne_glass.png",
@@ -4114,20 +4150,20 @@
     },
     "table_empty_glass_old_fashioned": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        8,
+        11,
         13,
-        62,
+        65,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Glasses/Old_fashioned_glass.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
+      "static": true
     },
     "char_haru_static": {
       "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/Haru_Idle.png",
@@ -4182,37 +4218,37 @@
     },
     "table_cocktail_whiskey_sour": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 60,
-      "frameHeight": 93,
+      "frameWidth": 75,
+      "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        5,
+        8,
         18,
-        65,
+        67,
         111
       ],
-      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/Finished/whisky_sour.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
+      "static": true
     },
     "table_cocktail_champagne": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
-      "w": 69,
+      "w": 75,
       "h": 112,
       "frames": 1,
-      "frameWidth": 69,
+      "frameWidth": 75,
       "frameHeight": 112,
       "fps": 0,
-      "static": true,
       "alphaBBox": [
-        15,
+        18,
         0,
-        55,
+        57,
         111
       ],
-      "source": "User supplied Champagne.png"
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
+      "static": true
     },
     "char_haru_fail": {
       "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/fail/Haru_fail.png",
@@ -4241,6 +4277,261 @@
       ],
       "frames": 1,
       "fps": 0
+    },
+    "table_empty_glass_sour": {
+      "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+      "w": 75,
+      "h": 112,
+      "frames": 1,
+      "frameWidth": 75,
+      "frameHeight": 112,
+      "fps": 0,
+      "alphaBBox": [
+        18,
+        0,
+        57,
+        111
+      ],
+      "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+      "static": true
+    },
+    "item_cranberry_juice": {
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+      "w": 93,
+      "h": 223,
+      "frames": 1,
+      "frameWidth": 93,
+      "frameHeight": 223,
+      "fps": 0,
+      "alphaBBox": [
+        25,
+        56,
+        79,
+        222
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+      "static": true
+    },
+    "item_milk": {
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+      "w": 93,
+      "h": 223,
+      "frames": 1,
+      "frameWidth": 93,
+      "frameHeight": 223,
+      "fps": 0,
+      "alphaBBox": [
+        19,
+        59,
+        70,
+        221
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+      "static": true
+    },
+    "item_triple_sec": {
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+      "w": 57,
+      "h": 171,
+      "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
+      "alphaBBox": [
+        0,
+        24,
+        57,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+      "static": true
+    },
+    "item_kahlua": {
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+      "w": 57,
+      "h": 171,
+      "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
+      "alphaBBox": [
+        8,
+        17,
+        49,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+      "static": true
+    },
+    "item_amaretto": {
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+      "w": 57,
+      "h": 171,
+      "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
+      "alphaBBox": [
+        0,
+        46,
+        57,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+      "static": true
+    },
+    "char_haru_idle_body": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        166,
+        213,
+        373,
+        422
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+      "syncToBody": true
+    },
+    "char_haru_idle_eyebrow": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        266,
+        191,
+        304,
+        200
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+      "syncToBody": true
+    },
+    "char_haru_idle_eyes": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        256,
+        194,
+        307,
+        213
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+      "syncToBody": true
+    },
+    "char_haru_idle_face_top": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        218,
+        120,
+        336,
+        243
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+      "syncToBody": true
+    },
+    "char_shiba_idle_body": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        219,
+        360,
+        347,
+        422
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+      "syncToBody": true
+    },
+    "char_shiba_idle_eyes": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        257,
+        317,
+        305,
+        328
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+      "syncToBody": true
+    },
+    "char_shiba_idle_face_bottom_default": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        231,
+        330,
+        332,
+        378
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+      "syncToBody": true
+    },
+    "char_shiba_idle_face_top": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        235,
+        269,
+        330,
+        332
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+      "syncToBody": true
+    },
+    "char_haru_idle_face_bottom_default": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 2.5,
+      "alphaBBox": [
+        244,
+        215,
+        302,
+        249
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+      "syncToBody": true
     }
   },
   "characterLayers": {
@@ -4438,10 +4729,18 @@
     },
     "haru": {
       "idle_default": [
-        "char_haru_static"
+        "char_haru_idle_body",
+        "char_haru_idle_face_top",
+        "char_haru_idle_eyes",
+        "char_haru_idle_eyebrow",
+        "char_haru_idle_face_bottom_default"
       ],
       "idle_talk": [
-        "char_haru_static"
+        "char_haru_idle_body",
+        "char_haru_idle_face_top",
+        "char_haru_idle_eyes",
+        "char_haru_idle_eyebrow",
+        "char_haru_idle_face_bottom_default"
       ],
       "fail_default": [
         "char_haru_fail"
@@ -4454,6 +4753,17 @@
       ],
       "success_talk": [
         "char_haru_success"
+      ]
+    },
+    "shiba": {
+      "idle_default": [
+        "char_shiba_idle_body",
+        "char_shiba_idle_face_top",
+        "char_shiba_idle_eyes",
+        "char_shiba_idle_face_bottom_default"
+      ],
+      "idle_talk": [
+        "char_shiba_talk"
       ]
     }
   },

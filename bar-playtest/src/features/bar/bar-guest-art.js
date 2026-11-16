@@ -5,10 +5,11 @@ const D=W.LUNA_DATA,key='char_shiba_static';
 D.assets[key]={src:'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png',w:551,h:530,frames:1,frameWidth:551,frameHeight:530,fps:0,static:true,alphaBBox:[219,271,347,422],source:'User supplied Shiba_Idle.png, 2026-10-19'};
 const talkKey='char_shiba_talk';
 D.assets[talkKey]={...D.assets[key],src:'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png',source:'User supplied Shiba_Idle2.png, 2026-10-19'};
-D.characterLayers.shiba={idle_default:[key],idle_talk:[talkKey]};
+// Idle parts come from the shared presentation registry. Keep the authored speaking pose.
+D.characterLayers.shiba.idle_talk=[talkKey];
 D.webPoseOffsets.shiba={idle_default:[0,0],idle_talk:[0,0]};
 // Preserve the supplied full actor canvas and align its torso cut to the bar.
-D.webActorBounds.shiba=[219,271,347,422];
+D.webActorBounds.shiba=[219,269,347,422];
 D.webTableAnchors={...D.webTableAnchors,shiba:422};
 // Preserve Tom's full human canvas. His torso ends at y=420; the coat and
 // resting forearms extend to y=441 and should overlap the countertop.
@@ -35,6 +36,6 @@ for(const [expression,mood] of [['success','success'],['joy','success'],['fail',
 D.webPoseOffsets.tom={idle_default:[0,0],idle_talk:[0,0]};
 D.webActorBounds.tom=[96,109,454,441];
 D.webTableAnchors={...D.webTableAnchors,tom:420};
-// Haru's supplied portrait shares the 551×530 actor canvas; no animation yet.
+// Both four-cell idle sheets use the original tabletop anchor.
 D.webTableAnchors.haru=422;
 })(window);

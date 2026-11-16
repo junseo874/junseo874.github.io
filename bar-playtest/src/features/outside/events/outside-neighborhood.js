@@ -184,7 +184,7 @@ function campFacing(m,id,x){
 }
 function poses(m){
  const n=state(m),a=n.action,list=[];
- const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=W.LunaOutsideAmbient.roleKinds[id],sp=W.LunaOutsideAmbient.sprite(kind,m.time),e=actorEvents[id],p=e&&W.LunaEngineWorld?W.LunaEngineWorld.actorPose(...e,sp,x,y,flip,alpha):{x,y,scale,flip,alpha,sp};list.push({id,kind,...p,scale:p.sx??scale});};
+ const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=id==='neighbor'&&a?.name.startsWith('neighbor-')?'NeighborWalk':W.LunaOutsideAmbient.roleKinds[id],sp=W.LunaOutsideAmbient.sprite(kind,m.time),e=actorEvents[id],p=e&&W.LunaEngineWorld?W.LunaEngineWorld.actorPose(...e,sp,x,y,flip,alpha):{x,y,scale,flip,alpha,sp};list.push({id,kind,...p,scale:p.sx??scale});};
  if(m.scene==='street'){
   if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair',places.repair.x,places.repair.y);
   else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}

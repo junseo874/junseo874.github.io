@@ -11,7 +11,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert(!data.rows.some(r=>r.id==='outside:samhoIdle'));assert.equal(data.rows.find(r=>r.id==='outside:samho').title,'삼호');
   for(const id of ['repair','neighbor','guard','boss','gangmate','gang-left','gang-far','home-chris'])assert(data.rows.some(r=>r.id==='outside-role:'+id));
   const sheets=await p.evaluate(()=>{const f=document.querySelector('#game').contentWindow,A=f.LunaOutsideAmbient;return Object.entries(A.sheets).map(([kind,s])=>({kind,frames:s.frames,src:s.src,row:resourceReview.rows.find(r=>r.id==='outside:'+kind),roles:Object.entries(A.roleKinds).filter(([,k])=>k===kind).map(([id])=>resourceReview.rows.find(r=>r.id==='outside-role:'+id)).filter(Boolean)}));});
-  assert.equal(sheets.length,11);
+  assert.equal(sheets.length,18);
   for(const s of sheets){assert.equal(s.row.layers[0].src,s.src);assert.equal(s.row.layers[0].frames,s.frames);assert.equal(s.row.layers[0].fps,12*s.frames/9);for(const role of s.roles)assert.equal(role.layers[0].src,s.src,'review role shares gameplay sheet');}
   for(const id of ['sleep','options','notice']){
    await p.evaluate(id=>resourceReview.launch({type:'review-campaign',id},id),id);

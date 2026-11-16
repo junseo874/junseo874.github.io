@@ -195,10 +195,23 @@ function applyStreet(data){
  if(building){
   const e=node('street','1151976387');
   const oldLeft=building.x,oldTop=building.y,oldScaleX=building.sx,oldScaleY=building.sy;
-  transform(building,e,{size:true});
-  if(rail)transform(rail,node('street','647539757'),{size:true});
+  // Keep native pixel scale. The facade was trimmed at the bottom and
+  // the rail at the top, so register their new top edges to the old canvas.
+  function placeCrop(n,reference,trimTop){
+   transform(n,reference);
+   const src=reference.sprite;
+   n.sprite={...n.sprite,pivot:{x:src.pivot.x,y:1-(src.h*(1-src.pivot.y)-trimTop)/n.sprite.h}};
+  }
+  placeCrop(building,e,0);
+  if(rail)placeCrop(rail,node('street','647539757'),92);
   const left=building.x-building.sprite.w*building.sprite.pivot.x/100*building.sx;
   const top=building.y+building.sprite.h*(1-building.sprite.pivot.y)/100*building.sy;
+  for(const n of nodes.filter(n=>n.facadePixel)){
+   const parent=n.name==='residence-home-door'?building:rail;
+   n.x=left+n.facadePixel[0]*building.sx/100;
+   n.y=top-n.facadePixel[1]*building.sy/100;
+   Object.assign(n,{sx:building.sx,sy:building.sy,layer:parent.layer,order:parent.order+.005,placementSource:'web-building-child',engineNode:parent.engineNode});
+  }
   for(const n of nodes.filter(n=>['residence-warm-light','residence-home-light'].includes(n.name))){
    const rx=building.sx/oldScaleX,ry=building.sy/oldScaleY;
    Object.assign(n,{x:left+(n.x-oldLeft)*rx,y:top+(n.y-oldTop)*ry,sx:n.sx*rx,sy:n.sy*ry,

@@ -35,7 +35,8 @@ function collect(rows){
    r.note='현재 웹에 전용 UI PNG가 적용되어 있습니다. 텍스트·배치·일부 효과는 코드로 구성하며 최종 아트 승인 여부와는 별개입니다.';
   }
   if(r.id.startsWith('actor:tom:')){r.status='registered';r.note='톰의 551×530 셀 · 4프레임 레이어입니다. 대기 몸체는 1.6초 주기, 대화 입은 0.9초 주기로 재생합니다. 대화용 몸체·입은 2026-10-31 원본이고 눈·눈썹·상단 얼굴은 대기 원본을 공유합니다. 본편 카운터 기준점은 y=420입니다. 개별 원본과 프레임을 각각 다운로드할 수 있습니다.';}
-  if(r.id.startsWith('actor:shiba:'))r.note='바 내부 개시바는 대기·대화에 서로 다른 정적 임시 이미지를 사용합니다. 프레임 애니메이션은 아니며 외부 시바견 시트와 구분합니다.';
+  if(r.id==='actor:shiba:idle_default')r.note='몸·상단 얼굴·눈·입의 4프레임이 같은 속도로 재생됩니다.';
+  if(r.id==='actor:shiba:idle_talk'){r.status='registered';r.note='시바견이 말하는 동안 사용하는 전용 입 벌림 이미지입니다.';}
   if(r.id==='ui:world-speech')r.note='최신 외부 말풍선 본체 조각과 중앙(A)·왼쪽(B)·오른쪽(C) 꼬리를 사용합니다. 화면 가장자리와 화자 위치에 따라 꼬리가 바뀌며, NPC끼리의 대화는 작은 규격을 사용합니다. 개별 그래픽은 리소스 추출에서 외부 말풍선으로 검색하세요.';
   if(r.id==='ui:exterior:street'){r.title='상호작용 키 안내 / E';r.note='제공된 IMG_interaction 사각 E 키와 페이퍼로지 Bold 상호작용 텍스트를 화면 좌측 하단에서 확인합니다. 대상의 시안색 윤곽선도 함께 표시합니다.';r.variants=r.variants.filter(v=>v.id==='e');}
   if(r.id==='ui:prep')r.needsRevision=false;

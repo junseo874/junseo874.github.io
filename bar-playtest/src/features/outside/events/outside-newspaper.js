@@ -2,7 +2,7 @@
 (function(W){
 'use strict';
 const id='street-newspaper',name='신문 읽는 남자';
-const place=Object.freeze({get x(){const v=W.LunaEngineWorld?.node('street','1286119217')?.x??-7.08;return W.LunaNpcScene?.shift('newspaper',v)??v;},y:-.974,top:-.36,kind:'M2'});
+const place=Object.freeze({get x(){const v=W.LunaEngineWorld?.node('street','1286119217')?.x??-7.08;return W.LunaNpcScene?.shift('newspaper',v)??v;},y:-.974,top:-.36,kind:'Newspaper'});
 const {entry,complete,grantGear,available}=W.LunaNewspaperProgress;
 const {rows,choiceView,branch}=W.LunaNewspaperDialogue;
 function visible(m){return !m.qa&&m.scene==='street'&&m.config.day===1&&['in','out'].includes(m.config.flow)&&available(m.config.flow);}
@@ -18,7 +18,20 @@ function action(m,row){const s=m.story.speech;if(s?.id!==id||row.action!=='grant
  s.index++;m.story.seek();
 }
 function apply(data){if(data.scenes.street.nodes.some(n=>n.name===id))return;data.scenes.street.nodes.push({id,go:id,name:id,x:place.x,y:place.y,z:0,sx:1,sy:1,active:true,ancestry:['OptionalNPC'],layer:9,order:1,newspaperActor:true,sprite:W.LunaOutsideAmbient.sprite(place.kind)});}
-function drawNode(m,node,draw){if(!node.newspaperActor)return false;if(visible(m))draw(W.LunaOutsideAmbient.sprite(place.kind,m.time),node.x,node.y,1,1,m.story.speech?.id===id?W.LunaOutsideAmbient.faceTarget(node.x,m.x):false);return true;}
+// Remember the interaction edge on this visit so advancing a line never restarts the gesture.
+function drawNode(m,node,draw){
+ if(!node.newspaperActor)return false;
+ if(!visible(m)){delete m.newspaperPose;return true;}
+ if(m.newspaperPose?.start>m.time)delete m.newspaperPose;
+ const speaking=m.story.speech?.id===id;
+ if(speaking!==!!m.newspaperPose?.speaking)m.newspaperPose={speaking,start:m.time};
+ const pose=m.newspaperPose,age=pose?m.time-pose.start:Infinity;
+ const kind=speaking?'NewspaperDown':age<.6?'NewspaperUp':place.kind;
+ const sp=W.LunaOutsideAmbient.sprite(kind,m.time);
+ if(kind!==place.kind)sp.x=Math.min(5,Math.max(0,Math.floor(age*10)))*129;
+ draw(sp,node.x,node.y,1,1,speaking&&W.LunaOutsideAmbient.faceTarget(node.x,m.x));
+ return true;
+}
 W.LunaOutsideNewspaper={id,name,place,visible,targets,interact,preview,choiceView,choose,branch,action,apply,drawNode};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

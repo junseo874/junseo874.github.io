@@ -6,10 +6,13 @@
 const sheets=Object.freeze(Object.fromEntries([
  ['M1','npc_m1_idle.png',6,'거리 남성 1'],['M2','npc_m2_idle.png',6,'거리 남성 2'],['W1','npc_w1_idle.png',6,'거리 여성 1'],
  ['Neighbor','Neighbor_idle.png',9,'옆집 아저씨'],['Repairman','Repairman_idle.png',9,'엘리베이터 수리공'],['Chris','Chris_idle.png',9,'크리스'],
+ ['Believer','pseudo_idle.png',9,'기신교 신도'],['Children','children_idle.png',9,'아이들'],['Homeless','homeless_idle.png',9,'노숙자'],
+ ['Newspaper','newspaper_idle.png',9,'신문 읽는 남자','02.Newspaper_man'],['NewspaperDown','newspaper_down.png',6,'신문 내리기','02.Newspaper_man'],
+ ['NewspaperUp','newspaper_up.png',6,'신문 올리기','02.Newspaper_man'],['NeighborWalk','neighbor_walk.png',8,'옆집 아저씨 · 걷기','03.Walk'],
  ['Gang1','GangNPC1_idle.png',9,'갱단원 1'],['Gang2','GangNPC2_idle.png',8,'갱단원 2'],['Gang3','GangNPC3_idle.png',8,'갱단원 3'],['Gang4','GangNPC4_idle.png',8,'갱단원 4'],['Gang5','GangNPC5_idle.png',9,'갱단원 5 · 덩치 큰 남자']
-].map(([kind,file,frames,label])=>[kind,Object.freeze({file,frames,label,src:'assets/01.ArtResources/01.Characters/02.Outside/'+(kind==='Chris'?'02.Chris/':'05.StreetNPC/01.Idle/')+file})])));
+].map(([kind,file,frames,label,folder='01.Idle'])=>[kind,Object.freeze({file,frames,label,src:'assets/01.ArtResources/01.Characters/02.Outside/'+(kind==='Chris'?'02.Chris/':'05.StreetNPC/'+folder+'/')+file})])));
 const roleKinds=Object.freeze({repair:'Repairman',neighbor:'Neighbor',chris:'Chris','home-chris':'Chris',guard:'Gang1',boss:'Gang5',gangmate:'Gang3','gang-left':'Gang2','gang-far':'Gang4','day1-corridor-thug':'Neighbor','day2-corridor-thug':'Neighbor'});
-function sprite(kind,time=0,phase=0){return{asset:'ambient-'+kind,x:frameIndex(time,sheets[kind].frames,phase)*129,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100};}
+function sprite(kind,time=0,phase=0){return{asset:'ambient-'+kind,x:frameIndex(time,sheets[kind].frames,phase)*129,y:0,w:129,h:138,pivot:{x:.5,y:(kind==='Homeless'?20:24)/138},ppu:100};}
 // Luna stands at y=-.7 but its visible feet are -.974 (pivot is inside its cell).
 // Put these foot-pivot sprites on the same road, slightly behind Luna.
 const placements=[

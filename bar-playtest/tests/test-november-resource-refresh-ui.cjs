@@ -2,7 +2,12 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 const rt=require('../../tools/lib/test-runtime.cjs');
 (async()=>{
  const root=path.resolve(__dirname,'../..'),art=path.resolve(root,'../9_ArtResources'),rows=require('../../artifacts/resource-refresh/imported.json');
- for(const r of rows)assert(fs.readFileSync(path.join(root,'bar-playtest/assets/01.ArtResources',r.path)).equals(fs.readFileSync(path.join(art,r.source))),r.source+' original bytes');
+ const refresh=require('../data/provenance/drive-art-refresh.json');
+ for(const r of rows){
+  const newer=refresh.find(a=>a.src==='assets/01.ArtResources/'+r.path);
+  if(newer){const bytes=fs.readFileSync(path.join(root,'bar-playtest',newer.src));assert.equal(require('node:crypto').createHash('md5').update(bytes).digest('hex'),newer.md5);continue;}
+  assert(fs.readFileSync(path.join(root,'bar-playtest/assets/01.ArtResources',r.path)).equals(fs.readFileSync(path.join(art,r.source))),r.source+' original bytes');
+ }
  const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
  try{
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];

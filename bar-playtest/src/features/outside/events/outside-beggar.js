@@ -3,7 +3,7 @@
 (function(W){
 'use strict';
 const id='street-beggar',witness='street-beggar-witness',cost=200;
-const people=[{id,name:'노숙자',kind:'M2',x:-7.30,y:-.94,top:-.29},{id:witness,name:'근처 행인',kind:'M1',x:-8.20,y:-.94,top:-.34}];
+const people=[{id,name:'노숙자',kind:'Homeless',x:-7.30,y:-.94,top:-.29},{id:witness,name:'근처 행인',kind:'M1',x:-8.20,y:-.94,top:-.34}];
 const person=actor=>people.find(p=>p.id===actor);
 // Dialogue is owned by the web CSV, including the witness's one-off/repeat flows.
 const rows=key=>W.LUNA_DATA.sharedStory['beggar/'+key];
@@ -64,7 +64,7 @@ function choose(m,choice){
 }
 function tick(m,dt){if(!present(m))m.beggarWitnessPaidVisit=null;const d=m.beggarDeparture;if(!d)return;if(!active(m)){m.beggarDeparture=null;return;}d.elapsed+=dt;d.x=person(id).x-Math.min(1,d.elapsed/3.4)*2.8;d.alpha=1-Math.max(0,(d.elapsed-2.9)/.5);if(d.elapsed>=3.4){m.beggarDeparture=null;m.updateNear();}}
 function anchor(m,actor){const p=person(actor);return p?{x:actor===id&&m.beggarDeparture?m.beggarDeparture.x:p.x,y:p.top+.04}:null;}
-function apply(data){for(const p of people){if(data.scenes.street.nodes.some(n=>n.name===p.id))continue;data.scenes.street.nodes.push({id:p.id,go:p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['OptionalNPC'],layer:9,order:1,beggarActor:p.id,sprite:{asset:'ambient-'+p.kind,x:0,y:0,w:129,h:138,pivot:{x:.5,y:24/138},ppu:100}});}}
-function drawNode(m,node,draw){if(!node.beggarActor)return false;if(!visible(m,node.beggarActor))return true;const d=node.beggarActor===id?m.beggarDeparture:null,x=d?.x??node.x,y=node.y+(d?Math.sin(d.elapsed*16)*.012:0);draw({...node.sprite,x:(W.LunaOutsideAmbient.frameIndex(m.time))*129},x,y,1,1,d?false:W.LunaOutsideAmbient.faceTarget(x,m.x),d?.alpha??1);return true;}
+function apply(data){for(const p of people){if(data.scenes.street.nodes.some(n=>n.name===p.id))continue;data.scenes.street.nodes.push({id:p.id,go:p.id,name:p.id,x:p.x,y:p.y,z:0,sx:1,sy:1,active:true,ancestry:['OptionalNPC'],layer:9,order:1,beggarActor:p.id,sprite:W.LunaOutsideAmbient.sprite(p.kind)});}}
+function drawNode(m,node,draw){if(!node.beggarActor)return false;if(!visible(m,node.beggarActor))return true;const d=node.beggarActor===id?m.beggarDeparture:null,x=d?.x??node.x,y=node.y+(d?Math.sin(d.elapsed*16)*.012:0);draw(W.LunaOutsideAmbient.sprite(person(node.beggarActor).kind,m.time),x,y,1,1,d?false:W.LunaOutsideAmbient.faceTarget(x,m.x),d?.alpha??1);return true;}
 W.LunaOutsideBeggar={id,witness,cost,people,intro,paid,refused,active,visible,targets,interact,preview,choiceView,choose,tick,anchor,apply,drawNode};if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(window);

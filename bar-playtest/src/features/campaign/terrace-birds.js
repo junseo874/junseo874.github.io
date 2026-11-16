@@ -1,6 +1,6 @@
 (function(W){
 'use strict';
-const {assets,sheet,crops,frameAt}=W.LunaBirdSprites;
+const {assets,sheet,crops,counts,perched}=W.LunaBirdSprites;
 // Positions in the original 480 × 270 composition. The ledges are rows 92/260;
 // toes overlap their top edge by one pixel, as in the supplied wall reference.
 // Both original sheets face right. Keep that direction for every perched/arriving bird.
@@ -21,10 +21,10 @@ function arrivalOffset(age){
  return [0,1].map(axis=>q*q*q*curve[0][axis]+3*q*q*p*curve[1][axis]+3*q*p*p*curve[2][axis]+p*p*p*curve[3][axis]);
 }
 const frames=new WeakMap(),painted=new WeakMap();
-function frameImage(image,crop,index){
+function frameImage(image,clip,crop,index){
  let cached=frames.get(image);
  if(!cached){
-  cached=Array.from({length:sheet.frames},(_,i)=>{
+  cached=Array.from({length:counts[clip]},(_,i)=>{
    const canvas=document.createElement('canvas');canvas.width=crop.w*4;canvas.height=crop.h*4;
    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
    ctx.drawImage(image,i*sheet.width+crop.x,crop.y,crop.w,crop.h,0,0,canvas.width,canvas.height);
@@ -52,16 +52,17 @@ function poses(dialog){
   const landed=reduced||age>=arrival.duration;
   const [dx,dy]=landed?[0,0]:arrivalOffset(age);
   const idle=arrives?Math.max(0,age-arrival.duration):time+i*.47;
-  return [{kind,x:x+dx,y:y+dy,facing,landed,frame:frameAt(idle,reduced||!landed)}];
+  const pose=landed?perched(kind,idle,i,reduced):{clip:'fly',frame:Math.floor(age*10)%counts.fly,dx:0};
+  return [{kind,clip:pose.clip,x:x+dx+pose.dx,y:y+dy,facing,landed,frame:pose.frame}];
  });
 }
 function draw(ctx,dialog,images,scale=1){
  ctx.save();ctx.imageSmoothingEnabled=false;
  for(const bird of poses(dialog)){
-  const image=images.get(assets[bird.kind]);if(!image)continue;
-  const crop=crops[bird.kind];
-  ctx.save();ctx.translate(bird.x*scale,bird.y*scale);ctx.scale(bird.facing,1);
-  ctx.drawImage(frameImage(image,crop,bird.frame),
+  const image=images.get(assets[bird.clip]);if(!image)continue;
+  const crop=crops[bird.clip];
+  ctx.save();ctx.translate(bird.x*scale,bird.y*scale);ctx.scale(bird.clip==='fly'?-bird.facing:bird.facing,1);
+  ctx.drawImage(frameImage(image,bird.clip,crop,bird.frame),
    (crop.x-crop.footX)*scale,-crop.h*scale,crop.w*scale,crop.h*scale);
   ctx.restore();
  }

@@ -638,9 +638,18 @@
       // Preserve the supplied sprite cutouts and world coordinates, including the exterior.
       const light = n.light || /City.*Light/.test(n.name);
       let sp = n.ambient ? global.LunaOutsideAmbient.frame(n, model.time) : n.sprite;
+      if(n.name==='home-wardrobe'&&model.story.speech?.id==='home/wardrobePressed')sp={...sp,asset:'home-wardrobe-weapon'};
+      if(n.name==='home-bedding'&&global.barGame?.progress.flags.boobi_adopted){
+        sp={...sp,asset:'home-sofa-uncovered',h:50};y-=.02*n.sy;
+      }
+      let alpha=n.alpha??(light ? .26 : 1);
+      if(n.name==='residence-foreground-fade'&&model.level){
+        const near=Math.max(0,1-Math.abs(model.x-(n.x+2.05))/2.7);
+        alpha=1-.76*near;
+      }
       const facing = global.LunaOutsideAmbient.facing(n, model),
         art = streetParallax(n, renderCam, model);
-      drawSprite(sp, art.x, art.y + (y - n.y), n.sx, n.sy, facing, n.alpha ?? (light ? .26 : 1), light);
+      drawSprite(sp, art.x, art.y + (y - n.y), n.sx, n.sy, facing, alpha, light);
     }
     function drawEntranceCue() {
       if (!firstCommuteEntranceCue(model)) return;

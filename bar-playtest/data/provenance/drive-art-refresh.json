@@ -1,0 +1,442 @@
+[
+  {
+    "row": 22,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
+    "md5": "9160b4b7e3cba96ee43a2f2fca32d0ad",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 23,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+    "md5": "3cf4f4e22c80917bd4f46827cdb23f38",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 24,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
+    "md5": "ec2164ab7951ca7471254db906aadef7",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 26,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
+    "md5": "af6048acf5e75a748da4be0a9998aa75",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 28,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
+    "md5": "5f142bcb947145cd42ecc1d9a6bdb39d",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 30,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
+    "md5": "1b723ee4566e685c5eb9ded279bc6d2a",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 33,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
+    "md5": "83e77865645dcc029d4cd7357c7f810b",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 35,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
+    "md5": "3f3e65fbbd668a18fb13fd8244de1043",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 68,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/pseudo_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/pseudo_idle.png",
+    "md5": "79ef1f41f591db370747ace7aa8cc810",
+    "width": 1161,
+    "height": 138
+  },
+  {
+    "row": 69,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/children_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/children_idle.png",
+    "md5": "1f98b65b1127e84ce5b914ff8a7233ac",
+    "width": 1161,
+    "height": 138
+  },
+  {
+    "row": 70,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_idle.png",
+    "md5": "f8f726893c1c874e7628a3596e2f6055",
+    "width": 1161,
+    "height": 138
+  },
+  {
+    "row": 71,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/homeless_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/homeless_idle.png",
+    "md5": "737bf5e97edf29c4e52cefa8f9d3a463",
+    "width": 1161,
+    "height": 138
+  },
+  {
+    "row": 72,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_down.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_down.png",
+    "md5": "94dbee50378195b60d5ab6ba6b30d439",
+    "width": 774,
+    "height": 138
+  },
+  {
+    "row": 73,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_up.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_up.png",
+    "md5": "589cd965b2f3cc6844b1c6399081b7e7",
+    "width": 774,
+    "height": 138
+  },
+  {
+    "row": 74,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
+    "md5": "32b91f20d8ee9a2473f31dbf43a640d2",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 75,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
+    "md5": "565f80ac74fe25cf7a7518b30f41da1f",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 76,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
+    "md5": "77b156c5d5892c6e26b887ff07470421",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 77,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
+    "md5": "ed543aa770d9333c349f08451c18b88c",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 78,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
+    "md5": "a17e41cb9d5d69314e3f70315ea66837",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 79,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
+    "md5": "5ac34d0ea5d891ab4e3f9388c499d4a9",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 80,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
+    "md5": "1649a8b4a0c1be4dc667296205212c44",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 81,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+    "md5": "1d0c9bb1f8ae69deab13fcb736a88e46",
+    "width": 93,
+    "height": 223
+  },
+  {
+    "row": 82,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+    "md5": "52025ceb6694a982149ad1cfe17fe4f9",
+    "width": 93,
+    "height": 223
+  },
+  {
+    "row": 83,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+    "md5": "0209e5e33226b401cca899f222a9f672",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 84,
+    "source": "9_ArtResources/01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
+    "md5": "9ea0fe29bec11ec3f88736f62739aec1",
+    "width": 1536,
+    "height": 138
+  },
+  {
+    "row": 85,
+    "source": "9_ArtResources/01.Characters/02.Outside/04.Bubi/02.Walk/bubi_walk.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
+    "md5": "6170fd8a1b4d21ccf4f2c96cf9b35921",
+    "width": 768,
+    "height": 138
+  },
+  {
+    "row": 86,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+    "md5": "5853eeeca73a3e2bb969173e1bdc1de5",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 88,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+    "md5": "151f75e5c4a5b0daabff38b5cb5614ba",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 89,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
+    "md5": "c783e9ec0c624e6c15fd0ef8215103cc",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 90,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
+    "md5": "b440afb7f0c6f92696a84fdb6a1a90ec",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 91,
+    "source": "9_ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
+    "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
+    "md5": "228b5f39ef8bcfa7020f9fc93e658bce",
+    "width": 75,
+    "height": 112
+  },
+  {
+    "row": 92,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/04.Pigeon/Pigeon_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png",
+    "md5": "9f9cf77947af743e0245e398caa13bdb",
+    "width": 1548,
+    "height": 138
+  },
+  {
+    "row": 93,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/05.Crow/Crow_idle.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/Crow_idle.png",
+    "md5": "a091abdf2cfa0eda90350756ecc8c1ca",
+    "width": 1548,
+    "height": 138
+  },
+  {
+    "row": 94,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+    "md5": "0c6a1e71f2958ba4f36766792d3de131",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 95,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+    "md5": "d2ab39f40734600e080253e0fecffc56",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 96,
+    "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+    "md5": "fc5684a78189ee56a13a4e76100fc5d6",
+    "width": 57,
+    "height": 171
+  },
+  {
+    "row": 97,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/03.Walk/neighbor_walk.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/03.Walk/neighbor_walk.png",
+    "md5": "0c1a418233aaf410839cdbab28348fbd",
+    "width": 1032,
+    "height": 138
+  },
+  {
+    "row": 98,
+    "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_Fade.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_Fade.png",
+    "md5": "69c66c73e525176d98f825eb416916c6",
+    "width": 861,
+    "height": 119
+  },
+  {
+    "row": 99,
+    "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
+    "md5": "5d9bfee48ac9477a1b5a764f72ee47d3",
+    "width": 952,
+    "height": 1520
+  },
+  {
+    "row": 100,
+    "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
+    "md5": "e7350644a0df0c88d3b2aacdedaec693",
+    "width": 952,
+    "height": 617
+  },
+  {
+    "row": 101,
+    "source": "9_ArtResources/02.Environments/03.Home/01.Sprites/Current/IntractObjects_Closet_weapon.png",
+    "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Closet_weapon.png",
+    "md5": "e004f63d880dd40d782e8e7c0dc8037f",
+    "width": 24,
+    "height": 69
+  },
+  {
+    "row": 102,
+    "source": "9_ArtResources/02.Environments/03.Home/01.Sprites/Current/IntractObjects_Bedding_2.png",
+    "src": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/IntractObjects_Bedding_2.png",
+    "md5": "630ad95d26dd6951e22505428390b4fe",
+    "width": 111,
+    "height": 50
+  },
+  {
+    "row": 103,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/04.Pigeon/pigeon_fly.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/04.Pigeon/pigeon_fly.png",
+    "md5": "b144c78cb68a948953c88e8ae0b3113b",
+    "width": 903,
+    "height": 138
+  },
+  {
+    "row": 104,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_jump.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_jump.png",
+    "md5": "3933638d8ca17c2b973ceb66ffb9251a",
+    "width": 903,
+    "height": 138
+  },
+  {
+    "row": 105,
+    "source": "9_ArtResources/01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_wonder.png",
+    "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_wonder.png",
+    "md5": "96507f172dac21e0c22e1e0596df248a",
+    "width": 1548,
+    "height": 138
+  },
+  {
+    "row": 106,
+    "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+    "md5": "90b779ec43212e1759fcb838ad6cb11c",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 107,
+    "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+    "md5": "04d8e37004238fcf4a9432c447aba755",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 111,
+    "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+    "md5": "eb3f4544b8dcc53e03d28f4c58c519e5",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 112,
+    "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+    "md5": "eeaab6fc31d38117caafe61ab8e9f1c9",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 113,
+    "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+    "md5": "5f6b44d50389670a70a6c830cf0ecbf3",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 114,
+    "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+    "md5": "f850dbf24cb95451c590e6e503cbe8db",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 115,
+    "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+    "md5": "c804f995f9595bc6f4d6390e1e931355",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 116,
+    "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+    "md5": "b992f882321626a5fd0f5618934cc09f",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 117,
+    "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+    "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+    "md5": "3c794615683ae526b9d75c631440c8be",
+    "width": 2204,
+    "height": 530
+  },
+  {
+    "row": 118,
+    "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building_door.png",
+    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building_door.png",
+    "md5": "438b031d532dccbf28906602d453b1fa",
+    "width": 48,
+    "height": 75
+  }
+]

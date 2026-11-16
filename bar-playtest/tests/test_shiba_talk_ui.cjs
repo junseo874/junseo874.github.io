@@ -27,8 +27,13 @@ const root=path.resolve(__dirname,'..');
    await page.evaluate(mode=>{
     const c=lunaCampaign,g=barGame;
     if(window.savedShibaTick)g.tick=window.savedShibaTick;
-    c.session.uninstall();c.session.install({developer:mode!=='campaign'});c.session.day=1;c.ui.variant=mode==='gpt'?'gpt':'original';
-    g.reset(1,'regular',42,true,{variant:c.ui.variant});c.screen(c.playView);c.render(true);
+    c.session.uninstall();c.session.install({developer:mode!=='campaign'});c.session.day=2;c.ui.variant=mode==='gpt'?'gpt':'original';
+    g.reset(2,'regular',42,true,{variant:c.ui.variant});
+    const steps=g.t.steps.filter(row=>row.context==='campaign_d2_bar'),index=steps.findIndex(row=>row.type==='enter'&&row.actor==='shiba');
+    if(index<0)throw Error('Missing authored bar entrance');
+    g.story={scene:g.t.scenes.find(row=>row.id==='campaign_d2_bar'),steps,index};
+    g.dialogue=null;g.choice=null;g.storyCoaster=null;g.seats={L:null,M:null,R:null};g.transition=0;g.pump();
+    c.screen(c.playView);c.render(true);
     for(let i=0;i<3000;i++){
      g.cameraMoving=false;
      if(g.dialogue?.actor==='shiba'){
@@ -42,24 +47,24 @@ const root=path.resolve(__dirname,'..');
    const actor=page.locator('.actor[data-actor="shiba"]');
    async function expectPose(key){
     await page.waitForFunction(key=>{lunaCampaign.render(true);return !!document.querySelector('.actor[data-actor="shiba"] [data-layer="'+key+'"]');},key);
-    return actor.locator('.actor-layer').boundingBox();
+    return actor.locator('.actor-layer').first().boundingBox();
    }
    const typing=await expectPose('char_shiba_talk');
    assert.equal(await actor.evaluate(el=>getComputedStyle(el).opacity),'1');
    assert.equal(await actor.getAttribute('data-talking'),'true');
    if(mode==='original')await page.screenshot({path:'/private/tmp/shiba-speaking.png'});
    await page.evaluate(()=>{barGame.dialogue.chars=barGame.dialogue.text.length;lunaCampaign.render(true);});
-   assert.deepEqual(await expectPose('char_shiba_static'),typing);
+   assert.deepEqual(await expectPose('char_shiba_idle_body'),typing);
    assert.equal(await actor.getAttribute('data-talking'),'false');
    if(mode==='original')await page.screenshot({path:'/private/tmp/shiba-idle.png'});
    // Reveal/skip finishes articulation without advancing to the next line.
    await page.evaluate(()=>{barGame.dialogue.chars=1;lunaCampaign.render(true);});
    await expectPose('char_shiba_talk');
    await page.evaluate(()=>{barGame.advance();lunaCampaign.render(true);});
-   assert.deepEqual(await expectPose('char_shiba_static'),typing);
+   assert.deepEqual(await expectPose('char_shiba_idle_body'),typing);
    // A different speaker must not open Shiba's mouth.
    await page.evaluate(()=>{barGame.dialogue.actor='chris';barGame.dialogue.chars=1;lunaCampaign.render(true);});
-   await expectPose('char_shiba_static');
+   await expectPose('char_shiba_idle_body');
   }
   assert.deepEqual(errors,[]);
   console.log('SHIBA_TALK_UI_OK: supplied pixels and bounds preserved; typing, completion, reveal and other speaker in original/GPT/campaign; no position or size jump');

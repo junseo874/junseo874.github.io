@@ -508,18 +508,17 @@ window.LunaBarViews = function ({
         y = top ? 162 : 402;
         // Front stock sits slightly left and below the background stock.
         // Match native visible heights for the supplied refrigerator artwork.
-        if (['soda_water', 'cola', 'beer', 'orange_juice', 'dry_vermouth', 'red_wine', 'champagne'].includes(item.id)) {
+        if (['soda_water', 'cola', 'beer', 'orange_juice', 'dry_vermouth', 'red_wine', 'champagne', 'cranberry_juice', 'milk'].includes(item.id)) {
           const art = D.assets['item_' + item.id],
             bounds = art?.alphaBBox;
           h = bounds ? bounds[3] - bounds[1] : h;
         }
       }
-      if (item.id === 'sugar_cube') {
-        w = 32;
-        h = 36;
-      } else if (item.id === 'bitters') {
-        w = 40;
-        h = 116;
+      // The new shelf canvases share a 57×171 slot. Keep their visible pixels
+      // at native scale and move only their transparent bottom margin.
+      const shelfArt = D.assets['item_' + item.id];
+      if (tab === 'liquor' && shelfArt?.source?.startsWith('9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/') && shelfArt.alphaBBox) {
+        h = shelfArt.alphaBBox[3] - shelfArt.alphaBBox[1];
       }
       return {
         item,

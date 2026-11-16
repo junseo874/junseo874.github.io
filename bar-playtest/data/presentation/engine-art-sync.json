@@ -1032,7 +1032,7 @@
     {
       "from": "01.Characters/02.Outside/09.StreetNPC/Idle/Crow_idle.png",
       "path": "01.Characters/02.Outside/05.StreetNPC/01.Idle/Crow_idle.png",
-      "sha256": "e29b61cdf0a55a0a9fd3b5bce3516b6420b988877e3ed9c3be4d20462d1d50f1",
+      "sha256": "2aca2d0738813030d3190b634d0584ca415d014db59c1ee08dc84359fa3666f8",
       "kind": "new"
     },
     {
@@ -1074,7 +1074,7 @@
     {
       "from": "01.Characters/02.Outside/09.StreetNPC/Idle/Pigeon_idle.png",
       "path": "01.Characters/02.Outside/05.StreetNPC/01.Idle/Pigeon_idle.png",
-      "sha256": "8b814977a399067445f85954426199ad0e2fc17de1260645c4c1d79b67e94bf0",
+      "sha256": "ce21ec3ee2a0003a33ba7aeca1511dcb522d9994f1bffda8cf7b56a9033a76d5",
       "kind": "new"
     },
     {
@@ -1212,7 +1212,7 @@
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building.png",
-      "sha256": "750c588246ed25b9701bd4883bc120f451bfb053545354c6240f46bb52ba2362",
+      "sha256": "cf1fb16f0a3cc3fb8a7b34768a1d06efeebdfe66ae289dea5138ade1040b7712",
       "kind": "existing-bytes"
     },
     {
@@ -1272,7 +1272,7 @@
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_2.png",
-      "sha256": "3c4b6cdfb1e4dc8ca1e384153a74b63b34e9a8870be4df90453718ff9bf7585a",
+      "sha256": "dc4eed5b22b1f4b8986727383d8f68f05eab50f86065134ac8070d1afc74a155",
       "kind": "existing-bytes"
     },
     {
@@ -1602,61 +1602,61 @@
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/beer.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/beer.png",
-      "sha256": "c06da1726cac09d5d7820861d5bf2aef12197dfaa43b90ae8ea695e8085d4ec1",
+      "sha256": "c1948740204d7bb23761d058515eba3b2d2f737f2640327658defb2d5cf1dad5",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/cosmopolitan.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/cosmopolitan.png",
-      "sha256": "ddfbf6cfd05785ab51f2fedf91ba1514be895fb4947eb60ee859083a3ce69061",
+      "sha256": "c422f4b2894b9c2c696beba61dd40467ae62e6918141dd88597f103725e56b6b",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/dry_martini.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/dry_martini.png",
-      "sha256": "0c85484bf77c3888dd8a040313031d1d0cdcf7325b37786d6c66aaa495199f5a",
+      "sha256": "9dce563ef1710958f8e1878f6a074ff3b4b5d03c6ffbe84dbc50415313e13125",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/gin_and_tonic.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_and_tonic.png",
-      "sha256": "3b2b528bd88490013ba76d63d9097855bc39926a04f8b939d1cb439d9b481f0e",
+      "sha256": "2d25ee6bb793d37af13eaea21d8b361862702a20e561a1f1008fc395a4b7634f",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/gin_fizz.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/gin_fizz.png",
-      "sha256": "97d585b5b19090e22c908fa76bc913876ed8176e77124bf9031e4dd459afea60",
+      "sha256": "499f021455f017963ea9d4afe77cc73224a1b06490022e8d20e5766df734b772",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/screwdriver.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/screwdriver.png",
-      "sha256": "1058d8e7320150772830fe084ed1fd95f44d3a8406b687ef6eb8c7f676342923",
+      "sha256": "b5bd6f59d5ff803bbc21d076a2dff6fb28079752b13570cec2daca184681dd1d",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Finished/tequila_sunrise.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/tequila_sunrise.png",
-      "sha256": "356d2c14943e581a4be46c265604e095d3340765c42c1aabbae8a1adefb0330a",
+      "sha256": "7fedf288c8c026ad5c09e7c596ddb7c0f93d152b354c7d12a82cd93d4422f1b3",
       "kind": "updated-source"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Glasses/beer_glass.png",
       "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/beer_glass.png",
-      "sha256": "91d3a37f094c1b2eb36cf5fecf24df991b78abfe4b3627249b77215f87ae1791",
+      "sha256": "17e7fb6ef1c940a35c0341f95f1890e4446ae6e993f2a0158124640441419123",
       "kind": "existing-bytes"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Glasses/cocktail_glass.png",
       "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/cocktail_glass.png",
-      "sha256": "02bfb7e3594ebbc042e7cd29cab096d87f045a6f8eb7944b2e19b10de23f4290",
+      "sha256": "a7bc1151fe44659a918cb9644236fcc2845d609b057b91e299a2f29932b437fa",
       "kind": "existing-bytes"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/Glasses/long_drink_glass.png",
       "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/long_drink_glass.png",
-      "sha256": "5442757204106291f29fb9182f8134457cee357b16ec07ee3d68c49c4764392c",
+      "sha256": "1979f98576a71e65a8507303c9235bfe1c876b828a43b39868c64e9bc7775839",
       "kind": "existing-bytes"
     },
     {
@@ -7434,19 +7434,19 @@
     {
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/Old_Fashioned.png",
-      "sha256": "2dfdeaa0d57bb80f2416c3871cbd951bf99b6b35a792583c4c9a6f3b0377642b",
+      "sha256": "018d36886390cfaedd3687a5800c1ccdd36969eb8e7fd151e36a9c2f921effe0",
       "kind": "new"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/Wine.png",
-      "sha256": "fa54fecb26ba28b89e5200849c8cfd802e0e35156430bcb6097cc786fa1f778a",
+      "sha256": "96e7a98ba6c2ea24fb7b526aae1f1870d4e5586c34e7d20f7538c170ef8f38ea",
       "kind": "new"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/godfather.png",
-      "sha256": "cb777ce470a2d5021f4615c9e767cf9ac526d7cc383f2f7eb3b337bf5383ca6e",
+      "sha256": "24e31fe47823f67e7e68baae99d8f121754381083bd886f8866ff2c5c78e1e2b",
       "kind": "new"
     },
     {
@@ -7458,13 +7458,13 @@
     {
       "from": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
       "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Old_fashioned_glass.png",
-      "sha256": "b85dca87372b3a1c3ca1cabf8f33830a5a0e75259b91b7a896e92db7a50b08ac",
+      "sha256": "e00399ecfa21961d356ddcc7f6c8d6ab5e710f851dc7fa35f494ada740256814",
       "kind": "new"
     },
     {
       "from": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
       "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Wine_glass.png",
-      "sha256": "d37f4b4e2bd9852a8be9ee7c7bd10b930d5ec77219fc3b5ae9e20d2be4139e37",
+      "sha256": "6d7f11cb036a15c4077a7ad12ddc609e2486a5832870ac3b903a13fd03ff4980",
       "kind": "new"
     },
     {
@@ -10613,13 +10613,13 @@
     },
     {
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png",
-      "sha256": "d6407deefcf4c4951b2abafbeda11d4b4ae9c2c427401c8eedca2264793a7fa1",
+      "sha256": "da72e92c9c1580083a8b76c5264c86f0c518d1bee2ce4ccff96f749500f7c2a9",
       "kind": "new",
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/whisky_sour.png"
     },
     {
       "path": "03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png",
-      "sha256": "606d7280a9ae4a63f7d228e48637220fad45592897d9b4e4d8d097e9880a199c",
+      "sha256": "4cc3e93299e222c3346de9f8b45fc03274708710d0b371b1a728a612e43df3af",
       "kind": "new",
       "from": "03.Crafting/03.Cocktails/02.Table/01.Finished/Champagne.png"
     },
@@ -10745,14 +10745,14 @@
     {
       "source": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
       "path": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
-      "sha256": "094614ec9de6c50892f9f20c411ea5c32f3e7f2a0a7cc9fffee5e8fe7f97ebfc",
+      "sha256": "909000ee46faa91d471d78454a77cd616d9dbee77075f68fba8ba9ff25da151f",
       "from": "01.Characters/02.Outside/04.Bubi/Sleep/bubi_sleep.png",
       "kind": "new"
     },
     {
       "source": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
       "path": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
-      "sha256": "319c89b9887513254c28efe01eb8583846b9c946be80a91f7340fa5c18fbe1ec",
+      "sha256": "ac6f529c0d9e411c0d9ee93d8fd6ef39c0826c36c6290961f3daf67c1c7b7252",
       "from": "01.Characters/02.Outside/04.Bubi/Walk/bubi_walk.png",
       "kind": "new"
     },
@@ -10762,6 +10762,198 @@
       "sha256": "cfb10d6c896b4c573f8843c85b38f5fe61f1aff528a35595710ea4c09043123c",
       "from": "02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png",
       "kind": "new"
+    },
+    {
+      "from": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+      "path": "03.Crafting/03.Cocktails/02.Table/02.Glasses/Sour_glass.png",
+      "kind": "new",
+      "sha256": "ca55f3d03439c774fa55ccf63b95e8d9d5c5a0cf0f80a17d388ed186319035a3"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/01.Idle/pseudo_idle.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/01.Idle/pseudo_idle.png",
+      "kind": "new",
+      "sha256": "25c11cf434abd2360ba9de9be41038b6ed751a5e583a9bf75b1469aeb400d5b6"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/01.Idle/children_idle.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/01.Idle/children_idle.png",
+      "kind": "new",
+      "sha256": "919492aa3b974d8a1d1567643ef83c238a71e8aca8cff4bf2e11c7e61a631632"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_idle.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_idle.png",
+      "kind": "new",
+      "sha256": "65be37686f8fb78886ddadb239feb630393b2e4cd6b91dbc47b706fb94a023ca"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/01.Idle/homeless_idle.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/01.Idle/homeless_idle.png",
+      "kind": "new",
+      "sha256": "e2b35d710f995e35631eb0adc7eb23f8e5af321754483d64e377bac59c0719c6"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_down.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_down.png",
+      "kind": "new",
+      "sha256": "34fd5effaf8fc320da0e59c8353c899dd342d777deecf939d7c45ecea210d8f2"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_up.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_up.png",
+      "kind": "new",
+      "sha256": "901ad2d7dbe2299e2bfc08942e6034b7c02fbf6ec7fb7a4927fc5267120dc10b"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+      "path": "03.Crafting/02.Ingredients/01.Refrigerator/cranberry_juice.png",
+      "kind": "new",
+      "sha256": "eeefb98e17e9c10e50b6ecb6cb17322946f303201eaad9dae7cd4edf2603fbb2"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+      "path": "03.Crafting/02.Ingredients/01.Refrigerator/milk.png",
+      "kind": "new",
+      "sha256": "36fc53da43373c6c25746489f7882b8c2920ea2107e499e09486f1a2821b2301"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
+      "kind": "new",
+      "sha256": "6dac5cbeb1417f1da2c2a78f3cfa8081891fcffc548248539d6905fc6038ace4"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
+      "kind": "new",
+      "sha256": "5774cb6f09e9af6d477aab73a970423dbd16bbd8eacaeda4c6f5284122a55d67"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
+      "kind": "new",
+      "sha256": "57b2ce90e40836a0f85481540e01654e36f528187b8c5e9623704d33d119328f"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "kind": "new",
+      "sha256": "fef78c9bb37d2a83313faabb8478a87e5ebf208704f823f3d0dac62910998ef2"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "kind": "new",
+      "sha256": "2b8b84e6d2155ac4fe4cfede236333e5a44c713fa6e51709ce803649704ed1b6"
+    },
+    {
+      "from": "03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "path": "03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "kind": "new",
+      "sha256": "349dbbbade1cfd3f4d41953de10f8fd4d67fa15142d4d7d00c3b88c82127af96"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/03.Walk/neighbor_walk.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/03.Walk/neighbor_walk.png",
+      "kind": "new",
+      "sha256": "a266254a7e8b5316c0c53d813f6307fabbca09b64fcfe1a35467297af6979f7f"
+    },
+    {
+      "from": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_Fade.png",
+      "path": "02.Environments/02.Street/01.Sprites/Layers/near_foreground_Fade.png",
+      "kind": "new",
+      "sha256": "aaa6921a5b3b07ec81e64bc6407610ed68c346bcfc87db4d26421db942d98458"
+    },
+    {
+      "from": "02.Environments/03.Home/01.Sprites/IntractObjects_Closet_weapon.png",
+      "path": "02.Environments/03.Home/01.Sprites/IntractObjects_Closet_weapon.png",
+      "kind": "new",
+      "sha256": "f5a2e1e94ddab173ff565cba390bed3a50023c889200e20d1384d63bac50d663"
+    },
+    {
+      "from": "02.Environments/03.Home/01.Sprites/IntractObjects_Bedding_2.png",
+      "path": "02.Environments/03.Home/01.Sprites/IntractObjects_Bedding_2.png",
+      "kind": "new",
+      "sha256": "7a957e7d58c7b094fa3fb9273de40ef28a7fb1e48950205cca97a77b2f95ec14"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/04.Pigeon/pigeon_fly.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/04.Pigeon/pigeon_fly.png",
+      "kind": "new",
+      "sha256": "dcb48d721cd8be06f6d2a04a514c494bc791c015b42b04c03a63733999ef9cd7"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_jump.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_jump.png",
+      "kind": "new",
+      "sha256": "17c165583898bd1b2420170e54e1fe32c7a822c8014edc9c34535844546d12c8"
+    },
+    {
+      "from": "01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_wonder.png",
+      "path": "01.Characters/02.Outside/05.StreetNPC/05.Crow/crow_wonder.png",
+      "kind": "new",
+      "sha256": "929ac3c5325faa522a549a6c112da563f6eaf139c494e4755b86f59cc2adc275"
+    },
+    {
+      "from": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+      "path": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/body.png",
+      "kind": "new",
+      "sha256": "19177092cae29876f8bd185ee82290c71fb3f431d021084b5afe04f4f57a11c7"
+    },
+    {
+      "from": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+      "path": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyebrow.png",
+      "kind": "new",
+      "sha256": "7d17068ec3ed61d700596c343e1f8d337728e71ece4ec3176c5dc151033809ab"
+    },
+    {
+      "from": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+      "path": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/eyes.png",
+      "kind": "new",
+      "sha256": "fd9a407e93622cdb8c0b92c44258e22264f4e79d9733e9a797c9eed57b746464"
+    },
+    {
+      "from": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+      "path": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_top.png",
+      "kind": "new",
+      "sha256": "2655f1d3bf6241d01721ad3ed5b53a06c7270598f184276c25f91720dd7e575c"
+    },
+    {
+      "from": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+      "path": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/body.png",
+      "kind": "new",
+      "sha256": "68d64f495b0d1f333daf272b4ba29aac4df62911b14b583158a45a9cfadf7401"
+    },
+    {
+      "from": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+      "path": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/eyes.png",
+      "kind": "new",
+      "sha256": "97a0db7163d2efe58e54e6ac9bb5fc2c41caf658e584f978e814a4670854b87c"
+    },
+    {
+      "from": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+      "path": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_bottom_default.png",
+      "kind": "new",
+      "sha256": "dccc146805006d7c6f2a71b7813a94c1eea87ac55ea3fd48ea385a2c198acbf4"
+    },
+    {
+      "from": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+      "path": "01.Characters/01.Bar/08.Shiba/02.Idle/01.Default/face_top.png",
+      "kind": "new",
+      "sha256": "ab93063ace15b79c1294067c1f32b6cce5a672df6ff68ca5dc747d389da8a3d0"
+    },
+    {
+      "from": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+      "path": "01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
+      "kind": "new",
+      "sha256": "2a9388284b563125a69a206f4b96f55a84e84996c5122ef5bb935e547b95afdf"
+    },
+    {
+      "from": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building_door.png",
+      "path": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building_door.png",
+      "kind": "new",
+      "sha256": "11764bb7b23126ce12a4dc053cb6f283ba0f51372c2d40f867b52a03cfc6f8f8"
     }
   ]
 }

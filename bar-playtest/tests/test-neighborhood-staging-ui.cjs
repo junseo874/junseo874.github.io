@@ -18,7 +18,7 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
   }
   ok(N.poses(m).find(p=>p.id==='boss').scale===1,'authored boss proportions without dummy enlargement');
   for(const [kind,sheet]of Object.entries(A.sheets)){
-   const b=A.bounds(A.sprite(kind));ok(b.bottom===114,'supplied sheet foot union: '+kind);
+   const b=A.bounds(A.sprite(kind));ok(b.bottom===(kind==='Homeless'?118:114),'supplied sheet foot union: '+kind);
    const heads=[];for(let i=0;i<sheet.frames;i++)heads.push(A.head(A.sprite(kind,(i+.25)*.75/sheet.frames),0,0).y);
    ok(heads.every(y=>near(y,heads[0])),'stable full-cycle head: '+kind);
   }
