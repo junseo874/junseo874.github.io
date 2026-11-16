@@ -4786,6 +4786,12 @@
       "kind": "existing-bytes"
     },
     {
+      "from": "05.UI/04.Crafting/01.Preparation/Recipes/GRD_outline.png",
+      "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/GRD_outline.png",
+      "sha256": "224ba1f8ed3a5fcaae44774b3c1ff61b6784961eb96f32fbcd5d1171ede525f5",
+      "kind": "existing-bytes"
+    },
+    {
       "from": "05.UI/04.Crafting/01.Preparation/Recipes/IMG_recipe_box.png",
       "path": "05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_recipe_box.png",
       "sha256": "d3bc899a089aa2633a92e1763a1ad76a8de123b24a6df6b586e87f4eb3b474c9",
