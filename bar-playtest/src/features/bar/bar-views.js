@@ -771,7 +771,6 @@ window.LunaBarViews = function ({
     return `<div class="craft-screen mix-screen ${stir ? 'stir-screen' : 'shake-screen'} ${locked ? 'main-story-mix' : ''}">
       ${craftTimer()}
       ${!locked && !stir ? '<div class="shake-sound-picker" role="group" aria-label="' + L('쉐이킹 효과음 선택', 'Shaker sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'shakeSound', 'data-id="' + id + '" aria-pressed="' + (ui.shakeSound === id) + '"', 'shake-sound-option')).join('') + '<small data-shake-audio-status aria-live="polite"></small></div>' : ''}
-      ${!locked && stir ? '<div class="shake-sound-picker stir-sound-picker" role="group" aria-label="' + L('스터 효과음 선택', 'Stir sound selection') + '">' + [1, 2].map(id => button(L('사운드 ' + id, 'Sound ' + id), 'stirSound', 'data-id="' + id + '" aria-pressed="' + (ui.stirSound === id) + '"', 'shake-sound-option')).join('') + '<small data-stir-audio-status aria-live="polite"></small></div>' : ''}
       <div class="mix-workspace"><div class="mix-cinematic"><div class="mix-cinema" style="background-image:url('${a(stir ? 'gimmick_stir' : 'gimmick_shake')}')">${motionHTML(s, stir ? [102, 0, 450, 550] : [350, 0, 650, 600])}</div></div>${stir ? stirBoard(s) : shakeBoard(s)}</div>
       </div>`;
   }

@@ -1,16 +1,18 @@
 (function(){
 'use strict';
 window.LunaStirPolish=function({g,ui}){
- let audio=null,active=null,voice=null,selection=null,lastTime=performance.now();
- const buffers=new Map(),jobs=new Map(),voices=new Set(),states=new WeakMap();
+ let audio=null,active=null,voice=null,buffer=null,decodeJob=null,lastTime=performance.now();
+ const voices=new Set(),states=new WeakMap();
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
- const raw=new Map([1,2].map(id=>[id,fetch(new URL('assets/audio/effects/stir_0'+id+'_loop.wav',document.baseURI)).then(r=>{if(!r.ok)throw Error(r.status);return r.arrayBuffer();}).catch(()=>null)]));
+ const raw=fetch(new URL('assets/audio/effects/stir_02_loop.wav',document.baseURI))
+  .then(r=>r.ok?r.arrayBuffer():null).catch(()=>null);
  function unlockAudio(){
   if(ui.gimmickAudio===false)return;
   try{
    audio??=new(window.AudioContext||window.webkitAudioContext)();
    if(audio.state==='suspended')audio.resume().catch(()=>{});
-   for(const id of [1,2])if(!jobs.has(id))jobs.set(id,raw.get(id).then(b=>{if(!b)throw Error('Missing stir audio');return audio.decodeAudioData(b.slice(0));}).then(b=>buffers.set(id,b)).catch(()=>console.warn('Stir sound '+id+' unavailable')));
+   decodeJob??=raw.then(bytes=>bytes && audio.decodeAudioData(bytes)).then(decoded=>{buffer=decoded;})
+    .catch(()=>console.warn('Stir sound unavailable'));
   }catch{}
  }
  function stop(immediate=false){
@@ -20,11 +22,11 @@ window.LunaStirPolish=function({g,ui}){
   v.gain.gain.cancelScheduledValues(now);v.gain.gain.setValueAtTime(v.gain.gain.value,now);v.gain.gain.linearRampToValueAtTime(0,now+.08);
   v.source.stop(now+.085);
  }
- function start(id){
-  if(voice||!audio||audio.state!=='running'||!buffers.has(id))return;
+ function start(){
+  if(voice||!audio||audio.state!=='running'||!buffer)return;
   const v={source:audio.createBufferSource(),gain:audio.createGain()};
-  v.source.buffer=buffers.get(id);v.source.loop=true;v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
-  v.gain.gain.setValueAtTime(0,audio.currentTime);v.gain.gain.linearRampToValueAtTime(window.LunaSfx.level("stir"+id),audio.currentTime+.015);
+  v.source.buffer=buffer;v.source.loop=true;v.source.connect(v.gain);v.gain.connect(window.LunaSfx.output(audio));
+  v.gain.gain.setValueAtTime(0,audio.currentTime);v.gain.gain.linearRampToValueAtTime(window.LunaSfx.level("stir2"),audio.currentTime+.015);
   v.source.onended=()=>{v.source.disconnect();v.gain.disconnect();voices.delete(v);if(voice===v)voice=null;};
   voice=v;voices.add(v);v.source.start();
  }
@@ -33,8 +35,6 @@ window.LunaStirPolish=function({g,ui}){
   const s=g.gimmick,screen=root.querySelector('.stir-screen');
   if(g.screen!=='gimmick'||s?.type!=='stir'||!screen){stop(true);active=null;return;}
   if(active!==s){stop(true);active=s;}
-  const selected=Number(ui.stirSound)||1;
-  if(selection!==selected){stop(true);selection=selected;}
   let state=states.get(s);
   if(!state){state={target:0,attempts:0,stepAge:1,ringAge:1,ok:true,angle:0};states.set(s,state);}
   const paused=g.isPaused(),fresh=s.spoonTarget>state.target;
@@ -46,13 +46,10 @@ window.LunaStirPolish=function({g,ui}){
   }
   state.target=s.spoonTarget;state.attempts=s.attempts;
   if(paused||ui.gimmickAudio===false)stop(true);
-  else if(s.stirMotionPending>0||state.stepAge<.44){if(fresh)start(selected);}
+  else if(s.stirMotionPending>0||state.stepAge<.44){if(fresh)start();}
   else stop();
-  screen.dataset.stirSound=selected;
-  screen.dataset.stirAudioReady=String(buffers.has(selected));
+  screen.dataset.stirAudioReady=String(!!buffer);
   screen.dataset.stirAudioPlaying=String(!!voice);
-  const status=screen.querySelector('[data-stir-audio-status]');
-  if(status)status.textContent=ui.gimmickAudio===false?(g.lang==='ko'?'음소거':'Muted'):audio&&!buffers.has(selected)?(g.lang==='ko'?'음원 준비 중 / 로드 실패 시 새로고침':'Loading / reload if unavailable'):'';
   const hit=Math.max(0,1-state.stepAge/.22),ring=Math.max(0,1-state.ringAge/.45);
   screen.style.setProperty('--stir-hit',hit.toFixed(3));
   screen.style.setProperty('--stir-round',ring.toFixed(3));

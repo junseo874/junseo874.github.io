@@ -26,7 +26,6 @@
     remixAudio: true,
     gimmickAudio: true,
     shakeSound: 1,
-    stirSound: 1,
     pourPresentation: 'classic',
     day: 0,
     mode: 'full',
@@ -114,9 +113,6 @@
     g,
     ui
   });
-  try {
-    ui.stirSound = localStorage.getItem('luna.stir.sound.v1') === '2' ? 2 : 1;
-  } catch {}
   const money = n => `${fmt(n)} G`;
   const labelType = t => ({
     pour: L('따르기', 'Pour'),
@@ -914,15 +910,6 @@
     openView.unlockAudio();
     shakePolish.unlockAudio();
     stirPolish.unlockAudio();
-    if (name === 'stirSound') {
-      if (window.LunaShakeRhythm.mainStoryLocked(g)) return;
-      ui.stirSound = id === '2' ? 2 : 1;
-      try {
-        localStorage.setItem('luna.stir.sound.v1', String(ui.stirSound));
-      } catch {}
-      render(true);
-      return;
-    }
     if (name === 'shakeMode') {
       if (shakeRhythm.select(id)) {
         ui.shakeMode = id;

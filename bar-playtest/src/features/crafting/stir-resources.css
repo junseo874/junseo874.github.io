@@ -23,8 +23,5 @@
 .stir-screen .stir-resource-gauge i svg{display:block;width:100%;height:100%}
 .stir-screen .stir-resource-gauge i.good{box-shadow:0 0 calc(5px * var(--stir-round,0)) #8effdf70}
 /* Development-only sound controls stay outside the reference's play area. */
-.stir-screen .stir-sound-picker{top:auto;bottom:2px;left:30px;gap:5px;height:20px}
-.stir-screen .stir-sound-picker button{font-size:10px;padding:2px 8px;min-height:20px}
-.stir-screen .stir-sound-picker small{font-size:9px}
 .stir-screen .gimmick-exit{top:2px;right:28px;min-height:20px;padding:2px 8px!important;font-size:10px!important}
 @media(prefers-reduced-motion:reduce){.stir-screen .mix-direction{transition:none}}
