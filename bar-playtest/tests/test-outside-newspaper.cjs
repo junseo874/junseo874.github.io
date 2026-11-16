@@ -1,6 +1,6 @@
 const fs=require('node:fs'),vm=require('node:vm'),path=require('node:path'),assert=require('node:assert/strict');
 const W={};W.window=W;const root=path.resolve(__dirname,'..');
-for(const file of ['data/runtime/game-data.js','src/features/outside/events/newspaper-progress.js','src/features/outside/events/newspaper-dialogue.js','src/features/outside/events/outside-newspaper.js','src/shared/dialogue/dialogue-rhythm.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
+for(const file of ['data/runtime/game-data.js','src/features/outside/npc-placement.js','src/features/outside/events/newspaper-progress.js','src/features/outside/events/newspaper-dialogue.js','src/features/outside/events/outside-newspaper.js','src/shared/dialogue/dialogue-rhythm.js','src/features/outside/events/outside-story.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 const N=W.LunaOutsideNewspaper;
 function setup(day=1,flow='in'){
  W.barGame={progress:{money:700,flags:{},inventory:{}},changed(){},log(){}};
@@ -22,6 +22,21 @@ for(const flow of ['in','out'])for(const answer of ['wrong','right']){
 }
 const cancelled=setup();talk(cancelled);drain(cancelled);cancelled.story.cancel();assert(!W.barGame.progress.flags.newspaper_conversation_done);cancelled.config.flow='out';assert(talk(cancelled));drain(cancelled);cancelled.story.choose('newspaper-right');drain(cancelled,true);assert.equal(W.barGame.progress.inventory.gear_part,1);assert(!W.barGame.progress.flags.newspaper_conversation_done);cancelled.story.cancel();assert(talk(cancelled));assert.equal(cancelled.story.speech.line.text,'감사해요.');drain(cancelled);assert.equal(W.barGame.progress.inventory.gear_part,1);assert(W.barGame.progress.flags.newspaper_conversation_done);
 const owned=setup();W.barGame.progress.inventory.gear_part=2;W.barGame.progress.flags.elevator_repaired=true;talk(owned);drain(owned);owned.story.choose('newspaper-wrong');drain(owned);assert.equal(W.barGame.progress.inventory.gear_part,3);assert.equal(owned.notices.length,1);
+// Approach from either side and check the actual draw call during each gesture.
+W.LunaOutsideAmbient={sprite(kind){return {asset:kind};}};
+const data={scenes:{street:{nodes:[]}}};
+N.apply(data);
+const seated=data.scenes.street.nodes[0];
+for(const dx of [-.3,.3]){
+ const m=setup();m.x=seated.x+dx;m.time=0;
+ function frame(expected){
+  let rendered;
+  N.drawNode(m,seated,(sp,x,y,sx,sy,flip)=>{rendered={kind:sp.asset,x,y,flip};});
+  assert.deepEqual(rendered,{kind:expected,x:-7.18,y:-.9,flip:false});
+ }
+ frame('Newspaper');assert(talk(m));frame('NewspaperDown');
+ m.story.cancel();frame('NewspaperUp');m.time+=1;frame('Newspaper');
+}
 // Pin the observable timing, not just the final inventory count.
 for(const answer of ['wrong','right']){
  const m=setup();talk(m);drain(m);m.story.choose('newspaper-'+answer);

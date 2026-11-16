@@ -20,9 +20,9 @@ function install({model:m,flow:f,site,rows,r,decoded,kind,idx,mode,node,label,de
   prop('화자','<select data-field="actor" '+(m.canEdit(r,'actor',f)?'':'disabled')+'>'+actors.map(a=>option(a,label(a),r.actor)).join('')+'</select>')+
   write('한국어 대사','text.ko')+(choice&&!decode(r['text.ko'])?note('이 줄이 비어 있으면 직전 말풍선과 함께 선택지를 표시합니다.'):''));
  if(event)content+=block('cue','text','사건 · 연출 신호','<div class="dp-static"><span>실행 동작</span><strong>'+esc(eventCue)+'</strong></div>'+note('본편 사건에 연결된 동작입니다. 대본에서 줄 순서를 바꿔 실행 시점을 조정할 수 있습니다.'));
- const posId=site.pins.includes(f.id)?f.id:site.pins[0],spec=W.LunaNpcPlacement.specs[posId],cp=spec&&W.LunaNpcPlacement.position(m.placement,posId);
+ const posId=site.pins.includes(f.id)?f.id:site.pins[0],spec=W.LunaNpcPlacement.specs[posId],cp=spec&&W.LunaNpcPlacement.editPoint(m.placement,posId);
  const place=spec?block('position','place','NPC 배치',
- '<div class="dp-static"><span>장소</span><strong>'+esc(W.LunaNpcPlacement.floorNames[spec.floor])+'</strong></div><div class="dp-static"><span>발 위치</span><strong>X '+cp.toFixed(2)+'　Y '+spec.y.toFixed(3)+'</strong></div><button class="detail-open" data-detail-action="place">⌖　씬에서 위치 지정</button>'):'';
+ '<div class="dp-static"><span>장소</span><strong>'+esc(W.LunaNpcPlacement.floorNames[spec.floor])+'</strong></div><div class="dp-static"><span>'+ (posId==='newspaper'?'앉은 위치':'발 위치') +'</span><strong>X '+cp.x.toFixed(2)+'　Y '+cp.y.toFixed(3)+'</strong></div><button class="detail-open" data-detail-action="place">⌖　씬에서 위치 지정</button>'):'';
  const choiceBody=menu?block('options','choice','선택지 · '+m.menu(r).length+'개',menu):'';
  const cast=block('cast','setup','캐릭터 이미지 / 행동',prop('미리보기 대상','<select id="preview-actor">'+(onStage.length?onStage:[actor]).map(a=>option(a,label(a),actor)).join('')+'</select>')+'<div id="actor-controls"></div>'+note('현재 줄의 미리보기 전용입니다. 본편 NPC의 시트는 바뀌지 않습니다.'));
  const preset=site.id==='repair'?prop('수리 상황','<select id="repair-preset"><option value="">직접 설정</option><option value="none">부품 없음 · 399원</option><option value="gear">부품 있음 · 0원</option><option value="pay">부품 없음 · 400원</option><option value="done">이미 수리함</option></select>'):'';

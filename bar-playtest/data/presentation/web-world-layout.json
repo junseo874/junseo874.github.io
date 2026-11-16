@@ -2378,16 +2378,17 @@
         {
           "id": "street-newspaper",
           "name": "street-newspaper",
-          "x": -7.23,
-          "y": -0.974,
+          "x": -7.18,
+          "y": -0.9,
           "z": 0,
           "sx": 1,
           "sy": 1,
           "rotation": 0,
           "layer": 9,
           "order": 1,
+          "flip": false,
           "sprite": {
-            "asset": "ambient-M2",
+            "asset": "ambient-Newspaper",
             "x": 0,
             "y": 0,
             "w": 129,
@@ -2398,7 +2399,7 @@
             },
             "ppu": 100
           },
-          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/01.Idle/npc_m2_idle.png",
+          "src": "assets/01.ArtResources/01.Characters/02.Outside/05.StreetNPC/02.Newspaper_man/newspaper_idle.png",
           "engineNode": null,
           "placementSource": "web-only"
         },

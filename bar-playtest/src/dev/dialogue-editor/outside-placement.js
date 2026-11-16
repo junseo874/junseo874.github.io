@@ -10,7 +10,7 @@ function create(api){
  function art(src){if(!src)return null;let im=images.get(src);if(!im){im=new Image();images.set(src,im);im.onload=invalidate;im.src=src;}return im.complete&&im.naturalWidth?im:null;}
  const value=id=>P.position(draft,id);
  function setX(x){if(!Number.isFinite(x))return;P.write(draft,active,x);$('place-x').value=value(active);invalidate();}
- function refresh(){const s=P.specs[active];center=value(active);const limits=P.range(draft,active);$('place-x').min=limits[0];$('place-x').max=limits[1];$('place-x').value=center;$('place-y').textContent='Y '+s.y.toFixed(3);$('floor-name').textContent=P.floorNames[s.floor];$('placement-title').textContent=s.label+' · 위치 지정';invalidate();}
+ function refresh(){const s=P.specs[active];center=value(active);const limits=P.range(draft,active);$('place-x').min=limits[0];$('place-x').max=limits[1];$('place-x').value=center;$('place-y').textContent='Y '+P.editPoint(draft,active).y.toFixed(3);$('place-plane-label').textContent=active==='newspaper'?'좌판에 자동 정렬':'바닥에 자동 정렬';$('floor-name').textContent=P.floorNames[s.floor];$('placement-title').textContent=s.label+' · 위치 지정';invalidate();}
  function open(site,flow){if(!site.pins.length)return;draft=structuredClone(api.model().placement);const ids=site.pins.flatMap(id=>P.specs[id].partner?[id,P.specs[id].partner]:[id]);$('place-actor').replaceChildren(...ids.map(id=>new Option(P.specs[id].label+(P.specs[id].partner?' · 함께 이동':''),id)));active=site.pins.includes(flow)?flow:site.pins[0];$('place-actor').value=active;span=8;dialog.showModal();refresh();load();canvas.focus();}
  function dims(){const r=canvas.getBoundingClientRect(),w=r.width,h=r.height;return{r,w,h,k:w/span,fy:h*.77};}
  function sprite(kind){
@@ -30,7 +30,7 @@ function create(api){
    if(im){ctx.save();ctx.shadowColor='#88f3dc';ctx.shadowBlur=4;const anchor=kind==='shiba'?.5:f.pivot?.x??.5;ctx.drawImage(im,f.x,f.y,f.w,f.h,px-f.w*anchor*a,py-f.h*(1-f.pivot.y)*a,f.w*a,f.h*a);ctx.restore();}
    ctx.strokeStyle='#abffef';ctx.beginPath();ctx.ellipse(px,py,Math.max(7,k*.2),3,0,0,2*Math.PI);ctx.stroke();}
   const mx=x(value(active));ctx.fillStyle='#cdfff2';ctx.beginPath();ctx.moveTo(mx,fy+1);ctx.lineTo(mx-5,fy+9);ctx.lineTo(mx+5,fy+9);ctx.fill();
-  $('map-status').textContent=loadError?'배경을 읽지 못했습니다 · 좌표 눈금만 표시':!report?'씬 배경 불러오는 중…':P.floorNames[s.floor]+'  /  '+(s.cast.length>1?'동행 인물 간격 유지':'발 위치 보정');
+  $('map-status').textContent=loadError?'배경을 읽지 못했습니다 · 좌표 눈금만 표시':!report?'씬 배경 불러오는 중…':P.floorNames[s.floor]+'  /  '+(active==='newspaper'?'좌판 높이 · 오른쪽 고정':s.cast.length>1?'동행 인물 간격 유지':'발 위치 보정');
  }
  canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;const {r}=dims();drag={at:e.clientX,base:center,local:e.clientX-r.left,moved:false};canvas.setPointerCapture(e.pointerId);canvas.focus();});
  canvas.addEventListener('pointermove',e=>{if(!drag)return;const d=e.clientX-drag.at;if(Math.abs(d)>4)drag.moved=true;if(drag.moved){center=Math.max(P.specs[active].min-span*.3,Math.min(P.specs[active].max+span*.3,drag.base-d/dims().k));invalidate();}});
