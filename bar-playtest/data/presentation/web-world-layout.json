@@ -3391,18 +3391,13 @@
             "d": 2.3913043
           },
           "visual": {
-            "x": -15.34,
-            "y": 9.82,
-            "z": 0,
-            "a": 2.3913043,
-            "b": 0,
-            "c": 0,
-            "d": 2.3913043
+            "x": -15.405000000000001,
+            "y": 9.86
           },
           "layer": 12,
           "order": 4,
-          "art": "web-procedural-cat",
-          "height": 0.247
+          "art": "native-bubi-sheet",
+          "height": 0.24
         },
         "neighbor": {
           "sp": {

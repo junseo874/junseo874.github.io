@@ -223,7 +223,7 @@ function applyStreet(data){
 function exportLayout(data){
  const kinds={neighbor:'Neighbor',repair:'Repairman',guard:'Gang1',boss:'Gang5',gangmate:'Gang3',chris:'Chris',thug:'Neighbor',dealer:'M1'};
  const actors=Object.fromEntries(Object.entries(source.scenes).map(([name,s])=>[name,Object.fromEntries(Object.entries(s.actors).map(([event,group])=>[event,Object.fromEntries(Object.entries(group).map(([role,a])=>{
-  if(role==='boobi'){const b=W.LunaBubiArt?.box(),visual=name==='home'?W.LunaBubiArt?.sofa():b&&{x:b.x+.25,y:b.y};return[role,{root:a.root,visual:visual||a.root,...(name==='home'?{layer:1,order:2}:actorSorting(name,role,a.layer,a.order)),art:'native-bubi-sheet',height:.24}];}
+  if(role==='boobi'){const visual=name==='home'?W.LunaBubiArt?.sofa():W.LunaBubiArt?.landing();return[role,{root:a.root,visual:visual||a.root,...(name==='home'?{layer:1,order:2}:actorSorting(name,role,a.layer,a.order)),art:'native-bubi-sheet',height:.24}];}
   const sp=role==='samho'?W.LunaSamhoAnimation.frame(0):role==='shiba'?data.animations.shiba.frames[0]:W.LunaOutsideAmbient.sprite(kinds[role],0);
   const root=actorPoint(name,event,role),p=actorPose(name,event,role,sp,root.x,root.y,a.flip);
   return[role,{...p,src:data.assets[sp.asset].src}];

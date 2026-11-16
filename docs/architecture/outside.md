@@ -24,7 +24,7 @@
 등장 조건·대화·보상·완료 시점은 [사건별 흐름](../gameplay/events.md)에 통합했습니다. 아래는 화면 구현에 필요한 좌표·리소스 정보입니다.
 
 - 집의 책·침대·옷장은 `home-art.js`의 `bookTarget()`, `bedTarget()`, `wardrobeTarget()`과 원본 배경 마스크를 사용합니다. 침대와 소파의 별도 침구 이미지를 혼동하지 않습니다. 책 표지는 `assets/outside/chris-home/nietzsche-the-gay-science.png`에 원본 그대로 보존하고 `outside-inspection.js`의 조사 UI로 표시합니다.
-- `outside-neighborhood.js`의 `places`가 박스·착지점·소파·NPC 좌표를 소유합니다. `poses()`가 발·방향·크기·프레임·말풍선 기준을 소유합니다. 사람 시트는 `outside-ambient.js`의 `sheets/roleKinds/sprite()`가 본편·컷씬·리소스 확인에 공통 공급합니다. 2026-10-31 제공 원본은 `assets/outside/characters/`에 있으며, 이웃(1·2일차 복도/부비 이벤트)은 Neighbor, 수리공은 Repairman, 집 크리스는 Chris, 갱단 보스는 Gang5, 입구 경비는 Gang1, 나머지 세 명은 Gang2/3/4입니다. 부비는 교체 가능한 Canvas 더미를 사용합니다.
+- `outside-neighborhood.js`의 `places`가 박스·착지점·소파·NPC 좌표를 소유합니다. `poses()`가 발·방향·크기·프레임·말풍선 기준을 소유합니다. 사람 시트는 `outside-ambient.js`의 `sheets/roleKinds/sprite()`가 본편·컷씬·리소스 확인에 공통 공급합니다. 2026-10-31 제공 원본은 `assets/outside/characters/`에 있으며, 이웃(1·2일차 복도/부비 이벤트)은 Neighbor, 수리공은 Repairman, 집 크리스는 Chris, 갱단 보스는 Gang5, 입구 경비는 Gang1, 나머지 세 명은 Gang2/3/4입니다. 복도 부비의 점프·대기·울음은 상자 그림의 원점을 공유합니다. 대기·울음 시트를 점프 시트보다 24px 오른쪽에 맞추고, 발 기준 행을 113에서 114로 통일해 착지 프레임과 연결합니다. 대기 애니메이션은 착지한 시점부터 재생합니다.
 - 새 사람 시트는 모두 129×138 셀, 발끝 행 114, 100 PPU입니다. 원본 크기 그대로 사용하며 Gang5는 이미 큰 체형이므로 추가 확대하지 않습니다. 6/8/9프레임은 루나의 9프레임·12FPS 대기와 같은 0.75초 주기로 재생합니다(각 8/10.667/12FPS). 프레임 전체의 알파 합집합으로 말풍선 기준을 고정합니다. 제공 파일은 Idle뿐이므로 이동 중에는 기존 이동 경로·방향·속도와 해당 Idle을 사용하며, 별도 걷기 애니메이션이 등록된 것으로 취급하지 않습니다.
 - 사람 셀 129×138의 실제 발끝 114px을 원점으로 둡니다. 도로는 -0.974, 복도는 `upperY - 0.274`로 루나와 맞춥니다. 갱단 대화 중에도 폐품 더미의 불투명한 부분이 인물을 가립니다.
 - `outside-ambient.js`의 `head/bounds`는 프레임별 투명 여백 대신 알파 합집합으로 머리를 측정합니다. 옆집 주민 이동은 초당 0.24 월드 단위, 고양이와 정지 간격은 0.60입니다. 수리공 퇴장 방향은 루나 반대쪽이며 1.6초에 종료합니다.

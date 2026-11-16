@@ -36,12 +36,34 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
   await p.keyboard.press('KeyE');
   assert.deepEqual(await pose(),{id:'eyes',index:0,once:true},'E starts eyes, not jump');
   await p.keyboard.press('KeyE');assert.deepEqual(await pose(),{id:'eyes',index:0,once:true},'E cannot skip or duplicate the reveal');
-  const phases=await p.evaluate(()=>{
+  const phases=await p.evaluate(async()=>{
+   const art=LunaBubiArt,N=LunaOutsideNeighborhood,images=new Map();
+   await Promise.all(['jump','idle','meow'].map(async id=>{
+    const im=new Image();im.src=art.clips[id].src;await im.decode();images.set(art.clips[id].asset,im);
+   }));
+   // Capture the paw silhouette through the renderer at two zooms, with a fractional camera origin.
+   function paws(model){
+    return [1,2.73].map(zoom=>{
+     const canvas=document.createElement('canvas');canvas.width=210;canvas.height=120;
+     const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+     const box=art.box(),position=(x,y)=>({x:64.4+(x-box.x)*100*zoom,y:100.2-(y-box.y)*100*zoom});
+     N.draw(model,()=>{},ctx,position,images,null,true);
+     const pixels=ctx.getImageData(64+Math.ceil(19*zoom),100-Math.ceil(7*zoom),Math.ceil(17*zoom),Math.ceil(9*zoom)).data;
+     return Array.from(pixels).filter((_,i)=>i%4===3).map(v=>v?'1':'0').join('');
+    });
+   }
+   let lastJump,firstIdle,firstIdleIndex;
    const m=outsidePlaytest.model,eyes=[],jump=[];
-   for(let i=0;i<370;i++){const f=bubiClock.pose();if(f.id==='eyes')eyes.push(f.index);if(f.id==='jump')jump.push(f.index);bubiClock.advance(.01);}
-   return{eyes:[...new Set(eyes)],jump:[...new Set(jump)],revealed:barGame.progress.flags.boobi_revealed,locked:m.story.blocking,speech:!!m.story.speech,action:m.neighborhood.action};
+   for(let i=0;i<370;i++){const f=bubiClock.pose();if(f.id==='eyes')eyes.push(f.index);if(f.id==='jump')jump.push(f.index);
+    if(f.id==='jump'&&f.index===14&&!lastJump)lastJump=paws(m);
+    if(f.id==='idle'&&!firstIdle){firstIdle=paws(m);firstIdleIndex=f.index;}
+    bubiClock.advance(.01);}
+   return{lastJump,firstIdle,firstIdleIndex,eyes:[...new Set(eyes)],jump:[...new Set(jump)],revealed:barGame.progress.flags.boobi_revealed,locked:m.story.blocking,speech:!!m.story.speech,action:m.neighborhood.action};
   });
   assert.deepEqual(phases.eyes,Array.from({length:22},(_,i)=>i));assert.deepEqual(phases.jump,Array.from({length:15},(_,i)=>i));
+  assert(phases.lastJump.every(mask=>mask.includes('1')&&mask.includes('0')),'captured visible paws');
+  assert.deepEqual(phases.firstIdle,phases.lastJump,'paws stay planted on the transition at both zooms');
+  assert.equal(phases.firstIdleIndex,0,'idle starts at landing, independent of the scene clock');
   assert(phases.revealed&&!phases.locked&&!phases.speech&&!phases.action,'complete reveal before restoring control');assert.equal((await pose()).id,'idle');
   await p.screenshot({path:path.join(out,'bubi-box-revealed.png')});
   // Saved approach flag prevents shaking again when the corridor model restarts.

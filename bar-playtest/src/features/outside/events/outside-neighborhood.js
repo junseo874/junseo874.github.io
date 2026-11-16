@@ -27,7 +27,7 @@ const wildDogDone=()=>!!(flags().gang_wild_dog_received||flags().shiba_bought_wi
 const bossPending=()=>!!(flags().gang_wild_dog_paid||flags().gang_wild_dog_repair_promised);
 const bossDealKey=()=> (flags().gang_wild_dog_paid?'bossPay':'bossRepair')+(flags().gang_wild_dog_repeat_deal?'Repeat':'First');
 function target(id,p,label,actor){return{id:'neighborhood-'+id,...p,label,actor};}
-function targets(m){if(m.qa)return [];if(m.scene==='home')return flags().boobi_adopted?[target('home-cat',places.sofa,'부비')]:[];if(m.level)return catAvailable(m)?[target(flags().boobi_revealed?'cat':'box',flags().boobi_revealed?places.cat:places.box,flags().boobi_revealed?'부비':'흔들리는 박스')]:[];
+function targets(m){if(m.qa)return [];if(m.scene==='home')return flags().boobi_adopted?[target('home-cat',places.sofa,'부비')]:[];if(m.level)return catAvailable(m)?[target(flags().boobi_revealed?'cat':'box',flags().boobi_revealed?W.LunaBubiArt.landing():places.box,flags().boobi_revealed?'부비':'흔들리는 박스')]:[];
  const list=[];if(after(m,1)&&!repaired())list.push(target('repair',places.repair,'수리공','repair'));if(after(m,0,'out')&&!flags().gang_pass_granted)list.push(target('guard',places.guard,'갱단원','guard'));if(after(m,2)&&flags().gang_pass_granted)list.push(target('boss',places.boss,names.boss,'boss'));return list;
 }
 function begin(m,key,t,done){m.anim='idle';if(Math.abs(t.x-m.x)>.02)m.facing=t.x>m.x?1:-1;W.outsidePlaytest?.clearInput();return m.story.beginRows('neighborhood/'+key,t,scripts[key],false,done);}
@@ -141,7 +141,7 @@ function tick(m,dt){if(m.qa)return false;const n=state(m),a=n.action;
  if(n.repairDeparture)n.repairDeparture.time=Math.min(motion.departureDuration,n.repairDeparture.time+dt);
  if(n.restCamera)n.restCamera.time+=dt;
  if(a){a.time+=dt;const t=a.time;let duration=1;
-  if(a.name==='reveal'){duration=W.LunaBubiArt.duration('eyes')+W.LunaBubiArt.duration('jump');if(t>=duration)flag('boobi_revealed');}
+  if(a.name==='reveal'){duration=W.LunaBubiArt.duration('eyes')+W.LunaBubiArt.duration('jump');if(t>=duration){n.landedAt=m.time-(t-duration);flag('boobi_revealed');}}
   if(a.name==='feed')duration=1.5;
   if(a.name==='pet')duration=1.6;
   if(a.name==='neighbor-in'){duration=(places.neighbor.x-motion.neighborStop)/motion.neighborSpeed;n.neighbor.x=Math.max(motion.neighborStop,places.neighbor.x-t*motion.neighborSpeed);}
@@ -202,7 +202,7 @@ function poses(m){
  return list;
 }
 function anchor(m,actor,stable=false){
- if(actor==='boobi'){const p=m.scene==='home'?W.LunaBubiArt.sofa():{...W.LunaBubiArt.box(),x:W.LunaBubiArt.box().x+.25};return{x:p.x,y:p.y+.2275};}
+ if(actor==='boobi'){const p=m.scene==='home'?W.LunaBubiArt.sofa():W.LunaBubiArt.landing();return{x:p.x,y:p.y+.2275};}
  const p=poses(m).find(p=>p.id===actor);if(!p)return null;
  const head=W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.scale,p.scale,p.flip)||{x:p.x,y:p.y+(p.kind==='M2'?.61:.56)*p.scale};
  // Badges belong to the actor's fixed origin, not its mirrored head offset.
@@ -229,7 +229,10 @@ function draw(m,sprite,ctx,position,images,glow,onlyCats=false){if(m.qa)return;c
     const eyeDuration=art.duration('eyes'),eyes=a.time<eyeDuration;
     art.draw(ctx,position,images,m,eyes?'eyes':'jump',b.x,b.y,eyes?a.time:a.time-eyeDuration,glow,true);
    }
-   else if(flags().boobi_revealed)art.draw(ctx,position,images,m,['pet','feed','meow'].includes(a?.name)?'meow':'idle',b.x+.25,b.y,a?.time??m.time,glow);
+   else if(flags().boobi_revealed){
+    const reacting=['pet','feed','meow'].includes(a?.name);
+    art.draw(ctx,position,images,m,reacting?'meow':'idle',b.x,b.y,reacting?a.time:m.time-(n.landedAt??0),glow);
+   }
    // Before E, keep the empty carton still after the one-shot proximity shake.
    // The jump sheet's first cell is the authored closed/empty box, without eyes.
    else art.draw(ctx,position,images,m,n.shake>0?'shaking':'jump',b.x,b.y,n.shake>0?art.duration('shaking')-n.shake:0,glow,true);
