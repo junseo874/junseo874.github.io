@@ -10,7 +10,9 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert.equal(await page.locator('#nav [aria-current=true]').getAttribute('data-group'),'common-sounds');
   const rows=await page.evaluate(()=>resourceReview.rows.filter(r=>r.audio));
   assert.equal(rows.length,38);assert.equal(new Set(rows.map(r=>r.audio.src)).size,rows.length);
-  assert.equal(rows.filter(r=>r.audio.state==='archive').length,3);
+  assert.equal(rows.filter(r=>r.audio.state==='archive').length,4);
+  for(const [file,state] of [['stir_01_loop.wav','archive'],['stir_02_loop.wav','active']])
+   assert.equal(rows.find(r=>r.audio.src.endsWith('/'+file))?.audio.state,state);
   for(const r of rows)assert(r.audio.src.endsWith(r.audio.kind==='music'?'.mp3':'.wav'),'Format policy: '+r.audio.src);
   for(const r of rows)assert(fs.statSync(path.resolve(__dirname,'..',r.audio.src)).size>0,r.audio.src);
   const audioSettings=()=>page.evaluate(()=>Object.fromEntries(Object.entries(localStorage).filter(([key])=>/bgm|sfx|dialogue.sound|street.*volume/.test(key))));
