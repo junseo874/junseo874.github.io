@@ -9,6 +9,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   const open=async()=>{await p.locator('[data-act="miniStart"][data-id="shake"]').click();await p.locator('[data-act="miniShakePlay"][data-id="2"]').click();await p.frameLocator('iframe').locator('#tutNext').waitFor();const f=p.frames().find(f=>f.url().includes('/shaking/'));return f;};
   const snapshot=()=>p.evaluate(()=>JSON.stringify({progress:barGame.progress,craft:barGame.craft,phase:barGame.phase,screen:barGame.screen}));
   const before=await snapshot(),f=await open();
+  await f.waitForFunction(()=>typeof S !== 'undefined' && S?.phase==='tut');
   assert.equal(await f.evaluate(()=>S.phase),'tut');
   assert.equal(await f.locator('#inset,.lab-nav').count(),0);
   assert.equal(await f.locator('#openSet').isVisible(),false);

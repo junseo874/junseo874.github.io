@@ -23,9 +23,10 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
         g.craft.results = g.craft.queue.slice(0, shake).map(s => ({ ...s, value: s.target, completion: 1, completed: true, failures: 0 }));
         g.craft.index = shake; g.craft.elapsed = 62.4; g.nextGimmick(); g.changed();
       }, { id, taught });
-      await page.locator('.shake-craft-dialog iframe').waitFor();
-      const f = page.frames().find(f => f.url().includes('/shaking/'));
-      await f.waitForFunction(() => R.id === 'craft'); return f;
+      const host = page.locator('.shake-craft-dialog iframe');
+      await host.contentFrame().locator('body .app').waitFor();
+      const f = await (await host.elementHandle()).contentFrame();
+      await f.waitForFunction(() => typeof R !== 'undefined' && R?.id === 'craft'); return f;
     }
     const f = await craft('gin_fizz');
     assert.equal(await page.evaluate(() => lunaCampaign.view), 'game', 'Iframe focus must not open campaign options');
