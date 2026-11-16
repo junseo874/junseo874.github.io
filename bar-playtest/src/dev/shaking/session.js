@@ -11,10 +11,9 @@ new ResizeObserver(fitLab).observe(document.documentElement);
 $('other').onclick=()=>labLeave('versions');$('other').textContent='버전 선택';
 $('home').onclick=()=>labLeave('exit');$('home').textContent='기믹 목록';
 $('sMenu').onclick=()=>labLeave('exit');
-$('oSnd').options[0].textContent='기존 쉐이킹 사운드 1';$('oSnd').options[1].textContent='기존 쉐이킹 사운드 2';
 document.querySelector('.row:has(#oDiff) .d').textContent='회차별 입력 제한 시간';
 const query=new URLSearchParams(location.search);
-OPT.snd=2;OPT.sfxOn=query.get('sound')!=='0';syncOpt();
+OPT.sfxOn=query.get('sound')!=='0';syncOpt();
 function freeze(){if(S.phase!=='tut'&&!S.done)toggleSettings(true);ShakeLabAudio.stop();}
 addEventListener('blur',freeze);document.addEventListener('visibilitychange',()=>{if(document.hidden)freeze();});
 document.addEventListener('input',()=>{if(!OPT.sfxOn||!OPT.sfx)ShakeLabAudio.stop();});

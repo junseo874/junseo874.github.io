@@ -7,7 +7,7 @@ let GT=0,lastReal=0;
 // 키박스(A·D) · 강조된 다음 키 · 도구를 감싼 시간 게이지 · 분할 진행 바 · TUTORIAL 모달
 // STEP 1 틴 닫기: 작은 틴 기울기가 금색 구간일 때 Space로 결합 (닫기 품질 = 버틸 수 있는 MISS 수)
 // STEP 2 쉐이크: 강조된 키를 순서대로(A→D) 시간 안에 눌러 1회. 10회 = 완성. 쉐이커 안엔 도트 액체 + 얼음
-const OPT={music:0,sfx:70,street:50,voice:'low',bgm:true,sfxOn:true,ring:true,shake:true,diff:'normal',snd:1};
+const OPT={music:0,sfx:70,street:50,voice:'low',bgm:true,sfxOn:true,ring:true,shake:true,diff:'normal'};
 const DIFF={easy:1.25,normal:1,hard:.8};   // 한 회 제한 시간 배율
 const RECIPES=[
   {id:'daiquiri',name:'다이키리',lv:'EASY',spec:'화이트 럼 45 · 라임 20 · 시럽 15',
@@ -226,7 +226,6 @@ function rattle(){}
 function iceClack(){}
 function note(){ShakeLabAudio.hit()}
 function buzz(){}
-function clink(){ShakeLabAudio.hit()}
 function $(id){return document.getElementById(id)}
 
 // ───────── 캔버스 / 좌표

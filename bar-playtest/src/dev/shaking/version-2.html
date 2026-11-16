@@ -3,16 +3,15 @@
 <title>LAST CALL 쉐이크</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="../../shared/ui/typography.css">
-<link rel="stylesheet" href="prototype.css">
+<link rel="stylesheet" href="prototype.css?v=fixed-shake-sound-2">
 <link rel="stylesheet" href="../../features/tutorials/mix-tutorial.css">
 <link rel="stylesheet" href="../../shared/ui/generated-art.css">
-<link rel="stylesheet" href="session.css?v=vector-guide">
+<link rel="stylesheet" href="session.css?v=fixed-shake-sound-2">
 
 </head><body>
 <div class="app">
   <div class="top">
     <div class="left">
-      <div class="sndtabs" id="sndtabs"><button type="button" data-s="1" aria-pressed="true">사운드 1</button><button type="button" data-s="2" aria-pressed="false">사운드 2</button></div>
       <div class="tabs" id="tabs"></div>
     </div>
     <button class="menuBtn" id="openSet" type="button">☰ 설정 <kbd>ESC</kbd></button>
@@ -188,7 +187,6 @@
           <div class="row"><div><div class="t">판정 난이도</div><div class="d">재료 방울 크기</div></div><div class="ctl"><select class="sel" id="oDiff"><option value="easy">쉬움 · 제한 시간 +25%</option><option value="normal">보통</option><option value="hard">어려움 · 제한 시간 −20%</option></select></div></div>
           <div class="row"><div><div class="t">타이밍 가이드</div><div class="d">쉐이커 속 얼음 위치 표시</div></div><button type="button" class="tg" id="oRing">켜짐</button></div>
           <div class="row"><div><div class="t">화면 흔들림</div><div class="d">크랙 · 틴 빠짐 반동 연출</div></div><button type="button" class="tg" id="oShake">켜짐</button></div>
-          <div class="row"><div><div class="t">크랙 효과음</div><div class="d">상단 사운드 1 / 2 탭과 같음</div></div><div class="ctl"><select class="sel" id="oSnd"><option value="1">사운드 1 · 두꺼운 틴</option><option value="2">사운드 2 · 얇은 틴 (울림 김)</option></select></div></div>
         </div>
         <div class="spane" data-pane="help" hidden>
           <div class="help">
@@ -210,12 +208,12 @@
   </div>
 
 </div>
-<script src="session-audio.js"></script>
+<script src="session-audio.js?v=fixed-shake-sound-2"></script>
 <script src="session-clock.js"></script>
-<script src="game.js?v=floating-shake"></script>
+<script src="game.js?v=fixed-shake-sound-2"></script>
 <script src="luna.js"></script>
-<script src="settings.js"></script>
-<script src="session.js?v=main-shake-v2"></script>
+<script src="settings.js?v=fixed-shake-sound-2"></script>
+<script src="session.js?v=fixed-shake-sound-2"></script>
 <script src="session-craft.js"></script>
 
 </body></html>

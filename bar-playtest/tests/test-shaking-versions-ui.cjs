@@ -4,7 +4,8 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[],missing=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400&&r.url().includes('/shaking/'))missing.push(r.url());});
-  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');await p.locator('.updates-confirm').click();
+  await p.addInitScript(()=>localStorage.setItem('luna.shake.sound.v2','1'));
+  await p.goto((process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/')+'?dev=1&mode=minigames');await p.locator('.updates-confirm').click();
   const open=async()=>{await p.locator('[data-act="miniStart"][data-id="shake"]').click();await p.locator('[data-act="miniShakePlay"][data-id="2"]').click();await p.frameLocator('iframe').locator('#tutNext').waitFor();const f=p.frames().find(f=>f.url().includes('/shaking/'));return f;};
   const snapshot=()=>p.evaluate(()=>JSON.stringify({progress:barGame.progress,craft:barGame.craft,phase:barGame.phase,screen:barGame.screen}));
   const before=await snapshot(),f=await open();
@@ -12,7 +13,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   assert.equal(await f.locator('#inset,.lab-nav').count(),0);
   assert.equal(await f.locator('#openSet').isVisible(),false);
   assert.equal(await f.locator('.top').isVisible(),false);
-  assert.equal(await f.locator('#oSnd').isVisible(),false);
+  assert.equal(await f.locator('#sndtabs,#oSnd,[data-s]').count(),0);
   for(const [width,height]of [[3840,2160],[1920,1080],[820,650],[390,844],[1280,720]]){
    await p.setViewportSize({width,height});await p.waitForTimeout(100);
    const fit=await f.evaluate(()=>{const r=document.querySelector('.app').getBoundingClientRect();return Math.abs(r.width/r.height-16/9)<.001&&r.left>=-.1&&r.top>=-.1&&r.right<=innerWidth+.1&&r.bottom<=innerHeight+.1});assert.ok(fit);
@@ -70,10 +71,10 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   }
   await f.evaluate(()=>{audio();});await p.waitForTimeout(200);
   // Version 2 always uses recording 2, regardless of legacy preferences.
-  for(const voice of [1,2]){
-   await f.evaluate(id=>{OPT.snd=id;ShakeLabAudio.hit();},voice);
-   assert.equal(await f.evaluate(()=>document.body.dataset.lastSound),'shaker_02_hit.wav');
-  }
+  await f.waitForFunction(()=>performance.getEntriesByType('resource').some(r=>r.name.endsWith('/shaker_02_hit.wav')));
+  await f.evaluate(()=>ShakeLabAudio.hit());
+  assert.equal(await f.evaluate(()=>document.body.dataset.lastSound),'shaker_02_hit.wav');
+  assert(!await f.evaluate(()=>performance.getEntriesByType('resource').some(r=>r.name.endsWith('/shaker_01_hit.wav'))));
   await f.evaluate(()=>{toggleSettings(true);});
   const paused=await f.evaluate(()=>({time:GT,round:S.round}));await p.waitForTimeout(200);
   assert.deepEqual(await f.evaluate(()=>({time:GT,round:S.round})),paused);

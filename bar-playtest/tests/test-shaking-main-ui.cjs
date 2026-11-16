@@ -5,7 +5,8 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     const page = await browser.newPage({ viewport: { width: 1280, height: 720 } }), errors = [], missing = [];
     page.on('pageerror', e => errors.push(e.message));
     page.on('response', r => { if (r.status() >= 400 && r.url().includes('/shaking/')) missing.push(r.url()); });
-    await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1&mode=minigames');
+    await page.addInitScript(() => localStorage.setItem('luna.shake.sound.v2', '1'));
+    await page.goto((process.env.LUNA_TEST_URL || 'http://127.0.0.1:8123/bar-playtest/') + '?dev=1&mode=minigames');
     await page.locator('.updates-confirm').click();
     await page.evaluate(() => { lunaCampaign.session.install({ developer: false }); lunaCampaign.screen('game'); });
     async function craft(id, taught = false) {
@@ -29,6 +30,7 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     const f = await craft('gin_fizz');
     assert.equal(await page.evaluate(() => lunaCampaign.view), 'game', 'Iframe focus must not open campaign options');
     assert.equal(await f.locator('#timer').textContent(), '01:02');
+    assert.equal(await f.locator('#sndtabs,#oSnd,[data-s]').count(), 0);
     assert.equal(await f.locator('#sMenu').isVisible(), false);
     assert.equal(await f.locator('#oDiff').isVisible(), false);
     await page.waitForTimeout(250);
@@ -55,6 +57,7 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
       await f.press('body', 'KeyA'); await f.press('body', 'KeyD');
     }
     await f.waitForFunction(() => S.phase === 'unseal');
+    assert.equal(await f.evaluate(() => document.body.dataset.lastSound), 'shaker_02_hit.wav');
     const elapsed = await f.evaluate(() => (S.endT - S.startT) / 1000);
     await f.press('body', 'Escape');
     const endingPause = await f.evaluate(() => GT);

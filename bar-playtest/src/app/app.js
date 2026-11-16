@@ -957,7 +957,7 @@
         miniStart('shake');render(true);
       } else if (id === '2') {
         g.overlay = 'miniShakeRunning';render(true);
-        window.LunaMinigames.openShakePractice({sound:ui.gimmickAudio !== false,voice:ui.shakeSound,onClose(action) {
+        window.LunaMinigames.openShakePractice({sound:ui.gimmickAudio !== false,onClose(action) {
           g.overlay = action === 'versions' ? 'miniShakeVersions' : null;
           render(true);
           root.querySelector(action === 'versions' ? '[data-act="miniShakePlay"]' : '[data-act="miniStart"][data-id="shake"]')?.focus({preventScroll:true});

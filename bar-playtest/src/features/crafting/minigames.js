@@ -8,15 +8,15 @@ function openWinePractice(version,{sound=true,onClose}={}){
  if(![1,2].includes(version))throw Error('Unknown wine practice version');
  return openPractice('wine',version,{sound,onClose});
 }
-function openShakePractice({sound=true,voice=1,onClose}={}){
- return openPractice('shake',2,{sound,voice,onClose});
+function openShakePractice({sound=true,onClose}={}){
+ return openPractice('shake',2,{sound,onClose});
 }
-function openPractice(kind,version,{sound=true,voice=1,onClose}={}){
+function openPractice(kind,version,{sound=true,onClose}={}){
  const dialog=document.createElement('dialog'), frame=document.createElement('iframe');
  const title=(kind==='shake'?'쉐이킹':'와인 개봉')+' · 버전 '+version;
  dialog.className='wine-practice-dialog';dialog.setAttribute('aria-label',title);
  frame.title=title;
- frame.src='src/dev/'+(kind==='shake'?'shaking':'wine-opening')+'/version-'+version+'.html?v=1&sound='+(sound?'1':'0')+'&voice='+voice;
+ frame.src='src/dev/'+(kind==='shake'?'shaking':'wine-opening')+'/version-'+version+'.html?v=1&sound='+(sound?'1':'0');
  const viewport=document.createElement('div'),expand=document.createElement('button');
  viewport.className='preview-viewport';viewport.id='practice-viewport';frame.className='practice-frame';
  expand.type='button';expand.className='practice-expand';expand.dataset.expandPreview=viewport.id;expand.textContent='전체화면';
