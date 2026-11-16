@@ -1,7 +1,7 @@
 const assert=require('assert/strict'),path=require('path'),fs=require('fs');
 const root=path.resolve(__dirname,'..');require(root+'/src/features/outside/outside-residence.js');require(root+'/data/runtime/outside-dialogues.js');require(root+'/src/features/outside/events/outside-story.js');require(root+'/src/features/outside/outside.js');const {Model}=global.LunaOutside;
 const step=(m,seconds,input)=>{for(let i=0;i<Math.ceil(seconds*60);i++)m.tick(1/60,input);};
-for(const place of ['bar','homeDoor','home'])for(const flow of ['in','out'])for(const day of [0,1,2,3]){let m=new Model({place,flow,day});assert.equal(m.config.day,day);assert.equal(m.config.flow,flow);assert.equal(m.scene,place==='home'?'home':'street');assert.equal(m.level,place==='bar'?0:1);assert(m.near);assert.equal(m.anim,'idle');}
+for(const place of ['bar','homeDoor','home'])for(const flow of ['in','out'])for(const day of [0,1,2,3]){let m=new Model({place,flow,day});assert.equal(m.config.day,day);assert.equal(m.config.flow,flow);assert.equal(m.scene,place==='home'?'home':'street');assert.equal(m.level,place==='bar'?0:1);if(place==='bar'&&flow==='out')assert.equal(m.near,null);else assert(m.near);assert.equal(m.anim,'idle');}
 console.log('PASS all 24 start configurations');
 for(const [place,lo,hi]of [['bar',-12.81,6.1],['homeDoor',-21.65,-12.28],['home',-1.5,3.4]]){const m=new Model({place});step(m,100,{move:-1,run:true});assert.equal(m.x,lo);assert.equal(m.anim,'idle');step(m,100,{move:1,run:true});assert.equal(m.x,hi);assert.equal(m.anim,'idle');}
 console.log('PASS floor boundaries and no walking at blocked edges');

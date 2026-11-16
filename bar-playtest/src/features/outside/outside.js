@@ -399,12 +399,12 @@
         x: EX,
         y: R.upperY
       }];
-      return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideEncounters?.targets(this) || []), {
+      return [...(global.LunaOutsideNeighborhood?.targets(this) || []), ...(global.LunaOutsideEncounters?.targets(this) || []), ...(this.config.flow === 'in' ? [{
         id: 'bar',
         label: '바 입구',
         x: global.LunaEngineWorld?.node('street','917009659')?.x??1.0086,
         y: -.7
-      }, {
+      }] : []), {
         id: 'elevator',
         label: this.elevatorY < 4 ? '엘리베이터 · 올라가기' : '엘리베이터 호출',
         x: EX,
@@ -497,7 +497,7 @@
         global.LunaOutsideDiscovery.remember(this,global.LunaOutsideDiscovery.objectToken(this,t.id));
         this.dialog = {
           title: '바 입구',
-          text: this.config.flow === 'in' ? '출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.' : '퇴근길의 출발 지점입니다. 왼쪽 엘리베이터를 타면 집으로 갈 수 있습니다.'
+          text: '출근길의 도착 지점입니다. 이 탭에서는 바 영업으로 넘어가지 않고 외부 공간만 탐색합니다.'
         };
       }
       this.updateNear();

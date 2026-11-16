@@ -236,9 +236,7 @@
         return false;
       }
       if (target.id === 'bar') {
-        if (this.session.route === 'in') {
-          this.startBar(this.session.day, this.session.carry);
-        } else this.notice('오늘 영업은 끝났어요. 왼쪽 엘리베이터를 타고 집으로 돌아가세요.');
+        if (this.session.route === 'in') this.startBar(this.session.day, this.session.carry);
         return true;
       }
       if (target.id === 'sofa') {

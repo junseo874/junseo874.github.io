@@ -19,7 +19,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
   // Record the rendered paths in world coordinates: they must stay on the road
   // while camera/player motion changes their screen positions.
   const sample=async(t,x)=>p.evaluate(({t,x})=>{
-   const o=outsidePlaytest,m=o.model,ctx=document.querySelector('#outside-root canvas').getContext('2d');
+   const o=outsidePlaytest,m=o.model,ctx=o.sceneContext;
    m.time=t;m.x=x;o.snapCamera();
    const original={beginPath:ctx.beginPath,stroke:ctx.stroke,moveTo:ctx.moveTo,lineTo:ctx.lineTo},paths=[];let path=[];
    ctx.beginPath=function(){path=[];return original.beginPath.call(this);};
@@ -45,6 +45,9 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
    assert(Math.abs(a[i].points[j][1]-b[i].points[j][1])<.02);
   }
   assert.notDeepEqual(a,b);
+  await p.evaluate(()=>{outsidePlaytest.model.config.flow='out';});
+  assert.deepEqual(await sample(.6,.35),[],'No entrance frame or arrow on the way home');
+  await p.evaluate(()=>{outsidePlaytest.model.config.flow='in';});
   await p.emulateMedia({reducedMotion:'reduce'});assert.deepEqual(await sample(0,.35),await sample(1,.35));
   await p.emulateMedia({reducedMotion:'no-preference'});
   await sample(.6,.35);await p.screenshot({path:'/private/tmp/commute-entrance-cue.png'});

@@ -21,6 +21,10 @@ const assert=require('node:assert/strict');
    return results;
   });
   assert(results.length>20);
+  for(const day of [0,1,2,3]){
+   const doors=results.filter(r=>r.day===day&&r.id==='bar');
+   assert.deepEqual(doors.map(r=>[r.flow,r.place]),[['in','bar']]);
+  }
   for(const r of results){
    assert(r.visible,JSON.stringify(r));assert.equal(r.left,'36px');assert.equal(r.bottom,'16px');assert.equal(r.transform,'none');
    const expected={tv:'TV 상호작용',exit:'나가기',sofa:'휴식하기',home:'들어가기',elevator:'작동하기',bar:'들어가기','wanted-poster':'보기','shiba-shop':'대화하기','street-beggar':'대화하기','street-beggar-witness':'대화하기','day2-thug-information':'대화하기','story-samho':'대화하기'};

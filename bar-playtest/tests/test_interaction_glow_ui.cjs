@@ -3,11 +3,12 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
  const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.stack));
  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
  await p.evaluate(async()=>{lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:0,flow:'out',place:'home'});await outsidePlaytest.start();});
- const cases=[['tv','home',0],['sofa','home',0],['exit','home',0],['bar','bar',1],['wanted-poster','bar',1],['shiba-shop','bar',1],['home','homeDoor',0],['elevator','bar',0],['elevator','homeDoor',0]];
+ const cases=[['tv','home',0],['sofa','home',0],['exit','home',0],['bar','bar',1],['wanted-poster','bar',1],['shiba-shop','bar',2],['home','homeDoor',0],['elevator','bar',0],['elevator','homeDoor',0]];
  for(const [id,place,day] of cases){
-  const result=await p.evaluate(({id,place,day})=>{const a=outsidePlaytest,m=a.model;m.start({day,place,flow:'out'});const t=m.targets().find(t=>t.id===id);if(!t)throw Error('Missing target '+id);m.x=t.x-.2;m.updateNear();a.snapCamera();a.tick(0);return {near:m.near?.id,glow:a.interactionGlow};},{id,place,day});
-  assert.equal(result.near,id);assert.equal(result.glow.target,id);assert.equal(result.glow.drawn.length,1,JSON.stringify(result));
+  const result=await p.evaluate(({id,place,day})=>{const a=outsidePlaytest,m=a.model;m.start({day,place,flow:id==='bar'?'in':'out'});const t=m.targets().find(t=>t.id===id);if(!t)throw Error('Missing target '+id);m.x=t.x-.2;m.updateNear();a.snapCamera();a.tick(0);return {near:m.near?.id,glow:a.interactionGlow};},{id,place,day});
+  assert.equal(result.near,id);assert.equal(result.glow.target,id);assert.equal(result.glow.drawn.length,id==='sofa'?2:1,JSON.stringify(result));
   if(id==='sofa'){
+   assert.deepEqual(result.glow.drawn.map(d=>d.node),['main_bg','home-bedding']);
    const draw=result.glow.drawn[0];assert.equal(draw.node,'main_bg');assert.equal(draw.asset,'629b82812402bc');
    assert.deepEqual(draw.region.slice(0,4),[410,180,109,53]);
    assert(draw.region[4].every(([x,y])=>x>=0&&y>=0&&x<=109&&y<=53),'Contour remains inside the current sofa bounds');
@@ -38,9 +39,9 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright'),
  assert.equal(npc.target,'day2-thug-information');assert.equal(npc.drawn.length,1);
  await p.screenshot({path:'/private/tmp/glow-thug.png'});
  // No stale glow after leaving range, in dialogs, tutorials, or pause screens.
- for(const state of ['far','dialog','tutorial','pause']){
-  const result=await p.evaluate(state=>{const a=outsidePlaytest,m=a.model;m.start({day:0,place:'home',flow:'out'});m.x=1.22;m.updateNear();if(state==='far'){m.x=0;m.updateNear();}if(state==='dialog')m.dialog={title:'test',text:'test'};if(state==='tutorial')m.controlsTutorial=true;if(state==='pause')m.paused=true;a.tick(0);return a.interactionGlow;},state);
-  assert.equal(result.target,null);assert.equal(result.drawn.length,0);assert(await p.locator('.outside-interact').isHidden());
+ for(const state of ['homeward','dialog','tutorial','pause']){
+  const result=await p.evaluate(state=>{const a=outsidePlaytest,m=a.model;m.start({day:0,place:'home',flow:'out'});m.x=1.22;m.updateNear();if(state==='homeward')m.start({day:1,place:'bar',flow:'out'});if(state==='dialog')m.dialog={title:'test',text:'test'};if(state==='tutorial')m.controlsTutorial=true;if(state==='pause')m.paused=true;a.tick(0);return {glow:a.interactionGlow,promptHidden:document.querySelector('.outside-interact').hidden};},state);
+  assert.equal(result.glow.target,null,state);assert.equal(result.glow.drawn.length,0,state);assert(result.promptHidden,state);
  }
  await p.evaluate(()=>{const a=outsidePlaytest,m=a.model;m.start({day:1,place:'bar',flow:'out'});m.x=5.45;m.updateNear();a.snapCamera();for(let i=0;i<100;i++)a.tick(.05);});
  assert(await p.evaluate(()=>outsidePlaytest.interactionGlow.cacheSize<40),'Cache reuses animated sprite frames');
