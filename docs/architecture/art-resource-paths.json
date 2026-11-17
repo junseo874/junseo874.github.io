@@ -32,20 +32,6 @@
       "sha256": "95990f459491fc62b9d3cad30b04f5fc40c6606d12c0a0a1118271a2ff6a44bb"
     },
     {
-      "from": "assets/backgrounds/bar/gimmick-shake.png",
-      "to": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
-      "source": "02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
-      "match": "bytes",
-      "sha256": "2741ec4e2ccc3359b4dbe4beddb4ca8d755de592cb709651fc293c02d2c018f8"
-    },
-    {
-      "from": "assets/backgrounds/bar/gimmick-stir.png",
-      "to": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
-      "source": "02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
-      "match": "bytes",
-      "sha256": "835ce2f129c80cc2ac56a14d46eb156386fbc64dcd5835bf3a36ad972fbfe9c8"
-    },
-    {
       "from": "assets/backgrounds/bar/gimmick.png",
       "to": "assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
       "source": "02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
@@ -1220,13 +1206,6 @@
       "source": "01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png",
       "match": "bytes",
       "sha256": "b39a656f0aa53b5270bd3251c792240ae4244b4f321b7a70e7813dc3199184e5"
-    },
-    {
-      "from": "assets/characters/static/char-tom-idle.png",
-      "to": "assets/01.ArtResources/01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
-      "source": "01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
-      "match": "bytes",
-      "sha256": "91ed51af1250b3ddeca8eb9171cd16ee9a4a67717bca8fd57b2e6c239ef8d8b2"
     },
     {
       "from": "assets/characters/tom/idle/eyebrow.png",

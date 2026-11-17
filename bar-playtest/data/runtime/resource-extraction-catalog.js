@@ -344,6 +344,13 @@ window.ResourceExtractionAssets=[
     "h": 76
   },
   {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/GRD_outline.png",
+    "title": "GRD_outline.png",
+    "category": "UI · 원본 조각",
+    "w": 177,
+    "h": 67
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/01.Preparation/01.Recipes/IMG_ESC.png",
     "title": "IMG_ESC.png",
     "category": "UI · 원본 조각",

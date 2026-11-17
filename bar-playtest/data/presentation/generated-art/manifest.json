@@ -1,9 +1,9 @@
 {
   "version": 1,
   "summary": {
-    "sourceEntries": 962,
-    "uniqueImages": 792,
-    "duplicatesRemoved": 170,
+    "sourceEntries": 901,
+    "uniqueImages": 765,
+    "duplicatesRemoved": 136,
     "transparentExcluded": 0,
     "existingReused": 0
   },
@@ -1279,107 +1279,6 @@
             "h": 89
           },
           "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/BG_notification_down.png",
-      "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-      "width": 350,
-      "height": 90,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/048d2a16f8534a6f-background.png",
-          "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 배경",
-          "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "ui:exterior:poor--poor",
-            "popup:meet--bar",
-            "popup:meet--outside",
-            "popup:affinity--bar-up",
-            "popup:affinity--outside-up"
-          ],
-          "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/1028b25b907e7f41-background.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 배경",
-          "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "popup:affinity--bar-down",
-            "popup:affinity--outside-down"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-down-1028b25b907e7f41-background.png",
-          "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 배경",
-          "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-down"
-          ],
-          "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-meet-048d2a16f8534a6f-background.png",
-          "title": "팝업 · 인물정보 등록 · .story-notice.story-notice-people · 배경",
-          "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-meet"
-          ],
-          "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-up-048d2a16f8534a6f-background.png",
-          "title": "팝업 · 호감도 상승 · .story-notice.story-notice-people · 배경",
-          "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-up"
-          ],
-          "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
         }
       ]
     },
@@ -3627,52 +3526,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_goal_new_border.png",
-      "sha256": "7acbac3d6a11ba970fa53dbff29f7d2dc70b778f0f9f01f4b08368f98e9c1072",
-      "width": 350,
-      "height": 92,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/166ce9928c7fe48d-border.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 테두리",
-          "sha256": "7acbac3d6a11ba970fa53dbff29f7d2dc70b778f0f9f01f4b08368f98e9c1072",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-new",
-            "popup:goal--outside-new"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-new-166ce9928c7fe48d-border.png",
-          "title": "팝업 · 새로운 목표 · .story-notice.story-notice-event · 테두리",
-          "sha256": "7acbac3d6a11ba970fa53dbff29f7d2dc70b778f0f9f01f4b08368f98e9c1072",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-new"
-          ],
-          "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_svg_circle_mix_shake_ring_back_icon.png",
       "sha256": "ca66f68ec497185baa8e24912321470c205536754fc8bb4d065eb6731a6493a3",
       "width": 117,
@@ -4598,54 +4451,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/ICN_notification_goal_new.png",
-      "sha256": "2e60b970c78a733cd7a98d58992dca27e5ea70af03da9b2103a3f0df8d6b493e",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/1f3fe2e64fe4d4e5-icon.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 아이콘",
-          "sha256": "2e60b970c78a733cd7a98d58992dca27e5ea70af03da9b2103a3f0df8d6b493e",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:goal--bar-new",
-            "popup:goal--outside-new"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "◇"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-new-1f3fe2e64fe4d4e5-icon.png",
-          "title": "팝업 · 새로운 목표 · .story-notice-icon · 아이콘",
-          "sha256": "2e60b970c78a733cd7a98d58992dca27e5ea70af03da9b2103a3f0df8d6b493e",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-goal-new"
-          ],
-          "contexts": "팝업 · 새로운 목표 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "◇"
-        }
-      ]
-    },
-    {
       "path": "05.UI/03.Bar/WebGenerated/Dialogue/Web_GRD_dialogue_surface_background.png",
       "sha256": "72b4991e2f7a55ad26128ef84f64b30ef3d3abc2f9fc5bb583cc7cb569ba282f",
       "width": 282,
@@ -4700,141 +4505,6 @@
             "h": 360
           },
           "note": "설명 텍스트 제외 · 아이콘만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_down_shadow.png",
-      "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-      "width": 446,
-      "height": 186,
-      "kind": "shadow",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/1f57e2430e5a07cb-shadow.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "popup:affinity--bar-down",
-            "popup:affinity--outside-down"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/5ee3f5b3329acda1-shadow.png",
-          "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "ui:exterior:poor--poor",
-            "popup:meet--bar",
-            "popup:meet--outside",
-            "popup:affinity--bar-up",
-            "popup:affinity--outside-up"
-          ],
-          "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/ed8eb121e7954485-shadow.png",
-          "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:event--outside"
-          ],
-          "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-down-1f57e2430e5a07cb-shadow.png",
-          "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-down"
-          ],
-          "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-event-ed8eb121e7954485-shadow.png",
-          "title": "팝업 · 이벤트 발생 · .story-notice.story-notice-event · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-event"
-          ],
-          "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-meet-5ee3f5b3329acda1-shadow.png",
-          "title": "팝업 · 인물정보 등록 · .story-notice.story-notice-people · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-meet"
-          ],
-          "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-up-5ee3f5b3329acda1-shadow.png",
-          "title": "팝업 · 호감도 상승 · .story-notice.story-notice-people · 그림자",
-          "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-up"
-          ],
-          "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
         }
       ]
     },
@@ -5340,53 +5010,6 @@
             "h": 720
           },
           "note": "설명 텍스트 제외 · 아이콘만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/ICN_notification_event.png",
-      "sha256": "962af8b1cc6b469b92a91940c2fca1c25d20748273dd325fe9ea3bc47cceed88",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/22a3719e6120f437-icon.png",
-          "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 아이콘",
-          "sha256": "962af8b1cc6b469b92a91940c2fca1c25d20748273dd325fe9ea3bc47cceed88",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:event--outside"
-          ],
-          "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "!"
-        },
-        {
-          "src": "assets/ui/extracted/notification-event-22a3719e6120f437-icon.png",
-          "title": "팝업 · 이벤트 발생 · .story-notice-icon · 아이콘",
-          "sha256": "962af8b1cc6b469b92a91940c2fca1c25d20748273dd325fe9ea3bc47cceed88",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-event"
-          ],
-          "contexts": "팝업 · 이벤트 발생 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "!"
         }
       ]
     },
@@ -8506,34 +8129,6 @@
             "y": 0,
             "w": 280,
             "h": 53
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_border.png",
-      "sha256": "eaf604fde6ec975b9472530d6415aafb36ed38bde8e8b9495520c6ed54fc8683",
-      "width": 52,
-      "height": 57,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/36367b8d77bbdd84-border.png",
-          "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 테두리",
-          "sha256": "eaf604fde6ec975b9472530d6415aafb36ed38bde8e8b9495520c6ed54fc8683",
-          "selector": "span.outside-item-preview",
-          "states": [
-            "ui:exterior:purchase--default"
-          ],
-          "contexts": "재료 획득 알림 / 외부 · 기본 span.outside-item-preview 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 52,
-            "h": 57
           },
           "note": "설명 텍스트 제외 · 테두리만 분리"
         }
@@ -13423,34 +13018,6 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_background.png",
-      "sha256": "4da096f26e0c97a99c08b62c040c17a011307380c255999afbbf4cb1d4c2b878",
-      "width": 350,
-      "height": 96,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/60299f01f9a73514-background.png",
-          "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 배경",
-          "sha256": "4da096f26e0c97a99c08b62c040c17a011307380c255999afbbf4cb1d4c2b878",
-          "selector": "div.outside-item-notice.story-notice",
-          "states": [
-            "ui:exterior:purchase--default"
-          ],
-          "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 96
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/01.Shared/WebGenerated/Common/Web_GRD_mix_tutorial_background.png",
       "sha256": "ff1dc14a743bd15dabb9a62476ff72c1968e3943718969ccc820f519a7c245b3",
       "width": 1280,
@@ -14298,52 +13865,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/BG_notification_goal_complete.png",
-      "sha256": "65b44859d1b178adbeef2cf4ed213972932f219cd27bf2a94de18b774dcd2604",
-      "width": 350,
-      "height": 92,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/691f5f630c7d3c3d-background.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 배경",
-          "sha256": "65b44859d1b178adbeef2cf4ed213972932f219cd27bf2a94de18b774dcd2604",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-complete",
-            "popup:goal--outside-complete"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-complete-691f5f630c7d3c3d-background.png",
-          "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 배경",
-          "sha256": "65b44859d1b178adbeef2cf4ed213972932f219cd27bf2a94de18b774dcd2604",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-complete"
-          ],
-          "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/03.Crafting/02.Minigames/04.Shake/WebGenerated/Web_IMG_rhythm_stage_g_rhythm_path_node_icon.png",
       "sha256": "586adbd495c729284a2b2fb8af9bac863b7e5d54b437671389e0caf64e4a778b",
       "width": 52,
@@ -14603,51 +14124,6 @@
             "h": 60
           },
           "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/BG_notification_event.png",
-      "sha256": "2c51cdf8f2585b79c16b7fe04976b8c048d0c5332bdff21b8c23086382cfa5f6",
-      "width": 350,
-      "height": 90,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/6bf7690abc2cd489-background.png",
-          "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 배경",
-          "sha256": "2c51cdf8f2585b79c16b7fe04976b8c048d0c5332bdff21b8c23086382cfa5f6",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:event--outside"
-          ],
-          "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-event-6bf7690abc2cd489-background.png",
-          "title": "팝업 · 이벤트 발생 · .story-notice.story-notice-event · 배경",
-          "sha256": "2c51cdf8f2585b79c16b7fe04976b8c048d0c5332bdff21b8c23086382cfa5f6",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-event"
-          ],
-          "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
         }
       ]
     },
@@ -15547,54 +15023,6 @@
             "h": 24
           },
           "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/ICN_notification_goal_complete.png",
-      "sha256": "3f5c50417adc2b762638eb01c80717287926b6549eb0a9151f5b9150c7cb3a2f",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/74a7943fd218f630-icon.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 아이콘",
-          "sha256": "3f5c50417adc2b762638eb01c80717287926b6549eb0a9151f5b9150c7cb3a2f",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:goal--bar-complete",
-            "popup:goal--outside-complete"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "✓"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-complete-74a7943fd218f630-icon.png",
-          "title": "팝업 · 목표 달성 · .story-notice-icon · 아이콘",
-          "sha256": "3f5c50417adc2b762638eb01c80717287926b6549eb0a9151f5b9150c7cb3a2f",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-goal-complete"
-          ],
-          "contexts": "팝업 · 목표 달성 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "✓"
         }
       ]
     },
@@ -16645,52 +16073,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_border.png",
-      "sha256": "59e166330af5cf2999c50b3f20af5a146f1c901e28162f015c7d056a998a5f69",
-      "width": 350,
-      "height": 92,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/7dedfdcde2221f51-border.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 테두리",
-          "sha256": "59e166330af5cf2999c50b3f20af5a146f1c901e28162f015c7d056a998a5f69",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-complete",
-            "popup:goal--outside-complete"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-complete-7dedfdcde2221f51-border.png",
-          "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 테두리",
-          "sha256": "59e166330af5cf2999c50b3f20af5a146f1c901e28162f015c7d056a998a5f69",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-complete"
-          ],
-          "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant5.png",
       "sha256": "e6d58ad545dcaebb09f43e88d9d0511948c9b80d46dd406b1f683e096f0ca740",
       "width": 141,
@@ -16735,55 +16117,6 @@
             "h": 43
           },
           "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/ICN_notification_meet.png",
-      "sha256": "e7f43baa679530256e23d0eb727b329325af5066979d2930bced30c628b02c10",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/7e825997b29cef4a-icon.png",
-          "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 아이콘",
-          "sha256": "e7f43baa679530256e23d0eb727b329325af5066979d2930bced30c628b02c10",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "ui:exterior:poor--poor",
-            "popup:meet--bar",
-            "popup:meet--outside"
-          ],
-          "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "＋"
-        },
-        {
-          "src": "assets/ui/extracted/notification-meet-7e825997b29cef4a-icon.png",
-          "title": "팝업 · 인물정보 등록 · .story-notice-icon · 아이콘",
-          "sha256": "e7f43baa679530256e23d0eb727b329325af5066979d2930bced30c628b02c10",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-meet"
-          ],
-          "contexts": "팝업 · 인물정보 등록 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "＋"
         }
       ]
     },
@@ -16920,97 +16253,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_event_icon_border.png",
-      "sha256": "ac99364fd2fef7023f25df55f0fe82bd5fd49f9604bfc086cc50596ff3fef028",
-      "width": 39,
-      "height": 39,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/80461ed2f9ea6d81-border.png",
-          "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice-icon · 테두리",
-          "sha256": "ac99364fd2fef7023f25df55f0fe82bd5fd49f9604bfc086cc50596ff3fef028",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:event--outside"
-          ],
-          "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-event-80461ed2f9ea6d81-border.png",
-          "title": "팝업 · 이벤트 발생 · .story-notice-icon · 테두리",
-          "sha256": "ac99364fd2fef7023f25df55f0fe82bd5fd49f9604bfc086cc50596ff3fef028",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-event"
-          ],
-          "contexts": "팝업 · 이벤트 발생 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_down_border.png",
-      "sha256": "91a27f951e39b7e4d584d30ceb896b2b36345f3c847d3a47de1aadb7059ee48c",
-      "width": 350,
-      "height": 90,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/80961ce4974bf0cc-border.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice.story-notice-people · 테두리",
-          "sha256": "91a27f951e39b7e4d584d30ceb896b2b36345f3c847d3a47de1aadb7059ee48c",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "popup:affinity--bar-down",
-            "popup:affinity--outside-down"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-down-80961ce4974bf0cc-border.png",
-          "title": "팝업 · 호감도 하락 · .story-notice.story-notice-people · 테두리",
-          "sha256": "91a27f951e39b7e4d584d30ceb896b2b36345f3c847d3a47de1aadb7059ee48c",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-down"
-          ],
-          "contexts": "팝업 · 호감도 하락 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/05.Profile/WebGenerated/Web_GRD_span_background_v03.png",
       "sha256": "0ca3aa0071e76612a3121a6ccb68113a93dc0ca08006707aeb9a6c7bd63f09fa",
       "width": 409,
@@ -17064,72 +16306,6 @@
             "h": 48
           },
           "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_meet_border.png",
-      "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
-      "width": 350,
-      "height": 90,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/815786479d9539eb-border.png",
-          "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice.story-notice-people · 테두리",
-          "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "ui:exterior:poor--poor",
-            "popup:meet--bar",
-            "popup:meet--outside",
-            "popup:affinity--bar-up",
-            "popup:affinity--outside-up"
-          ],
-          "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 바 내부 div.story-notice.story-notice-people 기본 | 신규 인물 정보 등록 · 외부 거리 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 div.story-notice.story-notice-people 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-meet-815786479d9539eb-border.png",
-          "title": "팝업 · 인물정보 등록 · .story-notice.story-notice-people · 테두리",
-          "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-meet"
-          ],
-          "contexts": "팝업 · 인물정보 등록 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-up-815786479d9539eb-border.png",
-          "title": "팝업 · 호감도 상승 · .story-notice.story-notice-people · 테두리",
-          "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
-          "selector": "div.story-notice.story-notice-people",
-          "states": [
-            "notification-up"
-          ],
-          "contexts": "팝업 · 호감도 상승 div.story-notice.story-notice-people 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
         }
       ]
     },
@@ -17535,51 +16711,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_event_border.png",
-      "sha256": "8c8475cab7288fdbeaf3f15581ce95fab97d65a118f53378bae2b2a05f249fdd",
-      "width": 350,
-      "height": 90,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/83e5ce5a9d368dbc-border.png",
-          "title": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 · .story-notice.story-notice-event · 테두리",
-          "sha256": "8c8475cab7288fdbeaf3f15581ce95fab97d65a118f53378bae2b2a05f249fdd",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:event--outside"
-          ],
-          "contexts": "새로운 이벤트 발생 · 외부 거리 · 강제 이벤트 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-event-83e5ce5a9d368dbc-border.png",
-          "title": "팝업 · 이벤트 발생 · .story-notice.story-notice-event · 테두리",
-          "sha256": "8c8475cab7288fdbeaf3f15581ce95fab97d65a118f53378bae2b2a05f249fdd",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-event"
-          ],
-          "contexts": "팝업 · 이벤트 발생 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 90
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/05.Profile/WebGenerated/Web_BTN_guest_card_unmet_after_background_variant2.png",
       "sha256": "60a7631ef0cb9c146947616a05d4b03ce0b38ad53483f68faa7d34419a9377db",
       "width": 217,
@@ -17765,87 +16896,6 @@
             "h": 593
           },
           "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_shadow.png",
-      "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-      "width": 446,
-      "height": 188,
-      "kind": "shadow",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/85fac6ab2c6b0f74-shadow.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 그림자",
-          "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-new",
-            "popup:goal--outside-new"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/c1b0a52b2cf1a815-shadow.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice.story-notice-event · 그림자",
-          "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-complete",
-            "popup:goal--outside-complete"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-complete-c1b0a52b2cf1a815-shadow.png",
-          "title": "팝업 · 목표 달성 · .story-notice.story-notice-event · 그림자",
-          "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-complete"
-          ],
-          "contexts": "팝업 · 목표 달성 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-new-85fac6ab2c6b0f74-shadow.png",
-          "title": "팝업 · 새로운 목표 · .story-notice.story-notice-event · 그림자",
-          "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-new"
-          ],
-          "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
         }
       ]
     },
@@ -19511,34 +18561,6 @@
       ]
     },
     {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_border.png",
-      "sha256": "71d0fd67e352ef74db042056bb855196e5e0cf0f3eef532ced36ef22368a6a07",
-      "width": 350,
-      "height": 96,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/92816d50d7ff45f2-border.png",
-          "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 테두리",
-          "sha256": "71d0fd67e352ef74db042056bb855196e5e0cf0f3eef532ced36ef22368a6a07",
-          "selector": "div.outside-item-notice.story-notice",
-          "states": [
-            "ui:exterior:purchase--default"
-          ],
-          "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 96
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_header_border.png",
       "sha256": "dbde8b5898db68222ecf3b9ce23fc9560f9d03ada2d12c819fe2b895e08a4775",
       "width": 1018,
@@ -19565,52 +18587,6 @@
             "h": 115
           },
           "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/BG_notification_goal_new.png",
-      "sha256": "8b4569a0c2a7e1d05cff6227d7939621eaa5531eb7af14c91596abf1a04ec2da",
-      "width": 350,
-      "height": 92,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/934adff6baf4ed8c-background.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice.story-notice-event · 배경",
-          "sha256": "8b4569a0c2a7e1d05cff6227d7939621eaa5531eb7af14c91596abf1a04ec2da",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "popup:goal--bar-new",
-            "popup:goal--outside-new"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 div.story-notice.story-notice-event 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-new-934adff6baf4ed8c-background.png",
-          "title": "팝업 · 새로운 목표 · .story-notice.story-notice-event · 배경",
-          "sha256": "8b4569a0c2a7e1d05cff6227d7939621eaa5531eb7af14c91596abf1a04ec2da",
-          "selector": "div.story-notice.story-notice-event",
-          "states": [
-            "notification-goal-new"
-          ],
-          "contexts": "팝업 · 새로운 목표 div.story-notice.story-notice-event 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 350,
-            "h": 92
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
         }
       ]
     },
@@ -20133,54 +19109,6 @@
             "h": 24
           },
           "note": "설명 텍스트 제외 · 테두리만 분리 · 효과 여백 4px"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/ICN_notification_down.png",
-      "sha256": "92a743a255d5ea6ce46e54fdf5a7482af002b03bf5718bdc084bab7213130bef",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/94eff1cb8f7aa960-icon.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 아이콘",
-          "sha256": "92a743a255d5ea6ce46e54fdf5a7482af002b03bf5718bdc084bab7213130bef",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:affinity--bar-down",
-            "popup:affinity--outside-down"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "↓"
-        },
-        {
-          "src": "assets/ui/extracted/notification-down-94eff1cb8f7aa960-icon.png",
-          "title": "팝업 · 호감도 하락 · .story-notice-icon · 아이콘",
-          "sha256": "92a743a255d5ea6ce46e54fdf5a7482af002b03bf5718bdc084bab7213130bef",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-down"
-          ],
-          "contexts": "팝업 · 호감도 하락 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "↓"
         }
       ]
     },
@@ -22715,52 +21643,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_down_icon_border.png",
-      "sha256": "8cd519e872f2ab1934860ed1e22ae5a3b04fb2fd9c3e625dfebe9f8ad5f53e5f",
-      "width": 39,
-      "height": 39,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/b61036dfc2cc03d2-border.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 하락 · .story-notice-icon · 테두리",
-          "sha256": "8cd519e872f2ab1934860ed1e22ae5a3b04fb2fd9c3e625dfebe9f8ad5f53e5f",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:affinity--bar-down",
-            "popup:affinity--outside-down"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 하락 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 하락 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-down-b61036dfc2cc03d2-border.png",
-          "title": "팝업 · 호감도 하락 · .story-notice-icon · 테두리",
-          "sha256": "8cd519e872f2ab1934860ed1e22ae5a3b04fb2fd9c3e625dfebe9f8ad5f53e5f",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-down"
-          ],
-          "contexts": "팝업 · 호감도 하락 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/06.Ect/WebGenerated/Cutscenes/Web_BTN_button_background_variant6.png",
       "sha256": "b679576e503cf6313eb725494cc5b3c00c9451b6d8fb7bd60edaa9ee690e0f4f",
       "width": 167,
@@ -23281,52 +22163,6 @@
             "h": 426
           },
           "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_goal_new_icon_border.png",
-      "sha256": "1a0360e7375c0f01815a8a1659dd2f68ccebb114075421bc585f46a75d6e1a2e",
-      "width": 39,
-      "height": 39,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/bb56a4ce1e957ba7-border.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 · .story-notice-icon · 테두리",
-          "sha256": "1a0360e7375c0f01815a8a1659dd2f68ccebb114075421bc585f46a75d6e1a2e",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:goal--bar-new",
-            "popup:goal--outside-new"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 새로운 목표 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 새로운 목표 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-new-bb56a4ce1e957ba7-border.png",
-          "title": "팝업 · 새로운 목표 · .story-notice-icon · 테두리",
-          "sha256": "1a0360e7375c0f01815a8a1659dd2f68ccebb114075421bc585f46a75d6e1a2e",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-goal-new"
-          ],
-          "contexts": "팝업 · 새로운 목표 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
         }
       ]
     },
@@ -24960,52 +23796,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_icon_border.png",
-      "sha256": "bdfad12a2d00888a916132b5ddc47c692d6f190410d505fe7cfbe22b04ec83e7",
-      "width": 39,
-      "height": 39,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/d1bb07c168cf1a0f-border.png",
-          "title": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 · .story-notice-icon · 테두리",
-          "sha256": "bdfad12a2d00888a916132b5ddc47c692d6f190410d505fe7cfbe22b04ec83e7",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:goal--bar-complete",
-            "popup:goal--outside-complete"
-          ],
-          "contexts": "새로운 목표 / 목표 달성 · 바 내부 · 목표 달성 span.story-notice-icon 기본 | 새로운 목표 / 목표 달성 · 외부 거리 · 목표 달성 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-goal-complete-d1bb07c168cf1a0f-border.png",
-          "title": "팝업 · 목표 달성 · .story-notice-icon · 테두리",
-          "sha256": "bdfad12a2d00888a916132b5ddc47c692d6f190410d505fe7cfbe22b04ec83e7",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-goal-complete"
-          ],
-          "contexts": "팝업 · 목표 달성 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
       "path": "05.UI/06.Ect/WebGenerated/Outside/Web_IMG_textbox_piece_piece_6_icon_variant2.png",
       "sha256": "2c0476f61c6c1775b1393192db041cdfb1296b2fcd6fe2a96187bac05d5aca51",
       "width": 22,
@@ -25593,72 +24383,6 @@
             "y": 0,
             "w": 128,
             "h": 38
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/07.Popup/IMG_notification_meet_icon_border.png",
-      "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
-      "width": 39,
-      "height": 39,
-      "kind": "border",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/db04dd5ec4f903d3-border.png",
-          "title": "외부 대화 / 선택지 · 상점 / 소지금 부족 · .story-notice-icon · 테두리",
-          "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "ui:exterior:poor--poor",
-            "popup:meet--bar",
-            "popup:meet--outside",
-            "popup:affinity--bar-up",
-            "popup:affinity--outside-up"
-          ],
-          "contexts": "외부 대화 / 선택지 · 상점 / 소지금 부족 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 바 내부 span.story-notice-icon 기본 | 신규 인물 정보 등록 · 외부 거리 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-meet-db04dd5ec4f903d3-border.png",
-          "title": "팝업 · 인물정보 등록 · .story-notice-icon · 테두리",
-          "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-meet"
-          ],
-          "contexts": "팝업 · 인물정보 등록 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 테두리만 분리"
-        },
-        {
-          "src": "assets/ui/extracted/notification-up-db04dd5ec4f903d3-border.png",
-          "title": "팝업 · 호감도 상승 · .story-notice-icon · 테두리",
-          "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-up"
-          ],
-          "contexts": "팝업 · 호감도 상승 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
           },
           "note": "설명 텍스트 제외 · 테두리만 분리"
         }
@@ -26732,54 +25456,6 @@
       ]
     },
     {
-      "path": "05.UI/07.Popup/ICN_notification_up.png",
-      "sha256": "bc1aa1065c662ea63aa7d03ffbcbf1d1ed96aca2785a7a2bf8231f734ee9cd65",
-      "width": 39,
-      "height": 39,
-      "kind": "icon",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": true,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/e25606c6ada3fef8-icon.png",
-          "title": "호감도 상승 / 하락 · 바 내부 · 상승 · .story-notice-icon · 아이콘",
-          "sha256": "bc1aa1065c662ea63aa7d03ffbcbf1d1ed96aca2785a7a2bf8231f734ee9cd65",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "popup:affinity--bar-up",
-            "popup:affinity--outside-up"
-          ],
-          "contexts": "호감도 상승 / 하락 · 바 내부 · 상승 span.story-notice-icon 기본 | 호감도 상승 / 하락 · 외부 거리 · 상승 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "↑"
-        },
-        {
-          "src": "assets/ui/extracted/notification-up-e25606c6ada3fef8-icon.png",
-          "title": "팝업 · 호감도 상승 · .story-notice-icon · 아이콘",
-          "sha256": "bc1aa1065c662ea63aa7d03ffbcbf1d1ed96aca2785a7a2bf8231f734ee9cd65",
-          "selector": "span.story-notice-icon",
-          "states": [
-            "notification-up"
-          ],
-          "contexts": "팝업 · 호감도 상승 span.story-notice-icon 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 39,
-            "h": 39
-          },
-          "note": "설명 텍스트 제외 · 아이콘만 분리",
-          "iconGlyph": "↑"
-        }
-      ]
-    },
-    {
       "path": "05.UI/03.Crafting/01.Preparation/WebGenerated/Web_GRD_prep_recipe_recipe_preview_recipe_peek_background.png",
       "sha256": "f4f11df29ccbf5c629803d256ebd51d8bd40fd042617905bbe03b984f9df07da",
       "width": 338,
@@ -27328,34 +26004,6 @@
             "h": 43
           },
           "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
-      "sha256": "d28f981bf8102b41e647d4a0431d4ed66a8f8dd3117ced3ff835913ebe6d26c0",
-      "width": 446,
-      "height": 192,
-      "kind": "shadow",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/e6cba15c8eb6a8c2-shadow.png",
-          "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-notice.story-notice · 그림자",
-          "sha256": "d28f981bf8102b41e647d4a0431d4ed66a8f8dd3117ced3ff835913ebe6d26c0",
-          "selector": "div.outside-item-notice.story-notice",
-          "states": [
-            "ui:exterior:purchase--default"
-          ],
-          "contexts": "재료 획득 알림 / 외부 · 기본 div.outside-item-notice.story-notice 기본",
-          "contentRect": {
-            "x": 48,
-            "y": 48,
-            "w": 350,
-            "h": 96
-          },
-          "note": "설명 텍스트 제외 · 그림자만 분리 · 효과 여백 48px"
         }
       ]
     },
@@ -28105,34 +26753,6 @@
             "y": 0,
             "w": 720,
             "h": 233
-          },
-          "note": "설명 텍스트 제외 · 배경만 분리"
-        }
-      ]
-    },
-    {
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_background.png",
-      "sha256": "23af4535f390ae39b60911dc21219d636ef0b20767bf66e759ee08ff7fe194f1",
-      "width": 52,
-      "height": 57,
-      "kind": "background",
-      "origin": "CSS paint-layer extraction",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/ui/extracted/f0af90d5f11c22f5-background.png",
-          "title": "재료 획득 알림 / 외부 · 기본 · .outside-item-preview · 배경",
-          "sha256": "23af4535f390ae39b60911dc21219d636ef0b20767bf66e759ee08ff7fe194f1",
-          "selector": "span.outside-item-preview",
-          "states": [
-            "ui:exterior:purchase--default"
-          ],
-          "contexts": "재료 획득 알림 / 외부 · 기본 span.outside-item-preview 기본",
-          "contentRect": {
-            "x": 0,
-            "y": 0,
-            "w": 52,
-            "h": 57
           },
           "note": "설명 텍스트 제외 · 배경만 분리"
         }

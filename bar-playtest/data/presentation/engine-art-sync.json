@@ -562,12 +562,6 @@
       "kind": "new"
     },
     {
-      "from": "01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
-      "path": "01.Characters/01.Bar/07.Tom/Idle/Tom_Idle.png",
-      "sha256": "91ed51af1250b3ddeca8eb9171cd16ee9a4a67717bca8fd57b2e6c239ef8d8b2",
-      "kind": "existing-bytes"
-    },
-    {
       "from": "01.Characters/01.Bar/08.Shiba/Shiba_Idle.png",
       "path": "01.Characters/01.Bar/08.Shiba/Shiba_Idle.png",
       "sha256": "52d9f21bfebdf26c889e3f9a936abd237ab2df10bec113d9175714bd378455df",
@@ -1141,18 +1135,6 @@
       "from": "02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
       "path": "02.Environments/01.Bar/03.Minigames/dummy_cocktail_making_minigame.png",
       "sha256": "d61d2c394723054ad8d944a9581c184c2c1ccc7dca84f53576f249e68e506ab3",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
-      "path": "02.Environments/01.Bar/03.Minigames/dummy_shaking_minigame.png",
-      "sha256": "2741ec4e2ccc3359b4dbe4beddb4ca8d755de592cb709651fc293c02d2c018f8",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
-      "path": "02.Environments/01.Bar/03.Minigames/dummy_stirring_minigame.png",
-      "sha256": "835ce2f129c80cc2ac56a14d46eb156386fbc64dcd5835bf3a36ad972fbfe9c8",
       "kind": "existing-bytes"
     },
     {
@@ -2542,24 +2524,6 @@
       "kind": "new"
     },
     {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_background.png",
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_background.png",
-      "sha256": "4da096f26e0c97a99c08b62c040c17a011307380c255999afbbf4cb1d4c2b878",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_border.png",
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_border.png",
-      "sha256": "71d0fd67e352ef74db042056bb855196e5e0cf0f3eef532ced36ef22368a6a07",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_outside_item_notice_story_notice_shadow.png",
-      "sha256": "d28f981bf8102b41e647d4a0431d4ed66a8f8dd3117ced3ff835913ebe6d26c0",
-      "kind": "new"
-    },
-    {
       "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_border.png",
       "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_primary_border.png",
       "sha256": "ba87d8b3049141950386e97ab895b416ed364a7c7309c96e775d92973f2d977c",
@@ -2582,102 +2546,6 @@
       "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_span_background_variant2.png",
       "sha256": "ccb17cef90edb9897415fb08fd5be3098dd3a6b053aa0e0005933347b55febcc",
       "kind": "new"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border.png",
-      "path": "05.UI/07.Popup/IMG_notification_event_icon_border.png",
-      "sha256": "ac99364fd2fef7023f25df55f0fe82bd5fd49f9604bfc086cc50596ff3fef028",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v02.png",
-      "path": "05.UI/07.Popup/IMG_notification_down_icon_border.png",
-      "sha256": "8cd519e872f2ab1934860ed1e22ae5a3b04fb2fd9c3e625dfebe9f8ad5f53e5f",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v03.png",
-      "path": "05.UI/07.Popup/IMG_notification_goal_new_icon_border.png",
-      "sha256": "1a0360e7375c0f01815a8a1659dd2f68ccebb114075421bc585f46a75d6e1a2e",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v04.png",
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_icon_border.png",
-      "sha256": "bdfad12a2d00888a916132b5ddc47c692d6f190410d505fe7cfbe22b04ec83e7",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_icon_border_v05.png",
-      "path": "05.UI/07.Popup/IMG_notification_meet_icon_border.png",
-      "sha256": "a6f2bf6e46bf1685170f05d85bc49652726c28ea46898273be2fa17e4a1c8858",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background.png",
-      "path": "05.UI/07.Popup/BG_notification_goal_complete.png",
-      "sha256": "65b44859d1b178adbeef2cf4ed213972932f219cd27bf2a94de18b774dcd2604",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_v02.png",
-      "path": "05.UI/07.Popup/BG_notification_goal_new.png",
-      "sha256": "8b4569a0c2a7e1d05cff6227d7939621eaa5531eb7af14c91596abf1a04ec2da",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_background_variant2.png",
-      "path": "05.UI/07.Popup/BG_notification_event.png",
-      "sha256": "2c51cdf8f2585b79c16b7fe04976b8c048d0c5332bdff21b8c23086382cfa5f6",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border.png",
-      "path": "05.UI/07.Popup/IMG_notification_goal_new_border.png",
-      "sha256": "7acbac3d6a11ba970fa53dbff29f7d2dc70b778f0f9f01f4b08368f98e9c1072",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_v02.png",
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_border.png",
-      "sha256": "59e166330af5cf2999c50b3f20af5a146f1c901e28162f015c7d056a998a5f69",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_border_variant2.png",
-      "path": "05.UI/07.Popup/IMG_notification_event_border.png",
-      "sha256": "8c8475cab7288fdbeaf3f15581ce95fab97d65a118f53378bae2b2a05f249fdd",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_event_shadow.png",
-      "path": "05.UI/07.Popup/IMG_notification_goal_complete_shadow.png",
-      "sha256": "614ea812f73f09f86ef5659daa591f3e61bcdc9dc8c1f4e4f5ef61fdb476c483",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_background.png",
-      "path": "05.UI/07.Popup/BG_notification_down.png",
-      "sha256": "6b3849fa1b51fb66d3116f7a27c29bed74626b88f34df3b01c0502185a5d34f3",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border.png",
-      "path": "05.UI/07.Popup/IMG_notification_down_border.png",
-      "sha256": "91a27f951e39b7e4d584d30ceb896b2b36345f3c847d3a47de1aadb7059ee48c",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_border_v02.png",
-      "path": "05.UI/07.Popup/IMG_notification_meet_border.png",
-      "sha256": "602e5dfeaa696f00c773333bb14e6d8a152ed829caa8a28f6b96c7ce3e68c3e7",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_story_notice_story_notice_people_shadow.png",
-      "path": "05.UI/07.Popup/IMG_notification_down_shadow.png",
-      "sha256": "53308e214b5035c5359bff86eb65b43c515324bcf530ee8f655a607ab616b764",
-      "kind": "existing-bytes"
     },
     {
       "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_art_background.png",
@@ -2732,42 +2600,6 @@
       "path": "05.UI/01.Shared/WebGenerated/Notifications/Web_GRD_unlock_day_border_variant2.png",
       "sha256": "719d7421a45bebae1e51cda64f355a0d109345fbb8eb531c5fa2f7060890f792",
       "kind": "new"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon.png",
-      "path": "05.UI/07.Popup/ICN_notification_goal_new.png",
-      "sha256": "2e60b970c78a733cd7a98d58992dca27e5ea70af03da9b2103a3f0df8d6b493e",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v02.png",
-      "path": "05.UI/07.Popup/ICN_notification_event.png",
-      "sha256": "962af8b1cc6b469b92a91940c2fca1c25d20748273dd325fe9ea3bc47cceed88",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v03.png",
-      "path": "05.UI/07.Popup/ICN_notification_goal_complete.png",
-      "sha256": "3f5c50417adc2b762638eb01c80717287926b6549eb0a9151f5b9150c7cb3a2f",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v04.png",
-      "path": "05.UI/07.Popup/ICN_notification_meet.png",
-      "sha256": "e7f43baa679530256e23d0eb727b329325af5066979d2930bced30c628b02c10",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v05.png",
-      "path": "05.UI/07.Popup/ICN_notification_down.png",
-      "sha256": "92a743a255d5ea6ce46e54fdf5a7482af002b03bf5718bdc084bab7213130bef",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Web_IMG_story_notice_icon_icon_v06.png",
-      "path": "05.UI/07.Popup/ICN_notification_up.png",
-      "sha256": "bc1aa1065c662ea63aa7d03ffbcbf1d1ed96aca2785a7a2bf8231f734ee9cd65",
-      "kind": "existing-bytes"
     },
     {
       "from": "05.UI/01.Shared/WebGenerated/Settings/Web_BTN_button_background.png",
@@ -6748,18 +6580,6 @@
       "kind": "new"
     },
     {
-      "from": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_background.png",
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_background.png",
-      "sha256": "23af4535f390ae39b60911dc21219d636ef0b20767bf66e759ee08ff7fe194f1",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_border.png",
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_item_preview_border.png",
-      "sha256": "eaf604fde6ec975b9472530d6415aafb36ed38bde8e8b9495520c6ed54fc8683",
-      "kind": "new"
-    },
-    {
       "from": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_overlay_is_inspection_background.png",
       "path": "05.UI/06.Ect/WebGenerated/Outside/Web_GRD_outside_overlay_is_inspection_background.png",
       "sha256": "63c5a3c114ee034a2bfff14e234ace20624408a8724213f944739e1ecc3db10f",
@@ -7675,12 +7495,6 @@
       "from": "05.UI/01.Shared/WebGenerated/Notifications/Combined/Web_GRD_johnny_unlock_item_surface_be3375f44f.png",
       "path": "05.UI/01.Shared/WebGenerated/Notifications/Combined/Web_GRD_johnny_unlock_item_surface_be3375f44f.png",
       "sha256": "996aaee2c91e263eaa9f78f17dbcb1d06b9cca6cf53a9ead7ac4da83668a6997",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/01.Shared/WebGenerated/Notifications/Combined/Web_GRD_outside_item_notice_story_notice_surface_3e90c8e13b.png",
-      "path": "05.UI/01.Shared/WebGenerated/Notifications/Combined/Web_GRD_outside_item_notice_story_notice_surface_3e90c8e13b.png",
-      "sha256": "892fd231fab00302ed5d2e5f723ab98ecf326eff12740dfab590c613f561e981",
       "kind": "new"
     },
     {
@@ -10552,45 +10366,9 @@
       "kind": "new"
     },
     {
-      "from": "05.UI/06.Ect/WebGenerated/Outside/Combined/Web_GRD_outside_item_preview_surface_c2690d642e.png",
-      "path": "05.UI/06.Ect/WebGenerated/Outside/Combined/Web_GRD_outside_item_preview_surface_c2690d642e.png",
-      "sha256": "a43fea9d4f910a8dd5094a6956ce97e9d0279d17bc4496c36998fbaef547bf8a",
-      "kind": "new"
-    },
-    {
       "from": "05.UI/06.Ect/WebGenerated/Outside/Combined/Web_GRD_world_choice_confirm_surface_ee0d8a3fcb.png",
       "path": "05.UI/06.Ect/WebGenerated/Outside/Combined/Web_GRD_world_choice_confirm_surface_ee0d8a3fcb.png",
       "sha256": "55e1497ebc303d104417a0d291b49bbb260047295d762dfaeb547c07e54ff42b",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_38ab6f8684.png",
-      "path": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_38ab6f8684.png",
-      "sha256": "421dd8d89438205107071382545a4a42eae923f7b4cbc88b46cc5cc659f1c6d2",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_63bcf1630e.png",
-      "path": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_down_surface_63bcf1630e.png",
-      "sha256": "778d2abe51077e8eb04f47c8f073fe5524366346fe10e1e2b2db4407b51b7739",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_event_surface_0d92338f98.png",
-      "path": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_event_surface_0d92338f98.png",
-      "sha256": "8d2da1fbc411e8f04611f71d6af212e920798727d5e8ac3be68318ca94f36796",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_complete_surface_dd6fee626d.png",
-      "path": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_complete_surface_dd6fee626d.png",
-      "sha256": "27c8f4e3f8a47e209b1f3bafe76dcaf89b0edf6ee5ca22ffca48ff2a307c20ee",
-      "kind": "new"
-    },
-    {
-      "from": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_new_surface_ea841cbcfc.png",
-      "path": "05.UI/07.Popup/WebGenerated/Combined/Web_BG_notification_goal_new_surface_ea841cbcfc.png",
-      "sha256": "c7f42714e203413a08ffa5528263448f4fbc9157b6aed3c3b0b864700ec4be52",
       "kind": "new"
     },
     {
@@ -10827,19 +10605,19 @@
       "from": "03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
       "path": "03.Crafting/02.Ingredients/02.Shelf/triple_sec.png",
       "kind": "new",
-      "sha256": "6dac5cbeb1417f1da2c2a78f3cfa8081891fcffc548248539d6905fc6038ace4"
+      "sha256": "33e2c7bdd33140a251962373e3d57fecbeb13ee4c423ae6393af502c99388d18"
     },
     {
       "from": "03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
       "path": "03.Crafting/02.Ingredients/02.Shelf/kahlua.png",
       "kind": "new",
-      "sha256": "5774cb6f09e9af6d477aab73a970423dbd16bbd8eacaeda4c6f5284122a55d67"
+      "sha256": "da6aebbb18f1da43e0afeca014305fe023fb49123d20771391ea38a0b70939c3"
     },
     {
       "from": "03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
       "path": "03.Crafting/02.Ingredients/02.Shelf/amaretto.png",
       "kind": "new",
-      "sha256": "57b2ce90e40836a0f85481540e01654e36f528187b8c5e9623704d33d119328f"
+      "sha256": "ad779d30f4559bc53a7ef134f36d4bdc4c23599718b49029b0b4f35168d74c68"
     },
     {
       "from": "03.Crafting/02.Ingredients/02.Shelf/bitters.png",
@@ -10851,7 +10629,7 @@
       "from": "03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
       "path": "03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
       "kind": "new",
-      "sha256": "2b8b84e6d2155ac4fe4cfede236333e5a44c713fa6e51709ce803649704ed1b6"
+      "sha256": "f0386b59f7130fa5d3386fcac10af4f636740bc3ebbdd16cf9a07c62d1c7cc5a"
     },
     {
       "from": "03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",

@@ -63,7 +63,7 @@ const surfaces=require('../data/presentation/generated-art/surfaces.json'),hidde
 for(let i=rows.length-1;i>=0;i--)if(hidden.has(rows[i].src))rows.splice(i,1);
 rows.push(...surfaces.rows);
 // The supplied panels supersede the old generated notification fragments.
-// Keep archived files on disk, but never present their skin as current game art.
+// Some shared source layers also appear in historical notification captures.
 for(let i=rows.length-1;i>=0;i--)if(/story-notice|outside-item-preview/.test([rows[i].title,rows[i].contexts,rows[i].sourceSelector].join(' ')))rows.splice(i,1);
 const notices={decrease:['up','호감도 상승'],increase:['down','호감도 하락'],ingredient:['ingredient','신규 재료 획득'],new_character:['meet','새로운 인물'],new_event:['event','외부 이벤트'],objective:['goal-new','새로운 목표'],objective_complete:['goal-complete','목표 달성']};
 for(const [file,[kind,title]]of Object.entries(notices)){

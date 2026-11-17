@@ -1,6 +1,8 @@
 const assert=require('node:assert/strict');
 const path=require('node:path');
 const os=require('node:os');
+const disposalPath='02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png';
+const disposalArt=require('../../bar-playtest/data/presentation/engine-art-sync.json').records.find(r=>r.path===disposalPath);
 const expectedDialogue=require('../data/opening-dialogue.json');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 (async()=>{
@@ -24,11 +26,11 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   const cleanBackground=await page.evaluate(async()=>{
    const legacy=StudioMedia.assets.get('opening-disposal'),current=StudioMedia.assets.get('opening-disposal-clean');
    const digest=async url=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await(await fetch(url,{cache:'no-store'})).arrayBuffer()))].map(v=>v.toString(16).padStart(2,'0')).join('');
-   return {same:legacy.src===current.src,hash:await digest(current.src),fallbackHash:await digest('assets/opening/disposal.png'),legacyLuna:StudioMedia.assets.get('opening-luna-anchor').sheet};
+   return {same:legacy.src===current.src,hash:await digest(current.src),src:current.src,legacyLuna:StudioMedia.assets.get('opening-luna-anchor').sheet};
   });
   assert.ok(cleanBackground.same);
-  assert.equal(cleanBackground.hash,'ea9798152e00eed4e33353712d31bc81b6dd673902e9a849949ad000fd5d6b7d');
-  assert.equal(cleanBackground.fallbackHash,cleanBackground.hash);
+  assert.equal(cleanBackground.src,'../bar-playtest/assets/01.ArtResources/'+disposalPath);
+  assert.equal(cleanBackground.hash,disposalArt.sha256);
   assert.equal(cleanBackground.legacyLuna,'luna_idle');
   await page.evaluate(()=>{localStorage.setItem('unknown-cutscene-studio-v1','prior-main');localStorage.setItem('unknown-cutscene-studio-v1:opening:20261012-lab-v3','prior-opening');});
   const first=await page.evaluate(()=>{
