@@ -48,7 +48,6 @@ function apply(data){
  // OutSide.unity: the apartment is behind the ground, fence and street
  // dressing, not in front of them. Keep the playable upper doorway anchor.
  building.layer=5;building.order=-1;
- building.interactionRegions={home:[562,397,43,80]};
  // Restore the engine's ground-plane composition. The full-width foreground
  // hides the base of the apartment; city light washes its lower wall.
  const foreground=nodes.find(n=>n.name==='B_ForeFore_Object_1');
@@ -99,6 +98,77 @@ function apply(data){
  }
  data.streetArtVersion='20261018';return data;
 }
-W.LunaOutsideArt={apply,replacements,elevatorArtOffsetY};
+// Cache opaque scanlines of the original art, not its rectangular atlas cell.
+const masks=new WeakMap(),corridorParts=[[0,401],[756,61],[845,16]];
+function mask(image,sp,start=0,width=sp.w){
+ let frames=masks.get(image);if(!frames)masks.set(image,frames=new Map());
+ const key=[sp.x+start,sp.y,width,sp.h].join(':');if(frames.has(key))return frames.get(key);
+ const c=document.createElement('canvas');c.width=width;c.height=sp.h;
+ const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(image,sp.x+start,sp.y,width,sp.h,0,0,width,sp.h);
+ const data=g.getImageData(0,0,width,sp.h).data,rows=[];let area=0;
+ for(let y=0;y<sp.h;y++){
+  const runs=[];let a=-1;
+  for(let x=0;x<=width;x++){
+   if(x<width&&data[(y*width+x)*4+3]>0){if(a<0)a=x;}
+   else if(a>=0){runs.push(start+a,start+x);area+=x-a;a=-1;}
+  }
+  rows.push(runs);
+ }
+ const frame={rows,area};frames.set(key,frame);return frame;
+}
+// Intersect the current, possibly mirrored Luna frame with one foreground
+// piece in its native pixel coordinates. Empty space between the sign legs
+// or between the column and pipe must never count toward the overlap.
+function coveredArea(body,frame,flipped,dx,dy,sx,sy,part){
+ let area=0;
+ for(let y=0;y<frame.h;y++){
+  const row=body.rows[y];if(!row.length)continue;
+  const y0=dy+y*sy,y1=y0+sy;
+  for(let v=Math.max(0,Math.floor(y0));v<Math.min(part.rows.length,Math.ceil(y1));v++){
+   const stripes=part.rows[v],height=Math.min(v+1,y1)-Math.max(v,y0);
+   for(let i=0;i<row.length;i+=2){
+    const a=dx+(flipped?frame.w-row[i+1]:row[i])*sx,b=dx+(flipped?frame.w-row[i]:row[i+1])*sx;
+    for(let j=0;j<stripes.length;j+=2)area+=height*Math.max(0,Math.min(b,stripes[j+1])-Math.max(a,stripes[j]));
+   }
+  }
+ }
+ return area;
+}
+// Follow the existing contact target (no proximity radius or delayed trigger).
+// 90% of a step in 80 ms; settle the last half-percent exactly. The visit's
+// simulation clock keeps pause, extra draws, and different refresh rates consistent.
+const corridorFades=new WeakMap(),responseSeconds=.08/Math.log(10);
+function paintCorridorForeground(ctx,img,sp,rect,actor,model){
+ const {w,h}=rect,left=-w*sp.pivot.x,top=-h*(1-sp.pivot.y),px=w/sp.w,py=h/sp.h;
+ let state=corridorFades.get(model.story);
+ if(!state){state={time:-Infinity,values:[0,0,0]};corridorFades.set(model.story,state);}
+ const keep=Math.exp(-Math.max(0,model.time-state.time)/responseSeconds);state.time=model.time;
+ let dx,dy,sx,sy,nearSheet=false;
+ if(actor){
+  const {frame,flip,box}=actor;sx=box.w/frame.w/px;sy=box.h/frame.h/py;
+  dx=(box.x-box.w*(flip?1-frame.pivot.x:frame.pivot.x)-(rect.x+left))/px;
+  dy=(box.y-box.h*(1-frame.pivot.y)-(rect.y+top))/py;
+  nearSheet=dy<sp.h&&dy+frame.h*sy>0&&dx<sp.w&&dx+frame.w*sx>0;
+ }
+ if(!nearSheet&&state.values.every(v=>v===0)){
+  ctx.drawImage(img,sp.x,sp.y,sp.w,sp.h,left,top,w,h);return;
+ }
+ const base=ctx.globalAlpha;
+ for(const [i,[start,width]] of corridorParts.entries()){
+  let fade=0;
+  if(nearSheet&&dx+actor.frame.w*sx>start&&dx<start+width){
+   const {frame,flip}=actor;
+   const body=mask(actor.image,frame),part=mask(img,sp,start,width);
+   const area=coveredArea(body,frame,flip,dx,dy,sx,sy,part);
+   if(body.area)fade=Math.min(1,area/(body.area*sx*sy*.25));
+  }
+  const residual=(state.values[i]-fade)*keep;
+  if(keep!==1)state.values[i]=fade+(Math.abs(residual)<.005?0:residual);
+  ctx.globalAlpha=base*(1-.76*state.values[i]);
+  ctx.drawImage(img,sp.x+start,sp.y,width,sp.h,left+start*px,top,width*px,h);
+ }
+ ctx.globalAlpha=base;
+}
+W.LunaOutsideArt={apply,replacements,elevatorArtOffsetY,paintCorridorForeground};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

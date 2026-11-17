@@ -14,17 +14,78 @@ html,body{margin:0;min-height:100%;height:auto}
 /* Fixed 16:9 playfield, uniformly scaled with black letterboxing. ESC retains settings. */
 html,body{width:100%;height:100%;min-height:0;overflow:hidden;padding:0;background:#000}
 .app{position:absolute;left:50%;top:50%;width:1280px;height:720px;max-width:none;padding:14px 16px;background:var(--bg);transform:translate(-50%,-50%) scale(var(--lab-scale,1));transform-origin:center;gap:12px}
+/* Layout at the visible size so the compositor doesn't resize an already rasterized canvas. */
+@supports (zoom:min(calc(100vw / 1280px),calc(100vh / 720px))){
+  body{display:grid;place-items:center}
+  .app{position:relative;left:auto;top:auto;transform:none;zoom:min(calc(100vw / 1280px),calc(100vh / 720px))}
+}
 .top{display:none}
 #openSet{display:none}
 .stage{flex:1;min-height:0;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:stretch}
 .luna,.panel{min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.luna canvas#lv{width:100%;height:100%;max-height:100%;object-fit:cover;margin:0}
-.panel canvas#cv{width:100%;height:auto;margin:auto 0;flex:none}
+.luna{background:radial-gradient(ellipse at center,#101f29,#08121a 78%);isolation:isolate}
+/* Low-contrast standby grain moves beneath the incoming picture. */
+.luna::before{content:"";position:absolute;inset:-8px;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,#091019 3px 4px),url("assets/monitor-grain.png");
+  opacity:.13;animation:standby-grain .8s steps(1) infinite}
+@keyframes standby-grain{0%,100%{transform:none}25%{transform:translate(4px,-3px)}50%{transform:translate(-3px,-5px)}75%{transform:translate(-2px,3px)}}
+.luna-feed{position:absolute;inset:0;background:#120d0a url("../../../assets/01.ArtResources/02.Environments/01.Bar/03.Minigames/shaking_minigame.png") center 25%/auto 120% no-repeat}
+.luna-feed[aria-hidden="true"]{visibility:hidden}
+.is-opening .luna-feed{animation:monitor-open .32s ease-out both}
+.is-closing .luna-feed{animation:monitor-open .32s ease-out reverse both}
+@keyframes monitor-open{
+  0%{clip-path:inset(calc(50% - 1px) 43%)}
+  19%{clip-path:inset(calc(50% - 2px) 1%)}
+  43%{clip-path:inset(37% 0)}
+  100%{clip-path:inset(0)}
+}
+.luna-feed::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at center,transparent 46%,rgba(0,0,0,.3) 100%)}
+:is(.is-opening,.is-closing) .luna-feed::before{content:"";position:absolute;z-index:1;inset:0;background:#b2f6ff;pointer-events:none;animation:monitor-beam .25s ease-out both}
+.is-closing .luna-feed::before{background:#ff8891;animation:monitor-beam .32s ease-out reverse both}
+@keyframes monitor-beam{0%,18%{opacity:.88}48%{opacity:.1}100%{opacity:0}}
+.luna:has(.luna-feed:not([aria-hidden]))::before{animation:none}
+.luna canvas#lv{width:100%;height:100%;max-height:100%;object-fit:fill;margin:0}
+
+.seal-notice{--signal:#74e3f2;position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);
+  pointer-events:none;color:var(--signal);font-family:var(--f-pixel)}
+.is-opening .seal-notice{animation:seal-notice-fade .26s ease-out both}
+.seal-notice[data-weak]{--signal:#f3c985}
+.seal-notice[data-failed]{--signal:#ff6979}
+.seal-notice[data-failed] .seal-readout{background:#200e16}
+.seal-notice[data-failed] .seal-readout span{color:#ffb7be}
+.seal-notice::before{content:"";position:absolute;inset:-6px;
+  background:linear-gradient(currentColor,currentColor) left top / 12px 2px,linear-gradient(currentColor,currentColor) left top / 2px 12px,
+    linear-gradient(currentColor,currentColor) right top / 12px 2px,linear-gradient(currentColor,currentColor) right top / 2px 12px,
+    linear-gradient(currentColor,currentColor) left bottom / 12px 2px,linear-gradient(currentColor,currentColor) left bottom / 2px 12px,
+    linear-gradient(currentColor,currentColor) right bottom / 12px 2px,linear-gradient(currentColor,currentColor) right bottom / 2px 12px;
+  background-repeat:no-repeat;filter:drop-shadow(0 0 3px currentColor);animation:seal-brackets .18s ease-out both}
+.seal-readout{position:relative;overflow:hidden;min-width:230px;padding:10px 16px;border-left:2px solid var(--signal);
+  background:rgba(4,15,22,.94);animation:seal-brackets-open .14s ease-out both}
+.seal-readout::after{content:"";position:absolute;inset:0 0 auto;height:2px;background:var(--signal);animation:seal-scan .3s ease-out both}
+.seal-readout strong,.seal-readout span{display:table;white-space:nowrap;animation:seal-type .24s steps(16,end) .10s both}
+.seal-readout strong{font-size:20px;line-height:1.45}
+.seal-readout span{font-size:13px;color:#d2e6eb;line-height:1.45;animation-delay:.27s;animation-duration:.14s;animation-timing-function:steps(8,end)}
+@keyframes seal-notice-fade{from{opacity:1}to{opacity:0}}
+@keyframes seal-brackets{from{transform:scale(1.2,1.5)}to{transform:scale(1)}}
+@keyframes seal-brackets-open{from{clip-path:inset(48% 0)}to{clip-path:inset(0)}}
+@keyframes seal-scan{from{top:0;opacity:.8}to{top:100%;opacity:0}}
+@keyframes seal-type{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+.shake-paused :is(.luna-feed,.seal-notice,.seal-readout,.seal-readout strong,.seal-readout span),
+.shake-paused :is(.luna-feed,.seal-notice,.luna)::before,
+.shake-paused .seal-readout::after{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){
+  .luna::before,:is(.is-opening,.is-closing) .luna-feed,.seal-notice::before,.seal-readout,.seal-readout strong,.seal-readout span{animation:none}
+  :is(.is-opening,.is-closing) .luna-feed::before,.seal-readout::after{display:none}
+  .is-closing .luna-feed{visibility:hidden}
+}
+.shaker-raster{position:relative;width:100%;height:100%;flex:none;margin:auto 0}
+.shaker-raster canvas#cv{position:absolute;left:0;top:0;width:100%;height:100%;margin:0;image-rendering:pixelated}
 .panel .bar{position:absolute;left:0;right:0;bottom:0;width:86%;height:22px}
 .tabs button{font-size:13px}
 
 #tut{font-family:var(--font-dialogue)}
 #shake-guide{display:block;width:100%;height:300px;image-rendering:auto}
+#guide-art{display:block;width:400px;height:300px;image-rendering:pixelated}
 #shake-guide text{font:700 16px var(--font-dialogue);fill:#e9fbff;text-anchor:middle;dominant-baseline:central}
-#shake-guide[data-demo="close"] .guide-shake,
 #shake-guide[data-demo="shake"] .guide-close{display:none}

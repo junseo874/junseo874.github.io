@@ -5,15 +5,11 @@ const sharedRoot='assets/01.ArtResources/02.Environments/03.Home/01.Sprites/';
 const leftTrim=29,studioOriginX=-11.2+leftTrim*.04;
 const webVariants=new Set(['nietzsche-the-gay-science.png']);
 const assetPath=file=>(webVariants.has(file)?root:sharedRoot)+file;
-// Regions are local to the current separate bed/wardrobe sprites.
-const bed={rect:[0,0,91,26],edge:[[7,0],[24,0],[27,3],[76,4],[84,7],[90,10],[90,21],[85,25],[8,25],[2,22],[0,16],[0,8],[4,3]]};
-const wardrobe={rect:[0,0,24,69],edge:[[2,0],[22,0],[24,2],[24,69],[0,69],[0,2]]};
-// Foreground-local pixels: only the stacked books, never the glass table below.
-const book={rect:[0,0,21,9],edge:[[1,0],[18,0],[19,1],[18,2],[20,3],[21,4],[21,9],[0,9],[0,3],[1,3],[1,2],[0,1]],cover:'home-book-cover'};
+const book={cover:'home-book-cover'};
 function bookTarget(){
  const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='home-book'),sp=n.sprite;
  const left=n.x-sp.w*sp.pivot.x/sp.ppu,top=n.y+sp.h*(1-sp.pivot.y)/sp.ppu;
- return {id:'home-book',label:'책 살펴보기',x:left+(book.rect[0]+book.rect[2]/2)/sp.ppu,y:-.7,top:top-book.rect[1]/sp.ppu,nodeName:n.name};
+ return {id:'home-book',label:'책 살펴보기',x:left+sp.w/2/sp.ppu,y:-.7,top,nodeName:n.name};
 }
 function bedTarget(){
  const n=W.LUNA_OUTSIDE_DATA.scenes.home.nodes.find(n=>n.name==='home-bed'),sp=n.sprite;
@@ -89,12 +85,44 @@ function paintCity(ctx,image,x,y,w,h,cameraOffset){
  const crop=cityCrop(cameraOffset,W.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
  ctx.drawImage(image,crop.x,crop.y,crop.w,crop.h,x,y,w,h);
 }
+// A 3×5 bitmap font fits the shelf clock at the room's native pixel scale.
+const clockDigits=[
+ ['111','101','101','101','111'],['010','110','010','010','111'],
+ ['111','001','111','100','111'],['111','001','111','001','111'],
+ ['101','101','111','001','001'],['111','100','111','001','111'],
+ ['111','100','111','101','111'],['111','001','010','010','010'],
+ ['111','101','111','101','111'],['111','101','111','001','111']
+];
+let clockFace,clockMinute=-1,clockLit;
+function paintClock(ctx,x,y,w,h){
+ const now=new Date(),hour=now.getHours(),minute=now.getMinutes();
+ const minuteOfDay=hour*60+minute,lit=now.getMilliseconds()<400;
+ if(!clockFace){
+  clockFace=document.createElement('canvas');
+  clockFace.width=17;clockFace.height=5;
+ }
+ if(clockMinute!==minuteOfDay||clockLit!==lit){
+  clockMinute=minuteOfDay;clockLit=lit;
+  const face=clockFace.getContext('2d');
+  face.clearRect(0,0,17,5);face.fillStyle='#346563';
+  const digits=[Math.floor(hour/10),hour%10,Math.floor(minute/10),minute%10];
+  const columns=[0,4,10,14];
+  digits.forEach((digit,index)=>clockDigits[digit].forEach((row,dy)=>{
+   for(let dx=0;dx<3;dx++)if(row[dx]==='1')face.fillRect(columns[index]+dx,dy,1,1);
+  }));
+  if(lit){face.fillRect(8,1,1,1);face.fillRect(8,3,1,1);}
+ }
+ ctx.save();ctx.imageSmoothingEnabled=false;
+ ctx.drawImage(clockFace,x+271*w/631,y+105*h/270,17*w/631,5*h/270);
+ ctx.restore();
+}
 // The supplied room has a one-pixel cyan export fringe along the floor.
 // Extend the adjacent floor pixel instead, in source space, so zooming cannot
 // magnify it into a bright scanline. Share this with the waking cutscene.
 function paintRoom(ctx,image,x,y,w,h){
  ctx.drawImage(image,x,y,w,h);
  ctx.drawImage(image,0,237,531,1,x,y+h*238/270,w*531/631,h/270);
+ paintClock(ctx,x,y,w,h);
 }
 // Fence-local coordinates: keep the separate rail at its authored position, but
 // join its footing to the room floor and occlude the city below that floor.
@@ -106,6 +134,6 @@ function paintFence(ctx,image,x,y,w,h){
  ctx.fillStyle='#6c6a82';ctx.fillRect(-27,40,85,1);
  ctx.restore();
 }
-W.LunaHomeArt={root,assetPath,layers,studioOriginX,studioPose,bed,bedTarget,wardrobe,wardrobeTarget,book,bookTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
+W.LunaHomeArt={root,assetPath,layers,studioOriginX,studioPose,bedTarget,wardrobeTarget,book,bookTarget,apply,cameraX,cityCrop,paintCity,paintRoom,paintFence};
 if(W.LUNA_OUTSIDE_DATA)apply(W.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

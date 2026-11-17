@@ -31,7 +31,7 @@ spot('reopening-pair','재개점 소문 행인','street',-4.35,-.94,-13.3,5.1,[[
 spot('residents','상층 복도 주민','corridor',-18.8,9.346,-18.8,-14.7,[['M2',0],['W1',.65]]);
 // Partners can be adjusted independently inside a safe dialogue/animation span.
 function partner(parent,label,gap){const a=specs[parent],[kind,dx,dy=0]=a.cast[1],id=parent+'-partner';spot(id,label,a.floor,Math.round((a.x+dx)*1000)/1000,Math.round((a.y+dy)*1000)/1000,a.min+gap[0],a.max+gap[1],[[kind,0]]);Object.assign(specs[id],{parent,gap,dx});a.partner=id;}
-for(const [id,name,gap]of [['store-pair','편의점 행인 2',[.45,1.3]],['bar-pair','바 앞 행인 2',[.42,1.3]],['residents','복도 주민 2',[.45,1.15]],['commute-pair','출근길 행인 2',[.45,1.3]],['reopening-pair','재개점 행인 2',[.45,1.3]],['camp','보스 옆 갱단원',[.48,.84]],['contract','계약 · 밀수업자',[1,2.25]],['trade','밀거래 · 밀수업자',[1,2.25]],['box','상자 쪽 옆집 아저씨',[1.15,1.55]],['home-cat','소파 옆 크리스',[-1.15,-.65]]])partner(id,name,gap);
+for(const [id,name,gap]of [['store-pair','편의점 행인 2',[.45,1.3]],['bar-pair','바 앞 행인 2',[.42,1.3]],['residents','복도 주민 2',[.45,1.15]],['commute-pair','출근길 행인 2',[.45,1.3]],['reopening-pair','재개점 행인 2',[.45,1.3]],['camp','보스 옆 갱단원',[.48,.84]],['contract','계약 · 밀수업자',[.55,2.25]],['trade','밀거래 · 밀수업자',[.55,2.25]],['box','상자 쪽 옆집 아저씨',[1.15,1.55]],['home-cat','소파 옆 크리스',[-1.15,-.65]]])partner(id,name,gap);
 function position(v,id){const s=specs[id];return v?.positions?.[id]?.x??(s.parent?Math.round((position(v,s.parent)+s.dx)*1000)/1000:s.x);}
 function pose(v,id,i=0){const s=specs[id],[kind,dx,dy=0,flip=false]=s.cast[i];
  return{kind,x:i&&s.partner?position(v,s.partner):position(v,id)+dx,y:s.y+dy,flip};}

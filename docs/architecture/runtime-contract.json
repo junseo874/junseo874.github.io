@@ -1,6 +1,10 @@
 {
   "index.html": [
     [
+      "script",
+      "bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"
     ],
@@ -14,6 +18,10 @@
     ]
   ],
   "intro.html": [
+    [
+      "script",
+      "bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
     [
       "link",
       "https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"
@@ -29,6 +37,10 @@
   ],
   "direction.html": [
     [
+      "script",
+      "bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"
     ],
@@ -42,6 +54,10 @@
     ]
   ],
   "simulator.html": [
+    [
+      "script",
+      "bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
     [
       "link",
       "css/style.css"
@@ -81,6 +97,10 @@
   ],
   "LUNA_TestTool.html": [
     [
+      "script",
+      "bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "bar-playtest/src/shared/ui/cursors.css"
     ],
@@ -101,6 +121,10 @@
     [
       "script",
       "src/features/outside/events/newspaper-dialogue.js"
+    ],
+    [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
     ],
     [
       "script",
@@ -925,6 +949,10 @@
   ],
   "bar-playtest/dialogue-editor.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/dev/dialogue-editor/editor.css"
     ],
@@ -1111,6 +1139,10 @@
   ],
   "bar-playtest/dialogue-editors.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/dev/dialogue-editor/editor.css"
     ],
@@ -1128,6 +1160,10 @@
     ]
   ],
   "bar-playtest/outside-dialogue-editor.html": [
+    [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
     [
       "link",
       "src/dev/dialogue-editor/editor.css"
@@ -1315,6 +1351,10 @@
   ],
   "bar-playtest/resource-review.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/dev/resources/resource-review.css"
     ],
@@ -1425,6 +1465,10 @@
   ],
   "bar-playtest/story-guide.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/dev/story-guide/story-guide.css"
     ],
@@ -1459,6 +1503,10 @@
   ],
   "bar-playtest/data-review.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/dev/data/data-review.css"
     ],
@@ -1481,6 +1529,10 @@
   ],
   "bar-playtest/sound-lab.html": [
     [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "src/shared/ui/typography.css"
     ],
@@ -1502,6 +1554,10 @@
     ]
   ],
   "bar-playtest/src/dev/shaking/version-2.html": [
+    [
+      "script",
+      "../../shared/platform/window-fullscreen.js"
+    ],
     [
       "link",
       "../../shared/ui/typography.css"
@@ -1532,7 +1588,15 @@
     ],
     [
       "script",
+      "prop-art.js"
+    ],
+    [
+      "script",
       "game.js"
+    ],
+    [
+      "script",
+      "guide-art.js"
     ],
     [
       "script",
@@ -1553,6 +1617,10 @@
   ],
   "bar-playtest/src/dev/wine-opening/version-1.html": [
     [
+      "script",
+      "../../shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "wine-opening.css"
     ],
@@ -1567,6 +1635,10 @@
   ],
   "bar-playtest/src/dev/wine-opening/version-2.html": [
     [
+      "script",
+      "../../shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "wine-opening.css"
     ],
@@ -1580,6 +1652,10 @@
     ]
   ],
   "cutscene-studio/index.html": [
+    [
+      "script",
+      "../bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
     [
       "link",
       "styles/studio.css"
@@ -1751,6 +1827,10 @@
   ],
   "cutscene-studio/trailer.html": [
     [
+      "script",
+      "../bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
+    [
       "link",
       "styles/trailer.css"
     ],
@@ -1769,6 +1849,24 @@
     [
       "script",
       "src/trailer-preview.js"
+    ]
+  ],
+  "cutscene-studio/trailer-sources.html": [
+    [
+      "script",
+      "../bar-playtest/src/shared/platform/window-fullscreen.js"
+    ],
+    [
+      "link",
+      "styles/trailer.css"
+    ],
+    [
+      "script",
+      "src/trailer-scenes.js"
+    ],
+    [
+      "script",
+      "src/trailer-sources.js"
     ]
   ]
 }

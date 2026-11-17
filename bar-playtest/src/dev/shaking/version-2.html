@@ -1,12 +1,14 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ko"><head><meta charset="utf-8">
+<script src="../../shared/platform/window-fullscreen.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LAST CALL 쉐이크</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="../../shared/ui/typography.css">
 <link rel="stylesheet" href="prototype.css?v=fixed-shake-sound-2">
 <link rel="stylesheet" href="../../features/tutorials/mix-tutorial.css">
 <link rel="stylesheet" href="../../shared/ui/generated-art.css">
-<link rel="stylesheet" href="session.css?v=fixed-shake-sound-2">
+<link rel="stylesheet" href="session.css?v=monitor-shutdown">
 
 </head><body>
 <div class="app">
@@ -17,12 +19,21 @@
     <button class="menuBtn" id="openSet" type="button">☰ 설정 <kbd>ESC</kbd></button>
   </div>
   <main class="stage">
-    <section class="luna" aria-label="루나 쉐이킹 일러스트">
-      <canvas id="lv" width="760" height="712"></canvas>
+    <section id="luna-panel" class="luna" aria-label="루나 쉐이킹 일러스트">
+      <img id="luna-shake-sheet" hidden alt="" src="../../../assets/01.ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Legacy_shake.png">
+      <div id="luna-feed" class="luna-feed" aria-hidden="true">
+        <canvas id="lv" width="760" height="712"></canvas>
+      </div>
+      <div class="seal-notice" id="seal-notice" role="status" aria-atomic="true" lang="en" hidden>
+        <div class="seal-readout">
+          <strong>SHAKER ASSEMBLED</strong>
+          <span>START...</span>
+        </div>
+      </div>
     </section>
     <section class="panel">
       <div class="timer" aria-label="조작 시간"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="13.5" r="8"/><path d="M12 13.5V9M9.5 2.5h5M12 2.5v3"/></svg><span id="timer">00:00</span></div>
-      <canvas id="cv" width="880" height="640"></canvas>
+      <div class="shaker-raster"><canvas id="cv" width="880" height="640"></canvas></div>
       <div class="bar" id="bar"></div>
     </section>
   </main>
@@ -39,94 +50,26 @@
               <pattern id="guide-grid" width="20" height="20" patternUnits="userSpaceOnUse">
                 <path d="M20 0H0V20" fill="none" stroke="#18303c" stroke-width="1"/>
               </pattern>
-              <linearGradient id="guide-steel" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-                <stop stop-color="#55666e"/><stop offset=".1" stop-color="#f2f8fa"/>
-                <stop offset=".2" stop-color="#a7b8bf"/><stop offset=".42" stop-color="#56686f"/>
-                <stop offset=".55" stop-color="#1d282d"/><stop offset=".72" stop-color="#71868e"/>
-                <stop offset=".9" stop-color="#d6e2e6"/><stop offset="1" stop-color="#7b8e95"/>
-              </linearGradient>
-              <g id="guide-large-tin" fill="url(#guide-steel)" stroke-linejoin="round">
-                <path d="M-94 -17L15 -24V24L-94 17Z" stroke="#94acb5"/>
-                <path d="M-90 -17V17M12 -23V23" stroke="#e6f3f6" opacity=".6"/>
-              </g>
-              <g id="guide-small-tin" fill="url(#guide-steel)" stroke-linejoin="round">
-                <path d="M-11 -22L86 -17V17L-11 22Z" stroke="#9ab0b8"/>
-                <path d="M82 -17V17M-8 -21V21" stroke="#e6f3f6" opacity=".6"/>
-              </g>
-              <path id="guide-chamber" transform="scale(.375)"/>
-              <clipPath id="guide-sight-glass"><use href="#guide-chamber"/></clipPath>
             </defs>
             <rect width="400" height="300" fill="#0a1722"/>
             <rect width="400" height="300" fill="url(#guide-grid)"/>
+            <foreignObject width="400" height="300" pointer-events="none">
+              <canvas id="guide-art" width="400" height="300" aria-hidden="true"></canvas>
+            </foreignObject>
             <g class="guide-close">
               <rect x="116" y="24" width="168" height="8" rx="4" fill="#243d48"/>
-              <rect x="169" y="24" width="62" height="8" fill="#55d7ee"/>
-              <rect x="188" y="21" width="24" height="14" rx="2" fill="#f0c987"/>
+              <rect x="158" y="24" width="84" height="8" fill="#55d7ee"/>
+              <rect x="184.25" y="21" width="31.5" height="14" rx="2" fill="#f0c987"/>
               <g fill="#f4fdff">
-                <animateTransform attributeName="transform" type="translate" values="-70 0;70 0;0 0;0 0;0 0;-70 0" keyTimes="0;.26;.39;.76;.86;1" dur="4s" repeatCount="indefinite"/>
+                <animateTransform attributeName="transform" type="translate" values="-84 0;84 0;0 0;0 0;0 0;-84 0" keyTimes="0;.26;.39;.76;.86;1" dur="3.92s" repeatCount="indefinite"/>
                 <path d="M197 14H203L200 20Z"/><rect x="198.5" y="22" width="3" height="13"/>
               </g>
-              <g transform="translate(200 153) scale(.9)">
-                <g>
-                  <animateTransform attributeName="transform" type="rotate" values="-90;-90;0;0;-90;-90" keyTimes="0;.53;.68;.78;.88;1" dur="4s" repeatCount="indefinite"/>
-                  <use href="#guide-large-tin"/>
-                  <g>
-                    <animateTransform attributeName="transform" type="translate" values="36 -23;36 23;37 0;7 0;7 0;36 0;36 -23" keyTimes="0;.26;.39;.49;.85;.90;1" dur="4s" repeatCount="indefinite"/>
-                    <use href="#guide-small-tin">
-                      <animateTransform attributeName="transform" type="rotate" values="-12;12;0;0;-12" keyTimes="0;.26;.39;.90;1" dur="4s" repeatCount="indefinite"/>
-                    </use>
-                  </g>
-                </g>
-              </g>
-              <g transform="translate(200 275)">
+              <g transform="translate(200 279)">
                 <rect x="-40" y="-15" width="80" height="30" rx="5" fill="#10202b" stroke="#49616c"/>
                 <rect x="-40" y="-15" width="80" height="30" rx="5" fill="#34402e" stroke="#f0c987" stroke-width="2">
-                  <animate attributeName="opacity" values="0;1;0" keyTimes="0;.38;.55" calcMode="discrete" dur="4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0;1;0" keyTimes="0;.38;.55" calcMode="discrete" dur="3.92s" repeatCount="indefinite"/>
                 </rect>
                 <text>SPACE</text>
-              </g>
-            </g>
-            <g class="guide-shake">
-              <path id="guide-ring" d="M200 93H284a50 50 0 0 1 0 100H116a50 50 0 0 1 0-100Z" pathLength="100" fill="none"/>
-              <use href="#guide-ring" stroke="#29424e" stroke-width="4"/>
-              <use href="#guide-ring" stroke="#edfaff" stroke-width="4" stroke-linecap="round" stroke-dasharray="100 100">
-                <animate attributeName="stroke-dashoffset" values="0;98;98" keyTimes="0;.9;1" dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="stroke" values="#edfaff;#b7ee55;#ff993d;#ff4b4b" keyTimes="0;.25;.5;.75" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
-              </use>
-              <g transform="translate(200 143)">
-                <g>
-                  <animateTransform attributeName="transform" type="translate" values="0 0;-22 0;-19 0;23 0;19 0;0 0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
-                  <g>
-                    <animateTransform attributeName="transform" type="rotate" values="0;-6;-4;6;4;0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
-                    <use href="#guide-large-tin"/><use href="#guide-small-tin" x="7"/>
-                    <g clip-path="url(#guide-sight-glass)">
-                      <use href="#guide-chamber" fill="#111e27"/>
-                      <g>
-                        <animateTransform attributeName="transform" type="rotate" values="0;6;-2;-6;2;0" keyTimes="0;.18;.45;.65;.8;1" dur="2s" repeatCount="indefinite"/>
-                        <path id="guide-liquid" d="M-94 1Q-52 -3 -23 0T34 0T94 -1V32H-94Z" fill="#b99456"/>
-                        <path d="M-94 1Q-52 -3 -23 0T34 0T94 -1" fill="none" stroke="#eef5ed"/>
-                        <g fill="#bed9dd" fill-opacity=".65" stroke="#e5f8fb">
-                          <animateTransform attributeName="transform" type="translate" values="0 0;-12 2;2 0;12 2;-1 0;0 0" keyTimes="0;.23;.45;.7;.89;1" dur="2s" repeatCount="indefinite"/>
-                          <rect x="-34" y="-5" width="10" height="10" rx="2" transform="rotate(14 -29 0)"/>
-                          <rect x="23" y="-6" width="12" height="12" rx="2" transform="rotate(-22 29 0)"/>
-                        </g>
-                      </g>
-                    </g>
-                    <use href="#guide-chamber" fill="none" stroke="#899fa7" stroke-width="2"/>
-                  </g>
-                </g>
-              </g>
-              <g transform="translate(39 143)">
-                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#10202b" stroke="#49616c"/>
-                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#173e4a" stroke="#55d7ee" stroke-width="2">
-                  <animate attributeName="opacity" values="1;0" keyTimes="0;.45" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
-                </rect><text>A</text>
-              </g>
-              <g transform="translate(361 143)">
-                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#10202b" stroke="#49616c"/>
-                <rect x="-19" y="-18" width="38" height="36" rx="5" fill="#173e4a" stroke="#55d7ee" stroke-width="2">
-                  <animate attributeName="opacity" values="0;1;0" keyTimes="0;.45;.9" calcMode="discrete" dur="2s" repeatCount="indefinite"/>
-                </rect><text>D</text>
               </g>
             </g>
           </svg>
@@ -190,10 +133,10 @@
         </div>
         <div class="spane" data-pane="help" hidden>
           <div class="help">
-            <kbd>SPACE</kbd><span>틴 닫기. 기울기 바늘이 금색일 때 눌러 작은 틴을 밀어 넣는다. 잘 닫을수록 허용 MISS가 늘어난다.</span>
-            <kbd>A → D</kbd><span>강조된 키를 순서대로, 캡슐 게이지가 다 닳기 전에. 1회 완성마다 진행 바 한 칸.</span>
-            <kbd>A→D→A→D</kbd><span>위스키 사워는 두 번 왕복하는 회차가 섞여 나온다.</span>
-            <kbd>MISS</kbd><span>순서가 틀리거나 시간이 끝나면 빨간 칸. 허용 MISS를 넘기면 틴이 빠진다.</span>
+            <kbd>SPACE</kbd><span>게이지 중앙에서 결합하면 내구도 3칸, 그 양옆은 2칸, 양 끝은 1칸으로 시작한다.</span>
+            <kbd>D / E / A</kbd><span>D는 오른쪽 아래, E는 오른쪽 위, A는 왼쪽 중앙으로 이동한다. 이동 중에 누르면 내구도가 1칸 줄어든다. 1회 완성마다 진행 바 한 칸.</span>
+            <kbd>D→A→E→A</kbd><span>위스키 사워는 두 번 왕복하는 회차가 섞여 나온다.</span>
+            <kbd>MISS</kbd><span>시간이 끝나면 해당 회차만 실패한다. 잘못 누르면 내구도가 한 칸 줄어든다. 마지막 칸을 잃으면 틴이 빠진다.</span>
             <kbd>E</kbd><span>튜토리얼 다음 · 확인</span>
             <kbd>ESC</kbd><span>설정 열기 / 닫기 (일시정지)</span>
           </div>
@@ -208,12 +151,14 @@
   </div>
 
 </div>
-<script src="session-audio.js?v=fixed-shake-sound-2"></script>
+<script src="session-audio.js?v=finish-chime"></script>
 <script src="session-clock.js"></script>
-<script src="game.js?v=fixed-shake-sound-2"></script>
-<script src="luna.js"></script>
+<script src="prop-art.js?v=left-small-tin"></script>
+<script src="game.js?v=right-tin-release"></script>
+<script src="guide-art.js?v=left-small-tin"></script>
+<script src="luna.js?v=left-small-tin"></script>
 <script src="settings.js?v=fixed-shake-sound-2"></script>
-<script src="session.js?v=fixed-shake-sound-2"></script>
-<script src="session-craft.js"></script>
+<script src="session.js?v=legacy-shake-sheet"></script>
+<script src="session-craft.js?v=left-small-tin"></script>
 
 </body></html>

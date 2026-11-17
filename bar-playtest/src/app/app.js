@@ -507,11 +507,14 @@
     if (g.overlay === 'ingredientWarning') return ingredientWarningHTML();
     if (g.overlay === 'openerWarning') return `<div class="modal-backdrop"><section class="modal ingredient-warning" role="alertdialog" aria-modal="true" aria-labelledby="opener-warning-title" aria-describedby="opener-warning-copy"><h2 id="opener-warning-title">${L('병따개가 필요합니다', 'Bottle opener required')}</h2><p id="opener-warning-copy">${L('병맥주를 따르려면 먼저 뚜껑을 열어야 합니다. 도구 선반에서 병따개를 선택해 주세요.', 'Open the bottle before pouring the beer. Please select a bottle opener from the tool shelf.')}</p><div class="ingredient-warning-actions">${button(L('확인', 'OK'), 'closeOverlay', '', 'primary')}</div></section></div>`;
     if (g.overlay === 'serveDetails') return modal(L('판정 결과', 'Score details'), serveView.detailsHTML());
-    if (ui.minigames && g.overlay === 'help') return modal(L('기믹 미니게임 조작', 'Minigame controls'), miniUI.helpHTML(), true);
+    if (g.overlay === 'help') {
+      const controls = ui.minigames ? miniUI.helpHTML() : remix.active() ? remixUI.helpHTML() : helpHTML();
+      const windowHint = `<p><kbd>O</kbd>　${L('창 전체화면 켜기 / 끄기', 'Toggle window fullscreen')}</p>`;
+      return modal(ui.minigames ? L('기믹 미니게임 조작', 'Minigame controls') : L('조작 안내', 'Controls'), controls + windowHint, true);
+    }
     if (g.overlay === 'miniExit') return modal(L('기믹 선택으로 돌아갈까요?', 'Return to minigame selection?'), `<p>${L('현재 연습은 종료됩니다. 같은 기믹은 언제든 다시 시작할 수 있어요.', 'This attempt will end. You can replay any skill at any time.')}</p><div class="row">${button(L('계속 연습', 'Keep practicing'), 'closeOverlay')}${button(L('기믹 선택', 'Choose a minigame'), 'miniLobby', '', 'primary')}</div>`);
     if (g.overlay === 'remixGoals') return modal(L('이번 영업의 목표', 'Shift goals'), remixUI.goalsHTML());
     if (g.overlay === 'service') return serviceHTML();
-    if (g.overlay === 'help') return modal(L('조작 안내', 'Controls'), remix.active() ? remixUI.helpHTML() : helpHTML(), true);
     if (g.overlay === 'sales') return modal(L('매출 현황', 'Sales'), salesHTML(), true);
     if (g.overlay === 'dossier') return dossierHTML();
     if (g.overlay === 'history') return window.LunaDialogueHistory.html({g,L,esc,close:resourceClose('closeOverlay','recipe_choice')});

@@ -2,46 +2,15 @@
 (function(W){
 'use strict';
 const style=Object.freeze({color:'#4bdaff',shadow:'#19caff',blur:9});
-// Current Chrishouse2 sofa silhouette united with the supplied bedding alpha.
-// The left armrest recess follows native rows 197–204; do not bridge its wall gap.
-// Keep this mask on the room so foreground furniture and Luna occlude it.
-const HOME_SOFA={asset:'629b82812402bc',rect:[410,180,109,53],edge:[
- [465,180],[470,180],[470,181],[472,181],[472,182],[473,182],
- [473,181],[477,181],[477,182],[478,182],[478,183],[479,183],
- [479,184],[514,184],[514,185],[517,185],[517,186],[518,186],
- [518,187],[519,187],[519,224],[518,224],[518,225],[517,225],
- [517,226],[516,226],[516,227],[515,227],[515,228],[513,228],
- [513,230],[512,230],[512,233],[430,233],[430,230],[427,230],
- [427,228],[423,228],[423,226],[420,226],[420,225],[417,225],
- [417,223],[415,223],[415,222],[413,222],[413,220],[412,220],
- [412,218],[410,218],[410,209],[411,209],[411,208],[412,208],
- [412,207],[413,207],[413,206],[416,206],[416,205],[419,205],
- [419,204],[431,204],[431,203],[434,203],[434,202],[435,202],
- [435,199],[434,199],[434,198],[432,198],[432,197],[428,197],
- [428,196],[427,196],
- [427,195],[426,195],[426,194],[425,194],[425,188],[426,188],
- [426,187],[427,187],[427,186],[428,186],[428,185],[429,185],
- [429,184],[451,184],[451,183],[452,183],[452,182],[454,182],
- [454,181],[462,181],[462,182],[464,182],[464,181],[465,181]
-]};
-const sofaRegion=[...HOME_SOFA.rect,HOME_SOFA.edge.map(([x,y])=>[x-HOME_SOFA.rect[0],y-HOME_SOFA.rect[1]])];
+// These targets have dedicated sprites. Use the current draw's frame, including
+// the uncovered sofa, and let later foreground layers occlude the outline.
+const propNodes={tv:'IntractObjects',sofa:'home-bedding',exit:'Room_Entrance',home:'residence-home-door'};
 function region(target,node,sp,x,y,model){
  if(!target||sp.noInteractionGlow)return null;
  const name=node?.name,full=[0,0,sp.w,sp.h];
- if(target.id==='bed')return name==='home-bed'?[...W.LunaHomeArt.bed.rect,W.LunaHomeArt.bed.edge]:null;
- if(target.id==='wardrobe')return name==='home-wardrobe'?[...W.LunaHomeArt.wardrobe.rect,W.LunaHomeArt.wardrobe.edge]:null;
- if(target.id==='home-book')return name==='home-book'?[...W.LunaHomeArt.book.rect,W.LunaHomeArt.book.edge]:null;
- if(target.id==='sofa'&&name==='home-bedding')return full;
- if(target.nodeName&&name===target.nodeName)return full;
+ const prop=target.nodeName||propNodes[target.id];
+ if(prop&&name===prop)return full;
  if(target.id==='bar'&&name==='Bar Spawn Point')return [2,15,34,51];
- if(target.id==='exit'&&name==='Room_Entrance')return full;
- if(target.id==='sofa'&&name==='main_bg'&&sp.asset===HOME_SOFA.asset)return sofaRegion;
- // Home atlas: do not outline the neighbouring plant, sofa, or TV together.
- if(name==='IntractObjects'){
-  if(target.id==='tv')return [0,0,53,34];
- }
- // The apartment doorway is baked into the residence layer, above the railing.
- if(target.id==='home'&&name==='residence-building')return node.interactionRegions?.home||[567,438,44,77];
  // The supplied Bubi sheets have real alpha. Highlight the current cell,
  // never the retired baked carton or the empty background replacement.
  if(['neighborhood-box','neighborhood-cat','neighborhood-home-cat'].includes(target.id)&&sp.asset.startsWith('bubi-'))return full;
@@ -69,12 +38,11 @@ function create(){
  const cache=new Map();let target=null,model=null,drawn=[];
  function begin(next,m){target=next;model=m;drawn=[];}
  function mask(image,sp,rect){
-  const [x,y,w,h,contour]=rect,key=[sp.asset,sp.x+x,sp.y+y,w,h,JSON.stringify(contour)].join(':');
+  const [x,y,w,h]=rect,key=[sp.asset,sp.x+x,sp.y+y,w,h].join(':');
   if(cache.has(key))return cache.get(key);
   const pad=3,base=document.createElement('canvas');base.width=w;base.height=h;
   const b=base.getContext('2d');
-  if(contour){b.beginPath();contour.forEach(([x,y],i)=>i?b.lineTo(x,y):b.moveTo(x,y));b.closePath();b.fill();}
-  else b.drawImage(image,sp.x+x,sp.y+y,w,h,0,0,w,h);
+  b.drawImage(image,sp.x+x,sp.y+y,w,h,0,0,w,h);
   const pixels=b.getImageData(0,0,w,h);
   for(let i=0;i<pixels.data.length;i+=4){pixels.data[i]=75;pixels.data[i+1]=218;pixels.data[i+2]=255;pixels.data[i+3]=pixels.data[i+3]>20?255:0;}
   b.putImageData(pixels,0,0);

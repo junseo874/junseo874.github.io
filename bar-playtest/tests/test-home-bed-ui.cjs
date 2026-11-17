@@ -13,11 +13,11 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   });
   const ready=await p.evaluate(()=>{
    const a=outsidePlaytest,m=a.model,t=m.near;
-   return {near:t.id,marker:a.discoveryMarkers.find(x=>x.id==='bed'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow,bed:LunaHomeArt.bed,range:LunaOutsideDiscovery.inRange(m,t)};
+   return {near:t.id,marker:a.discoveryMarkers.find(x=>x.id==='bed'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow,range:LunaOutsideDiscovery.inRange(m,t)};
   });
   assert.equal(ready.near,'bed');assert(!ready.marker&&ready.range);
   assert.equal(ready.marker,undefined,'D11 removes the badge, not the interaction');
-  assert.equal(ready.glow.target,'bed');assert.equal(ready.glow.drawn.length,1);assert.deepEqual(ready.glow.drawn[0].region,[...ready.bed.rect,ready.bed.edge]);
+  assert.equal(ready.glow.target,'bed');assert.equal(ready.glow.drawn.length,1);assert.deepEqual(ready.glow.drawn[0].region,[0,0,91,26]);
   await p.screenshot({path:'/private/tmp/home-bed-ready.png'});
   await p.keyboard.press('KeyE');
   const speech=await p.evaluate(()=>{const m=outsidePlaytest.model;return {id:m.story.speech.id,line:m.story.speech.line,view:m.story.view(),x:m.x,seen:barGame.progress.flags.outside_interacted_v1_bed,carry:lunaCampaign.session.carry.flags.outside_interacted_v1_bed};});

@@ -19,7 +19,8 @@ node tools/locate.cjs campaign --symbols
 
 | 바꿀 기능 | 소유 파일 / 폴더 |
 | --- | --- |
-| 시작·전체 화면·입력 연결 | `app/app.js` |
+| 시작·게임 화면·입력 연결 | `app/app.js` |
+| 전체 창 단축키 | `shared/platform/window-fullscreen.js` · 본편·시뮬레이터·편집 도구에서 O로 전환. 미리보기 안에서도 바깥 페이지 전체를 전환하며, 텍스트 입력 중에는 작동하지 않는다. |
 | 게임 상태·초기화·공통 tick | `core/core.js` |
 | CSV 조건·효과식 | `core/story-conditions.js` |
 | 바 대사·선택·스토리 주문·해금 | `features/story/story-flow.js` |

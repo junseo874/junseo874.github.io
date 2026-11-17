@@ -54,11 +54,35 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     await f.waitForFunction(() => pauseAt === null);
     await f.evaluate(() => { S.angDeg = 5; press('Space'); });
     await f.waitForFunction(() => S.phase === 'shake');
+    await f.waitForFunction(() => lunaCels.filter(Boolean).length === 8);
+    const source = await f.evaluate(() => [lunaSheet.currentSrc,lunaSheet.naturalWidth,lunaSheet.naturalHeight]);
+    assert.match(source[0], /\/Legacy_shake\.png$/);
+    assert.deepEqual(source.slice(1), [10240,720]);
+    // Observe the actual canvas draws while sending both half-strokes through the craft iframe.
+    await f.evaluate(() => {
+      const draw = lc.drawImage, frames = new Set(), anchors = new Set();
+      lc.drawImage = function(image, ...rect) {
+        const cel = lunaCels.indexOf(image);
+        if (cel >= 0) { frames.add(cel); anchors.add(rect.join(',')); }
+        return draw.apply(this,arguments);
+      };
+      window.readActorDraws = () => {
+        lc.drawImage = draw;
+        return {frames:[...frames].sort(),anchors:anchors.size};
+      };
+    });
     for (let i = 0; i < 10; i++) {
-      await f.press('body', 'KeyA'); await f.press('body', 'KeyD');
+      for (const key of [i%2?'KeyE':'KeyD','KeyA']) {
+        await f.waitForFunction(k=>readyShakeKey(GT)===k,key.slice(-1));
+        await f.press('body',key);
+        if (i < 2) await f.waitForFunction(() =>
+          GT - S.lunaMotion.t >= (S.lunaMotion.frames.length-1)*lunaFrameMs+18);
+      }
     }
+    assert.deepEqual(await f.evaluate(() => readActorDraws()), {frames:[0,1,2,3,4,5,6,7],anchors:1},
+      'All eight original cels play at a common registration under real A/D input');
     await f.waitForFunction(() => S.phase === 'unseal');
-    assert.equal(await f.evaluate(() => document.body.dataset.lastSound), 'shaker_02_hit.wav');
+    assert.equal(await f.evaluate(() => document.body.dataset.lastSound), 'shake-complete.wav');
     const elapsed = await f.evaluate(() => (S.endT - S.startT) / 1000);
     await f.press('body', 'Escape');
     const endingPause = await f.evaluate(() => GT);
@@ -82,8 +106,8 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     await fail.waitForFunction(() => S.phase === 'shake');
     await page.screenshot({ path: '/private/tmp/shaking-main-play.png' });
     for (let i = 0; i < 3; i++) {
-      await fail.evaluate(() => { S.waitT = 0; S.pending = false; press('D'); });
-      if (i < 2) await fail.waitForTimeout(300);
+      await fail.waitForFunction(()=>readyShakeKey(GT)==='D');
+      await fail.press('body','KeyA');
     }
     await fail.waitForFunction(() => S.phase === 'pop');
     await page.waitForFunction(() => barGame.gimmick?.type === 'fill_up').catch(async e => {
@@ -107,7 +131,10 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     await last.waitForFunction(() => S.phase === 'close');
     await last.evaluate(() => { S.angDeg = 10; press('Space'); });
     await last.waitForFunction(() => S.phase === 'shake');
-    for (let i = 0; i < 10; i++) { await last.press('body', 'KeyA'); await last.press('body', 'KeyD'); }
+    for (let i = 0; i < 10; i++) for (const key of [i%2?'E':'D','A']) {
+      await last.waitForFunction(k=>readyShakeKey(GT)===k,key);
+      await last.press('body','Key'+key);
+    }
     await page.waitForFunction(() => barGame.screen === 'result');
     assert.equal(await page.evaluate(() => barGame.craft.results.filter(r => r.type === 'shake').length), 1);
     assert.equal(await page.evaluate(() => barGame.craft.results.find(r => r.type === 'shake').completion), .97, 'Existing completion field preserves V2 closing penalty');

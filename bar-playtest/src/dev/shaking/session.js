@@ -4,10 +4,27 @@ function labLeave(action){
  if(parent!==window)parent.postMessage({type:'luna-shake-practice',action},location.origin);
  else location.href='../../../index.html?dev=1&mode=minigames';
 }
-function fitLab(){document.documentElement.style.setProperty('--lab-scale',Math.min(innerWidth/1280,innerHeight/720));}
-addEventListener('resize',fitLab);fitLab();
-// Embedded document resize events may be coalesced while a modal is paused.
-new ResizeObserver(fitLab).observe(document.documentElement);
+function fitLab(){
+  document.documentElement.style.setProperty('--lab-scale',Math.min(innerWidth/1280,innerHeight/720));
+  const display=displayPixels();
+  fitShakerGuide(display.sx);
+  fitGameCanvas(display);
+  fitLunaCanvas(display);
+}
+fitLab();
+const labResize=new ResizeObserver(fitLab);
+labResize.observe(document.documentElement);
+for(let host=window;;host=host.parent){
+  host.addEventListener('resize',fitLab);
+  if(!host.frameElement)break;
+  labResize.observe(host.frameElement);
+}
+function watchDisplayDensity(){
+  matchMedia(`(resolution: ${devicePixelRatio}dppx)`).addEventListener('change',()=>{
+    fitLab();watchDisplayDensity();
+  },{once:true});
+}
+watchDisplayDensity();
 $('other').onclick=()=>labLeave('versions');$('other').textContent='버전 선택';
 $('home').onclick=()=>labLeave('exit');$('home').textContent='기믹 목록';
 $('sMenu').onclick=()=>labLeave('exit');

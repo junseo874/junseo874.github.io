@@ -13,12 +13,12 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   });
   const ready=await p.evaluate(()=>{
    const a=outsidePlaytest,m=a.model,t=m.near;
-   return {id:t.id,marker:a.discoveryMarkers.find(t=>t.id==='wardrobe'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow,art:LunaHomeArt.wardrobe};
+   return {id:t.id,marker:a.discoveryMarkers.find(t=>t.id==='wardrobe'),expected:LunaPixelCamera.position(t.x,t.top,a.renderCamera),glow:a.interactionGlow};
   });
   assert.equal(ready.id,'wardrobe');assert(!ready.marker);
   assert.equal(ready.marker,undefined,'D11 removes the badge, not the wardrobe interaction');
   assert.equal(ready.glow.target,'wardrobe');assert.equal(ready.glow.drawn.length,1);
-  assert.deepEqual(ready.glow.drawn[0].region,[...ready.art.rect,ready.art.edge]);
+  assert.deepEqual(ready.glow.drawn[0].region,[0,0,24,69]);
   await p.screenshot({path:'/private/tmp/home-wardrobe-ready.png'});
   const money=await p.evaluate(()=>barGame.progress.money);
   await p.keyboard.press('KeyE');await p.locator('.world-choices [data-choice="press"]').waitFor({state:'visible'});

@@ -33,14 +33,14 @@
     S.done = true; S.phase = 'done'; ShakeLabAudio.stop();
     const score = reason === 'pop' ? 0 : Math.max(0, Math.min(100, Math.round(S.res.filter(x => x === 'O').length / R.rounds * 100) - (B.PEN[S.closeQ] || 0)));
     // finish is called only after separation/fade/hold or failure spill animation.
-    send('complete', { elapsed: elapsed(), started: true, score, failures: S.misses });
+    send('complete', { elapsed: elapsed(), started: true, score, failures: S.misses + S.timeouts });
   };
   addEventListener('message', event => {
     const m = event.data;
     if (event.origin !== location.origin || event.source !== parent || m?.type !== 'luna-shake-craft' || m.token !== token) return;
     if (m.action === 'init' && !initialized) {
       initialized = true; blocked = !!m.blocked; baseTime = Math.max(0, Number(m.baseTime) || 0);
-      R = { ...RECIPES[0], name: String(m.name || ''), id: 'craft', pattern: ['AD'] };
+      R = { ...RECIPES[0], name: String(m.name || ''), id: 'craft' };
       R.layers = m.layers?.length ? m.layers : [['음료', '#c8e6f0', 1]];
       OPT.diff = 'normal'; reset();
       if (m.taught) { taught = true; S.tutPage = TUT.length - 1; tutorialNext(); }

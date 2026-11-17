@@ -5,6 +5,17 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
  const setup=async(day,money)=>p.evaluate(async({day,money})=>{const c=lunaCampaign;c.outside.exit(true);c.session.uninstall();c.session.install({developer:false});barGame.reset(day,'full',1,false);barGame.progress.money=money;c.session.carry=structuredClone(barGame.progress);Object.assign(outsidePlaytest.config,{day,flow:day?'in':'out',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);const m=outsidePlaytest.model;m.x=LunaOutsideBeggar.people[0].x+.27;m.story.cancel();m.backgroundStory.cancel();m.updateNear();outsidePlaytest.snapCamera();outsidePlaytest.tick(0);},{day,money});
  const drain=()=>p.evaluate(()=>{const m=outsidePlaytest.model;for(let i=0;i<40&&m.story.speech&&!m.story.speech.choice;i++){m.story.speech.elapsed=99;m.story.advance();}outsidePlaytest.refreshHUD();});
+ for(const side of [-1,1]){
+  await setup(0,500);
+  await p.evaluate(side=>{const m=outsidePlaytest.model;m.x=LunaOutsideBeggar.people[0].x+side*.25;m.updateNear();},side);
+  await p.keyboard.press('KeyE');
+  const facing=await p.evaluate(()=>{
+   const m=outsidePlaytest.model,node=LUNA_OUTSIDE_DATA.scenes.street.nodes.find(n=>n.beggarActor===LunaOutsideBeggar.id);
+   let flip;LunaOutsideBeggar.drawNode(m,node,(sprite,x,y,sx,sy,flipped)=>{flip=flipped;});
+   return [m.story.speech?.id,m.facing,flip];
+  });
+  assert.deepEqual(facing,['street-beggar',-side,side<0],'Luna and the homeless NPC face each other during dialogue');
+ }
  await setup(0,500);assert.equal(await p.evaluate(()=>outsidePlaytest.model.near.id),'street-beggar');
  await p.screenshot({path:'/private/tmp/beggar-location.png'});
  await p.keyboard.press('KeyE');await drain();assert(await p.locator('[data-choice="beggar-pay"]').isVisible());

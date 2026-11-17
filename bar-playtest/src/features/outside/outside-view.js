@@ -12,6 +12,7 @@
     const glowRenderer = global.LunaInteractionGlow.create();
     const drawLists = (global.LunaSceneDrawLists || require('./scene-draw-lists.js')).create(compareStreetNodes);
     let discoveryMarkers = [];
+    let drawnLuna = null;
     let renderingNode = null,
       choiceUI = null;
     const data = global.LUNA_OUTSIDE_DATA,
@@ -575,6 +576,7 @@
         ctx.restore();return;
       }
       if (lit) ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);
+      else if (renderingNode?.name === 'residence-foreground-fade') global.LunaOutsideArt.paintCorridorForeground(ctx,img,sp,p,drawnLuna,model);
       else if (renderingNode?.name === 'home-city') global.LunaHomeArt.paintCity(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h, renderCam.x - renderingNode.x);
       else if (renderingNode?.name === 'main_bg' && model.scene === 'home') global.LunaHomeArt.paintRoom(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
       else if (renderingNode?.name === 'home-fence' && model.scene === 'home') global.LunaHomeArt.paintFence(ctx, img, -w * sp.pivot.x, -h * (1 - sp.pivot.y), w, h);
@@ -590,6 +592,7 @@
       global.LunaLiftDust?.paintSprite(ctx, model, renderingNode?.name, sp, w, h, motionPreference?.matches);
       if (!global.LunaCaptureMode?.hidden) glowRenderer.paint(ctx, img, sp, renderingNode, x, y, w, h);
       ctx.restore();
+      return p;
     }
     function renderNode(n) {
       const previous = renderingNode;
@@ -642,11 +645,7 @@
       if(n.name==='home-bedding'&&global.barGame?.progress.flags.boobi_adopted){
         sp={...sp,asset:'home-sofa-uncovered',h:50};y-=.02*n.sy;
       }
-      let alpha=n.alpha??(light ? .26 : 1);
-      if(n.name==='residence-foreground-fade'&&model.level){
-        const near=Math.max(0,1-Math.abs(model.x-(n.x+2.05))/2.7);
-        alpha=1-.76*near;
-      }
+      const alpha=n.alpha??(light ? .26 : 1);
       const facing = global.LunaOutsideAmbient.facing(n, model),
         art = streetParallax(n, renderCam, model);
       drawSprite(sp, art.x, art.y + (y - n.y), n.sx, n.sy, facing, alpha, light);
@@ -710,6 +709,7 @@
     }
     function drawFrame(advanceParallax = true) {
       const output=ctx;
+      drawnLuna = null;
       discoveryMarkers = [];
       if (!ctx || !model) return;
       if (surface.dpr !== devicePixelRatio) fit();
@@ -762,7 +762,8 @@
       const drawPlayer = () => {
         const anim = data.animations[model.anim],
           frame = anim.frames[Math.floor(model.animTime * anim.fps) % anim.frames.length];
-        drawSprite(frame, model.x, model.y, 1, 1, model.facing > 0);
+        const flip=model.facing>0,box=drawSprite(frame,model.x,model.y,1,1,flip);
+        if(box&&model.scene==='street')drawnLuna={frame,flip,box,image:images.get(frame.asset)};
       };
       if (model.scene === 'home') {
         if(engineLayout){

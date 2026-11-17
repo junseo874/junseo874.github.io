@@ -5,7 +5,7 @@ const pages = [
   'bar-playtest/outside-dialogue-editor.html', 'bar-playtest/resource-review.html', 'bar-playtest/story-guide.html',
   'bar-playtest/data-review.html', 'bar-playtest/sound-lab.html',
   'bar-playtest/src/dev/shaking/version-2.html', 'bar-playtest/src/dev/wine-opening/version-1.html',
-  'bar-playtest/src/dev/wine-opening/version-2.html', 'cutscene-studio/index.html', 'cutscene-studio/trailer.html',
+  'bar-playtest/src/dev/wine-opening/version-2.html', 'cutscene-studio/index.html', 'cutscene-studio/trailer.html', 'cutscene-studio/trailer-sources.html',
 ];
 const routes = [...pages.map(p => p.replace(/(^|\/)index\.html$/, '$1')),
   'bar-playtest/?dev=1', 'bar-playtest/?mode=minigames'];

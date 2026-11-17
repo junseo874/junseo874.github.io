@@ -27,6 +27,7 @@ module.exports = {
     test_current_serve_sheets_ui test-resource-preview-paths-ui
   `),
   ui: group(`
+    test-window-fullscreen-ui
     test-outside-flow-days-ui test-manual-node-preview-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
     test-dialogue-live-data-ui test-resource-current-artwork-ui test-story-service-entry-ui
     test-loading-pigeon-ui test-bar-choice-hold-clock test-generated-art-ui
@@ -53,11 +54,11 @@ module.exports = {
     test-engine-world-layout-ui test-ambient-native-csv test-home-tv-power-ui
     test-exterior-notion-sync test-outside-believer test-outside-believer-ui test-outside-newspaper
     test-outside-newspaper-ui test-outside-character-sheets test-outside-typing-rhythm
-    test-outside-typing-rhythm-ui test-shiba-speech-anchor-ui test-corridor-birds-ui
+    test-outside-typing-rhythm-ui test-shiba-speech-anchor-ui test-corridor-birds-ui test-corridor-pillar-fade-ui
     test-engine-barrel-fire test_barrel_fire_ui test-campfire-lighting-ui test-character-lighting
     test-character-lighting-ui test-character-lighting-isolation-ui test-day2-neighborhood-gates-ui
-    test-home-book-ui test-samho-idle-ui test-weather-ambience-matrix-ui test-shiba-cancel-first-ui
-    test-home-wardrobe-ui test-home-bed-ui test-home-cat-interaction-ui
+    test-home-book-ui test-samho-idle-ui test_samho_smuggler_ui test-weather-ambience-matrix-ui test-shiba-cancel-first-ui
+    test-home-wardrobe-ui test-home-bed-ui test-home-cat-interaction-ui test_interaction_glow_ui
     test-gang-guard-interaction-ui test-outside-choice-rejection-ui test-outside-discovery-ui
     test-outside-discovery-stability-ui test-outside-npc-animation test-gang-wild-dog
     test-gang-wild-dog-ui test-bubi-box-sequence-ui test-neighborhood-events-ui
@@ -87,7 +88,7 @@ module.exports = {
     @tools/check-structure.cjs @tools/check-site.cjs @tools/test-entrypoints.cjs
   `),
   craft: group(`
-    test-shaking-main-ui test-shaking-versions-ui test-shaking-directional-impact-ui
+    test-shaking-main-ui test-shaking-versions-ui test-shaking-directional-impact-ui test-shaking-pose-pixels-ui
     test-pour-finish-lock test-pour-finish-lock-ui test-craft-clock test-craft-clock-ui
     test-wine-practice-ui test-mix-completion test-mix-completion-ui test_current_serve_sheets_ui
     test-serve-return-camera-ui test_serve_fallback_sizes_ui test_serve_carbonation_ui

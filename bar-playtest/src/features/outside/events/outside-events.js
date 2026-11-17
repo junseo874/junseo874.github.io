@@ -44,8 +44,13 @@ function start(m,kind=mode(m)){
  if(m.encounter)return false;
  m.story.cancel();m.backgroundStory.cancel();W.outsidePlaytest?.clearInput();m.anim='idle';m.animTime=0;
  if(kind===info){save(m,'day2_thug_done');return infoStart(m,{id:info,x:tx(m),y:thugY(m)});}
- const x=kind===contract?base(m)+.7:tx(m),to=kind===contract?x+1.0:Math.min(m.x,x-.55),y=kind===contract?-.7:thugY(m);
- m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX:dealerBase(m),alpha:1,dealerAlpha:1,camera:{x:kind===contract?x+.2:(x+to)/2,y:y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y}};
+ const x=kind===contract?base(m)+.7:tx(m),dealerX=dealerBase(m),y=kind===contract?-.7:thugY(m);
+ // Luna watches from the right. Leave the dealer's exit path clear before Samho approaches her.
+ const dealerDirection=dealerX>x?1:-1;
+ const exit=W.LunaOutsideNPCExit;
+ const to=kind===contract?Math.max(x+1,exit.sample(exit.duration,dealerX,dealerDirection).x+.4):Math.min(m.x,x-.55);
+ const cameraX=kind===contract?(Math.min(x,dealerX)+to)/2:(x+to)/2;
+ m.encounter={kind,stage:'entering',elapsed:0,from:m.x,to,npcX:x,dealerX,dealerDirection,alpha:1,dealerAlpha:1,camera:{x:cameraX,y:y+.65,w:4.8},cameraReady:false,target:{id:kind,x,y}};
  m.facing=kind===contract?-1:1;m.updateNear();return true;
 }
 function runAction(m,row){const e=m.encounter;if(e?.kind!==contract)return false;e.stage=row.action;e.elapsed=0;e.actionX=row.action==='dealer-exit'?e.dealerX:e.npcX;if(row.action==='approach')e.camera={x:(e.npcX+m.x)/2,y:-.7+.65,w:4.8};return true;}
@@ -56,7 +61,7 @@ function tick(m,dt){let e=m.encounter;
  e.elapsed+=dt;m.anim='idle';m.animTime+=dt;
  if(e.stage==='entering'){const p=Math.min(1,e.elapsed/.65);m.x=e.from+(e.to-e.from)*p*p*(3-2*p);if(p<1&&Math.abs(e.to-e.from)>.02)m.anim='walk';if(p===1&&e.cameraReady){e.stage='active';m.story.beginRows(e.kind,e.target,e.kind===thug?intro:contractRows);}}
  else if(['dealer-exit','approach','samho-exit'].includes(e.stage)){
-  const approaching=e.stage==='approach',exit=approaching?null:W.LunaOutsideNPCExit.sample(e.elapsed,e.actionX,e.stage==='dealer-exit'?-1:1);
+  const approaching=e.stage==='approach',exit=approaching?null:W.LunaOutsideNPCExit.sample(e.elapsed,e.actionX,e.stage==='dealer-exit'?e.dealerDirection:1);
   const p=Math.min(1,e.elapsed/.95),smooth=p*p*(3-2*p);
   if(e.stage==='dealer-exit'){e.dealerX=exit.x;e.dealerAlpha=exit.alpha;}
   if(e.stage==='approach'){e.npcX=e.actionX+(m.x-.75-e.actionX)*smooth;}
@@ -93,7 +98,7 @@ function draw(m,sprite,ctx,position){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:dealerBase(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
   const sp=W.LunaSamhoAnimation.frame(m.time),flip=W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),alpha=e?.kind===contract?e.alpha:1;
   if(W.LunaEngineWorld&&!m.qa)W.LunaEngineWorld.drawActor(sprite,'street',contract,'samho',sp,x,-.7,flip,alpha);else sprite(sp,x,-.7,1,1,flip,alpha);
-  idle('M1',dx,W.LunaEngineWorld&&!m.qa?-.7:-.94,stage==='dealer-exit'?dx-1:x,e?.kind===contract?e.dealerAlpha:1,contract,'dealer');
+  idle('M1',dx,W.LunaEngineWorld&&!m.qa?-.7:-.94,stage==='dealer-exit'?dx+e.dealerDirection:x,e?.kind===contract?e.dealerAlpha:1,contract,'dealer');
  }
 }
 for(const [key,lines]of Object.entries(W.LUNA_DATA?.sharedStory||{}))if(key.startsWith('ambient/'))D[key.slice(8)]=lines;

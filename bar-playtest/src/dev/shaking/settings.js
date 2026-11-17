@@ -2,7 +2,7 @@
 // ───────── 설정 창 · 사운드 탭
 function toggleSettings(force){const m=$('settings'),open=force??m.hidden;m.hidden=!open;setPause(open||!$('tut').hidden);if(open)ShakeLabAudio.stop();if(open)$('sBack').focus()}
 $('openSet').onclick=()=>toggleSettings(true);$('sClose').onclick=()=>toggleSettings(false);$('sBack').onclick=()=>toggleSettings(false);
-$('sMenu').onclick=()=>{toggleSettings(false);R=RECIPES[0];reset()};
+$('sMenu').onclick=()=>{toggleSettings(false);R=practiceRecipe;reset()};
 document.querySelectorAll('#snav button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('#snav button').forEach(x=>{x.setAttribute('aria-selected',x===b);x.querySelector('span').textContent=x===b?'›':''});
   document.querySelectorAll('.spane').forEach(p=>p.hidden=p.dataset.pane!==b.dataset.tab)});
