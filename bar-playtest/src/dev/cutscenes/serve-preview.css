@@ -1,0 +1,25 @@
+.cutscene-serve-link{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;text-align:left;margin:0 0 18px;padding:14px 18px;border:1px solid #375360;background:#152832;color:#d7eeed;border-radius:6px;font:inherit}
+.cutscene-serve-link span{color:#9cb1bc;font-size:12px}.cutscene-serve-link strong{font-size:15px}
+.serve-preview-dialog{box-sizing:border-box;width:min(520px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:24px;border:1px solid #36505e;border-radius:10px;background:#111e29;color:#dbe8ee;font:14px/1.5 var(--sim-font,system-ui);box-shadow:0 24px 80px #0009}
+.serve-preview-dialog::backdrop{background:#050a11c9}
+.serve-preview-dialog *{box-sizing:border-box}
+.serve-preview-dialog header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px}
+.serve-preview-dialog h2{font-weight:700;line-height:1.4;margin:0 0 6px;font-size:20px}
+.serve-preview-dialog header p{margin:0;color:#96aebb;font-size:13px}
+.serve-preview-dialog button,.serve-preview-dialog select{font:inherit;color:inherit;border:1px solid #344e5c;border-radius:5px;background:#192c38;padding:9px 13px;cursor:pointer}
+.serve-preview-dialog button:hover{background:#24414e}
+.serve-preview-dialog button:focus-visible,.serve-preview-dialog select:focus-visible{outline:2px solid #8cddc2;outline-offset:3px}
+.serve-preview-dialog label{display:grid;gap:8px;font-weight:600;margin:0 0 18px}.serve-preview-dialog select{width:100%;height:42px}
+.serve-preview-help{color:#9bb0bc;font-size:12px;line-height:1.9;margin:22px 0}
+.serve-preview-dialog footer{display:flex;justify-content:flex-end;gap:10px}.serve-preview-dialog .serve-preview-start{background:#204b45;border-color:#65bca5;color:#c3f6df}
+.serve-preview-dialog.is-playing{width:100vw;height:100dvh;max-height:none;margin:0;padding:12px 16px;border:0;border-radius:0;display:flex;flex-direction:column;background:#080f17}
+.serve-preview-dialog.is-playing header{flex:none;align-items:center;gap:10px;margin:0 0 10px}.serve-preview-dialog.is-playing h2{font-size:15px;margin:0}
+.serve-preview-dialog nav{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.serve-preview-dialog nav button{font-size:12px;padding:7px 10px}
+.serve-preview-viewport{position:relative;min-height:0;flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#000}
+.serve-preview-stage{position:relative;flex:none;width:1280px;height:720px;font-family:LunaPixel,monospace}
+.serve-preview-status{flex:none;margin:8px 0 0;text-align:center;color:#91a6b4;font-size:12px;min-height:18px}
+/* Game controls use the same skin and exact logical sizes inside this modal. */
+.serve-preview-stage .serve-actions .primary{background:linear-gradient(#ffec89,#f3cf7a);color:#35291a;font-size:22px;border:3px double #f8d799;border-radius:3px;padding:0}
+.serve-preview-stage .serve-discard{background:#0a0b10e6;color:#f2d5a4;border:3px double #f8d799;padding:9px 12px}
+.serve-preview-stage .serve-details-button{font-size:12px;padding:2px 8px;border:0;background:#0d0e1890;color:#c5bdad}
+@media(max-width:680px){.serve-preview-dialog.is-playing{padding:8px}.serve-preview-dialog.is-playing header{flex-wrap:wrap}.serve-preview-dialog nav{gap:4px}.serve-preview-dialog nav button{font-size:11px;padding:5px 7px}.cutscene-serve-link{align-items:flex-start;flex-direction:column;gap:5px}.serve-preview-status{font-size:10px}}

@@ -11,6 +11,8 @@ function collect(rows,F){
    note:'현재 사용 중인 그래픽 원본입니다. 원본 다운로드는 파일 크기·투명도·바이트를 유지하며, 시트는 프레임별로도 추출할 수 있습니다.',...extra});
  }
  const A=F.barData.assets;
+ for(const [id,a]of Object.entries(F.LunaServeGrade?.assets||{}))add('serve-grade-'+id,'제공하기 · '+id.toUpperCase()+' 등급','bar-ui',a,{launch:{type:'serve',id:'cosmopolitan',grade:id},note:'Unity GradeColorSet 원본 등급 PNG. 실제 화면 테스트는 엔진 파티클·셰이더의 등장 연출을 3.4초 재생한 뒤 광채와 작은 반짝임을 유지하며, 글자가 펼쳐진 0.42초부터 버튼이 나타납니다.'});
+ for(let index=0;index<6;index++)add('stir-ice-'+index,'스터 · 픽셀 얼음 '+(index+1),'bar-items',A['stir_ice_'+index],{usage:'스터 미니게임 · 크기별 72방향 프레임',note:'크기별로 직접 그린 픽셀 얼음입니다. 회전 프레임은 5도 간격이며, 본편과 시뮬레이터가 같은 시트를 사용합니다.'});
  for(const [id,a]of Object.entries(F.LunaBubiArt?.clips||{}))add('bubi-'+id,'부비 · '+id,'out-characters',a);
  for(const id of ['decrease','increase','ingredient','new_character','new_event','objective','objective_complete'])add('notice-'+id,'진행 알림 · '+({decrease:'호감도 상승',increase:'호감도 하락',ingredient:'신규 재료 획득',new_character:'새로운 인물',new_event:'외부 이벤트',objective:'새로운 목표',objective_complete:'목표 달성'}[id]),'bar-ui',{src:'assets/01.ArtResources/05.UI/01.Shared/MainScreen/notify/IMG_'+id+'.png',w:762,h:232});
  add('lab-waste','연구소 · 폐기물처리장','out-backgrounds',{src:'assets/01.ArtResources/02.Environments/05.Cutscenes/01.Lab/Lab_Wastedisposalsite.png',w:720,h:480},{backgroundScreen:'컷씬',backgroundKind:'풀샷'});

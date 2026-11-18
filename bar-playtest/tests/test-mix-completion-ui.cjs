@@ -31,7 +31,7 @@ const { chromium } = runtime.load('playwright');
         g.startGimmick();
         const s = g.gimmick;
         for (let tries = 0; !s.completed && tries < 100; tries++) {
-          if (kind === 'stir') for (const key of ['KeyD', 'KeyS', 'KeyA', 'KeyW']) g.gimmickInput(key);
+          if (kind === 'stir') for (const key of ['KeyD', 'KeyS', 'KeyA', 'KeyW']) { for (let i = 0; i < 20; i++) mixTestTick(.01); g.gimmickInput(key); }
           else { s.pathPoint = [0, 0]; s.pathFixedHits = []; g.gimmickInput('Space'); }
         }
         if (!s.completed) throw Error('Mix fixture blocked: ' + JSON.stringify({ kind, paused: g.isPaused(), overlay: g.overlay, started: s.started, attempts: s.attempts }));

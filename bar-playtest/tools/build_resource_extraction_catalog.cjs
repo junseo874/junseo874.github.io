@@ -41,7 +41,11 @@ walk('assets/ui');
 walk('assets/01.ArtResources/05.UI');
 for(const {from,to} of require('../../docs/architecture/art-resource-paths.json').records)if(from.startsWith('assets/ui/'))record(to);
 const generated=require('../data/presentation/generated-art/manifest.json');
-for(const r of generated.records){const s=r.sources.find(s=>s.src.startsWith('assets/ui/extracted/notification-'))||r.sources[0],src='assets/01.ArtResources/'+r.path;
+for(const r of generated.records){
+ // Native generated artwork (e.g. directional ice) has no captured UI source.
+ // Its typed runtime asset card owns frame extraction; do not invent a UI card.
+ if(r.kind==='artwork'&&!r.sources.length)continue;
+ const s=r.sources.find(s=>s.src.startsWith('assets/ui/extracted/notification-'))||r.sources[0],src='assets/01.ArtResources/'+r.path;
  // Shared engine PNGs retain the richer extraction metadata, not a second card.
  const existing=rows.findIndex(row=>row.src===src);if(existing!==-1)rows.splice(existing,1);
  const part=r.sources.find(s=>s.src.startsWith('assets/ui/parts/'));

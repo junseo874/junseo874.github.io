@@ -15,7 +15,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await p.evaluate(()=>{const l=lunaCampaign.titleLogo;l.time=1.03;l.tick(0);l.tick=()=>{};});
  await p.screenshot({path:'/private/tmp/luna-title-logo-glitch.png'});
  await p.locator('[data-campaign="options"]').click();assert.equal(await p.evaluate(()=>lunaCampaign.titleLogo),null);
- await p.locator('[data-campaign="resume"]').click();await p.locator('.title-logo.logo-ready').waitFor();
+ await p.getByRole('button',{name:'설정 닫기'}).click();await p.locator('.title-logo.logo-ready').waitFor();
  await p.emulateMedia({reducedMotion:'reduce'});
  const reduced=await p.evaluate(()=>{const l=lunaCampaign.titleLogo,c=document.querySelector('.title-logo canvas');l.time=0;l.tick(0);const a=c.toDataURL();l.time=1.03;l.tick(0);return a===c.toDataURL();});assert(reduced);
  await p.setViewportSize({width:960,height:540});await p.waitForFunction(()=>Math.round(document.querySelector('.title-logo').getBoundingClientRect().width)===335);

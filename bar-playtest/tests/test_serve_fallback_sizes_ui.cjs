@@ -5,9 +5,11 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  try{
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];p.on('pageerror',e=>errors.push(e.message));
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
-  const ids=await p.evaluate(()=>LUNA_DATA.tables.cocktails.map(c=>c.id).filter(id=>!LUNA_SERVE_SHEETS[id]));
-  // Bacardi was removed; verify the remaining paths by identity, not only count.
-  assert.deepEqual([...ids].sort(),['red_wine','champagne','whiskey_sour','godfather','johnny_old_fashioned'].sort());
+  assert.deepEqual(await p.evaluate(()=>LUNA_DATA.tables.cocktails.map(c=>c.id).filter(id=>!LUNA_SERVE_SHEETS[id])),[],'All active drinks have dedicated serving sheets');
+  const ids=['red_wine','champagne','whiskey_sour','godfather','johnny_old_fashioned'];
+  // These drinks now have animations. Test real failed-request recovery instead
+  // of treating their retired, missing-sheet state as the normal presentation.
+  await p.route('**/02.Drink_Serving_Screen_Sheets/*.png',r=>r.abort());
   for(const id of ids){
    await p.evaluate(id=>{const g=barGame;g.reset(99,'practice',1,true);g.selectCocktail(id);g.debugFill();g.startCraft();g.craft.results=g.craft.queue.map(q=>({...q,value:q.target,completed:true,completion:1,failures:0}));g.craft.index=g.craft.queue.length;g.nextGimmick();g.changed();},id);
    await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),1);
@@ -22,6 +24,6 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    }
    await p.setViewportSize({width:1280,height:720});
   }
-  assert.deepEqual(errors,[]);console.log('PASS all '+ids.length+' existing static-art serving paths at 3 viewport sizes: '+ids.join(', '));
+  assert.deepEqual(errors,[]);console.log('PASS all '+ids.length+' failed-sheet fallback paths at 3 viewport sizes: '+ids.join(', '));
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

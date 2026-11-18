@@ -61,15 +61,15 @@ async function enter(next){
   if(s.kind==='card'&&following?.kind==='outside')stageGame(following).catch(error=>{if(index===next)failure(error);});
  }catch(e){if(ticket===generation)failure(e);}
 }
+function serveKeys(){return [...Object.keys(bridge.w.LUNA_SERVE_SHEETS).filter(key=>key!=='dry_martini'),'dry_martini'];}
 function serve(t,s){
- const w=bridge.w,keys=[...Object.keys(w.LUNA_SERVE_SHEETS).filter(key=>key!=='dry_martini'),'dry_martini'];
+ const keys=serveKeys();
  // Source: 30 frames at 20 fps, followed by a 1.8 s final-frame hold.
  // All cocktails share the hand timing; dry martini always finishes the montage.
- const n=Math.min(29,Math.floor((t+1e-7)*20)),sx=2+(n%6)*956,sy=2+Math.floor(n/6)*541;
+ const n=Math.min(29,Math.floor((t+1e-7)*20));
  const key=keys[Math.floor(n/30*keys.length)]; // Switch only on source-frame boundaries.
  ctx.fillStyle='#000';ctx.fillRect(0,0,960,540);ctx.imageSmoothingEnabled=false;
- ctx.drawImage(images.get('background'),sx,sy,954,539,3,0,954,539);
- ctx.drawImage(images.get(key),sx,sy,954,539,3,60,954,539);
+ ctx.drawImage(images.get(n),0,0);
  canvas.dataset.cocktail=key;canvas.dataset.frame=String(n);
 }
 function paint(seek=false){
@@ -109,8 +109,22 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});w
 async function init(){
  await bridge.init();
  await Promise.all([fxAudio.prepare(),document.fonts.load('38px LunaPixel')]);
- const sheets={background:bridge.w.LUNA_SERVE_BACKGROUND,...bridge.w.LUNA_SERVE_SHEETS};
- for(const [key,s]of Object.entries(sheets)){const img=new Image();img.src=assetRoot+s.src;await img.decode();images.set(key,img);}
+ // Retain the 30 composed montage frames (~62 MB), not thirteen decoded
+ // 5738×2707 atlases (~807 MB). Use unchanged native texels, no video re-encode.
+ const w=bridge.w,bg=new Image();bg.src=assetRoot+w.LUNA_SERVE_BACKGROUND.src;await bg.decode();
+ const keys=serveKeys();
+ for(const [i,key]of keys.entries()){
+  const sheet=w.LUNA_SERVE_SHEETS[key],response=await fetch(assetRoot+sheet.src);
+  if(!response.ok)throw Error(key+' 제공 시트 없음');
+  const image=await createImageBitmap(await response.blob());
+  try{
+   for(let n=0;n<30;n++)if(Math.floor(n/30*keys.length)===i){
+    const frame=document.createElement('canvas');frame.width=960;frame.height=540;
+    const context=frame.getContext('2d');context.imageSmoothingEnabled=false;
+    w.LunaServeComposition.draw(context,bg,image,sheet,n);images.set(n,frame);
+   }
+  }finally{image.close();}
+ }
  // Cache the small edited clips before playback so cuts do not buffer midway.
  await Promise.all([...new Set(scenes.filter(s=>s.file).map(s=>s.file))].map(async file=>{
   const src=`assets/trailer/${file}.mp4?v=${['seoul-puddle','team'].includes(file)?7:['pour-soda','boobi'].includes(file)?3:2}`,r=await fetch(src);if(!r.ok)throw Error(file+' 영상 없음');

@@ -1,0 +1,45 @@
+{
+  "source": "Unity 6000.3.14f1; resolved GradeColorSet prefabs; actual particle meshes/materials and grade PNG via UI/Default",
+  "captureTool": "bar-playtest/tools/capture-engine-grade.cs",
+  "frames": [
+    3,
+    9,
+    15,
+    18,
+    25,
+    42,
+    90,
+    174,
+    204,
+    240,
+    360,
+    810
+  ],
+  "fps": 60,
+  "size": [
+    1280,
+    720
+  ],
+  "textBounds": [
+    420,
+    40,
+    440,
+    100.14274385408406
+  ],
+  "sourceHashes": {
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/02.GradeColorSet/FX_GradeReveal_Excellent_Gold.prefab": "6a1b14a91279e9a60f2b1ad132be97bf87bf3f749402df58a3a45e7545e7ba7b",
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/02.GradeColorSet/FX_GradeReveal_Good_Green.prefab": "9017cdcb32d0e6007941e7b19a97427fb9c7d07aafc660f8fbd0a0c4b6f4d94c",
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/02.GradeColorSet/FX_GradeReveal_Decent_Cyan.prefab": "45d4f00021638a855bf9bb72b6233f3c1361bb45dd542069f8e2c489eb03e803",
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/02.GradeColorSet/FX_GradeReveal_Poor_Red.prefab": "5787006f2c712deb926598d48ad314a380f3669907c696772e12d3b652a1f3af",
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/02.GradeColorSet/FX_GradeReveal_Sewage_Purple.prefab": "c4c4fc09b38779967ffbad71bc4f5240a6e6f1d187a4039baa14ee147d4019a7",
+    "Assets/01.Game/03.Content/08.Prefabs/05.Vfx/FX_GradeReveal_Excellent.prefab": "abee8c590d3b786a2fed4ee6ad119b89aad6e340894085d373111ffe067286ae",
+    "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_GradeWave.shader": "57cbaddfd641d4c2b187dd42df1548879f6a294de23f167b49d77f46ede6a440",
+    "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_GradeSewage.shader": "cebbb80cf766def92318e366fc7fb101a974196f6c70aa62b461e313205314ce",
+    "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_GradeReveal.shader": "65b6ed1039e3054a80accd79e3a869957b803416f8f32cfca27589f8fc7341bd",
+    "Assets/01.Game/03.Content/03.Vfx/03.Shaders/SH_GradeRevealGlow.shader": "4c38f915b2c9d4e3af0672568f08a43f9c002866cc0dd82aec69c21964f9b33b",
+    "Assets/01.Game/02.Scripts/05.Presentation/04.Vfx/GradeEchoSequence.cs": "aea6576d11a7fb43f799df01479bf8ade49f9817c549b61399c1d2b071757871",
+    "Assets/01.Game/02.Scripts/05.Presentation/04.Vfx/GradeRevealSequence.cs": "c752028f1ed32e9dc1e2646166e854e998a8175176ef0f786da10f5e84d1cdf8",
+    "Assets/01.Game/02.Scripts/05.Presentation/04.Vfx/GradeWaveSequence.cs": "c5979769251cc98eac060a8aaed6dd66037d258cc69b1e216abc18c7ee2861d9"
+  },
+  "spriteReference": "Each *-sprites.png is rendered separately by Unity from only texture-sheet particle systems, using original BakeMesh UVs and materials; compare emitted RGB energy without empty-background dilution."
+}

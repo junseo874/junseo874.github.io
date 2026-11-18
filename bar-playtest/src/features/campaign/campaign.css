@@ -115,6 +115,6 @@
 /* Keep the original logo footprint; transparent overscan prevents clipped tears. */
 .title-logo{pointer-events:none}
 .title-logo img{display:block;width:100%;height:auto}
-.title-logo canvas{display:none;position:absolute;left:-6%;top:0;width:112%;height:100%}
+.title-logo canvas{display:none;position:absolute;left:-12%;top:0;width:124%;height:100%}
 .title-logo.logo-ready img{opacity:0}
 .title-logo.logo-ready canvas{display:block}

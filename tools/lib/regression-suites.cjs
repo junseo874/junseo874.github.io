@@ -76,6 +76,7 @@ module.exports = {
     test-lift-passenger-framing-ui test-lift-right-boundary-ui
   `),
   cinema: group(`
+    test-serve-grade-preview-ui test-serve-grade-quality-ui test-serve-grade-engine-ui test-serve-grade-ambient
     test-day0-phone-branches-ui test-cinema-typing-rhythm test-cinema-typing-rhythm-ui
     test_intro_text_ui test-johnny-memory-speech-ui test-engine-terrace-layout-ui test-day-quotes-ui
     @cutscene-studio/tests/test-trailer-ui.cjs test-day-resource-transitions-ui
@@ -88,6 +89,8 @@ module.exports = {
     @tools/check-structure.cjs @tools/check-site.cjs @tools/test-entrypoints.cjs
   `),
   craft: group(`
+    test-stir-pixel-ice-ui
+    test-stir-key-cues-ui
     test-shaking-main-ui test-shaking-versions-ui test-shaking-directional-impact-ui test-shaking-pose-pixels-ui
     test-pour-finish-lock test-pour-finish-lock-ui test-craft-clock test-craft-clock-ui
     test-wine-practice-ui test-mix-completion test-mix-completion-ui test_current_serve_sheets_ui

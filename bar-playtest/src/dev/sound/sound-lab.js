@@ -29,7 +29,8 @@ function startSound(){
 }
 const view=LunaServeView({g,D:{},L:ko=>ko,esc:s=>String(s),button:()=>'',drinkArt:()=>'',onStart:()=>{stage.querySelector('.serve-loading')?.remove();if(armed)startPending=true;}});
 function sync(){view.sync(stage);if(startPending)startSound();}
-function draw(){stage.innerHTML=view.html();sync();}
+let renderedHTML='';
+function draw(){const html=view.html();if(html!==renderedHTML){stage.innerHTML=html;renderedHTML=html;}sync();}
 function loadImage(src){if(!images.has(src))images.set(src,(async()=>{const img=new Image();img.src=src;await img.decode();return img;})().catch(e=>{images.delete(src);throw Error('이미지 준비 실패: '+src,{cause:e});}));return images.get(src);}
 async function prepare(){
  const ctx=audio();
@@ -58,7 +59,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});w
 function resize(){stage.style.transform='scale('+($('#viewport').clientWidth/1280)+')';if(ready)view.sync(stage);}
 new ResizeObserver(resize).observe($('#viewport'));
 function tick(){
- if(running){g.realTime=armed?0:(context.currentTime-epoch)*animationSpeed;sync();if(!armed&&g.realTime>=1.5){running=false;draw();status('버전 '+(version+1)+' 재생 완료 · 다른 버전과 비교해 보세요.');}}
+ if(running){g.realTime=armed?0:(context.currentTime-epoch)*animationSpeed;draw();if(!armed&&g.realTime>=LunaServeGrade.timing.handoff+LunaServeGrade.timing.reveal){running=false;draw();status('버전 '+(version+1)+' 재생 완료 · 다른 버전과 비교해 보세요.');}}
  else if(ready)view.sync(stage);
  frame=requestAnimationFrame(tick);
 }select();tick();

@@ -56,11 +56,11 @@ W.LunaMixTutorial={attach(g){
    rows=first?[
     L('① 위쪽 W에서 시작합니다. 방향키 ↑도 사용할 수 있어요.','① Start at W at the top. The ↑ arrow key also works.'),
     L('② D → ③ S → ④ A → ① W 순서로 시계 방향으로 한 바퀴 돌아요.','Go clockwise: ② D → ③ S → ④ A → ① W.'),
-    L('각 키는 화면의 위·오른쪽·아래·왼쪽 노드와 대응해요.','The keys match the top, right, bottom and left nodes.')
+    L('방금 누른 키는 하얗게 빛납니다. 다음 키가 나타나면 눌러 주세요.','The key you just pressed glows white. Press the next key when it appears.')
    ]:[
     L('① 바깥 원형 게이지가 한 바퀴의 남은 시간을 나타냅니다.','① The outer ring shows the time left for this circle.'),
-    L('② 강조된 다음 방향을 순서대로 눌러 1.5초 안에 한 바퀴를 완성하세요.','② Follow the highlighted next direction and finish within 1.5 seconds.'),
-    L('순서가 틀리거나 시간이 끝나면 MISS입니다. 다음 바퀴도 강조된 방향을 따라가세요.','A wrong direction or timeout is a MISS. Follow the highlighted direction for the next circle.')
+    L('② 강조된 다음 방향을 순서대로 눌러 2.5초 안에 한 바퀴를 완성하세요.','② Follow the highlighted next direction and finish within 2.5 seconds.'),
+    L('키가 나타나기 전에 누르거나 순서가 틀리거나 시간이 끝나면 실패가 쌓입니다.','Pressing before the key appears, a wrong direction, or a timeout adds a failure.')
    ];
   }else{
    keys=path?'SPACE / '+L('마우스 왼쪽 버튼','Left click'):'A / ←    D / →';

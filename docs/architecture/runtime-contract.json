@@ -347,6 +347,10 @@
       "src/shared/ui/preview-fullscreen.js"
     ],
     [
+      "link",
+      "src/dev/cutscenes/serve-preview.css"
+    ],
+    [
       "script",
       "src/shared/platform/focus-settings.js"
     ],
@@ -537,6 +541,18 @@
     [
       "script",
       "src/features/crafting/serve-carbonation.js"
+    ],
+    [
+      "script",
+      "data/runtime/serve-grade-reveal.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/serve-grade-engine.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/serve-grade.js"
     ],
     [
       "script",
@@ -941,6 +957,10 @@
     [
       "script",
       "src/dev/dialogue-editor/live-data.js"
+    ],
+    [
+      "script",
+      "src/dev/cutscenes/serve-preview.js"
     ],
     [
       "script",
@@ -1543,6 +1563,18 @@
     [
       "link",
       "src/dev/sound/sound-lab.css"
+    ],
+    [
+      "script",
+      "data/runtime/serve-grade-reveal.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/serve-grade-engine.js"
+    ],
+    [
+      "script",
+      "src/features/crafting/serve-grade.js"
     ],
     [
       "script",

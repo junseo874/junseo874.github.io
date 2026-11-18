@@ -19,7 +19,7 @@
       this.data = data;
       this.t = data.tables;
       this.cfg = Object.fromEntries(this.t.balance_config.map(r => [r.setting, r.value]));
-      this.cfg.stir_circle_limit_sec = 1.5; /* Web playtest tuning; source CSV unchanged. */
+      this.cfg.stir_circle_limit_sec = 2.5; /* Web playtest tuning; source CSV unchanged. */
       this.onChange = () => {};
       this.lang = 'ko';
       this.speed = 1;

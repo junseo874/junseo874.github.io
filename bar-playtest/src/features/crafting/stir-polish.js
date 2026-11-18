@@ -42,7 +42,7 @@ window.LunaStirPolish=function({g,ui}){
    state.stepAge+=dt;state.ringAge+=dt;
    if(fresh)state.stepAge=0;
    state.angle+=s.swirlSpeed*dt;
-   if(s.attempts>state.attempts){state.ringAge=0;state.ok=!!s.outcomes.at(-1);}
+   if(s.attempts>state.attempts){state.ringAge=0;state.ok=!!s.outcomes.at(-1);state.message=s.message;}
   }
   state.target=s.spoonTarget;state.attempts=s.attempts;
   if(paused||ui.gimmickAudio===false)stop(true);
@@ -54,6 +54,15 @@ window.LunaStirPolish=function({g,ui}){
   screen.style.setProperty('--stir-hit',hit.toFixed(3));
   screen.style.setProperty('--stir-round',ring.toFixed(3));
   screen.style.setProperty('--stir-color',state.ok?'#95f6e4':'#eb909a');
+  screen.classList.toggle('stir-miss',!state.ok&&ring>0);
+  const feedback=screen.querySelector('[data-stir-feedback]');
+  if(feedback){
+   const fade=state.ok?0:Math.max(0,1-state.ringAge/.65);
+   const message=fade?(state.message==='너무 빨라..'?'너무 빨라..':'MISS'):'';
+   if(feedback.textContent!==message)feedback.textContent=message;
+   feedback.style.opacity=fade.toFixed(3);
+   feedback.style.transform='translate(-50%,'+(reduced.matches?0:-state.ringAge*16)+'px)';
+  }
   for(const el of screen.querySelectorAll('.mix-direction'))el.classList.toggle('stir-hit',hit>0&&el.dataset.id===['KeyW','KeyD','KeyS','KeyA'][s.stirPos]);
   const layer=screen.querySelector('[data-stir-polish]');
   if(layer){

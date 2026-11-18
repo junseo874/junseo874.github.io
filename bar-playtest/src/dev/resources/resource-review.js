@@ -154,7 +154,7 @@ async function launch(d,title,note,fromHistory=false){
    indicatorPreview={id:d.id,clock,start:performance.now(),tick:g.tick};g.tick=()=>{};
   }
   else if(d.type==='background'){if(d.id==='title')c.screen('title');else if(d.id==='loading'){c.loadLabel='리소스 확인 · 공통 로딩 배경';c.loadPercent=45;c.screen('loading');}else if(d.id==='shelf'){prep();ui.tab=d.tab;}}
-  else if(d.type==='drink'||d.type==='serve'){q.state.cocktail=d.id;qa(d.type==='serve'?'result':'prep');if(d.type==='drink'){g.cancelCraft();g.openRecipes();ui.peek=d.id;}}
+  else if(d.type==='drink'||d.type==='serve'){q.state.cocktail=d.id;qa(d.type==='serve'?'result':'prep');if(d.type==='serve'&&d.grade)g.result.grade=d.grade;if(d.type==='drink'){g.cancelCraft();g.openRecipes();ui.peek=d.id;}}
   else if(d.type==='prep'||d.type==='prep-recipe'){prep(d.id==='opener'?'bottle_beer':'gin_tonic');if(d.type==='prep'){const it=g.t.shelf_items.find(i=>i.id===d.id);ui.tab=it?.kind==='glass'?'glass':it?.kind==='tool'||d.id==='opener'?'tool':it?.shelf_group||'liquor';}else ui.recipeOpen=true;}
   else if(d.type==='recipes'){g.day=1;g.openRecipes();}
   else if(d.type==='overlay'){if(d.id==='serveDetails')qa('result');else if(['recipe','openerWarning','ingredientWarning'].includes(d.id)){prep();if(d.id==='recipe'){g.debugFill();g.startCraft();}}else qa('wait');if(d.id==='history')g.history.push({actor:'luna',text:'오늘도 한 잔을 준비하겠습니다.'});g.overlay=d.id;}

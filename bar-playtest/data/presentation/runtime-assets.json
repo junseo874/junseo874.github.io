@@ -4532,6 +4532,66 @@
       ],
       "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/01.Default/face_bottom_default.png",
       "syncToBody": true
+    },
+    "stir_ice_0": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xl.png",
+      "w": 4464,
+      "h": 62,
+      "frames": 72,
+      "frameWidth": 62,
+      "frameHeight": 62,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
+    },
+    "stir_ice_1": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_l.png",
+      "w": 4032,
+      "h": 56,
+      "frames": 72,
+      "frameWidth": 56,
+      "frameHeight": 56,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
+    },
+    "stir_ice_2": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_m.png",
+      "w": 3744,
+      "h": 52,
+      "frames": 72,
+      "frameWidth": 52,
+      "frameHeight": 52,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
+    },
+    "stir_ice_3": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xs.png",
+      "w": 3024,
+      "h": 42,
+      "frames": 72,
+      "frameWidth": 42,
+      "frameHeight": 42,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
+    },
+    "stir_ice_4": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_s.png",
+      "w": 3168,
+      "h": 44,
+      "frames": 72,
+      "frameWidth": 44,
+      "frameHeight": 44,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
+    },
+    "stir_ice_5": {
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xxs.png",
+      "w": 2592,
+      "h": 36,
+      "frames": 72,
+      "frameWidth": 36,
+      "frameHeight": 36,
+      "fps": 12,
+      "source": "tools/build-stir-ice.py"
     }
   },
   "characterLayers": {

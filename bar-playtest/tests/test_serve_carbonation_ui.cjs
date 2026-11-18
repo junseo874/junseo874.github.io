@@ -54,7 +54,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    const stats=await page.locator('.serve-carbonation').evaluate(c=>{
     const d=c.getContext('2d').getImageData(0,0,c.width,c.height).data,k=Number(c.dataset.pixelScale);let count=0,outside=0;
     const offset=LUNA_SERVE_COMPOSITION.drinkOffsetY;
-    for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]){count++;if(x<413*k||x>563*k||y<(160+offset)*k||y>(405+offset)*k)outside++;}
+    for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++)if(d[(y*c.width+x)*4+3]){count++;if(x<410*k||x>552*k||y<(198+offset)*k||y>(380+offset)*k)outside++;}
     return {count,outside};
    });
    assert(stats.count>60&&stats.count<2200,JSON.stringify({id,stats}));assert.equal(stats.outside,0);

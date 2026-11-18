@@ -1,11 +1,12 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
-const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',gin_fizz:'ginfizz',kahlua_milk:'kahluaMilk',bottle_beer:'beer',screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise'};
+const files={gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',gin_fizz:'ginfizz',kahlua_milk:'kahluamilk',bottle_beer:'beer',screwdriver:'screwdriver',tequila_sunrise:'tequila_sunrise',champagne:'champagne',red_wine:'wine',whiskey_sour:'whisky',godfather:'godfather',johnny_old_fashioned:'old_fashioned'};
 (async()=>{
- const dir=path.resolve(__dirname,'../assets/01.ArtResources/04.Cutscenes/04.ServingAnime');
- for(const name of ['background.png',...Object.values(files).map(n=>'give_drink_'+n+'.png')]){
-  const local=path.join(dir,name),original=path.join('/Users/lee/Desktop/Drink_Serving_Screen_Sheets',name);
+ const dir=path.resolve(__dirname,'../assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets');
+ const bg=await sharp(path.resolve(dir,'../03.Background/Background.png')).metadata();assert.equal(bg.width,959);assert.equal(bg.height,550);
+ for(const name of Object.values(files).map(n=>n+'.png')){
+  const local=path.join(dir,name),original=process.env.LUNA_SERVE_SOURCE_DIR?path.join(process.env.LUNA_SERVE_SOURCE_DIR,name):'';
   if(fs.existsSync(original))assert(fs.readFileSync(original).equals(fs.readFileSync(local)),name+' original bytes');
   const m=await sharp(local).metadata();assert.equal(m.width,5738);assert.equal(m.height,2707);
   const {data,info}=await sharp(local).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -13,18 +14,14 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
    const x=2+(f%6)*956,y=2+Math.floor(f/6)*541;let visible=0;
    for(let yy=y;yy<y+539;yy+=4)for(let xx=x;xx<x+954;xx+=4)if(data[(yy*info.width+xx)*4+3])visible++;
    assert(visible>100,name+' frame '+f+' must not be empty');
-   // A 60-native-pixel lowering must never cut off a finger or glass base,
-   // even during the moving frames (the background itself stays in place).
-   if(name!=='background.png')for(let yy=y+480;yy<y+539;yy++)for(let xx=x;xx<x+954;xx++){
-    if(data[(yy*info.width+xx)*4+3])throw Error(name+' frame '+f+' would be clipped after lowering');
-   }
+   assert(y+539<=info.height&&x+954<=info.width,'Frame must stay within its source atlas');
   }
  }
  const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[],requests=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('request',r=>requests.push(r.url()));
-  await p.route('**/give_drink_gin_tonic.png',async route=>{await new Promise(r=>setTimeout(r,700));await route.continue();});
+  await p.route('**/gintonic.png',async route=>{await new Promise(r=>setTimeout(r,700));await route.continue();});
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
   async function craft(id){await p.evaluate(id=>{const g=barGame;g.reset(99,'practice',1,true);g.selectCocktail(id);g.debugFill();g.startCraft();g.craft.results=g.craft.queue.map(q=>({...q,value:q.target,completed:true,completion:1,failures:0}));g.craft.index=g.craft.queue.length;g.nextGimmick();g.changed();},id);await p.locator('.serve-presentation[data-cocktail="'+id+'"]').waitFor();}
   for(const id of Object.keys(files)){
@@ -36,10 +33,11 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
    }
    await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),0);
    assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),'29');
-   assert((await p.locator('.serve-canvas').getAttribute('data-source')).endsWith('/give_drink_'+files[id]+'.png'));
+   assert((await p.locator('.serve-canvas').getAttribute('data-source')).endsWith('/'+files[id]+'.png'));
    const exact=await p.evaluate(async id=>{
     const native=document.createElement('canvas');native.width=960;native.height=540;const ctx=native.getContext('2d');ctx.imageSmoothingEnabled=false;
-    for(const sheet of [LUNA_SERVE_BACKGROUND,LUNA_SERVE_SHEETS[id]]){const image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,4782,2166,954,539,3,sheet===LUNA_SERVE_BACKGROUND?0:LUNA_SERVE_COMPOSITION.drinkOffsetY,954,539);}
+    const background=new Image();background.src=LUNA_SERVE_BACKGROUND.src;await background.decode();ctx.drawImage(background,0,5,959,540,0,0,960,540);
+    const sheet=LUNA_SERVE_SHEETS[id],image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,4782,2166,954,539,3,1,954,539);
     const actual=document.querySelector('.serve-canvas'),canvas=document.createElement('canvas');canvas.width=actual.width;canvas.height=actual.height;
     const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;out.drawImage(native,0,0,canvas.width,canvas.height);
     return canvas.toDataURL()===actual.toDataURL();
@@ -54,9 +52,10 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
      const inside=b=>b.left>=stage.left-.1&&b.top>=stage.top-.1&&b.right<=stage.right+.1&&b.bottom<=stage.bottom+.1;
      const controls=[...document.querySelectorAll('.serve-actions button,.serve-grade')].map(e=>e.getBoundingClientRect());
      const fx=document.querySelector('.serve-carbonation'),grade=document.querySelector('.serve-grade').getBoundingClientRect();
-     const centered=Math.abs((grade.left+grade.right)/2-(stage.left+stage.right)/2)<.1;
-     const headerClear=grade.bottom<art.top+(16+LUNA_SERVE_COMPOSITION.drinkOffsetY)*art.height/540;
-     return {width:art.width/stage.width,height:art.height/stage.height,inside:inside(art)&&controls.every(inside)&&centered&&headerClear,frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
+     // Reference grade is centered above the drink, at the same logical size on every viewport.
+     const headerClear=Math.abs((grade.left+grade.right)/2-(stage.left+stage.right)/2)<1&&Math.abs(grade.width/stage.width-440/1280)<.002;
+     const gc=document.querySelector('.serve-grade-effects'),gradePainted=gc.getContext('2d').getImageData(gc.width*.3,gc.height*.05,gc.width*.4,gc.height*.17).data.some((v,i)=>i%4===3&&v>0);
+     return {width:art.width/stage.width,height:art.height/stage.height,inside:inside(art)&&controls.every(inside)&&headerClear&&gradePainted,frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
     });
     assert(check.width>.99&&check.height>.99&&check.inside&&check.fxAligned&&check.frame==='29',JSON.stringify({id,viewport,check}));
     if(['bottle_beer','dry_martini'].includes(id)&&[390,2048].includes(viewport.width))await p.screenshot({path:'/private/tmp/serve-responsive-'+id+'-'+viewport.width+'.png'});
@@ -69,15 +68,15 @@ const files={gin_tonic:'gin_tonic',cosmopolitan:'cosmopolitan',dry_martini:'drym
    assert(Math.abs(bounds.x-(viewport.width-bounds.width)/2)<.1&&Math.abs(bounds.y-(viewport.height-bounds.height)/2)<.1,'Serving screen remains centered');
    assert(await p.locator('[data-act=offer]').isVisible());
   }
-  await p.locator('[data-act=offer]').click();assert.equal(await p.evaluate(()=>barGame.drink.selected),'tequila_sunrise');assert.equal(await p.evaluate(()=>barGame.transactions.length),0);
+  await p.locator('[data-act=offer]').click();assert.equal(await p.evaluate(()=>barGame.drink.selected),'johnny_old_fashioned');assert.equal(await p.evaluate(()=>barGame.transactions.length),0);
   await craft('bottle_beer');assert.equal(await p.locator('.serve-grade').count(),0,'Repeated recipe restarts');await p.locator('[data-act=discard]').waitFor();
   const before=await p.evaluate(()=>barGame.progress.money),price=await p.evaluate(()=>Number(barGame.cocktail('bottle_beer').price));await p.locator('[data-act=discard]').click();assert.equal(await p.evaluate(()=>barGame.progress.money),before-price);await p.waitForFunction(()=>barGame.screen==='prep');
-  // A recipe without a supplied sheet must not show the wrong drink's animation.
-  await craft('red_wine');await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),1);
-  assert(!requests.some(url=>/\/Legacy\/|serve-gin-tonic\.png|serve-cosmo\.png|serve-background\.png|serve-kahlua\.png/.test(url)),'No retired serving resources requested');
+  // A failed sheet request must retain the correct static drink and working controls.
+  await p.route('**/wine.png',r=>r.abort());await craft('red_wine');await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),1);assert.equal(await p.locator('.serve-grade-effects').evaluate(c=>c.getContext('2d').getImageData(Math.floor(c.width/2),Math.floor(c.height*.6),1,1).data[3]),0,'Grade overlay must not cover the static fallback drink with an opaque backdrop');
+  assert(!requests.some(url=>/\/01.Legacy\/|\/04.ServingAnime\/|serve-gin-tonic\.png|serve-cosmo\.png|serve-background\.png|serve-kahlua\.png/.test(url)),'No retired serving resources requested');
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>window.resourceReview?.ready);
   const catalog=await p.evaluate(()=>resourceReview.rows.filter(r=>r.group==='bar-serve').map(r=>({id:r.id,status:r.status,layer:r.layers[0]})));
   for(const id of Object.keys(files)){const r=catalog.find(r=>r.id==='serve:'+id);assert.equal(r.status,'registered');assert.equal(r.layer.sx,2);assert.equal(r.layer.sy,2);assert.equal(r.layer.fw,954);assert.equal(r.layer.fh,539);assert.equal(r.layer.w,5738);}
-  assert.deepEqual(errors,[]);console.log('PASS current 8 drink sheets + synchronized background; 270 nonempty frames; 56 responsive drink/viewport cases with contained controls and aligned FX; exact source bytes and compositing; load gate, pause, offer/discard, reset, truthful missing-sheet fallback, resource catalog; no retired assets.');
+  assert.deepEqual(errors,[]);console.log('PASS current 13 drink sheets + static background; 390 nonempty frames; 91 responsive drink/viewport cases with contained controls and aligned FX; exact source bytes and compositing; load gate, pause, offer/discard, reset, truthful missing-sheet fallback, resource catalog; no retired assets.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

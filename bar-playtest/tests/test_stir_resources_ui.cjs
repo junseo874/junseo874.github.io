@@ -6,7 +6,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await p.goto('http://127.0.0.1:8123/bar-playtest/?mode=minigames');
  if(await p.locator('.updates-confirm').isVisible()){await p.locator('.updates-dismiss input').check();await p.locator('.updates-confirm').click();}
  await p.evaluate(()=>barGame.startMinigame('stir','original'));await p.locator('.stir-screen').waitFor();
- assert.match(await p.locator('.stir-screen').evaluate(e=>getComputedStyle(e).backgroundImage),/BG_stir.png/);
+ assert.equal(await p.locator('.stir-screen').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(0, 0, 0)');
+ assert.match(await p.locator('.stir-board').evaluate(e=>getComputedStyle(e).backgroundImage),/linear-gradient/);
  if(await p.locator('.mix-tutorial').isVisible()){
   await p.locator('.mix-lesson-next').click();
   await p.waitForFunction(()=>document.querySelector('.mix-guide-page')?.textContent.includes('2'));
@@ -21,10 +22,10 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  await assertSinglePortrait();
  assert.equal(await p.locator('.stir-resource-gauge i').count(),await p.evaluate(()=>barGame.gimmick.targetStacks));
  for(const k of ['W','D','S','A'])assert.equal(await p.locator('[data-act="stir"][data-id="Key'+k+'"]').count(),1);
- async function key(k){await p.keyboard.press('Key'+k);await p.waitForTimeout(60);}
- await key('W');assert.match(await p.locator('[data-id="KeyW"]').evaluate(e=>getComputedStyle(e).backgroundImage),/Web_BTN_mix_direction_background/);
- assert.match(await p.locator('[data-id="KeyD"]').evaluate(e=>getComputedStyle(e).backgroundImage),/Web_BTN_mix_direction_next_background/);
- await p.locator('[data-id="KeyD"]').hover();assert.match(await p.locator('[data-id="KeyD"]').evaluate(e=>getComputedStyle(e).backgroundImage),/Web_BTN_mix_direction_next_background/);
+ async function key(k){await p.keyboard.press('Key'+k);await p.waitForTimeout(220);}
+ await key('W');assert.match(await p.locator('[data-id="KeyW"]').evaluate(e=>getComputedStyle(e).backgroundImage),/BTN_key_A/);
+ assert.match(await p.locator('[data-id="KeyD"]').evaluate(e=>getComputedStyle(e).backgroundImage),/BTN_key_B/);
+ await p.locator('[data-id="KeyD"]').hover();assert.match(await p.locator('[data-id="KeyD"]').evaluate(e=>getComputedStyle(e).backgroundImage),/BTN_key_B/);
  await p.mouse.move(5,5);for(const k of ['D','S','A','W'])await key(k);
  assert.equal(await p.evaluate(()=>barGame.gimmick.success),1);
  assert.match(await p.locator('.mix-gauge .good image').getAttribute('href'),/GAU_stir_success/);
@@ -43,7 +44,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   for(const sel of ['.stir-dial','.stir-resource-gauge','.mix-timer','.mix-cinematic']){const box=await p.locator(sel).boundingBox();assert(box.x>=screen.x-1&&box.y>=screen.y-1&&box.x+box.width<=screen.x+screen.width+1&&box.y+box.height<=screen.y+screen.height+1,sel+' is within stage');}
   assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
  }
- await p.evaluate(()=>{lunaCampaign.session.developer=true;barGame.startMinigame('stir','original');barGame.gimmickInput('KeyW');for(let i=0;i<100&&!barGame.gimmick.completed;i++)barGame.gimmickInput(['KeyW','KeyD','KeyS','KeyA'][(barGame.gimmick.stirPos+1)%4]);});
+ await p.evaluate(()=>{lunaCampaign.session.developer=true;barGame.startMinigame('stir','original');barGame.gimmickInput('KeyW');for(let i=0;i<100&&!barGame.gimmick.completed;i++){for(let n=0;n<20;n++)barGame.tick(.01);barGame.gimmickInput(['KeyW','KeyD','KeyS','KeyA'][(barGame.gimmick.stirPos+1)%4]);}});
  await p.locator('.minigame-result').waitFor();assert.equal(await p.evaluate(()=>barGame.minigame.result.score),100);
  await p.locator('[data-act="miniRetry"]').click();assert.equal(await p.evaluate(()=>barGame.gimmick.attempts),0);assert.equal(await p.locator('.mix-gauge .good,.mix-gauge .miss').count(),0);
  assert.deepEqual(errors,[]);assert.deepEqual(missing,[]);

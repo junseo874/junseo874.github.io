@@ -13,7 +13,7 @@ function complete(g, success) {
   g.startGimmick();
   while (!s.completed) {
     if (s.type === 'stir') {
-      if (success) for (const key of ['KeyD', 'KeyS', 'KeyA', 'KeyW']) g.gimmickInput(key);
+      if (success) for (const key of ['KeyD', 'KeyS', 'KeyA', 'KeyW']) { step(g, .2); g.gimmickInput(key); }
       else g.gimmickInput('KeyW');
     } else {
       s.pathPoint = success ? [0, 0] : [-100, -100];

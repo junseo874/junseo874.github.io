@@ -2252,66 +2252,66 @@
     },
     {
       "from": "assets/serving/atlases/background.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/background.png",
-      "source": "04.Cutscenes/04.ServingAnime/background.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png",
       "match": "bytes",
-      "sha256": "b77a322250c4163be0e98570e91054e31d7cc2558a27073a5b12ef7fa4298609"
+      "sha256": "c176221eb93dbf10adb6e534935e20bfe3c9ca48a6f51bf0891acc6e16b8117c"
     },
     {
       "from": "assets/serving/atlases/give_drink_beer.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_beer.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_beer.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
       "match": "bytes",
-      "sha256": "0aedfd9c7b0bd0b0a56584b7389915719d3f958bdadd0339efed2d7fc5e505bd"
+      "sha256": "876c9bc69a0ab28a1e8cb72c7f04b0eb743d0c078057e900e6e64d44d6ac2b50"
     },
     {
       "from": "assets/serving/atlases/give_drink_cosmopolitan.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_cosmopolitan.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_cosmopolitan.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
       "match": "bytes",
-      "sha256": "04a9b09f1604e1c091188ab2ee4f8b6fdf2ec9c317edeea5625ff257096734df"
+      "sha256": "119713f14c6d044d0c0c60f1ebc7a2d71af8f1dcf09e33c8ba565547a7c6eaac"
     },
     {
       "from": "assets/serving/atlases/give_drink_drymartini.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_drymartini.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_drymartini.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
       "match": "bytes",
-      "sha256": "6fb86589d5cb00dc85436535b2e69bfc3ef56ede811efa3537e0b15c8949f59f"
+      "sha256": "779c06e4a027a46bdd749cd56fcdc6571659a9c363d7759c02cada194cdaa093"
     },
     {
       "from": "assets/serving/atlases/give_drink_gin_tonic.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_gin_tonic.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_gin_tonic.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
       "match": "bytes",
-      "sha256": "4bd17b1eab5e77b1e8851b7808bb277112642d2d8e138d90338d15648e7960f9"
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d"
     },
     {
       "from": "assets/serving/atlases/give_drink_ginfizz.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_ginfizz.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_ginfizz.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
       "match": "bytes",
-      "sha256": "fc011f19c71f8e699116f469909657bf2d1a0f5e45755d4a10822e80bc14708d"
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d"
     },
     {
       "from": "assets/serving/atlases/give_drink_kahluaMilk.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_kahluaMilk.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_kahluaMilk.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
       "match": "bytes",
-      "sha256": "e3965b448f90545aaaea04c9a4719d2ba7234fa1f53e65353aae23f01fa58b7e"
+      "sha256": "a0b2978f10576d0b5e759ff1c7e336acf12f7baed66294479b9762876afde2ba"
     },
     {
       "from": "assets/serving/atlases/give_drink_screwdriver.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_screwdriver.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_screwdriver.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
       "match": "bytes",
-      "sha256": "71e7281d7f18279cbb41b7980faec7b51ad2ef4f897e3c540ac22b4348aca161"
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d"
     },
     {
       "from": "assets/serving/atlases/give_drink_tequila_sunrise.png",
-      "to": "assets/01.ArtResources/04.Cutscenes/04.ServingAnime/give_drink_tequila_sunrise.png",
-      "source": "04.Cutscenes/04.ServingAnime/give_drink_tequila_sunrise.png",
+      "to": "assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
+      "source": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
       "match": "bytes",
-      "sha256": "d60093850f369c57ca28bf750f80652d6477c0376b8f412c4f864c8ff542df00"
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d"
     },
     {
       "from": "assets/ui/choices/IMG_choice_A.png",

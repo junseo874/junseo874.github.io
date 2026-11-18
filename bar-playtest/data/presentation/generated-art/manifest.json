@@ -28375,6 +28375,66 @@
           ]
         }
       ]
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xl.png",
+      "sha256": "9ff1bfaf725455b8f890fb8425460003966ba17492b86f65fa3e29b4167994fb",
+      "width": 4464,
+      "height": 62,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_l.png",
+      "sha256": "59dfa0eacd5f150924330ad7b78d9b4714a5e5414b986d1567b3debe058f42aa",
+      "width": 4032,
+      "height": 56,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_m.png",
+      "sha256": "a7a3f4b3876087587cd4c9f5c603a51f868b1e08949defd4adb560c657c2f652",
+      "width": 3744,
+      "height": 52,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xs.png",
+      "sha256": "6b5b13d1dc61d472d6e39629313053e275b3b743de68c0cbae84be63bb3b6f74",
+      "width": 3024,
+      "height": 42,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_s.png",
+      "sha256": "b6927f13a2397cc019215a9e8b9f8c5ef1263315f02e0a6640cc52dddcbf495f",
+      "width": 3168,
+      "height": 44,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
+    },
+    {
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xxs.png",
+      "sha256": "386048fb5a113064da3727250cd2ba899765da8824ce4f0408a150a08da1c8a5",
+      "width": 2592,
+      "height": 36,
+      "kind": "artwork",
+      "origin": "tools/build-stir-ice.py; size-specific pixel ice and directional cels",
+      "reusesExisting": false,
+      "sources": []
     }
   ],
   "excluded": []

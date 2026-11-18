@@ -117,7 +117,10 @@
         if (!g.started) {
           if (!['KeyW', 'ArrowUp'].includes(key)) return false;
           g.started = true;
+          g.stirCueLeft = MIX.stirCueDelay;
+          g.stirCueAge = 0;
           g.message = '시계 방향으로 D → S → A → W';
+          this.changed();
           return true;
         }
         const keyMap = {
@@ -132,12 +135,17 @@
           },
           dir = keyMap[key];
         if (dir == null) return false;
-        if (dir === (g.stirPos + 1) % 4) {
+        if (g.stirCueLeft > 0) {
+          this.finishStirCircle(false);
+          g.message = '너무 빨라..';
+        } else if (dir === (g.stirPos + 1) % 4) {
           g.stirPos = dir;
           g.stirStep++;
           g.spoonTarget += 90;
           g.stirMotionPending = Math.min(6, g.stirMotionPending + 5);
           g.swirlSpeed = Math.min(420, g.swirlSpeed + 160);
+          g.stirCueLeft = MIX.stirCueDelay;
+          g.stirCueAge = 0;
           g.message = '';
           if (g.stirStep === 4) this.finishStirCircle(true);
         } else this.finishStirCircle(false);
@@ -170,6 +178,8 @@
       g.stirStep = 0;
       g.circleTime = 0;
       g.feedbackLeft = .35;
+      g.stirCueLeft = MIX.stirCueDelay;
+      g.stirCueAge = 0;
       g.message = ok ? 'GOOD' : 'MISS';
       if (g.attempts >= g.targetStacks) g.completed = true;
     }
@@ -455,7 +465,7 @@
         }
       } else if (g.type === 'stir') {
         g.circleTime += dt;
-        if (g.circleTime >= this.c('stir_circle_limit_sec', 1.5)) this.finishStirCircle(false);
+        if (g.circleTime >= this.c('stir_circle_limit_sec', 2.5)) this.finishStirCircle(false);
       }
     }
     chargePourOverflow(fluid) {

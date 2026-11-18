@@ -12,6 +12,10 @@ for(const {from,to} of require('../docs/architecture/art-resource-paths.json').r
  const group=/^assets\/(ui|tutorials|fonts)\//.test(from)?'common':/^assets\/(backgrounds|characters|cocktails|items|serving)\//.test(from)?'bar':null;
  if(group&&!groups[group].includes(to))groups[group].push(to);
 }
+for(const grade of ['Excellent','Good','Decent','Poor','Sewage'])groups.bar.push('assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_'+grade+'_01.png');
+// Serving atlases decode on demand; preload only the static backdrop.
+groups.bar.push('assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png');
+groups.bar=groups.bar.filter(p=>!p.includes('/01.Serving/02.Drink_Serving_Screen_Sheets/'));
 const generated=require('../bar-playtest/data/presentation/generated-art/manifest.json');
 for(const r of generated.records)if(r.sources.some(s=>s.src.startsWith('assets/ui/parts/')||s.src.startsWith('assets/ui/cursors/')))groups.common.push('assets/01.ArtResources/'+r.path);
 groups.common.push(...require('../bar-playtest/data/presentation/generated-art-preload.json'));

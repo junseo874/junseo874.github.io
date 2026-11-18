@@ -11,7 +11,7 @@ function build(F){
  for(const [id,title]of [['glass','잔'],['tool','도구'],['liquor','일반 재료'],['fridge','냉장고']])add('prep-'+id,'bar','재료 담기 · '+title+' 선반','재료 담기','풀샷',[layer('prep_'+id)],{launch:{type:'background',id:'shelf',tab:id},note:'선반 배경 원본입니다. 선택 가능한 재료·잔·도구 이미지는 별도 리소스로 배치됩니다.'});
  for(const [id,key,title]of [['open','gimmick','병따기'],['pour','gimmick','따르기'],['fill_up','gimmick','필업'],['shake','gimmick_shake','쉐이킹'],['stir','gimmick_stir','스터']])add('mini-'+id,'bar',title+' · 제조 배경','제조 기믹','풀샷',[layer(key)],{status:key==='gimmick'?'shared':'registered',launch:{type:'mini',id},note:key==='gimmick'?'병따기·따르기·필업이 같은 제조 공간 이미지를 공유합니다.':'좌측 제조 애니메이션 뒤에 사용하는 배경입니다. 노드·판정·캐릭터는 별도 표시됩니다.'});
  const serving=F.LUNA_SERVE_BACKGROUND;
- add('serve','bar','제공하기 · 공용 배경','제공하기','프레임 시트',[{key:'serve-background',...serving,w:serving.atlasWidth,h:serving.atlasHeight,fw:serving.w,fh:serving.h,source:'Drink_Serving_Screen_Sheets/background.png'}],{launch:{type:'serve',id:'cosmopolitan'},note:'최신 공용 배경 30프레임 시트입니다. 8종의 손·잔 시트와 동일 프레임을 합성해 재생합니다.'});
+ add('serve','bar','제공하기 · 공용 배경','제공하기','정지 배경',[{key:'serve-background',...serving,w:serving.atlasWidth,h:serving.atlasHeight,fw:serving.w,fh:serving.h,source:'04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png'}],{launch:{type:'serve',id:'cosmopolitan'},note:'최신 공용 정지 배경입니다. 손·잔 애니메이션 13종을 합성해 재생합니다.'});
  add('title','bar','메인 타이틀 / 시작 선택 배경','타이틀 / 로딩','풀샷',[raw('title-bg','assets/backgrounds/campaign/title-bg.png','src/features/campaign/campaign.css')],{launch:{type:'background',id:'title'},note:'타이틀과 시작 선택 화면이 공유하는 원본입니다. 로고·버튼·어두운 그라디언트는 별도 UI입니다.'});
  for(const scene of ['street','home']){
   const screen=scene==='street'?'외부 거리':'집 내부';

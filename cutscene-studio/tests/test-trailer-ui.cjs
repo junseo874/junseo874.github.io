@@ -118,13 +118,21 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  await page.evaluate(t=>lunaTrailerPreview.seek(t),opening.start+.1);
  assert.equal(await game.evaluate(()=>barGame.gimmick.completed),false,'opening scrub resets completion');
  const serving=scenes.find(s=>s.kind==='serve'),drinks=new Set();
- for(let i=0;i<8;i++){
-  const offset=(i+.5)*1.5/8;
+ for(let i=0;i<13;i++){
+  const offset=(i+.5)*1.5/13;
   await page.evaluate(t=>lunaTrailerPreview.seek(t),serving.start+offset);
   assert.equal(Number(await page.locator('#serve').getAttribute('data-frame')),Math.floor(offset*20),'source 20fps');
   drinks.add(await page.locator('#serve').getAttribute('data-cocktail'));
+  assert(await page.evaluate(async()=>{
+   const actual=document.querySelector('#serve'),w=document.querySelector('#game').contentWindow,s=w.LUNA_SERVE_SHEETS[actual.dataset.cocktail],n=Number(actual.dataset.frame);
+   const load=async src=>{const im=new Image();im.src='../bar-playtest/'+src;await im.decode();return im;};
+   const bg=await load(w.LUNA_SERVE_BACKGROUND.src),drink=await load(s.src),expected=document.createElement('canvas');expected.width=960;expected.height=540;
+   const c=expected.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#000';c.fillRect(0,0,960,540);
+   c.drawImage(bg,0,5,959,540,0,0,960,540);c.drawImage(drink,2+n%6*956,2+Math.floor(n/6)*541,954,539,3,1,954,539);
+   return expected.toDataURL()===actual.toDataURL();
+  }),'cached trailer frame must preserve the current source pixels and composition');
  }
- assert.equal(drinks.size,8,'all eight cocktails at normal hand speed');
+ assert.equal(drinks.size,13,'all thirteen cocktails at normal hand speed');
  for(const offset of [1.5,2.4,3.1]){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),serving.start+offset);
   assert.equal(await page.locator('#serve').getAttribute('data-frame'),'29','hold the completed hand frame');

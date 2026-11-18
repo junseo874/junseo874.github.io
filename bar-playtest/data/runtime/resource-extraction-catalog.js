@@ -547,6 +547,48 @@ window.ResourceExtractionAssets=[
     "h": 2160
   },
   {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Decent_01.png",
+    "title": "FX_TX_GradeText_Decent_01.png",
+    "category": "UI · 원본 조각",
+    "w": 1261,
+    "h": 287
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Excellent_01.png",
+    "title": "FX_TX_GradeText_Excellent_01.png",
+    "category": "UI · 원본 조각",
+    "w": 1261,
+    "h": 287
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Good_01.png",
+    "title": "FX_TX_GradeText_Good_01.png",
+    "category": "UI · 원본 조각",
+    "w": 1261,
+    "h": 287
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Poor_01.png",
+    "title": "FX_TX_GradeText_Poor_01.png",
+    "category": "UI · 원본 조각",
+    "w": 1261,
+    "h": 287
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Sewage_01.png",
+    "title": "FX_TX_GradeText_Sewage_01.png",
+    "category": "UI · 원본 조각",
+    "w": 1261,
+    "h": 287
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/TX_GradeReveal_Sparkle_01.png",
+    "title": "TX_GradeReveal_Sparkle_01.png",
+    "category": "UI · 원본 조각",
+    "w": 45,
+    "h": 9
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/05.Profile/BG_profile.png",
     "title": "BG_profile.png",
     "category": "UI · 원본 조각",

@@ -36,7 +36,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
       f.g.realTime=frame/20+.001;f.view.sync(f.root);
       if(Number(actual.dataset.frame)!==frame)throw Error('Wrong animation frame');
       nc.clearRect(0,0,960,540);
-      for(const {im,sheet:s} of images)nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,3,s===LUNA_SERVE_BACKGROUND?0:LUNA_SERVE_COMPOSITION.drinkOffsetY,s.w,s.h);
+      nc.drawImage(images[0].im,0,5,959,540,0,0,960,540);
+      const {im,sheet:s}=images[1];nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,3,1,s.w,s.h);
       expected.width=actual.width;expected.height=actual.height;const ec=expected.getContext('2d');ec.imageSmoothingEnabled=false;ec.drawImage(native,0,0,expected.width,expected.height);
       if(expected.toDataURL()!==actual.toDataURL())throw Error('Frame resampled or wrong atlas crop: '+frame);
      }

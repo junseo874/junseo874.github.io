@@ -1660,60 +1660,6 @@
       "kind": "existing-bytes"
     },
     {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/background.png",
-      "path": "04.Cutscenes/04.ServingAnime/background.png",
-      "sha256": "b77a322250c4163be0e98570e91054e31d7cc2558a27073a5b12ef7fa4298609",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_beer.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_beer.png",
-      "sha256": "0aedfd9c7b0bd0b0a56584b7389915719d3f958bdadd0339efed2d7fc5e505bd",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_cosmopolitan.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_cosmopolitan.png",
-      "sha256": "04a9b09f1604e1c091188ab2ee4f8b6fdf2ec9c317edeea5625ff257096734df",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_drymartini.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_drymartini.png",
-      "sha256": "6fb86589d5cb00dc85436535b2e69bfc3ef56ede811efa3537e0b15c8949f59f",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_gin_tonic.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_gin_tonic.png",
-      "sha256": "4bd17b1eab5e77b1e8851b7808bb277112642d2d8e138d90338d15648e7960f9",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_ginfizz.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_ginfizz.png",
-      "sha256": "fc011f19c71f8e699116f469909657bf2d1a0f5e45755d4a10822e80bc14708d",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_kahluaMilk.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_kahluaMilk.png",
-      "sha256": "e3965b448f90545aaaea04c9a4719d2ba7234fa1f53e65353aae23f01fa58b7e",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_screwdriver.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_screwdriver.png",
-      "sha256": "71e7281d7f18279cbb41b7980faec7b51ad2ef4f897e3c540ac22b4348aca161",
-      "kind": "existing-bytes"
-    },
-    {
-      "from": "04.Cutscenes/03.Bar/01.Serving/Drink_Serving_Screen_Sheets/give_drink_tequila_sunrise.png",
-      "path": "04.Cutscenes/04.ServingAnime/give_drink_tequila_sunrise.png",
-      "sha256": "d60093850f369c57ca28bf750f80652d6477c0376b8f412c4f864c8ff542df00",
-      "kind": "existing-bytes"
-    },
-    {
       "from": "05.UI/01.Shared/MainScreen/GRD_textbox.png",
       "path": "05.UI/01.Shared/01.MainScreen/GRD_textbox.png",
       "sha256": "8c0139da55b75aaa35906f34e180cbfb274eb4f395a9e66106386135c6677d2d",
@@ -10738,6 +10684,162 @@
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_A_foreground_building_door.png",
       "kind": "new",
       "sha256": "11764bb7b23126ce12a4dc053cb6f283ba0f51372c2d40f867b52a03cfc6f8f8"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/old_fashioned.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/old_fashioned.png",
+      "sha256": "f4c8e6efa5e4da1652973a9104897a19912fe6e06910a458903280da0cd886fb",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
+      "sha256": "876c9bc69a0ab28a1e8cb72c7f04b0eb743d0c078057e900e6e64d44d6ac2b50",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/godfather.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/godfather.png",
+      "sha256": "25c92130527a200cab9aae765b96ccc72271692d5c28f46d944eb6ee280096d3",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
+      "sha256": "119713f14c6d044d0c0c60f1ebc7a2d71af8f1dcf09e33c8ba565547a7c6eaac",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/wine.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/wine.png",
+      "sha256": "da4abf7fb2330fe9d08e43e77d8530904ed9ff54c1f52efbcb7882c9777316e9",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
+      "sha256": "779c06e4a027a46bdd749cd56fcdc6571659a9c363d7759c02cada194cdaa093",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/whisky.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/whisky.png",
+      "sha256": "0dca5442916e24ff7955036acd613732dcc18d26c0face161dca3e226e53bc1f",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
+      "sha256": "a0b2978f10576d0b5e759ff1c7e336acf12f7baed66294479b9762876afde2ba",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/champagne.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/champagne.png",
+      "sha256": "0bf4e46818e74e96d255fb1b06139e86dd2f295ea1e4157dc762aef13455287a",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
+      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "kind": "new"
+    },
+    {
+      "from": "04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png",
+      "path": "04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png",
+      "sha256": "c176221eb93dbf10adb6e534935e20bfe3c9ca48a6f51bf0891acc6e16b8117c",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xl.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xl.png",
+      "sha256": "9ff1bfaf725455b8f890fb8425460003966ba17492b86f65fa3e29b4167994fb",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_l.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_l.png",
+      "sha256": "59dfa0eacd5f150924330ad7b78d9b4714a5e5414b986d1567b3debe058f42aa",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_m.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_m.png",
+      "sha256": "a7a3f4b3876087587cd4c9f5c603a51f868b1e08949defd4adb560c657c2f652",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xs.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xs.png",
+      "sha256": "6b5b13d1dc61d472d6e39629313053e275b3b743de68c0cbae84be63bb3b6f74",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_s.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_s.png",
+      "sha256": "b6927f13a2397cc019215a9e8b9f8c5ef1263315f02e0a6640cc52dddcbf495f",
+      "kind": "new"
+    },
+    {
+      "from": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xxs.png",
+      "path": "03.Crafting/04.Minigames/02.Stir/01.Sprites/WebGenerated/Web_stir_ice_xxs.png",
+      "sha256": "386048fb5a113064da3727250cd2ba899765da8824ce4f0408a150a08da1c8a5",
+      "kind": "new"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Poor_01.png",
+      "sha256": "d78b79eae30d8c32fd480236ea38b971a0b9f4a7249e01145b4887fe1552351f",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Poor_01.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Decent_01.png",
+      "sha256": "3382e3f3821f8dfafefb705f65fa93db5c8fce24884b632eb523e70dd1397166",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Decent_01.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Excellent_01.png",
+      "sha256": "6ada946377c99581556455fb84b250958d4f79893b9dd371ecc5d45b493c63ef",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Excellent_01.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Good_01.png",
+      "sha256": "e0a5057a5290f78bc11bddad212e009070629d988e16dc956809230e87954321",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Good_01.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/TX_GradeReveal_Sparkle_01.png",
+      "sha256": "1f507e5925bf6ed8a3fd3ab88efb8e0c37924459a89b17684de34c0700861ea7",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/TX_GradeReveal_Sparkle_01.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Sewage_01.png",
+      "sha256": "459ad52f10717103afb75dba1c1fb10a42c2bc6c1c996e6566e3afb921a4b559",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Sewage_01.png"
     }
   ]
 }

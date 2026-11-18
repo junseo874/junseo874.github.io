@@ -25,7 +25,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   await page.locator('.mix-tutorial').waitFor({state:'hidden'});
  }
  const count=()=>p.evaluate(()=>stirAudio.length);
- async function key(k){await p.keyboard.press('Key'+k);await p.waitForTimeout(70);}
+ async function key(k){await p.waitForFunction(()=>!(barGame.gimmick.stirCueLeft>0));await p.keyboard.press('Key'+k);await p.waitForTimeout(70);}
  // Standalone minigames now use the single original ruleset.
  for(const variant of ['original']){
   await p.evaluate(v=>barGame.startMinigame('stir',v),variant);await p.locator('.stir-screen').waitFor();
@@ -54,7 +54,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   await p.waitForTimeout(180);
   assert.deepEqual(await p.evaluate(()=>({s:JSON.stringify(barGame.gimmick),fx:document.querySelector('[data-stir-polish]').innerHTML})),frozen);
   assert(await p.evaluate(()=>stirAudio.every(x=>x.stopped)));
-  await p.keyboard.press('Escape');await p.waitForTimeout(70);assert.equal(await count(),before+2,'Resume alone does not replay an input');
+  await p.keyboard.press('Escape');await p.waitForTimeout(220);assert.equal(await count(),before+2,'Resume alone does not replay an input');
   await key('A');assert.equal(await count(),before+3);
   await p.keyboard.press('Escape');await p.locator('[data-setting-toggle="gimmick"]').click();await p.keyboard.press('Escape');
   await key('W');assert.equal(await count(),before+3,'Mute preserves gameplay but suppresses assets/audio/effects');
@@ -65,10 +65,10 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
   for(let i=0;i<24;i++){await key(['D','S','A','W'][i%4]);await p.waitForTimeout(85);}
   assert.equal(await count(),continuous+1,'One continuous source through the loop seam');
   assert.equal(await p.evaluate(()=>barGame.gimmick.success),6);
-  await p.evaluate(()=>{const g=barGame;while(!g.gimmick.completed)g.gimmickInput(['KeyW','KeyD','KeyS','KeyA'][(g.gimmick.stirPos+1)%4]);});
+  await p.evaluate(()=>{const g=barGame;while(!g.gimmick.completed){for(let i=0;i<20;i++)g.tick(.01);g.gimmickInput(['KeyW','KeyD','KeyS','KeyA'][(g.gimmick.stirPos+1)%4]);}});
   await p.waitForTimeout(100);assert.equal(await p.locator('.remix-step-feedback').count(),0);
   await p.locator('.minigame-result').waitFor();assert.equal(await p.evaluate(()=>barGame.minigame.result.score),100);
-  await p.locator('[data-act="miniRetry"]').click();await p.waitForTimeout(70);
+  await p.locator('[data-act="miniRetry"]').click();await p.waitForTimeout(220);
   assert.equal(await p.evaluate(()=>barGame.gimmick.stirMotionPending),0);
  }
  await p.emulateMedia({reducedMotion:'reduce'});await key('W');for(const k of ['D','S','A','W'])await key(k);
@@ -86,7 +86,7 @@ const BASE=process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/';
  if(await failed.locator('.updates-confirm').isVisible())await failed.locator('.updates-confirm').click();
  await failed.evaluate(()=>barGame.startMinigame('stir','original'));await failed.locator('.stir-screen').waitFor();
  await dismissTutorial(failed);
- for(const k of ['W','D','S','A','W']){await failed.keyboard.press('Key'+k);await failed.waitForTimeout(50);}
+ for(const k of ['W','D','S','A','W']){await failed.waitForFunction(()=>!(barGame.gimmick.stirCueLeft>0));await failed.keyboard.press('Key'+k);await failed.waitForTimeout(50);}
  assert.equal(await failed.evaluate(()=>barGame.gimmick.success),1);assert.deepEqual(failedErrors,[]);
  await failed.close();
  console.log('STIR_POLISH_UI_OK: fixed second recording, legacy selection ignored; sustained loop, correct-input-only, fade/idle, pause/mute, retry/exit, stable board, unchanged scoring, reduced motion and missing-audio fallback.');

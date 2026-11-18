@@ -1023,6 +1023,10 @@
       return;
     }
     if (ui.minigames && name === 'inspector') return;
+    if (name === 'servePreview') {
+      window.LunaServePreview.open(campaign);
+      return;
+    }
     if (name === 'cutscenePlay') {
       window.LunaCutsceneLibrary.play(campaign, id);
       return;

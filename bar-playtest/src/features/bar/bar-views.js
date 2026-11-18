@@ -664,11 +664,20 @@ window.LunaBarViews = function ({
       time = String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
     return `<div class="mix-timer craft-timer" role="timer" data-craft-seconds="${sec}" aria-label="${L('제조시간', 'Craft time')} ${time}"><img class="stir-timer-icon" src="assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/ICN_sitr_time.png" alt="">${stirClock(time)}</div>`;
   }
-  function iceTransform(x, y, spin, scale = 1) {
-    return 'translate(' + x + ' ' + y + ') rotate(' + spin + ') scale(' + scale + ')';
+  function iceTransform(x, y, scale = 1) {
+    return 'translate(' + Math.round(x) + ' ' + Math.round(y) + ') scale(' + scale + ')';
   }
-  function iceShape(index, x, y, size, spin, opacity = 1, scale = 1) {
-    return '<g data-ice-cube data-ice-index="' + index + '" transform="' + iceTransform(x, y, spin, scale) + '" opacity="' + opacity + '"><rect x="' + -size / 2 + '" y="' + -size / 2 + '" width="' + size + '" height="' + size + '" rx="3" fill="#b8ecf1" fill-opacity=".68" stroke="#e6ffff" stroke-width="1.5"/><path d="M ' + -size * .3 + ' ' + size * .28 + ' V ' + -size * .27 + ' H ' + size * .22 + '" fill="none" stroke="#f4ffff" stroke-width="2"/></g>';
+  function iceViewBox(index, spin) {
+    const art = D.assets['stir_ice_' + index],
+      angle = (spin % 360 + 360) % 360,
+      frame = Math.round(angle / 360 * art.frames) % art.frames;
+    return frame * art.frameWidth + ' 0 ' + art.frameWidth + ' ' + art.frameHeight;
+  }
+  function iceShape(index, x, y, spin, opacity = 1, scale = 1) {
+    const art = D.assets['stir_ice_' + index],
+      width = art.frameWidth,
+      height = art.frameHeight;
+    return '<g data-ice-cube data-ice-index="' + index + '" transform="' + iceTransform(x, y, scale) + '" opacity="' + opacity + '"><svg class="stir-ice-sprite" x="' + -width / 2 + '" y="' + -height / 2 + '" width="' + width + '" height="' + height + '" viewBox="' + iceViewBox(index, spin) + '"><image href="' + art.src + '" width="' + art.w + '" height="' + art.h + '"/></svg></g>';
   }
   function sideIce(s) {
     return s.ice.map((c, index) => {
@@ -691,17 +700,27 @@ window.LunaBarViews = function ({
     return 'M' + (80 + sin * 30) + ' 22 L' + (80 + sin * 23) + ' 145';
   }
   function stirProgress(s) {
-    return s.completed ? 0 : s.started ? Math.max(0, 1 - s.circleTime / g.c('stir_circle_limit_sec', 1.5)) : 1;
+    return s.completed ? 0 : s.started ? Math.max(0, 1 - s.circleTime / g.c('stir_circle_limit_sec', 2.5)) : 1;
   }
   function sideGlass(s) {
     const cubes = sideIce(s);
-    return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="' + L('같은 얼음의 측면', 'Side view of the same ice') + '"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g data-side-ice>' + cubes.map(v => iceShape(v.index, v.x, v.y, v.c.size * (30 / 41.58), -v.c.sideSpin, v.alpha, v.scale)).join('') + '</g><path data-side-spoon d="' + sideSpoon(s) + '" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
+    return '<svg class="stir-side-glass" viewBox="0 0 160 220" aria-label="' + L('같은 얼음의 측면', 'Side view of the same ice') + '"><path d="M27 55 L37 187 Q80 204 123 187 L133 55" fill="#304553" stroke="#cde9ed" stroke-width="4"/><ellipse cx="80" cy="55" rx="53" ry="14" fill="#0c161e" stroke="#cfecf2" stroke-width="4"/><g data-side-ice>' + cubes.map(v => iceShape(v.index, v.x, v.y, -v.c.sideSpin, v.alpha, v.scale * (30 / 41.58))).join('') + '</g><path data-side-spoon d="' + sideSpoon(s) + '" stroke="#e8f4f8" stroke-width="4"/><path d="M38 84L44 182Q80 193 116 182L123 84" fill="#99d9e9" fill-opacity=".12" stroke="#9bc0ce" stroke-opacity=".5"/></svg>';
+  }
+  function stirKeyState(s, index) {
+    const pressed = s.started && index === s.stirPos,
+      next = !s.completed && !(s.stirCueLeft > 0) && index === (s.started ? (s.stirPos + 1) % 4 : 0);
+    return { pressed, next, hidden: !pressed && !next };
+  }
+  function stirKeys(s) {
+    const pos = [[50, 0], [100, 50], [50, 100], [0, 50]];
+    return ['W', 'D', 'S', 'A'].map((key, index) => {
+      const state = stirKeyState(s, index);
+      return '<button class="mix-direction ' + (state.next ? 'next' : '') + ' ' + (state.pressed ? 'pressed' : '') + '" style="left:' + pos[index][0] + '%;top:' + pos[index][1] + '%" data-act="stir" data-id="Key' + key + '" aria-label="' + key + '" aria-pressed="' + state.pressed + '" ' + (state.hidden ? 'hidden ' : '') + (s.completed || state.hidden ? 'disabled' : '') + '>' + key + '<svg class="stir-key-corners" viewBox="0 0 60 60" aria-hidden="true"><path d="M2 10V2H10 M50 2H58V10 M58 50V58H50 M10 58H2V50"/></svg></button>';
+    }).join('');
   }
   function stirBoard(s) {
-    const pos = [[50, 0], [100, 50], [50, 100], [0, 50]],
-      next = s.started ? (s.stirPos + 1) % 4 : 0;
     const progress = stirProgress(s);
-    return '<section class="mix-board stir-board"><div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="' + L('입력에 반응하는 숟가락과 얼음', 'Input-driven spoon and ice') + '"><defs><linearGradient id="stir-metal"><stop stop-color="#3a465d"/><stop offset=".2" stop-color="#c8d5e0"/><stop offset=".28" stop-color="#f3ffff"/><stop offset=".47" stop-color="#889fb4"/><stop offset=".7" stop-color="#e7f5fa"/><stop offset="1" stop-color="#65758c"/></linearGradient><radialGradient id="stir-well"><stop offset=".76" stop-color="#d9e6ec" stop-opacity="0"/><stop offset="1" stop-color="#172332" stop-opacity=".8"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#283548" stroke="#b4c9df" stroke-width="2"/><circle cx="100" cy="100" r="91" fill="url(#stir-metal)" stroke="#eefaff" stroke-width="1.5"/><circle cx="100" cy="100" r="88" fill="url(#stir-well)"/>' + s.ice.map((c, index) => iceShape(index, 100 + c.x, 100 - c.y, c.size, -c.spin)).join('') + '<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="' + s.spoonAngle.toFixed(3) + '" transform="rotate(' + s.spoonAngle + ' 100 100)"><path d="M100 8V101" stroke="#222d40" stroke-width="3"/><path d="M100 8V101" stroke="#c3dbe4" stroke-width="1.2"/><path d="M99 15l2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4" fill="none" stroke="#71899c" stroke-width=".6"/><ellipse cx="100" cy="10" rx="2.4" ry="4.5" fill="url(#stir-metal)" stroke="#364559" stroke-width="1"/></g></svg>' + '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="stir-time-mask"><circle class="orbit-progress ' + (s.started && progress < .34 ? 'danger' : '') + '" cx="200" cy="200" r="187" pathLength="100" stroke-dasharray="' + progress * 100 + ' 100" transform="rotate(-90 200 200)"/></mask></defs><image href="assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_B.png" width="400" height="400"/><image class="stir-time-fill" href="assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_A.png" width="400" height="400" mask="url(#stir-time-mask)"/></svg>' + ['W', 'D', 'S', 'A'].map((k, i) => '<button class="mix-direction ' + (i === next && !s.completed ? 'next' : '') + ' ' + (s.started && i === s.stirPos && !s.completed ? 'pressed' : '') + '" style="left:' + pos[i][0] + '%;top:' + pos[i][1] + '%" data-act="stir" data-id="Key' + k + '" aria-label="' + k + '" ' + (s.completed ? 'disabled' : '') + '>' + k + '</button>').join('') + '</div>' + mixGauge(s) + '</section>';
+    return '<section class="mix-board stir-board"><div class="stir-dial"><svg class="stir-live-glass" viewBox="0 0 200 200" aria-label="' + L('입력에 반응하는 숟가락과 얼음', 'Input-driven spoon and ice') + '"><defs><linearGradient id="stir-metal"><stop stop-color="#3a465d"/><stop offset=".2" stop-color="#c8d5e0"/><stop offset=".28" stop-color="#f3ffff"/><stop offset=".47" stop-color="#889fb4"/><stop offset=".7" stop-color="#e7f5fa"/><stop offset="1" stop-color="#65758c"/></linearGradient><radialGradient id="stir-well"><stop offset=".76" stop-color="#d9e6ec" stop-opacity="0"/><stop offset="1" stop-color="#172332" stop-opacity=".8"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="#283548" stroke="#b4c9df" stroke-width="2"/><circle cx="100" cy="100" r="91" fill="url(#stir-metal)" stroke="#eefaff" stroke-width="1.5"/><circle cx="100" cy="100" r="88" fill="url(#stir-well)"/>' + s.ice.map((c, index) => iceShape(index, 100 + c.x, 100 - c.y, -c.spin)).join('') + '<g data-stir-polish aria-hidden="true"></g><g data-spoon-angle="' + s.spoonAngle.toFixed(3) + '" transform="rotate(' + s.spoonAngle + ' 100 100)"><path d="M100 8V101" stroke="#222d40" stroke-width="3"/><path d="M100 8V101" stroke="#c3dbe4" stroke-width="1.2"/><path d="M99 15l2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4 2 4-2 4" fill="none" stroke="#71899c" stroke-width=".6"/><ellipse cx="100" cy="10" rx="2.4" ry="4.5" fill="url(#stir-metal)" stroke="#364559" stroke-width="1"/></g></svg>' + '<svg class="stir-orbit" viewBox="0 0 400 400" aria-hidden="true"><defs><mask id="stir-time-mask"><circle class="orbit-progress ' + (s.started && progress < .34 ? 'danger' : '') + '" cx="200" cy="200" r="187" pathLength="100" stroke-dasharray="' + progress * 100 + ' 100" transform="rotate(-90 200 200)"/></mask></defs><image href="assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_B.png" width="400" height="400"/><image class="stir-time-fill" href="assets/01.ArtResources/05.UI/03.Crafting/02.Minigames/01.Stir/GAU_stir_round_A.png" width="400" height="400" mask="url(#stir-time-mask)"/></svg>' + stirKeys(s) + '</div><div class="stir-feedback" data-stir-feedback aria-live="polite"></div>' + mixGauge(s) + '</section>';
   }
   // The full UI is throttled; these existing visual nodes must follow every simulation frame.
   // Scope queries to the current screen so retry/exit never retains a detached canvas or actor.
@@ -721,13 +740,25 @@ window.LunaBarViews = function ({
       const pos = frame / (art.frames - 1) * 100 + '% 0px';
       if (el.style.backgroundPosition !== pos) el.style.backgroundPosition = pos;
     }
+    screen.querySelectorAll('.mix-direction').forEach((el, index) => {
+      const state = stirKeyState(s, index),
+        t = Math.min(1, (s.stirCueAge || 0) / .24),
+        pulse = 1 - t * t * (3 - 2 * t);
+      el.hidden = state.hidden;
+      el.disabled = s.completed || state.hidden;
+      el.classList.toggle('next', state.next);
+      el.classList.toggle('pressed', state.pressed);
+      attr(el, 'aria-pressed', state.pressed);
+      el.style.setProperty('--stir-key-pulse', state.next ? pulse.toFixed(3) : '0');
+    });
     const spoon = screen.querySelector('[data-spoon-angle]');
     attr(spoon, 'data-spoon-angle', s.spoonAngle.toFixed(3));
     attr(spoon, 'transform', 'rotate(' + s.spoonAngle + ' 100 100)');
     for (const el of screen.querySelectorAll('.stir-live-glass [data-ice-index]')) {
       const c = s.ice[Number(el.dataset.iceIndex)];
       if (!c) continue;
-      attr(el, 'transform', iceTransform(100 + c.x, 100 - c.y, -c.spin));
+      attr(el, 'transform', iceTransform(100 + c.x, 100 - c.y));
+      attr(el.querySelector('.stir-ice-sprite'), 'viewBox', iceViewBox(Number(el.dataset.iceIndex), -c.spin));
     }
     const layer = screen.querySelector('[data-side-ice]');
     if (layer) {
@@ -735,7 +766,8 @@ window.LunaBarViews = function ({
       sideIce(s).forEach((v, i) => {
         const el = nodes.get(v.index);
         if (!el) return;
-        attr(el, 'transform', iceTransform(v.x, v.y, -v.c.sideSpin, v.scale));
+        attr(el, 'transform', iceTransform(v.x, v.y, v.scale * (30 / 41.58)));
+        attr(el.querySelector('.stir-ice-sprite'), 'viewBox', iceViewBox(v.index, -v.c.sideSpin));
         attr(el, 'opacity', v.alpha);
         if (layer.children[i] !== el) layer.insertBefore(el, layer.children[i] || null);
       });

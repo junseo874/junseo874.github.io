@@ -113,6 +113,7 @@
     delay: .1,
     frameSeconds: .125,
     stirFrameSeconds: 1 / 12,
+    stirCueDelay: .18,
     shakeClips: [[1, 2, 3, 0], [5, 6, 7, 4]],
     init(s) {
       if (!['shake', 'stir'].includes(s.type)) return;
@@ -135,6 +136,8 @@
       s.swirlSpeed = 0;
       s.stirMotionPending = 0;
       s.stirMotionClock = 0;
+      s.stirCueLeft = 0;
+      s.stirCueAge = 0;
       const layout = [[-28.49, 22.33, 41.58, .9], [30.03, 19.25, 38.2536, -.75], [-.77, -31.57, 34.9272, .65], [-30.03, -20.79, 27.442802, -.85], [31.57, -26.95, 29.106, .6], [3.85, 37.73, 24.1164, -.62]];
       s.ice = layout.map(([x, y, size, factor], i) => ({
         x,
@@ -205,6 +208,9 @@
         }
         return;
       }
+      const cueLeft = s.stirCueLeft || 0;
+      s.stirCueLeft = Math.max(0, cueLeft - dt);
+      s.stirCueAge = s.stirCueLeft ? 0 : (s.stirCueAge || 0) + Math.max(0, dt - cueLeft);
       s.spoonAngle += (s.spoonTarget - s.spoonAngle) * (1 - Math.exp(-10 * dt));
       if (Math.abs(s.spoonTarget - s.spoonAngle) < .01) s.spoonAngle = s.spoonTarget;
       // Correct inputs fund a short 12 FPS hand gesture. Preserve its phase across inputs;
