@@ -39,6 +39,44 @@ const toolForIngredient=id=>WITHOUT_POURER.has(id)?'none':'pourer';
 const POURER={rateScale:1,maxAngle:170,rampDegrees:57};
 function nozzle(angle=0){const u=clamp(angle/110,0,1),ease=u*u*(3-2*u);return{x:MOUTH.x+(MOUTH.pourX-MOUTH.x)*ease,y:MOUTH.y+(MOUTH.pourY-MOUTH.y)*ease};}
 function containerSize(bw,bh,can=false){const scale=Math.min((can?128:170)/bh,(can?110:90)/bw);return{w:bw*scale,h:bh*scale};}
+// Source rectangles exclude transparent padding. Mouth coordinates are in original PNG pixels.
+const ingredientDir='assets/01.ArtResources/03.Crafting/04.Minigames/03.Ingredients/';
+const POURER_ART=Object.freeze({src:ingredientDir+'Pourer.png',tipX:16.5,tipY:1,seatX:17.5,seatY:21});
+function openArt(name,box,mouthX,mouthY,neckWidth=15){
+ return {src:ingredientDir+name+'_off.png',box,mouthX,mouthY,neckWidth};
+}
+const CONTAINERS=Object.freeze({
+ amaretto:openArt('amaretto',[0,49,57,170],28.5,50),
+ rum:openArt('bacardi',[12,24,45,170],28.5,25),
+ bitters:openArt('bitters',[11,68,46,170],28.5,69),
+ cola:openArt('cola',[24,130,68,222],53,138),
+ cranberry_juice:openArt('cranberry_juice',[27,57,66,222],46.5,60),
+ gin:openArt('gin',[11,31,46,170],28.5,32),
+ grenadine:openArt('grenadine_syrup',[10,19,47,170],28.5,20),
+ vodka:openArt('grey_goose_vodka',[10,1,47,170],28.5,2),
+ whiskey:openArt('johnnie_walker_whisky',[9,15,48,170],28.5,16),
+ kahlua:openArt('kahlua',[8,17,49,170],28.5,18),
+ dry_vermouth:openArt('martini_dry_vermouth',[19,29,74,222],46.5,32,17),
+ milk:openArt('milk',[21,60,72,222],46.5,65),
+ orange_juice:openArt('orange_juice',[27,57,66,222],46.5,60),
+ soda_water:openArt('soda',[24,134,69,222],54,144),
+ sour_mix:openArt('sour_mix',[9,12,47,170],27.5,13),
+ tequila:openArt('tequila',[10,24,47,170],28.5,25),
+ triple_sec:openArt('triple_sec',[0,29,57,170],28.5,30),
+ wild_dog:openArt('wild_dog',[8,27,49,170],28.5,28),
+ // These three have no authored off variant. Use just the exposed neck/body from
+ // the original image and draw a glass lip in its palette at the cut.
+ beer:{box:[22,77,65,222],mouthX:43.5,mouthY:77,rim:[16,'#a6916b','#39271d']},
+ red_wine:{box:[23,49,70,222],mouthX:46.5,mouthY:49,rim:[17,'#847079','#301c27']},
+ champagne:{box:[20,46,73,222],mouthX:46.5,mouthY:46,rim:[18,'#b3a269','#44371f']}
+});
+function containerLayout(id){
+ const art=CONTAINERS[id];if(!art)return null;
+ const [left,top,right,bottom]=art.box;
+ const {w}=containerSize(right-left,bottom-top,CANS.has(id));
+ const scale=w/(right-left);
+ return {art,scale,spoutScale:scale*(art.neckWidth||15)/15};
+}
 class Simulation{
  constructor({targetMl,unitMl=1,rate=42,ingredient=''}){
   this.targetMl=Math.max(.1,targetMl);this.unitMl=unitMl;this.baseRate=rate;this.rate=rate;this.ingredient=ingredient;
@@ -46,7 +84,7 @@ class Simulation{
   this.startAngle=98;this.maxAngle=this.can?175:170;this.tiltSpeed=this.can?380:420;this.grab=0;this.popped=false;this.gush=0;
   this.glass={...GLASS};this.capacity=Math.max(260,this.targetMl*1.6);this.mlPx=(GLASS.bottom-GLASS.top-3)/this.capacity;
   this.supplyMl=Math.max(this.can?350:600,this.targetMl*2);this.emittedMl=0;this.caughtMl=0;this.airMl=0;this.spilledMl=0;this.nozzleMl=0;
-  this.material=materialFor(ingredient);
+  this.material=materialFor(ingredient);this.container=containerLayout(ingredient);this.angle=0;
   // Only liquid crossing a full rim is billable; a missed stream is separate.
   this.overflowMl=0;this.overflowFoamMl=0;this.overflowCharged=0;this.overflowDrops=[];this.overflowCarry=0;this.overflowSerial=0;this.overflowRate=0;
   this.motion={...nozzle(),vx:0,vy:0};
@@ -57,7 +95,19 @@ class Simulation{
  setTool(tool,s){if(!['none','pourer'].includes(tool)||s.held||s.angle>0||this.finishRequested)return false;this.tool=tool;this.rate=this.can?70:tool==='none'?95:42;return true;}
  canFinish(s){return !this.finishRequested&&!s.held&&s.angle===0&&Math.hypot(this.motion.x-MOUTH.x,this.motion.y-MOUTH.y)<.1;}
  requestFinish(s){this.finishRequested=true;s.held=false;s.dragAngle=null;s.pourOffset=null;}
- nozzle(){return{x:this.motion.x,y:this.motion.y};}
+ // The hand rotates about the attached outlet. Once the pourer flies off, the
+ // bottle stays in that pose and the emitter moves to the now-exposed neck.
+ neckOffset(){
+  if(this.can||this.tool!=='pourer')return {x:0,y:0};
+  const scale=this.container?.spoutScale||1;
+  return {x:(POURER_ART.seatX-POURER_ART.tipX)*scale,y:(POURER_ART.seatY-POURER_ART.tipY)*scale};
+ }
+ nozzle(){
+  if(!this.popped)return {x:this.motion.x,y:this.motion.y};
+  const offset=this.neckOffset(),a=this.angle*Math.PI/180;
+  return {x:this.motion.x+offset.x*Math.cos(a)-offset.y*Math.sin(a),
+          y:this.motion.y+offset.x*Math.sin(a)+offset.y*Math.cos(a)};
+ }
  flowAt(angle){const start=this.can?65+85*this.emittedMl/this.supplyMl:this.popped||this.tool==='none'?80:98;this.startAngle=start;return Math.pow(clamp((angle-start)/55,0,1),this.can?1.4:1.6);}
  predicted(){return(this.caughtMl+this.airMl)/this.unitMl;}
  tick(s,dt){if(this.ready)return;this.accumulator+=clamp(dt,0,.2);while(this.accumulator>=STEP){this.accumulator-=STEP;this.step(s,STEP);}}
@@ -68,12 +118,13 @@ class Simulation{
   // Fine tilt follows the hand promptly; the large automatic travel is gone.
   s.angle+=clamp((target-s.angle)*(1-Math.exp(-(held?28:18)*dt)),-this.tiltSpeed*dt,this.tiltSpeed*dt);
   if(Math.abs(target-s.angle)<.02)s.angle=target;
+  this.angle=s.angle;
   const aim=nozzle(s.angle),offset=held?s.pourOffset:null,m=this.motion;
   aim.x+=clamp(offset?.x||0,-8,8);
   aim.y+=clamp(offset?.y||0,-6,6);
   // Critically damped spring: follow the hand without snapping or bouncing.
   for(const axis of ['x','y']){const v=axis==='x'?'vx':'vy';m[v]+=((aim[axis]-m[axis])*256-m[v]*32)*dt;m[axis]+=m[v]*dt;if(Math.abs(aim[axis]-m[axis])<.005&&Math.abs(m[v])<.05){m[axis]=aim[axis];m[v]=0;}}
-  if(!this.can&&this.tool==='pourer'&&!this.popped&&s.angle>=160&&this.grab>.95){this.popped=true;this.popTime=this.time;this.gush=.55;const at=this.nozzle();this.cap={x:at.x,y:at.y,vx:275,vy:-465,rotation:s.angle*Math.PI/180,spin:16};}
+  if(!this.can&&this.tool==='pourer'&&!this.popped&&s.angle>=160&&this.grab>.95){const at=this.nozzle();this.popped=true;this.popTime=this.time;this.gush=.55;this.cap={x:at.x,y:at.y,vx:275,vy:-465,rotation:s.angle*Math.PI/180,spin:16};}
   if(this.cap){const c=this.cap;c.vy+=1200*dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.rotation+=c.spin*dt;if(c.y>512&&c.vy>0){c.y=512;c.vy*=-.35;c.vx*=.6;c.spin*=.5;}}
   this.flow=this.grab>.95?this.flowAt(s.angle):0;
   this.flowNow=(this.popped?95:this.rate)*this.flow*(1+.28*Math.sin(this.time*15)*Math.sin(this.time*4.3));
@@ -81,7 +132,7 @@ class Simulation{
   if(this.emittedMl>=this.supplyMl){this.flow=0;this.flowNow=0;}
   const amount=Math.min(this.flowNow*dt,Math.max(0,this.supplyMl-this.emittedMl));
   if(amount>0){const at=this.nozzle(),a=s.angle*Math.PI/180,speed=50+Math.min(this.flowNow,120)*1.3;
-   this.particles.push({id:this.serial++,x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,ml:amount,age:0,emissionFlow:this.flow,emissionRate:this.flowNow,inside:false});this.emittedMl+=amount;}
+   this.particles.push({id:this.serial++,x:at.x,y:at.y,vx:Math.sin(a)*speed,vy:-Math.cos(a)*speed,ml:amount,age:0,bareMouth:this.tool==='none'||this.popped,emissionFlow:this.flow,emissionRate:this.flowNow,inside:false});this.emittedMl+=amount;}
   const b=this.glass,keep=[];
   for(const p of this.particles){p.age+=dt;const prevY=p.y;p.vy+=1200*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;
    // A stream can only enter through the open rim, not through the side wall.
@@ -142,5 +193,5 @@ class Simulation{
 }
 function init(s,game){if(!['pour','fill_up'].includes(s.type))return;const unit=s.unit==='oz'?game.c('unit_oz_to_ml',30):s.unit==='tsp'?game.c('unit_tsp_to_ml',5):1;
  s.fluid=new Simulation({targetMl:s.target*unit,unitMl:unit,ingredient:s.ingredient});game.pourTool=toolForIngredient(s.ingredient);s.fluid.setTool(game.pourTool,s);}
-const api={Simulation,init,nozzle,MOUTH,containerSize,GLASS,GLASS_ART,cavityPath,wallsAt,STEP,POURER,toolForIngredient,materialFor,foamFraction};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
+const api={Simulation,init,nozzle,MOUTH,CONTAINERS,POURER_ART,containerSize,GLASS,GLASS_ART,cavityPath,wallsAt,STEP,POURER,toolForIngredient,materialFor,foamFraction};if(typeof module!=='undefined')module.exports=api;root.LunaPour=api;
 })(typeof window==='undefined'?globalThis:window);

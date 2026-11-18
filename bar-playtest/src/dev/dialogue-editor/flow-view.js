@@ -26,7 +26,22 @@ function create(api){
  const author=W.LunaFlowAuthorUI.create({...api,boundary(r,next){prefs.s.breaks=[...new Set([...(prefs.s.breaks||[]),r.row_id,next?.row_id].filter(Boolean))];prefs.save();},locate(){canvas.locate();}});
  const tester=W.LunaBarPlaytest.create({...api,back});$('scene-run').onclick=()=>go('test',active);
  function previewGraph(id){return opened&&graph&&id===sceneId?graph:F.compile(model(),id,[...(W.LunaBarLayout.preferences(id).s.breaks||[]),...S.records(model(),id).map(s=>s.start)]);}
- const player=W.LunaBarPlayer.create({route:n=>W.LunaBarPreviewRoute.create({model:model(),scene:scene(),node:n,settings:api.settings(),picks:api.getPicks(),graphFor:previewGraph}),actorName:api.actorName,guard:label,plain,back});
+ const routeFor=n=>W.LunaBarPreviewRoute.create({model:model(),scene:scene(),node:n,settings:api.settings(),picks:api.getPicks(),graphFor:previewGraph});
+ const player=W.LunaBarPlayer.create({route:routeFor,actorName:api.actorName,guard:label,plain,back});
+ let editRoute=null,hop=0;
+ W.LunaPreviewBranchPicker.edit($('line-edit-next'),()=>{
+  api.stop();const n=previewGraph(scene()).nodes.find(n=>n.rows.some(r=>r.row_id===api.selected()));if(!n)return [];
+  const m=model(),checkpoint=m.undoStack.at(-1),settings=JSON.stringify([api.settings(),api.getPicks()]);
+  // Carry the chosen branch's flags across consecutive hops, not into game
+  // state. After an edit, undo, reload or manual jump, plan from live rows.
+  if(!editRoute||!currentState()?.editHop||editRoute.hop!==currentState().editHop||editRoute.route.node.id!==n.id||editRoute.route.scene!==scene()||
+   editRoute.model!==m||editRoute.checkpoint!==checkpoint||editRoute.settings!==settings)editRoute={route:routeFor(n),model:m,checkpoint,settings};
+  return editRoute.route.branches().map(p=>{const dst=p.target?.node,guard=[...new Set([p.pick?.when,p.guard].filter(Boolean).map(label))].join(' · '),choice=p.pick&&plain(p.pick['text.ko']);
+   return {target:p.target,title:choice||guard||'기본 진행',detail:[choice&&guard,p.target?.lane?.title,dst&&title(dst),dst&&plain(dst.rows.find(r=>plain(r['text.ko']))?.['text.ko'])].filter(Boolean).join(' · '),blocked:p.blocked||(!dst?'대화 종료 · 이어 편집할 대사가 없습니다.':'')};
+  });
+ },({target})=>{if(['edit','section-lines','lines'].includes(currentState()?.view))saveState({...currentState(),row:api.selected()},false);
+  editRoute.route.enter(target);editRoute.hop=++hop;
+  saveState({view:'edit',scene:target.lane.id,id:target.node.id,row:target.node.id,editHop:hop},true);restore(currentState());$('line-edit-next').focus({preventScroll:true});},api.notice);
  const canvas=W.LunaBarCanvas.create({select,action,inspect:inspectPin,reason,connect,dropDraft,move:(id,pos)=>recordPositions([[id,pos]])});
  const loose=W.LunaBarLooseNodes,palette=W.LunaNodePalette.create();
  function createAt(x,y){const at=canvas.point(x,y);palette.open(x,y,Object.entries(loose.types).map(([key,[name,group,icon]])=>({key,name,group,icon,hint:'입력 핀에 연결하기 전에는 실행되지 않음'})),type=>author.open(node(active)||graph.nodes[0],null,{type,place(r){(prefs.s.freeParts??={})[loose.group(r)]=partId;const manual=(prefs.s.positions[prefs.s.direction]||={});manual[r.row_id]=W.LunaNodePalette.vacant(at,W.LunaBarLayout.width,360,$('map-world').querySelectorAll('.flow-card'),24);prefs.save();requestAnimationFrame(()=>canvas.locate(r.row_id));}}));}
@@ -276,8 +291,8 @@ function create(api){
    mode(false);const n=previewGraph(scene()).nodes.find(n=>n.id===s.id);if(n)player.open(n,s.row);
   }else if(s.view==='lines'||s.view==='edit'||s.view==='section-lines'){
    if(s.view==='section-lines'){if(!graph||sceneId!==scene())draw(s.id);const p=S.current(parts,s.id)||parts[0];mode(false);if(p)api.inspect({type:p.name,rows:p.nodes.flatMap(n=>n.rows)},s.row||s.id);}
-   else if(s.view==='edit'){if(!graph||sceneId!==scene())draw(s.id);const n=node(s.id)||graph.nodes.find(n=>n.rows.some(r=>r.row_id===s.row));mode(false);if(n)api.inspect(n,s.row);else{api.clearScope();api.refresh();}}
-   else{mode(false);api.clearScope();api.refresh();}
+   else if(s.view==='edit'){if(!was||!graph||sceneId!==scene())draw(s.id);const n=node(s.id)||graph.nodes.find(n=>n.rows.some(r=>r.row_id===s.row));mode(false);if(n)api.inspect(n,s.row);else{api.clearScope();api.refresh();}}
+   else{mode(false);api.clearScope();api.refresh(s.row);}
   }else{
    if(!was||!graph||sceneId!==scene()){open(s.id);}else if(node(s.id)&&active!==s.id)select(s.id,true);
    if(s.view==='player'&&node(s.id))player.open(node(s.id));if(s.view==='test')tester.open();
@@ -357,7 +372,7 @@ function create(api){
  $('map-direction').onchange=e=>{prefs.s.direction=e.target.value;prefs.save();draw(active);canvas.locate();};
  $('map-arrange').onclick=()=>{const ids=Object.keys(prefs.s.positions[prefs.s.direction]||{});if(ids.length&&!confirm('이 방향의 카드 위치를 자동 정렬할까요? 대사와 연결은 그대로 유지합니다.'))return;recordPositions(ids.map(id=>[id,null]));canvas.locate();};
  $('map-bookmark').onchange=e=>{if(e.target.value){const it=item(e.target.value);if(it?.portal||it?.jump)action(it.id,'goto');else select(e.target.value,true);}e.target.value='';};
- $('map-mode').onclick=$('line-to-map').onclick=()=>{if(model()&&!opened){const n=F.compile(model(),scene(),prefs?.s.breaks).nodes.find(n=>n.rows.some(r=>r.row_id===api.selected()));if(['edit','section-lines'].includes(currentState()?.view)&&currentState()?.depth)back();else go('map',n?.id);}};
+ $('map-mode').onclick=$('line-to-map').onclick=()=>{if(model()&&!opened){const n=previewGraph(scene()).nodes.find(n=>n.rows.some(r=>r.row_id===api.selected()));if(['edit','section-lines'].includes(currentState()?.view)&&currentState()?.depth&&!currentState().editHop)back();else go('map',n?.id);}};
  $('line-mode').onclick=()=>{if(model())go('lines',active);};
  $('line-node-preview').onclick=()=>{if(!model())return;const row=api.selected(),n=previewGraph(scene()).nodes.find(n=>n.rows.some(r=>r.row_id===row));if(n)go('line-player',n.id,row);};
  window.addEventListener('popstate',()=>restore(currentState()||{view:'map',scene:scene()}));

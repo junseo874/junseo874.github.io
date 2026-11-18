@@ -33,7 +33,7 @@ module.exports = {
     test-loading-pigeon-ui test-bar-choice-hold-clock test-generated-art-ui
     test-guest-arrival-speech-ui test-guest-appearance-tab-ui test-endless-general-ui
     test-independent-nodes-ui test-guest-random-appearance-ui test-bar-flow-editor-ui test-bar-authoring-studio-ui
-    test-line-workspace-ui test-bar-workbench-ui test-bar-flag-picker-ui test-bar-pin-inspector-ui
+    test-line-workspace-ui test-line-edit-navigation-ui test-bar-workbench-ui test-bar-flag-picker-ui test-bar-pin-inspector-ui
     test-bar-node-details-ui test-choice-live-text-ui test-day3-samho-expression-ui
     test-sound-lab-ui test-november-resource-refresh-ui test-bar-qa-dialogue-ui
     test-bar-qa-presets-ui test_profile_resources_ui test-tom-introduction-ui

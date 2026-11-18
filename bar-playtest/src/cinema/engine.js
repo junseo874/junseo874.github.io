@@ -543,7 +543,7 @@ window.Engine = (function () {
     }
     const a = this._na.getContext('2d'), b = this._nb.getContext('2d');
     a.globalCompositeOperation = 'source-over';
-    a.drawImage(this.cv, 0, 0);                                  // 현재 프레임 스냅샷
+    a.drawImage(this.cv, 0, 0, W, H);                                  // 현재 프레임 스냅샷
     const k = Math.floor(t * 20);
     const R = s2 => rnd(k * 13.7 + s2 * 3.1);
 
@@ -613,7 +613,7 @@ window.Engine = (function () {
     if (!this._ca) { this._ca = document.createElement('canvas'); this._ca.width = W; this._ca.height = H; }
     const a = this._ca.getContext('2d');
     if (u < 0.5) {
-      a.drawImage(this.cv, 0, 0);
+      a.drawImage(this.cv, 0, 0, W, H);
       const k = u / 0.5;
       const h = Math.max(3, H * Math.pow(1 - k, 2.2));
       const y = (H - h) / 2;
@@ -666,13 +666,15 @@ window.Engine = (function () {
 
   Renderer.prototype.render = function (t, noiseTime = t) {
     const g = this.g, sc = this.sc;
-    g.setTransform(1, 0, 0, 1, 0, 0);
+    LunaPixelRaster.fit(g, VW, VH);
     g.fillStyle = '#000'; g.fillRect(0, 0, VW, VH);
     const cam = this.camera(t);
     const st = {};
     for (const k in sc.stageTracks) st[k] = evalNum(sc.stageTracks[k], t, 0);
     g.save();
-    g.translate(Math.round(VW / 2 - cam.x * cam.z), Math.round(VH / 2 - cam.y * cam.z));
+    const pixel = g.getTransform();
+    g.translate(Math.round((VW / 2 - cam.x * cam.z) * pixel.a) / pixel.a,
+      Math.round((VH / 2 - cam.y * cam.z) * pixel.d) / pixel.d);
     g.scale(cam.z, cam.z);
     sc.stageAt(t).paint(g, t, st);
     this.drawActors(g, t);

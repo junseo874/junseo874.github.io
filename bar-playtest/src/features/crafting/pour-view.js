@@ -161,15 +161,68 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const item=g.t.shelf_items.find(i=>i.id===id),values=String(item?.color||'200,230,240').split(',').map(Number);
   return{rgb:values.length===3&&values.every(Number.isFinite)?values:[200,230,240],alpha:Math.max(.4,Number(item?.liquid_alpha)||.6)};
  }
- function bottle(ctx,s){const f=s.fluid,at=f.nozzle(),art=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
-  let img=images.get(art.src);if(!img){img=new Image();img.src=art.src;images.set(art.src,img);}
-  const box=art.alphaBBox||[0,0,art.w,art.h],bw=box[2]-box[0],bh=box[3]-box[1],{w,h}=root.LunaPour.containerSize(bw,bh,f.can);
-  ctx.save();ctx.translate(at.x,at.y);ctx.rotate(s.angle*Math.PI/180);ctx.imageSmoothingEnabled=false;
-  const neck=f.tool==='pourer'&&!f.popped?23:0,cut=f.can?0:Math.round(bh*.065);
-  if(img.complete&&img.naturalWidth)ctx.drawImage(img,box[0],box[1]+cut,bw,bh-cut,f.can?-w+12:-w/2,neck,w,h);
-  if(neck){ctx.fillStyle='#52616a';ctx.fillRect(-5,0,10,26);ctx.fillStyle='#cfdddf';ctx.fillRect(-3,0,3,23);ctx.fillStyle='#14212c';ctx.fillRect(-8,22,16,8);}
-  ctx.fillStyle='#101d24';ctx.fillRect(-4,0,8,3);ctx.restore();
-  if(f.cap&&f.time-f.popTime<2.4){const c=f.cap;ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.rotation);ctx.fillStyle='#52616a';ctx.fillRect(-5,-13,10,26);ctx.fillStyle='#cfdddf';ctx.fillRect(-3,-13,3,23);ctx.fillStyle='#14212c';ctx.fillRect(-8,9,16,8);ctx.restore();}
+ function sprite(src){
+  if(!images.has(src)){const img=new Image();img.src=src;images.set(src,img);}
+  const img=images.get(src);return img.complete&&img.naturalWidth?img:null;
+ }
+ // Assemble on the bottle's own pixel grid, then rotate the assembled image once
+ // on the display grid, as in Shaking V2. Cache only the current presentation.
+ let bottleArt;
+ function prepareBottle(f,img,pourer,art,scale,pitch){
+  const installed=!!pourer&&!f.popped;
+  if(bottleArt?.art===art&&bottleArt.img===img&&bottleArt.pourer===pourer&&bottleArt.installed===installed&&bottleArt.pitch===pitch)return bottleArt;
+  const [left,top,right,bottom]=art.box||art.alphaBBox||[0,0,img.naturalWidth,img.naturalHeight];
+  const width=right-left,height=bottom-top;
+  const mouthX=art.mouthX??(left+right)/2,mouthY=art.mouthY??top;
+  const spout=root.LunaPour.POURER_ART,ratio=(f.container?.spoutScale||1)/scale;
+  const neck=f.neckOffset(),pivotX=mouthX-neck.x/scale,pivotY=mouthY-neck.y/scale;
+  const headroom=Math.max(0,Math.ceil(spout.tipY*ratio-pivotY));
+  const body=document.createElement('canvas');
+  body.width=img.naturalWidth*pitch;body.height=(img.naturalHeight+headroom)*pitch;
+  const brush=body.getContext('2d');
+  brush.setTransform(pitch,0,0,pitch,0,headroom*pitch);brush.imageSmoothingEnabled=false;
+  brush.drawImage(img,left,top,width,height,left,top,width,height);
+  if(art.rim){
+   const [rimWidth,glass,inside]=art.rim;
+   brush.fillStyle=glass;brush.beginPath();brush.ellipse(mouthX,mouthY,rimWidth/2,2.3,0,0,2*Math.PI);brush.fill();
+   brush.fillStyle=inside;brush.beginPath();brush.ellipse(mouthX,mouthY-.3,rimWidth/2-2,1.2,0,0,2*Math.PI);brush.fill();
+  }
+  let cap;
+  if(installed){
+   const h=spout.seatY+1,w=pourer.naturalWidth;
+   brush.drawImage(pourer,0,0,w,h,pivotX-spout.tipX*ratio,pivotY-spout.tipY*ratio,w*ratio,h*ratio);
+  }else if(pourer){
+   // The ejected hardware includes the rubber stopper that was hidden in the neck.
+   cap=document.createElement('canvas');cap.width=pourer.naturalWidth*pitch;cap.height=pourer.naturalHeight*pitch;
+   const c=cap.getContext('2d');c.imageSmoothingEnabled=false;c.drawImage(pourer,0,0,cap.width,cap.height);
+  }
+  bottleArt={art,img,pourer,installed,pitch,body,cap,pivotX,pivotY:pivotY+headroom};
+  return bottleArt;
+ }
+ function bottle(ctx,s){
+  const f=s.fluid,layout=f.container,shelf=D.assets['item_'+s.ingredient]||D.assets.item_dummy;
+  const art=layout?.art||shelf,img=sprite(art.src||shelf.src);
+  const fitted=f.tool==='pourer'&&!f.can,pourer=fitted?sprite(root.LunaPour.POURER_ART.src):null;
+  if(!img||(fitted&&!pourer))return;
+  const box=art.box||art.alphaBBox||[0,0,img.naturalWidth,img.naturalHeight];
+  const scale=layout?.scale||root.LunaPour.containerSize(box[2]-box[0],box[3]-box[1],f.can).w/(box[2]-box[0]);
+  const display=ctx.getTransform(),pitch=clamp(Math.round(scale*display.a),1,8);
+  const frame=prepareBottle(f,img,pourer,art,scale,pitch);
+  function pose(x,y,angle){
+   ctx.translate(Math.round(x*display.a)/display.a,Math.round(y*display.d)/display.d);
+   ctx.rotate(angle);
+   // Each original texel is already a solid block. Filter only its final
+   // subpixel edge, so a thin highlight doesn't wink out between angles.
+   ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='low';
+  }
+  ctx.save();pose(f.motion.x,f.motion.y,s.angle*Math.PI/180);
+  ctx.drawImage(frame.body,-frame.pivotX*scale,-frame.pivotY*scale,frame.body.width*scale/pitch,frame.body.height*scale/pitch);
+  ctx.restore();
+  if(frame.cap&&f.cap&&f.time-f.popTime<2.4){
+   const spout=root.LunaPour.POURER_ART,k=layout?.spoutScale||1;
+   ctx.save();pose(f.cap.x,f.cap.y,f.cap.rotation);
+   ctx.drawImage(frame.cap,-spout.tipX*k,-spout.tipY*k,pourer.naturalWidth*k,pourer.naturalHeight*k);ctx.restore();
+  }
  }
  function draw(ctx,s){
   const f=s.fluid,b=f.glass,style=appearance(s.ingredient);
@@ -200,11 +253,23 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const finish=rootElement.querySelector('.pour-finish');
   if(finish){finish.disabled=!s.started||!f.canFinish(s);const label=f.finishRequested?L('정리 중..','Settling..'):L('따르기 마치기 →','Finish pouring →');if(finish.textContent!==label)finish.textContent=label;}
   const strength=!reduced&&age<.35?(.35-age)*40/2.184:0,dx=Math.sin(age*173)*strength*.5||0,dy=Math.cos(age*137)*strength*.5||0;
-  const transform='translate('+dx+'px,'+dy+'px)';stage.style.transform=transform;const bg=rootElement.querySelector('.fluid-screen .gimmick-room-background');if(bg)bg.style.transform=transform;
-  draw(stage.querySelector('[data-pixel-pour]').getContext('2d'),s);
-  // Keep pixel artwork untouched, but render gesture lines at display resolution.
-  const guide=stage.querySelector('[data-pour-guide]'),bounds=stage.getBoundingClientRect();
-  const resolution=Math.max(1,Math.ceil(Math.min(bounds.width/1000,bounds.height/540)*(root.devicePixelRatio||1)));
+  const transform=strength?'translate('+dx+'px,'+dy+'px)':'none';stage.style.transform=transform;const bg=rootElement.querySelector('.fluid-screen .gimmick-room-background');if(bg)bg.style.transform=transform;
+  const bounds=stage.getBoundingClientRect();
+  if(!bounds.width||!bounds.height)return;
+  let densityX=root.devicePixelRatio||1,densityY=densityX;
+  for(let host=root;host.frameElement;host=host.parent){
+   const frame=host.frameElement,rect=frame.getBoundingClientRect();
+   if(frame.offsetWidth&&frame.offsetHeight){densityX*=rect.width/frame.offsetWidth;densityY*=rect.height/frame.offsetHeight;}
+  }
+  // Keep the 1000×540 gameplay coordinates; use actual display pixels for rasterization.
+  const fit=Math.min(bounds.width/1000,bounds.height/540);
+  const canvas=stage.querySelector('[data-pixel-pour]');
+  const width=Math.max(1,Math.round(1000*Math.min(4,fit*densityX)));
+  const height=Math.max(1,Math.round(540*Math.min(4,fit*densityY)));
+  if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
+  const ctx=canvas.getContext('2d');ctx.setTransform(width/1000,0,0,height/540,0,0);draw(ctx,s);
+  const guide=stage.querySelector('[data-pour-guide]');
+  const resolution=Math.max(1,Math.ceil(fit*(root.devicePixelRatio||1)));
   if(guide.width!==1000*resolution){guide.width=1000*resolution;guide.height=540*resolution;}
   const guideContext=guide.getContext('2d');guideContext.setTransform(resolution,0,0,resolution,0,0);guideContext.clearRect(0,0,1000,540);idleGuide(guideContext,s);
   stage.dataset.idleGuide=String(!!s.idleGuideVisible);stage.dataset.popFx=String(age<.9);

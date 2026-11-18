@@ -216,7 +216,6 @@ const bg=document.createElement('canvas');bg.width=W;bg.height=H;
 })();
 
 /* ---------- 그리기 ---------- */
-const snap=v=>Math.round(v/PX)*PX;
 const RED=['#4a0c18','#7a1428','#a8283c','#d8586a'];
 function foilPattern(x,y,w,h,seed){ctx.fillStyle=RED[1];ctx.fillRect(x,y,w,h);
   for(let i=0;i<w;i+=PX)for(let j=0;j<h;j+=PX){const r=Math.abs(Math.sin((i+seed)*12.9+j*78.2)*43758)%1;if(r>.86){ctx.fillStyle=RED[3];ctx.fillRect(x+i,y+j,PX,PX)}else if(r<.14){ctx.fillStyle=RED[0];ctx.fillRect(x+i,y+j,PX,PX)}}
@@ -235,7 +234,7 @@ function drawXray(){
   ctx.fillStyle='rgba(6,10,18,.78)';ctx.fillRect(x0,y0,x1-x0,y1-y0);
   const g=ctx.createLinearGradient(0,WINE_Y,0,y1);g.addColorStop(0,'rgba(120,18,40,.95)');g.addColorStop(1,'rgba(60,6,20,.95)');ctx.fillStyle=g;ctx.fillRect(x0,WINE_Y,x1-x0,y1-WINE_Y);
   for(let x=x0;x<x1;x+=PX){ctx.fillStyle='rgba(220,90,110,.6)';ctx.fillRect(x,WINE_Y+Math.round(Math.sin(x*.1+tt*2)*1.2),PX,3)}
-  S.crumbs.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(snap(c.x+Math.sin(tt+c.ph)*2),snap(c.y),c.s,c.s)});
+  S.crumbs.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(c.x+Math.sin(tt+c.ph)*2,c.y,c.s,c.s)});
   ctx.strokeStyle='rgba(143,240,255,.55)';ctx.lineWidth=3;ctx.setLineDash([12,8]);ctx.strokeRect(x0,y0,x1-x0,y1-y0);ctx.setLineDash([]);
 }
 function corkY(){return S.corkFly?RIM-S.lift+S.corkFly.y:RIM-S.lift}
@@ -257,7 +256,7 @@ function drawWorm(){
   if(['foil'].includes(S.phase)||S.corkOut==='broken')return;
   const top=corkY();
   if(S.phase==='aim'){ // 스크류 끝이 마우스를 따라 코르크 위에서 대기
-    const x=S.aimX;for(let i=0;i<WORM_LEN;i+=3){const ph=performance.now()/300+i*.13,r=i>WORM_LEN-10?(WORM_LEN-i):13;ctx.fillStyle=Math.cos(ph)>0?'#e8eef2':'#8f9aa3';ctx.fillRect(snap(x+Math.sin(ph)*r)-3,top-WORM_LEN-4+i,7,4)}
+    const x=S.aimX;for(let i=0;i<WORM_LEN;i+=3){const ph=performance.now()/300+i*.13,r=i>WORM_LEN-10?(WORM_LEN-i):13;ctx.fillStyle=Math.cos(ph)>0?'#e8eef2':'#8f9aa3';ctx.fillRect(x+Math.sin(ph)*r-3,top-WORM_LEN-4+i,7,4)}
     drawOpener(x,top-WORM_LEN-4,0);return}
   const tr=S.tilt*Math.PI/180;
   // 경로: 코르크 안은 lat 따라, 위는 tilt 방향
@@ -265,22 +264,22 @@ function drawWorm(){
     const s=WORM_LEN-i, d=S.depth-s; let x,y;
     if(d>=0){x=CX+S.lat-(S.depth-d)*Math.tan(tr)*0;x=CX+(S.lat-Math.tan(tr)*(S.depth-d));y=top+d}
     else{const up=-d;x=CX+S.lat-Math.tan(tr)*S.depth-Math.sin(tr)*up;y=top-Math.cos(tr)*up}
-    const ph=S.spin+i*.13,r=i<10?i:13;ctx.globalAlpha=(d>=0&&xrayOn())?.8:1;ctx.fillStyle=Math.cos(ph)>0?'#e8eef2':'#8f9aa3';ctx.fillRect(snap(x+Math.sin(ph)*r)-3,y,7,4)}
+    const ph=S.spin+i*.13,r=i<10?i:13;ctx.globalAlpha=(d>=0&&xrayOn())?.8:1;ctx.fillStyle=Math.cos(ph)>0?'#e8eef2':'#8f9aa3';ctx.fillRect(x+Math.sin(ph)*r-3,y,7,4)}
   ctx.globalAlpha=1;
   const hx=CX+S.lat-Math.tan(tr)*S.depth-Math.sin(tr)*(WORM_LEN-S.depth), hy=top-Math.cos(tr)*(WORM_LEN-S.depth);
   drawOpener(hx,hy,tr);
 }
 function drawOpener(x,y,tr){
   // 오프너 몸체: 기존 오프너 스프라이트. 지렛대 단계에선 걸쇠 쪽으로 눕고 들어 올려짐
-  if(!imgO.complete)return;
+  if(!imgO.naturalWidth)return;
   ctx.save();ctx.translate(x,y);
   if(S.phase==='hook'||S.phase==='lever'||S.phase==='wait'){
     // 왼쪽 걸쇠(입구)를 받침점으로, 오른쪽 손잡이를 들어 올림
     const ang=-1.45+S.lever*0.55*(S.hooked?1:0)-(S.stage===1?.12:0);
-    ctx.rotate(ang);ctx.drawImage(imgO,-imgO.width/2,-imgO.height+30);
+    ctx.rotate(ang);LunaPixelRaster.draw(ctx,imgO,0,0,imgO.width,imgO.height,-imgO.width/2,-imgO.height+30,imgO.width,imgO.height);
   }else{
     ctx.rotate(tr);ctx.fillStyle='#b8c2ca';ctx.fillRect(-4,-40,8,40);
-    const sc=Math.max(.18,Math.abs(Math.cos(S.spin)));ctx.translate(0,-52);ctx.rotate(Math.PI/2);ctx.scale(1,sc);ctx.drawImage(imgO,-imgO.width/2,-imgO.height/2);
+    const sc=Math.max(.18,Math.abs(Math.cos(S.spin)));ctx.translate(0,-52);ctx.rotate(Math.PI/2);ctx.scale(1,sc);LunaPixelRaster.draw(ctx,imgO,0,0,imgO.width,imgO.height,-imgO.width/2,-imgO.height/2,imgO.width,imgO.height);
   }
   ctx.restore();
 }
@@ -349,13 +348,14 @@ function drawHUD(){
 }
 function draw(){
   update();
+  LunaPixelRaster.fit(ctx,W,H);
   ctx.save();if(S.shake>0){const m=S.shake*40;ctx.translate((Math.random()-.5)*m,(Math.random()-.5)*m)}
   ctx.drawImage(bg,0,0);
   // Preserve the wine sprite's aspect ratio and align its real mouth with the cork.
   ctx.translate(CX,340);ctx.scale(.72,.72);ctx.translate(-CX,-RIM);
-  if(imgB.naturalWidth)ctx.drawImage(imgB,23,35,47,187,CX-141,RIM-4,282,1122);
+  if(imgB.naturalWidth)LunaPixelRaster.draw(ctx,imgB,23,35,47,187,CX-141,RIM-4,282,1122);
   drawLowerFoil();drawXray();drawCork();
-  S.inAir.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(snap(c.x),snap(c.y),c.s,c.s)});
+  S.inAir.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(c.x,c.y,c.s,c.s)});
   if(S.phase==='foil')drawUpperFoil(0,0);if(S.foilFly)drawUpperFoil(S.foilFly.x,S.foilFly.y);
   drawTearLine();drawHook();
   if(!(S.corkOut==='out'&&['fold','wrap','done'].includes(S.phase)))drawWorm();

@@ -7,7 +7,7 @@ const draftKey='luna.bar.dialogue-editor.draft.v1';let model,local=null,sourceRe
 const drafts=window.LunaBarDrafts.open(draftKey);
 const frame=$('preview'),status=text=>$('status').textContent=text,rows=()=>model.rows(scene),current=()=>model.row(selected);
 let lastEditAt=0,lastInputType='';
-const colorPicker=window.LunaDialogueColorPicker.create();let colorPreview=null;
+let colorPreview=null;
 const storage=window.LunaEditorStorage,isLocal=storage.local;let storageError='';
 function storageUI(){
  $('storage-mode').textContent=local?'로컬 · 실제 CSV 저장':isLocal?'로컬 저장 연결 끊김':'웹 · CSV ZIP 내보내기';
@@ -27,8 +27,9 @@ const routes=()=>window.LunaBarWiring.scan(model,scene);
 const visibleRows=()=>routes().logical.filter(r=>!scope||scope.has(r.row_id));
 function clearScope(){scope=null;$('flow-context').textContent='';}
 const flow=window.LunaBarFlowView.create({
+ notice:status,
  model:()=>model,scene:()=>scene,selected:()=>selected,actorName,stop,loadScene,clearScope,payload:payloadFor,getPicks:()=>picks,settings:()=>({flags:previewFlags,money:previewMoney}),
- refresh:()=>{if(model){select(selected);resize();}},
+ refresh:row=>{if(model){select(row&&model.row(row)?.context===scene?row:selected);resize();}},
  recordLayout(edit){model.recordLayout(edit);lastField='';historyButtons();},
  checkGuard:window.LunaBarFlow.checkGuard,
  inspect(node,rowId){stop();scope=new Set(node.rows.map(r=>r.row_id));lineUI.clear();lineUI.pane('detail');
@@ -184,20 +185,12 @@ $('inspector').addEventListener('input',e=>{const key=e.target.dataset.field;if(
 $('inspector').addEventListener('focusout',()=>{lastField='';});
 $('node-detail').addEventListener('beforeinput',e=>{if(e.target.dataset.quickKey&&['historyUndo','historyRedo'].includes(e.inputType)){e.preventDefault();history(e.inputType==='historyUndo'?'undo':'redo');}});
 $('inspector').addEventListener('beforeinput',e=>{if(e.target.dataset.field&&['historyUndo','historyRedo'].includes(e.inputType)){e.preventDefault();history(e.inputType==='historyUndo'?'undo':'redo');}});
-$('inspector').addEventListener('click',e=>{
- const b=e.target.closest('[data-color-field]');if(!b)return;stop();
- const container=b.closest('[data-choice-row]')||$('inspector'),t=container.querySelector('textarea[data-field="text.ko"]'),
-  row=container.dataset.choiceRow?model.tables.bar_choices.find(r=>r.row_id===container.dataset.choiceRow):current(),
-  key=b.dataset.colorField,start=t.selectionStart,end=t.selectionEnd,text=t.value;
- colorPicker.open({text,start,end,
-  validate:value=>window.LunaTextEffects.compile(value,model.projected.data.tables.text_tags).errors[0],
-  onPreview:value=>{colorPreview={rowId:row.row_id,key,text:value};send();},
-  onCancel:()=>{colorPreview=null;send();t.focus({preventScroll:true});t.setSelectionRange(start,end);},
-  onApply:value=>{colorPreview=null;lastField='';if(value!==text){model.checkpoint();model.set(row,key,value);}t.value=value;t.focus({preventScroll:true});drawList();send();mark();}
- });
+window.LunaLineMarkup.install({stop,status,tags:()=>model.projected.data.tables.text_tags,
+ rowFor:t=>{const id=t.closest('[data-choice-row]')?.dataset.choiceRow;return id?model.tables.bar_choices.find(r=>r.row_id===id):current();},
+ preview:(r,text)=>{colorPreview=r?{rowId:r.row_id,key:'text.ko',text}:null;send();},
+ commit:(r,v)=>{lastField='';model.checkpoint();model.set(r,'text.ko',v);drawList();send();mark();}
 });
 $('inspector').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='apply-preview'){try{previewFlags=Object.fromEntries($('flags').value.split(';').map(t=>t.trim().match(/^flag\.(\w+) = (true|false)$/)).filter(Boolean).map(m=>[m[1],m[2]==='true']));previewMoney=Number($('preview-money').value);send();}catch(e){status(e.message);}return;}if(b.id==='add-choice'){mutate(()=>{model.addChoice(current().arg);});return;}if(b.dataset.removeChoice){const key=b.dataset.removeChoice,linked=routes().routes.filter(r=>r.choice===key);if(linked.length&&!confirm('이 선택지와 연결된 분기선도 함께 해제할까요?'))return;mutate(()=>{for(const r of linked)window.LunaBarWiring.disconnect(model,scene,r);model.removeChoice(current().arg,key);return current();});return;}
- if(b.dataset.tag||b.hasAttribute('data-delay')){const t=$('inspector').querySelector('textarea[data-field="text.ko"]');if(!t)return;const start=t.selectionStart,end=t.selectionEnd,tag=b.dataset.tag,wrap=tag?'<'+tag+'>'+t.value.slice(start,end)+'</'+tag.split('=')[0]+'>':'<300>';model.checkpoint();model.set(current(),'text.ko',t.value.slice(0,start)+wrap+t.value.slice(end));t.value=current()['text.ko'];t.focus();t.setSelectionRange(start+wrap.length,start+wrap.length);drawList();send();mark();}
 };
 window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame.contentWindow||e.data?.channel!=='luna-dialogue-preview')return;const m=e.data;
  if(m.type==='ready'){previewReady=true;expressions=m.expressions;if(model){lineUI.refreshCast();send();}}
@@ -236,7 +229,7 @@ window.addEventListener('keydown',e=>{
  const key=/^Key[SYZ]$/.test(e.code)?e.code.slice(3).toLowerCase():e.key.toLowerCase();
  if(document.querySelector('#flag-picker[open]')){if(key==='s')e.preventDefault();return;}
  if(saving||flow.modal||document.querySelector('#workbench[open]'))return;
- if($('color-dialog').open){if(key==='s')e.preventDefault();return;}
+ if($('color-dialog').open||$('effect-dialog').open||document.querySelector('.preview-branch-picker[open]')){if(key==='s')e.preventDefault();return;}
  if(window.LunaPinInspector.pending()&&['s','y','z'].includes(key)){e.preventDefault();window.LunaPinInspector.pending().querySelector('.pin-status').textContent='핀의 변경을 먼저 적용하거나 취소하세요.';return;}
  if(key==='s'){e.preventDefault();if(model?.dirty())$('review').click();return;}
  if(key!=='z'&&key!=='y')return;

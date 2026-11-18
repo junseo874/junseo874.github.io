@@ -1,19 +1,25 @@
 /* Color editing is a preview transaction: only Apply changes the CSV model. */
 (function(root){
 'use strict';
-function range(text,start,end){
- const re=/<color=("?)(#[\da-f]{6})\1>([\s\S]*?)<\/color>/gi;
- for(const m of text.matchAll(re)){
-  const contentStart=m.index+m[0].indexOf('>')+1,contentEnd=contentStart+m[3].length;
-  if((start>=contentStart&&end<=contentEnd)||(start===m.index&&end===m.index+m[0].length))
-   return {start:m.index,end:m.index+m[0].length,content:m[3],color:m[2].toUpperCase(),existing:true};
- }
+function colors(text,tags=[]){
+ const stack=[],result=[];
+ for(const m of text.matchAll(/<(\/?)(\w+)([^>]*)>/g)){
+  const name=m[2],alias=tags.find(t=>t.tag===name&&t.kind==='color');
+  if(name!=='color'&&!alias)continue;
+  if(!m[1]){const hex=alias?.value||m[3].match(/^=("?)(#[\da-f]{6}(?:[\da-f]{2})?)\1$/i)?.[2];
+   stack.push({name,start:m.index,body:m.index+m[0].length,hex:m.index+m[0].indexOf('#'),color:hex?.slice(0,7).toUpperCase()});
+  }else if(stack.at(-1)?.name===name){const c=stack.pop();if(c.color)result.push({...c,end:m.index+m[0].length,content:text.slice(c.body,m.index),existing:true});}
+ }return result.sort((a,b)=>a.start-b.start);
+}
+function range(text,start,end,tags){
+ const c=colors(text,tags).reverse().find(c=>start===c.start&&end===c.end||start>=c.body&&end<=c.body+c.content.length);
+ if(c)return c;
  if(start===end){start=0;end=text.length;}
  return {start,end,content:text.slice(start,end),color:'#72DAE3',existing:false};
 }
 function create(){
  const $=id=>document.getElementById(id),dialog=$('color-dialog'),rgb=['color-r','color-g','color-b'];let session=null,color='#72DAE3';
- const makeText=()=>session.text.slice(0,session.range.start)+'<color='+color+'>'+session.range.content.replace(/<\/?color(?:=[^>]*)?>/gi,'')+'</color>'+session.text.slice(session.range.end);
+ const makeText=()=>{const r=session.range,t=session.text;if(r.existing&&color===r.color)return t;return r.name==='color'?t.slice(0,r.hex)+color+t.slice(r.hex+7):t.slice(0,r.start)+'<color='+color+'>'+r.content+'</color>'+t.slice(r.end);};
  function update(value){
   if(!session)return;value=value.toUpperCase();
   if(!/^#[\dA-F]{6}$/.test(value)){invalid('HEX 색상은 #RRGGBB 형식으로 입력하세요.');return;}
@@ -36,13 +42,15 @@ function create(){
  });
  dialog.addEventListener('click',e=>{const swatch=e.target.closest('[data-swatch]');if(swatch)update(swatch.dataset.swatch);});
  $('color-cancel').onclick=cancel;dialog.addEventListener('cancel',e=>{e.preventDefault();cancel();});
- $('color-apply').onclick=()=>{if(!session||$('color-apply').disabled)return;const previous=session,value=makeText();session=null;dialog.close();previous.onApply(value);};
+ $('color-apply').onclick=()=>{if(!session||$('color-apply').disabled)return;const previous=session,value=makeText(),r=session.range;
+  const body=r.existing&&(r.name==='color'||value===session.text)?r.body:r.start+('<color='+color+'>').length;
+  session=null;dialog.close();previous.onApply(value,body,body+r.content.length);};
  return {open(options){
-  session={...options,range:range(options.text,options.start,options.end)};
+  session={...options,range:range(options.text,options.start,options.end,options.tags)};
   $('color-scope').textContent=session.range.existing?'기존 색상 구간 수정':options.start===options.end?'선택한 글자가 없어 대사 전체에 적용':'선택한 글자에 적용';
   $('color-sample').textContent=window.LunaTextEffects.compile(session.range.content).text||'색상 미리보기';
   dialog.showModal();update(session.range.color);
  }};
 }
-const api={range,create};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueColorPicker=api;
+const api={range,colors,create};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaDialogueColorPicker=api;
 })(typeof window==='undefined'?globalThis:window);

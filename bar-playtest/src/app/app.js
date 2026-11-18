@@ -212,10 +212,13 @@
   const reducedMoneyMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   // Pixel-style UI icon, independent of platform emoji fonts and gameplay data.
   function currencyHTML() {
-    return window.LunaCurrencyView.html(currencyView.update(g.progress, 0, g.hidden), g.progress, {
+    const hud = window.LunaCurrencyView.html(currencyView.update(g.progress, 0, g.hidden), g.progress, {
       lang: g.lang,
       reducedMotion: reducedMoneyMotion.matches
     });
+    // The overflow charge can appear mid-drag. Keep its sibling slot so the
+    // positional DOM patch doesn't replace the canvas holding pointer capture.
+    return hud || (g.screen === 'gimmick' && g.gimmick?.fluid ? '<div hidden></div>' : '');
   }
   function originalServiceTipHTML() {
     if (remix.active() || g.minigame || g.phase !== 'general' || g.screen !== 'bar' || g.finished || g.isPaused()) return '';
@@ -582,6 +585,12 @@
       if (a.matches('.choices button.choice-holding[data-act="choice"]') && b.matches('button[data-act="choice"]') && a.dataset.id === b.dataset.id) {
         b.classList.add('choice-holding');
         b.style.setProperty('--choice-progress', a.style.getPropertyValue('--choice-progress'));
+      }
+      // Pouring owns its display-sized bitmaps. A HUD text update must not
+      // clear them or reallocate them at the HTML template's initial size.
+      if (a.nodeName === 'CANVAS' && b.matches('[data-pixel-pour],[data-pour-guide],[data-opening-stage]')) {
+        b.setAttribute('width', a.width);
+        b.setAttribute('height', a.height);
       }
       for (const attr of [...a.attributes]) if (!b.hasAttribute(attr.name)) a.removeAttribute(attr.name);
       for (const attr of [...b.attributes]) if (a.getAttribute(attr.name) !== attr.value) a.setAttribute(attr.name, attr.value);

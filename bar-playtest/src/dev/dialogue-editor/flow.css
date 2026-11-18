@@ -101,6 +101,7 @@ button.port-label{width:auto;min-width:0;margin:0;padding:0 2px;background:trans
 #stage-dialog footer #stage-range{display:block;flex:1 1 160px;min-width:0;overflow-wrap:anywhere}
 .preview-branch-picker{box-sizing:border-box;width:min(460px,calc(100vw - 28px));max-height:82dvh;margin:auto;padding:0;color:#e5f2f5;background:#101e29;border:1px solid #41616d;border-radius:9px;box-shadow:0 20px 72px #0009;overflow:auto}
 .preview-branch-picker::backdrop{background:#040b12ad}
+.edit-next-node{margin-inline-start:auto;padding:5px 9px;border:1px solid #4b9ca8;background:#163f48;color:#d7fbff;font-size:12px;white-space:nowrap}.edit-next-node:disabled{opacity:.5}
 .node-continue .branch-count:not([hidden]){display:inline-block;margin-inline-start:6px;padding:1px 5px;border-radius:4px;background:#27515a;color:#b9f4e8;font-size:10px;vertical-align:1px}
 .preview-branch-picker .branch-heading{position:sticky;z-index:1;top:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;background:#152733;border-bottom:1px solid #314955}
 .preview-branch-picker h2{margin:0;font-size:17px}.preview-branch-picker .branch-cancel{padding:5px 9px;font-size:12px}

@@ -74,16 +74,16 @@ window.Sprites = (function () {
     const ay = opt.ay == null ? (f.oy + f.sh) : opt.ay;
     const dx = (f.ox - ax) * sc + (opt.dx || 0);
     const dy = (f.oy - ay) * sc + (opt.dy || 0);
-    const w = Math.round(f.sw * sc), h = Math.round(f.sh * sc);
+    const w = f.sw * sc, h = f.sh * sc;
     ctx.save();
     ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
-    ctx.translate(Math.round(x), Math.round(y));
+    ctx.translate(x, y);
     if (opt.flip) ctx.scale(-1, 1);
     if (opt.tint) {
-      ctx.drawImage(tinted(name, i, opt.tint, opt.tintAmount == null ? 0.4 : opt.tintAmount),
-        0, 0, f.sw, f.sh, Math.round(dx), Math.round(dy), w, h);
+      LunaPixelRaster.draw(ctx, tinted(name, i, opt.tint, opt.tintAmount == null ? 0.4 : opt.tintAmount),
+        0, 0, f.sw, f.sh, dx, dy, w, h);
     } else {
-      ctx.drawImage(s.img, f.sx, f.sy, f.sw, f.sh, Math.round(dx), Math.round(dy), w, h);
+      LunaPixelRaster.draw(ctx, s.img, f.sx, f.sy, f.sw, f.sh, dx, dy, w, h);
     }
     ctx.restore();
   }

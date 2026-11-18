@@ -76,6 +76,7 @@ function speech(c,s){
   for(const [axis,value] of Object.entries(endpoint))W.StudioKeyframes.endpoint(clip,'to',axis,value);
  }
  function render(t,previous,soundOn=true,volume=.55,dialogueWait=null,effectTime=t){
+  LunaPixelRaster.fit(ctx,1280,720);
   matchMorningCamera();
   speechLayer?.begin();waiting=dialogueWait;playback.waitAge=waiting?.age||0;
   time=t;const s=StudioModel.sample(project,time);lastCamera={...s.camera};

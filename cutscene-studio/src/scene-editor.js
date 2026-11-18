@@ -1,7 +1,7 @@
 window.StudioSceneEditor=function(api){'use strict';
 const M=StudioModel,K=StudioKeyframes,R=StudioRecording,P=StudioProperties,folds={},$=s=>document.querySelector(s),canvas=$('#stage'),root=$('#inspector-body');
 let target=null,recording=false,mode='move',scene=true,gesture=null,temporary={},layers=[],gizmo=[],lastState=null;
-const surfaces=new Map(),mask=document.createElement('canvas');mask.width=1280;mask.height=720;
+const mask=document.createElement('canvas');
 const uid=t=>t.kind+':'+t.id;
 function sample(){return apply(M.sample(api.project(),api.time()));}
 function current(){if(!target)return null;const s=sample();if(target.kind==='actor'){const a=s.actors[target.id];return a?{...a,visible:a.asset&&!a.active?0:a.visible}:null;}if(target.kind==='camera')return s.camera;const c=api.project().clips.find(c=>c.id===target.id);return c?{...c,...K.values(c,M.clamp(api.time()-c.start,0,c.duration)),...(temporary[uid(target)]||{})}:null;}
@@ -41,8 +41,40 @@ $('#record-scene').onclick=()=>{api.pause();recording=!recording;clear();api.ref
 root.addEventListener('click',e=>{if(!e.target.closest('#scene-key-now')||!target)return;const a=current(),tr=api.begin();try{const props=target.kind==='actor'?R.defaults(a):target.kind==='camera'?{x:a.x,y:a.y,w:a.w}:target.kind==='audio'?{volume:a.volume}:{strength:a.strength};const c=R.write(api.project(),target,api.time(),props);c.recordChannels??={};for(const ch of K.channels(c))if(Object.hasOwn(props,ch))c.recordChannels[ch]=true;delete temporary[uid(target)];tr.commit();}catch(e){tr.cancel();api.message(e.message);}});
 function placed(c){if(!recording||c.type!=='visual')return;target={kind:'actor',id:c.actor,clipId:c.id};R.write(api.project(),target,api.time(),{visible:1});}
 function beginFrame(s){layers=[];gizmo=[];lastState=s;}
-function paintActor(g,id,a,draw){if(a.visible<.5||a.opacity<=0||a.asset&&!a.active)return;let s=surfaces.get(id);if(!s){const cv=document.createElement('canvas');cv.width=1280;cv.height=720;s={canvas:cv,ctx:cv.getContext('2d',{willReadFrequently:true})};surfaces.set(id,s);}const cg=s.ctx;cg.imageSmoothingEnabled=false;cg.clearRect(0,0,1280,720);cg.save();draw(cg);cg.restore();const tint=R.rgb(a);if(tint!=='#ffffff'){const mg=mask.getContext('2d');mg.clearRect(0,0,1280,720);mg.drawImage(s.canvas,0,0);cg.save();cg.globalCompositeOperation='multiply';cg.fillStyle=tint;cg.fillRect(0,0,1280,720);cg.globalCompositeOperation='destination-in';cg.drawImage(mask,0,0);cg.restore();}g.save();g.globalAlpha*=a.opacity??1;g.drawImage(s.canvas,0,0);g.restore();layers.push({id,...s,a});}
-function bounds(layer){const d=layer.ctx.getImageData(0,0,1280,720).data;let l=1280,r=0,t=720,b=0;for(let y=0;y<720;y+=2)for(let x=0;x<1280;x+=2)if(d[(y*1280+x)*4+3]>10){l=Math.min(l,x);r=Math.max(r,x);t=Math.min(t,y);b=Math.max(b,y);}return r>=l?{x:l-4,y:t-4,w:r-l+8,h:b-t+8}:null;}
+// Composite at the visible resolution. Hit testing stays in editor coordinates.
+const actorLayer=document.createElement('canvas'), actorContext=actorLayer.getContext('2d');
+function paintActor(g,id,a,draw){
+ if(a.visible<.5||a.opacity<=0||a.asset&&!a.active)return;
+ if(scene)layers.push({id,draw});
+ const tint=R.rgb(a);
+ if(tint==='#ffffff'&&(a.opacity??1)===1&&(!a.blend||a.blend==='source-over')){
+  g.save();draw(g);g.restore();return;
+ }
+ const width=g.canvas.width,height=g.canvas.height;
+ if(actorLayer.width!==width)actorLayer.width=width;
+ if(actorLayer.height!==height)actorLayer.height=height;
+ const cg=actorContext;
+ cg.setTransform(width/1280,0,0,height/720,0,0);
+ cg.clearRect(0,0,1280,720);cg.imageSmoothingEnabled=false;
+ cg.save();draw(cg);cg.restore();
+ if(tint!=='#ffffff'){
+  if(mask.width!==width)mask.width=width;
+  if(mask.height!==height)mask.height=height;
+  const mg=mask.getContext('2d');
+  mg.clearRect(0,0,width,height);mg.drawImage(actorLayer,0,0);
+  cg.save();cg.globalCompositeOperation='multiply';cg.fillStyle=tint;cg.fillRect(0,0,1280,720);
+  cg.globalCompositeOperation='destination-in';cg.drawImage(mask,0,0,1280,720);cg.restore();
+ }
+ g.save();g.globalAlpha*=a.opacity??1;g.drawImage(actorLayer,0,0,1280,720);g.restore();
+}
+const pickCanvas=document.createElement('canvas');pickCanvas.width=1280;pickCanvas.height=720;
+const pickContext=pickCanvas.getContext('2d',{willReadFrequently:true});
+function selectionPixels(layer){
+ pickContext.clearRect(0,0,1280,720);pickContext.imageSmoothingEnabled=false;
+ pickContext.save();layer.draw(pickContext);pickContext.restore();
+ return pickContext;
+}
+function bounds(layer){const d=selectionPixels(layer).getImageData(0,0,1280,720).data;let l=1280,r=0,t=720,b=0;for(let y=0;y<720;y+=2)for(let x=0;x<1280;x+=2)if(d[(y*1280+x)*4+3]>10){l=Math.min(l,x);r=Math.max(r,x);t=Math.min(t,y);b=Math.max(b,y);}return r>=l?{x:l-4,y:t-4,w:r-l+8,h:b-t+8}:null;}
 function point(a){const cam=api.camera();return{x:640+(a.x-cam.x)*1280/cam.w,y:360-(a.y-cam.y)*1280/cam.w};}
 function guides(g){gizmo=[];if(!scene||!target||!['actor','camera'].includes(target.kind))return;const a=current();if(!a)return;const p=point(a),layer=layers.find(l=>l.id===target.id),rect=layer?bounds(layer):null;g.save();g.strokeStyle=recording?'#f69b9b':'#dbeca0';g.fillStyle='#10191f';g.lineWidth=1.5;
  if(rect){g.setLineDash([4,4]);g.strokeRect(rect.x,rect.y,rect.w,rect.h);g.setLineDash([]);}const center=p;
@@ -51,7 +83,7 @@ function guides(g){gizmo=[];if(!scene||!target||!['actor','camera'].includes(tar
  else{const radius=Math.max(50,rect?Math.max(rect.w,rect.h)*.6:65);g.strokeStyle='#deec9c';g.beginPath();g.arc(center.x,center.y,radius,0,Math.PI*2);g.stroke();g.fillStyle='#deec9c';g.fillRect(center.x+radius-6,center.y-6,12,12);gizmo.push({x:center.x+radius,y:center.y,axis:'rotation',origin:center});}
  g.font='12px sans-serif';g.fillStyle=recording?'#ffb3ac':'#dbeca0';g.textAlign='left';g.fillText(name(),rect?rect.x:p.x+10,Math.max(18,rect?rect.y-9:p.y-20));g.restore();
 }
-function hit(p){return [...layers].reverse().find(l=>p.x>=0&&p.y>=0&&p.x<1280&&p.y<720&&l.ctx.getImageData(Math.floor(p.x),Math.floor(p.y),1,1).data[3]>10);}
+function hit(p){return [...layers].reverse().find(l=>p.x>=0&&p.y>=0&&p.x<1280&&p.y<720&&selectionPixels(l).getImageData(Math.floor(p.x),Math.floor(p.y),1,1).data[3]>10);}
 canvas.addEventListener('pointerdown',e=>{if(!scene||e.button!==0||!e.isPrimary)return;const p=api.canvasPoint(e),handle=gizmo.find(h=>Math.hypot(h.x-p.x,h.y-p.y)<16),picked=handle?null:hit(p);e.preventDefault();e.stopImmediatePropagation();api.pause();if(picked)choose({kind:'actor',id:picked.id});else if(!handle){api.deselect();return;}const a=current();if(!a)return;if(StudioAuthoringModel.locked(api.project(),R.resolve(api.project(),target,api.time())))return;const origin=handle?.origin||point(a);gesture={pointer:e.pointerId,start:p,origin,axis:handle?.axis||mode==='move'&&'xy'||mode,a:M.copy(a),cam:M.copy(api.camera()),tr:null,temp:M.copy(temporary)};canvas.setPointerCapture(e.pointerId);},true);
 document.addEventListener('pointermove',e=>{const d=gesture;if(!d||d.pointer!==e.pointerId)return;const p=api.canvasPoint(e),dx=p.x-d.start.x,dy=p.y-d.start.y;if(!d.tr&&Math.hypot(dx,dy)<3)return;e.preventDefault();d.tr??=api.begin();const k=d.cam.w/1280,fine=e.shiftKey?.1:1;let props;
  if(['x','y','xy'].includes(d.axis)){props={};if(d.axis!=='y')props.x=M.clamp(d.a.x+dx*k*fine,-100,100);if(d.axis!=='x')props.y=M.clamp(d.a.y-dy*k*fine,-50,100);}

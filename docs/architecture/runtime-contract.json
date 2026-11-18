@@ -528,6 +528,10 @@
     ],
     [
       "script",
+      "src/shared/platform/pixel-raster.js"
+    ],
+    [
+      "script",
       "src/features/crafting/open-view.js"
     ],
     [
@@ -1003,6 +1007,10 @@
     [
       "script",
       "src/shared/ui/preview-fullscreen.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/line-markup.js"
     ],
     [
       "script",
@@ -1658,6 +1666,10 @@
     ],
     [
       "script",
+      "../../shared/platform/pixel-raster.js"
+    ],
+    [
+      "script",
       "session.js"
     ],
     [
@@ -1673,6 +1685,10 @@
     [
       "link",
       "wine-opening.css"
+    ],
+    [
+      "script",
+      "../../shared/platform/pixel-raster.js"
     ],
     [
       "script",
@@ -1759,6 +1775,10 @@
     [
       "script",
       "../bar-playtest/src/shared/dialogue/dialogue-rhythm.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/shared/platform/pixel-raster.js"
     ],
     [
       "script",

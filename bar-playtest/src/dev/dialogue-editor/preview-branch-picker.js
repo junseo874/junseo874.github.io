@@ -2,10 +2,10 @@
    owns the candidates and only commits the selected one, never on dismissal. */
 (function(W){
 'use strict';
-function create(trigger){
- const dialog=document.createElement('dialog');dialog.className='preview-branch-picker';dialog.id='preview-branch-picker';
- dialog.setAttribute('aria-labelledby','preview-branch-title');
+function create(trigger,editing=false){
+ const dialog=document.createElement('dialog');dialog.className='preview-branch-picker';dialog.id=editing?'edit-branch-picker':'preview-branch-picker';
  dialog.innerHTML='<div class="branch-heading"><h2 id="preview-branch-title">이어 볼 분기 선택</h2><button type="button" class="branch-cancel" aria-label="분기 선택 취소">닫기 ×</button></div><div class="branch-list"></div>';
+ const heading=dialog.querySelector('h2');if(editing){heading.id='edit-branch-title';heading.textContent='편집할 다음 분기 선택';}dialog.setAttribute('aria-labelledby',heading.id);
  document.body.append(dialog);trigger.setAttribute('aria-controls',dialog.id);
  const count=document.createElement('span');count.className='branch-count';count.hidden=true;trigger.append(count);
  function setCount(n){
@@ -20,6 +20,7 @@ function create(trigger){
  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)cancel();}});
  list.onclick=e=>{const b=e.target.closest('button[data-branch]');if(!session||!b||b.disabled)return;const {items,choose}=session,entry=items[Number(b.dataset.branch)];dismiss();choose(entry);};
  dialog.onkeydown=e=>{
+  if((e.ctrlKey||e.metaKey)&&['s','z','y'].includes(e.key.toLowerCase())){e.preventDefault();e.stopPropagation();return;}
   if(!['ArrowDown','ArrowUp','Home','End'].includes(e.key))return;
   const buttons=[...list.querySelectorAll('button:not(:disabled)')];if(!buttons.length)return;
   e.preventDefault();const at=buttons.indexOf(document.activeElement),i=e.key==='Home'?0:e.key==='End'?buttons.length-1:(at+(e.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length;buttons[i].focus();
@@ -37,5 +38,13 @@ function create(trigger){
  }
  return {open,dismiss,setCount,get active(){return !!session;}};
 }
-W.LunaPreviewBranchPicker={create};
+// Recompute on each click: unsaved wire, choice and condition edits are live.
+function edit(trigger,list,follow,notice){
+ const picker=create(trigger,true);
+ trigger.onclick=()=>{try{
+  const paths=list();if(!paths.some(p=>!p.blocked)){notice(paths[0]?.blocked||'이 노드에서 이어 편집할 대사가 없습니다.');return;}
+  if(paths.length===1)follow(paths[0]);else picker.open(paths,follow);
+ }catch(e){notice('다음 연결을 확인할 수 없습니다: '+e.message);}};
+}
+W.LunaPreviewBranchPicker={create,edit};
 })(window);

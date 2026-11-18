@@ -9,6 +9,9 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  for(const size of [{width:1280,height:720},{width:1920,height:1080},{width:960,height:540}]){
   await p.setViewportSize(size);await p.waitForFunction(()=>document.querySelector('[data-fluid-stage]').dataset.idleGuide==='true');await p.waitForTimeout(150);
   const state=await p.locator('[data-pour-guide]').evaluate(c=>{const r=c.getBoundingClientRect(),s=getComputedStyle(c),pixels=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let painted=0;for(let i=3;i<pixels.length;i+=4)if(pixels[i])painted++;return{width:c.width,physical:Math.min(r.width,r.height*1000/540)*devicePixelRatio,render:s.imageRendering,pointer:s.pointerEvents,painted,pixel:getComputedStyle(document.querySelector('[data-pixel-pour]')).imageRendering};});
+  const bitmap=await p.locator('[data-pixel-pour]').evaluate(c=>({w:c.width,h:c.height}));
+  assert.equal(bitmap.w,Math.round(state.physical),'Rotate the bottle on the physical display grid');
+  assert.equal(bitmap.h,Math.round(state.physical*540/1000));
   assert(state.width>=state.physical);assert.equal(state.render,'auto');assert.equal(state.pointer,'none');assert.equal(state.pixel,'pixelated');assert(state.painted>100);
  }
  await p.setViewportSize({width:1280,height:720});await p.waitForTimeout(300);await p.screenshot({path:'/private/tmp/pour-guide-crisp.png'});

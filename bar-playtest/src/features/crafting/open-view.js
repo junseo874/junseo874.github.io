@@ -90,7 +90,8 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   canvas.dataset.state=ok?'success':s.openPhase||'ready';
   canvas.dataset.carbonation='0';
   const phaseLabel=root.querySelector('[data-open-phase]');if(phaseLabel)phaseLabel.textContent=L(({ready:'Space / 클릭으로 시작',power:'1 · 힘 조절 — 초록 구간에서 누르기','power-done':'힘 조절 성공',rhythm:'2 · 타이밍 — 두 원이 겹칠 때 누르기',broken:'병이 깨졌어요 · 다시 준비 중',pop:'병따기 완료'})[s.openPhase]||'',({ready:'Space / click to start',power:'1 · POWER — press in the green zone','power-done':'Power set',rhythm:'2 · TIMING — press when the rings overlap',broken:'Bottle broken · preparing another',pop:'Bottle opened'})[s.openPhase]||'');
-  const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1280,720);
+  const ctx=canvas.getContext('2d');
+  LunaPixelRaster.fit(ctx,1280,720);ctx.clearRect(0,0,1280,720);
   // The supplied room is a full-screen layer, independent of cap animation.
   const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e4740':'#19364926');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
   const bottle=image('item_'+s.ingredient),scale=4.2,cx=640,cy=310;
@@ -98,7 +99,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   ctx.save();ctx.translate(cx+kick,cy);ctx.imageSmoothingEnabled=false;if(s.openPhase==='broken')ctx.globalAlpha=.2;
   if(bottle.complete&&bottle.naturalWidth){
    // beer.png: cap x33..54, y66..72. Body retains the native alpha and neck.
-   ctx.drawImage(bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
+   LunaPixelRaster.draw(ctx,bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
    if(ok&&s.ingredient==='beer'){
     ctx.save();ctx.scale(scale,scale);
     canvas.dataset.carbonation=String(window.LunaOpenCarbonation.draw(ctx,t,reduced.matches));
@@ -108,13 +109,13 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
    ctx.save();
    if(ok){const launch=fx.perfect?1.2:1;ctx.translate(260*t*launch,-690*t*launch+300*t*t);ctx.rotate(-12*t*launch);ctx.globalAlpha=Math.max(0,1-(t-.65)*2);}
    else if(miss){const decay=Math.exp(-t*9);ctx.translate(-10*Math.sin(t*36)*decay,4*decay);ctx.rotate((fx.offset<0?1:-1)*.24*Math.sin(t*28)*decay);ctx.transform(1,0,.25*decay,1-.22*decay,0,0);}
-   ctx.drawImage(bottle,33,66,21,6,-10*scale,-3*scale,21*scale,6*scale);ctx.restore();
+   LunaPixelRaster.draw(ctx,bottle,33,66,21,6,-10*scale,-3*scale,21*scale,6*scale);ctx.restore();
   }
   ctx.restore();
   if(ok&&fx.perfect&&t<.7){ctx.save();ctx.globalAlpha=Math.max(0,1-t/.7);ctx.strokeStyle='#ffe5a0';ctx.lineWidth=2;const r=reduced.matches?70:48+t*160;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();if(!reduced.matches)for(let i=0;i<8;i++){const a=i*Math.PI/4,d=50+t*220,x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();}ctx.restore();}
   // Opener lever reacts only to a hit; a miss slips back instead of detaching the cap.
   const tool=image('item_opener'),strike=fx&&t<.45;
-  if(tool.complete&&tool.naturalWidth){ctx.save();ctx.translate(cx+48+(strike?Math.sin(t*15)*35:35),cy+36+(strike?Math.sin(t*15)*20:35));ctx.rotate(-.9+(strike?(ok?-1:1)*Math.sin(t*13)*.6:0));ctx.globalAlpha=ok?Math.max(0,1-t*3):.85;ctx.imageSmoothingEnabled=false;ctx.drawImage(tool,13,63,45,44,-25,-15,135,132);ctx.restore();}
+  if(tool.complete&&tool.naturalWidth){ctx.save();ctx.translate(cx+48+(strike?Math.sin(t*15)*35:35),cy+36+(strike?Math.sin(t*15)*20:35));ctx.rotate(-.9+(strike?(ok?-1:1)*Math.sin(t*13)*.6:0));ctx.globalAlpha=ok?Math.max(0,1-t*3):.85;ctx.imageSmoothingEnabled=false;LunaPixelRaster.draw(ctx,tool,13,63,45,44,-25,-15,135,132);ctx.restore();}
   if(!window.LunaCaptureMode?.hidden&&!ok&&s.openPhase==='rhythm'){
    const target=g.c('open_target_radius_px',44),start=g.c('open_start_radius_px',165),radius=Math.max(12,start-(start-target)*s.beatTime/1.1);
    ctx.save();ctx.translate(cx,cy);ctx.strokeStyle='#7cf3c6';ctx.lineWidth=3;ctx.shadowColor='#60edc0';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(0,0,target,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;ctx.strokeStyle=miss?'#f18d89':'#e1faff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.stroke();ctx.restore();

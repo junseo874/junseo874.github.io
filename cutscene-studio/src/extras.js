@@ -43,7 +43,7 @@ window.StudioExtras=function(api){'use strict';
     const pictureH=h*(1-asset.captionBand),pictureW=w*(1-asset.captionBand);
     g.fillStyle='#02080e';g.fillRect(-w/2,-h,w,h);
     g.drawImage(im,n%asset.cols*asset.fw,Math.floor(n/asset.cols)*asset.fh,asset.fw,asset.fh,-pictureW/2,-h,pictureW,pictureH);
-   }else g.drawImage(im,n%asset.cols*asset.fw,Math.floor(n/asset.cols)*asset.fh,asset.fw,asset.fh,-w*(asset.pivot?.x??.5),-h*(1-(asset.pivot?.y??0)),w,h);
+   }else LunaPixelRaster.draw(g,im,n%asset.cols*asset.fw,Math.floor(n/asset.cols)*asset.fh,asset.fw,asset.fh,-w*(asset.pivot?.x??.5),-h*(1-(asset.pivot?.y??0)),w,h);
   }}g.restore();
  }
  function background(g,cam,t){const k=1280/cam.w,door=project().clips.filter(c=>c.type==='fx'&&c.effect==='door'&&c.start<=t&&!project().tracks.find(tr=>tr.id===c.track)?.muted).at(-1);g.save();g.translate(640+(-4.5-cam.x)*k,360- (3.3-cam.y)*k);g.scale(k/100,k/100);StageLobby.paint(g,t,{alarm:0,door:door?1:0,doorAge:door?Math.max(0,t-door.start):0});g.restore();}

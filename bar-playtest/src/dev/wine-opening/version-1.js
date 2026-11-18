@@ -167,7 +167,6 @@ const bg=document.createElement('canvas');bg.width=W;bg.height=H;
 })();
 
 /* ---------- 그리기 ---------- */
-const snap=v=>Math.round(v/PX)*PX;
 const RED=['#4a0c18','#7a1428','#a8283c','#d8586a'];   // 와인 포장 호일
 function foilPattern(x,y,w,h,seed){
   ctx.fillStyle=RED[1];ctx.fillRect(x,y,w,h);
@@ -199,7 +198,7 @@ function drawXray(){
   ctx.fillStyle='rgba(6,10,18,.78)';ctx.fillRect(x0,y0,x1-x0,y1-y0);
   const g=ctx.createLinearGradient(0,WINE_Y,0,y1);g.addColorStop(0,'rgba(120,18,40,.95)');g.addColorStop(1,'rgba(60,6,20,.95)');ctx.fillStyle=g;ctx.fillRect(x0,WINE_Y,x1-x0,y1-WINE_Y);
   for(let x=x0;x<x1;x+=PX){ctx.fillStyle='rgba(220,90,110,.6)';ctx.fillRect(x,WINE_Y+Math.round(Math.sin(x*.1+tt*2)*1.2),PX,3)}
-  crumbs.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(snap(c.x+Math.sin(tt+c.ph)*2),snap(c.y),c.s,c.s)});
+  crumbs.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(c.x+Math.sin(tt+c.ph)*2,c.y,c.s,c.s)});
   ctx.strokeStyle='rgba(143,240,255,.55)';ctx.lineWidth=3;ctx.setLineDash([12,8]);ctx.strokeRect(x0,y0,x1-x0,y1-y0);ctx.setLineDash([]);
   ctx.globalAlpha=1;
 }
@@ -222,10 +221,10 @@ function drawWorm(){
   const tipY=base+depth,topY=tipY-WORM_LEN;
   for(let i=0;i<=WORM_LEN;i+=3){const y=topY+i,ph=spin+i*.13,s=Math.sin(ph),c=Math.cos(ph),r=i<10?i:13;
     const inCork=y>base&&y<base+CORK.h&&!out;ctx.globalAlpha=inCork?.75:1;
-    ctx.fillStyle=c>0?'#e8eef2':'#8f9aa3';ctx.fillRect(snap(CX+s*r)-3,y,7,4)}
+    ctx.fillStyle=c>0?'#e8eef2':'#8f9aa3';ctx.fillRect(CX+s*r-3,y,7,4)}
   ctx.globalAlpha=1;
   ctx.fillStyle='#b8c2ca';ctx.fillRect(CX-4,topY-40,8,40);
-  if(imgO.complete){const sc=Math.max(.18,Math.abs(Math.cos(spin)));ctx.save();ctx.translate(CX,topY-52);ctx.rotate(Math.PI/2);ctx.scale(1,sc);ctx.drawImage(imgO,-imgO.width/2,-imgO.height/2);ctx.restore()}
+  if(imgO.naturalWidth){const sc=Math.max(.18,Math.abs(Math.cos(spin)));ctx.save();ctx.translate(CX,topY-52);ctx.rotate(Math.PI/2);ctx.scale(1,sc);LunaPixelRaster.draw(ctx,imgO,0,0,imgO.width,imgO.height,-imgO.width/2,-imgO.height/2,imgO.width,imgO.height);ctx.restore()}
 }
 function drawGuide(){
   if(phase==='screw'){const p=pivot();ctx.strokeStyle='rgba(143,240,255,.25)';ctx.lineWidth=4;ctx.beginPath();ctx.arc(p.x,p.y,230,0,7);ctx.stroke();
@@ -254,18 +253,19 @@ function drawHUD(){
 }
 function draw(){
   update();
+  LunaPixelRaster.fit(ctx,W,H);
   ctx.save();if(shake>0){const m=shake*40;ctx.translate((Math.random()-.5)*m,(Math.random()-.5)*m)}
   ctx.drawImage(bg,0,0);
   // Preserve the wine sprite's aspect ratio and align its real mouth with the cork.
   ctx.translate(CX,340);ctx.scale(.72,.72);ctx.translate(-CX,-RIM);
-  if(imgB.naturalWidth)ctx.drawImage(imgB,23,35,47,187,CX-141,RIM-4,282,1122);
+  if(imgB.naturalWidth)LunaPixelRaster.draw(ctx,imgB,23,35,47,187,CX-141,RIM-4,282,1122);
   drawLowerFoil();
   drawXray();drawCork();
-  inAir.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(snap(c.x),snap(c.y),c.s,c.s)});
+  inAir.forEach(c=>{ctx.fillStyle=c.c;ctx.fillRect(c.x,c.y,c.s,c.s)});
   if(phase==='foil')drawUpperFoil(0,0);
   if(foilFly)drawUpperFoil(foilFly.x,foilFly.y);
   drawTearLine();
-  for(const p of parts){ctx.globalAlpha=Math.min(1,p.life*1.5);ctx.fillStyle=RED[2];ctx.fillRect(snap(p.x),snap(p.y),PX,PX)}ctx.globalAlpha=1;
+  for(const p of parts){ctx.globalAlpha=Math.min(1,p.life*1.5);ctx.fillStyle=RED[2];ctx.fillRect(p.x,p.y,PX,PX)}ctx.globalAlpha=1;
   drawWorm();drawGuide();
   ctx.restore();
   drawHUD();

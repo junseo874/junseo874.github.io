@@ -55,12 +55,13 @@ W.LunaMixTutorial={attach(g){
    keys='W → D → S → A → W';
    rows=first?[
     L('① 위쪽 W에서 시작합니다. 방향키 ↑도 사용할 수 있어요.','① Start at W at the top. The ↑ arrow key also works.'),
-    L('② D → ③ S → ④ A → ① W 순서로 시계 방향으로 한 바퀴 돌아요.','Go clockwise: ② D → ③ S → ④ A → ① W.'),
-    L('방금 누른 키는 하얗게 빛납니다. 다음 키가 나타나면 눌러 주세요.','The key you just pressed glows white. Press the next key when it appears.')
+    L('D → S → A → W 순서로 시계 방향으로 한 바퀴 돌아요.','Go clockwise: D → S → A → W.'),
+    L('방금 누른 키와 다음 키만 보입니다. 흰색은 직전 키, 청록색은 다음 키예요.','Only the previous and next keys are shown: white for the previous key, cyan for the next.')
    ]:[
     L('① 바깥 원형 게이지가 한 바퀴의 남은 시간을 나타냅니다.','① The outer ring shows the time left for this circle.'),
     L('② 강조된 다음 방향을 순서대로 눌러 2.5초 안에 한 바퀴를 완성하세요.','② Follow the highlighted next direction and finish within 2.5 seconds.'),
-    L('키가 나타나기 전에 누르거나 순서가 틀리거나 시간이 끝나면 실패가 쌓입니다.','Pressing before the key appears, a wrong direction, or a timeout adds a failure.')
+    L('다음 키는 0.18초 뒤 나타납니다. 이 대기도 2.5초에 포함되니, 등장한 뒤 눌러 주세요.','The next key appears after 0.18 seconds, included in the 2.5-second limit. Wait until it appears.'),
+    L('등장 전 입력·잘못된 방향·시간 초과는 실패 1칸입니다. 하단에 성공·실패를 합쳐 10칸이 차면 끝납니다.','An early input, wrong direction or timeout adds one failed slot. Finish when all 10 success/failure slots are filled.')
    ];
   }else{
    keys=path?'SPACE / '+L('마우스 왼쪽 버튼','Left click'):'A / ←    D / →';

@@ -61,8 +61,11 @@ const {snapshot,save}=require('../../tools/dialogue-editor-storage.cjs');
   await choiceText.evaluate(el=>el.setSelectionRange(0,el.value.length));await page.locator('.choice-editor [data-color-field]').first().click();await page.click('[data-swatch="#E9BF78"]');await page.click('#color-apply');
   await child.waitForFunction(()=>[...document.querySelectorAll('.choice-label span')].some(el=>getComputedStyle(el).color==='rgb(233, 191, 120)'));
   await choiceText.press('Control+z');assert.equal(await choiceText.inputValue(),'선택지 즉시 반영');await choiceText.press('Control+Shift+z');
+  const second=page.locator('.choice-editor').nth(1),secondText=second.locator('textarea');await secondText.fill('다른 선택');
+  await secondText.evaluate(t=>t.setSelectionRange(3,5));await second.locator('[data-effects-batch]').click();await page.check('#effect-options [value=wave]');await page.check('#effect-options [value=b]');await page.click('#effect-apply');
   await page.click('#review');await page.waitForFunction(()=>!document.querySelector('#commit').disabled);assert((await page.locator('#save-explanation').innerText()).includes('로컬 CSV'));await page.click('#commit');await page.waitForFunction(()=>!dialogueEditor.model.dirty());assert((await fs.readFile(path.join(base,'story/bar_choices.csv'),'utf8')).includes('선택지 즉시 반영'));assert.equal((await snapshot()).revision,initial.revision,'live CSV remains untouched by test');
   assert((await fs.readFile(path.join(base,'story/bar_choices.csv'),'utf8')).includes('<color=#E9BF78>선택지 즉시 반영</color>'),'palette color is saved as an engine-compatible CSV tag');
+  assert((await fs.readFile(path.join(base,'story/bar_choices.csv'),'utf8')).includes('다른 <wave><b>선택</b></wave>'),'a batch of nested effects survives CSV save on the intended choice');
   await frame.locator('.choices button').first().click();await page.waitForFunction(id=>dialogueEditor.selected!==id,choice);
   const line=await page.evaluate(()=>dialogueEditor.model.rows('campaign_d3_bar').find(r=>r.type==='say'&&r.actor==='aili').row_id);await page.locator('[data-line="'+line+'"]').click();await page.click('#play');await page.waitForFunction(id=>dialogueEditor.selected!==id,line);await page.click('#play');
   // Read-only fallback exercises GitHub export without writing the live CSV.

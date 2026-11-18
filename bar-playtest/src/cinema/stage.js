@@ -128,7 +128,7 @@ window.StageLobby = (function () {
       const flat=rest>0?.16+.5*Math.exp(-rest*9):.7+.3*Math.abs(Math.cos(age*7+p.seed));
       rect(g,x-14,ground+3,28,2,'#030609',.30);
       g.save();g.translate(x,y);g.scale(1,flat);g.rotate(turn);
-      g.drawImage(doorTexture,p.sx,p.sy,p.sw,p.sh,-p.sw/2,-p.sh/2,p.sw,p.sh);
+      LunaPixelRaster.draw(g,doorTexture,p.sx,p.sy,p.sw,p.sh,-p.sw/2,-p.sh/2,p.sw,p.sh);
       g.restore();
     }
   }

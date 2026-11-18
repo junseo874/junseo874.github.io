@@ -9,10 +9,13 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   for(const ingredient of ['beer','soda_water','gin']){
    await page.evaluate(ingredient=>{const g=barGame;g.startMinigame('pour',{ingredient});g.holdPour(true);g.gimmick.dragAngle=150;window.moneyBefore=g.progress.money;},ingredient);
    await page.locator('[data-fluid-stage]').waitFor();await page.waitForTimeout(50);
+   const bitmap=await page.locator('[data-pixel-pour]').elementHandle();
    // Advance toward first spill; then present normal 1-frame receipts.
    await page.evaluate(()=>{const g=barGame;for(let i=0;i<1600&&g.gimmick.fluid.overflowMl<1;i++)originalTick.call(g,1/120);});
    for(let i=0;i<10;i++){await page.evaluate(()=>originalTick.call(barGame,1/60));await page.waitForTimeout(18);}
    await page.locator('.currency-hud .currency-unit-loss').first().waitFor();
+   assert(await bitmap.evaluate(c=>c===document.querySelector('[data-pixel-pour]')),'Overflow HUD preserves the canvas held during a drag');
+   await bitmap.dispose();
    const r=await page.evaluate(()=>{const f=barGame.gimmick.fluid;return {charged:f.overflowCharged,overflow:f.overflowMl,money:barGame.progress.money,before:moneyBefore,sounds:moneySounds,foam:f.foamMl,drops:f.overflowDrops.length};});
    assert.equal(r.before-r.money,Math.floor(r.overflow+1e-8));assert.equal(r.sounds,0);assert(r.drops>0);if(ingredient==='beer')assert(r.foam>0);
    assert((await page.locator('.currency-unit-loss').allTextContents()).every(s=>s==='−1'));

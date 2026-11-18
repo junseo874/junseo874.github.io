@@ -10840,6 +10840,120 @@
       "sha256": "459ad52f10717103afb75dba1c1fb10a42c2bc6c1c996e6566e3afb921a4b559",
       "kind": "new",
       "from": "05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Sewage_01.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/Pourer.png",
+      "sha256": "32f57db3ca85612c36870bc1d713752522d2dc41cce4124c825f1c4b1f52acba",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/Pourer.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/amaretto_off.png",
+      "sha256": "1165ce2b2fbc3a21f0a0016de08020e90865491863e79b4ae5ec7b901f7434e7",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/amaretto_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/bacardi_off.png",
+      "sha256": "c72e35bf98f10c5c56c256dc69bf4df17358feafc8492d7e11dbc7f8f111470b",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/bacardi_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/bitters_off.png",
+      "sha256": "d5a4fd4bd030958ca52519bdb1f83d10a3d13f68a4d74043b3cb4dd1bce94560",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/bitters_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/cola_off.png",
+      "sha256": "3d7f215fbbe3cb682505d6cf2f37f5737789797ee2793640bd16400148a3bb1b",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/cola_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/cranberry_juice_off.png",
+      "sha256": "1b688c2348a2b4d9481e634360f8095cafc09503a8985491aecf91d9ba86518c",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/cranberry_juice_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/gin_off.png",
+      "sha256": "b3fd04be840dc53d28eaab83c84fca35a3e978f16683eb815f2736e4fdd3de3e",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/gin_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/grenadine_syrup_off.png",
+      "sha256": "cb3e086d092d46800cb2aa0ac1102b2033f5db8996cd3581211ec740fa04f5fe",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/grenadine_syrup_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/grey_goose_vodka_off.png",
+      "sha256": "93e0a2b07831efe5c5d75dd688826125e818ed90a029e6756bed9ec96b0e2e44",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/grey_goose_vodka_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/johnnie_walker_whisky_off.png",
+      "sha256": "43cfdc6c13ff08c26e55b3ef3d15a94cb78195e3c48980cba0ab80f9d08ed7fc",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/johnnie_walker_whisky_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/kahlua_off.png",
+      "sha256": "f8bb74f4fba67c16f3afea3e3843cfdbb21912acc815631c52e56c20ae7acbb4",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/kahlua_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/martini_dry_vermouth_off.png",
+      "sha256": "c8dba9f024a968e588a1aa44b1251298acfbe0b084d0412acb6e9524da5fabaf",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/martini_dry_vermouth_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/milk_off.png",
+      "sha256": "a7507825a851a3007f5b8685836fcb102b427d227b536e5fd66f285a5866ed27",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/milk_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/orange_juice_off.png",
+      "sha256": "c31e588442e09ed7e22c09450c2c908444b378dc8550503c850c10d6600a4976",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/orange_juice_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/soda_off.png",
+      "sha256": "9f3f768bd3e5e011269a0713627ac4524605aa8c101324b472f424df5ce07d6c",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/soda_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/sour_mix_off.png",
+      "sha256": "9311d2bd49b30863f11edfcf123c36a76db420d4a980c8b1e057d2ba1599a2b6",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/sour_mix_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/tequila_off.png",
+      "sha256": "2fd5d30b9c9056301eccc90588b96efce6ac9394b80b62bb735518bba217d156",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/tequila_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/triple_sec_off.png",
+      "sha256": "91f07912ae53febf00981836268360b556f41dcb35eac4738a4027d72816bb33",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/triple_sec_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/wild_dog_off.png",
+      "sha256": "f063121fb3076efe87d534fe53ea82852c4553882e81ba33f58cc10a7fd355ce",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/wild_dog_off.png"
     }
   ]
 }

@@ -85,16 +85,22 @@ function drawLiquid(ctx,s,style){
 }
 function drawStream(ctx,s,style){
  const f=s.fluid,groups=[];let group=[];
- for(const p of f.particles){const previous=group.at(-1);if(previous&&(p.id!==previous.id+1||Math.hypot(p.x-previous.x,p.y-previous.y)>42)){groups.push(group);group=[];}group.push(p);}if(group.length)groups.push(group);
+ for(const p of f.particles){const previous=group.at(-1);if(previous&&(p.id!==previous.id+1||p.bareMouth!==previous.bareMouth||Math.hypot(p.x-previous.x,p.y-previous.y)>42)){groups.push(group);group=[];}group.push(p);}if(group.length)groups.push(group);
  ctx.save();
  // Above the rim the incoming stream is free. Below it every ribbon edge,
  // rounded pixel and highlight must stay inside the same cavity as the fill.
  const b=f.glass;
- ctx.beginPath();ctx.rect(0,0,ctx.canvas.width,b.top);W.LunaPour.cavityPath(ctx,b);ctx.clip();
+ ctx.beginPath();ctx.rect(0,0,1000,b.top);W.LunaPour.cavityPath(ctx,b);ctx.clip();
  for(const points of groups){
   // One filled ribbon per continuous parcel group avoids translucent blocks
   // piling up at joins. Detached trailing groups remain genuine falling drops.
-  const nodes=points.map(p=>({x:pixel(p.x),y:pixel(p.y),w:Math.max(2,((f.tool==='none'||f.popped?5:3)+p.emissionFlow*2)*f.material.stream*(1-.22*Math.min(1,p.age)))}));
+  const nodes=points.map(p=>({x:pixel(p.x),y:pixel(p.y),w:Math.max(2,((p.bareMouth?5:3)+p.emissionFlow*2)*f.material.stream*(1-.22*Math.min(1,p.age)))}));
+  // Extend only fresh, connected liquid to the actual outlet. Older drops
+  // keep their own trajectory when the fitting pops or the flow stops.
+  const newest=points[points.length-1],tip=f.nozzle();
+  if(f.flowNow>0&&newest.id===f.serial-1&&newest.age<=W.LunaPour.STEP*1.1&&Math.hypot(newest.x-tip.x,newest.y-tip.y)<5){
+   nodes.push({x:tip.x,y:tip.y,w:nodes[nodes.length-1].w});
+  }
   if(points[0].entered&&Math.abs(points[0].y-surfaceAt(f,points[0].x))<22){nodes.unshift({x:pixel(points[0].x),y:pixel(surfaceAt(f,points[0].x)-f.foamHeight()*.5),w:nodes[0].w});}
   ctx.beginPath();nodes.forEach((p,i)=>i?ctx.lineTo(pixel(p.x-p.w/2),p.y):ctx.moveTo(pixel(p.x-p.w/2),p.y));
   for(let i=nodes.length-1;i>=0;i--)ctx.lineTo(pixel(nodes[i].x+nodes[i].w/2),nodes[i].y+2);

@@ -8,9 +8,9 @@ const tone=t=>({say:'talk',choice:'choice',coaster:'prop',empty_glass:'prop',ord
 const opt=(v,name,selected)=>'<option value="'+esc(v)+'" '+(v===selected?'selected':'')+'>'+esc(name)+'</option>';
 const field=(title,k,val,multiline=false)=>'<label>'+esc(title)+(multiline?'<textarea data-field="'+k+'" rows="3">\n'+esc(W.LunaDialogueEditorModel.decode(val))+'</textarea>':'<input data-field="'+k+'" value="'+esc(W.LunaDialogueEditorModel.decode(val))+'">')+'</label>';
 const backing=(title,key,value)=>'<strong class="rc-field-title">'+esc(title)+'</strong><input type="hidden" data-field="'+key+'" value="'+esc(value)+'">';
-const color='<button type="button" class="text-color-button" data-color-field="text.ko"><span aria-hidden="true">A</span> 색상</button>';
-const tags='<div class="tags">'+color+[['shake','흔들림'],['wave','물결'],['pop','팝'],['name','이름 색'],['order','주문 색'],['big','크게'],['slow','천천히']].map(([k,l])=>'<button data-tag="'+k+'">'+l+'</button>').join('')+'<button data-delay>0.3초 쉼</button></div>';
+const tags=W.LunaLineMarkup.toolbar();
 function create(a){
+ const nextNode=$('line-edit-next');
  let found=[],modified=false,fold=false;
  const filtersOn=()=>!!($('search').value.trim()||$('line-kind').value!=='all'||modified);
  const kind=r=>a.types[r.type]||F.kind(r.type),cocktail=(m,id)=>m.projected.data.tables.cocktails.find(c=>c.id===id)?.['name.ko']||id;
@@ -69,7 +69,7 @@ function create(a){
   else if(r.type==='enter')primary+=cast+'<div class="field-pair"><label>좌석<select data-field="arg">'+opt('L','왼쪽',r.arg)+opt('R','오른쪽',r.arg)+'</select></label><label>등장 방식<select data-field="entrance">'+opt('','페이드 등장',raw(r.entrance))+opt('seated','이미 앉아 있음',r.entrance)+'</select></label></div>';
   else if(isMenu){
    primary='<section id="choice-fields" aria-label="선택지 문구"><div class="choice-line-title"><b>선택지 문구 <small>'+opts.length+' / 4</small></b><button id="add-choice" '+(opts.length>=4?'disabled':'')+'>＋ 선택지 추가</button></div>'+
-    opts.map((o,i)=>'<div class="choice-editor" data-choice-row="'+esc(o.row_id)+'"><div class="choice-head"><b>선택지 '+(i+1)+'</b><button data-remove-choice="'+esc(o.row_id)+'" '+(opts.length<=1?'disabled':'')+'>삭제</button></div>'+field('문구','text.ko',o['text.ko'],true)+color+'</div>').join('')+'</section>';
+    opts.map((o,i)=>'<div class="choice-editor" data-choice-row="'+esc(o.row_id)+'"><div class="choice-head"><b>선택지 '+(i+1)+'</b><button data-remove-choice="'+esc(o.row_id)+'" '+(opts.length<=1?'disabled':'')+'>삭제</button></div>'+field('문구','text.ko',o['text.ko'],true)+tags+'</div>').join('')+'</section>';
    const localWires=R.scan(m,a.scene()).routes.filter(w=>w.source===r.row_id);
    const destination=o=>{const w=localWires.find(w=>w.choice===o.row_id),to=w&&m.row(w.target),value=to?'@local':raw(o.goto);return (to?opt('@local','이 대본 · '+to.seq+'번 줄',value):'')+opt('',to||value?'연결 해제 · 원래 순서':'현재 대본에서 계속',value)+dest.map(s=>opt(s.id,s.title||s.id,value)).join('');};
    optionRules=opts.map((o,i)=>g('choice:'+o.row_id,'선택지 '+(i+1)+' · 연결과 조건',
@@ -86,6 +86,8 @@ function create(a){
   const meta=g('source','진행 종류와 ID','<label>진행 종류<select data-field="type">'+a.typeOptions(r).map(t=>'<option value="'+esc(t.id)+'" '+(t.id===r.type?'selected ':'')+(t.reason?'disabled title="'+esc(t.reason)+'"':'')+'>'+esc(t.name)+'</option>').join('')+'</select></label>'+
    (isMenu?'<label>선택지 그룹 ID<input readonly value="'+esc(r.arg)+'" title="연결은 위의 선택지별 설정에서 변경합니다"></label>':['exit','coaster','empty_glass','craft','serve'].includes(r.type)&&argList.length>1?argField('진행 옵션'):'')+'<p class="row-id">줄 ID · '+esc(r.row_id)+'</p>','class="line-advanced"');
   el.innerHTML='<header class="line-inspector-head inspector-title tone-'+tone(r.type)+'"><h2>'+esc(kind(r))+'</h2><small>'+esc(r.seq)+'번 줄</small></header>'+primary+optionRules+exec+translation+preview+meta;
+  el.querySelector('header').append(nextNode);nextNode.disabled=r.type==='end_part';nextNode.title=nextNode.disabled?'마지막 노드입니다.':'현재 노드의 다음 대사를 편집합니다.';
+  for(const t of el.querySelectorAll('textarea[data-field="text.ko"]'))W.LunaLineMarkup.refresh(t,m.projected.data.tables.text_tags);
   refreshCast();
   const ctx=a.settings();$('preview-money').value=ctx.money;$('flags').value=Object.entries(ctx.flags).map(([id,v])=>'flag.'+id+' = '+(v?'true':'false')).join('; ');W.LunaFlagPicker.attach($('preview-flag-picker'),$('flags'),'effects',a.model);
   const build=UI.conditionTools;build(el.querySelector('.line-condition-tools'),el.querySelector('[data-fold="execution"] [data-field=when]'),a.model);

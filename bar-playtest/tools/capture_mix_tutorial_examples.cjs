@@ -24,7 +24,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    },{mode,page});
    await p.evaluate(()=>document.fonts.ready);await p.waitForTimeout(100);
    const region=await p.evaluate(({mode,page})=>{
-    const el=document.querySelector(mode==='stir'?'.stir-dial':'.rhythm-stage'),b=el.getBoundingClientRect(),pad=mode==='stir'?30:0;
+    const el=document.querySelector(mode==='stir'?'.stir-dial':'.rhythm-stage'),b=el.getBoundingClientRect(),pad=mode==='stir'?50:0;
     const clip={x:b.x-pad,y:b.y-pad,width:b.width+pad*2,height:b.height+pad*2};
     const box=(selector,label)=>{const r=document.querySelector(selector).getBoundingClientRect();return{x:r.x-clip.x-4,y:r.y-clip.y-4,w:r.width+8,h:r.height+8,label};};
     let marks;

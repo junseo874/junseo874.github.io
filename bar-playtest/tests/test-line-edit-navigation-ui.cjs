@@ -1,0 +1,42 @@
+// Exercise real editor inputs without sending anything to the save endpoint.
+const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runtime.cjs');
+const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
+(async()=>{
+ const b=await rt.load('playwright').chromium.launch({executablePath:rt.chrome,headless:true});
+ try{const p=await b.newPage({viewport:{width:1440,height:900}}),q=s=>p.locator(s),errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('dialog',d=>d.accept());
+  await p.goto(url+'dialogue-editor.html?view=flow');
+  await q('.flow-card').filter({has:p.locator('b',{hasText:'선택지'})}).first().locator('[data-card-action=edit]').click();
+  const options=q('.choice-editor'),field=options.first().locator('textarea'),other=await options.nth(1).locator('textarea').inputValue();
+  const source='<name>루나</name>와 <color="#FFAA6680">큰 <color=#112233>별</color></color>';
+  await field.fill(source);const first=options.first(),colors=first.locator('[data-color-start]');
+  assert.equal(await colors.count(),3);await colors.nth(1).click();assert.equal(await q('#color-hex').inputValue(),'#FFAA66');
+  await q('#color-hex').fill('#AABBCC');await q('#color-apply').click();assert.equal(await field.inputValue(),source.replace('FFAA66','AABBCC'),'recolor preserves alpha, quotes and inner color');
+  await colors.first().click();assert.equal(await q('#color-hex').inputValue(),'#FFD479');await q('#color-hex').fill('#CCDDEE');await q('#color-apply').click();
+  const tinted=await field.inputValue();assert(tinted.startsWith('<color=#CCDDEE>루나</color>'));
+  const sel=()=>field.evaluate(t=>t.value.slice(t.selectionStart,t.selectionEnd));assert.equal(await sel(),'루나');
+  await first.locator('[data-effects-batch]').click();assert((await q('#effect-scope').textContent()).includes('루나'));
+  await q('#effect-options [value=shake]').check();await q('#effect-options [value=big]').check();await q('#effect-apply').click();
+  const layered=tinted.replace('루나','<shake><big>루나</big></shake>');assert.equal(await field.inputValue(),layered);assert.equal(await sel(),'루나');
+  await field.press('Control+z');assert.equal(await field.inputValue(),tinted);await field.press('Control+Shift+z');assert.equal(await field.inputValue(),layered);
+  await colors.first().click();await q('#color-cancel').click();assert.equal(await field.inputValue(),layered);
+  await field.evaluate(t=>{let i=t.value.indexOf('루나');t.setSelectionRange(i,i+2);});await first.locator('[data-tag=pop]').click();assert.equal(await sel(),'루나');await first.locator('[data-tag=wave]').click();assert((await field.inputValue()).includes('<pop><wave>루나</wave></pop>'));
+  assert.equal(await options.nth(1).locator('textarea').inputValue(),other);
+  const home=await p.evaluate(()=>dialogueEditor.selected),nav=q('#line-edit-next'),pick=q('#edit-branch-picker'),choices=pick.locator('[data-branch]');
+  await nav.click();assert.equal(await choices.count(),2);await p.keyboard.press('Escape');assert.equal(await p.evaluate(()=>dialogueEditor.selected),home);
+  await nav.click();await choices.nth(1).click();const dest=await p.evaluate(()=>dialogueEditor.selected);
+  assert.notEqual(dest,home);assert.equal(await q('#line-list .line').first().getAttribute('data-line'),dest);assert(!(await q('#node-player').isVisible()));
+  await p.goBack();await field.waitFor();assert((await field.inputValue()).includes('<pop><wave>루나'));await nav.click();await choices.nth(1).click();await nav.click();assert(!(await pick.isVisible()));assert.notEqual(await p.evaluate(()=>dialogueEditor.selected),dest);
+  await q('#line-to-map').click();await q('#flow-panel').waitFor();
+  await q('[data-node="kihyun_d1_tutorial_chris_36"] [data-card-action=edit]').click();await nav.click();await choices.filter({hasText:'주문한 술 불일치'}).click();
+  assert.equal(await p.evaluate(()=>dialogueEditor.selected),'notion_day0_d1_tutorial_chris_43');
+  const speech=q('.line-primary textarea');await speech.fill('잔을 보세요.');await speech.evaluate(t=>t.setSelectionRange(0,1));await q('.line-primary [data-effects-batch]').click();await q('#effect-options [value=pop]').check();await q('#effect-options [value=u]').check();await q('#effect-apply').click();
+  assert.equal(await speech.inputValue(),'<pop><u>잔</u></pop>을 보세요.');await speech.press('Meta+z');assert.equal(await speech.inputValue(),'잔을 보세요.');
+  await q('.line-primary [data-effects-batch]').click();await q('#effect-last').click();assert(await q('#effect-options [value=pop]').isChecked());assert(await q('#effect-options [value=u]').isChecked());await q('#effect-cancel').click();
+  await p.goto(url+'outside-dialogue-editor.html?flow=newspaper/intro');
+  await q('.street-card').first().locator('[data-act=script]').click();const out=q('#script-edit-next'),outsideId=()=>p.evaluate(()=>outsideDialogueEditor.selected),begin=await outsideId();
+  await out.click();assert.notEqual(await outsideId(),begin);await out.click();const menu=await outsideId();await out.click();assert.equal(await choices.count(),2);
+  await p.keyboard.press('Escape');assert.equal(await outsideId(),menu);await out.click();await choices.nth(1).click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');
+  await out.click();assert((await outsideId()).includes('common'));await q('#flow-back').click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');assert(!(await q('#stage-dialog').isVisible()));
+  assert.equal(await p.evaluate(()=>outsideDialogueEditor.model.dirty()),false);assert.deepEqual(errors,[]);console.log('LINE_EDIT_NAVIGATION_UI_OK');
+ }finally{await b.close();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

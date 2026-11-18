@@ -17,6 +17,21 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  assert(f.ready);assert(Math.hypot(f.motion.x-start.x,f.motion.y-start.y)<.1);assert(Math.abs(f.audit().error)<1e-7);
  console.log('PASS lip pivot, moving-emitter alignment, bounded spring motion, guided catch and soft return');
 }
+// On ejection the body stays in the hand and new liquid starts at the exposed glass rim.
+for(const ingredient of ['gin','dry_vermouth']){
+ const f=new P.Simulation({ingredient,targetMl:180}),s={angle:0,held:true,dragAngle:167};
+ while(!f.popped && f.time<2)f.tick(s,P.STEP);
+ assert(f.popped,ingredient+' ejects at a steep tilt');
+ const spout=P.POURER_ART,k=f.container.spoutScale,angle=s.angle*Math.PI/180;
+ const dx=(spout.seatX-spout.tipX)*k,dy=(spout.seatY-spout.tipY)*k;
+ const expectedX=f.motion.x+dx*Math.cos(angle)-dy*Math.sin(angle);
+ const expectedY=f.motion.y+dx*Math.sin(angle)+dy*Math.cos(angle);
+ const p=f.particles.at(-1);
+ assert.equal(p.bareMouth,true);
+ assert.equal(f.particles.at(-2).bareMouth,false);
+ assert(Math.hypot(p.x-p.vx*P.STEP-expectedX,p.y-p.vy*P.STEP-expectedY)<1e-7);
+ assert(Math.hypot(f.cap.x-f.cap.vx*P.STEP-f.motion.x,f.cap.y-f.cap.vy*P.STEP-f.motion.y)<1e-7);
+}
 (async()=>{let browser;try{
  browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  const page=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];page.on('pageerror',e=>errors.push(e.stack));
@@ -59,7 +74,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await move(0);await page.mouse.down();await page.mouse.move(ox+(at.x-100)*k,oy+(at.y-70)*k,{steps:12});await page.waitForTimeout(650);
   assert(await page.evaluate(()=>barGame.gimmick.angle>115));await page.mouse.up();await page.waitForTimeout(1100);
   await page.keyboard.down('Space');await page.waitForTimeout(800);assert(await page.evaluate(()=>barGame.gimmick.angle>140));await page.keyboard.up('Space');
-  await page.evaluate(()=>barGame.endGimmick());await page.waitForFunction(()=>barGame.screen==='minigame_result');
+  await page.locator('.pour-finish').click();await page.waitForFunction(()=>barGame.screen==='minigame_result');
  }
  assert.deepEqual(errors,[]);console.log('PASS six ingredients, three viewport sizes, arc/straight drag, hand translation, no pickup snap, pause, release, keyboard and finish');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -8,7 +8,8 @@ const Days=W.LunaOutsideFlowDays,visits=new Map(),recent=new Map(),tabs=$('outsi
 let filterDay=0,filterTrip='both',dayIndex=null,groupSignature='';
 const indexDays=()=>dayIndex||(dayIndex=Days.index(model)),allowed=f=>indexDays().has(f,filterDay,filterTrip),visibleFlows=()=>model.visibleFlows().filter(allowed);
 const flow=()=>model.flow(flowId),rows=()=>stage?model.sequence(flowId):indexDays().sequence(flowId,filterDay,filterTrip),row=()=>model.row(selected);
-const scopeKey=()=>filterDay+'/'+filterTrip,locationState=()=>({flowId,selected,day:filterDay,trip:filterTrip});
+let editTrail=[];
+const scopeKey=()=>filterDay+'/'+filterTrip,locationState=()=>({flowId,selected,day:filterDay,trip:filterTrip,editTrail:editTrail.slice()});
 const allowWhen=(rule,f)=>indexDays().allows(f,rule,filterDay,filterTrip);
 let statusTimer=0;
 function status(t,quiet=false){const target=$('status'),bar=target.closest('.studio-status');target.textContent=t;target.removeAttribute('title');clearTimeout(statusTimer);bar.toggleAttribute('data-show',!!t&&!quiet);if(!quiet)statusTimer=setTimeout(()=>bar.removeAttribute('data-show'),6500);}
@@ -82,16 +83,16 @@ tabs.onkeydown=e=>{
  const b=buttons[e.key==='Home'?0:e.key==='End'?buttons.length-1:(i+(e.key==='ArrowLeft'?-1:1)+buttons.length)%buttons.length];
  b.focus();switchScope(Days.parse(b.dataset.day));
 };
-const nextStage=$('stage-next-node'),branchPicker=W.LunaPreviewBranchPicker.create(nextStage);
+const nextStage=$('stage-next-node'),branchPicker=W.LunaPreviewBranchPicker.create(nextStage),editNext=$('script-edit-next');
 function queueChart(){cancelAnimationFrame(renderFrame);renderFrame=requestAnimationFrame(()=>{if(!chart||!model||!selected||!row())return;if(mode==='map')chart.render();const s=placeSite();if(mode==='script'){$('site-title').textContent=s.name+' · '+flow().title;$('site-tag').textContent=s.place+' | ';$('chart-count').textContent=rows().length+'줄';}$('popup-preview').disabled=false;$('place-npc').disabled=!s.pins.length;$('place-npc').title=s.pins.length?'이 사건의 NPC를 씬에서 배치':'고정 오브젝트 또는 독립 연출에는 배치할 NPC가 없습니다.';});}
 function setMode(v){mode=v;document.body.dataset.view=v;$('view-map').setAttribute('aria-pressed',String(v==='map'));$('view-script').setAttribute('aria-pressed',String(v==='script'));if(model&&selected){inspector();queueChart();}setPane('both');}
 function setPane(id){document.body.dataset.pane=id;for(const b of document.querySelectorAll('.pane-switch [data-pane]'))b.setAttribute('aria-pressed',String(b.dataset.pane===id));}
 function selectedNode(){return MapUI.graph(model,siteOf(flow()).id,allowed,allowWhen).byRow.get(selected);}
 function stageRows(){return stage?stage.node.rows:rows();}
-function stagePaths(){
- const r=stage.node.rows.at(-1),outs=stage.node.extra?.filter(p=>['yes','no'].includes(p.slot))||[],choices=model.isMenu(r)?options(r,true):outs.length?outs.map(p=>({graphSlot:p.slot,label:p.label,id:p.slot})):[null];
+function nodePaths(node,trail){
+ const r=node.rows.at(-1),outs=node.extra?.filter(p=>['yes','no'].includes(p.slot))||[],choices=model.isMenu(r)?options(r,true):outs.length?outs.map(p=>({graphSlot:p.slot,label:p.label,id:p.slot})):[null];
  return choices.map(c=>{
-  const dest=MapUI.previewNext(model,flowId,stage.node,c,stage.trail),locked=c?.hidden||c?.disabled;
+  const dest=MapUI.previewNext(model,flowId,node,c,trail),locked=c?.hidden||c?.disabled;
   const why=locked?(c.reason||'현재 상태에서는 표시되지 않는 선택지입니다.'):'';
   const line=dest.row&&decode(model.row(dest.row)?.['text.ko']).replace(/<[^>]+>/g,'');
   const target=dest.row?[model.owner(dest.row)?.title||model.flow(dest.flow)?.title,line].filter(Boolean).join(' · '):dest.label||'대화 종료';
@@ -116,7 +117,7 @@ function stageLine(id,animate){
 function startStageNode(f,id,fromFirst,autoplay=false){
  const flow=model.flow(f),n=flow&&MapUI.graph(model,siteOf(flow).id,allowed(flow)?allowed:undefined).byRow.get(id);
  if(!n){stop();stage.next=null;$('stage-next-node').disabled=true;$('stage-range').textContent='연결된 대사 노드를 찾을 수 없습니다.';return false;}
- flowId=f;stage.node=n;stage.paths=stagePaths();setPlaying(autoplay);stageLine(fromFirst?n.rows[0].row_id:id,autoplay);return true;
+ flowId=f;stage.node=n;stage.paths=nodePaths(n,stage.trail);setPlaying(autoplay);stageLine(fromFirst?n.rows[0].row_id:id,autoplay);return true;
 }
 function startStageNodeWithTrail(dest){const before=stage.trail;stage.trail=dest.trail;if(startStageNode(dest.flow,dest.row,false))return true;stage.trail=before;return false;}
 function finishStage(option){
@@ -181,13 +182,13 @@ function drawLines(){if(!row())return;const q=$('line-search').value.toLowerCase
  $('related-flows').innerHTML=visibleFlows().filter(f=>siteOf(f).id===siteOf(flow()).id&&f.id!==flowId).map(f=>`<button data-flow="${esc(f.id)}">${esc(f.title)} →</button>`).join('');
  const plain=model.plain(row()),own=model.owner(selected),owned=model.rows(own.id);$('add-menu').disabled=!model.canAddMenu(own);$('duplicate').disabled=!plain||flow().onlyChoices;$('delete').disabled=(!plain&&!model.removableMenu(row()))||flow().onlyChoices||rows().length<=1;$('add').disabled=flow().onlyChoices||!rows().some(r=>model.plain(r));$('up').disabled=flow().onlyChoices||flow().parent===model.answerParent||owned[0]===row();$('down').disabled=flow().onlyChoices||flow().parent===model.answerParent||owned.at(-1)===row();
 }
-function inspector(){const r=row();W.LunaOutsideDetails.install({model,flow:flow(),site:placeSite(),rows:rows(),r,decoded:model.step(r),kind:typeLabel(r),idx:rows().findIndex(x=>x.row_id===selected),mode,node:mode==='map'?selectedNode():null,label,decode,menu:menuInspector(r),context:{money,day,flags,inventory}});actorControls();}
+function inspector(){const r=row();W.LunaOutsideDetails.install({model,flow:flow(),site:placeSite(),rows:rows(),r,decoded:model.step(r),kind:typeLabel(r),idx:rows().findIndex(x=>x.row_id===selected),mode,node:mode==='map'?selectedNode():null,label,decode,menu:menuInspector(r),context:{money,day,flags,inventory}});if(mode==='script')$('node-detail').querySelector('.inspector-title').append(editNext);actorControls();}
 function actorControls(){const actor=$('preview-actor')?.value;if(!actor)return;const cfg=contextProfiles()[actor]||{},kind=cfg.kind||W.LunaOutsideEditorPreview.kinds[actor]||'',art=preview.catalog.find(s=>s.id===kind);$('actor-controls').innerHTML=`<label>캐릭터 시트<select id="preview-kind"><option value="">미등록 / 자리표시자</option>${preview.catalog.map(s=>`<option value="${s.id}" ${kind===s.id?'selected':''}>${esc(s.name)}</option>`).join('')}</select></label><label>행동 애니메이션<select id="preview-animation">${(art?.animations||['idle']).map(a=>`<option value="${a}" ${(cfg.animation||'idle')===a?'selected':''}>${({idle:'대기 · Idle',walk:'걷기 · Walk',run:'달리기 · Run'})[a]}</option>`).join('')}</select></label><div class="field-pair"><label>방향<select id="preview-facing"><option value="auto">서로 바라보기</option><option value="left" ${cfg.facing==='left'?'selected':''}>왼쪽</option><option value="right" ${cfg.facing==='right'?'selected':''}>오른쪽</option></select></label><label>재생 속도<input id="preview-speed" type="number" min="0" max="2" step="0.1" value="${cfg.speed??1}"></label></div>`;}
 function select(id,animate=false){selected=id;lastField='';drawLines();inspector();send(animate);mark();$('line-list').querySelector('[aria-current=true]')?.scrollIntoView({block:'nearest'});}
 function openFlow(id,remember=true,restoreRow=null){
  if(stage&&!stageDialog.open)closeStage();const alias={'newspaper/options':'newspaper/intro','choices/info':'notion/intro','choices/stock':'shop/intro'},jump=alias[id];id=jump||id;const f=model.flow(id);if(!f)return;
  if(remember&&flowId&&flowId!==id)history.push(locationState());
- revealFlowScope(f);document.body.removeAttribute('data-scope-empty');$('outside-trip-empty').hidden=true;
+ editTrail=[];revealFlowScope(f);document.body.removeAttribute('data-scope-empty');$('outside-trip-empty').hidden=true;
  stop();flowId=id;chart?.clear();$('line-search').value='';if($('flow-group').value&&$('flow-group').value!==siteOf(f).id)$('flow-group').value='';
  const seq=rows();drawFlows();select((seq.find(r=>r.row_id===restoreRow)||(jump&&seq.findLast(r=>model.isMenu(r)))||seq[0]).row_id);
  describeScope();linkLocation();
@@ -218,7 +219,7 @@ async function initialize(){restoring=true;let draft;try{draft=JSON.parse(localS
  $('flow-list').onclick=e=>{const b=e.target.closest('button');if(b?.dataset.person||b?.dataset.flow){resumeTrail=[];openFlow(b.dataset.person||b.dataset.flow);setPane('both');}if(b?.dataset.star){const id=b.dataset.star;favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];localStorage.setItem(favoriteKey,JSON.stringify(favorites));drawFlows();}};
  $('related-flows').onclick=e=>{const b=e.target.closest('[data-flow]');if(b)openFlow(b.dataset.flow);};$('line-list').onclick=e=>{const b=e.target.closest('[data-line]');if(b){stop();setMode('script');select(b.dataset.line);}};
  for(const id of ['flow-search','favorites-only'])$(id).addEventListener('input',drawFlows);$('flow-group').onchange=()=>{const id=$('flow-group').value,f=visibleFlows().find(f=>siteOf(f).id===id);if(f)openFlow(f.id);else drawFlows();};$('line-search').oninput=drawLines;
- $('flow-back').onclick=()=>{const previous=history.pop();if(previous&&model.flow(previous.flowId)){rememberLocation();if(previous.day!==undefined)setScope(previous.day,previous.trip??'both');openFlow(previous.flowId,false,previous.selected);}};
+ $('flow-back').onclick=()=>{const previous=history.pop();if(previous&&model.flow(previous.flowId)){rememberLocation();if(previous.day!==undefined)setScope(previous.day,previous.trip??'both');openFlow(previous.flowId,false,previous.selected);editTrail=previous.editTrail||[];}};
  $('previous').onclick=()=>go(-1);$('next').onclick=()=>go(1);$('line-play').onclick=()=>{stop();if(stage)stageLine(selected,true);else send(true);};
  $('play').onclick=()=>{
   if(playing){if(stage&&preview.pause())setPlaying(false,true);else stop();return;}
@@ -248,6 +249,11 @@ async function initialize(){restoring=true;let draft;try{draft=JSON.parse(localS
   if(path.dest.row)startStageNodeWithTrail(path.dest);else finishStage(path.c);
   (nextStage.hidden?$('preview-stage'):nextStage).focus({preventScroll:true});
  }
+ W.LunaPreviewBranchPicker.edit(editNext,()=>{
+  stop();const n=selectedNode();if(!n)return [];
+  return nodePaths(n,editTrail).map(p=>({...p,badge:p.dest.row&&(p.c?.hidden||p.c?.disabled)?'게임 조건 미충족 · 편집 가능':p.badge,blocked:p.blocked||(!p.dest.row?(p.dest.label||'이어 편집할 대사가 없습니다.'):
+   !indexDays().sequence(p.dest.flow,filterDay,filterTrip).some(r=>r.row_id===p.dest.row)?'현재 일차·시간대에 없는 대사입니다.':'')}));
+ },({dest})=>{history.push(locationState());openFlow(dest.flow,false,dest.row);editTrail=dest.trail||[];editNext.focus({preventScroll:true});},status);
  nextStage.onclick=()=>{if(!stage?.paths.length)return;
   if(stage.paths.length===1)followStagePath(stage.paths[0]);
   else branchPicker.open(stage.paths.map(p=>({...p,selected:!!stage.chosen&&stage.chosen===p.c?.id})),followStagePath);

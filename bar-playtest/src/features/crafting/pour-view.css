@@ -1,4 +1,6 @@
 .fluid-screen{background:#0a111b!important;display:flex;flex-direction:column;overflow:hidden}
+/* Layout zoom keeps the rotating sprite on the final display pixel grid. */
+.app-shell:has(.fluid-screen,.opening-screen){zoom:var(--game-scale,1);transform:translate(-50%,-50%)}
 .pour-workspace{position:relative;flex:1;min-height:0;background:transparent;overflow:hidden}
 .pour-stage{position:absolute;inset:0;transform:none}
 .pour-stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}

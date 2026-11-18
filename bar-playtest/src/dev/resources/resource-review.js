@@ -161,7 +161,7 @@ async function launch(d,title,note,fromHistory=false){
   else if(['solo','pair'].includes(d.type)){g.day=3;g.screen='bar';g.phase='regular';g.seats={L:{id:'review-left',actor:d.type==='pair'?'samho':'chris',state:'STORY'},M:null,R:d.type==='pair'?{id:'review-right',actor:'tom',state:'STORY'}:null};g.focus='L';g.currentOrder=null;g.dialogue=g.makeLine(d.type==='pair'?'luna':'chris',d.type==='pair'?'삼호는 톰 걸 만들고 나서 주문을 받도록 하겠습니다.':'어서 와. 오늘도 잘 부탁하지.');g.dialogue.chars=g.dialogue.text.length;}
   else if(d.type==='scene'||d.type==='choices'){q.state.scene=d.id||'t99_dialogue';q.state.step='0';if(d.type==='choices'){const choice=g.t.steps.find(r=>r.type==='choice');if(!choice)throw Error('등록된 선택지 스텝이 없습니다.');q.state.scene=choice.context;q.state.step=String(g.t.steps.filter(r=>r.context===choice.context).sort((a,b)=>+a.seq-+b.seq).indexOf(choice));}q.runScene();}
   else if(d.type==='tutorial'){g.reset(0,'full',1,true,{variant:'original',serviceVersion:'A'});}
-  else if(d.type==='mini'){ui.minigames=true;if(d.id==='shake')ui.shakeMode='path';g.startMinigame(d.id,'original');}
+  else if(d.type==='mini'){ui.minigames=true;if(d.id==='shake')ui.shakeMode='path';g.startMinigame(d.id,{ingredient:d.ingredient});}
   else if(d.type==='effect'){
    if(d.id==='camera'){
     g.day=3;g.phase='regular';g.screen='bar';g.focus='L';g.currentOrder=null;g.seats={L:{id:'fx-chris',actor:'chris',state:'STORY'},M:null,R:null};c.render(true);
