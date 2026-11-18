@@ -46,10 +46,28 @@ for(const [width,height,dpr]of sizes){
     if(v.zoom<1)return true;
     const source=document.createElement('canvas');source.width=source.height=2;
     const sc=source.getContext('2d');sc.fillStyle='#f00';sc.fillRect(0,0,2,2);sc.fillStyle='#00f';sc.fillRect(1,0,1,1);sc.fillRect(0,1,1,1);
-    const sp={w:2,h:2,ppu:100,pivot:{x:.37,y:.12}},p=LunaPixelCamera.sprite(sp,v.x,v.y,1,1,false,v,s);
-    const c=document.createElement('canvas');c.width=s.w;c.height=s.h;const ctx=c.getContext('2d');ctx.imageSmoothingEnabled=false;ctx.scale(s.factor,s.factor);ctx.translate(p.x,p.y);ctx.drawImage(source,-p.w*.37,-p.h*.88,p.w,p.h);
-    const left=Math.round((p.x-p.w*.37)*s.factor),top=Math.round((p.y-p.h*.88)*s.factor),z=v.zoom,data=ctx.getImageData(left,top,2*z,2*z).data;
-    for(let y=0;y<2*z;y++)for(let x=0;x<2*z;x++){const i=(y*2*z+x)*4,red=(Math.floor(x/z)+Math.floor(y/z))%2===0;if(data[i]!== (red?255:0)||data[i+2]!== (red?0:255)||data[i+3]!==255)return false;}
+    const sp={w:2,h:2,ppu:100,pivot:{x:.37,y:.12}},z=v.zoom;
+    // Engine framing can give each texel a fractional physical width. Read a
+    // whole number of *screen* pixels and compare the pattern while panning.
+    const size=Math.floor(2*z),canvas=document.createElement('canvas');
+    canvas.width=s.w;canvas.height=s.h;
+    const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+    function capture(worldX){
+     const p=LunaPixelCamera.sprite(sp,worldX,v.y,1,1,false,v,s);
+     ctx.setTransform(s.factor,0,0,s.factor,0,0);ctx.translate(p.x,p.y);
+     ctx.drawImage(source,-p.w*.37,-p.h*.88,p.w,p.h);
+     const left=Math.round((p.x-p.w*.37)*s.factor),top=Math.round((p.y-p.h*.88)*s.factor);
+     return ctx.getImageData(left,top,size,size).data;
+    }
+    const data=capture(v.x),moved=capture(v.x+.103);
+    for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+     const i=(y*size+x)*4,r=data[i],b=data[i+2];
+     if((r!==255&&b!==255)||r+b!==255||data[i+1]!==0||data[i+3]!==255)return false;
+     if(moved[i]!==r||moved[i+2]!==b||moved[i+3]!==255)return false;
+     // A sample center exactly on the color boundary can select either texel.
+     if(Math.abs(x+.5-z)<1e-5||Math.abs(y+.5-z)<1e-5)continue;
+     if((r===255)!==((x+.5<z)===(y+.5<z)))return false;
+    }
     return true;
    }),'Pixel checker stays uniform and unmixed');
    await p.setViewportSize({width:width-37,height:height-19});await p.waitForTimeout(100);

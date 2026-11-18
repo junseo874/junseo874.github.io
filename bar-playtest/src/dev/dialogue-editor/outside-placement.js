@@ -18,17 +18,24 @@ function create(api){
   if(['samho','shiba'].includes(kind)){const f=W.LUNA_OUTSIDE_DATA.animations[kind==='samho'?'samhoIdle':'shiba'].frames[0];return{...f,src:W.LUNA_OUTSIDE_DATA.assets[f.asset].src};}
   const f=W.LunaOutsideAmbient.sprite(kind);return{...f,src:W.LunaOutsideAmbient.sheets[kind]?.src};
  }
- function draw(){if(!dialog.open||!active)return;const {w,h,k,fy}=dims();if(!w||!h)return;const dpr=Math.min(2,devicePixelRatio||1);
-  canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false;ctx.fillStyle='#10212f';ctx.fillRect(0,0,w,h);
+ function paintSprite(im,sx,sy,sw,sh,x,y,w,h){
+  const t=ctx.getTransform();
+  if(t.b||t.c){LunaPixelRaster.draw(ctx,im,sx,sy,sw,sh,x,y,w,h);return;}
+  // Snap the visible corner, including mirrored pivots, while dragging the map.
+  const left=(Math.round(t.a*x+t.e)-t.e)/t.a,top=(Math.round(t.d*y+t.f)-t.f)/t.d;
+  ctx.drawImage(im,sx,sy,sw,sh,left,top,w,h);
+ }
+ function draw(){if(!dialog.open||!active)return;const {w,h,k,fy}=dims();if(!w||!h)return;
+  LunaPixelRaster.fit(ctx,w,h);ctx.fillStyle='#10212f';ctx.fillRect(0,0,w,h);
   const s=P.specs[active],x=v=>w*.5+(v-center)*k,y=v=>fy-(v-s.y)*k;
   const hidden=new Set(W.LUNA_OUTSIDE_DATA.scenes[s.scene].nodes.filter(n=>n.active===false).map(n=>String(n.id)));const nodes=(report?.scenes[s.scene]?.nodes||[]).filter(n=>!hidden.has(String(n.id))&&n.name!=='home-tv-screen'&&n.src&&n.sprite&&!/^(ambient-|building-(silent-)?resident|optional-trade|street-(newspaper|believer|beggar))/.test(n.id)&&!['shiba','Samho'].includes(n.name)).sort((a,b)=>a.layer-b.layer||a.order-b.order||b.z-a.z);
-  for(const n of nodes){const f=n.sprite,sw=f.w/(f.ppu||100)*Math.abs(n.sx||1)*k,sh=f.h/(f.ppu||100)*Math.abs(n.sy||1)*k,nx=x(n.x),ny=y(n.y),ax=-sw*(f.pivot?.x??.5),ay=-sh*(1-(f.pivot?.y??.5));if(nx+ax>w||nx+ax+sw<0||ny+ay>h||ny+ay+sh<0)continue;const im=art(n.src);if(!im)continue;ctx.save();ctx.translate(nx,ny);if(n.rotation)ctx.rotate(-n.rotation);ctx.scale(n.flip?-1:1,1);ctx.drawImage(im,f.x||0,f.y||0,f.w,f.h,ax,ay,sw,sh);ctx.restore();}
+  for(const n of nodes){const f=n.sprite,sw=f.w/(f.ppu||100)*Math.abs(n.sx||1)*k,sh=f.h/(f.ppu||100)*Math.abs(n.sy||1)*k,nx=x(n.x),ny=y(n.y),ax=-sw*(f.pivot?.x??.5),ay=-sh*(1-(f.pivot?.y??.5));if(nx+ax>w||nx+ax+sw<0||ny+ay>h||ny+ay+sh<0)continue;const im=art(n.src);if(!im)continue;ctx.save();ctx.translate(nx,ny);if(n.rotation)ctx.rotate(-n.rotation);ctx.scale(n.flip?-1:1,1);paintSprite(im,f.x||0,f.y||0,f.w,f.h,ax,ay,sw,sh);ctx.restore();}
   ctx.fillStyle='rgba(6,16,23,.3)';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#9bd3d629';ctx.lineWidth=1;
   for(let i=Math.ceil(center-span/2);i<=center+span/2;i++){ctx.beginPath();ctx.moveTo(x(i),0);ctx.lineTo(x(i),h);ctx.stroke();ctx.fillStyle='#d7e3e6';ctx.font='11px monospace';ctx.fillText(i,x(i)+4,h-8);}
   ctx.strokeStyle='#65e0cd';ctx.lineWidth=2;ctx.setLineDash([6,5]);ctx.beginPath();const bounds=P.range(draft,active);ctx.moveTo(x(bounds[0]),fy);ctx.lineTo(x(bounds[1]),fy);ctx.stroke();ctx.setLineDash([]);
   const leader=s.parent?P.specs[s.parent]:s;
   const drawCast=(group,nearby=false)=>group.cast.forEach((_,i)=>{const p=P.pose(draft,group.id,i),f=sprite(p.kind),im=art(f.src),px=x(p.x),py=y(p.y),a=k/(f.ppu||100);
-   if(im){ctx.save();ctx.translate(px,py);ctx.scale(p.flip?-1:1,1);ctx.shadowColor=nearby?'transparent':'#88f3dc';ctx.shadowBlur=nearby?0:4;const anchor=p.kind==='shiba'?.5:f.pivot?.x??.5;ctx.drawImage(im,f.x,f.y,f.w,f.h,-f.w*anchor*a,-f.h*(1-f.pivot.y)*a,f.w*a,f.h*a);ctx.restore();}
+   if(im){ctx.save();ctx.translate(px,py);ctx.scale(p.flip?-1:1,1);ctx.shadowColor=nearby?'transparent':'#88f3dc';ctx.shadowBlur=nearby?0:4;const anchor=p.kind==='shiba'?.5:f.pivot?.x??.5;paintSprite(im,f.x,f.y,f.w,f.h,-f.w*anchor*a,-f.h*(1-f.pivot.y)*a,f.w*a,f.h*a);ctx.restore();}
    ctx.strokeStyle=nearby?'#8297a2':'#abffef';ctx.beginPath();ctx.ellipse(px,py,Math.max(7,k*.2),3,0,0,2*Math.PI);ctx.stroke();
    if(nearby){ctx.fillStyle='#c3d1d7';ctx.textAlign='center';ctx.fillText(group.label,px,py+17);ctx.textAlign='start';}
   });

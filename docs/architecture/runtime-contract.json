@@ -1370,6 +1370,10 @@
     ],
     [
       "script",
+      "src/shared/platform/pixel-raster.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/outside-placement.js"
     ],
     [

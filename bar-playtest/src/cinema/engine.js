@@ -535,15 +535,17 @@ window.Engine = (function () {
   /* 컬러TV 고장식 화면 노이즈. amount 0~1.
      RGB 채널 분리 + 수평 티어링 + 색 막대 + 스펙클 + 스캔라인 + 동기 롤링 밴드.
      모든 랜덤은 시간으로 시드를 만들어 스크럽해도 항상 같은 그림이 나온다. */
+  function frameBuffer(renderer, key) {
+    const surface = renderer[key] || (renderer[key] = document.createElement('canvas'));
+    if (surface.width !== renderer.cv.width) surface.width = renderer.cv.width;
+    if (surface.height !== renderer.cv.height) surface.height = renderer.cv.height;
+    return surface;
+  }
   Renderer.prototype.tvNoise = function (g, t, amount) {
     const W = VW, H = VH;
-    if (!this._na) {
-      this._na = document.createElement('canvas'); this._na.width = W; this._na.height = H;
-      this._nb = document.createElement('canvas'); this._nb.width = W; this._nb.height = H;
-    }
-    const a = this._na.getContext('2d'), b = this._nb.getContext('2d');
-    a.globalCompositeOperation = 'source-over';
-    a.drawImage(this.cv, 0, 0, W, H);                                  // 현재 프레임 스냅샷
+    const snapshot = frameBuffer(this, '_na'), channel = frameBuffer(this, '_nb');
+    const a = snapshot.getContext('2d'), b = channel.getContext('2d');
+    a.drawImage(this.cv, 0, 0);
     const k = Math.floor(t * 20);
     const R = s2 => rnd(k * 13.7 + s2 * 3.1);
 
@@ -552,12 +554,12 @@ window.Engine = (function () {
     const dx = Math.max(1, Math.round((1 + 4 * amount) * (R(3) < 0.85 ? 1 : 1.8)));
 
     // 시안(G+B) 사본을 본판으로 깔고, 빨강(R) 사본을 가산 합성으로 어긋나게 얹는다
-    b.globalCompositeOperation = 'source-over'; b.drawImage(this._na, 0, 0);
-    b.globalCompositeOperation = 'multiply'; b.fillStyle = '#00ffff'; b.fillRect(0, 0, W, H);
-    g.drawImage(this._nb, -dx, dy);
-    b.globalCompositeOperation = 'source-over'; b.drawImage(this._na, 0, 0);
-    b.globalCompositeOperation = 'multiply'; b.fillStyle = '#ff0000'; b.fillRect(0, 0, W, H);
-    g.save(); g.globalCompositeOperation = 'lighter'; g.drawImage(this._nb, dx, dy); g.restore();
+    b.globalCompositeOperation = 'source-over'; b.drawImage(snapshot, 0, 0);
+    b.globalCompositeOperation = 'multiply'; b.fillStyle = '#00ffff'; b.fillRect(0, 0, channel.width, channel.height);
+    g.drawImage(channel, -dx, dy, W, H);
+    b.globalCompositeOperation = 'source-over'; b.drawImage(snapshot, 0, 0);
+    b.globalCompositeOperation = 'multiply'; b.fillStyle = '#ff0000'; b.fillRect(0, 0, channel.width, channel.height);
+    g.save(); g.globalCompositeOperation = 'lighter'; g.drawImage(channel, dx, dy, W, H); g.restore();
 
     // 수평 티어링 — 띠 단위로 프레임이 옆으로 찢어진다
     const bands = Math.round(amount * 6 * (0.4 + R(4)));
@@ -565,7 +567,7 @@ window.Engine = (function () {
       const y = Math.floor(R(10 + i) * H);
       const h = 2 + Math.floor(R(20 + i) * 16 * amount);
       const ox = Math.round((R(30 + i) - 0.5) * 70 * amount);
-      g.drawImage(this._na, 0, y, W, h, ox, y, W, h);
+      g.drawImage(snapshot, 0, y * snapshot.height / H, snapshot.width, h * snapshot.height / H, ox, y, W, h);
     }
 
     // 색 막대 — 마젠타/시안/그린 블록이 잠깐씩 떠오른다
@@ -610,17 +612,16 @@ window.Engine = (function () {
   Renderer.prototype.crtOff = function (g, t, f) {
     const u = Math.max(0, Math.min(1, (t - f.t) / f.dur));
     const W = VW, H = VH;
-    if (!this._ca) { this._ca = document.createElement('canvas'); this._ca.width = W; this._ca.height = H; }
-    const a = this._ca.getContext('2d');
     if (u < 0.5) {
-      a.drawImage(this.cv, 0, 0, W, H);
+      const snapshot = frameBuffer(this, '_ca');
+      snapshot.getContext('2d').drawImage(this.cv, 0, 0);
       const k = u / 0.5;
       const h = Math.max(3, H * Math.pow(1 - k, 2.2));
       const y = (H - h) / 2;
       g.fillStyle = '#000'; g.fillRect(0, 0, W, H);
-      g.drawImage(this._ca, 0, 0, W, H, 0, y, W, h);
+      g.drawImage(snapshot, 0, y, W, h);
       g.save(); g.globalCompositeOperation = 'lighter';          // 압축될수록 밝아진다
-      g.globalAlpha = 0.25 * k; g.drawImage(this._ca, 0, 0, W, H, 0, y, W, h);
+      g.globalAlpha = 0.25 * k; g.drawImage(snapshot, 0, y, W, h);
       g.globalAlpha = 0.5 * k; g.fillStyle = '#cfe8ee';
       g.fillRect(0, y - 1, W, 2); g.fillRect(0, y + h - 1, W, 2);
       g.restore();

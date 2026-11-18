@@ -95,7 +95,10 @@
       if (!host) return;
       const previous = surface;
       surface = global.LunaPixelCamera.surface(innerWidth, innerHeight, devicePixelRatio);
-      if (previous.w !== surface.w || previous.dpr !== surface.dpr) pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
+      if (previous.w !== surface.w || previous.dpr !== surface.dpr) {
+        pixelWidth = global.LunaPixelCamera.settledWidth(cam.w, surface);
+        renderStamp = null; // Resizing clears the bitmap even while the world is paused.
+      }
       host.style.setProperty('--outside-scale', surface.cssScale);
       host.style.setProperty('--outside-left', surface.left + 'px');
       host.style.setProperty('--outside-top', surface.top + 'px');
@@ -1164,7 +1167,7 @@
       const stamp = [model.time, model.scene, model.paused, cam.x, cam.y, pixelWidth, loading, loadError, devOpen, hintOpen, model.controlsTutorial, model.near?.id, model.anim, model.animTime].join('|');
       // Explicit tick(0), resize and input-triggered draws always refresh. A
       // paused scene otherwise does not rerun its unchanged GPU effects.
-      if (dt === 0 || stamp !== renderStamp) {
+      if (dt === 0 || stamp !== renderStamp || surface.dpr !== devicePixelRatio) {
         const now=performance.now();draw();renderStamp=stamp;
         renderQuality.sample(now,{active:dt>0&&!loading&&!model.paused&&!devOpen&&!hintOpen&&!document.hidden&&model.scene==='street',cpu:performance.now()-now,mode:global.LUNA_STREET_QUALITY||'auto'});
       }else renderQuality.sample(performance.now(),{active:false});

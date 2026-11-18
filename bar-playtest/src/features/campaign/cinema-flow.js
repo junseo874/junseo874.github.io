@@ -38,7 +38,7 @@
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
         const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
-        s.src = source + '?v=' + (name === 'studio-player' ? 'exterior-script-20261116' : ['sprites','stage3'].includes(name) ? 'resource-refresh-20261109' : name === 'engine' ? 'memory-framing-20261116' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029');
+        s.src = source + '?v=' + (['studio-player','sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);
