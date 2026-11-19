@@ -725,13 +725,16 @@
   function syncRecipePointerTip() {
     const slot = recipePointer?.slot;
     const inventoryTip=root.querySelector('.inventory-pointer-tip');
-    if(inventoryTip)inventoryTip.hidden=true;
-    if (!slot?.isConnected || !slot.matches(':hover')) return;
-    const inventory=slot.matches('.inventory-slot');
+    const inventory=slot?.isConnected && slot.matches('.inventory-slot');
+    if(inventoryTip && inventoryTip.hidden !== !inventory)inventoryTip.hidden=!inventory;
+    if (!slot?.isConnected) return;
     const tip = inventory ? inventoryTip : slot.querySelector('.recipe-item-tip'),
       scroll = slot.closest(inventory ? '.prep-screen' : '.prep-recipe-scroll');
     if (!tip || !scroll) return;
-    if(inventory){tip.querySelector('strong').textContent=slot.querySelector('.inventory-item-name')?.textContent||'';tip.hidden=false;}
+    if(inventory){
+      const label=tip.querySelector('strong'),name=slot.querySelector('.inventory-item-name')?.textContent||'';
+      if(label.textContent!==name)label.textContent=name;
+    }
     const anchor=inventory?scroll:slot;
     const r = anchor.getBoundingClientRect(),
       bounds = scroll.getBoundingClientRect(),
@@ -1334,7 +1337,7 @@
     if (g.tutorial && !tutorialView.canHover(el.dataset.hoverItem)) return;
     if (e.type.startsWith('pointer')) {
       ingredientPointer = { id: el.dataset.hoverItem, x: e.clientX, y: e.clientY };
-    } else if (ingredientPointer?.id !== el.dataset.hoverItem || !el.matches(':hover')) {
+    } else if (ingredientPointer?.id !== el.dataset.hoverItem || ui.hoverItem !== el.dataset.hoverItem) {
       // Keyboard focus uses the item anchor; click focus keeps the live pointer.
       ingredientPointer = null;
     }
@@ -1356,6 +1359,13 @@
   }
   root.addEventListener('pointermove', trackRecipePointer);
   root.addEventListener('pointerover', trackRecipePointer);
+  root.addEventListener('pointerout', e => {
+    const slot = recipePointer?.slot;
+    if (slot && slot.contains(e.target) && !slot.contains(e.relatedTarget)) {
+      recipePointer = null;
+      syncRecipePointerTip();
+    }
+  });
   root.addEventListener('pointerleave', () => {
     recipePointer = null;
     syncRecipePointerTip();

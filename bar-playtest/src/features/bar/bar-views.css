@@ -135,10 +135,11 @@ html,body{overflow:hidden;background:#03060b}
 .shelf-scene{position:relative;width:100%;height:100%;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;container-type:inline-size}
 .shelf-item{position:absolute;transform:translateX(-50%);padding:0;border:0;border-radius:0;background:none;display:flex;align-items:flex-end;justify-content:center;isolation:isolate}
 .shelf-item:hover:not(:disabled),.shelf-item:focus-visible,.shelf-item.selected{background:none;border:0}
-.shelf-item img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;pointer-events:none;transition:filter .1s}
-.shelf-item img.shelf-sprite{position:absolute;left:50%;transform:translateX(-50%);object-fit:fill}
-.shelf-item:hover img,.shelf-item:focus-visible img{filter:drop-shadow(1px 0 #62ecff) drop-shadow(-1px 0 #62ecff) drop-shadow(0 1px #62ecff) drop-shadow(0 -1px #62ecff)}
-.shelf-item.selected img{filter:drop-shadow(0 0 3px #ffda7b)}
+.shelf-item .shelf-sprite,.shelf-item::before{position:absolute;left:var(--sprite-left);bottom:var(--sprite-bottom);width:var(--sprite-width);height:var(--sprite-height);transform:translateX(-50%);image-rendering:pixelated;pointer-events:none}
+.shelf-item .shelf-sprite{object-fit:fill}
+/* Draw the glow behind the stationary sprite using its original alpha silhouette. */
+.shelf-item:is(:hover,:focus-visible,[aria-describedby="ingredient-tip"],.selected)::before{content:'';background:var(--shelf-art) center/100% 100% no-repeat;filter:drop-shadow(1px 0 #62ecff) drop-shadow(-1px 0 #62ecff) drop-shadow(0 1px #62ecff) drop-shadow(0 -1px #62ecff)}
+.shelf-item.selected::before{filter:drop-shadow(0 0 3px #ffda7b)}
 .shelf-item .dummy-bottle{width:70%;height:82%;max-height:100%;margin:0 0 3%;border-width:1px;border-radius:3px}
 .shelf-item .dummy-bottle:before{height:14%;left:28%;right:28%;border-top-width:3px}.shelf-item .dummy-bottle:after{font-size:clamp(5px,1.1cqw,12px);padding:3px 0}
 .shelf-placeholder-label{position:absolute;bottom:22%;left:0;right:0;padding:2px;background:#111923dd;color:#e9daac;font-size:clamp(7px,1.2cqw,13px);line-height:1.25;overflow-wrap:anywhere}
