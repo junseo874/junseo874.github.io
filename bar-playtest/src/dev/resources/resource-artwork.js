@@ -13,7 +13,7 @@ function collect(rows,F){
  const A=F.barData.assets;
  for(const [id,art] of Object.entries(F.LunaPour.CONTAINERS)){
   if(art.src)add('pour-open-'+id,'따르기 · 개봉한 '+F.barGame.name(id),'bar-items',art,{
-   itemKind:'ingredient',usage:'따르기 전용 개봉 원본',launch:{type:'mini',id:'pour',ingredient:id}
+   itemKind:'ingredient',usage:id==='beer'?'병따기 성공 · 따르기 개봉 원본':'따르기 전용 개봉 원본',launch:{type:'mini',id:'pour',ingredient:id}
   });
  }
  add('pour-spout','따르기 · 푸어러','bar-items',F.LunaPour.POURER_ART,{

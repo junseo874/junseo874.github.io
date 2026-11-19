@@ -10866,6 +10866,18 @@
       "from": "03.Crafting/04.Minigames/03.Ingredients/bitters_off.png"
     },
     {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/bottled_beer_off.png",
+      "sha256": "23c2b172a9a6388a6e0dfe552ddce1eb6ea023ba033e0a3ec19cc22035ec553f",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/bottled_beer_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/champagne_off.png",
+      "sha256": "81abb4d25b0ed47fab5e3f082b9cd77d5fda194a4cf4bce38981d077f3038085",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/champagne_off.png"
+    },
+    {
       "path": "03.Crafting/04.Minigames/03.Ingredients/cola_off.png",
       "sha256": "3d7f215fbbe3cb682505d6cf2f37f5737789797ee2793640bd16400148a3bb1b",
       "kind": "new",
@@ -10921,7 +10933,7 @@
     },
     {
       "path": "03.Crafting/04.Minigames/03.Ingredients/orange_juice_off.png",
-      "sha256": "c31e588442e09ed7e22c09450c2c908444b378dc8550503c850c10d6600a4976",
+      "sha256": "466817bbe7f36c55278874091649f9a8b19d3b26083f0ad52a043d59707f6df6",
       "kind": "new",
       "from": "03.Crafting/04.Minigames/03.Ingredients/orange_juice_off.png"
     },
@@ -10954,6 +10966,12 @@
       "sha256": "f063121fb3076efe87d534fe53ea82852c4553882e81ba33f58cc10a7fd355ce",
       "kind": "new",
       "from": "03.Crafting/04.Minigames/03.Ingredients/wild_dog_off.png"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/03.Ingredients/wine_off.png",
+      "sha256": "d742e3c98106862ff82a0f23e0b883bb272f6d9d6050e8db28bafee30c64dd3b",
+      "kind": "new",
+      "from": "03.Crafting/04.Minigames/03.Ingredients/wine_off.png"
     },
     {
       "path": "05.UI/03.Crafting/03.Offer/BTN_offer.png",

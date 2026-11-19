@@ -31,7 +31,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   v.source.onended=()=>{v.source.disconnect();v.tone.disconnect();v.gain.disconnect();if(voice===v)voice=null;};
   v.source.start();playFizz();
  }
- function image(key){if(!images.has(key)){const i=new Image();i.src=D.assets[key]?.src||D.assets.item_dummy.src;images.set(key,i);}return images.get(key);}
+ function image(src){if(!images.has(src)){const i=new Image();i.src=src;images.set(src,i);}return images.get(src);}
  function unlockAudio(){if(ui.gimmickAudio===false)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});prepare();prepareFizz();}catch{}}
  function sound(ok,perfect){
   if(ui.gimmickAudio===false||!audio||audio.state!=='running')return;
@@ -94,18 +94,24 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   LunaPixelRaster.fit(ctx,1280,720);ctx.clearRect(0,0,1280,720);
   // The supplied room is a full-screen layer, independent of cap animation.
   const halo=ctx.createRadialGradient(640,310,25,640,310,450);halo.addColorStop(0,ok?'#124e4740':'#19364926');halo.addColorStop(1,'#080e1700');ctx.fillStyle=halo;ctx.fillRect(0,0,1280,720);
-  const bottle=image('item_'+s.ingredient),scale=4.2,cx=640,cy=310;
+  const bottle=image(D.assets['item_'+s.ingredient]?.src||D.assets.item_dummy.src),scale=4.2,cx=640,cy=310;
+  const openBeer=s.ingredient==='beer'?window.LunaPour.CONTAINERS.beer:null;
+  const opened=openBeer&&image(openBeer.src);
   const kick=reduced.matches?0:ok&&t<.24?Math.sin(t*42)*Math.exp(-t*18)*6:miss?Math.sin(t*48)*Math.exp(-t*10)*5:0;
   ctx.save();ctx.translate(cx+kick,cy);ctx.imageSmoothingEnabled=false;if(s.openPhase==='broken')ctx.globalAlpha=.2;
   if(bottle.complete&&bottle.naturalWidth){
    // beer.png: cap x33..54, y66..72. Body retains the native alpha and neck.
-   LunaPixelRaster.draw(ctx,bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
+   if(ok&&opened?.naturalWidth){
+    // Both exports have the same base line. Align the left body edge as the cap lifts.
+    const [left,top,right,bottom]=openBeer.box,w=right-left,h=bottom-top;
+    LunaPixelRaster.draw(ctx,opened,left,top,w,h,-21*scale,(top-69)*scale,w*scale,h*scale);
+   }else LunaPixelRaster.draw(ctx,bottle,22,72,43,150,-21*scale,3*scale,43*scale,150*scale);
    if(ok&&s.ingredient==='beer'){
     ctx.save();ctx.scale(scale,scale);
     canvas.dataset.carbonation=String(window.LunaOpenCarbonation.draw(ctx,t,reduced.matches));
     ctx.restore();
    }
-   if(ok){ctx.fillStyle='#38291c';ctx.beginPath();ctx.ellipse(0,3*scale,8*scale,1.5*scale,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#af9669';ctx.lineWidth=2;ctx.stroke();}
+   if(ok&&!opened?.naturalWidth){ctx.fillStyle='#38291c';ctx.beginPath();ctx.ellipse(0,3*scale,8*scale,1.5*scale,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#af9669';ctx.lineWidth=2;ctx.stroke();}
    ctx.save();
    if(ok){const launch=fx.perfect?1.2:1;ctx.translate(260*t*launch,-690*t*launch+300*t*t);ctx.rotate(-12*t*launch);ctx.globalAlpha=Math.max(0,1-(t-.65)*2);}
    else if(miss){const decay=Math.exp(-t*9);ctx.translate(-10*Math.sin(t*36)*decay,4*decay);ctx.rotate((fx.offset<0?1:-1)*.24*Math.sin(t*28)*decay);ctx.transform(1,0,.25*decay,1-.22*decay,0,0);}
@@ -114,7 +120,7 @@ window.LunaOpenView=function({g,D,L,esc,button,ui}){
   ctx.restore();
   if(ok&&fx.perfect&&t<.7){ctx.save();ctx.globalAlpha=Math.max(0,1-t/.7);ctx.strokeStyle='#ffe5a0';ctx.lineWidth=2;const r=reduced.matches?70:48+t*160;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();if(!reduced.matches)for(let i=0;i<8;i++){const a=i*Math.PI/4,d=50+t*220,x=cx+Math.cos(a)*d,y=cy+Math.sin(a)*d;ctx.beginPath();ctx.moveTo(x-5,y);ctx.lineTo(x+5,y);ctx.moveTo(x,y-5);ctx.lineTo(x,y+5);ctx.stroke();}ctx.restore();}
   // Opener lever reacts only to a hit; a miss slips back instead of detaching the cap.
-  const tool=image('item_opener'),strike=fx&&t<.45;
+  const tool=image(D.assets.item_opener?.src||D.assets.item_dummy.src),strike=fx&&t<.45;
   if(tool.complete&&tool.naturalWidth){ctx.save();ctx.translate(cx+48+(strike?Math.sin(t*15)*35:35),cy+36+(strike?Math.sin(t*15)*20:35));ctx.rotate(-.9+(strike?(ok?-1:1)*Math.sin(t*13)*.6:0));ctx.globalAlpha=ok?Math.max(0,1-t*3):.85;ctx.imageSmoothingEnabled=false;LunaPixelRaster.draw(ctx,tool,13,63,45,44,-25,-15,135,132);ctx.restore();}
   if(!window.LunaCaptureMode?.hidden&&!ok&&s.openPhase==='rhythm'){
    const target=g.c('open_target_radius_px',44),start=g.c('open_start_radius_px',165),radius=Math.max(12,start-(start-target)*s.beatTime/1.1);

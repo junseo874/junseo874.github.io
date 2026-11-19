@@ -182,11 +182,6 @@ root.LunaPourView=function({g,D,L,esc,button,ui}){
   const brush=body.getContext('2d');
   brush.setTransform(pitch,0,0,pitch,0,headroom*pitch);brush.imageSmoothingEnabled=false;
   brush.drawImage(img,left,top,width,height,left,top,width,height);
-  if(art.rim){
-   const [rimWidth,glass,inside]=art.rim;
-   brush.fillStyle=glass;brush.beginPath();brush.ellipse(mouthX,mouthY,rimWidth/2,2.3,0,0,2*Math.PI);brush.fill();
-   brush.fillStyle=inside;brush.beginPath();brush.ellipse(mouthX,mouthY-.3,rimWidth/2-2,1.2,0,0,2*Math.PI);brush.fill();
-  }
   let cap;
   if(installed){
    const h=spout.seatY+1,w=pourer.naturalWidth;

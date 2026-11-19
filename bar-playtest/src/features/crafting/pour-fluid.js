@@ -64,11 +64,9 @@ const CONTAINERS=Object.freeze({
  tequila:openArt('tequila',[10,24,47,170],28.5,25),
  triple_sec:openArt('triple_sec',[0,29,57,170],28.5,30),
  wild_dog:openArt('wild_dog',[8,27,49,170],28.5,28),
- // These three have no authored off variant. Use just the exposed neck/body from
- // the original image and draw a glass lip in its palette at the cut.
- beer:{box:[22,77,65,222],mouthX:43.5,mouthY:77,rim:[16,'#a6916b','#39271d']},
- red_wine:{box:[23,49,70,222],mouthX:46.5,mouthY:49,rim:[17,'#847079','#301c27']},
- champagne:{box:[20,46,73,222],mouthX:46.5,mouthY:46,rim:[18,'#b3a269','#44371f']}
+ beer:openArt('bottled_beer',[25,65,68,222],46.5,68),
+ red_wine:openArt('wine',[23,35,70,222],46.5,38),
+ champagne:openArt('champagne',[20,29,73,222],46.5,32)
 });
 function containerLayout(id){
  const art=CONTAINERS[id];if(!art)return null;
