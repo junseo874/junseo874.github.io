@@ -1,0 +1,26 @@
+{
+  "clips": [
+    {
+      "actor": "phone",
+      "text": "여보세요, 루나? 전화를 왜 이렇게 안 받아.",
+      "choiceAfter": {
+        "id": "first-contact",
+        "actor": "home-luna",
+        "tutorial": true,
+        "options": [
+          {"id":"awake","label":"지금 일어났어요.","response":"지금 일어났어요.","followup":"일어났으면 준비해서 와. 늦으면 안 돼.","clips":[
+            {"actor":"home-luna","text":"네."},
+            {"actor":"phone","text":"딴길로 새지 말고 전에 알려 줬던 곳으로 오면 돼."}
+          ]},
+          {"id":"silent","label":"무슨 일이죠?","response":"무슨 일이죠?","followup":"…정말 몰라서 묻는 건가?","clips":[
+            {"actor":"phone","text":"오늘부터 바텐더 일을 배우기로 했을 텐데."},
+            {"actor":"home-luna","text":"이해했어요."},
+            {"actor":"phone","text":"우리 가게 위치는 기억하고 있지?"},
+            {"actor":"home-luna","text":"네."},
+            {"actor":"phone","text":"딴길로 새지 말고 바로 와. 늦으면 안 돼."}
+          ]}
+        ]
+      }
+    }
+  ]
+}

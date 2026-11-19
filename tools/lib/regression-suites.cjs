@@ -28,7 +28,7 @@ module.exports = {
   `),
   ui: group(`
     test-window-fullscreen-ui
-    test-outside-flow-days-ui test-manual-node-preview-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
+    test-first-contact-editor-ui test-outside-flow-days-ui test-manual-node-preview-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
     test-dialogue-live-data-ui test-resource-current-artwork-ui test-story-service-entry-ui
     test-loading-pigeon-ui test-bar-choice-hold-clock test-generated-art-ui
     test-guest-arrival-speech-ui test-guest-appearance-tab-ui test-endless-general-ui
@@ -53,7 +53,7 @@ module.exports = {
     test-street-rain-shared-gpu-ui test-rain-merge-equivalence test-engine-world-layout
     test-engine-world-layout-ui test-ambient-native-csv test-home-tv-power-ui
     test-exterior-notion-sync test-outside-believer test-outside-believer-ui test-outside-newspaper
-    test-outside-newspaper-ui test-outside-character-sheets test-outside-typing-rhythm
+    test-outside-newspaper-ui test-exterior-manual-skip-ui test-outside-character-sheets test-outside-typing-rhythm
     test-outside-typing-rhythm-ui test-shiba-speech-anchor-ui test-corridor-birds-ui test-corridor-pillar-fade-ui
     test-engine-barrel-fire test_barrel_fire_ui test-campfire-lighting-ui test-character-lighting
     test-character-lighting-ui test-character-lighting-isolation-ui test-day2-neighborhood-gates-ui

@@ -25,7 +25,8 @@
       this.token = 0;
       this.loaded = new Set();
       this.scriptPromises = new Map();
-      this.control = false;
+      this.skipKeys = new Set();
+      this.skipOwner = null;
       this.skipAge = 0;
       this.firstLift = false;
       this.morningSeen = new Set();
@@ -48,6 +49,7 @@
         }
         if (e.button === 0 && this.view === 'prologue' && this.cinema?.dialogueWait && e.target.closest('.campaign-prologue,.studio-speech-layer')) {
           e.preventDefault();
+          if (this.cinema.scene.clips.find(line=>line.id===this.cinema.dialogueWait.id)?.dreamLine) return;
           this.advanceCinemaDialogue();
         }
       });
@@ -80,7 +82,7 @@
       this.releaseCinemaSkip();
       this.clearInput();
       this.outside.clearInput?.();
-      this.control = false;
+      this.releaseDialogueSkip();
       this.g.gimmick && (this.g.gimmick.held = false);
     }
     screen(view) {
@@ -387,6 +389,43 @@
 
     // A single overlay owns both halves of a memory transition; scene redraws cannot reset it.
 
+    releaseDialogueSkip(code) {
+      if (code) this.skipKeys.delete(code); else this.skipKeys.clear();
+      if (!this.skipKeys.size) {
+        this.skipOwner = null;
+        this.skipAge = 0;
+      }
+    }
+    manualDialogueOwner() {
+      if (document.hidden || global.LunaFocusSettings.hiddenPaused || global.lunaQA?.opened ||
+          this.dayTransition || this.memoryTransition || this.doorTransition ||
+          document.activeElement?.matches('input,textarea,select') || document.activeElement?.isContentEditable) return null;
+      if (this.view === 'scene') return this.dialog;
+      if (this.view === 'prologue') {
+        const c = this.cinema;
+        if (!c?.studio || c.dialogueChoice) return null;
+        if (!c.dialogueWait) return this.skipOwner === c ? c : null;
+        const line = c.scene.clips.find(l => l.id === c.dialogueWait.id);
+        return line && !line.introNotice && !line.dreamLine ? c : null;
+      }
+      return this.blocking ? null : this.outside.manualDialogue;
+    }
+    tickDialogueSkip(dt) {
+      if (!this.skipOwner) return;
+      const owner = this.manualDialogueOwner();
+      if (this.skipOwner !== owner) {
+        this.releaseDialogueSkip();
+        return;
+      }
+      // Only waiting dialogue accepts input. Never speed up time between clips.
+      if (this.view === 'prologue' && !this.cinema.dialogueWait) { this.skipAge = 0; return; }
+      this.skipAge += dt;
+      if (this.skipAge < .12) return;
+      this.skipAge = 0;
+      if (this.view === 'scene') this.next();
+      else if (this.view === 'prologue') this.advanceCinemaDialogue();
+      else this.outside.model.story.advance(); // Never start a new interaction or select an option.
+    }
     tick(dt) {
       if (this.view === 'title') this.titleLogo?.tick(Math.min(.05, Math.max(0, dt)));
       dt = Math.min(.05, Math.max(0, dt));
@@ -403,7 +442,6 @@
         global.LunaDialogueAudio?.reveal(this.dialog.rows[this.dialog.index].text, before, this.dialog.chars);
         this.paintLine();
         if (this.dialog.background === 'johnny-memory') global.LunaJohnnyMemory.sync(this.host, this.dialog, this.D, dt);
-        // D08: campaign/exterior scenes advance through next(), not Ctrl repeat.
       }
       if (this.view === 'scene-choice' && !global.LunaFocusSettings.hiddenPaused) {
         if (this.dialog.background === 'terrace') global.LunaTerrace.tick(this.dialog, dt);
@@ -477,6 +515,7 @@
         } else reveal?.remove();
         if (this.liftLogoPending && !m.ride) this.liftLogoPending = false;
       } else document.querySelector('#campaign-lift-reveal')?.remove();
+      this.tickDialogueSkip(dt);
       return this.blocking;
     }
     intercept(name) {
@@ -718,6 +757,14 @@
         global.Sfx?.resume();
         if (this.cinema?.studio) global.LunaStudioCinema.unlock();
       }
+      if (e.key === 'Control' || e.code?.startsWith('Control')) {
+        const owner = this.manualDialogueOwner();
+        if (owner && !e.repeat) {
+          this.skipOwner = owner;
+          this.skipKeys.add(e.code || 'Control');
+        }
+        return !!owner || this.blocking;
+      }
       if (!this.active && !this.blocking) return false;
       if (e.code === 'F2') return true;
       if (e.code === 'Escape') {
@@ -748,10 +795,6 @@
           this.cinemaHoldStart = performance.now();
           this.paintCinemaSkip();
         }
-        return true;
-      }
-      if (e.code.startsWith('Control')) {
-        this.control = true;
         return true;
       }
       if (e.code === 'Tab') {
@@ -801,12 +844,12 @@
       global.lunaCampaign.releaseCinemaSkip();
       if (global.lunaCampaign.view === 'prologue') global.lunaCampaign.paintCinemaSkip();
     }
-    if (e.code.startsWith('Control') && global.lunaCampaign) global.lunaCampaign.control = false;
+    if (e.key === 'Control' || e.code?.startsWith('Control')) global.lunaCampaign?.releaseDialogueSkip(e.code || 'Control');
   }, true);
   window.addEventListener('blur', () => {
     const c = global.lunaCampaign;
     if (!c) return;
-    c.control = false;
+    c.releaseDialogueSkip();
     // Focusing the embedded main-game shaker is not leaving the game.
     // Its own settings/blur handler owns pause while this modal is open.
     if (document.querySelector('.shake-craft-dialog[open]')) return;
@@ -818,6 +861,7 @@
   document.addEventListener('visibilitychange', () => {
     const c = global.lunaCampaign;
     if (document.hidden && c) {
+      c.releaseDialogueSkip();
       c.releaseCinemaSkip();
       if (document.querySelector('.shake-craft-dialog[open]')) return;
       if (global.LunaFocusSettings.enabled && c.active && !c.memoryTransition && ['game', 'scene', 'prologue', 'awakening'].includes(c.view)) {

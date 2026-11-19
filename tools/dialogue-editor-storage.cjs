@@ -20,6 +20,7 @@ async function snapshot(base=BASE){
  return {files,presentation,revision:hash.digest('hex')};
 }
 async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/runtime'),backupRoot=path.join(ROOT,'artifacts/dialogue-editor-backups')}={}){
+ if(input.mode==='first-contact')return require('./first-contact-storage.cjs').saveContact(input);
  const original=await snapshot(base);if(input.revision!==original.revision)throw Error('다른 작업에서 CSV가 변경되었습니다. 새로 불러온 뒤 변경 내용을 다시 적용하세요.');
  const exterior=input.mode==='outside',activePaths=exterior?Exterior.paths:paths,allow=exterior?new Set([...Object.values(activePaths),'web-views.json',Place.file]):allowed;
  if(!input.files||Array.isArray(input.files)||Object.keys(input.files).some(p=>!allow.has(p)||typeof input.files[p]!=='string'))throw Error('허용되지 않은 저장 파일입니다.');

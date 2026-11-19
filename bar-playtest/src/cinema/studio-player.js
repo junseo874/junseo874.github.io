@@ -6,12 +6,13 @@ let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
   for(const name of ['tags','media','model','model-v2','keyframes','holo-call','opening-template','typography','speech-layer','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
-   const script=document.createElement('script');script.src=new URL('src/'+name+'.js?v='+(name==='extras'?'display-grid-1':name==='opening-template'?'exterior-script-20261116':version),base);script.onload=()=>{loaded.add(name);resolve();};script.onerror=()=>{script.remove();reject(Error('컷씬 모듈을 불러오지 못했습니다: '+name));};document.head.append(script);
+   const script=document.createElement('script');script.src=new URL('src/'+name+'.js?v='+(name==='extras'?'display-grid-1':name==='opening-template'?'dream-question-pause-1':name==='media'?'dream-final-sync-1':version),base);script.onload=()=>{loaded.add(name);resolve();};script.onerror=()=>{script.remove();reject(Error('컷씬 모듈을 불러오지 못했습니다: '+name));};document.head.append(script);
   });
   await StudioMedia.ready;await document.fonts.load('17px LunaPixel');StudioOpening.register();
   for(const asset of StudioMedia.assets.values())if(asset.builtin&&asset.src)asset.src=new URL(asset.src,base).href;
  })().catch(error=>{ready=null;throw error;});
  await ready;
+ if(!['documentary','sleep','morning'].includes(id))await StudioOpening.loadPhone();
  const project=id==='documentary'?StudioOpening.documentary():['sleep','morning'].includes(id)?StudioOpening.rest(id):StudioOpening.template();
  const ids=new Set(project.clips.map(c=>c.assetId).filter(Boolean));
  await Promise.all([...ids].map(async id=>{
@@ -87,11 +88,12 @@ function speech(c,s){
   for(const f of s.fx){
    // TV reception keeps moving during manual captions; clip selection, fades,
    // images and audio still follow the paused story timeline.
-   const fxTime=project.template==='documentary'&&['scanline','noise'].includes(f.effect)?effectTime:time;
+   const fxTime=project.template==='documentary'&&['scanline','noise'].includes(f.effect)?effectTime:time+(s.dialogue?.dreamLine&&waiting?waiting.age:0);
    ctx.save();extras.fx(ctx,f,fxTime);
    if(['fadeIn','fadeOut','flash'].includes(f.effect)){ctx.fillStyle=f.effect==='flash'?'#e6f6f5':'#000';ctx.globalAlpha=(f.effect==='fadeIn'?1-f.u:f.effect==='fadeOut'?f.u:Math.sin(Math.PI*f.u))*f.strength;ctx.fillRect(0,0,1280,720);}
    if(f.effect==='noise'){ctx.globalAlpha=f.strength*.23;ctx.fillStyle='#b1d6da';for(let i=0;i<110;i++){const v=Math.sin(i*119.7+Math.floor(fxTime*24)*37.9)*43758.54;ctx.fillRect((v-Math.floor(v))*1280,(i*83)%720,1+i%23,1+i%2);}ctx.globalAlpha=f.strength*.1;for(let y=0;y<720;y+=4)ctx.fillRect(0,y,1280,1);}
    ctx.restore();
+   if(f.dreamDistortion)StudioOpening.distortDream(ctx,f,s.dialogue,time,waiting?.age||0);
   }
   speechLayer?.end(s.fx);
   // Do not start audio while rendering a paused frame or fading into a sequence.

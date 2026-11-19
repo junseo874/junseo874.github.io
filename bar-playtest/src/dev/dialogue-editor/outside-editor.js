@@ -19,6 +19,7 @@ const MapUI=W.LunaOutsideFlowMap,siteOf=f=>MapUI.site(model,f),stageDialog=$('st
 function placeSite(){const site=siteOf(flow());return {...site,pins:site.pins.filter(id=>!model.flow(id)||allowed(model.flow(id)))};}
 function setScope(d,trip=filterTrip){
  const dateChanged=filterDay!==d;filterDay=d;filterTrip=Days.route(trip);
+ $('edit-contact').hidden=!(d===0||d===Days.all)||!Days.enabled(filterTrip,'in');
  if(d!==Days.all&&(dateChanged||restoring))day=d;resumeTrail=[];chart?.clear();
  for(const b of tabs.querySelectorAll('[role=tab]')){const on=b.dataset.day===String(d);b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;}
  for(const b of tripFilters.querySelectorAll('[data-trip]'))b.setAttribute('aria-pressed',String(Days.enabled(filterTrip,b.dataset.trip)));

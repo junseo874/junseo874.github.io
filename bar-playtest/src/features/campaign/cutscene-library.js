@@ -155,7 +155,6 @@ async function play(c,id){
     const start=scene.clips.find(x=>x.title==='도입 · 2초간 검은 화면')?.start;
     const end=scene.clips.find(x=>x.type==='visual'&&x.actor==='house')?.start;
     if(!(start>=0&&end>start))throw Error('도입부와 기상 시스템의 경계를 찾지 못했습니다.');
-    // tl_intro is 11.8 s: black 2 s + automatic cards 3.6/3.2/3 s.
     // Exclude the manual play guide as well as wake/contact system scenes.
     // Keep clip-local audio keyframes/offsets unchanged when shifting the origin.
     scene={...scene,end:end-start,duration:end-start,

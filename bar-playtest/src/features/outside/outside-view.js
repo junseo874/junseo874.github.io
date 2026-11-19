@@ -1344,6 +1344,13 @@
       get active() {
         return active;
       },
+      get manualDialogue() {
+        if (!active || loading || loadError || devOpen || hintOpen || model.paused || model.controlsTutorial ||
+            model.ride || model.transition || model.barArrival || model.dialog || model.neighborhood?.action ||
+            (model.encounter && model.encounter.stage !== 'active')) return null;
+        const speech = model.story.speech;
+        return speech?.line && !speech.auto && !speech.choice ? speech : null;
+      },
       get devConsoleOpen() {
         return devOpen;
       },

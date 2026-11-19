@@ -23,7 +23,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   await p.waitForTimeout(150);
   assert.equal(await p.evaluate(()=>getComputedStyle(lunaCampaign.host).cursor==='none'),await p.evaluate(()=>lunaCampaign.view==='prologue'&&!lunaCampaign.cinema.dialogueWait&&!lunaCampaign.cinema.dialogueChoice),entry.id+' hides only automatic playback cursor');
   if(entry.id==='opening-a')await p.screenshot({path:'/private/tmp/luna-cutscene-preview.png'});
-  if(entry.id==='opening-a')assert(await p.evaluate(()=>{const s=lunaCampaign.cinema.scene,lines=s.clips.filter(x=>x.type==='dialogue'),noise=s.clips.find(x=>x.assetId==='opening-memory-noise');return Math.abs(s.duration-11.8)<.001&&s.end===s.duration&&lines.length===3&&lines.every(x=>!x.wait&&!x.introNotice)&&lines[0].start===2&&noise.start===2&&Math.abs(noise.start+noise.duration-s.end)<.001&&s.clips.every(x=>x.start<s.end&&x.start+x.duration<=s.end+.001&&x.actor!=='house'&&x.assetId!=='opening-alarm');}),'Engine intro preview: 2 s black + automatic cards, no manual guide, noise ends at 11.8 s');
+  if(entry.id==='opening-a')assert(await p.evaluate(()=>{const s=lunaCampaign.cinema.scene,lines=s.clips.filter(x=>x.type==='dialogue'),noise=s.clips.find(x=>x.assetId==='opening-memory-noise');return s.end===s.duration&&lines.length===6&&lines.slice(0,-1).every(x=>x.wait&&x.dreamLine)&&!lines.at(-1).wait&&lines[0].start===2&&noise.start===lines[2].start&&Math.abs(noise.start+noise.duration-s.end)<.001&&s.clips.every(x=>x.start<s.end&&x.start+x.duration<=s.end+.001&&x.actor!=='house'&&x.assetId!=='opening-alarm');}),'Engine intro preview: five manual lines, final automatic line, noise until end');
   if(entry.id==='wake-a')assert(await p.evaluate(()=>lunaCampaign.cinema.time>=lunaCampaign.cinema.skipUntil));
   if(entry.id==='A-johnny')await p.evaluate(()=>{barGame.progress.flags.campaign_observation=true;});
   if(entry.id==='A-workshop')await p.evaluate(()=>{const c=lunaCampaign;c.dialog.index=c.dialog.rows.length;c.continueScene();});
@@ -36,9 +36,10 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  // The engine-sized intro finishes without any dialogue-confirmation input.
  await p.locator('[data-act="cutscenePlay"][data-id="opening-a"]').click();
  await p.waitForFunction(()=>lunaCampaign.view==='prologue');
- await p.waitForFunction(()=>lunaCampaign.cinema?.time>=2.3);
- assert.equal(await p.evaluate(()=>!!lunaCampaign.cinema.dialogueWait),false);
- await p.screenshot({path:'/private/tmp/luna-engine-intro-autoplay.png'});
+ for(let i=0;i<5;i++){
+  await p.waitForFunction(()=>lunaCampaign.cinema?.dialogueWait?.age>2.5);
+  await p.keyboard.press('KeyE');
+ }
  await p.waitForFunction(()=>!LunaCutsceneLibrary.active,null,{timeout:15000});
  assert.equal(await state(),before,'Automatic intro completion leaked progression');
  assert.equal(await p.evaluate(()=>StudioMedia.activeVoices),0,'Noise stops on automatic completion');

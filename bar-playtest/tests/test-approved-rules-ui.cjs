@@ -13,11 +13,12 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  for(const m of measurements){assert(m.left>=11&&m.right<=1269,JSON.stringify(m));assert(Math.abs(m.tail-m.x)<2,JSON.stringify(m));}
  const stability=await page.evaluate(()=>{const m=outsidePlaytest.model,original=m.targets;m.targets=()=>[{id:'a',x:0},{id:'b',x:.2}];m.x=.099;m.updateNear();const first=m.near.id;m.x=.101;m.updateNear();const retained=m.near.id;m.x=.16;m.updateNear();const next=m.near.id;m.targets=original;m.updateNear();return {first,retained,next};});
  assert.deepEqual(stability,{first:'a',retained:'a',next:'b'});
- await page.evaluate(()=>{outsidePlaytest.exit(true);lunaCampaign.scene([{actor:'luna',text:'첫 번째 대사'},{actor:'chris',text:'다음 대사'}],'입력 검수','black',()=>{});});
+ await page.evaluate(()=>{outsidePlaytest.exit(true);lunaCampaign.scene(Array.from({length:8},(_,i)=>({actor:'luna',text:'수동 대사 '+i})),'입력 검수','black',()=>lunaCampaign.screen('developer'));});
  await page.waitForFunction(()=>lunaCampaign.view==='scene'&&!lunaCampaign.memoryTransition);
  assert.equal(await page.evaluate(()=>lunaCampaign.canSkipCinema()),false);
- await page.keyboard.down('ControlLeft');await page.waitForTimeout(700);await page.keyboard.up('ControlLeft');assert.equal(await page.evaluate(()=>lunaCampaign.dialog.index),0);
+ await page.keyboard.down('ControlLeft');await page.waitForFunction(()=>lunaCampaign.dialog.index>0);await page.keyboard.up('ControlLeft');
+ const stopped=await page.evaluate(()=>lunaCampaign.dialog.index);await page.waitForTimeout(350);assert.equal(await page.evaluate(()=>lunaCampaign.dialog.index),stopped);
  assert.notEqual(await page.evaluate(()=>getComputedStyle(lunaCampaign.host).cursor),'none','manual dialogue keeps pointer');
  await page.screenshot({path:'/private/tmp/approved-rules-manual-dialogue.png'});
- assert.deepEqual(errors,[]);console.log('APPROVED_RULES_UI_OK: topmost cancel then settings, left/right bubble clamping with attached tail, nearest-target hysteresis, no Ctrl/Space skip and manual pointer');
+ assert.deepEqual(errors,[]);console.log('APPROVED_RULES_UI_OK: topmost cancel then settings, bubble clamping, target hysteresis, held Ctrl advances only manual speech, manual pointer');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

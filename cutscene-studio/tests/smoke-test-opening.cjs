@@ -20,7 +20,8 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     tv:StudioOpening.source.tv,noDreamColor:dream.every(c=>!c.text.includes('[c:'))};
   });
   assert.deepEqual(dialogue.dream,expectedDialogue.dream);
-  assert.deepEqual(dialogue.phone,expectedDialogue.phone);
+  const [firstContact,...common]=require('../data/first-contact.json').clips,awake=firstContact.choiceAfter.options[0];
+  assert.deepEqual(dialogue.phone,[firstContact.text,awake.response,awake.followup,...common.map(c=>c.text)]);
   assert.deepEqual(dialogue.tv,expectedDialogue.tv);
   assert.ok(dialogue.noDreamColor);
   const cleanBackground=await page.evaluate(async()=>{

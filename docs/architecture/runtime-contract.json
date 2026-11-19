@@ -1230,6 +1230,10 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/first-contact.js"
+    ],
+    [
+      "script",
       "src/shared/data/csv-catalog.js"
     ],
     [

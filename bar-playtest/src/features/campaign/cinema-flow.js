@@ -38,7 +38,7 @@
       const p = new Promise((resolve, reject) => {
         const s = document.createElement('script');
         const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
-        s.src = source + '?v=' + (['studio-player','sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029');
+        s.src = source + '?v=' + (name === 'studio-player' ? 'dream-question-pause-1' : ['sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029');
         s.onload = resolve;
         s.onerror = () => {
           this.scriptPromises.delete(name);
@@ -403,7 +403,7 @@
         this.finishCinema();
         return;
       }
-      c.player.render(c.time, null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
+      c.player.render(c.time, line.dreamLine ? c.time : null, this.ui.gimmickAudio, global.LunaSfx.volume * .55, c.dialogueWait, c.effectTime);
       this.paintCinemaChoices();
     }
     paintCinemaChoices() {
@@ -429,11 +429,12 @@
         if (this.cinema !== c || this.view !== 'prologue' || c.dialogueChoice !== choice) return;
         const option = choice.options.find(o => o.id === id);
         if (!option) return;
-        const response = c.scene.clips.find(l => l.choiceResponse === choice.id);
-        if (response) response.text = option.response ?? option.label;
-        const followup = c.scene.clips.find(l => l.choiceFollowup === choice.id);
-        if (followup && option.followup) followup.text = '[c:#50d9f5]' + option.followup + '[/c]';
         const source = c.scene.clips.find(l => l.id === choice.lineId);
+        // The longer call needs its own speech timings and hologram shutdown.
+        if (choice.id === 'first-contact') {
+          const branch = global.StudioOpening.template(option.id);
+          Object.assign(c.scene, branch, {end:branch.duration});
+        }
         c.dialogueChoice = null;
         c.dialogueWait = null;
         c.time = source.start + source.duration + .001;
