@@ -14,7 +14,7 @@ const {load,chrome}=require('../../tools/lib/test-runtime.cjs');
   for(let i=0;i<choices.length;i++){
    const id=choices[i],grade=grades[i%5];await dialog.locator('[name=drink]').selectOption(id);await dialog.locator('[name=grade]').selectOption(grade);await p.evaluate(()=>{window.__gradeGate=null;const observer=new MutationObserver(()=>{const e=document.querySelector('.serve-preview-dialog .serve-actions');if(e){window.__gradeGate={alpha:+e.style.opacity,disabled:[...e.querySelectorAll('button')].every(b=>b.disabled),time:+e.closest('.serve-presentation').querySelector('.serve-grade-effects').dataset.time};observer.disconnect();}});observer.observe(document.body,{childList:true,subtree:true});});await dialog.locator('.serve-preview-start').click();
    await dialog.locator('.serve-presentation').waitFor();assert.equal(await dialog.locator('.serve-grade').count(),0);assert.equal(await dialog.locator('[data-act=offer]').count(),0);
-   await dialog.locator('.serve-grade').waitFor();assert.equal(await dialog.locator('.serve-canvas').getAttribute('data-frame'),'29');assert.equal(await dialog.locator('[data-act=offer]').count(),0,'Grade must be legible before controls appear');
+   await dialog.locator('.serve-grade').waitFor();assert.equal(await dialog.locator('.serve-canvas').getAttribute('data-frame'),'28');assert.equal(await dialog.locator('[data-act=offer]').count(),0,'Grade must be legible before controls appear');
    if(i===0){
     await dialog.locator('[data-preview=pause]').click();const t=await dialog.locator('.serve-grade-effects').getAttribute('data-time');await p.waitForTimeout(350);assert.equal(await dialog.locator('.serve-grade-effects').getAttribute('data-time'),t);await dialog.locator('[data-preview=pause]').click();
    }
@@ -29,13 +29,24 @@ const {load,chrome}=require('../../tools/lib/test-runtime.cjs');
     const pixels=()=>dialog.locator('.serve-grade-effects').evaluate(c=>c.toDataURL());
     const ambient=await pixels();await p.waitForTimeout(400);assert.notEqual(await pixels(),ambient,'Original ambient sparkles and soft light continue beyond the entrance');
     await dialog.locator('[data-preview=pause]').click();const frozen=await pixels();await p.waitForTimeout(300);assert.equal(await pixels(),frozen,'Persistent effects pause with the scene');await dialog.locator('[data-preview=pause]').click();
+    for(const [label,file,w,h] of [['버리기','BTN_trash.png',186,187],['제공하기','BTN_offer.png',520,167]]){
+     const art=await dialog.getByRole('button',{name:label,exact:true}).locator('img').evaluate(img=>{
+      const button=img.closest('button').getBoundingClientRect(),rect=img.getBoundingClientRect();
+      return {file:img.src.split('/').pop(),w:img.naturalWidth,h:img.naturalHeight,width:rect.width,height:rect.height,fills:rect.width===button.width&&rect.height===button.height};
+     });
+     assert.deepEqual([art.file,art.w,art.h],[file,w,h]);
+     assert(art.fills&&Math.abs(art.height-art.width*h/w)<1,'Artwork fills the clickable area at its original aspect ratio');
+    }
     await dialog.locator('[data-act=discard]').click();assert((await dialog.locator('.serve-preview-status').innerText()).includes('차감되지'));
     await dialog.locator('[data-act=offer]').click();assert((await dialog.locator('.serve-preview-status').innerText()).includes('그대로'));
     await dialog.locator('[data-preview=fullscreen]').click();await p.waitForFunction(()=>document.fullscreenElement===document.documentElement);
     await dialog.locator('[data-preview=fullscreen]').click();await p.waitForFunction(()=>!document.fullscreenElement);
     for(const viewport of [{width:390,height:844},{width:1920,height:1080},{width:3840,height:2160},{width:1280,height:900}]){
      await p.setViewportSize(viewport);await p.waitForTimeout(100);
-     const box=await dialog.evaluate(e=>{const s=e.querySelector('.serve-preview-stage').getBoundingClientRect(),items=[...e.querySelectorAll('header button,.serve-actions button,.serve-grade')].map(n=>n.getBoundingClientRect());return{ratio:s.width/s.height,inside:items.every(r=>r.left>=-.1&&r.top>=-.1&&r.right<=innerWidth+.1&&r.bottom<=innerHeight+.1)};});assert(Math.abs(box.ratio-16/9)<.01&&box.inside,JSON.stringify(box));
+     const box=await dialog.evaluate(e=>{const s=e.querySelector('.serve-preview-stage').getBoundingClientRect(),items=[...e.querySelectorAll('header button,.serve-actions button,.serve-grade')].map(n=>n.getBoundingClientRect());const c=e.querySelector('.serve-canvas').getBoundingClientRect();
+      const w=Math.min(innerWidth,innerHeight*16/9),h=w*9/16;
+      const fills=Math.abs(c.width-w)<=1&&Math.abs(c.height-h)<=1&&Math.abs(c.left-(innerWidth-w)/2)<=1&&Math.abs(c.top-(innerHeight-h)/2)<=1;
+      return{ratio:s.width/s.height,fills,inside:items.every(r=>r.left>=-.1&&r.top>=-.1&&r.right<=innerWidth+.1&&r.bottom<=innerHeight+.1)};});assert(Math.abs(box.ratio-16/9)<.01&&box.inside&&box.fills,JSON.stringify(box));
     }
     await dialog.locator('[data-preview=replay]').click();assert.equal(await dialog.locator('.serve-grade').count(),0);assert.equal(await dialog.locator('[data-act=offer]').count(),0);
    }

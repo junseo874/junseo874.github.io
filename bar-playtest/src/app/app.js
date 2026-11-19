@@ -586,9 +586,9 @@
         b.classList.add('choice-holding');
         b.style.setProperty('--choice-progress', a.style.getPropertyValue('--choice-progress'));
       }
-      // Pouring owns its display-sized bitmaps. A HUD text update must not
+      // Crafting and serving own their display-sized bitmaps. A HUD text update must not
       // clear them or reallocate them at the HTML template's initial size.
-      if (a.nodeName === 'CANVAS' && b.matches('[data-pixel-pour],[data-pour-guide],[data-opening-stage]')) {
+      if (a.nodeName === 'CANVAS' && b.matches('[data-pixel-pour],[data-pour-guide],[data-opening-stage],.serve-canvas,.serve-carbonation,.serve-grade-effects')) {
         b.setAttribute('width', a.width);
         b.setAttribute('height', a.height);
       }

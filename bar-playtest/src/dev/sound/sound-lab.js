@@ -56,7 +56,7 @@ $('#replay').onclick=()=>play();$('#stop').onclick=stop;$('#drink').onchange=()=
 $('#volume').oninput=()=>{const v=+$('#volume').value;$('#volume-value').value=v+'%';if(master)master.gain.setTargetAtTime(v/100,context.currentTime,.02);};
 document.addEventListener('keydown',e=>{if(e.target.matches('select,input,button,a'))return;if(e.code==='Escape')stop();if(e.code==='Space'&&!e.repeat&&!$('#lab').hidden){e.preventDefault();play();}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',()=>{stop();cancelAnimationFrame(frame);context?.close();});
-function resize(){stage.style.transform='scale('+($('#viewport').clientWidth/1280)+')';if(ready)view.sync(stage);}
+function resize(){stage.style.zoom=$('#viewport').clientWidth/1280;if(ready)view.sync(stage);}
 new ResizeObserver(resize).observe($('#viewport'));
 function tick(){
  if(running){g.realTime=armed?0:(context.currentTime-epoch)*animationSpeed;draw();if(!armed&&g.realTime>=LunaServeGrade.timing.handoff+LunaServeGrade.timing.reveal){running=false;draw();status('버전 '+(version+1)+' 재생 완료 · 다른 버전과 비교해 보세요.');}}

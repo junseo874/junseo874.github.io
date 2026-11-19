@@ -547,6 +547,20 @@ window.ResourceExtractionAssets=[
     "h": 2160
   },
   {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/BTN_offer.png",
+    "title": "BTN_offer.png",
+    "category": "UI · 원본 조각",
+    "w": 520,
+    "h": 167
+  },
+  {
+    "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/BTN_trash.png",
+    "title": "BTN_trash.png",
+    "category": "UI · 원본 조각",
+    "w": 186,
+    "h": 187
+  },
+  {
     "src": "assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_Decent_01.png",
     "title": "FX_TX_GradeText_Decent_01.png",
     "category": "UI · 원본 조각",

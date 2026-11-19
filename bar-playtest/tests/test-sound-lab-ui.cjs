@@ -9,7 +9,7 @@ await p.goto(new URL('sound-lab.html',p.url()).href);await p.locator('#open-serv
 for(let i=0;i<3;i++){
  await p.locator('[data-version="'+i+'"]').click();await p.waitForFunction(()=>LunaSoundLab.playing);
  await p.waitForFunction(()=>!LunaSoundLab.playing);
- assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),'29');
+ assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),'28');
  assert.equal(await p.locator('#stage').getAttribute('data-sound-version'),String(i+1));
 }
 assert.deepEqual(await p.evaluate(()=>audioStarts.map(x=>x.args[1])),[.40,.85,.20]);

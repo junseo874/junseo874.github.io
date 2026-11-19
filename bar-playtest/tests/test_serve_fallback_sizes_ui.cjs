@@ -16,7 +16,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    for(const viewport of [{width:1280,height:720},{width:390,height:844},{width:2048,height:1181}]){
     await p.setViewportSize(viewport);await p.waitForTimeout(80);
     const check=await p.evaluate(()=>{
-     const stage=document.querySelector('.serve-presentation').getBoundingClientRect(),canvas=document.querySelector('.serve-canvas').getBoundingClientRect();
+     const stage=document.querySelector('.serve-frame').getBoundingClientRect(),canvas=document.querySelector('.serve-canvas').getBoundingClientRect();
      const elements=[...document.querySelectorAll('.serve-fallback,.serve-actions button,.serve-grade')];
      return {fill:canvas.width/stage.width>.99&&canvas.height/stage.height>.99,inside:elements.every(e=>{const r=e.getBoundingClientRect();return r.left>=stage.left-.1&&r.right<=stage.right+.1&&r.top>=stage.top-.1&&r.bottom<=stage.bottom+.1;}),images:[...document.querySelectorAll('.serve-fallback img')].every(i=>i.complete&&i.naturalWidth>0)};
     });assert(check.fill&&check.inside&&check.images,JSON.stringify({id,viewport,check}));

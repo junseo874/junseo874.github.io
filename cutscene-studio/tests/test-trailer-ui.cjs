@@ -119,7 +119,7 @@ const rt=require('../../tools/lib/test-runtime.cjs');
  assert.equal(await game.evaluate(()=>barGame.gimmick.completed),false,'opening scrub resets completion');
  const serving=scenes.find(s=>s.kind==='serve'),drinks=new Set();
  for(let i=0;i<13;i++){
-  const offset=(i+.5)*1.5/13;
+  const offset=(i+.5)*1.45/13;
   await page.evaluate(t=>lunaTrailerPreview.seek(t),serving.start+offset);
   assert.equal(Number(await page.locator('#serve').getAttribute('data-frame')),Math.floor(offset*20),'source 20fps');
   drinks.add(await page.locator('#serve').getAttribute('data-cocktail'));
@@ -128,14 +128,14 @@ const rt=require('../../tools/lib/test-runtime.cjs');
    const load=async src=>{const im=new Image();im.src='../bar-playtest/'+src;await im.decode();return im;};
    const bg=await load(w.LUNA_SERVE_BACKGROUND.src),drink=await load(s.src),expected=document.createElement('canvas');expected.width=960;expected.height=540;
    const c=expected.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#000';c.fillRect(0,0,960,540);
-   c.drawImage(bg,0,5,959,540,0,0,960,540);c.drawImage(drink,2+n%6*956,2+Math.floor(n/6)*541,954,539,3,1,954,539);
+   c.drawImage(bg,0,0);c.drawImage(bg,958,0,1,540,959,0,1,540);c.drawImage(drink,2+n%6*962,2+Math.floor(n/6)*553,960,551,0,0,960,551);
    return expected.toDataURL()===actual.toDataURL();
   }),'cached trailer frame must preserve the current source pixels and composition');
  }
  assert.equal(drinks.size,13,'all thirteen cocktails at normal hand speed');
  for(const offset of [1.5,2.4,3.1]){
   await page.evaluate(t=>lunaTrailerPreview.seek(t),serving.start+offset);
-  assert.equal(await page.locator('#serve').getAttribute('data-frame'),'29','hold the completed hand frame');
+  assert.equal(await page.locator('#serve').getAttribute('data-frame'),'28','hold the completed hand frame');
   assert.equal(await page.locator('#serve').getAttribute('data-cocktail'),'dry_martini','finish and hold on dry martini');
  }
  const muted=await game.evaluate(()=>{let sounds=0;const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(){sounds++;};try{LunaStoryNoticeAudio.play(()=>true);return sounds;}finally{AudioBufferSourceNode.prototype.start=start;}});

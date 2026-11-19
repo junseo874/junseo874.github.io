@@ -1,5 +1,5 @@
 /* Animator-supplied serving sheets: 6×5 cells with 2px gutters, 20 FPS. */
-window.LUNA_SERVE_COMPOSITION=Object.freeze({drinkOffsetY:1});
+window.LUNA_SERVE_COMPOSITION=Object.freeze({drinkOffsetY:0});
 window.LUNA_SERVE_BACKGROUND={src:'assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png',cols:1,frames:1,fps:0,w:959,h:550,atlasWidth:959,atlasHeight:550};
 window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
  gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'drymartini',
@@ -8,52 +8,58 @@ window.LUNA_SERVE_SHEETS=Object.fromEntries(Object.entries({
  champagne:'champagne',red_wine:'wine',whiskey_sour:'whisky',
  godfather:'godfather',johnny_old_fashioned:'old_fashioned'
 }).map(([id,file])=>[id,{src:'assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/'+file+'.png',
- cols:6,frames:30,fps:20,w:954,h:539,sx:2,sy:2,dx:956,dy:541,atlasWidth:5738,atlasHeight:2707,layered:true}]));
-// The recording centers the 539px sheet on a 550px backdrop. Crop 5px from
-// the backdrop's top to fill the existing 960×540 stage without a vertical stretch.
+ cols:6,frames:29,fps:20,w:960,h:551,sx:2,sy:2,dx:962,dy:553,atlasWidth:5774,atlasHeight:2767,layered:true}]));
+// The last atlas slot is empty. Anchor both authored layers at their top
+// edge; the 16:9 aperture only crops unused rows below the hand.
 window.LunaServeComposition={
  draw(ctx,background,drink,sheet,frame){
-  if(background)ctx.drawImage(background,0,5,959,540,0,0,960,540);
+  if(background){
+   ctx.drawImage(background,0,0);
+   // The room export is one column narrower than the animation.
+   ctx.drawImage(background,958,0,1,540,959,0,1,540);
+  }
   if(drink&&sheet)ctx.drawImage(drink,sheet.sx+frame%sheet.cols*sheet.dx,
-   sheet.sy+Math.floor(frame/sheet.cols)*sheet.dy,sheet.w,sheet.h,
-   3,window.LUNA_SERVE_COMPOSITION.drinkOffsetY,sheet.w,sheet.h);
+   sheet.sy+Math.floor(frame/sheet.cols)*sheet.dy,sheet.w,sheet.h,0,0,sheet.w,sheet.h);
  }
 };
-// Compose unchanged source texels on a 960x540 (16:9) stage: 3px padding
-// on each side, 1px above. Then sample ONCE to the display's physical pixels.
-// Integer-only enlargement made framing shrink/jump as the window or DPR
-// changed. Pixel alignment must not choose the size of the composition.
 window.LunaServePixels={
  layout(rect,dpr=1){
-  const sx=rect.width/1280,sy=rect.height/720;
-  // Keep the raster within the stage and on the CSS/device pixel lattice.
-  // At fractional DPR this can inset the edges by at most a few physical
-  // pixels, never by a percentage of the composition.
-  const gcd=(a,b)=>b?gcd(b,a%b):a,ratio=Math.round(dpr*100),lattice=ratio/gcd(ratio,100);
-  // Arbitrary browser zoom (e.g. DPR 1.3333) must not turn a rational
-  // approximation into a huge 133px inset. Prefer physical pixels there.
-  const quantum=lattice<=5?lattice:1;
-  const start=v=>Math.ceil((v-1e-5)/quantum)*quantum,end=v=>Math.floor((v+1e-5)/quantum)*quantum;
-  const x=start(rect.left*dpr),y=start(rect.top*dpr);
-  const width=Math.max(1,end(rect.right*dpr)-x),height=Math.max(1,end(rect.bottom*dpr)-y);
-  return {width,height,scale:width/960,scaleY:height/540,left:(x/dpr-rect.left)/sx,
-   top:(y/dpr-rect.top)/sy,
-   cssWidth:width/dpr/sx,cssHeight:height/dpr/sy};
+  // Fit the authored aperture first, then snap its four edges to display pixels.
+  // Rounding the magnification itself can leave hundreds of pixels unused.
+  const fit=Math.min(rect.width/960,rect.height/540);
+  const left=rect.left+(rect.width-960*fit)/2,top=rect.top+(rect.height-540*fit)/2;
+  const x=Math.round(left*dpr),y=Math.round(top*dpr);
+  const width=Math.max(1,Math.round((left+960*fit)*dpr)-x);
+  const height=Math.max(1,Math.round((top+540*fit)*dpr)-y);
+  const parentScale=rect.width/1280,zoom=width/(dpr*rect.width);
+  return {width,height,x,y,scale:width/960,zoom,dpr,parentScale,
+   left:(x/dpr-rect.left)/(parentScale*zoom),
+   top:(y/dpr-rect.top)/(parentScale*zoom)};
  },
  fit(canvas,layout){
+  const resized=canvas.width!==layout.width||canvas.height!==layout.height;
   if(canvas.width!==layout.width)canvas.width=layout.width;
   if(canvas.height!==layout.height)canvas.height=layout.height;
-  // Layout zoom cancels the UI zoom before rasterization. A scale transform
-  // would introduce another filtered texture, especially below 100% UI size.
-  // Translation alone avoids CSS layout's 1/64px offset rounding at odd DPRs.
-  const zoom=layout.cssWidth/layout.width;
-  Object.assign(canvas.style,{left:'0px',top:'0px',width:layout.width+'px',height:layout.height+'px',zoom,transformOrigin:'0 0',
-   transform:`translate(${layout.left/zoom}px,${layout.top/zoom}px)`});
+  // Keep the bitmap out of the zoomed controls layer. One source backing
+  // pixel lands on one physical screen pixel even at fractional browser zoom.
+  canvas.style.width=layout.width+'px';canvas.style.height=layout.height+'px';
+  const parentZoom=canvas.parentElement.currentCSSZoom||layout.parentScale;
+  canvas.style.zoom=1/parentZoom;
+  canvas.style.transform=`translate(${layout.left*layout.zoom*parentZoom}px,${layout.top*layout.zoom*parentZoom}px) scale(${1/layout.dpr})`;
   canvas.dataset.pixelScale=String(layout.scale);
+  return resized;
+ },
+ present(target,source){
+  const ctx=target.getContext('2d');
+  ctx.globalCompositeOperation='copy';
+  ctx.imageSmoothingEnabled=target.width<source.width;
+  if(ctx.imageSmoothingEnabled)ctx.imageSmoothingQuality='high';
+  ctx.drawImage(source,0,0,target.width,target.height);
  }
 };
 window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
  const sheets=window.LUNA_SERVE_SHEETS,background=window.LUNA_SERVE_BACKGROUND;
+ const actionArt='assets/01.ArtResources/05.UI/03.Crafting/03.Offer/';
  const drinkOffsetY=window.LUNA_SERVE_COMPOSITION.drinkOffsetY;
  const images=new Map(),duration=window.LunaServeGrade.timing.handoff;
  const gradeFX=window.LunaServeGrade,controlsAt=duration+gradeFX.timing.readable;
@@ -62,6 +68,7 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
  let current=null;
  const native=document.createElement('canvas');native.width=960;native.height=540;
  const nativeContext=native.getContext('2d');
+ let lastCanvas=null,lastState=null,lastFrame=-1,lastWidth=0,lastHeight=0;
  const nativeFX=document.createElement('canvas');nativeFX.width=960;nativeFX.height=540;
  function image(src){
   if(!images.has(src)){const img=new Image(),entry={img,ready:false,failed:false};images.set(src,entry);
@@ -71,13 +78,18 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
  image(background.src);
  const visible=()=>['result','discarding'].includes(g.screen)&&!!g.result;
  function state(){
-  if(!visible()){if(current)gradePlayback.dispose();current=null;return null;}
+  if(!visible()){
+   if(current){gradePlayback.dispose();lastCanvas=null;lastState=null;current=null;}
+   return null;
+  }
   if(current?.result!==g.result||current?.grade!==g.result.grade){
    current={result:g.result,grade:g.result.grade,startedAt:null,elapsed:0,frame:0,ready:false};
    gradePlayback.reset(g.result.grade);
    // Large RGBA atlases are decoded on demand; don't retain every drink sheet.
    const keep=sheets[g.result.selected]?.src;
    for(const src of images.keys())if(src!==background.src&&src!==keep)images.delete(src);
+   image(actionArt+'BTN_trash.png');
+   image(actionArt+'BTN_offer.png');
   }
   const sheet=sheets[g.result.selected],bg=image(background.src),art=sheet?image(sheet.src):null;
   const grade=image((gradeFX.assets[g.result.grade]||gradeFX.assets.decent).src);
@@ -93,26 +105,38 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
  function html(){
   const s=state();if(!s)return '';
   const r=s.result,declined=g.screen==='discarding',sheet=sheets[r.selected],failed=sheet&&image(sheet.src).failed;
+  const showActions=s.loaded&&s.elapsed>=controlsAt&&!declined;
+  const disabled=showActions&&ready()?'':'disabled';
   return '<section class="serve-presentation" style="--serve-art-offset-y:'+drinkOffsetY*720/540+'px" aria-label="'+L('칵테일 제공','Present drink')+'" '+(g.isPaused()?'inert':'')+' data-ready="'+s.ready+'" data-cocktail="'+esc(r.selected)+'">'+
    '<canvas class="serve-canvas" width="1280" height="720" aria-label="'+esc(g.name(r.selected))+'"></canvas>'+
    (!s.loaded?'<div class="serve-loading" role="status">'+L('제공 장면 불러오는 중…','Loading drink presentation…')+'</div>':'')+
-   (s.loaded&&(!sheet||failed)?'<div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div>':'')+
+   (s.loaded&&(!sheet||failed)?'<div class="serve-frame"><div class="serve-fallback" style="--serve-progress:'+Math.min(1,s.elapsed/duration)+'">'+drinkArt(r.selected)+'</div></div>':'')+
    (window.LunaServeCarbonation?.profiles[r.selected]?'<canvas class="serve-carbonation" width="1280" height="720" aria-hidden="true"></canvas>':'')+
-   (s.loaded&&s.elapsed>=duration?'<canvas class="serve-grade-effects" width="1280" height="720" aria-hidden="true"></canvas><div class="serve-grade" role="status" data-grade="'+esc(r.grade)+'"><span class="serve-grade-label">'+L('제조완료','Complete')+' · '+esc(r.grade.toUpperCase())+'</span></div>':'')+
-   (s.loaded&&s.elapsed>=controlsAt&&!declined?'<div class="serve-actions" style="opacity:0">'+button('<svg viewBox="0 0 32 38" aria-hidden="true"><path d="M3 9h26M11 7V3h10v4M5 12l2 23h18l2-23M12 15v15M20 15v15"/></svg><span class="serve-grade-label">'+L('버리기','Discard')+'</span>','discard',(ready()?'':'disabled ' )+'aria-label="'+L('버리기','Discard')+'"','serve-discard')+'<div class="serve-offer">'+button(L('제공하기','Offer drink'),'offer',ready()?'':'disabled','primary')+button(L('판정 결과','Score details'),'serveDetails',ready()?'':'disabled','serve-details-button')+'</div></div>':'')+
-   '</section>';
+   (s.loaded&&s.elapsed>=duration?'<canvas class="serve-grade-effects" width="1280" height="720" aria-hidden="true"></canvas>':'')+
+   '<div class="serve-frame">'+
+   (s.loaded&&s.elapsed>=duration?'<div class="serve-grade" role="status" data-grade="'+esc(r.grade)+'"><span class="serve-grade-label">'+L('제조완료','Complete')+' · '+esc(r.grade.toUpperCase())+'</span></div>':'')+
+   (showActions?'<div class="serve-actions" style="opacity:0">'+
+    button('<img src="'+actionArt+'BTN_trash.png" width="186" height="187" alt="'+L('버리기','Discard')+'">','discard',disabled,'serve-art-button serve-discard')+
+    '<div class="serve-offer">'+button('<img src="'+actionArt+'BTN_offer.png" width="520" height="167" alt="'+L('제공하기','Offer drink')+'">','offer',disabled,'serve-art-button serve-offer-button')+
+    button(L('판정 결과','Score details'),'serveDetails',disabled,'serve-details-button')+'</div></div>':'')+
+   '</div></section>';
  }
  function sync(root){
   const s=state(),canvas=root.querySelector('.serve-canvas');if(!s||!canvas)return;
-  const rect=canvas.parentElement.getBoundingClientRect();if(!rect.width||!rect.height)return;
+  const stage=canvas.parentElement,rect=stage.getBoundingClientRect();if(!rect.width||!rect.height)return;
   const layout=window.LunaServePixels.layout(rect,window.devicePixelRatio||1);
-  window.LunaServePixels.fit(canvas,layout);
-  const ctx=canvas.getContext('2d');if(!ctx)return;
-  ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,canvas.width,canvas.height);
-  nativeContext.imageSmoothingEnabled=false;nativeContext.clearRect(0,0,native.width,native.height);
+  stage.style.setProperty('--serve-zoom',layout.zoom);
+  stage.style.setProperty('--serve-left',layout.left+'px');
+  stage.style.setProperty('--serve-top',layout.top+'px');
+  const resized=window.LunaServePixels.fit(canvas,layout);
   const bg=image(background.src),sheet=sheets[s.result.selected],art=sheet?image(sheet.src):null;
-  if(s.loaded)window.LunaServeComposition.draw(nativeContext,bg.ready?bg.img:null,art?.ready?art.img:null,sheet,s.frame);
-  ctx.drawImage(native,0,0,canvas.width,canvas.height);
+  const frame=s.loaded?s.frame:-1;
+  if(resized||canvas!==lastCanvas||s!==lastState||frame!==lastFrame||canvas.width!==lastWidth||canvas.height!==lastHeight){
+   nativeContext.imageSmoothingEnabled=false;nativeContext.clearRect(0,0,native.width,native.height);
+   if(s.loaded)window.LunaServeComposition.draw(nativeContext,bg.ready?bg.img:null,art?.ready?art.img:null,sheet,s.frame);
+   window.LunaServePixels.present(canvas,native);
+   lastCanvas=canvas;lastState=s;lastFrame=frame;lastWidth=canvas.width;lastHeight=canvas.height;
+  }
   canvas.dataset.frame=String(s.frame);
   canvas.dataset.source=art?.failed?'fallback':sheet?.src||'fallback';
   canvas.dataset.background=background.src;
@@ -123,9 +147,9 @@ window.LunaServeView=function({g,D,C,L,esc,button,drinkArt,labelType,onStart}){
    // Fallback artwork can have different dimensions; never attach the sheet mask to it.
    const fallback=!sheet||art?.failed;
    const time=fallback||!s.loaded?-1:s.elapsed-duration;
-   window.LunaServeCarbonation.draw(nativeFX,s.result.selected,time,[3,drinkOffsetY,1,1]);
-   const fc=fx.getContext('2d');fc.imageSmoothingEnabled=false;fc.clearRect(0,0,fx.width,fx.height);
-   fc.drawImage(nativeFX,0,0,fx.width,fx.height);
+   window.LunaServeCarbonation.draw(nativeFX,s.result.selected,time,[0,drinkOffsetY,1,1]);
+   if(time>=0)window.LunaServePixels.present(fx,nativeFX);
+   else if(fx.dataset.active==='true')fx.getContext('2d').clearRect(0,0,fx.width,fx.height);
    for(const key of ['active','time','cocktail']){if(nativeFX.dataset[key]!==undefined)fx.dataset[key]=nativeFX.dataset[key];else delete fx.dataset[key];}
   }
   const gradeCanvas=root.querySelector('.serve-grade-effects');

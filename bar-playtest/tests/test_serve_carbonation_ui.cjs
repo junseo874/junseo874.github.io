@@ -44,7 +44,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
    await page.waitForTimeout(900);
    const pixels=()=>page.locator('.serve-carbonation').evaluate(c=>c.toDataURL());
    const first=await pixels();await page.waitForTimeout(400);assert.notEqual(await pixels(),first,'FX continue after final serving frame');
-   assert.equal(await page.locator('.serve-canvas').getAttribute('data-frame'),'29');
+   assert.equal(await page.locator('.serve-canvas').getAttribute('data-frame'),'28');
    await page.evaluate(()=>{barGame.paused=true;barGame.changed();});await page.waitForTimeout(150);
    const frozen=await pixels();await page.waitForTimeout(250);assert.equal(await pixels(),frozen,'Pause freezes FX');
    await page.evaluate(()=>{barGame.paused=false;barGame.changed();});await page.waitForTimeout(150);

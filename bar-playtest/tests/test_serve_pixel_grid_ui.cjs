@@ -4,7 +4,7 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 (async()=>{
  const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
  try{
-  for(const dpr of [1,1.5,2]){
+  for(const dpr of [1,1.25,1.5,1.75,2,2.625]){
    const page=await browser.newPage({viewport:{width:1280,height:720},deviceScaleFactor:dpr});
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
@@ -13,13 +13,14 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
     for(const dpr of [.8,1,1.1,1.25,4/3,1.5,1.75,2,2.625,3,3.5])for(const width of [390,640,953,955,1103,1921,2048]){
      const rect={left:13.3,top:41.7,width,height:width*9/16};rect.right=rect.left+rect.width;rect.bottom=rect.top+rect.height;
      const r=LunaServePixels.layout(rect,dpr);
-     if(rect.width*dpr-r.width>10||rect.height*dpr-r.height>10||r.width>rect.width*dpr+.01||r.height>rect.height*dpr+.01)return false;
+     const roomW=Math.round(rect.right*dpr)-Math.round(rect.left*dpr),roomH=Math.round(rect.bottom*dpr)-Math.round(rect.top*dpr);
+     if(r.width!==roomW||r.height!==roomH||r.x!==Math.round(rect.left*dpr)||r.y!==Math.round(rect.top*dpr))return false;
     }return true;
-   }),'Browser zoom must not reintroduce quantized framing or overscan');
+   }),'The scene must fill every physical pixel of its 16:9 stage at every display scale');
    if(await page.locator('.updates-confirm').isVisible())await page.locator('.updates-confirm').click();
    await page.evaluate(()=>{
     const root=document.createElement('div');root.id='ppu-fixture';root.style='position:fixed;left:0;top:0;z-index:999999;width:1280px;height:720px;transform-origin:0 0;background:#0d0e18';
-    root.innerHTML='<section class="serve-presentation"><canvas class="serve-canvas"></canvas><canvas class="serve-carbonation"></canvas></section>';document.body.append(root);
+    root.innerHTML='<section class="serve-presentation"><canvas class="serve-canvas"></canvas><canvas class="serve-carbonation"></canvas><div class="serve-frame"></div></section>';document.body.append(root);
     const g={screen:'result',result:{selected:'dry_martini'},realTime:0,isPaused:()=>false};
     window.ppuFixture={root,g,view:LunaServeView({g})};ppuFixture.view.sync(root);
    });
@@ -32,23 +33,26 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
      const images=await Promise.all([LUNA_SERVE_BACKGROUND,LUNA_SERVE_SHEETS.dry_martini].map(async sheet=>{const im=new Image();im.src=sheet.src;await im.decode();return {im,sheet};}));
      const native=document.createElement('canvas');native.width=960;native.height=540;const nc=native.getContext('2d');nc.imageSmoothingEnabled=false;
      const expected=document.createElement('canvas'),actual=f.root.querySelector('.serve-canvas'),fx=f.root.querySelector('.serve-carbonation');
-     for(let frame=0;frame<30;frame++){
+     f.view.sync(f.root);
+     expected.width=actual.width;expected.height=actual.height;
+     const ec=expected.getContext('2d');ec.imageSmoothingEnabled=expected.width<960;ec.imageSmoothingQuality='high';
+     for(let frame=0;frame<29;frame++){
       f.g.realTime=frame/20+.001;f.view.sync(f.root);
       if(Number(actual.dataset.frame)!==frame)throw Error('Wrong animation frame');
       nc.clearRect(0,0,960,540);
-      nc.drawImage(images[0].im,0,5,959,540,0,0,960,540);
-      const {im,sheet:s}=images[1];nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,3,1,s.w,s.h);
-      expected.width=actual.width;expected.height=actual.height;const ec=expected.getContext('2d');ec.imageSmoothingEnabled=false;ec.drawImage(native,0,0,expected.width,expected.height);
+      nc.drawImage(images[0].im,0,0);nc.drawImage(images[0].im,958,0,1,540,959,0,1,540);
+      const {im,sheet:s}=images[1];nc.drawImage(im,s.sx+frame%6*s.dx,s.sy+Math.floor(frame/6)*s.dy,s.w,s.h,0,0,s.w,s.h);
+      ec.clearRect(0,0,expected.width,expected.height);ec.drawImage(native,0,0,expected.width,expected.height);
       if(expected.toDataURL()!==actual.toDataURL())throw Error('Frame resampled or wrong atlas crop: '+frame);
      }
      const b=actual.getBoundingClientRect(),fb=fx.getBoundingClientRect(),dpr=devicePixelRatio,k=Number(actual.dataset.pixelScale);
-     for(const [label,value] of [['left',b.left*dpr],['top',b.top*dpr],['width',b.width*dpr],['height',b.height*dpr]])if(Math.abs(value-Math.round(value))>.015)throw Error(label+' not on physical pixel grid: '+value);
-     if(Math.abs(b.width*dpr-actual.width)>.015||Math.abs(b.height*dpr-actual.height)>.015)throw Error('Second CSS resampling');
+     for(const [label,value] of [['left',b.left*dpr],['top',b.top*dpr],['width',b.width*dpr],['height',b.height*dpr]])if(Math.abs(value-Math.round(value))>dpr/64+.001)throw Error(label+' not on physical pixel grid: '+value);
+     if(Math.abs(b.width*dpr-actual.width)>dpr/64+.001||Math.abs(b.height*dpr-actual.height)>dpr/64+.001)throw Error('Second CSS resampling');
      if(JSON.stringify(b.toJSON())!==JSON.stringify(fb.toJSON()))throw Error('FX and sprite grids differ');
      const stage=f.root.getBoundingClientRect();
-     if(b.width/stage.width<.99||b.height/stage.height<.99)throw Error('Composition shrank instead of fitting the viewport');
+     if(Math.abs(b.top-stage.top)*dpr>1||Math.abs((b.left+b.right-stage.left-stage.right)*dpr)>2)throw Error('Art must be top aligned and horizontally centered');
      const flat=document.createElement('canvas');flat.width=actual.width;flat.height=actual.height;const fc=flat.getContext('2d');fc.fillStyle='#0d0e18';fc.fillRect(0,0,flat.width,flat.height);fc.drawImage(actual,0,0);
-     return {dpr,viewport:[innerWidth,innerHeight],scale:k,frames:30,png:flat.toDataURL(),crop:{left:Math.round(b.left*dpr),top:Math.round(b.top*dpr),width:actual.width,height:actual.height}};
+     return {dpr,viewport:[innerWidth,innerHeight],scale:k,frames:29,png:flat.toDataURL(),crop:{left:Math.round(b.left*dpr),top:Math.round(b.top*dpr),width:actual.width,height:actual.height}};
     });
     const {png,crop,...stats}=result;
     const screenshot=await page.screenshot();

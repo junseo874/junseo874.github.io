@@ -13,6 +13,7 @@ for(const {from,to} of require('../docs/architecture/art-resource-paths.json').r
  const group=/^assets\/(ui|tutorials|fonts)\//.test(from)?'common':/^assets\/(backgrounds|characters|cocktails|items|serving)\//.test(from)?'bar':null;
  if(group&&!groups[group].includes(to))groups[group].push(to);
 }
+for(const file of ['BTN_offer.png','BTN_trash.png'])groups.bar.push('assets/01.ArtResources/05.UI/03.Crafting/03.Offer/'+file);
 for(const grade of ['Excellent','Good','Decent','Poor','Sewage'])groups.bar.push('assets/01.ArtResources/05.UI/03.Crafting/03.Offer/Engine/FX_TX_GradeText_'+grade+'_01.png');
 // Serving atlases decode on demand; preload only the static backdrop.
 groups.bar.push('assets/01.ArtResources/04.Cutscenes/03.Bar/01.Serving/03.Background/Background.png');

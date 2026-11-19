@@ -2,9 +2,9 @@
  * Coordinates are in each final sprite's native pixels, not a rectangular particle box.
  * Bubbles stay inside the liquid; condensation belongs to the front of the glass. */
 (function(){
- // Final frame of the current 954×539 full-screen drink layers.
- const transform=[0,0,1280/954,720/539];
- // The current gin tonic/fizz uploads share the sunrise artwork. Keep FX in
+ // Final frame of the current 960×551 full-screen drink layers.
+ const transform=[0,0,1280/960,720/551];
+ // The highball glasses share a silhouette. Keep FX in
  // the visible liquid and out of the ice, garnish and glove on these source files.
  const tall={transform,count:28,top:258,bottom:378,
   outline:[[413,255],[548,255],[545,293],[538,300],[535,318],[525,329],[525,344],[514,357],[514,370],[521,378],[438,378],[430,365],[423,335],[418,295]],

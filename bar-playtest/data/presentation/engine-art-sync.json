@@ -10688,79 +10688,79 @@
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/old_fashioned.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/old_fashioned.png",
-      "sha256": "f4c8e6efa5e4da1652973a9104897a19912fe6e06910a458903280da0cd886fb",
+      "sha256": "dbcb856487e83d12fb50c37836e21196d6b15130d24f4ba90c423f632dfb7e76",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/gintonic.png",
-      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "sha256": "8a2fca53f769be2b566b2b612bc3a9a38e5f22b00b61bcd596b08d74e22a4f87",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/beer.png",
-      "sha256": "876c9bc69a0ab28a1e8cb72c7f04b0eb743d0c078057e900e6e64d44d6ac2b50",
+      "sha256": "999c72a58be5a0a309e5cd737859a1effec7da0e870c5dae6ff34492c8cd90ba",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/godfather.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/godfather.png",
-      "sha256": "25c92130527a200cab9aae765b96ccc72271692d5c28f46d944eb6ee280096d3",
+      "sha256": "0165e12e2d8ec756d3ac58a825a1558186067d6a95b2e2d71e591f2f4798a528",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/cosmopolitan.png",
-      "sha256": "119713f14c6d044d0c0c60f1ebc7a2d71af8f1dcf09e33c8ba565547a7c6eaac",
+      "sha256": "ba41f60f6ec43180696fbaefd8c5956530ca57f72dda89f1b98576b67309174d",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/wine.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/wine.png",
-      "sha256": "da4abf7fb2330fe9d08e43e77d8530904ed9ff54c1f52efbcb7882c9777316e9",
+      "sha256": "def4e681f033bb76da4798634fe2fe3b69aad8dd7ec6fcbaf282dba70610d856",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/drymartini.png",
-      "sha256": "779c06e4a027a46bdd749cd56fcdc6571659a9c363d7759c02cada194cdaa093",
+      "sha256": "ce9eb4bd170ee75b6e9d17898bab99bb6688116cef240edac8a3227f4c19a46f",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/screwdriver.png",
-      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "sha256": "b6b6976d54ff26b2be5ea2fa7fe82489ab1d5460eb9731da5eb04e265ef1697f",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/ginfizz.png",
-      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "sha256": "9d694b3b30426ccc0861408c4d588c2d39830517fdbb10ed8e06b62e1e54cbb5",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/whisky.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/whisky.png",
-      "sha256": "0dca5442916e24ff7955036acd613732dcc18d26c0face161dca3e226e53bc1f",
+      "sha256": "30951e09679a93cee739a0f8e66b29086ad4d62974e0b0bbaaf18a0fe0d01b39",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/kahluamilk.png",
-      "sha256": "a0b2978f10576d0b5e759ff1c7e336acf12f7baed66294479b9762876afde2ba",
+      "sha256": "aa6570258f99b45702b9d2488142863f3dff831d8afadd5c416430b01220e18a",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/champagne.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/champagne.png",
-      "sha256": "0bf4e46818e74e96d255fb1b06139e86dd2f295ea1e4157dc762aef13455287a",
+      "sha256": "48035d93adfe38fd4c81fbc9ca1bb64ddffb52a1e5e342b1f0073b8b7488464e",
       "kind": "new"
     },
     {
       "from": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
       "path": "04.Cutscenes/03.Bar/01.Serving/02.Drink_Serving_Screen_Sheets/tequila_sunrise.png",
-      "sha256": "edfa06f2e0bc756035ccc027f6aee1793a8eaac0a8d65b0ade5246cfec2f0b5d",
+      "sha256": "03b749fef97ba6715d7d5e4a6b08671e7e2d093f65c271a9a557cf7befbc6092",
       "kind": "new"
     },
     {
@@ -10954,6 +10954,18 @@
       "sha256": "f063121fb3076efe87d534fe53ea82852c4553882e81ba33f58cc10a7fd355ce",
       "kind": "new",
       "from": "03.Crafting/04.Minigames/03.Ingredients/wild_dog_off.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/BTN_offer.png",
+      "sha256": "181f66d084eff4c33cf4985e09dd5a331c90f4a66669c4753d159bc637592f17",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/BTN_offer.png"
+    },
+    {
+      "path": "05.UI/03.Crafting/03.Offer/BTN_trash.png",
+      "sha256": "2de681f52d7e1ecb40ed2be46487ca335eb1ad61b9dc9b713bf163eaa92f310a",
+      "kind": "new",
+      "from": "05.UI/03.Crafting/03.Offer/BTN_trash.png"
     }
   ]
 }

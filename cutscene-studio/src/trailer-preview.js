@@ -7,7 +7,15 @@ const effects=new W.LunaTrailerEffects(card,logo),fxAudio=new W.LunaTrailerAudio
 let ready=false,playing=false,loading=false,time=0,index=-1,last=0,generation=0,raf=0;const media=new Map(),images=new Map();
 const clamp=v=>Math.max(0,Math.min(1,v)),stamp=t=>`${Math.floor(t/60).toString().padStart(2,'0')}:${Math.floor(t%60).toString().padStart(2,'0')}`;
 const assetRoot='../bar-playtest/';
-function fit(){const r=stage.getBoundingClientRect();composition.style.transform=`scale(${Math.min(r.width/1280,r.height/720)})`;}
+function fit(){
+ const r=stage.getBoundingClientRect();composition.style.transform=`scale(${Math.min(r.width/1280,r.height/720)})`;
+ if(!bridge.w?.LunaServePixels)return;
+ // Mount the serving bitmap outside the transformed film stage to avoid
+ // compositing it through a second fractional scale during the montage.
+ const dpr=W.devicePixelRatio||1,box=bridge.w.LunaServePixels.layout(composition.getBoundingClientRect(),dpr);
+ Object.assign(canvas.style,{left:(box.x/dpr-r.left-stage.clientLeft)+'px',top:(box.y/dpr-r.top-stage.clientTop)+'px',
+  width:'960px',height:'540px',transformOrigin:'0 0',transform:`scale(${box.scale/dpr})`,imageRendering:box.scale>=1?'pixelated':'auto'});
+}
 new ResizeObserver(fit).observe(stage);document.addEventListener('fullscreenchange',fit);
 function show(el,value){el.style.visibility=value?'visible':'hidden';}
 function audio(a,volume){a.volume=clamp(volume*Number($('volume').value));if(playing&&!loading&&volume>0){if(a.paused)a.play().catch(()=>{});}else a.pause();}
@@ -63,11 +71,11 @@ async function enter(next){
 }
 function serveKeys(){return [...Object.keys(bridge.w.LUNA_SERVE_SHEETS).filter(key=>key!=='dry_martini'),'dry_martini'];}
 function serve(t,s){
- const keys=serveKeys();
- // Source: 30 frames at 20 fps, followed by a 1.8 s final-frame hold.
+ const keys=serveKeys(),frames=bridge.w.LUNA_SERVE_SHEETS[keys[0]].frames;
+ // Hold the last illustrated frame after the handoff.
  // All cocktails share the hand timing; dry martini always finishes the montage.
- const n=Math.min(29,Math.floor((t+1e-7)*20));
- const key=keys[Math.floor(n/30*keys.length)]; // Switch only on source-frame boundaries.
+ const n=Math.min(frames-1,Math.floor((t+1e-7)*20));
+ const key=keys[Math.floor(n/frames*keys.length)]; // Switch only on source-frame boundaries.
  ctx.fillStyle='#000';ctx.fillRect(0,0,960,540);ctx.imageSmoothingEnabled=false;
  ctx.drawImage(images.get(n),0,0);
  canvas.dataset.cocktail=key;canvas.dataset.frame=String(n);
@@ -107,10 +115,10 @@ $('fullscreen').onclick=()=>document.fullscreenElement?document.exitFullscreen()
 document.addEventListener('keydown',e=>{if(e.target.matches('input'))return;if(e.code==='Space'){e.preventDefault();$('play').click();}if(e.code==='ArrowRight'){e.preventDefault();seek(time+5);}if(e.code==='ArrowLeft'){e.preventDefault();seek(time-5);}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',()=>{stop();cancelAnimationFrame(raf);for(const url of media.values())URL.revokeObjectURL(url);});
 async function init(){
- await bridge.init();
+ await bridge.init();fit();
  await Promise.all([fxAudio.prepare(),document.fonts.load('38px LunaPixel')]);
- // Retain the 30 composed montage frames (~62 MB), not thirteen decoded
- // 5738×2707 atlases (~807 MB). Use unchanged native texels, no video re-encode.
+ // Retain the composed montage frames, not thirteen decoded
+ // full-size atlases. Use unchanged native texels, no video re-encode.
  const w=bridge.w,bg=new Image();bg.src=assetRoot+w.LUNA_SERVE_BACKGROUND.src;await bg.decode();
  const keys=serveKeys();
  for(const [i,key]of keys.entries()){
@@ -118,7 +126,8 @@ async function init(){
   if(!response.ok)throw Error(key+' 제공 시트 없음');
   const image=await createImageBitmap(await response.blob());
   try{
-   for(let n=0;n<30;n++)if(Math.floor(n/30*keys.length)===i){
+   const frames=sheet.frames;
+   for(let n=0;n<frames;n++)if(Math.floor(n/frames*keys.length)===i){
     const frame=document.createElement('canvas');frame.width=960;frame.height=540;
     const context=frame.getContext('2d');context.imageSmoothingEnabled=false;
     w.LunaServeComposition.draw(context,bg,image,sheet,n);images.set(n,frame);
@@ -133,7 +142,7 @@ async function init(){
   // not wait on a new source load or expose a black/loading frame.
   const player=document.createElement('video');player.className='trailer-footage';player.muted=true;player.playsInline=true;player.preload='auto';show(player,false);
   const loaded=new Promise((resolve,reject)=>{player.addEventListener('loadeddata',resolve,{once:true});player.addEventListener('error',()=>reject(Error(file+' 영상 디코딩 실패')),{once:true});});
-  composition.insertBefore(player,canvas);player.src=url;player.load();await loaded;
+  composition.insertBefore(player,card);player.src=url;player.load();await loaded;
   const offset=scenes.find(s=>s.file===file)?.offset||0;
   if(offset){const primed=new Promise(resolve=>player.addEventListener('seeked',resolve,{once:true}));player.currentTime=offset;await primed;}
   videoPlayers.set(file,player);

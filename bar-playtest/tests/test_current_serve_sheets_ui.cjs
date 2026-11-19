@@ -8,13 +8,17 @@ const files={gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'dryma
  for(const name of Object.values(files).map(n=>n+'.png')){
   const local=path.join(dir,name),original=process.env.LUNA_SERVE_SOURCE_DIR?path.join(process.env.LUNA_SERVE_SOURCE_DIR,name):'';
   if(fs.existsSync(original))assert(fs.readFileSync(original).equals(fs.readFileSync(local)),name+' original bytes');
-  const m=await sharp(local).metadata();assert.equal(m.width,5738);assert.equal(m.height,2707);
+  const m=await sharp(local).metadata();assert.equal(m.width,5774);assert.equal(m.height,2767);
   const {data,info}=await sharp(local).ensureAlpha().raw().toBuffer({resolveWithObject:true});
-  for(let f=0;f<30;f++){
-   const x=2+(f%6)*956,y=2+Math.floor(f/6)*541;let visible=0;
-   for(let yy=y;yy<y+539;yy+=4)for(let xx=x;xx<x+954;xx+=4)if(data[(yy*info.width+xx)*4+3])visible++;
+  // The animator left the bottom-right cell empty. Showing it would make the
+  // glass disappear just as the grade appears.
+  const lastCell=await sharp(local).extract({left:4812,top:2214,width:960,height:551}).extractChannel('alpha').raw().toBuffer();
+  assert(!lastCell.some(Boolean),name+' final atlas slot is padding');
+  for(let f=0;f<29;f++){
+   const x=2+(f%6)*962,y=2+Math.floor(f/6)*553;let visible=0;
+   for(let yy=y;yy<y+551;yy+=4)for(let xx=x;xx<x+960;xx+=4)if(data[(yy*info.width+xx)*4+3])visible++;
    assert(visible>100,name+' frame '+f+' must not be empty');
-   assert(y+539<=info.height&&x+954<=info.width,'Frame must stay within its source atlas');
+   assert(y+551<=info.height&&x+960<=info.width,'Frame must stay within its source atlas');
   }
  }
  const browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true,args:['--mute-audio']});
@@ -32,15 +36,19 @@ const files={gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'dryma
     await p.keyboard.press('Escape');const frame=await p.locator('.serve-canvas').getAttribute('data-frame');await p.waitForTimeout(250);assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),frame);await p.keyboard.press('Escape');
    }
    await p.locator('[data-act=offer]').waitFor();assert.equal(await p.locator('.serve-fallback').count(),0);
-   assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),'29');
+   assert.equal(await p.locator('.serve-canvas').getAttribute('data-frame'),'28');
    assert((await p.locator('.serve-canvas').getAttribute('data-source')).endsWith('/'+files[id]+'.png'));
+   // Verify source composition byte-for-byte at 1:1. Fractional display
+   // sampling and the browser compositor are exercised by the pixel-grid test.
+   await p.setViewportSize({width:960,height:540});
+   await p.waitForFunction(()=>{const c=document.querySelector('.serve-canvas');return c.width===960&&c.height===540;});
    const exact=await p.evaluate(async id=>{
     const native=document.createElement('canvas');native.width=960;native.height=540;const ctx=native.getContext('2d');ctx.imageSmoothingEnabled=false;
-    const background=new Image();background.src=LUNA_SERVE_BACKGROUND.src;await background.decode();ctx.drawImage(background,0,5,959,540,0,0,960,540);
-    const sheet=LUNA_SERVE_SHEETS[id],image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,4782,2166,954,539,3,1,954,539);
-    const actual=document.querySelector('.serve-canvas'),canvas=document.createElement('canvas');canvas.width=actual.width;canvas.height=actual.height;
-    const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;out.drawImage(native,0,0,canvas.width,canvas.height);
-    return canvas.toDataURL()===actual.toDataURL();
+    const background=new Image();background.src=LUNA_SERVE_BACKGROUND.src;await background.decode();ctx.drawImage(background,0,0);ctx.drawImage(background,958,0,1,540,959,0,1,540);
+    const sheet=LUNA_SERVE_SHEETS[id],image=new Image();image.src=sheet.src;await image.decode();ctx.drawImage(image,3850,2214,960,551,0,0,960,551);
+    const actual=document.querySelector('.serve-canvas').getContext('2d');
+    const pixels=actual.getImageData(0,0,960,540).data,reference=ctx.getImageData(0,0,960,540).data;
+    return pixels.every((channel,i)=>channel===reference[i]);
    },id);assert(exact,'Actual canvas must equal synchronized new background + drink: '+id);
    await p.screenshot({path:'/private/tmp/current-serve-'+id+'.png'});
    // Every supplied drink must keep the same composition, not merely the
@@ -48,16 +56,18 @@ const files={gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'dryma
    for(const viewport of [{width:390,height:844},{width:953,height:600},{width:955,height:600},{width:1919,height:1080},{width:1921,height:1081},{width:2048,height:1181},{width:1280,height:720}]){
     await p.setViewportSize(viewport);await p.waitForTimeout(70);
     const check=await p.evaluate(()=>{
-     const stage=document.querySelector('.serve-presentation').getBoundingClientRect(),canvas=document.querySelector('.serve-canvas'),art=canvas.getBoundingClientRect();
-     const inside=b=>b.left>=stage.left-.1&&b.top>=stage.top-.1&&b.right<=stage.right+.1&&b.bottom<=stage.bottom+.1;
+     const stage=document.querySelector('.serve-frame').getBoundingClientRect(),canvas=document.querySelector('.serve-canvas'),art=canvas.getBoundingClientRect();
+     const pixel=1/devicePixelRatio,stageArea=document.querySelector('.serve-presentation').getBoundingClientRect();
+     const fitsStage=['left','top','right','bottom'].every(edge=>Math.abs(art[edge]-stageArea[edge])<=pixel);
+     const inside=b=>b.left>=stage.left-pixel&&b.top>=stage.top-pixel&&b.right<=stage.right+pixel&&b.bottom<=stage.bottom+pixel;
      const controls=[...document.querySelectorAll('.serve-actions button,.serve-grade')].map(e=>e.getBoundingClientRect());
      const fx=document.querySelector('.serve-carbonation'),grade=document.querySelector('.serve-grade').getBoundingClientRect();
      // Reference grade is centered above the drink, at the same logical size on every viewport.
      const headerClear=Math.abs((grade.left+grade.right)/2-(stage.left+stage.right)/2)<1&&Math.abs(grade.width/stage.width-440/1280)<.002;
      const gc=document.querySelector('.serve-grade-effects'),gradePainted=gc.getContext('2d').getImageData(gc.width*.3,gc.height*.05,gc.width*.4,gc.height*.17).data.some((v,i)=>i%4===3&&v>0);
-     return {width:art.width/stage.width,height:art.height/stage.height,inside:inside(art)&&controls.every(inside)&&headerClear&&gradePainted,frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
+     return {width:art.width/stage.width,height:art.height/stage.height,inside:fitsStage&&inside(art)&&controls.every(inside)&&headerClear&&gradePainted,frame:canvas.dataset.frame,fxAligned:!fx||JSON.stringify(fx.getBoundingClientRect())===JSON.stringify(art)};
     });
-    assert(check.width>.99&&check.height>.99&&check.inside&&check.fxAligned&&check.frame==='29',JSON.stringify({id,viewport,check}));
+    assert(check.width>.99&&check.height>.99&&check.inside&&check.fxAligned&&check.frame==='28',JSON.stringify({id,viewport,check}));
     if(['bottle_beer','dry_martini'].includes(id)&&[390,2048].includes(viewport.width))await p.screenshot({path:'/private/tmp/serve-responsive-'+id+'-'+viewport.width+'.png'});
    }
   }
@@ -76,7 +86,7 @@ const files={gin_tonic:'gintonic',cosmopolitan:'cosmopolitan',dry_martini:'dryma
   assert(!requests.some(url=>/\/01.Legacy\/|\/04.ServingAnime\/|serve-gin-tonic\.png|serve-cosmo\.png|serve-background\.png|serve-kahlua\.png/.test(url)),'No retired serving resources requested');
   await p.goto('http://127.0.0.1:8123/bar-playtest/resource-review.html');await p.waitForFunction(()=>window.resourceReview?.ready);
   const catalog=await p.evaluate(()=>resourceReview.rows.filter(r=>r.group==='bar-serve').map(r=>({id:r.id,status:r.status,layer:r.layers[0]})));
-  for(const id of Object.keys(files)){const r=catalog.find(r=>r.id==='serve:'+id);assert.equal(r.status,'registered');assert.equal(r.layer.sx,2);assert.equal(r.layer.sy,2);assert.equal(r.layer.fw,954);assert.equal(r.layer.fh,539);assert.equal(r.layer.w,5738);}
-  assert.deepEqual(errors,[]);console.log('PASS current 13 drink sheets + static background; 390 nonempty frames; 91 responsive drink/viewport cases with contained controls and aligned FX; exact source bytes and compositing; load gate, pause, offer/discard, reset, truthful missing-sheet fallback, resource catalog; no retired assets.');
+  for(const id of Object.keys(files)){const r=catalog.find(r=>r.id==='serve:'+id);assert.equal(r.status,'registered');assert.equal(r.layer.sx,2);assert.equal(r.layer.sy,2);assert.equal(r.layer.fw,960);assert.equal(r.layer.fh,551);assert.equal(r.layer.w,5774);}
+  assert.deepEqual(errors,[]);console.log('PASS current 13 drink sheets + static background; 377 nonempty frames; 91 responsive drink/viewport cases with contained controls and aligned FX; exact source bytes and compositing; load gate, pause, offer/discard, reset, truthful missing-sheet fallback, resource catalog; no retired assets.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
