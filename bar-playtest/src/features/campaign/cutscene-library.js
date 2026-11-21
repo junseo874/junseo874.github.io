@@ -13,12 +13,12 @@ for(const [key,day,title,kind,background] of [
 catalog.push({id:'ending-credits',day:'3일차',title:'엔딩 크레딧',kind:'credits',description:'데모 제작진과 감사 인사'});
 const creditPages=[
  [['SIMCHUNG','presents']],
- [['Director','Lee Jun Seo'],['Lead Programmer','Lee Dong Hun'],['Programmers','Han Chi U','Park Yong Seok']],
- [['Lead Artist','Min Su Hyeon'],['Technical Artist','Park Yong Seok'],['Environment Artists','Min Su Hyeon','Jeon Ji Min'],['Animator','Jeong Yu Bin']],
- [['Character Artists','Han So Yoon','Jeong Yu Bin'],['Prop Artist','Cho Hyeon A'],['Visual Effects','Gwak Yo Sep','Park Yong Seok']],
- [['UI/UX Designer','Shin Seo Yeon'],['Game Designers','Go Hyeon Jeong','Im Su Jin','Lee Jun Seo']],
- [['Narrative','Lee Jun Seo','Lee Gi Hyeon'],['Music','Yu Ji Hun'],['Sound','Lee Gi Hyeon','Lee Jun Seo']],
- [['Special Thanks','Lee Deuk U','Hwang Seung Ha','Lee Su Yeon','Choi Bu Ho','Son Byeong Hyeok','Baek Chan Hyeok','Lee Sin Ji','Choi Yong Geun','Shin Yu Hyeon','Lee Su Ha','Wang Do Hyeon']]
+ [['Director','LEE JUNSEO'],['Lead Artist','MIN SUHYEON'],['Lead Programmer','LEE DONGHUN']],
+ [['Technical Artist','PARK YONGSEOK'],['Environment Artists','MIN SUHYEON','JEON JIMIN'],['Animator','JEONG YUBIN']],
+ [['Character Artists','HAN SOYOON','JEONG YUBIN'],['Prop Artist','CHO HYEONA'],['Visual Effects','GWAK YOSEP','PARK YONGSEOK']],
+ [['UI/UX Designer','SHIN SEOYEON'],['Programmers','HAN CHIU','PARK YONGSEOK'],['Game Designers','GO HYEONJEONG','LIM SUJIN','LEE JUNSEO']],
+ [['Narrative','LEE JUNSEO','LEE GIHYEON'],['Music','YU JIHOON'],['Sound','LEE GIHYEON','LEE JUNSEO']],
+ [['Special Thanks','이득우 교수님','이수연 교수님','최부호 교수님','손병혁 교수님','김영진 교수님','신유철 교수님','최화선 교수님','이승환 교수님','김상중 교수님','황승하','백찬혁','이신지','최용근','신유현','이수하','왕도현','최경빈']]
 ];
 const companions=['pigeon','luna','Chris','bubi','Repairman','shiba','samho','Neighbor'];
 const creditImages=new Map();

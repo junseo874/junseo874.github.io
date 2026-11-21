@@ -116,7 +116,7 @@
         global.Sfx?.setEnabled(false);
         global.Sfx?.setLowpass(0);
       }
-      if(view==='ending'&&this.view!=='ending'){this.creditTime=0;this.creditsFinished=false;}
+      if(view==='ending'&&this.view!=='ending'){this.creditTime=0;this.creditsFinished=false;this.bgm.startCredits();}
       this.view = view;
       document.body.classList.toggle('campaign-cinematic', ['awakening', 'bar-door'].includes(view)||view==='prologue'&&!this.cinema?.dialogueWait&&!this.cinema?.dialogueChoice);
       this.host.classList.toggle('is-dev-console', view === 'dev-console');

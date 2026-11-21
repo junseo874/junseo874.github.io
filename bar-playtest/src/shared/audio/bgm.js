@@ -3,6 +3,7 @@
   'use strict';
   const tracks=[1,2,3,4].map(n=>({title:`LUNA Track 0${n}`,src:`assets/audio/music/luna-track-0${n}.mp3`}));
   const locations={home:{title:'집 · 테라스',tracks:[2],gain:1},street:{title:'외부 거리',tracks:[1],gain:.6},bar:{title:'바 내부',tracks:[0,2,3],gain:1}};
+  locations.credits={title:'엔딩 크레딧',tracks:[0],gain:1};
   const settingsKey='luna.bar.playtest.bgm.v1';
   class BarBgm{
     constructor(){
@@ -23,7 +24,7 @@
       // Fade before the actual file boundary, including single-track locations.
       audio.addEventListener('timeupdate',()=>{
         const remaining=audio.duration-audio.currentTime;
-        if(this.enabled&&!audio.paused&&Number.isFinite(remaining)&&remaining>0&&remaining<=1.1&&this.fade?.target!==0){
+        if(this.enabled&&!audio.loop&&!audio.paused&&Number.isFinite(remaining)&&remaining>0&&remaining<=1.1&&this.fade?.target!==0){
           this.status='fading';this.fadeTo(0,remaining*1000,()=>this.next());
         }
       });
@@ -74,6 +75,18 @@
       };
       this.raf=requestAnimationFrame(tick);
     }
+    startCredits(){
+      this.cancelFade();
+      this.attempt++;
+      this.audio.pause();
+      this.location='credits';
+      this.playingLocation=null;
+      this.index=-1;
+      this.cursor=0;
+      this.locationGain=0;
+      this.applyVolume();
+      if(this.enabled&&this.unlocked)this.next();
+    }
     setLocation(location){
       if(!Object.hasOwn(locations,location)||this.location===location)return;
       this.location=location;this.cursor=0;this.attempt++;
@@ -85,6 +98,7 @@
     }
     syncLocation(campaign,outside){
       const view=campaign?.view==='options'?campaign.resumeView:campaign?.view;
+      if(view==='ending'&&!campaign.creditsFinished)return; // The cutscene starts its own track on entry.
       // The entry lobby, title and story selection share the street's quiet loop.
       if(['picker','title'].includes(view)){this.setLocation('street');return;}
       // Outside can preload behind the bar door: switch only when its new view is revealed.
@@ -106,7 +120,7 @@
       const index=this.choose();
       if(index===undefined){this.attempt++;this.audio.pause();this.status='error';return;}
       this.index=index;this.playingLocation=this.location;
-      this.audio.loop=false;
+      this.audio.loop=this.location==='credits';
       this.audio.src=tracks[index].src;this.audio.load();this.play();
     }
     play(){

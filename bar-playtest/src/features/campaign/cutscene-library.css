@@ -11,17 +11,23 @@ body:has(#cutscene-preview-toolbar) .campaign-skip{top:100px;bottom:auto}
 #cutscene-preview-toolbar{position:fixed;top:12px;left:16px;right:16px;z-index:100000;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}#cutscene-preview-toolbar>span{background:#09131cdb;border:1px solid #41616b;border-radius:5px;padding:9px 12px;color:#cce4e5;font-size:13px}#cutscene-preview-toolbar button{pointer-events:auto;background:#101e29ed;border-color:#77bfc9;font-size:13px;padding:10px 14px}#cutscene-preview-toolbar kbd{margin-left:8px;font-size:10px}
 .cutscene-trailer-link{display:flex;gap:16px;align-items:center;padding:12px 16px;border:1px solid #497783;border-radius:6px;background:#16323a;color:#8fe6ed;text-decoration:none}.cutscene-trailer-link span{font-size:12px;color:#b1c8ce}.cutscene-trailer-link:hover{background:#23505a}
 
-.ending-credits{position:absolute;inset:0;overflow:hidden;background:#000;color:#fff;text-align:left}
+.ending-credits{position:absolute;inset:0;overflow:hidden;background:#000;color:#fff;text-align:left;font-family:var(--font-ui);font-weight:700}
 .credit-copy{position:absolute;left:10%;top:0;width:47%;will-change:transform}
 .credit-group+.credit-group{margin-top:74px}
 .credit-group section+section{margin-top:40px}
-.credit-copy h2{margin:0 0 10px;color:#fff;font-size:23px;font-weight:normal;line-height:1.25}
-.credit-copy span{display:block;color:#fff;font-size:31px;line-height:1.4}
-.credit-group:first-child h2{font-size:66px}
-.credit-thanks{transform:translate(-50%,-50%);position:absolute;left:50%;top:50%;width:90%;margin:0;color:#fff;text-align:center;font-size:35px;line-height:1.55;word-break:keep-all}
+.credit-copy h2{margin:0 0 10px;color:#bbb;font-size:19px;font-weight:700;line-height:1.25}
+.credit-copy span{display:block;color:#fff;font-size:26px;line-height:1.4}
+.credit-group:first-child h2{font-size:55px;color:#fff}
+.credit-thanks{transform:translate(-50%,-50%);position:absolute;left:50%;top:50%;width:90%;margin:0;color:#fff;text-align:center;font-size:29px;line-height:1.55;word-break:keep-all}
 .ending-credits canvas{position:absolute;width:384px;height:288px;right:9%;top:50%;transform:translateY(-50%);image-rendering:pixelated}
-.ending-credits button{position:absolute;right:40px;bottom:30px;color:#fff}
+.ending-credits button{position:absolute;right:40px;bottom:30px;color:#fff;font-family:var(--font-ui);font-weight:700}
 
 .credit-team-logo{display:block;width:124px;height:auto;margin:0 0 16px}
 
 .credit-game-logo{position:absolute;left:50%;top:50%;width:38%;height:auto;transform:translate(-50%,-50%)}
+
+@media (prefers-reduced-motion:reduce){
+  .credit-group:last-child section{columns:2;column-gap:20px}
+  .credit-group:last-child h2{column-span:all}
+  .credit-group:last-child span{break-inside:avoid}
+}
