@@ -79,7 +79,7 @@ function problem(model,scene,src,dst,port){
  if(block(last)&&rows.some(r=>block(r)===block(last)&&rows.indexOf(r)>rows.indexOf(last)))return '주문·제조·제공 묶음은 마지막 제공 핀에서 다음 노드에 연결하세요.';
  if(block(first)&&rows.find(r=>block(r)===block(first))!==first)return '묶음의 첫 입력 핀에 연결하세요.';
  if((last.type==='choice')!==!!port.choice)return '선택지는 각 문구의 출력 핀 하나로 연결하세요.';
- if(dst.index<=src.index)return '이 장면은 앞으로만 진행합니다. 자기 자신이나 앞 노드로 반복할 수 없습니다.';
+ if(dst.index<=src.index)return '이미 실행한 대사를 반복하거나 다른 경로의 순서까지 바꾸는 연결입니다. 두 분기를 안전하게 재배치할 수 없어 연결하지 않았습니다.';
  if(last.type==='end_part'||last.sync==='no_wait'||rows[dst.index-1]?.sync==='no_wait')return '장면 종료나 동시 입장 두 줄의 중간에는 연결할 수 없습니다.';
  if(src.index+src.rows.length<model.prefix(scene))return '개점 전 초기 배치는 고정되어 있습니다.';
  if(port.choice){

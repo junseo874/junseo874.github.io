@@ -77,7 +77,7 @@
     complete: L('영업 정산', 'Daily settlement'),
     gameover: L('게임오버', 'Game over')
   })[g.phase];
-  const a = key => D.assets[key]?.src;
+  const a = key => window.LunaResources.paintSource(D.assets[key]?.src);
   const button = (label, act, more = '', cls = '') => `<button class="${cls}" data-act="${act}" ${more}>${label}</button>`;
   const pourView = window.LunaPourView({
     g,
@@ -138,7 +138,7 @@
     const c = g.cocktail(id),
       key = usage === 'table' ? 'table_cocktail_' + id : usage === 'recipe' ? 'recipe_cocktail_' + id : 'cocktail_' + id;
     const art = D.assets[key] || D.assets['cocktail_' + id] || D.assets['recipe_cocktail_' + id] || D.assets['item_' + c.glass];
-    const src = art?.src;
+    const src = window.LunaResources.paintSource(art?.src);
     // Finished glasses have different transparent headroom; centre their painted bounds in the preview.
     const bounds = usage === 'recipe' && art?.alphaBBox;
     const center = bounds && art.h ? ' style="--recipe-art-center-y:' + (50 * (1 - (bounds[1] + bounds[3]) / art.h)) + '%"' : '';

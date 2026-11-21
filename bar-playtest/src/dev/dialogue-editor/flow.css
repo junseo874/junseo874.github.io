@@ -110,3 +110,4 @@ button.port-label{width:auto;min-width:0;margin:0;padding:0 2px;background:trans
 .preview-branch-picker [data-branch]:not(:disabled):hover,.preview-branch-picker [data-selected]{border-color:#58b3ba;background:#1c3941}
 .preview-branch-picker button:focus-visible{outline:2px solid #8ae7ec;outline-offset:2px}
 .preview-branch-picker [data-branch] small{color:#91d8d6;font-size:11px}.preview-branch-picker [data-branch] strong{font-size:14px}.preview-branch-picker [data-branch] span,.preview-branch-picker [data-branch] em{color:#bed0d7;font-size:12px;font-style:normal}.preview-branch-picker [data-branch] em{color:#f1b68e}
+.flow-selection-box{position:absolute;pointer-events:none;border:1px solid #65dfde;background:#53d1cf22;z-index:10}.flow-card.multi-selected{outline:2px solid #65dfde}#map-port{touch-action:none;overflow-anchor:none;user-select:none}#map-port img{-webkit-user-drag:none}

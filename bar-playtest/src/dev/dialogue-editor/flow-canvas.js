@@ -9,7 +9,9 @@ function create(api){
  let items=[],edges=[],byId,positions,prefs,active='',wire=null,drag=null,pointer=null,raf=0,noClick=0;
  let zoomFrame=0,zoomGoal=0,zoomAnchor=null;const zoom=()=>prefs.s.zoom,card=id=>world.querySelector('[data-node="'+CSS.escape(id)+'"]');
  const rightAt=id=>(prefs.s.portsAt?.[id]||prefs.s.direction)==='right';
- const homeHint='카드 끌기: 배치　·　우클릭: 빠른 작업　·　핀·선 클릭: 조건 편집　·　핀 끌기: 연결';
+ let selection=new Set(),rect;
+ function highlight(){for(const el of world.querySelectorAll('.flow-card'))el.classList.toggle('multi-selected',selection.has(el.dataset.node));}
+ const homeHint='빈 곳 드래그: 여러 노드 선택　·　가운데 버튼 드래그: 화면 이동　·　카드 끌기: 배치';
  function tell(s){hint.textContent=s||homeHint;}
  function point(x,y){const r=view.getBoundingClientRect();return {x:(x-r.left-view.clientLeft+view.scrollLeft)/zoom(),y:(y-r.top-view.clientTop+view.scrollTop)/zoom()};}
  function size(){
@@ -25,6 +27,13 @@ function create(api){
    return hit+'<path data-from="'+esc(e.from)+'" data-pin="'+esc(e.pinKey)+'" data-to="'+esc(e.to)+'" class="'+(e.branch?'branch ':'')+(e.from===active||e.to===active?'focus':'')+'" d="'+p+'"/>';
   }).join('')+'<path class="wire-ghost"/>';
   if(wire)ghost();
+ }
+ function moveLines(ids){
+  for(const path of world.querySelectorAll('.wires path[data-from]')){
+   const {from,to,pin}=path.dataset;if(!ids.has(from)&&!ids.has(to))continue;
+   const i=byId.get(from).ports.findIndex(p=>p.key===pin),d=L.curve(endpoint(from,Math.max(i,0)),endpoint(to,-1),rightAt(from),rightAt(to));
+   path.setAttribute('d',d);path.previousElementSibling.setAttribute('d',d);
+  }
  }
  function ghost(){
   if(!wire)return;const el=world.querySelector('.wire-ghost'),start=endpoint(wire.id,wire.i),hit=socketAt()?.closest('[data-node]')?.dataset.node;
@@ -69,6 +78,7 @@ function create(api){
  function draw(data,p,resetView){
   if(drag)finish(null,true);cancelAnimationFrame(zoomFrame);zoomFrame=0;endWire();items=data.items;edges=data.edges;prefs=p;byId=new Map(items.map(n=>[n.id,n]));positions=L.place(items,edges,prefs.s);
   world.dataset.direction=prefs.s.direction;world.innerHTML='<svg class="wires" aria-label="노드 연결선"></svg>'+items.map(html).join('');
+  selection=new Set([...selection].filter(id=>byId.has(id)));highlight();
   for(const c of world.querySelectorAll('[data-node]')){const n=byId.get(c.dataset.node);W.LunaFlagPicker.markers(c.querySelector('.flow-flag-marks'),n.flagExpr);c.querySelectorAll('.port-marks').forEach((slot,i)=>W.LunaFlagPicker.markers(slot,n.ports[i].flagExpr));}
   size();paintLines();zoomLabel();$('map-direction').value=prefs.s.direction;if(resetView)view.scrollTo(0,0);
  }
@@ -90,32 +100,42 @@ function create(api){
   if(!pointer||!drag)return;const {x,y}=pointer;
   if(!drag.moved&&Math.hypot(x-drag.x,y-drag.y)<4)return;drag.moved=true;
   if(drag.kind==='pan'){view.scrollTo(drag.left+drag.x-x,drag.top+drag.y-y);return;}
-  if(drag.kind==='node'){const pt=point(x,y);shift(drag.id,pt.x-drag.dx,pt.y-drag.dy);}
+  const pt=point(x,y);
+  if(drag.kind==='box'){const x1=Math.min(pt.x,drag.start.x),y1=Math.min(pt.y,drag.start.y),x2=Math.max(pt.x,drag.start.x),y2=Math.max(pt.y,drag.start.y);
+   Object.assign(rect.style,{left:x1+'px',top:y1+'px',width:x2-x1+'px',height:y2-y1+'px'});selection=new Set([...positions].filter(([id,p])=>p.x<=x2&&p.x+L.width>=x1&&p.y<=y2&&p.y+p.h>=y1).map(([id])=>id));highlight();}
+  if(drag.kind==='node'){const origins=drag.origins,dx=Math.max(pt.x-drag.start.x,24-Math.min(...origins.map(v=>v[1].x))),dy=Math.max(pt.y-drag.start.y,24-Math.min(...origins.map(v=>v[1].y)));
+   for(const [id,o] of origins){const p=positions.get(id);p.x=o.x+dx;p.y=o.y+dy;positionCard(card(id),p);}size();moveLines(selection);}
   if(drag.kind==='wire'){if(!wire)startWire(drag.id,drag.port);if(wire)ghost();}
  }
  function scrollEdge(){
   raf=0;if(!drag?.moved||drag.kind==='pan'||!pointer)return;
   const r=view.getBoundingClientRect(),speed=(v,min,max)=>v<min+38?-Math.min(22,(min+38-v)*.5):v>max-38?Math.min(22,(v-max+38)*.5):0;
   const dx=speed(pointer.x,r.left,r.right),dy=speed(pointer.y,r.top,r.bottom);
-  if(dx||dy){view.scrollBy(dx,dy);moveAction();raf=requestAnimationFrame(scrollEdge);}
+  if(dx||dy){view.scrollBy(dx,dy);raf=requestAnimationFrame(()=>{moveAction();scrollEdge();});}
  }
  view.addEventListener('pointerdown',e=>{
   if(drag||(e.button!==0&&e.button!==1))return;noClick=0;const el=e.target.closest('[data-node]'),pin=e.target.closest('.socket'),id=el?.dataset.node;
   if(pin?.classList.contains('socket-in')||e.button===0&&e.target.closest('[data-line-pin]'))return;
   if(!pin&&e.target.closest('button'))return;
   const pt=point(e.clientX,e.clientY),pos=positions.get(id);pointer={x:e.clientX,y:e.clientY};
-  let kind=e.button===1||!el?'pan':pin?'wire':'node';
+  let kind=e.button===1?'pan':!el?'box':pin?'wire':'node';
   if(kind==='wire')endWire();
-  if(kind==='node'){if(!byId.get(id).portal)api.select(id,false);el.focus({preventScroll:true});}
+  if(kind==='node'){if(!selection.has(id))selection=new Set([id]);highlight();el.focus({preventScroll:true});}
+  if(kind==='box'){selection.clear();highlight();rect=document.createElement('div');rect.className='flow-selection-box';world.append(rect);}
+  const origins=[...selection].filter(k=>positions.has(k)).map(k=>[k,{...positions.get(k)}]);
   drag={kind,id,port:pin?Number(pin.dataset.port):-1,pointerId:e.pointerId,origin:pos&&{...pos},x:e.clientX,y:e.clientY,dx:pos?pt.x-pos.x:0,dy:pos?pt.y-pos.y:0,left:view.scrollLeft,top:view.scrollTop};
-  e.preventDefault();view.setPointerCapture(e.pointerId);view.classList.add('dragging');
+  Object.assign(drag,{start:pt,origins});e.preventDefault();view.setPointerCapture(e.pointerId);view.classList.add('dragging');
  });
- view.addEventListener('pointermove',e=>{if(drag&&drag.pointerId!==e.pointerId)return;pointer={x:e.clientX,y:e.clientY};if(drag){moveAction();if(!raf)raf=requestAnimationFrame(scrollEdge);}else if(wire)ghost();});
+ view.addEventListener('dragstart',e=>e.preventDefault());
+ view.addEventListener('pointermove',e=>{if(drag&&drag.pointerId!==e.pointerId)return;pointer={x:e.clientX,y:e.clientY};if(drag){if(!raf)raf=requestAnimationFrame(()=>{moveAction();scrollEdge();});}else if(wire)ghost();});
  function finish(e,cancel){
   if(!drag||(e&&e.pointerId!==drag.pointerId))return;const d=drag;
   if(e&&!cancel){pointer={x:e.clientX,y:e.clientY};if(d.kind!=='pan')moveAction();}
   drag=null;cancelAnimationFrame(raf);raf=0;view.classList.remove('dragging');
-  if(d.kind==='node'&&d.moved){const p=positions.get(d.id);if(cancel)shift(d.id,d.origin.x,d.origin.y);else commitMove(d.id,d.origin,p.x,p.y);}
+  if(d.kind==='box'){rect?.remove();rect=null;}
+  if(d.kind==='node'&&d.moved){if(cancel){for(const [id,o]of d.origins){Object.assign(positions.get(id),o);positionCard(card(id),o);}size();paintLines();}
+   else {const moves=d.origins.flatMap(([id,o])=>{const p=positions.get(id),x=Math.round(p.x),y=Math.round(p.y);return x===o.x&&y===o.y?[]:[[id,{x,y}]];});if(moves.length)api.moveGroup(moves);else refreshPositions();}}
+  if(d.kind==='node'&&!cancel&&!byId.get(d.id).portal)api.select(d.id,false);
   if(d.kind==='wire'&&d.moved){const input=socketAt(),target=input?.closest('[data-node]')?.dataset.node;if(!cancel&&target)finishWire(target);else endWire('연결하지 않았습니다.');}
   if(d.kind==='wire'&&!d.moved&&!cancel){api.inspect(d.id,byId.get(d.id).ports[d.port].key);noClick=performance.now()+100;}
   if(cancel&&wire)endWire();if(d.moved)noClick=performance.now()+100;

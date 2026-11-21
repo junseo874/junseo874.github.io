@@ -30,20 +30,12 @@ window.LunaBarViews = function ({
       const src = D.assets[key]?.src;
       if (!src) return false;
       let entry = poseImages.get(src);
-      if (!entry) {
-        entry = {
-          image: new window.Image(),
-          ready: false
-        };
-        poseImages.set(src, entry);
-        const image = entry.image;
-        image.onload = () => {
-          if (typeof image.decode === 'function') image.decode().then(() => {
-            entry.ready = true;
-          }).catch(() => {});else entry.ready = image.naturalWidth > 0;
-        };
-        image.onerror = () => {};
-        image.src = src;
+      if (!entry || entry.retryAt <= Date.now()) {
+        entry = {ready:false};
+        poseImages.set(src,entry);
+        window.LunaResources.image(src).then(image=>{
+          entry.image=image;entry.ready=true;
+        }).catch(()=>{entry.retryAt=Date.now()+30000;});
       }
       return entry.ready;
     }).every(Boolean);
@@ -382,7 +374,7 @@ window.LunaBarViews = function ({
         fw = (s.frameWidth || s.w / frames) * scale,
         fh = (s.frameHeight || s.h) * scale;
       // Keep source pixels and a stable pose-level anchor, never recrop per frame.
-      return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw / 551 * 100}%;height:${fh / 530 * 100}%;left:${50 + dx / 551 * 100}%;bottom:${-(dy + partY) / 530 * 100}%;background-image:url('${s.src}');background-size:${frames * 100}% 100%;background-position:${frames > 1 ? frame / (frames - 1) * 100 : 0}% 0"></div>`;
+      return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw / 551 * 100}%;height:${fh / 530 * 100}%;left:${50 + dx / 551 * 100}%;bottom:${-(dy + partY) / 530 * 100}%;background-image:url('${esc(poseImages.get(s.src)?.image?.src||s.src)}');background-size:${frames * 100}% 100%;background-position:${frames > 1 ? frame / (frames - 1) * 100 : 0}% 0"></div>`;
     }).join('') : '<div class="dummy-actor"></div>'}
     </div>`;
   }

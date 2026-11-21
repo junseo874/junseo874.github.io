@@ -35,24 +35,18 @@
     }
     script(name) {
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
-      const p = new Promise((resolve, reject) => {
-        const s = document.createElement('script');
-        const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
-        s.src = source + '?v=' + (name === 'studio-player' ? 'dream-question-pause-1' : ['sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029');
-        s.onload = resolve;
-        s.onerror = () => {
-          this.scriptPromises.delete(name);
-          s.remove();
-          reject(Error(s.src));
-        };
-        document.head.append(s);
-      });
+      const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
+      const version = name === 'studio-player' ? 'scene-loading-2' : ['sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029';
+      const p=global.LunaResources.script(source+'?v='+version).catch(e=>{this.scriptPromises.delete(name);throw e;});
       this.scriptPromises.set(name, p);
       return p;
     }
+    prepareSpriteSheets() {
+      return this.spritePreparation ||= new Promise(resolve => global.Sprites.load(resolve)).catch(e=>{this.spritePreparation=null;throw e;});
+    }
     async prepareStudio(id) {
       for (const name of ['assets', 'sprites', 'stage', 'stage3', 'stage4', 'engine', 'studio-player']) await this.script(name);
-      await new Promise(resolve => global.Sprites.load(resolve));
+      await this.prepareSpriteSheets();
       global.Engine.initAnchors?.();
       return global.LunaStudioCinema.prepare(id);
     }
@@ -94,9 +88,7 @@
       this.screen('loading');
       this.retryLoad = () => this.newGame();
       try {
-        await global.LunaResources.prepare('common');
-        if (token !== this.token) return;
-        const scene = await this.prepareStudio('opening');
+        const [scene] = await Promise.all([this.prepareStudio('opening'),global.LunaResources.prepare('common'),global.LunaBarDoor.prepare()]);
         if (token !== this.token) return;
         this.loadPercent = 80;
         this.draw();
@@ -136,6 +128,7 @@
         };
         this.bgm.setSuppressed('cinema', true);
         this.screen('prologue');
+        global.LunaBarRoomLoading.anticipate(0,this.D);
         global.LunaStudioCinema.unlock();
       } catch (e) {
         if (token !== this.token) return;
@@ -327,7 +320,7 @@
       this.beginMemoryTransition(async () => {
         const scripts = ['assets', 'sprites', 'stage', 'stage3', 'engine', 'sfx', 'terrace-memory', 'player'];
         for (const name of scripts) await this.script(name);
-        await Promise.all([global.StageDisposal.ready, new Promise(resolve => global.Sprites.load(resolve))]);
+        await this.prepareSpriteSheets();
         global.Engine.initAnchors?.();
         global.Engine.setLineOverrides({});
         global.Engine.setTypingScale(1);

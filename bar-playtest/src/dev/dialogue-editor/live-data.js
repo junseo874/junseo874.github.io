@@ -20,6 +20,7 @@
     function apply() {
       if (!pending) return false;
       const next = pending;
+      if(next.tables.text_tags){D.tables.text_tags=raw.tables.text_tags=next.tables.text_tags;}
       for (const name of tables) {
         D.tables[name] = next.tables[name];
         raw.tables[name] = next.tables[name];

@@ -16,7 +16,7 @@ module.exports = {
     test-endless-general test-regular-arrival-speech test-guest-mouth-pairing
     test-guest-random-appearance test-bar-line-actions test-bar-flow-editor test-bar-flow-wiring
     test-bar-day-authoring test-dialogue-editor test-bar-workbench test-outside-choice-authoring
-    test-outside-choice-parity test-resource-image-recovery test-notion-daily-dialogue
+    test-outside-choice-parity test-resource-image-recovery test-bar-room-loading test-notion-daily-dialogue
     @tools/check-structure.cjs @tools/check-site.cjs @tools/check-code-boundaries.cjs
     @tools/test-source-index.cjs @tools/build-preload-manifest.cjs test-kihyun-story
     test-day1-notion-script test-kihyun-story-ui test-tom-talk-ui test-general-offscreen

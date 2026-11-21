@@ -13,5 +13,12 @@ vm.runInNewContext(fs.readFileSync(require.resolve('../src/shared/platform/resou
  assert.equal(calls.length,4,'permanent failures stop after two attempts');
  failures=0;await window.LunaResources.image('assets/missing.png');
  assert.equal(calls.length,5,'manual retry is not poisoned by the previous failure');
+ failures=1;
+ const url='assets/visible-after-retry.png';
+ await window.LunaResources.prepareImages([url,url]);
+ assert.equal(calls.length,7);
+ assert.equal(window.LunaResources.paintSource(url),calls.at(-1),'paint the successful retry, not the failed original URL');
+ await window.LunaResources.prepareImages([url]);
+ assert.equal(calls.length,7,'already-prepared art must not be requested on re-entry');
  console.log('RESOURCE_IMAGE_RECOVERY_OK: transient recovery, permanent failure URL, fresh manual retry');
 })().catch(e=>{console.error(e);process.exitCode=1;});

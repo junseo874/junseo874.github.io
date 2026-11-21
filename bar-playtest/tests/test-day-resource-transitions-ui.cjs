@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    const p=await browser.newPage(),errors=[];
    p.on('pageerror',e=>errors.push(e.message));
    p.on('response',r=>{if(r.status()>=400)errors.push(r.status()+' '+r.url());});
-   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');
+   await p.goto((process.env.GAME_ORIGIN||'http://127.0.0.1:8123')+'/bar-playtest/?dev=1');
    await p.waitForFunction(()=>window.lunaCampaign);
    await p.evaluate(async day=>{
     LunaFocusSettings.setEnabled(false);
@@ -42,11 +42,20 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
    }
    assert(finished,'Night '+day+' must reach the next day / ending');
    if(day<3){
+    await p.evaluate(()=>{
+     window.readyBarImages=new Set();
+     const prepare=LunaResources.prepareImages;
+     LunaResources.prepareImages=async function(urls){await prepare(urls);for(const url of urls)window.readyBarImages.add(new URL(url,document.baseURI).href);};
+    });
     await p.evaluate(()=>lunaCampaign.startBar(lunaCampaign.session.day,lunaCampaign.session.carry));
     await p.waitForFunction(()=>lunaCampaign.doorTransition?.ready||lunaCampaign.view==='load-error',null,{timeout:120000});
     assert.notEqual(await p.evaluate(()=>lunaCampaign.view),'load-error',await p.evaluate(()=>lunaCampaign.loadError));
     await p.waitForFunction(()=>!lunaCampaign.doorTransition&&lunaCampaign.view==='game',null,{timeout:30000});
     assert.equal(await p.evaluate(()=>barGame.day),day+1);
+    const firstPaint=await p.locator('[data-unlock-id] .unlock-art img').evaluateAll(imgs=>imgs.map(i=>({ready:i.complete&&i.naturalWidth>0,prepared:window.readyBarImages.has(i.src)})));
+    const expected=await p.evaluate(()=>{const fresh=barGame.dailyUnlocks();return fresh.ingredients.length+fresh.cocktails.length;});
+    assert.equal(firstPaint.length,expected,'every unlocked ingredient and drink must have a picture');
+    assert(firstPaint.every(img=>img.ready&&img.prepared),'first-frame unlock artwork must be prepared behind the door');
     await p.screenshot({path:'/tmp/luna-resource-audit-day-'+(day+1)+'.png'});
    }
    assert.deepEqual(errors,[]);

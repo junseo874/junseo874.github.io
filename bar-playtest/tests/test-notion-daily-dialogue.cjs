@@ -7,7 +7,7 @@ const plain=s=>(s||'').replace(/<[^>]+>/g,'');
 const promptContexts=new Set(['shiba_allowance','neighborhood_bossIntro','neighborhood_repairGreeting','neighborhood_repairMenu','home_wardrobe','neighborhood_guardMenu','neighborhood_bossRepeat','neighborhood_cat','neighborhood_homeCat']);
 for(const context of fixture.contexts){
  const actual=rows.filter(r=>r.context===context.id&&(r.type==='say'||r.type==='choice'&&promptContexts.has(context.id))).sort((a,b)=>Number(a.source_order)-Number(b.source_order)).map(r=>plain(r['text.ko']));
- assert.deepEqual(actual,context.text,context.id+' must match the reviewed latest Notion paragraphs');
+ assert.deepEqual(actual,context.text,context.id+' must match '+(context.source||('reviewed Notion '+fixture.revision)));
 }
 for(const effect of fixture.effects){
  const row=rows.find(r=>r.row_id===effect.id);assert(row,'Do not drop effect-bearing dialogue: '+effect.id);

@@ -12,7 +12,7 @@ const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
   assert.equal(await colors.count(),3);await colors.nth(1).click();assert.equal(await q('#color-hex').inputValue(),'#FFAA66');
   await q('#color-hex').fill('#AABBCC');await q('#color-apply').click();assert.equal(await field.inputValue(),source.replace('FFAA66','AABBCC'),'recolor preserves alpha, quotes and inner color');
   await colors.first().click();assert.equal(await q('#color-hex').inputValue(),'#FFD479');await q('#color-hex').fill('#CCDDEE');await q('#color-apply').click();
-  const tinted=await field.inputValue();assert(tinted.startsWith('<color=#CCDDEE>루나</color>'));
+  const tinted=await field.inputValue();assert.equal(tinted,source.replace('FFAA66','AABBCC'));assert.equal(await p.evaluate(()=>dialogueEditor.model.tables.text_tags.find(r=>r.tag==='name').value),'#CCDDEE');
   const sel=()=>field.evaluate(t=>t.value.slice(t.selectionStart,t.selectionEnd));assert.equal(await sel(),'루나');
   await first.locator('[data-effects-batch]').click();assert((await q('#effect-scope').textContent()).includes('루나'));
   await q('#effect-options [value=shake]').check();await q('#effect-options [value=big]').check();await q('#effect-apply').click();

@@ -23,7 +23,8 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
     const s=document.querySelector('.craft-screen').getBoundingClientRect(),t=document.querySelector('.craft-timer').getBoundingClientRect(),scale=s.width/1280;
     return {top:(t.top-s.top)/scale,right:(s.right-t.right)/scale,width:t.width/scale,bottom:t.bottom<=s.bottom,left:t.left>=s.left};
    });
-   assert(Math.abs(boxes.top-54)<1&&Math.abs(boxes.right-73)<1&&boxes.bottom&&boxes.left,kind+JSON.stringify(boxes));
+   const [top,right]=kind==='stir'?[48,60]:[54,73]; // Logical pixels at the native 1280-wide layout.
+   assert(Math.abs(boxes.top-top)<1&&Math.abs(boxes.right-right)<1&&boxes.bottom&&boxes.left,kind+JSON.stringify({viewport,boxes}));
    if(kind==='shake')assert(await p.evaluate(()=>document.querySelector('.rhythm-modes').getBoundingClientRect().top>document.querySelector('.craft-timer').getBoundingClientRect().bottom),'mode tabs must not overlap the clock');
   }
   await p.setViewportSize({width:1280,height:720});await p.waitForTimeout(100);
@@ -50,5 +51,5 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
  assert.equal(await p.locator('.craft-timer').getAttribute('aria-label'),'제조시간 100:01');
  assert.equal(await p.locator('.stir-clock').getAttribute('viewBox'),'0 0 120 33');
  await p.evaluate(()=>barGame.startMinigame('pour'));await p.waitForFunction(()=>document.querySelector('.craft-timer')?.dataset.craftSeconds==='0');
- assert.deepEqual(errors,[]);console.log('CRAFT_CLOCK_UI_OK: five screens, same art/position, cumulative rather than step time, live update, pause, capture, three sizes, long duration and reset');
+ assert.deepEqual(errors,[]);console.log('CRAFT_CLOCK_UI_OK: five screens, shared clock art, per-screen placement, cumulative time, pause, capture, three sizes, long duration and reset');
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

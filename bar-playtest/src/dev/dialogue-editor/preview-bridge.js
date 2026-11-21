@@ -8,6 +8,7 @@ W.LunaDialoguePreview=function({g,D,ui,render}){
  const send=value=>parent.postMessage({channel:'luna-dialogue-preview',token:payload?.token,...value},location.origin);
  const ready=()=>send({type:'ready',expressions:Object.fromEntries(Object.entries(D.characterLayers).map(([actor,poses])=>[actor,[...new Set(Object.keys(poses).map(k=>k.replace(/_(?:default|talk)$/,'')))].map(k=>k==='idle'?'default':k)]))});
  function receive(p){
+  if(Array.isArray(p.tags))D.tables.text_tags=p.tags;
   payload=p;paused=false;elapsed=0;reported=false;skipped=false;active=true;
   Object.assign(g,{day:p.day,phase:'regular',screen:'bar',story:null,storyCoaster:null,dialogue:null,choice:null,transition:0,pendingTransition:null,cameraLeft:0,cameraMoving:false,tutorial:null,overlay:null,error:null,finished:false,paused:false,hidden:false,currentOrder:null,drink:null,effectVisual:null});
   g.progress={day:p.day,money:p.money??1000,reputation:0,phase:'bar',flags:{tom_name_known:true,day0_skip_tutorial:true,...p.flags},affinity:{}};

@@ -5,6 +5,28 @@ const {Model}=require(d+'editor-model'),F=require(d+'flow-model'),R=require(d+'f
 const E=require(d+'outside-model'),N=require(d+'outside-node-authoring'),MapUI=require(d+'outside-flow-map');
 (async()=>{
  const original=await S.snapshot(),tmp=await fs.mkdtemp(path.join(os.tmpdir(),'luna-free-nodes-')),opts={base:path.join(tmp,'csv'),runtime:path.join(tmp,'runtime'),backupRoot:path.join(tmp,'backup')};
+ // Numbered later, but on an exclusive sibling path: serialize in forward
+ // order and verify the same branch and fallback after a CSV round trip.
+ {
+  const m=await new Model(original.files,original.presentation).init(),s='campaign_d2_bar_open';
+  const add=(text,when)=>{const r=m.add(s,m.rows(s).length,'say');m.set(r,'text.ko',text);m.set(r,'when',when);m.set(r,'effects','');return r;};
+  const tutor=add('tutorial','!flag.recall'),remember=add('remember','flag.recall'),menu=B.create(m,s,{type:'choice',actor:'luna'});
+  const cards=r=>F.compile(m,s,[tutor.row_id,remember.row_id]).nodes.find(n=>n.rows.includes(r));
+  B.bind(m,s,cards(remember),cards(menu),{});const options=m.choices(menu.arg);
+  const answers=options.map((opt,i)=>{const row=B.create(m,s,{type:'say',actor:'luna',text:'reply'+i});B.bind(m,s,cards(menu),cards(row),{choice:opt.row_id});return row;});
+  assert.equal(B.targetProblem(m,s,cards(answers[1]),cards(tutor),{}),'');
+  B.attach(m,s,cards(answers[1]),cards(tutor),{});
+  const reload=await new Model({...original.files,...m.output()},original.presentation).init(),plan=R.scan(reload,s,true);
+  assert.deepEqual(plan.errors,[]);assert(plan.routes.some(r=>r.source===answers[1].row_id&&r.target===tutor.row_id));
+  for(const [recall,answer,expected] of [[false,0,['tutorial']],[true,0,['remember','reply0']],[true,1,['remember','reply1','tutorial']]]){
+   const flags={'flag.recall':recall},seen=[],apply=v=>F.clean(v).split(';').forEach(x=>{const a=x.trim().match(/^(flag\.\w+) = (true|false)$/);if(a)flags[a[1]]=a[2]==='true';});
+   for(const r of reload.rows(s).slice(reload.rows(s).findIndex(r=>r.row_id===remember.row_id))){
+    if(!F.clean(r.when).split(' && ').every(t=>!t||(t.startsWith('!')?!flags[t.slice(1)]:flags[t])))continue;
+    if(r.type==='say')seen.push(r['text.ko']);apply(r.effects);if(r.row_id===menu.row_id)apply(reload.choices(r.arg)[answer].effects);
+   }
+   assert.deepEqual(seen,expected);
+  }
+ }
  await require('./helpers/copy-editor-source.cjs')(opts.base);await fs.cp(path.join(__dirname,'../data/runtime'),opts.runtime,{recursive:true});
  const bar=await new Model(original.files,original.presentation).init(),s='campaign_d2_bar_open',nodes=()=>F.compile(bar,s).nodes,card=r=>nodes().find(n=>n.rows.includes(r));
  const from=nodes().at(-1).rows.at(-1),make=type=>B.create(bar,s,{type,actor:'luna',text:'검수 '+type}),menu=make('choice'),a=make('say'),b=make('say');
@@ -28,7 +50,10 @@ const E=require(d+'outside-model'),N=require(d+'outside-node-authoring'),MapUI=r
   assert.deepEqual([a,b,joined,yes,no].filter(r=>seen.includes(r.row_id)).map(r=>r.row_id),[[a,b][answer],joined,pass?yes:no].map(r=>r.row_id));
  }
  assert.deepEqual((await bar.validate()).errors,[]);
+ bar.setPreset('name','#112233');bar.setPreset('memory_glow','#CEABFF');
  await S.save({revision:original.revision,files:bar.output()},opts);
+ const palette=(await S.runtimeSnapshot(opts.base)).tables.text_tags;
+ for(const [tag,value]of [['name','#112233'],['memory_glow','#CEABFF']])assert.equal(palette.find(r=>r.tag===tag)?.value,value);
  const current=await S.snapshot(opts.base),again=await new Model(current.files,current.presentation).init();
  assert.deepEqual((await again.validate()).errors,[]);const line=again.row(a.row_id),opt=R.scan(again,s).routes.find(r=>r.target===a.row_id);
  R.disconnect(again,s,opt);assert(R.asleep(line));B.remove(again,s,line);assert(!again.row(a.row_id));assert.deepEqual((await again.validate()).errors,[]);

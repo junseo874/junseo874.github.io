@@ -1,9 +1,15 @@
 const assert=require('node:assert/strict'),fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path');
-const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../src/dev/dialogue-editor/editor-model.js'),F=require('../src/dev/dialogue-editor/flow-model.js');
+const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-storage.cjs'),{Model}=require('../src/dev/dialogue-editor/editor-model.js'),F=require('../src/dev/dialogue-editor/flow-model.js'),wiring=require('../src/dev/dialogue-editor/flow-wiring.js');
 (async()=>{
  const original=await snapshot(),m=await new Model(original.files,original.presentation).init();
  for(const scene of m.scenes){
-  const g=F.compile(m,scene.id);assert.deepEqual(g.nodes.flatMap(n=>n.rows),m.rows(scene.id));assert(g.edges.every(e=>e.end||e.targetScene||g.nodes.find(n=>n.id===e.to)));
+  const g=F.compile(m,scene.id),plan=wiring.scan(m,scene.id,true);
+  assert.deepEqual(plan.errors,[]);
+  const all=m.rows(scene.id),signals=new Set(plan.routes.flatMap(link=>link.steps.map(row=>row.row_id)));
+  for(const row of all)if(wiring.mergeOwner(row))signals.add(row.row_id);
+  assert.deepEqual(plan.hidden,signals,'only recognized route and join signals may be hidden');
+  assert.deepEqual(g.nodes.flatMap(n=>n.rows),all.filter(row=>!signals.has(row.row_id)));
+  assert(g.edges.every(e=>e.end||e.targetScene||g.nodes.find(n=>n.id===e.to)));
  }
  const scene='d1_tutorial_chris',graph=F.compile(m,scene),choice=graph.nodes.find(n=>n.type==='선택지'),opts=m.choices(choice.rows[0].arg),branches=graph.edges.filter(e=>e.from===choice.id);
  assert.equal(branches.length,2);assert.deepEqual(branches.map(e=>e.guard),['!flag.day0_skip_tutorial','flag.day0_skip_tutorial']);

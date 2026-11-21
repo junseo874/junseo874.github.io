@@ -87,7 +87,7 @@ function create(a){
    (isMenu?'<label>선택지 그룹 ID<input readonly value="'+esc(r.arg)+'" title="연결은 위의 선택지별 설정에서 변경합니다"></label>':['exit','coaster','empty_glass','craft','serve'].includes(r.type)&&argList.length>1?argField('진행 옵션'):'')+'<p class="row-id">줄 ID · '+esc(r.row_id)+'</p>','class="line-advanced"');
   el.innerHTML='<header class="line-inspector-head inspector-title tone-'+tone(r.type)+'"><h2>'+esc(kind(r))+'</h2><small>'+esc(r.seq)+'번 줄</small></header>'+primary+optionRules+exec+translation+preview+meta;
   el.querySelector('header').append(nextNode);nextNode.disabled=r.type==='end_part';nextNode.title=nextNode.disabled?'마지막 노드입니다.':'현재 노드의 다음 대사를 편집합니다.';
-  for(const t of el.querySelectorAll('textarea[data-field="text.ko"]'))W.LunaLineMarkup.refresh(t,m.projected.data.tables.text_tags);
+  for(const t of el.querySelectorAll('textarea[data-field="text.ko"]'))W.LunaLineMarkup.refresh(t,m.tables.text_tags);
   refreshCast();
   const ctx=a.settings();$('preview-money').value=ctx.money;$('flags').value=Object.entries(ctx.flags).map(([id,v])=>'flag.'+id+' = '+(v?'true':'false')).join('; ');W.LunaFlagPicker.attach($('preview-flag-picker'),$('flags'),'effects',a.model);
   const build=UI.conditionTools;build(el.querySelector('.line-condition-tools'),el.querySelector('[data-fold="execution"] [data-field=when]'),a.model);

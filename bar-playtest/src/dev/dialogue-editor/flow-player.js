@@ -7,12 +7,16 @@ function create(api){
  const dialog=$('node-player'),stage=$('player-stage'),lines=$('player-lines');
  let frame=null,node=null,route=null,pending=null,defaultNext=null,at=0,ready=false,playing=false,ended=false,ticket=0;
  const nextNode=$('player-next-node'),picker=W.LunaPreviewBranchPicker.create(nextNode);
+ const history=[],prevNode=document.createElement('button');prevNode.textContent='← 이전 노드';nextNode.before(prevNode);
+ prevNode.onclick=()=>{const h=history.pop();if(h){route.enter(h.target);setNode(route.node);show(h.at,false);return;}
+  const nodes=route.previous(),go=n=>{route=route.startAt(n);setNode(n);show(0,false);};
+  if(nodes.length===1)go(nodes[0]);else if(nodes.length){playing=false;post('pause');controls();picker.open(nodes.map(n=>({node:n,title:n.type+' · '+(n.index+1)+'번 줄',detail:api.plain(n.rows[0]['text.ko'])})),e=>go(e.node),null,'이전 노드 선택');}};
  let paths=[],chosen='',heldComplete=false,resumable=false;
  function post(type,payload){frame?.contentWindow?.postMessage({channel:'luna-dialogue-editor',type,payload},location.origin);}
  function resize(){if(!frame)return;const k=Math.min(stage.clientWidth/1280,stage.clientHeight/720);Object.assign(frame.style,{transform:'scale('+k+')',left:(stage.clientWidth-k*1280)/2+'px',top:(stage.clientHeight-k*720)/2+'px'});}
  new ResizeObserver(resize).observe(stage);
  function controls(){
-  const choice=node.rows[at].type==='choice';
+  prevNode.disabled=!history.length&&!route.previous().length;const choice=node.rows[at].type==='choice';
   $('player-count').textContent=(at+1)+' / '+node.rows.length;$('player-prev').disabled=at===0;$('player-next').disabled=!ready||ended||choice;
   $('player-next').title=at===node.rows.length-1?'마지막 줄 확인':'다음 줄';
   const many=paths.length>1;
@@ -55,7 +59,7 @@ function create(api){
   lines.innerHTML=n.rows.map((r,i)=>'<button data-player-line="'+i+'"><small>'+String(i+1).padStart(2,'0')+'</small><b>'+esc(api.actorName(r.actor)||n.type)+'</b><span>'+esc(api.plain(r['text.ko'])||api.plain(r.arg)||n.type)+'</span></button>').join('');
  }
  function open(n,rowId){
-  if(!n)return;route=api.route(n);ready=false;setNode(n);
+  if(!n)return;history.length=0;route=api.route(n);ready=false;setNode(n);
   frame=document.createElement('iframe');frame.id='player-frame';frame.title='선택 노드의 실제 바 화면';frame.addEventListener('load',()=>post('hello'));frame.src='index.html?dev=1&dialogue-preview=1';stage.replaceChildren(frame);
   if(!dialog.open)dialog.showModal();resize();show(Math.max(0,n.rows.findIndex(r=>r.row_id===rowId)));$('player-toggle').focus({preventScroll:true});
  }
@@ -84,6 +88,7 @@ function create(api){
  }
  function move(p){
   if(p.blocked){$('player-state').textContent=p.blocked;return;}
+  if(p.target?.node)history.push({target:route.current,at});
   if(!route.enter(p.target)){playing=false;ended=true;chosen=p.pick?.row_id||'';pending=p.target;post('stop');controls();$('player-state').textContent=(p.pick?'선택: '+api.plain(p.pick['text.ko'])+' · ':'')+'이 경로는 여기서 끝납니다.';}
   else{setNode(route.node);show(0);}
   (nextNode.hidden||nextNode.disabled?$('player-toggle'):nextNode).focus({preventScroll:true});

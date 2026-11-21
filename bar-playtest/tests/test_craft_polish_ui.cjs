@@ -29,6 +29,10 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
  async function dismissGuide(){
   if(await p.locator('.mix-tutorial').isVisible()){await p.locator('.mix-lesson-next').click();await p.waitForFunction(()=>document.querySelector('.mix-guide-page')?.textContent.includes('2'));await p.locator('.mix-lesson-next').click();await p.locator('.mix-tutorial').waitFor({state:'hidden'});}
  }
+ async function pressStirCue(key){
+  await p.locator('.stir-screen .mix-direction.next[data-id="'+key+'"]').waitFor({state:'visible'});
+  await p.keyboard.press(key);
+ }
  for(const variant of ['original','gpt']){
   await p.evaluate(v=>barGame.startMinigame('open',v),variant);await p.locator('[data-opening-stage]').waitFor();
   await p.keyboard.press('Space');await p.waitForFunction(()=>document.querySelector('[data-opening-stage]').dataset.openAudioReady==='true');
@@ -57,17 +61,20 @@ const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
   assert.equal(await p.evaluate(()=>barGame.gimmick.shakeEffects.at(-1).ok),false);
   await p.evaluate(()=>{const g=barGame,s=g.gimmick;for(let i=0;i<s.targetStacks&&!s.completed;i++){s.nodes=[{id:'qa-end'+i,x:1,y:1}];s.pathPoint=[1,1];g.gimmickInput('Space');}});
   await p.waitForTimeout(100);assert.equal(await p.locator('.shake-screen').getAttribute('data-shake-finale'),'true');
-  await p.evaluate(v=>barGame.startMinigame('stir',v),variant);await p.locator('.stir-screen').waitFor();await dismissGuide();await p.keyboard.press('KeyW');
-  for(const k of ['KeyD','KeyS','KeyA','KeyW','KeyD','KeyS','KeyA','KeyW']){await p.keyboard.press(k);await p.waitForTimeout(220);}
-  assert.equal(await p.evaluate(()=>barGame.gimmick.success),2);assert(await p.locator('[data-stir-polish] g').isVisible());
+  await p.evaluate(v=>barGame.startMinigame('stir',v),variant);await p.locator('.stir-screen').waitFor();await dismissGuide();await pressStirCue('KeyW');
+  for(let round=1;round<=2;round++){
+   for(const key of ['KeyD','KeyS','KeyA','KeyW'])await pressStirCue(key);
+   assert.deepEqual(await p.evaluate(()=>[barGame.gimmick.success,barGame.gimmick.failures]),[round,0]);
+  }
+  await p.locator('[data-stir-polish] g').waitFor({state:'visible'});
   await p.screenshot({path:'/private/tmp/polish-stir-'+variant+'.png'});
-  await p.waitForTimeout(600);const frame=await p.evaluate(()=>barGame.gimmick.motionFrame);
+  await p.waitForFunction(()=>barGame.gimmick.stirMotionPending===0);const frame=await p.evaluate(()=>barGame.gimmick.motionFrame);
   await p.waitForTimeout(150);assert.equal(await p.evaluate(()=>barGame.gimmick.motionFrame),frame);
   await p.keyboard.press('Escape');await p.waitForTimeout(70);const frozen=await p.locator('[data-stir-polish]').innerHTML();
   await p.waitForTimeout(150);assert.equal(await p.locator('[data-stir-polish]').innerHTML(),frozen);
   await p.keyboard.press('Escape');
  }
- await p.emulateMedia({reducedMotion:'reduce'});await p.evaluate(()=>barGame.startMinigame('stir','original'));await p.keyboard.press('KeyW');await p.keyboard.press('KeyD');await p.waitForTimeout(100);
+ await p.emulateMedia({reducedMotion:'reduce'});await p.evaluate(()=>barGame.startMinigame('stir','original'));await pressStirCue('KeyW');await pressStirCue('KeyD');assert.equal(await p.evaluate(()=>barGame.gimmick.stirStep),1);
  assert.equal(await p.locator('[data-stir-polish] g').count(),0);
  assert.deepEqual(errors,[]);console.log('POLISH_UI_OK: both variants, exact pop, physically settled perfect pour, six distinct hits, miss and finale, smooth stir flow, hand stops, pause, reduced motion.');
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1});

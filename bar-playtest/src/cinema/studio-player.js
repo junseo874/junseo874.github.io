@@ -5,9 +5,10 @@ const base=new URL('../../../cutscene-studio/',document.currentScript.src),versi
 let ready;const loaded=new Set(),clocksByProject=new WeakMap();
 async function prepare(id){
  if(!ready)ready=(async()=>{
-  for(const name of ['tags','media','model','model-v2','keyframes','holo-call','opening-template','typography','speech-layer','extras'])if(!loaded.has(name))await new Promise((resolve,reject)=>{
-   const script=document.createElement('script');script.src=new URL('src/'+name+'.js?v='+(name==='extras'?'display-grid-1':name==='opening-template'?'dream-question-pause-1':name==='media'?'dream-final-sync-1':version),base);script.onload=()=>{loaded.add(name);resolve();};script.onerror=()=>{script.remove();reject(Error('컷씬 모듈을 불러오지 못했습니다: '+name));};document.head.append(script);
-  });
+  for(const name of ['tags','media','model','model-v2','keyframes','holo-call','opening-template','typography','speech-layer','extras'])if(!loaded.has(name)){
+   await W.LunaResources.script(new URL('src/'+name+'.js?v='+(name==='extras'?'display-grid-1':['opening-template','media'].includes(name)?'scene-loading-2':version),base));
+   loaded.add(name);
+  }
   await StudioMedia.ready;await document.fonts.load('17px LunaPixel');StudioOpening.register();
   for(const asset of StudioMedia.assets.values())if(asset.builtin&&asset.src)asset.src=new URL(asset.src,base).href;
  })().catch(error=>{ready=null;throw error;});
@@ -20,7 +21,7 @@ async function prepare(id){
   if(!asset)throw Error('컷씬 리소스가 없습니다: '+id);
   if(asset.kind==='audio')return StudioMedia.decode(id);
   if(asset.sheet)return;
-  const image=StudioMedia.getImage(id);await image.decode();
+  await StudioMedia.prepareImage(id,W.LunaResources.image);
  }));
  return {...project,end:project.duration};
 }

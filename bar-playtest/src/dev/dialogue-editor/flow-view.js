@@ -42,7 +42,7 @@ function create(api){
  },({target})=>{if(['edit','section-lines','lines'].includes(currentState()?.view))saveState({...currentState(),row:api.selected()},false);
   editRoute.route.enter(target);editRoute.hop=++hop;
   saveState({view:'edit',scene:target.lane.id,id:target.node.id,row:target.node.id,editHop:hop},true);restore(currentState());$('line-edit-next').focus({preventScroll:true});},api.notice);
- const canvas=W.LunaBarCanvas.create({select,action,inspect:inspectPin,reason,connect,dropDraft,move:(id,pos)=>recordPositions([[id,pos]])});
+ const canvas=W.LunaBarCanvas.create({select,action,inspect:inspectPin,reason,connect,dropDraft,moveGroup:recordPositions,move:(id,pos)=>recordPositions([[id,pos]])});
  const loose=W.LunaBarLooseNodes,palette=W.LunaNodePalette.create();
  function createAt(x,y){const at=canvas.point(x,y);palette.open(x,y,Object.entries(loose.types).map(([key,[name,group,icon]])=>({key,name,group,icon,hint:'입력 핀에 연결하기 전에는 실행되지 않음'})),type=>author.open(node(active)||graph.nodes[0],null,{type,place(r){(prefs.s.freeParts??={})[loose.group(r)]=partId;const manual=(prefs.s.positions[prefs.s.direction]||={});manual[r.row_id]=W.LunaNodePalette.vacant(at,W.LunaBarLayout.width,360,$('map-world').querySelectorAll('.flow-card'),24);prefs.save();requestAnimationFrame(()=>canvas.locate(r.row_id));}}));}
  const menu=W.LunaFlowWorkspaceMenu.create(contextEntries,createAt);
@@ -97,6 +97,8 @@ function create(api){
   const last=n.rows.at(-1),saved=prefs.s.drafts[last.row_id]||[];
   const old=dests(n).find(e=>e.pinKey===p.key),sameTarget=d.portal?old?.targetScene===d.portal:old?.to===dst;
   if(sameTarget&&(old.routeId||old.targetScene)){canvas.tell('이미 연결된 노드입니다.');return;}
+  const swap=!d.portal&&loose.siblingReturn(model(),scene(),n,node(dst),p);
+  if(swap&&!confirm('두 분기의 대본 순서를 바꿔 연결합니다. 이 답변 뒤에는 도착 노드의 실행 조건에 맞게 '+label(swap.flag)+' 값을 '+(swap.value?'참':'거짓')+'으로 바꿉니다. 연결할까요?'))return;
   let ok=api.change(()=>{
    if(d.portal){
     R.sceneWire(model(),scene(),n,p.choice,d.portal);

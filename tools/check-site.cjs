@@ -53,6 +53,9 @@ for(const markup of [textbox.barHTML(false),textbox.barHTML(true),textbox.html()
  }
 }
 for(const item of Object.values(D.assets))check(path.join(app,'index.html'),item.src);
+for(const list of Object.values(require(path.join(app,'data/presentation/preload-manifest.json'))))for(const src of list)check(path.join(app,'index.html'),src);
+vm.runInContext(fs.readFileSync(path.join(app,'data/runtime/outside-scene-data.js'),'utf8'),ctx);
+for(const item of Object.values(ctx.window.LUNA_OUTSIDE_DATA.assets))check(path.join(app,'index.html'),item.src);
 const audio=new ctx.window.LunaBarBgm();for(const item of audio.tracks)check(path.join(app,'index.html'),item.src);
 assert.equal(Object.keys(D.tables).length,29,'Missing source table');
 assert.equal(audio.tracks.length,4,'Missing BGM');

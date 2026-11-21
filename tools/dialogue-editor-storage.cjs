@@ -34,7 +34,13 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  if(exterior){model.placement=Place.validate(JSON.parse(files[Place.file]));model.refreshChoiceFlows();}
  const validation=await model.validate();if(validation.errors.length)throw Error(validation.errors.join('\n'));
  // This API is a scoped dialogue editor, not an arbitrary CSV writer.
+ if(!exterior){
+  const canonical=new Model(original.files,original.presentation);
+  for(const row of model.tables.text_tags)if(row.kind==='color')canonical.setPreset(row.tag,row.value);
+  if(JSON.stringify(canonical.tables.text_tags)!==JSON.stringify(model.tables.text_tags)||JSON.stringify(canonical.views.tables.text_tags)!==JSON.stringify(model.views.tables.text_tags))throw Error('색 프리셋 외의 텍스트 효과나 원본 구조는 변경할 수 없습니다.');
+ }
  for(const table of Object.keys(activePaths)){
+  if(!exterior&&table==='text_tags')continue;
   if((!exterior&&Days.paths[table])||(exterior&&table==='scenes'))continue; // Verified by canonical, append-only day registration below.
   const permitted=r=>exterior?(table==='steps'?(exteriorIds.has(r.row_id)||model.safeJump(r)||Nodes.isLink(r)||r.row_id.startsWith('exterior_editor_')&&model.flows.some(f=>f.parent===r.parent_id&&!f.onlyChoices)):choiceIds.has(r.row_id)||r.row_id.startsWith('exterior_editor_')&&Object.values(model.views.outsideChoiceEdits||{}).some(c=>c.stepId===r.parent_id)):Days.barDataset(r.dataset_id)&&model.scenes.some(s=>s.dataset_id===r.dataset_id);
   // Engine-only continuation rows are not editable. Their indices can shift
@@ -48,6 +54,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  }
  const oldViews=JSON.parse(original.files['web-views.json']),newViews=JSON.parse(files['web-views.json']);
  if(!exterior){
+  delete oldViews.tables.text_tags;delete newViews.tables.text_tags;
   Days.checkRegistry(model,oldViews);
   // Only a validated list of display names and owned bar row anchors; it cannot affect a game route.
   delete oldViews.barEditorScenes;delete newViews.barEditorScenes;
@@ -92,7 +99,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
 }
 async function runtimeSnapshot(base=BASE){
  const source=await snapshot(base),{result}=await generate(p=>Promise.resolve(source.files[p]));
- return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{placement:JSON.parse(source.files[Place.file]),ambient:result.data.outsideAmbient,newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes}};
+ return {revision:source.revision,tables:Object.fromEntries(['steps','bar_choices','bar_choice_groups','text_tags'].map(k=>[k,result.data.tables[k]])),story:{opening:result.story.opening,bar:result.story.bar,day0Bar:result.story.day0Bar},exterior:{placement:JSON.parse(source.files[Place.file]),ambient:result.data.outsideAmbient,newspaperRoutes:result.data.newspaperRoutes,sharedStory:result.data.sharedStory,choices:result.data.outsideChoices,choiceEdits:result.data.outsideChoiceEdits,scenes:result.story.scenes}};
 }
 if(require.main===module)(async()=>{if(process.argv.includes('--runtime'))return runtimeSnapshot();if(process.argv.includes('--snapshot'))return snapshot();let input='';process.stdin.setEncoding('utf8');for await(const chunk of process.stdin)input+=chunk;return save(JSON.parse(input));})().then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{process.stderr.write(e.message);process.exitCode=1;});
 module.exports={snapshot,save,runtimeSnapshot};

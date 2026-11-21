@@ -1,11 +1,13 @@
 // Presentation regression: real camera completion, speaker anchors and torso seams.
 const {chromium}=require('../../tools/lib/test-runtime.cjs').load('playwright');
 const assert=require('assert/strict');
-const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/, '/');
+const BASE=new URL(process.env.LUNA_TEST_URL||'http://127.0.0.1:8123/bar-playtest/');
+BASE.searchParams.set('dev','1');
 (async()=>{let browser;try{
   browser=await chromium.launch({executablePath:require('../../tools/lib/test-runtime.cjs').chrome,headless:true});
   const p=await browser.newPage({viewport:{width:1280,height:720}}),errors=[];
-  p.on('pageerror',e=>errors.push(e.message));await p.goto(BASE);
+  p.on('pageerror',e=>errors.push(e.message));await p.goto(BASE.href);
+  if(await p.locator('.updates-confirm').isVisible())await p.locator('.updates-confirm').click();
   const settled=()=>p.waitForFunction(()=>!barGame.cameraMoving&&barGame.transition===0&&document.querySelector('.dialogue-wrap'));
   await p.evaluate(()=>{
     const g=barGame;g.reset(99,'practice',1);g.screen='bar';g.phase='regular';g.dialogSpeed=.01;
@@ -27,6 +29,17 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
   assert.equal(await p.evaluate(()=>barGame.dialogue.chars),0,'Input revealed a hidden line during zoom');
   await settled();
   const center=async()=>{const b=await p.locator('.dialogue-wrap').boundingBox();return b.x+b.width/2;};
+  async function verifySolo(actor,seat){
+    const guest=p.locator('.regular-plane .actor'),bubble=p.locator('.guest-speech');
+    assert.equal(await guest.count(),1);assert.equal(await guest.getAttribute('data-actor'),actor);
+    assert.equal(await bubble.getAttribute('data-speaker-seat'),seat);
+    const box=await bubble.boundingBox(),x=box.x+box.width/2;
+    assert(Math.abs(x-640)<1);
+    const tail=await bubble.locator('.tail-top .piece-9').boundingBox();
+    assert(Math.abs(tail.x+tail.width/2-x)<1);
+    const bounds=await guest.boundingBox();assert(x>bounds.x&&x<bounds.x+bounds.width);
+    console.log('Solo bubble',actor,seat,{centerX:x,top:box.y});
+  }
   assert(Math.abs(await center()-370)<1);assert.equal(await p.locator('.dialogue-wrap').getAttribute('data-speaker-seat'),'L');
   await p.evaluate(()=>barGame.dialogue.chars=barGame.dialogue.text.length);await p.waitForTimeout(150);
   await p.screenshot({path:'/private/tmp/bar-staging-pair-left.png'});
@@ -41,7 +54,7 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
   await p.evaluate(()=>{barGame.seats.R=null;barGame.dialogue=barGame.makeLine('port','다시 한 명일 때의 대사입니다.');});
   await p.waitForFunction(()=>barGame.cameraMoving);await p.waitForTimeout(650);
   assert.equal(await p.locator('.dialogue-wrap').count(),0);assert.equal(await p.evaluate(()=>barGame.dialogue.chars),0);
-  await settled();assert(Math.abs(await center()-640)<1);assert.equal(await p.locator('.dialogue-wrap').getAttribute('data-speaker-seat'),null);
+  await settled();await verifySolo('port','L');
   // A new target midway through a transition must wait for the LAST destination.
   await p.evaluate(()=>{barGame.seats.R={actor:'aili',state:'STORY'};});
   await p.waitForFunction(()=>barGame.cameraMoving);await p.waitForTimeout(250);
@@ -57,6 +70,21 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
   await p.waitForFunction(()=>!barGame.cameraMoving&&document.querySelector('.choices'));
   await p.evaluate(()=>barGame.choice=null);await slow.evaluate(e=>e.remove());
 
+  // Real QA scene: enter two, then the CSV exit step starts the one-person shot.
+  await p.evaluate(()=>{
+    barGame.reset(99,'regular',1);barGame.dialogSpeed=1;
+  });
+  await p.waitForFunction(()=>barGame.choice&&!barGame.cameraMoving&&!barGame.transition);
+  assert(await p.evaluate(()=>barGame.choose(barGame.choice.rows.find(c=>c.goto==='t99_two_guests').seq)));
+  await settled();assert.equal(await p.locator('.dialogue-wrap').getAttribute('data-speaker-seat'),'L');
+  await p.evaluate(()=>{
+    const g=barGame;g.dialogue=null;g.story.index=g.story.steps.findIndex(s=>s.type==='exit');g.pump();
+  });await p.waitForFunction(()=>barGame.cameraMoving&&barGame.dialogue?.actor==='aili');
+  assert.equal(await p.locator('.dialogue-wrap').count(),0);await settled();await verifySolo('aili','R');
+  await p.waitForFunction(()=>barGame.dialogue.chars>=barGame.dialogue.text.length);
+  assert.equal(await p.locator('.choices').count(),0);
+  await p.screenshot({path:'/private/tmp/bar-staging-after-port-exit.png'});
+  await p.evaluate(()=>{const g=barGame;g.reset(99,'practice',1);g.screen='bar';g.phase='regular';});
   // Native torso seams, measured from the source canvases, independent of the
   // production placement helper. Hands below the seam must stay on the table.
   const states=await p.evaluate(()=>Object.entries(LUNA_DATA.characterLayers).flatMap(([actor,poses])=>
@@ -73,7 +101,9 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
     const anchor=await p.evaluate(({actor,pose})=>{
       const el=document.querySelector('.actor-layer'),art=LUNA_DATA.assets[el.dataset.layer];
       let native=art.static?art.alphaBBox[3]:440;
-      if(actor==='bubi')native=476;
+      if(actor==='tom')native=420;
+      else if(actor==='haru'||actor==='shiba')native=422;
+      else if(actor==='bubi')native=476;
       else if(actor==='port'&&pose.includes('serious'))native=317;
       else if(actor==='port'&&pose.includes('event_surprise'))native=418;
       else if(actor==='samho'&&pose.startsWith('drunk_'))native=229;
@@ -84,14 +114,6 @@ const BASE=(process.env.LUNA_TEST_URL||'http://127.0.0.1:8765/').replace(/\/?$/,
     },{actor,pose});
     assert(Math.abs(anchor.actual-anchor.expected)<1,`${actor}/${pose}: ${JSON.stringify(anchor)}`);checked++;
   }
-  // Real QA scene: enter two, then the CSV exit step starts the one-person shot.
-  await p.evaluate(()=>{
-    const g=barGame;g.reset(99,'regular',1);g.loadScene(g.t.scenes.find(s=>s.id==='t99_two_guests'));
-  });await settled();assert.equal(await p.locator('.dialogue-wrap').getAttribute('data-speaker-seat'),'L');
-  await p.evaluate(()=>{
-    const g=barGame;g.dialogue=null;g.story.index=g.story.steps.findIndex(s=>s.type==='exit');g.pump();
-  });await p.waitForFunction(()=>barGame.cameraMoving&&barGame.dialogue?.actor==='aili');
-  assert.equal(await p.locator('.dialogue-wrap').count(),0);await settled();assert(Math.abs(await center()-640)<1);
   assert.deepEqual(errors,[]);
   console.log(`REGULAR_STAGING_OK: actual zoom-out/in end, input lock, interrupted movement, L/R/Luna anchors, choice gating, ${checked} native pose seams, real Day 99 enter/exit.`);
 }finally{await browser?.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

@@ -1,13 +1,16 @@
 /* Same-origin, bounded scene preparation. Failed requests are retryable, not cached as success. */
 (function(W){'use strict';
  const base=new URL('../../../',document.currentScript.src),jobs=new Map(),groups=new Map();
+ const pendingImages=new Map(),preparedImages=new Map(),recovered=new Map();
+ const pause=()=>new Promise(resolve=>setTimeout(resolve,200));
  let manifest;
  async function request(url,cache='default'){
   for(let attempt=0;attempt<2;attempt++){
    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
-   try{const response=await fetch(url,{signal:controller.signal,cache});if(!response.ok)throw Error(response.status+' '+url);return await response.blob();}
-   catch(error){if(attempt===1)throw Error('리소스 로딩 실패: '+url,{cause:error});}
+   try{const response=await fetch(url,{signal:controller.signal,cache:attempt?'reload':cache});if(!response.ok)throw Error('HTTP '+response.status);return await response.blob();}
+   catch(error){if(attempt===1)throw Error('리소스 로딩 실패: '+url+' ('+error.message+')',{cause:error});}
    finally{clearTimeout(timer);}
+   await pause();
   }
  }
  function warm(src){
@@ -24,20 +27,37 @@
   if(!manifest)manifest=request(new URL('data/presentation/preload-manifest.json',base).href,'no-cache').then(b=>b.text()).then(JSON.parse).catch(e=>{manifest=null;throw e;});
   return manifest;
  }
+ async function prepareImages(sources){
+  const queue=[...new Set(sources.filter(Boolean))];let index=0,stopped=false;
+  async function worker(){
+   try{while(!stopped&&index<queue.length){
+    const src=queue[index++],url=new URL(src,base);
+    if(!/\.(png|webp|jpe?g|gif|svg)$/i.test(url.pathname)){await warm(src);continue;}
+    if(!preparedImages.has(url.href)){
+     const img=await image(src);
+     if(img.src!==url.href){recovered.set(src,img.src);recovered.set(url.href,img.src);}
+     // Reuse the decoded pose on first paint without pinning every multi-layer sheet in memory.
+     preparedImages.set(url.href,{src:img.src,ref:typeof WeakRef==='function'?new WeakRef(img):null});
+    }
+   }}catch(error){stopped=true;throw error;}
+  }
+  await Promise.all(Array.from({length:Math.min(4,queue.length)},worker));
+ }
  function prepare(group){
   if(!groups.has(group))groups.set(group,(async()=>{
    const data=await catalog();if(!data[group])throw Error('Unknown resource group '+group);
-   await batch(data[group]);
-   // Decode UI before showing it. Huge serving atlases retain their existing
-   // per-drink decode gate; warming their bytes must not pin all RGBA sheets.
-   const visuals=data[group].filter(src=>/\.(png|webp|jpe?g|gif|svg)$/i.test(src)&&!src.includes('/serving/atlases/'));let index=0;
-   await Promise.all(Array.from({length:Math.min(4,visuals.length)},async()=>{while(index<visuals.length)await image(visuals[index++]);}));
-   await document.fonts.load('17px LunaPixel');
+   await Promise.all([prepareImages(data[group]),document.fonts.load('17px LunaPixel')]);
   })().catch(e=>{groups.delete(group);throw e;}));
   return groups.get(group);
  }
- async function image(src){
+ function image(src){
   const url=new URL(src,base).href;
+  const known=preparedImages.get(url),cached=known?.ref?.deref();
+  if(cached)return Promise.resolve(cached);
+  if(!pendingImages.has(url))pendingImages.set(url,decode(known?.src||url).finally(()=>pendingImages.delete(url)));
+  return pendingImages.get(url);
+ }
+ async function decode(url){
   for(let attempt=0;attempt<2;attempt++){
    const img=new Image();let timer;
    try{
@@ -50,7 +70,20 @@
     img.src='';
     if(attempt===1)throw Error('이미지 로딩 실패: '+url+' ('+error.message+')',{cause:error});
    }finally{clearTimeout(timer);}
+   await pause();
   }
  }
- W.LunaResources={prepare,batch,image};
+ // Classic scripts execute in the caller's awaited order. Only retry an actual
+ // load error (not a timeout that might still execute the original script).
+ async function script(src){
+  const url=new URL(src,document.baseURI);
+  for(let attempt=0;attempt<2;attempt++){
+   if(attempt)url.searchParams.set('lunaRetry',String(Date.now()));
+   try{return await new Promise((resolve,reject)=>{
+    const el=document.createElement('script');el.src=url.href;el.onload=()=>resolve();
+    el.onerror=()=>{el.remove();reject(Error('스크립트 로딩 실패: '+url.href));};document.head.append(el);
+   });}catch(e){if(attempt)throw e;await pause();}
+  }
+ }
+ W.LunaResources={prepare,prepareImages,batch,image,request,script,paintSource:src=>recovered.get(src)||src};
 })(window);

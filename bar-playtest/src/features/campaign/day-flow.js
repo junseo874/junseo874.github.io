@@ -5,11 +5,7 @@
     return class CampaignDay {
     startBar(day, carry) {
       this.runDoorTransition('in', async () => {
-        await global.LunaResources.prepare('common');
-        await global.LunaResources.prepare('bar');
-        const images=[...new Set(Object.values(this.D.assets).map(a=>a.src).filter(src=>/\.(png|webp|gif|jpe?g)(?:\?|$)/i.test(src)))];
-        let next=0;
-        await Promise.all(Array.from({length:Math.min(4,images.length)},async()=>{while(next<images.length)await this.image(images[next++]);}));
+        await Promise.all([global.LunaResources.prepare('common'),global.LunaBarRoomLoading.prepare(day,this.D)]);
       }, () => {
         // Keep the outside scene until the opaque door owns the screen. Prepare the
         // real bar underneath it before beginning the reveal, never the setup lobby.
@@ -43,6 +39,7 @@
         commit,
         startedAt: performance.now(),
         time: 0,
+        artReady: global.LunaBarDoor.ready,
         ready: false,
         motionAt: null,
         revealAt: null
@@ -51,11 +48,11 @@
       this.screen('bar-door');
       global.LunaBarDoor.paint(this.host, d);
       this.retryLoad = () => this.runDoorTransition(direction, prepare, commit);
-      Promise.all([Promise.all(global.LunaBarDoor.assets.map(src => this.image(src))).then(()=>{
-        if (this.doorTransition !== d) return;
+      Promise.all([global.LunaBarDoor.prepare().then(()=>{
+        if (this.doorTransition !== d || d.artReady) return;
         d.artReady = true;
-        const composition = this.host.querySelector('.bar-door-composition');
-        if (composition) composition.hidden = false;
+        this.draw();
+        global.LunaBarDoor.paint(this.host,d);
       }), Promise.resolve().then(() => {
         if (this.doorTransition === d) return prepare();
       })]).then(() => {
@@ -98,6 +95,7 @@
         this.cancelDoorTransition();
         if (this.outside.active) this.outside.model.paused = false;
         this.screen(this.playView);
+        if(d.direction==='out')document.querySelector('#outside-root')?.focus({preventScroll:true});
         this.render(true);
       }
       return true;
@@ -113,7 +111,11 @@
             day: this.session.day,
             variant: 'original'
           });
-          await this.outside.start();
+          const preparingStreet=this.outside.start();
+          // The destination DOM is newly mounted underneath the opaque door.
+          // Keep it from taking focus/input even if it finishes before the animation.
+          document.querySelector('#outside-root')?.setAttribute('inert','');
+          await preparingStreet;
           if (this.outside.loadError) throw Error(this.outside.loadError);
         }, () => {
           this.outside.tick(0);
@@ -132,13 +134,12 @@
         day: this.session.day,
         variant: 'original'
       });
-      await this.outside.start({
-        wakeAtSofa
-      });
+      await Promise.all([this.outside.start({wakeAtSofa}),global.LunaBarDoor.prepare()]);
       if (token !== this.token || dayTransition && this.dayTransition !== dayTransition) return;
       if (this.outside.loadError) throw Error(this.outside.loadError);
       this.outside.tick(0);
       this.screen(this.playView);
+      if(flow==='in')global.LunaBarRoomLoading.anticipate(this.session.day,this.D);
     }
     debugOutsideDay(day, flow) {
       if (!this.active || !Number.isInteger(day) || day < 0 || day > 3) return;

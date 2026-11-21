@@ -8,7 +8,7 @@ const rules=(typeof module==='undefined'?root.LunaRuleParts.conditions:require('
 const Flags=typeof module==='undefined'?root.LunaBarFlags:require('./flag-tools.js');
 const Days=typeof module==='undefined'?root.LunaBarDays:require('./flow-days.js');
 const Sections=typeof module==='undefined'?root.LunaBarSections:require('./flow-sections.js');
-const contentPaths={steps:'story/steps.csv',bar_choices:'story/bar_choices.csv',bar_choice_groups:'story/bar_choice_groups.csv'};
+const contentPaths={steps:'story/steps.csv',bar_choices:'story/bar_choices.csv',bar_choice_groups:'story/bar_choice_groups.csv',text_tags:'settings/text_tags.csv'};
 const paths={...contentPaths,...Days.paths};
 const clone=x=>JSON.parse(JSON.stringify(x)),empty=v=>v==null||v===''||v==='\\N',decode=v=>empty(v)?'':v==='\\E'?'':v;
 const wiring=typeof module==='undefined'?root.LunaBarWiring:require('./flow-wiring.js');
@@ -37,6 +37,16 @@ function engineExpressionErrors(row,before){
 class Model{
  constructor(files,presentation){this.files={...files};this.presentation=presentation;this.views=JSON.parse(files['web-views.json']);this.tables={};this.headers={};for(const [table,path]of Object.entries(paths)){this.tables[table]=Csv.parseRows(files[path],path);this.headers[table]=Csv.parseCsv(files[path])[0];}this.undoStack=[];this.redoStack=[];this.base=this.snapshot();}
  async init(){this.catalog=await Csv.load(p=>Promise.resolve(this.files[p]));this.projected=Projection.project(this.catalog,this.views,this.presentation);return this;}
+ setPreset(tag,value){
+  if(!/^#[0-9a-f]{6}$/i.test(value))throw Error('색상은 #RRGGBB 형식이어야 합니다.');
+  const list=this.tables.text_tags,r=list.find(x=>x.tag===tag);
+  if(r&&r.kind!=='color')throw Error('같은 이름의 효과가 이미 있습니다.');
+  if(!r&&(!/^[a-z][a-z0-9_]{0,39}$/.test(tag)||['b','i','u','br','fx','color','size','pop','wave','shake','constructor','prototype'].includes(tag)))throw Error('다른 영문 이름을 사용하세요. 소문자, 숫자, 밑줄만 쓸 수 있습니다.');
+  if(r){r.value=value;return;}
+  const seed=this.base.tables.text_tags.find(x=>x.kind==='color'),id='text_tags_'+tag;
+  list.push({...seed,tag,value,row_id:id,web_row_id:id,source_order:String(list.length)});
+  const views=this.views.tables.text_tags.rows;views.push({...clone(views.find(x=>x.id===seed.row_id)),id});
+ }
  get scenes(){return this.tables.scenes.filter(s=>Days.barDataset(s.dataset_id));}
  snapshot(){const t={...this.tables};for(const k of Object.keys(t))if(!Days.paths[k])t[k]=clone(t[k]);return {tables:t,views:clone(this.views)};}
  restore(s){this.tables={...s.tables};for(const k of Object.keys(s.tables))if(!Days.paths[k])this.tables[k]=clone(s.tables[k]);this.views=clone(s.views);}

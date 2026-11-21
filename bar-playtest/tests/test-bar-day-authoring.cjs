@@ -5,11 +5,11 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),A=require('.
 (async()=>{
  const baseState=await snapshot(),m=await new Model(baseState.files,baseState.presentation).init(),runtimeData=JSON.stringify(m.projected.story);
  const ch='d1_tutorial_chris',g=F.compile(m,ch),parts=S.partition(m,ch,g.nodes),head=g.nodes[2];
- assert.deepEqual(parts.map(p=>p.nodes.length),[23,14]);assert.equal(parts[1].nodes[0].rows[0].actor,'port');
+ const entry=g.nodes.findIndex(n=>n.rows[0].type==='enter'&&n.rows[0].actor==='port');assert(entry>10);assert.deepEqual(parts.map(p=>p.nodes),[g.nodes.slice(0,entry),g.nodes.slice(entry)]);assert.equal(parts[1].nodes[0].rows[0].actor,'port');
  assert.deepEqual(S.auto(g.nodes.slice(0,10)),[0]);assert.deepEqual(S.auto(Array(13).fill(g.nodes[1])),[0]);assert.deepEqual(S.auto([...Array(10).fill(g.nodes[1]),g.nodes[0]]),[0,10]);
  assert.throws(()=>S.split(m,ch,parts,g.nodes[0].id,'빈 구간'),/첫 노드/);
  m.checkpoint();S.split(m,ch,parts,head.id,'새 상담');const rec=()=>S.partition(m,ch,g.nodes);
- assert.deepEqual(rec().map(p=>p.nodes.length),[2,21,14]);assert.equal(rec()[1].nodes[0],head);assert.deepEqual(Object.keys(m.output()),['web-views.json']);assert.equal(JSON.stringify((await m.validate()).result.story),runtimeData);
+ assert.deepEqual(rec().map(p=>p.nodes),[g.nodes.slice(0,2),g.nodes.slice(2,entry),g.nodes.slice(entry)]);assert.equal(rec()[1].nodes[0],head);assert.deepEqual(Object.keys(m.output()),['web-views.json']);assert.equal(JSON.stringify((await m.validate()).result.story),runtimeData);
  m.undo();assert(!m.dirty());m.redo();S.rename(m,ch,rec(),rec()[1],'첫 주문');const savedNames=rec().map(x=>x.name);
  m.checkpoint();S.merge(m,ch,rec(),rec()[1]);assert.equal(rec().length,2);m.undo();
  const open=m.newDay(4,'첫 신규 영업'),scene='campaign_d4_bar';assert.equal(open,'campaign_d4_bar_open');assert.throws(()=>m.newDay(4,'중복'),/이미/);assert.throws(()=>m.newDay(99,'QA'),/등록|99/);

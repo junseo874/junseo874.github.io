@@ -63,13 +63,58 @@ function movable(m,s,src,dst){
  }}
  return !seen.has(group(last))&&!routes.some(r=>seen.has(group(m.row(r.target)))&&m.row(r.target)!==target&&!seen.has(group(m.row(r.source))));
 }
+// Two adjacent, mutually exclusive arms may be serialized in either order.
+// Move complete arms (including private CSV signal rows), not just the card.
+function siblingReturn(m,s,src,dst,p){
+ if(!src||!dst||dst.index>=src.index||src===dst||p.predicate||src.routes.length)return null;
+ const last=src.rows.at(-1),head=dst.rows[0],guard=R.readable(head.when);
+ if(!/^!?flag\.(?!bp_)\w+$/.test(guard)||group(head)||!['say','choice'].includes(last.type)||
+    (last.type==='choice')!==!!p.choice)return null;
+ const other=guard.startsWith('!')?guard.slice(1):'!'+guard,flag=guard.replace(/^!/,'');
+ const plan=R.scan(m,s),rows=m.rows(s),logical=plan.logical,start=logical.indexOf(head);
+ if(plan.errors.length||start<0||dst.index<m.prefix(s)||rows[dst.index-1]?.sync==='no_wait'||R.mergeOwner(rows[dst.index-1]))return null;
+ const arm=(at,test)=>{
+  const owned=new Set();let i=at;
+  for(;i<logical.length;i++){
+   const row=logical[i];
+   if(group(row)){
+    const incoming=plan.routes.filter(r=>r.target===members(m,s,group(row))[0]?.row_id);
+    if(!incoming.length||incoming.some(r=>!owned.has(r.source)))break;
+   }else if(R.readable(row.when)!==test)break;
+   const writers=[row,...(row.type==='choice'?m.choices(row.arg):[])];
+   if(writers.some(w=>F.clean(w.effects).split(';').some(v=>v.trim().split(/\s*=/)[0]===flag)))return null;
+   owned.add(row.row_id);
+  }
+  return {end:i,owned};
+ };
+ const a=arm(start,guard);if(!a||logical[a.end]===undefined||R.readable(logical[a.end].when)!==other)return null;
+ const b=arm(a.end,other);if(!b?.owned.has(last.row_id))return null;
+ const zone=id=>a.owned.has(id)?1:b.owned.has(id)?2:0;
+ if(plan.routes.some(r=>zone(r.source)!==zone(r.target)))return null;
+ const mid=rows.indexOf(logical[a.end]),end=logical[b.end]?rows.indexOf(logical[b.end]):rows.length;
+ if([mid,end].some(i=>rows[i-1]?.sync==='no_wait'||R.mergeOwner(rows[i])))return null;
+ const skipped=logical.slice(logical.indexOf(last)+1,b.end);
+ if(skipped.some(r=>['enter','exit','coaster','order','craft','serve','end_part'].includes(r.type)))return null;
+ const owner=p.choice?m.choices(last.arg).find(o=>o.row_id===p.choice):last;
+ if(!owner||F.clean(owner.goto))return null;
+ return {order:[...rows.slice(0,dst.index),...rows.slice(mid,end),...rows.slice(dst.index,mid),...rows.slice(end)].map(r=>r.row_id),
+  owner,flag,value:!guard.startsWith('!')};
+}
 function targetProblem(m,s,src,dst,p){
  if(loose(dst?.rows[0]))return check(m,s,src,dst,p);
  if(movable(m,s,src,dst))return check(m,s,src,dst,p,true);
+ if(siblingReturn(m,s,src,dst,p))return '';
  return R.problem(m,s,src,dst,p);
 }
 function attach(m,s,src,dst,p){
  if(loose(dst?.rows[0]))return bind(m,s,src,dst,p);
+ const swap=siblingReturn(m,s,src,dst,p);
+ if(swap){
+  m.reorder(s,swap.order);
+  m.set(swap.owner,'effects',[F.clean(swap.owner.effects),swap.flag+' = '+swap.value].filter(Boolean).join('; '));
+  const g=F.compile(m,s,[src.id,dst.id]);
+  return R.wire(m,s,g.nodes.find(n=>n.rows.includes(src.rows.at(-1))),g.nodes.find(n=>n.id===dst.id),p);
+ }
  if(!movable(m,s,src,dst))return R.wire(m,s,src,dst,p);
  const target=dst.rows[0],source=src.rows.at(-1),ins=R.scan(m,s).routes.filter(r=>r.target===target.row_id);
  const restore=ins.map(r=>({source:r.source,choice:r.choice,predicate:r.predicate})).filter(r=>r.source!==source.row_id||R.pinKey(r.choice,r.predicate)!==R.pinKey(p.choice,p.predicate));
@@ -88,5 +133,5 @@ function remove(m,s,row){
    m.views.tables.bar_choices.rows=m.views.tables.bar_choices.rows.filter(o=>!keys.has(o.id));m.views.tables.bar_choice_groups.rows=m.views.tables.bar_choice_groups.rows.filter(o=>o.key?.choice_group!==r.arg&&o.id!==grp.row_id);}}
  return m.rows(s).at(-1);
 }
-const api={types,group,loose,create,check,bind,targetProblem,attach,remove};if(browser)W.LunaBarLooseNodes=api;else module.exports=api;
+const api={types,group,loose,create,check,bind,targetProblem,attach,siblingReturn,remove};if(browser)W.LunaBarLooseNodes=api;else module.exports=api;
 })(globalThis);

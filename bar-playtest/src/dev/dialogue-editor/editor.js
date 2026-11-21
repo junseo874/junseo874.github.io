@@ -40,7 +40,7 @@ function resize(){const el=document.querySelector('.preview-shell'),scale=Math.m
 new ResizeObserver(resize).observe(document.querySelector('.preview-shell'));
 function stop(){playing=false;$('play').textContent='▶ 연속 재생';frame.contentWindow.postMessage({channel:'luna-dialogue-editor',type:'stop'},location.origin);}
 function payloadFor(r,scopeIds){
- const list=rows();return {day:Number(model.scenes.find(s=>s.id===scene).day),rows:list.map(x=>model.step(previewRow(x))),index:list.findIndex(x=>x.row_id===r.row_id),choices:model.choices(r.arg).map(x=>Object.fromEntries(Object.entries(previewRow(x)).map(([k,v])=>[k,decode(v)]))),picks,flags:previewFlags,money:previewMoney,scope:scopeIds};
+ const list=rows();return {tags:model.tables.text_tags,day:Number(model.scenes.find(s=>s.id===scene).day),rows:list.map(x=>model.step(previewRow(x))),index:list.findIndex(x=>x.row_id===r.row_id),choices:model.choices(r.arg).map(x=>Object.fromEntries(Object.entries(previewRow(x)).map(([k,v])=>[k,decode(v)]))),picks,flags:previewFlags,money:previewMoney,scope:scopeIds};
 }
 function send(animate=false){
  if(initializing||!model||flow.opened||!current())return;
@@ -50,7 +50,7 @@ function send(animate=false){
 }
 function autosave(){if(initializing)return;try{if(model.dirty())drafts.write({revision:local?.revision||sourceRevision,files:model.output(),scene,selected});else drafts.clear();}catch{status('임시 보관 공간이 부족합니다. 저장하거나 내보내 주세요.');}}
 function historyButtons(){$('undo').disabled=!model.undoStack.length;$('redo').disabled=!model.redoStack.length;}
-function tagStatus(row){const alert=$('tag-alert'),r=row||(flow.opened?(model.row(flow.selectedNode)||current()):current());let issue='';if(r)for(const x of [r,...(r.type==='choice'?model.choices(r.arg):[])]){for(const f of ['text.ko','text.en','lock_reason.ko','lock_reason.en']){const err=window.LunaBarAudit.tagErrors(x[f],model.projected.data.tables.text_tags)[0];if(err){issue=(x===r?r.seq+'번 줄':'선택지 '+x.seq)+' · '+err;break;}}if(issue)break;}alert.textContent=issue;alert.hidden=!issue;}
+function tagStatus(row){const alert=$('tag-alert'),r=row||(flow.opened?(model.row(flow.selectedNode)||current()):current());let issue='';if(r)for(const x of [r,...(r.type==='choice'?model.choices(r.arg):[])]){for(const f of ['text.ko','text.en','lock_reason.ko','lock_reason.en']){const err=window.LunaBarAudit.tagErrors(x[f],model.tables.text_tags)[0];if(err){issue=(x===r?r.seq+'번 줄':'선택지 '+x.seq)+' · '+err;break;}}if(issue)break;}alert.textContent=issue;alert.hidden=!issue;}
 function mark(){tagStatus();const dirty=model.dirty();$('dirty').textContent=dirty?'● 저장하지 않은 변경':'수정 없음';$('review').disabled=!dirty;historyButtons();autosave();}
 const lineUI=window.LunaLineWorkspace.create({model:()=>model,current,selected:()=>selected,rows:visibleRows,scene:()=>scene,scope:()=>scope,types,typeOptions,rowTools,actorName,poses:()=>expressions,settings:()=>({flags:previewFlags,money:previewMoney}),pick:id=>{stop();select(id);}});
 function drawList(){lineUI.draw();}
@@ -185,7 +185,7 @@ $('inspector').addEventListener('input',e=>{const key=e.target.dataset.field;if(
 $('inspector').addEventListener('focusout',()=>{lastField='';});
 $('node-detail').addEventListener('beforeinput',e=>{if(e.target.dataset.quickKey&&['historyUndo','historyRedo'].includes(e.inputType)){e.preventDefault();history(e.inputType==='historyUndo'?'undo':'redo');}});
 $('inspector').addEventListener('beforeinput',e=>{if(e.target.dataset.field&&['historyUndo','historyRedo'].includes(e.inputType)){e.preventDefault();history(e.inputType==='historyUndo'?'undo':'redo');}});
-window.LunaLineMarkup.install({stop,status,tags:()=>model.projected.data.tables.text_tags,
+window.LunaLineMarkup.install({stop,status,tags:()=>model.tables.text_tags,savePreset:(name,hex)=>{const prior=model.snapshot();model.setPreset(name,hex);model.remember(prior);mark();send();},
  rowFor:t=>{const id=t.closest('[data-choice-row]')?.dataset.choiceRow;return id?model.tables.bar_choices.find(r=>r.row_id===id):current();},
  preview:(r,text)=>{colorPreview=r?{rowId:r.row_id,key:'text.ko',text}:null;send();},
  commit:(r,v)=>{lastField='';model.checkpoint();model.set(r,'text.ko',v);drawList();send();mark();}

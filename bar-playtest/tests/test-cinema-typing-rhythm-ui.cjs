@@ -16,12 +16,21 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
     if(timing.chars[i-1]!=='.')continue;
     for(const delta of [-.0001,0]){const n=sample(line,timing.times[i]+delta);checks++;if(n!==(delta<0?i:i+1))failures.push({id:line.id,i,delta,n});}
    }
-   if(line.layout==='intro'){
+   if(line.dreamLine){
+    const lastGlyph=timing.times.at(-1);
+    if(!line.wait){
+     s.dialogueWait=null;s.time=line.start;
+     c.tickCinemaDialogue(s,lastGlyph+.0001);
+     player.render(s.time,null,false,0,null);
+     if(s.dialogueWait||player.dialogueCount(line)!==parsed.chars.length||s.time>=line.start+line.duration)failures.push('automatic last line must display its period before the cut');
+     continue;
+    }
     sample(line,0);c.advanceCinemaDialogue();
     if(s.dialogueWait?.id!==line.id||s.dialogueWait.revealed)failures.push('intro cannot be skipped during typing');
-    sample(line,timing.duration-.0001);c.advanceCinemaDialogue();
-    if(s.dialogueWait?.id!==line.id)failures.push('intro final period must finish');
-    if(StudioOpening.typingPending(line,timing.duration+.0001))failures.push('intro cannot remain stuck');
+    sample(line,lastGlyph-.0001);c.advanceCinemaDialogue();
+    if(s.dialogueWait?.id!==line.id||s.dialogueWait.revealed)failures.push('intro must wait for its final glyph');
+    sample(line,lastGlyph+.0001);c.advanceCinemaDialogue();
+    if(s.dialogueWait)failures.push('completed intro must accept input');
    }
   }
   const phone=lines.find(l=>l.actor==='phone');phone.text='크리스. 잠깐... 들려?';
@@ -35,8 +44,8 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const dom=[...document.querySelectorAll('.studio-speech-bubble span')].filter(e=>e.style.visibility!=='hidden').map(e=>e.textContent).join('');
   return{failures,checks,phoneLines:lines.filter(l=>l.track==='phone-lines').length,intro:lines.filter(l=>l.layout==='intro').length,beforeDot,afterPause,dom};
  });
- assert.deepEqual(report.failures,[]);assert.equal(report.phoneLines,5);assert.equal(report.intro,3);assert(report.checks>50);
+ assert.deepEqual(report.failures,[]);assert.equal(report.phoneLines,5);assert.equal(report.intro,6);assert(report.checks>50);
  assert.equal(report.beforeDot,4);assert.equal(report.afterPause,4);assert(report.dom.includes('크리스.'));
  await p.screenshot({path:'/private/tmp/cinema-period-phone.png'});
- assert.deepEqual(errors,[]);console.log('CINEMA_TYPING_RHYTHM_UI_OK: all three opening cards and five contact lines, exact pauses, .5/1/2/4 speed, redraw, full reveal and actual phone bubble.');
+ assert.deepEqual(errors,[]);console.log('CINEMA_TYPING_RHYTHM_UI_OK: five held dream lines, automatic last line, five contact lines, exact pauses, .5/1/2/4 speed, redraw, full reveal and actual phone bubble.');
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

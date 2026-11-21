@@ -29,7 +29,7 @@ function refresh(t,tags){
  });
  host.replaceChildren();if(chips.length){const caption=document.createElement('small');caption.textContent='색상 수정';host.append(caption,...chips);}
 }
-function install({rowFor,tags,preview,commit,stop,status}){
+function install({rowFor,tags,savePreset,preview,commit,stop,status}){
  const $=id=>document.getElementById(id),el=$('inspector'),picker=W.LunaDialogueColorPicker.create(),dialog=$('effect-dialog'),checks=$('effect-options');
  for(const [k,name] of Object.entries(effects)){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.value=k;label.append(input,name);checks.append(label);}
  let batch=null,last=[];
@@ -57,7 +57,7 @@ function install({rowFor,tags,preview,commit,stop,status}){
   if(b.hasAttribute('data-color-field')||b.hasAttribute('data-color-start')){
    const a=b.dataset.colorStart==null?s:+b.dataset.colorStart,z=b.dataset.colorEnd==null?end:+b.dataset.colorEnd;
    try{wrap(text,a,z,[]);}catch(err){status(err.message);return;}
-   picker.open({text,start:a,end:z,tags:tags(),validate,onPreview:v=>preview(row,v),onCancel:()=>{preview(null);focus(t,s,end);},
+   picker.open({text,start:a,end:z,tags:tags(),savePreset,validate,onPreview:v=>preview(row,v),onCancel:()=>{preview(null);focus(t,s,end);},
     onApply:(v,i,j)=>{preview(null);apply(t,row,v,i,j);}});return;
   }
   if(b.hasAttribute('data-effects-batch')){

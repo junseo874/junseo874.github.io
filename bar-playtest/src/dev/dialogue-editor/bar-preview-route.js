@@ -57,7 +57,7 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
  function payload(i){
   const active=here.node.rows.map(r=>model.step(r)),row=active[i],state=structuredClone(here.ctx);
   for(const earlier of active.slice(0,i))apply(earlier,state,null);
-  return {day:initial.day,flags:initial.flags,money:initial.money,rows:here.before.concat(active),index:here.before.length+i,
+  return {tags:model.tables.text_tags,day:initial.day,flags:initial.flags,money:initial.money,rows:here.before.concat(active),index:here.before.length+i,
    choices:options(model,row),picks:here.answers,pathPreview:true,previewState:state};
  }
  function departure(pick,seed){
@@ -134,7 +134,9 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   }catch(e){outcomes.push({pick,blocked:'연결을 확인할 수 없습니다: '+e.message});}
   return outcomes;
  }
- return {get node(){return here.node;},get scene(){return here.lane.id;},payload,next,branches,
+ return {get current(){return here;},get node(){return here.node;},get scene(){return here.lane.id;},payload,next,branches,
+  previous(){const graph=here.lane.graph,ids=new Set(graph.connections.filter(e=>e.to===here.node.id).map(e=>e.from));return graph.nodes.filter(n=>ids.has(n.id));},
+  startAt(n){return create({model,graphFor,scene:here.lane.id,node:n,settings,picks});},
   enter(target){if(!target?.node)return false;here=target;return true;}};
 }
 const api={create};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarPreviewRoute=api;

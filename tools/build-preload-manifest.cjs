@@ -26,6 +26,29 @@ for(const name of ['decrease','increase','ingredient','new_character','new_event
 // Old extraction copies are excluded while a migration is being verified.
 const migrated=new Set(generated.records.flatMap(r=>r.sources.map(s=>s.src)));
 for(const key of Object.keys(groups))groups[key]=[...new Set(groups[key].filter(p=>!migrated.has(p)))].sort();
+// Inventory is not a startup checklist. Keep later screens auditable without
+// requiring their artwork or alternate fonts before the first playable frame.
+const inventory=new Set([...groups.common,...groups.bar]);
+const runtime=require('../bar-playtest/data/presentation/runtime-assets.json').assets;
+const firstBar=new Set(['bar','bar_far','bar_mid','bar_front','coaster','dialogue','dialogue_luna','choice','next','money'].map(k=>runtime[k].src));
+groups.common=groups.common.filter(p=>p.includes('/MainScreen/notify/')||p.endsWith('/IMG_money.png')||p.endsWith('/Web_IMG_cursor_default_icon.png'));
+// Match the URLs painted by CSS, including version queries (a distinct browser cache key).
+function cssImages(file){
+ const urls=[...fs.readFileSync(path.join(root,file),'utf8').matchAll(/url\(\s*['"]?([^'")\s]+)['"]?\s*\)/g)].map(m=>m[1]);
+ return urls.filter(p=>p.startsWith('../')&&/\.png(?:\?|$)/i.test(p)).map(p=>path.posix.join(path.posix.dirname(file),p));
+}
+for(const file of ['src/features/outside/outside.css','src/shared/dialogue/exterior-textbox.css'])groups.common.push(...cssImages(file));
+const generatedCss=cssImages('src/shared/ui/generated-art.css');
+groups.common.push(...generatedCss.filter(p=>p.includes('/WebGenerated/Outside/')||p.includes('/WebGenerated/Tutorial/')||p.endsWith('/Web_GRD_modal_backdrop_background.png')));
+groups.common=[...new Set(groups.common)].sort();
+const barCss=cssImages('src/features/bar/bar-views.css');
+for(const p of barCss)firstBar.add(p);
+for(const p of generatedCss)if(p.includes('/05.UI/03.Bar/')||p.includes('/WebGenerated/Notifications/')||p.endsWith('/Web_BTN_service_handle_background.png'))firstBar.add(p);
+groups.bar=[...firstBar];
+walk('assets/01.ArtResources/05.UI/01.Shared/01.MainScreen','bar');
+const versioned=new Set(barCss.filter(p=>p.includes('?')).map(p=>p.split('?')[0]));
+groups.bar=[...new Set(groups.bar)].filter(p=>!groups.common.includes(p)&&!versioned.has(p)).sort();
+groups.onDemand=[...inventory].filter(p=>!groups.common.includes(p)&&!groups.bar.includes(p)).sort();
 const file=path.join(root,'data/presentation/preload-manifest.json'),text=JSON.stringify(groups,null,2)+'\n';
 if(process.argv.includes('--write'))fs.writeFileSync(file,text);
 else if(fs.readFileSync(file,'utf8')!==text)throw Error('Preload manifest is stale: run node tools/build-preload-manifest.cjs --write');

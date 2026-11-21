@@ -34,7 +34,8 @@ const { chromium } = runtime.load('playwright');
     await page.waitForFunction(() => !barGame.cameraMoving && barGame.currentDialogue()?.actor === 'chris');
     await page.locator('#app .dialogue-wrap').waitFor();
     assert.equal(await page.locator('#app .dialogue-wrap').count(), 1);
-    assert.equal(await page.evaluate(() => barGame.dialogue.text), '... 늦지는 않게 왔군. 시작해볼까.');
+    const opening = require('./fixtures/notion-daily-dialogue.json').contexts.find(c => c.id === 'd1_tutorial_chris');
+    assert.equal(await page.evaluate(() => barGame.dialogue.text), opening.text[0]);
     // A later actor/camera transition must not resurrect the raw pending line either.
     await page.evaluate(() => {
       const line = barGame.dialogue;

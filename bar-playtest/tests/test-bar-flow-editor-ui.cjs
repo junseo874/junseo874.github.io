@@ -11,6 +11,12 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const historySize=()=>p.evaluate(()=>[dialogueEditor.model.undoStack.length,dialogueEditor.model.redoStack.length]);
   await first.waitFor();assert(await cards.count()>10);const original=await position(first),next=await position(cards.nth(1));
   const firstId=await first.getAttribute('data-node'),line=p.locator('.wires path[data-from="'+firstId+'"]').first(),originalWire=await line.getAttribute('d');
+  // Select across two cards, then grab the portrait rather than the title bar.
+  const a=await first.boundingBox(),b2=await cards.nth(1).boundingBox();await p.mouse.move(a.x-9,a.y-8);await p.mouse.down();await p.mouse.move(b2.x+15,b2.y+12,{steps:12});await p.mouse.up();
+  assert.equal(await p.locator('.flow-card.multi-selected').count(),2);
+  const [gx,gy]=await at(first.locator('.flow-cast'));await p.mouse.move(gx,gy);await p.mouse.down();await p.mouse.move(gx+32,gy+42,{steps:10});await p.mouse.up();
+  const delta=(v,o)=>v.map((n,i)=>n-o[i]);assert.deepEqual(delta(await position(cards.nth(1)),next),delta(await position(first),original));assert((await position(first))[0]>original[0]+20);assert.deepEqual(await historySize(),[1,0]);
+  await p.keyboard.press('Control+z');assert.deepEqual(await position(first),original);assert.deepEqual(await position(cards.nth(1)),next);assert(!await dirty());await p.mouse.click(a.x-9,a.y-8);
   assert(next[0]>original[0]&&next[1]===original[1]);await dragBy(first,63,75);
   const moved=await position(first),movedWire=await line.getAttribute('d');assert(moved[0]>original[0]+45&&moved[1]>original[1]+50);assert.notEqual(movedWire,originalWire);assert.deepEqual(await historySize(),[1,0]);
   assert(!await dirty());assert(await p.locator('#review').isDisabled());await p.keyboard.press('Control+z');assert.deepEqual(await position(first),original);assert.equal(await line.getAttribute('d'),originalWire);
@@ -62,16 +68,16 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await p.selectOption('#map-scale','50%');const src=get(ids[2]),dst=get(ids[5]);await src.locator('.card-head').click();
   const out=src.locator('.socket-out').first(),input=dst.locator('.socket-in');
   await p.evaluate(([a,b])=>{const el=document.querySelector('#map-port'),one=document.querySelector('[data-node="'+a+'"]'),two=document.querySelector('[data-node="'+b+'"]');el.scrollTo((one.offsetLeft+two.offsetLeft+236)*.25-el.clientWidth/2,0);},[ids[2],ids[5]]);
-  const from=await at(out),to=await at(input);await p.mouse.move(...from);await p.mouse.down();await p.mouse.move(...to,{steps:16});await p.mouse.up();await p.waitForFunction(()=>document.querySelector('#wire-hint').textContent.includes('연결됨'));
-  assert.equal(await count(),1);
+  const baseline=await count(),routeIds=await p.evaluate(()=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes.map(r=>r.id));const from=await at(out),to=await at(input);await p.mouse.move(...from);await p.mouse.down();await p.mouse.move(...to,{steps:16});await p.mouse.up();await p.waitForFunction(()=>document.querySelector('#wire-hint').textContent.includes('연결됨'));
+  assert.equal(await count(),baseline+1);
   const keys=()=>p.locator('.wires path[data-from]').evaluateAll(es=>es.map(e=>e.dataset.from+'|'+e.dataset.pin));assert.equal(new Set(await keys()).size,(await keys()).length);
-  const destOf=()=>p.evaluate(()=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes[0]?.target);
+  const destOf=()=>p.evaluate(ids=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes.find(r=>!ids.includes(r.id))?.target,routeIds);
   const oldDest=await destOf();await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await src.locator('.socket-in').click();assert.equal(await destOf(),oldDest);await p.keyboard.press('Escape');
-  await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await get(ids[4]).locator('.socket-in').click();assert.equal(await destOf(),ids[4],await p.locator('#wire-hint').innerText());assert.equal(await count(),1);assert.equal(new Set(await keys()).size,(await keys()).length);
-  await p.click('#undo');assert.equal(await destOf(),oldDest);await p.click('#undo');assert.equal(await count(),0);await p.click('#redo');assert.equal(await count(),1);
-  await p.click('[data-remove-route]');assert.equal(await count(),0);
-  const serveId=ids[14];await p.selectOption('#map-bookmark',serveId);await p.selectOption('#pin-preset','order_match && craft_grade >= good');await p.click('[data-action="add-pin"]');
-  assert(await p.locator('.socket.draft').count());await p.selectOption('#map-bookmark',ids[17]);await get(ids[17]).locator('.socket-in').click();assert.equal(await count(),1);
+  await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await get(ids[4]).locator('.socket-in').click();assert.equal(await destOf(),ids[4],await p.locator('#wire-hint').innerText());assert.equal(await count(),baseline+1);assert.equal(new Set(await keys()).size,(await keys()).length);
+  await p.click('#undo');assert.equal(await destOf(),oldDest);await p.click('#undo');assert.equal(await count(),baseline);await p.click('#redo');assert.equal(await count(),baseline+1);
+  await p.click('[data-remove-route]');assert.equal(await count(),baseline);
+  const serveCard=cards.filter({has:p.locator('.card-head b',{hasText:'칵테일 제공'})}).first(),serveId=await serveCard.getAttribute('data-node'),afterGlass=ids[ids.indexOf(serveId)+3];await p.selectOption('#map-bookmark',serveId);await p.selectOption('#pin-preset','order_match && craft_grade >= good');await p.click('[data-action="add-pin"]');
+  assert(await p.locator('.socket.draft').count());await p.selectOption('#map-bookmark',afterGlass);await get(afterGlass).locator('.socket-in').click();assert.equal(await count(),baseline+1);
   await p.click('#undo');await p.selectOption('#map-bookmark',ids[5]);
   await p.click('[data-action="insert-choice"]');await p.click('[data-action="edit"]');assert.equal(await p.locator('.choice-editor').count(),2);
   await p.locator('.choice-editor textarea[data-field="text.ko"]').first().fill('새 경로를 묻는다');

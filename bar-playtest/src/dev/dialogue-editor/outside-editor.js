@@ -101,8 +101,12 @@ function nodePaths(node,trail){
    badge:locked&&dest.row?'잠긴 경로 미리보기':dest.native?'본편 사건':dest.end?'종료':'',blocked:locked&&!dest.row?why:''};
  });
 }
+const prevStage=document.createElement('button');prevStage.textContent='← 이전 노드';nextStage.before(prevStage);
+function previousStageNodes(){const g=MapUI.graph(model,siteOf(flow()).id,allowed(flow())?allowed:undefined),ids=new Set(g.edges.filter(e=>e.to===stage.node.id).map(e=>e.from));return g.nodes.filter(n=>ids.has(n.id));}
+prevStage.onclick=()=>{const h=stage?.history.pop();if(h){stage.trail=h.trail;startStageNode(h.flow,h.row,false);return;}
+ const nodes=previousStageNodes(),go=n=>{stage.trail=[];startStageNode(n.flow,n.rows[0].row_id,false);};if(nodes.length===1)go(nodes[0]);else if(nodes.length){stop();branchPicker.open(nodes.map(n=>({node:n,title:n.title,detail:decode(model.step(n.rows[0])['text.ko'])})),e=>go(e.node),null,'이전 노드 선택');}};
 function stageButton(){
- const many=stage.paths.length>1;
+ prevStage.disabled=!stage.history.length&&!previousStageNodes().length;const many=stage.paths.length>1;
  nextStage.disabled=!stage.paths.length||(!many&&!!stage.paths[0]?.blocked);nextStage.hidden=!many&&!!stage.next?.end;
  nextStage.title=many?'연결된 '+stage.paths.length+'개 분기 중 이어 볼 경로를 고릅니다.':stage.paths[0]?.blocked||'남은 대사를 건너뛰고 연결된 노드를 엽니다.';
  branchPicker.setCount(stage.paths.length);
@@ -120,7 +124,7 @@ function startStageNode(f,id,fromFirst,autoplay=false){
  if(!n){stop();stage.next=null;$('stage-next-node').disabled=true;$('stage-range').textContent='연결된 대사 노드를 찾을 수 없습니다.';return false;}
  flowId=f;stage.node=n;stage.paths=nodePaths(n,stage.trail);setPlaying(autoplay);stageLine(fromFirst?n.rows[0].row_id:id,autoplay);return true;
 }
-function startStageNodeWithTrail(dest){const before=stage.trail;stage.trail=dest.trail;if(startStageNode(dest.flow,dest.row,false))return true;stage.trail=before;return false;}
+function startStageNodeWithTrail(dest){const before={flow:flowId,row:selected,trail:stage.trail};stage.history.push(before);stage.trail=dest.trail;if(startStageNode(dest.flow,dest.row,false))return true;stage.history.pop();stage.trail=before.trail;return false;}
 function finishStage(option){
  if(option&&(option.hidden||option.disabled||option.reason))return;
  const next=MapUI.previewNext(model,flowId,stage.node,option,stage.trail);if(next.needsChoice)return;
@@ -133,7 +137,7 @@ function finishStage(option){
 }
 function showStage(fromFirst=false){
  if(stageDialog.open||!model||!row())return;stageTrigger=document.activeElement;stop();
- stage={origin:{flow:flowId,row:selected},trail:[],next:null};$('stage-host').append($('outside-viewport'),document.querySelector('.transport'));stageDialog.showModal();
+ stage={origin:{flow:flowId,row:selected},history:[],trail:[],next:null};$('stage-host').append($('outside-viewport'),document.querySelector('.transport'));stageDialog.showModal();
  $('flow-back').hidden=true;startStageNode(flowId,selected,fromFirst===true);(model.isMenu(row())?$('preview-stage'):$('play')).focus({preventScroll:true});
 }
 function closeStage(){

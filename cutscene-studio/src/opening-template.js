@@ -79,7 +79,7 @@ function houseVisuals(p,visual,start,duration){
 }
 const phoneURL=typeof document!=='undefined'&&new URL('../data/first-contact.json',document.currentScript.src);
 let contact;
-async function loadPhone(){const r=await fetch(phoneURL,{cache:'no-store'});if(!r.ok)throw Error('크리스 첫 연락 대본을 불러오지 못했습니다.');contact=await r.json();}
+async function loadPhone(){const r=W.LunaResources?await W.LunaResources.request(phoneURL,'no-cache'):await fetch(phoneURL,{cache:'no-cache'});if(r.ok===false)throw Error('크리스 첫 연락 대본을 불러오지 못했습니다.');contact=JSON.parse(await r.text());}
 function phoneLines(optionId){
  const [first,...common]=contact.clips,options=first.choiceAfter.options,answer=options.find(o=>o.id===optionId)||options[0];
  return [[first.actor,first.text],['home-luna',answer.response],['phone',answer.followup],...[...(answer.clips||[]),...common].map(c=>[c.actor,c.text])];

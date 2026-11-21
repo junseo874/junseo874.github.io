@@ -112,12 +112,7 @@
       this.paused = false;
       this.transition = 0;
       this.pendingTransition = null;
-      this.seats = {
-        L: null,
-        M: null,
-        R: null
-      };
-      this.tableFades = {};
+      // The settlement panel overlays the last bar scene. A new shift resets its seats.
       this.finished = true;
       this.log('day_complete', {
         day: this.day,

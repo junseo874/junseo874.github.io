@@ -15,7 +15,7 @@ const assert=require('node:assert/strict');
     for(const key of states[talk])D.assets[key]={...D.assets[key],src:D.assets[key].src+'?pose-loading-test='+actor};
     const g=barGame;g.reset(99,'general',7);g.queue=[];g.speed=0;g.cameraLeft=0;g.focus='L';g.overview=false;
     g.seats={L:{id:'loading_'+actor,actor,seated:true,state:'WAIT_COASTER',left:999,limit:999,lines:[],lineIndex:0},M:null,R:null};
-    window.testLine=null;g.currentDialogue=()=>window.testLine;
+    window.testLine=null;g.guestDialogue=()=>window.testLine;
    },actor);
    await p.waitForFunction(actor=>document.querySelector('.actor[data-actor="'+actor+'"]')?.dataset.pose.endsWith('idle_default'),actor);
    await p.evaluate(async()=>{
