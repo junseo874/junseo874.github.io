@@ -49,7 +49,7 @@
         }
         if (e.button === 0 && this.view === 'prologue' && this.cinema?.dialogueWait && e.target.closest('.campaign-prologue,.studio-speech-layer')) {
           e.preventDefault();
-          if (this.cinema.scene.clips.find(line=>line.id===this.cinema.dialogueWait.id)?.dreamLine) return;
+          if (this.cinema.scene.clips?.find(line=>line.id===this.cinema.dialogueWait.id)?.dreamLine) return;
           this.advanceCinemaDialogue();
         }
       });
@@ -110,6 +110,7 @@
       if (view === 'title' && !this.titleImages) return this.prepareTitle();
       this.resetInput();
       if (view !== 'prologue') {
+        this.cinema?.room?.pause();
         this.cinema?.player?.pause?.();
         global.Sfx?.silence();
         global.Sfx?.setEnabled(false);
@@ -425,6 +426,7 @@
       if (this.view === 'scene') return this.dialog;
       if (this.view === 'prologue') {
         const c = this.cinema;
+        if(c?.scene.manualMemory)return c.dialogueWait||this.skipOwner===c?c:null;
         if (!c?.studio || c.dialogueChoice) return null;
         if (!c.dialogueWait) return this.skipOwner === c ? c : null;
         const line = c.scene.clips.find(l => l.id === c.dialogueWait.id);
@@ -449,6 +451,7 @@
       else this.outside.model.story.advance(); // Never start a new interaction or select an option.
     }
     tick(dt) {
+      if(this.cinema?.room && global.LunaFocusSettings.hiddenPaused)this.cinema.room.pause();
       if (this.view === 'title') this.titleLogo?.tick(Math.min(.05, Math.max(0, dt)));
       dt = Math.min(.05, Math.max(0, dt));
       if(this.view==='ending'&&!this.creditsFinished){if(!global.LunaFocusSettings.hiddenPaused)global.LunaCutsceneLibrary.advanceCredits(this,dt);return true;}
@@ -474,7 +477,8 @@
           previous = c.time;
         // Persist on the cinematic so redraws and settings resume keep the
         // same TV reception phase. Only active gameplay advances this clock.
-        if (c.scene.template === 'documentary') c.effectTime = (c.effectTime ?? c.time) + Math.max(0, dt);
+        if (c.scene.manualMemory || c.scene.template === 'documentary') c.effectTime = (c.effectTime ?? c.time) + Math.max(0, dt);
+        if(c.room)this.syncMemoryRoom();
         this.tickCinemaDialogue(c, dt);
         document.body.classList.toggle('campaign-cinematic', !c.dialogueWait&&!c.dialogueChoice);
         // A completed holo shutdown returns before drawing the timeline's empty end frame.
@@ -883,6 +887,7 @@
   document.addEventListener('visibilitychange', () => {
     const c = global.lunaCampaign;
     if (document.hidden && c) {
+      if(global.LunaFocusSettings.hiddenPaused)c.cinema?.room?.pause();
       c.releaseDialogueSkip();
       c.releaseCinemaSkip();
       if (document.querySelector('.shake-craft-dialog[open]')) return;

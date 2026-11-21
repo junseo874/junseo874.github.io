@@ -365,12 +365,12 @@ window.Engine = (function () {
     return { x: (wx - cam.x) * cam.z + VW / 2, y: (wy - cam.y) * cam.z + VH / 2 };
   };
 
-  Renderer.prototype.drawActors = function (g, t) {
+  Renderer.prototype.drawActors = function (g, t, idleTime=t) {
     const sc = this.sc;
     for (const a of sc.order) {
       const s = sc.actorState(a, t);
       if (!s.vis || s.alpha <= 0.01) continue;
-      const f = frameOf(s.anim, t);
+      const f = frameOf(s.anim, s.anim.v.endsWith('.stand') ? idleTime : t);
       g.save();
       if (s.rot) { g.translate(s.x, s.y); g.rotate(s.rot * Math.PI / 180); g.translate(-s.x, -s.y); }
       Sprites.draw(g, f.sheet, f.i, s.x, s.y, {
@@ -665,7 +665,7 @@ window.Engine = (function () {
     g.fillRect(0, VH - h, VW, h);
   };
 
-  Renderer.prototype.render = function (t, noiseTime = t) {
+  Renderer.prototype.render = function (t, noiseTime = t, drawDialogue) {
     const g = this.g, sc = this.sc;
     LunaPixelRaster.fit(g, VW, VH);
     g.fillStyle = '#000'; g.fillRect(0, 0, VW, VH);
@@ -677,12 +677,13 @@ window.Engine = (function () {
     g.translate(Math.round((VW / 2 - cam.x * cam.z) * pixel.a) / pixel.a,
       Math.round((VH / 2 - cam.y * cam.z) * pixel.d) / pixel.d);
     g.scale(cam.z, cam.z);
-    sc.stageAt(t).paint(g, t, st);
-    this.drawActors(g, t);
+    sc.stageAt(t).paint(g, sc.manualMemory ? noiseTime : t, st);
+    this.drawActors(g, t, sc.manualMemory ? noiseTime : t);
     const foreground = sc.stageAt(t).paintForeground;
     if (foreground) foreground(g, t, st);
     this.drawWorldFx(g, t);
     g.restore();
+    if (drawDialogue) drawDialogue(g, cam);
     this.drawScreenFx(g, t, cam);
     this.letterbox(g, t);
     let nz = 0;                                    // 겹치면 가장 센 것
@@ -696,6 +697,10 @@ window.Engine = (function () {
       nz = Math.max(nz, (f.amount == null ? 0.5 : f.amount) * e);
     }
     if (nz > 0) this.tvNoise(g, noiseTime, nz);
+    if(sc.manualMemory && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      const clock=Math.max(0,noiseTime),beat=Math.floor(clock/.66);
+      if(clock% .66 < .19)window.LunaDreamBands(g,beat,1,36,beat%2?-1:1);
+    }
     for (const f of sc.fx)
       if (f.type === 'crtoff' && t >= f.t && t <= f.t + f.dur + 0.001) this.crtOff(g, t, f);
     return cam;

@@ -4,10 +4,95 @@
 global.LunaCinemaPlayer=function(canvas,ui,sc){
   const bubble=ui.querySelector('.bubble');
   global.LunaExteriorTextbox.attach(bubble);
-  bubble.style.paddingRight='28px'; // No advance badge in legacy memory bubbles.
+  bubble.style.paddingRight='28px'; // Reserve space for the completed-line cue.
   const rd=new Engine.Renderer(canvas,sc);
   rd.opts.sfxLabel=false;
   let t=0,scale=1280/Engine.VW,soundOn=true,playing=true;
+
+  // Keep DOM line breaking and input, but paint memory dialogue into the same
+  // frame as the actors before the renderer applies its TV effects.
+  const dialogueScale = sc.manualMemory ? 1.08 : 1;
+  const tiles = new Map();
+  let memoryLayout = null;
+  function loadTile(url) {
+    if (!tiles.has(url)) {
+      const img = new Image();
+      img.src = url;
+      tiles.set(url,img);
+    }
+    return tiles.get(url);
+  }
+  if (sc.manualMemory) {
+    for (const image of bubble.querySelectorAll('.textbox-piece image')) loadTile(image.href.baseVal);
+  }
+  function measureMemoryLine() {
+    const box = bubble.getBoundingClientRect();
+    const unit = box.width / bubble.offsetWidth;
+    const local = el => {
+      const r = el.getBoundingClientRect();
+      return [(r.x-box.x)/unit,(r.y-box.y)/unit,r.width/unit,r.height/unit];
+    };
+    const frame = document.createElement('canvas');
+    frame.width = bubble.offsetWidth;
+    frame.height = bubble.offsetHeight + 22;
+    const ctx = frame.getContext('2d');
+    ctx.fillStyle = '#0b0c14';
+    ctx.beginPath();
+    ctx.roundRect(1,1,frame.width-2,bubble.offsetHeight-2,14);
+    ctx.fill();
+    for (const svg of bubble.querySelectorAll('.textbox-piece')) {
+      const [x,y,w,h] = local(svg);
+      const vb = svg.viewBox.baseVal;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x,y,w,h);
+      ctx.clip();
+      ctx.translate(x,y);
+      ctx.scale(w/vb.width,h/vb.height);
+      ctx.translate(-vb.x,-vb.y);
+      for (const piece of svg.children) {
+        if (getComputedStyle(piece).display==='none') continue;
+        const rect = ['x','y','width','height'].map(key=>piece[key].baseVal.value);
+        if (piece.localName==='rect') ctx.fillRect(...rect);
+        else ctx.drawImage(loadTile(piece.href.baseVal),...rect);
+      }
+      ctx.restore();
+    }
+    const style = getComputedStyle(bubble.querySelector('.txt'));
+    const cue = bubble.querySelector('.dialogue-advance-cue');
+    const cueURL = getComputedStyle(cue).backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1];
+    const arrow = cueURL ? loadTile(cueURL) : null;
+    return {frame,arrow,font:style.fontWeight+' '+style.fontSize+' '+style.fontFamily,
+      glyphs:charSpans.map(span=>({ch:span.textContent,color:getComputedStyle(span).color,rect:local(span)}))};
+  }
+  function drawMemoryLine(g,cam) {
+    paintLine(cam);
+    if (!curLine || (!memoryLayout && ![...tiles.values()].every(img=>img.complete&&img.naturalWidth))) return;
+    if (!memoryLayout) memoryLayout = measureMemoryLine();
+    bubble.style.opacity='0';
+    const layout = memoryLayout, factor = cam.z*dialogueScale;
+    g.save();
+    g.scale(1/scale,1/scale);
+    g.translate(parseFloat(bubble.style.left)-bubble.offsetWidth*factor/2,
+      parseFloat(bubble.style.top)-bubble.offsetHeight*factor);
+    g.scale(factor,factor);
+    g.drawImage(layout.frame,0,0);
+    g.font=layout.font;
+    g.textBaseline='middle';
+    const n=Engine.typedCount(curLine,t-curLine.t-curLine.lead);
+    for (let i=0;i<n;i++) {
+      const glyph=layout.glyphs[i];
+      const [x,y,,h]=glyph.rect;
+      g.fillStyle=glyph.color;
+      g.fillText(glyph.ch,x,y+h/2);
+    }
+    if (n>=layout.glyphs.length && layout.arrow?.naturalWidth) {
+      const cue=bubble.querySelector('.dialogue-advance-cue');
+      const bob=new DOMMatrixReadOnly(getComputedStyle(cue).transform==='none' ? undefined : getComputedStyle(cue).transform).m42;
+      g.drawImage(layout.arrow,bubble.offsetWidth-32,bubble.offsetHeight-33+bob,28,28);
+    }
+    g.restore();
+  }
 
   /* ---------- 말풍선 글자 DOM ---------- */
   let curLine = null, charSpans = [], noiseChars = [], nzKey = -1, measEl = null, lineAnchor = null;
@@ -120,6 +205,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     if (!l) { bubble.classList.remove('on'); curLine = null; lineAnchor = null; return; }
     bubble.style.opacity = (1 - overlayDim()).toFixed(3);
     const n = Engine.typedCount(l, t - l.t - l.lead);   // [T:초] 정지 태그 반영
+    if(sc.manualMemory)global.LunaDialogueCue.sync(bubble,n>=l.text.length);
     const isRadio = l.kind === 'radio', isPa = l.kind === 'pa';
 
     bubble.classList.add('on');
@@ -129,7 +215,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     bubble.classList.toggle('glitch', !!l.glitch);
     // ghost에 전체 대사(모자이크 치환 후)를 먼저 넣어 크기를 확정하고,
     // vis는 글자 단위 span — 태그 스타일(색·떨림·지지직·모자이크) 적용 + 노출 토글
-    if (curLine !== l) { curLine = l; lineAnchor = null; buildLineDom(l); }
+    if (curLine !== l) { curLine = l; lineAnchor = null; memoryLayout = null; buildLineDom(l); }
     for (let i = 0; i < charSpans.length; i++)
       charSpans[i].style.visibility = i < n ? '' : 'hidden';
     const nk = Math.floor(t * 15);                 // 지지직 — 글자가 계속 깨진다
@@ -153,7 +239,7 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     }
     const st=lineAnchor.actor?sc.actorState(lineAnchor.actor,t):null;
     const p=rd.project(cam,st?st.x:lineAnchor.x,st?st.y-lineAnchor.head:lineAnchor.y);
-    global.LunaWorldSpeech.place(bubble,{x:p.x*scale,y:p.y*scale,scale:cam.z,gap:(l.below?7:6)*scale,below:!!l.below});
+    global.LunaWorldSpeech.place(bubble,{x:p.x*scale,y:p.y*scale,scale:cam.z*dialogueScale,gap:(l.below?7:6)*scale,below:!!l.below});
     const tail=bubble.querySelector('.tail');tail.style.left='calc(50% - '+4*scale+'px)';tail.style.display=lineAnchor.actor||l.at?'':'none';
     bubble.classList.toggle('exterior-tail-less',!(lineAnchor.actor||l.at));
 
@@ -189,17 +275,20 @@ global.LunaCinemaPlayer=function(canvas,ui,sc){
     const n = Engine.typedCount(l, t - l.t - l.lead);
     if (typeLine !== l) { typeLine = l; typeCount = n; return; }
     if (n > typeCount) {
-      Sfx.blip({ ch: l.text[n - 1], i: n - 1, kind: l.kind, speaker: l.speaker, glitch: l.glitch });
+      if(sc.manualMemory)global.LunaDialogueAudio.reveal(l.text,typeCount,n);
+      else Sfx.blip({ ch: l.text[n - 1], i: n - 1, kind: l.kind, speaker: l.speaker, glitch: l.glitch });
       typeCount = n;
     }
   }
 
 
   return {renderer:rd,
-    render(time,previous,enabled,volume){
+    render(time,previous,enabled,volume,wait,effectTime){
       t=time;soundOn=enabled;Sfx.setVolume(volume);Sfx.setEnabled(enabled);
-      if(previous!=null){fireCues(previous,t);fireTyping();updateLoops();}
-      paintLine(rd.render(t));
+      if(previous!=null){fireCues(previous,t);fireTyping();if(!sc.manualMemory)updateLoops();}
+      else {typeLine=sc.lineAt(t);typeCount=typeLine?Engine.typedCount(typeLine,t-typeLine.t-typeLine.lead):0;}
+      if (sc.manualMemory) rd.render(t,effectTime ?? t,drawMemoryLine);
+      else paintLine(rd.render(t,effectTime ?? t));
     },
     dispose(){measEl?.remove();bubble.classList.remove('on');}
   };

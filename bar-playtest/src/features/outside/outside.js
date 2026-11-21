@@ -199,6 +199,7 @@
       this.barArrival = null;
       this.commuteBoundarySide = 0;
       this.crateBoundaryNoticed = false;
+      this.wardrobeMotion = null;
       this.beggarDeparture = null;
       this.beggarWitnessPaidVisit = null;
       this.liftLogoSeen = false;
@@ -415,7 +416,7 @@
     }
     updateNear() {
       global.LunaStoryNotices?.forced(this);
-      if (this.qa?.runtime || this.barArrival || this.ride || this.transition || this.neighborhood?.action || this.encounter || this.dialog || this.story?.blocking) { this.near = null; return; }
+      if (this.qa?.runtime || this.wardrobeMotion || this.barArrival || this.ride || this.transition || this.neighborhood?.action || this.encounter || this.dialog || this.story?.blocking) { this.near = null; return; }
       // targets() already scopes the current room/floor. Retain the current
       // candidate within 2.5 world pixels of a tie to avoid prompt flicker.
       const priority = { elevator: 30, home: 20, exit: 20, bar: 20, sofa: 10 };
@@ -436,6 +437,7 @@
     }
     interact() {
       if (this.paused || this.controlsTutorial || this.barArrival || this.transition || this.neighborhood?.action || this.encounter && this.encounter.stage !== 'active') return false;
+      if (this.wardrobeMotion) return false;
       if (this.story.blocking) return this.story.advance();
       if (this.ride) return false;
       if (this.dialog) {
@@ -458,6 +460,7 @@
         this.revision++;
         return true;
       }
+      if(t.id==='wardrobe' && global.LunaHomeInteractions.repeat(this,t))return true;
       if (t.id === 'sofa') {
         this.story.cancel();
         this.dialog = {
@@ -517,6 +520,7 @@
         this.animTime += dt;
         return;
       }
+      if(this.wardrobeMotion){this.time+=dt;global.LunaHomeInteractions.tick(this,dt);return;}
       syncHomewardGoal(this);
       if (this.qa && global.LunaOutsideQA.tick(this, dt)) return;
       this.story.tick(dt);

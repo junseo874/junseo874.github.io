@@ -4,6 +4,15 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
  try{
   const p=await b.newPage({viewport:{width:1280,height:720}}),errors=[];
   p.on('pageerror',e=>errors.push(e.stack));
+  await p.addInitScript(()=>{
+   window.wardrobeFrames={};
+   const draw=CanvasRenderingContext2D.prototype.drawImage;
+   CanvasRenderingContext2D.prototype.drawImage=function(image,...args){
+    const sheet=image?.src?.match(/wardrobe_change([12])[.]png/);
+    if(sheet && args.length===8)(window.wardrobeFrames[sheet[1]]??=new Set()).add(args[0]);
+    return draw.call(this,image,...args);
+   };
+  });
   await p.goto('http://127.0.0.1:8123/bar-playtest/?dev=1');await p.locator('.updates-confirm').click();
   await p.evaluate(async()=>{
    lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:1,flow:'out',place:'home'});await outsidePlaytest.start();
@@ -28,6 +37,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.waitForTimeout(550);await p.screenshot({path:'/private/tmp/home-wardrobe-menu.png'});
   await p.locator('[data-choice="cancel"]').click();assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
   await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="press"]').click();
+  await p.waitForFunction(()=>outsidePlaytest.model.story.speech?.id==='home/wardrobePressed');
   assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model;return [m.story.speech.id,m.story.view().full,m.story.speech.line.actor,!!m.story.speech.choice];}),['home/wardrobePressed','아직 애니메이션이 없는 걸...','luna',false]);
   await p.keyboard.press('KeyE');await p.screenshot({path:'/private/tmp/home-wardrobe-pressed.png'});await p.keyboard.press('KeyE');
   assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
@@ -37,7 +47,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    for(const day of [0,1,2,3])for(const flow of ['in','out']){
     m.start({day,flow,place:'home'});m.controlsTutorial=false;const t=m.targets().find(t=>t.id==='wardrobe');m.x=t.x;m.updateNear();a.snapCamera();a.tick(0);
     if(m.near?.id!=='wardrobe'||LunaOutsideDiscovery.unseen(m,t))throw Error('Wardrobe history/target');
-    if(!m.interact()||m.story.view().full!=='기능을 알 수 없는 버튼이 보인다.')throw Error('Repeat interaction');
+    if(!m.interact()||m.story.view().full!==''||!m.story.speech.choice)throw Error('Repeat interaction');
     m.story.cancel();
    }
    m.start({day:1,flow:'out',place:'homeDoor'});if(m.targets().some(t=>t.id==='wardrobe'))throw Error('Wardrobe outside');
@@ -50,7 +60,19 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
    await p.setViewportSize(viewport);await p.waitForTimeout(120);
    const box=await p.locator('.world-choices:visible').boundingBox();assert(box&&box.x>=0&&box.y>=0&&box.x+box.width<=viewport.width+1&&box.y+box.height<=viewport.height+1);
   }
-  await p.waitForTimeout(550);await p.keyboard.press('Enter');assert.equal(await p.evaluate(()=>outsidePlaytest.model.story.speech.id),'home/wardrobePressed');
+  await p.waitForTimeout(550);await p.keyboard.press('Enter');await p.waitForFunction(()=>!outsidePlaytest.model.wardrobeMotion);
+  assert(await p.evaluate(()=>!outsidePlaytest.model.story.speech && barGame.progress.flags.wardrobeOpen===false));
+  for(const open of [true,false]){
+   await p.keyboard.press('KeyE');
+   await p.locator('[data-choice="press"]').waitFor();
+   assert(await p.locator('.outside-speech').isHidden());
+   await p.waitForTimeout(550);await p.locator('[data-choice="press"]').click();
+   await p.waitForFunction(()=>!outsidePlaytest.model.wardrobeMotion);
+   assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model,sp=LunaHomeInteractions.sprite(m,{});return [barGame.progress.flags.wardrobeOpen,!!m.story.speech,sp.asset,sp.x];}),[open,false,open?'wardrobe-change1':'wardrobe-change2',1084]);
+  }
+  const frames=await p.evaluate(()=>Object.values(wardrobeFrames).map(s=>[...s].sort((a,b)=>a-b)));
+  assert.equal(frames.length,2);
+  for(const seq of frames){assert(seq.length>=3 && seq.at(-1)===1084,'Both transitions visibly animate and settle');}
   assert.deepEqual(errors,[]);console.log('HOME_WARDROBE_OK: cabinet-only glow/marker, CSV Luna dialogue, cancel/press, repeat/history, all days/routes, pause, resize, campaign click/Enter');
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

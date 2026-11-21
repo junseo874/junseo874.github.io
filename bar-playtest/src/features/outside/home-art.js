@@ -57,6 +57,7 @@ function apply(data){
  for(const [key,file,w,h] of [['home-wardrobe-weapon','IntractObjects_Closet_weapon.png',24,69],['home-sofa-uncovered','IntractObjects_Bedding_2.png',111,50]]){
   data.assets[key]={src:assetPath(file),w,h};
  }
+ for(const i of [1,2])data.assets['wardrobe-change'+i]={src:assetPath('Wardrobe/wardrobe_change'+i+'.png'),w:1161,h:138};
  data.assets['home-current-fullshot']={src:assetPath('chris-house-fullshot.png'),w:631,h:270,source:'Current house reference · full shot including city'};
  data.assets[book.cover]={src:root+'nietzsche-the-gay-science.png',w:1024,h:1536,source:'사용자 제공 책 표지 · 프리드리히 니체 — 《즐거운 학문》 · 원본 보존'};
  data.homeArtVersion='current-house-631';return data;

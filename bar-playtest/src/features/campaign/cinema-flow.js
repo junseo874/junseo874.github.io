@@ -36,7 +36,7 @@
     script(name) {
       if (this.scriptPromises.has(name)) return this.scriptPromises.get(name);
       const source = name === 'assets' ? 'data/runtime/cinema-assets.js' : 'src/cinema/' + name + '.js';
-      const version = name === 'studio-player' ? 'scene-loading-2' : ['sprites','stage','engine'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'resource-refresh-20261109' : name === 'player' ? 'memory-layout-20261020' : name === 'terrace-memory' ? 'terrace-memories-wide-20261116' : 'dialogue-periods-20261029';
+      const version = name === 'studio-player' ? 'scene-loading-2' : name === 'terrace-memory' ? 'disposal-dialogue-1' : ['engine','player'].includes(name) ? 'disposal-dialogue-1' : ['sprites','stage'].includes(name) ? 'display-grid-1' : name === 'stage3' ? 'disposal-original-1' : 'dialogue-periods-20261029';
       const p=global.LunaResources.script(source+'?v='+version).catch(e=>{this.scriptPromises.delete(name);throw e;});
       this.scriptPromises.set(name, p);
       return p;
@@ -234,8 +234,9 @@
       // Keep the terrace memories' TV noise moving under the fade while dialogue time is held.
       const memory = this.cinema;
       if (memory?.memoryKey && (d.phase === 'in' || d.phase === 'out')) {
-        const offset = d.phase === 'in' ? Math.min(0, d.time - d.revealDuration) : d.time;
-        memory.renderer.render(memory.time, memory.time + offset);
+        memory.effectTime=(memory.effectTime||0)+dt;
+        memory.renderer.render(memory.time,memory.effectTime);
+        this.syncMemoryRoom(d.phase==='in'?smooth(d.time/d.revealDuration):1-smooth(d.time/.9));
       }
       if (d.phase === 'out') {
         const alpha = smooth(d.time / .9);
@@ -336,6 +337,7 @@
           player: null,
           renderer: null,
           title: '유나와의 기억 · 폐기물 처리소',
+          room:new Audio('assets/audio/effects/ambience/disposal-room.wav'),
           memoryKey,
           memory: true,
           returnTo: done
@@ -344,6 +346,14 @@
         this.screen('prologue');
         global.Sfx?.resume();
       });
+    }
+    syncMemoryRoom(fade=1) {
+      const room=this.cinema?.room;
+      if(!room)return;
+      room.loop=true;
+      room.volume=global.LunaSfx.volume*fade;
+      if(!this.ui.gimmickAudio || global.LunaFocusSettings.hiddenPaused){room.pause();return;}
+      if(room.paused && room.volume>0)room.play().catch(()=>{});
     }
     releaseCinemaSkip() {
       this.cinemaHoldStart = null;
@@ -357,6 +367,19 @@
     tickCinemaDialogue(c, dt) {
       // Manual lines own their clock. Keep the scene alive, but never cross a
       // dialogue boundary until a fresh key press acknowledges that line.
+      if(c.scene.manualMemory){
+        const wait=c.dialogueWait;
+        if(wait){
+          const line=c.scene.lines[wait.id];
+          c.time=Math.min(line.t+line.dur-.001,c.time+global.LunaOutsideStory.advanceTime(0,dt));
+        }else{
+          const next=Math.min(c.scene.end,c.time+dt);
+          const line=c.scene.lines.find(l=>l.t+l.dur>c.time && l.t<=next);
+          if(line)c.dialogueWait={id:line.idx};
+          c.time=line?Math.max(c.time,line.t):next;
+        }
+        return;
+      }
       if (c.dialogueWait) {
         c.dialogueWait.age += dt;
         return;
@@ -376,6 +399,17 @@
       const c = this.cinema,
         w = c?.dialogueWait;
       if (!w || c.dialogueChoice) return;
+      if(c.scene.manualMemory){
+        const line=c.scene.lines[w.id];
+        if(global.Engine.typedCount(line,c.time-line.t-line.lead)<line.text.length){
+          c.time=line.t+line.dur-.001;
+        }else{
+          c.time=line.t+line.dur;
+          c.dialogueWait=null;
+        }
+        c.player.render(c.time,null,this.ui.gimmickAudio,global.LunaSfx.volume*.55,c.dialogueWait,c.effectTime);
+        return;
+      }
       const line = c.scene.clips.find(l => l.id === w.id),
         parsed = global.StudioTags.parse(line.text);
       if (global.StudioOpening?.typingPending(line, Math.max(0, c.time - line.start) + w.age)) return;
@@ -484,6 +518,7 @@
       this.cinemaChoices = null;
       if (!keepMusicGain) this.bgm.setTransitionGain(1);
       this.releaseCinemaSkip();
+      this.cinema?.room?.pause();
       this.cinema?.player?.dispose();
       this.cinema = null;
       global.Sfx?.silence();

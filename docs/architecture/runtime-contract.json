@@ -796,6 +796,10 @@
     ],
     [
       "script",
+      "src/cinema/dream-bands.js"
+    ],
+    [
+      "script",
       "src/features/campaign/cinema-flow.js"
     ],
     [
@@ -1897,6 +1901,10 @@
     [
       "script",
       "src/holo-call.js"
+    ],
+    [
+      "script",
+      "../bar-playtest/src/cinema/dream-bands.js"
     ],
     [
       "script",

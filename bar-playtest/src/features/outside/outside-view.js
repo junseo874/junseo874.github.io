@@ -643,7 +643,7 @@
       // Preserve the supplied sprite cutouts and world coordinates, including the exterior.
       const light = n.light || /City.*Light/.test(n.name);
       let sp = n.ambient ? global.LunaOutsideAmbient.frame(n, model.time) : n.sprite;
-      if(n.name==='home-wardrobe'&&model.story.speech?.id==='home/wardrobePressed')sp={...sp,asset:'home-wardrobe-weapon'};
+      if(n.name==='home-wardrobe')sp=global.LunaHomeInteractions.sprite(model,sp);
       if(n.name==='home-bedding'&&global.barGame?.progress.flags.boobi_adopted){
         sp={...sp,asset:'home-sofa-uncovered',h:50};y-=.02*n.sy;
       }

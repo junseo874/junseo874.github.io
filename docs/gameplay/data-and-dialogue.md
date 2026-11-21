@@ -242,8 +242,8 @@ core / campaign / outside            조건 검사·상태 변경·대사·연�
 2. `Story.begin('home/wardrobe', target)`이 해당 행을 읽는다.
 3. `Story.seek`가 `home-choice`를 만나 대사와 선택 대기 상태를 만든다.
 4. `home-interactions.js`의 `choiceView`가 `press: 누른다`, `cancel: 취소`를 반환한다. 이 버튼 문구는 이 JS에 있다.
-5. `press`는 `home/wardrobePressed`를 시작하고 “아직 애니메이션이 없는 걸...”을 표시한다. `cancel`은 대화를 닫는다.
-6. 이 장면에는 실제 옷장 작동 애니메이션이나 보상이 없다. 다른 구현자가 이름만 보고 새 기능을 붙이지 않는다.
+5. `press`는 옷장을 전환하고 첫 작동이 끝나면 `home/wardrobePressed` 대사를 표시한다. `cancel`은 대화를 닫는다.
+6. 다시 조사하면 선택지만 열리고, 누를 때마다 9프레임 전환 후 마지막 상태를 유지한다.
 
 ## 실제 예제 2 바 대화 선택
 
