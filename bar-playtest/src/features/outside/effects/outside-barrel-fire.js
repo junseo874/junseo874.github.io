@@ -12,7 +12,7 @@ function apply(data){
  const d=D();if(!d||data.barrelFireVersion===d.version)return data;
  Object.assign(data.assets,d.assets);
  const back=data.scenes.street.nodes.find(n=>n.name==='B_Obects');
- Object.assign(back,{x:d.back.x,y:d.back.y,sx:d.back.sx,sy:d.back.sy,sprite:{...d.back.sprite,wireOffsetX:6}});
+ Object.assign(back,{x:d.back.x,y:d.back.y,sx:d.back.sx,sy:d.back.sy,sprite:{...d.back.sprite,wireOffsetX:10}});
  data.scenes.street.nodes.push({...back,...d.front,id:d.front.id,name:'barrel-front',layer:9,order:d.front.order,ancestry:['BG','Foreground'],sprite:{...d.front.sprite}});
  data.scenes.street.nodes.push({...back,id:'engine-barrel-fire',name:'barrel-fire',x:d.fire.x,y:d.fire.y,sx:d.fire.sx,sy:d.fire.sy,layer:9,order:d.fire.order,ancestry:['BG','Foreground'],sprite:{asset:'street-fire-aura',x:0,y:0,w:100,h:100,ppu:100,pivot:{x:.5,y:.5}}});
  data.barrelFireVersion=d.version;return data;

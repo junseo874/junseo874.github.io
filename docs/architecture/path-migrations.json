@@ -2336,8 +2336,6 @@
     "bar-playtest/assets/serve-gin-fizz.png": "bar-playtest/assets/serving/static/serve-gin-fizz.png",
     "bar-playtest/assets/serve-gin-tonic.png": "bar-playtest/assets/serving/static/serve-gin-tonic.png",
     "bar-playtest/assets/serve-kahlua.png": "bar-playtest/assets/serving/static/serve-kahlua.png",
-    "bar-playtest/assets/outside/vehicles/ad-portrait-crimson.png": "bar-playtest/assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",
-    "bar-playtest/assets/outside/vehicles/ad-portrait-violet.png": "bar-playtest/assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png",
     "bar-playtest/assets/ui/cursors/crosshair.svg": "bar-playtest/assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png",
     "bar-playtest/assets/ui/cursors/default.svg": "bar-playtest/assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_default_icon.png",
     "bar-playtest/assets/ui/cursors/ew-resize.svg": "bar-playtest/assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_ew_resize_icon.png",

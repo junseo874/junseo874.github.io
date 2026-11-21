@@ -49,7 +49,7 @@ const root=path.resolve(__dirname,'..');
     await page.waitForFunction(key=>{lunaCampaign.render(true);return !!document.querySelector('.actor[data-actor="shiba"] [data-layer="'+key+'"]');},key);
     return actor.locator('.actor-layer').first().boundingBox();
    }
-   const typing=await expectPose('char_shiba_talk');
+   const typing=await expectPose('char_shiba_talk_face_bottom_talk');
    assert.equal(await actor.evaluate(el=>getComputedStyle(el).opacity),'1');
    assert.equal(await actor.getAttribute('data-talking'),'true');
    if(mode==='original')await page.screenshot({path:'/private/tmp/shiba-speaking.png'});
@@ -59,7 +59,7 @@ const root=path.resolve(__dirname,'..');
    if(mode==='original')await page.screenshot({path:'/private/tmp/shiba-idle.png'});
    // Reveal/skip finishes articulation without advancing to the next line.
    await page.evaluate(()=>{barGame.dialogue.chars=1;lunaCampaign.render(true);});
-   await expectPose('char_shiba_talk');
+   await expectPose('char_shiba_talk_face_bottom_talk');
    await page.evaluate(()=>{barGame.advance();lunaCampaign.render(true);});
    assert.deepEqual(await expectPose('char_shiba_idle_body'),typing);
    // A different speaker must not open Shiba's mouth.

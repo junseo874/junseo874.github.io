@@ -34,7 +34,15 @@ const web=path.resolve(__dirname,'..'),D=require('../data/presentation/runtime-a
   });
   await p.waitForTimeout(900);
   const view=await p.evaluate(()=>({haru:barData.assets.char_haru_idle_body,haruLayers:barData.characterLayers.haru,tom:barData.characterLayers.tom.success_default,html:document.querySelector('#app').innerHTML}));
-  assert.deepEqual(view.haruLayers.idle_default,view.haruLayers.idle_talk);
+  assert.deepEqual(view.haruLayers.idle_default.slice(0,-1),view.haruLayers.idle_talk.slice(0,-1));
+  assert.equal(view.haruLayers.idle_talk.at(-1),'char_haru_talk_face_bottom_talk');
+  const frames=await p.evaluate(()=>{
+   const g=barGame;g.paused=true;g.dialogue=g.makeLine('haru','대화 중인 송하루의 입 움직임');g.dialogue.chars=1;
+   const frames=[];
+   for(let i=0;i<12;i++){g.realTime+=.12;lunaCampaign.render(true);frames.push(document.querySelector('[data-layer="char_haru_talk_face_bottom_talk"]')?.dataset.frame);}
+   return frames;
+  });
+  assert.deepEqual([...new Set(frames)].sort(),['0','1','2','3']);
   assert.equal(view.haru.frames,4);assert.equal(view.haru.fps,2.5);assert.equal(view.haruLayers.idle_default.length,5);
   assert.deepEqual(view.tom,['char_tom_success']);assert(view.html.includes('10.Haru/02.Idle/01.Default/body.png'));assert(view.html.includes('Tom_success.png'));
   await p.screenshot({path:'/private/tmp/luna-latest-bar-art.png'});

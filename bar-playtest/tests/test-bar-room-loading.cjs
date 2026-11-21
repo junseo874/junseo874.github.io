@@ -13,7 +13,7 @@ for(const f of ['data/runtime/game-data.js','src/features/bar/bar-guest-art.js',
   assert(![...urls].some(s=>s.includes('/02.Drink_Serving_Screen_Sheets/')));
  }
  assert(calls[0].has(d.assets.char_chris_Chris_idle_talk_body.src));
- assert(!calls[0].has(d.assets.char_shiba_talk.src)&&calls[2].has(d.assets.char_shiba_talk.src),'respect the day and live pose overrides');
+ assert(!calls[0].has(d.assets.char_shiba_talk_face_bottom_talk.src)&&calls[2].has(d.assets.char_shiba_talk_face_bottom_talk.src),'respect the day and live pose overrides');
  w.navigator.connection.saveData=true;
  room.anticipate(0,d);await new Promise(r=>setImmediate(r));assert.equal(calls.length,4,'no speculative downloads with data saver');
  await room.prepare(0,d);assert.equal(calls.length,5,'data saver still prepares required images at the door');

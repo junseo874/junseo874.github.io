@@ -1,54 +1,14 @@
 {
   "version": 1,
   "summary": {
-    "sourceEntries": 901,
-    "uniqueImages": 765,
+    "sourceEntries": 899,
+    "uniqueImages": 763,
     "duplicatesRemoved": 136,
     "transparentExcluded": 0,
     "existingReused": 0
   },
   "policy": "Exact-size RGBA deduplication, original bytes retained; no engine/runtime changes; web-generated review snapshots are not a new gameplay specification.",
   "records": [
-    {
-      "path": "02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",
-      "sha256": "509789be3c9d2c9c88b62d98cbaed6cb0462db7e6c230917eb49a507e3702341",
-      "width": 2172,
-      "height": 724,
-      "kind": "artwork",
-      "origin": "AI-generated artwork; ad-art-provenance.json",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/outside/vehicles/ad-portrait-crimson.png",
-          "title": "공중 광고 · crimson",
-          "sha256": "509789be3c9d2c9c88b62d98cbaed6cb0462db7e6c230917eb49a507e3702341",
-          "selector": "ad_portrait_crimson",
-          "states": [
-            "outside-advertisement"
-          ]
-        }
-      ]
-    },
-    {
-      "path": "02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png",
-      "sha256": "f239240af13b5193918b20771e1b882fd50fb727803395ff9e987fe189737f46",
-      "width": 2172,
-      "height": 724,
-      "kind": "artwork",
-      "origin": "AI-generated artwork; ad-art-provenance.json",
-      "reusesExisting": false,
-      "sources": [
-        {
-          "src": "assets/outside/vehicles/ad-portrait-violet.png",
-          "title": "공중 광고 · violet",
-          "sha256": "f239240af13b5193918b20771e1b882fd50fb727803395ff9e987fe189737f46",
-          "selector": "ad_portrait_violet",
-          "states": [
-            "outside-advertisement"
-          ]
-        }
-      ]
-    },
     {
       "path": "05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png",
       "sha256": "df6df73874d508717401b96915a8a8b693bd068f3cc59247cf1d4d87d2b27b3f",

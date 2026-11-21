@@ -925,28 +925,6 @@ window.ResourceExtractionAssets=[
     "h": 270
   },
   {
-    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_crimson_artwork.png",
-    "title": "공중 광고 · crimson",
-    "w": 2172,
-    "h": 724,
-    "partKind": "artwork",
-    "noticeKinds": [],
-    "category": "기타 그래픽",
-    "contexts": "공중 광고 · crimson outside-advertisement",
-    "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
-  },
-  {
-    "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Advertisements/WebGenerated/Web_IMG_ad_portrait_violet_artwork.png",
-    "title": "공중 광고 · violet",
-    "w": 2172,
-    "h": 724,
-    "partKind": "artwork",
-    "noticeKinds": [],
-    "category": "기타 그래픽",
-    "contexts": "공중 광고 · violet outside-advertisement",
-    "note": "웹 생성 PNG · 원본 크기·투명 여백 유지"
-  },
-  {
     "src": "assets/01.ArtResources/05.UI/01.Shared/WebGenerated/Cursors/Web_IMG_cursor_crosshair_icon.png",
     "title": "웹 커서 · crosshair",
     "w": 32,

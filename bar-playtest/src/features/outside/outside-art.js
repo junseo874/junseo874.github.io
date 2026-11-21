@@ -1,4 +1,4 @@
-/* Supplied 2026-10-18 street layers. Keep gameplay anchors and original PNGs intact. */
+/* Supplied street layers and their registration to gameplay anchors. */
 (function(W){
 'use strict';
 const root='assets/01.ArtResources/02.Environments/02.Street/01.Sprites/';
@@ -7,18 +7,18 @@ const root='assets/01.ArtResources/02.Environments/02.Street/01.Sprites/';
 const elevatorArtOffsetY=-.11;
 const replacements=[
  ['Sky','sky.png',2880,1620],
- ['C_Back_Building_1','Layers/C_background_1 1.png',2880,605],
- ['C_Back_Building_2','Layers/C_background_2 1.png',2880,673],
- ['C_Middle_Building_1','Layers/area_C_midground_1.png',2880,677],
- ['C_Middle_Building_2','Layers/area_C_midground_2.png',2880,536],
- ['C_Middle_Building_3','Layers/area_C_midground_3.png',729,1620],
- ['C_Middle_Object_1','Layers/C_midground_2_object1.png',1296,613],
- ['C_Middle_Object_2','Layers/area_C_midground_2_object2.png',1090,1014],
+ ['C_Back_Building_1','Layers/C_background_1 1.png',2880,618],
+ ['C_Back_Building_2','Layers/C_background_2 1.png',2880,873],
+ ['C_Middle_Building_1','Layers/area_C_midground_1.png',2880,605],
+ ['C_Middle_Building_2','Layers/area_C_midground_2.png',2880,562],
+ ['C_Middle_Building_3','Layers/area_C_midground_3.png',725,1620],
+ ['C_Middle_Object_1','Layers/C_midground_2_object1.png',1415,714],
+ ['C_Middle_Object_2','Layers/area_C_midground_2_object2.png',170,440],
  ['1F Floor','Layers/floor_1_ground.png',2880,67],
  ['Fence','Layers/fence.png',2880,84],
- ['B_Fore_Building_1','Layers/area_B_foreground_building.png',1293,310,-20,2],
+ ['B_Fore_Building_1','Layers/area_B_foreground_building.png',1293,306,-20,2],
  ['B_Fore_StandLight_1','Layers/area_B_foreground_streetlight.png',96,183,-2,0],
- ['B_Obects','Objects/object_1.png',2212,207,-178,0],
+ ['B_Obects','Objects/object_1.png',2222,208,-178,0],
  ['B_ForeFore_Object_1','Layers/near_foreground_1.png',2880,324,-368,0],
  ['CityLight','Lights/CityLight_v16.png',2400,1153],
  ["'CityLight '",'Lights/CityLight_v20.png',2354,1153],
@@ -26,8 +26,8 @@ const replacements=[
  ['residence-building','Layers/area_A_foreground_building.png',952,1520],
  ['residence-railing','Layers/near_foreground_2.png',952,617],
  ['Elevator','Elevator/elevator_body.png',69,154],
- ['Elevator Fore','Elevator/elevator_front_layer.png',57,100],
- ['Elevator Line','Elevator/elevator_support.png',105,1467]
+ ['Elevator Fore','Elevator/elevator_front_layer.png',57,101],
+ ['Elevator Line','Elevator/elevator_support.png',105,1306]
 ];
 function apply(data){
  if(data.streetArtVersion==='20261018')return data;
@@ -37,10 +37,22 @@ function apply(data){
    const old=n.sprite;
    // Measured matching pixels, not centering a differently trimmed atlas.
    if(dx!==undefined){n.x+=(dx+(w-old.w)*old.pivot.x)*n.sx/old.ppu;n.y+=((old.h-h)*(1-old.pivot.y)-dy)*n.sy/old.ppu;}
-   data.assets[old.asset]={src:root+file,w,h,source:'User supplied new/'+file+' · 2026-10-18'};
+   data.assets[old.asset]={src:root+file,w,h,source:'9_ArtResources/02.Environments/02.Street/01.Sprites/'+file.replace(/ 1\.png$/,'.png')};
    n.sprite={...old,x:0,y:0,w,h};
   }
  }
+ // This sheet is a fleet of individual moving vehicles on transparent space.
+ const fleet=nodes.find(n=>n.name==='C_Middle_Object_1');
+ data.streetVehicleSheet=fleet.sprite.asset;
+ fleet.active=false;
+ const portrait=nodes.find(n=>n.name==='C_Middle_Object_2');
+ const tower=nodes.find(n=>n.name==='C_Middle_Building_3');
+ portrait.billboardPlacement={parent:tower.name,x:-2.45,y:6.45};
+ const billboard='C_Middle_Object_3';
+ data.assets[billboard]={src:root+'Layers/area_C_midground_2_object3.png',w:480,h:254,source:'9_ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object3.png'};
+ nodes.push({...portrait,id:billboard,go:billboard,name:billboard,x:tower.x+5.415,y:tower.y+5.10,
+  billboardPlacement:{parent:tower.name,x:5.415,y:5.10},
+  sprite:{...portrait.sprite,asset:billboard,w:480,h:254,pivot:{x:.5,y:0}}});
  // The new first accessible corridor floor is row 477. Match the existing
  // 9.55 world-space railing edge and keep the doorway centered at homeX.
  const building=nodes.find(n=>n.name==='residence-building');

@@ -51,18 +51,18 @@
   },
   "assets": {
     "street-camp-props": {
-      "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
-      "w": 2218,
-      "h": 207,
-      "source": "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
-      "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06"
+      "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
+      "w": 2222,
+      "h": 208,
+      "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
+      "sha256": "0767307252ac1d6b209e5c42d8c0a14c5e618965f3c951ba74f0d6095a657e04"
     },
     "street-barrel-front": {
       "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
-      "w": 21,
-      "h": 28,
-      "source": "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
-      "sha256": "84f8628425532287fe7e5bd368dd31b72d59d1a07054ee95d48bb82fa2828d05"
+      "w": 23,
+      "h": 30,
+      "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
+      "sha256": "fdcdc3931f86657ef57cff9dc4172ada421efe12cd8c02fb78c226293707931e"
     },
     "street-fire-aura": {
       "src": "assets/outside/effects/fire/aura.png",
@@ -97,8 +97,8 @@
       "asset": "street-camp-props",
       "x": 0,
       "y": 0,
-      "w": 2218,
-      "h": 207,
+      "w": 2222,
+      "h": 208,
       "pivot": {
         "x": 0.5,
         "y": 0
@@ -119,8 +119,8 @@
       "asset": "street-barrel-front",
       "x": 0,
       "y": 0,
-      "w": 21,
-      "h": 28,
+      "w": 23,
+      "h": 30,
       "pivot": {
         "x": 0.5,
         "y": 0

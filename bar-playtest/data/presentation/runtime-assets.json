@@ -4592,6 +4592,40 @@
       "frameHeight": 36,
       "fps": 12,
       "source": "tools/build-stir-ice.py"
+    },
+    "char_shiba_talk_face_bottom_talk": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/02.Talk/face_bottom_talk.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 4.444444444444445,
+      "alphaBBox": [
+        231,
+        330,
+        332,
+        378
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/08.Shiba/02.Idle/02.Talk/face_bottom_talk.png",
+      "syncToBody": false
+    },
+    "char_haru_talk_face_bottom_talk": {
+      "src": "assets/01.ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/02.Talk/face_bottom_talk.png",
+      "w": 2204,
+      "h": 530,
+      "frames": 4,
+      "frameWidth": 551,
+      "frameHeight": 530,
+      "fps": 4.444444444444445,
+      "alphaBBox": [
+        244,
+        215,
+        302,
+        249
+      ],
+      "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/02.Talk/face_bottom_talk.png",
+      "syncToBody": false
     }
   },
   "characterLayers": {
@@ -4800,7 +4834,7 @@
         "char_haru_idle_face_top",
         "char_haru_idle_eyes",
         "char_haru_idle_eyebrow",
-        "char_haru_idle_face_bottom_default"
+        "char_haru_talk_face_bottom_talk"
       ],
       "fail_default": [
         "char_haru_fail"
@@ -4823,7 +4857,10 @@
         "char_shiba_idle_face_bottom_default"
       ],
       "idle_talk": [
-        "char_shiba_talk"
+        "char_shiba_idle_body",
+        "char_shiba_idle_face_top",
+        "char_shiba_idle_eyes",
+        "char_shiba_talk_face_bottom_talk"
       ]
     }
   },

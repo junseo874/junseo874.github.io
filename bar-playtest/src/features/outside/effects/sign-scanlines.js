@@ -17,7 +17,9 @@ const masks={
 };
 // CRT planes are attached to their receiving sprite, so parallax, zoom and
 // foreground occlusion cannot move them off the signs. Terrace is unchanged.
-for(const r of W.LUNA_STREET_EFFECTS?.scans||[]){
+for(const source of W.LUNA_STREET_EFFECTS?.scans||[]){
+ // The current middle skyline trims 72 pixels above its original signs.
+ const r=source.receiver==='C_Middle_Building_1'?{...source,y:source.y-72}:source;
  const points=[[-.5,-.5],[.5,-.5],[.5,.5],[-.5,.5]].map(([x,y])=>[r.x+r.a*x+r.c*y,r.y+r.b*x+r.d*y]);
  (masks[r.receiver]??=[]).push({...r,points});
 }

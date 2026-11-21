@@ -5,8 +5,7 @@ const D=W.LUNA_DATA,key='char_shiba_static';
 D.assets[key]={src:'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle.png',w:551,h:530,frames:1,frameWidth:551,frameHeight:530,fps:0,static:true,alphaBBox:[219,271,347,422],source:'User supplied Shiba_Idle.png, 2026-10-19'};
 const talkKey='char_shiba_talk';
 D.assets[talkKey]={...D.assets[key],src:'assets/01.ArtResources/01.Characters/01.Bar/08.Shiba/Shiba_Idle2.png',source:'User supplied Shiba_Idle2.png, 2026-10-19'};
-// Idle parts come from the shared presentation registry. Keep the authored speaking pose.
-D.characterLayers.shiba.idle_talk=[talkKey];
+// Idle and four-frame speech layers come from the shared presentation registry.
 D.webPoseOffsets.shiba={idle_default:[0,0],idle_talk:[0,0]};
 // Preserve the supplied full actor canvas and align its torso cut to the bar.
 D.webActorBounds.shiba=[219,269,347,422];

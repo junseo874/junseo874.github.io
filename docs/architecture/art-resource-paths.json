@@ -1870,7 +1870,7 @@
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
       "source": "02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "39a48f351a1d53781dbfed9d6cfd6dd18d47193af5cd96b90040ddfb3971b961"
+      "sha256": "df83b2fae91c0c98cec72d4c63ee3c53e834595bd99ce96755318e009d2ea7e2"
     },
     {
       "from": "assets/outside/chris-home/Hanger.png",
@@ -2052,42 +2052,42 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png",
       "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_body.png",
       "match": "bytes",
-      "sha256": "ff00773e1c236b50a48ae091720bf6e6d37e5ce8a15052cfb9c818a97aa90d6c"
+      "sha256": "eef859a676517a0363fa2bd8ee1e605f1cfe894ced489b7406f683f8b5dcdd87"
     },
     {
       "from": "assets/outside/street-20261018/Elevator/elevator_front_layer.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png",
       "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_front_layer.png",
       "match": "bytes",
-      "sha256": "22004ea0d82cab117e9c1e74b161454abb73041c134bef4f7edc0591533c13a2"
+      "sha256": "9e26e010c5f89db15ea408accfc0ad268474f08e535d6c1687a2f4f04dac092f"
     },
     {
       "from": "assets/outside/street-20261018/Elevator/elevator_support.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png",
       "source": "02.Environments/02.Street/01.Sprites/Elevator/elevator_support.png",
       "match": "bytes",
-      "sha256": "43e95a93b638ca7c2baac37b39633db6bd964037069bad0aeaf3d67c9a75c53e"
+      "sha256": "b7e7bddc04882d8220b487715ba383cd7a0cacaca6fdf2f88db76a5d75a8d7d5"
     },
     {
       "from": "assets/outside/street-20261018/Layers/C_background_1.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_1 1.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/C_background_1 1.png",
       "match": "bytes",
-      "sha256": "1fc92c439ae4074645f586db6e24e04843011223df44369f2f144aaade443ca4"
+      "sha256": "8ce88b850a646b6fa44911c7d5b4f93c43edb0dcd9ec4bf463cb5927046e0ce3"
     },
     {
       "from": "assets/outside/street-20261018/Layers/C_background_2.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_background_2 1.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/C_background_2 1.png",
       "match": "bytes",
-      "sha256": "f35580d25bba240b3ae3b43ef06c983bfb912296e02e6615f4b36afa4169fc71"
+      "sha256": "2e2f5c962a647ec4c5657cd79a19f2b9d7f7ad8214d5e4d8382e43aef273e47f"
     },
     {
       "from": "assets/outside/street-20261018/Layers/C_midground_2_object1.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/C_midground_2_object1.png",
       "match": "bytes",
-      "sha256": "1e7f6dd1772641d2f5b3fe9e0c8e93a22a7c4bcfff16854bb8d1149ae0d1de10"
+      "sha256": "62078d9e108abd165df1ca0a65c5f63ea1770bd458e3fbf10400130fe81f838e"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_A_foreground_building.png",
@@ -2101,7 +2101,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
       "match": "bytes",
-      "sha256": "9fec89d0cae1b4e78377cb2946f6cbf1c71541ee51daee54736874f4407259fa"
+      "sha256": "fd384c155761592e5d8cb3f2b00ef26d90ef7c4ac8206ca6e4840809a0d9e2b9"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_B_foreground_streetlight.png",
@@ -2115,28 +2115,28 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
       "match": "bytes",
-      "sha256": "70ba1773368da3ea1e29a3b627b022485975d33e8c0cd967ca3993ea713d1b63"
+      "sha256": "d1c7dd411631c72a38390827048ce74063fb0cc727cd6c4e617d16d8017a49e0"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_C_midground_2.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2.png",
       "match": "bytes",
-      "sha256": "414d8ead98fc35b1e669ee989534617bf0ecce1c3838d617908878f552b2d7b8"
+      "sha256": "3f1968ddb8ebfd2cd31eaaf6767f60ddbf9895965b62d878e8aafd9639fa3f0c"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_C_midground_2_object2.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_2_object2.png",
       "match": "bytes",
-      "sha256": "03f80fd1fcf7ac6cceec9473faf56088a87e2284a32adbe8c7e5867def0941cd"
+      "sha256": "80b919ff907198787a84192c458df518e1d96eae1823602954f2be49cb1169fc"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_C_midground_3.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
       "match": "bytes",
-      "sha256": "c7753fa85a294c59475a96456a0dfb39449629d924cbd14c21da04030f297645"
+      "sha256": "d83b4ee755a9683162f8ae2a25443014d6a0a0e19968b2c6c0907a0795d3e16a"
     },
     {
       "from": "assets/outside/street-20261018/Layers/fence.png",
@@ -2227,7 +2227,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
       "source": "02.Environments/02.Street/01.Sprites/Objects/object_1.png",
       "match": "bytes",
-      "sha256": "d87dd989c75e9377d17f50c0773fbf0a4b88a39328f4abf7709e3316fac3c056"
+      "sha256": "0767307252ac1d6b209e5c42d8c0a14c5e618965f3c951ba74f0d6095a657e04"
     },
     {
       "from": "assets/outside/street-20261018/sky.png",
@@ -2248,7 +2248,7 @@
       "to": "assets/01.ArtResources/02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
       "source": "02.Environments/03.Home/01.Sprites/Chrishouse_BG_City.png",
       "match": "supplied-update-2026-11-06",
-      "sha256": "39a48f351a1d53781dbfed9d6cfd6dd18d47193af5cd96b90040ddfb3971b961"
+      "sha256": "df83b2fae91c0c98cec72d4c63ee3c53e834595bd99ce96755318e009d2ea7e2"
     },
     {
       "from": "assets/serving/atlases/background.png",
@@ -3067,7 +3067,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",
       "source": "02.Environments/02.Street/01.Sprites/Objects/object_2.png",
       "match": "pixels",
-      "sha256": "84f8628425532287fe7e5bd368dd31b72d59d1a07054ee95d48bb82fa2828d05"
+      "sha256": "fdcdc3931f86657ef57cff9dc4172ada421efe12cd8c02fb78c226293707931e"
     },
     {
       "from": "assets/outside/effects/fire/camp-props.png",

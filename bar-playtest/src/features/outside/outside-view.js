@@ -798,15 +798,15 @@
           // Traffic is part of the scene, not an overlay: skyline silhouettes,
           // foreground shops and the residence/lift naturally cover it afterwards.
           if (!farTraffic && n.name === 'C_Back_Building_2') {
-            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'far');
+            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'far', images);
             farTraffic = true;
           }
           if (!midTraffic && n.layer >= 3) {
-            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'mid');
+            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'mid', images);
             midTraffic = true;
           }
           if (!nearTraffic && n.layer >= 6) {
-            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'near');
+            global.LunaOutsideTraffic?.draw(ctx, model, renderCam, position, 'near', images);
             nearTraffic = true;
           }
           // Middle-city buildings AND their attached display planes (layers

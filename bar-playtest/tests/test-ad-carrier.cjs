@@ -2,28 +2,11 @@ const assert=require('node:assert/strict');
 require('../src/features/outside/effects/outside-ad-carrier.js');
 require('../src/features/outside/effects/outside-traffic.js');
 const A=global.LunaOutsideAdCarrier,T=global.LunaOutsideTraffic;
-const base={scene:'street',time:0,config:{day:0}},data={assets:{}};
+const base={scene:'street',time:0,config:{day:0}};
 const {left,right}=A.flightBounds,span=right-left;
-A.apply(data);A.apply(data);assert.deepEqual(Object.keys(data.assets),[A.assetId,...Object.keys(A.artAssets)]);
-assert.equal(A.layout.w,320,'Keep horizontal size');
-assert.equal(A.layout.h,148,'Only extend the center by 20 logical pixels');
-assert.equal(A.panel.h,56,'Taller artwork panel, not stretched portrait');
-for(const ad of A.ads)if(ad.art)assert(data.assets[ad.art],'Artwork participates in existing exterior preload');
-assert.equal(A.interval,5);
+assert.deepEqual(A.vehicles(base).map(v=>v.sprite),['carrier','screen']);
 assert.equal(A.travelRate,.75);
 assert.equal(A.depth.alpha,1);
-assert(A.routes[0].width>=1.65*1.15&&A.routes[1].width>=1.4*1.15);
-assert.equal(A.routes[0].y,2.55);
-assert.equal(A.routes[1].y,7.5);
-for(let n=0;n<15;n++){
- assert.equal(A.adState(n*5).index,n%3);
- assert.equal(A.adState(n*5+4.999).index,n%3);
- assert.equal(A.adState(n*5+.001).index,n%3);
- assert.equal(A.adState(n*5).age,0);
-}
-assert.deepEqual(A.adState(5),{index:1,age:0});
-assert.equal(A.adState(5.2).index,1);
-assert.deepEqual(A.adState(-1),A.adState(0));
 let count=0;const directions=new Set();
 for(let time=0;time<600;time+=.125){
  const m={...base,time},snapshot=JSON.stringify(m),a=A.vehicles(m),b=A.vehicles({...m,time:time+.01});
@@ -35,7 +18,7 @@ for(let time=0;time<600;time+=.125){
   const route=A.routes.find(r=>v.id.startsWith(r.id+':'));
   assert(Math.abs(speed-span/route.duration*.75)<1e-9,'Constant speed; ad clock is independent');
   assert(Math.abs(speed-29/(route.id==='lower'?112:124)*.75)<1e-9,'Existing flight speed preserved');
-  assert(Math.abs(next.y-v.y)<.001,'Subtle continuous hovering');
+  assert.equal(v.y,route.y);assert.equal(next.y,v.y,'Horizontal flight');
   for(const d of ['far','mid','near']){const cars=T.vehicles(m,d),later=T.vehicles({...m,time:time+.01},d);for(const c of cars){const n=later.find(n=>n.id===c.id);if(n)assert(Math.abs(n.x-c.x)>Math.abs(next.x-v.x));}}
  }
 }
@@ -47,14 +30,14 @@ for(const route of A.routes)for(let cycle=1;cycle<=6;cycle++){
  assert(before&&after);assert.notEqual(before.id,after.id);
  assert(Math.abs(before.x-(route.direction===1?right:left))<.001);
  assert(Math.abs(after.x-(route.direction===1?left:right))<.001);
- assert.deepEqual(after.ad,A.adState(t+.001),'Respawning does not reset the ad');
+ assert.equal(before.sprite,after.sprite);assert.equal(before.y,after.y);
  // Whole hull stays outside all normal map camera edges at either endpoint.
  assert(left+route.width/2< -22.25);
- assert(right+(-22.25+7.85)*(1-A.depth.parallax[0])-route.width/2>6.55);
+ assert(right+(-22.25+7.85)*(1-A.depth.parallaxX)-route.width/2>6.55);
 }
 for(const day of [0,1,2,3]){
  assert(A.vehicles({...base,config:{day}}).length>0);
  assert.deepEqual(A.vehicles({...base,scene:'home',config:{day}}),[]);
  assert.deepEqual(A.vehicles({...base,qa:{},config:{day}}),[]);
 }
-console.log('AD_CARRIER_OK: 5s ads, bounded independent routes, slower than every traffic depth, deterministic pause, no gameplay mutation, home/QA excluded');
+console.log('AD_CARRIER_OK: supplied carrier and screen sprites, bounded independent routes, slower than every traffic depth, deterministic pause, no gameplay mutation, home/QA excluded');

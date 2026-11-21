@@ -2,7 +2,7 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('n
 global.window=global;require('../data/presentation/barrel-fire.js');const d=LUNA_BARREL_FIRE,game=path.resolve(__dirname,'..'),engine=path.resolve(game,'../../Human-Bartender/HumanBartender');
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
 assert.equal(d.props._Anim_Fps,16);assert.equal(d.props._Pixel_Size,.01);assert.equal(d.fire.order,-1);assert.equal(d.front.order,0);assert.equal(d.front.sortingLayer,d.fire.sortingLayer);
-assert.deepEqual([d.back.sprite.w,d.back.sprite.h],[2218,207]);assert.deepEqual([d.front.sprite.w,d.front.sprite.h],[21,28]);
+assert.deepEqual([d.back.sprite.w,d.back.sprite.h],[2222,208]);assert.deepEqual([d.front.sprite.w,d.front.sprite.h],[23,30]);
 assert.equal(d.constants.hotGain,10);assert.equal(d.constants.warmGain,.5);assert.equal(d.props._Tex_D_speedY,1.5);assert.equal(d.props._Tex_D_02_speedY,2.5);
 assert.equal(d.version,2);assert.deepEqual([d.props._Heat_Scale,d.props._Heat_Bias,d.props._Brightness,d.props._SrcBlend,d.props._DstBlend],[.6,0,2,5,1]);
 assert(d.placementSources['Assets/01.Game/01.Scenes/OutSide.unity'],'Retain original placement provenance, not a claim of current scene parity');
@@ -31,7 +31,9 @@ for(const a of Object.values(d.assets))assert.equal(hash(fs.readFileSync(path.jo
    const color=Object.fromEntries(mat.match(new RegExp('    - '+prop+': \\{([^}]+)'))[1].split(',').map(v=>v.trim().split(': ').map((x,i)=>i?Number(x):x)));assert.deepEqual(d.colors[key],color);
   }
   for(const a of Object.values(d.assets)){
-   const source=path.join(engine,a.source),dest=path.join(game,a.src);
+   const drive=a.source.startsWith('9_ArtResources/');
+   if(drive&&!process.env.LUNA_ART_PARENT)continue;
+   const source=path.join(drive?process.env.LUNA_ART_PARENT:engine,a.source),dest=path.join(game,a.src);
    if(/\.png$/i.test(source))assert.deepEqual(fs.readFileSync(source),fs.readFileSync(dest),'original PNG bytes');
    else{
     const b=fs.readFileSync(source),w=b.readUInt16LE(12),h=b.readUInt16LE(14),actual=await sharp(dest).removeAlpha().raw().toBuffer();assert.equal(actual.length,w*h*3);

@@ -22,9 +22,8 @@ function wardrobeTarget(){
  return {id:'wardrobe',label:'옷장 살펴보기',x:left+sp.w/2/sp.ppu,y:-.7,top,nodeName:n.name,source:'home/wardrobe'};
 }
 const layers=[
- // Current/Chrishouse_BG_City is a full shot, not a separate moving skyline.
- // The city-only original remains necessary behind the new split room.
- {name:'home-city',file:'90.PreviousVersions/ver.4/Chrishouse_BG_City.png',x:0,y:0,w:631,h:270},
+ // The current city-only plate scrolls behind the split room furnishings.
+ {name:'home-city',file:'Chrishouse_BG_City.png',x:0,y:0,w:631,h:270},
  {name:'main_bg',file:'Chrishouse.png',x:0,y:0,w:631,h:270},
  {name:'Room_Entrance',file:'Room_Entrance.png',x:2,y:146,w:26,h:87},
  {name:'Terrace_Entrance',file:'Terrace_Entrance.png',x:498,y:136,w:31,h:101},
@@ -49,7 +48,7 @@ function apply(data){
   let node=nodes.find(n=>n.name===layer.name);
   const asset=node?node.sprite.asset:layer.name;
   if(!node){node={...bg,id:layer.name,go:layer.name,name:layer.name,ancestry:[layer.name]};nodes.push(node);}
-  data.assets[asset]={src:assetPath(layer.file),w:layer.name==='home-city'?643:layer.w,h:layer.h,source:'9_ArtResources/02.Environments/03.Home/01.Sprites/'+(layer.file.startsWith('90.')?'':'Current/')+layer.file};
+  data.assets[asset]={src:assetPath(layer.file),w:layer.w,h:layer.h,source:'9_ArtResources/02.Environments/03.Home/01.Sprites/'+(layer.file.startsWith('90.')?'':'Current/')+layer.file};
   Object.assign(node,{x:left+(layer.x+layer.w/2)/100,y:top-(layer.y+layer.h/2)/100,layer:0,order:index,sx:1,sy:1,flip:false});
   if(W.LunaEngineWorld)Object.assign(node,W.LunaEngineWorld.homePlacement(layer,layers));
   node.sprite={asset,x:0,y:0,w:layer.w,h:layer.h,pivot:{x:.5,y:.5},ppu:100};
@@ -58,7 +57,7 @@ function apply(data){
  for(const [key,file,w,h] of [['home-wardrobe-weapon','IntractObjects_Closet_weapon.png',24,69],['home-sofa-uncovered','IntractObjects_Bedding_2.png',111,50]]){
   data.assets[key]={src:assetPath(file),w,h};
  }
- data.assets['home-current-fullshot']={src:assetPath('Chrishouse_BG_City.png'),w:631,h:270,source:'Current house reference · full shot including city'};
+ data.assets['home-current-fullshot']={src:assetPath('chris-house-fullshot.png'),w:631,h:270,source:'Current house reference · full shot including city'};
  data.assets[book.cover]={src:root+'nietzsche-the-gay-science.png',w:1024,h:1536,source:'사용자 제공 책 표지 · 프리드리히 니체 — 《즐거운 학문》 · 원본 보존'};
  data.homeArtVersion='current-house-631';return data;
 }
@@ -79,7 +78,7 @@ function studioPose(layer){
 // edges while the distant skyline follows only a small fraction of camera travel.
 function cityCrop(cameraOffset,reduced=false){
  const offset=reduced?0:Math.max(-1.5,Math.min(1.5,cameraOffset));
- return {x:20-offset*12,y:0,w:603,h:270};
+ return {x:14-offset*(14/1.5),y:0,w:603,h:270};
 }
 function paintCity(ctx,image,x,y,w,h,cameraOffset){
  const crop=cityCrop(cameraOffset,W.matchMedia?.('(prefers-reduced-motion: reduce)').matches);

@@ -53,7 +53,7 @@
       },
       notifyTeleport() { skip = true; },
       position(node) {
-        const child = children[node.name];
+        const child = node.billboardPlacement || children[node.name];
         const group = groups.get(child?.parent || node.name);
         if (!group || node.ambient) return { x: node.x, y: node.y };
         return { x: group.x + (child?.x || 0), y: group.node.y + (child?.y || 0) };

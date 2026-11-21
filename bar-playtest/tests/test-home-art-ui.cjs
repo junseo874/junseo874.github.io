@@ -17,11 +17,11 @@ const sharp=load('sharp');
  const parts=[];
  for(const l of layers){
   const file=path.join(root,window.LunaHomeArt.assetPath(l.file)),meta=await sharp(file).metadata();
-  assert.equal(meta.width,l.name==='home-city'?643:l.w);assert.equal(meta.height,l.h);
+  assert.equal(meta.width,l.w);assert.equal(meta.height,l.h);
   parts.push({input:await sharp(file).resize(l.w,l.h).toBuffer(),left:l.x,top:l.y});
  }
  const composed=await sharp({create:{width:631,height:270,channels:4,background:'#000'}}).composite(parts).removeAlpha().raw().toBuffer();
- const reference=await sharp(path.join(root,window.LunaHomeArt.assetPath('Chrishouse_BG_City.png'))).flatten({background:'#000'}).removeAlpha().raw().toBuffer();
+ const reference=await sharp(path.join(root,window.LunaHomeArt.assetPath('chris-house-fullshot.png'))).flatten({background:'#000'}).removeAlpha().raw().toBuffer();
  let delta=0,count=0;
  // The skyline moves independently; all other pixels match the current full shot.
  for(let y=0;y<270;y++)for(let x=0;x<615;x++){
