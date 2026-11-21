@@ -41,13 +41,13 @@ function create(api){
   const result=pick?'선택: '+api.plain(pick['text.ko'])+' · ':'';
   $('player-state').textContent=result+(paths.length>1?'다음 노드 미리보기에서 이어 볼 분기를 고르세요.':next.node?'이 노드의 재생이 끝났습니다. 다음: '+next.node.type+' · '+(next.node.index+1)+'번 줄':'연결된 다음 노드가 없습니다. 이 흐름은 여기서 끝납니다.');
  }
- function advance(){if(at+1>=node.rows.length)complete();else show(at+1);}
+ function advance(){const i=route.playableFrom(at+1);if(i<0)complete();else show(i);}
  function toggle(){
   if(playing){playing=false;resumable=ready;if(ready)post('pause');controls();$('player-state').textContent='일시정지';return;}
   playing=true;
   // A held, fully visible row has no running clock to resume. Start it fresh
   // so time spent reading never counts towards automatic advancement.
-  if(ended||!resumable){show(ended?0:at);return;}
+  if(ended||!resumable){const i=route.playableFrom(ended?0:at);if(i<0){complete();return;}show(i);return;}
   resumable=false;if(heldComplete){heldComplete=false;advance();return;}
   post('resume');controls();$('player-state').textContent='';
  }
@@ -90,7 +90,7 @@ function create(api){
   if(p.blocked){$('player-state').textContent=p.blocked;return;}
   if(p.target?.node)history.push({target:route.current,at});
   if(!route.enter(p.target)){playing=false;ended=true;chosen=p.pick?.row_id||'';pending=p.target;post('stop');controls();$('player-state').textContent=(p.pick?'선택: '+api.plain(p.pick['text.ko'])+' · ':'')+'이 경로는 여기서 끝납니다.';}
-  else{setNode(route.node);show(0);}
+  else{setNode(route.node);show(route.current.entry||0);}
   (nextNode.hidden||nextNode.disabled?$('player-toggle'):nextNode).focus({preventScroll:true});
  }
  nextNode.onclick=()=>{

@@ -1338,6 +1338,10 @@
     ],
     [
       "script",
+      "src/dev/dialogue-editor/draft-store.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/storage-client.js"
     ],
     [

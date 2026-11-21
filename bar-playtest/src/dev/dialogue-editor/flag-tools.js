@@ -34,6 +34,7 @@ function create(m,row,name,value){
  const option=m.tables.bar_choices.includes(row)&&m.scenes.some(sc=>m.rows(sc.id).some(r=>r.type==='choice'&&m.choices(r.arg).includes(row)));
  if(!option&&(!m.scenes.some(s=>s.id===row?.context)||!recordable(row)||generated(tokens(row.effects)[0]||'')&&row.type==='effect'))throw Error('이 위치에는 값을 기록할 수 없습니다. 대사나 상태 변경 줄을 선택하세요.');
  checkName(name,index(m));if(typeof value!=='boolean')throw Error('초깃값을 선택하세요.');
+ if(row.type==='say')(typeof module==='undefined'?root.LunaBarFlow:require('./flow-model.js')).rememberCards(m,row.context);
  m.set(row,'effects',[clean(row.effects),'flag.'+name+' = '+value].filter(Boolean).join('; '));
 }
 function rewrite(m,old,next){
@@ -49,11 +50,13 @@ function rewrite(m,old,next){
   }).join(u.write?'; ':' && ');
   edits.set(key,{...u,value});
  }
+ const scenes=new Set([...edits.values()].filter(e=>e.row.type==='say').map(e=>e.row.context));
+ for(const scene of scenes)(typeof module==='undefined'?root.LunaBarFlow:require('./flow-model.js')).rememberCards(m,scene);
  for(const e of edits.values())m.set(e.row,e.field,e.value);
 }
 function draftIssues(m,all){const out=[];for(const sc of m.scenes){const data=all?.[sc.id]?.drafts||{},existing=W.scan(m,sc.id).routes;
  for(const [id,conditions] of Object.entries(data)){const row=m.row(id);if(row?.context!==sc.id||!Array.isArray(conditions))continue;
-  for(const v of conditions)if(!existing.some(r=>r.source===id&&W.pinKey(r.choice,r.predicate)===W.pinKey('',v)))out.push({severity:'warning',scene:sc.id,day:sc.day,row:id,pin:true,predicate:v,label:sc.title+' · '+row.seq+'번',message:'연결하지 않은 조건 핀: '+(v.startsWith('?')?'조건 미지정':v)+' · 연결하기 전에는 CSV에 포함되지 않습니다.'});
+  for(const v of conditions)if(!existing.some(r=>(r.source===id||m.views.barEditorCards?.[sc.id]?.[r.source]===id)&&W.pinKey(r.choice,r.predicate)===W.pinKey('',v)))out.push({severity:'warning',scene:sc.id,day:sc.day,row:id,pin:true,predicate:v,label:sc.title+' · '+row.seq+'번',message:'연결하지 않은 조건 핀: '+(v.startsWith('?')?'조건 미지정':v)+' · 연결하기 전에는 CSV에 포함되지 않습니다.'});
  }}return out;}
 // Include pending pins in the editor palette only. No setter or declaration is synthesized.
 function palette(m){const idx=index(m);let pending=[];try{pending=draftIssues(m,JSON.parse(localStorage.getItem('luna.bar.graph-workspace.v2')||'{}'));}catch{}

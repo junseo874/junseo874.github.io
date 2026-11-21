@@ -48,22 +48,34 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   rules.applyEffects(row.effects,state);
  }
  const first=lane(scene),ctx=structuredClone(witness(initial,[node.when])||initial),before=[],answers={};
- for(const r of first.rows.slice(0,first.index.get(node.id))){
+ for(const r of first.rows.slice(0,first.index.get(node.rows[0].row_id))){
   if(!rules.condition(r.when,ctx))continue;
   const c=picks[r.row_id]&&options(model,r).find(o=>o.row_id===picks[r.row_id].row_id&&rules.condition(o.when,ctx));
   if(c)answers[r.row_id]=c;before.push(r);apply(r,ctx,c);
  }
- let here={lane:first,node,before,ctx:witness(ctx,[node.when])||ctx,answers};
+ let here={lane:first,node,isolated:true,before,ctx:witness(ctx,[node.when])||ctx,answers};
+ function auditionWhen(r){
+  if(!here.isolated)return r.when;
+  const wiring=typeof module==='undefined'?root.LunaBarWiring:require('./flow-wiring.js');
+  return terms(wiring.readable(r.when)).filter(t=>!(t==='false'&&wiring.asleep(r))).join(' && ');
+ }
+ function playableFrom(index){
+  const state=structuredClone(here.ctx),rows=here.node.rows;
+  for(let i=here.entry||0;i<rows.length;i++){const r=model.step(rows[i]);if(!rules.condition(auditionWhen(r),state))continue;
+   if(i>=index)return i;apply(r,state,null);}
+  return -1;
+ }
  function payload(i){
   const active=here.node.rows.map(r=>model.step(r)),row=active[i],state=structuredClone(here.ctx);
-  for(const earlier of active.slice(0,i))apply(earlier,state,null);
-  return {tags:model.tables.text_tags,day:initial.day,flags:initial.flags,money:initial.money,rows:here.before.concat(active),index:here.before.length+i,
+  const prior=here.before.slice();for(const earlier of active.slice(here.entry||0,i))if(rules.condition(auditionWhen(earlier),state)){prior.push(earlier);apply(earlier,state,null);}
+  return {tags:model.tables.text_tags,day:initial.day,flags:initial.flags,money:initial.money,rows:prior.concat(active.slice(i)),index:prior.length,
    choices:options(model,row),picks:here.answers,pathPreview:true,previewState:state};
  }
  function departure(pick,seed){
   const state=structuredClone(seed),trail=here.before.slice(),answers={...here.answers};
   let dest=here.lane,start;const rows=here.node.rows.map(r=>model.step(r));
-  for(const r of rows){
+  for(const r of rows.slice(here.entry||0)){
+   if(!rules.condition(r.when,state))continue;
    if(r.type==='end_part')return {end:true};
    let c=null;if(r.type==='choice'){
     c=options(model,r).find(o=>o.row_id===pick?.row_id&&rules.condition(o.when,state));
@@ -85,7 +97,7 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   for(let i=start;i<dest.rows.length;i++){
    const r=dest.rows[i];if(!rules.condition(r.when,state))continue;
    const target=dest.byRow.get(r.row_id);
-   if(target)return {node:target,lane:dest,before:trail,ctx:state,answers};
+   if(target)return {node:target,entry:target.rows.findIndex(v=>v.row_id===r.row_id),lane:dest,before:trail,ctx:state,answers};
    trail.push(r);apply(r,state);
   }
   return {end:true};
@@ -119,7 +131,7 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
    });
    for(const [k,fixed] of changed)if(fixed)facts.push(k+' == '+readState(k));
    for(const e of local){
-    const wire=wires.find(r=>r.id===e.routeId),first=wire?src.index.get(wire.target):out.start,lastIndex=e.to?src.index.get(e.to):src.rows.length;
+    const wire=wires.find(r=>r.id===e.routeId),first=wire?src.index.get(wire.target):out.start,lastIndex=e.to?src.graph.nodes.find(n=>n.id===e.to)?.index:src.rows.length;
     if(first==null||lastIndex==null||lastIndex<first)continue;
     const want=[...facts,wire?.predicate||'',src.byRow.get(e.to)?.when||''];
     const skip=(wire?wires.slice(0,wires.indexOf(wire)):wires).map(r=>r.predicate);
@@ -134,7 +146,7 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   }catch(e){outcomes.push({pick,blocked:'연결을 확인할 수 없습니다: '+e.message});}
   return outcomes;
  }
- return {get current(){return here;},get node(){return here.node;},get scene(){return here.lane.id;},payload,next,branches,
+ return {get current(){return here;},get node(){return here.node;},get scene(){return here.lane.id;},payload,playableFrom,next,branches,
   previous(){const graph=here.lane.graph,ids=new Set(graph.connections.filter(e=>e.to===here.node.id).map(e=>e.from));return graph.nodes.filter(n=>ids.has(n.id));},
   startAt(n){return create({model,graphFor,scene:here.lane.id,node:n,settings,picks});},
   enter(target){if(!target?.node)return false;here=target;return true;}};

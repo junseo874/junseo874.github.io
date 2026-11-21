@@ -34,6 +34,18 @@ function engineExpressionErrors(row,before){
  }
  return errors;
 }
+// Display-only row ownership in the editor sidecar; never part of engine tables.
+function cardErrors(m){
+ const data=m.views.barEditorCards;if(data===undefined)return [];
+ const map=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
+ if(!map(data))return ['대사 노드 목록을 읽을 수 없습니다.'];
+ for(const [scene,owners] of Object.entries(data)){
+  if(!m.scenes.some(s=>s.id===scene)||!map(owners))return ['대사 노드의 장면을 찾을 수 없습니다: '+scene];
+  const ids=new Set(m.rows(scene).filter(r=>r.type==='say').map(r=>r.row_id));
+  for(const [row,owner] of Object.entries(owners))if(!ids.has(row)||!ids.has(owner)||owners[owner]!==owner)return ['대사 노드에 속하지 않는 줄: '+row];
+ }
+ return [];
+}
 class Model{
  constructor(files,presentation){this.files={...files};this.presentation=presentation;this.views=JSON.parse(files['web-views.json']);this.tables={};this.headers={};for(const [table,path]of Object.entries(paths)){this.tables[table]=Csv.parseRows(files[path],path);this.headers[table]=Csv.parseCsv(files[path])[0];}this.undoStack=[];this.redoStack=[];this.base=this.snapshot();}
  async init(){this.catalog=await Csv.load(p=>Promise.resolve(this.files[p]));this.projected=Projection.project(this.catalog,this.views,this.presentation);return this;}
@@ -65,9 +77,15 @@ class Model{
  dirty(){return Object.keys(this.tables).some(k=>this.tables[k]!==this.base.tables[k]&&JSON.stringify(this.tables[k])!==JSON.stringify(this.base.tables[k]))||JSON.stringify(this.views)!==JSON.stringify(this.base.views);}
  rows(scene){return this.tables.steps.filter(r=>r.context===scene).sort((a,b)=>Number(a.source_order)-Number(b.source_order));}
  row(id){return this.tables.steps.find(r=>r.row_id===id);}
+ forgetCardRow(row){
+  const owners=this.views.barEditorCards?.[row?.context],id=row?.row_id;
+  if(!owners||!Object.hasOwn(owners,id))return;
+  delete owners[id];const remaining=this.rows(row.context).filter(r=>owners[r.row_id]===id);
+  if(remaining.length)for(const r of remaining)owners[r.row_id]=remaining[0].row_id;
+ }
  choices(id){const group=this.tables.bar_choice_groups.find(r=>r.choice_group===id);return group?this.tables.bar_choices.filter(r=>r.parent_id===group.row_id).sort((a,b)=>Number(a.source_order)-Number(b.source_order)):[];}
  step(row){return Object.fromEntries(['type','actor','arg','text.ko','text.en','when','effects','sync','entrance','dialogue_id','seq','row_id'].map(k=>[k,decode(row[k])]));}
- set(row,key,value){row[key]=String(value);if(key==='type'&&!empty(row['web_fields.type']))row['web_fields.type']=value;if(key==='actor'&&!empty(row['web_fields.who']))row['web_fields.who']=this.projected.data.tables.characters.find(c=>c.id===value)?.['name.ko']||value;}
+ set(row,key,value){if(key==='type'&&row.type==='say'&&value!=='say')this.forgetCardRow(row);row[key]=String(value);if(key==='type'&&!empty(row['web_fields.type']))row['web_fields.type']=value;if(key==='actor'&&!empty(row['web_fields.who']))row['web_fields.who']=this.projected.data.tables.characters.find(c=>c.id===value)?.['name.ko']||value;}
  prefix(scene){return Object.values(this.views.campaign.opening).find(r=>r.scene===scene)?.offset||0;}
  reorder(scene,ids){const rows=this.rows(scene),prefix=this.prefix(scene);if(ids.length!==rows.length||new Set(ids).size!==ids.length||ids.some(id=>!rows.some(r=>r.row_id===id)))throw Error('순서 목록이 일치하지 않습니다.');if(rows.slice(0,prefix).some((r,i)=>r.row_id!==ids[i]))throw Error('개점 장면의 초기 배치는 맨 앞에 유지해야 합니다.');ids.forEach((id,i)=>{const r=this.row(id);r.source_order=String(i);r.seq=String(i+1);});Sections.reordered(this,scene,ids);}
  add(scene,index,type='say',duplicate=null){
@@ -89,10 +107,10 @@ class Model{
   if(gs){const copied=clone(gs);copied.key={...copied.key,choice_group:group.choice_group};if(copied.id)copied.id=group.row_id;gv.rows.push(copied);}
   for(const old of sourceRows){const r=clone(old),id=uid(),spec=this.views.tables.bar_choices.rows.find(s=>s.id===old.web_row_id);Object.assign(r,{row_id:id,web_row_id:id,parent_id:group.row_id,dataset_id:step.dataset_id,context:step.dataset_id.replaceAll('/','_')+'/'+group.choice_group});this.tables.bar_choices.push(r);this.views.tables.bar_choices.rows.push({...clone(spec),id});}
  }
- remove(scene,id){const rows=this.rows(scene);if(rows.findIndex(r=>r.row_id===id)<this.prefix(scene))throw Error('장면 초기 배치는 삭제할 수 없습니다.');if(rows.length===1)throw Error('장면에 한 줄은 남겨 주세요.');const row=this.row(id);if(Sections.records(this,scene).length)Sections.removed(this,scene,id,wiring.scan(this,scene).logical);this.tables.steps=this.tables.steps.filter(r=>r!==row);this.views.tables.steps.rows=this.views.tables.steps.rows.filter(s=>s.id!==row.web_row_id);this.reorder(scene,this.rows(scene).map(r=>r.row_id));}
+ remove(scene,id){const rows=this.rows(scene);if(rows.findIndex(r=>r.row_id===id)<this.prefix(scene))throw Error('장면 초기 배치는 삭제할 수 없습니다.');if(rows.length===1)throw Error('장면에 한 줄은 남겨 주세요.');const row=this.row(id);this.forgetCardRow(row);if(Sections.records(this,scene).length)Sections.removed(this,scene,id,wiring.scan(this,scene).logical);this.tables.steps=this.tables.steps.filter(r=>r!==row);this.views.tables.steps.rows=this.views.tables.steps.rows.filter(s=>s.id!==row.web_row_id);this.reorder(scene,this.rows(scene).map(r=>r.row_id));}
  addChoice(groupId){const rows=this.choices(groupId);if(rows.length>=4)throw Error('선택지는 최대 4개입니다.');if(!rows.length)throw Error('선택지 원본이 없습니다.');const r=clone(rows.at(-1)),old=r.web_row_id,id=uid();Object.assign(r,{row_id:id,web_row_id:id,seq:String(rows.length+1),source_order:String(rows.length),'text.ko':'새 선택지','text.en':'',when:'',effects:'',goto:'','lock_reason.ko':'','lock_reason.en':''});this.tables.bar_choices.push(r);this.views.tables.bar_choices.rows.push({...clone(this.views.tables.bar_choices.rows.find(s=>s.id===old)),id});return r;}
  removeChoice(groupId,id){const rows=this.choices(groupId);if(rows.length<=1)throw Error('선택지를 한 개 이상 남겨 주세요.');const row=rows.find(r=>r.row_id===id);this.tables.bar_choices=this.tables.bar_choices.filter(r=>r!==row);this.views.tables.bar_choices.rows=this.views.tables.bar_choices.rows.filter(s=>s.id!==row.web_row_id);this.choices(groupId).forEach((r,i)=>{r.seq=String(i+1);r.source_order=String(i);});}
- changes(){const result=Days.additions(this).map(r=>({table:'days',id:r.day+'일차',kind:'정식 일차 등록',after:r['label.ko']}));for(const id of new Set([...Object.keys(this.views.barEditorScenes||{}),...Object.keys(this.base.views.barEditorScenes||{})])){const before=this.base.views.barEditorScenes?.[id]||[],after=Sections.records(this,id);if(JSON.stringify(before)!==JSON.stringify(after))result.push({table:'편집 장면',id,kind:'장면 구분',before:before.map(p=>p.name).join(' → ')||'자동 구분',after:after.map(p=>p.name).join(' → ')||'자동 구분'});}for(const table of Object.keys(contentPaths)){const old=new Map(this.base.tables[table].map(r=>[r.row_id,r]));for(const r of this.tables[table]){const before=old.get(r.row_id);if(!before)result.push({table,id:r.row_id,kind:'추가',after:decode(r['text.ko'])||r.type||r.choice_group});else for(const [key,value]of Object.entries(r))if(before[key]!==value)result.push({table,id:r.row_id,kind:'수정',key,before:decode(before[key]),after:decode(value)});old.delete(r.row_id);}for(const r of old.values())result.push({table,id:r.row_id,kind:'삭제',before:decode(r['text.ko'])||r.type});}return result;}
+ changes(){const result=Days.additions(this).map(r=>({table:'days',id:r.day+'일차',kind:'정식 일차 등록',after:r['label.ko']}));for(const id of Object.keys(this.views.barEditorCards||{}))if(JSON.stringify(this.views.barEditorCards[id])!==JSON.stringify(this.base.views.barEditorCards?.[id]))result.push({table:'플로우 차트',id,kind:'대사 노드 구성',before:'',after:'줄 묶음 변경'});for(const id of new Set([...Object.keys(this.views.barEditorScenes||{}),...Object.keys(this.base.views.barEditorScenes||{})])){const before=this.base.views.barEditorScenes?.[id]||[],after=Sections.records(this,id);if(JSON.stringify(before)!==JSON.stringify(after))result.push({table:'편집 장면',id,kind:'장면 구분',before:before.map(p=>p.name).join(' → ')||'자동 구분',after:after.map(p=>p.name).join(' → ')||'자동 구분'});}for(const table of Object.keys(contentPaths)){const old=new Map(this.base.tables[table].map(r=>[r.row_id,r]));for(const r of this.tables[table]){const before=old.get(r.row_id);if(!before)result.push({table,id:r.row_id,kind:'추가',after:decode(r['text.ko'])||r.type||r.choice_group});else for(const [key,value]of Object.entries(r))if(before[key]!==value)result.push({table,id:r.row_id,kind:'수정',key,before:decode(before[key]),after:decode(value)});old.delete(r.row_id);}for(const r of old.values())result.push({table,id:r.row_id,kind:'삭제',before:decode(r['text.ko'])||r.type});}return result;}
  output(){const files={};for(const [table,path]of Object.entries(paths)){if(this.tables[table]===this.base.tables[table])continue;if(Days.paths[table]&&this.tables[table].length>this.base.tables[table].length){const extra=csv(this.headers[table],this.tables[table].slice(this.base.tables[table].length));files[path]=this.files[path].replace(/\n?$/,'\n')+extra.slice(extra.indexOf('\n')+1);}else if(JSON.stringify(this.tables[table])!==JSON.stringify(this.base.tables[table]))files[path]=(this.files[path].startsWith('\uFEFF')?'\uFEFF':'')+csv(this.headers[table],this.tables[table]);}if(JSON.stringify(this.views)!==JSON.stringify(this.base.views))files['web-views.json']=JSON.stringify(this.views,null,2)+'\n';return files;}
  async validate(){
   const files={...this.files,...this.output()},errors=[],issues=[];let result;
@@ -114,7 +132,7 @@ class Model{
    if(r.type==='choice'){const choices=this.choices(r.arg);if(!choices.length||choices.length>4)errors.push(label+': 선택지는 1~4개입니다.');}
    for(const message of errors.slice(start))issues.push({severity:'error',scene:scene.id,row:r.row_id,label,message});
   }}
-  errors.push(...Sections.validate(this,wiring));for(const message of errors)if(!issues.some(i=>i.message===message))issues.push({severity:'error',message});
+  errors.push(...Sections.validate(this,wiring),...cardErrors(this));for(const message of errors)if(!issues.some(i=>i.message===message))issues.push({severity:'error',message});
   const checks=Audit.audit(this,result.data.tables.text_tags);issues.push(...checks,...Flags.warnings(this));errors.push(...checks.filter(i=>i.severity==='error').map(i=>i.label+': '+i.message));
   return {errors:[...new Set(errors)],issues,result};
  }

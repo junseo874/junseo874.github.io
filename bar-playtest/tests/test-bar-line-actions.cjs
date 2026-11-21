@@ -10,7 +10,11 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),L=require('.
  const n=()=>F.compile(m,scene,m.rows(scene).map(r=>r.row_id)).nodes,nid=id=>n().find(x=>x.id===id);
  const pin=i=>({choice:opts[i].row_id,predicate:''}),local=(i,target)=>R.wire(m,scene,nid(a.row_id),nid(target.row_id),pin(i)),toScene=(i,sc)=>R.sceneWire(m,scene,nid(a.row_id),opts[i].row_id,sc),routes=()=>R.scan(m,scene).routes;
  local(0,d);local(1,d);assert.deepEqual(routes().map(r=>r.target),[d.row_id,d.row_id]);assert.throws(()=>L.remove(m,scene,d),/연결/);
- const intercept=L.insert(m,scene,d,'before');assert(routes().every(r=>r.target===d.row_id));L.remove(m,scene,intercept);
+ const visiblePins=()=>F.compile(m,scene).connections.filter(e=>e.routeId).map(({from,to,pinKey,routeId})=>[from,to,pinKey,routeId]);
+ const pinsBefore=visiblePins(),intercept=L.insert(m,scene,d,'before');
+ assert(routes().every(r=>r.target===intercept.row_id),'both paths enter the card at its newly prepended line');
+ assert.deepEqual(visiblePins(),pinsBefore);L.remove(m,scene,intercept);
+ assert(routes().every(r=>r.target===d.row_id));assert.deepEqual(visiblePins(),pinsBefore);
  local(0,end);assert.deepEqual(routes().map(r=>r.target),[end.row_id,d.row_id]);
  toScene(0,other);assert.equal(opts[0].goto,other);assert.equal(routes().length,1);
  assert.throws(()=>toScene(0,scene));assert.equal(opts[0].goto,other);assert.equal(routes().length,1);

@@ -84,17 +84,39 @@ class Model extends Base.Model{
  }
  set(row,key,value){if(['text.ko','text.en'].includes(key))value=value.replace(/[\u2026\u22ef]/g,'...');super.set(row,key,value);}
  step(row){const extra=this.flows?.find(f=>f.onlyChoices&&this.rows(f.id).some(r=>r.row_id===row.row_id));const type=extra?(extra.id==='choices/stock'?'shop-choice':'notion-choice'):this.kind(row),stage=extra?(extra.id==='choices/stock'?'items':extra.id==='choices/info'?'topic':'payment'):decode(row['web_fields.stage']);return {...super.step(row),...extra&&!this.views.outsideChoiceEdits?.[row.row_id]?{'text.ko':decode(row['text.ko'])||Author.prompt({type,stage})}:null,editorRowId:row.row_id,type,who:this.views.outsideChoiceEdits?.[row.row_id]?.who||decode(row['web_fields.who'])||decode(row.who),actor:Projection.optionalPresentation(row).actor||decode(row.actor),action:Projection.optionalPresentation(row).action||decode(row['web_fields.action']),cinema:decode(row['web_fields.cinemaAfter']),stage,topic:extra?.id.startsWith('choices/pay-')?extra.id.slice(12):undefined};}
- plain(row){return row.parent_id!=='shared_home_book'&&row.parent_id!==this.answerParent&&this.kind(row)==='say'&&!decode(row['web_fields.cinemaAfter'])&&!decode(row.effects)&&![...this.catalog.rawTables.values()].flat().some(r=>r.parent_id===row.row_id);}
- add(flowId,index,duplicate=null){const f=this.flow(flowId);if(f.onlyChoices)throw Error('기존 분기의 문구·조건만 수정할 수 있습니다.');const source=duplicate||this.rows(flowId).find(r=>this.plain(r));if(!source||!this.plain(source))throw Error('연출·하위 데이터가 없는 일반 대사만 추가·복제할 수 있습니다.');
+ plain(row){return row.parent_id!=='shared_home_book'&&row.parent_id!==this.answerParent&&this.kind(row)==='say'&&!Projection.optionalPresentation(row).action&&!decode(row['web_fields.action'])&&!decode(row['web_fields.cinemaAfter'])&&!decode(row.effects)&&![...this.catalog.rawTables.values()].flat().some(r=>r.parent_id===row.row_id);}
+ // Remember the visible six-line breaks before an edit; the game still reads the original CSV sequence.
+ forgetTalkCards(removed){
+  const all=this.views.outsideEditorBreaks;if(!all)return;
+  for(const [parent,heads] of Object.entries(all)){if(removed.has(parent))delete all[parent];else all[parent]=heads.filter(id=>!removed.has(id));}
+ }
+ talkCardErrors(){
+  const all=this.views.outsideEditorBreaks;if(all===undefined)return [];
+  if(!all||typeof all!=='object'||Array.isArray(all))return ['외부 대사 노드 경계 형식이 올바르지 않습니다.'];
+  const parents=new Set(this.flows.map(f=>f.parent)),rows=new Map(this.tables.steps.map(r=>[r.row_id,r.parent_id]));
+  return Object.entries(all).filter(([p,ids])=>!parents.has(p)||!Array.isArray(ids)||new Set(ids).size!==ids.length||ids.some(id=>rows.get(id)!==p)).map(([p])=>'외부 대사 노드가 다른 대본의 줄을 가리킵니다: '+p);
+ }
+ rememberTalkCards(f){
+  const all=this.views.outsideEditorBreaks??={};
+  if(!Object.hasOwn(all,f.parent)){
+   const map=browser?root.LunaOutsideFlowMap:require('./outside-flow-map.js');
+   const g=map.graph(this,map.site(this,f).id);
+   all[f.parent]=g.nodes.filter(n=>['talk','join'].includes(n.kind)&&n.rows[0].parent_id===f.parent).map(n=>n.rows[0].row_id);
+  }
+  return all[f.parent];
+ }
+ add(flowId,index,duplicate=null){const f=this.flow(flowId);if(f.onlyChoices)throw Error('기존 분기의 문구·조건만 수정할 수 있습니다.');const seq=this.rows(flowId),near=seq[index-1]||seq[index],source=duplicate||(near&&this.plain(near)?near:seq.find(r=>this.plain(r)));if(!source||!this.plain(source))throw Error('연출·하위 데이터가 없는 일반 대사만 추가·복제할 수 있습니다.');
+  const breaks=this.rememberTalkCards(f),first=this.rows(flowId)[0]?.row_id;
   const r=clone(source),id='exterior_editor_'+globalThis.crypto.randomUUID().replaceAll('-','');Object.assign(r,{row_id:id,web_row_id:decode(r.web_row_id)?id:'',dialogue_id:'dlg_'+id});if(!duplicate){r['text.ko']='새 대사';r['text.en']='';}
+  if(index===0&&breaks.includes(first))breaks[breaks.indexOf(first)]=id;
   const spec=this.views.tables.steps.rows.find(s=>s.id===source.web_row_id);if(spec)this.views.tables.steps.rows.push({...clone(spec),id});
   this.tables.steps.push(r);const ids=this.rows(flowId).filter(x=>x!==r).map(x=>x.row_id);ids.splice(index,0,id);this.reorder(flowId,ids);return r;
  }
  reorder(flowId,ids){const f=this.flow(flowId),visible=this.rows(flowId),all=this.tables.steps.filter(r=>r.parent_id===f.parent).sort((a,b)=>+a.source_order-+b.source_order);if(f.parent===this.answerParent)throw Error('정답·오답에 연결된 답변 순서는 고정입니다.');if(ids.length!==visible.length||new Set(ids).size!==ids.length||ids.some(id=>!visible.some(r=>r.row_id===id)))throw Error('줄 순서가 맞지 않습니다.');let i=0;const ordered=all.map(r=>visible.includes(r)?this.row(ids[i++]):r);ordered.forEach((r,i)=>{r.source_order=String(i);r.seq=String(i+1);});}
- remove(flowId,id){const r=this.row(id);if(!this.plain(r))throw Error('연출·분기 연결 행은 삭제하지 않습니다.');if(this.rows(flowId).length<=1)throw Error('대사를 한 줄 이상 남겨 주세요.');this.tables.steps=this.tables.steps.filter(x=>x!==r);this.views.tables.steps.rows=this.views.tables.steps.rows.filter(s=>!r.web_row_id||s.id!==r.web_row_id);this.reorder(flowId,this.rows(flowId).map(r=>r.row_id));}
+ remove(flowId,id){const r=this.row(id);if(!this.plain(r))throw Error('연출·분기 연결 행은 삭제하지 않습니다.');if(this.rows(flowId).length<=1)throw Error('대사를 한 줄 이상 남겨 주세요.');const seq=this.rows(flowId),breaks=this.rememberTalkCards(this.flow(flowId)),at=breaks.indexOf(id),after=seq[seq.indexOf(r)+1]?.row_id;if(at>=0)breaks.splice(at,1,...(after&&!breaks.includes(after)?[after]:[]));this.tables.steps=this.tables.steps.filter(x=>x!==r);this.views.tables.steps.rows=this.views.tables.steps.rows.filter(s=>!r.web_row_id||s.id!==r.web_row_id);this.reorder(flowId,this.rows(flowId).map(r=>r.row_id));}
  output(){const files={};if(JSON.stringify(this.placement)!==JSON.stringify(this.base.placement))files[Place.file]=JSON.stringify(this.placement,null,2)+'\n';for(const [table,path]of Object.entries(paths))if(JSON.stringify(this.tables[table])!==JSON.stringify(this.base.tables[table]))files[path]=(this.files[path].startsWith('\uFEFF')?'\uFEFF':'')+Base.csv(this.headers[table],this.tables[table]);if(JSON.stringify(this.views)!==JSON.stringify(this.base.views))files['web-views.json']=JSON.stringify(this.views,null,2)+'\n';return files;}
  changes(){const changes=[];for(const id of Object.keys(Place.specs)){const s=Place.specs[id],a=this.base.placement.positions[id]||s,b=this.placement.positions[id]||s;if(a.x!==b.x)changes.push({table:'view',id:s.label,key:'씬 배치 X / Y',kind:'위치',before:a.x+' / '+a.y,after:b.x+' / '+b.y});}for(const table of Object.keys(paths)){const before=new Map(this.base.tables[table].map(r=>[r.row_id,r]));for(const r of this.tables[table]){const b=before.get(r.row_id);if(!b)changes.push({table,id:r.row_id,kind:'추가',after:r['text.ko']});else for(const k of Object.keys(r))if(r[k]!==b[k])changes.push({table,id:r.row_id,kind:'수정',key:k,before:decode(b[k]),after:decode(r[k])});before.delete(r.row_id);}for(const r of before.values())changes.push({table,id:r.row_id,kind:'삭제',before:r['text.ko']});}return changes;}
- async validate(){const errors=[];let result;try{Place.validate(this.placement);const files={...this.files,...this.output()},cat=await Csv.load(p=>Promise.resolve(files[p]));result=Projection.project(cat,this.views,this.presentation);}catch(e){return{errors:[e.message]};}
+ async validate(){const errors=this.talkCardErrors();let result;try{Place.validate(this.placement);const files={...this.files,...this.output()},cat=await Csv.load(p=>Promise.resolve(files[p]));result=Projection.project(cat,this.views,this.presentation);}catch(e){return{errors:[e.message]};}
   const baseline=new Map([...this.base.tables.steps,...this.base.tables.street_choices].map(r=>[r.row_id,r]));for(const change of this.changes()){if(change.table==='view'||change.table==='scenes')continue;const row=this.tables[change.table].find(r=>r.row_id===change.id)||baseline.get(change.id);const flow=this.flows.find(f=>this.rows(f.id).some(x=>x.row_id===(change.table==='steps'?row.row_id:row.parent_id)));
    const migration=change.table==='steps'&&Object.values(this.views.outsideChoiceEdits||{}).some(c=>c.stepId===row.row_id)&&['template_id','web_fields.who','text'].includes(change.key);
    const jump=change.table==='steps'&&change.key==='scene_id'&&(this.safeJump(row)||Nodes.isLink(row));

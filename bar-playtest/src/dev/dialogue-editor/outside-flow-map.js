@@ -59,7 +59,8 @@ function buildGraph(m,siteId,allow,allowWhen){
   for(const row of seq){const owner=m.owner(row.row_id),id=row.row_id,step=m.step(row),type=m.isMenu(row)?'choice':(['say','timeline'].includes(step.type)&&!step.action&&!step.cinema?'talk':'cue');
    if(allow&&owner&&!allow(owner))continue;
    if(byRow.has(id)){n=byRow.get(id);if(ids.at(-1)!==n.id)ids.push(n.id);n=null;continue;}
-   if(!n||prevOwner!==owner?.id||n.kind!==type||type!=='talk'||n.rows.length>=6){n={id,flow:f.id,owner:owner?.id,first:!ids.length,kind:type,rows:[],ports:[],title:owner?.title||f.title};nodes.push(n);ids.push(id);}
+   const breaks=m.views.outsideEditorBreaks?.[row.parent_id];
+   if(!n||prevOwner!==owner?.id||n.kind!==type||type!=='talk'||(breaks?breaks.includes(id):n.rows.length>=6)){n={id,flow:f.id,owner:owner?.id,first:!ids.length,kind:type,rows:[],ports:[],title:owner?.title||f.title};nodes.push(n);ids.push(id);}
    n.rows.push(row);byRow.set(id,n);prevOwner=owner?.id;
   }first.set(f.id,ids[0]);seqs.set(f.id,ids);
  }

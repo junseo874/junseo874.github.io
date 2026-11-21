@@ -34,7 +34,7 @@ const flow=window.LunaBarFlowView.create({
  checkGuard:window.LunaBarFlow.checkGuard,
  inspect(node,rowId){stop();scope=new Set(node.rows.map(r=>r.row_id));lineUI.clear();lineUI.pane('detail');
   $('flow-context').textContent=node.type+' 묶음 · '+node.rows.length+'줄';resize();select(scope.has(rowId)?rowId:node.rows[0].row_id);},
- change:fn=>mutate(fn),quickSet(row,key,value,separate=false){const field='map/'+row.row_id+'/'+key,now=performance.now();if(separate||lastField!==field||now-lastEditAt>850){model.checkpoint();lastField=field;}lastEditAt=now;model.set(row,key,['when','effects'].includes(key)?window.LunaBarWiring.preserve(row[key],value,key==='when'?'&&':';'):value);mark();tagStatus(row);}
+ change:fn=>mutate(fn),quickSet(row,key,value,separate=false){const field='map/'+row.row_id+'/'+key,now=performance.now();if(separate||lastField!==field||now-lastEditAt>850){model.checkpoint();lastField=field;}lastEditAt=now;L.editField(model,row,key,['when','effects'].includes(key)?window.LunaBarWiring.preserve(row[key],value,key==='when'?'&&':';',row):value);mark();tagStatus(row);}
 });
 function resize(){const el=document.querySelector('.preview-shell'),scale=Math.min(el.clientWidth/1280,el.clientHeight/720);$('preview-fit').style.transform='scale('+scale+')';$('preview-fit').style.left=(el.clientWidth-1280*scale)/2+'px';$('preview-fit').style.top=(el.clientHeight-720*scale)/2+'px';}
 new ResizeObserver(resize).observe(document.querySelector('.preview-shell'));
@@ -124,7 +124,7 @@ function typeOptions(r){
 }
 function rowTools(r,visible,filtered){
  const c=L.context(model,scene,r),ids=visible.map(x=>x.row_id),after=L.placement(model,scene,c,c.at+1);
- return {before:L.placement(model,scene,c,c.at),after,duplicate:c.locked||after,delete:c.locked||(c.list.length<=1?'마지막 한 줄은 남겨 주세요.':''),
+ return {before:L.placement(model,scene,c,c.at),after,duplicate:c.locked||after,delete:c.deleteLock||(c.list.length<=1?'마지막 한 줄은 남겨 주세요.':''),
   up:L.moveProblem(model,scene,r,-1,ids,filtered),down:L.moveProblem(model,scene,r,1,ids,filtered)};
 }
 function changeType(r,k){
@@ -179,7 +179,7 @@ $('inspector').addEventListener('input',e=>{const key=e.target.dataset.field;if(
  if(key==='type'){if(!changeType(row,e.target.value))e.target.value=row.type;return;}
  const now=performance.now(),inputType=e.inputType||'replace';
  if(lastField!==keyId||(!e.isComposing&&(now-lastEditAt>800||inputType!==lastInputType||inputType==='insertFromPaste'||inputType==='insertReplacementText'||inputType==='replace'))){model.checkpoint();lastField=keyId;}
- lastEditAt=now;lastInputType=inputType;model.set(row,key,['when','effects'].includes(key)?window.LunaBarWiring.preserve(row[key],e.target.value,key==='when'?'&&':';',row):e.target.value);if(key==='actor'&&row.type==='say'&&expressions[row.actor]&&!expressions[row.actor].includes(row.arg))model.set(row,'arg','default');drawList();send();mark();
+ lastEditAt=now;lastInputType=inputType;L.editField(model,row,key,['when','effects'].includes(key)?window.LunaBarWiring.preserve(row[key],e.target.value,key==='when'?'&&':';',row):e.target.value);if(key==='actor'&&row.type==='say'&&expressions[row.actor]&&!expressions[row.actor].includes(row.arg))model.set(row,'arg','default');drawList();send();mark();
  if(e.target.tagName==='SELECT'&&['type','actor','arg'].includes(key)){inspector();lastField='';}
 });
 $('inspector').addEventListener('focusout',()=>{lastField='';});

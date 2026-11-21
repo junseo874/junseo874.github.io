@@ -28,6 +28,9 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert.deepEqual(result.errors,[]);assert.equal(result.target,s.dst);assert.equal(result.pred,revised.cond);assert(!result.other.includes('studio_'));assert(!result.files.some(k=>/flag.?catalog/i.test(k)));assert.deepEqual(errors,[]);
   const talk=p.locator('.flow-card.tone-talk').first();await talk.locator('[data-card-action=pin]').click();await talk.locator('.socket.draft').click();
   await choose('predicate','studio_draft_only',true,true);await apply();await p.click('#flags-open');await p.click('[data-flag=studio_draft_only]');assert((await p.locator('.wb-use').first().textContent()).includes('미연결 핀'));await p.click('#wb-close');assert(!(await p.evaluate(()=>JSON.stringify(dialogueEditor.model.output()))).includes('studio_draft_only'));
+  const draftNode=await talk.getAttribute('data-node');await talk.locator('.card-head').click();
+  await p.locator('#node-detail [data-action="append-row"]').click();assert.equal(await p.locator('[data-node="'+draftNode+'"] .socket.draft').count(),1,'extending a card must not orphan its unfinished pin');
+  await p.click('#undo');assert.equal(await talk.locator('.socket.draft').count(),1);
   const emptyLabel=talk.locator('.port-label').filter({hasText:'조건 지정 필요'}),declared=talk.locator('.socket.draft'),baseline=await declared.count();
   await talk.locator('[data-card-action=pin]').click();assert.equal(await declared.count(),baseline+1);
   await emptyLabel.click({button:'right'});assert(await p.locator('#map-menu [data-menu=inspect]').isVisible());assert.equal(await p.locator('#map-menu [data-menu=duplicate]').count(),0);await p.click('[data-menu=drop-pin]');assert.equal(await declared.count(),baseline);

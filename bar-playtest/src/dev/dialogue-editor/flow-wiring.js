@@ -49,6 +49,14 @@ function scan(model,scene,verifyLoose=false){
    warn('분기 연결용 상태 줄이 분리되었습니다. 되돌린 후 플로우 차트에서 연결을 수정하세요.',src||a);logical.push(a);continue;
   }
   const siblings=src.type==='choice'?model.choices(src.arg):[src];
+  // An author may append optional dialogue between the row which arms the
+  // output and its three native effect commands. Keep the original writer.
+  if(src.type==='say'&&!terms(src.effects,';').includes(arm+' = true')){
+   for(let j=logical.length-2;j>=0;j--){
+    const prior=logical[j];if(prior.type!=='say'||block(prior)!==block(src)||routes.some(r=>r.source===prior.row_id))break;
+    if(terms(prior.effects,';').includes(arm+' = true')){siblings.push(prior);break;}
+   }
+  }
   const owners=siblings.filter(x=>terms(x.effects,';').includes(arm+' = true')),owner=owners[0];
   if(owners.length!==1||clean(owner.goto))warn('분기의 시작 줄이나 선택지가 바뀌었습니다. 플로우 차트에서 먼저 연결을 해제하세요.',src);
   routes.push({id,gate,arm,source:src.row_id,owner,choice:src.type==='choice'?owner?.row_id:'',predicate:readable(b.when),steps:[a,b,c],after:logical.length});

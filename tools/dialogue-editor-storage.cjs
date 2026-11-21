@@ -58,6 +58,7 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
   Days.checkRegistry(model,oldViews);
   // Only a validated list of display names and owned bar row anchors; it cannot affect a game route.
   delete oldViews.barEditorScenes;delete newViews.barEditorScenes;
+  delete oldViews.barEditorCards;delete newViews.barEditorCards;
   const posted=require('../bar-playtest/src/shared/data/csv-catalog.js').parseRows(files[Days.paths.sources],Days.paths.sources);
   if(JSON.stringify(posted)!==JSON.stringify(model.tables.sources))throw Error('일차 확인값이 저장하려는 대본과 다릅니다.');
  }
@@ -77,6 +78,8 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
   const safe=v=>v.tables.steps.rows.filter(r=>!known.has(r.id)&&!r.id?.startsWith('exterior_editor_'));
   if(JSON.stringify(safe(oldViews))!==JSON.stringify(safe(newViews)))throw Error('다른 대화의 웹 연결은 변경할 수 없습니다.');
   for(const [id,ref]of Object.entries(newViews.outside).filter(([id])=>id.startsWith('editor/'))){const c=model.tables.street_choices.find(c=>c.id===ref.branch&&c.row_id.startsWith('exterior_editor_'));if(!c||!Object.values(model.views.outsideChoiceEdits||{}).some(g=>g.stepId===c.parent_id)||!Object.entries(newViews.outside).some(([k,r])=>!k.startsWith('editor/')&&r.source===ref.source&&r.scene===ref.scene)||ref.offset!==0)throw Error('새 분기 연결이 원본 장면 밖을 가리킵니다.');}
+  // The model has validated these editor-only row boundaries against their exterior parent.
+  delete oldViews.outsideEditorBreaks;delete newViews.outsideEditorBreaks;
   delete oldViews.outsideChoiceEdits;delete newViews.outsideChoiceEdits;
   for(const v of [oldViews,newViews])for(const id of Object.keys(v.outside))if(id.startsWith('editor/')||id.startsWith('graph/'))delete v.outside[id];
  }

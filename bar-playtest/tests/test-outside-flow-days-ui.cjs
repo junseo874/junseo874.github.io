@@ -3,7 +3,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
 (async()=>{
  const b=await rt.load('playwright').chromium.launch({headless:true,executablePath:rt.chrome});
  try{
-  const p=await b.newPage({viewport:{width:1450,height:920}}),errors=[],writes=[];
+  const context=await b.newContext({viewport:{width:1450,height:920}}),p=await context.newPage(),errors=[],writes=[];
   p.on('pageerror',e=>errors.push(e.message));p.on('request',r=>{if(r.method()==='POST')writes.push(r.url());});p.setDefaultTimeout(6500);
   const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/outside-dialogue-editor.html',el=id=>p.locator('#'+id);
   const open=async query=>{await p.goto(url+query);await p.waitForFunction(()=>!!window.outsideDialogueEditor);};
@@ -82,6 +82,12 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await open('?day=0&commute=in&flow=prologue');await scope(0,'in');assert.notEqual(await flow(),'prologue');assert(!(await groups()).includes('intro'));
   await open('?day=1&commute=in&flow=believer/intro&view=script');
   const field=p.locator('#inspector textarea[data-field="text.ko"]').first(),original=await field.inputValue();
+  await field.fill('첫 탭에서 편집 중인 대사');const draftSlots=()=>p.evaluate(()=>Object.entries(localStorage).filter(([k])=>k.startsWith('luna.outside.editor.draft.')).sort());
+  const untouched=await draftSlots();assert.equal(untouched.length,1);
+  const tab2=await p.context().newPage();tab2.on('dialog',d=>d.dismiss());await tab2.goto(p.url());await tab2.waitForFunction(()=>!!window.outsideDialogueEditor);
+  assert.deepEqual(await draftSlots(),untouched,'opening another tab must not erase a live draft');
+  await tab2.locator('#inspector textarea[data-field="text.ko"]').first().fill('둘째 탭의 독립 편집');assert.equal((await draftSlots()).length,2);
+  await tab2.click('#undo');assert.deepEqual(await draftSlots(),untouched);await tab2.close();await el('undo').click();
   await field.fill('시간대 간 공유 대본 검수');await sw('out').click();await sw('in').click();
   assert.equal(await field.inputValue(),'시간대 간 공유 대본 검수','both visits edit one in-memory script');
   await sw('out').click();assert(await el('outside-trip-empty').isVisible());await el('undo').click();

@@ -100,7 +100,7 @@ function remove(m,f){
  const ids=new Set([f.parent]);let n=0;while(n!==ids.size){n=ids.size;for(const r of [...m.tables.steps,...m.tables.street_choices])if(ids.has(r.parent_id))ids.add(r.row_id);}
  for(const [k,c] of Object.entries(m.views.outsideChoiceEdits||{}))if(ids.has(c.stepId))delete m.views.outsideChoiceEdits[k];
  for(const k of Object.keys(m.views.outside))if(m.views.outside[k].scene===f.ref.scene)delete m.views.outside[k];
- m.tables.scenes=m.tables.scenes.filter(r=>r.row_id!==f.parent);for(const t of ['steps','street_choices'])m.tables[t]=m.tables[t].filter(r=>!ids.has(r.row_id));m.refreshChoiceFlows();
+ m.tables.scenes=m.tables.scenes.filter(r=>r.row_id!==f.parent);for(const t of ['steps','street_choices'])m.tables[t]=m.tables[t].filter(r=>!ids.has(r.row_id));m.forgetTalkCards(ids);m.refreshChoiceFlows();
 }
 const registered=m=>new Set([...m.base.tables.steps.map(s=>clean(s.actor)), 'luna'].filter(Boolean));
 function validate(m){

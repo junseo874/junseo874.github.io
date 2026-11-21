@@ -10,6 +10,15 @@ function preferences(scene){
  s.positions||={};s.drafts||={};s.zoom=Number.isFinite(s.zoom)?Math.max(.25,Math.min(3,s.zoom)):.9;
  return {s,save(){try{const fresh=JSON.parse(localStorage.getItem(key)||'{}');fresh[scene]=s;localStorage.setItem(key,JSON.stringify(fresh));}catch{/* Storage-disabled sessions still work in memory. */}}};
 }
+// Earlier workspaces keyed unfinished pins by the last line, which can move or disappear.
+function migrateDraftPins(s,nodes){
+ let changed=false;
+ for(const n of nodes)for(const r of n.rows){
+  const old=r.row_id;if(old===n.id||!Array.isArray(s.drafts[old]))continue;
+  s.drafts[n.id]=[...new Set([...(s.drafts[n.id]||[]),...s.drafts[old]])];
+  delete s.drafts[old];changed=true;
+ }return changed;
+}
 function place(items,edges,s){
  const depth=new Map(),lanes=new Map(),layout=new Map(),right=s.direction==='right';
  const incoming=new Map();for(const e of edges){if(!incoming.has(e.to))incoming.set(e.to,[]);incoming.get(e.to).push(e.from);}
@@ -36,5 +45,5 @@ function curve(a,b,right,endRight=right){
  const span=right?Math.abs(b.x-a.x):Math.abs(b.y-a.y),k=Math.max(48,Math.min(170,span*.52));
  return 'M'+a.x+','+a.y+' C'+(a.x+(right?k:0))+','+(a.y+(right?0:k))+' '+(b.x-(endRight?k:0))+','+(b.y-(endRight?0:k))+' '+b.x+','+b.y;
 }
-W.LunaBarLayout={preferences,place,pin,curve,coordinate,width:WIDE,base:BASE,step:STEP};
+W.LunaBarLayout={preferences,migrateDraftPins,place,pin,curve,coordinate,width:WIDE,base:BASE,step:STEP};
 })(window);

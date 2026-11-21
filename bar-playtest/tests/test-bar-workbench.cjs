@@ -8,7 +8,9 @@ const {snapshot,save,runtimeSnapshot}=require('../../tools/dialogue-editor-stora
  for(const [field,value]of [['text.ko','<shake>안녕'],['lock_reason.ko','잠금 <color=#']]){const orig=choice[field];choice[field]=value;const a=await check();assert(a.issues.some(i=>i.choice===choice.row_id&&i.field===field&&i.severity==='error'));await assert.rejects(save({revision:src.revision,files:m.output()},config),/태그/);choice[field]=orig;}
  const priorWhen=first.when;first.when='flag.visitor';assert((await check()).issues.some(i=>i.message.includes('입장하지 않은')&&i.scene===first.context));first.when=priorWhen;
  const options=m.choices(menu.arg),gates=options.map(x=>x.when);options.forEach(x=>x.when='flag.gate');assert((await check()).errors.some(s=>s.includes('모든 선택지')));options.forEach((x,i)=>x.when=gates[i]);
+ const flow=require('../src/dev/dialogue-editor/flow-model.js'),cards=()=>flow.compile(m,r.context).nodes.map(n=>[n.id,n.rows.map(x=>x.row_id)]),beforeFlag=cards();
  F.create(m,r,'visit',false);m.set(choice,'when','!flag.visit && !flag.visit_plus');const raw='대사 속 flag.visit';m.set(r,'text.ko',raw);
+ assert.deepEqual(cards(),beforeFlag,'a flag written from the manager must not split a dialogue card');
  assert.throws(()=>F.rewrite(m,'visit','visit_plus'),/이미/);assert.throws(()=>F.rewrite(m,'day0_skip_tutorial','unsafe'),/보호|게임/);
  m.checkpoint();F.rewrite(m,'visit','visited');assert.equal(choice.when,'!flag.visited && !flag.visit_plus');assert.equal(r['text.ko'],raw);assert.equal(F.index(m).flags.get('visited').uses.length,2);
  const cr=choice.row_id,rr=r.row_id;const find=()=>m.tables.bar_choices.find(x=>x.row_id===cr);m.undo();assert.match(find().when,/!flag\.visit &&/);m.redo();m.checkpoint();F.rewrite(m,'visited',null);assert.equal(find().when,'!flag.visit_plus');m.undo();assert.match(find().when,/visited/);

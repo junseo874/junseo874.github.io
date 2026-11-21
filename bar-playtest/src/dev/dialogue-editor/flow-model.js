@@ -44,6 +44,7 @@ function remember(expr,value,facts,observed){
 }
 function compile(model,scene,starts=[]){
  const list=model.rows(scene),plan=wiring.scan(model,scene),nodes=[],edges=[],seats={};
+ const owners=model.views?.barEditorCards?.[scene]||{};
  const arrivals=new Set([...starts,...plan.routes.map(r=>r.target)]);
  for(const [index,row] of list.entries()){
   if(plan.hidden.has(row.row_id))continue;
@@ -52,20 +53,35 @@ function compile(model,scene,starts=[]){
   const when=wiring.readable(row.when),type=kind(row.type),last=nodes.at(-1);
   const same=last&&wiring.block(last.rows.at(-1))===wiring.block(row)&&!arrivals.has(row.row_id)&&last.type===type&&clean(last.rows.at(-1).when)===clean(row.when)&&last.cast.join()===cast.join()&&!clean(last.rows.at(-1).effects)
    &&(row.type==='say'||row.type==='serve'&&last.rows.at(-1).type==='craft');
+  const authoredPair=row.type==='say'&&last?.type==='대화'&&(owners[row.row_id]||owners[last.rows[0].row_id]);
+  const join=authoredPair?!arrivals.has(row.row_id)&&!!owners[row.row_id]&&owners[row.row_id]===owners[last.rows[0].row_id]:same;
   if(wiring.decision(last?.rows[0])&&row.row_id===wiring.block(last.rows[0])+'_901')last.rows.push(row);
   else if(wiring.decision(row))nodes.push({id:row.row_id,index,start:index,type:'조건 분기',when:wiring.asleep(row)?'false':'',branchWhen:wiring.decisionRule(row),cast,rows:[row],routes:[]});
-  else if(same)last.rows.push(row);
+  else if(join)last.rows.push(row);
   else nodes.push({id:row.row_id,index,start:index,type,when,cast,rows:[row],routes:[]});
   if(row.type==='exit'&&!wiring.asleep(row))for(const k of Object.keys(seats))if(seats[k]===row.actor)delete seats[k];
  }
- for(const n of nodes)n.routes=plan.routes.filter(r=>r.source===n.rows.at(-1).row_id);
+ const cardAt=new Map();
+ for(const n of nodes){
+  const owner=owners[n.id];if(owner&&n.rows.some(r=>r.row_id===owner))n.id=owner;
+  for(const r of n.rows)cardAt.set(r.row_id,n);
+  if(n.type==='대화'&&n.rows.length>1){
+   const terms=r=>wiring.readable(r.when).split(' && ').filter(Boolean);
+   n.when=terms(n.rows[0]).filter(t=>n.rows.every(r=>terms(r).includes(t))).join(' && ');
+  }
+  n.routes=plan.routes.filter(r=>r.source===n.rows.at(-1).row_id);
+ }
  function connect(node,i,choice){
   const facts={},observed=new Map();remember(node.when,true,facts,observed);
   if(choice)remember(clean(choice.when),true,facts,observed);
   if(node.rows.some(r=>clean(r.effects))||clean(choice?.effects))observed.clear();
   if(node.rows.some(r=>['order','serve'].includes(r.type))){observed.clear();for(const k of ['order_match','craft_grade','final_grade'])delete facts[k];}
   if(choice)Object.assign(facts,flagsAfter(choice.effects));
-  for(const r of node.rows)Object.assign(facts,flagsAfter(r.effects));
+  for(const r of node.rows){
+   const assignments=flagsAfter(r.effects),enabled=truth(wiring.readable(r.when),facts,observed);
+   if(enabled===true)Object.assign(facts,assignments);
+   else if(enabled!==false)for(const k of Object.keys(assignments))delete facts[k];
+  }
   const label=choice?clean(choice['text.ko']):'',base={from:node.id,label,choice:choice?.row_id,requires:clean(choice?.when)};
   if(clean(choice?.goto)){edges.push({...base,targetScene:choice.goto});return;}
   for(const r of node.routes.filter(r=>(r.choice||'')===(choice?.row_id||''))){
@@ -73,7 +89,7 @@ function compile(model,scene,starts=[]){
    if(enabled!==false&&r.target){
     // The cable enters at the chosen row; its original conditions still
     // apply. Show the actual continuations when that row itself can be skipped.
-    const start=nodes.findIndex(n=>n.id===r.target),seen=new Map(observed),known={...facts};remember(r.predicate,true,known,seen);
+    const start=nodes.indexOf(cardAt.get(r.target)),seen=new Map(observed),known={...facts};remember(r.predicate,true,known,seen);
     for(let j=start;j>=0&&j<nodes.length;j++){
      const t=nodes[j],runs=truth(t.when,known,seen);
      if(runs!==false)edges.push({...base,to:t.id,guard:r.predicate,targetWhen:t.when,routeId:r.id});
@@ -105,7 +121,7 @@ function compile(model,scene,starts=[]){
  const connections=[],bySource=new Map();for(const e of edges){if(!bySource.has(e.from))bySource.set(e.from,[]);bySource.get(e.from).push(e);}
  for(const n of nodes){
   const pins=new Map(),key=e=>wiring.pinKey(e.choice,e.guard);
-  for(const r of n.routes){const e={from:n.id,to:r.target,choice:r.choice,guard:r.predicate,routeId:r.id,label:r.choice?clean(r.owner?.['text.ko']):'',requires:r.choice?clean(r.owner?.when):'',targetWhen:nodes.find(t=>t.id===r.target)?.when};pins.set(key(e),e);}
+  for(const r of n.routes){const dest=cardAt.get(r.target),e={from:n.id,to:dest?.id||r.target,choice:r.choice,guard:r.predicate,routeId:r.id,label:r.choice?clean(r.owner?.['text.ko']):'',requires:r.choice?clean(r.owner?.when):'',targetWhen:dest?.when};pins.set(key(e),e);}
   for(const e of bySource.get(n.id)||[]){if(e.routeId||pins.has(key(e)))continue;pins.set(key(e),e);}
   const choice=n.rows.at(-1).type==='choice'?model.choices(n.rows.at(-1).arg):[];const sequence=[...pins.values()];if(choice.length)sequence.sort((a,b)=>choice.findIndex(o=>o.row_id===a.choice)-choice.findIndex(o=>o.row_id===b.choice));
   connections.push(...sequence.map(e=>({...e,pinKey:key(e)})));
@@ -117,7 +133,7 @@ const presets=[['','항상 실행'],['order_match','주문한 술 일치'],['!or
  ...['craft_grade','final_grade'].flatMap(field=>grades.map(g=>[field+' == '+g,(field==='craft_grade'?'제조':'최종')+' 등급 · '+g]))];
 // The new response row is an ordinary say. For a choice with no goto, set
 // one boolean on every sibling so re-entering the choice cannot reuse a pick.
-function addResponse(model,scene,node,choiceId,predicate){
+function addResponse(model,scene,node,choiceId,predicate,insertLine){
  const last=node.rows.at(-1),index=model.rows(scene).findIndex(r=>r.row_id===last.row_id);
  if(index<0)throw Error('흐름을 다시 열어 주세요.');
  const resetsGuard=[last,...(last.type==='choice'?model.choices(last.arg):[])].some(r=>Object.keys(flagsAfter(r.effects)).some(k=>node.when.split(/[^\w.]+/).includes(k)));
@@ -134,8 +150,8 @@ function addResponse(model,scene,node,choiceId,predicate){
  }else {if(!clean(predicate))throw Error('반응을 실행할 조건을 입력하세요.');checkGuard(predicate);
   if(/\b(?:order_match|grade|craft_grade|final_grade)\b/.test(predicate)){const served=model.rows(scene).slice(0,index+1).filter(r=>['order','serve'].includes(r.type)).at(-1);if(served?.type!=='serve'||clean(served.when))throw Error('제조 결과는 제공이 확정된 위치에서 사용하세요.');}
  }
- const row=model.add(scene,index+1,'say');
- model.set(row,'actor',last.actor||'luna');model.set(row,'when',[clean(last.when),when].filter(Boolean).join(' && '));return row;
+ const row=insertLine?insertLine():model.add(scene,index+1,'say');
+ model.set(row,'actor',last.actor||'luna');model.set(row,'when',[...new Set([clean(insertLine?row.when:last.when),when].filter(Boolean))].join(' && '));return row;
 }
 function insertChoice(model,scene,node){
  const last=node.rows.at(-1);if(last.type==='end_part')throw Error('장면 종료 뒤에는 추가할 수 없습니다.');
@@ -147,5 +163,15 @@ function insertChoice(model,scene,node){
  opts.forEach((o,i)=>{for(const k of ['text.en','when','effects','goto','lock_reason.ko','lock_reason.en'])model.set(o,k,'');model.set(o,'text.ko','새 선택지 '+(i+1));});
  return row;
 }
-const api={compile,presets,addResponse,insertChoice,kind,clean,checkGuard};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarFlow=api;
+// Snapshot only visual membership, never conditions or executable edges.
+function legacyStarts(m,s){
+ const owners=m.views.barEditorCards?.[s]||{};
+ return [...(root.LunaBarLayout?.preferences(s).s.breaks||[]),...(m.views.barEditorScenes?.[s]||[]).map(p=>p.start)].filter(id=>!owners[id]);
+}
+function rememberCards(m,s,split=[]){
+ const graph=compile(m,s,[...legacyStarts(m,s),...split]),owners={};
+ for(const n of graph.nodes)if(n.type==='대화')for(const r of n.rows)owners[r.row_id]=n.id;
+ (m.views.barEditorCards||={})[s]=owners;return owners;
+}
+const api={compile,rememberCards,legacyStarts,presets,addResponse,insertChoice,kind,clean,checkGuard};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarFlow=api;
 })(globalThis);

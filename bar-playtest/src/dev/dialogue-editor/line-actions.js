@@ -8,17 +8,20 @@ const clean=F.clean,template=(m,k)=>m.tables.steps.find(s=>s.type===k&&s.templat
 const authored=new Set(['say','enter','exit','choice','coaster','order','craft','serve','empty_glass','effect','tutorial','end_part']);
 function context(m,scene,r){
  const list=m.rows(scene),at=list.indexOf(r),scan=R.scan(m,scene),before=list[at-1],after=list[at+1];
- const locked=at<0||at<m.prefix(scene)?'개점 전 초기 배치는 유지해야 합니다.':scan.hidden.has(r.row_id)||scan.routes.some(e=>e.source===r.row_id||e.target===r.row_id)?'먼저 플로우 차트에서 이 줄의 연결을 해제하세요.':
+ const owners=m.views.barEditorCards?.[scene],owner=owners?.[r.row_id];
+ const prepend=!!owner&&owner!==r.row_id&&owners[after?.row_id]===owner;
+ const locked=at<0||at<m.prefix(scene)?'개점 전 초기 배치는 유지해야 합니다.':scan.hidden.has(r.row_id)||scan.routes.some(e=>e.owner===r||e.source===r.row_id||e.target===r.row_id)?'먼저 플로우 차트에서 이 줄의 연결을 해제하세요.':
   r.sync==='no_wait'||before?.sync==='no_wait'?'동시 입장 두 줄은 함께 유지해야 합니다.':
   r.type==='craft'&&after?.type==='serve'||r.type==='serve'&&before?.type==='craft'?'제조와 제공은 한 쌍입니다.':r.type==='end_part'?'장면 종료 줄은 맨 끝에 유지합니다.':'';
- return {list,at,scan,before,after,locked};
+ const removablePrefix=prepend&&scan.routes.some(e=>e.target===r.row_id)&&!scan.routes.some(e=>e.source===r.row_id||e.owner===r)&&at>=m.prefix(scene)&&F.compile(m,scene,F.legacyStarts(m,scene)).nodes.some(n=>n.id===owner&&n.rows[0]===r&&n.rows[1]===after);
+ return {list,at,scan,before,after,locked,deleteLock:removablePrefix?'':locked,row:r};
 }
 function placement(m,scene,c,at){
  const {list,scan}=c,prev=list[at-1],next=list[at];
  if(at<m.prefix(scene))return '고정된 초기 배치 앞에는 추가할 수 없습니다.';
  if(prev?.type==='end_part')return '장면 종료 뒤에는 추가할 수 없습니다.';
  if(prev?.sync==='no_wait'||prev?.type==='craft'&&next?.type==='serve')return '함께 실행되는 두 줄 사이에는 추가할 수 없습니다.';
- if(next&&scan.hidden.has(next.row_id))return '분기 연결 내부입니다. 도착 줄 앞에 추가하세요.';
+ if(next&&scan.hidden.has(next.row_id)&&!(prev===c.row&&prev.type==='say'&&scan.routes.some(e=>e.source===prev.row_id&&e.steps[0]===next)))return '분기 연결 내부입니다. 도착 줄 앞에 추가하세요.';
  return '';
 }
 function typeProblem(m,scene,r,k,c=context(m,scene,r)){
@@ -68,15 +71,33 @@ function insert(m,scene,r,side,type='say',duplicate=false){
  const c=context(m,scene,r),at=c.at+(side==='after'?1:0),issue=placement(m,scene,c,at);if(issue)throw Error(issue);
  if(duplicate&&c.locked)throw Error(c.locked);
  if(!duplicate&&(!authored.has(type)||!template(m,type)))throw Error('현재 바 대본에 등록된 진행 종류가 아닙니다.');
+ const inside=r.type==='say'&&type==='say',owners=inside?F.rememberCards(m,scene):null;
+ const outgoing=side==='after'?c.scan.routes.filter(e=>e.source===r.row_id):[];
+ if(outgoing.length&&!inside)throw Error('분기 출력 앞에는 같은 노드의 대사만 추가할 수 있습니다.');
  const n=m.add(scene,at,duplicate?type:'say',duplicate?r:null);
  if(!duplicate){const seated=Object.values(A.state(m,scene,at).seats);D.neutral(m,n,seated.includes(r.actor)?r.actor:'luna');m.set(n,'arg',r.type==='say'&&n.actor===r.actor?r.arg:'default');m.set(n,'text.ko','새 대사');}
  // Keep all existing destinations stable; inserting immediately before the old
  // target extends the skipped range by one instead of silently stealing its wire.
- const gates=c.scan.routes.filter(e=>c.list.findIndex(x=>x.row_id===e.source)<at&&at<=c.list.findIndex(x=>x.row_id===e.target)).map(e=>'!'+e.gate);
- m.set(n,'when',[...new Set([...gates,R.readable(r.when)].filter(Boolean))].join(' && '));return !duplicate&&type!=='say'?changeType(m,scene,n,type):n;
+ const gates=c.scan.routes.filter(e=>c.list.findIndex(x=>x.row_id===e.source)<at&&at<=c.list.findIndex(x=>x.row_id===e.target)&&!outgoing.includes(e)&&!(inside&&side==='before'&&e.target===r.row_id)).map(e=>'!'+e.gate);
+ if(inside){
+  // Loose blocks use an existing engine-compatible ID convention for activation and joins.
+  const block=R.block(r);if(block){
+   const used=new Set(c.list.map(x=>x.row_id));let i=1;while(used.has(block+'_'+i)||i===900||i===901)i++;
+   const id=block+'_'+i,spec=m.views.tables.steps.rows.find(v=>v.id===n.web_row_id);
+   spec.id=id;n.row_id=n.web_row_id=id;n.dialogue_id='dlg_'+id;
+  }
+  owners[n.row_id]=owners[r.row_id];
+  // Leave the existing output armed by its original line. Skipping an optional
+  // new last line must not silently cancel the trip to the connected card.
+ }
+ m.set(n,'when',[...new Set([...gates,...clean(inside?r.when:R.readable(r.when)).split('&&').map(t=>t.trim()).filter(Boolean)])].join(' && '));return !duplicate&&type!=='say'?changeType(m,scene,n,type):n;
+}
+function editField(m,r,key,value){
+ if(r.type==='say'&&['when','effects','actor'].includes(key)&&value!==r[key])F.rememberCards(m,r.context);
+ m.set(r,key,value);
 }
 function remove(m,scene,r){
- const c=context(m,scene,r);if(c.locked||c.list.length<2)throw Error(c.locked||'마지막 한 줄은 남겨 주세요.');
+ const c=context(m,scene,r);if(c.deleteLock||c.list.length<2)throw Error(c.deleteLock||'마지막 한 줄은 남겨 주세요.');
  m.remove(scene,r.row_id);if(r.type==='choice')releaseGroup(m,r.arg);
 }
 function moveProblem(m,scene,r,delta,visible,filtered=false){
@@ -84,6 +105,6 @@ function moveProblem(m,scene,r,delta,visible,filtered=false){
  const c=context(m,scene,r),other=c.list[c.at+delta];if(!other||!visible.includes(other.row_id))return '현재 편집 범위의 끝입니다.';
  return c.locked||context(m,scene,other).locked||((clean(r.when)+' '+clean(other.when)).includes('flag.bp_')?'연결된 구간의 경계는 플로우 차트에서 변경하세요.':'');
 }
-const api={context,placement,typeProblem,changeType,insert,remove,moveProblem};
+const api={context,placement,typeProblem,changeType,insert,remove,moveProblem,editField};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarLineActions=api;
 })(globalThis);

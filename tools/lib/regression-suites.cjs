@@ -14,7 +14,7 @@ module.exports = {
     @tools/check-engine-art-sync.cjs @tools/check-art-resource-paths.cjs
     test-shared-birds-and-bar-gates test-day3-notion-script test-latest-story-timings
     test-endless-general test-regular-arrival-speech test-guest-mouth-pairing
-    test-guest-random-appearance test-bar-line-actions test-bar-flow-editor test-bar-flow-wiring
+    test-guest-random-appearance test-bar-line-actions test-bar-card-membership test-bar-flow-editor test-bar-flow-wiring
     test-bar-day-authoring test-dialogue-editor test-bar-workbench test-outside-choice-authoring
     test-outside-choice-parity test-resource-image-recovery test-bar-room-loading test-notion-daily-dialogue
     @tools/check-structure.cjs @tools/check-site.cjs @tools/check-code-boundaries.cjs
