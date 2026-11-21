@@ -40,7 +40,7 @@ module.exports = {
     test-regular-order-badge-ui test-dialogue-history-ui test-textbox-proportions-ui
     test-choice-corner-animation-ui test-choice-entry-guard-ui test_choice_hold_ui
     test-currency-art-ui test_currency_ui test_currency_audio_ui test-recipe-table-art-ui
-    test-recipe-copy-ui test-speech-focus-ui test-capture-mode-ui test_game_viewport_ui
+    test-recipe-copy-ui test-craft-editor-ui test-speech-focus-ui test-capture-mode-ui test_game_viewport_ui
     test_letterbox_ui test_interaction_prompt_ui test-ambient-speech-motion-ui
     test-ambient-speech-size-ui test-exterior-tail-ui test_general_coaster_drag_ui
     test-no-help-corner-ui test_focus_settings_ui test-resource-workspace-ui

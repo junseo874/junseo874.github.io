@@ -36,8 +36,8 @@ function attach(api,viewport,getChart,point,place){
  viewport.addEventListener('contextmenu',e=>{if(e.target.closest('[data-node]'))return;e.preventDefault();open(e.clientX,e.clientY);});
  viewport.addEventListener('keydown',e=>{if((e.key==='ContextMenu'||e.shiftKey&&e.key==='F10')&&!e.target.closest('[data-node]')){e.preventDefault();center();}});document.getElementById('chart-create').onclick=center;
  return{edit(n){const f=api.model().flow(n.owner||n.flow);if(n.authored)configure(n.authored,null,f,true);},
-  remove(n){const m=api.model(),f=m.flow(n.owner||n.flow),chart=getChart(),back=chart.flows.find(k=>!N.shapeOf(k));if(!n.authored||!back||!confirm('이 노드와 이 노드에 꽂힌 연결을 삭제할까요? 실행 취소로 복원할 수 있습니다.'))return;
-   api.change(()=>{N.remove(m,f);return{flowId:back.id,row_id:m.rows(back.id)[0].row_id};});}};
+  remove(n){const m=api.model(),f=m.flow(n.owner||n.flow),chart=getChart(),back=chart.flows.find(k=>!N.shapeOf(k))||chart.flows.find(k=>k.id!==f.id);if(!n.authored||!confirm('이 노드와 이 노드에 꽂힌 연결을 삭제할까요? 실행 취소로 복원할 수 있습니다.'))return;
+   api.change(()=>{N.remove(m,f);return back?{flowId:back.id,row_id:m.rows(back.id)[0]?.row_id}:null;});}};
 }
 W.LunaOutsideGraphTools={attach};
 })(window);

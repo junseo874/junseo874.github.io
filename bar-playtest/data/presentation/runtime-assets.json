@@ -2837,86 +2837,6 @@
         383
       ]
     },
-    "recipe_item_gin": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/gin.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/진.png",
-      "alphaBBox": [
-        72,
-        17,
-        108,
-        163
-      ]
-    },
-    "recipe_item_beer": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/bottled_beer.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/병맥주.png",
-      "alphaBBox": [
-        72,
-        25,
-        108,
-        155
-      ]
-    },
-    "recipe_item_red_wine": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/red_wine.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/레드와인.png",
-      "alphaBBox": [
-        71,
-        13,
-        110,
-        168
-      ]
-    },
-    "recipe_item_champagne": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/champagne.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/샴페인.png",
-      "alphaBBox": [
-        69,
-        9,
-        112,
-        172
-      ]
-    },
-    "recipe_item_soda_water": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/fresca_sparkling_water.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/프레스카_탄산수.png",
-      "alphaBBox": [
-        68,
-        49,
-        113,
-        131
-      ]
-    },
     "item_tequila": {
       "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/tequila.png",
       "w": 57,
@@ -2933,54 +2853,6 @@
         170
       ]
     },
-    "recipe_item_tequila": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/tequila.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/데낄라.png",
-      "alphaBBox": [
-        71,
-        17,
-        109,
-        164
-      ]
-    },
-    "recipe_item_vodka": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/grey_goose_vodka.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/그레이구스_보드카.png",
-      "alphaBBox": [
-        72,
-        6,
-        109,
-        175
-      ]
-    },
-    "recipe_item_rum": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/bacardi_rum.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/바카디_럼.png",
-      "alphaBBox": [
-        74,
-        17,
-        107,
-        163
-      ]
-    },
     "item_orange_juice": {
       "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/01.Refrigerator/orange_juice.png",
       "w": 93,
@@ -2995,22 +2867,6 @@
         56,
         65,
         222
-      ]
-    },
-    "recipe_item_orange_juice": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/orange_juice.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/오렌지주스.png",
-      "alphaBBox": [
-        71,
-        14,
-        109,
-        167
       ]
     },
     "item_ginger_ale": {
@@ -3043,86 +2899,6 @@
         45,
         111,
         136
-      ]
-    },
-    "recipe_item_cola": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/cola.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/콜라.png",
-      "alphaBBox": [
-        68,
-        46,
-        112,
-        134
-      ]
-    },
-    "recipe_item_whiskey": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/johnnie_walker_whisky.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/조니워커_위스키.png",
-      "alphaBBox": [
-        70,
-        13,
-        110,
-        168
-      ]
-    },
-    "recipe_item_dry_vermouth": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/martini_dry_vermouth.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/마티니_드라이버무스.png",
-      "alphaBBox": [
-        68,
-        10,
-        112,
-        171
-      ]
-    },
-    "recipe_item_grenadine": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/grenadine_syrup.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/그레나딘_시럽.png",
-      "alphaBBox": [
-        72,
-        15,
-        109,
-        166
-      ]
-    },
-    "recipe_item_sour_mix": {
-      "src": "assets/01.ArtResources/00.Dummy_Assets/04.UI_Placeholder_Assets/03.Tool_and_Ingredient_Images_for_Recipes/01.Ingredient_Images/sour_mix.png",
-      "w": 180,
-      "h": 180,
-      "frames": 1,
-      "frameWidth": 180,
-      "frameHeight": 180,
-      "fps": 12,
-      "source": "0. 더미(임시) 리소스/UI 리소스 더미/레시피용 도구-재료 이미지/재료 이미지/사워믹스.png",
-      "alphaBBox": [
-        70,
-        6,
-        111,
-        174
       ]
     },
     "recipe_item_shaker": {
@@ -3754,16 +3530,22 @@
       "static": true
     },
     "recipe_item_wild_dog": {
-      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
-      "w": 128,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        37,
-        0,
-        91,
-        190
-      ]
+        8,
+        20,
+        49,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "static": true,
+      "sharedFrom": "item_wild_dog"
     },
     "item_sugar_cube": {
       "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
@@ -3783,28 +3565,40 @@
       "static": true
     },
     "recipe_item_sugar_cube": {
-      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
-      "w": 60,
-      "h": 64,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        6,
-        6,
-        57,
-        62
-      ]
+        4,
+        103,
+        53,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "static": true,
+      "sharedFrom": "item_sugar_cube"
     },
     "inventory_item_sugar_cube": {
-      "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
-      "w": 60,
-      "h": 64,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        6,
-        6,
-        57,
-        62
-      ]
+        4,
+        103,
+        53,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
+      "static": true,
+      "sharedFrom": "item_sugar_cube"
     },
     "cocktail_johnny_old_fashioned": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Old_fashioned_final.png",
@@ -3824,16 +3618,22 @@
       "source": "9_ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/Finished/Old_fashioned_final.png"
     },
     "inventory_item_wild_dog": {
-      "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
-      "w": 128,
-      "h": 192,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        37,
-        0,
-        91,
-        190
-      ]
+        8,
+        20,
+        49,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
+      "static": true,
+      "sharedFrom": "item_wild_dog"
     },
     "item_bitters": {
       "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
@@ -3853,28 +3653,40 @@
       "static": true
     },
     "recipe_item_bitters": {
-      "src": "assets/backgrounds/campaign/johnny-bitters.png",
-      "w": 107,
-      "h": 160,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        31,
-        5,
-        76,
-        155
-      ]
+        11,
+        61,
+        46,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "static": true,
+      "sharedFrom": "item_bitters"
     },
     "inventory_item_bitters": {
-      "src": "assets/backgrounds/campaign/johnny-bitters.png",
-      "w": 107,
-      "h": 160,
+      "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "w": 57,
+      "h": 171,
       "frames": 1,
+      "frameWidth": 57,
+      "frameHeight": 171,
+      "fps": 0,
       "alphaBBox": [
-        31,
-        5,
-        76,
-        155
-      ]
+        11,
+        61,
+        46,
+        170
+      ],
+      "source": "9_ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
+      "static": true,
+      "sharedFrom": "item_bitters"
     },
     "recipe_cocktail_johnny_old_fashioned": {
       "src": "assets/01.ArtResources/03.Crafting/03.Cocktails/01.RatingReveal/01.Finished/Old_fashioned_final.png",
@@ -4626,6 +4438,40 @@
       ],
       "source": "9_ArtResources/01.Characters/01.Bar/10.Haru/02.Idle/02.Talk/face_bottom_talk.png",
       "syncToBody": false
+    },
+    "item_gear_part": {
+      "src": "assets/outside/quest-items/gear_part.png",
+      "w": 64,
+      "h": 64,
+      "frames": 1,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        4,
+        4,
+        60,
+        59
+      ],
+      "source": "Web quest item artwork · 2026-11-21"
+    },
+    "item_machine_church_emblem": {
+      "src": "assets/outside/quest-items/machine_church_emblem.png",
+      "w": 64,
+      "h": 64,
+      "frames": 1,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "fps": 0,
+      "static": true,
+      "alphaBBox": [
+        15,
+        4,
+        48,
+        60
+      ],
+      "source": "Web quest item artwork · 2026-11-21"
     }
   },
   "characterLayers": {

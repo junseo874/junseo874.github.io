@@ -6055,27 +6055,27 @@ window.ResourceExtractionAssets=[
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/backgrounds/campaign/johnny-wild_dog.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/wild_dog.png",
     "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 128,
-    "h": 192,
+    "w": 57,
+    "h": 171,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/backgrounds/campaign/johnny-bitters.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/bitters.png",
     "title": "재료 획득 알림 / 외부 · 기본 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 107,
-    "h": 160,
+    "w": 57,
+    "h": 171,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {
-    "src": "assets/backgrounds/campaign/johnny-sugar_cube.png",
+    "src": "assets/01.ArtResources/03.Crafting/02.Ingredients/02.Shelf/sugar_cube.png",
     "title": "히든 칵테일 해금 · 기본 · 원본 이미지",
     "category": "UI · 원본 조각",
-    "w": 60,
-    "h": 64,
+    "w": 57,
+    "h": 171,
     "note": "실제 UI에서 참조하는 원본 PNG"
   },
   {

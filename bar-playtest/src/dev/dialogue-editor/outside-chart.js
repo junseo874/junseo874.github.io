@@ -9,24 +9,28 @@ function create(api){
  let group='',viewDay=null,viewTrip=null,scene=null,zoom=1,offsets={},positions={},pending=null,drag=null,suppress=false,extent={w:1,h:1},frame=0;
  try{offsets=JSON.parse(localStorage.getItem(storageKey))||{};}catch{}
  const remember=()=>{try{localStorage.setItem(storageKey,JSON.stringify(offsets));}catch{}};
- const note=text=>tip.textContent=text,tools=W.LunaOutsideGraphTools.attach(api,viewport,()=>scene,(x,y)=>{const b=viewport.getBoundingClientRect();return{x:Math.max(8,(x-b.left+viewport.scrollLeft)/zoom),y:Math.max(8,(y-b.top+viewport.scrollTop)/zoom)};},(f,r,pos)=>{(offsets[group]??={})[r.row_id]=W.LunaNodePalette.vacant(pos,WIDTH,265,cards.children);remember();requestAnimationFrame(()=>requestAnimationFrame(()=>locate(nodeFor(r.row_id))));});
+ const note=text=>tip.textContent=text,tools=W.LunaOutsideGraphTools.attach(api,viewport,()=>scene,(x,y)=>{const b=viewport.getBoundingClientRect();return{x:Math.max(8,(x-b.left+viewport.scrollLeft)/zoom),y:Math.max(8,(y-b.top+viewport.scrollTop)/zoom)};},(f,r,pos)=>{(offsets[group]??={})[r.row_id]=W.LunaNodePalette.vacant(pos,WIDTH,265,cards.children);remember();requestAnimationFrame(()=>requestAnimationFrame(()=>{locate(nodeFor(r.row_id));viewport.focus({preventScroll:true});}));});
  function validTarget(n){if(!pending||scene.first.get(n.flow)!==n.id)return false;const m=api.model(),f=m.flow(n.flow);if(pending.slot==='revisit')return n.authored==='repeat';if(n.authored==='repeat')return false;
   const row=m.row(pending.rowId),source=m.flow(pending.flow);
+  if(!pending.slot&&row?.row_id===m.projected.data.newspaperRoutes.parent)return ['newspaper/wrong','newspaper/right'].includes(n.flow);
   if(!pending.slot&&!m.removableMenu(row))return m.menuOutcomes(row).some(c=>map.destination(m,row,c).flow===n.flow);
   if(!pending.slot&&!W.LunaOutsideNodes.shapeOf(source)&&W.LunaOutsideNodes.all(m,source.parent).filter(r=>!W.LunaOutsideNodes.isLink(r)).at(-1)!==row)return false;
   return f.id!==source.id&&(!!n.authored||m.routeScene(f))&&!W.LunaOutsideNodes.reachable(m,f,source);}
  function applyScale(){sheet.style.transform='scale('+zoom+')';$('graph-area').style.width=Math.ceil(extent.w*zoom)+'px';$('graph-area').style.height=Math.ceil(extent.h*zoom)+'px';const z=$('chart-zoom'),label=Math.round(zoom*100)+'%';const custom=z.querySelector('[data-current]');if(custom&&custom.value!==label)custom.remove();if(![...z.options].some(o=>o.value===label)){const o=new Option(label,label);o.dataset.current='';z.add(o);}z.value=label;}
  function scale(next,x=viewport.clientWidth/2,y=viewport.clientHeight/2){const ox=(viewport.scrollLeft+x)/zoom,oy=(viewport.scrollTop+y)/zoom;zoom=Math.max(.25,Math.min(1.65,next));applyScale();viewport.scrollTo(ox*zoom-x,oy*zoom-y);}
  function persistLayout(){offsets[group]??={};if(drag?.node){const id=drag.node;undoMoves.push({group,id,before:offsets[group][id]?{...offsets[group][id]}:null,after:{...positions[id]}});if(undoMoves.length>60)undoMoves.shift();redoMoves.length=0;offsets[group][id]={...positions[id]};}remember();}
- function layout(){
-  if(!scene)return;const layers=new Map(),seen=new Set(),open=new Set(),incoming=new Map();
+ function layout(arrange=false){
+  if(!scene||!viewport.clientWidth||drag?.moved)return;const saved=offsets[group]??={},changes=[];const layers=new Map(),seen=new Set(),open=new Set(),incoming=new Map();
   for(const e of scene.edges){if(!incoming.has(e.to))incoming.set(e.to,[]);incoming.get(e.to).push(e.from);}
   const rank=id=>{if(seen.has(id))return layers.get(id);if(open.has(id))return -1;open.add(id);const v=Math.max(0,...(incoming.get(id)||[]).map(k=>rank(k)+1));open.delete(id);seen.add(id);layers.set(id,v);return v;};
   const heights=new Map(),pinned=[];extent={w:1,h:1};positions={};
-  for(const c of cards.children){const p=offsets[group]?.[c.dataset.node];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y))pinned.push({...p,h:c.offsetHeight});}
-  for(const card of cards.children){const id=card.dataset.node,col=rank(id),x=18+col*(WIDTH+GAP),p=offsets[group]?.[id];let y=heights.get(col)||20;
+  for(const c of cards.children){const p=!arrange&&saved[c.dataset.node];if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y))pinned.push({...p,h:c.offsetHeight});}
+  for(const card of cards.children){const id=card.dataset.node,p=!arrange&&saved[id],col=p?0:rank(id),x=18+col*(WIDTH+GAP);let y=heights.get(col)||20;
    if(!p){const column=pinned.filter(b=>b.x<x+WIDTH+16&&x<b.x+WIDTH+16).sort((a,b)=>a.y-b.y);for(const b of column)if(b.y<y+card.offsetHeight+16&&y<b.y+b.h+16)y=b.y+b.h+24;heights.set(col,y+card.offsetHeight+28);}
-   const pos=p&&isFinite(p.x)&&isFinite(p.y)?{x:Math.max(8,p.x),y:Math.max(8,p.y)}:{x,y};positions[id]=pos;card.style.left=pos.x+'px';card.style.top=pos.y+'px';}
+   const pos=p&&isFinite(p.x)&&isFinite(p.y)?{x:Math.max(8,p.x),y:Math.max(8,p.y)}:{x,y};
+   if(saved[id]?.x!==pos.x||saved[id]?.y!==pos.y){changes.push({id,before:saved[id],after:pos});saved[id]=pos;}
+   positions[id]=pos;card.style.left=pos.x+'px';card.style.top=pos.y+'px';}
+  if(changes.length){remember();if(arrange){undoMoves.push({group,changes});redoMoves.length=0;}}
   drawWires();
  }
  function drawWires(){const els=new Map([...cards.children].map(c=>[c.dataset.node,c]));extent={w:1,h:1};for(const [id,c] of els){const p=positions[id];if(p){extent.w=Math.max(extent.w,p.x+WIDTH+28);extent.h=Math.max(extent.h,p.y+c.offsetHeight+26);}}
@@ -38,12 +42,14 @@ function create(api){
  function render(){
   const m=api.model(),f=m.flow(api.flow());if(!f)return empty();
   const site=map.site(m,f),nextDay=api.day(),trip=api.trip(),changed=group!==site.id||viewDay!==nextDay||viewTrip!==trip;group=site.id;viewDay=nextDay;viewTrip=trip;if(changed){menu.hidden=true;pending=null;drag=null;note('노드를 누르면 오른쪽에서 편집할 수 있어요.');viewport.scrollTo(0,0);}
-  viewport.dataset.day=String(viewDay);viewport.dataset.commute=viewTrip;scene=map.graph(m,group,api.allow,api.allowWhen);const selected=scene.byRow.get(api.selected());
+  const previous=changed?null:scene?.nodes;
+  viewport.dataset.day=String(viewDay);viewport.dataset.commute=viewTrip;scene=map.graph(m,group,api.allow,api.allowWhen);const selected=scene.byRow.get(api.selected());$('chart-delete').disabled=!selected?.authored;
+  if(W.LunaNodePalette.inheritPositions(previous,scene.nodes,offsets[group]))remember();
   $('site-title').textContent=site.name+' · '+f.title;$('site-tag').textContent=site.place+' | ';$('chart-count').textContent=scene.flows.length+'개 흐름 · '+scene.nodes.length+'개 노드 · '+scene.edges.length+'개 연결';
   if(changed)$('chart-search').value='';indexJumps();
   cards.innerHTML=scene.nodes.map(n=>{const s=m.step(n.rows[0]),actors=[...new Set(n.rows.map(r=>m.step(r).actor).filter(Boolean))],first=scene.first.get(n.flow)===n.id,isTarget=pending&&first&&validTarget(n);
    return '<article class="street-card '+n.kind+(selected===n?' selected':'')+(isTarget?' link-target':'')+'" data-node="'+safe(n.id)+'" '+(n.authored?'data-creation="'+n.authored+'"':'')+' aria-label="'+safe(n.title)+'"><div class="node-head" data-handle><span>'+({talk:'“',choice:'⑂',cue:'◇',join:'↳'}[n.kind])+'　'+(n.authored?W.LunaOutsideNodes.kinds[n.authored][0]:map.kinds[n.kind])+'</span><small>'+safe(n.title)+'</small></div><button class="node-text" data-act="edit"><span class="cast-frame"><canvas class="node-cast" width="176" height="78" aria-hidden="true"></canvas></span><b>'+safe(actors.map(W.LunaOutsideEditorPreview.label).join(' · ')||'사건 신호')+'</b><span>'+safe(s['text.ko']||s.action||s.cinema||(n.kind==='choice'?'선택을 기다림':'연출 연결'))+'</span></button><div class="node-foot"><small>'+n.rows.length+'줄</small>'+button('preview','▷','이 지점부터 미리보기')+button('script','≡','이 노드의 대사 목록 보기')+'</div>'+
-   n.ports.map(({c,dest,outsideDay},i)=>outsideDay?'':'<button class="street-port" data-port="'+i+'" title="'+safe(c.label+' → '+(dest.flow?m.flow(dest.flow)?.title:dest.label||'다음 대사'))+'"><span>'+safe(c.label)+'</span><i aria-hidden="true">◉</i></button>').join('')+
+   n.ports.map(({c,dest,outsideDay},i)=>outsideDay?'':'<button class="street-port" data-port="'+i+'" title="'+safe(c.label+' → '+(dest.flow?m.flow(dest.flow)?.title:dest.label||'다음 대사'))+'"><span>'+safe(c.label)+'</span><i aria-hidden="true">'+(dest.label==='연결 안 됨'||dest.next&&c.row?.row_id.startsWith('exterior_editor_')?'◌':'◉')+'</i></button>').join('')+
    (n.ports.some(p=>p.outsideDay)?'<small class="street-day-note">현재 일차·시간대에 해당하지 않는 선택지는 숨김</small>':'')+
    n.extra.map((p,i)=>'<button class="street-port" data-next data-slot="'+p.slot+'" data-port="'+(n.ports.length+i)+'" title="'+safe(p.label+' → '+(m.flow(p.flow)?.title||'연결 안 됨'))+'"><span>'+safe(p.label)+'</span><i aria-hidden="true">'+(p.flow?'●':'◌')+'</i></button>').join('')+
    (first?(isTarget?'<button type="button" class="street-input" data-act="target" aria-label="'+(pending.slot?'선택한 핀을 이 흐름에 연결':'선택한 분기를 이 흐름에 연결')+'" title="이 입력에 연결">●</button>':'<span class="street-input" aria-hidden="true">◌</span>'):'')+'</article>';}).join('');
@@ -60,22 +66,23 @@ function create(api){
   const insideY=top>=y&&top+Math.min(44*zoom,viewport.clientHeight)<=y+viewport.clientHeight;
   if(!insideX||!insideY)viewport.scrollTo(insideX?x:Math.max(0,left-8),insideY?y:Math.max(0,top-8));
  }
- function select(n){api.select(n.flow,n.rows[0].row_id);}
+ function select(n){api.select(n.flow,n.rows[0].row_id);viewport.focus({preventScroll:true});}
  function indexJumps(){const q=$('chart-search').value.trim().toLocaleLowerCase(),select=$('chart-jump'),found=scene.nodes.filter(n=>!q||[n.title,map.kinds[n.kind],...n.rows.map(r=>{const s=api.model().step(r);return (s['text.ko']||'')+' '+W.LunaOutsideEditorPreview.label(s.actor);})].join(' ').toLocaleLowerCase().includes(q));
   select.replaceChildren(new Option(q?found.length+'개 검색 결과':'노드 바로가기…',''),...found.map(n=>new Option(n.title+' · '+map.kinds[n.kind]+' · '+(api.model().step(n.rows[0])['text.ko']||n.rows.length+'줄').slice(0,40),n.id)));return found;}
  function locate(n){if(!n)return;const el=[...cards.children].find(c=>c.dataset.node===n.id),p=positions[n.id];if(el&&p)viewport.scrollTo({left:Math.max(0,(p.x+WIDTH/2)*zoom-viewport.clientWidth/2),top:Math.max(0,(p.y+el.offsetHeight/2)*zoom-viewport.clientHeight/2),behavior:'smooth'});}
  const focusSelected=()=>locate(scene?.byRow.get(api.selected()));$('chart-locate').onclick=focusSelected;$('chart-search').oninput=indexJumps;
  $('chart-search').onkeydown=e=>{if(e.key==='Enter'){const n=indexJumps()[0];if(n){select(n);locate(n);}}};$('chart-jump').onchange=e=>{const n=nodeFor(e.target.value);if(n){select(n);locate(n);}};$('chart-zoom').onchange=e=>scale(parseFloat(e.target.value)/100);
- viewport.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='f'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();focusSelected();}});
+ const deleteSelection=()=>{const n=scene?.byRow.get(api.selected());if(n?.authored)tools.remove(n);};$('chart-delete').onclick=deleteSelection;
+ viewport.addEventListener('keydown',e=>{if((e.key==='Delete'||e.key==='Backspace')&&!e.repeat&&!e.target.closest('input,select,textarea,button,[contenteditable=true]')&&!document.querySelector('dialog[open]')){e.preventDefault();deleteSelection();return;}if(e.key.toLowerCase()==='f'&&!e.ctrlKey&&!e.metaKey){e.preventDefault();focusSelected();}});
  function chooseTarget(n){const src=pending;if(!src)return;pending=null;const m=api.model(),r=m.row(src.rowId);if(!r)return;if(src.slot){api.connectGraph(src.flow,src.slot,n.flow);render();return;}if(!m.menuEditable(r))return;const sameNative=m.menuOutcomes(r).find(c=>map.destination(m,r,c).flow===n.flow);
   if(n.flow===src.flow&&!sameNative){note('자기 흐름으로 되돌아가는 연결은 만들 수 없어요.');render();return;}
   api.connect(r,src.index,r.row_id===m.projected.data.newspaperRoutes.parent?'flow:'+n.flow:sameNative?.route||'flow:'+n.flow);render();
  }
- function arm(n,index){const m=api.model(),c=n.ports[index],p=n.extra[index-n.ports.length];if(!c&&!p)return;select(n);if(p){pending={rowId:n.id,flow:n.owner||n.flow,index,slot:p.slot};render();note(p.slot==='revisit'?'다음 방문에 재생할 반복 대화의 입력을 고르세요.':'연결할 노드의 첫 카드를 고르세요. Esc로 취소');return;}api.focusOption(index);
+ function arm(n,index){const m=api.model(),c=n.ports[index],p=n.extra[index-n.ports.length];if(!c&&!p)return;select(n);if(p){pending={rowId:n.id,flow:n.owner||n.flow,index,slot:p.slot};render();note(p.slot==='revisit'?'다음 방문에 재생할 반복 대화의 입력을 고르세요.':'연결할 노드의 입력 핀을 누르세요. Esc로 취소');return;}api.focusOption(index);
   if(!m.menuEditable(n.rows[0])){note('이 선택은 본편의 사건 처리기가 관리합니다.');return;}
-  pending={rowId:n.rows[0].row_id,flow:n.owner||n.flow,index};render();note(!m.removableMenu(n.rows[0])?'본편 사건 핀은 등록된 결과만 고를 수 있어요. 새 경로는 직접 만든 선택지에서 연결하세요.':'연결할 흐름의 첫 노드를 누르세요. Esc로 취소 · 선택 조건은 오른쪽에서 편집');}
+  pending={rowId:n.rows[0].row_id,flow:n.owner||n.flow,index};render();note(!m.removableMenu(n.rows[0])?'본편 사건 핀은 등록된 결과만 고를 수 있어요. 새 경로는 직접 만든 선택지에서 연결하세요.':'연결할 흐름의 첫 노드에서 입력 핀을 누르세요. Esc로 취소 · 선택 조건은 오른쪽에서 편집');}
  cards.addEventListener('click',e=>{if(suppress){suppress=false;return;}const card=e.target.closest('[data-node]'),n=card&&nodeFor(card.dataset.node);if(!n)return;const pin=e.target.closest('[data-port]'),act=e.target.closest('[data-act]')?.dataset.act;
-  if(pin)return arm(n,+pin.dataset.port);if(pending&&card.classList.contains('link-target'))return chooseTarget(n);
+  if(pin)return arm(n,+pin.dataset.port);if(pending&&act==='target'&&card.classList.contains('link-target'))return chooseTarget(n);
   pending=null;select(n);if(act==='preview')api.preview();if(act==='script')api.script();});
  viewport.addEventListener('pointerdown',e=>{if(e.button!==0&&e.button!==1)return;const card=e.target.closest('[data-node]'),pin=e.target.closest('[data-port]');if(card&&!e.target.closest('[data-handle]')&&!pin)return;
   drag={x:e.clientX,y:e.clientY,sx:viewport.scrollLeft,sy:viewport.scrollTop,node:pin?null:card?.dataset.node,pin:pin?{n:nodeFor(card.dataset.node),index:+pin.dataset.port}:null,moved:false};if(drag.node)drag.origin={...positions[drag.node]};if(!pin&&!card||e.button===1)e.preventDefault();});
@@ -86,13 +93,14 @@ function create(api){
  W.addEventListener('pointercancel',()=>{drag=null;});W.addEventListener('keydown',e=>{if(e.key==='Escape'&&pending){pending=null;render();note('연결 지정을 취소했어요.');}});
  viewport.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();const b=viewport.getBoundingClientRect();scale(zoom*Math.exp(-Math.max(-80,Math.min(80,e.deltaY))*.002),e.clientX-b.left,e.clientY-b.top);}},{passive:false});
  $('chart-minus').onclick=()=>scale(zoom/1.12);$('chart-plus').onclick=()=>scale(zoom*1.12);$('chart-fit').onclick=()=>{scale(Math.min(1,(viewport.clientWidth-8)/extent.w,(viewport.clientHeight-8)/extent.h),0,0);viewport.scrollTo(0,0);};
- function restoreMove(entry,which){const point=entry[which];offsets[entry.group]??={};if(point)offsets[entry.group][entry.id]={...point};else delete offsets[entry.group][entry.id];remember();layout();}
+ $('chart-arrange').onclick=()=>{if(scene&&confirm('화면에 보이는 노드를 자동 정렬할까요? 대사와 연결은 그대로 유지합니다.')){layout(true);viewport.focus({preventScroll:true});}};
+ function restoreMove(entry,which){const saved=offsets[entry.group]??={};for(const change of entry.changes||[entry]){const point=change[which];if(point)saved[change.id]={...point};else delete saved[change.id];}remember();layout();}
  viewport.addEventListener('keydown',e=>{if(!e.ctrlKey&&!e.metaKey)return;const undo=e.key.toLowerCase()==='z'&&!e.shiftKey,redo=e.key.toLowerCase()==='y'||e.key.toLowerCase()==='z'&&e.shiftKey,stack=undo?undoMoves:redoMoves;if((undo||redo)&&stack.at(-1)?.group===group){e.preventDefault();e.stopPropagation();const item=stack.pop();(undo?redoMoves:undoMoves).push(item);restoreMove(item,undo?'before':'after');}});
  cards.addEventListener('contextmenu',e=>{const card=e.target.closest('[data-node]'),n=card&&nodeFor(card.dataset.node);if(!n)return;e.preventDefault();const pin=e.target.closest('[data-port]'),index=Number(pin?.dataset.port),extra=n.extra[index-n.ports.length];pending=null;select(n);context=n;menu.innerHTML=(n.authored?'<button data-command="configure">✎ 노드 이름 · 설정</button><button data-command="remove-node">× 독립 노드 삭제</button>':'')+(pin?(extra?'<button data-command="arm" data-index="'+index+'">◉ 연결 대상 고르기</button>'+(extra.flow?'<button data-command="unlink" data-index="'+index+'">⊘ 이 연결 해제</button>':''):'<button data-command="pin" data-index="'+pin.dataset.port+'">◉ 이 선택의 문구 · 조건 편집</button>'+(n.ports[index]?.c.route?.startsWith('flow:')&&api.model().removableMenu(n.rows[0])?'<button data-command="unlink-option" data-index="'+index+'">⊘ 이 연결 해제</button>':'')):'')+'<button data-command="preview">▷ 여기서 미리보기</button><button data-command="script">≡ 대사 편집기로 열기</button><button data-command="add" '+($('add').disabled?'disabled':'')+'>＋ 대사 추가</button><button data-command="add-menu" '+($('add-menu').disabled?'disabled':'')+'>⑂ 선택지 추가</button><button data-command="reset" '+(offsets[group]?.[n.id]?'':'disabled')+'>↺ 이 카드 위치 복원</button>';menu.hidden=false;menu.style.left=Math.min(e.clientX,innerWidth-menu.offsetWidth-6)+'px';menu.style.top=Math.min(e.clientY,innerHeight-menu.offsetHeight-6)+'px';menu.querySelector('button')?.focus();});
  menu.onclick=e=>{const b=e.target.closest('button'),key=b?.dataset.command;if(!key||!context)return;menu.hidden=true;if(key==='configure')tools.edit(context);else if(key==='remove-node')tools.remove(context);else if(key==='arm')arm(context,+b.dataset.index);else if(key==='unlink-option')api.connect(context.rows[0],+b.dataset.index,'continue');else if(key==='unlink')api.connectGraph(context.owner||context.flow,context.extra[+b.dataset.index-context.ports.length].slot,null);else if(key==='preview')api.preview();else if(key==='script')api.script();else if(key==='pin')api.focusOption(+b.dataset.index);else if(key==='reset'){const id=context.id,item={group,id,before:{...offsets[group][id]},after:null};undoMoves.push(item);redoMoves.length=0;restoreMove(item,'after');}else $(key)?.click();};
  document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target))menu.hidden=true;});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){menu.hidden=true;viewport.focus();}});
  new ResizeObserver(()=>{if(scene&&viewport.clientWidth)layout();}).observe(viewport);
- function empty(){cancelAnimationFrame(frame);menu.hidden=true;context=scene=pending=drag=null;group='';viewDay=viewTrip=null;positions={};cards.replaceChildren();wires.replaceChildren();$('chart-jump').replaceChildren();$('chart-search').value='';viewport.dataset.day=String(api.day());viewport.dataset.commute=api.trip();}
+ function empty(){$('chart-delete').disabled=true;cancelAnimationFrame(frame);menu.hidden=true;context=scene=pending=drag=null;group='';viewDay=viewTrip=null;positions={};cards.replaceChildren();wires.replaceChildren();$('chart-jump').replaceChildren();$('chart-search').value='';viewport.dataset.day=String(api.day());viewport.dataset.commute=api.trip();}
  return{render,empty,editNode(){const n=scene?.byRow.get(api.selected());if(n)tools.edit(n);},removeNode(){const n=scene?.byRow.get(api.selected());if(n)tools.remove(n);},site:()=>map.site(api.model(),api.model().flow(api.flow())),clear(){pending=null;},selectedNode:()=>scene?.byRow.get(api.selected())};
 }
 W.LunaOutsideChart={create};

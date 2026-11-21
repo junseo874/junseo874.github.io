@@ -28,7 +28,7 @@ function install(Model){
  p.makeChoice=function(row,text='새 선택지',id=uid(),when='',reason='조건이 맞지 않습니다.'){
   const r=Object.fromEntries(this.headers.street_choices.map(k=>[k,'']));Object.assign(r,{context:row.context+'/'+row.seq,id,seq:'1','text.ko':text,'text.en':'',when:blank(when)?'':when,'lock_reason.ko':reason||'',dataset_id:row.dataset_id,row_id:uid(),parent_id:row.row_id,parent_field:'options',source_order:String(Math.max(-1,...this.choices(row.row_id).map(c=>+c.source_order))+1),template_id:'street_choices_format_02'});r.seq=String(+r.source_order+1);this.tables.street_choices.push(r);return r;
  };
- p.addMenuOption=function(row){const cfg=this.ensureMenu(row);if(cfg.active.length>=4)throw Error('선택지는 최대 4개입니다.');const r=this.makeChoice(row);cfg.active.push(r.row_id);cfg.routes[r.row_id]='continue';if(row.row_id===this.projected.data.newspaperRoutes.parent)this.wire(row,cfg.active.length-1,'flow:newspaper/right');return r;};
+ p.addMenuOption=function(row){const cfg=this.ensureMenu(row);if(cfg.active.length>=4)throw Error('선택지는 최대 4개입니다.');const r=this.makeChoice(row);cfg.active.push(r.row_id);cfg.routes[r.row_id]='continue';return r;};
  p.removeMenuOption=function(row,id){const cfg=this.ensureMenu(row);if(cfg.active.length<=1)throw Error('선택지는 한 개 이상 남겨 주세요.');if(this.removableMenu(row)||id.startsWith('exterior_editor_')){
    const removed=new Set([id]);let old=-1;while(old!==removed.size){old=removed.size;for(const child of [...this.tables.steps,...this.tables.street_choices])if(removed.has(child.parent_id)){if(!child.row_id.startsWith('exterior_editor_'))throw Error('본편 사건이 연결되어 삭제할 수 없습니다.');removed.add(child.row_id);}}
    const paths=new Set(this.flows.filter(f=>removed.has(f.parent)&&f.id.startsWith('editor/')).map(f=>f.id));for(const g of Object.values(this.views.outsideChoiceEdits||{}))for(const [key,route]of Object.entries(g.routes))if(!removed.has(key)&&!removed.has(g.stepId)&&paths.has(String(route).slice(5)))throw Error('다른 선택에서 이 분기를 사용합니다. 연결을 먼저 해제하세요.');
@@ -75,6 +75,7 @@ function install(Model){
   if(!Array.isArray(cfg.active)||cfg.active.length<1||cfg.active.length>4||new Set(cfg.active).size!==cfg.active.length){errors.push('선택지는 중복 없이 1~4개여야 합니다.');continue;}
   const defaults=this.menuOutcomes(row);
   for(const id of cfg.active){const c=this.tables.street_choices.find(c=>c.row_id===id),route=cfg.routes?.[id];if(!c||c.parent_id!==row.row_id||c.dataset_id!==row.dataset_id||!String(c['text.ko']||'').trim()){errors.push('선택지 문구 또는 부모 연결이 없습니다.');continue;}
+   if(row.row_id===this.projected.data.newspaperRoutes.parent&&c.row_id.startsWith('exterior_editor_')&&route==='continue'&&!this.optionJump(c))errors.push('신문 대화의 새 선택지에 연결할 답변을 고르세요: '+c['text.ko']);
    const ownJump=route==='native:'+c.id&&this.safeJump(this.optionJump(c));if(!ownJump&&!['continue','end'].includes(route)&&!defaults.some(o=>route===o.route)&&!(route?.startsWith('flow:')&&this.views.outside[route.slice(5)]))errors.push('선택 후 연결을 지정하세요: '+c['text.ko']);
    try{for(const part of (blank(c.when)?'':c.when).split('&&'))(browser?root.LunaOutsideEditorModel:require('./outside-model.js')).condition(part,{money:0,day:1,flags:{},affinity:{}});}catch(e){errors.push(e.message);}
   }

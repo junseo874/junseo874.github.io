@@ -68,7 +68,6 @@
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-tags{gap:5px;margin:0 0 20px}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-tags span{font-size:10.56px;line-height:14px;padding:3px 13px;white-space:nowrap}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-hero{aspect-ratio:841/431;margin-bottom:17px}
-:is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-hero .drink-art{height:94%;width:auto;max-width:80%;transform:translateY(var(--recipe-art-center-y,0%))}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-icon-grid{gap:6px;padding:17px 0 19px;margin:0 0 19px;border-color:#29323f}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) .recipe-icon-grid>div{padding:5px}
 :is(.resource-recipe-list+.recipe-preview,.prep-screen>#prep-recipe-detail) section{margin:0 0 16px}

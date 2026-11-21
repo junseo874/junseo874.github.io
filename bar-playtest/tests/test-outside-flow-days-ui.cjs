@@ -86,7 +86,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   const untouched=await draftSlots();assert.equal(untouched.length,1);
   const tab2=await p.context().newPage();tab2.on('dialog',d=>d.dismiss());await tab2.goto(p.url());await tab2.waitForFunction(()=>!!window.outsideDialogueEditor);
   assert.deepEqual(await draftSlots(),untouched,'opening another tab must not erase a live draft');
-  await tab2.locator('#inspector textarea[data-field="text.ko"]').first().fill('둘째 탭의 독립 편집');assert.equal((await draftSlots()).length,2);
+  await tab2.locator('#inspector textarea[data-field="text.ko"]').first().fill('둘째 탭의 독립 편집');await p.waitForFunction(()=>Object.keys(localStorage).filter(k=>k.startsWith('luna.outside.editor.draft.')).length===2);assert.equal((await draftSlots()).length,2);
   await tab2.click('#undo');assert.deepEqual(await draftSlots(),untouched);await tab2.close();await el('undo').click();
   await field.fill('시간대 간 공유 대본 검수');await sw('out').click();await sw('in').click();
   assert.equal(await field.inputValue(),'시간대 간 공유 대본 검수','both visits edit one in-memory script');

@@ -6,7 +6,7 @@ const paths={play:'M7 4l13 8-13 8z',edit:'M4 16l-1 5 5-1L20 8l-4-4z M13 7l4 4',t
 const icon=k=>'<svg class="studio-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+paths[k]+'"/></svg>';
 function create(api){
  const view=$('map-port'),world=$('map-world'),box=$('map-size'),hint=$('wire-hint');
- let items=[],edges=[],byId,positions,prefs,active='',wire=null,drag=null,pointer=null,raf=0,noClick=0;
+ let items=[],edges=[],reserved=[],byId,positions,prefs,active='',wire=null,drag=null,pointer=null,raf=0,noClick=0;
  let zoomFrame=0,zoomGoal=0,zoomAnchor=null;const zoom=()=>prefs.s.zoom,card=id=>world.querySelector('[data-node="'+CSS.escape(id)+'"]');
  const rightAt=id=>(prefs.s.portsAt?.[id]||prefs.s.direction)==='right';
  let selection=new Set(),rect;
@@ -75,8 +75,19 @@ function create(api){
    '<button type="button" class="socket socket-in" style="'+coordinates(-1)+'" title="이 노드로 연결" aria-label="'+esc(n.title)+' 입력 핀"></button>'+
    n.ports.map((p,i)=>(p.draft?'<button type="button" class="pin-trash" data-pin-trash="'+i+'" style="top:'+(L.base+i*L.step)+'px" aria-label="미연결 핀 삭제" title="미연결 핀 삭제">'+icon('trash')+'</button>':'')+'<button type="button" class="port-label'+(p.draft?' with-trash':'')+'" data-pin-label="'+i+'" title="클릭: 핀 편집 · 우클릭: 핀 작업" style="top:'+(L.base+i*L.step)+'px"><b class="port-marks"></b><span>'+esc(rightAt(n.id)?'':(i+1)+'. ') +esc(p.label)+'</span></button><button type="button" class="socket socket-out '+(p.editable?'editable ':'')+(p.draft?'draft':'')+'" data-port="'+i+'" style="'+coordinates(i)+'" title="'+esc(p.label+(p.editable?' · 클릭: 조건 편집 / 끌기: 연결':' · 기본 흐름'))+'" aria-label="'+esc(p.label)+' 출력 핀">'+(rightAt(n.id)?'':i+1)+'</button>').join('')+(n.portal||n.jump||n.terminal||n.fixedPorts?'':'<button class="card-add" data-card-action="'+(n.type==='선택지'?'option':'pin')+'" '+(n.type==='선택지'&&n.ports.length>=4?'disabled':'')+'>'+(icon('plus')+(n.type==='선택지'?' 선택지':' 분기 핀'))+'</button>')+'</article>';
  }
+ function arranged(){
+  const direction=prefs.s.direction,hidden=Object.fromEntries(reserved.map(n=>[n.id,prefs.s.positions[direction]?.[n.id]]));
+  const layout=L.place(items,edges,{direction,positions:{[direction]:hidden}},reserved);
+  return [...layout].map(([id,{x,y}])=>[id,{x,y}]);
+ }
+ function restorePositions(){
+  positions=L.place(items,edges,prefs.s,reserved);
+  const saved=prefs.s.positions[prefs.s.direction]??={};let changed=false;
+  for(const [id,{x,y}] of positions)if(saved[id]?.x!==x||saved[id]?.y!==y){saved[id]={x,y};changed=true;}
+  if(changed)prefs.save();
+ }
  function draw(data,p,resetView){
-  if(drag)finish(null,true);cancelAnimationFrame(zoomFrame);zoomFrame=0;endWire();items=data.items;edges=data.edges;prefs=p;byId=new Map(items.map(n=>[n.id,n]));positions=L.place(items,edges,prefs.s);
+  if(drag)finish(null,true);cancelAnimationFrame(zoomFrame);zoomFrame=0;endWire();items=data.items;edges=data.edges;reserved=data.reserved;prefs=p;byId=new Map(items.map(n=>[n.id,n]));restorePositions();
   world.dataset.direction=prefs.s.direction;world.innerHTML='<svg class="wires" aria-label="노드 연결선"></svg>'+items.map(html).join('');
   selection=new Set([...selection].filter(id=>byId.has(id)));highlight();
   for(const c of world.querySelectorAll('[data-node]')){const n=byId.get(c.dataset.node);W.LunaFlagPicker.markers(c.querySelector('.flow-flag-marks'),n.flagExpr);c.querySelectorAll('.port-marks').forEach((slot,i)=>W.LunaFlagPicker.markers(slot,n.ports[i].flagExpr));}
@@ -84,7 +95,7 @@ function create(api){
  }
  function positionCard(el,p){el.style.left=p.x+'px';el.style.top=p.y+'px';}
  function refreshPositions(){
-  positions=L.place(items,edges,prefs.s);
+  restorePositions();
   for(const el of world.querySelectorAll('[data-node]'))positionCard(el,positions.get(el.dataset.node));
   size();paintLines();
  }
@@ -159,6 +170,9 @@ function create(api){
   const selectedPort=e.target.closest('[data-port],[data-pin-label],[data-pin-trash]');
   if(id&&selectedPort&&e.key==='Delete'&&!e.repeat){const pin=byId.get(id)?.ports[Number(selectedPort.dataset.port??selectedPort.dataset.pinLabel??selectedPort.dataset.pinTrash)];
    if(pin?.draft){e.preventDefault();api.dropDraft(id,pin.predicate);card(id)?.focus({preventScroll:true});return;}}
+  if(['Delete','Backspace'].includes(e.key)&&!e.repeat&&!selectedPort&&!line&&!wire&&!drag&&!e.target.closest('button,input,textarea,select,[contenteditable=true]')&&(id||active)){
+   e.preventDefault();if(selection.size>1){tell('삭제할 노드 하나를 선택하세요.');return;}api.action(id||active,'delete');return;
+  }
   if(['+','=','-','0'].includes(e.key)){e.preventDefault();setZoom(e.key==='0'?1:(zoomFrame?zoomGoal:zoom())*(e.key==='-'?1/1.1:1.1));return;}
   if(e.key==='f'||e.key==='F'){e.preventDefault();locate();return;}
   if(!id||e.target.closest('button'))return;
@@ -167,7 +181,7 @@ function create(api){
  };
  new ResizeObserver(()=>{if(positions)size();}).observe(view);
  $('map-scale').onchange=e=>setZoom(parseInt(e.target.value,10)/100);$('map-locate').onclick=()=>locate();$('wire-cancel').onclick=()=>endWire();
- return {draw,point,mark,markPin(id,key){const i=byId.get(id)?.ports.findIndex(p=>p.key===key);card(id)?.querySelector('[data-pin-label="'+i+'"]')?.classList.add('pin-selected');world.querySelector('.wires path[data-from="'+CSS.escape(id)+'"][data-pin="'+CSS.escape(key)+'"]')?.classList.add('pin-selected');},locate,tell,endWire,startWire,refreshPositions,cancelNodeDrag,get pending(){return wire&&{id:wire.id,key:wire.p.key};},get connecting(){return !!wire;}};
+ return {draw,arranged,point,mark,markPin(id,key){const i=byId.get(id)?.ports.findIndex(p=>p.key===key);card(id)?.querySelector('[data-pin-label="'+i+'"]')?.classList.add('pin-selected');world.querySelector('.wires path[data-from="'+CSS.escape(id)+'"][data-pin="'+CSS.escape(key)+'"]')?.classList.add('pin-selected');},locate,tell,endWire,startWire,refreshPositions,cancelNodeDrag,get pending(){return wire&&{id:wire.id,key:wire.p.key};},get connecting(){return !!wire;}};
 }
 W.LunaBarCanvas={create,esc,icon};
 })(window);

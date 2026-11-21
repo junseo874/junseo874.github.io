@@ -30,11 +30,13 @@ const E=require(d+'outside-model'),N=require(d+'outside-node-authoring'),MapUI=r
  await require('./helpers/copy-editor-source.cjs')(opts.base);await fs.cp(path.join(__dirname,'../data/runtime'),opts.runtime,{recursive:true});
  const bar=await new Model(original.files,original.presentation).init(),s='campaign_d2_bar_open',nodes=()=>F.compile(bar,s).nodes,card=r=>nodes().find(n=>n.rows.includes(r));
  const from=nodes().at(-1).rows.at(-1),make=type=>B.create(bar,s,{type,actor:'luna',text:'검수 '+type}),menu=make('choice'),a=make('say'),b=make('say');
+ const nativeMenu=F.compile(bar,s).nodes.find(n=>n.rows[0].type==='choice'&&!R.block(n.rows[0])&&bar.choices(n.rows[0].arg).length<4);if(nativeMenu){const arg=nativeMenu.rows[0].arg,extra=bar.addChoice(arg);assert(!F.compile(bar,s).connections.some(e=>e.choice===extra.row_id));bar.removeChoice(arg,extra.row_id);}
  assert.equal(bar.choices(menu.arg).length,2);assert.deepEqual((await bar.validate()).errors,[]);assert(R.asleep(a));assert(!F.compile(bar,s).connections.some(e=>[a.row_id,b.row_id,menu.row_id].includes(e.to)));
  const choices=bar.choices(menu.arg);bar.checkpoint();
  for(const [i,dst]of [a,b].entries())B.bind(bar,s,card(menu),card(dst),{choice:choices[i].row_id});
  B.bind(bar,s,card(from),card(menu),{});const routes=()=>R.scan(bar,s).routes;
  assert.deepEqual(choices.map(o=>routes().find(r=>r.choice===o.row_id).target),[a.row_id,b.row_id]);
+ const visible=F.compile(bar,s).connections;assert.deepEqual(visible.filter(e=>e.from===menu.row_id).map(e=>e.to),[a.row_id,b.row_id]);assert(!visible.some(e=>[a.row_id,b.row_id].includes(e.from)), 'Connecting the input must not connect its unassigned output');
  assert.deepEqual((await bar.validate()).errors,[]);bar.undo();assert(R.asleep(bar.row(menu.row_id)));bar.redo();
  // Both response paths can converge without making the join unconditional.
  const joined=make('say'),decision=B.create(bar,s,{type:'condition',when:'flag.independent_test'}),yes=make('say'),no=make('say'),fresh=r=>card(bar.row(r.row_id));
@@ -56,7 +58,8 @@ const E=require(d+'outside-model'),N=require(d+'outside-node-authoring'),MapUI=r
  for(const [tag,value]of [['name','#112233'],['memory_glow','#CEABFF']])assert.equal(palette.find(r=>r.tag===tag)?.value,value);
  const current=await S.snapshot(opts.base),again=await new Model(current.files,current.presentation).init();
  assert.deepEqual((await again.validate()).errors,[]);const line=again.row(a.row_id),opt=R.scan(again,s).routes.find(r=>r.target===a.row_id);
- R.disconnect(again,s,opt);assert(R.asleep(line));B.remove(again,s,line);assert(!again.row(a.row_id));assert.deepEqual((await again.validate()).errors,[]);
+ const triples=m=>R.scan(m,s).routes.map(r=>[r.source,R.pinKey(r.choice,r.predicate),r.target].join('|')).sort(),touching=R.scan(again,s).routes.filter(r=>r.source===joined.row_id||r.target===joined.row_id);assert(touching.length>=3);const survivors=triples(again).filter(t=>!t.split('|').includes(joined.row_id));again.checkpoint();B.remove(again,s,again.row(joined.row_id));assert.deepEqual(triples(again),survivors);assert.deepEqual((await again.validate()).errors,[]);again.undo();assert(again.row(joined.row_id));
+ R.disconnect(again,s,R.scan(again,s).routes.find(r=>r.id===opt.id));assert(R.asleep(again.row(line.row_id)));B.remove(again,s,again.row(line.row_id));assert(!again.row(a.row_id));assert.deepEqual((await again.validate()).errors,[]);
  const draft=await new Model(original.files,original.presentation).init(),pick=r=>F.compile(draft,s).nodes.find(n=>n.rows.includes(r)),origin=F.compile(draft,s).nodes.at(-1).rows.at(-1);
  const grade=B.create(draft,s,{type:'condition',when:'craft_grade >= good'}),praise=B.create(draft,s,{type:'say',actor:'luna',text:'좋은 결과'});
  B.attach(draft,s,pick(grade),pick(praise),{predicate:'craft_grade >= good'});assert.deepEqual((await draft.validate()).errors,[]);

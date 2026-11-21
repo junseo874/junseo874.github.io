@@ -126,7 +126,7 @@ window.LunaBarViews = function ({
     'desc.ko': '맥주병이나 와인병을 열 때 쓰는 도구.',
     'desc.en': 'A tool for opening bottles, including wine bottles.'
   };
-  const itemName = id => id === 'opener' ? L('병따개', 'Bottle opener') : g.name(id);
+  const itemName = id => id === 'opener' ? L('병따개', 'Bottle opener') : g.text(g.t.shelf_items.find(i=>i.id===id),'name') || id;
   function actorBounds(guest) {
     if (!guest.appearance) return D.webActorBounds?.[guest.actor] || [0, 0, 551, 440];
     const boxes = guest.appearance.layers.map(k => D.assets[k]?.alphaBBox).filter(Boolean);
@@ -563,6 +563,9 @@ window.LunaBarViews = function ({
     }) => '<span class="prep-brief-row' + (checked ? ' is-packed' : '') + '" data-required-item="' + esc(id) + '" data-packed="' + checked + '"><span class="prep-brief-check" aria-hidden="true">' + (checked ? '✓' : '') + '</span><span class="prep-brief-kind">' + kind + '</span><span class="prep-brief-name">' + signal(itemName(id)) + '</span><span class="prep-brief-status">' + (checked ? L('담음', 'Selected') : L('미선택', 'Not selected')) + '</span></span>').join('');
     return button('<span class="prep-brief-heading"><strong>' + signal(g.name(c.id)) + '</strong><span aria-hidden="true">›</span></span><span class="prep-brief-reveal"><span class="prep-brief-clip"><span class="prep-brief-ingredients">' + ingredients + '</span></span></span>', 'togglePrepRecipe', 'aria-expanded="' + !!ui.recipeOpen + '" aria-controls="prep-recipe-detail" aria-label="' + esc(g.name(c.id)) + ' · ' + L('상세 레시피 보기', 'View full recipe') + '"', 'recipe-toggle prep-recipe-brief');
   }
+  function shelfTip(item){
+    return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ingredient-pointer-tip"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item, 'desc') || L('소개 문구 준비 중', 'Description pending'))}</span>${!a('item_' + item.id) ? `<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용', 'Shared team placeholder artwork')}</small>` : ''}</div>`;
+  }
   function prepHTML() {
     const p = g.prep,
       c = g.cocktail(p.selected),
@@ -572,12 +575,7 @@ window.LunaBarViews = function ({
       } = layout();
     const selected = [p.glass, p.tool, p.opener ? 'opener' : null, ...p.ingredients].filter(Boolean);
     const hovered = g.isPaused() ? null : positioned.find(o => o.item.id === ui.hoverItem);
-    const tooltip = hovered ? (() => {
-      const {
-        item
-      } = hovered;
-      return `<div id="ingredient-tip" role="tooltip" class="ingredient-tip ingredient-pointer-tip"><strong>${esc(itemName(item.id))}</strong><span>${esc(g.text(item, 'desc') || L('소개 문구 준비 중', 'Description pending'))}</span>${!a('item_' + item.id) ? `<small>${L('전용 이미지 미제공 · 팀 더미 이미지 사용', 'Shared team placeholder artwork')}</small>` : ''}</div>`;
-    })() : '';
+    const tooltip = hovered ? shelfTip(hovered.item) : '';
     return `<div class="craft-screen prep-screen ${ui.recipeOpen ? 'prep-open' : ''}">${prepRecipeBrief(c)}
       <div class="prep-main"><div class="shelf-viewport"><div class="shelf-track" style="transform:translateX(${-categories.indexOf(ui.tab) * 100}%)">
       ${categories.map(tab => {
@@ -804,7 +802,7 @@ window.LunaBarViews = function ({
       </div>`;
   }
   return {
-    recipePanel,
+    recipePanel, shelfTip,
     actorHTML,
     worldHTML,
     prepHTML,

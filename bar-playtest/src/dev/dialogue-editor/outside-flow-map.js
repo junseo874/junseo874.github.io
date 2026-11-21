@@ -29,6 +29,7 @@ function site(m,f,seen=new Set()){
 }
 function destination(m,r,c){
  const route=c.route||'';if(route.startsWith('flow:'))return{flow:route.slice(5)};
+ if(route==='continue'&&r.row_id===m.projected.data.newspaperRoutes.parent&&c.row?.row_id.startsWith('exterior_editor_'))return{label:'연결 안 됨'};
  if(route==='continue')return{next:true};if(route==='end')return{label:'대화 종료',end:true};
  const id=route.replace(/^native:/,''),line=m.step(r),stage=line.stage;
  const newspaper=m.newspaperDest(r,c);if(newspaper)return{flow:newspaper,native:true};
@@ -65,14 +66,14 @@ function buildGraph(m,siteId,allow,allowWhen){
   }first.set(f.id,ids[0]);seqs.set(f.id,ids);
  }
  const edge=(from,to,port)=>{if(from&&to&&from!==to&&!edges.some(e=>e.from===from&&e.to===to&&e.port===port))edges.push({from,to,port});};
+ const N=root.LunaOutsideNodes||(typeof require==='function'&&require('./outside-node-authoring.js'));
  const byId=new Map(nodes.map(n=>[n.id,n]));
  for(const [flow,ids]of seqs)ids.forEach((id,i)=>{const n=byId.get(id),next=ids[i+1];
-  if(n.kind!=='choice')edge(id,next,-1);else{
-   n.ports=m.menu(n.rows[0]).map((c,j)=>{const dest=destination(m,n.rows[0],c),outsideDay=!optionInScope(m,m.flow(n.owner||flow),c,dest,allow,allowWhen),to=outsideDay?undefined:dest.next?next:first.get(dest.flow);edge(id,to,j);return{c,dest,to,outsideDay};});
+  if(n.kind!=='choice'){if(!N.shapeOf(m.flow(n.owner||flow))||!N.tailPin(m,n))edge(id,next,-1);}else{
+   n.ports=m.menu(n.rows[0]).map((c,j)=>{const dest=destination(m,n.rows[0],c),outsideDay=!optionInScope(m,m.flow(n.owner||flow),c,dest,allow,allowWhen),to=outsideDay?undefined:dest.next?next:first.get(dest.flow);if(!(dest.next&&c.row?.row_id.startsWith('exterior_editor_')))edge(id,to,j);return{c,dest,to,outsideDay};});
   }
  });
  for(const n of nodes)if(n.kind==='talk'&&edges.filter(e=>e.to===n.id).length>1)n.kind='join';
- const N=root.LunaOutsideNodes||(typeof require==='function'&&require('./outside-node-authoring.js'));
  for(const n of nodes){
   const f=m.flow(n.owner||n.flow),kind=N.graphView(m,f)?.kind;n.authored=kind;n.extra=[];
   const add=(slot,label,j)=>{const target=N.targetOf(m,j),to=first.get(target?.id),index=n.ports.length+n.extra.length;n.extra.push({slot,label,flow:target?.id,to});edge(n.id,to,index);};

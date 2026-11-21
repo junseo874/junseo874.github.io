@@ -22,6 +22,10 @@ async function snapshot(base=BASE){
 async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/runtime'),backupRoot=path.join(ROOT,'artifacts/dialogue-editor-backups')}={}){
  if(input.mode==='first-contact')return require('./first-contact-storage.cjs').saveContact(input);
  const original=await snapshot(base);if(input.revision!==original.revision)throw Error('다른 작업에서 CSV가 변경되었습니다. 새로 불러온 뒤 변경 내용을 다시 적용하세요.');
+ if(input.mode==='craft'){
+  const {Book}=require('../bar-playtest/src/dev/dialogue-editor/recipe-book.js'),book=new Book(original.files);
+  book.apply(input.files);return persist(book.output(),original,{base,runtime,backupRoot});
+ }
  const exterior=input.mode==='outside',activePaths=exterior?Exterior.paths:paths,allow=exterior?new Set([...Object.values(activePaths),'web-views.json',Place.file]):allowed;
  if(!input.files||Array.isArray(input.files)||Object.keys(input.files).some(p=>!allow.has(p)||typeof input.files[p]!=='string'))throw Error('허용되지 않은 저장 파일입니다.');
  const files={...original.files,...input.files},model=await new (exterior?Exterior.Model:Model)(original.files,original.presentation).init();
@@ -85,8 +89,12 @@ async function save(input,{base=BASE,runtime=path.join(ROOT,'bar-playtest/data/r
  }
  for(const view of exterior?['steps']:['steps','bar_choices','bar_choice_groups']){delete oldViews.tables[view];delete newViews.tables[view];}
  if(JSON.stringify(oldViews)!==JSON.stringify(newViews))throw Error('장면 외 연결 구조 변경은 허용하지 않습니다.');
- const hasCsv=Object.keys(input.files).some(p=>p!==Place.file&&files[p]!==original.files[p]);const built=hasCsv?await generate(p=>Promise.resolve(files[p])):{files:{}};
- const updates=Object.entries(input.files).filter(([p,text])=>text!==original.files[p]).map(([p,text])=>(p===Place.file?{target:placementPath(base),relative:'presentation/'+p,text}:{target:path.join(base,p),relative:'shared-csv/'+p,text}));
+ return persist(input.files,original,{base,runtime,backupRoot});
+}
+async function persist(changed,original,{base,runtime,backupRoot}){
+ const files={...original.files,...changed};
+ const hasCsv=Object.keys(changed).some(p=>p!==Place.file&&files[p]!==original.files[p]);const built=hasCsv?await generate(p=>Promise.resolve(files[p])):{files:{}};
+ const updates=Object.entries(changed).filter(([p,text])=>text!==original.files[p]).map(([p,text])=>(p===Place.file?{target:placementPath(base),relative:'presentation/'+p,text}:{target:path.join(base,p),relative:'shared-csv/'+p,text}));
  if(!updates.length)return {saved:false,revision:original.revision};
  for(const [p,text]of Object.entries(built.files))updates.push({target:path.join(runtime,p),relative:'runtime/'+p,text});
  const backup=path.join(backupRoot,new Date().toISOString().replace(/[:.]/g,'-')+'-'+crypto.randomUUID().slice(0,8));

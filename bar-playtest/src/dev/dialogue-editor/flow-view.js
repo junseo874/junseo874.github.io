@@ -44,7 +44,7 @@ function create(api){
   saveState({view:'edit',scene:target.lane.id,id:target.node.id,row:target.node.id,editHop:hop},true);restore(currentState());$('line-edit-next').focus({preventScroll:true});},api.notice);
  const canvas=W.LunaBarCanvas.create({select,action,inspect:inspectPin,reason,connect,dropDraft,moveGroup:recordPositions,move:(id,pos)=>recordPositions([[id,pos]])});
  const loose=W.LunaBarLooseNodes,palette=W.LunaNodePalette.create();
- function createAt(x,y){const at=canvas.point(x,y);palette.open(x,y,Object.entries(loose.types).map(([key,[name,group,icon]])=>({key,name,group,icon,hint:'입력 핀에 연결하기 전에는 실행되지 않음'})),type=>author.open(node(active)||graph.nodes[0],null,{type,place(r){(prefs.s.freeParts??={})[loose.group(r)]=partId;const manual=(prefs.s.positions[prefs.s.direction]||={});manual[r.row_id]=W.LunaNodePalette.vacant(at,W.LunaBarLayout.width,360,$('map-world').querySelectorAll('.flow-card'),24);prefs.save();requestAnimationFrame(()=>canvas.locate(r.row_id));}}));}
+ function createAt(x,y){const at=canvas.point(x,y);palette.open(x,y,Object.entries(loose.types).map(([key,[name,group,icon]])=>({key,name,group,icon,hint:'입력 핀에 연결하기 전에는 실행되지 않음'})),type=>author.open(node(active)||graph.nodes[0],null,{type,place(r){(prefs.s.freeParts??={})[loose.group(r)]=partId;const manual=(prefs.s.positions[prefs.s.direction]||={});manual[r.row_id]=W.LunaNodePalette.vacant(at,W.LunaBarLayout.width,360,$('map-world').querySelectorAll('.flow-card'),24);prefs.save();requestAnimationFrame(()=>{canvas.locate(r.row_id);$('map-port').focus({preventScroll:true});});}}));}
  const menu=W.LunaFlowWorkspaceMenu.create(contextEntries,createAt);
  function recordPositions(entries){
   const direction=prefs.s.direction,manual=prefs.s.positions[direction]||{};
@@ -58,7 +58,7 @@ function create(api){
    if(rest.length)owner.s.drafts[edit.row]=rest;else delete owner.s.drafts[edit.row];owner.save();if(opened&&owner===prefs)draw(edit.node);return;}
   const manual=owner.s.positions[edit.direction]||{};
   for(const change of edit.changes){const p=change[side];if(p)manual[change.id]={...p};else delete manual[change.id];}
-  // A missing override means automatic placement, even if the graph has since changed.
+  // Layout history is editor-only; it never changes the script or wires.
   if(Object.keys(manual).length)owner.s.positions[edit.direction]=manual;else delete owner.s.positions[edit.direction];
   owner.save();
   if(opened&&owner===prefs&&owner.s.direction===edit.direction)canvas.refreshPositions();
@@ -99,10 +99,15 @@ function create(api){
   if(sameTarget&&(old.routeId||old.targetScene)){canvas.tell('이미 연결된 노드입니다.');return;}
   const swap=!d.portal&&loose.siblingReturn(model(),scene(),n,node(dst),p);
   if(swap&&!confirm('두 분기의 대본 순서를 바꿔 연결합니다. 이 답변 뒤에는 도착 노드의 실행 조건에 맞게 '+label(swap.flag)+' 값을 '+(swap.value?'참':'거짓')+'으로 바꿉니다. 연결할까요?'))return;
+  const signature=r=>JSON.stringify([r.source,R.pinKey(r.choice,r.predicate)]),wanted=JSON.stringify([last.row_id,p.key]),targetRow=d.portal?null:node(dst).rows[0].row_id;
+  const otherRoutes=R.scan(model(),scene()).routes.filter(r=>signature(r)!==wanted).map(r=>[signature(r),r.target]);
   let ok=api.change(()=>{
    if(d.portal){
     R.sceneWire(model(),scene(),n,p.choice,d.portal);
    }else{F.checkGuard(p.predicate);writeWire(n,node(dst),p);}
+   const after=new Map(R.scan(model(),scene()).routes.map(r=>[signature(r),r.target]));
+   if(!d.portal&&after.get(wanted)!==targetRow)throw Error('선택한 입력 핀과 실제 목적지가 달라 연결하지 않았습니다.');
+   if(otherRoutes.some(([k,id])=>after.get(k)!==id)||[...after.keys()].some(k=>k!==wanted&&!otherRoutes.some(([prior])=>prior===k)))throw Error('다른 핀의 목적지까지 바뀌는 연결이라 변경하지 않았습니다.');
    return last;
   });
   if(ok){if(saved.includes(p.predicate)){prefs.s.drafts[n.id]=saved.filter(x=>x!==p.predicate);prefs.save();}select(src);canvas.tell('연결됨: '+p.label+' → '+d.title+(old&&!sameTarget?' · 이전 연결 교체':''));}
@@ -110,7 +115,10 @@ function create(api){
  function draw(prefer,keepPart=false){
   if(!model())return;
   const changed=sceneId!==scene();if(changed||!prefs){sceneId=scene();prefs=W.LunaBarLayout.preferences(sceneId);}
+  const previous=changed?null:graph?.nodes;
   graph=F.compile(model(),scene(),F.legacyStarts(model(),scene()));
+  let inherited=false;for(const saved of Object.values(prefs.s.positions))if(W.LunaNodePalette.inheritPositions(previous,graph.nodes,saved))inherited=true;
+  if(inherited)prefs.save();
   if(W.LunaBarLayout.migrateDraftPins(prefs.s,graph.nodes))prefs.save();
   parts=S.partition(model(),scene(),graph.nodes,api.actorName);if(changed)partId=prefs.s.section||S.first;
   for(const p of parts){const free=p.nodes.filter(n=>loose.loose(n.rows[0])&&prefs.s.freeParts?.[loose.group(n.rows[0])]&&prefs.s.freeParts[loose.group(n.rows[0])]!==p.id);for(const n of free){const dst=parts.find(k=>k.id===prefs.s.freeParts[loose.group(n.rows[0])]);if(dst){p.nodes=p.nodes.filter(v=>v!==n);dst.nodes.push(n);}}}
@@ -134,7 +142,8 @@ function create(api){
    const n=item(e.from),pin=n.ports.find(p=>p.key===e.pinKey);
    return {from:e.from,to:e.to?(showIds.has(e.to)?e.to:stub(e.to)):'goto:'+e.targetScene,pinKey:pin?.key,branch:!!(e.guard||e.choice||e.routeId)};
   });
-  canvas.draw({items,edges},prefs,changed);
+  const reserved=graph.nodes.filter(n=>!showIds.has(n.id)&&prefs.s.positions[prefs.s.direction]?.[n.id]).map(n=>({id:n.id,ports:ports(n)}));
+  canvas.draw({items,edges,reserved},prefs,changed);
   for(const card of $('map-world').querySelectorAll('[data-node]'))if(loose.loose(node(card.dataset.node)?.rows[0])){card.classList.add('tone-loose');card.querySelector('.card-head small').prepend('미연결 · ');}
   const caption=sceneInfo.title||sceneInfo.id;$('graph-title').textContent=caption.startsWith(sceneInfo.day+'일차')?caption:sceneInfo.day+'일차 · '+caption;
   const part=parts.find(p=>p.id===partId);$('graph-stats').textContent=(part?('장면 '+(part.index+1)+' / '+parts.length+' · '+part.name+'　|　'):'대본 전체　|　')+shown.length+'개 노드 · '+edges.length+'개 연결';
@@ -170,6 +179,16 @@ function create(api){
  function removeOption(n,id){const last=n.rows.at(-1);if(last.type!=='choice'||model().choices(last.arg).length<=1)return;
   if(!confirm('이 선택지와 여기에 연결된 경로를 삭제할까요? 다른 선택지는 유지됩니다.'))return;
   api.change(()=>{for(const r of n.routes.filter(r=>r.choice===id))R.disconnect(model(),scene(),r);model().removeChoice(last.arg,id);return last;});}
+ function deletable(n){
+  if(!n||n.index<model().prefix(scene())||graph.nodes.length<2)return false;
+  return !!loose.group(n.rows[0])||n.rows.every(r=>/^editor_[a-f0-9]{32}$/.test(r.row_id))||n.rows.every(r=>r.type==='say'&&!F.clean(r.effects))&&!n.routes.length&&!graph.nodes.some(o=>o.routes.some(r=>n.rows.some(x=>x.row_id===r.target)));
+ }
+ function deleteNode(id){
+  const n=node(id);if(!deletable(n)){canvas.tell('고정된 시작 배치나 기존 진행 노드는 여기서 삭제할 수 없습니다.');return;}
+  const group=loose.group(n.rows[0]),count=group?model().rows(scene()).filter(r=>loose.group(r)===group).length:n.rows.length;
+  const neighbor=items.map(i=>node(i.id)).filter(o=>o&&o!==n&&(!group||loose.group(o.rows[0])!==group)).sort((a,b)=>Math.abs(a.index-n.index)-Math.abs(b.index-n.index))[0]?.rows[0];
+  if(confirm((group?'함께 생성한 묶음':'선택한 노드')+'의 '+count+'줄과 여기에 연결한 선을 삭제할까요? 실행 취소로 복원할 수 있습니다.'))api.change(()=>{const fallback=group?loose.remove(model(),scene(),n.rows[0]):loose.removeRows(model(),scene(),n.rows);return neighbor||fallback;});
+ }
  function contextEntries(id,portIndex,pinKey){
   const n=node(id),it=item(id);if(!n){
    if(it?.portal||it?.jump)return [['open','↗　연결된 장면 열기',()=>action(id,'goto')]];
@@ -191,7 +210,7 @@ function create(api){
    ['before','＋　이 노드 앞에 추가',()=>author.open(n,'before')],['after','＋　이 노드 뒤에 추가',end.type==='end_part'?null:()=>author.open(n,'after')],
    ['port',isChoice?'＋　선택지와 출력 핀 추가':'＋　조건 분기 핀 추가',n.branchWhen||end.type==='end_part'||isChoice&&it.ports.length>=4?null:()=>action(id,isChoice?'option':'pin')],
    ['duplicate','⧉　대사 묶음 복제',allowed?()=>api.change(()=>{const m=model(),list=m.rows(scene()),at=list.indexOf(end)+1;let head;for(const [i,r] of n.rows.entries()){const copy=m.add(scene(),at+i,'say',r);head||=copy;}F.rememberCards(m,scene(),[head.row_id,list[at]?.row_id].filter(Boolean));return head;}):null,'효과·분기의 연결점이 아닌 대사 묶음만 복제합니다.'],
-   ['delete',loose.group(end)?'×　독립 노드 묶음 삭제':'−　대사 묶음 삭제',loose.group(end)?()=>{const group=loose.group(end),related=graph.nodes.filter(v=>v.rows.some(r=>loose.group(r)===group));if(confirm(related.length>1?'같이 만든 묶음 전체가 삭제됩니다: '+related.map(title).join(', ')+' ('+related.length+'개 노드). 연결선도 함께 삭제할까요?':'이 노드와 연결선을 삭제할까요? 실행 취소로 복원할 수 있습니다.'))api.change(()=>loose.remove(model(),scene(),end));}:allowed&&graph.nodes.length>1?()=>{if(confirm('이 묶음의 대사 '+n.rows.length+'줄을 삭제할까요? 되돌리기로 복구할 수 있습니다.'))api.change(()=>{const m=model(),list=m.rows(scene()),to=list[list.indexOf(end)+1]||list[n.index-1];for(const r of n.rows)m.remove(scene(),r.row_id);return to;});}:null,'등장·주문이나 연결된 분기를 실수로 지우지 않도록 보호합니다.'],null,
+   ['delete','×　노드 삭제 (Delete)',deletable(n)?()=>deleteNode(id):null,'고정된 시작 배치와 기존 진행 노드는 보호합니다.'],null,
    ['split','✂　이 노드부터 다음 장면으로 분리…',p.nodes[0]===n?null:()=>named(n,'split'),'현재 편집 장면에서 이 노드를 포함한 나머지를 새 장면으로 옮깁니다.'],
    ['section-lines','≡　현재 장면 대사 목록',()=>go('section-lines',id)],['rename','✎　현재 장면 이름 변경…',()=>named(n,'rename')],
    ['merge','↤　이 장면을 앞 장면에 합치기',p.index?()=>{if(confirm('「'+p.name+'」을 앞 장면에 합칠까요? 대사와 분기는 유지됩니다.'))api.change(()=>{S.merge(model(),scene(),parts,p);return n.rows[0];});}:null],
@@ -246,6 +265,7 @@ function create(api){
  function select(id,scroll=false){
   const n=node(id);if(!n){if(scroll)canvas.locate(id);return;}if(!item(id)){const part=S.current(parts,id);if(part){navigatePart(part.id,id);}return;}
   if(active!==id)editingDraft='';active=id;canvas.mark(id);if(scroll)canvas.locate(id);const it=item(id),last=n.rows.at(-1),choice=last.type==='choice',served=last.type==='serve',outs=dests(n);
+  $('map-delete').disabled=!deletable(n);
   const UI=W.LunaFlowAuthorUI,g=UI.group,restoreInspector=UI.inspectorState(detail,scene()+'/'+id);
   const routeList=n.routes.map(r=>(r.predicate?g('route:'+r.id,'분기 조건 수정','<input type="hidden" data-route-value="'+esc(r.id)+'" value="'+esc(r.predicate)+'"><button data-revise="'+esc(r.id)+'">조건 적용</button>','class="route-edit"'):'')+
    '<div class="conn-row"><span>'+esc(r.choice?plain(r.owner?.['text.ko']):label(r.predicate))+'</span><button data-remove-route="'+esc(r.id)+'" title="원래 순서로 복구">연결 해제</button></div>').join('');
@@ -256,7 +276,8 @@ function create(api){
   const lines=showLines?g('content',(n.rows[0].type==='say'?'대사 줄':'진행 줄')+' · '+n.rows.length,'<ol class="node-lines">'+n.rows.map((r,i)=>'<li><button data-row="'+esc(r.row_id)+'" title="대사 편집기에서 열기"><small>'+String(i+1).padStart(2,'0')+'</small>'+esc(plain(r['text.ko'])||(n.rows.length===1?it.excerpt:F.kind(r.type)+' '+F.clean(r.arg)))+'</button>'+(i?'<button class="split-line" data-split="'+esc(r.row_id)+'" title="여기부터 별도 노드로 보기">나누기</button>':'')+'</li>').join('')+'</ol>'+(last.type==='say'?'<button data-action="append-row">＋ 이 노드에 대사 한 줄 추가</button>':''),'data-priority="content"'):'';
   const next=outs.map((e,i)=>{const dst=item(e.to||'goto:'+e.targetScene)||item('part:'+e.to);return '<div class="pin-next-row"><button class="flow-jump" data-edge="'+i+'" '+(e.end?'disabled':'')+'><small>'+esc([e.label,e.requires&&'선택 조건: '+label(e.requires),e.guard&&label(e.guard),e.targetWhen&&e.targetWhen!==e.guard&&'도착: '+label(e.targetWhen)].filter(Boolean).join(' · ')||'기본 진행')+'</small><span>↳ '+esc(dst?.title||'장면 종료')+'</span></button><button type="button" data-inspect-key="'+esc(e.pinKey)+'" aria-label="'+esc(e.label||label(e.guard))+' 핀 편집">핀 편집</button></div>';}).join('');
   const sceneLinks=choice?model().choices(last.arg).filter(o=>F.clean(o.goto)).map(o=>'<div class="conn-row"><span>'+esc(plain(o['text.ko']))+'</span><button data-clear-scene="'+esc(o.row_id)+'">장면 연결 해제</button></div>').join(''):'';
-  const links=!end?g('links','다음 노드 연결',next+routeList+sceneLinks+drafts+(choice?'<button data-action="whole-map" title="다른 장면에 연결">전체 연결 보기</button>':'')):'';
+  const freeNote=loose.group(n.rows[0])&&!loose.loose(n.rows[0])&&!n.routes.length?'<small>출력 핀을 연결하지 않았습니다. 본편은 별도 이동이 없으면 대본 순서대로 계속됩니다.</small>':'';
+  const links=!end?g('links','다음 노드 연결',next+freeNote+routeList+sceneLinks+drafts+(choice?'<button data-action="whole-map" title="다른 장면에 연결">전체 연결 보기</button>':'')):'';
   const guard=g('guard',n.branchWhen?'분기 기준 · 조건 충족 / 그 외':'노드 실행 조건','<input type="hidden" id="node-when" value="'+esc(n.branchWhen||n.when)+'"><div id="guard-builder"></div><button data-action="guard">노드에 적용</button>');
   const branch=choice||end||n.branchWhen?'':g('branch','새 분기','<label>빠른 조합<select id="pin-preset"><option value="">조합 추가…</option>'+options(F.presets.slice(1))+'</select></label><input type="hidden" id="pin-condition"><div id="pin-builder"></div>'+
    '<div class="inspector-buttons"><button data-action="add-pin" title="연결한 순서대로 처음 맞는 경로 하나를 따릅니다">＋ 조건 출력 핀</button><button data-action="multi-response" title="조건을 만족하는 반응 대사를 모두 재생합니다">＋ 조건부 대사</button></div>');
@@ -315,6 +336,7 @@ function create(api){
  }
  function action(id,what,row){
   const it=item(id);if(!it)return;
+  if(what==='delete'){deleteNode(id);return;}
   if(what==='goto'&&it.jump){const p=S.current(parts,it.jump);if(p)navigatePart(p.id,it.jump);return;}
   if(what==='goto'){saveState({view:'map',scene:it.portal},true);restore(currentState());return;}
   select(id);if(what==='option'){$('node-detail').querySelector('[data-action="add-option"]')?.click();return;}
@@ -326,6 +348,7 @@ function create(api){
   if(k==='text.ko'){const it=item(active),i=it.ports.findIndex(p=>p.choice===cid),text=plain(e.target.value);if(i<0)return;it.ports[i].label=text;it.excerpt=opts.map(c=>plain(c['text.ko'])).join(' / ');
    const card=document.querySelector('[data-node="'+CSS.escape(active)+'"]');card.querySelectorAll('.port-label span')[i].textContent=text;card.querySelectorAll('.socket-out')[i].setAttribute('aria-label',text+' 출력 핀');card.querySelectorAll('.socket-out')[i].title=text+' · 끌어서 연결';card.querySelector('.excerpt').textContent=it.excerpt;card.querySelector('.excerpt').title=it.excerpt;for(const [j,b] of [...detail.querySelectorAll('.flow-jump')].entries()){const edge=dests(n)[j];if(edge.choice===cid){edge.label=text;b.querySelector('small').textContent=text;}}filter();}
  };
+ $('map-delete').onclick=()=>deleteNode(active);
  $('map-add').onclick=()=>author.open(node(active));
  $('map-create').onclick=()=>{const b=$('map-port').getBoundingClientRect();createAt(b.left+b.width/2,b.top+b.height/3);};
  detail.onclick=e=>{
@@ -374,7 +397,9 @@ function create(api){
   }
  };
  $('map-direction').onchange=e=>{prefs.s.direction=e.target.value;prefs.save();draw(active);canvas.locate();};
- $('map-arrange').onclick=()=>{const ids=Object.keys(prefs.s.positions[prefs.s.direction]||{});if(ids.length&&!confirm('이 방향의 카드 위치를 자동 정렬할까요? 대사와 연결은 그대로 유지합니다.'))return;recordPositions(ids.map(id=>[id,null]));canvas.locate();};
+ $('map-arrange').onclick=()=>{const saved=prefs.s.positions[prefs.s.direction]||{},moves=canvas.arranged().filter(([id,p])=>saved[id]?.x!==p.x||saved[id]?.y!==p.y);
+  if(moves.length&&confirm('화면에 보이는 노드를 자동 정렬할까요? 대사와 연결은 그대로 유지합니다.'))recordPositions(moves);
+ };
  $('map-bookmark').onchange=e=>{if(e.target.value){const it=item(e.target.value);if(it?.portal||it?.jump)action(it.id,'goto');else select(e.target.value,true);}e.target.value='';};
  $('map-mode').onclick=$('line-to-map').onclick=()=>{if(model()&&!opened){const n=previewGraph(scene()).nodes.find(n=>n.rows.some(r=>r.row_id===api.selected()));if(['edit','section-lines'].includes(currentState()?.view)&&currentState()?.depth&&!currentState().editHop)back();else go('map',n?.id);}};
  $('line-mode').onclick=()=>{if(model())go('lines',active);};

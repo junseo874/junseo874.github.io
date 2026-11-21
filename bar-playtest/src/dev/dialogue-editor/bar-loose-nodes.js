@@ -125,13 +125,17 @@ function attach(m,s,src,dst,p){
  return target;
 }
 function remove(m,s,row){
- const g=group(row);if(!g)throw Error('직접 만든 노드만 삭제할 수 있습니다.');const block=members(m,s,g),ids=new Set(block.map(r=>r.row_id));
- for(const r of R.scan(m,s).routes.filter(r=>ids.has(r.source)||ids.has(r.target)))R.disconnect(m,s,r);
- for(const r of block){const options=r.type==='choice'?m.choices(r.arg):[];m.remove(s,r.row_id);
-  if(options.length&&!m.tables.steps.some(o=>o.type==='choice'&&o.arg===r.arg)){const keys=new Set(options.map(o=>o.web_row_id)),grp=m.tables.bar_choice_groups.find(b=>b.choice_group===r.arg);
-   m.tables.bar_choices=m.tables.bar_choices.filter(o=>!keys.has(o.web_row_id));m.tables.bar_choice_groups=m.tables.bar_choice_groups.filter(o=>o!==grp);
-   m.views.tables.bar_choices.rows=m.views.tables.bar_choices.rows.filter(o=>!keys.has(o.id));m.views.tables.bar_choice_groups.rows=m.views.tables.bar_choice_groups.rows.filter(o=>o.key?.choice_group!==r.arg&&o.id!==grp.row_id);}}
- return m.rows(s).at(-1);
+ const g=group(row);if(!g)throw Error('직접 만든 노드만 삭제할 수 있습니다.');return removeRows(m,s,members(m,s,g));
 }
-const api={types,group,loose,create,check,bind,targetProblem,attach,siblingReturn,remove};if(browser)W.LunaBarLooseNodes=api;else module.exports=api;
+function removeRows(m,s,block){
+ const plan=R.scan(m,s),ids=new Set(block.map(r=>r.row_id)),fallback=m.rows(s).filter(r=>!ids.has(r.row_id)&&!plan.hidden.has(r.row_id));
+ if(!fallback.length)throw Error('장면에 노드 하나는 남겨 주세요.');
+ for(const r of plan.routes.filter(r=>ids.has(r.source)||ids.has(r.target)))R.disconnect(m,s,r);
+ for(const r of block){const options=r.type==='choice'?m.choices(r.arg):[];m.remove(s,r.row_id);
+  if(options.length&&/^ch_editor_[a-f0-9]{32}$/.test(r.arg)&&!m.tables.steps.some(o=>o.type==='choice'&&o.arg===r.arg)){const keys=new Set(options.map(o=>o.web_row_id)),grp=m.tables.bar_choice_groups.find(b=>b.choice_group===r.arg);
+   m.tables.bar_choices=m.tables.bar_choices.filter(o=>!keys.has(o.web_row_id));m.tables.bar_choice_groups=m.tables.bar_choice_groups.filter(o=>o!==grp);
+   m.views.tables.bar_choices.rows=m.views.tables.bar_choices.rows.filter(o=>!keys.has(o.id));m.views.tables.bar_choice_groups.rows=m.views.tables.bar_choice_groups.rows.filter(o=>o.key?.choice_group!==r.arg&&o.id!==grp?.row_id);}}
+ return fallback.at(-1);
+}
+const api={types,group,loose,create,check,bind,targetProblem,attach,siblingReturn,removeRows,remove};if(browser)W.LunaBarLooseNodes=api;else module.exports=api;
 })(globalThis);

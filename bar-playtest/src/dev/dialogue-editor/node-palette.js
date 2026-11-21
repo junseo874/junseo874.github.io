@@ -26,5 +26,15 @@ function vacant(point,width,height,cards,margin=16){
  const xs=new Set([origin.x,margin]),ys=new Set([origin.y,margin]);for(const b of targets){xs.add(b.x+b.w+margin);xs.add(Math.max(margin,b.x-width-margin));ys.add(b.y+b.h+margin);ys.add(Math.max(margin,b.y-height-margin));}
  let best=Infinity,p=origin;for(const x of xs)for(const y of ys){const d=(x-origin.x)**2+(y-origin.y)**2;if(d<best&&!overlaps(x,y)){best=d;p={x:Math.round(x),y:Math.round(y)};}}return p;
 }
-W.LunaNodePalette={create,vacant};
+// If the former first line was removed, the surviving card can acquire a new ID.
+function inheritPositions(previous,next,positions){
+ if(!previous?.length||!positions)return false;
+ const used=new Set(next.map(n=>n.id)),oldByRow=new Map();
+ for(const n of previous)if(!used.has(n.id)&&positions[n.id])for(const r of n.rows)oldByRow.set(r.row_id,n.id);
+ let changed=false;
+ for(const n of next)if(!positions[n.id]){const owner=n.rows.map(r=>oldByRow.get(r.row_id)).find(id=>id&&!used.has(id));
+  if(owner){positions[n.id]={...positions[owner]};used.add(owner);changed=true;}}
+ return changed;
+}
+W.LunaNodePalette={create,vacant,inheritPositions};
 })(window);

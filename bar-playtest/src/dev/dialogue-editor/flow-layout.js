@@ -19,19 +19,30 @@ function migrateDraftPins(s,nodes){
   delete s.drafts[old];changed=true;
  }return changed;
 }
-function place(items,edges,s){
+function place(items,edges,s,reserved=[]){
  const depth=new Map(),lanes=new Map(),layout=new Map(),right=s.direction==='right';
+ const manual=s.positions[s.direction]||{},occupied=[],valid=p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y);
+ if(items.every(n=>valid(manual[n.id])))return new Map(items.map(n=>[n.id,{x:coordinate(manual[n.id].x),y:coordinate(manual[n.id].y),h:height(n.ports)}]));
  const incoming=new Map();for(const e of edges){if(!incoming.has(e.to))incoming.set(e.to,[]);incoming.get(e.to).push(e.from);}
  for(const item of items){
   const level=Math.max(0,...(incoming.get(item.id)||[]).filter(id=>depth.has(id)).map(id=>depth.get(id)+1));
   depth.set(item.id,level);const lane=lanes.get(level)||[];lane.push(item);lanes.set(level,lane);
  }
- const manual=s.positions[s.direction]||{};let along=58;
+
+
+ for(const item of [...items,...reserved]){const p=manual[item.id];if(valid(p))occupied.push({...p,h:height(item.ports)});}
+ let along=58;
  for(const group of lanes.values()){
   let cross=58,breadth=0;
   for(const item of group){
    const h=height(item.ports),p=manual[item.id],pos={x:right?along:cross,y:right?cross:along,h};
-   if(p&&Number.isFinite(p.x)&&Number.isFinite(p.y)){pos.x=coordinate(p.x);pos.y=coordinate(p.y);}
+   if(valid(p)){pos.x=coordinate(p.x);pos.y=coordinate(p.y);}
+   else {
+    // Only a new card searches for space. Never displace a neighbour to make it fit.
+    const column=occupied.filter(b=>pos.x<b.x+WIDE+16&&b.x<pos.x+WIDE+16).sort((a,b)=>a.y-b.y);
+    for(const b of column)if(pos.y<b.y+b.h+16&&b.y<pos.y+h+16)pos.y=b.y+b.h+24;
+    occupied.push(pos);
+   }
    layout.set(item.id,pos);cross+=(right?h:WIDE)+66;breadth=Math.max(breadth,right?WIDE:h);
   }along+=breadth+(right?112:92);
  }

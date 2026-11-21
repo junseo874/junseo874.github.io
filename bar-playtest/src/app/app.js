@@ -114,36 +114,7 @@
     ui
   });
   const money = n => `${fmt(n)} G`;
-  const labelType = t => ({
-    pour: L('따르기', 'Pour'),
-    fill_up: L('필업', 'Fill-up'),
-    open: L('병따기', 'Open'),
-    shake: L('쉐이킹', 'Shake'),
-    stir: L('스터', 'Stir'),
-    add: L('넣기', 'Add'),
-    squeeze: L('스퀴즈', 'Squeeze'),
-    powder: L('파우더', 'Powder')
-  })[t] || t;
-  function itemArt(id, cls = '', usage = 'shelf') {
-    const label = id === 'opener' ? L('병따개', 'Bottle opener') : g.name(id);
-    const key = (usage === 'recipe' && a('recipe_item_' + id) ? 'recipe_item_' : usage === 'inventory' && a('inventory_item_' + id) ? 'inventory_item_' : 'item_') + id;
-    return '<img class="' + cls + '" src="' + (a(key) || a('item_dummy')) + '" alt="' + esc(label) + '" draggable="false">';
-  }
-  function drinkArt(id, usage = 'hero', glassKind = null) {
-    if (usage === 'empty') {
-      const glass = glassKind || g.cocktail(id).glass;
-      const resource = id === 'whiskey_sour' ? 'sour' : ({weizen:'beer',martini:'cocktail',flute:'flute',wine:'wine',old_fashioned:'old_fashioned',long_drink:'long_drink'})[glass] || 'long_drink';
-      return '<img class="drink-art empty-glass" src="' + a('table_empty_glass_' + resource) + '" data-art-usage="empty" data-glass-kind="' + esc(glass) + '" alt="' + L('빈 잔', 'Empty glass') + '" draggable="false">';
-    }
-    const c = g.cocktail(id),
-      key = usage === 'table' ? 'table_cocktail_' + id : usage === 'recipe' ? 'recipe_cocktail_' + id : 'cocktail_' + id;
-    const art = D.assets[key] || D.assets['cocktail_' + id] || D.assets['recipe_cocktail_' + id] || D.assets['item_' + c.glass];
-    const src = window.LunaResources.paintSource(art?.src);
-    // Finished glasses have different transparent headroom; centre their painted bounds in the preview.
-    const bounds = usage === 'recipe' && art?.alphaBBox;
-    const center = bounds && art.h ? ' style="--recipe-art-center-y:' + (50 * (1 - (bounds[1] + bounds[3]) / art.h)) + '%"' : '';
-    return '<img class="drink-art"' + center + ' src="' + src + '" data-art-usage="' + usage + '" alt="' + esc(g.name(id)) + '" draggable="false">';
-  }
+  const {itemArt,drinkArt,recipeLines,labelType}=window.LunaCocktailArt.presentation({D,g,L,esc,a,paintSource:src=>window.LunaResources.paintSource(src)});
   function layers(actor, expression, talking) {
     const states = D.characterLayers[actor];
     if (!states) return null;
@@ -321,9 +292,6 @@
           <small><kbd>F2</kbd> ${L('테스트 도구','Test tools')}</small>
         </section>
       </div></div>`;
-  }
-  function recipeLines(c) {
-    return `<ul class="recipe-lines">${g.t.recipes.filter(r => r.context === c.id).map(r => `<li><span>${esc(g.name(r.ingredient))}</span><small>${r.qty ?? '—'} ${r.unit ?? ''} · ${labelType(r.action)}</small></li>`).join('')}</ul><div class="recipe-note">${L('잔', 'Glass')}: ${esc(g.name(c.glass))}<br>${L('제조 방법', 'Method')}: ${c.mix} ${c.mix === 'build' ? L('· 별도 믹스 도구 없음', '· no mixing tool') : ''}<br>${L('제한 시간', 'Time limit')}: ${c.time_limit_sec}s</div>`;
   }
   function recipesHTML() {
     if (remix.active()) return remixUI.recipesHTML();

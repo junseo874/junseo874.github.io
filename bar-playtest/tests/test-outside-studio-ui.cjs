@@ -18,9 +18,15 @@ const baseURL=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/'
  await game.evaluate(async()=>{const c=lunaCampaign;c.session.install({developer:false});barGame.reset(0,'full',1,false);c.session.carry=structuredClone(barGame.progress);Object.assign(outsidePlaytest.config,{day:0,flow:'out',place:'bar'});await outsidePlaytest.start();c.screen(c.playView);outsidePlaytest.model.story.cancel();outsidePlaytest.model.backgroundStory.cancel();});
  const p=await c.newPage();await p.goto(baseURL+'outside-dialogue-editor.html?flow=newspaper/intro');await p.waitForSelector('.street-card.join');
  assert(await p.locator('#street-graph').isVisible());assert(await p.locator('#graph-wires path.is-branch').count()>=2);
+ const coords=()=>p.locator('.street-card').evaluateAll(cs=>Object.fromEntries(cs.map(c=>[c.dataset.node,[c.offsetLeft,c.offsetTop]]))),beforeWire=await coords();
+ const header=p.locator('.street-card').first().locator('.node-head');await header.scrollIntoViewIfNeeded();const rect=await header.boundingBox();
+ await p.mouse.move(rect.x+16,rect.y+10);await p.mouse.down();await p.mouse.move(rect.x+70,rect.y+40,{steps:6});await p.mouse.up();
+ const moved=await coords();assert.notDeepEqual(moved,beforeWire);p.once('dialog',d=>d.accept());await p.click('#chart-arrange');
+ assert.deepEqual(await coords(),beforeWire);await p.locator('#street-graph').press('Control+z');assert.deepEqual(await coords(),moved);
+ await p.locator('#street-graph').press('Control+y');assert.deepEqual(await coords(),beforeWire);
  const menu=p.locator('.street-card.choice').first();await menu.locator('[data-port="0"]').click();
  await p.locator('.link-target').filter({has:p.locator('.node-head small',{hasText:'정답 분기'})}).getByRole('button',{name:'선택한 분기를 이 흐름에 연결'}).click();
- assert.equal(await p.evaluate(()=>{const m=outsideDialogueEditor.model,q=m.row(m.projected.data.newspaperRoutes.parent);return m.optionJump(m.menu(q)[0].row).scene_id;}),'shared-newspaper-right');
+ assert.equal(await p.evaluate(()=>{const m=outsideDialogueEditor.model,q=m.row(m.projected.data.newspaperRoutes.parent);return m.optionJump(m.menu(q)[0].row).scene_id;}),'shared-newspaper-right');assert.deepEqual(await coords(),beforeWire);
  await p.locator('#undo').click();await p.evaluate(()=>outsideDialogueEditor.openFlow('newspaper/intro'));await menu.locator('[data-act=preview]').click();assert(await p.locator('#stage-dialog').isVisible());await p.waitForTimeout(650);await p.locator('#stage-dialog #preview-choices button').nth(1).click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/intro');await p.locator('#stage-next-node').click();await p.locator('#preview-branch-picker [data-branch][data-selected=true]').click();assert.equal(await p.evaluate(()=>outsideDialogueEditor.flow),'newspaper/right');
  await p.screenshot({path:path.join(tmp,'dialogue-preview.png')});await p.keyboard.press('Escape');assert(!(await p.locator('#stage-dialog').isVisible()));
  await p.evaluate(()=>outsideDialogueEditor.openFlow('believer/intro'));await p.locator('#place-npc').click();await p.waitForFunction(()=>document.querySelector('#map-status').textContent.includes('발 위치 보정'));

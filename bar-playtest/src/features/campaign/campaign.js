@@ -85,7 +85,29 @@
       this.releaseDialogueSkip();
       this.g.gimmick && (this.g.gimmick.held = false);
     }
+    async prepareTitle() {
+      const token = ++this.token;
+      this.screen('loading');
+      this.retryLoad = () => this.screen('title');
+      const root = 'assets/01.ArtResources/05.UI/02.Title/';
+      const files = {street:'01.Sprites/title_street_full.png', dots:'01.Sprites/PTN_Dot.png',
+        button:'01.Sprites/BTN_Disable.png', active:'01.Sprites/BTN_Enable.png',
+        deco:'01.Sprites/IMG_Deco_button.png', logo:'02.Logo/IMG_logo_white.png'};
+      try {
+        const entries = await Promise.all(Object.entries(files).map(async ([key,file]) =>
+          [key, await global.LunaResources.image(root + file)]));
+        if (token !== this.token || this.view !== 'loading') return;
+        this.titleImages = Object.fromEntries(entries);
+        for (const [key,img] of entries) this.host.style.setProperty('--title-art-'+key, 'url("'+img.src+'")');
+        this.screen('title');
+      } catch (e) {
+        if (token !== this.token || this.view !== 'loading') return;
+        this.loadError = e.message;
+        this.screen('load-error');
+      }
+    }
     screen(view) {
+      if (view === 'title' && !this.titleImages) return this.prepareTitle();
       this.resetInput();
       if (view !== 'prologue') {
         this.cinema?.player?.pause?.();
@@ -123,7 +145,7 @@
         button('개발자 시뮬레이터', 'developer', 'dev-path') + '</main>';
       if (this.view === 'bar-door') body = global.LunaBarDoor.html(this.doorTransition.direction, this.doorTransition.artReady);
       if (this.view === 'awakening') body = '<div class="campaign-wake-dark" aria-hidden="true"></div><div class="campaign-wake-white" aria-hidden="true"></div>';
-      if (this.view === 'title') body = '<div class="campaign-title"><div class="title-logo"><img src="' + 'assets/01.ArtResources/05.UI/02.Title/02.Logo/IMG_logo_white.png' + '" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>' + '<nav aria-label="타이틀 메뉴">' + button('새 게임', 'new', 'title-choice') + '<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>' + button('설정', 'options', 'title-choice') + button('종료', 'picker', 'title-choice') + '<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
+      if (this.view === 'title') body = '<div class="campaign-title"><div class="title-logo"><img src="' + esc(this.titleImages.logo.src) + '" alt="Project LUNA"><canvas aria-hidden="true"></canvas></div>' + '<nav aria-label="타이틀 메뉴">' + button('새 게임', 'new', 'title-choice') + '<button class="title-choice" data-campaign="continue" disabled aria-disabled="true" aria-label="이어하기 (아직 지원하지 않음)"><span class="title-label" data-text="이어하기">이어하기</span></button>' + button('설정', 'options', 'title-choice') + button('종료', 'picker', 'title-choice') + '<span class="title-menu-index" aria-hidden="true">004</span></nav></div>';
       if (this.view === 'scene-choice') {
         body = this.dialog.background === 'terrace' ? global.LunaTerrace.html(this.sceneChoiceBackdrop()) : this.card('대답 선택', '');
       }

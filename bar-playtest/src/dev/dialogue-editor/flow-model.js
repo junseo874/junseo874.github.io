@@ -122,7 +122,14 @@ function compile(model,scene,starts=[]){
  for(const n of nodes){
   const pins=new Map(),key=e=>wiring.pinKey(e.choice,e.guard);
   for(const r of n.routes){const dest=cardAt.get(r.target),e={from:n.id,to:dest?.id||r.target,choice:r.choice,guard:r.predicate,routeId:r.id,label:r.choice?clean(r.owner?.['text.ko']):'',requires:r.choice?clean(r.owner?.when):'',targetWhen:dest?.when};pins.set(key(e),e);}
-  for(const e of bySource.get(n.id)||[]){if(e.routeId||pins.has(key(e)))continue;pins.set(key(e),e);}
+  for(const e of bySource.get(n.id)||[]){
+   if(e.routeId||pins.has(key(e)))continue;
+   // A newly added answer has no authored destination until it gets a wire, scene jump or response effect.
+   if(e.choice?.startsWith('editor_')&&!e.targetScene&&!clean(model.choices(n.rows.at(-1).arg).find(o=>o.row_id===e.choice)?.effects))continue;
+   // Sequential CSV fall-through is not a cable the author plugged into a free node.
+   const group=wiring.block(n.rows[0]),targetGroup=wiring.block(cardAt.get(e.to)?.rows[0]);if(!e.targetScene&&(group||targetGroup)&&group!==targetGroup)continue;
+   pins.set(key(e),e);
+  }
   const choice=n.rows.at(-1).type==='choice'?model.choices(n.rows.at(-1).arg):[];const sequence=[...pins.values()];if(choice.length)sequence.sort((a,b)=>choice.findIndex(o=>o.row_id===a.choice)-choice.findIndex(o=>o.row_id===b.choice));
   connections.push(...sequence.map(e=>({...e,pinKey:key(e)})));
  }

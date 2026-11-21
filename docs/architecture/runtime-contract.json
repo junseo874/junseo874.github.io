@@ -1545,6 +1545,72 @@
       "src/shared/ui/cursors.js"
     ]
   ],
+  "bar-playtest/recipe-editor.html": [
+    [
+      "link",
+      "src/app/styles.css"
+    ],
+    [
+      "link",
+      "src/features/bar/bar-views.css"
+    ],
+    [
+      "link",
+      "src/features/bar/preparation-resources.css"
+    ],
+    [
+      "link",
+      "src/shared/ui/typography.css"
+    ],
+    [
+      "link",
+      "src/dev/dialogue-editor/recipe-editor.css"
+    ],
+    [
+      "script",
+      "src/shared/platform/window-fullscreen.js"
+    ],
+    [
+      "script",
+      "src/shared/data/csv-catalog.js"
+    ],
+    [
+      "script",
+      "src/shared/data/guest-artwork-view.js"
+    ],
+    [
+      "script",
+      "src/shared/data/outside-story-compiler.js"
+    ],
+    [
+      "script",
+      "src/shared/data/runtime-projection.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/storage-client.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/export-package.js"
+    ],
+    [
+      "script",
+      "src/features/bar/cocktail-art.js"
+    ],
+    [
+      "script",
+      "src/features/bar/bar-views.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/recipe-book.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/recipe-editor.js"
+    ]
+  ],
   "bar-playtest/data-review.html": [
     [
       "script",

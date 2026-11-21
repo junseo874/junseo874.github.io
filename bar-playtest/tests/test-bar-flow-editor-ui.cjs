@@ -20,7 +20,7 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   assert(next[0]>original[0]&&next[1]===original[1]);await dragBy(first,63,75);
   const moved=await position(first),movedWire=await line.getAttribute('d');assert(moved[0]>original[0]+45&&moved[1]>original[1]+50);assert.notEqual(movedWire,originalWire);assert.deepEqual(await historySize(),[1,0]);
   assert(!await dirty());assert(await p.locator('#review').isDisabled());await p.keyboard.press('Control+z');assert.deepEqual(await position(first),original);assert.equal(await line.getAttribute('d'),originalWire);
-  assert(await p.evaluate(id=>!JSON.parse(localStorage.getItem('luna.bar.graph-workspace.v2')).d1_tutorial_chris.positions.right?.[id],firstId));
+  assert.deepEqual(await p.evaluate(id=>JSON.parse(localStorage.getItem('luna.bar.graph-workspace.v2')).d1_tutorial_chris.positions.right[id],firstId),{x:original[0],y:original[1]});
   // Neither selecting a card, returning to the start, nor cancelling a gesture consumes redo.
   await first.locator('.card-head').click();const origin=await startDrag(first,30,30);await p.mouse.move(...origin);await p.mouse.up();
   await startDrag(first,35,35);await p.keyboard.press('Escape');await p.mouse.up();assert.deepEqual(await position(first),original);assert.deepEqual(await historySize(),[0,1]);
@@ -68,20 +68,21 @@ const assert=require('node:assert/strict'),rt=require('../../tools/lib/test-runt
   await p.selectOption('#map-scale','50%');const src=get(ids[2]),dst=get(ids[5]);await src.locator('.card-head').click();
   const out=src.locator('.socket-out').first(),input=dst.locator('.socket-in');
   await p.evaluate(([a,b])=>{const el=document.querySelector('#map-port'),one=document.querySelector('[data-node="'+a+'"]'),two=document.querySelector('[data-node="'+b+'"]');el.scrollTo((one.offsetLeft+two.offsetLeft+236)*.25-el.clientWidth/2,0);},[ids[2],ids[5]]);
+  const coords=()=>cards.evaluateAll(cs=>Object.fromEntries(cs.map(c=>[c.dataset.node,[c.offsetLeft,c.offsetTop]]))),beforeWire=await coords();
   const baseline=await count(),routeIds=await p.evaluate(()=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes.map(r=>r.id));const from=await at(out),to=await at(input);await p.mouse.move(...from);await p.mouse.down();await p.mouse.move(...to,{steps:16});await p.mouse.up();await p.waitForFunction(()=>document.querySelector('#wire-hint').textContent.includes('연결됨'));
-  assert.equal(await count(),baseline+1);
+  assert.equal(await count(),baseline+1);assert.deepEqual(await coords(),beforeWire);
   const keys=()=>p.locator('.wires path[data-from]').evaluateAll(es=>es.map(e=>e.dataset.from+'|'+e.dataset.pin));assert.equal(new Set(await keys()).size,(await keys()).length);
   const destOf=()=>p.evaluate(ids=>LunaBarWiring.scan(dialogueEditor.model,document.querySelector('#scene [aria-pressed=true]').dataset.scene).routes.find(r=>!ids.includes(r.id))?.target,routeIds);
   const oldDest=await destOf();await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await src.locator('.socket-in').click();assert.equal(await destOf(),oldDest);await p.keyboard.press('Escape');
   await out.focus();await out.press('Enter');await p.locator('#map-port.connecting').waitFor();await get(ids[4]).locator('.socket-in').click();assert.equal(await destOf(),ids[4],await p.locator('#wire-hint').innerText());assert.equal(await count(),baseline+1);assert.equal(new Set(await keys()).size,(await keys()).length);
   await p.click('#undo');assert.equal(await destOf(),oldDest);await p.click('#undo');assert.equal(await count(),baseline);await p.click('#redo');assert.equal(await count(),baseline+1);
-  await p.click('[data-remove-route]');assert.equal(await count(),baseline);
+  await p.click('[data-remove-route]');assert.equal(await count(),baseline);assert.deepEqual(await coords(),beforeWire);
   const serveCard=cards.filter({has:p.locator('.card-head b',{hasText:'칵테일 제공'})}).first(),serveId=await serveCard.getAttribute('data-node'),afterGlass=ids[ids.indexOf(serveId)+3];await p.selectOption('#map-bookmark',serveId);await p.selectOption('#pin-preset','order_match && craft_grade >= good');await p.click('[data-action="add-pin"]');
   assert(await p.locator('.socket.draft').count());await p.selectOption('#map-bookmark',afterGlass);await get(afterGlass).locator('.socket-in').click();assert.equal(await count(),baseline+1);
   await p.click('#undo');await p.selectOption('#map-bookmark',ids[5]);
   await p.click('[data-action="insert-choice"]');await p.click('[data-action="edit"]');assert.equal(await p.locator('.choice-editor').count(),2);
   await p.locator('.choice-editor textarea[data-field="text.ko"]').first().fill('새 경로를 묻는다');
-  await p.goBack();await p.locator('#flow-panel').waitFor();assert((await p.locator('.flow-jump').allTextContents()).some(t=>t.includes('새 경로를 묻는다')));
+  await p.goBack();await p.locator('#flow-panel').waitFor();assert((await p.locator('[data-pin-label]').allTextContents()).some(t=>t.includes('새 경로를 묻는다')));assert(!(await p.locator('.flow-jump').allTextContents()).some(t=>t.includes('새 경로를 묻는다')),'A new answer has a socket, not a preselected destination');
   await p.click('[data-action="response"]');await p.click('[data-action="edit"]');await p.locator('#inspector textarea[data-field="text.ko"]').fill('분기 확인용 대사');
   await p.click('#review');await p.waitForFunction(()=>!document.getElementById('commit').disabled);assert((await p.locator('#changes').innerText()).includes('분기 확인용 대사'));
   await p.click('#close-review');await p.click('#map-mode');await p.selectOption('#day','2');await p.click('[data-scene=campaign_d2_bar]');await p.click('#section-all');

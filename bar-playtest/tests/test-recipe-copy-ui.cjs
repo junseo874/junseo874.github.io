@@ -12,6 +12,7 @@ const rt=require('../../tools/lib/test-runtime.cjs');
   const ids=await page.evaluate(()=>barGame.t.cocktails.map(c=>c.id));
   assert.equal(ids.length,13);
   assert(!ids.includes('long_island'),'Long Island remains excluded from the main recipe catalog');
+  const editor=await browser.newPage();await editor.goto('http://127.0.0.1:8123/bar-playtest/recipe-editor.html');
   for(const id of ids){
    await page.evaluate(id=>{
     const c=lunaCampaign,g=barGame;c.session.uninstall();c.session.install({developer:true});
@@ -28,6 +29,9 @@ const rt=require('../../tools/lib/test-runtime.cjs');
     return {flavor:paragraphs[0].textContent,expectedFlavor:c['flavor.ko'],method:paragraphs[1].textContent,expectedMethod:c['recipe_desc.ko'],whitespace:getComputedStyle(paragraphs[0]).whiteSpace,images,
      overflow:scroll.scrollWidth>scroll.clientWidth+1,atEnd:Math.abs(scroll.scrollHeight-scroll.clientHeight-scroll.scrollTop)<2};
    },id);
+   const expected=await page.evaluate(id=>barGame.t.recipes.filter(r=>r.context===id).map(r=>barGame.data.assets['item_'+r.ingredient].src),id);
+   const icons=panel=>panel.locator('.recipe-icon-slot img').evaluateAll(imgs=>imgs.map(i=>i.getAttribute('src')));
+   await editor.click('[data-id='+id+']');for(const panel of [page.locator('.recipe-preview'),editor.locator('#prep-recipe-detail')])assert.deepEqual((await icons(panel)).slice(-expected.length),expected,id+' ingredient images must match the shelf');
    assert.equal(result.flavor,result.expectedFlavor.replace(/\r\n/g,'\n'),id+' description');
    assert.equal(result.method,result.expectedMethod,id+' method');
    assert(!/\d\s*oz/i.test(result.method),id+' Korean method uses ml');
