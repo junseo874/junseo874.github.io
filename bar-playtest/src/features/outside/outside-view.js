@@ -633,7 +633,7 @@
         drawSprite({
           ...n.sprite,
           x: frame * 84
-        }, n.x, n.y, n.sx, n.sy, global.LunaOutsideAmbient.faceTarget(n.x, model.x));
+        }, n.x, n.y, n.sx, n.sy, n.flip);
         return;
       }
       if (!n.active || n.name === 'Luna' || n.name === 'Square' || /SAMHO|samho|Samho|Bubi/.test(n.name)) return;

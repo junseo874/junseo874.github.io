@@ -31,7 +31,7 @@ function choose(m,choice){const s=m.story.speech;if(s?.id!==id||!s.choice)return
  if(pay){const g=W.barGame,before=g.progress.money;g.progress.money=before-500;const c=W.lunaCampaign;if(c?.session.active&&c.session.carry)c.session.carry.money=g.progress.money;g.log('corridor_thug_payment',{before,after:g.progress.money,price:500});g.changed();}
  save(m,'day1_thug_choice',pay?'pay':'refuse');m.story.beginRows(id,s.target,pay?paid:refused);return true;
 }
-function pose(m){const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??positionX(),p={sp:W.LunaOutsideAmbient.sprite('Neighbor',m.time),x,y:enginePoint?.y??R.upperY-.274,flip:e?.stage==='depart'||W.LunaOutsideAmbient.faceTarget(x,m.x),alpha:e?.alpha??1};return W.LunaEngineWorld?W.LunaEngineWorld.actorPose('street',id,'thug',p.sp,p.x,p.y,p.flip,p.alpha):p;}
+function pose(m){const e=m.encounter?.kind==='thug'?m.encounter:null,x=e?.npcX??positionX(),p={sp:W.LunaOutsideAmbient.sprite('Neighbor',m.time),x,y:enginePoint?.y??R.upperY-.274,flip:e?.stage==='depart'||(!!e&&W.LunaOutsideAmbient.faceTarget(x,m.x)),alpha:e?.alpha??1};return W.LunaEngineWorld?W.LunaEngineWorld.actorPose('street',id,'thug',p.sp,p.x,p.y,p.flip,p.alpha):p;}
 function anchor(m,actor){if(actor!==id)return null;const p=pose(m);return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.sx??1,p.sy??1,p.flip)||{x:p.x,y:p.y+.61};}
 function draw(m,sprite,ctx,position){if(!visible(m))return;const p=pose(m);
  // The right-hand pillar is baked into the building art; clip the NPC behind it.

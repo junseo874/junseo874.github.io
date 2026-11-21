@@ -184,7 +184,7 @@ function campFacing(m,id,x){
 }
 function poses(m){
  const n=state(m),a=n.action,list=[];
- const add=(id,x,y,scale=1,flip=W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=id==='neighbor'&&a?.name.startsWith('neighbor-')?'NeighborWalk':W.LunaOutsideAmbient.roleKinds[id],sp=W.LunaOutsideAmbient.sprite(kind,m.time),e=actorEvents[id],p=e&&W.LunaEngineWorld?W.LunaEngineWorld.actorPose(...e,sp,x,y,flip,alpha):{x,y,scale,flip,alpha,sp};list.push({id,kind,...p,scale:p.sx??scale});};
+ const add=(id,x,y,scale=1,flip=m.story.speech?.target?.actor===id&&W.LunaOutsideAmbient.faceTarget(x,m.x),alpha=1)=>{const kind=id==='neighbor'&&a?.name.startsWith('neighbor-')?'NeighborWalk':W.LunaOutsideAmbient.roleKinds[id],sp=W.LunaOutsideAmbient.sprite(kind,m.time),e=actorEvents[id],p=e&&W.LunaEngineWorld?W.LunaEngineWorld.actorPose(...e,sp,x,y,flip,alpha):{x,y,scale,flip,alpha,sp};list.push({id,kind,...p,scale:p.sx??scale});};
  if(m.scene==='street'){
   if(after(m,1)&&!repaired()||m.story.speech?.id==='neighborhood/repairPaid')add('repair',places.repair.x,places.repair.y);
   else if(n.repairDeparture?.time<motion.departureDuration){const d=n.repairDeparture;add('repair',places.repair.x+d.direction*d.time*motion.departureSpeed,places.repair.y,1,d.direction>0,Math.min(1,(motion.departureDuration-d.time)/.5));}
@@ -197,7 +197,7 @@ function poses(m){
    camp('gangmate',places.gangmate.x,places.gangmate.y);
   }
   if(n.neighbor){const moving=a?.name?.startsWith('neighbor-'),out=a?.name==='neighbor-out',duration=(places.neighbor.x-motion.neighborStop)/motion.neighborSpeed;
-   add('neighbor',n.neighbor.x,places.neighbor.y,1,moving?out:W.LunaOutsideAmbient.faceTarget(n.neighbor.x,m.x),out?Math.max(0,Math.min(1,(duration-a.time)/.4)):1);}
+   add('neighbor',n.neighbor.x,places.neighbor.y,1,moving?out:m.story.speech?.rows?.some(row=>row.actor==='neighbor')&&W.LunaOutsideAmbient.faceTarget(n.neighbor.x,m.x),out?Math.max(0,Math.min(1,(duration-a.time)/.4)):1);}
  }else if(m.scene==='home'&&n.chris)add('chris',n.chris.x,places.chris.y,1,true);
  return list;
 }

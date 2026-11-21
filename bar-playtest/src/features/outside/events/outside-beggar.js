@@ -75,7 +75,8 @@ function drawNode(m,node,draw){
  const homeless=actor===id,departure=homeless?m.beggarDeparture:null;
  const x=departure?.x??node.x,y=node.y+(departure?Math.sin(departure.elapsed*16)*.012:0);
  // The seated homeless sheet faces right; the witness sheet faces left.
- const flip=homeless?(!!departure||m.x<x):W.LunaOutsideAmbient.faceTarget(x,m.x);
+ const engaged=m.story.speech?.target?.id===actor;
+ const flip=!!departure||(engaged&&(homeless?m.x<x:m.x>x));
  draw(W.LunaOutsideAmbient.sprite(person(actor).kind,m.time),x,y,1,1,flip,departure?.alpha??1);
  return true;
 }

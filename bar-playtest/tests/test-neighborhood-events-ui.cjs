@@ -17,6 +17,15 @@ const assert=require('node:assert/strict'),r=require('../../tools/lib/test-runti
    start(0,'out','bar');check(N.targets(m).some(t=>t.actor==='guard'),'gang from day0 return');
    m.x=N.places.guard.x+.35;m.tick(.05,{move:-1,run:true});check(m.x>=N.places.guard.x+.34,'guard blocks physical movement');check(!m.story.speech,'guard collision never starts dialogue');check(m.near?.id==='neighborhood-guard','guard stays interactable at boundary');m.interact();check(m.story.speech?.id==='neighborhood/guardBlocked','guard speaks only after interaction');finish();
    start(1,'in','bar');check(N.targets(m).some(t=>t.actor==='repair'),'repairman day1 outbound');check(!N.after(m,1,'out'),'tuna and cat not outbound');
+   const repair=N.targets(m).find(t=>t.actor==='repair');
+   const renderedFacing=()=>{outsidePlaytest.tick(0);return m.engineActorViews.find(v=>v.sp.lightingId==='repair').flip;};
+   for(const side of [-1,1]){
+    m.x=repair.x+side*.18;m.updateNear();
+    check(renderedFacing()===false,'passing the repairman never turns him');
+    m.interact();check(m.story.speech?.target?.actor==='repair','interact starts repair conversation');
+    check(renderedFacing()===(side>0),'repairman looks toward the interacting player');
+    m.story.cancel();check(renderedFacing()===false,'repairman resumes resting direction');
+   }
    start(1,'out','bar');m.x=N.places.repair.x;let t=N.targets(m).find(t=>t.actor==='repair');N.interact(m,t);check(m.story.choose('cancel'),'ignore repair');check(!p.flags.repairman_met,'ignore does not consume introduction');
    N.interact(m,t);m.story.choose('talk');const intro=finish();check(intro.length===12&&p.flags.repairman_met,'repair intro ends and remembers');
    N.interact(m,t);p.money=399;check(!m.story.choose('pay'),'insufficient funds');check(!m.story.choose('gear'),'missing gear');p.money=500;check(m.story.choose('pay'),'repair payment');check(p.money===100,'charge once');check(!m.story.choose('pay'),'no double charge');finish();check(p.flags.elevator_repaired,'repair completed');check(lunaCampaign.session.carry.flags.elevator_repaired,'repair carry');

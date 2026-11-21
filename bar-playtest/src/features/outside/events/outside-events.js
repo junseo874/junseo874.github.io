@@ -81,9 +81,10 @@ function choose(m,id){const sp=m.story.speech;if(sp?.id!==info||!sp.choice)retur
  if(!m.qa){const c=W.lunaCampaign;if(c?.active&&c.session.carry)c.session.carry.money=progress.money;W.barGame.log('thug_information_purchase',{topic:sp.line.topic,price:50,before,after:progress.money});W.barGame.changed();}
  m.story.beginRows(info,sp.target,infoRows[sp.line.topic]);return true;
 }
+function thugLookTarget(m,x){return m.encounter?.kind===thug||m.story.speech?.id===info?m.x:x;}
 function anchor(m,actor){const e=m.encounter;
  if(actor===thug){
-  const x=e?.kind===thug?e.npcX:tx(m),y=thugY(m),sp=W.LunaOutsideAmbient.sprite('Neighbor'),flip=W.LunaOutsideAmbient.faceTarget(x,m.x);
+  const x=e?.kind===thug?e.npcX:tx(m),y=thugY(m),sp=W.LunaOutsideAmbient.sprite('Neighbor'),flip=W.LunaOutsideAmbient.faceTarget(x,thugLookTarget(m,x));
   const p=W.LunaEngineWorld&&!m.qa?W.LunaEngineWorld.actorPose('street',thug,'thug',sp,x,y,flip):{sp,x,y:y-.274,sx:1,sy:1,flip};
   return W.LunaOutsideAmbient.head(p.sp,p.x,p.y,p.sx,p.sy,p.flip)||{x,y:y+.61};
  }
@@ -93,7 +94,7 @@ function anchor(m,actor){const e=m.encounter;
 function draw(m,sprite,ctx,position){
  const e=m.encounter;
  const idle=(kind,x,y,target,alpha=1,event=thug,role='thug')=>{const sp=W.LunaOutsideAmbient.sprite(kind,m.time),flip=W.LunaOutsideAmbient.faceTarget(x,target);if(W.LunaEngineWorld&&!m.qa)W.LunaEngineWorld.drawActor(sprite,'street',event,role,sp,x,y,flip,alpha);else sprite(sp,x,y,1,1,flip,alpha);};
- if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-(W.LunaEngineWorld&&!m.qa?0:.274),m.x);if(!m.qa)ctx.restore();}
+ if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-(W.LunaEngineWorld&&!m.qa?0:.274),thugLookTarget(m,e?.npcX??tx(m)));if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:dealerBase(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
   const sp=W.LunaSamhoAnimation.frame(m.time),flip=W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),alpha=e?.kind===contract?e.alpha:1;
