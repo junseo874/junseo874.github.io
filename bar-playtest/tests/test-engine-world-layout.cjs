@@ -10,6 +10,10 @@ for(const n of D.scenes.street.nodes.filter(n=>n.placementSource==='engine')){
 for(const n of D.scenes.street.nodes.filter(n=>n.placementSource==='web-lift-framing')){
  const e=E.node('street',n.engineNode);near(n.x,e.x);near(n.y,e.y+E.residence().cabinOffsetY);near(n.sprite.w*n.sx/n.sprite.ppu,e.sprite.w*Math.hypot(e.a,e.b)/e.sprite.ppu);near(n.sprite.h*n.sy/n.sprite.ppu,e.sprite.h*Math.hypot(e.c,e.d)/e.sprite.ppu);
 }
+const lamp=D.scenes.street.nodes.find(n=>n.name==='B_Fore_StandLight_1'),originalLamp=E.node('street',lamp.engineNode);
+assert.deepEqual([lamp.sprite.w,lamp.sprite.h],[95,181]);
+near(lamp.sprite.w*lamp.sprite.pivot.x,originalLamp.sprite.w*originalLamp.sprite.pivot.x);
+near(lamp.sprite.h*lamp.sprite.pivot.y,originalLamp.sprite.h*originalLamp.sprite.pivot.y);
 const door=E.node('home','1183900665'),doorPixels=W.LunaHomeArt.layers.find(l=>l.name==='Room_Entrance');
 for(const layer of W.LunaHomeArt.layers){
  const n=D.scenes.home.nodes.find(n=>n.name===layer.name);

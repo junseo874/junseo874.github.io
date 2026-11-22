@@ -56,7 +56,7 @@ const assert = require('node:assert/strict'), runtime = require('../../tools/lib
     await f.waitForFunction(() => S.phase === 'shake');
     await f.waitForFunction(() => lunaCels.filter(Boolean).length === 8);
     const source = await f.evaluate(() => [lunaSheet.currentSrc,lunaSheet.naturalWidth,lunaSheet.naturalHeight]);
-    assert.match(source[0], /\/Legacy_shake\.png$/);
+    assert.match(source[0], /\/Shake\.png$/);
     assert.deepEqual(source.slice(1), [10240,720]);
     // Observe the actual canvas draws while sending both half-strokes through the craft iframe.
     await f.evaluate(() => {

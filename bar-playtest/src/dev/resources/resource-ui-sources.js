@@ -320,9 +320,9 @@ window.ResourceUISources=[
     "h": 144
   },
   {
-    "src": "assets/01.ArtResources/05.UI/02.Title/01.Sprites/title_street_full.png",
-    "w": 2880,
-    "h": 1620
+    "src": "assets/backgrounds/campaign/title-bg.png",
+    "w": 1920,
+    "h": 1080
   },
   {
     "src": "assets/01.ArtResources/05.UI/01.Shared/01.MainScreen/IMG_box_coaster.png",

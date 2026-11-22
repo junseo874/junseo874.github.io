@@ -30,7 +30,7 @@ function tick(m,dt){let e=m.encounter;if(e?.kind!==id)return false;
 function draw(m,sprite){if(!visible(m))return;const e=m.encounter?.kind===id?m.encounter:null;if(isQA(m)&&m.qa.done&&!e)return;const x=e?.npcX??(isQA(m)?.25:xFor(m));
  // Source faces left: use the shared target-facing rule, including departure.
  // NPCs belong to the street, never to the passenger's moving lift height.
- const sp=W.LunaSamhoAnimation.frame(m.time),flip=!!e&&W.LunaOutsideAmbient.faceTarget(x,e.stage==='depart'?x+e.direction:m.x),alpha=e?.alpha??1;
+ const sp=W.LunaSamhoAnimation.frame(m.time,e?.stage==='depart'),flip=!!e&&W.LunaOutsideAmbient.faceTarget(x,e.stage==='depart'?x+e.direction:m.x),alpha=e?.alpha??1;
  if(W.LunaEngineWorld&&!isQA(m))W.LunaEngineWorld.drawActor(sprite,'street',sceneKey(m),'samho',sp,x,groundY,flip,alpha);
  else sprite(sp,x,groundY,1,1,flip,alpha);
 }

@@ -20,9 +20,9 @@ const {Model:Bar}=require(dir+'editor-model.js'),storage=require('../../tools/di
  const direct=create({model:bar,scene,node:teachTarget.node,graphFor,settings:{flags:{day0_skip_tutorial:true}}});
  assert.equal(direct.payload(0).previewState.flags.day0_skip_tutorial,false,'opening a guarded node directly must continue its own branch');
  assert.notEqual(direct.next().node.id,skipTarget.node.id);
- const recipe=graphFor(scene).nodes.find(n=>n.type==='칵테일 제공'),served=create({model:bar,scene,node:recipe,graphFor});
- const servingOptions=served.branches();assert.deepEqual(servingOptions.map(b=>[b.guard,b.target.ctx.order_match,b.assumed]),[['order_match',true,false],['!order_match',false,true]]);
- assert.equal(served.next().ctx.order_match,true);served.enter(servingOptions[1].target);assert.equal(served.payload(0).previewState.order_match,false);
+ const recipe=graphFor(scene).nodes.find(n=>n.type==='빈잔'),served=create({model:bar,scene,node:recipe,graphFor});
+ const servingOptions=served.branches();assert.deepEqual(servingOptions.map(b=>[b.target.ctx.order_match,b.assumed]),[[false,true],[true,true],[true,true],[true,false]]);
+ assert.equal(served.next().ctx.order_match,true);served.enter(servingOptions[0].target);assert.equal(served.payload(0).previewState.order_match,false);
  const convergedScene='campaign_d1_bar',converged=graphFor(convergedScene).nodes.find(n=>n.id==='kihyun_campaign_d1_bar_153');
  const same=create({model:bar,scene:convergedScene,node:converged,graphFor}).branches();
  assert.equal(same.length,2);assert.equal(same[0].target.node.id,same[1].target.node.id);assert.notEqual(same[0].pick.row_id,same[1].pick.row_id);
@@ -50,7 +50,7 @@ const {Model:Bar}=require(dir+'editor-model.js'),storage=require('../../tools/di
  bar.set(opt,'goto',other.id);bar.set(opt,'when','');
  // Two unsaved conditional pins, plus the unmodified fallback. Only the
  // chosen result changes: the two other reachable contexts remain independent.
- const scene2=other.id,serve2=graphFor(scene2).nodes.find(n=>n.type==='칵테일 제공'),after=graphFor(scene2).nodes.filter(n=>n.index>serve2.index);
+ const scene2='campaign_d3_bar',serve2=graphFor(scene2).nodes.find(n=>n.type==='칵테일 제공'),after=graphFor(scene2).nodes.filter(n=>n.index>serve2.index);
  const g1='order_match && craft_grade >= good && money >= 50',g2='final_grade == excellent';
  for(const [cond,dst]of [[g1,after[1]],[g2,after[2]]]){
   const live=graphFor(scene2);wiring.wire(bar,scene2,live.nodes.find(n=>n.id===serve2.id),live.nodes.find(n=>n.id===dst.id),{predicate:cond});

@@ -1,10 +1,10 @@
 // The supplied sheet has eight 1280×720 cells at 12 fps. Keep one registration
 // rectangle for all eight poses, including the fully extended hands.
 const lunaSheet = document.getElementById('luna-shake-sheet');
-const lunaFrameWidth = 1280, lunaHeight = 720, lunaCropX = 374, lunaWidth = 570;
+const lunaFrameWidth = 1280, lunaHeight = 720, lunaCropX = 372, lunaWidth = 545;
 const lunaFrameMs = 1000/12;
 const lunaCels = new Array(8);
-const tinCenters = [[716,275],[793,230],[808,208],[800,236],[716,275],[803,360],[827,353],[809,361]];
+const tinCenters = [[710,270],[786,229],[807,213],[786,230],[710,270],[793,354],[830,364],[800,348]];
 const lv = document.getElementById('lv'), lc = lv.getContext('2d');
 
 // Upload only actor-sized textures to the GPU. The original PNG can also be

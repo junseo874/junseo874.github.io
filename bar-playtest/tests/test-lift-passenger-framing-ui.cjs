@@ -6,7 +6,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
   lunaCampaign.screen('developer');Object.assign(outsidePlaytest.config,{day:3,flow:'out',place:'homeDoor'});await outsidePlaytest.start();
   const o=outsidePlaytest,m=o.model,R=LunaResidence.layout;m.controlsTutorial=false;m.story.cancel();m.backgroundStory.cancel();m.x=R.elevatorX;m.updateNear();m.tick=()=>{};o.snapCamera();o.tick(0);
   const nodes=LUNA_OUTSIDE_DATA.scenes.street.nodes,body=nodes.find(n=>n.name==='Elevator'),front=nodes.find(n=>n.name==='Elevator Fore'),line=nodes.find(n=>n.name==='Elevator Line');
-  return{R,body,front,line,engineLine:LunaEngineWorld.node('street',line.id),frames:['idle','walk','run'].flatMap(id=>LUNA_OUTSIDE_DATA.animations[id].frames),assets:LUNA_OUTSIDE_DATA.assets};
+  return{R,body,front,line,travel:[R.elevatorTop,R.elevatorBottom,4].map(LunaResidence.cabinTravel),engineLine:LunaEngineWorld.node('street',line.id),frames:['idle','walk','run'].flatMap(id=>LUNA_OUTSIDE_DATA.animations[id].frames),assets:LUNA_OUTSIDE_DATA.assets};
  });
  assert.equal(data.R.cabinOffsetY,-.18);assert.equal(data.line.y,data.engineLine.y,'stationary support stays fixed');
  const read=async s=>rt.load('sharp')(path.resolve(__dirname,'..',data.assets[s.asset].src)).extract({left:s.x,top:s.y,width:s.w,height:s.h}).ensureAlpha().raw().toBuffer({resolveWithObject:true});
@@ -15,7 +15,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
  for(const frame of data.frames){const actor=await read(frame);
   for(const [label,py,cy]of [['upper',data.R.upperY,data.R.elevatorTop],['lower',-.7,data.R.elevatorBottom],['riding',footAt(4),4]])for(const flip of [false,true]){
    let shoulders=0,feet=0,leaks=0;
-   const fy=data.front.y+cy-data.R.elevatorBottom,sp=data.front.sprite;
+   const fy=data.front.y+data.travel[[data.R.elevatorTop,data.R.elevatorBottom,4].indexOf(cy)],sp=data.front.sprite;
    for(let y=26;y<frame.h;y++)for(let x=0;x<frame.w;x++){
     if(actor.data[(y*frame.w+x)*4+3]<128)continue;
     const wx=data.R.elevatorX+(flip?frame.w*frame.pivot.x-x-.5:x+.5-frame.w*frame.pivot.x)/frame.ppu;
@@ -38,7 +38,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
    if(m.y!==startY)throw Error('Boarding moved Luna before the cabin');
    m.tickLift(5.6);
    const engine=LUNA_CHARACTER_SHADOWS.receivers.find(r=>r.ancestry.includes('Elevator')),receiver=LunaCharacterShadows.receivers(m).find(r=>r.id===engine.id);
-   const expected=engine.rect.map((v,i)=>v+(i%2?m.elevatorY-R.elevatorBottom+R.cabinOffsetY:0));
+   const expected=engine.rect.map((v,i)=>v+(i%2?m.y-R.lowerY+R.cabinOffsetY:0));
    o.snapCamera();o.tick(0);return{foot:m.y,cabin:m.elevatorY,expected,actual:receiver.rect};
   },{from,to});
   assert(Math.abs(state.foot-footAt(state.cabin))<1e-9);state.actual.forEach((v,i)=>assert(Math.abs(v-state.expected[i])<1e-9));

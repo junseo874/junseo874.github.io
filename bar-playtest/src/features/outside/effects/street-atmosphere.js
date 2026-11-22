@@ -46,7 +46,7 @@ function actorReflection(ctx,model,cam,plane,view,images,factor){
  ctx.save();ctx.beginPath();ctx.rect(0,0,1280,Math.max(0,mirroredFoot));ctx.clip();
  const facing=(sx<0)!==flip;
  ctx.globalAlpha=.82*alpha;ctx.translate(p.x,mirroredFoot);ctx.scale(facing?-1:1,compression);
- const lit=W.LunaCharacterLighting?.shade(model,image,sp,x,y,p.w/scale,p.h/scale,facing,view.node);
+ const lit=W.LunaCharacterLighting?.shade(model,image,sp,x,y,p.w/scale,p.h/scale,facing,view.node,images);
  if(lit)ctx.drawImage(lit.image,lit.x,lit.y,lit.w,lit.h,-p.w*sp.pivot.x,top-footScreen,p.w,p.h);
  else ctx.drawImage(image,sp.x,sp.y,sp.w,sp.h,-p.w*sp.pivot.x,top-footScreen,p.w,p.h);ctx.restore();
  return true;
@@ -83,7 +83,7 @@ function beforeNode(ctx,model,cam,node,nodes,images,position){
    const names=new Set(plane.reflectors.map(n=>n==='near_foreground_2'?'residence-railing':n));
    for(const n of nodes.filter(n=>names.has(n.name)&&n.active!==false).sort((a,b)=>a.layer-b.layer||a.order-b.order)){
     const sp=n.sprite,image=images.get(sp.asset);if(!image)continue;
-    let y=n.y;if(n.ancestry?.includes('Elevator'))y+=model.elevatorY-W.LunaResidence.layout.elevatorBottom;
+    let y=n.y;if(n.ancestry?.includes('Elevator')&&n.name!=='Elevator Line')y+=W.LunaResidence.cabinTravel(model.elevatorY);
     const p=position(n.x,y),scale=1280/cam.w,w=sp.w/sp.ppu*Math.abs(n.sx)*scale,h=sp.h/sp.ppu*Math.abs(n.sy)*scale;
     c.save();c.translate(p.x,p.y);c.scale((n.sx<0)!==!!n.flip?-1:1,n.sy<0?-1:1);c.drawImage(image,sp.x,sp.y,sp.w,sp.h,-w*sp.pivot.x,-h*(1-sp.pivot.y),w,h);c.restore();
    }

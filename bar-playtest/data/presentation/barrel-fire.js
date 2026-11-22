@@ -6,17 +6,17 @@
       "sha256": "14536e8f2e912fe14e57cb684bf7113851a5ab67bf06229bd6c8baa63a8003e9",
       "fields": { "m_ActiveColorSpace": 1 }
     },
-    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png": {
-      "sha256": "5a739f60b8970a25a3eb7e86db59a042f31a571a16d555dfe2af24e921732a06"
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png": {
+      "sha256": "1a43fe7da5124f3d2cd1bf9d5e8d115d9ff46f32281c72e365b135a85b7092e8"
     },
-    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png.meta": {
-      "sha256": "c187f89d81c8563eedfa55648be3f009eaec705f762813351a047450e9f44ed2"
+    "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png.meta": {
+      "sha256": "e76e701fa3d443429b89435ca7a1d2814d3a4582c46c51d46200711ab860eb3b"
     },
     "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png": {
-      "sha256": "84f8628425532287fe7e5bd368dd31b72d59d1a07054ee95d48bb82fa2828d05"
+      "sha256": "fdcdc3931f86657ef57cff9dc4172ada421efe12cd8c02fb78c226293707931e"
     },
     "Assets/01.Game/03.Content/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png.meta": {
-      "sha256": "e074fa3a47fd94bb289f9d4859a79d0cb0042870ff694f1b931e768983935576"
+      "sha256": "abf1262a89bbd346cb4d21b07edb3ab41a7b5a2413ab2c0938c3435c59b856d9"
     },
     "Assets/01.Game/03.Content/03.Vfx/02.Materials/FX_Mat_Fire.mat": {
       "sha256": "30cc283667cb0f148c419e6dd6cf2e6ac42af4a83afe46af14d7535789b2e99a"
@@ -55,7 +55,7 @@
       "w": 2222,
       "h": 208,
       "source": "9_ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
-      "sha256": "0767307252ac1d6b209e5c42d8c0a14c5e618965f3c951ba74f0d6095a657e04"
+      "sha256": "1a43fe7da5124f3d2cd1bf9d5e8d115d9ff46f32281c72e365b135a85b7092e8"
     },
     "street-barrel-front": {
       "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_2.png",

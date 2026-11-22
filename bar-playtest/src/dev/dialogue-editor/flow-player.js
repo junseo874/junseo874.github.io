@@ -55,6 +55,7 @@ function create(api){
   node=n;at=0;playing=false;ended=false;resumable=false;chosen='';defaultNext=plan();
   try{paths=route.branches();}catch(e){paths=[];defaultNext={error:'다음 연결을 확인할 수 없습니다: '+e.message};}pending=defaultNext;
   $('player-title').textContent=n.type+' · '+(n.cast.map(api.actorName).join(' / ')||'장면 연출');
+  if(route.current.affinityChange)$('player-title').textContent+=' · '+W.LunaBarPreviewRoute.affinityLabel(route.current.affinityChange,api.actorName);
   dialog.dataset.previewNode=n.id;
   lines.innerHTML=n.rows.map((r,i)=>'<button data-player-line="'+i+'"><small>'+String(i+1).padStart(2,'0')+'</small><b>'+esc(api.actorName(r.actor)||n.type)+'</b><span>'+esc(api.plain(r['text.ko'])||api.plain(r.arg)||n.type)+'</span></button>').join('');
  }
@@ -83,7 +84,7 @@ function create(api){
   const first=n?.rows.find(r=>api.plain(r['text.ko'])),excerpt=first&&api.plain(first['text.ko']);
   const dest=n?[p.target.lane.id!==route.scene&&p.target.lane.title,n.type+' · '+(n.index+1)+'번 줄',excerpt].filter(Boolean).join(' · '):p.blocked?'':'대화 종료';
   return {path:p,selected:!!chosen&&chosen===p.pick?.row_id&&!p.assumed&&p.target?.node?.id===pending?.node?.id,
-   title:ctor||guard||'그 외의 경우',detail:[ctor&&guard, dest].filter(Boolean).join(' → '),
+   title:ctor||guard||'그 외의 경우',detail:[W.LunaBarPreviewRoute.affinityLabel(p.target?.affinityChange,api.actorName),ctor&&guard,dest].filter(Boolean).join(' → '),
    badge:p.blocked?'선택 불가':p.assumed?'조건을 가정한 미리보기':!ctor?'현재 조건':'',blocked:p.blocked};
  }
  function move(p){

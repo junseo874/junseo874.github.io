@@ -14,8 +14,8 @@
   // These sprites are children of Building_3 in the current engine scene.
   // The older flattened web export has both their parent and local positions wrong.
   const children = Object.freeze({
-    C_Middle_Object_1: Object.freeze({ parent: 'C_Middle_Building_3', x: .94, y: 3.57 }),
-    C_Middle_Object_2: Object.freeze({ parent: 'C_Middle_Building_3', x: 1.545, y: 3.11 })
+    C_Middle_Object_1: Object.freeze({ parent: 'C_Middle_Building_3', x: 2.33, y: 3.49 }),
+    C_Middle_Object_2: Object.freeze({ parent: 'C_Middle_Building_3', x: -.675, y: 3.71 })
   });
   const states = new WeakMap();
   const isStreet = model => model?.scene === 'street' && !model.qa;

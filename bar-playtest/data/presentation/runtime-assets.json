@@ -3413,18 +3413,18 @@
       ]
     },
     "mix_shake_motion": {
-      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Legacy_shake.png",
+      "src": "assets/01.ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Shake.png",
       "w": 10240,
       "h": 720,
       "frames": 8,
       "frameWidth": 1280,
       "frameHeight": 720,
       "fps": 12,
-      "source": "7. scene/쉐이킹 애니메이션/shake_nbg.png",
+      "source": "9_ArtResources/03.Crafting/04.Minigames/01.Shake/01.Sprites/Shake.png",
       "alphaBBox": [
-        374,
+        372,
         0,
-        943,
+        917,
         720
       ]
     },
@@ -4638,7 +4638,8 @@
         "expr_samho_drunk"
       ],
       "drunk_talk": [
-        "expr_samho_drunk"
+        "char_samho_drink_body",
+        "char_samho_drink_face_bottom"
       ],
       "drink_default": [
         "char_samho_drink_body",

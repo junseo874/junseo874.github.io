@@ -9,7 +9,7 @@ module.exports = {
     test-dialogue-periods-ui test-shared-data-ui
   `),
   smoke: group(`
-    test-independent-nodes test-node-preview-routes test-outside-flow-days test-outside-graph-index test-outside-dialogue-editor test-outside-studio
+    test-independent-nodes test-node-preview-routes test-early-regular-reactions test-outside-flow-days test-outside-graph-index test-outside-dialogue-editor test-outside-studio
     @tools/check-web-generated-art.cjs @tools/build-generated-ui-css.cjs
     @tools/check-engine-art-sync.cjs @tools/check-art-resource-paths.cjs
     test-shared-birds-and-bar-gates test-day3-notion-script test-latest-story-timings
@@ -28,13 +28,13 @@ module.exports = {
   `),
   ui: group(`
     test-window-fullscreen-ui
-    test-first-contact-editor-ui test-outside-flow-days-ui test-manual-node-preview-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
+    test-first-contact-editor-ui test-outside-flow-days-ui test-manual-node-preview-ui test-glass-affinity-editor-ui test-outside-dialogue-editor-ui test-outside-studio-ui test-outside-workbench-ui
     test-dialogue-live-data-ui test-resource-current-artwork-ui test-story-service-entry-ui
     test-loading-pigeon-ui test-bar-choice-hold-clock test-generated-art-ui
     test-guest-arrival-speech-ui test-guest-appearance-tab-ui test-endless-general-ui
     test-independent-nodes-ui test-guest-random-appearance-ui test-bar-flow-editor-ui test-bar-authoring-studio-ui
     test-line-workspace-ui test-line-edit-navigation-ui test-bar-workbench-ui test-bar-flag-picker-ui test-bar-pin-inspector-ui
-    test-bar-node-details-ui test-choice-live-text-ui test-day3-samho-expression-ui
+    test-bar-node-details-ui test-choice-live-text-ui test-day3-samho-expression-ui test-regular-portrait-speech-ui
     test-sound-lab-ui test-november-resource-refresh-ui test-bar-qa-dialogue-ui
     test-bar-qa-presets-ui test_profile_resources_ui test-tom-introduction-ui
     test-regular-order-badge-ui test-dialogue-history-ui test-textbox-proportions-ui

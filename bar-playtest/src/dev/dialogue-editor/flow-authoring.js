@@ -17,11 +17,15 @@ function create(m,scene,node,params){
  if(!before&&node.routes.length)throw Error('출력 선이 있는 노드입니다. 도착 노드의 ‘앞에 삽입’을 사용하세요.');
  const context=state(m,scene,at),seated=Object.values(context.seats);
  let when=String(params.when||'').trim();F.checkGuard(when);
+ // Extending an unfinished reaction should move its stop to the new line,
+ // not run the new dialogue for every drink or skip it after the glass empties.
+ const stop='flag.'+scene+'_reaction_closed = true',extend=type==='say'&&!before&&clean(last.effects)===stop&&(!when||when===clean(last.when));
+ if(extend)when=clean(last.when);
  // Inserting within a skipped interval inherits the negative routing gates.
  const inherited=clean((before?first:last).when).split(' && ').filter(s=>s.startsWith('!flag.bp_path_'));
  when=[...new Set([...inherited,...(when?[when]:[])])].join(' && ');
  const knownSeat=seated.includes(actor);
- if(/\b(?:order_match|grade|craft_grade|final_grade)\b/.test(when)){const served=list.slice(0,at).filter(r=>['order','serve'].includes(r.type)).at(-1);if(served?.type!=='serve'||clean(served.when))throw Error('제조 결과는 제공이 확정된 위치에서 사용하세요.');}
+ if(/\b(?:order_match|grade|craft_grade|final_grade)\b/.test(when)){const served=list.slice(0,at).filter(r=>['order','serve'].includes(r.type)).at(-1);if(served?.type!=='serve'||clean(served.when)&&!clean(served.when).split(' && ').every(t=>when.split(' && ').includes(t)))throw Error('제조 결과는 제공이 확정된 위치에서 사용하세요.');}
  if(type==='enter'&&(!['L','R'].includes(arg)||context.seats[arg]||knownSeat||(!m.presentation.characterLayers[actor]&&actor!=='shiba')))throw Error('입장은 비어 있는 좌석과 아직 앉지 않은 손님을 고르세요.');
  if(['exit','orderSet','coaster','empty_glass'].includes(type)&&!knownSeat)throw Error('이 시점에 앉아 있는 손님을 먼저 선택하세요.');
  if(type==='say'&&actor!=='luna'&&!knownSeat)throw Error('루나 또는 이때 앉아 있는 손님을 선택하세요.');
@@ -41,7 +45,8 @@ function create(m,scene,node,params){
  for(const [i,k] of kinds.entries()){
   const r=Days.neutral(m,m.add(scene,at+i,k),actor);m.set(r,'when',when);if(k==='say'){m.set(r,'arg',arg||'default');m.set(r,'text.ko',text||'새 대사');}else if(k==='order'||k==='enter'||k==='tutorial')m.set(r,'arg',arg);else if(k==='effect')m.set(r,'effects',effect);
   added.push(r);
- }return added.find(r=>r.type==='order')||added[0];
+ }if(extend){m.set(last,'effects','');m.set(added[0],'effects',stop);}
+ return added.find(r=>r.type==='order')||added[0];
 }
 const api={names,state,create};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaFlowAuthoring=api;
 })(globalThis);

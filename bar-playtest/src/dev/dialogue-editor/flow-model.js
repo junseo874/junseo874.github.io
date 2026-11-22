@@ -36,7 +36,14 @@ function truth(expr,facts,observed){
  });return terms.includes(false)?false:terms.every(x=>x===true)?true:undefined;
 }
 function remember(expr,value,facts,observed){
- if(!expr)return;observed.set(expr,value);
+ if(!expr)return;
+ // After a mismatch has been ruled out, rejecting "match AND grade < decent"
+ // also rules out that grade range. Do not draw cables to its internal rows.
+ if(!value&&expr.includes('&&')){
+  const clauses=expr.split('&&').map(s=>s.trim()),unknown=clauses.filter(s=>truth(s,facts,observed)===undefined);
+  if(unknown.length===1&&!clauses.some(s=>truth(s,facts,observed)===false))remember(unknown[0],false,facts,observed);
+ }
+ observed.set(expr,value);
  if(value||!expr.includes('&&'))for(const t of expr.split('&&')){
   const s=t.trim(),f=flagTest(s);if(f)facts[f[0]]=value===f[1];observed.set(s,value);
   const g=gradeTest(s);if(g){const k=g[1]==='grade'?'final_grade':g[1];facts[k]=(facts[k]||grades).filter(v=>compare(grades.indexOf(v),g[2],grades.indexOf(g[3]))===value);}
@@ -57,6 +64,9 @@ function compile(model,scene,starts=[]){
   const join=authoredPair?!arrivals.has(row.row_id)&&!!owners[row.row_id]&&owners[row.row_id]===owners[last.rows[0].row_id]:same;
   if(wiring.decision(last?.rows[0])&&row.row_id===wiring.block(last.rows[0])+'_901')last.rows.push(row);
   else if(wiring.decision(row))nodes.push({id:row.row_id,index,start:index,type:'조건 분기',when:wiring.asleep(row)?'false':'',branchWhen:wiring.decisionRule(row),cast,rows:[row],routes:[]});
+  else if(last?.type==='빈잔'&&row.type==='effect'&&!arrivals.has(row.row_id)&&
+    row.effects.startsWith('affinity.'+last.rows[0].actor+' ')&&!wiring.block(row)&&
+    !plan.routes.some(r=>r.source===last.rows.at(-1).row_id))last.rows.push(row);
   else if(join)last.rows.push(row);
   else nodes.push({id:row.row_id,index,start:index,type,when,cast,rows:[row],routes:[]});
   if(row.type==='exit'&&!wiring.asleep(row))for(const k of Object.keys(seats))if(seats[k]===row.actor)delete seats[k];
@@ -155,7 +165,7 @@ function addResponse(model,scene,node,choiceId,predicate,insertLine){
    effects.push(key+' = '+(c===picked));model.set(c,'effects',effects.join('; '));
   }when=key;
  }else {if(!clean(predicate))throw Error('반응을 실행할 조건을 입력하세요.');checkGuard(predicate);
-  if(/\b(?:order_match|grade|craft_grade|final_grade)\b/.test(predicate)){const served=model.rows(scene).slice(0,index+1).filter(r=>['order','serve'].includes(r.type)).at(-1);if(served?.type!=='serve'||clean(served.when))throw Error('제조 결과는 제공이 확정된 위치에서 사용하세요.');}
+  if(/\b(?:order_match|grade|craft_grade|final_grade)\b/.test(predicate)){const served=model.rows(scene).slice(0,index+1).filter(r=>['order','serve'].includes(r.type)).at(-1);if(served?.type!=='serve'||(served!==last&&clean(served.when)))throw Error('제조 결과는 제공이 확정된 위치에서 사용하세요.');}
  }
  const row=insertLine?insertLine():model.add(scene,index+1,'say');
  model.set(row,'actor',last.actor||'luna');model.set(row,'when',[...new Set([clean(insertLine?row.when:last.when),when].filter(Boolean))].join(' && '));return row;

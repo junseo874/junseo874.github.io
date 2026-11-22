@@ -34,7 +34,7 @@ function orders(m,sc,context,requested,actorName){
  (!row&&ambiguous?'<p class="dp-help">분기에 따라 주문이 달라질 수 있어요. 수정할 원본 주문을 먼저 고르세요.</p>':row?'<p class="dp-help">'+(direct?'':esc(row.seq)+'번 주문에 반영됩니다. ')+'대사 문구는 바뀌지 않습니다.</p>':'');
  return {row,html:W.LunaFlowAuthorUI.group('order','주문 · '+mode,data)};
 }
-const groups={order:['order','주문'],links:['links','분기·연결'],guard:['links','분기·연결'],branch:['links','분기·연결'],options:['choice','선택지'],content:['text','대사·진행'],append:['setup','구성'],layout:['setup','구성']};
+const groups={affinity:['affinity','호감도'],order:['order','주문'],links:['links','분기·연결'],guard:['links','분기·연결'],branch:['links','분기·연결'],options:['choice','선택지'],content:['text','대사·진행'],append:['setup','구성'],layout:['setup','구성']};
 const filters=new WeakMap();
 function decorate(panel,owner){
  const sections=[...panel.children].filter(el=>el.hasAttribute('data-fold'));

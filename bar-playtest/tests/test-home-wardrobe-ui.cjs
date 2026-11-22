@@ -38,7 +38,7 @@ const assert=require('node:assert/strict'),runtime=require('../../tools/lib/test
   await p.locator('[data-choice="cancel"]').click();assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
   await p.keyboard.press('KeyE');await p.waitForTimeout(550);await p.locator('[data-choice="press"]').click();
   await p.waitForFunction(()=>outsidePlaytest.model.story.speech?.id==='home/wardrobePressed');
-  assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model;return [m.story.speech.id,m.story.view().full,m.story.speech.line.actor,!!m.story.speech.choice];}),['home/wardrobePressed','아직 애니메이션이 없는 걸...','luna',false]);
+  assert.deepEqual(await p.evaluate(()=>{const m=outsidePlaytest.model;return [m.story.speech.id,m.story.view().full,m.story.speech.line.actor,!!m.story.speech.choice];}),['home/wardrobePressed','....이건 뭐지?','luna',false]);
   await p.keyboard.press('KeyE');await p.screenshot({path:'/private/tmp/home-wardrobe-pressed.png'});await p.keyboard.press('KeyE');
   assert(await p.evaluate(()=>!outsidePlaytest.model.story.blocking));
   assert.equal(await p.evaluate(()=>barGame.progress.money),money);

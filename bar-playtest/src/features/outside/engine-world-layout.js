@@ -162,6 +162,11 @@ function applyStreet(data){
   // remain owned by their modules. Only authored placement is replaced here.
   if(n.name==='Elevator')n.sprite={...n.sprite,x:0,y:0,w:69,h:154};
   transform(n,e,{size:n.ancestry.includes('Elevator')});
+  // The new lamp trims two rows above and one column to the right. Keep
+  // the original bottom and left edges at the same world pixels as its lights.
+  if(n.name==='B_Fore_StandLight_1')n.sprite={...n.sprite,pivot:{
+   x:e.sprite.w*e.sprite.pivot.x/n.sprite.w,y:e.sprite.h*e.sprite.pivot.y/n.sprite.h
+  }};
   if(n.ancestry.includes('Elevator')&&['Elevator','Elevator Fore','Elevator Door'].includes(n.name)){n.y+=cabinOffsetY;n.placementSource='web-lift-framing';}
  }
  data.scenes.street.nodes=data.scenes.street.nodes.filter(n=>n.name!=='Elevator Connector');

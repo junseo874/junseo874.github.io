@@ -412,6 +412,7 @@
       choiceUI?.dispose();
       global.LunaRainGlass?.dispose(canvas);
       global.LunaStreetAtmosphere?.dispose(model);
+      global.LunaCharacterLighting?.dispose(model);
       choiceUI = null;
       global.LunaControlsTutorial.stop();
       global.LunaHomeDoorAudio?.stop();
@@ -562,7 +563,7 @@
         h = p.h,
         rayReach = renderingNode?.lightRotation ? Math.abs(h * Math.sin(renderingNode.lightRotation)) : 0;
       if (p.x + w + rayReach < 0 || p.x - w - rayReach > 1280 || p.y + h < 0 || p.y - h > 720) return;
-      const lit=global.LunaCharacterLighting?.shade(model,img,sp,x,y,w*renderCam.w/1280,h*renderCam.w/1280,(sx<0)!==flip,renderingNode);
+      const lit=global.LunaCharacterLighting?.shade(model,img,sp,x,y,w*renderCam.w/1280,h*renderCam.w/1280,(sx<0)!==flip,renderingNode,images);
       ctx.save();
       ctx.globalAlpha = alpha;
       if (glow) ctx.globalCompositeOperation = 'screen';
@@ -639,7 +640,7 @@
       if (!n.active || n.name === 'Luna' || n.name === 'Square' || /SAMHO|samho|Samho|Bubi/.test(n.name)) return;
       if (n.ambient && !global.LunaOutsideAmbient.visible(model, n)) return;
       let y = n.y;
-      if (model.scene === 'street' && n.ancestry.includes('Elevator') && ['Elevator', 'Elevator Connector', 'Elevator Fore', 'Elevator Door'].includes(n.name)) y += model.elevatorY - BOTTOM;
+      if (model.scene === 'street' && n.ancestry.includes('Elevator') && ['Elevator', 'Elevator Connector', 'Elevator Fore', 'Elevator Door'].includes(n.name)) y += global.LunaResidence.cabinTravel(model.elevatorY);
       // Preserve the supplied sprite cutouts and world coordinates, including the exterior.
       const light = n.light || /City.*Light/.test(n.name);
       let sp = n.ambient ? global.LunaOutsideAmbient.frame(n, model.time) : n.sprite;

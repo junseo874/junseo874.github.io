@@ -270,7 +270,16 @@
           if (!seat) throw Error('빈잔 대상 없음: ' + s.actor);
           if (this.seats[seat].glass) this.seats[seat].glassEmpty = true;
           this.log('empty_glass', { actor: s.actor, seat });
-          this.stepDone(s);
+          const pending = this.story.pendingAffinity;
+          if (pending?.step === s) {
+            delete this.story.pendingAffinity;
+            this.applyAffinity(pending.actor, pending.result, pending.delta);
+          }
+          const closes = /^flag\.(\w+)\s*=\s*true$/.exec(s.effects || '');
+          const atEnd = closes && this.story.steps.slice(this.story.index + 1).every(
+            row => (row.when || '').split('&&').some(t => t.trim() === '!flag.' + closes[1]));
+          if (atEnd) this.setTransition(.8, () => this.stepDone(s));
+          else this.stepDone(s);
           return;
         }
         if (s.type === 'choice') {
@@ -315,7 +324,11 @@
           throw Error('제조 결과/서빙 입력 없이 serve에 도착');
         }
         if (s.type === 'effect' || s.type === 'set_state') {
-          applyEffects(s.effects, this.progress);
+          const pending = this.story.pendingAffinity;
+          if (pending && pending.step === s) {
+            delete this.story.pendingAffinity;
+            this.applyAffinity(pending.actor, pending.result, pending.delta);
+          } else applyEffects(s.effects, this.progress);
           this.story.index++;
           continue;
         }

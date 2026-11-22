@@ -97,7 +97,7 @@ function draw(m,sprite,ctx,position){
  if(visibleThug(m)){if(!m.qa){ctx.save();ctx.beginPath();ctx.rect(-2048,-2048,position(-13.70,0).x+2048,4096);ctx.clip();}idle('Neighbor',e?.kind===thug?e.npcX:tx(m),thugY(m)-(W.LunaEngineWorld&&!m.qa?0:.274),thugLookTarget(m,e?.npcX??tx(m)));if(!m.qa)ctx.restore();}
  if(visibleContract(m)&&(!m.qa||!m.qa.done||e?.kind===contract)){
   const x=e?.kind===contract?e.npcX:base(m)+.7,dx=e?.kind===contract?e.dealerX:dealerBase(m),stage=e?.kind===contract?e.stage:'',toward=['approach','samho-exit'].includes(stage)||e?.dealerAlpha===0?m.x:dx;
-  const sp=W.LunaSamhoAnimation.frame(m.time),flip=W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),alpha=e?.kind===contract?e.alpha:1;
+  const sp=W.LunaSamhoAnimation.frame(m.time,stage==='approach'||stage==='samho-exit'),flip=W.LunaOutsideAmbient.faceTarget(x,stage==='samho-exit'?x+1:toward),alpha=e?.kind===contract?e.alpha:1;
   if(W.LunaEngineWorld&&!m.qa)W.LunaEngineWorld.drawActor(sprite,'street',contract,'samho',sp,x,-.7,flip,alpha);else sprite(sp,x,-.7,1,1,flip,alpha);
   idle('M1',dx,W.LunaEngineWorld&&!m.qa?-.7:-.94,stage==='dealer-exit'?dx+e.dealerDirection:x,e?.kind===contract?e.dealerAlpha:1,contract,'dealer');
  }

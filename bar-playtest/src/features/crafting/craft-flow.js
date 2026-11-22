@@ -409,7 +409,10 @@
             });
           }
           this.settle(result);
-          this.applyAffinity(this.currentOrder.actor, result);
+          const actor = this.currentOrder.actor;
+          const adjustment = !craftStep.effects && !serve.effects && this.reactionAffinity(actor);
+          if (adjustment) this.story.pendingAffinity = {...adjustment, actor, result};
+          else this.applyAffinity(actor, result);
           applyEffects(craftStep.effects, this.progress);
           applyEffects(serve.effects, this.progress);
           this.currentOrder = null;

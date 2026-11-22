@@ -1188,19 +1188,19 @@
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
-      "sha256": "fd384c155761592e5d8cb3f2b00ef26d90ef7c4ac8206ca6e4840809a0d9e2b9",
+      "sha256": "6907d42dfaa04cb68768c73cb46866926f04eed4d66999ce8377aaa2fbe3e510",
       "kind": "existing-bytes"
     },
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
-      "sha256": "728c44ddd51ff4dbc04f46d55cf6aeb43c94686928adcb1a425ef732a49d8087",
+      "sha256": "4a52268e9fbd305d6b0fd152ff7d551b79be5392d962b55698891d20f1ec2e4c",
       "kind": "existing-bytes"
     },
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
-      "sha256": "d1c7dd411631c72a38390827048ce74063fb0cc727cd6c4e617d16d8017a49e0",
+      "sha256": "7f8d12b1d498cb5a78e85cfed90f5d298a7dd7ac48399e86c054e164a4969c40",
       "kind": "existing-bytes"
     },
     {
@@ -1218,19 +1218,19 @@
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
-      "sha256": "d83b4ee755a9683162f8ae2a25443014d6a0a0e19968b2c6c0907a0795d3e16a",
+      "sha256": "8961b7fcaee1088d33776482e2975ebc0f89ac3c1a4195180d571f8b2f3ed8c2",
       "kind": "existing-bytes"
     },
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/fence.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/fence.png",
-      "sha256": "e3aebb68e13740619721f150b47c0e7561191e212f48dd02dfb79edfdaec327b",
+      "sha256": "099c44da8cf9ca165b712ff7cd857ed5cda39a195a0b3cf3a1949d2dda918ec8",
       "kind": "existing-bytes"
     },
     {
       "from": "02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
       "path": "02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
-      "sha256": "c3a2ce3157e15e3820ba52332d3cb88b17d52ec55bf53218a3186e5bb2dbb3d4",
+      "sha256": "952989340625a92b8211b1390c417bf28487afdc69ab2b622e717a28805a159e",
       "kind": "existing-bytes"
     },
     {
@@ -1302,7 +1302,7 @@
     {
       "from": "02.Environments/02.Street/01.Sprites/Objects/object_1.png",
       "path": "02.Environments/02.Street/01.Sprites/Objects/object_1.png",
-      "sha256": "0767307252ac1d6b209e5c42d8c0a14c5e618965f3c951ba74f0d6095a657e04",
+      "sha256": "1a43fe7da5124f3d2cd1bf9d5e8d115d9ff46f32281c72e365b135a85b7092e8",
       "kind": "new"
     },
     {
@@ -10996,6 +10996,96 @@
       "sha256": "39a48f351a1d53781dbfed9d6cfd6dd18d47193af5cd96b90040ddfb3971b961",
       "kind": "new",
       "from": "02.Environments/03.Home/01.Sprites/chris-house-fullshot.png"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_idle-Normal.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_idle-Normal.png",
+      "sha256": "ac8c9cf64e54f5ef6d020f15de634ab1bfa4703309fa3c9b3d22b69eee96f18f",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_idle_Mask.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_idle_Mask.png",
+      "sha256": "586fc4e0dec685527403f2c6a34cc506b34dda16be6e590ee59e18fe69487dc6",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_run-Normal.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_run-Normal.png",
+      "sha256": "93fdc5e43ae4313d14ee4031eb94f47e726b33f1e22fb28ab4c2dabc6fc3394b",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_run_Mask.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_run_Mask.png",
+      "sha256": "d3c11bb633b80f8e9d6c3de0531a2d7812383263626ffc6f06c0df3ebeb1cffe",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_walk-Normal.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_walk-Normal.png",
+      "sha256": "758ca609e59347467ed3ba70f158f6c5e5f495a6dc9454b748e8e4dbc5bfd387",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/01.Luna/luna_walk_Mask.png",
+      "from": "01.Characters/02.Outside/01.Luna/luna_walk_Mask.png",
+      "sha256": "a56d6032134eda4830e4cc6d187e811bd163854e56d117851c265b3736ffca92",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/02.Chris/Chris_idle-Normal.png",
+      "from": "01.Characters/02.Outside/02.Chris/Chris_idle-Normal.png",
+      "sha256": "7c7328df49c43c7a7b2b73e2da1dc459c7384db5986afc505fa4e4bb51f5a22d",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/02.Chris/Chris_idle_Mask.png",
+      "from": "01.Characters/02.Outside/02.Chris/Chris_idle_Mask.png",
+      "sha256": "7da873721da1ad27bc92f36db0624a1e6ea64d9857ad286a3b3eeec2b41c80d5",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/03.Samho/samho_idle-Normal.png",
+      "from": "01.Characters/02.Outside/03.Samho/samho_idle-Normal.png",
+      "sha256": "78bc80e83897f8bc29c29d8d1bc96924435e7ba7899f172d1c6d125d88af80ee",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/03.Samho/samho_idle_Mask.png",
+      "from": "01.Characters/02.Outside/03.Samho/samho_idle_Mask.png",
+      "sha256": "72e6256d37809998bd8a70fd34137a71e75331b302b18a2eb30fdba6c3dbb587",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/03.Samho/samho_run-Normal.png",
+      "from": "01.Characters/02.Outside/03.Samho/samho_run-Normal.png",
+      "sha256": "d2820093cfbfe6282106766178f568de3ed93bdfc48ae2c48b779e5dbfeeea8d",
+      "kind": "new"
+    },
+    {
+      "path": "01.Characters/02.Outside/03.Samho/samho_run_Mask.png",
+      "from": "01.Characters/02.Outside/03.Samho/samho_run_Mask.png",
+      "sha256": "cb7e2242bf3adae6d6d1d496c603c8ef3fcf1096da871d74bc46a3383adb966a",
+      "kind": "new"
+    },
+    {
+      "path": "03.Crafting/04.Minigames/01.Shake/01.Sprites/Shake.png",
+      "from": "03.Crafting/04.Minigames/01.Shake/01.Sprites/Shake.png",
+      "sha256": "d1f09bc7afa342ca2ad811a563a4b9ef95334404f916d7b654475ee20cd9c977",
+      "kind": "new"
+    },
+    {
+      "from": "02.Environments/03.Home/01.Sprites/Wardrobe/wardrobe_change1.png",
+      "path": "02.Environments/03.Home/01.Sprites/Wardrobe/wardrobe_change1.png",
+      "sha256": "fb56725dd4c3cc3ad3a6f45c2d0a5563410748fad18ec87d419d9caf5c74c223",
+      "kind": "existing-bytes"
+    },
+    {
+      "from": "02.Environments/03.Home/01.Sprites/Wardrobe/wardrobe_change2.png",
+      "path": "02.Environments/03.Home/01.Sprites/Wardrobe/wardrobe_change2.png",
+      "sha256": "fb37307a361637881181668aac001673869fb5d1f646175b8c333f4854aecf4e",
+      "kind": "existing-bytes"
     }
   ]
 }

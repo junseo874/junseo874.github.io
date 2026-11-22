@@ -2,7 +2,7 @@
  * Logo/button/deco/dot assets already match the supplied originals byte for byte.
  * Keep them shared with loading/cutscenes; only the title composition changes. */
 .campaign-title{background:#080d16;isolation:isolate}
-.campaign-title::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--title-art-street,url('../../../assets/01.ArtResources/05.UI/02.Title/01.Sprites/title_street_full.png')) -5080px -3560px/7680px 4320px no-repeat;image-rendering:pixelated;pointer-events:none}
+.campaign-title::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--title-art-street,url('../../../assets/backgrounds/campaign/title-bg.png')) center/cover no-repeat;image-rendering:pixelated;pointer-events:none}
 .campaign-title::after{content:"";position:absolute;inset:0;z-index:-1;background:var(--title-art-dots,url('../../../assets/01.ArtResources/05.UI/02.Title/01.Sprites/PTN_Dot.png')) center/100% 100% no-repeat;pointer-events:none}
 .campaign-title .title-logo{left:46px;top:44px;width:447px}
 .campaign-title nav{left:83px;top:373px;width:318px;gap:0}

@@ -231,7 +231,9 @@ void main(){
 // The native sprite cell is the render target. No screen-sized upload, blur
 // or geometry expansion: transparent pixels stay transparent, even at seams.
 const characterLighting=common+`
-uniform sampler2D actor;
+uniform sampler2D actor,normalMap,materialMask;
+uniform vec2 mapOrigin;
+uniform float hasMaps;
 uniform vec4 cell,body,shadeParams,rimParams,shapeParams;
 uniform vec3 shadeColor,rimColor,localLight;
 uniform vec2 foot,lightPosition,ambientDirection;
@@ -265,6 +267,15 @@ void main(){
  // Physical point-light falloff stays continuous even inside an actor cell.
  float localAttenuation=pow(clamp(1.-distance/max(.01,localLight.x),0.,1.),shapeParams.y)*localLight.z;
  attenuation=mix(attenuation,localAttenuation,localLight.y);
+ if(hasMaps>.5){
+  ivec2 at=ivec2(mapOrigin+floor(p));
+  if(actorFlip>.5)at.y=textureSize(normalMap,0).y-1-at.y;
+  vec3 normal=normalize(texelFetch(normalMap,at,0).rgb*2.-1.);
+  float material=texelFetch(materialMask,at,0).r;
+  float diffuse=max(0.,dot(normal,normalize(vec3(dir,.65))));
+  float highlight=pow(diffuse,8.)*material;
+  color+=rimColor*lightWeight*attenuation*(color*.36*diffuse+.075*highlight);
+ }
  color+=rimColor*lightWeight*attenuation*(rimParams.x*rim*(1.+rimParams.z)+glow*rimParams.z*.6);
  result=vec4(displayColor(color),original.a);if(actorFlip>.5)result.rgb*=result.a;
 }`;
@@ -416,6 +427,15 @@ class Renderer{
   g.activeTexture(g.TEXTURE2);g.bindTexture(g.TEXTURE_2D,this.shadowFill);g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL,false);g.texImage2D(g.TEXTURE_2D,0,g.RGBA,p.field.width,p.field.height,0,g.RGBA,g.UNSIGNED_BYTE,p.field.data);this.bind('fillLight',2,this.shadowFill);
   this.clip(box);this.draw();this.finishRegion(ctx,box);
  }
+ lightingTexture(image,unified){
+  if(unified)return this.surface.texture(image).t;
+  this.lightingTextures??=new Map();
+  if(!this.lightingTextures.has(image)){
+   const texture=this.texture();this.upload(texture,image);this.lightingTextures.set(image,texture);
+   if(this.lightingTextures.size>64){const [old,t]=this.lightingTextures.entries().next().value;this.gl.deleteTexture(t);this.lightingTextures.delete(old);}
+  }
+  return this.lightingTextures.get(image);
+ }
  characterLighting(image,sp,p){
   // Reflection capture can shade a character while the puddle framebuffer
   // contains a partially rendered scene. Never use that framebuffer as a
@@ -438,12 +458,13 @@ class Renderer{
    this.litTargets??=new Map();const key=sp.w+':'+sp.h;target=this.litTargets.get(key);
    if(!target){target=this.target(sp.w,sp.h,true);target.image={gpuTexture:target.t,owner:this,width:sp.w,height:sp.h};this.litTargets.set(key,target);}
   }
-  this.lightingTextures??=new Map();
-  let texture=unified?this.surface.texture(image)?.t:this.lightingTextures.get(image);
-  if(!texture){texture=this.texture();this.upload(texture,image);this.lightingTextures.set(image,texture);
-   if(this.lightingTextures.size>64){const [old,t]=this.lightingTextures.entries().next().value;g.deleteTexture(t);this.lightingTextures.delete(old);}
-  }
+  const texture=this.lightingTexture(image,unified),maps=p.maps;
+  const normal=maps?this.lightingTexture(maps.normal,unified):texture;
+  const mask=maps?this.lightingTexture(maps.mask,unified):texture;
   this.use('characterLighting',target);this.uniform('actorFlip',unified?1:0);g.viewport(0,0,sp.w,sp.h);this.clip([0,0,sp.w,sp.h]);this.bind('actor',1,texture);
+  this.bind('normalMap',2,normal);this.bind('materialMask',3,mask);
+  this.uniform('hasMaps',maps?1:0);
+  if(maps)this.uniform('mapOrigin',[maps.offset[0],maps.normal.height-maps.offset[1]-sp.h]);
   const c=p.config,s=p.state;
   this.uniform('cell',[sp.x,image.height-sp.y-sp.h,sp.w,sp.h]);
   this.uniform('body',[p.x-p.width*(p.flip?1-sp.pivot.x:sp.pivot.x),p.y-p.height*sp.pivot.y,p.width,p.height]);

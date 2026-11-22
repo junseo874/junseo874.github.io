@@ -3,6 +3,10 @@
 (function(root){
 'use strict';
 const {decode,rules}=typeof module==='undefined'?root.LunaDialogueEditorModel:require('./editor-model.js');
+const settlement=(typeof module==='undefined'?root.LunaGameParts.settlement:require('../../features/bar/settlement.js'))({
+ condition:rules.condition,n:v=>Number(v)||0,sortSeq:a=>[...a].sort((x,y)=>Number(x.seq)-Number(y.seq)),root:{}
+}).prototype;
+const affinityLabel=(change,name)=>change?name(change.actor)+' 호감도 '+(change.delta>0?'+':'')+change.delta:'';
 const options=(m,row)=>row.type==='choice'?m.choices(row.arg).map(c=>Object.fromEntries(Object.entries(c).map(([k,v])=>[k,decode(v)]))):[];
 const terms=expr=>decode(expr).split('&&').map(s=>s.trim()).filter(Boolean);
 // Find a preview context in which each required guard passes and each skipped
@@ -33,18 +37,39 @@ function witness(seed,required,skipped=[]){
 }
 function create({model,graphFor,scene,node,settings={},picks={}}){
  const initial={day:Number(model.scenes.find(s=>s.id===scene).day),phase:'bar',money:settings.money??1000,
-  flags:{tom_name_known:true,day0_skip_tutorial:true,...settings.flags},affinity:{},reputation:0,
-  grade:'good',craft_grade:'good',final_grade:'good',order_match:true};
- const lanes=new Map();
+  flags:{tom_name_known:true,day0_skip_tutorial:true,...settings.flags},affinity:{...settings.affinity},reputation:0,
+  grade:settings.order_match===false?'sewage':settings.final_grade||'good',craft_grade:settings.craft_grade||'good',order_match:settings.order_match??true};
+ initial.final_grade=initial.grade;
+ const lanes=new Map(),services=new Map();
  function lane(id){
   if(!lanes.has(id)){
    const rows=model.rows(id).map(r=>model.step(r)),byRow=new Map(),index=new Map(rows.map((r,i)=>[r.row_id,i]));
    const graph=graphFor(id);for(const n of graph.nodes)for(const r of n.rows)byRow.set(r.row_id,n);
+   for(let i=3;i<rows.length;i++)if(rows[i].type==='empty_glass'&&rows[i-3].type==='craft'&&!rows[i-3].effects&&
+     rows[i-2].type==='serve'&&!rows[i-2].effects&&rows[i-2].actor===rows[i].actor&&rows[i+1]?.type==='effect'){
+    services.set(rows[i].row_id,{steps:rows,index:i-3});
+   }
    lanes.set(id,{id,title:model.scenes.find(s=>s.id===id)?.title,rows,index,byRow,graph});
   }return lanes.get(id);
  }
  function apply(row,state,choice){
   if(choice){if(state.day===0)state.flags.day0_choice_hold_learned=true;rules.applyEffects(decode(choice.effects),state);}
+  if(row.type==='order')(state.orders??={})[row.actor]=row.arg.startsWith('exact:')?row.arg.slice(6):null;
+  const story=services.get(row.row_id);
+  if(story&&state.orders?.[row.actor]){
+   const actor=row.actor,adjustment=settlement.reactionAffinity.call({story,ctx:()=>state},actor);
+   if(adjustment){
+    // Apply the same single combined change as the game, on the same row.
+    state.pendingAward={actor,id:adjustment.step.row_id,delta:adjustment.delta};
+   }
+  }
+  const award=state.pendingAward;
+  if(award?.id===row.row_id){
+   const t=model.projected.data.tables,id=state.order_match?state.orders[award.actor]:null;
+   settlement.applyAffinity.call({t,progress:state,log(){},ctx:()=>({...state,cocktail:t.cocktails.find(c=>c.id===id),
+    tags:t.cocktail_tags.filter(c=>c.context===id).map(c=>c.ko)})},award.actor,{match:state.order_match,grade:state.final_grade},award.delta);
+   delete state.pendingAward;if(row.type==='effect')return;
+  }
   rules.applyEffects(row.effects,state);
  }
  const first=lane(scene),ctx=structuredClone(witness(initial,[node.when])||initial),before=[],answers={};
@@ -102,7 +127,25 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   }
   return {end:true};
  }
- function next(pick){return follow(departure(pick,here.ctx));}
+ function annotate(target){
+  const row=here.node.rows[0];
+  if(target.ctx&&services.has(row.row_id)&&here.ctx.orders?.[row.actor]){
+   const actor=row.actor;target.affinityChange={actor,delta:(target.ctx.affinity[actor]||0)-(here.ctx.affinity[actor]||0)};
+  }
+  return target;
+ }
+ function next(pick){return annotate(follow(departure(pick,here.ctx)));}
+ // Evaluate this glass only. Prior orders retain their original result.
+ function glassResult(match,grade){
+  const state={...here.ctx,order_match:match,craft_grade:grade,grade:match?grade:'sewage',final_grade:match?grade:'sewage'};
+  const story=services.get(here.node.rows[0].row_id),actor=here.node.rows[0].actor;
+  if(!story||!state.orders?.[actor])return null;
+  const adjustment=settlement.reactionAffinity.call({story,ctx:()=>state},actor);
+  if(!adjustment)return null;
+  const out=departure(null,state);if(!out.state)return null;
+  return {actor,delta:(out.state.affinity[actor]||0)-(state.affinity[actor]||0),
+   row:adjustment.step.type==='effect'?adjustment.step.row_id:null,correction:adjustment.delta};
+ }
  // Offer actual outgoing outcomes, not every later card. For an alternate
  // pin, prove a context and run the same CSV walker (including hidden effect
  // rows) before offering it. Merely listing paths never commits effects.
@@ -116,7 +159,7 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
    const seen=new Set(),key=t=>t.node?t.lane.id+'/'+t.node.id:'end';
    function add(target,guard,assumed,via=''){
     const id=key(target)+'|'+via;if(seen.has(id))return;seen.add(id);
-    outcomes.push({pick,target,guard,assumed});
+    outcomes.push({pick,target:annotate(target),guard,assumed});
    }
    if(!out.dest||out.dest!==src||local.length<2){add(actual,local[0]?.guard||'',seed!==here.ctx);continue;}
    const wires=node.routes.filter(r=>(r.choice||'')===(pick?.row_id||''));
@@ -137,7 +180,18 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
     const skip=(wire?wires.slice(0,wires.indexOf(wire)):wires).map(r=>r.predicate);
     for(const n of src.graph.nodes)if(n.index>=first&&n.index<lastIndex)skip.push(n.when);
     const state=witness(out.state,want,skip);if(!state)continue;
-    const target=follow(out,state);
+    let target;
+    if(services.has(rows[0].row_id)&&state!==out.state){
+     // A different glass result is an input to this node, not a change
+     // made after its affinity effects have already been committed.
+     const replay=structuredClone(seed);
+     for(const k of ['order_match','craft_grade','final_grade','money'])if(state[k]!==out.state[k])replay[k]=state[k];
+     for(const k of ['flags','affinity'])for(const id of Object.keys(state[k]))if(state[k][id]!==out.state[k][id])replay[k][id]=state[k][id];
+     if(!replay.order_match)replay.final_grade='sewage';
+     else if(replay.final_grade!==seed.final_grade&&state.craft_grade===out.state.craft_grade)replay.craft_grade=replay.final_grade;
+     replay.grade=replay.final_grade;
+     target=follow(departure(pick,replay));
+    }else target=follow(out,state);
     if(e.end?!target.end:target.node?.id!==e.to)continue;
     const guard=[...new Set([e.guard,e.targetWhen].filter(Boolean))].join(' && ');
     add(target,guard,seed!==here.ctx||state!==out.state,wire?.id);
@@ -146,10 +200,10 @@ function create({model,graphFor,scene,node,settings={},picks={}}){
   }catch(e){outcomes.push({pick,blocked:'연결을 확인할 수 없습니다: '+e.message});}
   return outcomes;
  }
- return {get current(){return here;},get node(){return here.node;},get scene(){return here.lane.id;},payload,playableFrom,next,branches,
+ return {get current(){return here;},get node(){return here.node;},get scene(){return here.lane.id;},payload,playableFrom,next,branches,glassResult,
   previous(){const graph=here.lane.graph,ids=new Set(graph.connections.filter(e=>e.to===here.node.id).map(e=>e.from));return graph.nodes.filter(n=>ids.has(n.id));},
   startAt(n){return create({model,graphFor,scene:here.lane.id,node:n,settings,picks});},
   enter(target){if(!target?.node)return false;here=target;return true;}};
 }
-const api={create};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarPreviewRoute=api;
+const api={create,affinityLabel};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.LunaBarPreviewRoute=api;
 })(globalThis);

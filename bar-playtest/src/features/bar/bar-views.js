@@ -104,6 +104,8 @@ window.LunaBarViews = function ({
     port_serious: [0, 1, -1, -1],
     aili_idle: [0, 0, 1, 0],
     samho_idle: [0, 0, -1, 1],
+    shiba_idle: [0, -1, -2, -1],
+    haru_idle: [0, 2, 2, 1],
     tom_idle: [0, 1, 1, -1]
   };
   function blinkRandom(state) {
@@ -267,13 +269,17 @@ window.LunaBarViews = function ({
     const persistent = guest.expression && guest.expression !== 'default' ? guest.expression : 'idle';
     const state = !expression || expression === 'default' || expression === 'idle' ? persistent : expression;
     const suffix = '_' + (talking ? 'talk' : 'default');
-    const key = Object.keys(states).find(k => k.toLowerCase().endsWith(state.toLowerCase() + suffix)) || Object.keys(states).find(k => k.endsWith('idle' + suffix)) || Object.keys(states).find(k => k.endsWith('idle_default')) || Object.keys(states)[0];
+    const family = guest.actor === 'port' && state === 'success' ? 'joy'
+      : guest.actor === 'port' && state === 'fail' ? 'anger' : state.toLowerCase();
+    const keys = Object.keys(states);
+    const find = (name, ending) => keys.find(k => k.toLowerCase() === name + ending || k.toLowerCase().endsWith('_' + name + ending));
+    const key = find(family, suffix) || find(family, '_default') || find('idle', suffix) || find('idle', '_default') || keys[0];
     return {
       keys: states[key],
       pose: key
     };
   }
-  function actorHTML(guest, x) {
+  function actorHTML(guest, x, layersOnly = false) {
     let state = actors.get(guest);
     if (!state) {
       state = {
@@ -296,13 +302,15 @@ window.LunaBarViews = function ({
     if (talking) {
       const pose = actorLayers(guest, d.expression, true);
       // Starting speech never restarts breathing or the blink schedule.
-      if (!state.speech || state.speech.pose.pose !== pose.pose) {
+      if (!state.speech || state.speech.line.text !== d.text || state.speech.line.id !== d.id || state.speech.pose.pose !== pose.pose) {
         state.speech = {
           pose,
+          line: d,
           startedAt: g.realTime,
           stopAt: null
         };
       } else {
+        state.speech.line = d;
         state.speech.pose = pose;
         state.speech.stopAt = null;
       }
@@ -342,8 +350,7 @@ window.LunaBarViews = function ({
       centerOffset = 275.5 - (box[0] + box[2]) / 2;
     const [dx, dy] = poseOffset(guest, pose);
     const speechState = state.speech ? talking ? 'looping' : 'finishing' : 'idle';
-    return `<div class="actor pixel-actor" data-actor="${esc(guest.actor)}" data-baseline="${base}" data-table-anchor="${anchor}" data-pose="${esc(pose.pose)}" data-talking="${talking}" data-speech-state="${speechState}" style="left:calc(${x}% + ${centerOffset}px);top:${top}px;opacity:${opacity};--arrival:${offset}px">
-      ${pose.keys.length ? pose.keys.map(k => {
+    const layers = pose.keys.length ? pose.keys.map(k => {
       const s = D.assets[k],
         frames = s.frames || 1;
       const poseCycle = family === 'drink' ? 1 : idleCycle;
@@ -354,7 +361,13 @@ window.LunaBarViews = function ({
       const eyes = /eyes(?:_\d+)?$/.test(k);
       if (mouth && frames > 1 && !s.syncToBody) {
         if (state.speech) {
-          frame = Math.floor(Math.max(0, g.realTime - state.speech.startedAt) / speechCycle * frames) % frames;
+          const speech = state.speech;
+          // A short bark or reply can finish while the first (closed) cell is still on screen.
+          // Start inside the first syllable and follow its reveal through the remaining cells.
+          const elapsed = Math.max(0, g.realTime - speech.startedAt) / speechCycle;
+          const shortLine = !guest.appearance && speech.line.text.length <= frames;
+          const syllable = shortLine ? (speech.line.chars + .5) / speech.line.text.length : 0;
+          frame = Math.floor(Math.max(elapsed, Math.min(1 - Number.EPSILON, syllable)) * frames) % frames;
           if (state.speech.stopAt !== null) {
             const progress = 1 - (state.speech.stopAt - g.realTime) / .18;
             const first = Math.floor(state.speech.releasePhase * frames);
@@ -375,8 +388,9 @@ window.LunaBarViews = function ({
         fh = (s.frameHeight || s.h) * scale;
       // Keep source pixels and a stable pose-level anchor, never recrop per frame.
       return `<div class="actor-layer" data-layer="${esc(k)}" data-frame="${frame}" style="width:${fw / 551 * 100}%;height:${fh / 530 * 100}%;left:${50 + dx / 551 * 100}%;bottom:${-(dy + partY) / 530 * 100}%;background-image:url('${esc(poseImages.get(s.src)?.image?.src||s.src)}');background-size:${frames * 100}% 100%;background-position:${frames > 1 ? frame / (frames - 1) * 100 : 0}% 0"></div>`;
-    }).join('') : '<div class="dummy-actor"></div>'}
-    </div>`;
+    }).join('') : '<div class="dummy-actor"></div>';
+    if (layersOnly) return layers;
+    return `<div class="actor pixel-actor" data-actor="${esc(guest.actor)}" data-baseline="${base}" data-table-anchor="${anchor}" data-pose="${esc(pose.pose)}" data-talking="${talking}" data-speech-state="${speechState}" style="left:calc(${x}% + ${centerOffset}px);top:${top}px;opacity:${opacity};--arrival:${offset}px">${layers}</div>`;
   }
   function worldHTML() {
     const {

@@ -20,7 +20,12 @@ function upperBounds(){
  return {min:sp?building.x+(crateEdge-sp.w*sp.pivot.x)*building.sx/sp.ppu+bodyClearance:-18.98,
   max:cp?cabin.x+cp.w*(1-cp.pivot.x)*cabin.sx/cp.ppu-bodyClearance:-12.54};
 }
-const layout=Object.freeze({homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,...global.LunaEngineWorld?.residence(),get upperMin(){return upperBounds().min;},get upperMax(){return upperBounds().max;}});
+const layout=Object.freeze({lowerY:-.7,homeX:-16.36,upperY,elevatorX:-12.645,elevatorBottom:-1.09,elevatorTop:upperY-passengerOffset,passengerOffset,lowerMin:-16.30,...global.LunaEngineWorld?.residence(),get upperMin(){return upperBounds().min;},get upperMax(){return upperBounds().max;}});
+// The two walking planes are farther apart than the engine's lift markers.
+function cabinTravel(y){
+ const fraction=(y-layout.elevatorBottom)/(layout.elevatorTop-layout.elevatorBottom);
+ return fraction*(layout.upperY-layout.lowerY);
+}
 function apply(data){
  if(data.residenceVersion===1)return data;
  const replaced=new Set(['1F Left Building','A_Fore_Building','A_Obect','A_Middle_Building_1','A_Middle_Building_2','A_ForeFore_Object_1','2F Floor','House Spawn Point']);
@@ -39,6 +44,6 @@ function apply(data){
  }
  data.residenceVersion=1;return data;
 }
-global.LunaResidence={layout,apply,upperBounds};
+global.LunaResidence={layout,apply,upperBounds,cabinTravel};
 if(global.LUNA_OUTSIDE_DATA)apply(global.LUNA_OUTSIDE_DATA);
 })(typeof window==='undefined'?globalThis:window);

@@ -1022,6 +1022,14 @@
     ],
     [
       "script",
+      "src/features/bar/settlement.js"
+    ],
+    [
+      "script",
+      "src/dev/dialogue-editor/glass-affinity.js"
+    ],
+    [
+      "script",
       "src/dev/dialogue-editor/draft-store.js"
     ],
     [

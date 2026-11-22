@@ -300,8 +300,7 @@
       if (!r.call) {
         this.x = EX;
         // The upper walkway sits slightly above the lower stop's cabin-relative foot height.
-        const ascending = r.to === TOP;
-        this.y = ascending ? mix(-.7, R.upperY, p) : mix(R.upperY, -.7, p);
+        this.y = R.lowerY + global.LunaResidence.cabinTravel(this.elevatorY);
       }
       if (r.time >= r.duration + 1.1) {
         if (!r.call) {

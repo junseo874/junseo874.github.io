@@ -2101,21 +2101,21 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_building.png",
       "match": "bytes",
-      "sha256": "fd384c155761592e5d8cb3f2b00ef26d90ef7c4ac8206ca6e4840809a0d9e2b9"
+      "sha256": "6907d42dfaa04cb68768c73cb46866926f04eed4d66999ce8377aaa2fbe3e510"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_B_foreground_streetlight.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_B_foreground_streetlight.png",
       "match": "bytes",
-      "sha256": "728c44ddd51ff4dbc04f46d55cf6aeb43c94686928adcb1a425ef732a49d8087"
+      "sha256": "4a52268e9fbd305d6b0fd152ff7d551b79be5392d962b55698891d20f1ec2e4c"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_C_midground_1.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_1.png",
       "match": "bytes",
-      "sha256": "d1c7dd411631c72a38390827048ce74063fb0cc727cd6c4e617d16d8017a49e0"
+      "sha256": "7f8d12b1d498cb5a78e85cfed90f5d298a7dd7ac48399e86c054e164a4969c40"
     },
     {
       "from": "assets/outside/street-20261018/Layers/area_C_midground_2.png",
@@ -2136,21 +2136,21 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/area_C_midground_3.png",
       "match": "bytes",
-      "sha256": "d83b4ee755a9683162f8ae2a25443014d6a0a0e19968b2c6c0907a0795d3e16a"
+      "sha256": "8961b7fcaee1088d33776482e2975ebc0f89ac3c1a4195180d571f8b2f3ed8c2"
     },
     {
       "from": "assets/outside/street-20261018/Layers/fence.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/fence.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/fence.png",
       "match": "bytes",
-      "sha256": "e3aebb68e13740619721f150b47c0e7561191e212f48dd02dfb79edfdaec327b"
+      "sha256": "099c44da8cf9ca165b712ff7cd857ed5cda39a195a0b3cf3a1949d2dda918ec8"
     },
     {
       "from": "assets/outside/street-20261018/Layers/floor_1_ground.png",
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
       "source": "02.Environments/02.Street/01.Sprites/Layers/floor_1_ground.png",
       "match": "bytes",
-      "sha256": "c3a2ce3157e15e3820ba52332d3cb88b17d52ec55bf53218a3186e5bb2dbb3d4"
+      "sha256": "952989340625a92b8211b1390c417bf28487afdc69ab2b622e717a28805a159e"
     },
     {
       "from": "assets/outside/street-20261018/Layers/near_foreground_1.png",
@@ -2227,7 +2227,7 @@
       "to": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
       "source": "02.Environments/02.Street/01.Sprites/Objects/object_1.png",
       "match": "bytes",
-      "sha256": "0767307252ac1d6b209e5c42d8c0a14c5e618965f3c951ba74f0d6095a657e04"
+      "sha256": "1a43fe7da5124f3d2cd1bf9d5e8d115d9ff46f32281c72e365b135a85b7092e8"
     },
     {
       "from": "assets/outside/street-20261018/sky.png",

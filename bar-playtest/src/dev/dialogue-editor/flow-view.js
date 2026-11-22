@@ -22,7 +22,14 @@ function create(api){
  const model=()=>api.model(),scene=()=>api.scene(),node=id=>graph?.nodes.find(n=>n.id===id||n.rows[0].row_id===id),item=id=>items.find(n=>n.id===id);
  const chosenOrders=new Map();
  const title=n=>n.type+' · '+(n.index+1)+(n.rows.length>1?'–'+(n.index+n.rows.length):'');
- const label=p=>p?(F.presets.find(([key])=>key===p)?.[1]||W.LunaRuleEditor.describe(p,api.actorName)):'기본 진행';
+ const gradeLabels={'!order_match':'주문 불일치','order_match && final_grade == decent':'주문 일치 · DECENT',
+  'order_match && final_grade < decent':'주문 일치 · POOR / SEWAGE','order_match && final_grade >= good':'주문 일치 · GOOD / EXCELLENT'};
+ function label(p){
+  // Keep the complete CSV predicate in the inspector; omit the internal stop
+  // guard on these sockets so the actual choice is visible on a narrow card.
+  const result=(p||'').replace(/^!flag\.(?:d1_tutorial_chris|campaign_d1_bar(?:_open)?)_reaction_closed && /,'');
+  return gradeLabels[result]||(p?(F.presets.find(([key])=>key===p)?.[1]||W.LunaRuleEditor.describe(p,api.actorName)):'기본 진행');
+ }
  const author=W.LunaFlowAuthorUI.create({...api,boundary(r,next){F.rememberCards(model(),scene(),[r.row_id,next?.row_id].filter(Boolean));},locate(){canvas.locate();}});
  const tester=W.LunaBarPlaytest.create({...api,back});$('scene-run').onclick=()=>go('test',active);
  function previewGraph(id){return opened&&graph&&id===sceneId?graph:F.compile(model(),id,F.legacyStarts(model(),id));}
@@ -37,12 +44,12 @@ function create(api){
   if(!editRoute||!currentState()?.editHop||editRoute.hop!==currentState().editHop||editRoute.route.node.id!==n.id||editRoute.route.scene!==scene()||
    editRoute.model!==m||editRoute.checkpoint!==checkpoint||editRoute.settings!==settings)editRoute={route:routeFor(n),model:m,checkpoint,settings};
   return editRoute.route.branches().map(p=>{const dst=p.target?.node,guard=[...new Set([p.pick?.when,p.guard].filter(Boolean).map(label))].join(' · '),choice=p.pick&&plain(p.pick['text.ko']);
-   return {target:p.target,title:choice||guard||'기본 진행',detail:[choice&&guard,p.target?.lane?.title,dst&&title(dst),dst&&plain(dst.rows.find(r=>plain(r['text.ko']))?.['text.ko'])].filter(Boolean).join(' · '),blocked:p.blocked||(!dst?'대화 종료 · 이어 편집할 대사가 없습니다.':'')};
+   return {target:p.target,title:choice||guard||'기본 진행',detail:[W.LunaBarPreviewRoute.affinityLabel(p.target?.affinityChange,api.actorName),choice&&guard,p.target?.lane?.title,dst&&title(dst),dst&&plain(dst.rows.find(r=>plain(r['text.ko']))?.['text.ko'])].filter(Boolean).join(' · '),blocked:p.blocked||(!dst?'대화 종료 · 이어 편집할 대사가 없습니다.':'')};
   });
  },({target})=>{if(['edit','section-lines','lines'].includes(currentState()?.view))saveState({...currentState(),row:api.selected()},false);
   editRoute.route.enter(target);editRoute.hop=++hop;
   saveState({view:'edit',scene:target.lane.id,id:target.node.id,row:target.node.id,editHop:hop},true);restore(currentState());$('line-edit-next').focus({preventScroll:true});},api.notice);
- const canvas=W.LunaBarCanvas.create({select,action,inspect:inspectPin,reason,connect,dropDraft,moveGroup:recordPositions,move:(id,pos)=>recordPositions([[id,pos]])});
+ const canvas=W.LunaBarCanvas.create({select,action,focusAward,inspect:inspectPin,reason,connect,dropDraft,moveGroup:recordPositions,move:(id,pos)=>recordPositions([[id,pos]])});
  const loose=W.LunaBarLooseNodes,palette=W.LunaNodePalette.create();
  function createAt(x,y){const at=canvas.point(x,y);palette.open(x,y,Object.entries(loose.types).map(([key,[name,group,icon]])=>({key,name,group,icon,hint:'입력 핀에 연결하기 전에는 실행되지 않음'})),type=>author.open(node(active)||graph.nodes[0],null,{type,place(r){(prefs.s.freeParts??={})[loose.group(r)]=partId;const manual=(prefs.s.positions[prefs.s.direction]||={});manual[r.row_id]=W.LunaNodePalette.vacant(at,W.LunaBarLayout.width,360,$('map-world').querySelectorAll('.flow-card'),24);prefs.save();requestAnimationFrame(()=>{canvas.locate(r.row_id);$('map-port').focus({preventScroll:true});});}}));}
  const menu=W.LunaFlowWorkspaceMenu.create(contextEntries,createAt);
@@ -66,11 +73,21 @@ function create(api){
  function dests(n){return graph.connections.filter(e=>e.from===n.id);}
  function ports(n){
   const last=n.rows.at(-1),result=[];
+  const changes=new Map(),awards=new Map();
+  let unverified=false;
+  if(n.rows[0].type==='empty_glass'&&n.rows.some(r=>r.type==='effect'))try{
+   const route=routeFor(n);
+   for(const p of route.branches())if(p.target?.affinityChange)
+    changes.set(p.guard,W.LunaBarPreviewRoute.affinityLabel(p.target.affinityChange,api.actorName));
+   for(const a of W.LunaGlassAffinity.inspect(route,n,[...changes.keys()])){
+    awards.set(a.guard,a);changes.set(a.guard,api.actorName(a.actor)+' 호감도 '+a.display);
+   }
+  }catch{unverified=true;} // Keep incomplete drafts editable even when the route cannot run.
   const push=(choice,predicate,name,editable=true,note='')=>{
    const key=R.pinKey(choice,predicate);
    if(result.some(p=>p.key===key))return;
    const route=n.routes.find(r=>R.pinKey(r.choice,r.predicate)===key);
-   result.push({key,choice,predicate,flagExpr:predicate,label:name,editable,note,routeId:route?.id});
+   result.push({key,choice,predicate,flagExpr:predicate,label:name,award:awards.get(predicate),affinityLabel:changes.get(predicate)||(unverified&&predicate?'호감도 확인 필요':''),editable,note,routeId:route?.id});
   };
   if(last.type==='end_part')return result;if(n.branchWhen){push('',n.branchWhen,'조건 충족 · '+label(n.branchWhen));push('','','그 외');return result;}
   if(last.type==='choice'){
@@ -234,6 +251,7 @@ function create(api){
   const note=edge?.targetScene?'장면 이동은 기존 선택지의 이동 대상입니다. 조건을 만족한 선택지만 그 장면으로 이동합니다.':independent?'현재 대본 순서에서 계산된 길입니다. 조건이나 목적지를 바꾸면 이 핀만의 연결을 만듭니다. 거짓일 때는 원래 순서로 진행하므로 바로 다음 줄이 목적지라면 결과가 같을 수 있습니다.'+ (dst?.when?' 도착 노드 조건: '+label(dst.when):''):'';
   const destinations=(independent||route||p.draft)?pred=>[...(route?[]:[{id:'',label:p.draft?'나중에 연결':'이동할 노드 선택'}]),...graph.nodes.filter(t=>t===dst||!targetProblem(n,t,{...p,predicate:pred})).map(t=>({id:t.id,label:title(t)+' · '+(plain(t.rows[0]['text.ko'])||t.cast.map(api.actorName).join(' · ')).slice(0,32)}))]:null;
   W.LunaPinInspector.show(detail,{key,draft:p.draft,title:o?'선택지 '+(m.choices(last.arg).indexOf(o)+1)+' · '+p.label:(p.draft?'새 분기 핀':'출력 핀'),from:title(n),to:dst?title(dst):edge?.targetScene?(m.scenes.find(s=>s.id===edge.targetScene)?.title||edge.targetScene):edge?.end?'장면 종료':'연결 대기',fields,note,destinations,destination:dst?.id,model,back:()=>select(id),
+   affinity:p.award?{label:p.affinityLabel,open:()=>focusAward(id,key)}:null,
    remove:p.draft?{label:'미연결 핀 삭제',run:()=>dropDraft(id,p.predicate)}:o&&m.choices(last.arg).length>1?{label:'선택지 삭제',run:()=>removeOption(n,o.row_id)}:null,
    unlink:route||o&&F.clean(o.goto)?()=>api.change(()=>{if(route)R.disconnect(m,scene(),route);else R.sceneWire(m,scene(),n,o.row_id,'');return last;}):null,
    rewire:()=>{if(p.draft&&p.predicate.startsWith('?')){canvas.tell('먼저 조건을 적용하세요.');return;}select(id);canvas.startWire(id,item(id).ports.findIndex(x=>x.key===key));},
@@ -262,6 +280,26 @@ function create(api){
     canvas.tell('조건을 적용했습니다.');}
   });
  }
+ function focusAward(id,key){
+  select(id);const group=detail.querySelector('[data-fold="affinity"]');if(!group)return;
+  const search=detail.querySelector('.dp-search');search.value='';search.dispatchEvent(new Event('input'));detail.querySelector('[data-category="all"]').click();
+  group.open=true;const input=Array.from(group.querySelectorAll('input')).find(i=>i.dataset.awardKey===key);if(input){input.focus();input.select();}
+ }
+ function awardFields(it){
+  const rows=it.ports.filter(p=>p.award);if(!rows.length)return '';
+  return W.LunaFlowAuthorUI.group('affinity','분기별 호감도 · '+esc(api.actorName(rows[0].award.actor)),
+   '<p class="pin-note">손님의 최종 변화량을 입력하세요. 0은 변화 없음, 보정 삭제는 기본 취향 점수로 복원입니다.</p>'+
+   rows.map(p=>{const a=p.award;return '<form class="award-row"><label>'+esc(a.title)+' <small>'+esc((a.custom?'설정값 ':'기본값 ')+a.display)+'</small>'+
+    '<input type="number" step="1" required data-award-key="'+esc(p.key)+'" aria-label="'+esc(a.title)+' 최종 호감도" value="'+esc(a.value??'')+'" placeholder="변화량"></label>'+
+    '<button type="submit">'+(a.custom?'수정':'추가')+'</button><button type="button" data-award-reset '+(a.custom?'':'disabled')+'>보정 삭제</button></form>';}).join(''));
+ }
+ function writeAward(form,reset){
+  const n=node(active),input=form.querySelector('[data-award-key]'),p=item(active)?.ports.find(p=>p.key===input.dataset.awardKey);
+  if(!n||!p?.award||(!reset&&!form.reportValidity()))return;
+  const ok=api.change(()=>W.LunaGlassAffinity.write(model(),scene(),n,p.award,reset?null:input.value));
+  if(ok)canvas.tell(reset?'기본 취향 점수로 복원했습니다.':'호감도를 적용했습니다. 변경 내역에서 저장하세요.');
+ }
+ detail.addEventListener('submit',e=>{if(e.target.matches('.award-row')){e.preventDefault();writeAward(e.target,false);}});
  function select(id,scroll=false){
   const n=node(id);if(!n){if(scroll)canvas.locate(id);return;}if(!item(id)){const part=S.current(parts,id);if(part){navigatePart(part.id,id);}return;}
   if(active!==id)editingDraft='';active=id;canvas.mark(id);if(scroll)canvas.locate(id);const it=item(id),last=n.rows.at(-1),choice=last.type==='choice',served=last.type==='serve',outs=dests(n);
@@ -274,7 +312,7 @@ function create(api){
   const orderField=DP.orders(model(),model().scenes.find(s=>s.id===scene()),DP.orderContext(model(),scene(),graph,n),chosenOrders.get(id),api.actorName).html;
   const showLines=!choice&&(!order||plain(last['text.ko']));
   const lines=showLines?g('content',(n.rows[0].type==='say'?'대사 줄':'진행 줄')+' · '+n.rows.length,'<ol class="node-lines">'+n.rows.map((r,i)=>'<li><button data-row="'+esc(r.row_id)+'" title="대사 편집기에서 열기"><small>'+String(i+1).padStart(2,'0')+'</small>'+esc(plain(r['text.ko'])||(n.rows.length===1?it.excerpt:F.kind(r.type)+' '+F.clean(r.arg)))+'</button>'+(i?'<button class="split-line" data-split="'+esc(r.row_id)+'" title="여기부터 별도 노드로 보기">나누기</button>':'')+'</li>').join('')+'</ol>'+(last.type==='say'?'<button data-action="append-row">＋ 이 노드에 대사 한 줄 추가</button>':''),'data-priority="content"'):'';
-  const next=outs.map((e,i)=>{const dst=item(e.to||'goto:'+e.targetScene)||item('part:'+e.to);return '<div class="pin-next-row"><button class="flow-jump" data-edge="'+i+'" '+(e.end?'disabled':'')+'><small>'+esc([e.label,e.requires&&'선택 조건: '+label(e.requires),e.guard&&label(e.guard),e.targetWhen&&e.targetWhen!==e.guard&&'도착: '+label(e.targetWhen)].filter(Boolean).join(' · ')||'기본 진행')+'</small><span>↳ '+esc(dst?.title||'장면 종료')+'</span></button><button type="button" data-inspect-key="'+esc(e.pinKey)+'" aria-label="'+esc(e.label||label(e.guard))+' 핀 편집">핀 편집</button></div>';}).join('');
+  const next=outs.map((e,i)=>{const dst=item(e.to||'goto:'+e.targetScene)||item('part:'+e.to);return '<div class="pin-next-row"><button class="flow-jump" data-edge="'+i+'" '+(e.end?'disabled':'')+'><small>'+esc([e.label,e.requires&&'선택 조건: '+label(e.requires),e.guard&&label(e.guard),it?.ports.find(p=>p.key===e.pinKey)?.affinityLabel,e.targetWhen&&e.targetWhen!==e.guard&&'도착: '+label(e.targetWhen)].filter(Boolean).join(' · ')||'기본 진행')+'</small><span>↳ '+esc(dst?.title||'장면 종료')+'</span></button><button type="button" data-inspect-key="'+esc(e.pinKey)+'" aria-label="'+esc(e.label||label(e.guard))+' 핀 편집">핀 편집</button></div>';}).join('');
   const sceneLinks=choice?model().choices(last.arg).filter(o=>F.clean(o.goto)).map(o=>'<div class="conn-row"><span>'+esc(plain(o['text.ko']))+'</span><button data-clear-scene="'+esc(o.row_id)+'">장면 연결 해제</button></div>').join(''):'';
   const freeNote=loose.group(n.rows[0])&&!loose.loose(n.rows[0])&&!n.routes.length?'<small>출력 핀을 연결하지 않았습니다. 본편은 별도 이동이 없으면 대본 순서대로 계속됩니다.</small>':'';
   const links=!end?g('links','다음 노드 연결',next+freeNote+routeList+sceneLinks+drafts+(choice?'<button data-action="whole-map" title="다른 장면에 연결">전체 연결 보기</button>':'')):'';
@@ -288,6 +326,7 @@ function create(api){
    (it.cast||it.lines?'<p class="node-meta">'+esc([it.cast,it.lines?'대사 '+it.lines+'줄':''].filter(Boolean).join(' · '))+'</p>':'')+
    '<div class="node-actions"><button data-action="edit">대사 편집</button><button data-action="play">▷ 노드 미리보기</button></div>'+
    '<div class="dp-toolbar"><input type="search" class="dp-search" aria-label="디테일 속성 검색" placeholder="속성 검색"><nav class="dp-filters" aria-label="디테일 항목 필터"></nav></div><div class="dp-empty" hidden>일치하는 속성이 없습니다.</div>'+orderField+(choice?g('options','선택지 문구',optionUI.fields):'')+optionUI.rules+links+guard+branch+lines+append+orient;
+  const awardUI=awardFields(it);if(awardUI)detail.querySelector('.dp-empty').insertAdjacentHTML('afterend',awardUI);
   DP.decorate(detail,scene()+'/'+id);
   UI.conditionTools($('guard-builder'),$('node-when'),model);UI.conditionTools($('pin-builder'),$('pin-condition'),model,'분기 조건을 추가하세요');
   for(const box of detail.querySelectorAll('.quick-rule'))UI.conditionTools(box.querySelector('.quick-builder'),box.querySelector('[data-quick-key="when"]'),model);
@@ -353,6 +392,7 @@ function create(api){
  $('map-create').onclick=()=>{const b=$('map-port').getBoundingClientRect();createAt(b.left+b.width/2,b.top+b.height/3);};
  detail.onclick=e=>{
   const b=e.target.closest('button'),n=node(active);if(!b||!n)return;const last=n.rows.at(-1);
+  if(b.hasAttribute('data-award-reset')){writeAward(b.closest('form'),true);return;}
   if(b.hasAttribute('data-inspect-key')){inspectPin(active,b.dataset.inspectKey);return;}
   if(b.dataset.editDraft){inspectPin(active,R.pinKey('',b.dataset.editDraft));return;}
   if(b.dataset.delOption){

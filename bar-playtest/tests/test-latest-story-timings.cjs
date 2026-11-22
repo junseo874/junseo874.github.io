@@ -4,7 +4,7 @@ for(const file of ['data/runtime/game-data.js','data/runtime/campaign-data.js'])
 const C=require('../src/core/core.js'),D=C.millilitreData(W.LUNA_DATA);
 const rows=id=>D.tables.steps.filter(r=>r.context===id).sort((a,b)=>a.seq-b.seq);
 const specs=[
- ['d1_tutorial_chris','empty_glass','port','주문하신 진피즈입니다.','크으... 거, 아가씨 솜씨 나쁘지 않네!'],
+ ['d1_tutorial_chris','empty_glass','port','여기 있습니다, 포트.','크으... 거, 아가씨 솜씨 나쁘지 않네!'],
  ['campaign_d2_bar','coaster','samho','뭐?','우선 주문하시겠어요?'],
  ['campaign_d2_bar','coaster','port','아, 그리고 혹시 영업 끝났나? 내도 한 잔만 부탁하고 싶은디.','주문하고 싶으신 거 있으신가요?'],
  ['campaign_d2_bar','empty_glass','samho',null,'크흐, 하! 이거 괜찮은데!'],
@@ -12,9 +12,9 @@ const specs=[
  ['campaign_d3_bar','empty_glass','tom','... 내가 잘 놀라는 사람은 아닌데, 이건 많이 놀랍네.','마법이라도 부릴 줄 아는 거야?']
 ];
 const spoken=s=>s.replace(/<[^>]+>/g,'');
-for(const [scene,type,actor,prev,next]of specs){const a=rows(scene),hits=a.filter(r=>r.type===type&&r.actor===actor);assert.equal(hits.length,1);const i=a.indexOf(hits[0]);if(prev)assert.equal(spoken(a[i-1]['text.ko']),prev);if(next)assert(spoken(a[i+1]['text.ko']).startsWith(next),scene+': '+next);}
+for(const [scene,type,actor,prev,next]of specs){const a=rows(scene).filter(r=>r.type!=='effect'&&(scene!=='d1_tutorial_chris'||!r.when||C.condition(r.when,{flags:{},order_match:true,final_grade:'good',craft_grade:'good'}))),hits=a.filter(r=>r.type===type&&r.actor===actor);assert.equal(hits.length,1);const i=a.indexOf(hits[0]);if(prev)assert.equal(spoken(a[i-1]['text.ko']),prev);if(next)assert(spoken(a[i+1]['text.ko']).startsWith(next),scene+': '+next);}
 assert(!rows('campaign_d1_bar').some(r=>r.type==='coaster'&&r.actor==='chris'));
-assert.equal(rows('d1_tutorial_chris').find(r=>r.type==='empty_glass'&&r.actor==='port').when,'order_match');
+assert.equal(rows('d1_tutorial_chris').filter(r=>r.type==='empty_glass'&&r.actor==='port').length,1);
 for(const answer of [1,2])for(const day of [0,1,2,3]){
  const g=new C.Game(D);g.reset(day,'regular',123,false);g.overlay=null;g.tutorial=null;g.progress.flags.day0_skip_tutorial=true;
  if(day===3){g.progress.inventory={wild_dog:1,bitters:1};g.progress.flags.campaign_observation=true;}

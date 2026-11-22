@@ -436,10 +436,10 @@
             "asset": "a3cf32b242a4a8",
             "x": 0,
             "y": 0,
-            "w": 96,
-            "h": 183,
+            "w": 95,
+            "h": 181,
             "pivot": {
-              "x": 0.5,
+              "x": 0.5052631578947369,
               "y": 0
             },
             "ppu": 100
@@ -492,7 +492,7 @@
             "asset": "4963b29180acdc",
             "x": 0,
             "y": 0,
-            "w": 729,
+            "w": 725,
             "h": 1620,
             "pivot": {
               "x": 0.5,
@@ -690,16 +690,16 @@
             "asset": "street-camp-props",
             "x": 0,
             "y": 0,
-            "w": 2218,
-            "h": 207,
+            "w": 2222,
+            "h": 208,
             "pivot": {
               "x": 0.5,
               "y": 0
             },
             "ppu": 100,
-            "wireOffsetX": 6
+            "wireOffsetX": 10
           },
-          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1 1.png",
+          "src": "assets/01.ArtResources/02.Environments/02.Street/01.Sprites/Objects/object_1.png",
           "engineNode": "980668472",
           "placementSource": "engine"
         },
@@ -748,7 +748,7 @@
             "x": 0,
             "y": 0,
             "w": 1293,
-            "h": 310,
+            "h": 306,
             "pivot": {
               "x": 0.5,
               "y": 0
@@ -946,7 +946,7 @@
             "x": 0,
             "y": 0,
             "w": 2880,
-            "h": 677,
+            "h": 605,
             "pivot": {
               "x": 0.5,
               "y": 0

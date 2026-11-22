@@ -122,7 +122,7 @@ function attach(g){
   this.log('gpt_service',{combo:r.combo,bonus,debug:!!result.experimentalDebug});cue(result.grade==='sewage'?'miss':'complete');return trx;
  };
  g.leave=function(guest,situation){if(active()){this.remix.combo=0;notice('손님이 떠났어요. 다음 주문부터 다시 시작해요.','A guest left. Start a fresh streak.','warn');cue('miss');}return base.leave(guest,situation);};
- g.applyAffinity=function(actor,result){const before=Number(this.progress.affinity[actor]||0);base.applyAffinity(actor,result);const delta=Number(this.progress.affinity[actor]||0)-before;if(active()&&this.remix.challenge&&delta)notice(`${this.name(actor)} 호감도 ${delta>0?'+':''}${delta}`,`${this.name(actor)} affinity ${delta>0?'+':''}${delta}`,delta>0?'good':'warn');};
+ g.applyAffinity=function(actor,result,adjustment){const before=Number(this.progress.affinity[actor]||0);base.applyAffinity(actor,result,adjustment);const delta=Number(this.progress.affinity[actor]||0)-before;if(active()&&this.remix.challenge&&delta)notice(`${this.name(actor)} 호감도 ${delta>0?'+':''}${delta}`,`${this.name(actor)} affinity ${delta>0?'+':''}${delta}`,delta>0?'good':'warn');};
  const finish=g.finishDay.bind(g);
  g.finishDay=function(){
   if(active()&&this.remix.challenge&&!this.finished&&!this.remix.goalsPaid){const r=this.remix;r.goalsPaid=true;r.goals=[{id:'quality',ok:r.good>=4,reward:30},{id:'variety',ok:r.variety.size>=3,reward:20},{id:'streak',ok:r.maxCombo>=3,reward:20}];r.goalBonus=r.debug?0:r.goals.reduce((sum,x)=>sum+(x.ok?x.reward:0),0);this.progress.money+=r.goalBonus;this.log('gpt_goals',{goals:r.goals,bonus:r.goalBonus,debug:r.debug});}

@@ -27,13 +27,13 @@
       this.log('settlement', trx);
       return trx;
     }
-    applyAffinity(actor, result) {
+    applyAffinity(actor, result, adjustment = 0) {
       const c = this.t.characters.find(c => c.id === actor);
       if (!c?.affinity) return;
       const taste = sortSeq(this.t.tastes.filter(t => t.character_id === actor)).find(t => condition(t.when, this.ctx()));
       const tier = !result.match ? 'miss' : taste?.tier || 'ok';
       const row = this.t.affinity_matrix.find(r => r.taste_tier === tier);
-      const delta = n(row?.[result.grade]);
+      const delta = n(row?.[result.grade]) + adjustment;
       this.progress.affinity[actor] = n(this.progress.affinity[actor]) + delta;
       this.log('affinity', {
         actor,
@@ -41,6 +41,35 @@
         delta
       });
       root.LunaStoryNotices?.affinity(this.progress, actor, delta);
+    }
+    // A native CSV reaction can top up (or cancel) the taste-matrix award.
+    // Combine the two at the reaction instead of flashing two contradictory notices.
+    // Only look through pure result guards and dialogue with no side effects.
+    reactionAffinity(actor) {
+      const story = this.story, ctx = this.ctx();
+      const hand = story.steps[story.index + 2], empty = story.steps[story.index + 3];
+      if (hand?.type === 'say' && hand.actor === 'luna' && !hand.when && !hand.effects &&
+          empty?.type === 'empty_glass' && empty.actor === actor && !empty.when && !empty.effects) {
+        let authored = false;
+        for (const s of story.steps.slice(story.index + 4)) {
+          const m = s.type === 'effect' && /^affinity\.(\w+)\s*(\+=|-=)\s*(\d+)$/.exec(s.effects);
+          if (!m || m[1] !== actor) break;
+          authored = true;
+          if (condition(s.when, ctx)) return {step:s, delta:Number(m[3]) * (m[2] === '-=' ? -1 : 1)};
+        }
+        if (authored) return {step:empty, delta:0};
+      }
+      const service = story.steps[story.index + 1], open = '!flag.' + story.scene?.id + '_reaction_closed';
+      if (!(service?.when || '').split('&&').some(term => term.trim() === open)) return null;
+      for (let i = story.index + 2; i < story.steps.length; i++) {
+        const s = story.steps[i];
+        if (s.when && !s.when.split('&&').every(t => /^(?:!?order_match|!?flag\.\w+|final_grade\s*(?:==|>=|<=|>|<)\s*(?:good|excellent|decent|poor|sewage))$/.test(t.trim()))) return null;
+        if (!condition(s.when, ctx)) continue;
+        if (s.type === 'say' && !s.effects) continue;
+        const m = s.type === 'effect' && /^affinity\.(\w+)\s*(\+=|-=)\s*(\d+)$/.exec(s.effects);
+        return m && m[1] === actor ? {step:s, delta:Number(m[3]) * (m[2] === '-=' ? -1 : 1)} : null;
+      }
+      return null;
     }
     parseUpkeepOverride(value) {
       if (value == null || String(value).trim() === '') return null;

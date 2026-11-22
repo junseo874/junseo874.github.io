@@ -6,7 +6,7 @@ const {Model}=require('../src/dev/dialogue-editor/editor-model.js'),F=require('.
 (async()=>{
  const original=await snapshot(),m=await new Model(original.files,original.presentation).init(),scene='d1_tutorial_chris',g=()=>F.compile(m,scene);
  const first=g().nodes,menu=first.find(n=>n.type==='선택지'),opts=m.choices(menu.rows[0].arg),serve=first.find(n=>n.rows.at(-1).type==='serve');
- const response=first[first.indexOf(serve)+1],dest=first[first.indexOf(serve)+3],oldAnswer=first.find(n=>n.when==='flag.day0_skip_tutorial'),common=first.find(n=>n.index>oldAnswer.index&&!n.when&&!R.block(n.rows[0])&&n.type==='대화');
+ const response=first.find(n=>n.id===g().connections.find(e=>e.from===first.find(n=>n.type==='빈잔').id&&e.guard.includes('final_grade >= good')).to),dest=first.find(n=>n.index>response.index&&n.type==='대화'&&!n.when.includes('final_grade')),oldAnswer=first.find(n=>n.when==='flag.day0_skip_tutorial'),common=first.find(n=>n.index>oldAnswer.index&&!n.when&&!R.block(n.rows[0])&&n.type==='대화');
  const describe=({id,source,target,choice,predicate})=>({id,source,target,choice,predicate});
  const originalRoutes=R.scan(m,scene).routes.map(describe),originalEffects=opts[1].effects,answer={choice:opts[1].row_id,predicate:''},grade={predicate:'order_match && craft_grade == excellent'};
  assert.match(R.problem(m,scene,menu,dest,answer),/좌석|주문/);assert.match(R.problem(m,scene,menu,first[0],answer),/반복|순환/);

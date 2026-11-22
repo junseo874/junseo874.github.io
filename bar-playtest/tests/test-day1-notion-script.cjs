@@ -14,12 +14,12 @@ for(const day of [0,1]){
 }
 for(const [steps,actor,preceding,following]of [
  [opening,'chris','여기 있어요.','나쁘지 않네, 잘했다.'],
- [bar,'bubi','( 킁킁. )','미야옹, 먉!'],
- [bar,'tom','오호.','원하시던 맛인가요?'],
- [bar,'aili','하아. 네가 나랑 같이 살았어도 참 좋았을텐데~... 나는 예쁜 애 맨날 보고, 너는 나한테 술 만들어주고..','마음에 드신 것 같아서 다행이네요.']
+ [bar,'bubi','주문 나왔습니다.','(입가를 핥으며 꼬리를 세운다.)'],
+ [bar,'tom','여기 있습니다.','오호.'],
+ [bar,'aili','주문하신 메뉴 나왔습니다.','하아. 네가 나랑 같이 살았어도 참 좋았을텐데~']
 ]){
  const index=steps.findIndex(s=>s.type==='empty_glass'&&s.actor===actor);
- assert(index>0);assert.equal(steps[index-1]['text.ko'],preceding);assert.equal(steps[index+1]['text.ko'],following);
+ assert(index>0);assert.equal(steps.slice(0,index).findLast(s=>s.type==='say')['text.ko'],preceding);assert(steps.slice(index+1).find(s=>s.type==='say'&&s.when.includes('final_grade >= good'))['text.ko'].startsWith(following));
 }
 assert.equal(opening.find(s=>s.type==='order').payment,'none');
 assert.equal(opening[opening.findIndex(s=>s.type==='coaster')+1]['text.ko'],'그냥 맥주가 드시고 싶으신 거 아닌가요?');
@@ -59,9 +59,9 @@ for(const answers of [[1,1],[1,2],[2,1],[2,2]]){
   if(g.choice){g.choose(answers[choices++]);continue;}
   if(g.dialogue){
    const text=g.dialogue.text;seen.push(text);const guest=actor=>Object.values(g.seats).find(s=>s?.actor===actor);
-   if(text==='( 킁킁. )')assert.equal(guest('bubi').glassEmpty,false);
+   if(text==='(입가를 핥으며 꼬리를 세운다.)')assert.equal(guest('bubi').glassEmpty,true);
    if(text==='미야옹, 먉!')assert.equal(guest('bubi').glassEmpty,true);
-   if(text==='오호.')assert.equal(guest('tom').glassEmpty,false);
+   if(text==='오호.')assert.equal(guest('tom').glassEmpty,true);
    if(text==='원하시던 맛인가요?')assert.equal(guest('tom').glassEmpty,true);
    if(text==='마음에 드신 것 같아서 다행이네요.')assert.equal(guest('aili').glassEmpty,true);
    if(text===name['text.ko'])assert(g.progress.flags.tom_name_known);

@@ -21,6 +21,8 @@ function show(panel,s){
   else W.LunaRuleEditor.effects(tools,input,s.model);
  };
  const texts=s.fields.filter(f=>f.mode==='text');if(texts.length){const sec=group('text','선택지 내용');texts.forEach(f=>field(f,sec));}
+ if(s.affinity){const sec=group('affinity','분기 호감도');sec.append(el('strong',s.affinity.label),button('호감도 편집',()=>{
+  if(!dirty()||confirm('적용하지 않은 핀 변경을 취소하고 호감도를 편집할까요?'))s.affinity.open();}));}
  for(const f of s.fields.filter(f=>f.mode!=='text')){const sec=group(f.key,f.title);field(f,sec);}
  const link=group('link','연결 경로');prop(link,'출발',el('strong',s.from));let dest=null;
  if(s.destinations){dest=el('select');dest.setAttribute('aria-label','이동할 노드');dest.dataset.pinDestination='';const paint=chosen=>{dest.replaceChildren();for(const v of s.destinations(inputs.predicate?.value||''))dest.add(new Option(v.label,v.id));dest.value=[...dest.options].some(o=>o.value===chosen)?chosen:(s.destination||'');};paint(s.destination||'');inputs.predicate?.addEventListener('input',()=>paint(dest.value));prop(link,'도착',dest);}

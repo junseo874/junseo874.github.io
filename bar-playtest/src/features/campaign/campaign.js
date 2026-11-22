@@ -90,12 +90,12 @@
       this.screen('loading');
       this.retryLoad = () => this.screen('title');
       const root = 'assets/01.ArtResources/05.UI/02.Title/';
-      const files = {street:'01.Sprites/title_street_full.png', dots:'01.Sprites/PTN_Dot.png',
-        button:'01.Sprites/BTN_Disable.png', active:'01.Sprites/BTN_Enable.png',
-        deco:'01.Sprites/IMG_Deco_button.png', logo:'02.Logo/IMG_logo_white.png'};
+      const files = {street:'assets/backgrounds/campaign/title-bg.png', dots:root+'01.Sprites/PTN_Dot.png',
+        button:root+'01.Sprites/BTN_Disable.png', active:root+'01.Sprites/BTN_Enable.png',
+        deco:root+'01.Sprites/IMG_Deco_button.png', logo:root+'02.Logo/IMG_logo_white.png'};
       try {
         const entries = await Promise.all(Object.entries(files).map(async ([key,file]) =>
-          [key, await global.LunaResources.image(root + file)]));
+          [key, await global.LunaResources.image(file)]));
         if (token !== this.token || this.view !== 'loading') return;
         this.titleImages = Object.fromEntries(entries);
         for (const [key,img] of entries) this.host.style.setProperty('--title-art-'+key, 'url("'+img.src+'")');
@@ -271,14 +271,26 @@
     drinkSrc(id) {
       return (this.D.assets['recipe_cocktail_' + id] || this.D.assets['cocktail_' + id] || this.D.assets.item_old_fashioned).src;
     }
-    portrait(actor) {
-      const states = this.D.characterLayers[actor];
-      if (!states) return '';
-      const keys = states[Object.keys(states).find(k => k.endsWith('idle_default')) || Object.keys(states)[0]];
-      return '<div class="campaign-portrait" aria-hidden="true">' + keys.map(k => {
-        const a = this.D.assets[k];
-        return '<span style="background-image:url(' + esc(a.src) + ');background-size:' + (a.frames || 1) * 100 + '% 100%"></span>';
-      }).join('') + '</div>';
+    paintPortrait(row, host) {
+      const dialog = this.dialog;
+      if (!dialog.portraitStage) {
+        const model = {realTime: 0, phase: 'regular', screen: 'bar', currentDialogue: () => model.line};
+        const views = global.LunaBarViews({D: this.D, g: model, L: ko => ko, esc});
+        dialog.portraitStage = {model, views, guests: new Map()};
+      }
+      const stage = dialog.portraitStage;
+      if (!stage.guests.has(row.actor)) stage.guests.set(row.actor, {actor: row.actor, seated: true});
+      if (stage.row !== row) {
+        stage.row = row;
+        stage.model.line = {actor: row.actor, expression: row.expression || row.arg, text: row.text};
+      }
+      stage.model.line.chars = dialog.chars;
+      const html = stage.views.actorHTML(stage.guests.get(row.actor), 50, true);
+      if (stage.host !== host || stage.html !== html) {
+        host.innerHTML = html;
+        stage.host = host;
+        stage.html = html;
+      }
     }
     sceneHTML() {
       const c = this.dialog;
@@ -288,7 +300,7 @@
       if (c.background === 'black') return '<div class="campaign-black-scene"><button class="campaign-speech" data-campaign="next" aria-label="다음 대사"><strong>' + esc(r.who || this.g.name(r.actor)) + '</strong><p><span class="campaign-measure" aria-hidden="true">' + esc(r.text) + '</span><span class="campaign-ink"></span></p></button></div>';
       if (c.background === 'terrace') return global.LunaTerrace.html(c);
       let image = c.background === 'home' && this.homeBackdrop ? this.homeBackdrop : c.background === 'city' && this.cityBackdrop ? this.cityBackdrop : c.background === 'street' && this.streetBackdrop ? this.streetBackdrop : c.background === 'lab' ? path('lab.png') : c.background === 'bar' ? this.D.assets.bar?.src || path('title-bg.png') : path('title-bg.png');
-      return '<div class="campaign-story-bg ' + esc(c.background) + '" style="background-image:url(' + esc(image) + ')"></div><div class="campaign-scene-label">' + esc(c.title) + '</div>' + this.portrait(r.actor) + (c.memory ? '<aside class="campaign-memory-note"><small>조니의 제조 기록 · 배합 가안</small><strong>라이 위스키 45ml → 심플 시럽 5ml<br>→ 아로마틱 비터스 2ml → 스터</strong><span>올드패션드 잔 · 각 계량 허용 오차 ±5ml</span></aside>' : '') + '<button class="campaign-speech ' + (textOnly ? 'text-only ' : '') + (r.actor === 'luna' ? 'luna' : '') + '" data-campaign="next" aria-label="다음 대사">' + (textOnly ? '' : '<strong>' + esc(r.who || Object.entries(this.data.actors).find(([n, id]) => id === r.actor)?.[0] || '') + '</strong>') + '<p><span class="campaign-measure" aria-hidden="true">' + esc(r.text) + '</span><span class="campaign-ink"></span></p></button>';
+      return '<div class="campaign-story-bg ' + esc(c.background) + '" style="background-image:url(' + esc(image) + ')"></div><div class="campaign-scene-label">' + esc(c.title) + '</div>' + (this.D.characterLayers[r.actor] ? '<div class="campaign-portrait" aria-hidden="true"></div>' : '') + (c.memory ? '<aside class="campaign-memory-note"><small>조니의 제조 기록 · 배합 가안</small><strong>라이 위스키 45ml → 심플 시럽 5ml<br>→ 아로마틱 비터스 2ml → 스터</strong><span>올드패션드 잔 · 각 계량 허용 오차 ±5ml</span></aside>' : '') + '<button class="campaign-speech ' + (textOnly ? 'text-only ' : '') + (r.actor === 'luna' ? 'luna' : '') + '" data-campaign="next" aria-label="다음 대사">' + (textOnly ? '' : '<strong>' + esc(r.who || Object.entries(this.data.actors).find(([n, id]) => id === r.actor)?.[0] || '') + '</strong>') + '<p><span class="campaign-measure" aria-hidden="true">' + esc(r.text) + '</span><span class="campaign-ink"></span></p></button>';
     }
     paintLine() {
       if (!this.dialog) return;
@@ -298,6 +310,8 @@
       }
       const r = this.dialog.rows[this.dialog.index],
         paragraph = this.host.querySelector('.campaign-speech p');
+      const portrait = this.host.querySelector('.campaign-portrait');
+      if (portrait) this.paintPortrait(r, portrait);
       if (paragraph) {
         if (paragraph.dataset.line !== r.text) {
           paragraph.dataset.line = r.text;
@@ -462,6 +476,7 @@
       this.returnButton.hidden = this.view !== 'developer' || this.outside.active || this.g.phase !== 'ready';
       if (this.view === 'scene' && !global.LunaFocusSettings.hiddenPaused) {
         if (this.dialog.background === 'terrace') global.LunaTerrace.tick(this.dialog, dt);
+        if (this.dialog.portraitStage) this.dialog.portraitStage.model.realTime += dt;
         const before = this.dialog.chars;
         global.LunaOutsideStory.sceneTyping(this.dialog, dt);
         global.LunaDialogueAudio?.reveal(this.dialog.rows[this.dialog.index].text, before, this.dialog.chars);

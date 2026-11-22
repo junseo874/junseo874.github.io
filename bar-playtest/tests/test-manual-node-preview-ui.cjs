@@ -34,9 +34,18 @@ const url=(process.env.EDITOR_URL||'http://127.0.0.1:8123')+'/bar-playtest/';
   await bar.getByRole('button',{name:'← 이전 노드'}).click();assert.equal(await bar.getAttribute('data-preview-node'),during);assert.equal(await at('[data-player-line][aria-current=true]').getAttribute('data-player-line'),'1');
   assert.equal(await at('#player-frame').count(),1);await at('#player-close').click();await bar.waitFor({state:'hidden'});
   assert.equal(await at('.flow-card.active').getAttribute('data-node'),origin);assert(!(await p.evaluate(()=>dialogueEditor.model.dirty())));
-  const serve=at('.flow-card[data-node="kihyun_d1_tutorial_chris_36"]');await serve.locator('[data-card-action="play"]').click();
-  await bn.click();assert.equal(await buttons.count(),2);const wrong=buttons.filter({hasText:'주문한 술 불일치'});assert((await wrong.textContent()).includes('조건을 가정'));
-  await wrong.click();assert.equal(await bar.getAttribute('data-preview-node'),'notion_day0_d1_tutorial_chris_43','conditional branch can be previewed against the default');await idle(barAuto);
+  const glass=at('.flow-card').filter({has:p.locator('.port-affinity',{hasText:'크리스 호감도 +5'})}).first();
+  await glass.locator('[data-card-action="play"]').click();
+  for(const [i,delta] of [-5,0,-5,5].entries()){
+   const glassId=await bar.getAttribute('data-preview-node');
+   await bn.click();assert.equal(await buttons.count(),4);
+   const badge='크리스 호감도 '+(delta>0?'+':'')+delta;assert((await buttons.nth(i).textContent()).includes(badge));
+   await buttons.nth(i).click();assert.notEqual(await bar.getAttribute('data-preview-node'),glassId);
+   assert((await at('#player-title').textContent()).includes(badge));await idle(barAuto);
+   await p.waitForFunction(({delta,match})=>{const g=document.querySelector('#player-frame').contentWindow.barGame;
+    return g?.dialogue&&g.seats[g.focus]?.glassEmpty&&g.progress.affinity.chris===delta&&g.resultContext.order_match===match;},{delta,match:i!==0});
+   await bar.getByRole('button',{name:'← 이전 노드'}).click();assert.equal(await bar.getAttribute('data-preview-node'),glassId);
+  }
   await at('#player-close').click();await bar.waitFor({state:'hidden'});assert(!(await p.evaluate(()=>dialogueEditor.model.dirty())));
   await at('#line-mode').click();const selected=await p.evaluate(()=>dialogueEditor.selected);
   await at('#line-node-preview').click();await bar.waitFor();await bn.click();if(await picker.isVisible())await buttons.first().click();await at('#player-close').click();await bar.waitFor({state:'hidden'});

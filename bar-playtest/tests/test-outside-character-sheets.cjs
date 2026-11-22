@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const sharp=require('../../tools/lib/test-runtime.cjs').load('sharp');
 const root=path.resolve(__dirname,'..'),W={};W.window=W;
-for(const file of ['data/runtime/outside-scene-data.js','src/features/outside/events/outside-ambient.js','src/shared/platform/interaction-glow.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
+for(const file of ['data/runtime/outside-scene-data.js','src/features/outside/events/outside-ambient.js','src/features/outside/samho-animation.js','data/presentation/character-shadows.js','src/features/outside/effects/character-lighting.js','src/shared/platform/interaction-glow.js'])vm.runInNewContext(fs.readFileSync(path.join(root,file),'utf8'),W);
 (async()=>{
  const A=W.LunaOutsideAmbient,D=W.LUNA_OUTSIDE_DATA;
  assert.equal(Object.keys(A.sheets).length,18);
@@ -36,6 +36,32 @@ for(const file of ['data/runtime/outside-scene-data.js','src/features/outside/ev
    }
    assert.equal(A.sprite(kind,cycle*.999).x,(sheet.frames-1)*129);
    assert.equal(A.sprite(kind,cycle*1.001).x,0,kind+' shares Luna loop');
+  }
+ }
+ // Exercise the same map selection as the street and reflection render passes.
+ const images=new Map(),clips=['idle','walk','run','samhoIdle','samhoRun'].map(k=>D.animations[k].frames);
+ clips.push(Array.from({length:A.sheets.Chris.frames},(_,i)=>({...A.sprite('Chris'),x:i*129})));
+ const assets=new Set(clips.map(frames=>frames[0].asset));
+ for(const [id,art] of Object.entries(D.assets)){
+  if(!assets.has(id)&&!art.lightingMap)continue;
+  const {data,info}=await sharp(path.join(root,art.src)).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+  images.set(id,{pixels:data,width:info.width});
+ }
+ const renderer={gl:{isContextLost:()=>false},characterLighting:(_image,_sp,params)=>params.maps};
+ W.LunaStreetAtmosphere={inspect:()=>({renderer})};
+ W.LunaCharacterShadows={lights:()=>[],foot:()=>({x:0,y:0})};
+ const model={scene:'street',time:1};
+ for(const frames of clips)for(const sp of frames){
+  const actor=images.get(sp.asset);
+  const maps=W.LunaCharacterLighting.shade(model,actor,sp,0,0,1,1,false,null,images);
+  assert(maps,'Missing lighting maps for '+sp.asset);
+  for(const image of [maps.normal,maps.mask]){
+   const [ox,oy]=maps.offset;
+   for(let y=0;y<sp.h;y++)for(let x=0;x<sp.w;x++){
+    const color=actor.pixels[((sp.y+y)*actor.width+sp.x+x)*4+3];
+    const mapped=image.pixels[((oy+y)*image.width+ox+x)*4+3];
+    if(Boolean(color)!==Boolean(mapped))assert.fail('Lighting silhouette drifts on '+sp.asset+' at cell '+sp.x+','+sp.y+' pixel '+x+','+y);
+   }
   }
  }
  console.log('OUTSIDE_CHARACTER_SHEETS_OK: 18 sheets, source dimensions, every frame, grounded soles, role mapping, loop timing and pauses');

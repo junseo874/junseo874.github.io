@@ -17,7 +17,7 @@ const replacements=[
  ['1F Floor','Layers/floor_1_ground.png',2880,67],
  ['Fence','Layers/fence.png',2880,84],
  ['B_Fore_Building_1','Layers/area_B_foreground_building.png',1293,306,-20,2],
- ['B_Fore_StandLight_1','Layers/area_B_foreground_streetlight.png',96,183,-2,0],
+ ['B_Fore_StandLight_1','Layers/area_B_foreground_streetlight.png',95,181,-2,2],
  ['B_Obects','Objects/object_1.png',2222,208,-178,0],
  ['B_ForeFore_Object_1','Layers/near_foreground_1.png',2880,324,-368,0],
  ['CityLight','Lights/CityLight_v16.png',2400,1153],
